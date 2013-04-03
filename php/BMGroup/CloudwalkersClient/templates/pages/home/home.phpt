@@ -1,0 +1,1 @@
+<h2>Welcome back, <?php echo $user['name']; ?></h2>
