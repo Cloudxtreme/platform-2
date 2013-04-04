@@ -22,6 +22,10 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 				return $this->getAddAccount ();
 			break;
 
+			case 'settings':
+				return $this->getSettings ();
+			break;
+
 			case 'list':
 			default:
 				return $this->getListAccounts ();
@@ -36,12 +40,45 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = $client->get ('accounts');
+		$data = $client->get ('services');
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('accounts', $data);
 
 		return $page->parse ('modules/cloudwalkersclient/pages/accounts/list.phpt');
+	}
+
+	private function getSettings ()
+	{
+		$input = $this->getInput ();
+		$id = isset ($input[2]) ? $input[2] : null;
+
+		// Parse the input
+		if (!empty ($_POST))
+		{
+			$this->processSettings ($id);
+		}
+
+		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+
+		$data = $client->get ('services/' . $id);
+		$userdata = $client->get ('user/me');
+		$channels = $userdata['channels'];
+
+		$page = new Neuron_Core_Template ();
+		$page->set ('account', $data);
+		$page->set ('channels', $channels);
+
+		return $page->parse ('modules/cloudwalkersclient/pages/accounts/settings.phpt');
+	}
+
+	private function processSettings ($id)
+	{
+		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+
+		$data = array ('json' => json_encode ($_POST));
+
+		$data = $client->put ('services/' . $id, $data);
 	}
 
 	/**
@@ -51,7 +88,7 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = $client->get ('accounts/available');
+		$data = $client->get ('services/available');
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('available', $data);

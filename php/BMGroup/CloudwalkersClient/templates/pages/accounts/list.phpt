@@ -11,6 +11,12 @@
 				<td>
 					<?php echo $account['name']; ?>
 				</td>
+
+				<td>
+					<a href="<?php echo Neuron_URLBuilder::getURL ('accounts/settings/' . $account['id']); ?>">
+						<?php echo __('Settings'); ?>
+					</a>
+				</td>
 			</tr>
 		<?php } ?>
 	</table>

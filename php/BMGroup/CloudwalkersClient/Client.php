@@ -58,8 +58,8 @@ class BMGroup_CloudwalkersClient_Client
 		$this->api->dialog_url = $server . 'oauth1/authorize';
 		$this->api->access_token_url = $server . 'oauth1/accesstoken';
 		$this->api->append_state_to_redirect_uri = '';
-		$this->api->authorization_header = false;
-		$this->api->url_parameters = false;
+		$this->api->authorization_header = true;
+		$this->api->url_parameters = true;
 
 		if (isset ($_SESSION['oauth_token']))
 		{
@@ -212,6 +212,7 @@ class BMGroup_CloudwalkersClient_Client
 			echo $data;
 			exit;	
 		}
+
 		$data = objectToArray ($data);
 		
 		return $data;
