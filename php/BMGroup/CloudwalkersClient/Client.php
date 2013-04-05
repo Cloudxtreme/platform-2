@@ -194,21 +194,30 @@ class BMGroup_CloudwalkersClient_Client
 			$input, 
 			array
 			(
-				'FailOnAccessError' => true
+				'FailOnAccessError' => true,
+				'RequestContentType' => 'application/json'
 			), 
 			$data
 		);
 
 		if (!$success)
 		{
-			echo '<h1>API ERROR:</h1>';
+			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
+			echo '<h2>Sent</h2>';
+			echo '<pre>';
+			print_r ($input);
+			echo '</pre>';
 			echo $data;
 			exit;
 		}
 
 		if (!is_array ($data) && !is_object ($data))
 		{
-			echo '<h1>API ERROR:</h1>';
+			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
+			echo '<h2>Sent</h2>';
+			echo '<pre>';
+			print_r ($input);
+			echo '</pre>';
 			echo $data;
 			exit;	
 		}

@@ -40,6 +40,12 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
+		$remove = Neuron_Core_Tools::getInput ('_GET', 'remove', 'int');
+		if ($remove)
+		{
+			$client->delete ('services/' . $remove);
+		}
+
 		$data = $client->get ('services');
 
 		$page = new Neuron_Core_Template ();
@@ -76,7 +82,18 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = array ('json' => json_encode ($_POST));
+		$data = $_POST;
+
+		if (isset ($data['streams']))
+		{
+			foreach ($data['streams'] as $streamid => $stream)
+			{
+				if (isset ($data['streams'][$streamid]['channels']))
+				{
+					$data['streams'][$streamid]['channels'] = array_keys ($stream['channels']);
+				}
+			}
+		}
 
 		$data = $client->put ('services/' . $id, $data);
 	}

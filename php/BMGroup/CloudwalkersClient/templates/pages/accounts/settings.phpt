@@ -28,7 +28,7 @@
 					</td>
 
 					<td>
-						<input type="text" name="streams[<?php echo $stream['id']; ?>][<?php echo $v['key']; ?>]" value="<?php echo $setting['value']; ?>" />
+						<input type="text" name="streams[<?php echo $stream['id']; ?>][<?php echo $setting['key']; ?>]" value="<?php echo $setting['value']; ?>" />
 					</td>
 				</tr>
 			<?php } ?>
@@ -37,10 +37,12 @@
 				<th colspan="2"><?php echo __('Channels'); ?></th>
 			</tr>
 			<?php foreach ($channels as $channel) { ?>
-
 				<tr>
 					<td colspan="2">
-						<input name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" type="checkbox" />
+						<input 
+							name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" 
+							<?php if (in_array ($channel['id'], $stream['channels'])) { ?>checked="checked"<?php } ?> 
+							type="checkbox" />
 						<?php echo $channel['name']; ?>
 					</td>
 				</tr>			
@@ -51,4 +53,6 @@
 	<?php } ?>
 
 	<button type="submit"><?php echo __('Store settings'); ?></button>
+
+	<a onclick="return confirm('Are you sure you want to remove this account?');" href="<?php echo Neuron_URLBuilder::getUrl ('accounts', array ('remove' => $account['id'])); ?>">Remove</a>
 </form>
