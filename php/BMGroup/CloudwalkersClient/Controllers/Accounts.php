@@ -75,6 +75,8 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 		$page->set ('account', $data);
 		$page->set ('channels', $channels);
 
+		$page->set ('errors', $data['errors']);
+
 		return $page->parse ('modules/cloudwalkersclient/pages/accounts/settings.phpt');
 	}
 

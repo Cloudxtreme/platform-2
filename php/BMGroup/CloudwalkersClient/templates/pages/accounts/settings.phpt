@@ -1,6 +1,12 @@
 <form method="post">
 	<h2><?php echo __('Settings'); ?></h2>
 
+	<?php if (isset ($errors)) { ?>
+		<?php foreach ($errors as $error) { ?>
+			<p class="false"><?php echo $error; ?></p>
+		<?php } ?>
+	<?php } ?>
+
 	<table>
 		<?php foreach ($account['settings'] as $v) { ?>
 			<tr>
@@ -18,7 +24,20 @@
 	<h2><?php echo __('Streams'); ?></h2>
 
 	<?php foreach ($account['streams'] as $stream) { ?>
-		<h3><?php echo $stream['name']; ?></h3>
+		<h3>
+			<?php echo $stream['name']; ?>
+
+			<?php $caps = $stream['capabilities']; ?>
+			<?php $capabilities = '[ '; ?>
+			<?php foreach ($caps as $key => $value) {
+				if ($value) {
+					$capabilities .= $key . ' - ';
+				}
+			} ?>
+			<?php $capabilities = substr ($capabilities, 0, -2) . ']'; ?>
+
+			<?php echo $capabilities; ?>
+		</h3>
 
 		<table>
 			<?php foreach ($stream['settings'] as $setting) { ?>
@@ -33,19 +52,21 @@
 				</tr>
 			<?php } ?>
 
-			<tr>
-				<th colspan="2"><?php echo __('Channels'); ?></th>
-			</tr>
-			<?php foreach ($channels as $channel) { ?>
+			<?php if ($caps['incoming']) { ?>
 				<tr>
-					<td colspan="2">
-						<input 
-							name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" 
-							<?php if (in_array ($channel['id'], $stream['channels'])) { ?>checked="checked"<?php } ?> 
-							type="checkbox" />
-						<?php echo $channel['name']; ?>
-					</td>
-				</tr>			
+					<th colspan="2"><?php echo __('Channels'); ?></th>
+				</tr>
+				<?php foreach ($channels as $channel) { ?>
+					<tr>
+						<td colspan="2">
+							<input 
+								name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" 
+								<?php if (in_array ($channel['id'], $stream['channels'])) { ?>checked="checked"<?php } ?> 
+								type="checkbox" />
+							<?php echo $channel['name']; ?>
+						</td>
+					</tr>			
+				<?php } ?>
 			<?php } ?>
 		</table>
 
