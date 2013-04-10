@@ -38,11 +38,11 @@ class BMGroup_CloudwalkersClient_Client
 
 	private function __construct ()
 	{
-		$this->server = 'http://localhost/cloudwalkers/engine/';
+		$this->server = OAUTH_SERVER;
 		$server = $this->server;
 
-		$key = '686537c9fffe2c451a07c6c9c40bd91a0515af265'; // this is your consumer key
-		$secret = 'f2e4f67d6e7dc04af18ca19990f579fd'; // this is your secret key
+		$key = OAUTH_CONSUMER_KEY; // this is your consumer key
+		$secret = OAUTH_CONSUMER_SECRET; // this is your secret key
 
 		$this->api = new oauth_client_class ();
 

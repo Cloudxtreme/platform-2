@@ -15,6 +15,16 @@ else
 	require_once ('config/db.php');
 }
 
+if (!defined ('OAUTH_CONSUMER_KEY') || !defined ('OAUTH_CONSUMER_SECRET'))
+{
+	die ('You must define a consumer key and consumer secret in order to use the application. Go to /engine/oauth1/register');
+}
+
+if (!defined ('OAUTH_SERVER'))
+{
+	define ('OAUTH_SERVER', 'http://api.cloudwalkers.be/');
+}
+
 error_reporting (-1);
 ini_set ('display_errors', 1);
 
