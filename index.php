@@ -1,5 +1,5 @@
 <?php
-echo 'test'; die();
+
 require ('php/connect.php');
 
 $module = Neuron_Core_Tools::getInput ('_GET', 'rewritepagemodule', 'varchar');
