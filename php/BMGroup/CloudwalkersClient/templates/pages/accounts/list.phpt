@@ -13,7 +13,7 @@
 				</td>
 
 				<td>
-					<a href="<?php echo Neuron_URLBuilder::getURL ('accounts/settings/' . $account['id']); ?>">
+					<a href="<?php echo Neuron_URLBuilder::getURL ('services/settings/' . $account['id']); ?>">
 						<?php echo __('Settings'); ?>
 					</a>
 				</td>
@@ -25,5 +25,5 @@
 <?php } ?>
 
 <p>
-	<a href="<?php echo Neuron_URLBuilder::getURL ('accounts/add'); ?>"><?php echo __('Link a new account'); ?></a>
+	<a href="<?php echo Neuron_URLBuilder::getURL ('services/add'); ?>"><?php echo __('Link a new account'); ?></a>
 </p>

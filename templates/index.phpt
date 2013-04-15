@@ -13,7 +13,7 @@
 			<?php if ($login) { ?>
 
 				<li>
-					<a href="<?php echo Neuron_URLBuilder::getUrl ('accounts'); ?>">Accounts</a>
+					<a href="<?php echo Neuron_URLBuilder::getUrl ('services'); ?>">Services</a>
 				</li>
 			
 				<li>

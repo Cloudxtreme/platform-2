@@ -75,5 +75,5 @@
 
 	<button type="submit"><?php echo __('Store settings'); ?></button>
 
-	<a onclick="return confirm('Are you sure you want to remove this account?');" href="<?php echo Neuron_URLBuilder::getUrl ('accounts', array ('remove' => $account['id'])); ?>">Remove</a>
+	<a onclick="return confirm('Are you sure you want to remove this account?');" href="<?php echo Neuron_URLBuilder::getUrl ('services', array ('remove' => $account['id'])); ?>">Remove</a>
 </form>

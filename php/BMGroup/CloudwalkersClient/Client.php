@@ -160,23 +160,27 @@ class BMGroup_CloudwalkersClient_Client
 		}
 	}
 
-	public function get ($url, $input = array ())
+	public function get ($url, $get = array ())
 	{
-		return $this->call ($url, $input, 'GET');
+		$url .= '?' . http_build_query ($get);
+		return $this->call ($url, array (), 'GET');
 	}
 
-	public function put ($url, $input = array ())
+	public function put ($url, $get, $input = array ())
 	{
+		$url .= '?' . http_build_query ($get);
 		return $this->call ($url, $input, 'PUT');
 	}
 
-	public function post ($url, $input = array ())
+	public function post ($url, $get, $input = array ())
 	{
+		$url .= '?' . http_build_query ($get);
 		return $this->call ($url, $input, 'POST');
 	}
 
-	public function delete ($url, $input = array ())
+	public function delete ($url, $get, $input = array ())
 	{
+		$url .= '?' . http_build_query ($get);
 		return $this->call ($url, $input, 'DELETE');
 	}
 
@@ -207,6 +211,7 @@ class BMGroup_CloudwalkersClient_Client
 			echo '<pre>';
 			print_r ($input);
 			echo '</pre>';
+			echo '<h2>Received</h2>';
 			echo $data;
 			exit;
 		}
@@ -218,11 +223,28 @@ class BMGroup_CloudwalkersClient_Client
 			echo '<pre>';
 			print_r ($input);
 			echo '</pre>';
+			echo '<h2>Received</h2>';
 			echo $data;
 			exit;	
 		}
 
 		$data = objectToArray ($data);
+
+		if (isset ($data['error']))
+		{
+			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
+			echo '<h2>Sent</h2>';
+			echo '<pre>';
+			print_r ($input);
+			echo '</pre>';
+			echo '<h2>Received</h2>';
+			echo '<p>' . $data['error']['message'] . '</p>';
+			echo '<pre>';
+			print_r ($data['error']);
+			echo '</pre>';
+
+			exit;	
+		}
 		
 		return $data;
 	}
