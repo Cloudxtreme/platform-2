@@ -1,5 +1,5 @@
 <?php
-class BMGroup_CloudwalkersClient_Controllers_Accounts
+class BMGroup_CloudwalkersClient_Controllers_Services
 	extends BMGroup_CloudwalkersClient_Controllers_Base
 {
 	/**
@@ -11,6 +11,13 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 		if (!$client->isLogin ())
 		{
 			return '<p>Please login.</p>';
+		}
+
+		// Since every use can have multiple accounts, make sure there is one selected.
+		$account = $this->getAccount ();
+		if (!$account)
+		{
+			return $this->selectAccount ();
 		}
 
 		$input = $this->getInput ();
@@ -43,10 +50,10 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 		$remove = Neuron_Core_Tools::getInput ('_GET', 'remove', 'int');
 		if ($remove)
 		{
-			$client->delete ('services/' . $remove);
+			$client->delete ('services/' . $remove, array ('account' => $this->getAccount ()));
 		}
 
-		$data = $client->get ('services');
+		$data = $client->get ('services', array ('account' => $this->getAccount ()));
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('accounts', $data);
@@ -67,8 +74,8 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = $client->get ('services/' . $id);
-		$userdata = $client->get ('user/me');
+		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount ()));
+		$userdata = $client->get ('account/' . $this->getAccount ());
 		$channels = $userdata['channels'];
 
 		$page = new Neuron_Core_Template ();
@@ -86,6 +93,8 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 
 		$data = $_POST;
 
+		$data['account'] = $this->getAccount ();
+
 		if (isset ($data['streams']))
 		{
 			foreach ($data['streams'] as $streamid => $stream)
@@ -97,7 +106,7 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 			}
 		}
 
-		$data = $client->put ('services/' . $id, $data);
+		$data = $client->put ('services/' . $id, array ('account' => $this->getAccount ()), $data);
 	}
 
 	/**
@@ -107,11 +116,20 @@ class BMGroup_CloudwalkersClient_Controllers_Accounts
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = $client->get ('services/available');
+		$addid = Neuron_Core_Tools::getInput ('_GET', 'id', 'varchar');
+		if (!empty ($addid))
+		{
+			// Add the service
+			$data = $client->post ('services', array ('account' => $this->getAccount ()), array ('id' => $addid));
+
+			header ('Location: ' . Neuron_URLBuilder::getURL ('services/', $data['id']));
+		}
+
+		$data = $client->get ('services/available', array ('account' => $this->getAccount ()));
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('available', $data);
-		$page->set ('returnafterlink', Neuron_URLBuilder::getURL ('accounts'));
+		//$page->set ('returnafterlink', Neuron_URLBuilder::getURL ('services'));
 
 		return $page->parse ('modules/cloudwalkersclient/pages/accounts/add.phpt');
 	}
