@@ -10,7 +10,13 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 			return '<p>Please login.</p>';
 		}
 
-		$stream = $client->get ('stream/9');
+		$streamid = Neuron_Core_Tools::getInput ('_GET', 'stream', 'int');
+		if (!$streamid)
+		{
+			return '<p>No stream selected.</p>';
+		}
+
+		$stream = $client->get ('stream/' . $streamid);
 		$stream = $stream['stream'];
 
 		$page = new Neuron_Core_Template ();

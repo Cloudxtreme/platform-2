@@ -39,6 +39,10 @@
 			<?php echo $capabilities; ?>
 		</h3>
 
+		<p>
+			<a href="<?php echo Neuron_URLBuilder::getURL ('messages', array ('stream' => $stream['id'])); ?>">Watch messages</a>
+		</p>
+
 		<table>
 			<?php foreach ($stream['settings'] as $setting) { ?>
 				<tr>
