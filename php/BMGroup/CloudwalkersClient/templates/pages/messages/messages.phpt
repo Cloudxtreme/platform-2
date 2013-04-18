@@ -12,6 +12,6 @@
 			<div><?php echo $message['body']['html']; ?></div>
 		<?php } ?>
 
-		<p class="date"><?php echo date ('d m Y H:i:s', $message['date']); ?></p>
+		<p class="date"><?php echo date ('d m Y H:i:s', strtotime ($message['date'])); ?></p>
 	</div>
 <?php } ?>
