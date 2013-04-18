@@ -54,6 +54,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		}
 
 		$data = $client->get ('services', array ('account' => $this->getAccount ()));
+		$data = $data['services'];
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('accounts', $data);
@@ -75,6 +76,8 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
 		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount ()));
+		$data = $data['service'];
+		
 		$userdata = $client->get ('account/' . $this->getAccount ());
 		$channels = $userdata['channels'];
 
@@ -126,6 +129,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		}
 
 		$data = $client->get ('services/available', array ('account' => $this->getAccount ()));
+		$data = $data['services'];
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('available', $data);

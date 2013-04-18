@@ -13,5 +13,17 @@
 		<?php } ?>
 
 		<p class="date"><?php echo date ('d m Y H:i:s', strtotime ($message['date'])); ?></p>
+
+		<ul>
+			<?php foreach ($message['actions'] as $action) { ?>
+				<li> 
+					<a href="<?php echo Neuron_URLBuilder::getURL ('messages', array ('message' => $message['id'], 'action' => $action['token'])); ?>">
+						<?php echo $action['name']; ?>
+					</a>
+				</li>
+			<?php } ?>
+		</ul>
+
+		<p><a href="<?php echo Neuron_URLBuilder::getURL ('messages', array ('message' => $message['id'])); ?>">Details</a></p>
 	</div>
 <?php } ?>
