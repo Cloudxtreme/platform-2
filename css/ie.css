@@ -1,0 +1,6 @@
+.lightbox .columns .col .input-row .file-row{
+	overflow:hidden;
+	padding:0 1px 0 154px;
+}
+.lightbox .columns .col .row input[type="text"]{width:266px;}
+.check-form .check-container .check-row label{padding:0 16px 0 0;}

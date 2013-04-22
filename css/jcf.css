@@ -1,0 +1,226 @@
+/* hide original element */
+.jcf-hidden {
+	display: block !important;
+	position: absolute !important;
+	left: -9999px !important; /* change to right: -9999px on RTL sites */
+}
+/* custom checkbox styles */
+.chk-area {
+	background:url(../images/bg-scroll.png) no-repeat -103px 0;
+	margin: 0 4px 0 0;
+	float: left;
+	width: 18px;
+	height: 18px;
+}
+.chk-checked {background:url(../images/bg-scroll.png) no-repeat -83px 0;}
+.chk-disabled {background: #eee;}
+.jcf-label-disabled {color: #ccc;}
+/* custom select styles */
+.select-area:after{
+	clear:both;
+	display:block;
+	content:"";
+}
+.select-area {
+	position: relative;
+	cursor: default;
+	height: 25px;
+	float: left;
+	background:url(../images/bg-button.png) no-repeat 0 -931px;
+}
+.lightbox .form-box .select .select-area{width:143px !important;}
+.lightbox .columns .col .row .day .select-area{width:53px !important;}
+.lightbox .columns .col .row .months .select-area{width:104px !important;}
+.lightbox .columns .col .row .year .select-area{width:70px !important;}
+.lightbox  .check-form .check-container .check-row .select-area{width:124px !important;}
+.lightbox  .check-form .check-container .check-row .select.year .select-area{width:104px !important;}
+.lightbox  .check-form .check-container .check-row .select.number .select-area{width:64px !important;}
+.lightbox  .check-form .check-container .check-row .select.days .select-area{width:89px !important;}
+.select-area .center {
+	white-space: nowrap;
+	padding: 4px 8px;
+	float:left;
+	color:#666e6f;
+	font-size:14px;
+	line-height:16px;
+}
+.select-area .select-opener {
+	background:url(../images/sprite.png) no-repeat 0 -363px;
+	position: absolute;
+	height: 25px;
+	width: 24px;
+	right: -1px;
+	top: 0;
+}
+.select-options {
+	padding:0 2px 0 1px;
+	position: absolute;
+	overflow: hidden;
+	z-index: 2000;
+	margin:-2px 0 0;
+}
+.select-options .drop-holder {
+	border: 1px solid #d7d7d7;
+	overflow: hidden;
+	border-width:0 1px 1px;
+	background:#ededed;
+	height: 1%;
+}
+.select-options ul {
+	list-style: none;
+	padding: 0;
+}
+.select-options ul li {
+	width: 100%;
+	float: left;
+}
+.select-options ul a {
+	text-decoration: none;
+	padding: 5px 10px;
+	display: block;
+	cursor: default;
+	color: #666e6f;
+	height: 1%;
+}
+.select-options .item-selected a {
+	text-decoration: none;
+	background: #007;
+	color: #fff;
+}
+/* select options optgroup example styles */
+.select-options .optgroup {clear: both;}
+.select-options .optgroup strong {
+	display: block;
+	padding: 5px;
+}
+.select-options .optgroup ul a {padding-left: 30px;}
+/* custom file input */
+.file-area .jcf-input-wrapper {
+	position: relative;
+	overflow: hidden;
+	float: left;
+	padding:10px 0 0;
+	margin:-10px 0 0;
+}
+.row-file .file-area .jcf-input-wrapper{
+	margin:0;
+	padding:0;
+}
+.file-area .jcf-upload-button {
+	position:relative;
+	height:22px;
+	background: #436b77 url(../images/bg-button.png) no-repeat 0 -967px;
+	color: #fff;
+	font-size:15px;
+	line-height:18px;
+}
+.file-area .jcf-fake-input {
+	padding: 10px 15px;
+	float: right;
+	margin: 0 5px;
+	width: 200px;
+	height: 20px;
+	color:#a7b0b1;
+	text-align:right;
+	font-size:13px;
+	line-height:15px;
+}
+.lightbox .columns .col .row label.jcf-fake-input{
+	margin:0;
+	font-size:13px;
+	line-height:15px;
+	color:#a7b0b1;
+	text-align:right;
+	width:264px;
+	display:none;
+	padding:0;
+}
+.lightbox .columns .col .row label.jcf-fake-input em{font-style:normal;}
+.file-area .jcf-upload-button:after{
+	position:absolute;
+	height:22px;
+	width:4px;
+	top:0;
+	right:0;
+	content:"";
+	background:url(../images/sprite.png) no-repeat -71px -363px;
+}
+.lightbox .columns .col .row .jcf-upload-button{
+	padding:0 12px 0 32px;
+	float:right;
+}
+.file-disabled .jcf-fake-input {
+	border-color: #eee;
+	color: #aaa;
+}
+.lightbox .row-file .jcf-fake-input{display:none;}
+.row-file .file-area .jcf-upload-button{
+	border:1px solid #e9ebeb;
+	font-size:14px;
+	outline:none;
+	line-height:16px;
+	padding:7px 9px 0 38px;
+	color:#758081;
+	float:left;
+	background:#f7f7f7 url(../images/sprite.png) no-repeat 0 -1104px;
+	position:relative;
+}
+.row-file .file-area .jcf-upload-button:after{display:none;}
+/* custom scrollbars styles */
+.scrollable-area-wrapper {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+.text-container .container .scrollable-area-wrapper{
+	margin:-3px 0;
+	float:left;
+}
+.scrollable-area-wrapper .vscrollbar {
+	position: absolute;
+	top: 0;
+	right: 1px;
+	width: 17px;
+}
+.scrollable-area-wrapper .vscroll-up,
+.scrollable-area-wrapper .vscroll-down {
+	background: url(../images/bg-scroll.png) no-repeat -23px 0;
+	width: 17px;
+	height: 17px;
+	float: left;
+}
+.scrollable-area-wrapper .vscroll-slider {
+	background:#5f7b81 url(../images/bg-vscroll.png) no-repeat 0 50%;
+	width: 17px;
+	height: 20px;
+	position:relative;
+}
+.scrollable-area-wrapper .vscroll-slider .scroll-bar-bottom,
+.scrollable-area-wrapper .vscroll-slider .scroll-bar-top{
+	background:url(../images/bg-scroll.png) no-repeat -64px 0;
+	width:17px;
+	height:3px;
+	position:absolute;
+	top:0;
+	left:0;
+}
+.scrollable-area-wrapper .vscroll-slider .scroll-bar-bottom{
+	background-position:-64px -6px;
+	top:auto;
+	bottom:0;
+}
+.scrollable-area-wrapper .vscroll-down{background-position:-44px 0;}
+.scrollable-area-wrapper .vscroll-line {
+	background:url(../images/bg-scroll.png) repeat-y;
+	width: 17px;
+	float: left;
+}
+.scrollable-area-wrapper .hscrollbar {
+	position: static;
+	height: 17px;
+	top: auto;
+}
+.scrollable-area-wrapper .hscroll-line {
+	height: 17px;
+	width: auto;
+}
