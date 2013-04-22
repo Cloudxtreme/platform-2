@@ -71,10 +71,18 @@ abstract class BMGroup_CloudwalkersClient_Controllers_Base
 		$this->rootController = $input;
 	}
 
-	public function getInput ()
+	public function getInput ($id = null)
 	{
-		return $this->rootController->getInput ();
+		$input = $this->rootController->getInput ();
+		if (isset ($id))
+		{
+			return isset ($input[$id]) ? $input[$id] : null;
+		}
+		return $input;
 	}
 
-	abstract public function getContent ();
+	public function getContent ()
+	{
+		return '<p>No content.</p>';
+	}
 }
