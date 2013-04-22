@@ -21,14 +21,16 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		$notifications = $client->get ('account/' . $userdata['accounts'][0]['id'] . '/notifications');
 		if(DEBUG) echo 'notifications<pre>' . print_r($notifications, true) . '</pre>';
 		
-		$notifications2 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
-		if(DEBUG) echo 'inbox<pre>' . print_r($notifications2, true) . '</pre>';
+		if(DEBUG){
+			$notifications2 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
+			echo 'inbox<pre>' . print_r($notifications2, true) . '</pre>';
 		
-		$notifications3 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][1]['id'] . '');
-		if(DEBUG) echo 'profiles<pre>' . print_r($notifications3, true) . '</pre>';
+			$notifications3 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][1]['id'] . '');
+			echo 'profiles<pre>' . print_r($notifications3, true) . '</pre>';
 		
-		$notifications4 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][2]['id'] . '');
-		if(DEBUG) echo 'stream<pre>' . print_r($notifications4, true) . '</pre>';
+			$notifications4 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][2]['id'] . '');
+			echo 'stream<pre>' . print_r($notifications4, true) . '</pre>';
+		}
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
 	}
