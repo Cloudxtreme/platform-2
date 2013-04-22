@@ -80,8 +80,8 @@ class BMGroup_CloudwalkersClient_Client
 		}
 		return false;
 	}
-
-	public function logout ($redirect_url)
+	
+	public function logout ($redirect_url = '')
 	{
 		$_SESSION['isLogin'] = false;
 		$_SESSION['oauth_token'] = null;
