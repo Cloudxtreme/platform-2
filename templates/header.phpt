@@ -1,3 +1,4 @@
+        <?php echo '<pre>' . print_r($user, true) . '</pre>'; ?>
         <div class="header-top">
           <div class="header-holder">
             <div class="top-nav">
@@ -7,9 +8,6 @@
                     <ul>
                       <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">login</a></li>
                       <li>Hi, <strong><?php echo $user['name']; ?></strong></li>
-                      <pre>
-                      	<?php echo print_r($user, true); ?>
-                      </pre>
                     </ul>
                     <?php if(!(empty($user['accounts'][0]['avatar']))){ ?><a class="add-logo" href="#"><img src="<?php echo $user['accounts'][0]['avatar']; ?>" alt="image description" width="41" height="41" /></a><?php } ?>
                   </div>
