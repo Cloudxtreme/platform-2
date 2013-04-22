@@ -14,7 +14,7 @@
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
                     <div class="notification-box">
-                      <a href="#" class="button open"><span><strong><em id="notify_amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;Notifications</span></a>
+                      <a href="#" class="button open"><span><strong style="margin-left:-18px;"><em id="notify_amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
                       <div class="popup">
                         <div class="popup-holder">
                           <div class="popup-frame">
