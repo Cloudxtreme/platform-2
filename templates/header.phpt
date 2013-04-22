@@ -1,4 +1,3 @@
-        <?php //echo '<pre>' . print_r($user, true) . '</pre>'; ?>
         <div class="header-top">
           <div class="header-holder">
             <div class="top-nav">
@@ -56,7 +55,7 @@
             <div class="navigation-box">
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
-                <li><a href="#"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
+                <li><a href="/"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
                 <li>
                   <a href="#">
                     <img src="images/img3.png" alt="image description" width="51" height="50" /><strong>Inbox</strong>
