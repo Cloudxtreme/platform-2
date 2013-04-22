@@ -16,4 +16,14 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 			return $client->login ();
 		}
 	}
+	
+	public function dispatch (Neuron_Page $page)
+	{
+		$page = new Neuron_Core_Template ();
+		//$page->set ('accounts', $accountdata);
+		return $page->parse ('login.phpt');
+		
+		//$page->setContent ($this->getContent ());
+		//echo $page->getOutput ();
+	}
 }
