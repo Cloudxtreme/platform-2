@@ -1,4 +1,4 @@
-        <?php echo '<pre>' . print_r($user, true) . '</pre>'; ?>
+        <?php //echo '<pre>' . print_r($user, true) . '</pre>'; ?>
         <div class="header-top">
           <div class="header-holder">
             <div class="top-nav">
