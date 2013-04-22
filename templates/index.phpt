@@ -20,7 +20,6 @@
       <div id="main">
 				<div class="main-holder">
           <div id="content">
-          	<?php if(DEBUG) echo '<pre>' . print_r($user, true) . '</pre>'; ?>
 						<?php echo $content; ?>
           </div>
       	</div>
