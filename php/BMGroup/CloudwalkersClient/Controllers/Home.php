@@ -11,10 +11,12 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 			$client->logout (Neuron_URLBuilder::getURL('login'));
 		}
 
-		//$userdata = $client->get ('user/me');
+		$userdata = $client->get ('user/me');
 
 		$page = new Neuron_Core_Template ();
-		//$page->set ('user', $userdata);
+		$page->set ('user', $userdata);
+		
+		$notifications = $client->get ('account/' . $userdata['id'] . '/notifications');
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
 	}
