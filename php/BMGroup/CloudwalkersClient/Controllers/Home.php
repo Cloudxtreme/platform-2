@@ -17,7 +17,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		$page->set ('user', $userdata);
 		
 		//$notifications = $client->get ('account/' . $userdata['id'] . '/notifications');
-		if(DEBUG) print_r($notifications, true);
+		//xif(DEBUG) print_r($notifications, true);
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
 	}
