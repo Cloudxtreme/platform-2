@@ -5,7 +5,7 @@
                 <div class="frame">
                   <div class="account-box">
                     <ul>
-                      <li><a class="login" href="#">login</a></li>
+                      <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">login</a></li>
                       <li>Hi, <strong><?php echo $user['name']; ?></strong></li>
                     </ul>
                     <a class="add-logo" href="#"><img src="images/img1.png" alt="image description" width="41" height="41" /></a>
@@ -13,7 +13,7 @@
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
                     <div class="notification-box">
-                      <a href="#" class="button open"><span><strong><em>9</em></strong>Notifications</span></a>
+                      <a href="#" class="button open"><span><strong><em id="notify_amount">9</em></strong>Notifications</span></a>
                       <div class="popup">
                         <div class="popup-holder">
                           <div class="popup-frame">

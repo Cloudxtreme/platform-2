@@ -15,7 +15,7 @@
 	<body>
     <div id="wrapper">
     	<div id="header">
-      	<?php include_once('header.php'); ?>
+      	<?php include_once('header.phpt'); ?>
       </div>
       <div id="main">
 				<div class="main-holder">
@@ -25,7 +25,7 @@
       	</div>
     	</div>
       <div id="footer">
-      	<?php include_once('footer.php'); ?>
+      	<?php include_once('footer.phpt'); ?>
       </div>
     </div>
 	</body>
