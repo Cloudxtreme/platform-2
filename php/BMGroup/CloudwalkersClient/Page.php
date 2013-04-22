@@ -10,7 +10,15 @@ class BMGroup_CloudwalkersClient_Page
 		$html->set ('content', $this->content);
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
-		$html->set ('login', $client->isLogin ());
+		if($client->isLogin ())
+		{
+			$html->set ('login', true);
+			$page->set ('user', $client->get ('user/me'));
+		}
+		else
+		{
+			$html->set ('login', false);
+		}
 
 		return $html->parse ('index.phpt');
 	}
