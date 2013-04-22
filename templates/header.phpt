@@ -7,6 +7,9 @@
                     <ul>
                       <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">login</a></li>
                       <li>Hi, <strong><?php echo $user['name']; ?></strong></li>
+                      <pre>
+                      	<?php echo print_r($user, true); ?>
+                      </pre>
                     </ul>
                     <a class="add-logo" href="#"><img src="images/img1.png" alt="image description" width="41" height="41" /></a>
                   </div>
