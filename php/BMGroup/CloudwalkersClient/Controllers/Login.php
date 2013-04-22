@@ -19,11 +19,11 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 	
 	public function dispatch (Neuron_Page $page)
 	{
-		$page = new Neuron_Core_Template ();
+		//$page = new Neuron_Core_Template ();
 		//$page->set ('accounts', $accountdata);
-		return $page->parse ('login.phpt');
+		//return $page->parse ('login.phpt');
 		
-		//$page->setContent ($this->getContent ());
-		//echo $page->getOutput ();
+		$page->setContent ($this->getContent ());
+		echo $page->getOutput ();
 	}
 }
