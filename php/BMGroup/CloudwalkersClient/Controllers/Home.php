@@ -19,7 +19,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
     if(DEBUG) echo 'rvc<pre>' . print_r($userdata, true) . '</pre>';
 		
 		$notifications = $client->get ('account/' . $userdata['accounts'][0]['id'] . '/notifications');
-		if(DEBUG) print_r($notifications, true);
+		if(DEBUG) echo 'rvc<pre>' . print_r($notifications, true) . '</pre>';
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
 	}
