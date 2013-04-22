@@ -11,7 +11,7 @@
                       	<?php echo print_r($user, true); ?>
                       </pre>
                     </ul>
-                    <a class="add-logo" href="#"><img src="images/img1.png" alt="image description" width="41" height="41" /></a>
+                    <?php if(!(empty($user['accounts'][0]['avatar']))){ ?><a class="add-logo" href="#"><img src="<?php echo $user['accounts'][0]['avatar']; ?>" alt="image description" width="41" height="41" /></a><?php } ?>
                   </div>
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
