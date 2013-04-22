@@ -81,7 +81,7 @@ class BMGroup_CloudwalkersClient_Client
 		return false;
 	}
 
-	public function logout ()
+	public function logout ($redirect_url)
 	{
 		$_SESSION['isLogin'] = false;
 		$_SESSION['oauth_token'] = null;
@@ -89,7 +89,11 @@ class BMGroup_CloudwalkersClient_Client
 
 		session_destroy ();
 
-		$redirect_url = Neuron_URLBuilder::getURL ();
+		if (empty ($redirect_url))
+		{
+			$redirect_url = Neuron_URLBuilder::getURL ();
+		}
+		
 		$logouturl = $this->server . 'logout?return=' . urlencode ($redirect_url);
 		header ('Location: ' . $logouturl);
 	}
