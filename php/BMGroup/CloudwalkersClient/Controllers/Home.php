@@ -7,7 +7,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
-			return '<p>Please login.</p>';
+			return '<p>Please login.</p>' . Neuron_URLBuilder::getUrl ('login');
 		}
 
 		//$userdata = $client->get ('user/me');
