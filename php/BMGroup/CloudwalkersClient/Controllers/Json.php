@@ -37,8 +37,10 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 
 	private function getNotifications ()
 	{
+		$id = $this->getInput (2);
+
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
-		return $client->get ('user/me/notifications');
+		return $client->get ('account/' . $id . '/notifications');
 	}
 
 	private function getChannel ()
