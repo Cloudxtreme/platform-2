@@ -2,6 +2,8 @@
 class BMGroup_CloudwalkersClient_Page
 	extends Neuron_Page
 {
+	protected $user;
+	
 	public function getOutput ()
 	{
 		$html = new Neuron_Core_Template ();
