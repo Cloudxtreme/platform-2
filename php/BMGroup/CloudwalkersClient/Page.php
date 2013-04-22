@@ -13,7 +13,7 @@ class BMGroup_CloudwalkersClient_Page
 		if($client->isLogin ())
 		{
 			$html->set ('login', true);
-			$page->set ('user', $client->get ('user/me'));
+			$html->set ('user', $client->get ('user/me'));
 		}
 		else
 		{
