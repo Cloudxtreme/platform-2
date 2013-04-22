@@ -16,7 +16,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		$page = new Neuron_Core_Template ();
 		$page->set ('user', $userdata);
 		
-    if(DEBUG) echo '<pre>' . print_r($user, true) . '</pre>';
+    if(DEBUG) echo '<pre>' . print_r($userdata, true) . '</pre>';
 		
 		//$notifications = $client->get ('account/' . $userdata['id'] . '/notifications');
 		//if(DEBUG) print_r($notifications, true);
