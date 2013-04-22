@@ -5,13 +5,6 @@ class BMGroup_CloudwalkersClient_Controllers_Logout
 	public function getContent ()
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
-		$client->logout ();
-		$client->login ();
-	}
-	
-	public function dispatch (Neuron_Page $page)
-	{
-		$page->setContent ($this->getContent ());
-		echo $page->getOutput ();
+		$client->logout (Neuron_URLBuilder::getURL('login'));
 	}
 }
