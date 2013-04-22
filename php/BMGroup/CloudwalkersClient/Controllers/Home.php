@@ -16,10 +16,19 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		$page = new Neuron_Core_Template ();
 		$page->set ('user', $userdata);
 		
-    if(DEBUG) echo 'rvc<pre>' . print_r($userdata, true) . '</pre>';
+    if(DEBUG) echo 'rvc1<pre>' . print_r($userdata, true) . '</pre>';
 		
 		$notifications = $client->get ('account/' . $userdata['accounts'][0]['id'] . '/notifications');
-		if(DEBUG) echo 'rvc<pre>' . print_r($notifications, true) . '</pre>';
+		if(DEBUG) echo 'rvc2<pre>' . print_r($notifications, true) . '</pre>';
+		
+		$notifications2 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
+		if(DEBUG) echo 'inbox<pre>' . print_r($notifications2, true) . '</pre>';
+		
+		$notifications3 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][1]['id'] . '');
+		if(DEBUG) echo 'profiles<pre>' . print_r($notifications3, true) . '</pre>';
+		
+		$notifications4 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][2]['id'] . '');
+		if(DEBUG) echo 'stream<pre>' . print_r($notifications4, true) . '</pre>';
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
 	}
