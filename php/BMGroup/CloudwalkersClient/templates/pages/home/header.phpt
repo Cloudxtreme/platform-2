@@ -10,10 +10,11 @@
 							break;
 						case "notifications":
 							jQuery.ajax({
-								cache:false, 
 								async:true, 
-								/*type:"post", 
-								data:$j(form).serialize(), */
+								cache:false, 
+								data:"", 
+								dataType:"json", 
+								type:"get", 
 								url:strUrl, 
 								success:function(strData){
 									alert(strData);
