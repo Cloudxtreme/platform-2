@@ -26,11 +26,11 @@
 				</style>
 				<script language="javascript" type="text/javascript">
 				var objBlocks = {
-					{ "class":"block-inbox", "display":true }, 
-					{ "class":"block-quick-links", "display":true }, 
-					{ "class":"block-schedule", "display":true }, 
-					{ "class":"block-quick-statistics", "display":true }, 
-					{ "class":"block-filters", "display":true }
+					"inbox":{ "class":"block-inbox", "display":true }, 
+					"quick-links":{ "class":"block-quick-links", "display":true }, 
+					"schedule":{ "class":"block-schedule", "display":true }, 
+					"statistics":{ "class":"block-quick-statistics", "display":true }, 
+					"filters":{ "class":"block-filters", "display":true }
 				};
 				
 				function change_content(strType, strExtra){
