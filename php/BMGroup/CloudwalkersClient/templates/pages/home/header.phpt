@@ -27,9 +27,9 @@
 				<script language="javascript" type="text/javascript">
 				var objBlocks = {
 					"inbox":{ "class":"block-inbox", "display":true }, 
-					"quick-links":{ "class":"block-quick-links", "display":true }, 
+					"links":{ "class":"block-links", "display":true }, 
 					"schedule":{ "class":"block-schedule", "display":true }, 
-					"statistics":{ "class":"block-quick-statistics", "display":true }, 
+					"statistics":{ "class":"block-statistics", "display":true }, 
 					"filters":{ "class":"block-filters", "display":true }
 				};
 				
