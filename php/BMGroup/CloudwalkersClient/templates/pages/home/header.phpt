@@ -4,9 +4,6 @@
 				}
 				#nav li{
 					background:url('images/img2.png') center 73px no-repeat;
-					display:block;
-					min-height:inherit;
-					padding:123px 24px 24px;
 				}
 				#nav li.inbox{
 					background-image:url('images/img3.png');
@@ -19,6 +16,10 @@
 				}
 				#nav li.reports{
 					background-image:url('images/img6.png');
+				}
+				#nav li a{
+					min-height:inherit;
+					padding:123px 24px 24px;
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
