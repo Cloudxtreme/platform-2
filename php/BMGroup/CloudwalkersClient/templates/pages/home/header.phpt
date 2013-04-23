@@ -9,24 +9,28 @@
 						case "users":
 							break;
 						case "notifications":
-							jQuery.ajax({
-								async:true, 
-								cache:false, 
-								data:"", 
-								dataType:"json", 
-								type:"get", 
-								url:strUrl, 
-								success:function(objData){
-									jQuery.each(objData.notifications, function(nbrIndex, objValue){
-										var objClone = jQuery(".notification-box ul li.prototype").first().clone();
-										objClone.find("a").text(objValue.message);
-										objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
-										//this.objPrototypeAuction.clone().attr("id", this.strAuctionReference + objAuctionData.nbrAuctionIndex).appendTo($j(this.strContainerClassOrId));
-									});
-									jQuery(".notification-amount").text("0");
-									jQuery(".notification-box").showPopup();
-								}
-							});
+							if(jQuery(".notification-box .popup").css("display") == "none"){
+								jQuery.ajax({
+									async:true, 
+									cache:false, 
+									data:"", 
+									dataType:"json", 
+									type:"get", 
+									url:strUrl, 
+									success:function(objData){
+										jQuery.each(objData.notifications, function(nbrIndex, objValue){
+											var objClone = jQuery(".notification-box ul li.prototype").first().clone();
+											objClone.find("a").text(objValue.message);
+											objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
+											//this.objPrototypeAuction.clone().attr("id", this.strAuctionReference + objAuctionData.nbrAuctionIndex).appendTo($j(this.strContainerClassOrId));
+										});
+										jQuery(".notification-amount").text("0");
+										jQuery(".notification-box .popup").show();
+									}
+								});
+							}else{
+								jQuery(".notification-box .popup").hide();
+							}
 							break;
 						case "inbox":
 							jQuery("#loading").show();

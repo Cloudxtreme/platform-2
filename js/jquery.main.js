@@ -70,10 +70,6 @@ function initPopups() {
 	/*jQuery('.notification-box').contentPopup({
 		mode: 'click'
 	});*/
-	jQuery('.notification-box').contentPopup({
-		btnOpen: '.open2',
-		mode: 'click'
-	});
 }
 
 // clear inputs on focus
