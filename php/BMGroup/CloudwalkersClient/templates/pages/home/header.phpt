@@ -23,6 +23,9 @@
 											var objClone = jQuery(".notification-box ul li.prototype").first().clone();
 											objClone.find("a").text(objValue.message);
 											objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
+											var objClone2 = jQuery(".notification-box ul li.prototype").first().clone();
+											objClone2.find("a").text(objValue.message);
+											objClone2.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
 										});
 										jQuery(".notification-amount").text("0");
 										jQuery(".notification-box .popup").show();
