@@ -48,6 +48,7 @@
 									url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/account/" + strExtra + "/notifications", 
 									success:function(objData){
 										jQuery(".notification-box ul li:not(.prototype)").remove();
+										//{"id":1,"message":"This is a message"}
 										jQuery.each(objData.notifications, function(nbrIndex, objValue){
 											var objClone = jQuery(".notification-box ul li.prototype").first().clone();
 											objClone.find("a").text(objValue.message);
@@ -74,6 +75,7 @@
 								type:"get", 
 								url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/channel/" + strExtra, 
 								success:function(objData){
+									//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
 									jQuery.each(objData.channel.messages, function(nbrIndex, objValue){
 										
 										
@@ -121,34 +123,10 @@
                             <ul>
                             	<li class="prototype">
                                 <div class="text account">
-                                  <p><a href="#"></a></p>
-                                  <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
-                                </div>
-                              </li>
-                              <?php /*<li>
-                                <div class="text account">
                                   <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
                                   <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
                                 </div>
                               </li>
-                              <li>
-                                <div class="text account">
-                                  <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
-                                  <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
-                                </div>
-                              </li>
-                              <li>
-                                <div class="text account">
-                                  <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
-                                  <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
-                                </div>
-                              </li>
-                              <li>
-                                <div class="text account">
-                                  <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
-                                  <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
-                                </div>
-                              </li>*/ ?>
                             </ul>
                           </div>
                         </div>
@@ -185,21 +163,6 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
                   	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
                   </a>
                 </li>
-                <?php /*<li>
-                  <a href="javascript:;" onclick="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
-                    <img src="images/img3.png" alt="image description" width="51" height="50" />
-                    <strong>Inbox</strong>
-                    <span class="number">501</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="images/img4.png" alt="image description" width="54" height="50" /><strong>Profiles</strong>
-                    <span class="number">9210</span>
-                  </a>
-                </li>
-                <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>
-                <li><a href="#"><img src="images/img6.png" alt="image description" width="57" height="50" /><strong>Reports</strong></a></li>*/ ?>
               </ul>
             </div>
           </div>
