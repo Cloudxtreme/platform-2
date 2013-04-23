@@ -74,9 +74,15 @@
 								type:"get", 
 								url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/channel/" + strExtra, 
 								success:function(objData){
-									
-									alert(objData.messages);
-									
+									jQuery.each(objData.channel.messages, function(nbrIndex, objValue){
+										
+										
+										alert(objValue.body.html);
+										
+										
+										
+										
+									});
 									jQuery(".block-inbox").show();
 									jQuery("#loading").hide();
 								}
