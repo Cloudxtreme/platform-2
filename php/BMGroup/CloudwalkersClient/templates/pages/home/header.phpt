@@ -18,11 +18,11 @@
 									type:"get", 
 									url:strUrl, 
 									success:function(objData){
+										jQuery(".notification-box ul li:not(.prototype)").remove();
 										jQuery.each(objData.notifications, function(nbrIndex, objValue){
 											var objClone = jQuery(".notification-box ul li.prototype").first().clone();
 											objClone.find("a").text(objValue.message);
 											objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
-											//this.objPrototypeAuction.clone().attr("id", this.strAuctionReference + objAuctionData.nbrAuctionIndex).appendTo($j(this.strContainerClassOrId));
 										});
 										jQuery(".notification-amount").text("0");
 										jQuery(".notification-box .popup").show();
