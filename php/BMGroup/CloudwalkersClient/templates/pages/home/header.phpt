@@ -10,6 +10,9 @@
 								data:$j(form).serialize(), */
 								url:strUrl, 
 								success:function(strData){
+									
+									alert('ok ' + strData);
+									
 									jQuery("#content").text(strData);
 									jQuery("#loading").hide();
 								}
