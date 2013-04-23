@@ -82,12 +82,12 @@
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
                     <div class="notification-box">
-                      <a href="#" class="button open"><span><strong style="margin-left:-18px;"><em id="notify_amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
+                      <a href="javascript:;" onclick="change_content('notifications', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/account/' . $user['accounts'][0]['id'] . '/notifications'; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em id="notify_amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
                       <div class="popup">
                         <div class="popup-holder">
                           <div class="popup-frame">
                             <ul>
-                              <li>
+                              <?php /*<li>
                                 <div class="text account">
                                   <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
                                   <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
@@ -110,7 +110,7 @@
                                   <p><a href="#">John Doe is responding on Topic X saying <em>“ This just a respond you know...”</em></a></p>
                                   <div class="row"><span class="time">4 hours ago</span> Max 3 lines here</div>
                                 </div>
-                              </li>
+                              </li>*/ ?>
                             </ul>
                           </div>
                         </div>
