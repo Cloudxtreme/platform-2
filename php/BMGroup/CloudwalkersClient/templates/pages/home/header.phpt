@@ -92,7 +92,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
               <ul id="nav">
                 <li><a href="/"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
                 <li>
-                  <a href="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
+                  <a href="javascript:;" onclick="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
                     <img src="images/img3.png" alt="image description" width="51" height="50" /><strong>Inbox</strong>
                     <span class="number">501</span>
                   </a>
