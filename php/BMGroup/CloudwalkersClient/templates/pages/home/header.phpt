@@ -26,11 +26,11 @@
 				</style>
 				<script language="javascript" type="text/javascript">
 				var objBlocks = {
-					"block-inbox":{ "display":true }, 
-					"block-quick-links":{ "display":true }, 
-					"block-schedule":{ "display":true }, 
-					"block-quick-statistics":{ "display":true }, 
-					"block-filters":{ "display":true }
+					{ "class":"block-inbox", "display":true }, 
+					{ "class":"block-quick-links", "display":true }, 
+					{ "class":"block-schedule", "display":true }, 
+					{ "class":"block-quick-statistics", "display":true }, 
+					{ "class":"block-filters", "display":true }
 				};
 				
 				function change_content(strType, strExtra){
@@ -64,22 +64,23 @@
 						case "channel":
 							jQuery("#loading").show();
 							jQuery.each(objBlocks, function(nbrIndex, objValue){
-								alert(objValue);
-							
+								jQuery("." + objValue.class).hide();
 							});
-							
-							/*jQuery.ajax({
+							jQuery.ajax({
 								async:true, 
 								cache:false, 
 								data:"", 
 								dataType:"json", 
 								type:"get", 
 								url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/channel/" + strExtra, 
-								success:function(strData){
+								success:function(objData){
 									
+									alert(objData.messages);
+									
+									jQuery(".block-inbox").show();
 									jQuery("#loading").hide();
 								}
-							});*/
+							});
 							break;
 						case "reports":
 							
