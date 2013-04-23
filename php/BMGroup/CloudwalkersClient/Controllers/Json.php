@@ -17,6 +17,17 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 			return array ('error' => array ('message' => 'You are not authenticated.'));
 		}
 
+		$data = $this->getInput ();
+		array_shift ($data);
+
+		$action = implode ('/', $data);
+
+
+		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+		unset ($_GET['rewritepagemodule']);
+		return $client->get ($action, $_GET);
+
+		/*
 		$request = strtolower ($this->getInput (1));
 
 		switch ($request)
@@ -33,8 +44,10 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 				return array ('error' => array ('message' => 'Invalid input: action not found'));
 			break;
 		}
+		*/
 	}
 
+	/*
 	private function getNotifications ()
 	{
 		$id = $this->getInput (2);
@@ -50,4 +63,5 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		return $client->get ('channel/' . $id);
 	}
+	*/
 }
