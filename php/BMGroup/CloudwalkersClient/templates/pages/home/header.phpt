@@ -23,7 +23,8 @@
 										objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
 										//this.objPrototypeAuction.clone().attr("id", this.strAuctionReference + objAuctionData.nbrAuctionIndex).appendTo($j(this.strContainerClassOrId));
 									});
-									jQuery("#notify_amount").text("0");
+									jQuery(".notification-amount").text("0");
+									jQuery(".notification-box").showPopup();
 								}
 							});
 							break;
@@ -83,7 +84,7 @@
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
                     <div class="notification-box">
-                      <a href="javascript:;" onclick="change_content('notifications', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/account/' . $user['accounts'][0]['id'] . '/notifications'; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em id="notify_amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
+                      <a href="javascript:;" onclick="change_content('notifications', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/account/' . $user['accounts'][0]['id'] . '/notifications'; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
                       <div class="popup">
                         <div class="popup-holder">
                           <div class="popup-frame">
