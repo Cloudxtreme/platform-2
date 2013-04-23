@@ -2,24 +2,20 @@
 				.prototype{
 					display:none;
 				}
-				#nav li{
+				#nav li a .icon{
 					background:url('images/img2.png') center 73px no-repeat;
 				}
-				#nav li.inbox{
+				#nav li.inbox a .icon{
 					background-image:url('images/img3.png');
 				}
-				#nav li.profiles{
+				#nav li.profiles a .icon{
 					background-image:url('images/img4.png');
 				}
-				#nav li.news{
+				#nav li.news a .icon{
 					background-image:url('images/img5.png');
 				}
-				#nav li.reports{
+				#nav li.reports a .icon{
 					background-image:url('images/img6.png');
-				}
-				#nav li a{
-					min-height:inherit;
-					padding:123px 24px 24px;
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
@@ -144,7 +140,7 @@
               <ul id="nav">
                 <li class="dash">
                 	<a href="javascript:;" onclick="change_content('dash', '');">
-                  	<strong>Dashboard</strong>
+                  	<div class="icon"></div><strong>Dashboard</strong>
                   </a>
                 </li>
 <?php 
@@ -153,7 +149,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
-                    <strong><?php echo $arrChannel['name']; ?></strong>
+                  	<div class="icon"></div><strong><?php echo $arrChannel['name']; ?></strong>
                     <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
@@ -162,7 +158,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
                 <li class="reports">
                   <a href="#">
-                  	<strong>Reports</strong>
+                  	<div class="icon"></div><strong>Reports</strong>
                   </a>
                 </li>
                 <?php /*<li>
