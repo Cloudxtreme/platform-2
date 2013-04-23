@@ -10,7 +10,7 @@
 								data:$j(form).serialize(), */
 								url:strUrl, 
 								success:function(strData){
-									jQuery("#content").html(strData);
+									jQuery("#content").text(strData);
 									jQuery("#loading").hide();
 								}
 							});
