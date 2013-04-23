@@ -42,7 +42,7 @@
                 </div>
               </div>
             </div>
-            <div class="text-container comment-container statistic-container last-container">
+            <div class="text-container comment-container statistic-container last-container block-filters">
               <div class="title">
                 <div class="holder">
                   <div class="frame">
