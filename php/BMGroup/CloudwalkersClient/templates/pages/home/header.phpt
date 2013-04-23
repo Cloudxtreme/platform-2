@@ -5,6 +5,7 @@
 				#nav li a{
 					background:url('images/img2.png') center 73px no-repeat;
 					display:block;
+					min-height:inherit;
 					padding:123px 24px 24px;
 				}
 				#nav li.inbox a{
@@ -156,20 +157,29 @@
             <div class="navigation-box">
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
-                <li class="dash"><a href="/"><?php /*<img src="images/img2.png" alt="image description" width="53" height="50" />*/ ?><strong>Dashboard</strong></a></li>
+                <li class="dash">
+                	<a href="/">
+                  	<strong>Dashboard</strong>
+                  </a>
+                </li>
 <?php 
 $arrChannels = array();
 foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('<?php echo $arrChannel['type']; ?>', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannel['id']; ?>');">
-                    <?php /*<img src="images/img3.png" alt="image description" width="51" height="50" />*/ ?><strong><?php echo $arrChannel['name']; ?></strong>
+                    <strong><?php echo $arrChannel['name']; ?></strong>
                     <?php if(!(empty($arrChannel['name']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
 <?php 
 }
 ?>
+                <li class="reports">
+                  <a href="#">
+                  	<strong>Reports</strong>
+                  </a>
+                </li>
                 <?php /*<li>
                   <a href="javascript:;" onclick="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
                     <img src="images/img3.png" alt="image description" width="51" height="50" />
@@ -185,7 +195,6 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
                 </li>
                 <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>
                 <li><a href="#"><img src="images/img6.png" alt="image description" width="57" height="50" /><strong>Reports</strong></a></li>*/ ?>
-                <li class="reports"><a href="#"><strong>Reports</strong></a></li>
               </ul>
             </div>
           </div>
