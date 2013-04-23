@@ -18,12 +18,7 @@
 								url:strUrl, 
 								success:function(strData){
 									alert(strData.notifications);
-									alert(JSON.parse(strData));
-									jQuery.each(JSON.parse(strData), function(i, val) {
-										alert(i + ' - ' + val);
-										//$("#" + i).append(document.createTextNode(" - " + val));
-									});
-									jQuery.each(strData, function(i, val) {
+									jQuery.each(strData.notifications, function(i, val) {
 										alert(i + ' - ' + val);
 										//$("#" + i).append(document.createTextNode(" - " + val));
 									});
