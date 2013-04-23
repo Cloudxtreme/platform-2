@@ -10,10 +10,17 @@
 								data:$j(form).serialize(), */
 								url:strUrl, 
 								success:function(strData){
+									jQuery.each(JSON.parse(strData), function(i, val) {
+										alert(i + ' - ' + val);
+										//$("#" + i).append(document.createTextNode(" - " + val));
+									});
+									
+									/*
+									for
 									
 									alert('ok ' + strData);
 									
-									jQuery("#content").text(strData);
+									jQuery("#content").text(strData);*/
 									jQuery("#loading").hide();
 								}
 							});
