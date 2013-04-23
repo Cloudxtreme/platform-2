@@ -560,7 +560,7 @@
                           </div>
                         </div>
                         <div class="button-row"><a href="#"><span>more web alerts</span></a></div>
-                      </div>*/
+                      </div>*/ ?>
                     </div>
                   </div>
                 </div>
