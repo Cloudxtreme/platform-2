@@ -3,21 +3,21 @@
 					display:none;
 				}
 				#nav li a{
-					background:url('images/img1.png') 0px 20px no-repeat;
+					background:url('images/img2.png') center 73px no-repeat;
 					display:block;
 					padding:123px 24px 24px;
 				}
 				#nav li.inbox a{
-					background:url('images/img3.png') 0px 20px no-repeat;
+					background-image:url('images/img3.png');
 				}
 				#nav li.profiles a{
-					background:url('images/img4.png') 0px 20px no-repeat;
+					background-image:url('images/img4.png');
 				}
 				#nav li.news a{
-					background:url('images/img5.png') 0px 20px no-repeat;
+					background-image:url('images/img5.png');
 				}
 				#nav li.reports a{
-					background:url('images/img6.png') 0px 20px no-repeat;
+					background-image:url('images/img6.png');
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
