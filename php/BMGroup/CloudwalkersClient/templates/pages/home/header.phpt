@@ -2,15 +2,15 @@
 				.prototype{
 					display:none;
 				}
-				.notification-box .popup ul li.inbox a, .notification-box .popup ul li.profiles a, .notification-box .popup ul li.news a{
+				#nav li.inbox a, #nav li.profiles a, #nav li.news a{
 					background:url('images/img3.png') 0px 20px no-repeat;
 					display:block;
 					padding:123px 24px 24px;
 				}
-				.notification-box .popup ul li.profiles a{
+				#nav li.profiles a{
 					background:url('images/img4.png') 0px 20px no-repeat;
 				}
-				.notification-box .popup ul li.news a{
+				#nav li.news a{
 					background:url('images/img5.png') 0px 20px no-repeat;
 				}
 				</style>
