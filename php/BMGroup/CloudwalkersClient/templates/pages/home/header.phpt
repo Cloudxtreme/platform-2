@@ -17,6 +17,7 @@
 								url:strUrl, 
 								success:function(strData){
 									alert(strData);
+									alert(JSON.parse(strData));
 									jQuery.each(JSON.parse(strData), function(i, val) {
 										alert(i + ' - ' + val);
 										//$("#" + i).append(document.createTextNode(" - " + val));
