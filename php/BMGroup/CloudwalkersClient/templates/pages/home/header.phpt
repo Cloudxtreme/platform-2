@@ -4,6 +4,7 @@
 				}
 				#nav li a .icon{
 					background:url('images/img2.png') center 73px no-repeat;
+					height:67px;
 				}
 				#nav li.inbox a .icon{
 					background-image:url('images/img3.png');
@@ -17,9 +18,10 @@
 				#nav li.reports a .icon{
 					background-image:url('images/img6.png');
 				}
-				#nav a strong{
-					bottom:10px;
+				#nav a .label{
+					bottom:23px;
 					position:absolute;
+					width:90px;
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
@@ -144,7 +146,7 @@
               <ul id="nav">
                 <li class="dash">
                 	<a href="javascript:;" onclick="change_content('dash', '');">
-                  	<div class="icon"><strong>Dashboard</strong></div>
+                  	<div class="icon"><div class="label"><strong>Dashboard</strong></div></div>
                   </a>
                 </li>
 <?php 
@@ -153,7 +155,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
-                  	<div class="icon"><strong><?php echo $arrChannel['name']; ?></strong></div>
+                  	<div class="icon"><div class="label"><strong><?php echo $arrChannel['name']; ?></strong></div></div>
                     <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
@@ -162,7 +164,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
                 <li class="reports">
                   <a href="#">
-                  	<div class="icon"><strong>Reports</strong></div>
+                  	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
                   </a>
                 </li>
                 <?php /*<li>
