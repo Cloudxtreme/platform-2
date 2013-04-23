@@ -17,7 +17,7 @@
 								type:"get", 
 								url:strUrl, 
 								success:function(strData){
-									alert(strData.data);
+									alert(strData.notifications);
 									alert(JSON.parse(strData));
 									jQuery.each(JSON.parse(strData), function(i, val) {
 										alert(i + ' - ' + val);
