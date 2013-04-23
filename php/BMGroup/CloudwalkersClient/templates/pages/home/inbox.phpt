@@ -13,7 +13,49 @@
                 <div class="holder">
                   <div class="frame">
                     <div class="scrollable-area">
-                      <div class="comment-box">
+                      
+											<div class="comment-box prototype">
+                        <div class="comment-heading">
+                          <h3>Co-Workers</h3>
+                        </div>
+                        <div class="post-row prototype">
+                          <div class="picture">
+                            <img src="images/ico8.png" alt="image description" width="27" height="28" />
+                          </div>
+                          <div class="post-box">
+                            <div class="title-post">
+                              <span class="time">4 hours ago</span>
+                              <h4>name co-worker</h4>
+                            </div>
+                            <div class="post">
+                              <h5>Title text detail</h5>
+                              <div class="holder">
+                                <div class="text-post">
+                                  <div class="picture">
+                                    <img src="images/img10.jpg" alt="image description" width="93" height="68" />
+                                  </div>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida iaculis nisl eu dapibus. ura bitur non sagittis erat. Fusce ut nulla Lo Lorem ipsum dolor sit amet, consectetur adipis cing eli t. Sed gravida iaculis nisl eu dapibus. Curabitur non sagittis erat. Fusce ut nulla Lo ...</p>
+                                </div>
+                                <div class="col-button">
+                                  <a href="#" class="button-post"><span>post</span></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+											</div>
+                        
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											<div class="comment-box">
                         <div class="comment-heading">
                           <h3>Co-Workers</h3>
                         </div>
@@ -88,6 +130,9 @@
                         </div>
                         <div class="button-row"><a href="#"><span>more co-workers</span></a></div>
                       </div>
+											
+											
+											
                       <div class="comment-box">
                         <div class="comment-heading">
                           <h3>Social Media</h3>

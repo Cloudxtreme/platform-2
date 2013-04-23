@@ -76,15 +76,43 @@
 								url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/channel/" + strExtra, 
 								success:function(objData){
 									//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
+									var objCommentClone = jQuery(".block-inbox .scrollable-area .comment-box.prototype").first().clone();
 									jQuery.each(objData.channel.messages, function(nbrIndex, objValue){
-										
-										
-										alert(objValue.body.html);
-										
-										
-										
-										
+										var objPostClone = jQuery(".block-inbox .scrollable-area .comment-box .post-row.prototype").first().clone();
+										objPostClone.find(".text-post p").text(objValue.body.html);
+										objPostClone.removeClass("prototype").appendTo(objCommentClone);
 									});
+									objCommentClone.removeClass("prototype").appendTo(jQuery(".block-inbox .scrollable-area"));
+											/*<div class="comment-box prototype">
+                        <div class="comment-heading">
+                          <h3>Co-Workers</h3>
+                        </div>
+                        <div class="post-row prototype">
+                          <div class="picture">
+                            <img src="images/ico8.png" alt="image description" width="27" height="28" />
+                          </div>
+                          <div class="post-box">
+                            <div class="title-post">
+                              <span class="time">4 hours ago</span>
+                              <h4>name co-worker</h4>
+                            </div>
+                            <div class="post">
+                              <h5>Title text detail</h5>
+                              <div class="holder">
+                                <div class="text-post">
+                                  <div class="picture">
+                                    <img src="images/img10.jpg" alt="image description" width="93" height="68" />
+                                  </div>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida iaculis nisl eu dapibus. ura bitur non sagittis erat. Fusce ut nulla Lo Lorem ipsum dolor sit amet, consectetur adipis cing eli t. Sed gravida iaculis nisl eu dapibus. Curabitur non sagittis erat. Fusce ut nulla Lo ...</p>
+                                </div>
+                                <div class="col-button">
+                                  <a href="#" class="button-post"><span>post</span></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+											</div>*/
 									jQuery(".block-inbox").show();
 									jQuery("#loading").hide();
 								}
