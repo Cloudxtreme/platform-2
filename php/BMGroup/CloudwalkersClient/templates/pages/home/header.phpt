@@ -2,22 +2,22 @@
 				.prototype{
 					display:none;
 				}
-				#nav li a{
+				#nav li{
 					background:url('images/img2.png') center 73px no-repeat;
 					display:block;
 					min-height:inherit;
 					padding:123px 24px 24px;
 				}
-				#nav li.inbox a{
+				#nav li.inbox{
 					background-image:url('images/img3.png');
 				}
-				#nav li.profiles a{
+				#nav li.profiles{
 					background-image:url('images/img4.png');
 				}
-				#nav li.news a{
+				#nav li.news{
 					background-image:url('images/img5.png');
 				}
-				#nav li.reports a{
+				#nav li.reports{
 					background-image:url('images/img6.png');
 				}
 				</style>
