@@ -140,7 +140,7 @@
               <ul id="nav">
                 <li class="dash">
                 	<a href="javascript:;" onclick="change_content('dash', '');">
-                  	<div class="icon"></div><strong>Dashboard</strong>
+                  	<div class="icon"><strong>Dashboard</strong></div>
                   </a>
                 </li>
 <?php 
@@ -149,7 +149,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
-                  	<div class="icon"></div><strong><?php echo $arrChannel['name']; ?></strong>
+                  	<div class="icon"><strong><?php echo $arrChannel['name']; ?></strong></div>
                     <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
@@ -158,7 +158,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
                 <li class="reports">
                   <a href="#">
-                  	<div class="icon"></div><strong>Reports</strong>
+                  	<div class="icon"><strong>Reports</strong></div>
                   </a>
                 </li>
                 <?php /*<li>
