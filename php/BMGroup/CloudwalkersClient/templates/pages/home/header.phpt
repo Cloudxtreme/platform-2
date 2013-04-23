@@ -32,7 +32,7 @@
 					}
 				}
 				</script>
-        <div id="loading">
+        <div id="loading" style="display:none;">
         loading...
         </div>
         <div class="header-top">
