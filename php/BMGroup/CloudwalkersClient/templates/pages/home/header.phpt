@@ -17,6 +17,10 @@
 				#nav li.reports a .icon{
 					background-image:url('images/img6.png');
 				}
+				#nav a strong{
+					bottom:10px;
+					position:absolute;
+				}
 				</style>
 				<script language="javascript" type="text/javascript">
 				function change_content(strType, strExtra){
