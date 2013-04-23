@@ -138,7 +138,7 @@
                 <div class="frame">
                   <div class="account-box">
                     <ul>
-                      <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">login</a></li>
+                      <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">logout</a></li>
                       <li>Hi, <strong><?php echo $user['name']; ?></strong></li>
                     </ul>
                     <?php if(!(empty($user['accounts'][0]['avatar']))){ ?><a class="add-logo" href="#"><img src="<?php echo $user['accounts'][0]['avatar']; ?>" alt="image description" width="41" height="41" /></a><?php } ?>
