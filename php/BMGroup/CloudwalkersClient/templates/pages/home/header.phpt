@@ -2,6 +2,15 @@
 				.prototype{
 					display:none;
 				}
+				.notification-box .popup ul li a.inbox{
+					background:url('images/img3.png') 0px 20px no-repeat;
+				}
+				.notification-box .popup ul li a.profiles{
+					background:url('images/img4.png') 0px 20px no-repeat;
+				}
+				.notification-box .popup ul li a.news{
+					background:url('images/img5.png') 0px 20px no-repeat;
+				}
 				</style>
 				<script language="javascript" type="text/javascript">
 				function change_content(strType, strUrl){
@@ -136,19 +145,27 @@
                 </div>
               </div>
             </div>
-<?php 
-$arrChannels = array();
-foreach($user['accounts'][0]['channels'] as $arrChannel){
-	$arrChannels[$arrChannel['name']] = $arrChannel['id'];
-}
-?>
             <div class="navigation-box">
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
                 <li><a href="/"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
-                <li>
+<?php 
+$arrChannels = array();
+foreach($user['accounts'][0]['channels'] as $arrChannel){
+?>
+								<li>
+                  <a class="<?php echo $arrChannel['type']; ?>" href="javascript:;" onclick="change_content('<?php echo $arrChannel['type']; ?>', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannel['id']; ?>');">
+                    <?php /*<img src="images/img3.png" alt="image description" width="51" height="50" />*/ ?><strong><?php echo $arrChannel['name']; ?></strong>
+                    <?php if(!(empty($arrChannel['name']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
+                  </a>
+                </li>
+<?php 
+}
+?>
+                <?php /*<li>
                   <a href="javascript:;" onclick="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
-                    <img src="images/img3.png" alt="image description" width="51" height="50" /><strong>Inbox</strong>
+                    <img src="images/img3.png" alt="image description" width="51" height="50" />
+                    <strong>Inbox</strong>
                     <span class="number">501</span>
                   </a>
                 </li>
@@ -158,7 +175,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
                     <span class="number">9210</span>
                   </a>
                 </li>
-                <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>
+                <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>*/ ?>
                 <li><a href="#"><img src="images/img6.png" alt="image description" width="57" height="50" /><strong>Reports</strong></a></li>
               </ul>
             </div>
