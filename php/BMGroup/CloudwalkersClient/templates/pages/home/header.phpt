@@ -78,8 +78,8 @@
 								success:function(strData){
 									
 									jQuery("#loading").hide();
-								}*/
-							});
+								}
+							});*/
 							break;
 						case "reports":
 							
