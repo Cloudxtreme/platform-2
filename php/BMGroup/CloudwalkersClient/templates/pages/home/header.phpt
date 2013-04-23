@@ -21,6 +21,10 @@
 										alert(i + ' - ' + val);
 										//$("#" + i).append(document.createTextNode(" - " + val));
 									});
+									jQuery.each(strData, function(i, val) {
+										alert(i + ' - ' + val);
+										//$("#" + i).append(document.createTextNode(" - " + val));
+									});
 									
 									/*
 									for
