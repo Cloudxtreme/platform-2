@@ -16,19 +16,13 @@
 								dataType:"json", 
 								type:"get", 
 								url:strUrl, 
-								success:function(strData){
-									alert(strData.notifications);
-									jQuery.each(strData.notifications, function(i, val) {
-										alert(i + ' - ' + val);
-										//$("#" + i).append(document.createTextNode(" - " + val));
+								success:function(objData){
+									jQuery.each(objData.notifications, function(nbrIndex, objValue){
+										var objClone = jQuery(".notification-box ul li.prototype").first().clone();
+										objClone.find("a").text(objValue.message);
+										objClone.removeClass("prototype").appendTo(jQuery(".notification-box ul"));
+										//this.objPrototypeAuction.clone().attr("id", this.strAuctionReference + objAuctionData.nbrAuctionIndex).appendTo($j(this.strContainerClassOrId));
 									});
-									
-									/*
-									for
-									
-									alert('ok ' + strData);
-									
-									jQuery("#content").text(strData);*/
 									jQuery("#notify_amount").text("0");
 								}
 							});
