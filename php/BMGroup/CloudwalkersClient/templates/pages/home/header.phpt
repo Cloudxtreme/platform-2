@@ -3,7 +3,7 @@
 					display:none;
 				}
 				#nav li a .icon{
-					background:url('images/img2.png') center 73px no-repeat;
+					background:url('images/img2.png') center top no-repeat;
 					height:67px;
 				}
 				#nav li.inbox a .icon{
@@ -19,7 +19,7 @@
 					background-image:url('images/img6.png');
 				}
 				#nav a .label{
-					bottom:23px;
+					bottom:24px;
 					position:absolute;
 					width:90px;
 				}
@@ -156,7 +156,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
                   	<div class="icon"><div class="label"><strong><?php echo $arrChannel['name']; ?></strong></div></div>
-                    <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
+                    <?php if(!(empty($arrChannel['unfread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
 <?php 
