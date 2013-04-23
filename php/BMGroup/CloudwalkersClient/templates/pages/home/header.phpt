@@ -161,7 +161,7 @@
                       </div>
                     </div>
                   </div>
-                  <a href="#" class="bottom-button">&nbsp;</a>
+                  <a href="javascript:;" onclick="change_content('dash', '');" class="bottom-button">&nbsp;</a>
                 </div>
               </div>
             </div>
