@@ -79,9 +79,7 @@
 									var objCommentClone = jQuery(".block-inbox .scrollable-area .comment-box.prototype").first().clone();
 									jQuery.each(objData.channel.messages, function(nbrIndex, objValue){
 										var objPostClone = objCommentClone.find(".post-row.prototype").first().clone();
-										alert(objPostClone);
-										objPostClone.find(".text-post p").text(objValue.body.html);
-										alert(objPostClone);
+										objPostClone.find(".text-post").html('<div class="picture"><img src="images/img10.jpg" alt="image description" width="93" height="68" /></div>' + objValue.body.html);
 										objPostClone.removeClass("prototype").appendTo(objCommentClone);
 									});
 									objCommentClone.removeClass("prototype").appendTo(jQuery(".block-inbox .scrollable-area"));
