@@ -37,7 +37,7 @@
 									data:"", 
 									dataType:"json", 
 									type:"get", 
-									url:strUrl, 
+									url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/account/" + strExtra + "/notifications", 
 									success:function(objData){
 										jQuery(".notification-box ul li:not(.prototype)").remove();
 										jQuery.each(objData.notifications, function(nbrIndex, objValue){
@@ -64,7 +64,7 @@
 								data:"", 
 								dataType:"json", 
 								type:"get", 
-								url:"<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/'; ?>" + strExtra, 
+								url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/json/channel/" + strExtra, 
 								success:function(strData){
 									jQuery("#loading").hide();
 								}
@@ -96,7 +96,7 @@
                   <div class="button-box">
                     <a href="#" class="button user-button"><span>Users</span></a>
                     <div class="notification-box">
-                      <a href="javascript:;" onclick="change_content('notifications', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/account/' . $user['accounts'][0]['id'] . '/notifications'; ?>');" class="button open2"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
+                      <a href="javascript:;" onclick="change_content('notifications', '<?php echo $user['accounts'][0]['id']; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
                       <div class="popup">
                         <div class="popup-holder">
                           <div class="popup-frame">
