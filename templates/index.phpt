@@ -14,19 +14,7 @@
 	</head>
 	<body>
     <div id="wrapper">
-    	<div id="header">
-      	<?php include_once('header.phpt'); ?>
-      </div>
-      <div id="main">
-				<div class="main-holder">
-          <div id="content">
-						<?php echo $content; ?>
-          </div>
-      	</div>
-    	</div>
-      <div id="footer">
-      	<?php include_once('footer.phpt'); ?>
-      </div>
+    	<?php echo $content; ?>
     </div>
 	</body>
 </html>
