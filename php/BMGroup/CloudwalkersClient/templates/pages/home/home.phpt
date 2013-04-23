@@ -4,6 +4,8 @@
       <div id="main">
 				<div class="main-holder">
           <div id="content">
+          	<?php include_once('welcome.phpt'); ?>
+          	<?php include_once('inbox.phpt'); ?>
           	<?php include_once('content.phpt'); ?>
           </div>
       	</div>
