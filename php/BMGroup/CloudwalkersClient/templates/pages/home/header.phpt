@@ -2,14 +2,15 @@
 				.prototype{
 					display:none;
 				}
-				.notification-box .popup ul li a.inbox, .notification-box .popup ul li a.profiles, .notification-box .popup ul li a.news{
+				.notification-box .popup ul li.inbox a, .notification-box .popup ul li.profiles a, .notification-box .popup ul li.news a{
 					background:url('images/img3.png') 0px 20px no-repeat;
+					display:block;
 					padding:123px 24px 24px;
 				}
-				.notification-box .popup ul li a.profiles{
+				.notification-box .popup ul li.profiles a{
 					background:url('images/img4.png') 0px 20px no-repeat;
 				}
-				.notification-box .popup ul li a.news{
+				.notification-box .popup ul li.news a{
 					background:url('images/img5.png') 0px 20px no-repeat;
 				}
 				</style>
@@ -154,8 +155,8 @@
 $arrChannels = array();
 foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
-								<li>
-                  <a class="<?php echo $arrChannel['type']; ?>" href="javascript:;" onclick="change_content('<?php echo $arrChannel['type']; ?>', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannel['id']; ?>');">
+								<li class="<?php echo $arrChannel['type']; ?>">
+                  <a href="javascript:;" onclick="change_content('<?php echo $arrChannel['type']; ?>', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannel['id']; ?>');">
                     <?php /*<img src="images/img3.png" alt="image description" width="51" height="50" />*/ ?><strong><?php echo $arrChannel['name']; ?></strong>
                     <?php if(!(empty($arrChannel['name']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
