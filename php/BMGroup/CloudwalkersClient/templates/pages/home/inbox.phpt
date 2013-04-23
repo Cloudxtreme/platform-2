@@ -55,7 +55,7 @@
 											
 											
 											
-											<div class="comment-box">
+											<?php /*<div class="comment-box">
                         <div class="comment-heading">
                           <h3>Co-Workers</h3>
                         </div>
@@ -560,7 +560,7 @@
                           </div>
                         </div>
                         <div class="button-row"><a href="#"><span>more web alerts</span></a></div>
-                      </div>
+                      </div>*/
                     </div>
                   </div>
                 </div>
