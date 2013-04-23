@@ -77,11 +77,11 @@
 								success:function(objData){
 									//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
 									var objCommentClone = jQuery(".block-inbox .scrollable-area .comment-box.prototype").first().clone();
-									alert(objCommentClone);
 									jQuery.each(objData.channel.messages, function(nbrIndex, objValue){
 										var objPostClone = objCommentClone.find(".post-row.prototype").first().clone();
+										alert(objPostClone);
 										objPostClone.find(".text-post p").text(objValue.body.html);
-										alert(objValue.body.html);
+										alert(objPostClone);
 										objPostClone.removeClass("prototype").appendTo(objCommentClone);
 									});
 									objCommentClone.removeClass("prototype").appendTo(jQuery(".block-inbox .scrollable-area"));
