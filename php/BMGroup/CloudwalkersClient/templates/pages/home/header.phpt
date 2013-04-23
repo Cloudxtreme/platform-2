@@ -2,16 +2,22 @@
 				.prototype{
 					display:none;
 				}
-				#nav li.inbox a, #nav li.profiles a, #nav li.news a{
-					background:url('images/img3.png') 0px 20px no-repeat;
+				#nav li a{
+					background:url('images/img1.png') 0px 20px no-repeat;
 					display:block;
 					padding:123px 24px 24px;
+				}
+				#nav li.inbox a{
+					background:url('images/img3.png') 0px 20px no-repeat;
 				}
 				#nav li.profiles a{
 					background:url('images/img4.png') 0px 20px no-repeat;
 				}
 				#nav li.news a{
 					background:url('images/img5.png') 0px 20px no-repeat;
+				}
+				#nav li.reports a{
+					background:url('images/img6.png') 0px 20px no-repeat;
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
@@ -150,7 +156,7 @@
             <div class="navigation-box">
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
-                <li><a href="/"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
+                <li class="dash"><a href="/"><?php /*<img src="images/img2.png" alt="image description" width="53" height="50" />*/ ?><strong>Dashboard</strong></a></li>
 <?php 
 $arrChannels = array();
 foreach($user['accounts'][0]['channels'] as $arrChannel){
@@ -177,8 +183,9 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
                     <span class="number">9210</span>
                   </a>
                 </li>
-                <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>*/ ?>
-                <li><a href="#"><img src="images/img6.png" alt="image description" width="57" height="50" /><strong>Reports</strong></a></li>
+                <li><a href="#"><img src="images/img5.png" alt="image description" width="54" height="50" /><strong>News</strong></a></li>
+                <li><a href="#"><img src="images/img6.png" alt="image description" width="57" height="50" /><strong>Reports</strong></a></li>*/ ?>
+                <li class="reports"><a href="#"><strong>Reports</strong></a></li>
               </ul>
             </div>
           </div>
