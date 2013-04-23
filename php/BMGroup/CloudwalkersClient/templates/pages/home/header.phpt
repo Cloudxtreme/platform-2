@@ -22,7 +22,7 @@
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
-				function change_content(strType, strUrl){
+				function change_content(strType, strExtra){
 					switch(strType){
 						case "users":
 							break;
@@ -53,35 +53,19 @@
 								jQuery(".notification-box .popup").hide();
 							}
 							break;
-						case "inbox":
+						case "channel":
 							jQuery("#loading").show();
 							jQuery.ajax({
-								cache:false, 
 								async:true, 
-								/*type:"post", 
-								data:$j(form).serialize(), */
-								url:strUrl, 
+								cache:false, 
+								data:"", 
+								dataType:"json", 
+								type:"get", 
+								url:"<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/'; ?>" + strExtra, 
 								success:function(strData){
-									jQuery.each(JSON.parse(strData), function(i, val) {
-										alert(i + ' - ' + val);
-										//$("#" + i).append(document.createTextNode(" - " + val));
-									});
-									
-									/*
-									for
-									
-									alert('ok ' + strData);
-									
-									jQuery("#content").text(strData);*/
 									jQuery("#loading").hide();
 								}
 							});
-							break;
-						case "profiles":
-							
-							break;
-						case "news":
-							
 							break;
 						case "reports":
 							
@@ -158,7 +142,7 @@
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
                 <li class="dash">
-                	<a href="/">
+                	<a href="javascript:;" onclick="change_content('dash', '');">
                   	<strong>Dashboard</strong>
                   </a>
                 </li>
@@ -167,9 +151,9 @@ $arrChannels = array();
 foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
 								<li class="<?php echo $arrChannel['type']; ?>">
-                  <a href="javascript:;" onclick="change_content('<?php echo $arrChannel['type']; ?>', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannel['id']; ?>');">
+                  <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
                     <strong><?php echo $arrChannel['name']; ?></strong>
-                    <?php if(!(empty($arrChannel['name']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
+                    <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
 <?php 
