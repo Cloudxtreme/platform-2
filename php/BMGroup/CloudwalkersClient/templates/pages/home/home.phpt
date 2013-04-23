@@ -13,3 +13,5 @@
       <div id="footer">
       	<?php include_once('footer.phpt'); ?>
       </div>
+      <?php include_once('popups.phpt'); ?>
+      
