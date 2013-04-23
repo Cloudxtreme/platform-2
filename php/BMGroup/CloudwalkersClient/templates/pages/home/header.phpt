@@ -26,13 +26,12 @@
 				</style>
 				<script language="javascript" type="text/javascript">
 				var objBlocks = {
-					"block-inbox":{ "display":false }, 
-					"block-quick-links":{ "display":false }, 
-					"block-schedule":{ "display":false }, 
-					"block-quick-statistics":{ "display":false }, 
-					"block-filters":{ "display":false }
+					"block-inbox":{ "display":true }, 
+					"block-quick-links":{ "display":true }, 
+					"block-schedule":{ "display":true }, 
+					"block-quick-statistics":{ "display":true }, 
+					"block-filters":{ "display":true }
 				};
-				alert(objBlocks["block-filters"]["display"]);
 				
 				function change_content(strType, strExtra){
 					switch(strType){
@@ -64,7 +63,12 @@
 							break;
 						case "channel":
 							jQuery("#loading").show();
-							jQuery.ajax({
+							jQuery.each(objBlocks, function(nbrIndex, objValue){
+								alert(objValue);
+							
+							});
+							
+							/*jQuery.ajax({
 								async:true, 
 								cache:false, 
 								data:"", 
@@ -74,7 +78,7 @@
 								success:function(strData){
 									
 									jQuery("#loading").hide();
-								}
+								}*/
 							});
 							break;
 						case "reports":
