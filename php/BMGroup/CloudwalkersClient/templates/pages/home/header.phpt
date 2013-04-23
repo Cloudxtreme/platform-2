@@ -1,3 +1,32 @@
+        <script language="javascript" type="text/javascript">
+				function change_content(strType, strUrl){
+					switch(strType){
+						case "inbox":
+							$j.ajax({
+								cache:false, 
+								async:true, 
+								/*type:"post", 
+								data:$j(form).serialize(), */
+								url:strUrl, 
+								success:function(strData){
+									jQuery("#content").html(strData);
+								}
+							});
+							break;
+						case "profiles":
+							
+							break;
+						case "news":
+							
+							break;
+						case "reports":
+							
+							break;
+						default://dashboard
+							
+					}
+				}
+				</script>
         <div class="header-top">
           <div class="header-holder">
             <div class="top-nav">
@@ -52,12 +81,18 @@
                 </div>
               </div>
             </div>
+<?php 
+$arrChannels = array();
+foreach($user['accounts'][0]['channels'] as $arrChannel){
+	$arrChannels[$arrChannel['name']] = $arrChannel['id'];
+}
+?>
             <div class="navigation-box">
               <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
                 <li><a href="/"><img src="images/img2.png" alt="image description" width="53" height="50" /><strong>Dashboard</strong></a></li>
                 <li>
-                  <a href="#">
+                  <a href="change_content('inbox', '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/json/channel/' . $arrChannels['Inbox']; ?>');">
                     <img src="images/img3.png" alt="image description" width="51" height="50" /><strong>Inbox</strong>
                     <span class="number">501</span>
                   </a>
