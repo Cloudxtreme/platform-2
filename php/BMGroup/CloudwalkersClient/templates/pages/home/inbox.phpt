@@ -1,4 +1,4 @@
-						<div class="text-container comment-container">
+						<div class="text-container comment-container block-inbox">
               <div class="title">
                 <div class="holder">
                   <div class="frame">

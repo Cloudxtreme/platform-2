@@ -25,6 +25,9 @@
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
+				var arrBlocks = new Array();
+				arrBlocks.push('block-quick-links');
+				
 				function change_content(strType, strExtra){
 					switch(strType){
 						case "users":

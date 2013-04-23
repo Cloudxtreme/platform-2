@@ -1,4 +1,4 @@
-						<div class="text-container comment-container schedule-container">
+						<div class="text-container comment-container schedule-container block-schedule">
               <div class="title">
                 <div class="holder">
                   <div class="frame">
