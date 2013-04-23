@@ -2,8 +2,9 @@
 				.prototype{
 					display:none;
 				}
-				.notification-box .popup ul li a.inbox{
+				.notification-box .popup ul li a.inbox, .notification-box .popup ul li a.profiles, .notification-box .popup ul li a.news{
 					background:url('images/img3.png') 0px 20px no-repeat;
+					padding:50px 0 0;
 				}
 				.notification-box .popup ul li a.profiles{
 					background:url('images/img4.png') 0px 20px no-repeat;
