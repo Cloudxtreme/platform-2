@@ -1,4 +1,4 @@
-						<div class="text-container comment-container statistic-container block-quick-statistics">
+						<div class="text-container comment-container statistic-container block-statistics">
               <div class="title">
                 <div class="holder">
                   <div class="frame">

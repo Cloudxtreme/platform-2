@@ -1,4 +1,4 @@
-						<ul class="picture-list block-quick-links">
+						<ul class="picture-list block-links">
               <li>
                 <a href="#">
                   <img src="images/img12.png" alt="image description" width="210" height="139" />
