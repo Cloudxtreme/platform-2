@@ -1,8 +1,9 @@
         <script language="javascript" type="text/javascript">
 				function change_content(strType, strUrl){
+					jQuery("#loading").show();
 					switch(strType){
 						case "inbox":
-							$j.ajax({
+							jQuery.ajax({
 								cache:false, 
 								async:true, 
 								/*type:"post", 
@@ -10,6 +11,7 @@
 								url:strUrl, 
 								success:function(strData){
 									jQuery("#content").html(strData);
+									jQuery("#loading").hide();
 								}
 							});
 							break;
@@ -27,6 +29,9 @@
 					}
 				}
 				</script>
+        <div id="loading">
+        loading...
+        </div>
         <div class="header-top">
           <div class="header-holder">
             <div class="top-nav">
