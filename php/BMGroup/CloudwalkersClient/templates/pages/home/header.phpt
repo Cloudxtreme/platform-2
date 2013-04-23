@@ -25,8 +25,14 @@
 				}
 				</style>
 				<script language="javascript" type="text/javascript">
-				var arrBlocks = new Array();
-				arrBlocks.push('block-quick-links');
+				var objBlocks = {
+					"block-inbox":{ "display":false }, 
+					"block-quick-links":{ "display":false }, 
+					"block-schedule":{ "display":false }, 
+					"block-quick-statistics":{ "display":false }, 
+					"block-filters":{ "display":false }
+				};
+				alert(objBlocks["block-filters"]["display"]);
 				
 				function change_content(strType, strExtra){
 					switch(strType){
