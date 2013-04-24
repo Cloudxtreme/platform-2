@@ -67,6 +67,8 @@
 							jQuery.each(objBlocks, function(nbrIndex, objValue){
 								jQuery("." + objValue.class).hide();
 							});
+							jQuery(".dash").hide();
+							jQuery(".block-inbox").show();
 							jQuery.ajax({
 								async:true, 
 								cache:false, 
@@ -113,7 +115,6 @@
                           </div>
                         </div>
 											</div>*/
-									jQuery(".block-inbox").show();
 									jQuery("#loading").hide();
 								}
 							});
@@ -125,6 +126,7 @@
 							jQuery.each(objBlocks, function(nbrIndex, objValue){
 								jQuery("." + objValue.class).show();
 							});
+							jQuery(".dash").show();
 					}
 				}
 				</script>
