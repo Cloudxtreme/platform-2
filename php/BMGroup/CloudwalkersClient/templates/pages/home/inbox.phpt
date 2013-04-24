@@ -565,5 +565,5 @@
                   </div>
                 </div>
               </div>
-              <div class="inbox-row"><a href="#"><span>Inbox</span></a></div>
+              <div class="inbox-row dash"><a href="#"><span>Inbox</span></a></div>
             </div>
