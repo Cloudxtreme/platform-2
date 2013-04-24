@@ -4,7 +4,6 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 {
 	public function getContent ()
 	{
-		$GLOBALS['header-nav-active'] = 'home';
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
@@ -34,5 +33,12 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		}
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
+	}
+	
+	public function dispatch (Neuron_Page $page)
+	{
+		$GLOBALS['header-nav-active'] = 'home';
+		$page->setContent ($this->getContent ());
+		echo $page->getOutput ();
 	}
 }
