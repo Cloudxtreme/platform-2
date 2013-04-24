@@ -1,4 +1,4 @@
-						<div class="user-container welcome-container">
+						<div class="user-container welcome-container dash-only">
               <a href="#popup1" class="lightbox add-button"><span>Spread a message</span></a>
               <div class="text">
                 <h1>Welcome,</h1>
