@@ -67,7 +67,7 @@
 							jQuery.each(objBlocks, function(nbrIndex, objValue){
 								jQuery("." + objValue.class).hide();
 							});
-							jQuery(".dash").hide();
+							jQuery(".dash-only").hide();
 							jQuery(".block-inbox").show();
 							jQuery.ajax({
 								async:true, 
@@ -126,7 +126,7 @@
 							jQuery.each(objBlocks, function(nbrIndex, objValue){
 								jQuery("." + objValue.class).show();
 							});
-							jQuery(".dash").show();
+							jQuery(".dash-only").show();
 					}
 				}
 				</script>
