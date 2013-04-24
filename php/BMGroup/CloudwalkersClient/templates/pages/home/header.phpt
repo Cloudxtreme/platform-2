@@ -161,12 +161,12 @@
                       </div>
                     </div>
                   </div>
-                  <a href="javascript:;" onclick="change_content('dash', '');" class="bottom-button">&nbsp;</a>
+                  <a href="#" class="bottom-button">&nbsp;</a>
                 </div>
               </div>
             </div>
             <div class="navigation-box">
-              <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
+              <strong class="logo"><a href="javascript:;" onclick="change_content('dash', '');">cloudwalkers speread, listen and interact</a></strong>
               <ul id="nav">
                 <li class="dash">
                 	<a href="javascript:;" onclick="change_content('dash', '');">
