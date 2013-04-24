@@ -23,6 +23,9 @@
 					position:absolute;
 					width:90px;
 				}
+				#nav li.reports{
+					display:none;
+				}
 				</style>
 				<script language="javascript" type="text/javascript">
 				var objBlocks = {
@@ -184,17 +187,17 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 								<li class="<?php echo $arrChannel['type']; ?>">
                   <a href="javascript:;" onclick="change_content('channel', '<?php echo $arrChannel['id']; ?>');">
                   	<div class="icon"><div class="label"><strong><?php echo $arrChannel['name']; ?></strong></div></div>
-                    <?php //if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php //} ?>
+                    <?php if(!(empty($arrChannel['unread']))){ ?><span class="number"><?php echo $arrChannel['unread']; ?></span><?php } ?>
                   </a>
                 </li>
 <?php 
 }
 ?>
-                <?php /*<li class="reports">
+                <li class="reports">
                   <a href="#">
                   	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
                   </a>
-                </li>*/ ?>
+                </li>
               </ul>
             </div>
           </div>
