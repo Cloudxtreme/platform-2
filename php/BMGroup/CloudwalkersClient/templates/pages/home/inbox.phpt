@@ -22,7 +22,7 @@
                           <div class="picture">
                             <img src="images/ico8.png" alt="image description" width="27" height="28" />
                           </div>
-                          <div class="post-box">
+                          <div class="post-box" style="height:inherit;">
                             <div class="title-post">
                               <span class="time">4 hours ago</span>
                               <h4>name co-worker</h4>
