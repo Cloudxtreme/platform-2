@@ -141,7 +141,7 @@
                   <div class="account-box">
                     <ul>
                       <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">logout</a></li>
-                      <li>Hi, <strong><?php echo $user['name']; ?></strong></li>
+                      <li>Hi, <strong><?php echo $user['name']; ?></strong><?php echo $GLOBALS['header-nav-active']; ?></li>
                     </ul>
                     <?php if(!(empty($user['accounts'][0]['avatar']))){ ?><a class="add-logo" href="#"><img src="<?php echo $user['accounts'][0]['avatar']; ?>" alt="image description" width="41" height="41" /></a><?php } ?>
                   </div>
@@ -192,7 +192,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
                 <li class="reports">
                   <a href="#">
-                  	<div class="icon"><div class="label"><strong>Reports<?php echo $GLOBALS['header-nav-active']; ?></strong></div></div>
+                  	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
                   </a>
                 </li>
               </ul>
