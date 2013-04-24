@@ -4,8 +4,8 @@ class BMGroup_CloudwalkersClient_Controllers_News
 {
 	public function dispatch (Neuron_Page $page)
 	{
+		$GLOBALS['header-nav-active'] = 'news';
 		$page->setContent ($this->getContent ());
-		$page->set ('header-nav-active', 'news');
 		echo $page->getOutput ();
 	}
 }

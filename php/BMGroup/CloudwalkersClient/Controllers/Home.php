@@ -4,6 +4,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 {
 	public function getContent ()
 	{
+		$GLOBALS['header-nav-active'] = 'home';
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{

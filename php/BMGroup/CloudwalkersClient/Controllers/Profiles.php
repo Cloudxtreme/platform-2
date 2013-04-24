@@ -4,8 +4,8 @@ class BMGroup_CloudwalkersClient_Controllers_Profiles
 {
 	public function dispatch (Neuron_Page $page)
 	{
+		$GLOBALS['header-nav-active'] = 'profiles';
 		$page->setContent ($this->getContent ());
-		$page->set ('header-nav-active', 'profiles');
 		echo $page->getOutput ();
 	}
 }

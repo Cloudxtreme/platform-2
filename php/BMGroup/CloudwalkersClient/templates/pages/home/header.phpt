@@ -192,7 +192,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 ?>
                 <li class="reports">
                   <a href="#">
-                  	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
+                  	<div class="icon"><div class="label"><strong>Reports<?php echo $GLOBALS['header-nav-active']; ?></strong></div></div>
                   </a>
                 </li>
               </ul>
