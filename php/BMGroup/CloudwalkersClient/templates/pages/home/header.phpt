@@ -190,11 +190,11 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
 <?php 
 }
 ?>
-                <li class="reports">
+                <?php /*<li class="reports">
                   <a href="#">
                   	<div class="icon"><div class="label"><strong>Reports</strong></div></div>
                   </a>
-                </li>
+                </li>*/ ?>
               </ul>
             </div>
           </div>
