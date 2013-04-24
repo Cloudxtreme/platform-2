@@ -122,7 +122,9 @@
 							
 							break;
 						default://dashboard
-							
+							jQuery.each(objBlocks, function(nbrIndex, objValue){
+								jQuery("." + objValue.class).show();
+							});
 					}
 				}
 				</script>
