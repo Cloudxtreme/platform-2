@@ -22,7 +22,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		//if(DEBUG) echo 'notifications<pre>' . print_r($notifications, true) . '</pre>';
 		
 		if(DEBUG){
-			$notifications2 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
+			$notifications2 = $client->get ('channel/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
 			echo 'inbox<pre>' . print_r($notifications2, true) . '</pre>';
 		
 			$notifications3 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][1]['id'] . '');
