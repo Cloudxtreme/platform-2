@@ -4,8 +4,8 @@ class BMGroup_CloudwalkersClient_Controllers_Inbox
 {
 	public function dispatch (Neuron_Page $page)
 	{
-		$page->setContent ($this->getContent ());
 		$page->set ('header-nav-active', 'inbox');
+		$page->setContent ($this->getContent ());
 		echo $page->getOutput ();
 	}
 }
