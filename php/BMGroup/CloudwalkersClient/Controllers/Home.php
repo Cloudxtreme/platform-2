@@ -18,8 +18,8 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		
     if(DEBUG) echo 'userdata<pre>' . print_r($userdata, true) . '</pre>';
 		
-		$notifications = $client->get ('account/' . $userdata['accounts'][0]['id'] . '/notifications');
-		if(DEBUG) echo 'notifications<pre>' . print_r($notifications, true) . '</pre>';
+		//$notifications = $client->get ('account/' . $userdata['accounts'][0]['id'] . '/notifications');
+		//if(DEBUG) echo 'notifications<pre>' . print_r($notifications, true) . '</pre>';
 		
 		if(DEBUG){
 			$notifications2 = $client->get ('stream/' . $userdata['accounts'][0]['channels'][0]['id'] . '');
