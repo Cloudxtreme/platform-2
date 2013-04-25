@@ -44,6 +44,20 @@
 		</p>
 
 		<table>
+			<tr>
+				<td>
+					Type
+				</td>
+
+				<td>
+					<select name="streams[<?php echo $stream['id']; ?>][type]">
+						<option value="SOCIAL" <?php if ($stream['type'] == 'SOCIAL') { echo 'selected="selected"'; } ?>>Social media</option>
+						<option value="WEB" <?php if ($stream['type'] == 'WEB') { echo 'selected="selected"'; } ?>>Web alerts</option>
+						<option value="COWORKERS" <?php if ($stream['type'] == 'COWORKERS') { echo 'selected="selected"'; } ?>>Internal, co-workers</option>
+					</select>
+				</td>
+			</tr>
+
 			<?php foreach ($stream['settings'] as $setting) { ?>
 				<tr>
 					<td>
