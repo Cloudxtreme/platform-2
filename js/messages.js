@@ -101,4 +101,3 @@ function change_content(strType, strExtra){
 	}
 }
 
-function send
