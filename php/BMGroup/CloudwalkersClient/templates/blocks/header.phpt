@@ -38,16 +38,20 @@
       <div class="holder">
         <div class="frame">
           <div class="account-box">
+          	<?php if (isset ($user)) { ?>
             <ul>
               <li><a class="login" href="<?php echo Neuron_URLBuilder::getUrl ('logout'); ?>">logout</a></li>
               <li>Hi, <strong><?php echo $user['name']; ?></strong><?php echo $GLOBALS['header-nav-active']; ?></li>
             </ul>
+            <?php } ?>
             <?php if(!(empty($user['accounts'][0]['avatar']))){ ?><a class="add-logo" href="#"><img src="<?php echo $user['accounts'][0]['avatar']; ?>" alt="image description" width="41" height="41" /></a><?php } ?>
           </div>
           <div class="button-box">
             <a href="#" class="button user-button"><span>Users</span></a>
             <div class="notification-box">
+            	<?php if (isset ($user)) { ?>
               <a href="javascript:;" onclick="change_content('notifications', '<?php echo $user['accounts'][0]['id']; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
+              <?Php } ?>
               <div class="popup">
                 <div class="popup-holder">
                   <div class="popup-frame">
@@ -76,6 +80,7 @@
           	<div class="icon"><div class="label"><strong>Dashboard</strong></div></div>
           </a>
         </li>
+        <?php if (isset ($user)) { ?>
 <?php 
 $arrChannels = array();
 foreach($user['accounts'][0]['channels'] as $arrChannel){
@@ -87,7 +92,7 @@ foreach($user['accounts'][0]['channels'] as $arrChannel){
           </a>
         </li>
 <?php 
-}
+} }
 ?>
         <li class="reports">
           <a href="#">

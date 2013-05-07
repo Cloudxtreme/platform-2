@@ -3,21 +3,21 @@
   <head>
     <title>Cloudwalkers</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link media="all" rel="stylesheet" href="css/style.css" type="text/css" />
-    <link media="all" rel="stylesheet" href="css/fancybox.css" type="text/css" />
-    <link media="all" rel="stylesheet" href="css/all.css" type="text/css" />
-    <link media="all" rel="stylesheet" href="css/jcf.css" type="text/css" />
+		<link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/style.css" type="text/css" />
+    <link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/fancybox.css" type="text/css" />
+    <link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/all.css" type="text/css" />
+    <link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/jcf.css" type="text/css" />
     <link media="all" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Titillium+Web:400,600,700,600italic,700italic" type="text/css" />
 
     <script type="text/javascript">
         var CONFIG_BASE_URL = '<?php echo BASE_URL; ?>';
     </script>
 
-    <script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery.main.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/jquery.main.js"></script>
 
 
-    <script type="text/javascript" src="js/messages.js"></script>    
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>    
 
 
     <!--[if lt IE 9]><link media="all" rel="stylesheet" href="css/ie.css" type="text/css" /><![endif]-->

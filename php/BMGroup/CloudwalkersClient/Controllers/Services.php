@@ -10,7 +10,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
-			return '<p>Please login.</p>';
+			$client->logout (Neuron_URLBuilder::getURL('login'));
 		}
 
 		// Since every use can have multiple accounts, make sure there is one selected.
