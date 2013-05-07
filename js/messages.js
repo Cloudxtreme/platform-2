@@ -72,7 +72,7 @@ function change_content(strType, strExtra){
 						{
 							var objPostClone = objCommentClone.find(".post-row.prototype").first().clone();
 							objPostClone.find(".text-post").html('<div class="picture"><img src="images/img10.jpg" alt="image description" width="93" height="68" /></div>' + objValue.body.html);
-							objPostClone.removeClass("prototype").appendTo(objCommentClone);
+							objPostClone.removeClass("prototype").appendTo(container);
 
 							messages ++;
 						}
@@ -100,3 +100,5 @@ function change_content(strType, strExtra){
 			jQuery(".dash-only").show();
 	}
 }
+
+function send
