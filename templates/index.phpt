@@ -15,9 +15,10 @@
 
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/jquery.main.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/mustache.js"></script>
 
-
-    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>    
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
 
 
     <!--[if lt IE 9]><link media="all" rel="stylesheet" href="css/ie.css" type="text/css" /><![endif]-->
