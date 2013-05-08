@@ -44,12 +44,12 @@ function change_content(strType, strExtra){
 			jQuery(".dash-only").hide();
 			jQuery(".block-inbox").show();
 
-			var container = jQuery(".block-inbox .scrollable-area");
+			var container = jQuery(".comment-box");
 
 			var loading = $(document.createElement ('div'));
 			loading.html ('<p class="loading">Loading... please wait</p>');
 
-			//container.html (loading);
+			container.append (loading);
 
 			jQuery.ajax
 			({
@@ -61,23 +61,44 @@ function change_content(strType, strExtra){
 				url: CONFIG_BASE_URL + "json/channel/" + strExtra, 
 				success:function(objData)
 				{
+					var view = Templates.message;
+
 					console.log (objData);
 
 					//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
-					var objCommentClone = jQuery(".block-inbox .scrollable-area .comment-box.prototype").first().clone();
 					var messages = 0;
+					var html;
+					var i;
 
 					jQuery.each
 					(
 						objData.channel.messages, 
 						function(nbrIndex, objValue)
 						{
-							var objPostClone = objCommentClone.find(".post-row.prototype").first().clone();
-							objPostClone.find(".text-post").html('<div class="picture"><img src="images/img10.jpg" alt="image description" width="93" height="68" /></div>');
-							objPostClone.find(".text-post").append (objValue.body.html);
-							objPostClone.removeClass("prototype").appendTo(objCommentClone);
-
 							messages ++;
+
+							var data = {};
+
+							data = objValue;
+
+							data.sortedattachments = {};
+
+							// Go trough all attachments and put them in groups
+							if (typeof (objValue.attachments) != 'undefined')
+							{
+								for (i = 0; i < objValue.attachments.length; i ++)
+								{
+									if (typeof (data.sortedattachments[objValue.attachments[i].type]) == 'undefined')
+									{
+										data.sortedattachments[objValue.attachments[i].type] = [];
+									}
+									data.sortedattachments[objValue.attachments[i].type].push(objValue.attachments[i]);
+								}
+							}
+
+							html = Mustache.render(view, data);
+
+							container.append (html);
 						}
 					);
 
@@ -85,8 +106,6 @@ function change_content(strType, strExtra){
 					{
 						container.append ('<p>No messages found.');
 					}
-
-					objCommentClone.removeClass("prototype").appendTo(container);
 							
 					loading.remove ();
 				}

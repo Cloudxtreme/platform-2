@@ -776,7 +776,8 @@ q:before, q:after{content:"";}
 	padding:0 0 0 5px;
 }
 .text-container .comment-box .post-row .post-box .comments .date > a{
-	display:inline-block;	vertical-align:top;
+	display:inline-block;
+	vertical-align:top;
 	margin:-1px 0 0 6px;
 }
 .text-container .comment-box .post-row .post-box .comments .name{
@@ -1025,7 +1026,8 @@ q:before, q:after{content:"";}
 .statistic-container .statistic-box .text-col .time > span{
 	width:2px;
 	margin:0 7px;
-	display:inline-block;	vertical-align:top;
+	display:inline-block;
+	vertical-align:top;
 	background:url(../images/separator.png) no-repeat 50% -285px;
 }
 .statistic-container .comment-box.filter-box{padding:14px 10px 16px 20px;}
@@ -1479,7 +1481,8 @@ button::-moz-focus-inner {
 .section-popup ul li{
 	letter-spacing:0;
 	font-size:14px;
-	display:inline-block;	vertical-align:top;
+	display:inline-block;
+	vertical-align:top;
 	padding:0 8px 8px 0;
 }
 .section-popup ul a{
@@ -1741,4 +1744,9 @@ button::-moz-focus-inner {
 .account-form{
 	position:relative;
 	width:782px;
+}
+
+p.link
+{
+	margin-top: 10px;
 }

@@ -13,7 +13,7 @@
 		<div class="holder">
 			<div class="frame">
 				<div class="scrollable-area">
-					<div class="comment-box prototype">
+					<div class="comment-box">
 						<div class="comment-heading">
 							<h3>Co-Workers</h3>
 						</div>

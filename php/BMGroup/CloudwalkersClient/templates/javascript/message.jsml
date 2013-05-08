@@ -1,21 +1,36 @@
-<div class="post-row prototype">
+<div class="post-row">
 	<div class="picture">
 		<img src="images/ico8.png" alt="image description" width="27" height="28" />
 	</div>
 	<div class="post-box" style="height:inherit;">
 		<div class="title-post">
 			<span class="time">4 hours ago</span>
-			<h4>name co-worker</h4>
+
+			{{#from}}
+				<h4>{{name}}</h4>
+			{{/from}}
 		</div>
 		<div class="post">
-			<h5>Title text detail</h5>
+			{{#subject}}
+				<h5>{{subject}}</h5>
+			{{/subject}}
 			<div class="holder">
 				<div class="text-post">
 					<div class="picture">
-						<img src="images/img10.jpg" alt="image description" width="93" height="68" />
+						{{#sortedattachments.image}}
+							<img src="{{url}}" alt="image description" width="93" height="68" />
+						{{/sortedattachments.image}}
 					</div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida iaculis nisl eu dapibus. ura bitur non sagittis erat. Fusce ut nulla Lo Lorem ipsum dolor sit amet, consectetur adipis cing eli t. Sed gravida iaculis nisl eu dapibus. Curabitur non sagittis erat. Fusce ut nulla Lo ...</p>
+
+					{{{body.html}}}
+
+					{{#sortedattachments.link}}
+						<p class="link">
+							<a href="{{url}}">{{url}}</a>
+						</p>
+					{{/sortedattachments.link}}
 				</div>
+
 				<div class="col-button">
 					<a href="#" class="button-post"><span>post</span></a>
 				</div>
