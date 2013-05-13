@@ -1,0 +1,33 @@
+<div class="lightbox">
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<span class="category">
+					<a href="#">
+						<img src="images/ico21.png" alt="image description" width="28" height="28" />
+					</a>
+				</span>
+				<h2>{{title}}</h2>
+			</div>
+		</div>
+	</div>
+	<div class="form-box" style="width: 400px;">
+		<div class="box-holder">
+			<div class="box-frame">
+				<form>
+					<ol>
+						{{#input.string}}
+							<li>
+								<label>{{name}}</label>
+								<input type="text" name="{{token}}" />
+							</li>
+						{{/input.string}}
+
+						<li>
+							<button type="submit">{{action.name}}</button>
+						</li>
+					</ol>
+				</form>
+			</div>
+		</div>
+	</div>

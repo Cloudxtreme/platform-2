@@ -90,7 +90,21 @@ function change_content(strType, strExtra){
 								}
 							}
 
-							html = Mustache.render(view, data);
+							html = $(Mustache.render(view, data));
+
+							// Go trough actions and add onclick event
+							jQuery.each 
+							(
+								data.actions,
+								function(nbrIndex, actionData)
+								{
+									html.find ('.action.' + actionData.token).click (function ()
+									{
+										messageAction (data, actionData);
+									})
+								}
+							);
+
 							container.append (html);
 						}
 					);
@@ -117,6 +131,51 @@ function change_content(strType, strExtra){
 			});
 			jQuery(".dash-only").show();
 	}
+}
+
+function messageAction (messagedata, actiondata)
+{
+	// Needs parameters?
+	if (actiondata.parameters.length > 0)
+	{
+		// Popup!
+		var data = {};
+
+		data.action = actiondata;
+		data.title = actiondata.name;
+
+		data.input = {};
+
+		jQuery.each (actiondata.parameters, function (i, v)
+		{
+			if (typeof (data.input[v.type]) == 'undefined')
+			{
+				data.input[v.type] = [];
+			}
+
+			data.input[v.type] = v;
+		});
+
+		var popup = Mustache.render(Templates['action-parameters'], data);
+
+		lightboxPopup (popup, function (form)
+		{
+			var input = $(form).serializeArray ();
+			doMessageAction (messagedata, actiondata.token, input);
+		});
+	}
+	else
+	{
+		// Go straight to display
+		doMessageAction (messagedata, actiondata.token);
+	}
+}
+
+function doMessageAction (message, action, input)
+{
+	// Simulating, don't want to push to real network :)
+	alert ('Doing ' + action + ' on message ' + message.id + ' with parameters in console.');
+	console.log (input);
 }
 
 function getTimeSince (date)

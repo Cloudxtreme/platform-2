@@ -33,7 +33,7 @@
 
 					{{#sortedattachments.link}}
 						<p class="link">
-							<a href="{{url}}">Link</a>
+							<a href="{{url}}" target="_BLANK">Link</a>
 						</p>
 					{{/sortedattachments.link}}
 				</div>
@@ -41,7 +41,7 @@
 				<div class="col-button">
 
 					{{#actions}}
-						<a href="#" class="button-post"><span>{{name}}</span></a>
+						<a href="#" class="button-post action {{token}}"><span>{{name}}</span></a>
 					{{/actions}}
 				</div>
 			</div>

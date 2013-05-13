@@ -29,6 +29,34 @@ function initLightbox() {
 	});
 }
 
+function lightboxPopup (html, onSubmit)
+{
+	$.fancybox
+	(
+		html,
+		{
+			padding: 0,
+			cyclic: false,
+			overlayShow: true,
+			overlayOpacity: 0.4,
+			overlayColor: '#000000',
+			titlePosition: 'inside',
+			onComplete: function(box) 
+			{
+				$('.lightbox form').submit (function (e)
+				{
+					e.preventDefault ();
+
+					if (typeof (onSubmit) != 'undefined')
+					{
+						onSubmit (e.target);
+					}
+				})
+			}
+		}
+	);
+}
+
 /* Fancybox overlay fix */
 jQuery(function(){
 	// detect device type
