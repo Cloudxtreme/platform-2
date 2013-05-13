@@ -684,6 +684,10 @@ q:before, q:after{content:"";}
 	margin:-1px -27px 0 0;
 	padding:0 0 0 14px;
 }
+.text-container .comment-box .post-row .post-box .col-button a{
+	display: block;
+	margin-bottom: 10px;
+}
 .text-container .comment-box .post-row .post-box .button-post{
 	display:block;
 	color:#464646;

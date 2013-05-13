@@ -1,10 +1,17 @@
 <div class="post-row">
 	<div class="picture">
-		<img src="images/ico8.png" alt="image description" width="27" height="28" />
+		{{#from}}
+			<img src="{{avatar}}" alt="image description" width="27" height="28" />
+		{{/from}}
+		{{^from}}
+			<img src="images/ico8.png" alt="image description" width="27" height="28" />
+		{{/from}}
 	</div>
 	<div class="post-box" style="height:inherit;">
 		<div class="title-post">
-			<span class="time">4 hours ago</span>
+			<span class="time time-since" data-date="{{date}}">
+				{{date}}
+			</span>
 
 			{{#from}}
 				<h4>{{name}}</h4>
@@ -26,13 +33,16 @@
 
 					{{#sortedattachments.link}}
 						<p class="link">
-							<a href="{{url}}">{{url}}</a>
+							<a href="{{url}}">Link</a>
 						</p>
 					{{/sortedattachments.link}}
 				</div>
 
 				<div class="col-button">
-					<a href="#" class="button-post"><span>post</span></a>
+
+					{{#actions}}
+						<a href="#" class="button-post"><span>{{name}}</span></a>
+					{{/actions}}
 				</div>
 			</div>
 		</div>

@@ -69,6 +69,12 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$input = $this->getInput ();
 		$id = isset ($input[2]) ? $input[2] : null;
 
+		if (empty ($id))
+		{
+			header ('Location: ' . Neuron_URLBuilder::getURL ('services/'));
+			return;
+		}
+
 		// Parse the input
 		if (!empty ($_POST))
 		{
@@ -78,6 +84,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
 		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount ()));
+
 		$data = $data['service'];
 		
 		$userdata = $client->get ('account/' . $this->getAccount ());
