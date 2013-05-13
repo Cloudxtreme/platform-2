@@ -174,7 +174,7 @@ function messageAction (messagedata, actiondata)
 function doMessageAction (message, action, input)
 {
 	// Simulating, don't want to push to real network :)
-	alert ('Doing "' + action + '"" on message ' + message.id + ' with parameters in console.');
+	alert ('Doing "' + action + '" on message ' + message.id + ' with parameters in console.');
 	console.log (input);
 }
 
