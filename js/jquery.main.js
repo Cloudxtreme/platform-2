@@ -1498,7 +1498,7 @@ jcf.addModule({
 		enableMouseWheel: true,
 		captureFocus: false,
 		handleNested: true,
-		alwaysKeepScrollbars: false,
+		alwaysKeepScrollbars: true,
 		autoDetectWidth: false,
 		scrollbarOptions: {},
 		focusClass:'scrollable-focus',

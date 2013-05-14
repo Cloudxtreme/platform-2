@@ -1754,3 +1754,13 @@ p.link
 {
 	margin-top: 10px;
 }
+
+.load-more
+{
+	margin-bottom: 20px;
+}
+
+.loading
+{
+	text-align: center;
+}

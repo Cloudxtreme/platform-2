@@ -44,8 +44,7 @@ function change_content(strType, strExtra){
 			jQuery(".dash-only").hide();
 			jQuery(".block-inbox").show();
 
-			var container = jQuery(".comment-box");
-			container.html ('<div class="comment-heading"><h3>Co-Workers</h3></div>');
+			var container = jQuery(".channel-container");
 
 			var loading = $(document.createElement ('div'));
 			loading.addClass ('loading');
@@ -63,6 +62,7 @@ function change_content(strType, strExtra){
 				url: CONFIG_BASE_URL + "json/channel/" + strExtra + '?records=20', 
 				success:function(objData)
 				{
+					container.html ('<div class="comment-heading"><h3>' + objData.channel.name + '</h3></div>');
 					addMessages (objData);
 				}
 			});
@@ -81,8 +81,10 @@ function change_content(strType, strExtra){
 
 function addMessages (objData)
 {
-	var container = jQuery(".comment-box");
+	var container = jQuery(".channel-container");
 	//container.html ('<div class="comment-heading"><h3>Co-Workers</h3></div>');
+
+	console.log ($('.scrollable-area'));
 
 	var view = Templates.message;
 
@@ -135,7 +137,7 @@ function addMessages (objData)
 		container.append ('<p>No messages found.');
 	}
 
-	container.append ('<div class="button-row"><a href="#"><span>more web alerts</span></a></div>');
+	container.append ('<div class="button-row load-more"><a href="#"><span>Load more</span></a></div>');
 
 	//console.log (objData);
 	container.find ('.button-row a').click (function (e)
@@ -153,7 +155,7 @@ function addMessages (objData)
 
 function loadNextMessages (strId, next)
 {
-	var container = jQuery(".comment-box");
+	var container = jQuery(".channel-container");
 	//container.html ('<div class="comment-heading"><h3>Co-Workers</h3></div>');
 
 	var loading = $(document.createElement ('div'));

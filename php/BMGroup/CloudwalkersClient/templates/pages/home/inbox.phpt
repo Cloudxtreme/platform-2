@@ -13,7 +13,7 @@
 		<div class="holder">
 			<div class="frame">
 				<div class="scrollable-area">
-					<div class="comment-box">
+					<div class="comment-box channel-container">
 					</div>
 				</div>
 			</div>
