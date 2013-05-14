@@ -63,61 +63,7 @@ function change_content(strType, strExtra){
 				url: CONFIG_BASE_URL + "json/channel/" + strExtra + '?records=20', 
 				success:function(objData)
 				{
-					var view = Templates.message;
-
-					//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
-					var messages = 0;
-					jQuery.each
-					(
-						objData.channel.messages, 
-						function(nbrIndex, data)
-						{
-							console.log (data);
-							messages ++;
-
-							data.sortedattachments = {};
-
-							// Go trough all attachments and put them in groups
-							if (typeof (data.attachments) != 'undefined')
-							{
-								for (var i = 0; i < data.attachments.length; i ++)
-								{
-									if (typeof (data.sortedattachments[data.attachments[i].type]) == 'undefined')
-									{
-										data.sortedattachments[data.attachments[i].type] = [];
-									}
-									data.sortedattachments[data.attachments[i].type].push(data.attachments[i]);
-								}
-							}
-
-							html = $(Mustache.render(view, data));
-
-							// Go trough actions and add onclick event
-							jQuery.each 
-							(
-								data.actions,
-								function(nbrIndex, actionData)
-								{
-									html.find ('.action.' + actionData.token).click (function ()
-									{
-										messageAction (data, actionData);
-									})
-								}
-							);
-
-							container.append (html);
-						}
-					);
-
-					if (messages == 0)
-					{
-						container.append ('<p>No messages found.');
-					}
-
-					container.append ('<div class="button-row"><a href="#"><span>more web alerts</span></a></div>');
-					container.find ('.loading').remove ();
-
-					updateTimers ();
+					addMessages (objData);
 				}
 			});
 			break;
@@ -131,6 +77,110 @@ function change_content(strType, strExtra){
 			});
 			jQuery(".dash-only").show();
 	}
+}
+
+function addMessages (objData)
+{
+	var container = jQuery(".comment-box");
+	//container.html ('<div class="comment-heading"><h3>Co-Workers</h3></div>');
+
+	var view = Templates.message;
+
+	//{"id":"134","body":{"html":"<p>iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh<\/p>","plaintext":"iPad in Q4 2012 opnieuw meest verkochte tablet. - http:\/\/bit.ly\/UFQDnh"},"from":[{"name":"Cloudwalkers","avatar":"https:\/\/graph.facebook.com\/272752359511949\/picture"}],"attachments":[{"url":"http:\/\/bit.ly\/UFQDnh","type":"link"},{"url":"http:\/\/platform.ak.fbcdn.net\/www\/app_full_proxy.php?app=218457351622813&v=1&size=z&cksum=a225b0f241f4b974ec469bedba2ad157&src=http%3A%2F%2Fstatic.macworld.nl%2Fthumbnails%2F88x97%2F2%2F2%2F22f40e9d3100ee605b72fc0b58a61c00.jpg","type":"image"}],"date":"2013-01-31T14:26:00+00:00","actions":[{"token":"like","name":"Like","parameters":[]},{"token":"comment","name":"Comment","parameters":[{"token":"message","name":"Message","type":"string","required":true,"max-size":140}]}],"children_count":0,"likes":0}
+	var messages = 0;
+	jQuery.each
+	(
+		objData.channel.messages, 
+		function(nbrIndex, data)
+		{
+			//console.log (data);
+			messages ++;
+
+			data.sortedattachments = {};
+
+			// Go trough all attachments and put them in groups
+			if (typeof (data.attachments) != 'undefined')
+			{
+				for (var i = 0; i < data.attachments.length; i ++)
+				{
+					if (typeof (data.sortedattachments[data.attachments[i].type]) == 'undefined')
+					{
+						data.sortedattachments[data.attachments[i].type] = [];
+					}
+					data.sortedattachments[data.attachments[i].type].push(data.attachments[i]);
+				}
+			}
+
+			html = $(Mustache.render(view, data));
+
+			// Go trough actions and add onclick event
+			jQuery.each 
+			(
+				data.actions,
+				function(nbrIndex, actionData)
+				{
+					html.find ('.action.' + actionData.token).click (function ()
+					{
+						messageAction (data, actionData);
+					})
+				}
+			);
+
+			container.append (html);
+		}
+	);
+
+	if (messages == 0)
+	{
+		container.append ('<p>No messages found.');
+	}
+
+	container.append ('<div class="button-row"><a href="#"><span>more web alerts</span></a></div>');
+
+	//console.log (objData);
+	container.find ('.button-row a').click (function (e)
+	{
+		e.preventDefault ();
+		loadNextMessages (objData.channel.id, objData.channel.next);
+
+		container.find ('.button-row').remove ();
+	});
+
+	container.find ('.loading').remove ();
+
+	updateTimers ();
+}
+
+function loadNextMessages (strId, next)
+{
+	var container = jQuery(".comment-box");
+	//container.html ('<div class="comment-heading"><h3>Co-Workers</h3></div>');
+
+	var loading = $(document.createElement ('div'));
+	loading.addClass ('loading');
+	loading.html ('<p>Loading... please wait</p>');
+
+	container.append (loading);
+
+	var srecords = "";
+	for (var key in next)
+	{
+		srecords += key + "=" + next[key] + "&";
+	}
+
+	jQuery.ajax
+	({
+		async:true, 
+		cache:false, 
+		data:"", 
+		dataType:"json", 
+		type:"get", 
+		url: CONFIG_BASE_URL + "json/channel/" + strId + '?' + srecords, 
+		success:function(objData)
+		{
+			addMessages (objData);
+		}
+	});
 }
 
 function messageAction (messagedata, actiondata)
