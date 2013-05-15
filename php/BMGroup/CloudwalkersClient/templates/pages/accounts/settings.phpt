@@ -65,7 +65,21 @@
 					</td>
 
 					<td>
-						<input type="text" name="streams[<?php echo $stream['id']; ?>][<?php echo $setting['key']; ?>]" value="<?php echo $setting['value']; ?>" />
+						<?php switch ($setting['type']) {
+							case 'checkbox':
+								
+								echo '<input type="checkbox" name="streams['.$stream['id'].']['.$setting['key'] . ']" value="1" '.($setting['value'] == 1 ? 'checked="checked"' : null).' />';
+
+							break;
+
+
+							default:
+
+								echo '<input type="text" name="streams['.$stream['id'].']['.$setting['key'].']" value="'.$setting['value'].'" />';
+
+							break;
+
+						} ?>
 					</td>
 				</tr>
 			<?php } ?>
