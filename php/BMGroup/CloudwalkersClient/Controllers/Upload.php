@@ -61,9 +61,9 @@ class BMGroup_CloudwalkersClient_Controllers_Upload
 				$data['files'][] = array 
 				(
 					'id' => $name,
-					'name' => 'pciture1',
-					'size' => 123,
-					'url' => 'http://url.com',
+					'name' => $file['name'],
+					'size' => $file['size'],
+					'url' => BASE_URL . 'public/' . $name, 
 					'thumbnail_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
 					'delete_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
 					'delete_type' => 'DELETE'
