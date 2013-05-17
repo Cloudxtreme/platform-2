@@ -1,5 +1,5 @@
 						<div class="user-container welcome-container dash-only">
-              <a href="#popup1" class="lightbox add-button"><span>Spread a message</span></a>
+              <a href="javascript:void(0);" class="add-button"><span>Spread a message</span></a>
               <div class="text">
                 <h1>Welcome,</h1>
                 <blockquote class="quote" cite="#">

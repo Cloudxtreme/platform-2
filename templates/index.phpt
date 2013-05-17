@@ -20,6 +20,10 @@
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
 
+    <script src="js/lib/uploader/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/lib/uploader/jquery.iframe-transport.js"></script>
+    <script src="js/lib/uploader/jquery.fileupload.js"></script>
+
 
     <!--[if lt IE 9]><link media="all" rel="stylesheet" href="css/ie.css" type="text/css" /><![endif]-->
 	</head>
