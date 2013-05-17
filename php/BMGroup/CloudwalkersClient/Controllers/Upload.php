@@ -47,15 +47,29 @@ class BMGroup_CloudwalkersClient_Controllers_Upload
 
 		$data['files'] = array ();
 
-		$data['files'][] = array 
-		(
-			'name' => 'pciture1',
-			'size' => 123,
-			'url' => 'http://url.com',
-			'thumbnail_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
-			'delete_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
-			'delete_type' => 'DELETE'
-		);
+		foreach ($_FILES as $file)
+		{
+			//print_r ($file);
+			$ext = explode ('.', $file['name']);
+			$ext = $ext[count ($ext) - 1];
+
+			$name = time () . mt_rand (0, 1000000) . '.' . $ext;
+
+			$uploadfile = BASEPATH . 'public/' . $name;
+			if (move_uploaded_file($file['tmp_name'], $uploadfile)) 
+			{
+				$data['files'][] = array 
+				(
+					'id' => $name,
+					'name' => 'pciture1',
+					'size' => 123,
+					'url' => 'http://url.com',
+					'thumbnail_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
+					'delete_url' => Neuron_URLBuilder::getURL ('upload/delete/'),
+					'delete_type' => 'DELETE'
+				);
+			}
+		}
 
 		return $data;
 	}

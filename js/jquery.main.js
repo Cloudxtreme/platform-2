@@ -83,7 +83,27 @@ function writeMessage ()
 
 			var element = lightboxPopup (popup, function (input)
 			{
-				console.log ($(input).serialize (true));
+				// Do the call
+				jQuery.ajax
+				({
+					async:true, 
+					cache:false, 
+					data: ($(input).serialize ()), 
+					dataType:"json", 
+					type:"post", 
+					url: CONFIG_BASE_URL + 'post/', 
+					success:function(objData)
+					{
+						if (objData.success)
+						{
+							return true;
+						}
+						else
+						{
+							alert (objData.error);
+						}
+					}
+				});
 			});
 
 			$('.lightbox form').find ('ul.channels label').click (function ()

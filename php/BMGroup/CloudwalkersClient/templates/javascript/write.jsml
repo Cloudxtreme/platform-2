@@ -68,41 +68,41 @@
 									<div class="check-columns">
 										<div class="check-col">
 											<div class="row">
-												<input id="min-a" type="checkbox" checked="checked" />
+												<input name="delay" id="min-a" type="checkbox" checked="checked" value="600" />
 												<label for="min-a">10 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-b" type="checkbox" />
+												<input id="min-b" type="checkbox" name="delay" value="3600" />
 												<label for="min-b">1 hour</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input id="min-c" type="checkbox" />
+												<input name="delay" id="min-c" type="checkbox" value="1200" />
 												<label for="min-c">20 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-d" type="checkbox" />
+												<input id="min-d" type="checkbox" name="delay" value="7200" />
 												<label for="min-d">2 hours</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input id="min-e" type="checkbox" />
+												<input name="delay" id="min-e" type="checkbox" value="1800" />
 												<label for="min-e">30 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-f" type="checkbox" />
+												<input name="delay" id="min-f" type="checkbox" value="10800" />
 												<label for="min-f">3 hours</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input id="min-g" type="checkbox" />
+												<input name="delay" id="min-g" type="checkbox" value="2700" />
 												<label for="min-g">45 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-n" type="checkbox" />
+												<input name="delay" id="min-n" type="checkbox" value="14400" />
 												<label for="min-n">4 hours</label>
 											</div>
 										</div>
@@ -112,7 +112,7 @@
 									<h3>Specific date</h3>
 									<div class="select-row">
 										<div class="select">
-											<select>
+											<select name="schedule_date">
 												<option>Day</option>
 												{{#days}}
 													<option>{{day}}</option>
@@ -120,7 +120,7 @@
 											</select>
 										</div>
 										<div class="select">
-											<select>
+											<select name="schedule_month">
 												<option>Month</option>
 												{{#months}}
 													<option>{{month}}</option>
@@ -128,7 +128,7 @@
 											</select>
 										</div>
 										<div class="select year">
-											<select>
+											<select name="schedule_year">
 												<option>Year</option>
 												{{#years}}
 													<option>{{year}}</option>
@@ -136,7 +136,7 @@
 											</select>
 										</div>
 										<div class="select year">
-											<select>
+											<select name="schedule_time">
 												<option>Time</option>
 												{{#times}}
 													<option>{{time}}</option>
@@ -144,7 +144,7 @@
 											</select>
 										</div>
 										<div class="row">
-											<input id="random" type="checkbox" />
+											<input id="random" type="checkbox" value="1" name="schedule_random" />
 											<label for="random">Random</label>
 										</div>
 									</div>
@@ -154,7 +154,7 @@
 									<div class="row-info">
 										<span>Every</span>
 										<div class="select date number">
-											<select>
+											<select name="repeat_delay_amount">
 												<option>1</option>
 												{{#days}}
 													<option>{{day}}</option>
@@ -162,7 +162,7 @@
 											</select>
 										</div>
 										<div class="select days date">
-											<select>
+											<select name="repeat_delay_unit">
 												<option value="days">Day(s)</option>
 												<option value="weeks">Week(s)</option>
 												<option value="months">Month(s)</option>
@@ -171,11 +171,11 @@
 										<div class="fixed-row">
 											<span>Timing</span>
 											<div class="row">
-												<input id="fixed" type="checkbox" />
+												<input id="fixed" type="checkbox" name="repeat_timing" value="fixed" />
 												<label for="fixed">Fixed</label>
 											</div>
 											<div class="row">
-												<input id="ra" type="checkbox" />
+												<input id="ra" type="checkbox" name="repeat_timing" value="random" />
 												<label for="ra">Random</label>
 											</div>
 										</div>
@@ -183,31 +183,31 @@
 									<div class="row-info">
 										<span class="on">On</span>
 										<div class="row">
-											<input id="monday" type="checkbox" />
+											<input id="monday" type="checkbox" name="repeat_monday" value="1" />
 											<label for="monday">Monday</label>
 										</div>
 										<div class="row">
-											<input id="tuesday" type="checkbox" />
+											<input id="tuesday" type="checkbox" name="repeat_tuesday" value="1" />
 											<label for="tuesday">Tuesday</label>
 										</div>
 										<div class="row">
-											<input id="wednesday" type="checkbox" />
+											<input id="wednesday" type="checkbox" name="repeat_wednesday" value="1" />
 											<label for="wednesday">Wednesday</label>
 										</div>
 										<div class="row">
-											<input id="thursday" type="checkbox" />
+											<input id="thursday" type="checkbox" name="repeat_thursday" value="1" />
 											<label for="thursday">Thursday</label>
 										</div>
 										<div class="row">
-											<input id="friday" type="checkbox" />
+											<input id="friday" type="checkbox" name="repeat_friday" value="1" />
 											<label for="friday">Friday</label>
 										</div>
 										<div class="row">
-											<input id="saterday" type="checkbox" />
-											<label for="saterday">Saterday</label>
+											<input id="saterday" type="checkbox" name="repeat_saturday" value="1" />
+											<label for="saterday">Saturday</label>
 										</div>
 										<div class="row">
-											<input id="sunday" type="checkbox" />
+											<input id="sunday" type="checkbox" name="repeat_sunday" value="1" />
 											<label for="sunday">Sunday</label>
 										</div>
 									</div>
@@ -215,7 +215,7 @@
 										<span>Until</span>
 										<div class="select-row">
 											<div class="select">
-												<select>
+												<select name="repeat_end_day">
 													<option>Day</option>
 													{{#days}}
 														<option>{{day}}</option>
@@ -223,7 +223,7 @@
 												</select>
 											</div>
 											<div class="select">
-												<select>
+												<select name="repeat_end_month">
 													<option>Month</option>
 													{{#months}}
 														<option>{{month}}</option>
@@ -231,7 +231,7 @@
 												</select>
 											</div>
 											<div class="select year">
-												<select>
+												<select name="repeat_end_year">
 													<option>Year</option>
 													{{#years}}
 														<option>{{year}}</option>
@@ -239,7 +239,7 @@
 												</select>
 											</div>
 											<div class="select year">
-												<select>
+												<select name="repeat_end_time">
 													<option>Time</option>
 													{{#times}}
 														<option>{{time}}</option>
