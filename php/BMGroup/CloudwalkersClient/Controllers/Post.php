@@ -41,6 +41,8 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 
 		$data['channels'] = $channels;
 
+		var_dump ($data);
+
 		// Contact the system.
 		$client->post ('message', array ('account' => 1), $data);
 
