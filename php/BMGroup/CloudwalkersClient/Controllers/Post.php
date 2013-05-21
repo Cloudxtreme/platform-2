@@ -39,7 +39,7 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		if ($message)
 			$data['body'] = $message;
 
-		$data['channels'] = $channels;
+		$data['streams'] = $channels;
 
 		// Contact the system.
 		$client->post ('message', array ('account' => 1), $data);
