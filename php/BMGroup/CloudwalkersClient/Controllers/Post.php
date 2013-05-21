@@ -142,6 +142,9 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 			$data['repeat']['end'] = date ('c', $senddate);
 		}
 
+		// Status: SCHEDULED or DRAFT
+		$data['status'] = 'SCHEDULED';
+
 		// Contact the system.
 		$client->post ('message', array ('account' => $this->getCurrentAccount ()), $data);
 
