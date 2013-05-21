@@ -28,6 +28,7 @@ function writeMessage ()
 		success:function(objData)
 		{
 			var data = {};
+			var files = [];
 
 			data.channels = [];
 			for (var i = 0; i < objData.streams.length; i ++)
@@ -83,12 +84,19 @@ function writeMessage ()
 
 			var element = lightboxPopup (popup, function (input)
 			{
+				var data = ($(input).serialize ());
+				
+				for (var i = 0; i < files.length; i ++)
+				{
+					data += '&files[]=' + escape(files[i]);
+				}
+
 				// Do the call
 				jQuery.ajax
 				({
 					async:true, 
 					cache:false, 
-					data: ($(input).serialize ()), 
+					data: data, 
 					dataType:"json", 
 					type:"post", 
 					url: CONFIG_BASE_URL + 'post/', 
@@ -150,6 +158,8 @@ function writeMessage ()
 						a.html ('Delete');
 						a.attr ('href', 'javascript:void(0);');
 
+						files.push (file.url);
+
 						a.click (function ()
 						{
 							jQuery.ajax
@@ -165,6 +175,15 @@ function writeMessage ()
 									if (objData.success)
 									{
 										p.remove ();
+
+										for (var i = 0; i < files.length; i ++)
+										{
+											if (files[i].url == file.url)
+											{
+												files.splice (i, 1);
+												break;
+											}
+										}
 									}
 								}
 							});

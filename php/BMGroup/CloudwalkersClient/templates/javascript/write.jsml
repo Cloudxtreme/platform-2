@@ -68,7 +68,7 @@
 									<div class="check-columns">
 										<div class="check-col">
 											<div class="row">
-												<input name="delay" id="min-a" type="checkbox" checked="checked" value="600" />
+												<input name="delay" id="min-a" type="checkbox" value="600" />
 												<label for="min-a">10 minutes</label>
 											</div>
 											<div class="row">
@@ -112,7 +112,7 @@
 									<h3>Specific date</h3>
 									<div class="select-row">
 										<div class="select">
-											<select name="schedule_date">
+											<select name="schedule_day">
 												<option>Day</option>
 												{{#days}}
 													<option>{{day}}</option>
@@ -155,7 +155,6 @@
 										<span>Every</span>
 										<div class="select date number">
 											<select name="repeat_delay_amount">
-												<option>1</option>
 												{{#days}}
 													<option>{{day}}</option>
 												{{/days}}
