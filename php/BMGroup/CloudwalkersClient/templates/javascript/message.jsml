@@ -41,7 +41,7 @@
 				<div class="col-button">
 
 					{{#actions}}
-						<a href="#" class="button-post action {{token}}"><span>{{name}}</span></a>
+						<a href="javascript:void(0);" class="button-post action {{token}}"><span>{{name}}</span></a>
 					{{/actions}}
 				</div>
 			</div>

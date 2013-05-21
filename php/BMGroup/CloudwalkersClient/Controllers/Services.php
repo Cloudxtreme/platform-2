@@ -52,7 +52,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$remove = Neuron_Core_Tools::getInput ('_GET', 'remove', 'int');
 		if ($remove)
 		{
-			$client->delete ('services/' . $remove, array ('account' => $this->getAccount ()));
+			$client->delete ('services/' . $remove, array ('account' => $this->getAccount (), 'refresh' => 1));
 		}
 
 		$data = $client->get ('services', array ('account' => $this->getAccount ()));
@@ -83,11 +83,11 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
-		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount ()));
+		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount (), 'refresh' => 1));
 
 		$data = $data['service'];
 		
-		$userdata = $client->get ('account/' . $this->getAccount ());
+		$userdata = $client->get ('account/' . $this->getAccount (), array ('refresh' => 1));
 		$channels = $userdata['channels'];
 
 		$page = new Neuron_Core_Template ();
@@ -118,7 +118,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 			}
 		}
 
-		$data = $client->put ('services/' . $id, array ('account' => $this->getAccount ()), $data);
+		$data = $client->put ('services/' . $id, array ('account' => $this->getAccount (), 'refresh' => 1), $data);
 	}
 
 	/**
@@ -132,12 +132,12 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		if (!empty ($addid))
 		{
 			// Add the service
-			$data = $client->post ('services', array ('account' => $this->getAccount ()), array ('id' => $addid));
+			$data = $client->post ('services', array ('account' => $this->getAccount ()), array ('id' => $addid, 'refresh' => 1));
 
 			header ('Location: ' . Neuron_URLBuilder::getURL ('services/', $data['id']));
 		}
 
-		$data = $client->get ('services/available', array ('account' => $this->getAccount ()));
+		$data = $client->get ('services/available', array ('account' => $this->getAccount (), 'refresh' => 1));
 		$data = $data['services'];
 
 		$page = new Neuron_Core_Template ();

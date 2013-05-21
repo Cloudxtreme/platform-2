@@ -3,7 +3,7 @@
 		<div class="holder">
 			<div class="frame">
 				<span class="category">
-					<a href="#">
+					<a href="javascript:void(0);">
 						<img src="images/ico21.png" alt="image description" width="28" height="28" />
 					</a>
 				</span>
