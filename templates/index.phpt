@@ -11,11 +11,44 @@
 
     <script type="text/javascript">
         var CONFIG_BASE_URL = '<?php echo BASE_URL; ?>';
+
+        var Cloudwalkers = {};
+
+
     </script>
 
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/jquery.main.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/mustache.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/underscorejs/underscore.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/backbonejs/backbone.js"></script>
+
+    <!-- Application -->
+
+        <!-- Application -->
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Cloudwalkers.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Session.js"></script>
+
+        <!-- Router -->
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Router/Router.js"></script>
+
+        <!-- Views -->
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Root.js"></script>    
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Channel.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Loading.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Header.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/MessageContainer.js"></script>
+
+        <!-- Models -->
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Account.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Message.js"></script>
+
+        <!-- Collections -->
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
+
+    <!-- /Application -->
 
     <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
@@ -30,13 +63,13 @@
     <body>
         <div id="wrapper">
             <div id="header">
-                <?php echo $header; ?>
+                <?php // echo $header; ?>
             </div>
 
             <div id="main">
                 <div class="main-holder">
                     <div id="content">
-                        <?php echo $content; ?>
+                        <?php // echo $content; ?>
                     </div>
                 </div>
             </div>
