@@ -13,9 +13,19 @@
 		<div class="holder">
 			<div class="frame">
 				<div class="scrollable-area">
+					
 					<div class="comment-box channel-container">
-						
+						<div class="comment-heading">
+							<h3>Co-Workers</h3>
+						</div>
+
+						<div class="messages-container">
+
+						</div>
 					</div>
+
+					<p class="loading">Please wait, we are loading your messages.</p>
+					<p class="load-more"><a href="javascript:void(0);">Load more</a></p>
 				</div>
 			</div>
 		</div>

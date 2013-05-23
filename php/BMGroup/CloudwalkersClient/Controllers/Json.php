@@ -17,6 +17,8 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 			return array ('error' => array ('message' => 'You are not authenticated.'));
 		}
 
+		session_commit ();
+
 		$data = $this->getInput ();
 		array_shift ($data);
 
