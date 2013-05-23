@@ -41,6 +41,7 @@
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/MessageContainer.js"></script>
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Write.js"></script>
 
         <!-- Models -->
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
@@ -71,7 +72,20 @@
             <div id="main">
                 <div class="main-holder">
                     <div id="content">
-                        <?php // echo $content; ?>
+                    
+                        <div class="user-container welcome-container">
+                            <a href="javascript:void(0);" class="add-button"><span>Spread a message</span></a>
+                            <div class="text">
+                                <h1>Welcome,</h1>
+                                <blockquote class="quote" cite="#">
+                                    <q>“Social Media is about sociology and psychology more than technology.”</q>
+                                    <cite>- by Brain Solis -</cite>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div id="inner-content"></div>
+
                     </div>
                 </div>
             </div>

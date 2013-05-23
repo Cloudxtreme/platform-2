@@ -48,9 +48,9 @@
 								<div class="row row2"><input type="text" name="url" value="URL" /></div>
 								<div class="row row3"><input type="text" name="tags" value="Tags" /></div>
 								<div class="row-file">
-									<input id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}/upload" multiple />
+									<input id="fileupload" class="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}/upload" multiple />
 
-									<div id="fileupload-feedback"></div>
+									<div class="fileupload-feedback" id="fileupload-feedback"></div>
 								</div>
 								<div class="row-file"><a href="#" class="past">Past file</a></div>
 							</div>

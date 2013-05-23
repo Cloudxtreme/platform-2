@@ -2,6 +2,7 @@ Cloudwalkers.Session =
 {
 	'user' : null,
 	'account' : null,
+	'streams' : null,
 
 	'call' : function (method, get, post, callback)
 	{
@@ -73,13 +74,34 @@ Cloudwalkers.Session =
 			if (self.user.getAccounts ().length > 0)
 			{
 				self.setAccount (self.user.getAccounts ()[0]);
-				finalcallback ();
+
+				self.loadStreams (function ()
+				{
+					finalcallback ();
+				});
 			}
 			else
 			{
 				alert ('Your user is not linked to any account. Please contact an administrator.');
 			}
 		});
+	},
+
+	'loadStreams' : function (callback)
+	{
+		var finalcallback = callback;
+		var self = this;
+
+		this.call ('account/' + this.getAccount ().id + '/streams', {}, {}, function (data)
+		{
+			self.streams = data.streams;
+			callback ();
+		});
+	},
+
+	'getStreams' : function ()
+	{
+		return this.streams;
 	}
 }
 

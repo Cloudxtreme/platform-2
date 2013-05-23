@@ -2,203 +2,13 @@
 jQuery(function(){
 	jcf.customForms.replaceAll();
 	initLightbox();
-	initPopups();
 	initInputs();
-	initWritePopup ();
 });
 
-function initWritePopup ()
-{
-	$('a.add-button').click (function ()
-	{
-		writeMessage ();
-	});
-}
 
 function writeMessage ()
 {
-	jQuery.ajax
-	({
-		async:true, 
-		cache:false, 
-		data:"", 
-		dataType:"json", 
-		type:"get", 
-		url: CONFIG_BASE_URL + "json/account/1/streams", 
-		success:function(objData)
-		{
-			var data = {};
-			var files = [];
 
-			data.channels = [];
-			for (var i = 0; i < objData.streams.length; i ++)
-			{
-				if (objData.streams[i].direction.OUTGOING == 1)
-				{
-					data.channels.push (objData.streams[i]);
-				}
-			}
-
-			data.BASE_URL = CONFIG_BASE_URL;
-
-			// 31 days
-			data.days = [];
-			data.months = [];
-			data.years = [];
-			data.times = [];
-			for (var i = 1; i <= 31; i ++)
-			{
-				data.days.push ({ 'day' : i });
-			}
-
-			// 12 months
-			for (i = 1; i <= 12; i ++)
-			{
-				data.months.push ({ 'month' : i });
-			}
-
-			// 10 years
-			for (i = 0; i < 10; i ++)
-			{
-				data.years.push ({ 'year' : (new Date()).getFullYear () + i });
-			}
-
-			// 24 hours
-			var hour;
-			var minutes;
-			for (i = 0; i < 24; i += 0.25)
-			{
-				hour = Math.floor (i);
-				minutes = (i - Math.floor (i)) * 60;
-
-				if (hour < 10)
-					hour = '0' + hour;
-
-				if (minutes < 10)
-					minutes = '0' + minutes;
-
-				data.times.push ({ 'time' :  hour + ':' + minutes })
-			}
-
-			var popup = Mustache.render(Templates['write'], data);
-
-			var element = lightboxPopup (popup, function (input)
-			{
-				var data = ($(input).serialize ());
-				
-				for (var i = 0; i < files.length; i ++)
-				{
-					data += '&files[]=' + escape(files[i]);
-				}
-
-				// Do the call
-				jQuery.ajax
-				({
-					async:true, 
-					cache:false, 
-					data: data, 
-					dataType:"json", 
-					type:"post", 
-					url: CONFIG_BASE_URL + 'post/', 
-					success:function(objData)
-					{
-						if (objData.success)
-						{
-							return true;
-						}
-						else
-						{
-							alert (objData.error);
-						}
-					}
-				});
-			});
-
-			$('.lightbox form').find ('ul.channels label').click (function ()
-			{
-				var element = $(this);
-				setTimeout (function ()
-				{
-					var checkbox = $('.lightbox form').find ('input[type=checkbox]#' + element.attr ('for'));
-
-					if (checkbox.is (':checked'))
-					{
-						element.addClass ('active');
-						element.removeClass ('inactive');
-					}
-					else
-					{
-						element.addClass ('inactive');
-						element.removeClass ('active');	
-					}
-				}, 1);
-			});
-
-			$('.lightbox form').find ('ul.channels input[type=checkbox]').hide ();
-			$('.lightbox form').find ('ul.channels label').addClass ('inactive');
-
-			$('.lightbox form').find ('h2.schedule-message-title').click (function ()
-			{
-				$('.lightbox form').find ('div.schedule-message-container').toggle ();
-			});
-
-			$('.lightbox form').find ('div.schedule-message-container').hide ();
-
-			$('.lightbox form #fileupload').fileupload
-			({
-				dataType: 'json',
-				done: function (e, data) 
-				{
-					$.each(data.result.files, function (index, file) 
-					{
-						var p = $(document.createElement ('p'));
-						var a = $(document.createElement ('a'));
-
-						p.append (file.name + ' ');
-						a.html ('Delete');
-						a.attr ('href', 'javascript:void(0);');
-
-						files.push (file.url);
-
-						a.click (function ()
-						{
-							jQuery.ajax
-							({
-								async:true, 
-								cache:false, 
-								data:"", 
-								dataType:"json", 
-								type:"get", 
-								url: file.delete_url, 
-								success:function(objData)
-								{
-									if (objData.success)
-									{
-										p.remove ();
-
-										for (var i = 0; i < files.length; i ++)
-										{
-											if (files[i].url == file.url)
-											{
-												files.splice (i, 1);
-												break;
-											}
-										}
-									}
-								}
-							});
-						});
-
-						p.append (a);
-
-						$('#fileupload-feedback').append (p);
-					});
-				}
-			});
-
-			jcf.customForms.replaceAll();
-		}
-	});
 }
 
 // fancybox modal popup init
@@ -223,40 +33,6 @@ function initLightbox() {
 		});
 	});
 }
-
-/*
-function lightboxPopup (domelement, onSubmit)
-{
-	$.fancybox
-	(
-		'',
-		{
-			content : domelement,
-			padding: 0,
-			cyclic: false,
-			overlayShow: true,
-			overlayOpacity: 0.4,
-			overlayColor: '#000000',
-			titlePosition: 'inside',
-			onComplete: function(box) 
-			{
-				$('.lightbox form').submit (function (e)
-				{
-					e.preventDefault ();
-
-					if (typeof (onSubmit) != 'undefined')
-					{
-						if (onSubmit (e.target))
-						{
-							$.fancybox.close ();
-						}
-					}
-				})
-			}
-		}
-	);
-}
-*/
 
 /* Fancybox overlay fix */
 jQuery(function(){
@@ -293,13 +69,6 @@ jQuery(function(){
 		head.appendChild(style);
 	}
 });
-
-// popups init
-function initPopups() {
-	/*jQuery('.notification-box').contentPopup({
-		mode: 'click'
-	});*/
-}
 
 // clear inputs on focus
 function initInputs() {

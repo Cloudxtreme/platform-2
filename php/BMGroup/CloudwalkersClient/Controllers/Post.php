@@ -148,6 +148,6 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		// Contact the system.
 		$client->post ('message', array ('account' => $this->getCurrentAccount ()), $data);
 
-		return array ('success' => false, 'error' => 'Message is scheduled.');
+		return array ('success' => true, 'error' => 'Message is scheduled.');
 	}
 }

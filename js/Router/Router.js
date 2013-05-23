@@ -7,7 +7,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'initialize' : function ()
 	{
-		
+		//console.log ('init');
 	},
 
 	'dashboard' : function ()
@@ -18,7 +18,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'channel' : function (id)
 	{
 		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
-		console.log (channeldata);
 
 		var channel = new Cloudwalkers.Collections.Channel 
 		(
