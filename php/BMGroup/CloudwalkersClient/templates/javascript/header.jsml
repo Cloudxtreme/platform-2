@@ -53,7 +53,7 @@
             <a href="#" class="button user-button"><span>Users</span></a>
             <div class="notification-box">
             	<?php if (isset ($user)) { ?>
-              <a href="javascript:;" onclick="change_content('notifications', '<?php echo $user['accounts'][0]['id']; ?>');" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
+              <a href="#notfications" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
               <?Php } ?>
               <div class="popup">
                 <div class="popup-holder">
@@ -79,7 +79,7 @@
       <strong class="logo"><a href="#">cloudwalkers speread, listen and interact</a></strong>
       <ul id="nav">
         <li class="dash">
-        	<a href="javascript:;" onclick="change_content('dash', '');">
+        	<a href="#">
           	<div class="icon"><div class="label"><strong>Dashboard</strong></div></div>
           </a>
         </li>

@@ -33,6 +33,28 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.trigger ('view:change');
 	},
 
+	'popup' : function (view)
+	{
+		$.fancybox
+		(
+			'<p>Please wait, we are loading your content.</p>',
+			{
+				content : view.render ().el,
+				padding: 0,
+				cyclic: false,
+				overlayShow: true,
+				overlayOpacity: 0.4,
+				overlayColor: '#000000',
+				titlePosition: 'inside',
+			}
+		);
+
+		view.on ('popup:close', function ()
+		{
+			$.fancybox.close ();
+		});
+	},
+
 	'setAccount' : function (account)
 	{
 		

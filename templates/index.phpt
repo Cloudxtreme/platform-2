@@ -40,6 +40,7 @@
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/MessageContainer.js"></script>
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
 
         <!-- Models -->
         <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>

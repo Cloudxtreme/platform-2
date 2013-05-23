@@ -52,8 +52,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		}
 		else
 		{
-			// First load, load 20 records
-			var parameters = { 'records' : 20 };
+			// First load, load 50 records
+			var parameters = { 'records' : 50 };
 		}
 
 		var fetch_url = CONFIG_BASE_URL + 'json/channel/' + this.id + '?' + jQuery.param (parameters);

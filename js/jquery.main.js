@@ -224,12 +224,14 @@ function initLightbox() {
 	});
 }
 
-function lightboxPopup (html, onSubmit)
+/*
+function lightboxPopup (domelement, onSubmit)
 {
 	$.fancybox
 	(
-		html,
+		'',
 		{
+			content : domelement,
 			padding: 0,
 			cyclic: false,
 			overlayShow: true,
@@ -254,6 +256,7 @@ function lightboxPopup (html, onSubmit)
 		}
 	);
 }
+*/
 
 /* Fancybox overlay fix */
 jQuery(function(){

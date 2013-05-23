@@ -1,3 +1,5 @@
+/*
+
 var objBlocks = {
 	"inbox":{ "class":"block-inbox", "display":true }, 
 	"links":{ "class":"block-links", "display":true }, 
@@ -227,6 +229,8 @@ function doMessageAction (message, action, input)
 	alert ('Doing "' + action + '" on message ' + message.id + ' with parameters in console.');
 	console.log (input);
 }
+
+*/
 
 function getTimeSince (date)
 {

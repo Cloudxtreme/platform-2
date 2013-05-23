@@ -1,5 +1,10 @@
 Cloudwalkers.Views.Message = Backbone.View.extend({
 
+	'events' : 
+	{
+		'click .button-post.action' : 'messageAction'
+	},
+
 	'className' : 'message-view',
 
 	'render' : function ()
@@ -25,6 +30,28 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		updateTimers ();
 
 		return this;
+	},
+
+	'messageAction' : function (element)
+	{
+		var action = $(element.currentTarget).attr ('data-action');
+		
+		action = this.model.getAction (action);
+		if (action)
+		{
+			if (action.parameters.length > 0)
+			{
+				var view = new Cloudwalkers.Views.ActionParameters ({
+					'message' : this.model,
+					'action' : action
+				});
+				Cloudwalkers.RootView.popup (view);
+			}
+			else
+			{
+				this.model.act (action, {});
+			}
+		}
 	}
 
 });
