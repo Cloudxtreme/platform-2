@@ -26,7 +26,7 @@ Cloudwalkers.Views.Channel = Backbone.View.extend({
 		var self = this;
 		var data = {};
 
-		data.title = 'Inbox';
+		data.title = this.options.channel.name;
 
 		$(this.el).html (Mustache.render (Templates.messagecontainer, data));
 

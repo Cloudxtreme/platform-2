@@ -17,7 +17,18 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'channel' : function (id)
 	{
-		var channel = new Cloudwalkers.Collections.Channel ([], { 'id' : id });
+		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
+		console.log (channeldata);
+
+		var channel = new Cloudwalkers.Collections.Channel 
+		(
+			[], 
+			{ 
+				'id' : id, 
+				'name' : channeldata.name
+			}
+		);
+
 		var view = new Cloudwalkers.Views.Channel ({ 'channel' : channel });
 
 		Cloudwalkers.RootView.setView (view);

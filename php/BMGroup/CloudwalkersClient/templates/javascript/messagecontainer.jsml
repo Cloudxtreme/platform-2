@@ -16,7 +16,7 @@
 					
 					<div class="comment-box channel-container">
 						<div class="comment-heading">
-							<h3>Co-Workers</h3>
+							<h3>{{title}}</h3>
 						</div>
 
 						<div class="messages-container">

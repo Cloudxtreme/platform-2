@@ -2,12 +2,14 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'id' : null,
 	'model' : Cloudwalkers.Models.Message,
+	'name' : null,
 
 	'nextPageParameters' : null,
 
 	'initialize' : function (models, options)
 	{
 		this.id = options.id;
+		this.name = options.name;
 	},
 
 	'loadMore' : function (options)
