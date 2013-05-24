@@ -6,6 +6,7 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 	{
 		$data = $this->getData ();
 		header ('Content-type: application/json');
+
 		echo json_encode ($data);
 	}
 
@@ -20,6 +21,13 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		if (!$client->isLogin ())
 		{
 			return array ('error' => array ('message' => 'You are not authenticated.'));
+		}
+
+		// Is remove?
+		if (isset ($_GET['remove']))
+		{
+			$result = $client->delete ('message/' . $_GET['remove'], array (), array ());
+			return array ('success' => $result ? true : false, 'error' => 'Something went wrong while removing.', 'result' => $result);
 		}
 
 		$message = Neuron_Core_Tools::getInput ('_POST', 'message', 'varchar');

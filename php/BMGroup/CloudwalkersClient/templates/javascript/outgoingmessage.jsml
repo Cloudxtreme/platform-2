@@ -1,0 +1,43 @@
+<div class="post-row">
+	<div class="picture">
+		{{#from}}
+			<img src="{{avatar}}" alt="image description" width="27" height="28" />
+		{{/from}}
+		{{^from}}
+			<img src="images/ico8.png" alt="image description" width="27" height="28" />
+		{{/from}}
+	</div>
+	<div class="post-box" style="height:inherit;">
+		<div class="title-post">
+			<h4>{{humandate}}</h4>
+		</div>
+		<div class="post">
+			{{#subject}}
+				<h5>{{subject}}</h5>
+			{{/subject}}
+			<div class="holder">
+				<div class="text-post">
+					<div class="picture">
+						{{#sortedattachments.image}}
+							<img src="{{url}}" alt="image description" width="93" height="68" />
+						{{/sortedattachments.image}}
+					</div>
+
+					{{{body.html}}}
+
+					{{#sortedattachments.link}}
+						<p class="link">
+							<a href="{{url}}" target="_BLANK">Link</a>
+						</p>
+					{{/sortedattachments.link}}
+				</div>
+
+				<div class="col-button">
+					<a href="javascript:void(0);" class="button-post action edit"><span>Edit</span></a>
+
+					<a href="javascript:void(0);" class="button-post action delete"><span>Delete</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -81,9 +81,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			}
 		}
 
-		console.log (schedule);
-		console.log (out);
-
 		return out;
 	}
 
