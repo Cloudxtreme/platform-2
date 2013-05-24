@@ -48,7 +48,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 				//self.$el.find ('.comment-box').html ('');
 				//self.addAll ();
 				self.$el.find ('.loading').hide ();
-				this.$el.find ('.load-more').show ();
+				self.$el.find ('.load-more').show ();
 			}
 		});
 
@@ -59,7 +59,17 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 	{
 		var index = message.collection.indexOf (message);
 
-		var messageView = new Cloudwalkers.Views.Message ({ 'model' : message });
+		var messageView;
+
+		if (message.get ('type') == 'OUTGOING')
+		{
+			messageView = new Cloudwalkers.Views.OutgoingMessage ({ 'model' : message });
+		}
+		else
+		{
+			messageView = new Cloudwalkers.Views.Message ({ 'model' : message });
+		}
+
 		var element = messageView.render ().el;
 
 		if (index === 0)

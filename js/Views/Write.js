@@ -35,21 +35,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		data.years = [];
 		data.times = [];
 		for (var i = 1; i <= 31; i ++)
-		{
 			data.days.push ({ 'day' : i });
-		}
 
 		// 12 months
 		for (i = 1; i <= 12; i ++)
-		{
 			data.months.push ({ 'month' : i });
-		}
 
 		// 10 years
 		for (i = 0; i < 10; i ++)
-		{
 			data.years.push ({ 'year' : (new Date()).getFullYear () + i });
-		}
 
 		// 24 hours
 		var hour;
@@ -68,10 +62,38 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data.times.push ({ 'time' :  hour + ':' + minutes })
 		}
 
+		console.log (this.model);
+
+		// Data
+		if (this.model)
+		{
+			data.message = this.model.attributes;
+
+			// Attachments
+			data.attachments = {};
+			for (var i = this.model.get ('attachments'); i < this.model.get ('attachments').length; i ++)
+			{
+				data.attachments[this.model.get ('attachments').type] = this.model.get ('attachments').src;
+			}
+		}
+
+		console.log (data);
+
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
 
-		self.$el.find(' form').find ('ul.channels label').click (function ()
+		self.afterRender ();
+
+		console.log (data);
+
+		return this;
+	},
+
+	'afterRender' : function ()
+	{
+		var self = this;
+
+		self.$el.find('form').find ('ul.channels label').click (function ()
 		{
 			var element = $(this);
 			setTimeout (function ()
@@ -152,8 +174,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				});
 			}
 		});
-
-		return this;
 	},
 
 	'submit' : function (e)

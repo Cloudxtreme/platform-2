@@ -77,6 +77,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
 	},
 
+	'editMessage' : function (model)
+	{
+		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model }));
+	},
+
 	'setAccount' : function (account)
 	{
 		

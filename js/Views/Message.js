@@ -7,9 +7,12 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'className' : 'message-view',
 
+	'template' : 'message',
+
 	'render' : function ()
 	{
 		var data = this.model.attributes;
+		data.humandate = this.model.humandate();
 
 		data.sortedattachments = {};
 
@@ -26,10 +29,10 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			}
 		}
 
-		$(this.el).html (Mustache.render (Templates.message, data));
+		$(this.el).html (Mustache.render (Templates[this.template], data));
 		updateTimers ();
 
-		console.log (this.model.attributes);
+		//console.log (this.model.attributes);
 
 		return this;
 	},
@@ -54,6 +57,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				this.model.act (action, {});
 			}
 		}
+	},
+
+	'afterRender' : function ()
+	{
+
 	}
 
 });

@@ -40,11 +40,13 @@
 							<div class="message-col">
 								<h2>2. Write your message</h2>
 								<div class="total-text"><span>Total characters: 23</span></div>
-								<div class="textarea"><textarea cols="30" rows="10" name="message">Spread your message in the social world ...</textarea></div>
+								<div class="textarea">
+									<textarea cols="30" rows="10" name="message">{{#message.body}}{{message.body.plaintext}}{{/message.body}}{{^message.body}}Spread your message in the social world ...{{/message.body}}</textarea>
+								</div>
 							</div>
 							<div class="message-info">
 								<h2>3. Add options</h2>
-								<div class="row row1"><input type="text" name="title" value="Add a title to post" /></div>
+								<div class="row row1"><input type="text" name="title" value="{{message.subject}}{{^message.subject}}Add a title to post{{/message.subject}}" /></div>
 								<div class="row row2"><input type="text" name="url" value="URL" /></div>
 								<div class="row row3"><input type="text" name="tags" value="Tags" /></div>
 								<div class="row-file">
