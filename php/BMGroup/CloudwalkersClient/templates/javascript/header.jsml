@@ -70,6 +70,8 @@
                 </div>
               </div>
             </div>
+
+            <a href="#schedule" class="button user-button"><span>Scheduled messages</span></a>
           </div>
           <a href="#" class="bottom-button">&nbsp;</a>
         </div>

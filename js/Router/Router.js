@@ -2,6 +2,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
 		'channel/:id' : 'channel',
+		'schedule' : 'schedule',
 		'*path' : 'dashboard'
 	},
 
@@ -13,6 +14,21 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'dashboard' : function ()
 	{
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard ());	
+	},
+
+	'schedule' : function ()
+	{
+		var channel = new Cloudwalkers.Collections.Scheduled
+		(
+			[], 
+			{ 
+				'name' : 'Scheduled messages'
+			}
+		);
+
+		var view = new Cloudwalkers.Views.Channel ({ 'channel' : channel });
+
+		Cloudwalkers.RootView.setView (view);
 	},
 
 	'channel' : function (id)

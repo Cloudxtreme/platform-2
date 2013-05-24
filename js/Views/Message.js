@@ -29,6 +29,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		$(this.el).html (Mustache.render (Templates.message, data));
 		updateTimers ();
 
+		console.log (this.model.attributes);
+
 		return this;
 	},
 
