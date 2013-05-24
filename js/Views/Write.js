@@ -29,21 +29,61 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		data.BASE_URL = CONFIG_BASE_URL;
 
+		var scheduledate = this.model && this.model.scheduledate ();
+		var schedulerepeat = this.model ? this.model.repeat () : false;
+
 		// 31 days
 		data.days = [];
 		data.months = [];
 		data.years = [];
 		data.times = [];
+
+		data.endrepeat = 
+		{
+			'days' : [],
+			'months' : [],
+			'years' : []
+		};
+
 		for (var i = 1; i <= 31; i ++)
-			data.days.push ({ 'day' : i });
+		{
+			data.days.push ({ 'day' : i, 'checked' : (scheduledate && scheduledate.getDate () == i ) });
+			data.endrepeat.days.push ({ 'day' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getDate () == i ) });
+		}
 
 		// 12 months
 		for (i = 1; i <= 12; i ++)
-			data.months.push ({ 'month' : i });
+		{
+			data.months.push ({ 'month' : i, 'checked' : (scheduledate && scheduledate.getMonth () == (i - 1) ) });
+			data.endrepeat.months.push ({ 'month' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getMonth () == (i - 1) ) });
+		}
 
 		// 10 years
+		var value = null;
 		for (i = 0; i < 10; i ++)
-			data.years.push ({ 'year' : (new Date()).getFullYear () + i });
+		{
+			value = (new Date()).getFullYear () + i;
+			data.years.push ({ 'year' : value, 'checked' : (scheduledate && scheduledate.getFullYear () == value ) });
+			data.endrepeat.years.push ({ 'year' : value, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
+			//data.endrepeat.years.push ({ 'year' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
+		}
+
+		// Weekdays
+		data.weekdays = [];
+
+		var weekdays = [ 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' ];
+		for (var i = 0; i < weekdays.length; i ++)
+		{
+			var name = weekdays[i];
+			var f = name.charAt(0).toUpperCase();
+			name = f + name.substr(1);
+
+			data.weekdays.push ({
+				'name' : name,
+				'weekday' : weekdays[i],
+				'checked' : (schedulerepeat && schedulerepeat.weekdays && schedulerepeat.weekdays[weekdays[i].toUpperCase ()])
+			})
+		}
 
 		// 24 hours
 		var hour;
@@ -59,10 +99,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			if (minutes < 10)
 				minutes = '0' + minutes;
 
-			data.times.push ({ 'time' :  hour + ':' + minutes })
+			data.times.push ({ 'time' :  hour + ':' + minutes, 'checked' : ( scheduledate && scheduledate.getHours () == hour && scheduledate.getMinutes () == minutes ) })
 		}
-
-		console.log (this.model);
 
 		// Data
 		if (this.model)
@@ -71,20 +109,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			// Attachments
 			data.attachments = {};
-			for (var i = this.model.get ('attachments'); i < this.model.get ('attachments').length; i ++)
+
+			if (this.model.get ('attachments'))
 			{
-				data.attachments[this.model.get ('attachments').type] = this.model.get ('attachments').src;
+				for (var i = 0; i < this.model.get ('attachments').length; i ++)
+				{
+					data.attachments[this.model.get ('attachments').type] = this.model.get ('attachments').src;
+				}
 			}
 		}
-
-		console.log (data);
 
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
 
 		self.afterRender ();
-
-		console.log (data);
 
 		return this;
 	},
@@ -189,6 +227,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data += '&files[]=' + escape(this.files[i]);
 		}
 
+		var url = CONFIG_BASE_URL + 'post/';
+		if (this.model)
+		{
+			url += '?id=' + this.model.get ('id');
+		}
+
 		// Do the call
 		jQuery.ajax
 		({
@@ -197,7 +241,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data: data, 
 			dataType:"json", 
 			type:"post", 
-			url: CONFIG_BASE_URL + 'post/', 
+			url: url, 
 			success:function(objData)
 			{
 				if (objData.success)

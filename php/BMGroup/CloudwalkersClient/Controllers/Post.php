@@ -145,9 +145,20 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		// Status: SCHEDULED or DRAFT
 		$data['status'] = 'SCHEDULED';
 
-		// Contact the system.
-		$client->post ('message', array ('account' => $this->getCurrentAccount ()), $data);
 
-		return array ('success' => true, 'error' => 'Message is scheduled.');
+		// If id is provided, this is an update.
+		$id = Neuron_Core_Tools::getInput ('_GET', 'id', 'int');
+
+		// Contact the system.
+		if ($id)
+		{
+			$result = $client->put ('message/' . $id, array ('account' => $this->getCurrentAccount ()), $data);
+		}
+		else
+		{
+			$result = $client->post ('message', array ('account' => $this->getCurrentAccount ()), $data);
+		}
+
+		return array ('success' => true, 'error' => 'Message is scheduled.', 'result' => $result);
 	}
 }

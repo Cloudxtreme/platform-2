@@ -31,6 +31,60 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		console.log (parameters);
 
 		alert ('To be implemented.');
+	},
+
+	'scheduledate' : function ()
+	{
+		var schedule = this.get ('schedule');
+		var time = (new Date());
+
+		if (schedule)
+		{
+			if (schedule.date == 'ASAP')
+			{
+				// Do nothing
+			}
+
+			else
+			{
+				time = (new Date(schedule.date));
+			}
+		}
+
+		return time;
+	},
+
+	'repeat' : function ()
+	{
+		var schedule = this.get ('schedule');
+
+		var out = {};
+
+		out.weekdays = {};
+		out.interval = 0;
+		out.unit = 'days';
+		out.end = null;
+
+		if (schedule.repeat)
+		{
+			if (schedule.repeat.end)
+			{
+				out.end = new Date(schedule.repeat.end);
+			}
+
+			if (schedule.repeat.weekdays)
+			{
+				for (var i = 0; i < schedule.repeat.weekdays.length; i ++)
+				{
+					out.weekdays[schedule.repeat.weekdays[i]] = true;
+				}
+			}
+		}
+
+		console.log (schedule);
+		console.log (out);
+
+		return out;
 	}
 
 });

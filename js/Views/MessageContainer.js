@@ -4,6 +4,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		'click .load-more a' : 'loadMore'
 	},
 
+	'canLoadMore' : true,
+
 	'loadMore' : function ()
 	{
 		var self = this;
@@ -48,7 +50,9 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 				//self.$el.find ('.comment-box').html ('');
 				//self.addAll ();
 				self.$el.find ('.loading').hide ();
-				self.$el.find ('.load-more').show ();
+
+				if (this.canLoadMore)
+					self.$el.find ('.load-more').show ();
 			}
 		});
 
