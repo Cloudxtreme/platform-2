@@ -17,6 +17,7 @@ Cloudwalkers.Views.OutgoingMessage = Cloudwalkers.Views.Message.extend({
 
 	'delete' : function ()
 	{
+		var self = this;
 		var url = 'post/?remove=' + this.model.get ('id');
 
 		if (confirm ('Are you sure you want to remove this message?'))
@@ -29,7 +30,9 @@ Cloudwalkers.Views.OutgoingMessage = Cloudwalkers.Views.Message.extend({
 				url: url, 
 				success:function(objData)
 				{
-					alert ('The message is removed.');
+					var collection = self.model.collection;
+					collection.reset ();
+					collection.fetch ();
 				}
 			});
 		}

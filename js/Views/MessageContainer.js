@@ -6,6 +6,14 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 	'canLoadMore' : true,
 
+	'initialize' : function (options)
+	{
+		if (typeof (options.canLoadMore))
+		{
+			this.canLoadMore = options.canLoadMore;
+		}
+	},
+
 	'loadMore' : function ()
 	{
 		var self = this;
@@ -37,6 +45,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
         this.options.channel.bind('add', this.addOne, this);
         this.options.channel.bind('refresh', this.refresh, this);
+        this.options.channel.bind('reset', this.refresh, this);
 
 		// Fetch!
 		this.options.channel.fetch ({
@@ -51,8 +60,11 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 				//self.addAll ();
 				self.$el.find ('.loading').hide ();
 
-				if (this.canLoadMore)
+				if (self.canLoadMore)
 					self.$el.find ('.load-more').show ();
+
+				if (self.options.channel.length == 0)
+					self.$el.find ('.messages-container').html ('<p>Currently there are no messages.</p>');
 			}
 		});
 
@@ -94,6 +106,11 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 	{
 		this.$el.find ('.messages-container').html ('');
 		this.options.channel.each (this.addOne, this);
+
+		if (this.options.channel.length == 0)
+		{
+			this.$el.find ('.messages-container').html ('<p>Currently there are no messages.</p>');
+		}
 	}
 
 });
