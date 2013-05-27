@@ -1186,37 +1186,44 @@ q:before, q:after{content:"";}
 	background:url(../images/bg-social.png) no-repeat 0 -797px;
 }
 
-.filter-col .open-box ul .ico6
+.filter-col .open-box ul .ico6,
+.filter-col .open-box ul .icon
 {
 	background:url(../images/bg-social.png) no-repeat 0 -381px;
 }
 
-.filter-col .open-box ul .ico1
+.filter-col .open-box ul .ico1,
+.filter-col .open-box ul .twitter
 {
 	background:url(../images/bg-social.png) no-repeat 0 -212px;
 }
 
-.filter-col .open-box ul .ico2
+.filter-col .open-box ul .ico2,
+.filter-col .open-box ul .facebook
 {
 	background:url(../images/bg-social.png) no-repeat 0 -247px;
 }
 
-.filter-col .open-box ul .ico3
+.filter-col .open-box ul .ico3,
+.filter-col .open-box ul .linkedin
 {
 	background:url(../images/bg-social.png) no-repeat 0 -279px;
 }
 
-.filter-col .open-box ul .ico4
+.filter-col .open-box ul .ico4,
+.filter-col .open-box ul .googleplus
 {
 	background:url(../images/bg-social.png) no-repeat 0 -311px;
 }
 
-.filter-col .open-box ul .ico5
+.filter-col .open-box ul .ico5,
+.filter-col .open-box ul .tumblr
 {
 	background:url(../images/bg-social.png) no-repeat 0 -347px;
 }
 
-.filter-col .open-box ul .ico7
+.filter-col .open-box ul .ico7,
+.filter-col .open-box ul .youtube
 {
 	background:url(../images/bg-social.png) no-repeat 0 -417px;
 }

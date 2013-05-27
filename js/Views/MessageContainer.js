@@ -5,12 +5,18 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 	},
 
 	'canLoadMore' : true,
+	'hasFilter' : true,
 
 	'initialize' : function (options)
 	{
-		if (typeof (options.canLoadMore))
+		if (typeof (options.canLoadMore) != 'undefined')
 		{
 			this.canLoadMore = options.canLoadMore;
+		}
+
+		if (typeof (options.hasFilter) != 'undefined')
+		{
+			this.hasFilter = options.hasFilter;
 		}
 	},
 
@@ -67,6 +73,10 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 					self.$el.find ('.messages-container').html ('<p>Currently there are no messages.</p>');
 			}
 		});
+
+		// Add filer
+		var filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
+		$('#content').append (filterview.render ().el);
 
 		return this;
 	},

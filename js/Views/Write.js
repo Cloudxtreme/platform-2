@@ -18,12 +18,26 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			'streams' : Cloudwalkers.Session.getStreams ()
 		};
 
+		// Stream map
+		var streammap = {};
+		if (this.model && this.model.get ('streams'))
+		{
+			for (var i = 0; i < this.model.get ('streams').length; i ++)
+			{
+				streammap[this.model.get ('streams')[i].id] = true;
+			}
+		}
+
 		data.channels = [];
 		for (var i = 0; i < objData.streams.length; i ++)
 		{
 			if (objData.streams[i].direction.OUTGOING == 1)
 			{
-				data.channels.push (objData.streams[i]);
+				var tmp = objData.streams[i];
+
+				tmp.checked = typeof (streammap[objData.streams[i].id]) != 'undefined';
+
+				data.channels.push (tmp);
 			}
 		}
 
