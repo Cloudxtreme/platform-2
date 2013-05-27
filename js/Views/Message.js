@@ -2,7 +2,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'events' : 
 	{
-		'click .button-post.action' : 'messageAction'
+		'click .button-post.action' : 'messageAction',
+		'click .children-button' : 'showchildren'
 	},
 
 	'className' : 'message-view',
@@ -62,6 +63,12 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	'afterRender' : function ()
 	{
 
+	},
+
+	'showchildren' : function ()
+	{
+		var view = new Cloudwalkers.Views.Comments ({ 'parent' : this.model });
+		this.$el.find ('.comment-container').html (view.render ().el);
 	}
 
 });

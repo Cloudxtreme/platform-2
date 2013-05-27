@@ -44,6 +44,14 @@
 						<a href="javascript:void(0);" class="button-post action" data-action="{{token}}"><span>{{name}}</span></a>
 					{{/actions}}
 				</div>
+
+				<div class="col-button like-button">
+					<a href="javascript:void(0)" class="button-post children-button"><span>{{children_count}} <strong>comments</strong></span></a>
+				</div>
+			</div>
+
+			<div class="frame comment-container">
+
 			</div>
 		</div>
 	</div>

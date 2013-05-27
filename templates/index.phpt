@@ -44,6 +44,8 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Write.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Filter.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comments.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comment.js"></script>
 
 		<!-- Models -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
