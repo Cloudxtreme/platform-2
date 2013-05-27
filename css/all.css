@@ -1138,7 +1138,9 @@ q:before, q:after{content:"";}
 	color:#758081;
 	font-weight:400;
 }
-.filter-col .open-box ul a.white{
+.filter-col .open-box ul a.white,
+.filter-col .open-box ul a.off
+{
 	border-color:#e9ebeb;
 	color:#b6bbbc;
 }

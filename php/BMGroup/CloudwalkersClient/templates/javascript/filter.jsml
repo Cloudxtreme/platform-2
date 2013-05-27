@@ -14,7 +14,7 @@
 			<div class="frame">
 				<div class="comment-box filter-box">
 					<div class="filter-col">
-						<span class="green-button filter-row">View all<a href="#" class="button on">on</a></span>
+						<span class="green-button filter-row">View all<a href="javascript:void(0);" class="button view-all on">on</a></span>
 					</div>
 
 					<!--
@@ -24,12 +24,12 @@
 					-->
 
 					<div class="filter-col open-col">
-						<span class="filter-row">Social Media<a href="#" class="button">on</a></span>
+						<span class="filter-row">Social Media<a href="javascript:void(0);" class="button social-media on">on</a></span>
 						<div class="open-box">
 							<h3>Select profile</h3>
 							<ul>
 								{{#channels}}
-									<li><a href="#" class="icon {{network}}">{{name}}</a></li>
+									<li><a href="javascript:void(0);" class="icon {{network}} channel off" data-id="{{id}}">{{name}}</a></li>
 								{{/channels}}
 
 								<!--
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<div class="filter-col">
-						<span class="filter-row">Web Alert<a href="#" class="button off">off</a></span>
+						<span class="filter-row">Web Alert<a href="javascript:void(0);" class="button web-alerts on">on</a></span>
 					</div>
 				</div>
 			</div>

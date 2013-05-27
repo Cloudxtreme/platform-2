@@ -6,6 +6,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'nextPageParameters' : null,
 
+	'filters' : {},
+
 	'initialize' : function (models, options)
 	{
 		this.id = options.id;
@@ -58,6 +60,11 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 			var parameters = { 'records' : 50 };
 		}
 
+		for (var filter in this.filters)
+		{
+			parameters[filter] = this.filters[filter].join (',');
+		}
+
 		var fetch_url = CONFIG_BASE_URL + 'json/channel/' + this.id + '?' + jQuery.param (parameters);
 
 		// Default JSON-request options.
@@ -69,6 +76,14 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 		// Make the request.
 		return $.ajax(params);
+	},
+
+	'setFilters' : function (filters)
+	{
+		this.filters = filters;
+		
+		this.reset ();
+		this.fetch ();
 	}
 
 });

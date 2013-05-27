@@ -76,7 +76,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 		// Add filer
 		var filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
-		$('#content').append (filterview.render ().el);
+		this.$el.append (filterview.render ().el);
 
 		return this;
 	},

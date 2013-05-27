@@ -150,7 +150,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			var element = $(this);
 			setTimeout (function ()
 			{
-				var checkbox = self.$el.find(' form').find ('input[type=checkbox]#' + element.attr ('for'));
+				var checkbox = self.$el.find('form').find ('input[type=checkbox]#' + element.attr ('for'));
 
 				if (checkbox.is (':checked'))
 				{
@@ -162,7 +162,32 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					element.addClass ('inactive');
 					element.removeClass ('active');
 				}
-			}, 1);
+			}, 100);
+		}).each (function ()
+		{
+			var label = $(this);
+
+			setTimeout (function ()
+			{
+				var checkbox = self.$el.find('form').find ('input[type=checkbox]#' + label.attr ('for'));
+
+				checkbox.each (function ()
+				{
+					var input = $(this);
+					console.log (input);
+
+					if (input.is (':checked'))
+					{
+						label.addClass ('active');
+						label.removeClass ('inactive');
+					}
+					else
+					{
+						label.addClass ('inactive');
+						label.removeClass ('active');
+					}
+				});
+			}, 100);
 		});
 
 		self.$el.find('form').find ('ul.channels input[type=checkbox]').hide ();
