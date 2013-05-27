@@ -51,10 +51,12 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Account.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Message.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Comment.js"></script>
 
 		<!-- Collections -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Scheduled.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
 
 	<!-- /Application -->
 

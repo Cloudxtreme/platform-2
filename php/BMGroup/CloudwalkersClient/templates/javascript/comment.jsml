@@ -1,0 +1,20 @@
+<div class="foto">
+	{{#comment.from}}
+	<a href="#">
+		<img src="{{avatar}}" alt="image description" width="40" height="40">
+	</a>
+	{{/comment.from}}
+</div>
+<div class="text">
+	<div class="title">
+		<em class="date">{{comment.humandate}}<a href="#"><img src="images/ico15.png" alt="image description" width="15" height="15"></a></em>
+
+		{{#comment.from}}
+			<strong class="name"><a href="javascript:void(0);">{{name}}</a></strong>
+		{{/comment.from}}
+	</div>
+	<div class="text-row">
+		<a href="#" class="button-post"><span>{{comment.likes}} Likes</span></a>
+		<p>{{{comment.body.html}}}</p>
+	</div>
+</div>

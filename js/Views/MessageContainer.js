@@ -57,7 +57,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		this.options.channel.fetch ({
 			'error' : function (e)
 			{
-				alert ('Error');
+				//alert ('Error');
 				console.log (e);
 			},
 			'success' : function (e)

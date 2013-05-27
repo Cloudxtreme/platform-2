@@ -1,0 +1,19 @@
+<div class="frame-comments">
+	<div class="comments">
+		
+		<!--
+		<div class="comments-row">
+			<div class="textarea-title">
+				<span class="col">104 from 209</span>
+				<strong class="view">View other comments</strong>
+			</div>
+			<form action="#" class="comment-form">
+				<fieldset>
+					<div class="foto"><a href="#"><img src="images/img11.png" alt="image description" width="40" height="40"></a></div>
+					<div class="textarea"><textarea cols="30" rows="10">This is a place where you can type a comment ...</textarea></div>
+				</fieldset>
+			</form>
+		</div>
+		-->
+	</div>
+</div>
