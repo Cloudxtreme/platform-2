@@ -1,5 +1,5 @@
 <div class="text-post">
-	<a href="#" class="button-details"><span>details</span></a>
+	<a href="javascript:void(0);" class="button-details"><span>details</span></a>
 	<div class="picture">
 		<a href="#">
 			<img src="images/img7.png" alt="image description" width="53" height="53">
@@ -10,7 +10,7 @@
 			<span>{{user.name}}</span>
 		</div>
 		<ul class="category-list">
-			<!--<li><a href="#">Function</a></li>-->
+			<li><a href="#">{{user.function}}</a></li>
 		</ul>
 	</div>
 </div>

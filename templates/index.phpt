@@ -48,6 +48,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comment.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Users.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
 
 		<!-- Models -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>

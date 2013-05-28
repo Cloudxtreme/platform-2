@@ -6,8 +6,8 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 	{
 		var self = this;
 
-		var administrators = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
-		var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 10 }});
+		var administrators = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 10 }});
+		var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
 
 		this.addUserContainer ('Administrators', administrators);
 		this.addUserContainer ('Co-Workers', users);

@@ -1,0 +1,22 @@
+<div class="lightbox">
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<span class="category">
+					<a href="javascript:void(0);">
+						<img src="images/ico21.png" alt="image description" width="28" height="28" />
+					</a>
+				</span>
+				<h2>{{title}}</h2>
+			</div>
+		</div>
+	</div>
+	<div class="form-box" style="width: 400px;">
+		<div class="box-holder">
+			<div class="box-frame">
+				
+				<p>User detailts to be defined here.</p>
+
+			</div>
+		</div>
+	</div>

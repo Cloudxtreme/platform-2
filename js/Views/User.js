@@ -1,5 +1,10 @@
 Cloudwalkers.Views.User = Backbone.View.extend({
 
+	'events' : 
+	{
+		'click .button-details' : 'openDetails'
+	},
+
 	'render' : function ()
 	{
 		var self = this;
@@ -10,5 +15,11 @@ Cloudwalkers.Views.User = Backbone.View.extend({
 		self.$el.html (Mustache.render (Templates.user, data));
 
 		return this;
+	},
+
+	'openDetails' : function ()
+	{
+		var view = new Cloudwalkers.Views.UserDetails ({ 'model' : this.model });
+		Cloudwalkers.RootView.popup (view);
 	}
 });
