@@ -57,6 +57,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Scheduled.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Drafts.js"></script>
 
 	<!-- /Application -->
 

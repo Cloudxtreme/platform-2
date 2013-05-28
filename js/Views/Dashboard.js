@@ -8,7 +8,7 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 	{
 		var self = this;
 
-		self.$el.html ('<p>Please wait, we are loading the dashboard.</p>');
+		self.$el.html ('<p>Please wait, we are loading the dashboard. This could take some time...</p>');
 
 		Cloudwalkers.Session.call 
 		(
@@ -19,8 +19,6 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 			null, 
 			function (data)
 			{
-				console.log (data);
-
 				self.$el.html (Mustache.render (Templates.dashboard, data));
 
 				// types

@@ -71,7 +71,8 @@
               </div>
             </div>
 
-            <a href="#schedule" class="button user-button"><span>Scheduled messages</span></a>
+            <a href="#schedule" class="button user-button"><span>Scheduled</span></a>
+            <a href="#drafts" class="button user-button"><span>Drafts</span></a>
           </div>
           <a href="#" class="bottom-button">&nbsp;</a>
         </div>
