@@ -1,5 +1,9 @@
 Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 
+	'events' : {
+		'click a.write-message-link' : 'writeMessage'
+	},
+
 	'render' : function ()
 	{
 		var self = this;
@@ -63,11 +67,18 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 	{
 		for (var i = 0; i < messages.length; i ++)
 		{
-			var model = new Cloudwalkers.Models.OutgoingMessage (messages[i]);
-			var view = new Cloudwalkers.Views.Message ({ 'model' : model });
+			var model = new Cloudwalkers.Models.Message (messages[i]);
+			var view = new Cloudwalkers.Views.OutgoingMessage ({ 'model' : model });
 
 			this.$el.find ('.schedule-container').append (view.render ().el);
 		}
+
+		this.$el.find ('.schedule-container').append ('<div class="button-row"><a href="#schedule"><span>view more scheduled messages</span></a></div>');
+	},
+
+	'writeMessage' : function (e)
+	{
+		Cloudwalkers.RootView.writeMessage (e);
 	}
 
 });
