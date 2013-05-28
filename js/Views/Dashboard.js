@@ -15,17 +15,24 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 			null, 
 			function (data)
 			{
+				console.log (data);
+
 				self.$el.html (Mustache.render (Templates.dashboard, data));
 
+				// types
 				for (var i = 0; i < data.types.length; i ++)
 				{
 					self.addMessages (data.types[i].name, data.types[i].messages)
 				}
 
+				// channels
 				for (var i = 0; i < data.channels.length; i ++)
 				{
 					self.addMessages (data.channels[i].name, data.channels[i].messages, '#channel/' + data.channels[i].id);
 				}
+
+				// schedule
+				self.addSchedule (data.schedule);
 
 				jcf.customForms.replaceAll();
 			}
@@ -49,6 +56,17 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 		if (typeof (more) != 'undefined')
 		{
 			this.$el.find ('.messages-container').append ('<div class="button-row"><a href="' + more + '"><span>more from ' + type + '</span></a></div>');
+		}
+	},
+
+	'addSchedule' : function (messages)
+	{
+		for (var i = 0; i < messages.length; i ++)
+		{
+			var model = new Cloudwalkers.Models.OutgoingMessage (messages[i]);
+			var view = new Cloudwalkers.Views.Message ({ 'model' : model });
+
+			this.$el.find ('.schedule-container').append (view.render ().el);
 		}
 	}
 
