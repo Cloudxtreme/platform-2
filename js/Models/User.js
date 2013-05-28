@@ -5,12 +5,15 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		var accountmodels = [];
 		var accounts = this.get ('accounts');
 
-		for (var i = 0; i < accounts.length; i ++)
+		if (accounts)
 		{
-			accountmodels.push (new Cloudwalkers.Models.Account (accounts[i]));
-		}
+			for (var i = 0; i < accounts.length; i ++)
+			{
+				accountmodels.push (new Cloudwalkers.Models.Account (accounts[i]));
+			}
 
-		this.set ('accountmodels', accountmodels);
+			this.set ('accountmodels', accountmodels);
+		}
 	},
 
 	'getAccounts' : function ()

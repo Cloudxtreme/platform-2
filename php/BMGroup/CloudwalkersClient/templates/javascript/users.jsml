@@ -1,0 +1,23 @@
+<div class="text-container">
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<span class="category">
+					<a href="#"><img src="images/ico1.png" alt="image description" width="25" height="28"></a>
+				</span>
+				<h2>{{title}}</h2>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="holder">
+			<div class="frame">
+				<div class="scrollable-area" style="height: 400px;">
+					<div class="loading"><p>Please wait, we are loading the page.</p></div>
+
+					<div class="message-container"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

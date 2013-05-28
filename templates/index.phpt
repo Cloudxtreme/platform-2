@@ -46,18 +46,22 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Filter.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comments.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comment.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Users.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
 
 		<!-- Models -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Account.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Message.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Comment.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
 
 		<!-- Collections -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Scheduled.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Drafts.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Users.js"></script>
 
 	<!-- /Application -->
 

@@ -50,7 +50,7 @@
             {{/account}}
           </div>
           <div class="button-box">
-            <a href="#" class="button user-button"><span>Users</span></a>
+            <a href="#users" class="button user-button"><span>Users</span></a>
             <div class="notification-box">
             	<?php if (isset ($user)) { ?>
               <a href="#notfications" class="button open"><span><strong style="margin-left:-18px;"><em class="notification-amount"><?php echo $user['accounts'][0]['notifications']['unread']; ?></em></strong>&nbsp;&nbsp;Notifications</span></a>
