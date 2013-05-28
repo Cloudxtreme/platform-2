@@ -22,15 +22,22 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 
 				for (var i = 0; i < data.types.length; i ++)
 				{
-					self.addType (data.types[i].name, data.types[i].messages)
+					self.addMessages (data.types[i].name, data.types[i].messages)
 				}
+
+				for (var i = 0; i < data.channels.length; i ++)
+				{
+					self.addMessages (data.channels[i].name, data.channels[i].messages, '#channel/' + data.channels[i].id);
+				}
+
+				jcf.customForms.replaceAll();
 			}
 		);
 
 		return this;
 	},
 
-	'addType' : function (type, messages)
+	'addMessages' : function (type, messages, more)
 	{
 		this.$el.find ('.messages-container').append ('<div class="comment-heading"><h3>' + type + '</h3></div>');
 
@@ -40,6 +47,11 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 			var view = new Cloudwalkers.Views.Message ({ 'model' : model });
 
 			this.$el.find ('.messages-container').append (view.render ().el);
+		}
+
+		if (typeof (more) != 'undefined')
+		{
+			this.$el.find ('.messages-container').append ('<div class="button-row"><a href="' + more + '"><span>more from ' + type + '</span></a></div>');
 		}
 	}
 
