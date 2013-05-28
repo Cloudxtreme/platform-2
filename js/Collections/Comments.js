@@ -42,7 +42,8 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 		options.success = function (response)
 		{
 			// Set the next page
-			self.nextPageParameters  = response.message.next;
+			self.nextPageParameters  = response.next;
+			console.log (self.nextPageParameters);
 
 			//console.log (response);
 			passtrough (response.message.children);
