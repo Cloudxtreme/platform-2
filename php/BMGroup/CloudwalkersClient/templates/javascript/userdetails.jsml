@@ -15,7 +15,26 @@
 		<div class="box-holder">
 			<div class="box-frame">
 				
-				<p>User detailts to be defined here.</p>
+				<form>
+					<ol>
+						<li>
+							<label for="name">Name</label>
+							<input type="text" name="name" value="{{user.name}}" id="name" />
+						</li>
+
+						<li>
+							<label for="level">Clearance level</label>
+							<select id="level" name="level">
+								<option value="0">Employee</option>
+								<option value="10">Administrator</option>
+							</select>
+						</li>
+
+						<li>
+							<button type="submit">Save</button>
+						</li>
+					</ol>
+				</form>
 
 			</div>
 		</div>

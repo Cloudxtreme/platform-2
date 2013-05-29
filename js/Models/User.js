@@ -16,6 +16,11 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 	},
 
+	'url' : function ()
+	{
+		return CONFIG_BASE_URL + 'json/account/' + this.get ('account') + '/users/' + this.get ('id');
+	},
+
 	'getAccounts' : function ()
 	{
 		return this.get ('accountmodels');
