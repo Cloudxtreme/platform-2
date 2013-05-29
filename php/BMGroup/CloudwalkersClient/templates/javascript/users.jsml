@@ -12,6 +12,7 @@
 	<div class="container">
 		<div class="holder">
 			<div class="frame">
+
 				<div class="scrollable-area" style="height: 400px;">
 					<div class="loading"><p>Please wait, we are loading the page.</p></div>
 

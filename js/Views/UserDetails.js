@@ -9,8 +9,19 @@ Cloudwalkers.Views.UserDetails = Backbone.View.extend({
 		var self = this;
 		var data = {};
 
+		var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
+
 		data.user = this.model.attributes;
 		data.title = data.user.name;
+
+		data.levels = [];
+		for (var i = 0; i < levels.length; i ++)
+		{
+			var tmp = levels[i];
+			tmp.checked = this.model.get ('level') == levels[i].level;
+
+			data.levels.push (tmp);
+		}
 
 		self.$el.html (Mustache.render (Templates.userdetails, data));
 
@@ -29,7 +40,6 @@ Cloudwalkers.Views.UserDetails = Backbone.View.extend({
 			userdata[data[i].name] = data[i].value;
 		}
 
-		this.model.set ('name', userdata.name);
 		this.model.set ('level', userdata.level);
 		this.model.save 
 		(
@@ -39,8 +49,8 @@ Cloudwalkers.Views.UserDetails = Backbone.View.extend({
 				{
 					self.trigger ('popup:close');
 					var collection = self.model.collection;
-					collection.reset ();
-					collection.fetch ();
+
+					collection.trigger ('reset:all');
 				}
 		});
 	}

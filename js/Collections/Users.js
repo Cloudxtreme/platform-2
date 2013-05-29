@@ -10,10 +10,6 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'sync' : function(method, model, options) 
 	{
-		console.log (method);
-		console.log (model);
-		console.log (options);
-
 		var self = this;
 		var passtrough = options.success;
 		options.success = function (response)

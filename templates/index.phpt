@@ -49,6 +49,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Users.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
 
 		<!-- Models -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
