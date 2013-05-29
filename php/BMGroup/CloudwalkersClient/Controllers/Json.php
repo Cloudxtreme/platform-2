@@ -28,7 +28,7 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		unset ($_GET['rewritepagemodule']);
 
-		$entityBody = file_get_contents('php://input');
+		$entityBody = stripslashes (file_get_contents('php://input'));
 		$method = isset ($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 
 		switch (strtolower ($method))
