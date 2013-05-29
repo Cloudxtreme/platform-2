@@ -1,0 +1,33 @@
+<div class="lightbox">
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<span class="category">
+					<a href="javascript:void(0);">
+						<img src="images/ico21.png" alt="image description" width="28" height="28" />
+					</a>
+				</span>
+				<h2>Invite user</h2>
+			</div>
+		</div>
+	</div>
+	<div class="form-box" style="width: 400px;">
+		<div class="box-holder">
+			<div class="box-frame">
+				
+				<form>
+					<ol>
+						<li>
+							<label for="email">Email</label>
+							<input type="text" name="email" id="email" />
+						</li>
+
+						<li>
+							<button type="submit">Invite user</button>
+						</li>
+					</ol>
+				</form>
+
+			</div>
+		</div>
+	</div>

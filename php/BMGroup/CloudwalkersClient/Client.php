@@ -239,6 +239,7 @@ class BMGroup_CloudwalkersClient_Client
 
 		$data = objectToArray ($data);
 
+		/*
 		if (isset ($data['error']))
 		{
 			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
@@ -254,6 +255,7 @@ class BMGroup_CloudwalkersClient_Client
 
 			exit;	
 		}
+		*/
 		
 		return $data;
 	}
