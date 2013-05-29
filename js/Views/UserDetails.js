@@ -19,6 +19,7 @@ Cloudwalkers.Views.UserDetails = Backbone.View.extend({
 
 	'submit' : function (e)
 	{
+		var self = this;
 		e.preventDefault ();
 
 		var data = $(e.target).serializeArray ();
@@ -30,6 +31,17 @@ Cloudwalkers.Views.UserDetails = Backbone.View.extend({
 
 		this.model.set ('name', userdata.name);
 		this.model.set ('level', userdata.level);
-		this.model.save ();
+		this.model.save 
+		(
+			{},
+			{
+				'success' : function ()
+				{
+					self.trigger ('popup:close');
+					var collection = self.model.collection;
+					collection.reset ();
+					collection.fetch ();
+				}
+		});
 	}
 });
