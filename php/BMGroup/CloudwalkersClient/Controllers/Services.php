@@ -2,13 +2,18 @@
 class BMGroup_CloudwalkersClient_Controllers_Services
 	extends BMGroup_CloudwalkersClient_Controllers_Base
 {
+	public function dispatch (Neuron_Page $page)
+	{
+		$page = new Neuron_Core_Template ();
+		$page->set ('content', $this->getContent ());
+		echo $page->parse ('modules/cloudwalkersclient/setting-index.phpt');
+	}
+
 	/**
 	* Return the HTML that will be put in the body.
 	*/
 	public function getContent ()
 	{
-		$GLOBALS['header-nav-active'] = 'services';
-
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
