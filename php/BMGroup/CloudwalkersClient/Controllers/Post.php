@@ -66,7 +66,8 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		{
 			foreach ($_POST['files'] as $file)
 			{
-				$attachments[] = array ('data' => base64_encode (file_get_contents ($file)), 'type' => 'image');
+				//$attachments[] = array ('data' => base64_encode (file_get_contents ($file)), 'type' => 'image');
+				$attachments[] = array ('url' =>$file, 'type' => 'image');
 			}
 		}
 
