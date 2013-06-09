@@ -259,7 +259,18 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		var self = this;
 		var form = self.$el.find(e.currentTarget);
-		var data = (self.$el.find(form).serialize ());
+
+		if (form.find ('input[name=title]').val () == 'Add a title to post')
+		{
+			form.find ('input[name=title]').val ('');	
+		}
+
+		if (form.find ('input[name=url]').val () == 'URL')
+		{
+			form.find ('input[name=url]').val ('');	
+		}
+
+		var data = (form.serialize ());
 		
 		for (var i = 0; i < this.files.length; i ++)
 		{
@@ -286,6 +297,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				if (objData.success)
 				{
 					self.trigger ('popup:close');
+					Cloudwalkers.Session.trigger ('message:add');
 					return true;
 				}
 				else

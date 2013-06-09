@@ -53,6 +53,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
         this.options.channel.bind('refresh', this.refresh, this);
         this.options.channel.bind('reset', this.refresh, this);
 
+        Cloudwalkers.Session.bind ('message:add', function () { self.options.channel.reset (); self.options.channel.fetch (); }, this)
+
 		// Fetch!
 		this.options.channel.fetch ({
 			'error' : function (e)
@@ -77,6 +79,13 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		// Add filer
 		var filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
 		this.$el.append (filterview.render ().el);
+
+		// Auth refresh
+		setInterval (function ()
+		{
+			self.options.channel.reset (); 
+			self.options.channel.fetch ();
+		}, 1000 * 60);
 
 		return this;
 	},
