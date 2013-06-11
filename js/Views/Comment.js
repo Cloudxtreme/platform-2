@@ -6,7 +6,7 @@ Cloudwalkers.Views.Comment = Backbone.View.extend({
 	{
 		var data = {};
 
-		console.log (this.model.attributes);
+		//console.log (this.model.attributes);
 
 		data.comment = this.model.attributes;
 		data.comment.humandate = this.model.humandate ();

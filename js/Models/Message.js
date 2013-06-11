@@ -27,10 +27,31 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			parameters = {};
 		}
 
-		console.log ('Contacting ' + action.name + ' with parameters:');
-		console.log (parameters);
+		//console.log ('Contacting ' + action.name + ' with parameters:');
+		//console.log (parameters);
 
-		alert ('To be implemented.');
+		var data = {
+			'actions' : [
+				{
+					'token' : action.token,
+					'parameters' : parameters
+				}
+			]
+		};
+
+		// Do the call
+		jQuery.ajax
+		({
+			data: JSON.stringify (data), 
+			dataType:"json", 
+			type:"put", 
+			url: CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '?account=' + Cloudwalkers.Session.getAccount ().get ('id'), 
+			processData : false,
+			success:function(objData)
+			{
+				console.log (objData);
+			}
+		});
 	},
 
 	'scheduledate' : function ()

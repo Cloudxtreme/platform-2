@@ -43,7 +43,7 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 		{
 			// Set the next page
 			self.nextPageParameters  = response.next;
-			console.log (self.nextPageParameters);
+			//console.log (self.nextPageParameters);
 
 			//console.log (response);
 			passtrough (response.message.children);
@@ -64,11 +64,11 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 			parameters[filter] = this.filters[filter].join (',');
 		}
 
-		var fetch_url = CONFIG_BASE_URL + 'json/message/' + this.id + '?' + jQuery.param (parameters);
+		var fetch_url = CONFIG_BASE_URL + 'json/message/' + this.id + '?account=' + Cloudwalkers.Session.getAccount ().get ('id') + '&' + jQuery.param (parameters);
 
 		// Default JSON-request options.
 		var params = _.extend({
-			type:         'POST',
+			type:         'GET',
 			dataType:     'json',
 			url:			method == 'read' ? fetch_url : '',
 		}, options);
