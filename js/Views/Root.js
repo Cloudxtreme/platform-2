@@ -7,6 +7,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'initialize' : function ()
 	{
+		var self = this;
+
 		this.bind ('view:change', this.render, this);
 
 		this.header = new Cloudwalkers.Views.Header ();
@@ -19,6 +21,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			{
 				jcf.customForms.replaceAll();
 			}, 1);
+
+			self.updatePlaceholder ();
 		});
 
 		$('.add-button').click (this.writeMessage);
@@ -85,6 +89,34 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'setAccount' : function (account)
 	{
 		
+	},
+
+	'updatePlaceholder' : function ()
+	{
+		if(!Modernizr.input.placeholder){
+
+			$('[placeholder]').focus(function() {
+			  var input = $(this);
+			  if (input.val() == input.attr('placeholder')) {
+				input.val('');
+				input.removeClass('placeholder');
+			  }
+			}).blur(function() {
+			  var input = $(this);
+			  if (input.val() == '' || input.val() == input.attr('placeholder')) {
+				input.addClass('placeholder');
+				input.val(input.attr('placeholder'));
+			  }
+			}).blur();
+			$('[placeholder]').parents('form').submit(function() {
+			  $(this).find('[placeholder]').each(function() {
+				var input = $(this);
+				if (input.val() == input.attr('placeholder')) {
+				  input.val('');
+				}
+			  })
+			});
+		}
 	}
 
 });

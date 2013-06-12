@@ -1873,3 +1873,8 @@ p.link
 	clear: left;
 	padding-top: 10px;
 }
+
+ul.channels .chk-area
+{
+	display: none;
+}

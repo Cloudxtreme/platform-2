@@ -10,6 +10,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'template' : 'message',
 
+	'commentsVisible' : false,
+
 	'render' : function ()
 	{
 		var data = this.model.attributes;
@@ -67,8 +69,20 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'showchildren' : function ()
 	{
-		var view = new Cloudwalkers.Views.Comments ({ 'parent' : this.model });
-		this.$el.find ('.comment-container').html (view.render ().el);
+		if (this.commentsVisible)
+		{
+			this.commentsVisible = false;
+
+			// Hide
+			this.$el.find ('.comment-container').hide ();
+		}
+		else
+		{
+			this.commentsVisible = true;
+
+			var view = new Cloudwalkers.Views.Comments ({ 'parent' : this.model });
+			this.$el.find ('.comment-container').html (view.render ().el).show ();
+		}
 	}
 
 });
