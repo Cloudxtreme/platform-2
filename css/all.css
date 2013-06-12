@@ -1878,3 +1878,8 @@ ul.channels .chk-area
 {
 	display: none;
 }
+
+.placeholder
+{
+	color: yellow;
+}
