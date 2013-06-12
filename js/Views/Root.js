@@ -93,7 +93,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'updatePlaceholder' : function ()
 	{
-		/*
 		if(!Modernizr.input.placeholder){
 
 			$('[placeholder]').focus(function() {
@@ -118,7 +117,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			  })
 			});
 		}
-		*/
 	}
 
 });
