@@ -170,7 +170,7 @@
 										<span>Every</span>
 										<div class="select date number">
 											<select name="repeat_delay_amount">
-												<option value="0">Never repeat</option>
+												<option value="0">Never</option>
 												{{#days}}
 													<option>{{day}}</option>
 												{{/days}}
