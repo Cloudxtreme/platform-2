@@ -41,13 +41,13 @@
 								<h2>2. Write your message</h2>
 								<div class="total-text"><span>Total characters: 23</span></div>
 								<div class="textarea">
-									<textarea cols="30" rows="10" name="message">{{#message.body}}{{message.body.plaintext}}{{/message.body}}{{^message.body}}Spread your message in the social world ...{{/message.body}}</textarea>
+									<textarea cols="30" rows="10" name="message" placeholder="Spread your message in the social world...">{{#message.body}}{{message.body.plaintext}}{{/message.body}}</textarea>
 								</div>
 							</div>
 							<div class="message-info">
 								<h2>3. Add options</h2>
 								<div class="row row1"><input type="text" name="title" placeholder="Add a title to post" value="{{message.subject}}" /></div>
-								<div class="row row2"><input type="text" name="url" value="{{#message.sortedattachments.link}}{{url}}{{/message.sortedattachments.link}}{{^message.sortedattachments.link}}URL{{/message.sortedattachments.link}}" /></div>
+								<div class="row row2"><input type="text" name="url" placeholder="URL" value="{{#message.sortedattachments.link}}{{url}}{{/message.sortedattachments.link}}" /></div>
 								<!--<div class="row row3"><input type="text" name="tags" value="Tags" /></div>-->
 
 								{{^message}}
@@ -170,6 +170,7 @@
 										<span>Every</span>
 										<div class="select date number">
 											<select name="repeat_delay_amount">
+												<option value="0">Don\'t repeat</option>
 												{{#days}}
 													<option>{{day}}</option>
 												{{/days}}
