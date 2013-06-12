@@ -1881,6 +1881,5 @@ ul.channels .chk-area
 
 .placeholder
 {
-	color: yellow;
-	border: 1px solid red;
+	color: gray !important;
 }
