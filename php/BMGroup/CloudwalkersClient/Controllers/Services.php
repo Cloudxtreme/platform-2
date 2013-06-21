@@ -61,6 +61,14 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		}
 
 		$data = $client->get ('services', array ('account' => $this->getAccount ()));
+
+		if (!isset ($data['services']))
+		{
+			echo '<p>Er liep wat fout op de server:</p>';
+			print_r ($data);
+			exit;
+		}
+
 		$data = $data['services'];
 
 		$page = new Neuron_Core_Template ();
