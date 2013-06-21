@@ -12,7 +12,7 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 
 	private function getCurrentAccount ()
 	{
-		return 1;
+		return isset ($_GET['account']) ? $_GET['account'] : 0;
 	}
 
 	private function getData ()
