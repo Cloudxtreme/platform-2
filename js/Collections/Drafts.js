@@ -21,7 +21,7 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 			passtrough (response.messages);
 		}
 
-		var parameters = { 'account' : 1 };
+		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
 
 		var fetch_url = CONFIG_BASE_URL + 'json/drafts?' + jQuery.param (parameters);
 
