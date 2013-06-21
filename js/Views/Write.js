@@ -277,10 +277,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data += '&files[]=' + escape(this.files[i]);
 		}
 
-		var url = CONFIG_BASE_URL + 'post/';
+		var url = CONFIG_BASE_URL + 'post/?account=' + Cloudwalkers.Session.getAccount ().get ('id');
 		if (this.model)
 		{
-			url += '?id=' + this.model.get ('id');
+			url += '&id=' + this.model.get ('id');
 		}
 
 		// Do the call
