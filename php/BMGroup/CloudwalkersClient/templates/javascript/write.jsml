@@ -81,41 +81,41 @@
 									<div class="check-columns">
 										<div class="check-col">
 											<div class="row">
-												<input name="delay" id="min-a" type="checkbox" value="600" />
+												<input name="delay" id="min-a" type="radio" value="600" />
 												<label for="min-a">10 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-b" type="checkbox" name="delay" value="3600" />
+												<input id="min-b" type="radio" name="delay" value="3600" />
 												<label for="min-b">1 hour</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input name="delay" id="min-c" type="checkbox" value="1200" />
+												<input name="delay" id="min-c" type="radio" value="1200" />
 												<label for="min-c">20 minutes</label>
 											</div>
 											<div class="row">
-												<input id="min-d" type="checkbox" name="delay" value="7200" />
+												<input id="min-d" type="radio" name="delay" value="7200" />
 												<label for="min-d">2 hours</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input name="delay" id="min-e" type="checkbox" value="1800" />
+												<input name="delay" id="min-e" type="radio" value="1800" />
 												<label for="min-e">30 minutes</label>
 											</div>
 											<div class="row">
-												<input name="delay" id="min-f" type="checkbox" value="10800" />
+												<input name="delay" id="min-f" type="radio" value="10800" />
 												<label for="min-f">3 hours</label>
 											</div>
 										</div>
 										<div class="check-col">
 											<div class="row">
-												<input name="delay" id="min-g" type="checkbox" value="2700" />
+												<input name="delay" id="min-g" type="radio" value="2700" />
 												<label for="min-g">45 minutes</label>
 											</div>
 											<div class="row">
-												<input name="delay" id="min-n" type="checkbox" value="14400" />
+												<input name="delay" id="min-n" type="radio" value="14400" />
 												<label for="min-n">4 hours</label>
 											</div>
 										</div>

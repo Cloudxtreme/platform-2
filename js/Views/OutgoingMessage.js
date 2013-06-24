@@ -15,6 +15,13 @@ Cloudwalkers.Views.OutgoingMessage = Cloudwalkers.Views.Message.extend({
 		Cloudwalkers.RootView.editMessage (this.model);
 	},
 
+	'additionalData' : function (data)
+	{
+		data.scheduledate = this.model.scheduledate ();
+
+		return data;
+	},
+
 	'delete' : function ()
 	{
 		var self = this;

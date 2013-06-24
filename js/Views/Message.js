@@ -12,11 +12,10 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'commentsVisible' : false,
 
-	'render' : function ()
+	'prepareData' : function ()
 	{
 		var data = this.model.attributes;
 		data.humandate = this.model.humandate();
-
 		data.sortedattachments = {};
 
 		// Go trough all attachments and put them in groups
@@ -31,6 +30,18 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				data.sortedattachments[data.attachments[i].type].push(data.attachments[i]);
 			}
 		}
+
+		return this.additionalData (data);
+	},
+
+	'additionalData' : function (data)
+	{
+		return data;
+	},
+
+	'render' : function ()
+	{
+		var data = this.prepareData ();
 
 		$(this.el).html (Mustache.render (Templates[this.template], data));
 		updateTimers ();

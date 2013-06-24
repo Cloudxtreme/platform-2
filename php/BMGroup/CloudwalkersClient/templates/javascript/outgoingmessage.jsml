@@ -9,7 +9,7 @@
 	</div>
 	<div class="post-box" style="height:inherit;">
 		<div class="title-post">
-			<h4>{{humandate}}</h4>
+			<h4>{{scheduledate}}</h4>
 		</div>
 		<div class="post">
 			{{#subject}}

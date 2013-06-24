@@ -67,6 +67,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			if (schedule.date == 'ASAP')
 			{
 				// Do nothing
+				return 'ASAP';
 			}
 
 			else
@@ -75,7 +76,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			}
 		}
 
-		return time;
+		return time.toLocaleString ();
 	},
 
 	'repeat' : function ()
