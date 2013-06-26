@@ -221,7 +221,7 @@ class BMGroup_CloudwalkersClient_Client
 			print_r ($input);
 			echo '</pre>';
 			echo '<h2>Received</h2>';
-			echo $data;
+			print_r ($data);
 			exit;
 		}
 
