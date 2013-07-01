@@ -82,10 +82,58 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$input = $this->getInput ();
 		$id = isset ($input[2]) ? $input[2] : null;
 
+		$action = isset ($input[3]) ? $input[3] : null;
+
+		switch ($action)
+		{
+			case 'createsubstream':
+				return $this->createSubstream ($id);
+			break;
+
+			case 'remove':
+				return $this->remove ($id);
+			break;
+
+			default:
+				return $this->getServiceSettings ($id);
+			break;
+		}
+	}
+
+	private function createSubstream ($id)
+	{
+		$streamid = Neuron_Core_Tools::getInput ('_GET', 'stream', 'int');
+
+		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+		$data = $client->get ('stream/' . $streamid . '/createsubstream', array ('account' => $this->getAccount (), 'refresh' => 1));
+
+
+
+		var_dump ($data);
+		exit;
+
+		$errors = isset ($data['error']) ? $data['error']['message'] : array ();
+
+
+		return $this->getServiceSettings ($id, $errors);
+	}
+
+	private function remove ($id)
+	{
+
+	}
+
+	private function getServiceSettings ($id, array $errors = null)
+	{
 		if (empty ($id))
 		{
 			header ('Location: ' . Neuron_URLBuilder::getURL ('services/'));
 			return;
+		}
+
+		if (!isset ($errors))
+		{
+			$errors = array ();
 		}
 
 		// Parse the input
@@ -107,7 +155,8 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$page->set ('account', $data);
 		$page->set ('channels', $channels);
 
-		$page->set ('errors', $data['errors']);
+		$errors = array_merge ($errors, $data['errors']);
+		$page->set ('errors', $errors);
 
 		return $page->parse ('modules/cloudwalkersclient/pages/accounts/settings.phpt');
 	}

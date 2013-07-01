@@ -40,7 +40,7 @@
 		</h3>
 
 		<p>
-			<a href="<?php echo Neuron_URLBuilder::getURL ('messages', array ('stream' => $stream['id'])); ?>">Watch messages</a>
+			<a href="<?php echo Neuron_URLBuilder::getURL ('services/settings/' . $account['id'] . '/createsubstream', array ('stream' => $stream['id'])); ?>">Create child stream</a>
 		</p>
 
 		<table>
