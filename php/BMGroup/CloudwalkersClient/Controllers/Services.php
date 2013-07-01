@@ -107,13 +107,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		$data = $client->get ('stream/' . $streamid . '/createsubstream', array ('account' => $this->getAccount (), 'refresh' => 1));
 
-
-
-		var_dump ($data);
-		exit;
-
-		$errors = isset ($data['error']) ? $data['error']['message'] : array ();
-
+		$errors = isset ($data['error']) ? array ($data['error']['message']) : array ();
 
 		return $this->getServiceSettings ($id, $errors);
 	}

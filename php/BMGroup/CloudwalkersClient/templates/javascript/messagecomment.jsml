@@ -14,7 +14,7 @@
 			</span>
 
 			{{#from}}
-				<h4>{{name}}</h4>
+				<h4>{{name}} commented on a message</h4>
 			{{/from}}
 		</div>
 		<div class="post">
@@ -23,6 +23,7 @@
 			{{/subject}}
 			<div class="holder">
 				<div class="text-post">
+
 					<div class="picture">
 						{{#sortedattachments.image}}
 							<img src="{{url}}" alt="image description" width="93" height="68" />
@@ -37,6 +38,13 @@
 						</p>
 					{{/sortedattachments.link}}
 				</div>
+
+				{{#parent}}
+					<div class="text-post" style="margin-top: 10px;">
+						<h5>On message:</h5>
+						{{{body.html}}}
+					</div>
+				{{/parent}}
 
 				<div class="col-button">
 

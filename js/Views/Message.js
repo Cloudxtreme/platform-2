@@ -31,6 +31,14 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			}
 		}
 
+		//console.log (this.model);
+
+		if (typeof (this.model.attributes.parent) != 'undefined')
+		{
+			data.parent = this.model.attributes.parent;
+			//console.log (data.parent);
+		}
+
 		return this.additionalData (data);
 	},
 
@@ -43,7 +51,16 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		var data = this.prepareData ();
 
-		$(this.el).html (Mustache.render (Templates[this.template], data));
+		if (typeof (data.parent) != 'undefined')
+		{
+			$(this.el).html (Mustache.render (Templates.messagecomment, data));	
+		}
+
+		else
+		{
+			$(this.el).html (Mustache.render (Templates[this.template], data));
+		}
+
 		updateTimers ();
 
 		//console.log (this.model.attributes);
