@@ -14,7 +14,7 @@
 			</span>
 
 			{{#from}}
-				<h4>{{name}} commented on a message</h4>
+				<h4>{{name}}</h4>
 			{{/from}}
 		</div>
 		<div class="post">
@@ -23,7 +23,6 @@
 			{{/subject}}
 			<div class="holder">
 				<div class="text-post">
-
 					<div class="picture">
 						{{#sortedattachments.image}}
 							<img src="{{url}}" alt="image description" width="93" height="68" />
@@ -39,29 +38,23 @@
 					{{/sortedattachments.link}}
 				</div>
 
-				<div class="text-post">
-					<div class="parent-message-view" style="margin-top: 10px;"></div>
-				</div>
-
 				<div class="col-button">
 
 					{{#actions}}
-						<a href="javascript:void(0);" class="button-post action" data-action="{{token}}"><span>{{name}}</span></a>
+						<a href="javascript:void(0);" class="button-post action original-message-action" data-action="{{token}}"><span>{{name}}</span></a>
 					{{/actions}}
 				</div>
 
 				{{#canHaveChildren}}
 					<div class="col-button like-button">
-						<a href="javascript:void(0)" class="button-post children-button"><span>{{children_count}} <strong>comments</strong></span></a>
+						<a href="javascript:void(0)" class="button-post children-button original-message-children"><span>{{children_count}} <strong>comments</strong></span></a>
 					</div>
 				{{/canHaveChildren}}
 			</div>
 
-			{{#canHaveChildren}}
-				<div class="frame comment-container">
+			<div class="frame comment-container">
 
-				</div>
-			{{/canHaveChildren}}
+			</div>
 		</div>
 	</div>
 </div>

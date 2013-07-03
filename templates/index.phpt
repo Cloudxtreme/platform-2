@@ -42,6 +42,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OutgoingMessage.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OriginalMessage.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Write.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Filter.js"></script>

@@ -35,7 +35,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 		if (typeof (this.model.attributes.parent) != 'undefined')
 		{
-			data.parent = this.model.attributes.parent;
+			data.parent = new Cloudwalkers.Models.Message (this.model.attributes.parent);
 			//console.log (data.parent);
 		}
 
@@ -64,6 +64,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		updateTimers ();
 
 		//console.log (this.model.attributes);
+		if (data.parent)
+		{
+			var parentview = new Cloudwalkers.Views.OriginalMessage ({ 'model' : data.parent });
+			this.$el.find ('.parent-message-view').html (parentview.render().el);
+		}
 
 		return this;
 	},
