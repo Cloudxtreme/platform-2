@@ -3,7 +3,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'humandate' : function ()
 	{
 		var date = (new Date(this.get ('date')));
-		return date.toLocaleString ();
+		return Cloudwalkers.Utils.longdate (date);
 	},
 
 	'getAction' : function (token)
@@ -76,7 +76,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			}
 		}
 
-		return time.toLocaleString ();
+		return Cloudwalkers.Utils.longdate (time);
 	},
 
 	'repeat' : function ()
