@@ -2,8 +2,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'events' : 
 	{
-		'click .button-post.action' : 'messageAction',
-		'click .children-button' : 'showchildren'
+		'click .button-post.action.message-action' : 'messageAction',
+		'click .children-button.message-children' : 'showchildren'
 	},
 
 	'className' : 'message-view',

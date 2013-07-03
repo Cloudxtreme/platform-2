@@ -41,13 +41,13 @@
 				<div class="col-button">
 
 					{{#actions}}
-						<a href="javascript:void(0);" class="button-post action" data-action="{{token}}"><span>{{name}}</span></a>
+						<a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><span>{{name}}</span></a>
 					{{/actions}}
 				</div>
 
 				{{#canHaveChildren}}
 					<div class="col-button like-button">
-						<a href="javascript:void(0)" class="button-post children-button"><span>{{children_count}} <strong>comments</strong></span></a>
+						<a href="javascript:void(0)" class="button-post children-button message-children"><span>{{children_count}} <strong>comments</strong></span></a>
 					</div>
 				{{/canHaveChildren}}
 			</div>
