@@ -57,26 +57,51 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		});
 	},
 
-	'scheduledate' : function ()
+	'scheduledate' : function (showtext)
 	{
+		if (typeof (showtext) == 'undefined')
+		{
+			showtext = true;
+		}
+
 		var schedule = this.get ('schedule');
 		var time = (new Date());
 
-		if (schedule)
+		if (showtext)
 		{
-			if (schedule.date == 'ASAP')
+			if (schedule)
 			{
-				// Do nothing
-				return 'ASAP';
+				if (schedule.date == 'ASAP')
+				{
+					// Do nothing
+					return 'ASAP';
+				}
+
+				else
+				{
+					time = (new Date(schedule.date));
+				}
 			}
 
-			else
+			return Cloudwalkers.Utils.longdate (time);
+		}
+		else
+		{
+			if (schedule)
 			{
-				time = (new Date(schedule.date));
+				if (schedule.date == 'ASAP')
+				{
+					// Do nothing
+					return false;
+				}
+
+				else
+				{
+					time = (new Date(schedule.date));
+					return time;
+				}
 			}
 		}
-
-		return Cloudwalkers.Utils.longdate (time);
 	},
 
 	'repeat' : function ()

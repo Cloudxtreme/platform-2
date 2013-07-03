@@ -43,7 +43,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		data.BASE_URL = CONFIG_BASE_URL;
 
-		var scheduledate = this.model && this.model.scheduledate ();
+		var scheduledate = this.model ? this.model.scheduledate (false) : false;
 		var schedulerepeat = this.model ? this.model.repeat () : false;
 
 		// 31 days
