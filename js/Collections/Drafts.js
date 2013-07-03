@@ -16,7 +16,6 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 		var passtrough = options.success;
 		options.success = function (response)
 		{
-
 			//console.log (response);
 			passtrough (response.messages);
 		}

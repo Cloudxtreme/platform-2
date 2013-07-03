@@ -43,6 +43,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		var passtrough = options.success;
 		options.success = function (response)
 		{
+			Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
+			
 			// Set the next page
 			self.nextPageParameters  = response.channel.next;
 

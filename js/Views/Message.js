@@ -39,6 +39,12 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			//console.log (data.parent);
 		}
 
+		// Stream information
+		if (this.model.getStream ())
+		{
+			data.stream = this.model.getStream ().attributes;
+		}
+
 		return this.additionalData (data);
 	},
 

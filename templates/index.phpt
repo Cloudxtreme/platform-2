@@ -59,6 +59,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Message.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Comment.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Stream.js"></script>
 
 		<!-- Collections -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
@@ -66,6 +67,9 @@
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Drafts.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Users.js"></script>
+
+		<!-- Utilities -->
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/StreamLibrary.js"></script>
 
 	<!-- /Application -->
 

@@ -19,6 +19,8 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 			null, 
 			function (data)
 			{
+				Cloudwalkers.Utilities.StreamLibrary.parse (data.streams);
+
 				self.$el.html (Mustache.render (Templates.dashboard, data));
 
 				// types

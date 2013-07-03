@@ -4,6 +4,7 @@ var Cloudwalkers = {
 	'Router' : {},
 	'Models' : {},
 	'Collections' : {},
+	'Utilities' : {},
 
 	'init' : function ()
 	{

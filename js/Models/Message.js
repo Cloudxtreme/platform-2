@@ -107,6 +107,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		return out;
+	},
+
+	'getStream' : function ()
+	{
+		if (this.get ('stream'))
+		{
+			return Cloudwalkers.Utilities.StreamLibrary.getFromId (this.get ('stream'));
+		}
+		return null;
 	}
 
 });
