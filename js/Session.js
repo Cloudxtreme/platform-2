@@ -95,6 +95,8 @@ Cloudwalkers.Session =
 		this.call ('account/' + this.getAccount ().id + '/streams', {}, {}, function (data)
 		{
 			self.streams = data.streams;
+			Cloudwalkers.Utilities.StreamLibrary.parse (self.streams);
+			
 			callback ();
 		});
 	},
