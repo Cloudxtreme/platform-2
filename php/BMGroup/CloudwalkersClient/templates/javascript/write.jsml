@@ -39,7 +39,7 @@
 						<div class="info-columns">
 							<div class="message-col">
 								<h2>2. Write your message</h2>
-								<div class="total-text"><span>Total characters: 23</span></div>
+								<div class="total-text"><span>Total characters: <var class="total-text-counter">0</var></span></div>
 								<div class="textarea">
 									<textarea cols="30" rows="10" name="message" placeholder="Spread your message in the social world...">{{#message.body}}{{message.body.plaintext}}{{/message.body}}</textarea>
 								</div>

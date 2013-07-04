@@ -2,7 +2,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'events' : 
 	{
-		'submit form' : 'submit'
+		'submit form' : 'submit',
+		'keyup textarea[name=message]' : 'updateCounter'
 	},
 
 	'files' : [],
@@ -306,5 +307,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				}
 			}
 		});
+	},
+
+	'updateCounter' : function ()
+	{
+		var length = this.$el.find ('textarea[name=message]').val ().length;
+		
+		this.$el.find ('.total-text-counter').html (length);
 	}
 });
