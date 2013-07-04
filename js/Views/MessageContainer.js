@@ -6,6 +6,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 	'canLoadMore' : true,
 	'hasFilter' : true,
+	'interval' : null,
 
 	'initialize' : function (options)
 	{
@@ -18,6 +19,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		{
 			this.hasFilter = options.hasFilter;
 		}
+
+		this.bind ('destroy', this.destroy, this);
 	},
 
 	'loadMore' : function ()
@@ -81,13 +84,19 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		this.$el.append (filterview.render ().el);
 
 		// Auth refresh
-		setInterval (function ()
+		this.interval = setInterval (function ()
 		{
-			self.options.channel.reset (); 
-			self.options.channel.fetch ();
-		}, 1000 * 60);
+			//self.options.channel.reset (); 
+			//self.options.channel.fetch ();
+			self.options.channel.update ();
+		}, 1000 * 1);
 
 		return this;
+	},
+
+	'destroy' : function ()
+	{
+		clearInterval (this.interval);
 	},
 
 	'addOne' : function (message)

@@ -33,6 +33,11 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 		// Make the request.
 		return $.ajax(params);
+	},
+
+	'update' : function ()
+	{
+		this.fetch ({ 'remove' : false });
 	}
 
 });

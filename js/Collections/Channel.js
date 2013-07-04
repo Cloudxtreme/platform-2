@@ -86,6 +86,11 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		
 		this.reset ();
 		this.fetch ();
+	},
+
+	'update' : function ()
+	{
+		this.fetch ({ 'remove' : false });
 	}
 
 });

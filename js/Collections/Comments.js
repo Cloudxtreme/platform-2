@@ -75,6 +75,11 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 
 		// Make the request.
 		return $.ajax(params);
+	},
+
+	'update' : function ()
+	{
+		this.fetch ({ 'remove' : false });
 	}
 
 });

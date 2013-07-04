@@ -35,6 +35,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'setView' : function (view, showMenu)
 	{
+		if (this.view)
+		{
+			this.view.trigger ('destroy');
+		}
+
 		if (typeof (showMenu) == 'undefined')
 		{
 			showMenu = true;
