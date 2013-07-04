@@ -89,7 +89,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			//self.options.channel.reset (); 
 			//self.options.channel.fetch ();
 			self.options.channel.update ();
-		}, 1000 * 1);
+		}, 1000 * 30);
 
 		return this;
 	},

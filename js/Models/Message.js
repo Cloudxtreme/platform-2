@@ -2,8 +2,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'humandate' : function ()
 	{
-		var date = (new Date(this.get ('date')));
+		var date = this.date ();
 		return Cloudwalkers.Utils.longdate (date);
+	},
+
+	'date' : function ()
+	{
+		return (new Date(this.get ('date')));
 	},
 
 	'getAction' : function (token)
