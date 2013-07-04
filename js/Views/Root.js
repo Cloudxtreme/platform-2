@@ -17,12 +17,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		this.on ('content:change', function ()
 		{
-			setTimeout (function ()
-			{
-				jcf.customForms.replaceAll();
-			}, 1);
-
-			self.updatePlaceholder ();
+			self.onchange ();
 		});
 
 		$('.add-button').click (this.writeMessage);
@@ -35,6 +30,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'setView' : function (view, showMenu)
 	{
+		var self = this;
+
 		if (this.view)
 		{
 			this.view.trigger ('destroy');
@@ -50,6 +47,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		this.view = view;
 		this.trigger ('view:change');
+
+		this.view.on ('content:change', function () { self.trigger ('content:change'); });
 	},
 
 	'popup' : function (view)
@@ -122,6 +121,16 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			  })
 			});
 		}
+	},
+
+	'onchange': function ()
+	{
+		setTimeout (function ()
+		{
+			jcf.customForms.replaceAll();
+		}, 1);
+
+		this.updatePlaceholder ();
 	}
 
 });

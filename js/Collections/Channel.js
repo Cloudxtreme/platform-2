@@ -8,11 +8,6 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'filters' : {},
 
-	'sort' : function (message1, message2)
-	{
-		return message.date ().getTime () > message2.date ().getTime () ? 1 : -1;
-	},
-
 	'initialize' : function (models, options)
 	{
 		this.id = options.id;

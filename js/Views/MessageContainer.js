@@ -21,6 +21,11 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		}
 
 		this.bind ('destroy', this.destroy, this);
+
+		this.options.channel.comparator = function (message1, message2)
+		{
+			return message1.date ().getTime () < message2.date ().getTime () ? 1 : -1;
+		};
 	},
 
 	'loadMore' : function ()
@@ -89,7 +94,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			//self.options.channel.reset (); 
 			//self.options.channel.fetch ();
 			self.options.channel.update ();
-		}, 1000 * 1);
+		}, 1000 * 30);
 
 		return this;
 	},
@@ -99,12 +104,9 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		clearInterval (this.interval);
 	},
 
-	'addOne' : function (message)
+	'getMessageView' : function (message)
 	{
-		var index = message.collection.indexOf (message);
-
 		var messageView;
-
 		if (message.get ('type') == 'OUTGOING')
 		{
 			messageView = new Cloudwalkers.Views.OutgoingMessage ({ 'model' : message });
@@ -113,7 +115,14 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		{
 			messageView = new Cloudwalkers.Views.Message ({ 'model' : message });
 		}
+		return messageView;
+	},
 
+	'addOne' : function (message)
+	{
+		var index = message.collection.indexOf (message);
+
+		var messageView = this.getMessageView (message);
 		var element = messageView.render ().el;
 
 		if (index === 0)
@@ -122,12 +131,17 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			this.$el.find ('.messages-container').prepend (element);
 		}
 
+		else if (this.$el.find ('.messages-container .message-view').eq (index - 1).length == 0)
+		{
+			this.$el.find ('.messages-container').append (element);	
+		}
+
 		else
 		{
 			this.$el.find ('.messages-container .message-view').eq (index - 1).after (element);
 		}
 
-		jcf.customForms.replaceAll();
+		this.trigger ('content:change')
 	},
 
 	'refresh' : function ()
