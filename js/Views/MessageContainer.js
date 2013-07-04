@@ -60,6 +60,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
         this.options.channel.bind('add', this.addOne, this);
         this.options.channel.bind('refresh', this.refresh, this);
         this.options.channel.bind('reset', this.refresh, this);
+        this.options.channel.bind('sort', this.resort, this);
 
         Cloudwalkers.Session.bind ('message:add', function () { self.options.channel.reset (); self.options.channel.fetch (); }, this)
 
@@ -120,10 +121,13 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 	'addOne' : function (message)
 	{
+		/*
 		var index = message.collection.indexOf (message);
 
 		var messageView = this.getMessageView (message);
 		var element = messageView.render ().el;
+
+		$(element).attr ('data-message-id', message.get ('id'));
 
 		if (index === 0)
 		{
@@ -131,17 +135,78 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			this.$el.find ('.messages-container').prepend (element);
 		}
 
-		else if (this.$el.find ('.messages-container .message-view').eq (index - 1).length == 0)
-		{
-			this.$el.find ('.messages-container').append (element);	
-		}
-
 		else
 		{
-			this.$el.find ('.messages-container .message-view').eq (index - 1).after (element);
+			var previousmessage = message.collection.at (index - 1);
+
+			if (previousmessage)
+			{
+				// Can we find the previous message?
+				var previousdiv = this.$el.find ('.messages-container .message-view[data-message-id=' + previousmessage.get ('id') + ']');
+
+				if (previousdiv.length > 0)
+				{
+					previousdiv.after (element);
+				}
+				else
+				{
+					this.$el.find ('.messages-container').append (element);			
+				}
+			}
+			else
+			{
+				this.$el.find ('.messages-container').append (element);
+			}
 		}
+		*/
 
 		this.trigger ('content:change')
+	},
+
+	'resort' : function ()
+	{
+		var self = this;
+
+		// Go trough all messages
+		this.options.channel.each (function (message)
+		{
+			// Is already in the list?
+			var current = self.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']');
+
+			if (current.length > 0)
+			{
+				return;
+			}
+
+			var index = message.collection.indexOf (message);
+
+			var messageView = self.getMessageView (message);
+			var element = messageView.render ().el;
+
+			$(element).attr ('data-message-id', message.get ('id'));
+
+			if (index == 0)
+			{
+				self.$el.find ('.messages-container').prepend (element);
+			}
+			else
+			{
+				var previousmessage = message.collection.at (index - 1);
+
+				// Check if previous message is found
+				var previouselement = self.$el.find ('.messages-container .message-view[data-message-id=' + previousmessage.get ('id') + ']');
+
+				if (previouselement.length > 0)
+				{
+					previouselement.after (element);
+				}
+
+				else
+				{
+					console.log ('PREVIOUS MESSAGE NOT FOUND');
+				}
+			}
+		});
 	},
 
 	'refresh' : function ()
