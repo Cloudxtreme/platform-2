@@ -61,10 +61,12 @@
 }
 .select-options .drop-holder {
 	border: 1px solid #d7d7d7;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	border-width:0 1px 1px;
 	background:#ededed;
-	height: 1%;
+	/*height: 1%;*/
+	overflow: auto;
+	height: 600px;
 }
 .select-options ul {
 	list-style: none;
