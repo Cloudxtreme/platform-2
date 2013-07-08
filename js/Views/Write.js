@@ -142,6 +142,35 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		return this;
 	},
 
+	'getValidationRules' : function ()
+	{
+		var streams = Cloudwalkers.Session.getStreams ();
+		var selectedstreams = [];
+
+		for (var i = 0; i < streams.length; i ++)
+		{
+			if (streams[i].direction.OUTGOING == 1)
+			{
+				if (this.$el.find ('#channel_' + streams[i].id).is (':checked'))
+				{
+					selectedstreams.push (streams[i]);
+				}
+			}
+		}
+
+		// Fetch all the limitations
+		var limitations = [];
+		for (var i = 0; i < selectedstreams.length; i ++)
+		{
+			for (var limitation in selectedstreams[i].network.limitations)
+			{
+				limitations.push ({ 'limitation' : limitation, 'value' : selectedstreams[i].network.limitations[limitation] });
+			}
+		}
+
+		return limitations;
+	},
+
 	'afterRender' : function ()
 	{
 		var self = this;
@@ -175,7 +204,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				checkbox.each (function ()
 				{
 					var input = $(this);
-					console.log (input);
 
 					if (input.is (':checked'))
 					{
@@ -311,8 +339,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'updateCounter' : function ()
 	{
-		var length = this.$el.find ('textarea[name=message]').val ().length;
-		
+		var length = this.$el.find ('textarea[name=message]').val ().length;	
 		this.$el.find ('.total-text-counter').html (length);
+
+		var rules = this.getValidationRules ();
+		for (var i = 0; i < rules.length; i ++)
+		{
+			if (rules[i].limitation == 'max-length')
+			{
+				if (length > rules[i].value)
+				{
+					alert ('You can only use ' + rules[i].value + ' characters');
+					break;
+				}
+			}
+		}
 	}
 });
