@@ -349,10 +349,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			{
 				if (length > rules[i].value)
 				{
-					alert ('You can only use ' + rules[i].value + ' characters');
-					break;
+					this.$el.find ('.error').html ('You can only use ' + rules[i].value + ' characters');
+					return;
 				}
 			}
 		}
+
+		this.$el.find ('.error').html ('');
 	}
 });
