@@ -179,8 +179,9 @@
 										</div>
 										<div class="select days date">
 											<select name="repeat_delay_unit">
+												<option value="minutes">Minutes(s)</option>
 												<option value="hours">Hour(s)</option>
-												<option value="days">Day(s)</option>
+												<option value="days" selected="selected">Day(s)</option>
 												<option value="weeks">Week(s)</option>
 												<option value="months">Month(s)</option>
 											</select>
