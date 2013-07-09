@@ -9,7 +9,13 @@
 	</div>
 	<div class="post-box" style="height:inherit;">
 		<div class="title-post">
-			<h4>{{scheduledate}}</h4>
+			<h4>
+				{{scheduledate}}
+			</h4>
+
+			<p style="margin: 3px;">
+				{{#streams}}{{name}}, {{/streams}}
+			</p>
 		</div>
 		<div class="post">
 			{{#subject}}
