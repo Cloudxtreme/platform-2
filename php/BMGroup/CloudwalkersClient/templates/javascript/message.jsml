@@ -31,8 +31,8 @@
 				<div class="text-post">
 					<div class="picture">
 						{{#sortedattachments.image}}
-							<a href="{{url}}" data-lightbox="image">
-								<img src="{{url}}" alt="image description" width="93" height="68"  />
+							<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+								<img src="{{url}}" alt="image description" width="93" height="68" />
 							</a>
 						{{/sortedattachments.image}}
 					</div>

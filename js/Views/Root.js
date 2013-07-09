@@ -123,11 +123,19 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 	},
 
+	'imagePopups' : function ()
+	{
+		$('a.image-popup-viewer').fancybox ();
+	},
+
 	'onchange': function ()
 	{
+		var self = this;
+
 		setTimeout (function ()
 		{
 			jcf.customForms.replaceAll();
+			self.imagePopups ();
 		}, 1);
 
 		this.updatePlaceholder ();
