@@ -358,33 +358,41 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			url += '&id=' + this.model.get ('id');
 		}
 
-		// Do the call
-		jQuery.ajax
-		({
-			async:true, 
-			cache:false, 
-			data: data, 
-			dataType:"json", 
-			type:"post", 
-			url: url, 
-			success:function(objData)
-			{
-				if (objData.success)
+		if (this.validate (true))
+		{
+			// Do the call
+			jQuery.ajax
+			({
+				async:true, 
+				cache:false, 
+				data: data, 
+				dataType:"json", 
+				type:"post", 
+				url: url, 
+				success:function(objData)
 				{
-					self.trigger ('popup:close');
-					Cloudwalkers.Session.trigger ('message:add');
-					return true;
+					if (objData.success)
+					{
+						self.trigger ('popup:close');
+						Cloudwalkers.Session.trigger ('message:add');
+						return true;
+					}
+					else
+					{
+						alert (objData.error);
+					}
 				}
-				else
-				{
-					alert (objData.error);
-				}
-			}
-		});
+			});
+		}
 	},
 
-	'updateCounter' : function ()
+	'validate' : function (throwErrors)
 	{
+		if (typeof (throwErrors) == 'undefined')
+		{
+			throwErrors = false;
+		}
+
 		var length = this.$el.find ('textarea[name=message]').val ().length;	
 		this.$el.find ('.total-text-counter').html (length);
 
@@ -396,17 +404,30 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// Count images
 		var images = this.files.length;
 
+		var hasErrors = false;
+
+		// Count extra characters
+		var extraCharacters = 0;
+		if (typeof (rules['picture-url-length']) != 'undefined')
+		{
+			extraCharacters += rules['picture-url-length'] * images;
+		}
+
+		if (typeof (rules['picture-url-length']) != 'undefined')
+		{
+			extraCharacters += rules['url-length'] * links;
+		}
+
+		// Has hard limit?
+		if (typeof (rules['max-length']) == 'undefined' && typeof (rules['max-length-hardlimit']) != 'undefined')
+		{
+			rules['max-length'] = rules['max-length-hardlimit'];
+		}
+
+		// Check soft limit (sending is still allowed)
 		if (typeof (rules['max-length']) != 'undefined')
 		{
-			if (typeof (rules['picture-url-length']) != 'undefined')
-			{
-				rules['max-length'] -= rules['picture-url-length'] * images;
-			}
-
-			if (typeof (rules['picture-url-length']) != 'undefined')
-			{
-				rules['max-length'] -= rules['url-length'] * links;
-			}			
+			rules['max-length'] -= extraCharacters;
 
 			// Update maximum counter
 			this.$el.find ('.total-max-counter').html (rules['max-length']);
@@ -414,7 +435,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			if (length > rules['max-length'])
 			{
 				this.$el.find ('.error').html ('You can only use ' + rules['max-length'] + ' characters');
-				return;
 			}			
 		}
 
@@ -423,6 +443,36 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			this.$el.find ('.total-max-counter').html ('∞');
 		}
 
-		this.$el.find ('.error').html ('');
+		// And now the breaking errors
+		if (typeof (rules['max-length-hardlimit']) != 'undefined')
+		{
+			if (length + extraCharacters > rules['max-length-hardlimit'])
+			{
+				if (throwErrors)
+				{
+					this.throwError ('You message cannot be longer than ' + rules['max-length-hardlimit'] + ' characters.');
+				}
+
+				return false;
+			}
+		}
+
+		// Clear errors
+		if (!hasErrors)
+		{
+			this.$el.find ('.error').html ('');
+		}
+
+		return true;
+	},
+
+	'throwError' : function (message)
+	{
+		alert (message);
+	},
+
+	'updateCounter' : function ()
+	{
+		return this.validate ();
 	}
 });
