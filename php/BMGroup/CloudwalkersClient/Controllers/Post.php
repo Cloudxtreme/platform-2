@@ -79,10 +79,35 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 			$data['date'] = date ('c', time () + $delay);
 		}
 
-		// Schedule
-		$schedule_day = Neuron_Core_Tools::getInput ('_POST', 'schedule_day', 'int');
-		$schedule_month = Neuron_Core_Tools::getInput ('_POST', 'schedule_month', 'int');
-		$schedule_year = Neuron_Core_Tools::getInput ('_POST', 'schedule_year', 'int');
+		else
+		{
+			// Schedule
+			$schedule_day = Neuron_Core_Tools::getInput ('_POST', 'schedule_day', 'int');
+			$schedule_month = Neuron_Core_Tools::getInput ('_POST', 'schedule_month', 'int');
+			$schedule_year = Neuron_Core_Tools::getInput ('_POST', 'schedule_year', 'int');
+			$schedule_time = Neuron_Core_Tools::getInput ('_POST', 'schedule_time', 'varchar');
+
+			if ($schedule_day && $schedule_month)
+			{
+				if (!$schedule_year)
+				{
+					$schedule_year = date ('Y');
+				}
+
+				if (!$schedule_time)
+				{
+					$schedule_time = '08:00';
+				}
+
+				$time = explode (':', $schedule_time);
+				if (count ($time) !== 2)
+				{
+					$time = array (8, 0);
+				}
+
+				$data['date'] = date ('c', mktime ($time[0], $time[1], 0, $schedule_month, $schedule_day, $schedule_year));
+			}
+		}
 
 		$repeat_delay_amount = Neuron_Core_Tools::getInput ('_POST', 'repeat_delay_amount', 'int');
 		$repeat_delay_unit = Neuron_Core_Tools::getInput ('_POST', 'repeat_delay_unit', 'varchar');
