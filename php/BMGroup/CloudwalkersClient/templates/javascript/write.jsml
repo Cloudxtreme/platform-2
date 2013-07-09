@@ -139,7 +139,7 @@
 											<select name="schedule_month">
 												<option>Month</option>
 												{{#months}}
-													<option {{#checked}}selected="selected"{{/checked}}>{{month}}</option>
+													<option {{#checked}}selected="selected"{{/checked}} value="{{month}}">{{display}}</option>
 												{{/months}}
 											</select>
 										</div>
@@ -251,7 +251,7 @@
 												<select name="repeat_end_month">
 													<option>Month</option>
 													{{#endrepeat.months}}
-														<option {{#checked}}selected="selected"{{/checked}}>{{month}}</option>
+														<option {{#checked}}selected="selected"{{/checked}} value="{{month}}">{{display}}</option>
 													{{/endrepeat.months}}
 												</select>
 											</div>

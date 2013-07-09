@@ -69,8 +69,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// 12 months
 		for (i = 1; i <= 12; i ++)
 		{
-			data.months.push ({ 'month' : i, 'checked' : (scheduledate && scheduledate.getMonth () == (i - 1) ) });
-			data.endrepeat.months.push ({ 'month' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getMonth () == (i - 1) ) });
+			data.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (scheduledate && scheduledate.getMonth () == (i - 1) ) });
+			data.endrepeat.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getMonth () == (i - 1) ) });
 		}
 
 		// 10 years
