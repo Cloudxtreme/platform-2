@@ -10,6 +10,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'render' : function ()
 	{
+		this.files = [];
+
 		var self = this;
 
 		var data = {};
