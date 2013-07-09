@@ -148,6 +148,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.updateCounter ();
 
+		self.$el.find('a[name=schedule_random]').click (function () { self.randomTime () });
+
 		return this;
 	},
 
@@ -474,5 +476,24 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'updateCounter' : function ()
 	{
 		return this.validate ();
+	},
+
+	'randomTime' : function ()
+	{
+		var self = this;
+		var date = new Date ();
+
+		this.$el.find ('select[name=schedule_day]').val (date.getDate ());
+		this.$el.find ('select[name=schedule_month]').val (date.getMonth () + 1);
+		this.$el.find ('select[name=schedule_year]').val (date.getFullYear ());
+
+		var options = this.$el.find ('select[name=schedule_time] option');
+		var index = 32 + Math.round (Math.random () * (options.size () - 32));
+		var option = options.eq (index);
+
+		this.$el.find ('select[name=schedule_time]').val (option.val ());
+
+		this.trigger ('content:change');
+		
 	}
 });

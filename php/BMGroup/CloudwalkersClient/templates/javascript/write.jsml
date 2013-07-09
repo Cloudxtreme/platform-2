@@ -155,13 +155,17 @@
 											<select name="schedule_time">
 												<option>Time</option>
 												{{#times}}
-													<option {{#checked}}selected="selected"{{/checked}}>{{time}}</option>
+													<option value="{{time}}" {{#checked}}selected="selected"{{/checked}}>{{time}}</option>
 												{{/times}}
 											</select>
 										</div>
 										<div class="row">
+											<a href="javascript:void(0);" name="schedule_random">Random</a>
+
+											<!--
 											<input id="random" type="checkbox" value="1" name="schedule_random" />
 											<label for="random">Random</label>
+											-->
 										</div>
 									</div>
 								</div>

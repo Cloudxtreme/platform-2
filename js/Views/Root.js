@@ -77,6 +77,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		{
 			$.fancybox.close ();
 		});
+
+		view.on ('content:change', function ()
+		{
+			self.trigger ('content:change');
+		});
 	},
 
 	'writeMessage' : function (e)
