@@ -38,7 +38,8 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 				// schedule
 				self.addSchedule (data.schedule);
 
-				jcf.customForms.replaceAll();
+				self.trigger ('content:change');
+				//jcf.customForms.replaceAll();
 			}
 		);
 
