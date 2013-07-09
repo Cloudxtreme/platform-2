@@ -19,7 +19,7 @@
 						{{#input.string}}
 							<li>
 								<label>{{name}}</label>
-								<input type="text" name="{{token}}" />
+								<input type="text" name="{{token}}" value="{{value}}" />
 							</li>
 						{{/input.string}}
 

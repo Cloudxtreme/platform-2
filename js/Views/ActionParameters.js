@@ -27,6 +27,12 @@ Cloudwalkers.Views.ActionParameters = Backbone.View.extend({
 				data.input[v.type] = [];
 			}
 
+			if (v.value != "")
+			{
+				v.value = v.value.replace ('{{from.name}}', message.get('from') ? message.get ('from')[0].name : null);
+				v.value = v.value.replace ('{{body.plaintext}}', message.get('body') ? message.get ('body').plaintext : null);
+			}
+
 			data.input[v.type] = v;
 		});
 
