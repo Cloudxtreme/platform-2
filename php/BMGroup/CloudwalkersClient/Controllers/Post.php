@@ -118,6 +118,10 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		{
 			switch ($repeat_delay_unit)
 			{
+				case 'hours':
+					$data['repeat']['interval'] = $repeat_delay_amount * (60 * 60);
+				break;
+
 				case 'days':
 					$data['repeat']['interval'] = $repeat_delay_amount * (60 * 60 * 24);
 				break;
