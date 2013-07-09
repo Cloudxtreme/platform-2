@@ -24,9 +24,6 @@
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/backbonejs/backbone.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/modernizr/modernizr.js"></script>
 
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/lightbox/js/lightbox-2.6.min.js"></script>
-	<link href="<?php echo BASE_URL; ?>js/lib/lightbox/css/lightbox.css" rel="stylesheet" />
-
 	<!-- Application -->
 
 		<!-- Application -->
