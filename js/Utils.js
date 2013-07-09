@@ -4,7 +4,17 @@ Cloudwalkers.Utils = {
 
 	'longdate' : function (date)
 	{
-		return date.getDate () + '/' + date.getMonth () + '/' + date.getFullYear () + ' ' + date.getHours () + ':' + date.getMinutes ();
+		return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear () + ' ' + this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2);
+	},
+
+	'zeroIt' : function (s, len)
+	{
+		var c = '0';
+		var s = String(s);
+		
+		while(s.length < len) s = c + s;
+
+		return s;
 	},
 
 	'month' : function (monthid)

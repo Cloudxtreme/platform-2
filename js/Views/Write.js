@@ -139,7 +139,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
 
+		self.$el.find ('[name=url]').change (function ()
+		{
+			self.updateCounter ();
+		});
+
 		self.afterRender ();
+
+		self.updateCounter ();
 
 		return this;
 	},
@@ -161,12 +168,44 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
 		// Fetch all the limitations
-		var limitations = [];
+		var limitations = {};
 		for (var i = 0; i < selectedstreams.length; i ++)
 		{
 			for (var limitation in selectedstreams[i].network.limitations)
 			{
-				limitations.push ({ 'limitation' : limitation, 'value' : selectedstreams[i].network.limitations[limitation] });
+				//limitations.push ({ 'limitation' : limitation, 'value' : selectedstreams[i].network.limitations[limitation] });
+				if (typeof (limitations[limitation]) == 'undefined')
+				{
+					// Just go with it.
+					limitations[limitation] = selectedstreams[i].network.limitations[limitation].limit;
+				}
+
+				else
+				{
+					var currentvalue = limitations[limitation];
+
+					// MAXIMUM means that this is the absolute maximum, so if we have a higher value, replace it
+					if (selectedstreams[i].network.limitations[limitation].type == 'MAXIMUM')
+					{
+						if (currentvalue > selectedstreams[i].network.limitations[limitation].limit)
+						{
+							limitations[limitation] = selectedstreams[i].network.limitations[limitation].limit;
+						}
+					} 
+
+					// MINIMUM means that this is the absolute minimum, so if we have a lower value, replace it
+					else if (selectedstreams[i].network.limitations[limitation].type == 'MINIMUM')
+					{
+						if (currentvalue < selectedstreams[i].network.limitations[limitation].limit)
+						{
+							limitations[limitation] = selectedstreams[i].network.limitations[limitation].limit;
+						}
+					}
+					else
+					{
+						alert ('Unexpected limitation type: ' + selectedstreams[i].network.limitations[limitation].type);
+					}
+				}
 			}
 		}
 
@@ -194,6 +233,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					element.addClass ('inactive');
 					element.removeClass ('active');
 				}
+
+				self.updateCounter ();
 			}, 100);
 		}).each (function ()
 		{
@@ -261,16 +302,17 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 							{
 								if (objData.success)
 								{
-									p.remove ();
-
 									for (var i = 0; i < self.files.length; i ++)
 									{
-										if (self.files[i].url == file.url)
+										if (self.files[i] == file.url)
 										{
 											self.files.splice (i, 1);
 											break;
 										}
 									}
+
+									p.remove ();
+									self.updateCounter ();
 								}
 							}
 						});
@@ -279,6 +321,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					p.append (a);
 
 					self.$el.find('.fileupload-feedback').append (p);
+
+					self.updateCounter ();
 				});
 			}
 		});
@@ -345,16 +389,38 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.$el.find ('.total-text-counter').html (length);
 
 		var rules = this.getValidationRules ();
-		for (var i = 0; i < rules.length; i ++)
+		
+		// Count links
+		var links = this.$el.find ('[name=url]').val () != "" ? 1 : 0;
+
+		// Count images
+		var images = this.files.length;
+
+		if (typeof (rules['max-length']) != 'undefined')
 		{
-			if (rules[i].limitation == 'max-length')
+			if (typeof (rules['picture-url-length']) != 'undefined')
 			{
-				if (length > rules[i].value)
-				{
-					this.$el.find ('.error').html ('You can only use ' + rules[i].value + ' characters');
-					return;
-				}
+				rules['max-length'] -= rules['picture-url-length'] * images;
 			}
+
+			if (typeof (rules['picture-url-length']) != 'undefined')
+			{
+				rules['max-length'] -= rules['url-length'] * links;
+			}			
+
+			// Update maximum counter
+			this.$el.find ('.total-max-counter').html (rules['max-length']);
+
+			if (length > rules['max-length'])
+			{
+				this.$el.find ('.error').html ('You can only use ' + rules['max-length'] + ' characters');
+				return;
+			}			
+		}
+
+		else
+		{
+			this.$el.find ('.total-max-counter').html ('∞');
 		}
 
 		this.$el.find ('.error').html ('');
