@@ -40,7 +40,7 @@
 					{{{body.html}}}
 
 					{{#sortedattachments.link}}
-						<p class="link" style="margin-top: 15px;">
+						<p class="link" style="margin-top: 10px;">
 							<a href="{{url}}" target="_BLANK">Link</a>
 						</p>
 					{{/sortedattachments.link}}
