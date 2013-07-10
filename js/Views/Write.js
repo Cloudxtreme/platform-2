@@ -174,7 +174,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				{
 					self.addUploadedFileToList 
 					({
-						'name' : 'TESTTESTTEST',
+						'name' : attachments[i].name,
 						'url' : attachments[i].url,
 						'delete_url' : 'bla'
 					});
@@ -212,6 +212,18 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		a.click (function ()
 		{
+			for (var i = 0; i < self.files.length; i ++)
+			{
+				if (self.files[i] == file.url)
+				{
+					self.files.splice (i, 1);
+					break;
+				}
+			}
+
+			p.remove ();
+			self.updateCounter ();
+
 			jQuery.ajax
 			({
 				async:true, 
@@ -222,20 +234,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				url: file.delete_url, 
 				success:function(objData)
 				{
-					if (objData.success)
-					{
-						for (var i = 0; i < self.files.length; i ++)
-						{
-							if (self.files[i] == file.url)
-							{
-								self.files.splice (i, 1);
-								break;
-							}
-						}
-
-						p.remove ();
-						self.updateCounter ();
-					}
+					// This is just for show.
 				}
 			});
 		});
