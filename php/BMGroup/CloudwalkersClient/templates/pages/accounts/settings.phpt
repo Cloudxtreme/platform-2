@@ -10,7 +10,7 @@
 	<table>
 		<?php foreach ($account['settings'] as $v) { ?>
 			<tr>
-				<td>
+				<td class="first">
 					<?php echo $v['name']; ?>
 				</td>
 
@@ -27,7 +27,7 @@
 		<h3>
 			<?php echo $stream['name']; ?>
 
-			<?php $caps = $stream['capabilities']; ?>
+			<?php $caps = $stream['direction']; ?>
 			<?php $capabilities = '[ '; ?>
 			<?php foreach ($caps as $key => $value) {
 				if ($value) {
@@ -39,13 +39,17 @@
 			<?php echo $capabilities; ?>
 		</h3>
 
+		<?php if (isset ($stream['description'])) { ?>
+			<p class="description"><?php echo $stream['description']; ?></p>
+		<?php } ?>
+
 		<p>
 			<a href="<?php echo Neuron_URLBuilder::getURL ('services/settings/' . $account['id'] . '/createsubstream', array ('stream' => $stream['id'])); ?>">Create child stream</a>
 		</p>
 
 		<table>
 			<tr>
-				<td>
+				<td class="first">
 					Type
 				</td>
 
@@ -58,9 +62,17 @@
 				</td>
 			</tr>
 
+			<tr>
+				<td class="first">Custom name</td>
+
+				<td>
+					<input type="text" name="streams[<?php echo $stream['id']; ?>][customname]" value="<?php echo str_replace ('"', '\"', htmlentities ($stream['customname'])); ?>" />
+				</td>
+			</tr>
+
 			<?php foreach ($stream['settings'] as $setting) { ?>
 				<tr>
-					<td>
+					<td class="first">
 						<?php echo $setting['name']; ?>
 					</td>
 
@@ -84,7 +96,7 @@
 				</tr>
 			<?php } ?>
 
-			<?php if ($caps['incoming']) { ?>
+			<?php if ($caps['INCOMING']) { ?>
 				<tr>
 					<th colspan="2"><?php echo __('Channels'); ?></th>
 				</tr>
