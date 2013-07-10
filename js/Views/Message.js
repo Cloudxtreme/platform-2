@@ -57,6 +57,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		var data = this.prepareData ();
 
+		console.log (data);
+
 		if (typeof (data.parent) != 'undefined')
 		{
 			$(this.el).html (Mustache.render (Templates.messagecomment, data));	
