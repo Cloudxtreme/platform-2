@@ -116,11 +116,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var out = {};
 
 		out.weekdays = {};
-		out.interval = 0;
-		out.unit = 'days';
+
+		// Need some calculations here
+		var intervalSeconds = schedule.repeat.interval;
+
+		var intervalunits = { 'minutes' : 60, 'hours' : 60 * 60, 'days' : 60 * 60 * 24, 'weeks' : 60 * 60 * 24 * 7, 'months' : 60 * 60 * 24 * 31 };
+
+		for (var unit in intervalunits)
+		{
+			if ((intervalSeconds / intervalunits[unit]) < 72)
+			{
+				out.interval = Math.round (intervalSeconds / intervalunits[unit]);
+				out.unit = unit;
+
+				break;
+			}
+		}
+
 		out.end = null;
 
-		if (schedule.repeat)
+		if (typeof (schedule.repeat) != 'undefined')
 		{
 			if (schedule.repeat.end)
 			{

@@ -176,18 +176,23 @@
 										<div class="select date number">
 											<select name="repeat_delay_amount">
 												<option value="0">Never</option>
-												{{#days}}
-													<option>{{day}}</option>
-												{{/days}}
+												{{#repeatinterval.amount}}
+													<option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+												{{/repeatinterval.amount}}
 											</select>
 										</div>
 										<div class="select days date">
 											<select name="repeat_delay_unit">
-												<option value="minutes">Minutes(s)</option>
+												{{#repeatinterval.unit}}
+													<option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+												{{/repeatinterval.unit}}
+
+												<!--
 												<option value="hours">Hour(s)</option>
 												<option value="days" selected="selected">Day(s)</option>
 												<option value="weeks">Week(s)</option>
 												<option value="months">Month(s)</option>
+												-->
 											</select>
 										</div>
 
@@ -209,10 +214,10 @@
 										<span class="on">On</span>
 
 										{{#weekdays}}
-										<div class="row">
-											<input id="{{weekday}}" type="checkbox" name="repeat_{{weekday}}" value="1" {{#checked}}checked="checked"{{/checked}} />
-											<label for="{{weekday}}">{{name}}</label>
-										</div>
+											<div class="row">
+												<input id="{{weekday}}" type="checkbox" name="repeat_{{weekday}}" value="1" {{#checked}}checked="checked"{{/checked}} />
+												<label for="{{weekday}}">{{name}}</label>
+											</div>
 										{{/weekdays}}
 
 										<!--
