@@ -1,11 +1,11 @@
+<?php if (isset ($errors)) { ?>
+	<?php foreach ($errors as $error) { ?>
+		<p class="false"><?php echo $error; ?></p>
+	<?php } ?>
+<?php } ?>
+
 <form method="post">
 	<h2><?php echo __('Settings'); ?></h2>
-
-	<?php if (isset ($errors)) { ?>
-		<?php foreach ($errors as $error) { ?>
-			<p class="false"><?php echo $error; ?></p>
-		<?php } ?>
-	<?php } ?>
 
 	<table>
 		<?php foreach ($account['settings'] as $v) { ?>

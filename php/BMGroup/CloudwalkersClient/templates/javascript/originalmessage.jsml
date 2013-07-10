@@ -19,7 +19,7 @@
 					{{/from}}
 
 					{{#stream}}
-						({{name}})
+						({{customname}})
 					{{/stream}}
 				</h4>
 		</div>

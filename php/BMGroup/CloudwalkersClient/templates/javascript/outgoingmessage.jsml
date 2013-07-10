@@ -14,7 +14,7 @@
 			</h4>
 
 			<p style="margin: 3px;">
-				{{#streams}}{{name}}, {{/streams}}
+				{{#streams}}{{customname}}, {{/streams}}
 			</p>
 		</div>
 		<div class="post">
