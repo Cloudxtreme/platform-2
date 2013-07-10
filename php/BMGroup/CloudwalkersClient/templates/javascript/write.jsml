@@ -51,13 +51,11 @@
 								<div class="row row2"><input type="text" name="url" placeholder="URL" value="{{#message.sortedattachments.link}}{{url}}{{/message.sortedattachments.link}}" /></div>
 								<!--<div class="row row3"><input type="text" name="tags" value="Tags" /></div>-->
 
-								{{^message}}
-									<div class="row-file">
-										<input id="fileupload" class="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}/upload" multiple />
+								<div class="row-file">
+									<input id="fileupload" class="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}/upload" multiple />
 
-										<div class="fileupload-feedback" id="fileupload-feedback"></div>
-									</div>
-								{{/message}}
+									<div class="fileupload-feedback" id="fileupload-feedback"></div>
+								</div>
 
 								<!--
 								<div class="row-file"><a href="#" class="past">Past file</a></div>

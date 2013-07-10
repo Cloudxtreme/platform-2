@@ -163,11 +163,88 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.afterRender ();
 
+		if (this.model)
+		{
+			setTimeout (function ()
+			{
+				// Add the files
+				var attachments = self.model.get ('attachments');
+				
+				for (var i = 0; i < attachments.length; i ++)
+				{
+					self.addUploadedFileToList 
+					({
+						'name' : 'TESTTESTTEST',
+						'url' : attachments[i].url,
+						'delete_url' : 'bla'
+					});
+				}
+			}, 100);
+		}
+
 		self.updateCounter ();
 
 		self.$el.find('a[name=schedule_random]').click (function () { self.randomTime () });
 
 		return this;
+	},
+
+	/**
+	* Required input:
+	* { 
+	*	'url' : url, 
+	* 	'delete_url' : url, 
+	*	'name' : name 
+	* }
+	*/
+	'addUploadedFileToList' : function (file)
+	{
+		var self = this;
+
+		var p = $(document.createElement ('p'));
+		var a = $(document.createElement ('a'));
+
+		p.append (file.name + ' ');
+		a.html ('Delete');
+		a.attr ('href', 'javascript:void(0);');
+
+		self.files.push (file.url);
+
+		a.click (function ()
+		{
+			jQuery.ajax
+			({
+				async:true, 
+				cache:false, 
+				data:"", 
+				dataType:"json", 
+				type:"get", 
+				url: file.delete_url, 
+				success:function(objData)
+				{
+					if (objData.success)
+					{
+						for (var i = 0; i < self.files.length; i ++)
+						{
+							if (self.files[i] == file.url)
+							{
+								self.files.splice (i, 1);
+								break;
+							}
+						}
+
+						p.remove ();
+						self.updateCounter ();
+					}
+				}
+			});
+		});
+
+		p.append (a);
+
+		self.$el.find('.fileupload-feedback').append (p);
+
+		self.updateCounter ();
 	},
 
 	'getValidationRules' : function ()
@@ -298,50 +375,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			{
 				$.each(data.result.files, function (index, file) 
 				{
-					var p = $(document.createElement ('p'));
-					var a = $(document.createElement ('a'));
-
-					p.append (file.name + ' ');
-					a.html ('Delete');
-					a.attr ('href', 'javascript:void(0);');
-
-					self.files.push (file.url);
-
-					a.click (function ()
-					{
-						jQuery.ajax
-						({
-							async:true, 
-							cache:false, 
-							data:"", 
-							dataType:"json", 
-							type:"get", 
-							url: file.delete_url, 
-							success:function(objData)
-							{
-								if (objData.success)
-								{
-									for (var i = 0; i < self.files.length; i ++)
-									{
-										if (self.files[i] == file.url)
-										{
-											self.files.splice (i, 1);
-											break;
-										}
-									}
-
-									p.remove ();
-									self.updateCounter ();
-								}
-							}
-						});
-					});
-
-					p.append (a);
-
-					self.$el.find('.fileupload-feedback').append (p);
-
-					self.updateCounter ();
+					self.addUploadedFileToList (file);
 				});
 			}
 		});

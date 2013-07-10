@@ -29,7 +29,7 @@
 							<h3>Select profile</h3>
 							<ul>
 								{{#channels}}
-									<li><a href="javascript:void(0);" class="icon {{network}} channel off" data-id="{{id}}">{{name}}</a></li>
+									<li><a href="javascript:void(0);" class="icon {{network.icon}} channel off" data-id="{{id}}">{{customname}}</a></li>
 								{{/channels}}
 
 								<!--
