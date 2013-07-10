@@ -41,7 +41,7 @@
 
 					{{#sortedattachments.link}}
 						<p class="link">
-							<a href="{{url}}" target="_BLANK">Link</a>
+							<a href="{{url}}" target="_BLANK">{{url}}</a>
 						</p>
 					{{/sortedattachments.link}}
 				</div>
