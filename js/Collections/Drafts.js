@@ -4,6 +4,7 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 	'name' : null,
 
 	'nextPageParameters' : null,
+	'canHaveFilters' : false,
 
 	'initialize' : function (models, options)
 	{

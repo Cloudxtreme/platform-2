@@ -5,6 +5,7 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 
 	'nextPageParameters' : null,
 
+	'canHaveFilters' : false,
 	'filters' : {},
 
 	'initialize' : function (options)

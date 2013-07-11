@@ -7,6 +7,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 	'nextPageParameters' : null,
 	'streams' : null,
 
+	'canHaveFilters' : true,
 	'filters' : {},
 
 	'initialize' : function (models, options)

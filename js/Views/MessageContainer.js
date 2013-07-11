@@ -90,7 +90,11 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 		// Add filer
 		this.filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
-		this.$el.append (this.filterview.render ().el);
+
+		if (this.options.channel.canHaveFilters)
+		{
+			this.$el.append (this.filterview.render ().el);
+		}
 
 		// Auth refresh
 		this.interval = setInterval (function ()
