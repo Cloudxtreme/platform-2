@@ -56,7 +56,7 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 		else
 		{
 			// First load, load 50 records
-			var parameters = { 'records' : 50 };
+			var parameters = { 'records' : 10 };
 		}
 
 		for (var filter in this.filters)
