@@ -51,8 +51,6 @@ Cloudwalkers.Views.Filter = Backbone.View.extend({
 			objData.streams = Cloudwalkers.Session.getStreams ();
 		}
 
-		console.log (objData);
-
 		data.channels = [];
 		for (var i = 0; i < objData.streams.length; i ++)
 		{
