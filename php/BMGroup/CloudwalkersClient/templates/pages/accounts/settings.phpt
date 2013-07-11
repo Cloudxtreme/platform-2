@@ -45,6 +45,8 @@
 
 		<p>
 			<a href="<?php echo Neuron_URLBuilder::getURL ('services/settings/' . $account['id'] . '/createsubstream', array ('stream' => $stream['id'])); ?>">Create child stream</a>
+
+			<a href="<?php echo Neuron_URLBuilder::getURL ('services/settings/' . $account['id'] . '/reset', array ('stream' => $stream['id'])); ?>">Reset stream</a>
 		</p>
 
 		<table>

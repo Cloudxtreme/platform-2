@@ -94,6 +94,10 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 				return $this->remove ($id);
 			break;
 
+			case 'reset':
+				return $this->reset ($id);
+			break;
+
 			default:
 				return $this->getServiceSettings ($id);
 			break;
@@ -106,6 +110,18 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		$data = $client->get ('stream/' . $streamid . '/createsubstream', array ('account' => $this->getAccount (), 'refresh' => 1));
+
+		$errors = isset ($data['error']) ? array ($data['error']['message']) : array ();
+
+		return $this->getServiceSettings ($id, $errors);
+	}
+
+	private function reset ($id)
+	{
+		$streamid = Neuron_Core_Tools::getInput ('_GET', 'stream', 'int');
+
+		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+		$data = $client->get ('stream/' . $streamid . '/reset', array ('account' => $this->getAccount (), 'refresh' => 1));
 
 		$errors = isset ($data['error']) ? array ($data['error']['message']) : array ();
 
