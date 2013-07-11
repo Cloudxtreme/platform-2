@@ -7,6 +7,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 	'canLoadMore' : true,
 	'hasFilter' : true,
 	'interval' : null,
+	'filterview' : null,
 
 	'initialize' : function (options)
 	{
@@ -73,6 +74,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			},
 			'success' : function (e)
 			{
+				self.filterview.render ();
+
 				//self.$el.find ('.comment-box').html ('');
 				//self.addAll ();
 				self.$el.find ('.loading').hide ();
@@ -86,8 +89,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		});
 
 		// Add filer
-		var filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
-		this.$el.append (filterview.render ().el);
+		this.filterview = new Cloudwalkers.Views.Filter ({ 'collection' : this.options.channel });
+		this.$el.append (this.filterview.render ().el);
 
 		// Auth refresh
 		this.interval = setInterval (function ()

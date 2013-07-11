@@ -5,6 +5,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 	'name' : null,
 
 	'nextPageParameters' : null,
+	'streams' : null,
 
 	'filters' : {},
 
@@ -47,6 +48,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 			
 			// Set the next page
 			self.nextPageParameters  = response.channel.next;
+
+			self.streams = response.channel.streams;
 
 			//console.log (response);
 			passtrough (response.channel.messages);

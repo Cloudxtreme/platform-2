@@ -1,4 +1,4 @@
-Cloudwalkers.Views.Filter = Cloudwalkers.Views.Message.extend({
+Cloudwalkers.Views.Filter = Backbone.View.extend({
 
 	'collection' : null,
 
@@ -40,9 +40,18 @@ Cloudwalkers.Views.Filter = Cloudwalkers.Views.Message.extend({
 	{
 		var data = {};
 
-		var objData = {
-			'streams' : Cloudwalkers.Session.getStreams ()
-		};
+		var objData = {};
+
+		if (this.collection.streams != null)
+		{
+			objData.streams = this.collection.streams;
+		}
+		else
+		{
+			objData.streams = Cloudwalkers.Session.getStreams ();
+		}
+
+		console.log (objData);
 
 		data.channels = [];
 		for (var i = 0; i < objData.streams.length; i ++)
