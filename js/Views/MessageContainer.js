@@ -76,6 +76,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 			{
 				self.filterview.render ();
 
+				self.$el.find ('.messages-container p.no-current-messages').remove ();
+
 				//self.$el.find ('.comment-box').html ('');
 				//self.addAll ();
 				self.$el.find ('.loading').hide ();
@@ -84,7 +86,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 					self.$el.find ('.load-more').show ();
 
 				if (self.options.channel.length == 0)
-					self.$el.find ('.messages-container').html ('<p>Currently there are no messages.</p>');
+					self.$el.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 			}
 		});
 
@@ -174,6 +176,8 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 	{
 		var self = this;
 
+		self.$el.find ('.messages-container p.no-current-messages').remove ();
+
 		// Go trough all messages
 		this.options.channel.each (function (message)
 		{
@@ -223,7 +227,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 		if (this.options.channel.length == 0)
 		{
-			this.$el.find ('.messages-container').html ('<p>Currently there are no messages.</p>');
+			this.$el.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 		}
 	}
 
