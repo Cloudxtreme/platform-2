@@ -172,12 +172,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				
 				for (var i = 0; i < attachments.length; i ++)
 				{
-					self.addUploadedFileToList 
-					({
-						'name' : attachments[i].name,
-						'url' : attachments[i].url,
-						'delete_url' : 'bla'
-					});
+					if (attachments[i].type == 'image')
+					{
+						self.addUploadedFileToList 
+						({
+							'name' : attachments[i].name,
+							'url' : attachments[i].url,
+							'delete_url' : 'bla'
+						});
+					}
 				}
 			}, 100);
 		}
@@ -380,6 +383,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		});
 	},
 
+	// If return true, will create new message instead of editing old message
+	'isClone' : function ()
+	{
+		return typeof (this.options.clone) != 'undefined' && this.options.clone;
+	},
+
 	'submit' : function (e)
 	{
 		e.preventDefault ();
@@ -405,9 +414,16 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
 		var url = CONFIG_BASE_URL + 'post/?account=' + Cloudwalkers.Session.getAccount ().get ('id');
-		if (this.model)
+		if (this.model && !this.isClone ())
 		{
 			url += '&id=' + this.model.get ('id');
+		}
+
+		// This is a clone. We need to send the original message
+		// id so that the system can possibly take the correct measures.
+		else if (this.isClone ())
+		{
+			data += '&original_message=' + this.model.get ('id');
 		}
 
 		if (this.validate (true))

@@ -95,9 +95,22 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model }));
 	},
 
+	'shareMessage' : function (model)
+	{
+		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model, 'clone' : true }));
+	},
+
 	'setAccount' : function (account)
 	{
 		
+	},
+
+	'confirm' : function (message, callback)
+	{
+		if (confirm (message))
+		{
+			callback ();
+		}
 	},
 
 	'updatePlaceholder' : function ()

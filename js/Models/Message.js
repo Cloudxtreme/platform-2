@@ -1,5 +1,79 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
 
+	'initialize' : function ()
+	{
+		this.addInternalActions ();
+	},
+
+	'addInternalActions' : function ()
+	{
+		var self = this;
+
+		// Add "share" button
+		if (this.attributes.type == 'INCOMING')
+		{
+			this.attributes.actions.push ({
+				'name' : 'Share',
+				'parameters' : [],
+				'token' : 'internal-share',
+				'callback' : function (message)
+				{
+					Cloudwalkers.RootView.shareMessage (message);
+				}
+			});
+		}
+		else if (this.attributes.type == 'OUTGOING')
+		{
+			this.attributes.actions.push ({
+				'name' : 'Edit',
+				'parameters' : [],
+				'token' : 'internal-edit',
+				'callback' : function (message)
+				{
+					Cloudwalkers.RootView.editMessage (self);
+				}
+			});
+
+			this.attributes.actions.push ({
+				'name' : 'Delete',
+				'parameters' : [],
+				'token' : 'internal-delete',
+				'callback' : function (message)
+				{
+					self.delete ();
+				}
+			});
+		}
+	},
+
+	'delete' : function ()
+	{
+		var self = this;
+		var url = 'post/?remove=' + this.get ('id');
+
+		Cloudwalkers.RootView.confirm 
+		(
+			'Are you sure you want to remove this message?', 
+
+			function () 
+			{
+				// Do the call
+				jQuery.ajax
+				({
+					dataType:"json", 
+					type:"get", 
+					url: url, 
+					success:function(objData)
+					{
+						var collection = self.collection;
+						collection.reset ();
+						collection.fetch ();
+					}
+				});
+			}
+		);
+	},
+
 	'humandate' : function ()
 	{
 		var date = this.date ();
@@ -117,7 +191,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		out.weekdays = {};
 
-		if (typeof (schedule.repeat) != 'undefined')
+		if (typeof (schedule) != 'undefined' && typeof (schedule.repeat) != 'undefined')
 		{
 			// Need some calculations here
 			var intervalSeconds = schedule.repeat.interval;

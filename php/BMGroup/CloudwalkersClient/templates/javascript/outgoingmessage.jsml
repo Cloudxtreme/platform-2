@@ -35,15 +35,15 @@
 
 					{{#sortedattachments.link}}
 						<p class="link">
-							<a href="{{url}}" target="_BLANK">Link</a>
+							<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
 						</p>
 					{{/sortedattachments.link}}
 				</div>
 
 				<div class="col-button">
-					<a href="javascript:void(0);" class="button-post action edit"><span>Edit</span></a>
-
-					<a href="javascript:void(0);" class="button-post action delete"><span>Delete</span></a>
+					{{#actions}}
+						<a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><span>{{name}}</span></a>
+					{{/actions}}
 				</div>
 			</div>
 		</div>
