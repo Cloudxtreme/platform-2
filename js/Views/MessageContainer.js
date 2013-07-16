@@ -95,7 +95,7 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 
 		if (this.options.channel.canHaveFilters)
 		{
-			this.$el.append (this.filterview.render ().el);
+			this.$el.prepend (this.filterview.render ().el);
 		}
 
 		// Auth refresh
