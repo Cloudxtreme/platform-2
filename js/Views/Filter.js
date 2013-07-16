@@ -140,16 +140,16 @@ Cloudwalkers.Views.Filter = Backbone.View.extend({
 				allOff ();
 				webalerts.addClass ('off').removeClass ('on');
 
-				if (typeof (self.filters.types['webalerts']) != 'undefined')
+				if (typeof (self.filters.types['web']) != 'undefined')
 				{
-					delete self.filters.types['webalerts'];
+					delete self.filters.types['web'];
 				}
 			}
 
 			else
 			{
 				webalerts.addClass ('on').removeClass ('off');
-				self.filters.types['webalerts'] = true;
+				self.filters.types['web'] = true;
 			}
 
 			self.trigger ('filters:change');
