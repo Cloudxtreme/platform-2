@@ -24,7 +24,9 @@
 	<h2><?php echo __('Streams'); ?></h2>
 
 	<?php foreach ($account['streams'] as $stream) { ?>
+
 		<h3>
+			<?php echo $stream['id']; ?> 
 			<?php echo $stream['name']; ?>
 
 			<?php $caps = $stream['direction']; ?>
@@ -38,6 +40,10 @@
 
 			<?php echo $capabilities; ?>
 		</h3>
+
+		<?php if (isset ($stream['parent'])) { ?>
+			<p>Child stream of <?php echo $stream['parent']['id']; ?> <?php echo $stream['parent']['customname']; ?> (<?php echo $stream['parent']['name']; ?>)</p>
+		<?php } ?>
 
 		<?php if (isset ($stream['description'])) { ?>
 			<p class="description"><?php echo $stream['description']; ?></p>
