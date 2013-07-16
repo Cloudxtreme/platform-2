@@ -19,15 +19,17 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		data.sortedattachments = {};
 
 		// Go trough all attachments and put them in groups
-		if (typeof (data.attachments) != 'undefined')
+		var attachments = this.model.getProcessedAttachments ();
+
+		if (attachments.length > 0)
 		{
-			for (var i = 0; i < data.attachments.length; i ++)
+			for (var i = 0; i < attachments.length; i ++)
 			{
 				if (typeof (data.sortedattachments[data.attachments[i].type]) == 'undefined')
 				{
-					data.sortedattachments[data.attachments[i].type] = [];
+					data.sortedattachments[attachments[i].type] = [];
 				}
-				data.sortedattachments[data.attachments[i].type].push(data.attachments[i]);
+				data.sortedattachments[attachments[i].type].push(attachments[i]);
 			}
 		}
 

@@ -234,6 +234,37 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return Cloudwalkers.Utilities.StreamLibrary.getFromId (this.get ('stream'));
 		}
 		return null;
+	},
+
+	'getProcessedAttachments' : function ()
+	{
+		var attachments = [];
+		var attachment;
+
+		if (typeof (this.attributes.attachments) != 'undefined')
+		{
+			for (var i = 0; i < this.attributes.attachments.length; i ++)
+			{
+				attachment = this.attributes.attachments[i];
+
+				if (attachment.type == 'link')
+				{
+					// Check if link is also available in page
+					if (this.attributes.body.plaintext.indexOf (attachment.url) === false)
+					{
+						// It is not, add it to the attachments.
+						attachments.push (attachment);		
+					}
+
+				}
+				else
+				{
+					attachments.push (attachment);
+				}
+			}
+		}
+
+		return attachments;
 	}
 
 });
