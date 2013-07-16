@@ -2,6 +2,8 @@
 	<head>
 		<head>
 
+			<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/jquery-1.8.3.min.js"></script>
+
 			<style type="text/css">
 
 				body
@@ -68,9 +70,60 @@
 					border: 1px solid orange;
 					background: #FFFFD5;
 					padding: 10px 20px;
+					margin: 10px;
+				}
+
+				.last-messages
+				{
+					border: 1px solid gray;
+					padding: 20px;
+					margin: 10px;
+					background: #D9E9FF;
 				}
 
 			</style>
+
+			<script type="text/javascript">
+
+				$(document).ready (function ()
+				{
+					$('.load-message-link').click (function ()
+					{
+						var id = $(this).attr ('data-stream-id');
+						var container = $($(this).parent ());
+
+						container.html ('Please wait, loading...');
+
+						$.ajax 
+						(
+							'<?php echo BASE_URL; ?>json/stream/' + id + '?records=3', 
+							{
+								'success' : function (result)
+								{
+									container.html ('');
+
+									for (var i = 0; i < result.stream.messages.length; i ++)
+									{
+										var message = result.stream.messages[i];
+										console.log (message);
+
+										var from = typeof (message.from) != 'undefined' && message.from.length > 0 ? message.from[0].name : 'unknown';
+
+										container.append ('<p class="messages"><strong>' + from + '</strong>: ' + message.body.plaintext + '</p>');
+									}
+
+									if (result.stream.messages.length == 0)
+									{
+										container.html ('There are not messages right now.');
+									}
+								}
+							}
+						);
+
+					});
+				});
+
+			</script>
 
 		</head>
 	</head>

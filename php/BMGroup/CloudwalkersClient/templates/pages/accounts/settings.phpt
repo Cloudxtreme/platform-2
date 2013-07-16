@@ -109,6 +109,10 @@
 			<?php } ?>
 		</table>
 
+		<div class="last-messages">
+			<a href="javascript:void(0);" class="load-message-link" data-stream-id="<?php echo $stream['id']; ?>">Load last 3 messages</a>
+		</div>
+
 		<!-- SUBSTREAMS -->
 		<?php 
 
