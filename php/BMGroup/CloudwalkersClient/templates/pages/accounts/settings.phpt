@@ -6,7 +6,9 @@
 
 <?php function showStreams ($streams, $channels, $account, $onlyParentStreams = true) { ?>
 
-	
+	<?php if (count ($streams) == 0) { return; } ?>
+
+	<div class="substreams">
 
 	<?php foreach ($streams as $stream) { ?>
 
@@ -128,14 +130,14 @@
 
 			if (count ($substreams) > 0)
 			{
-				echo '<div class="substreams">';
 				showStreams ($substreams, $channels, $account, false);
-				echo '</div>';
 			}
 
 		?>
 
 	<?php } ?>
+
+	</div>
 
 <?php } ?>
 

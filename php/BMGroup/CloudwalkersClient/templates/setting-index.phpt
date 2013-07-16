@@ -71,6 +71,22 @@
 					background: #FFFFD5;
 					padding: 10px 20px;
 					margin: 10px;
+					border-left: 10px solid gray;
+				}
+
+				.substreams h3
+				{
+					font-size: 20px;
+				}
+
+				.substreams .substreams
+				{
+					background: #eee;
+				}
+
+				.substreams .substreams h3
+				{
+					font-size: 15px;
 				}
 
 				.last-messages
