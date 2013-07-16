@@ -69,7 +69,7 @@ Cloudwalkers.Views.Filter = Backbone.View.extend({
 
 	'resetFilters' : function ()
 	{
-		this.filters = { 'types' : { 'social' : true, 'webalerts' : true }};
+		this.filters = { 'types' : { 'social' : true, 'web' : true }};
 	},
 
 	'afterRender' : function ()
