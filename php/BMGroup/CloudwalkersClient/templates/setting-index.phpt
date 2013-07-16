@@ -63,6 +63,13 @@
 					font-size: 20px;
 				}
 
+				.substreams
+				{
+					border: 1px solid orange;
+					background: #FFFFD5;
+					padding: 10px 20px;
+				}
+
 			</style>
 
 		</head>

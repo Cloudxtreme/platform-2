@@ -4,26 +4,13 @@
 	<?php } ?>
 <?php } ?>
 
-<form method="post">
-	<h2><?php echo __('Settings'); ?></h2>
+<?php function showStreams ($streams, $channels, $account, $onlyParentStreams = true) { ?>
 
-	<table>
-		<?php foreach ($account['settings'] as $v) { ?>
-			<tr>
-				<td class="first">
-					<?php echo $v['name']; ?>
-				</td>
+	
 
-				<td>
-					<input type="text" name="<?php echo $v['key']; ?>" value="<?php echo $v['value']; ?>" />
-				</td>
-			</tr>
-		<?php } ?>
-	</table>
+	<?php foreach ($streams as $stream) { ?>
 
-	<h2><?php echo __('Streams'); ?></h2>
-
-	<?php foreach ($account['streams'] as $stream) { ?>
+		<?php if ($onlyParentStreams && isset ($stream['parent'])) { continue; } ?>
 
 		<h3>
 			<?php echo $stream['id']; ?> 
@@ -122,8 +109,50 @@
 			<?php } ?>
 		</table>
 
+		<!-- SUBSTREAMS -->
+		<?php 
+
+			$substreams = array ();
+			foreach ($streams as $v)
+			{
+				if (isset ($v['parent']) && $v['parent']['id'] == $stream['id']) {
+					$substreams[] = $v;
+				}
+			}
+
+			if (count ($substreams) > 0)
+			{
+				echo '<div class="substreams">';
+				showStreams ($substreams, $channels, $account, false);
+				echo '</div>';
+			}
+
+		?>
 
 	<?php } ?>
+
+<?php } ?>
+
+<form method="post">
+	<h2><?php echo __('Settings'); ?></h2>
+
+	<table>
+		<?php foreach ($account['settings'] as $v) { ?>
+			<tr>
+				<td class="first">
+					<?php echo $v['name']; ?>
+				</td>
+
+				<td>
+					<input type="text" name="<?php echo $v['key']; ?>" value="<?php echo $v['value']; ?>" />
+				</td>
+			</tr>
+		<?php } ?>
+	</table>
+
+	<h2><?php echo __('Streams'); ?></h2>
+
+	<?php showStreams ($account['streams'], $channels, $account); ?>
 
 	<button type="submit"><?php echo __('Store settings'); ?></button>
 
