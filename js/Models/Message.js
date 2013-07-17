@@ -108,8 +108,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			parameters = {};
 		}
 
-		//console.log ('Contacting ' + action.name + ' with parameters:');
-		//console.log (parameters);
+		console.log ('Contacting ' + action.name + ' with parameters:');
+		console.log (parameters);
 
 		var data = {
 			'actions' : [
