@@ -256,7 +256,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				if (attachment.type == 'link')
 				{
 					// Check if link is also available in page
-					if (this.attributes.body.plaintext.indexOf (attachment.url) === false)
+					if (typeof (this.attributes.body.plaintext) != 'undefined'
+						&& this.attributes.body.plaintext.indexOf (attachment.url) === false)
 					{
 						// It is not, add it to the attachments.
 						attachments.push (attachment);		
