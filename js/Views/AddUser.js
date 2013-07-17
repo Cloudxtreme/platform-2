@@ -34,6 +34,7 @@ Cloudwalkers.Views.AddUser = Backbone.View.extend({
 				'dataType': 'json',
 				'contentType' : 'application/json',
 				'processData' : false,
+				'cache': false,
 				'success' : function (data)
 				{
 					if (data.error)

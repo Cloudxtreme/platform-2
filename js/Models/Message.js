@@ -108,8 +108,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			parameters = {};
 		}
 
-		//console.log ('Contacting ' + action.name + ' with parameters:');
-		//console.log (parameters);
+		console.log ('Contacting ' + action.name + ' with parameters:');
+		console.log (parameters);
 
 		var data = {
 			'actions' : [
@@ -122,8 +122,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '?account=' + Cloudwalkers.Session.getAccount ().get ('id');
 
-		console.log (url);
-		console.log (data);
+		//console.log (url);
+		//console.log (data);
 
 		// Do the call
 		jQuery.ajax
@@ -133,6 +133,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			type:"put", 
 			url: url, 
 			processData : false,
+			cache : false,
 			success:function(objData)
 			{
 				//console.log (objData.message);

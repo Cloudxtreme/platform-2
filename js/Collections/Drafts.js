@@ -30,6 +30,7 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 			type:         'POST',
 			dataType:     'json',
 			url:			method == 'read' ? fetch_url : '',
+			cache: false
 		}, options);
 
 		// Make the request.

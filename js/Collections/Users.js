@@ -35,6 +35,7 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 			type:         'GET',
 			dataType:     'json',
 			url:			method == 'read' ? fetch_url : '',
+			cache: false
 		}, options);
 
 		// Make the request.

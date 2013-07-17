@@ -19,6 +19,7 @@ Cloudwalkers.Session =
 			{
 				'type' : 'post',
 				'data' : typeof (post) != 'undefined' && post ? post : {},
+				'cache': false,
 				'success' : function (data)
 				{
 					callback (data);
