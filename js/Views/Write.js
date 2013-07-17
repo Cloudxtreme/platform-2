@@ -13,6 +13,19 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		this.files = [];
 
+		this.actionparameters = {};
+
+		if (typeof (this.options.actionparameters) != 'undefined')
+		{
+			for (var i = 0; i < this.options.actionparameters.length; i ++)
+			{
+				//console.log (this.options.actionparameters[i]);
+				this.actionparameters[this.options.actionparameters[i].token] = this.options.actionparameters[i];
+			}
+		}
+
+		console.log (this.actionparameters);
+
 		var self = this;
 
 		var data = {};
@@ -141,6 +154,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		if (this.model)
 		{
 			data.message = this.model.attributes;
+
+			// Check for action attributes, if availalbe we need to process them
+			if (typeof (this.actionparameters.message) != 'undefined' && this.actionparameters.message.value != "")
+			{
+				data.message.body.plaintext = Cloudwalkers.Utilities.Parser.parseFromMessage (this.actionparameters.message.value, this.model);
+				data.message.body.html = Cloudwalkers.Utilities.Parser.parseFromMessage (this.actionparameters.message.value, this.model);
+			}
+
 
 			// Attachments
 			data.attachments = {};

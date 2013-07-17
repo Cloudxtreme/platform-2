@@ -95,7 +95,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		{
 			if (action)
 			{
-				if (action.parameters.length > 0)
+				if (action.type == 'dialog')
 				{
 					var view = new Cloudwalkers.Views.ActionParameters ({
 						'message' : this.model,
@@ -103,9 +103,24 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 					});
 					Cloudwalkers.RootView.popup (view);
 				}
-				else
+				else if (action.type == 'simple')
 				{
 					this.model.act (action, {});
+				}
+
+				else if (action.type == 'write')
+				{
+					Cloudwalkers.RootView.popup 
+					(
+						new Cloudwalkers.Views.Write 
+						(
+							{ 
+								'model' : this.model, 
+								'clone' : true, 
+								'actionparameters' : action.parameters 
+							}
+						)
+					);
 				}
 			}
 		}

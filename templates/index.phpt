@@ -71,6 +71,7 @@
 
 		<!-- Utilities -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/StreamLibrary.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/Parser.js"></script>
 
 	<!-- /Application -->
 
