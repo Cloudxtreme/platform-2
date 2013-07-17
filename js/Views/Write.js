@@ -3,7 +3,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'events' : 
 	{
 		'submit form' : 'submit',
-		'keyup textarea[name=message]' : 'updateCounter'
+		'keyup textarea[name=message]' : 'updateCounter',
+		'keyup input[name=title]' : 'updateCounter'
 	},
 
 	'files' : [],
@@ -484,6 +485,21 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		if (typeof (rules['picture-url-length']) != 'undefined')
 		{
 			extraCharacters += rules['url-length'] * links;
+		}
+
+		if (typeof (rules['include-title-in-max-length']) != 'undefined')
+		{
+			var subject = this.$el.find ('input[name=title]').val ();
+
+			if (subject.length > 0)
+			{
+				extraCharacters += subject.length;
+
+				if (typeof (rules['title-spacing-length']) != 'undefined')
+				{
+					extraCharacters += rules['title-spacing-length'];
+				}
+			}
 		}
 
 		// Has hard limit?
