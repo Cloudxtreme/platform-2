@@ -115,7 +115,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 						new Cloudwalkers.Views.Write 
 						(
 							{ 
-								'model' : this.model, 
+								'model' : this.model.clone (), 
 								'clone' : true, 
 								'actionparameters' : action.parameters 
 							}

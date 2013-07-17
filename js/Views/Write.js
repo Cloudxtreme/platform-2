@@ -153,7 +153,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// Data
 		if (this.model)
 		{
-			data.message = this.model.attributes;
+			data.message = jQuery.extend (true, {}, this.model.attributes);
 
 			// Check for action attributes, if availalbe we need to process them
 			if (typeof (this.actionparameters.message) != 'undefined' && this.actionparameters.message.value != "")
