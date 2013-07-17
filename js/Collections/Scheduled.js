@@ -9,6 +9,11 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 	'initialize' : function (models, options)
 	{
 		this.name = options.name;
+
+		this.comparator = function (message1, message2)
+		{
+			return message1.scheduledate ().getTime () < message2.scheduledate ().getTime () ? 1 : -1;
+		};
 	},
 
 	'sync' : function(method, model, options) 

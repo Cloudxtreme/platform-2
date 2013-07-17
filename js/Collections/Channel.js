@@ -14,6 +14,11 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 	{
 		this.id = options.id;
 		this.name = options.name;
+
+		this.comparator = function (message1, message2)
+		{
+			return message1.date ().getTime () < message2.date ().getTime () ? 1 : -1;
+		};
 	},
 
 	'loadMore' : function (options)

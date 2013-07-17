@@ -22,11 +22,6 @@ Cloudwalkers.Views.MessageContainer = Backbone.View.extend({
 		}
 
 		this.bind ('destroy', this.destroy, this);
-
-		this.options.channel.comparator = function (message1, message2)
-		{
-			return message1.date ().getTime () < message2.date ().getTime () ? 1 : -1;
-		};
 	},
 
 	'loadMore' : function ()
