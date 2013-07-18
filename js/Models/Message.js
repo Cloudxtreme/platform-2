@@ -189,6 +189,45 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
+	'calculateIntervalFromSeconds' : function (intervalSeconds)
+	{
+		var out = {};
+
+		var intervalunits = 
+		[ 
+			{ 'unit' : 'minutes', 'value' : 60 }, 
+			{ 'unit' : 'hours', 'value' : 60 * 60 }, 
+			{ 'unit' : 'days', 'value' : 60 * 60 * 24 }, 
+			{ 'unit' : 'weeks', 'value' : 60 * 60 * 24 * 7 }, 
+			{ 'unit' : 'months', 'value' : 60 * 60 * 24 * 31 }
+		];
+
+		// First check for an exact match
+		for (var i = intervalunits.length - 1; i >= 0; i --)
+		{
+			if ((intervalSeconds % intervalunits[i].value) == 0)
+			{
+				out.interval = Math.round (intervalSeconds / intervalunits[i].value);
+				out.unit = intervalunits[i].unit;
+
+				return out;
+			}
+		}
+
+		for (var i = 0; i < intervalunits.length; i ++)
+		{
+			if ((intervalSeconds / intervalunits[i].value) < 72)
+			{
+				out.interval = Math.round (intervalSeconds / intervalunits[i].value);
+				out.unit = intervalunits[i].unit;
+
+				return out;
+			}
+		}
+
+		return false;
+	},
+
 	'repeat' : function ()
 	{
 		var schedule = this.get ('schedule');
@@ -200,18 +239,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if (typeof (schedule) != 'undefined' && typeof (schedule.repeat) != 'undefined')
 		{
 			// Need some calculations here
-			var intervalSeconds = schedule.repeat.interval;
-			var intervalunits = { 'minutes' : 60, 'hours' : 60 * 60, 'days' : 60 * 60 * 24, 'weeks' : 60 * 60 * 24 * 7, 'months' : 60 * 60 * 24 * 31 };
-
-			for (var unit in intervalunits)
+			var intervalunit = this.calculateIntervalFromSeconds (schedule.repeat.interval);
+			if (intervalunit)
 			{
-				if ((intervalSeconds / intervalunits[unit]) < 72)
-				{
-					out.interval = Math.round (intervalSeconds / intervalunits[unit]);
-					out.unit = unit;
-
-					break;
-				}
+				out.interval = intervalunit.interval;
+				out.unit = intervalunit.unit;
 			}
 
 			out.end = null;
