@@ -586,9 +586,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		var self = this;
 		var date = new Date ();
 
-		this.$el.find ('select[name=schedule_day]').val (date.getDate ());
-		this.$el.find ('select[name=schedule_month]').val (date.getMonth () + 1);
-		this.$el.find ('select[name=schedule_year]').val (date.getFullYear ());
+		if (this.$el.find ('select[name=schedule_day]').val () == 'Day')
+		{
+			this.$el.find ('select[name=schedule_day]').val (date.getDate ());
+		}
+
+		if (this.$el.find ('select[name=schedule_month]').val () == 'Month')
+		{
+			this.$el.find ('select[name=schedule_month]').val (date.getMonth () + 1);
+		}
+
+		if (this.$el.find ('select[name=schedule_year]').val () == 'Year')
+		{
+			this.$el.find ('select[name=schedule_year]').val (date.getFullYear ());
+		}
 
 		var options = this.$el.find ('select[name=schedule_time] option');
 		var index = 32 + Math.round (Math.random () * (options.size () - 32));
