@@ -10,9 +10,15 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 	{
 		this.name = options.name;
 
+		var d1;
+		var d2;
+
 		this.comparator = function (message1, message2)
 		{
-			return message1.scheduledate (false).getTime () > message2.scheduledate (false).getTime () ? 1 : -1;
+			d1 = message1.scheduledate (false);
+			d2 = message2.scheduledate (false);
+
+			return (d1 ? d1.getTime () : 0) > (d2 ? d2.getTime () : 0) ? 1 : -1;
 		};
 	},
 
