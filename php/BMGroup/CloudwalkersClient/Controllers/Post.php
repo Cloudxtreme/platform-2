@@ -134,6 +134,10 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 					$data['repeat']['interval'] = $repeat_delay_amount * (60 * 60 * 24 * 7);
 				break;
 
+				case 'months':
+					$data['repeat']['interval'] = $repeat_delay_amount * (60 * 60 * 24 * 31);
+				break;
+
 				case 'years':
 					$data['repeat']['interval'] = $repeat_delay_amount * (60 * 60 * 24 * 365);
 				break;
