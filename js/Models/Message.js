@@ -214,6 +214,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			}
 		}
 
+		// Then take the closest, most detailed value
 		for (var i = 0; i < intervalunits.length; i ++)
 		{
 			if ((intervalSeconds / intervalunits[i].value) < 72)
