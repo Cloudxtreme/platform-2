@@ -292,7 +292,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 					//console.log (this.attributes.body.plaintext);
 
 					if (this.attributes.body.plaintext == null
-						|| this.attributes.body.plaintext.indexOf (attachment.url) === false)
+						|| this.attributes.body.plaintext.indexOf (attachment.url) === -1)
 					{
 						// It is not, add it to the attachments.
 						attachments.push (attachment);		
