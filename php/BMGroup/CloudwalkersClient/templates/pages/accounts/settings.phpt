@@ -148,15 +148,41 @@
 
 	<table>
 		<?php foreach ($account['settings'] as $v) { ?>
-			<tr>
-				<td class="first">
-					<?php echo $v['name']; ?>
-				</td>
+			<?php if ($v['type'] == 'link') { ?>
 
-				<td>
-					<input type="text" name="<?php echo $v['key']; ?>" value="<?php echo $v['value']; ?>" />
-				</td>
-			</tr>
+				<tr>
+					<td class="first">
+						&nbsp;
+					</td>
+
+					<td>
+						<a href="<?php echo $v['url'] . '?return=' . urlencode (Neuron_URLBuilder::getURL ('services/settings/' . $account['id'])); ?>"><?php echo $v['name']; ?></a>
+					</td>
+				</tr>
+
+			<?php } else if ($v['type'] == 'message') { ?>
+
+				<tr>
+					<td class="first">
+						&nbsp;
+					</td>
+
+					<td>
+						<?php echo $v['message']; ?>
+					</td>
+				</tr>
+
+			<?php } else { ?>
+					<tr>
+						<td class="first">
+							<?php echo $v['name']; ?>
+						</td>
+
+						<td>
+							<input type="text" name="<?php echo $v['key']; ?>" value="<?php echo $v['value']; ?>" />
+						</td>
+					</tr>
+				<?php } ?>
 		<?php } ?>
 	</table>
 
