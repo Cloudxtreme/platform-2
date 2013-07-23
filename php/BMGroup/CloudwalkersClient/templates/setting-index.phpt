@@ -103,8 +103,10 @@
 
 				$(document).ready (function ()
 				{
-					$('.load-message-link').click (function ()
+					$('.load-message-link').click (function (e)
 					{
+						e.preventDefault ();
+
 						var id = $(this).attr ('data-stream-id');
 						var container = $($(this).parent ());
 
