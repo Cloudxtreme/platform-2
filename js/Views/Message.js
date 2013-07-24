@@ -12,8 +12,18 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'commentsVisible' : false,
 
+	'initialize' : function ()
+	{
+		var self = this;
+		this.model.on ('change', function ()
+		{
+			self.render ();	
+		});
+	},
+
 	'prepareData' : function ()
 	{
+		var self = this;
 		var data = this.model.attributes;
 		data.humandate = this.model.humandate();
 		data.sortedattachments = {};
