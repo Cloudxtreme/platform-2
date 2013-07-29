@@ -22,7 +22,7 @@
 								{{#channels}}
 									<li>
 										<input type="checkbox" name="channel[{{id}}]" id="channel_{{id}}" value="{{id}}" {{#checked}}checked="checked"{{/checked}} />
-										<label class="icon {{network}}" for="channel_{{id}}">{{customname}}</label>
+										<label class="icon {{network.icon}}" for="channel_{{id}}">{{customname}}</label>
 									</li>
 								{{/channels}}
 
