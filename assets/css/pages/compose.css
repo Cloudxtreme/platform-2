@@ -1,0 +1,23 @@
+/***
+Compose Page
+***/
+
+.portlet-title .caption	{ font-size: 1.12em; }
+.portlet-title .caption i	{ margin: 2px 12px 0 0; }
+
+#message .message-body	{ background: white; }
+
+button.btn.blue	{ background: #2bbedc; }
+button.btn.blue:hover	{ background-color: #666 !important; }
+
+.add-data	{ margin-top: 24px; }
+
+.btn.white	{
+	border-radius: 2px !important; border: 1px solid #eee; border-bottom: #ccc solid 3px; background: white;
+}
+
+.btn.white:hover	{
+	border-bottom: #ccc solid 1px; background-color: white !important;
+}
+
+.message-schedule	{ margin-top: 10px; }

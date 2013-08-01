@@ -46,7 +46,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('#footer').toggle (showMenu);
 
 		this.view = view;
+
 		this.trigger ('view:change');
+		this.trigger ('content:change');
 
 		this.view.on ('content:change', function () { self.trigger ('content:change'); });
 	},
@@ -150,11 +152,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		var self = this;
 
+		/*
+
 		setTimeout (function ()
 		{
 			jcf.customForms.replaceAll();
 			self.imagePopups ();
 		}, 1);
+		*/
 
 		this.updatePlaceholder ();
 	}

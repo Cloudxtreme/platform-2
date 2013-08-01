@@ -1,4 +1,54 @@
-<div class="post-row">
+<td>
+
+	<ul>
+
+		<li>
+			{{#stream}}
+				<div class='icon'>
+					<i class="icon-{{network.icon}}"></i>
+				</div>
+
+				{{customname}}
+			{{/stream}}
+
+			<span class='right date'>
+				<span class="time time-since" data-date="{{date}}">
+					{{date}}
+				</span>
+			</span>
+		</li>
+
+		<li>
+			{{#subject}}
+				<small>{{subject}}</small><br />
+			{{/subject}}
+
+			{{{body.html}}}
+		</li>
+
+		<li>
+			<span class='actions icon-right dropdown'>
+
+				<i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
+
+				<ul class="dropdown-menu">
+					{{#actions}}
+						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-facebook"></i> {{name}}</a></li>
+					{{/actions}}
+
+					<!--
+					<li><a href="extra_lock.html"><i class="icon-retweet "></i> Retweet</a></li>
+					<li><a href="index.html"><i class="icon-share-alt"></i> Forward</a></li>
+					-->
+				</ul>
+			</span>
+		</li>
+	</ul>
+</td>
+
+<!--
+
+
 	<div class="picture">
 		{{#from}}
 			<img src="{{avatar}}" alt="image description" width="27" height="28" />
@@ -65,4 +115,6 @@
 			</div>
 		</div>
 	</div>
-</div>
+
+</td>
+-->

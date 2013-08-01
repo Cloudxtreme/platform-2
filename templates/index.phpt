@@ -1,137 +1,126 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-	<title>Cloudwalkers</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/style.css" type="text/css" />
-	<link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/fancybox.css" type="text/css" />
-	<link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/all.css" type="text/css" />
-	<link media="all" rel="stylesheet" href="<?php echo BASE_URL; ?>css/jcf.css" type="text/css" />
-	<link media="all" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Titillium+Web:400,600,700,600italic,700italic" type="text/css" />
+<!DOCTYPE html>
+<!-- 
+Template Name: Cloudwalkers - Responsive Admin Dashboard Template build with Twitter Bootstrap 2.3.1
+Version: 1.3
+Author: KeenThemes
+Website: http://www.bmgroup.com/preview/?theme=metronic
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+	<head>
+		<meta charset="utf-8" />
+		<title>Cloudwalkers</title>
 
-	<script type="text/javascript">
-		var CONFIG_BASE_URL = '<?php echo BASE_URL; ?>';
-
-		var Cloudwalkers = {};
-
-
-	</script>
-
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/jquery.main.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/mustache.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/underscorejs/underscore.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/backbonejs/backbone.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/modernizr/modernizr.js"></script>
-
-	<!-- Application -->
-
-		<!-- Application -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Cloudwalkers.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Session.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utils.js"></script>
-
-		<!-- Router -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Router/Router.js"></script>
-
-		<!-- Views -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Root.js"></script>    
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/MessageContainer.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Channel.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Loading.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Header.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OutgoingMessage.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OriginalMessage.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Write.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Filter.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comments.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comment.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Users.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
-
-		<!-- Models -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Account.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Message.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Comment.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Stream.js"></script>
-
-		<!-- Collections -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Scheduled.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Drafts.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Users.js"></script>
-
-		<!-- Utilities -->
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/StreamLibrary.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/Parser.js"></script>
-
-	<!-- /Application -->
-
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
-
-	<script src="js/lib/uploader/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="js/lib/uploader/jquery.iframe-transport.js"></script>
-	<script src="js/lib/uploader/jquery.fileupload.js"></script>
-
-
-	<!--[if lt IE 9]><link media="all" rel="stylesheet" href="css/ie.css" type="text/css" /><![endif]-->
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<!-- END GLOBAL MANDATORY STYLES -->
+		<!-- BEGIN PAGE LEVEL STYLES --> 
+		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" media="screen"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css"/>
+		<!-- END PAGE LEVEL STYLES -->
+		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
-	<body>
-		<div id="wrapper">
-			<div id="header">
-				<?php // echo $header; ?>
-			</div>
 
-			<div id="main">
-				<div class="main-holder">
-					<div id="content">
-					
-						<div class="user-container welcome-container">
-							<a href="javascript:void(0);" class="add-button"><span>Spread a message</span></a>
-							<div class="text">
-								<h1>Welcome,</h1>
-								<blockquote class="quote" cite="#">
-									<q>“Social Media is about sociology and psychology more than technology.”</q>
-									<cite>- by Brain Solis -</cite>
-								</blockquote>
-							</div>
-						</div>
+	<body class="page-header-fixed">
 
-						<div id="inner-content"></div>
-
-					</div>
+		<!-- BEGIN HEADER -->
+		<div class="header navbar navbar-inverse navbar-fixed-top">
+			<!-- BEGIN TOP NAVIGATION BAR -->
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<!-- BEGIN LOGO -->
+					<a class="brand" href="index.html">
+					<img src="<?php echo BASE_URL; ?>assets/img/logo.png" alt="logo"/>
+					</a>
+					<!-- END LOGO -->
+					<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+					<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+					<img src="<?php echo BASE_URL; ?>assets/img/menu-toggler.png" alt="" />
+					</a>          
+					<!-- END RESPONSIVE MENU TOGGLER -->            
+					<!-- BEGIN TOP NAVIGATION MENU -->              
+					<ul class="nav pull-right">
+						
+						<!-- BEGIN USER LOGIN DROPDOWN -->
+						<li class="dropdown user">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img alt="" src="<?php echo BASE_URL; ?>assets/img/avatar1_small.jpg" />
+							<span class="username">Dominique De Rijcke</span>
+							<i class="icon-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="management.html"><i class="icon-user"></i> My Profile</a></li>
+								<li class="divider"></li>
+								<li><a href="login.html"><i class="icon-lock"></i> Lock Screen</a></li>
+								<li><a href="login.html"><i class="icon-off"></i> Log Out</a></li>
+							</ul>
+						</li>
+						<!-- END USER LOGIN DROPDOWN -->
+					</ul>
+					<!-- END TOP NAVIGATION MENU --> 
 				</div>
 			</div>
-			
-			<div id="footer">
-				<?php echo $footer; ?>
+			<!-- END TOP NAVIGATION BAR -->
+		</div>
+		<!-- END HEADER -->
+
+
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN SIDEBAR -->
+			<div class="page-sidebar nav-collapse collapse">
+				<!-- BEGIN SIDEBAR MENU -->        
+				<?php include 'navigation.phpt'; ?>
+				<!-- END SIDEBAR MENU -->
+			</div>
+			<!-- END SIDEBAR -->
+			<!-- BEGIN PAGE -->
+			<div id="inner-content" class="page-content">
+
+			</div>
+			<!-- END PAGE -->
+		</div>
+		<!-- END CONTAINER -->
+		<!-- BEGIN FOOTER -->
+		<div class="footer">
+			<div class="footer-inner">
+				2013 &copy; Cloudwalkers by bmgroup.
+			</div>
+			<div class="footer-tools">
+				<span class="go-top">
+				<i class="icon-angle-up"></i>
+				</span>
 			</div>
 		</div>
+		<!-- END FOOTER -->
 
-		<!-- Piwik -->
-		<script type="text/javascript">
-		  var _paq = _paq || [];
-		  _paq.push(["trackPageView"]);
-		  _paq.push(["enableLinkTracking"]);
+		<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 
-		  (function() {
-		    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.catlab.eu/";
-		    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-		    _paq.push(["setSiteId", "18"]);
-		    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-		    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-		  })();
-		</script>
-		<!-- End Piwik Code -->
+		<!-- Application -->
+			<?php include 'scripts.phpt'; ?>
+		<!-- /Application -->
+
+		<!-- END JAVASCRIPTS -->
+
+		<?php include 'tracking.phpt'; ?>
 		
 	</body>
 </html>

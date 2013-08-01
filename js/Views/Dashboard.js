@@ -1,5 +1,36 @@
-Cloudwalkers.Views.Dashboard = Backbone.View.extend({
+Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
+	'initializeWidgets' : function ()
+	{
+		var collection;
+		var widget;
+
+		// All types
+		collection = new Cloudwalkers.Collections.TypedMessages ([], { 'id' : 'social', 'name' : 'Social media' });
+		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' });
+
+		this.addHalfWidget (widget);
+
+		// All types
+		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers' });
+		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'yellow' });
+
+		this.addHalfWidget (widget);
+
+		// All types
+		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
+		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'grey' });
+
+		this.addHalfWidget (widget, true);
+
+		// All types
+		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
+		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'red' });
+
+		this.addHalfWidget (widget);
+	}
+
+	/*
 	'events' : {
 		'click a.write-message-link' : 'writeMessage'
 	},
@@ -81,5 +112,6 @@ Cloudwalkers.Views.Dashboard = Backbone.View.extend({
 	{
 		Cloudwalkers.RootView.writeMessage (e);
 	}
+	*/
 
 });

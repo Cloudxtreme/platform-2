@@ -9,6 +9,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	'className' : 'message-view',
 
 	'template' : 'message',
+	'tagName' : 'tr',
 
 	'commentsVisible' : false,
 

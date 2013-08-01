@@ -1,6 +1,8 @@
 var Cloudwalkers = {
 
-	'Views' : {},
+	'Views' : {
+		'Widgets' : {}
+	},
 	'Router' : {},
 	'Models' : {},
 	'Collections' : {},
