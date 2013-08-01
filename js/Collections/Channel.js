@@ -10,6 +10,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 	'canHaveFilters' : true,
 	'filters' : {},
 
+	'_cancelCallback' : false,
+
 	'initialize' : function (models, options)
 	{
 		this.id = options.id;
@@ -50,15 +52,23 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		var passtrough = options.success;
 		options.success = function (response)
 		{
-			Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
-			
-			// Set the next page
-			self.nextPageParameters  = response.channel.next;
+			if (options.resumeCallback)
+			{
+				self._cancelCallback = false;				
+			}
 
-			self.streams = response.channel.streams;
+			if (!self._cancelCallback)
+			{
+				Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
+				
+				// Set the next page
+				self.nextPageParameters  = response.channel.next;
 
-			//console.log (response);
-			passtrough (response.channel.messages);
+				self.streams = response.channel.streams;
+
+				//console.log (response);
+				passtrough (response.channel.messages);
+			}
 		}
 
 		if (options.page)
@@ -92,10 +102,12 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'setFilters' : function (filters)
 	{
+		this._cancelCallback = true;
+
 		this.filters = filters;
 		
 		this.reset ();
-		this.fetch ();
+		this.fetch ({ 'resumeCallback' : true });
 	},
 
 	'update' : function ()
