@@ -35,6 +35,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css"/>
+		
+		<link href="<?php echo BASE_URL; ?>css/fancybox.css" rel="stylesheet" type="text/css"/>
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>

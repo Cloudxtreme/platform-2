@@ -24,6 +24,22 @@
 			{{/subject}}
 
 			{{{body.html}}}
+
+			<div class="picture">
+				{{#sortedattachments.image}}
+					<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+						<img src="{{url}}" alt="image description" width="93" height="68" />
+					</a>
+				{{/sortedattachments.image}}
+			</div>
+
+			{{{body.html}}}
+
+			{{#sortedattachments.link}}
+				<p class="link" style="margin-top: 10px;">
+					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+				</p>
+			{{/sortedattachments.link}}
 		</li>
 
 		<li>
@@ -33,7 +49,7 @@
 
 				<ul class="dropdown-menu">
 					{{#actions}}
-						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-facebook"></i> {{name}}</a></li>
+						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{token}}"></i> {{name}}</a></li>
 					{{/actions}}
 
 					<!--

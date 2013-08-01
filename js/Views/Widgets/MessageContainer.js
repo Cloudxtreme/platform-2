@@ -59,14 +59,12 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		});
 
 		// Auth refresh
-		/*
 		this.interval = setInterval (function ()
 		{
 			//self.options.channel.reset (); 
 			//self.options.channel.fetch ();
 			self.options.channel.update ();
 		}, 1000 * 30);
-		*/
 
 		return this;
 	},
