@@ -81,8 +81,24 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 
-		var widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' });
-		widgetcontainer.addWidget (widget);
+		// Check the types
+		var widget;
+
+		//console.log (channeldata);
+
+		if (channeldata.type == 'inbox' || channeldata.type == 'monitoring')
+		{
+			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue' });
+			widgetcontainer.addWidgetSize (listwidget, false, 4);
+
+			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			widgetcontainer.addWidgetSize (widget, false, 8);			
+		}
+		else
+		{
+			widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' })
+			widgetcontainer.addWidget (widget);
+		}
 
 		widgetcontainer.navclass = 'channel_' + id;
 

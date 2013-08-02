@@ -1,0 +1,17 @@
+<td>
+	<ul>
+		<li>			
+			{{#from}}
+				<span class="right date">{{name}}</span>
+			{{/from}}
+
+			{{#stream}}
+				<div class="icon"><i class="icon-{{network.icon}}"></i></div> <strong>{{name}}</strong>
+			{{/stream}}
+		</li>
+		<li>
+			{{{body.html}}}
+			<br />
+		</li>
+	</ul>
+</td>

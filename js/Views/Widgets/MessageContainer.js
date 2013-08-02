@@ -79,6 +79,12 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		clearInterval (this.interval);
 	},
 
+	// Just a small function to overwrite
+	'processMessageView' : function (message)
+	{
+
+	},
+
 	'getMessageView' : function (message)
 	{
 		var messageView;
@@ -89,7 +95,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			'tagName' : this.messageelement
 		};
 
-		console.log (parameters);
+		//console.log (parameters);
 
 		if (message.get ('type') == 'OUTGOING')
 		{
@@ -99,6 +105,9 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		{
 			messageView = new Cloudwalkers.Views.Message (parameters);
 		}
+
+		this.processMessageView (message, messageView);
+
 		return messageView;
 	},
 

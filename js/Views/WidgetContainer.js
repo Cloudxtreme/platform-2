@@ -43,6 +43,19 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		this.widgets.push ({ 'widget' : widget, 'size' : 'full', 'newline' : newline });
 	},
 
+	'addWidgetSize' : function (widget, newline, size)
+	{
+		if (typeof (newline) == 'undefined')
+		{
+			newline = false;
+		}
+
+		var self = this;
+		widget.on ('content:change', function () { self.trigger ('content:change'); });
+
+		this.widgets.push ({ 'widget' : widget, 'size' : size, 'newline' : newline });
+	},
+
 	'render' : function ()
 	{
 		var self = this;
@@ -73,6 +86,10 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 			else if (this.widgets[i].size == 'full')
 			{
 				container.addClass ('span12');
+			}
+			else
+			{
+				container.addClass ('span' + this.widgets[i].size);	
 			}
 
 			container.append (this.widgets[i].widget.render ().el);
