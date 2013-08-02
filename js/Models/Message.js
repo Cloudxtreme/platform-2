@@ -3,6 +3,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'initialize' : function ()
 	{
 		this.addInternalActions ();
+
+		if (typeof (this.attributes.parent) != 'undefined')
+		{
+			this.set ('parent', new Cloudwalkers.Models.Message (this.attributes.parent));
+			//console.log (data.parent);
+		}
 	},
 
 	'addInternalActions' : function ()

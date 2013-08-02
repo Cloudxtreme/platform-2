@@ -50,12 +50,6 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 		//console.log (this.model);
 
-		if (typeof (this.model.attributes.parent) != 'undefined')
-		{
-			data.parent = new Cloudwalkers.Models.Message (this.model.attributes.parent);
-			//console.log (data.parent);
-		}
-
 		// Stream information
 		if (this.model.getStream ())
 		{
