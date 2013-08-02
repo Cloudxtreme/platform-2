@@ -19,17 +19,54 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		this.addHalfWidget (widget);
 
+		// All channels
+		var account = Cloudwalkers.Session.getAccount ();
+
+		var channels = account.channels ();
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == 'monitoring')
+			{
+				collection = new Cloudwalkers.Collections.Channel 
+				(
+					[], 
+					{ 
+						'id' : channels[i].id, 
+						'name' : channels[i].name,
+						'amount' : 10
+					}
+				);
+
+				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' })
+				this.addHalfWidget (widget, true);
+			}
+		}
+
 		// All types
 		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
 		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'grey' });
 
-		this.addHalfWidget (widget, true);
-
-		// All types
-		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
-		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'red' });
-
 		this.addHalfWidget (widget);
+
+		// News and profiles
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == 'news' || channels[i].type == 'profiles')
+			{
+				collection = new Cloudwalkers.Collections.Channel 
+				(
+					[], 
+					{ 
+						'id' : channels[i].id, 
+						'name' : channels[i].name,
+						'amount' : 3
+					}
+				);
+
+				widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'blue' })
+				this.addWidget (widget, true);
+			}
+		}
 	}
 
 	/*

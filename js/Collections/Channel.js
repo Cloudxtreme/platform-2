@@ -16,6 +16,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 	{
 		this.id = options.id;
 		this.name = options.name;
+		this.amount = (typeof (options.amount) == 'undefined' ? 50 : options.amount);
 
 		this.comparator = function (message1, message2)
 		{
@@ -78,7 +79,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		else
 		{
 			// First load, load 50 records
-			var parameters = { 'records' : 50 };
+			var records = self.amount;
+			var parameters = { 'records' : records };
 		}
 
 		for (var filter in this.filters)
