@@ -229,6 +229,13 @@ var App = function () {
     var handleFixedSidebar = function () {
         var menu = $('.page-sidebar-menu');
 
+        if (menu.hasClass ('processed'))
+        {
+            return;
+        }
+
+        menu.addClass ('processed');
+
         if (menu.parent('.slimScrollDiv').size() === 1) { // destroy existing instance before updating the height
             menu.slimScroll({
                 destroy: true
@@ -746,6 +753,11 @@ var App = function () {
             handleChoosenSelect(); // handles bootstrap chosen dropdowns     
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
+        },
+
+        'handleScrollers' : function ()
+        {
+            handleScrollers ();
         },
 
         fixContentHeight: function () {

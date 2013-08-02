@@ -1,0 +1,44 @@
+<li class="timeline-blue {{#stream}}{{network.icon}}-color{{/stream}}">
+	<div class="timeline-time">
+		<span class="date">{{dateonly}}</span>
+		<span class="time">{{time}}</span>
+	</div>
+
+	<div class="timeline-icon"><i {{#stream}}class="icon-{{network.icon}}"{{/stream}}></i></div>
+
+	<div class="timeline-body">
+	
+		<span class="actions dropdown pull-right"> 
+			<i class="icon-share icon-2x dropdown-toggle" data-toggle="dropdown"></i>
+			<ul class="dropdown-menu">
+				{{#actions}}
+					<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{token}}"></i> {{name}}</a></li>
+				{{/actions}}
+			</ul>
+		</span>
+		
+		{{#subject}}
+			<h2>{{subject}}</h2>
+		{{/subject}}
+		
+		<div class="timeline-content">
+
+			{{#sortedattachments.image}}
+				<img class="timeline-img pull-right" src="{{url}}" alt="" />
+			{{/sortedattachments.image}}
+
+			{{{body.html}}}
+
+			{{#sortedattachments.link}}
+				<p>
+					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+				</p>
+			{{/sortedattachments.link}}
+		</div>
+		<div class="timeline-footer">
+			 {{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong> {{/likes}}
+
+			 {{#children_count}}<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>{{/children_count}}
+		</div>	
+	</div>
+</li>

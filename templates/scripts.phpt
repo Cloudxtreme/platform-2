@@ -93,6 +93,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageList.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Timeline.js"></script>
 
 <!-- Models -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
@@ -119,7 +120,17 @@
 
 		Cloudwalkers.RootView.on('content:change', function() {
 
-			console.log ('update!');
+            //App.unblockUI(pageContent);
+            //pageContentBody.html(res);
+            App.fixContentHeight(); // fix content height
+            App.initUniform(); // initialize uniform elements
+            App.handleScrollers ();
+
+		});
+
+		//Cloudwalkers.RootView.on('content:change', function() {
+
+			//console.log ('update!');
 
 			App.init(); // initlayout and core plugins
 			Index.init();
@@ -141,6 +152,7 @@
 		    *	snippets from <?php echo BASE_URL; ?>assets/scripts/charts.js
 		    */
 			
+			/*
 			var data = [];
 			var totalPoints = 250;
 			
@@ -183,7 +195,8 @@
 			
 			// DONUT
 			$.plot($("#donut"), data, {series: {pie: {innerRadius: 0.5,show: true}}});
-		});
+			*/
+		//});
 	});
 
 

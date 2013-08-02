@@ -9,15 +9,15 @@
 		<!-- NO QUICK SEARCH... -->
 	</li>
 	
-	<li class="start">
-		<a href="compose.html">
+	<li class="start write">
+		<a href="#write">
 		<i class="icon-share-sign"></i> 
 		<span class="title">Compose message</span>
 		<span class="selected"></span>
-		</a>
+	</a>
 	</li>
 	
-	<li class="active">
+	<li class="dashboard">
 		<a href="index.html">
 		<i class="icon-dashboard"></i> 
 		<span class="title">Dashboard</span>
@@ -25,22 +25,39 @@
 		</a>
 	</li>
 	
-	<li class="">
-		<a href="inbox.html">
-		<i class="icon-inbox"></i> 
-		<span class="title">Inbox</span>
-		<span class="selected"></span>
-		</a>
-	</li>
+	{{#channels}}
+		<li class="">
+			<a href="#channel/{{channelid}}">
+				<i class="icon-inbox"></i> 
+				<span class="title">{{name}}</span>
+				<span class="selected"></span>
+			</a>
+
+			<ul class="sub-menu">
+				{{#streams}}
+					<li><a href="#channel/{{channelid}}/{{id}}">{{name}}</a></li>
+				{{/streams}}
+			</ul>
+		</li>
+	{{/channels}}
 	
 	<li class="">
-		<a href="schedule.html">
+		<a href="#schedule">
 		<i class="icon-time"></i> 
 		<span class="title">Schedule</span>
 		<span class="selected"></span>
 		</a>
 	</li>
+
+	<li class="">
+		<a href="#drafts">
+		<i class="icon-time"></i> 
+		<span class="title">Drafts</span>
+		<span class="selected"></span>
+		</a>
+	</li>
 	
+	<!--
 	<li class="">
 		<a href="monitoring.html">
 		<i class="icon-tags"></i> 
@@ -73,6 +90,7 @@
 		<span class="selected"></span>
 		</a>					
 	</li>
+	-->
 	
 	<li class="">
 		<a href="management.html">

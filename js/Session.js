@@ -36,7 +36,7 @@ Cloudwalkers.Session =
 	'setAccount' : function (account)
 	{
 		this.account = account;
-		this.trigger ('account:change');
+		this.trigger ('account:change', account);
 	},
 
 	'getAccount' : function ()

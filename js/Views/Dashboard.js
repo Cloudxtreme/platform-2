@@ -1,5 +1,7 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
+	'navclass' : 'dashboard',
+
 	'initializeWidgets' : function ()
 	{
 		var collection;

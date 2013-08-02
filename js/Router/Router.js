@@ -1,10 +1,11 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
-		'channel/:id' : 'channel',
+		'channel/:channel(/:stream)' : 'channel',
 		'schedule' : 'schedule',
 		'drafts' : 'drafts',
 		'users' : 'users',
+		'write' : 'write',
 		'*path' : 'dashboard'
 	},
 
@@ -28,14 +29,17 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			}
 		);
 
-		var view = new Cloudwalkers.Views.Channel ({ 'channel' : channel, 'canLoadMore' : false });
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 
-		Cloudwalkers.RootView.setView (view);
+		var widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : channel, 'color' : 'blue' });
+		widgetcontainer.addWidget (widget);
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
 	'drafts' : function ()
 	{
-		var channel = new Cloudwalkers.Collections.Drafts
+		var collection = new Cloudwalkers.Collections.Drafts
 		(
 			[], 
 			{ 
@@ -43,12 +47,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			}
 		);
 
-		var view = new Cloudwalkers.Views.Channel ({ 'channel' : channel, 'canLoadMore' : false });
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 
-		Cloudwalkers.RootView.setView (view);
+		var widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' });
+		widgetcontainer.addWidget (widget);
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
-	'channel' : function (id)
+	'channel' : function (id, streamid)
 	{
 		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
 
@@ -61,13 +68,30 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			}
 		);
 
-		var view = new Cloudwalkers.Views.Channel ({ 'channel' : channel });
-		Cloudwalkers.RootView.setView (view);
+		var filters = {};
+		if (typeof (streamid) != 'undefined')
+		{
+			filters['streams'] = [ streamid ];
+			channel.setFilters (filters);	
+		}
+
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+
+		var widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' });
+		widgetcontainer.addWidget (widget);
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
 	'users' : function ()
 	{
 		var view = new Cloudwalkers.Views.Users ();
+		Cloudwalkers.RootView.setView (view);
+	},
+
+	'write' : function ()
+	{
+		var view = new Cloudwalkers.Views.Write ();
 		Cloudwalkers.RootView.setView (view);
 	}
 

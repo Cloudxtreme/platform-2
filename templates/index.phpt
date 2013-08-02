@@ -88,9 +88,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<!-- BEGIN CONTAINER -->
 		<div class="page-container">
 			<!-- BEGIN SIDEBAR -->
-			<div class="page-sidebar nav-collapse collapse">
+			<div class="page-sidebar nav-collapse collapse navigation-container">
 				<!-- BEGIN SIDEBAR MENU -->        
-				<?php include 'navigation.phpt'; ?>
+				
 				<!-- END SIDEBAR MENU -->
 			</div>
 			<!-- END SIDEBAR -->

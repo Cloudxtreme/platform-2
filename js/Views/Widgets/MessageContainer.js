@@ -3,6 +3,9 @@
 */
 Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.extend ({
 
+	'template' : 'messagecontainer',
+	'messageelement' : 'tr',
+
 	'initialize' : function ()
 	{
 		this.title = this.options.channel.name;
@@ -14,7 +17,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		var self = this;
 		var data = {};
 
-		element.html (Mustache.render (Templates.messagecontainer, data));
+		element.html (Mustache.render (Templates[this.template], data));
 
 		this.$innerEl.find ('.load-more').hide ();
 		this.$innerEl.find ('.loading').show ();
@@ -59,12 +62,14 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		});
 
 		// Auth refresh
+		/*
 		this.interval = setInterval (function ()
 		{
 			//self.options.channel.reset (); 
 			//self.options.channel.fetch ();
 			self.options.channel.update ();
 		}, 1000 * 30);
+		*/
 
 		return this;
 	},
@@ -77,13 +82,22 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'getMessageView' : function (message)
 	{
 		var messageView;
+
+		var parameters = {
+			'model' : message,
+			'template' : this.messagetemplate,
+			'tagName' : this.messageelement
+		};
+
+		console.log (parameters);
+
 		if (message.get ('type') == 'OUTGOING')
 		{
-			messageView = new Cloudwalkers.Views.OutgoingMessage ({ 'model' : message });
+			messageView = new Cloudwalkers.Views.OutgoingMessage (parameters);
 		}
 		else
 		{
-			messageView = new Cloudwalkers.Views.Message ({ 'model' : message });
+			messageView = new Cloudwalkers.Views.Message (parameters);
 		}
 		return messageView;
 	},
@@ -114,14 +128,14 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 			if (index == 0)
 			{
-				self.$innerEl.find ('table.messages-container').prepend (element);
+				self.$innerEl.find ('.messages-container').prepend (element);
 			}
 			else
 			{
 				var previousmessage = message.collection.at (index - 1);
 
 				// Check if previous message is found
-				var previouselement = self.$innerEl.find ('.messages-container tr.message-view[data-message-id=' + previousmessage.get ('id') + ']');
+				var previouselement = self.$innerEl.find ('.messages-container .message-view[data-message-id=' + previousmessage.get ('id') + ']');
 
 				if (previouselement.length > 0)
 				{

@@ -7,6 +7,16 @@ Cloudwalkers.Utils = {
 		return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear () + ' ' + this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2);
 	},
 
+	'shortdate' : function (date)
+	{
+		return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear ();
+	},
+
+	'time' : function (date)
+	{
+		return this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2)
+	},
+
 	'zeroIt' : function (s, len)
 	{
 		var c = '0';

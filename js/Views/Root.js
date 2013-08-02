@@ -21,6 +21,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		});
 
 		$('.add-button').click (this.writeMessage);
+
+		Cloudwalkers.Session.on ('account:change', function (account) { self.setAccount (account); } );
 	},
 
 	'render' : function ()
@@ -47,10 +49,16 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		this.view = view;
 
-		this.trigger ('view:change');
-		this.trigger ('content:change');
+		$('.page-sidebar-menu li').removeClass ('active');
+		$('.page-sidebar-menu .' + this.view.navclass).addClass ('active');
 
 		this.view.on ('content:change', function () { self.trigger ('content:change'); });
+
+		setTimeout (function ()
+		{
+			self.trigger ('view:change');
+			self.trigger ('content:change');
+		}, 1);
 	},
 
 	'popup' : function (view)
@@ -104,7 +112,21 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'setAccount' : function (account)
 	{
-		
+		// Redo navigation
+		var data = {};
+		var channels = account.channels ();
+
+		data.channels = [];
+		for (var i = 0; i < channels.length; i ++)
+		{
+			var obj = channels[i];
+			obj.channelid = channels[i].id;
+			data.channels.push (obj);
+		}
+
+		console.log (data);
+
+		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
 	},
 
 	'confirm' : function (message, callback)

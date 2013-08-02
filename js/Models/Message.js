@@ -80,6 +80,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return Cloudwalkers.Utils.longdate (date);
 	},
 
+	'shortdate' : function ()
+	{
+		var date = this.date ();
+		return Cloudwalkers.Utils.shortdate (date);
+	},
+
+	'time' : function ()
+	{
+		var date = this.date ();
+		return Cloudwalkers.Utils.time (date);
+	},
+
 	'date' : function ()
 	{
 		return (new Date(this.get ('date')));

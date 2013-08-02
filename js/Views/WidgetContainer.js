@@ -8,6 +8,7 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 
 	'initialize' : function ()
 	{
+		this.widgets = [];
 		this.initializeWidgets ();
 	},
 
@@ -29,7 +30,7 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		this.widgets.push ({ 'widget' : widget, 'size' : 'half', 'newline' : newline });
 	},
 
-	'addWiget' : function (widget, newline)
+	'addWidget' : function (widget, newline)
 	{
 		if (typeof (newline) == 'undefined')
 		{

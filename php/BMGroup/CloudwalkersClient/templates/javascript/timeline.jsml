@@ -1,0 +1,6 @@
+<ul class="timeline social-box-colors messages-container" id='pages'>
+
+</ul>
+
+<p class="loading">Please wait, we are loading your messages.</p>
+<p class="load-more"><a href="javascript:void(0);">Load more</a></p>

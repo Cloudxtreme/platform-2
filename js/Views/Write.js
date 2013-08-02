@@ -9,6 +9,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'files' : [],
 
+	'navclass' : 'write',
+
 	'render' : function ()
 	{
 		this.files = [];
@@ -23,8 +25,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				this.actionparameters[this.options.actionparameters[i].token] = this.options.actionparameters[i];
 			}
 		}
-
-		console.log (this.actionparameters);
 
 		var self = this;
 
