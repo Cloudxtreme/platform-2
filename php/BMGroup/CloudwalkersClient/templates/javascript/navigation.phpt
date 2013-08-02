@@ -18,7 +18,7 @@
 	</li>
 	
 	<li class="dashboard">
-		<a href="index.html">
+		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
 		<span class="title">Dashboard</span>
 		<span class="selected"></span>
@@ -93,7 +93,7 @@
 	-->
 	
 	<li class="">
-		<a href="management.html">
+		<a href="#users">
 		<i class="icon-group"></i> 
 		<span class="title">User Management</span>
 		<span class="selected"></span>
