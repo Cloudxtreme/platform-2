@@ -23,6 +23,12 @@
 				<small>{{subject}}</small><br />
 			{{/subject}}
 
+			<strong>
+				{{#from}}
+					{{name}}
+				{{/from}}
+			</strong> 
+
 			{{{body.html}}}
 
 			<div class="picture">
@@ -32,8 +38,6 @@
 					</a>
 				{{/sortedattachments.image}}
 			</div>
-
-			{{{body.html}}}
 
 			{{#sortedattachments.link}}
 				<p class="link" style="margin-top: 10px;">
@@ -51,86 +55,8 @@
 					{{#actions}}
 						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{token}}"></i> {{name}}</a></li>
 					{{/actions}}
-
-					<!--
-					<li><a href="extra_lock.html"><i class="icon-retweet "></i> Retweet</a></li>
-					<li><a href="index.html"><i class="icon-share-alt"></i> Forward</a></li>
-					-->
 				</ul>
 			</span>
 		</li>
 	</ul>
 </td>
-
-<!--
-
-
-	<div class="picture">
-		{{#from}}
-			<img src="{{avatar}}" alt="image description" width="27" height="28" />
-		{{/from}}
-		{{^from}}
-			<img src="images/ico8.png" alt="image description" width="27" height="28" />
-		{{/from}}
-	</div>
-	<div class="post-box" style="height:inherit;">
-		<div class="title-post">
-			<span class="time time-since" data-date="{{date}}">
-				{{date}}
-			</span>
-
-			<h4>
-				{{#from}}
-					{{name}}
-				{{/from}}
-
-				{{#stream}}
-					({{customname}})
-				{{/stream}}
-			</h4>
-		</div>
-		<div class="post">
-			{{#subject}}
-				<h5>{{subject}}</h5>
-			{{/subject}}
-			<div class="holder">
-				<div class="text-post">
-					<div class="picture">
-						{{#sortedattachments.image}}
-							<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
-								<img src="{{url}}" alt="image description" width="93" height="68" />
-							</a>
-						{{/sortedattachments.image}}
-					</div>
-
-					{{{body.html}}}
-
-					{{#sortedattachments.link}}
-						<p class="link" style="margin-top: 10px;">
-							<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
-						</p>
-					{{/sortedattachments.link}}
-				</div>
-
-				<div class="col-button">
-
-					{{#actions}}
-						<a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><span>{{name}}</span></a>
-					{{/actions}}
-				</div>
-
-				{{#canHaveChildren}}
-					<div class="col-button like-button">
-						<a href="javascript:void(0)" class="button-post children-button message-children"><span>{{children_count}} <strong>comments</strong></span></a>
-					</div>
-				{{/canHaveChildren}}
-			</div>
-
-			<div class="frame comment-container">
-
-			</div>
-		</div>
-	</div>
-
-</td>
--->

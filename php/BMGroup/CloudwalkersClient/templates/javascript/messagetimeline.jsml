@@ -23,9 +23,17 @@
 		
 		<div class="timeline-content">
 
+			<strong>
+				{{#from}}
+					{{name}}
+				{{/from}}
+			</strong> 
+
 			{{#sortedattachments.image}}
 				<img class="timeline-img pull-right" src="{{url}}" alt="" />
 			{{/sortedattachments.image}}
+
+
 
 			{{{body.html}}}
 

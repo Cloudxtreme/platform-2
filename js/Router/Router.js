@@ -34,6 +34,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : channel, 'color' : 'blue' });
 		widgetcontainer.addWidget (widget);
 
+		widgetcontainer.navclass = 'schedule';
+
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
@@ -51,6 +53,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' });
 		widgetcontainer.addWidget (widget);
+
+		widgetcontainer.navclass = 'drafts';
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
@@ -79,6 +83,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' });
 		widgetcontainer.addWidget (widget);
+
+		widgetcontainer.navclass = 'channel_' + id;
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},

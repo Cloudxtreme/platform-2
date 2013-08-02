@@ -26,7 +26,7 @@
 	</li>
 	
 	{{#channels}}
-		<li class="">
+		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-inbox"></i> 
 				<span class="title">{{name}}</span>
@@ -41,7 +41,7 @@
 		</li>
 	{{/channels}}
 	
-	<li class="">
+	<li class="schedule">
 		<a href="#schedule">
 		<i class="icon-time"></i> 
 		<span class="title">Schedule</span>
@@ -49,7 +49,7 @@
 		</a>
 	</li>
 
-	<li class="">
+	<li class="drafts">
 		<a href="#drafts">
 		<i class="icon-time"></i> 
 		<span class="title">Drafts</span>
