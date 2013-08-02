@@ -27,7 +27,7 @@
 	
 	{{#channels}}
 		<li class="">
-			<a href="#channel/{{channelid}}">
+			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-inbox"></i> 
 				<span class="title">{{name}}</span>
 				<span class="selected"></span>
