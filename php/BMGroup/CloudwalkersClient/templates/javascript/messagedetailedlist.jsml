@@ -1,17 +1,21 @@
 <td>
 	<ul>
 		<li>			
-			{{#from}}
-				<span class="right date">{{name}}</span>
-			{{/from}}
+			<span class="right date">
+				<span class="time time-since" data-date="{{date}}">{{humandate}}</span>
+				{{name}}
+			</span>
 
 			{{#stream}}
 				<div class="icon"><i class="icon-{{network.icon}}"></i></div> <strong>{{name}}</strong>
 			{{/stream}}
 		</li>
 		<li>
+			{{#from}}
+				{{name}}
+			{{/from}}<br />
+
 			{{{body.html}}}
-			<br />
 		</li>
 	</ul>
 </td>

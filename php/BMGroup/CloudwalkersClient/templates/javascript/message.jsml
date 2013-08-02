@@ -19,6 +19,8 @@
 		</li>
 
 		<li>
+			<div class="parent-message-view" style="margin-top: 10px;"></div>
+			
 			{{#subject}}
 				<small>{{subject}}</small><br />
 			{{/subject}}

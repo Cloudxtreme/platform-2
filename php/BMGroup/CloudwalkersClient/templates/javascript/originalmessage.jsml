@@ -1,66 +1,74 @@
-<div class="post-row">
-	<div class="picture">
-		{{#from}}
-			<img src="{{avatar}}" alt="image description" width="27" height="28" />
-		{{/from}}
-		{{^from}}
-			<img src="images/ico8.png" alt="image description" width="27" height="28" />
-		{{/from}}
+<div class="portlet box grey {{#stream}}{{network.icon}}{{/stream}}-color" id="keyword">
+	<div class="portlet-title line">
+		{{#stream}}
+			<div class="caption"><i class="icon-{{network.icon}} icon-large"></i>{{customname}}</div>
+		{{/stream}}
 	</div>
-	<div class="post-box" style="height:inherit;">
-		<div class="title-post">
-			<span class="time time-since" data-date="{{date}}">
-				{{date}}
-			</span>
+	<div class="portlet-body" id="inbox-workers">
+		<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><div class="scroller" data-height="" data-always-visible="1" data-rail-visible1="1" style="overflow: hidden; width: auto;">
+			<table class="table table-striped table-bordered table-advance table-hover">
+					<tr>
+						<td class="parent-message">
+							<div class="parent-message-view" ></div>
+						</td>
+					</tr>
 
-				<h4>
-					{{#from}}
-						{{name}}
-					{{/from}}
+					<tr>
+						<td class="message-header">
+						<ul>
+							<li>
+								<span class="right date">
+									<span class="time time-since" data-date="{{date}}">
+										{{date}}
+									</span>
+								</span>
+								{{#from}}
+									{{name}}
 
-					{{#stream}}
-						({{customname}})
-					{{/stream}}
-				</h4>
-		</div>
-		<div class="post">
-			{{#subject}}
-				<h5>{{subject}}</h5>
-			{{/subject}}
-			<div class="holder">
-				<div class="text-post">
-					<div class="picture">
-						{{#sortedattachments.image}}
-							<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
-								<img src="{{url}}" alt="image description" width="93" height="68" />
-							</a>
-						{{/sortedattachments.image}}
-					</div>
+									{{#subject}}
+										<br>
+										<strong class="title">{{subject}}</strong>
+									{{/subject}}
+								{{/from}}
+							</li>
+						</ul>
+						</td>
+					</tr>
 
-					{{{body.html}}}
+					<tr>
+						<td class="message-body">
+						<ul>
+							<li>
+								{{{body.html}}}
 
-					{{#sortedattachments.link}}
-						<p class="link">
-							<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
-						</p>
-					{{/sortedattachments.link}}
-				</div>
+								{{#sortedattachments.image}}
+									<p><a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+										<img src="{{url}}" alt="image description" width="93" height="68" />
+									</a></p>
+								{{/sortedattachments.image}}
 
-				<div class="col-button">
+								{{#sortedattachments.link}}
+									<p class="link" style="margin-top: 10px;">
+										<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+									</p>
+								{{/sortedattachments.link}}
 
+							</li>
+						</ul>
+						</td>
+					</tr>
+			</table>
+			
+			<div class="message-buttons">
+				
+				<span class="right">
 					{{#actions}}
-						<a href="javascript:void(0);" class="button-post action original-message-action" data-action="{{token}}"><span>{{name}}</span></a>
+						<button class="btn inherit button-post action message-action" data-action="{{token}}">{{name}}</button>
 					{{/actions}}
-				</div>
-
-				{{#canHaveChildren}}
-					<div class="col-button like-button">
-						<a href="javascript:void(0)" class="button-post children-button original-message-children"><span>{{children_count}} <strong>comments</strong></span></a>
-					</div>
-				{{/canHaveChildren}}
+					<!--<button class="btn black" id="button-response">Share</button>-->
+				</span>		
 			</div>
-
-			<div class="frame comment-container">
+			
 
 			</div>
 		</div>
