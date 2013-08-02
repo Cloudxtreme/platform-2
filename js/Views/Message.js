@@ -158,12 +158,16 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		{
 			this.commentsVisible = false;
 
+			this.$el.find ('.comment-label').html ('Show comments');
+
 			// Hide
 			this.$el.find ('.comment-container').hide ();
 		}
 		else
 		{
 			this.commentsVisible = true;
+
+			this.$el.find ('.comment-label').html ('Hide comments');
 
 			var view = new Cloudwalkers.Views.Comments ({ 'parent' : this.model });
 			this.$el.find ('.comment-container').html (view.render ().el).show ();

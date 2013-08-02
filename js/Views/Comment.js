@@ -2,6 +2,8 @@ Cloudwalkers.Views.Comment = Backbone.View.extend({
 
 	'className' : 'comments-row',
 
+	'tagName' : 'li',
+
 	'render' : function ()
 	{
 		var data = {};

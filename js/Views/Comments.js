@@ -17,7 +17,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 		self.$el.find ('.loading-comments').show ();
 		self.$el.find ('.load-more-comments').hide ();
-		self.$el.find ('.commments').hide ();
+		self.$el.find ('.comments-inner-container').hide ();
 
 		var collection = new Cloudwalkers.Collections.Comments ({ 'id' : this.options.parent.get ('id') });
 		this.collection = collection;
@@ -25,13 +25,13 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		collection.fetch ({
 			'success' : function( )
 			{
-				self.$el.find ('.commments').show ();
+				self.$el.find ('.comments-inner-container').show ();
 				self.$el.find ('.loading-comments').hide ();
 				self.$el.find ('.load-more-comments').show ();
 
 				if (self.collection.length == 0)
 				{
-					self.$el.find ('.comments').html ('<p>No comments available right now.</p>');
+					self.$el.find ('.comments-inner-container').html ('<p>No comments available right now.</p>');
 				}
 			}
 		});
@@ -54,15 +54,13 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		if (index === 0)
 		{
 			//console.log ('test');
-			this.$el.find ('.comments').prepend (element);
+			this.$el.find ('.comments-inner-container').prepend (element);
 		}
 
 		else
 		{
-			this.$el.find ('.comments .comments-row').eq (index - 1).after (element);
+			this.$el.find ('.comments-inner-container .comments-row').eq (index - 1).after (element);
 		}
-
-		jcf.customForms.replaceAll();
 	},
 
 	'refresh' : function ()
@@ -72,7 +70,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 		if (this.options.channel.length == 0)
 		{
-			this.$el.find ('.comments').html ('<p>Currently there are no comments.</p>');
+			this.$el.find ('.comments-inner-container').html ('<p>Currently there are no comments.</p>');
 		}
 	},
 

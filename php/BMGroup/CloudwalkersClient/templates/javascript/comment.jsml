@@ -1,23 +1,11 @@
-<div class="foto">
-	{{#comment.from}}
-	<a href="#">
-		<img src="{{avatar}}" alt="image description" width="40" height="40">
-	</a>
-	{{/comment.from}}
-</div>
-<div class="text">
-	<div class="title">
-		<em class="date">{{comment.humandate}}<a href="#">
+{{#comment.from}}
+	<img class="avatar" alt="" src="{{avatar}}">
+{{/comment.from}}
 
-			<!--<img src="images/ico15.png" alt="image description" width="15" height="15"></a>-->
-		</em>
-
-		{{#comment.from}}
-			<strong class="name"><a href="javascript:void(0);">{{name}}</a></strong>
-		{{/comment.from}}
+<span>
+	{{#comment.from}}<strong class='title'>{{name}}</strong>{{/comment.from}}
+	<span class="date time time-since" data-date="{{comment.date}}">{{comment.date}}</span>
+	<div class='content'>
+		{{{comment.body.html}}}
 	</div>
-	<div class="text-row">
-		<!--<a href="javascript:void(0);" class="button-post">--><span>{{comment.likes}} Likes</span><!--</a>-->
-		<p>{{{comment.body.html}}}</p>
-	</div>
-</div>
+</span>
