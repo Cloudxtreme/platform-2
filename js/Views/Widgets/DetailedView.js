@@ -26,7 +26,7 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'render' : function ()
 	{
-		this.$el.html ('<p>Please select a message from the left.</p>');
+		this.$el.html ('');
 		return this;
 	}
 
