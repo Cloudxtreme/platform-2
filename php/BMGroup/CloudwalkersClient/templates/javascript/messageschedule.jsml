@@ -1,6 +1,6 @@
 
 <td>{{scheduledate}}</td>
-<td>{{#from}}{{name}}{{/from}}</td>
+<td>{{#streams}}{{customname}}{{/streams}}</td>
 <td>{{subject}}</td>
 <td class="hidden-480">{{{body.html}}}</td>
 <td>

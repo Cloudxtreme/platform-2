@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th>Scheduled</th>
-			<th>User</th>
+			<th>For</th>
 			<th>Title</th>
 			<th class="hidden-480">content</th>
 			<th></th>
