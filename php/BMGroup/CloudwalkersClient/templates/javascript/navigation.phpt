@@ -35,7 +35,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li><a href="#channel/{{channelid}}/{{id}}">{{name}}</a></li>
+					<li><a href="#channel/{{channelid}}/{{id}}">{{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
