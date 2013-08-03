@@ -7,7 +7,7 @@
 			</span>
 
 			{{#stream}}
-				<div class="icon"><i class="icon-{{network.icon}}"></i></div> <strong>{{name}}</strong>
+				<div class="icon"><i class="icon-{{network.icon}}"></i></div> <strong>{{customname}}</strong>
 			{{/stream}}
 		</li>
 		<li>
