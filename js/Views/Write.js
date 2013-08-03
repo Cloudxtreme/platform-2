@@ -4,7 +4,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		'submit form' : 'submit',
 		'keyup textarea[name=message]' : 'updateCounter',
-		'keyup input[name=title]' : 'updateCounter'
+		'keyup input[name=title]' : 'updateCounter',
+		'click #schedule-btn' : 'toggleSchedule'
 	},
 
 	'files' : [],
@@ -192,16 +193,19 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				// Add the files
 				var attachments = self.model.get ('attachments');
 				
-				for (var i = 0; i < attachments.length; i ++)
+				if (typeof (attachments) != 'undefined')
 				{
-					if (attachments[i].type == 'image')
+					for (var i = 0; i < attachments.length; i ++)
 					{
-						self.addUploadedFileToList 
-						({
-							'name' : attachments[i].name,
-							'url' : attachments[i].url,
-							'delete_url' : 'bla'
-						});
+						if (attachments[i].type == 'image')
+						{
+							self.addUploadedFileToList 
+							({
+								'name' : attachments[i].name,
+								'url' : attachments[i].url,
+								'delete_url' : 'bla'
+							});
+						}
 					}
 				}
 			}, 100);
@@ -209,7 +213,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.updateCounter ();
 
-		self.$el.find('a[name=schedule_random]').click (function () { self.randomTime () });
+		self.$el.find('[name=schedule_random]').click (function () { self.randomTime () });
 
 		return this;
 	},
@@ -336,7 +340,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		var self = this;
 
-		self.$el.find('form').find ('ul.channels label').click (function ()
+		self.$el.find('form').find ('.channels label').click (function ()
 		{
 			var element = $(this);
 			setTimeout (function ()
@@ -345,13 +349,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 				if (checkbox.is (':checked'))
 				{
-					element.addClass ('active');
-					element.removeClass ('inactive');
+					element.parent ().addClass ('active');
+					element.parent ().removeClass ('inactive');
 				}
 				else
 				{
-					element.addClass ('inactive');
-					element.removeClass ('active');
+					element.parent ().addClass ('inactive');
+					element.parent ().removeClass ('active');
 				}
 
 				self.updateCounter ();
@@ -370,20 +374,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 					if (input.is (':checked'))
 					{
-						label.addClass ('active');
-						label.removeClass ('inactive');
+						label.parent ().addClass ('active');
+						label.parent ().removeClass ('inactive');
 					}
 					else
 					{
-						label.addClass ('inactive');
-						label.removeClass ('active');
+						label.parent ().addClass ('inactive');
+						label.parent ().removeClass ('active');
 					}
 				});
 			}, 100);
 		});
 
-		self.$el.find('form').find ('ul.channels input[type=checkbox]').hide ();
-		self.$el.find('form').find ('ul.channels label').addClass ('inactive');
+		self.$el.find('form').find ('.social-icon-colors input[type=checkbox]').hide ();
+		self.$el.find('form').find ('.channels label').addClass ('inactive');
 
 		self.$el.find('form').find ('h2.schedule-message-title').click (function ()
 		{
@@ -463,8 +467,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				{
 					if (objData.success)
 					{
+						self.$el.html ('<p>Your message has been scheduled.</p>');
+						
 						self.trigger ('popup:close');
 						Cloudwalkers.Session.trigger ('message:add');
+
 						return true;
 					}
 					else
@@ -609,5 +616,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		this.trigger ('content:change');
 		
+	},
+
+	'toggleSchedule' : function ()
+	{
+		console.log ('this');
+		this.$el.find ('.message-schedule').toggleClass ('hidden');
+
+		this.trigger ('content:change');
 	}
 });
