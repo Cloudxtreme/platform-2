@@ -43,23 +43,23 @@
 													
 													<h2>Add</h2>
 													
-													<!--<button class='btn black'>subject</button>-->
-													<!--<button class='btn blue'>URL</button>-->
-													<!--<button class='btn blue'>picture</button>-->
+													<button class='btn black' data-toggle-target="subject" type="button">subject</button>
+													<button class='btn blue' data-toggle-target="url" type="button">URL</button>
+													<button class='btn blue' data-toggle-target="picture" type="button">picture</button>
 
 													<!--<button class='btn blue'>tags</button>-->
 													
-													<div class='add-data'>
+													<div class='add-data {{^message.subject}}inactive{{/message.subject}}' data-toggle-id="subject">
 														<label class="control-label">Subject</label>
 														<input name="title" type="text" placeholder="your title" class="m-wrap span8" value="{{message.subject}}" />
 													</div>
 
-													<div class='add-data'>
+													<div class='add-data {{^message.sortedattachments.link}}inactive{{/message.sortedattachments.link}}' data-toggle-id="url">
 														<label class="control-label">URL</label>
 														<input type="text" name="url" placeholder="URL" value="{{#message.sortedattachments.link}}{{url}}{{/message.sortedattachments.link}}" />
 													</div>
 
-													<div class='add-data'>
+													<div class='add-data inactive' data-toggle-id="picture">
 														<input class="fileupload" id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}upload" multiple />
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>

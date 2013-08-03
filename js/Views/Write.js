@@ -215,6 +215,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.$el.find('[name=schedule_random]').click (function () { self.randomTime () });
 
+		self.$el.find ('[data-toggle-target]').click (function ()
+		{
+			var id = $(this).attr ('data-toggle-target');
+			self.$el.find ('[data-toggle-id=' + id + ']').toggle ();
+		});
+
+		self.$el.find ('.inactive[data-toggle-id]').hide ();
+
 		return this;
 	},
 
@@ -468,7 +476,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					if (objData.success)
 					{
 						self.$el.html ('<p>Your message has been scheduled.</p>');
-						
+
 						self.trigger ('popup:close');
 						Cloudwalkers.Session.trigger ('message:add');
 

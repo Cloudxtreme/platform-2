@@ -97,14 +97,16 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 		//console.log (parameters);
 
+		/*
 		if (message.get ('type') == 'OUTGOING')
 		{
 			messageView = new Cloudwalkers.Views.OutgoingMessage (parameters);
 		}
 		else
 		{
+		*/
 			messageView = new Cloudwalkers.Views.Message (parameters);
-		}
+		//}
 
 		this.processMessageView (message, messageView);
 

@@ -96,6 +96,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/DetailedList.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/DetailedView.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Timeline.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ScheduledList.js"></script>
 
 <!-- Models -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
