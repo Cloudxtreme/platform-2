@@ -178,7 +178,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'refresh' : function ()
 	{
-		//this.$innerEl.find ('.messages-container').html ('');
+		this.$innerEl.find ('.messages-container').html ('');
+		this.resort ();
 		//this.options.channel.each (this.addOne, this);
 
 		/*
