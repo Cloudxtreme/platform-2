@@ -1,0 +1,38 @@
+{{#subject}}
+	<strong class="title">{{subject}}</strong>
+{{/subject}}
+
+<div class="text-post">
+
+	<div class="picture">
+		{{#sortedattachments.image}}
+			<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+				<img src="{{url}}" alt="image description" width="93" height="68" />
+			</a>
+		{{/sortedattachments.image}}
+	</div>
+
+	{{{body.html}}}
+
+	{{#sortedattachments.link}}
+		<p class="link">
+			<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+		</p>
+	{{/sortedattachments.link}}
+</div>
+
+{{#actions}}
+	<button class="btn inherit button-post action original-message-action" data-action="{{token}}">{{name}}</button>
+{{/actions}}
+
+{{#canHaveChildren}}
+	<div class="col-button like-button">
+		<a href="javascript:void(0)" class="original-message-children"><span>{{children_count}} <strong>comments</strong></span></a>
+	</div>
+{{/canHaveChildren}}
+
+{{#canHaveChildren}}
+	<div class="original-comment-container">
+
+	</div>
+{{/canHaveChildren}}

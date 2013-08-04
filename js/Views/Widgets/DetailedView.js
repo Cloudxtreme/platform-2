@@ -18,6 +18,8 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 		var parameters = {
 			'model' : message,
 			'template' : 'messagedetailview',
+			'childtemplate' : 'messagedetailviewchild',
+			'originaltemplate' : 'messagedetailoriginal',
 			'tagName' : 'div'
 		};
 
