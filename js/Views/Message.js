@@ -130,7 +130,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				{
 					Cloudwalkers.RootView.writeDialog 
 					(
-						model,
+						this.model,
 						action
 					);
 				}
