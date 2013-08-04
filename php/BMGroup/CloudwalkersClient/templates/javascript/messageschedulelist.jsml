@@ -11,8 +11,8 @@
 			{{/streams}}
 
 			<span class='right date'>
-				<span class="time time-since" data-date="{{date}}">
-					{{date}}
+				<span class="time">
+					{{scheduledate}}
 				</span>
 			</span>
 		</li>
