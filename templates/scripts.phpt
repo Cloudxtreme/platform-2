@@ -10,7 +10,7 @@
 <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>      
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>js/lib/fancybox.js" type="text/javascript"></script>
+<!--<script src="<?php echo BASE_URL; ?>js/lib/fancybox.js" type="text/javascript"></script>-->
 <!--[if lt IE 9]>
 <script src="<?php echo BASE_URL; ?>assets/plugins/excanvas.min.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/respond.min.js"></script>  
@@ -46,7 +46,10 @@
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="<?php echo BASE_URL; ?>assets/scripts/app.js" type="text/javascript"></script>
 <script src="<?php echo BASE_URL; ?>assets/scripts/index.js" type="text/javascript"></script>  
-<script src="<?php echo BASE_URL; ?>assets/scripts/charts.js" type="text/javascript"></script>      
+<script src="<?php echo BASE_URL; ?>assets/scripts/charts.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
+
 <!-- END PAGE LEVEL SCRIPTS -->  
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/mustache.js"></script>

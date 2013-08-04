@@ -65,6 +65,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		var self = this;
 
+		/*
+
 		$.fancybox
 		(
 			'<p>Please wait, we are loading your content.</p>',
@@ -82,10 +84,27 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				}
 			}
 		);
+*/
+		var tmpl = [
+		// tabindex is required for focus
+		'<div class="modal hide fade" tabindex="-1">',
+			'<div class="modal-header">',
+				'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>',
+			'</div>',
+			'<div class="modal-body modalcontainer">',
+				'<p>Please wait, we are loading your content</p>',
+			'</div>',
+			'<div class="modal-footer">',
+			'</div>',
+		'</div>'
+		].join('');
+		
+		var modal = $(tmpl).modal();
+		modal.find ('.modalcontainer').html (view.render ().el);
 
 		view.on ('popup:close', function ()
 		{
-			$.fancybox.close ();
+			modal.modal ('hide');
 		});
 
 		view.on ('content:change', function ()

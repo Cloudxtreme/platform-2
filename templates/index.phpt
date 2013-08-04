@@ -36,7 +36,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css"/>
 		
-		<link href="<?php echo BASE_URL; ?>css/fancybox.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/monitoring.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<!-- END PAGE LEVEL STYLES -->
@@ -44,6 +45,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	</head>
 
 	<body class="page-header-fixed">
+
+		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
 
 		<!-- BEGIN HEADER -->
 		<div class="header navbar navbar-inverse navbar-fixed-top">
