@@ -20,4 +20,8 @@ button.btn.blue:hover	{ background-color: #666 !important; }
 	border-bottom: #ccc solid 1px; background-color: white !important;
 }
 
+.btn.white.active	{
+	border: 1px solid green;
+}
+
 .message-schedule	{ margin-top: 10px; }
