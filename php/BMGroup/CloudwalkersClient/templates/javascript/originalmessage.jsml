@@ -63,7 +63,7 @@
 				
 				<span class="right">
 					{{#actions}}
-						<button class="btn inherit button-post action message-action" data-action="{{token}}">{{name}}</button>
+						<button class="btn inherit button-post action original-message-action" data-action="{{token}}">{{name}}</button>
 					{{/actions}}
 					<!--<button class="btn black" id="button-response">Share</button>-->
 				</span>		

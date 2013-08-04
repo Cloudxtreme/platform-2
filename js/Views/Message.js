@@ -128,16 +128,13 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 				else if (action.type == 'write')
 				{
-					Cloudwalkers.RootView.popup 
+					Cloudwalkers.RootView.writeDialog 
 					(
-						new Cloudwalkers.Views.Write 
-						(
-							{ 
-								'model' : this.model.clone (), 
-								'clone' : true, 
-								'actionparameters' : action.parameters 
-							}
-						)
+						{ 
+							'model' : this.model.clone (), 
+							'clone' : true, 
+							'actionparameters' : action.parameters 
+						}
 					);
 				}
 			}

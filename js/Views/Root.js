@@ -116,13 +116,29 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'writeMessage' : function (e)
 	{
 		e.preventDefault ();
-		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
+		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
+		this.setView (new Cloudwalkers.Views.Write ());
 	},
 
 	'editMessage' : function (model)
 	{
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
 		this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
+	},
+
+	'writeDialog' : function (model)
+	{
+		this.popup
+		(
+			new Cloudwalkers.Views.Write 
+			(
+				{ 
+					'model' : this.model.clone (), 
+					'clone' : true, 
+					'actionparameters' : action.parameters 
+				}
+			)
+		);
 	},
 
 	'shareMessage' : function (model)
