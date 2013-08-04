@@ -61,7 +61,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 				//self.addAll ();
 				element.find ('.loading').hide ();
 
-				if (self.canLoadMore)
+				if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
 					element.find ('.load-more').show ();
 
 				if (self.options.channel.length == 0)
