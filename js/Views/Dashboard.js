@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'navclass' : 'dashboard',
+	'title' : 'Dashboard',
 
 	'initializeWidgets' : function ()
 	{
@@ -41,7 +42,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		// All types
 		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers' });
-		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'yellow' });
+		widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'yellow' });
 
 		this.addHalfWidget (widget);
 
@@ -66,7 +67,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		// All types
 		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
-		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'grey' });
+		widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'grey' });
 
 		this.addHalfWidget (widget);
 
