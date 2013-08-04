@@ -100,6 +100,10 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		var action = $(element.currentTarget).attr ('data-action');
 		
 		action = this.model.getAction (action);
+		if (action == null)
+		{
+			return;
+		}
 
 		if (typeof (action.callback) != 'undefined')
 		{
