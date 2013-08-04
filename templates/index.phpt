@@ -46,8 +46,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 	<body class="page-header-fixed">
 
-		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
-
 		<!-- BEGIN HEADER -->
 		<div class="header navbar navbar-inverse navbar-fixed-top">
 			<!-- BEGIN TOP NAVIGATION BAR -->
