@@ -4,11 +4,9 @@
 
 		<li>
 			{{#user}}
-				<strong>{{name}}:</strong>
+				<strong>{{name}}:</strong><br />
 			{{/user}}
-		</li>
 
-		<li>
 			{{#stream}}
 				<div class='icon'>
 					<i class="icon-{{network.icon}}"></i>
