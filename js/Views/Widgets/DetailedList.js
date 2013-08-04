@@ -26,6 +26,11 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 			view.$el.find ('td').addClass ('active');
 			self.trigger ('select:message', message);
 		});
+	},
+
+	'onFirstAdd' : function (message, messageView)
+	{
+		messageView.$el.click ();
 	}
 
 });

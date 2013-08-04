@@ -113,6 +113,20 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		return messageView;
 	},
 
+	'onFirstAddEvent' : function (message, messageView)
+	{
+		var self = this;
+		setTimeout (function ()
+		{
+			self.onFirstAdd (message, messageView);
+		}, 1);
+	},
+
+	'onFirstAdd' : function (message, messageView)
+	{
+
+	},
+
 	'resort' : function ()
 	{
 		var self = this;
@@ -140,6 +154,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			if (index == 0)
 			{
 				self.$innerEl.find ('.messages-container').prepend (element);
+				self.onFirstAdd (message, messageView);
 			}
 			else
 			{
