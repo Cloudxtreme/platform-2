@@ -95,7 +95,7 @@
 								
 								<div class='message-buttons'>
 									<button class="btn blue" id='schedule-btn' type="button"><i class="icon-time"></i> Schedule message</button>
-									<button class="btn black" id='button-response' type="submit">Send now</button>	
+									<button class="btn black right" id='button-response' type="submit">Send now</button>	
 								</div>
 								
 								<table class="message-schedule table table-striped table-bordered table-advance table-hover hidden">
