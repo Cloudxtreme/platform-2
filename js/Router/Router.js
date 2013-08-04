@@ -43,6 +43,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		widgetcontainer.navclass = 'schedule';
 
+		if (streamid)
+		{
+			widgetcontainer.subnavclass = 'schedule_' + streamid;
+			//console.log (widgetcontainer.subnavclass);
+		}
+
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
@@ -108,6 +114,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 
 		widgetcontainer.navclass = 'channel_' + id;
+
+		if (streamid)
+		{
+			widgetcontainer.subnavclass = 'channel_' + id + '_' + streamid;
+			//console.log (widgetcontainer.subnavclass);
+		}
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},

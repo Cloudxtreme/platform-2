@@ -50,7 +50,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.view = view;
 
 		$('.page-sidebar-menu li').removeClass ('active');
-		$('.page-sidebar-menu .' + this.view.navclass).addClass ('active');
+		$('.page-sidebar-menu li.' + this.view.navclass).addClass ('active');
+
+		if (typeof (this.view.subnavclass) != 'undefined')
+		{
+			$('.page-sidebar-menu li ul li.' + this.view.subnavclass).addClass ('active');
+		}
 
 		this.view.on ('content:change', function () { self.trigger ('content:change'); });
 

@@ -35,7 +35,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i>{{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -50,7 +50,7 @@
 
 		<ul class="sub-menu">
 			{{#scheduledstreams}}
-				<li>
+				<li class="schedule_{{id}}">
 					<a href="#schedule/{{id}}">
 						<i class="icon-{{network.icon}}"></i>
 						{{customname}}
@@ -70,7 +70,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i>{{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -86,7 +86,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i>{{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -103,7 +103,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i>{{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
