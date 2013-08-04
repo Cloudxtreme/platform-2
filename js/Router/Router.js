@@ -65,7 +65,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 
-		var widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'blue', 'messagetemplate' : 'messagedraftlist' });
+		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
 		widgetcontainer.addWidget (widget);
 
 		widgetcontainer.title = 'Drafts';
