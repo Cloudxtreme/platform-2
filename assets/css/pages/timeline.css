@@ -95,6 +95,11 @@ Timeline UI Base
 	border-radius: 5px;
 }
 
+.timeline > li .timeline-body a
+{
+	color: white;
+}
+
 .timeline > li .timeline-body h2 { 
 	margin-top: 0px;
 	padding: 0 0 5px 0;
