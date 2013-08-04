@@ -29,6 +29,18 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	'name' : function ()
 	{
 		return this.get ('name');
+	},
+
+	'getFunction' : function ()
+	{
+		if (this.get ('level') == 10)
+		{
+			return 'Administrator';
+		}
+		else
+		{
+			return 'User';
+		}
 	}
 
 });

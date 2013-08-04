@@ -1,11 +1,11 @@
 Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,
-	'filters' : null,
+	'filters' : {},
 
 	'initialize' : function (models, options)
 	{
-		this.filters = options.filters;
+		//this.filters = options.filters;
 	},
 
 	'sync' : function(method, model, options) 

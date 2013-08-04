@@ -1,7 +1,9 @@
 Cloudwalkers.Views.Users = Backbone.View.extend({
 
 	'events' : {
-		'click .add-user' : 'addUser'
+		'click .add-user' : 'addUser',
+		'submit .edit-user-profile' : 'editUserProfile',
+		'click .invite-user' : 'addUser'
 	},
 
 	'class' : 'section',
@@ -11,32 +13,35 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 	{
 		var self = this;
 
-		var administrators = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 10 }});
-		var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
+		var administrators = new Cloudwalkers.Collections.Users ([], {});
+		//var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
 
 		this.collections.push (administrators);
-		this.collections.push (users);
+		//this.collections.push (users);
 
-		this.$el.append ('<div class="button-row"><a href="javascript:void(0);" class="add-user"><span>Add new user</span></a></div>');
+		//this.$el.append ('<div class="button-row"><a href="javascript:void(0);" class="add-user"><span>Add new user</span></a></div>');
 
-		this.addUserContainer ('Administrators', administrators);
-		this.addUserContainer ('Co-Workers', users);
+		this.addUserContainer ('Users', administrators);
+		//this.addUserContainer ('Co-Workers', users);
 
 		return this;
 	},
 
 	'addUserContainer' : function (title, collection)
 	{
+		var user = Cloudwalkers.Session.getUser ();
+
 		var self = this;
 
 		var data = {};
 		data.title = title;
+		data.user = user.attributes;
 
 		var html = $(Mustache.render (Templates.users, data));
 
 		collection.on ('reset', function ()
 		{
-			html.find ('.message-container').html ('');
+			html.find ('.user-container').html ('');
 		});
 
 		collection.on ('reset:all', function ()
@@ -51,7 +56,7 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 		collection.on ('add', function (model)
 		{
 			var view = new Cloudwalkers.Views.User ({ 'model' : model });
-			html.find ('.message-container').append (view.render ().el);
+			html.find ('.user-container').append (view.render ().el);
 		});
 
 		html.find ('.loading').show ();
@@ -70,5 +75,14 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 	{
 		var view = new Cloudwalkers.Views.AddUser ();
 		Cloudwalkers.RootView.popup (view);
+	},
+
+	'editUserProfile' : function (e)
+	{
+		var user = Cloudwalkers.Session.getUser ();
+		var name = this.$el.find ('[name=name]').val ();
+
+		user.set ('name', name);
+		user.save ({}, { 'success' : function () {  }});
 	}
 });

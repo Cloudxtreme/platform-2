@@ -75,6 +75,7 @@ Cloudwalkers.Session =
 			if (self.user.getAccounts ().length > 0)
 			{
 				self.setAccount (self.user.getAccounts ()[0]);
+				self.user.set ('account', self.user.getAccounts ()[0].get ('id'));
 
 				self.loadStreams (function ()
 				{
@@ -105,6 +106,11 @@ Cloudwalkers.Session =
 	'getStreams' : function ()
 	{
 		return this.streams;
+	},
+
+	'getUser' : function ()
+	{
+		return this.user;
 	}
 }
 
