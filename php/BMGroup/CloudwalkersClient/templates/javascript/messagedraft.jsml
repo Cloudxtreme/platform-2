@@ -3,6 +3,12 @@
 	<ul>
 
 		<li>
+			{{#user}}
+				<strong>{{name}}:</strong>
+			{{/user}}
+		</li>
+
+		<li>
 			{{#stream}}
 				<div class='icon'>
 					<i class="icon-{{network.icon}}"></i>
