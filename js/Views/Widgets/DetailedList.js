@@ -6,6 +6,7 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 	'template' : 'detailedlist',
 	'messagetemplate' : 'messagedetailedlist',
 	'messageelement' : 'tr',
+	'id' : 'inbox',
 
 	'render' : function ()
 	{

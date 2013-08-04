@@ -3,6 +3,8 @@
 */
 Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.extend({
 
+	'id' : 'inbox',
+
 	'initialize' : function ()
 	{
 		var self = this;
