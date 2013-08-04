@@ -106,5 +106,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat4, {}) });
 		this.addHalfWidget (widget, false);
+
+		// STUPID STAT BLOCKS
+		/*
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat5, {}) });
+		this.addHalfWidget (widget, true);
+
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat6, {}) });
+		this.addHalfWidget (widget, false);
+		*/
 	}
 });
