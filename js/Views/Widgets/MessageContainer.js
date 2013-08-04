@@ -13,6 +13,10 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		this.title = this.options.channel.name;
 	},
 
+	'events' : {
+		'click .load-more a' : 'loadMore'
+	},
+
 	'innerRender' : function (element)
 	{
 		//element.html ('<p>Please wait, loading messages.</p>');
@@ -76,6 +80,23 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		*/
 
 		return this;
+	},
+
+	'loadMore' : function ()
+	{
+		var self = this;
+
+		// Hide the load button
+		this.options.channel.loadMore ({
+			'success' : function ()
+			{
+				self.$innerEl.find ('.loading').hide ();
+				self.$innerEl.find ('.load-more').show ();
+			}
+		});
+
+		this.$innerEl.find ('.loading').show ();
+		this.$innerEl.find ('.load-more').hide ();
 	},
 
 	'destroy' : function ()
