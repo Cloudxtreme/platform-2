@@ -8,6 +8,14 @@
 	<li>
 		<!-- NO QUICK SEARCH... -->
 	</li>
+
+	<li class="dashboard">
+		<a href="#dashboard">
+		<i class="icon-dashboard"></i> 
+		<span class="title">Dashboard</span>
+		<span class="selected"></span>
+		</a>
+	</li>
 	
 	<li class="start write">
 		<a href="#write">
@@ -17,18 +25,10 @@
 	</a>
 	</li>
 	
-	<li class="dashboard">
-		<a href="#dashboard">
-		<i class="icon-dashboard"></i> 
-		<span class="title">Dashboard</span>
-		<span class="selected"></span>
-		</a>
-	</li>
-	
-	{{#channels}}
+	{{#sortedchannels.inbox}}
 		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
-				<i class="icon-inbox"></i> 
+				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
 				<span class="selected"></span>
 			</a>
@@ -39,8 +39,8 @@
 				{{/streams}}
 			</ul>
 		</li>
-	{{/channels}}
-	
+	{{/sortedchannels.inbox}}
+
 	<li class="schedule">
 		<a href="#schedule" onclick="document.location='#schedule';">
 			<i class="icon-time"></i> 
@@ -55,13 +55,63 @@
 		</ul>
 	</li>
 
+	{{#sortedchannels.profiles}}
+		<li class="channel_{{channelid}}">
+			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
+				<i class="icon-{{icon}}"></i> 
+				<span class="title">{{name}}</span>
+				<span class="selected"></span>
+			</a>
+
+			<ul class="sub-menu">
+				{{#streams}}
+					<li><a href="#channel/{{channelid}}/{{id}}">{{customname}}</a></li>
+				{{/streams}}
+			</ul>
+		</li>
+	{{/sortedchannels.profiles}}
+
+	{{#sortedchannels.news}}
+		<li class="channel_{{channelid}}">
+			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
+				<i class="icon-{{icon}}"></i> 
+				<span class="title">{{name}}</span>
+				<span class="selected"></span>
+			</a>
+
+			<ul class="sub-menu">
+				{{#streams}}
+					<li><a href="#channel/{{channelid}}/{{id}}">{{customname}}</a></li>
+				{{/streams}}
+			</ul>
+		</li>
+	{{/sortedchannels.news}}
+
+	
+	{{#sortedchannels.monitoring}}
+		<li class="channel_{{channelid}}">
+			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
+				<i class="icon-{{icon}}"></i> 
+				<span class="title">{{name}}</span>
+				<span class="selected"></span>
+			</a>
+
+			<ul class="sub-menu">
+				{{#streams}}
+					<li><a href="#channel/{{channelid}}/{{id}}">{{customname}}</a></li>
+				{{/streams}}
+			</ul>
+		</li>
+	{{/sortedchannels.monitoring}}
+
 	<li class="drafts">
 		<a href="#drafts">
 		<i class="icon-time"></i> 
 		<span class="title">Drafts</span>
 		<span class="selected"></span>
 		</a>
-	</li>
+	</li>	
+
 	
 	<!--
 	<li class="">

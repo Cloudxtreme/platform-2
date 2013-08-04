@@ -147,19 +147,57 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true }));
 	},
 
+	'translateMenuIcon' : function (channel)
+	{
+		if (channel.type == 'news')
+		{
+			return 'globe';
+		}
+
+		else if (channel.type == 'profiles')
+		{
+			return 'briefcase';
+		}
+
+		else if (channel.type == 'inbox')
+		{
+			return 'inbox';
+		}
+
+		else if (channel.type == 'monitoring')
+		{
+			return 'tags';
+		}
+
+		return channel.type;
+	},
+
 	'setAccount' : function (account)
 	{
 		// Redo navigation
 		var data = {};
 		var channels = account.channels ();
 
+		var sortedchannels = {};
+
 		data.channels = [];
 		for (var i = 0; i < channels.length; i ++)
 		{
 			var obj = channels[i];
 			obj.channelid = channels[i].id;
+
+			obj.icon = this.translateMenuIcon (channels[i]);
+
 			data.channels.push (obj);
+
+			// Sort on type
+			if (typeof (sortedchannels[obj.type]) == 'undefined')
+			{
+				sortedchannels[obj.type] = [];	
+			}
+			sortedchannels[obj.type].push (obj);
 		}
+		data.sortedchannels = sortedchannels;
 
 		data.scheduledstreams = account.streams ( { 'outgoing' : true });
 
