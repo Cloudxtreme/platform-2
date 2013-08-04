@@ -130,11 +130,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				{
 					Cloudwalkers.RootView.writeDialog 
 					(
-						{ 
-							'model' : this.model.clone (), 
-							'clone' : true, 
-							'actionparameters' : action.parameters 
-						}
+						model,
+						action
 					);
 				}
 			}

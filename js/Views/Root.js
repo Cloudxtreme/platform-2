@@ -126,14 +126,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
 	},
 
-	'writeDialog' : function (model)
+	'writeDialog' : function (model, action)
 	{
 		this.popup
 		(
 			new Cloudwalkers.Views.Write 
 			(
 				{ 
-					'model' : this.model.clone (), 
+					'model' : model.clone (), 
 					'clone' : true, 
 					'actionparameters' : action.parameters 
 				}
