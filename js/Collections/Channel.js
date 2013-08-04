@@ -9,6 +9,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'canHaveFilters' : true,
 	'filters' : {},
+	'canLoadMore' : true,
+	'showMoreButton' : false,
 
 	'_cancelCallback' : false,
 
@@ -17,6 +19,9 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		this.id = options.id;
 		this.name = options.name;
 		this.amount = (typeof (options.amount) == 'undefined' ? 50 : options.amount);
+
+		this.canLoadMore = (typeof (options.canLoadMore) == 'undefined' ? true : options.canLoadMore);
+		this.showMoreButton = (typeof (options.showMoreButton) == 'undefined' ? false : options.showMoreButton);
 
 		this.comparator = function (message1, message2)
 		{

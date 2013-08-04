@@ -15,7 +15,8 @@ Cloudwalkers.Views.Widgets.Timeline = Cloudwalkers.Views.Widgets.MessageContaine
 		if (typeof (this.options.color) != 'undefined')
 			this.color = this.options.color;
 
-		this.$el.html (Mustache.render (Templates.widgetnoborder, { 'title' : this.title, 'color' : this.color }));
+		var parameters = { 'title' : this.title, 'color' : this.color };
+		this.$el.html (Mustache.render (Templates.widgetnoborder, parameters));
 
 		this.$innerEl = $(this.$el.find ('.portlet-body'));
 		this.innerRender (this.$innerEl);

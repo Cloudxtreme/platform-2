@@ -17,6 +17,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		var self = this;
 		var data = {};
 
+		data.showMoreButton = typeof (this.options.channel.showMoreButton) != 'undefined' ? this.options.channel.showMoreButton : false;
+
 		element.html (Mustache.render (Templates[this.template], data));
 
 		this.$innerEl.find ('.load-more').hide ();
