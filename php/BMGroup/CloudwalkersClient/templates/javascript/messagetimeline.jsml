@@ -49,7 +49,7 @@
 		<div class="comments comment-container"></div>
 
 		<div class="timeline-footer">
-			 	{{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong> {{/likes}}
+			 	<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong>
 
 			 	<span class="children-button message-children">
 			 		{{#children_count}}<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>{{/children_count}}
