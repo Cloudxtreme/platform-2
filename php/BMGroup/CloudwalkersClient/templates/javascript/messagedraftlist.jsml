@@ -12,7 +12,7 @@
 
 			<span class='right date'>
 				<span class="time">
-					{{scheduledate}}
+					{{date}}
 				</span>
 			</span>
 		</li>
