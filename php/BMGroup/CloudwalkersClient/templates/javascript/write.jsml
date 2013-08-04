@@ -20,7 +20,7 @@
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box blue" id='message'>
 						<div class="portlet-title line">
-							<div class="caption"><i class="icon-envelope-alt icon-large"></i>Compose your message</div>
+							<div class="caption"><i class="icon-envelope-alt icon-large"></i>Add your message</div>
 						</div>
 						<div class="portlet-body" id='inbox-workers'>
 							<div class="scroller" data-height="" data-always-visible="1" data-rail-visible1="1">
