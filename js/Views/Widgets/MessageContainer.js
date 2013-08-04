@@ -55,6 +55,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			},
 			'success' : function (e)
 			{
+				console.log (self.options.channel.length);
+				
 				element.find ('p.no-current-messages').remove ();
 
 				//self.$innerEl.find ('.comment-box').html ('');
@@ -63,8 +65,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 				if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
 					element.find ('.load-more').show ();
-
-				console.log (self.options.channel.length);
 
 				if (self.options.channel.length == 0)
 					element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');

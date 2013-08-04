@@ -60,10 +60,10 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		{
 			if (options.resumeCallback)
 			{
-				self._cancelCallback = false;				
+				self._cancelCallback = false;
 			}
 
-			if (!self._cancelCallback)
+			if (!self._cancelCallback || true) // ignore for now.
 			{
 				if (typeof (response.channel) != 'undefined')
 				{
