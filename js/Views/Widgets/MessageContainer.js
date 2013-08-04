@@ -6,6 +6,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'template' : 'messagecontainer',
 	'messageelement' : 'tr',
 
+	'canLoadMore' : true,
+
 	'initialize' : function ()
 	{
 		this.title = this.options.channel.name;
