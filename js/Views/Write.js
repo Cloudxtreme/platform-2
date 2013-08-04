@@ -480,6 +480,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 						self.trigger ('popup:close');
 						Cloudwalkers.Session.trigger ('message:add');
 
+						window.location = '#schedule';
+
 						return true;
 					}
 					else
