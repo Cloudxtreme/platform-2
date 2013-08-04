@@ -126,9 +126,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			data.channels.push (obj);
 		}
 
-		console.log (data);
+		//console.log (data);
 
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
+
+		console.log (Cloudwalkers.Session.getUser ().get ('avatar'));
+
+		// Set user
+		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));
+		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('name'));
 	},
 
 	'confirm' : function (message, callback)

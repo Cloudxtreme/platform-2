@@ -66,15 +66,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- BEGIN USER LOGIN DROPDOWN -->
 						<li class="dropdown user">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="" src="<?php echo BASE_URL; ?>assets/img/avatar1_small.jpg" />
-							<span class="username">Dominique De Rijcke</span>
+							<img class="avatar" alt=""  /> 
+							<span class="username">...</span>
 							<i class="icon-angle-down"></i>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="management.html"><i class="icon-user"></i> My Profile</a></li>
+								<li><a href="#users"><i class="icon-user"></i> My Profile</a></li>
 								<li class="divider"></li>
-								<li><a href="login.html"><i class="icon-lock"></i> Lock Screen</a></li>
-								<li><a href="login.html"><i class="icon-off"></i> Log Out</a></li>
+								<!--<li><a href="login.html"><i class="icon-lock"></i> Lock Screen</a></li>-->
+								<li><a href="<?php echo BASE_URL; ?>logout"><i class="icon-off"></i> Log Out</a></li>
 							</ul>
 						</li>
 						<!-- END USER LOGIN DROPDOWN -->
