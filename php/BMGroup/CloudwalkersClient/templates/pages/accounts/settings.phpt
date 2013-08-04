@@ -69,6 +69,14 @@
 				</td>
 			</tr>
 
+			<tr>
+				<td class="first">Priority</td>
+
+				<td>
+					<input type="text" name="streams[<?php echo $stream['id']; ?>][priority]" value="<?php echo $stream['priority']; ?>" />
+				</td>
+			</tr>
+
 			<?php foreach ($stream['settings'] as $setting) { ?>
 				<tr>
 					<td class="first">
