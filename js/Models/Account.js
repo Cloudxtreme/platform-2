@@ -33,7 +33,8 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			{
 				if (typeof (filters.outgoing) != 'undefined')
 				{
-					if (channels[i].streams[j].direction.OUTGOING)
+					//console.log (channels[i].streams[j].direction.OUTGOING);
+					if (channels[i].streams[j].direction.OUTGOING == 1)
 					{
 						out.push (channels[i].streams[j]);
 					}
