@@ -7,11 +7,37 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var collection;
 		var widget;
 
+		// All channels
+		var account = Cloudwalkers.Session.getAccount ();
+
+		var channels = account.channels ();
+
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == 'inbox')
+			{
+				collection = new Cloudwalkers.Collections.Channel 
+				(
+					[], 
+					{ 
+						'id' : channels[i].id, 
+						'name' : channels[i].name,
+						'amount' : 10
+					}
+				);
+
+				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' })
+				this.addHalfWidget (widget, true);
+			}
+		}
+
 		// All types
+		/*
 		collection = new Cloudwalkers.Collections.TypedMessages ([], { 'id' : 'social', 'name' : 'Social media' });
 		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' });
 
 		this.addHalfWidget (widget);
+		*/
 
 		// All types
 		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers' });
@@ -19,10 +45,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		this.addHalfWidget (widget);
 
-		// All channels
-		var account = Cloudwalkers.Session.getAccount ();
-
-		var channels = account.channels ();
 		for (var i = 0; i < channels.length; i ++)
 		{
 			if (channels[i].type == 'monitoring')
