@@ -27,7 +27,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					}
 				);
 
-				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' })
+				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue', 'title' : 'Inbox social media' })
 				this.addHalfWidget (widget, true);
 			}
 		}
@@ -60,14 +60,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					}
 				);
 
-				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' })
+				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'grey' })
 				this.addHalfWidget (widget, true);
 			}
 		}
 
 		// All types
 		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
-		widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'grey' });
+		widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'red' });
 
 		this.addHalfWidget (widget);
 
@@ -86,7 +86,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					}
 				);
 
-				widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'blue' })
+				widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
 				this.addWidget (widget, true);
 			}
 		}

@@ -47,10 +47,15 @@
 		<div class="comments comment-container"></div>
 
 		<div class="timeline-footer">
-			 {{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong> {{/likes}}
-			 {{#children_count}}<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>{{/children_count}}
+			 	{{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong> {{/likes}}
 
+			 	<span class="children-button message-children">
+			 		{{#children_count}}<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>{{/children_count}}
+			 	</span>
+
+			 <!--
 			 <button class='btn small white pull-right children-button message-children' id='comments-btn'><i class='icon-comments-alt'></i> <span class="comment-label">Show comments</span></button>
+				-->
 		</div>
 	</div>
 </li>
