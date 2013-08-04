@@ -178,13 +178,17 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'refresh' : function ()
 	{
-		this.$innerEl.find ('.messages-container').html ('');
-		this.options.channel.each (this.addOne, this);
+		//this.$innerEl.find ('.messages-container').html ('');
+		//this.options.channel.each (this.addOne, this);
 
+		/*
 		if (this.options.channel.length == 0)
 		{
 			this.$innerEl.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 		}
+		*/
+		this.options.channel.reset ();
+		this.options.channel.fetch ();
 	}
 
 });
