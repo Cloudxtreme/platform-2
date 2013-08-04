@@ -19,25 +19,21 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	'streams' : function (filters)
 	{
 		var out = [];
-		var streams;
-		var channels = this.channels ();
+		var streams = Cloudwalkers.Session.getStreams ();
 
 		if (typeof (filters) == 'undefined')
 		{
 			filters = {};
 		}
 
-		for (var i = 0; i < channels.length; i ++)
+		for (var j = 0; j < streams.length; j ++)
 		{
-			for (var j = 0; j < channels[i].streams.length; j ++)
+			if (typeof (filters.outgoing) != 'undefined')
 			{
-				if (typeof (filters.outgoing) != 'undefined')
+				//console.log (channels[i].streams[j].direction.OUTGOING);
+				if (streams[j].direction.OUTGOING == 1)
 				{
-					//console.log (channels[i].streams[j].direction.OUTGOING);
-					if (channels[i].streams[j].direction.OUTGOING == 1)
-					{
-						out.push (channels[i].streams[j]);
-					}
+					out.push (streams[j]);
 				}
 			}
 		}

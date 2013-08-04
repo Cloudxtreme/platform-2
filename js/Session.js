@@ -36,7 +36,6 @@ Cloudwalkers.Session =
 	'setAccount' : function (account)
 	{
 		this.account = account;
-		this.trigger ('account:change', account);
 	},
 
 	'getAccount' : function ()
@@ -79,6 +78,7 @@ Cloudwalkers.Session =
 
 				self.loadStreams (function ()
 				{
+					self.trigger ('account:change', self.account);
 					finalcallback ();
 				});
 			}
@@ -99,7 +99,11 @@ Cloudwalkers.Session =
 			self.streams = data.streams;
 			Cloudwalkers.Utilities.StreamLibrary.parse (self.streams);
 			
-			callback ();
+			setTimeout (function ()
+			{
+				finalcallback ();	
+			}, 1);
+			
 		});
 	},
 
