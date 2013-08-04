@@ -42,11 +42,17 @@
 	{{/channels}}
 	
 	<li class="schedule">
-		<a href="#schedule">
-		<i class="icon-time"></i> 
-		<span class="title">Schedule</span>
-		<span class="selected"></span>
+		<a href="#schedule" onclick="document.location='#schedule';">
+			<i class="icon-time"></i> 
+			<span class="title">Schedule</span>
+			<span class="selected"></span>
 		</a>
+
+		<ul class="sub-menu">
+			{{#scheduledstreams}}
+				<li><a href="#schedule/{{id}}">{{customname}}</a></li>
+			{{/scheduledstreams}}
+		</ul>
 	</li>
 
 	<li class="drafts">

@@ -60,15 +60,18 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 			if (!self._cancelCallback)
 			{
-				Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
+				if (typeof (response.channel) != 'undefined')
+				{
+					Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
 				
-				// Set the next page
-				self.nextPageParameters  = response.channel.next;
+					// Set the next page
+					self.nextPageParameters  = response.channel.next;
 
-				self.streams = response.channel.streams;
+					self.streams = response.channel.streams;
 
-				//console.log (response);
-				passtrough (response.channel.messages);
+					//console.log (response);
+					passtrough (response.channel.messages);
+				}
 			}
 		}
 

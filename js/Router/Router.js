@@ -2,7 +2,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
 		'channel/:channel(/:stream)' : 'channel',
-		'schedule' : 'schedule',
+		'schedule(/:stream)' : 'schedule',
 		'drafts' : 'drafts',
 		'users' : 'users',
 		'write' : 'write',
@@ -19,15 +19,22 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard ());	
 	},
 
-	'schedule' : function ()
+	'schedule' : function (streamid)
 	{
-		var channel = new Cloudwalkers.Collections.Scheduled
-		(
-			[], 
-			{ 
-				'name' : 'Scheduled messages'
-			}
-		);
+		var parameters = 			
+		{ 
+			'name' : 'Scheduled messages'
+		};
+
+		var filters = {};
+
+		if (typeof (streamid) != 'undefined' && streamid)
+		{
+			filters.streams = [ streamid ];
+		}
+
+		var channel = new Cloudwalkers.Collections.Scheduled ([], parameters);
+		channel.setFilters (filters);
 
 		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 

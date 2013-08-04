@@ -126,11 +126,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			data.channels.push (obj);
 		}
 
+		data.scheduledstreams = account.streams ( { 'outgoing' : true });
+
 		//console.log (data);
 
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
-
-		console.log (Cloudwalkers.Session.getUser ().get ('avatar'));
 
 		// Set user
 		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));

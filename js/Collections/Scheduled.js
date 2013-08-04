@@ -5,6 +5,7 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 	'nextPageParameters' : null,
 	'canHaveFilters' : false,
+	'filters' : {},
 
 	'initialize' : function (models, options)
 	{
@@ -34,6 +35,11 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
 
+		for (var filter in this.filters)
+		{
+			parameters[filter] = this.filters[filter].join (',');
+		}
+
 		var fetch_url = CONFIG_BASE_URL + 'json/scheduled?' + jQuery.param (parameters);
 
 		// Default JSON-request options.
@@ -46,6 +52,16 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 		// Make the request.
 		return $.ajax(params);
+	},
+
+	'setFilters' : function (filters)
+	{
+		this._cancelCallback = true;
+
+		this.filters = filters;
+		
+		this.reset ();
+		this.fetch ({ 'resumeCallback' : true });
 	},
 
 	'update' : function ()
