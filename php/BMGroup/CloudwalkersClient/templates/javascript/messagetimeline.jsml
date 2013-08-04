@@ -29,6 +29,8 @@
 				{{/from}}
 			</strong> 
 
+			<div class="timeline-footer"></div>
+
 			{{#sortedattachments.image}}
 				<img class="timeline-img pull-right" src="{{url}}" alt="" />
 			{{/sortedattachments.image}}
