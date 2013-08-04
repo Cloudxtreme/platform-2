@@ -1,38 +1,14 @@
-TESTTEST
-
-<table>
-	<tr>
-<td>{{scheduledate}}</td>
-<td>{{#streams}}{{customname}}{{/streams}}</td>
-<td>{{subject}}</td>
-<td class="hidden-480">{{{body.html}}}</td>
 <td>
-	<span class="actions dropdown pull-right"> 
-		<i class="icon-share dropdown-toggle" data-toggle="dropdown"></i>
-		<ul class="dropdown-menu">
-			{{#actions}}
-				<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{token}}"></i> {{name}}</a></li>
-			{{/actions}}
-		</ul>
-	</span>
-</td>
-</tr>
-</table>
-
-		<!--
-
-<td>
-TESTsdfsdf
 	<ul>
 
 		<li>
-			{{#stream}}
+			{{#streams}}
 				<div class='icon'>
 					<i class="icon-{{network.icon}}"></i>
 				</div>
 
 				{{customname}}
-			{{/stream}}
+			{{/streams}}
 
 			<span class='right date'>
 				<span class="time time-since" data-date="{{date}}">
@@ -82,4 +58,4 @@ TESTsdfsdf
 			</span>
 		</li>
 	</ul>
-</td>-->
+</td>
