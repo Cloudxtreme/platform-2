@@ -30,7 +30,10 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 
 	'onFirstAdd' : function (message, messageView)
 	{
-		messageView.$el.click ();
+		setTimeout (function ()
+		{
+			messageView.$el.click ();
+		}, 100);
 	}
 
 });
