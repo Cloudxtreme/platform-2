@@ -16,7 +16,9 @@
 			{{/stream}}
 
 			<span class='right date'>
-				{{humandate}}
+				<span class="time time-since" data-date="{{date}}">
+					{{date}}
+				</span>
 			</span>
 		</li>
 
