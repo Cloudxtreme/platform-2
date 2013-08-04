@@ -475,12 +475,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				{
 					if (objData.success)
 					{
+						window.location = '#schedule';
 						self.$el.html ('<p>Your message has been scheduled.</p>');
 
 						self.trigger ('popup:close');
 						Cloudwalkers.Session.trigger ('message:add');
-
-						window.location = '#schedule';
 
 						return true;
 					}
