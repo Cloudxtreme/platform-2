@@ -46,6 +46,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		this.addHalfWidget (widget);
 
+		// Useless stat bars
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat1, {}) });
+		this.addHalfWidget (widget, true);
+
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat2, {}) });
+		this.addHalfWidget (widget, false);
+		// End Useless stat bars
+
 		for (var i = 0; i < channels.length; i ++)
 		{
 			if (channels[i].type == 'monitoring')
@@ -91,5 +99,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				this.addWidget (widget, true);
 			}
 		}
+
+		// STUPID STAT BLOCKS
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat3, {}) });
+		this.addHalfWidget (widget, true);
+
+		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat4, {}) });
+		this.addHalfWidget (widget, false);
 	}
 });
