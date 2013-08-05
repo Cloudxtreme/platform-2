@@ -45,7 +45,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 
-	<body class="page-header-fixed">
+	<body class="page-header-fixed page-sidebar-fixed">
 
 		<!-- BEGIN HEADER -->
 		<div class="header navbar navbar-inverse navbar-fixed-top">
