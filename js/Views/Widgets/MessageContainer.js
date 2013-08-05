@@ -56,7 +56,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			},
 			'success' : function (e)
 			{
-				console.log (self.options.channel.length);
+				//console.log (self.options.channel.length);
 				
 				element.find ('p.no-current-messages').remove ();
 
