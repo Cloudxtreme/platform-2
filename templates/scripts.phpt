@@ -92,6 +92,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageContainer.js"></script>
@@ -103,6 +104,8 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/DraftList.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/HTMLWidget.js"></script>
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
 
 <!-- Models -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>

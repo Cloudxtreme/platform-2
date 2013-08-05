@@ -143,15 +143,16 @@
 		<span class="arrow"></span>
 		</a>
 	</li>
-	
-	<li class="">
-		<a href="reports.html">
+	-->
+
+
+	<li class="reports">
+		<a href="#reports">
 		<i class="icon-bar-chart"></i> 
 		<span class="title">Reports</span>
 		<span class="selected"></span>
 		</a>					
 	</li>
-	-->
 	
 	<li class="">
 		<a href="#users">

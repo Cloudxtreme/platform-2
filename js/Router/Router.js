@@ -6,6 +6,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'drafts' : 'drafts',
 		'users' : 'users',
 		'write' : 'write',
+		'reports' : 'reports',
 		'*path' : 'dashboard'
 	},
 
@@ -136,6 +137,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'write' : function ()
 	{
 		var view = new Cloudwalkers.Views.Write ();
+		Cloudwalkers.RootView.setView (view);
+	},
+
+	'reports' : function ()
+	{
+		var view = new Cloudwalkers.Views.Reports ();
 		Cloudwalkers.RootView.setView (view);
 	}
 
