@@ -15,8 +15,8 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 
 		this.comparator = function (message1, message2)
 		{
-			d1 = message1.scheduledate (false);
-			d2 = message2.scheduledate (false);
+			d1 = message1.date (false);
+			d2 = message2.date (false);
 
 			return (d1 ? d1.getTime () : 0) > (d2 ? d2.getTime () : 0) ? 1 : -1;
 		};
