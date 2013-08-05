@@ -2,6 +2,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'navclass' : 'reports',
 	'title' : 'Reports',
+	'half' : true,
 
 	'initializeWidgets' : function ()
 	{
@@ -31,7 +32,9 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 							'dataurl' : dataurl,
 							'title' : stream.name + ' ' + data.statistics[j]
 						});
-						self.addWidget (widget, true);
+
+						self.addHalfWidget (widget, self.half);
+						self.half = !self.half;
 					}
 				}
 			}
