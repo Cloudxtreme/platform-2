@@ -5,11 +5,14 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 
 	'widgets' : [],
 	'title' : 'Widget Container',
+	'isLoaded' : false,
+	'currentLine' : null,
 
 	'initialize' : function ()
 	{
 		this.widgets = [];
 		this.initializeWidgets ();
+		this.isLoaded = false;
 	},
 
 	'initializeWidgets' : function ()
@@ -28,6 +31,11 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		widget.on ('content:change', function () { self.trigger ('content:change'); });
 
 		this.widgets.push ({ 'widget' : widget, 'size' : 'half', 'newline' : newline });
+
+		if (this.isLoaded)
+		{
+			this.addWidgetsDOM ([{ 'widget' : widget, 'size' : 'half', 'newline' : newline }]);
+		}
 	},
 
 	'addWidget' : function (widget, newline)
@@ -41,6 +49,11 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		widget.on ('content:change', function () { self.trigger ('content:change'); });
 
 		this.widgets.push ({ 'widget' : widget, 'size' : 'full', 'newline' : newline });
+
+		if (this.isLoaded)
+		{
+			this.addWidgetsDOM ([{ 'widget' : widget, 'size' : 'full', 'newline' : newline }]);
+		}
 	},
 
 	'addWidgetSize' : function (widget, newline, size)
@@ -54,55 +67,68 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		widget.on ('content:change', function () { self.trigger ('content:change'); });
 
 		this.widgets.push ({ 'widget' : widget, 'size' : size, 'newline' : newline });
+
+		if (this.isLoaded)
+		{
+			this.addWidgetsDOM ([{ 'widget' : widget, 'size' : 'half', 'newline' : newline }]);
+		}
 	},
 
 	'render' : function ()
 	{
 		var self = this;
+		this.isLoaded = true;
 
 		this.$el.html (Mustache.render (Templates.widgetcontainer, { 'title' : this.title }));
 
 		var container;
 
-		var currentline = $(document.createElement ('div'));
-		currentline.addClass ('row-fluid');
-		this.$el.find ('#widgetcontainer').append (currentline);
+		this.currentline = $(document.createElement ('div'));
+		this.currentline.addClass ('row-fluid');
+		this.$el.find ('#widgetcontainer').append (this.currentline);
 
-		for (var i = 0; i < this.widgets.length; i ++)
+		this.addWidgetsDOM (this.widgets);
+
+		return this;
+	},
+
+	'addWidgetsDOM' : function (widgets)
+	{
+		var self = this;
+
+		for (var i = 0; i < widgets.length; i ++)
 		{
-			if (this.widgets[i].newline)
+			if (widgets[i].newline)
 			{
-				currentline = $(document.createElement ('div'));
-				currentline.addClass ('row-fluid');
-				this.$el.find ('#widgetcontainer').append (currentline);				
+				this.currentline = $(document.createElement ('div'));
+				this.currentline.addClass ('row-fluid');
+				this.$el.find ('#widgetcontainer').append (this.currentline);				
 			}
 
 			container = $(document.createElement ('div'));
 
-			if (this.widgets[i].size == 'half')
+			if (widgets[i].size == 'half')
 			{
 				container.addClass ('span6');
 			}
-			else if (this.widgets[i].size == 'full')
+			else if (widgets[i].size == 'full')
 			{
 				container.addClass ('span12');
 			}
 			else
 			{
-				container.addClass ('span' + this.widgets[i].size);	
+				container.addClass ('span' + widgets[i].size);	
 			}
 
-			container.append (this.widgets[i].widget.render ().el);
+			container.append (widgets[i].widget.render ().el);
 
-			currentline.append (container);
+			this.currentline.append (container);
 		}
 
 		setTimeout (function ()
 		{
 			self.trigger ('content:change');
 		}, 1);
-
-		return this;
 	}
 
 });

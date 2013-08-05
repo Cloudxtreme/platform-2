@@ -5,11 +5,36 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'initializeWidgets' : function ()
 	{
-		widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
-			'dataurl' : CONFIG_BASE_URL + 'json/stream/154/statistics/page_fans_lifetime'
-		});
+		var streams = Cloudwalkers.Session.getStreams ();
+		var self = this;
 
-		
-		this.addWidget (widget);
+		for (var i = 0; i < streams.length; i ++)
+		{
+			this.addStreamWidgets (streams[i]);
+		}
+	},
+
+	'addStreamWidgets' : function (stream)
+	{
+		var self = this;
+		$.ajax 
+		(
+			CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics',
+			{
+				'success' : function (data)
+				{
+					for (var j = 0; j < data.statistics.length; j ++)
+					{
+						var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + data.statistics[j];
+
+						var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
+							'dataurl' : dataurl,
+							'title' : stream.name + ' ' + data.statistics[j]
+						});
+						self.addWidget (widget, true);
+					}
+				}
+			}
+		);
 	}
 });
