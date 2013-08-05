@@ -100,6 +100,11 @@ Timeline UI Base
 	color: white;
 }
 
+.timeline > li .timeline-body .dropdown-menu a
+{
+	color: black;
+}
+
 .timeline > li .timeline-body h2 { 
 	margin-top: 0px;
 	padding: 0 0 5px 0;
