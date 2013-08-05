@@ -29,14 +29,25 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 							values.push 
 							([ 
 								date,
-								data.statistics.values[i].value
+								parseInt(data.statistics.values[i].value)
 							])
 
-							console.log (data.statistics.values[i].value);
+							//console.log (data.statistics.values[i].value);
 						}
 
+						//console.log (values);
+
 						//var data = [ [[0, 0], [1, 1]] ];
-						$.plot (placeholder, values, {});
+						$.plot 
+						(
+							placeholder, 
+							[ values ], 
+							{
+								'xaxis' : {
+									'mode' : 'time'
+								}
+							}
+						);
 					}
 				}
 			);
