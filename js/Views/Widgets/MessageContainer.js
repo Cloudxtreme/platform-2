@@ -11,6 +11,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'initialize' : function ()
 	{
 		this.title = this.options.channel.name;
+		this.canLoadMore = this.options.channel.canLoadMore;
 	},
 
 	'events' : {
@@ -64,7 +65,9 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 				element.find ('.loading').hide ();
 
 				if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
+				{
 					element.find ('.load-more').show ();
+				}
 
 				if (self.options.channel.length == 0)
 					element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');

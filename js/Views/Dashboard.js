@@ -23,7 +23,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					{ 
 						'id' : channels[i].id, 
 						'name' : channels[i].name,
-						'amount' : 10
+						'amount' : 10,
+						'canLoadMore' : false
 					}
 				);
 
@@ -41,7 +42,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		*/
 
 		// All types
-		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers' });
+		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers', 'canLoadMore' : false });
 		widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'yellow' });
 
 		this.addHalfWidget (widget);
@@ -64,7 +65,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					{ 
 						'id' : channels[i].id, 
 						'name' : channels[i].name,
-						'amount' : 10
+						'amount' : 10,
+						'canLoadMore' : false
 					}
 				);
 
@@ -74,7 +76,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		}
 
 		// All types
-		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages' });
+		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages', 'canLoadMore' : false });
 		widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'red' });
 
 		this.addHalfWidget (widget);
@@ -91,7 +93,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 						'id' : channels[i].id, 
 						'name' : channels[i].name,
 						'amount' : 3,
-						'showMoreButton' : '#channel/' + channels[i].id
+						'showMoreButton' : '#channel/' + channels[i].id,
+						'canLoadMore' : false
 					}
 				);
 
