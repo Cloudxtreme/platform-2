@@ -11,7 +11,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'initialize' : function ()
 	{
 		this.title = this.options.channel.name;
-		this.canLoadMore = this.options.channel.canLoadMore;
+		this.canLoadMore = typeof (this.options.channel.canLoadMore) == 'undefined' ? true : this.options.channel.canLoadMore;
 	},
 
 	'events' : {
