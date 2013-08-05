@@ -18,7 +18,7 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 			d1 = message1.date (false);
 			d2 = message2.date (false);
 
-			return (d1 ? d1.getTime () : 0) > (d2 ? d2.getTime () : 0) ? 1 : -1;
+			return (d1 ? d1.getTime () : 0) < (d2 ? d2.getTime () : 0) ? 1 : -1;
 		};
 	},
 
