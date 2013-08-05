@@ -25,7 +25,6 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 						for (var i = 0; i < data.statistics.values.length; i ++)
 						{
 							var date = (new Date(data.statistics.values[i].date).getTime ());
-							console.log (date);
 
 							values.push 
 							([ 
@@ -33,6 +32,8 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 								data.statistics.values[i].value
 							])
 						}
+
+						console.log (values);
 
 						//var data = [ [[0, 0], [1, 1]] ];
 						$.plot (placeholder, values, {});
