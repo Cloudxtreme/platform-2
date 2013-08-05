@@ -16,13 +16,13 @@
 					{{date}}
 				</span>
 			</span>
-		</li>
 
-		<li>
 			{{#user}}
 				<strong>{{name}}:</strong><br />
 			{{/user}}
-			
+		</li>
+
+		<li>
 			{{#subject}}
 				<small>{{subject}}</small><br />
 			{{/subject}}
