@@ -50,7 +50,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		else if (action.token == 'dm')
 		{
-			return 'comment';
+			return 'envelope';
 		}
 
 		return action.token;
