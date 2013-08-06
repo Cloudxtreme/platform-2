@@ -97,9 +97,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		// Add actions
-		for (var i = 0; i < this.attributes.actions.length; i ++)
+		if (typeof (this.attributes.actions) != 'undefined')
 		{
-			this.attributes.actions[i].icon = this.getActionIcon (this.attributes.actions[i]);
+			for (var i = 0; i < this.attributes.actions.length; i ++)
+			{
+				this.attributes.actions[i].icon = this.getActionIcon (this.attributes.actions[i]);
+			}
 		}
 	},
 
