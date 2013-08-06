@@ -74,7 +74,7 @@ Style corrections and manual overrides
 .social-box-colors .facebook-color	{ border-color: #3B5998 !important; }
 .social-box-colors .facebook-color .portlet-title	{ background-color: #3B5998 !important; }
 .social-box-colors .facebook-color .inherit	{ color: white; background: #3B5998 !important; }
-.social-box-colors .facebook-color .time	{ color: #3B5998 !important; }
+/*.social-box-colors .facebook-color .time	{ color: #3B5998 !important; }*/
 .social-box-colors .facebook-color .timeline-body	{ background-color: #3B5998 !important; }
 .social-box-colors .facebook-color .timeline-body:after	{ border-right-color: #3B5998 !important; }
 
