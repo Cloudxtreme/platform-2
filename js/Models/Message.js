@@ -11,6 +11,51 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
+	'getActionIcon' : function (action)
+	{
+		if (action.token == 'internal-share')
+		{
+			return 'share-alt';
+		}
+
+		else if (action.token == 'internal-edit')
+		{
+			return 'edit';
+		}
+
+		else if (action.token == 'internal-delete')
+		{
+			return 'remove';
+		}
+
+		else if (action.token == 'like')
+		{
+			return 'thumbs-up';
+		}
+
+		else if (action.token == 'comment')
+		{
+			return 'comment-alt';
+		}
+
+		else if (action.token == 'reply')
+		{
+			return 'comment';
+		}
+
+		else if (action.token == 'retweet')
+		{
+			return 'retweet';
+		}
+
+		else if (action.token == 'dm')
+		{
+			return 'comment';
+		}
+
+		return action.token;
+	},
+
 	'addInternalActions' : function ()
 	{
 		var self = this;
@@ -49,6 +94,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 					self.delete ();
 				}
 			});
+		}
+
+		// Add actions
+		for (var i = 0; i < this.attributes.actions.length; i ++)
+		{
+			this.attributes.actions[i].icon = this.getActionIcon (this.attributes.actions[i]);
 		}
 	},
 
