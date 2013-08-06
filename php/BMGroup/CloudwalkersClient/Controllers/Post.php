@@ -189,7 +189,15 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		}
 
 		// Status: SCHEDULED or DRAFT
-		$data['status'] = 'SCHEDULED';
+		$draft = Neuron_Core_Tools::getInput ('_POST', 'draft', 'varchar');
+		if ($draft)
+		{
+			$data['status'] = 'DRAFT';
+		}
+		else
+		{
+			$data['status'] = 'SCHEDULED';	
+		}
 
 
 		// If id is provided, this is an update.

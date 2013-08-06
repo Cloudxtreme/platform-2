@@ -5,16 +5,24 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'submit form' : 'submit',
 		'keyup textarea[name=message]' : 'updateCounter',
 		'keyup input[name=title]' : 'updateCounter',
-		'click #schedule-btn' : 'toggleSchedule'
+		'click #schedule-btn' : 'toggleSchedule',
+		'click button[value=draft]' : 'setDraft'
 	},
 
 	'files' : [],
+	'draft' : false,
 
 	'navclass' : 'write',
+
+	'setDraft' : function ()
+	{
+		this.draft = true;
+	},
 
 	'render' : function ()
 	{
 		this.files = [];
+		this.draft = false;
 
 		this.actionparameters = {};
 
@@ -460,6 +468,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data += '&original_message=' + this.model.get ('id');
 		}
 
+		if (this.draft)
+		{
+			data += '&draft=true';
+		}
+
 		if (this.validate (true))
 		{
 			// Do the call
@@ -475,7 +488,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				{
 					if (objData.success)
 					{
-						window.location = '#schedule';
+						if (self.draft)
+						{
+							window.location = '#drafts';
+						}
+						else
+						{
+							window.location = '#schedule';	
+						}
+
 						self.$el.html ('<p>Your message has been scheduled.</p>');
 
 						self.trigger ('popup:close');
