@@ -32,6 +32,8 @@ function getTimeSince (date)
         }
         */
 
+        seconds = ((new Date(date.getFullYear (), date.getMonth (), date.getDay (), 0, 0, 0)).getTime ()) / 1000;
+
         interval = Math.floor(seconds / 31536000);
         if (interval >= 1) {
             return interval + " years";
@@ -41,11 +43,9 @@ function getTimeSince (date)
             return interval + " months";
         }
 
-        // days are special
-        var d = (new Date()).getDate ();
-        if ((d - date.getDate ()) > 0)
-        {
-            return d - date.getDate () + ' days';
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+            return interval + " days";
         }
 
         interval = Math.floor(seconds / 3600);
