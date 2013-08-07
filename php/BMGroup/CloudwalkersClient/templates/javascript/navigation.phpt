@@ -41,6 +41,14 @@
 		</li>
 	{{/sortedchannels.inbox}}
 
+	<li class="drafts">
+		<a href="#drafts">
+		<i class="icon-time"></i> 
+		<span class="title">Drafts</span>
+		<span class="selected"></span>
+		</a>
+	</li>	
+
 	<li class="schedule">
 		<a href="#schedule" onclick="document.location='#schedule';">
 			<i class="icon-time"></i> 
@@ -108,14 +116,6 @@
 			</ul>
 		</li>
 	{{/sortedchannels.monitoring}}
-
-	<li class="drafts">
-		<a href="#drafts">
-		<i class="icon-time"></i> 
-		<span class="title">Drafts</span>
-		<span class="selected"></span>
-		</a>
-	</li>	
 
 	
 	<!--
