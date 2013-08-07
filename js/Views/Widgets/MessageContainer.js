@@ -15,7 +15,25 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'events' : {
-		'click .load-more a' : 'loadMore'
+		'click .load-more a' : 'loadMore',
+		'click .tools .reload' : 'refreshWidget'
+	},
+
+	'refreshWidget' : function (e)
+	{
+		e.preventDefault ();
+
+		//console.log (e);
+
+        var el = jQuery(e.currentTarget).parents(".portlet");
+        App.blockUI(el);
+
+		this.options.channel.update ({
+			'success' : function ()
+			{
+				App.unblockUI(el);
+			}
+		});
 	},
 
 	'innerRender' : function (element)

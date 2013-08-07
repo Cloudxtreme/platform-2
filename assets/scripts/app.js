@@ -744,7 +744,7 @@ var App = function () {
             handleTheme(); // handles style customer tool
 
             //ui component handlers
-            handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
+            //handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
             handleDropdowns(); // handle dropdowns
             handleTabs(); // handle tabs
             handleTooltips(); // handle bootstrap tooltips

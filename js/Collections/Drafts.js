@@ -48,9 +48,15 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 		return $.ajax(params);
 	},
 
-	'update' : function ()
+	'update' : function (parameters)
 	{
-		this.fetch ({ 'remove' : false });
+		if (typeof (parameters) == 'undefined')
+		{
+			parameters = {};
+		}
+
+		parameters.remove = false;
+		this.fetch (parameters);
 	}
 
 });

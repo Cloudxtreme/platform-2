@@ -64,9 +64,15 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 		this.fetch ({ 'resumeCallback' : true });
 	},
 
-	'update' : function ()
+	'update' : function (parameters)
 	{
-		this.fetch ({ 'remove' : false });
+		if (typeof (parameters) == 'undefined')
+		{
+			parameters = {};
+		}
+
+		parameters.remove = false;
+		this.fetch (parameters);
 	}
 
 });
