@@ -112,6 +112,18 @@ Cloudwalkers.Session =
 		return this.streams;
 	},
 
+	'getStream' : function (id)
+	{
+		for (var i = 0; i < this.streams.length; i ++)
+		{
+			if (this.streams[i].id == id)
+			{
+				return this.streams[i];
+			}
+		}
+		return null;
+	},
+
 	'getUser' : function ()
 	{
 		return this.user;

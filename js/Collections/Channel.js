@@ -120,6 +120,11 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		this.fetch ({ 'resumeCallback' : true });
 	},
 
+	'getFilters' : function (filters)
+	{
+		return this.filters;
+	},
+
 	'update' : function (parameters)
 	{
 		if (typeof (parameters) == 'undefined')

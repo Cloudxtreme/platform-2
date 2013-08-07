@@ -55,9 +55,9 @@
 														<input name="title" type="text" placeholder="your title" class="m-wrap span8" value="{{message.subject}}" />
 													</div>
 
-													<div class='add-data {{^message.sortedattachments.link}}inactive{{/message.sortedattachments.link}}' data-toggle-id="url">
+													<div class='add-data {{^sortedattachments.link}}inactive{{/sortedattachments.link}}' data-toggle-id="url">
 														<label class="control-label">URL</label>
-														<input type="text" name="url" placeholder="URL" value="{{#message.sortedattachments.link}}{{url}}{{/message.sortedattachments.link}}" />
+														<input type="text" name="url" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
 													</div>
 
 													<div class='add-data inactive' data-toggle-id="picture">

@@ -173,16 +173,21 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 
 			// Attachments
-			data.attachments = {};
+			data.sortedattachments = {};
 
 			if (this.model.get ('attachments'))
 			{
 				for (var i = 0; i < this.model.get ('attachments').length; i ++)
 				{
-					data.attachments[this.model.get ('attachments').type] = this.model.get ('attachments').src;
+					data.sortedattachments[this.model.get ('attachments')[i].type] = [ this.model.get ('attachments')[i] ];
 				}
 			}
+
+			//console.log (this.model.get ('attachments'))
+			//console.log (data.attachments);
 		}
+
+		console.log (data);
 
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
