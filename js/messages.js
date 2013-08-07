@@ -32,16 +32,16 @@ function getTimeSince (date)
         }
         */
 
-        var date = new Date ();
         date.setFullYear (date.getFullYear (), date.getMonth (), date.getDate ());
 
-        seconds = ((date).getTime ()) / 1000;
-        console.log (seconds);
+        seconds = (new Date() - (date)) / 1000;
 
-        interval = Math.floor(seconds / 31536000);
-        if (interval >= 1) {
-            return interval + " years";
+        var y = (new Date()).getFullYear ();
+        if (y - date.getFullYear () > 0)
+        {
+            return y - date.getFullYear () + ' years';
         }
+
         interval = Math.floor(seconds / 2592000);
         if (interval >= 1) {
             return interval + " months";
