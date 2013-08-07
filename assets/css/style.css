@@ -102,7 +102,7 @@ Style corrections and manual overrides
 .social-box-colors .google-plus-color	{ border-color: #DD4C39 !important; }
 .social-box-colors .google-plus-color .portlet-title	{ background-color: #DD4C39 !important; }
 .social-box-colors .google-plus-color .inherit	{ color: white; background: #DD4C39 !important; }
-.social-box-colors .google-plus-color .time	{ color: #DD4C39 !important; }
+/*.social-box-colors .google-plus-color .time	{ color: #DD4C39 !important; }*/
 .social-box-colors .google-plus-color .timeline-body	{ background-color: #DD4C39 !important; }
 .social-box-colors .google-plus-color .timeline-body:after	{ border-right-color: #DD4C39 !important; }
 
