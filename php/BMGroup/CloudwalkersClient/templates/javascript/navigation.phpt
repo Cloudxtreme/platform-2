@@ -9,7 +9,7 @@
 		<!-- NO QUICK SEARCH... -->
 	</li>
 
-	<li class="dashboard">
+	<li class="start dashboard">
 		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
 		<span class="title">Dashboard</span>
@@ -17,7 +17,7 @@
 		</a>
 	</li>
 	
-	<li class="start write">
+	<li class="write">
 		<a href="#write">
 		<i class="icon-share-sign"></i> 
 		<span class="title">Compose message</span>
