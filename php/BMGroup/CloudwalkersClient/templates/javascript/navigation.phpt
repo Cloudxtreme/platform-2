@@ -43,7 +43,7 @@
 
 	<li class="drafts">
 		<a href="#drafts">
-		<i class="icon-time"></i> 
+		<i class="icon-edit"></i> 
 		<span class="title">Drafts</span>
 		<span class="selected"></span>
 		</a>
