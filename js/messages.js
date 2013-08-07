@@ -43,7 +43,7 @@ function getTimeSince (date)
 
         // days are special
         var d = (new Date()).getDate ();
-        if (d - date.getDate () > 0)
+        if ((d - date.getDate ()) > 0)
         {
             return d - date.getDate () + ' days';
         }
