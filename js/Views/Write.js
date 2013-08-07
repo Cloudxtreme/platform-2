@@ -19,6 +19,33 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.draft = true;
 	},
 
+	'getAvailableStreams' : function ()
+	{
+		var streams = Cloudwalkers.Session.getStreams ();
+
+		// If this is an action parameter, only show streams of the same network
+		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
+		{
+			var stream = Cloudwalkers.Session.getStream (this.model.get ('stream'));
+
+			if (stream)
+			{
+				var out = [];
+				for (var i = 0; i < streams.length; i ++)
+				{
+					if (streams[i].network.name == stream.network.name)
+					{
+						out.push (streams[i]);
+					}
+				}
+
+				return out;
+			}
+		}
+
+		return streams;
+	},
+
 	'render' : function ()
 	{
 		this.files = [];
@@ -41,7 +68,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		var files = [];
 
 		var objData = {
-			'streams' : Cloudwalkers.Session.getStreams ()
+			'streams' : this.getAvailableStreams ()
 		};
 
 		// Stream map
