@@ -1,9 +1,22 @@
-Cloudwalkers.Views.Comment = Backbone.View.extend({
+Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
+
+	'initialize' : function ()
+	{
+		this.options.template = 'comment';
+	},
 
 	'className' : 'comments-row',
+	//'template' : 'comment',
 
 	'tagName' : 'li',
 
+	'additionalData' : function (data)
+	{
+		data.parent = false;
+		return data;
+	}
+
+	/*
 	'render' : function ()
 	{
 		var data = {};
@@ -17,5 +30,6 @@ Cloudwalkers.Views.Comment = Backbone.View.extend({
 
 		return this;
 	}
+	*/
 
 });
