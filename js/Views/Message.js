@@ -110,11 +110,19 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			this.$el.find ('.parent-message-view').html (parentview.render().el);
 		}
 
+		this.$el.find ('span.actions').parent ().on ('mouseup', function (e)
+		{
+			e.stopPropagation ();
+		});
+
 		return this;
 	},
 
 	'messageAction' : function (element)
 	{
+		element.stopPropagation ();
+		element.preventDefault ();
+
 		var action = $(element.currentTarget).attr ('data-action');
 		
 		action = this.model.getAction (action);
@@ -161,8 +169,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	},
 
-	'showchildren' : function ()
+	'showchildren' : function (e)
 	{
+		e.stopPropagation ();
+		e.preventDefault ();
+
 		if (this.commentsVisible)
 		{
 			this.commentsVisible = false;
