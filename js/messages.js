@@ -36,10 +36,9 @@ function getTimeSince (date)
 
         seconds = (new Date() - (date)) / 1000;
 
-        var y = (new Date()).getFullYear ();
-        if (y - date.getFullYear () > 0)
-        {
-            return y - date.getFullYear () + ' years';
+        interval = Math.floor(seconds / 31536000);
+        if (interval >= 1) {
+            return interval + " months";
         }
 
         interval = Math.floor(seconds / 2592000);
