@@ -31,10 +31,22 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 
 	'onFirstAdd' : function (message, messageView)
 	{
-		setTimeout (function ()
+		if (!this.options.selectmessage)
 		{
-			messageView.$el.click ();
-		}, 100);
+			setTimeout (function ()
+			{
+				messageView.$el.click ();
+			}, 100);
+		}
+	},
+
+	'afterInit' : function ()
+	{
+		if (this.options.selectmessage)
+		{
+			//alert (this.options.selectmessage);
+			this.$el.find ('.messages-container').find ('[data-message-id=' + this.options.selectmessage + ']').click ();
+		}
 	}
 
 });

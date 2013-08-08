@@ -89,6 +89,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 				if (self.options.channel.length == 0)
 					element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
+
+				self.afterInit ();
 			}
 		});
 
@@ -169,6 +171,11 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'onFirstAdd' : function (message, messageView)
+	{
+
+	},
+
+	'afterInit' : function ()
 	{
 
 	},
