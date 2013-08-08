@@ -6,6 +6,8 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
+		$_SESSION['account'] = null;
+
 		if ($client->isLogin ())
 		{
 			return '<p>' . __('You are already logged in.') . '</p>';

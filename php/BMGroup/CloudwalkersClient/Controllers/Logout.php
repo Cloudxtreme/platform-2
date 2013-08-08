@@ -6,5 +6,7 @@ class BMGroup_CloudwalkersClient_Controllers_Logout
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		$client->logout (Neuron_URLBuilder::getURL('login'));
+
+		$_SESSION['account'] = null;
 	}
 }

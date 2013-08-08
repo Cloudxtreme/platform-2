@@ -1,4 +1,4 @@
-<td>
+<td onclick="document.location='#channel/{{channel}}/{{#stream}}{{id}}{{/stream}}/{{id}}';">
 
 	<ul>
 

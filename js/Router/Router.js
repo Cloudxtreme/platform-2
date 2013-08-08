@@ -1,7 +1,7 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
-		'channel/:channel(/:stream)' : 'channel',
+		'channel/:channel(/:stream)(/:messageid)' : 'channel',
 		'schedule(/:stream)' : 'schedule',
 		'drafts' : 'drafts',
 		'users' : 'users',
@@ -75,7 +75,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
-	'channel' : function (id, streamid)
+	'channel' : function (id, streamid, messageid)
 	{
 		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
 

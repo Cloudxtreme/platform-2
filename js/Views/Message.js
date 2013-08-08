@@ -57,6 +57,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			data.stream = this.model.getStream ().attributes;
 		}
 
+		if (this.model.collection)
+		{
+			data.channel = this.model.collection.id;
+		}
+
 		return this.additionalData (data);
 	},
 
