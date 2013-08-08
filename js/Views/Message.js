@@ -74,7 +74,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		var data = this.prepareData ();
 
-		if (typeof (data.parent) != 'undefined' && typeof (this.options.childtemplate) != 'undefined')
+		if (typeof (data.parentmodel) != 'undefined' && typeof (this.options.childtemplate) != 'undefined')
 		{
 			$(this.el).html (Mustache.render (Templates[this.options.childtemplate], data));	
 		}
@@ -84,7 +84,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			$(this.el).html (Mustache.render (Templates[this.options.template], data));		
 		}
 
-		else if (typeof (data.parent) != 'undefined')
+		else if (typeof (data.parentmodel) != 'undefined')
 		{
 			$(this.el).html (Mustache.render (Templates.messagecomment, data));	
 		}
@@ -97,9 +97,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		updateTimers ();
 
 		//console.log (this.model.attributes);
-		if (data.parent)
+		if (data.parentmodel)
 		{
-			var parameters = { 'model' : data.parent };
+			//console.log (data.parent);
+
+			var parameters = { 'model' : data.parentmodel };
 
 			if (typeof (this.options.originaltemplate) != 'undefined')
 			{

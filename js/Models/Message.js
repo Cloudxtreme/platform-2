@@ -4,11 +4,23 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
-			this.set ('parent', new Cloudwalkers.Models.Message (this.attributes.parent));
+			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
+			this.get ('parentmodel').trigger ('change');
 			//console.log (data.parent);
 		}
 
+		//this.addInternalActions ();
+		this.on ('change', this.afterChange);
+	},
+
+	'afterChange' : function ()
+	{
 		this.addInternalActions ();
+
+		if (this.get ('parent'))
+		{
+			this.get ('parentmodel').set (this.get ('parent'));
+		}
 	},
 
 	'getActionIcon' : function (action)
@@ -102,7 +114,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		// see if we have a parent we can reply to
-		var parent = this.get ('parent');
+		var parent = this.get ('parentmodel');
 		if (typeof (parent) != 'undefined' && parent)
 		{
 			var parentactions = parent.get ('actions');
