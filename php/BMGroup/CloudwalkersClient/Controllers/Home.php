@@ -11,6 +11,8 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 			$client->logout (Neuron_URLBuilder::getURL('login'));
 		}
 
+		$_SESSION['account'] = null;
+
 		$userdata = $client->get ('user/me');
 
 		$page = new Neuron_Core_Template ();
