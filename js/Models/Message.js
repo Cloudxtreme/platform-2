@@ -2,15 +2,22 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'initialize' : function ()
 	{
+		this.on ('change', this.afterChange);
+
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 			//console.log (data.parent);
 		}
+		else
+		{
+			this.trigger ('change');
+		}
 
 		//this.addInternalActions ();
-		this.on ('change', this.afterChange);
+		
+		
 	},
 
 	'afterChange' : function ()
@@ -20,6 +27,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if (this.get ('parent'))
 		{
 			this.get ('parentmodel').set (this.get ('parent'));
+			//this.get ('parentmodel').trigger ('change');
 		}
 	},
 
@@ -76,6 +84,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'addInternalActions' : function ()
 	{
 		var self = this;
+
+		// Check if we already have internals
+		for (var i = 0; i < this.attributes.actions.length; i ++)
+		{
+			if (this.attributes.actions[i].token.substr (0, 9) == 'internal-')
+			{
+				return;
+			}
+		}
 
 		// Add "share" button
 		if (this.attributes.type == 'INCOMING')
