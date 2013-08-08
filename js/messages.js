@@ -38,7 +38,7 @@ function getTimeSince (date)
 
         interval = Math.floor(seconds / 31536000);
         if (interval >= 1) {
-            return interval + " months";
+            return interval + " years";
         }
 
         interval = Math.floor(seconds / 2592000);
