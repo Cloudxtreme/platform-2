@@ -2,13 +2,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'initialize' : function ()
 	{
-		this.addInternalActions ();
-
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
 			this.set ('parent', new Cloudwalkers.Models.Message (this.attributes.parent));
 			//console.log (data.parent);
 		}
+
+		this.addInternalActions ();
 	},
 
 	'getActionIcon' : function (action)
@@ -51,6 +51,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		else if (action.token == 'dm')
 		{
 			return 'envelope';
+		}
+
+		else if (action.token == 'internal-reply')
+		{
+			return 'comment';
 		}
 
 		return action.token;
@@ -96,7 +101,30 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			});
 		}
 
-		// Add actions
+		// see if we have a parent we can reply to
+		var parent = this.get ('parent');
+		if (typeof (parent) != 'undefined' && parent)
+		{
+			var parentactions = parent.get ('actions');
+
+			if (parentactions)
+			{
+				for (var i = 0; i < parentactions.length; i ++)	
+				{
+					if (parentactions[i].token == 'comment')
+					{
+						this.attributes.actions.push ({
+							'name' : 'Reply',
+							'token' : 'internal-reply',
+							'target' : parent,
+							'originalaction' : parentactions[i]
+						});
+					}
+				}
+			}
+		}
+
+		// Add action icons
 		if (typeof (this.attributes.actions) != 'undefined')
 		{
 			for (var i = 0; i < this.attributes.actions.length; i ++)

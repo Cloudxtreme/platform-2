@@ -124,8 +124,19 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		element.preventDefault ();
 
 		var action = $(element.currentTarget).attr ('data-action');
-		
 		action = this.model.getAction (action);
+
+		var targetmodel = this.model;
+		if (typeof (action.target) != 'undefined')
+		{
+			targetmodel = action.target;
+
+			if (typeof (action.originalaction) != 'undefined')
+			{
+				action = action.originalaction;
+			}
+		}
+
 		if (action == null)
 		{
 			return;
@@ -133,7 +144,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 		if (typeof (action.callback) != 'undefined')
 		{
-			action.callback (this.model);
+			action.callback (targetmodel);
 		}
 		else
 		{
@@ -142,21 +153,21 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				if (action.type == 'dialog')
 				{
 					var view = new Cloudwalkers.Views.ActionParameters ({
-						'message' : this.model,
+						'message' : targetmodel,
 						'action' : action
 					});
 					Cloudwalkers.RootView.popup (view);
 				}
 				else if (action.type == 'simple')
 				{
-					this.model.act (action, {});
+					targetmodel.act (action, {});
 				}
 
 				else if (action.type == 'write')
 				{
 					Cloudwalkers.RootView.writeDialog 
 					(
-						this.model,
+						targetmodel,
 						action
 					);
 				}
