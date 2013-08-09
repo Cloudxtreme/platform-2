@@ -86,12 +86,19 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var self = this;
 
 		// Check if we already have internals
-		for (var i = 0; i < this.attributes.actions.length; i ++)
+		if (typeof (this.attributes.actions) != 'undefined')
 		{
-			if (this.attributes.actions[i].token.substr (0, 9) == 'internal-')
+			for (var i = 0; i < this.attributes.actions.length; i ++)
 			{
-				return;
+				if (this.attributes.actions[i].token.substr (0, 9) == 'internal-')
+				{
+					return;
+				}
 			}
+		}
+		else
+		{
+			this.attributes.actions = [];	
 		}
 
 		// Add "share" button
