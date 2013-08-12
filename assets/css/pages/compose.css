@@ -12,8 +12,15 @@ button.btn.blue:hover	{ background-color: #666 !important; }
 
 .add-data	{ margin-top: 24px; }
 
-.btn.white	{
+.channels .btn.white	{
 	border-radius: 2px !important; border: 1px solid #eee; border-bottom: #ccc solid 3px; background: white;
+	padding: 0;
+}
+
+.channels .btn.white label
+{
+	padding: 7px 14px;
+	margin: 0;
 }
 
 .btn.white:hover	{
