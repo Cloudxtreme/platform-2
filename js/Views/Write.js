@@ -278,10 +278,18 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		var self = this;
 
-		var p = $(document.createElement ('p'));
+		var p = $(document.createElement ('div'));
+
+		p.addClass ('uploaded-file');
+
+		var img = $(document.createElement ('img'));
 		var a = $(document.createElement ('a'));
 
-		p.append (file.name + ' ');
+		img.attr ('src', file.url);
+
+		//p.append (file.name + ' ');
+		p.append (img);
+
 		a.html ('Delete');
 		a.attr ('href', 'javascript:void(0);');
 

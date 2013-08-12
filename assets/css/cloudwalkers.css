@@ -1,0 +1,31 @@
+.fileupload-feedback
+{
+	margin-top: 15px;
+}
+
+.fileupload-feedback:after
+{
+	clear: both;
+	display: block;
+	content: "";
+}
+
+.fileupload-feedback .uploaded-file
+{
+	width: 180px;
+	text-align: center;
+	float: left;
+	padding: 20px 0;
+	margin-right: 15px;
+}
+
+.fileupload-feedback .uploaded-file img 
+{
+	max-width: 160px;
+	max-height: 144px;
+}
+
+.fileupload-feedback .uploaded-file a
+{
+	display: block;
+}
