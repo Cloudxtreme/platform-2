@@ -3,34 +3,78 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	'navclass' : 'dashboard',
 	'title' : 'Dashboard',
 
+	'newline' : false,
+
 	'initializeWidgets' : function ()
 	{
+		this.newline = true;
+
 		var collection;
 		var widget;
 
 		// All channels
 		var account = Cloudwalkers.Session.getAccount ();
 
-		var channels = account.channels ();
+		var self = this;
 
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == 'inbox')
+		$.ajax 
+		(
+			CONFIG_BASE_URL + 'json/account/' + account.id + '/dashboard',
 			{
-				collection = new Cloudwalkers.Collections.Channel 
-				(
-					[], 
-					{ 
-						'id' : channels[i].id, 
-						'name' : channels[i].name,
-						'amount' : 10,
-						'canLoadMore' : false
+				'success' : function (result)
+				{
+					for (var i = 0; i < result.widgets.length; i ++)
+					{
+						self.addDashboardWidget (result.widgets[i]);
 					}
-				);
-
-				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue', 'title' : 'Inbox social media' })
-				this.addHalfWidget (widget, true);
+				}
 			}
+		);
+	},
+
+	'addDashboardWidget' : function (widgetdata)
+	{
+		//console.log (widget);
+
+		if (widgetdata.widget == 'channel')
+		{
+			this.addDashboardChannel (widgetdata);
+		}
+
+		else if (widgetdata.widget == 'drafts')
+		{
+			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
+			widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : widgetdata.color });
+
+			// Size
+			if (widgetdata.size == 'half')
+			{
+				this.addHalfWidget (widget, this.newline);
+				this.newline = !this.newline;
+			}
+			else if (widgetdata.size == 'full')
+			{
+				this.addWidget (widget, true);
+				this.newline = false;
+			}
+		}
+
+		else if (widgetdata.widget == 'scheduled')
+		{
+			collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
+			widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : widgetdata.color });
+
+			// Size
+			if (widgetdata.size == 'half')
+			{
+				this.addHalfWidget (widget, this.newline);
+				this.newline = !this.newline;
+			}
+			else if (widgetdata.size == 'full')
+			{
+				this.addWidget (widget, true);
+				this.newline = false;
+			}			
 		}
 
 		// All types
@@ -40,6 +84,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		this.addHalfWidget (widget);
 		*/
+
+		/*
 
 		// All types
 		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers', 'canLoadMore' : false });
@@ -55,25 +101,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		this.addHalfWidget (widget, false);
 		// End Useless stat bars
 
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == 'monitoring')
-			{
-				collection = new Cloudwalkers.Collections.Channel 
-				(
-					[], 
-					{ 
-						'id' : channels[i].id, 
-						'name' : channels[i].name,
-						'amount' : 10,
-						'canLoadMore' : false
-					}
-				);
-
-				widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'grey' })
-				this.addHalfWidget (widget, true);
-			}
-		}
 
 		// All types
 		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages', 'canLoadMore' : false });
@@ -109,14 +136,56 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat4, {}) });
 		this.addHalfWidget (widget, false);
-
-		// STUPID STAT BLOCKS
-		/*
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat5, {}) });
-		this.addHalfWidget (widget, true);
-
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat6, {}) });
-		this.addHalfWidget (widget, false);
 		*/
+	},
+
+	'addDashboardChannel' : function (widgetdata)
+	{
+		var widget;
+
+		var account = Cloudwalkers.Session.getAccount ();
+		var channels = account.channels ();
+		var collection;
+
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == widgetdata.type)
+			{
+				collection = new Cloudwalkers.Collections.Channel 
+				(
+					[], 
+					{ 
+						'id' : channels[i].id, 
+						'name' : channels[i].name,
+						'amount' : widgetdata.messages,
+						'canLoadMore' : false,
+						'showMoreButton' : widgetdata.layout == 'timeline' ? '#channel/' + channels[i].id : false,
+					}
+				);
+
+				// View
+				if (widgetdata.layout == 'list')
+				{
+					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title })
+				}
+
+				else if (widgetdata.layout == 'timeline')
+				{
+					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
+				}
+
+				// Size
+				if (widgetdata.size == 'half')
+				{
+					this.addHalfWidget (widget, this.newline);
+					this.newline = !this.newline;
+				}
+				else if (widgetdata.size == 'full')
+				{
+					this.addWidget (widget, true);
+					this.newline = false;
+				}
+			}
+		}
 	}
 });
