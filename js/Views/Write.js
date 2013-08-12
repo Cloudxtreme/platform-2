@@ -6,7 +6,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'keyup textarea[name=message]' : 'updateCounter',
 		'keyup input[name=title]' : 'updateCounter',
 		'click #schedule-btn' : 'toggleSchedule',
-		'click button[value=draft]' : 'setDraft'
+		'click button[value=draft]' : 'setDraft',
+		'click [name=delay]' : 'setWithinDate',
+		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year]' : 'resetWithin'
 	},
 
 	'files' : [],
@@ -214,7 +216,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			//console.log (data.attachments);
 		}
 
-		console.log (data);
+		//console.log (data);
 
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
@@ -658,34 +660,76 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		return this.validate ();
 	},
 
+	'setScheduleDate' : function (date)
+	{
+		this.$el.find ('select[name=schedule_day]').val (date.getDate ());
+		this.$el.find ('select[name=schedule_month]').val (date.getMonth () + 1);
+		this.$el.find ('select[name=schedule_year]').val (date.getFullYear ());
+
+		var minutes = String(Math.floor (date.getMinutes () / 15) * 15);
+		var hours = String(date.getHours ());
+
+		if (minutes.length == 1)
+		{
+			minutes = '0' + minutes;
+		}
+
+		if (hours.length == 1)
+		{
+			hours = '0' + hours;
+		}
+
+		this.$el.find ('select[name=schedule_time]').val (hours + ':' + minutes);
+	},
+
+	'setWithinDate' : function ()
+	{
+		var delay = this.$el.find ('[name=delay]:checked').val ();
+
+		var date = new Date ();
+		date.setSeconds (delay);
+
+		this.setScheduleDate (date);
+	},
+
 	'randomTime' : function ()
 	{
 		var self = this;
 		var date = new Date ();
 
-		if (this.$el.find ('select[name=schedule_day]').val () == 'Day')
+		var randomdate = new Date ();
+		randomdate.setFullYear (date.getFullYear (), date.getMonth (), date.getDate ());
+		randomdate.setHours (0, 0, 0, 0);
+
+		if (this.$el.find ('select[name=schedule_day]').val () != 'Day')
 		{
-			this.$el.find ('select[name=schedule_day]').val (date.getDate ());
+			randomdate.setDate (this.$el.find ('select[name=schedule_day]').val ());
 		}
 
-		if (this.$el.find ('select[name=schedule_month]').val () == 'Month')
+		if (this.$el.find ('select[name=schedule_month]').val () != 'Month')
 		{
-			this.$el.find ('select[name=schedule_month]').val (date.getMonth () + 1);
+			randomdate.setMonth (this.$el.find ('select[name=schedule_month]').val () - 1);
 		}
 
-		if (this.$el.find ('select[name=schedule_year]').val () == 'Year')
+		if (this.$el.find ('select[name=schedule_year]').val () != 'Year')
 		{
-			this.$el.find ('select[name=schedule_year]').val (date.getFullYear ());
+			randomdate.setFullYear (this.$el.find ('select[name=schedule_year]').val ());
 		}
 
-		var options = this.$el.find ('select[name=schedule_time] option');
-		var index = 32 + Math.round (Math.random () * (options.size () - 32));
-		var option = options.eq (index);
+		var randomminute = 60 * (8 + (Math.random () * 16));
+		randomdate.setMinutes (randomminute);
 
-		this.$el.find ('select[name=schedule_time]').val (option.val ());
+		this.setScheduleDate (randomdate);
+		this.resetWithin ();
 
-		this.trigger ('content:change');
+		//this.trigger ('content:change');
 		
+	},
+
+	'resetWithin' : function ()
+	{
+		this.$el.find ('[name=delay]').prop ('checked', false).trigger ('change');
+		this.trigger ('content:change');
 	},
 
 	'toggleSchedule' : function ()
