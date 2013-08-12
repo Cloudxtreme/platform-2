@@ -260,7 +260,35 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		self.$el.find ('[data-toggle-target]').click (function ()
 		{
 			var id = $(this).attr ('data-toggle-target');
-			self.$el.find ('[data-toggle-id=' + id + ']').toggle ();
+			var visible;
+
+			if (self.$el.find ('[data-toggle-id=' + id + ']').is (':visible'))
+			{
+				self.$el.find ('[data-toggle-id=' + id + ']').hide ();	
+				visible = false;
+				//$(this).toggleClass ('active', false);
+			}
+
+			else
+			{
+				//$(this).toggleClass ('active', true);
+				visible = true;
+				self.$el.find ('[data-toggle-id=' + id + ']').show ();
+			}
+
+			$(this).toggleClass ('black', visible);
+			$(this).toggleClass ('blue', !visible);
+
+		}).each (function ()
+		{
+			setTimeout (function ()
+			{
+				var id = $(this).attr ('data-toggle-target');
+				var visible = self.$el.find ('[data-toggle-id=' + id + ']').is (':visible');
+
+				$(this).toggleClass ('black', visible);
+				$(this).toggleClass ('blue', !visible);
+			}, 100);
 		});
 
 		self.$el.find ('.inactive[data-toggle-id]').hide ();
