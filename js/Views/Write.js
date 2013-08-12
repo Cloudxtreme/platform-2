@@ -5,10 +5,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'submit form' : 'submit',
 		'keyup textarea[name=message]' : 'updateCounter',
 		'keyup input[name=title]' : 'updateCounter',
-		'click #schedule-btn' : 'toggleSchedule',
+		'click #schedule-btn-toggle' : 'toggleSchedule',
 		'click button[value=draft]' : 'setDraft',
 		'click [name=delay]' : 'setWithinDate',
-		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year]' : 'resetWithin'
+		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin'
 	},
 
 	'files' : [],
@@ -647,6 +647,19 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			this.$el.find ('.error').html ('');
 		}
 
+		var date = this.getScheduleDate ();
+		if (date)
+		{
+			if (date < (new Date()))
+			{
+				if (throwErrors)
+				{
+					this.throwError ('Even CloudWalkers is unable to send messages to the past ¯\\_(ツ)_/¯');
+				}
+				return false;
+			}
+		}
+
 		return true;
 	},
 
@@ -690,6 +703,60 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		date.setSeconds (delay);
 
 		this.setScheduleDate (date);
+
+		var self = this;
+
+		this.$el.find ('[name=schedule_random]').prop ('checked', false).trigger ('change');
+		self.trigger ('content:change');
+	},
+
+	'getScheduleDate' : function ()
+	{
+		var date = new Date ();
+
+		if (this.$el.find ('select[name=schedule_day]').val () != 'Day')
+		{
+			date.setDate (this.$el.find ('select[name=schedule_day]').val ());
+		}
+		else
+		{
+			return false;
+		}
+
+		if (this.$el.find ('select[name=schedule_month]').val () != 'Month')
+		{
+			date.setMonth (this.$el.find ('select[name=schedule_month]').val () - 1);
+		}
+		else
+		{
+			return false;
+		}
+
+		if (this.$el.find ('select[name=schedule_year]').val () != 'Year')
+		{
+			date.setFullYear (this.$el.find ('select[name=schedule_year]').val ());
+		}
+		else
+		{
+			return false;
+		}
+
+		if (this.$el.find ('select[name=schedule_time]').val () != 'Time')
+		{
+			var time = this.$el.find ('select[name=schedule_time]').val ().split (':');
+
+			if (time.length == 2)
+			{
+				date.setHours (time[0]);
+				date.setMinutes (time[1]);
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		return date;
 	},
 
 	'randomTime' : function ()
@@ -720,21 +787,32 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		randomdate.setMinutes (randomminute);
 
 		this.setScheduleDate (randomdate);
-		this.resetWithin ();
+		this.resetWithin (false);
 
 		//this.trigger ('content:change');
 		
 	},
 
-	'resetWithin' : function ()
+	'resetWithin' : function (alsoRandom)
 	{
+		if (typeof (alsoRandom) == 'undefined')
+		{
+			alsoRandom = true;
+		}
+
 		this.$el.find ('[name=delay]').prop ('checked', false).trigger ('change');
+
+		if (alsoRandom)
+		{
+			this.$el.find ('[name=schedule_random]').prop ('checked', false).trigger ('change');
+		}
+
 		this.trigger ('content:change');
 	},
 
 	'toggleSchedule' : function ()
 	{
-		console.log ('this');
+		//console.log ('this');
 		this.$el.find ('.message-schedule').toggleClass ('hidden');
 
 		this.trigger ('content:change');
