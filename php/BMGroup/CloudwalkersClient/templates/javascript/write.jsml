@@ -44,9 +44,9 @@
 													
 													<h2>Add</h2>
 													
-													<button class='btn black' data-toggle-target="subject" type="button">subject</button>
-													<button class='btn blue' data-toggle-target="url" type="button">URL</button>
-													<button class='btn blue' data-toggle-target="picture" type="button">picture</button>
+													<button class='btn' data-toggle-target="subject" type="button">subject</button>
+													<button class='btn' data-toggle-target="url" type="button">URL</button>
+													<button class='btn' data-toggle-target="picture" type="button">picture</button>
 
 													<!--<button class='btn blue'>tags</button>-->
 													

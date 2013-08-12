@@ -281,13 +281,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		}).each (function ()
 		{
+			var element = $(this);
+
 			setTimeout (function ()
 			{
-				var id = $(this).attr ('data-toggle-target');
+				var id = element.attr ('data-toggle-target');
 				var visible = self.$el.find ('[data-toggle-id=' + id + ']').is (':visible');
 
-				$(this).toggleClass ('black', visible);
-				$(this).toggleClass ('blue', !visible);
+				element.toggleClass ('black', visible);
+				element.toggleClass ('blue', !visible);
 			}, 100);
 		});
 
