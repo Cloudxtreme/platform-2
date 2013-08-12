@@ -116,14 +116,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		for (var i = 1; i <= 31; i ++)
 		{
-			data.days.push ({ 'day' : i, 'checked' : (scheduledate && scheduledate.getDate () == i ) });
+			data.days.push ({ 'day' : i, 'checked' : (scheduledate ? scheduledate.getDate () == i : (new Date()).getDate () == i ) });
 			data.endrepeat.days.push ({ 'day' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getDate () == i ) });
 		}
 
 		// 12 months
 		for (i = 1; i <= 12; i ++)
 		{
-			data.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (scheduledate && scheduledate.getMonth () == (i - 1) ) });
+			data.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (scheduledate ? scheduledate.getMonth () == (i - 1) : (new Date()).getMonth () == (i - 1)) });
 			data.endrepeat.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getMonth () == (i - 1) ) });
 		}
 
@@ -132,7 +132,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		for (i = 0; i < 10; i ++)
 		{
 			value = (new Date()).getFullYear () + i;
-			data.years.push ({ 'year' : value, 'checked' : (scheduledate && scheduledate.getFullYear () == value ) });
+			data.years.push ({ 'year' : value, 'checked' : (scheduledate ? scheduledate.getFullYear () == value : (new Date()).getFullYear () == value ) });
 			data.endrepeat.years.push ({ 'year' : value, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
 			//data.endrepeat.years.push ({ 'year' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
 		}
@@ -808,6 +808,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
 		this.trigger ('content:change');
+
+		// See if year is selected
+		if (this.$el.find ('select[name=schedule_year]').val () == 'Year')
+		{
+			this.$el.find ('select[name=schedule_year]').val ((new Date()).getFullYear ());
+		}
 	},
 
 	'toggleSchedule' : function ()
