@@ -4,7 +4,7 @@
 	{{#input.string}}
 		<div class="form-group">
 			<label>{{name}}</label>
-			<input type="text" name="{{token}}" value="{{value}}" />
+			<textarea type="text" name="{{token}}" class="m-wrap" rows="5" style="width: 95%">{{value}}</textarea>
 		</div>
 	{{/input.string}}
 
