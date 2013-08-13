@@ -53,6 +53,6 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 			);
 
 		}, 1);
-	},
+	}
 
 });

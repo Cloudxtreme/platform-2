@@ -159,7 +159,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 						'name' : channels[i].name,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
-						'showMoreButton' : widgetdata.layout == 'timeline' ? '#channel/' + channels[i].id : false,
+						'showMoreButton' : widgetdata.layout == 'timeline' ? '#channel/' + channels[i].id : false
 					}
 				);
 

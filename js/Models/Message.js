@@ -132,7 +132,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				'token' : 'internal-delete',
 				'callback' : function (message)
 				{
-					self.delete ();
+					self.deleteMessage ();
 				}
 			});
 		}
@@ -170,7 +170,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'delete' : function ()
+	'deleteMessage' : function ()
 	{
 		var self = this;
 		var url = 'post/?remove=' + this.get ('id');

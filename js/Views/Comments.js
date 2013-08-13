@@ -89,6 +89,6 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 		this.$el.find ('.loading-comments').show ();
 		this.$el.find ('.load-more-comments').hide ();
-	},
+	}
 
 });

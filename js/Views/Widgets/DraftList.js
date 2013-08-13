@@ -3,6 +3,6 @@
 */
 Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
 
-	'messagetemplate' : 'messagedraft',
+	'messagetemplate' : 'messagedraft'
 
 });
