@@ -690,6 +690,18 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			}
 		}
 
+		// Schedule repeat
+		if (throwErrors)
+		{
+			if (this.$el.find ('[name=repeat_delay_unit]').val () == 'minutes')
+			{
+				if (this.$el.find ('[name=repeat_delay_amount]').val () < 20)
+				{
+					return confirm ('Are you sure you want to repeat this message within such a short time?');
+				}
+			}
+		}
+
 		return true;
 	},
 
