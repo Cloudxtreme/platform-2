@@ -9,7 +9,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click button[value=draft]' : 'setDraft',
 		'click [name=delay]' : 'setWithinDate',
 		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin',
-		'click #button-response' : 'sendNow'
+		'click #button-response[value=send]' : 'sendNow'
 	},
 
 	'files' : [],
