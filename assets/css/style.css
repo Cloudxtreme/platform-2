@@ -128,18 +128,18 @@ Style corrections and manual overrides
 .portlet.box.white .tools > *	{ margin: 8px 8px 4px; }
 
 /* Inbox Portlet */
-.portlet.box .scroller ul	{ margin:0; padding:0; list-style: none; }
-.portlet.box .scroller li	{ min-height: 30px; }
-.portlet.box .scroller .icon	{ float: left; margin-right: 8px; color: #2bbedc; font-size: 1.8em; vertical-align: center; }
-.portlet.box .scroller .icon-right	{ float: right; color: #666; font-size: 1.3em; }
-.portlet.box .scroller .date	{ color: #aaa; font-style: italic; }
-.portlet.box .scroller .right	{ float: right; }
-.portlet.box .scroller img.avatar { position: relative; top: 2px; margin: 0 6px 8px 0; height: 36px; width: 36px; border-radius: 50% !important; }
+.portlet.box  ul	{ margin:0; padding:0; list-style: none; }
+.portlet.box  li	{ min-height: 30px; }
+.portlet.box  .icon	{ float: left; margin-right: 8px; color: #2bbedc; font-size: 1.8em; vertical-align: center; }
+.portlet.box  .icon-right	{ float: right; color: #666; font-size: 1.3em; }
+.portlet.box  .date	{ color: #aaa; font-style: italic; }
+.portlet.box  .right	{ float: right; }
+.portlet.box  img.avatar { position: relative; top: 2px; margin: 0 6px 8px 0; height: 36px; width: 36px; border-radius: 50% !important; }
 
 /* Split Portlet */
-.portlet.box .scroller .split li	{ min-height: 26px; }
-.portlet.box .scroller .split .icon	{ margin-right: 4px; font-size: 1.6em; }
-.portlet.box .scroller .split .date	{ font-size: .86em; }
+.portlet.box  .split li	{ min-height: 26px; }
+.portlet.box  .split .icon	{ margin-right: 4px; font-size: 1.6em; }
+.portlet.box  .split .date	{ font-size: .86em; }
 
 
 /* Actions Dropdown */

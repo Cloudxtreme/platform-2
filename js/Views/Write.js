@@ -741,7 +741,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			// Schedule delay too short
 			if (this.$el.find ('[name=repeat_delay_unit]').val () == 'minutes')
 			{
-				if (this.$el.find ('[name=repeat_delay_amount]').val () != 'Never' && this.$el.find ('[name=repeat_delay_amount]').val () < 20)
+				if (this.$el.find ('[name=repeat_delay_amount]').val () > 0
+					&& this.$el.find ('[name=repeat_delay_amount]').val () < 20)
 				{
 					return confirm ('Are you sure you want to repeat this message within such a short time?');
 				}
@@ -884,7 +885,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.setScheduleDate (randomdate);
 		this.resetWithin (false);
 
-		//this.trigger ('content:change');
+		this.trigger ('content:change');
 		
 	},
 
