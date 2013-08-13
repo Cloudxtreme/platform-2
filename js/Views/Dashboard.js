@@ -66,6 +66,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addWidgetWithSettings (widget, widgetdata);
 		}
 
+		else if (widgetdata.widget == 'linechart')
+		{
+			widgetdata.dataurl = CONFIG_BASE_URL + 'json' + widgetdata.url;
+
+			widget = new Cloudwalkers.Views.Widgets.Charts.Linechart (widgetdata);
+			this.addWidgetWithSettings (widget, widgetdata);
+		}
+
 		// All types
 		/*
 		collection = new Cloudwalkers.Collections.TypedMessages ([], { 'id' : 'social', 'name' : 'Social media' });
@@ -139,7 +147,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		else if (widgetdata.size == 'full')
 		{
 			this.addWidget (widget, true);
-			this.newline = false;
+			this.newline = true;
 		}
 	},
 
