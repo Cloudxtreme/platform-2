@@ -1,3 +1,10 @@
+/**
+*
+* This is a mess.
+* I'm sorry.
+*
+*/
+
 Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'events' : 
@@ -242,7 +249,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			//console.log (this.model.get ('attachments'))
 			//console.log (data.attachments);
-			console.log (data.sortedattachments);
+			//console.log (data.sortedattachments);
+
+			// Should we open the schedule?
+			data.showschedule = false;
+			if (this.model.scheduledate () != 'ASAP' || this.model.repeat ())
+			{
+				data.showschedule = true;
+			}
 		}
 
 		//console.log (data);
@@ -323,6 +337,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		});
 
 		self.$el.find ('.inactive[data-toggle-id]').hide ();
+
+		setTimeout (function ()
+		{
+			self.trigger ('content:change');
+		}, 1);
 
 		return this;
 	},
@@ -903,7 +922,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			this.$el.find ('[name=schedule_random]').prop ('checked', false).trigger ('change');
 		}
 
-		this.trigger ('content:change');
+		var self = this;
+		setTimeout (function ()
+		{
+			self.trigger ('content:change');
+		}, 1);
 
 		// See if year is selected
 		if (this.$el.find ('select[name=schedule_year]').val () == 'Year')

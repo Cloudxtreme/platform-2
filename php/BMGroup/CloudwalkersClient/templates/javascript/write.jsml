@@ -99,7 +99,7 @@
 									<button style="margin-right: 15px;" class="btn black right" id='button-response' type="submit" value="draft">Save</button>	
 								</div>
 								
-								<table class="message-schedule table table-striped table-bordered table-advance table-hover hidden">
+								<table class="message-schedule table table-striped table-bordered table-advance table-hover {{^showschedule}}hidden{{/showschedule}}">
 									<tbody>
 										<tr>
 											<td>
