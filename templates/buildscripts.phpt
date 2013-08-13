@@ -2,8 +2,6 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/underscorejs/underscore.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/backbonejs/backbone.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/lib/modernizr/modernizr.js"></script>
-<script src="js/lib/uploader/jquery.iframe-transport.js"></script>
-<script src="js/lib/uploader/jquery.fileupload.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/messages.js"></script>
 

@@ -54,6 +54,10 @@
 <!-- END PAGE LEVEL SCRIPTS -->  
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
+
+<script src="js/lib/uploader/jquery.iframe-transport.js"></script>
+<script src="js/lib/uploader/jquery.fileupload.js"></script>
+
 <?php include 'buildscripts.phpt'; ?>
 
 <script>
