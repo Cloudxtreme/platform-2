@@ -257,7 +257,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			//console.log (this.model.repeat ());
 
 			data.showschedule = false;
-			if (this.model.scheduledate () != 'ASAP' || typeof (this.model.repeat ().interval) != 'undefined')
+			if (this.model.scheduledate (false) || typeof (this.model.repeat ().interval) != 'undefined')
 			{
 				data.showschedule = true;
 			}
