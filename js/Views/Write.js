@@ -347,7 +347,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		setTimeout (function ()
 		{
 			self.trigger ('content:change');
-		}, 1);
+
+			self.$el.find ('#schedule-btn-toggle').toggleClass ('black', self.$el.find ('.message-schedule').is (':visible'));
+			self.$el.find ('#schedule-btn-toggle').toggleClass ('blue', !self.$el.find ('.message-schedule').is (':visible'));
+		}, 200);
 
 		return this;
 	},
@@ -953,6 +956,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		//console.log ('this');
 		this.$el.find ('.message-schedule').toggleClass ('hidden');
+
+		this.$el.find ('#schedule-btn-toggle').toggleClass ('black', this.$el.find ('.message-schedule').is (':visible'));
+		this.$el.find ('#schedule-btn-toggle').toggleClass ('blue', !this.$el.find ('.message-schedule').is (':visible'));
 
 		this.trigger ('content:change');
 	}
