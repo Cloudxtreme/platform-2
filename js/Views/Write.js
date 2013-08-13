@@ -242,6 +242,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			//console.log (this.model.get ('attachments'))
 			//console.log (data.attachments);
+			console.log (data.sortedattachments);
 		}
 
 		//console.log (data);
@@ -586,15 +587,31 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				url: url, 
 				success:function(objData)
 				{
+					//console.log (window.location);
+
 					if (objData.success)
 					{
 						if (self.draft)
 						{
-							window.location = '#drafts';
+							if (window.location.hash != '#drafts')
+							{
+								window.location = '#drafts';
+							}
+							else
+							{
+								Cloudwalkers.Router.Instance.drafts ();
+							}
 						}
 						else
 						{
-							window.location = '#schedule';	
+							if (window.location.hash != '#schedule')
+							{
+								window.location = '#schedule';
+							}
+							else
+							{
+								Cloudwalkers.Router.Instance.schedule (null);
+							}
 						}
 
 						self.$el.html ('<p>Your message has been scheduled.</p>');
@@ -724,7 +741,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			// Schedule delay too short
 			if (this.$el.find ('[name=repeat_delay_unit]').val () == 'minutes')
 			{
-				if (this.$el.find ('[name=repeat_delay_amount]').val () < 20)
+				if (this.$el.find ('[name=repeat_delay_amount]').val () != 'Never' && this.$el.find ('[name=repeat_delay_amount]').val () < 20)
 				{
 					return confirm ('Are you sure you want to repeat this message within such a short time?');
 				}

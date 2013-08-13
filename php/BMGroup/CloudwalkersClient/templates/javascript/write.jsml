@@ -60,7 +60,7 @@
 														<input type="text" name="url" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
 													</div>
 
-													<div class='add-data inactive' data-toggle-id="picture">
+													<div class='add-data {{^sortedattachments.image}}inactive{{/sortedattachments.image}}' data-toggle-id="picture">
 														<input class="fileupload" id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}upload" multiple />
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>

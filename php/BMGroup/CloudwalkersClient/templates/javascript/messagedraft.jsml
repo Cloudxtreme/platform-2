@@ -1,6 +1,6 @@
-<td>
+<td class="draft-message-item">
 
-	<ul>
+	<ul class="button-post action message-action" data-action="internal-edit">
 
 		<li>
 			{{#stream}}
@@ -23,6 +23,14 @@
 		</li>
 
 		<li>
+			<div class="picture">
+				{{#sortedattachments.image}}
+					<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+						<img src="{{url}}" alt="image description" width="93" height="68" />
+					</a>
+				{{/sortedattachments.image}}
+			</div>
+
 			{{#subject}}
 				<small>{{subject}}</small><br />
 			{{/subject}}
@@ -35,19 +43,13 @@
 
 			{{{body.html}}}
 
-			<div class="picture">
-				{{#sortedattachments.image}}
-					<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
-						<img src="{{url}}" alt="image description" width="93" height="68" />
-					</a>
-				{{/sortedattachments.image}}
-			</div>
-
 			{{#sortedattachments.link}}
 				<p class="link" style="margin-top: 10px;">
 					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
 				</p>
 			{{/sortedattachments.link}}
+
+			<div class="clearer"></div>
 		</li>
 
 		<li>
