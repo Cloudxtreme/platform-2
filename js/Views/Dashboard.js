@@ -35,8 +35,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	'addDashboardWidget' : function (widgetdata)
 	{
 		//console.log (widget);
+		var widget;
 
-		if (widgetdata.widget == 'channel')
+		if (widgetdata.widget == 'title')
+		{
+			widget = new Cloudwalkers.Views.Widgets.Title (widgetdata);
+			this.addWidget (widget, true);
+		}
+
+		else if (widgetdata.widget == 'channel')
 		{
 			this.addDashboardChannel (widgetdata);
 		}

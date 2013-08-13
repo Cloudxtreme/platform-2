@@ -37,6 +37,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Title.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/DetailedList.js"></script>
