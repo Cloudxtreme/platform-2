@@ -25,4 +25,5 @@ Cloudwalkers.Views.User = Backbone.View.extend({
 		var view = new Cloudwalkers.Views.UserDetails ({ 'model' : this.model });
 		Cloudwalkers.RootView.popup (view);
 	}
+	
 });
