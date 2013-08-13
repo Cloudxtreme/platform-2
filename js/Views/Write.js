@@ -152,14 +152,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		for (var i = 1; i <= 31; i ++)
 		{
-			data.days.push ({ 'day' : i, 'checked' : (scheduledate ? scheduledate.getDate () == i : (new Date()).getDate () == i ) });
+			data.days.push ({ 'day' : i, 'checked' : (scheduledate ? scheduledate.getDate () == i : false) });
 			data.endrepeat.days.push ({ 'day' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getDate () == i ) });
 		}
 
 		// 12 months
 		for (i = 1; i <= 12; i ++)
 		{
-			data.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (scheduledate ? scheduledate.getMonth () == (i - 1) : (new Date()).getMonth () == (i - 1)) });
+			data.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (scheduledate ? scheduledate.getMonth () == (i - 1) : false) });
 			data.endrepeat.months.push ({ 'month' : i, 'display' : Cloudwalkers.Utils.month (i), 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getMonth () == (i - 1) ) });
 		}
 
@@ -168,7 +168,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		for (i = 0; i < 10; i ++)
 		{
 			value = (new Date()).getFullYear () + i;
-			data.years.push ({ 'year' : value, 'checked' : (scheduledate ? scheduledate.getFullYear () == value : (new Date()).getFullYear () == value ) });
+			data.years.push ({ 'year' : value, 'checked' : (scheduledate ? scheduledate.getFullYear () == value : false ) });
 			data.endrepeat.years.push ({ 'year' : value, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
 			//data.endrepeat.years.push ({ 'year' : i, 'checked' : (schedulerepeat && schedulerepeat.end && schedulerepeat.end.getFullYear () == value ) });
 		}
@@ -253,8 +253,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			//console.log (data.sortedattachments);
 
 			// Should we open the schedule?
+
+			//console.log (this.model.repeat ());
+
 			data.showschedule = false;
-			if (this.model.scheduledate () != 'ASAP' || this.model.repeat ())
+			if (this.model.scheduledate () != 'ASAP' || typeof (this.model.repeat ().interval) != 'undefined')
 			{
 				data.showschedule = true;
 			}
@@ -301,6 +304,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.$el.find('[name=schedule_random]').click (function () { self.randomTime () });
 
+		self.$el.find ('[data-toggle-id].inactive').hide ();
+
 		self.$el.find ('[data-toggle-target]').click (function ()
 		{
 			var id = $(this).attr ('data-toggle-target');
@@ -334,7 +339,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 				element.toggleClass ('black', visible);
 				element.toggleClass ('blue', !visible);
-			}, 100);
+			}, 200);
 		});
 
 		self.$el.find ('.inactive[data-toggle-id]').hide ();
@@ -938,6 +943,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'toggleSchedule' : function ()
 	{
+		if (!this.getScheduleDate ())
+		{
+			var date = new Date ();
+			date.setMinutes (date.getMinutes () + 15);
+
+			this.setScheduleDate (date);
+		}
+
 		//console.log ('this');
 		this.$el.find ('.message-schedule').toggleClass ('hidden');
 
