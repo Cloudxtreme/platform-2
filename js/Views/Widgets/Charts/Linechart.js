@@ -45,6 +45,10 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 							{
 								'xaxis' : {
 									'mode' : 'time'
+								},
+
+								'yaxis' : {
+									'tickDecimals' : 0
 								}
 							}
 						);
