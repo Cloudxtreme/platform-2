@@ -8,17 +8,44 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click #schedule-btn-toggle' : 'toggleSchedule',
 		'click button[value=draft]' : 'setDraft',
 		'click [name=delay]' : 'setWithinDate',
-		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin'
+		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin',
+		'click #button-response' : 'sendNow'
 	},
 
 	'files' : [],
 	'draft' : false,
+	'sendnow' : false,
 
 	'navclass' : 'write',
 
 	'setDraft' : function ()
 	{
 		this.draft = true;
+	},
+
+	'sendNow' : function (e)
+	{
+		//console.log (e);
+
+		e.preventDefault ();
+		e.stopPropagation ();
+
+		this.sendnow = true;
+
+		// Sure you want to send now? Or save to draft?
+		if (this.$el.find ('.message-schedule').is (':visible'))
+		{
+			if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
+			{
+				this.clearScheduleDate ();
+				$(e.toElement.form).trigger ('submit');
+			}
+		}
+		else
+		{
+			this.clearScheduleDate ();
+			$(e.toElement.form).trigger ('submit');
+		}
 	},
 
 	'getAvailableStreams' : function ()
@@ -52,6 +79,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		this.files = [];
 		this.draft = false;
+		this.sendnow = false;
 
 		this.actionparameters = {};
 
@@ -693,6 +721,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// Schedule repeat
 		if (throwErrors)
 		{
+			// Schedule delay too short
 			if (this.$el.find ('[name=repeat_delay_unit]').val () == 'minutes')
 			{
 				if (this.$el.find ('[name=repeat_delay_amount]').val () < 20)
@@ -713,6 +742,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'updateCounter' : function ()
 	{
 		return this.validate ();
+	},
+
+	'clearScheduleDate' : function ()
+	{
+		this.$el.find ('select[name=schedule_day]').val ('Day');
+		this.$el.find ('select[name=schedule_month]').val ('Month');
+		this.$el.find ('select[name=schedule_year]').val ('Year');
 	},
 
 	'setScheduleDate' : function (date)
