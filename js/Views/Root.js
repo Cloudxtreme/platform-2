@@ -92,7 +92,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 */
 		var tmpl = [
 		// tabindex is required for focus
-		'<div class="modal hide fade" tabindex="-1">',
+		'<div class="modal container hide fade" tabindex="-1">',
 			'<div class="modal-header">',
 				'<button type="button" style="right: 10px; position: absolute; z-index: 1000000;" data-dismiss="modal" aria-hidden="true">×</button>',
 			'</div>',
