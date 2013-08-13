@@ -47,16 +47,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : widgetdata.color });
 
 			// Size
-			if (widgetdata.size == 'half')
-			{
-				this.addHalfWidget (widget, this.newline);
-				this.newline = !this.newline;
-			}
-			else if (widgetdata.size == 'full')
-			{
-				this.addWidget (widget, true);
-				this.newline = false;
-			}
+			this.addWidgetWithSettings (widget, widgetdata);
 		}
 
 		else if (widgetdata.widget == 'scheduled')
@@ -64,17 +55,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
 			widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : widgetdata.color });
 
-			// Size
-			if (widgetdata.size == 'half')
-			{
-				this.addHalfWidget (widget, this.newline);
-				this.newline = !this.newline;
-			}
-			else if (widgetdata.size == 'full')
-			{
-				this.addWidget (widget, true);
-				this.newline = false;
-			}			
+			this.addWidgetWithSettings (widget, widgetdata);
+		}
+
+		else if (widgetdata.widget == 'numberstat')
+		{
+			widgetdata.dataurl = CONFIG_BASE_URL + 'json' + widgetdata.url;
+
+			widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat (widgetdata);
+			this.addWidgetWithSettings (widget, widgetdata);
 		}
 
 		// All types
@@ -139,6 +128,21 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		*/
 	},
 
+	'addWidgetWithSettings' : function (widget, widgetdata)
+	{
+		// Size
+		if (widgetdata.size == 'half')
+		{
+			this.addHalfWidget (widget, this.newline);
+			this.newline = !this.newline;
+		}
+		else if (widgetdata.size == 'full')
+		{
+			this.addWidget (widget, true);
+			this.newline = false;
+		}
+	},
+
 	'addDashboardChannel' : function (widgetdata)
 	{
 		var widget;
@@ -175,16 +179,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				}
 
 				// Size
-				if (widgetdata.size == 'half')
-				{
-					this.addHalfWidget (widget, this.newline);
-					this.newline = !this.newline;
-				}
-				else if (widgetdata.size == 'full')
-				{
-					this.addWidget (widget, true);
-					this.newline = false;
-				}
+				this.addWidgetWithSettings (widget, widgetdata);
 			}
 		}
 	}
