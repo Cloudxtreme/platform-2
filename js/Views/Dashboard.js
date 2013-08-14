@@ -52,6 +52,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
 			widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : widgetdata.color });
+			widget.template = 'messagecontainer';
 
 			// Size
 			this.addWidgetWithSettings (widget, widgetdata);
