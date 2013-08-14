@@ -122,8 +122,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'messageAction' : function (element)
 	{
-		element.stopPropagation ();
-		element.preventDefault ();
+		//element.stopPropagation ();
+		//element.preventDefault ();
 
 		var action = $(element.currentTarget).attr ('data-action');
 		action = this.model.getAction (action);
