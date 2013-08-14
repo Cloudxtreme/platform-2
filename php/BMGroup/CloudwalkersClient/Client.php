@@ -207,7 +207,7 @@ class BMGroup_CloudwalkersClient_Client
 			$input, 
 			array
 			(
-				'FailOnAccessError' => true,
+				'FailOnAccessError' => false,
 				'RequestContentType' => 'application/json'
 			), 
 			$data
@@ -237,10 +237,15 @@ class BMGroup_CloudwalkersClient_Client
 			exit;	
 		}
 
-		$data = objectToArray ($data);
+		$dataarr = objectToArray ($data);
+
+		if (!$dataarr)
+		{
+			var_dump ($data);
+		}
 
 		/*
-		if (isset ($data['error']))
+		if (isset ($dataarr['error']))
 		{
 			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
 			echo '<h2>Sent</h2>';
@@ -248,16 +253,16 @@ class BMGroup_CloudwalkersClient_Client
 			print_r ($input);
 			echo '</pre>';
 			echo '<h2>Received</h2>';
-			echo '<p>' . $data['error']['message'] . '</p>';
+			echo '<p>' . $dataarr['error']['message'] . '</p>';
 			echo '<pre>';
-			print_r ($data['error']);
+			print_r ($dataarr['error']);
 			echo '</pre>';
 
 			exit;	
 		}
 		*/
 		
-		return $data;
+		return $dataarr;
 	}
 
 	private function afterAuth ()

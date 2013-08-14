@@ -52,6 +52,13 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		if ($message)
 			$data['body'] = $message;
 
+		// Original message id
+		$original = Neuron_Core_Tools::getInput ('_POST', 'original_message', 'varchar');
+		if ($original)
+		{
+			$data['original_message'] = $original;
+		}
+
 		$data['streams'] = $channels;
 
 		// Attachments
