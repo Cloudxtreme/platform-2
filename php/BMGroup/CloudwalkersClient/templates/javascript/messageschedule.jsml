@@ -5,11 +5,11 @@
 
 		<i class="icon-{{network.icon}}"></i>
 		{{customname}}
-		
+
 	{{/streams}}
 </td>
 <!--<td>{{subject}}</td>-->
-<td class="hidden-480">{{#subject}}{{subject}}: {{/subject}}{{{body.html}}}</td>
+<td class="hidden-480">{{#subject}}{{subject}}: {{/subject}}{{{body.plaintext}}}</td>
 <td>
 	<span class="actions dropdown pull-right"> 
 		<i class="icon-share dropdown-toggle" data-toggle="dropdown"></i>
