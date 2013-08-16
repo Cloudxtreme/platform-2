@@ -27,7 +27,11 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 			{
 				self.$el.find ('.comments-inner-container').show ();
 				self.$el.find ('.loading-comments').hide ();
-				self.$el.find ('.load-more-comments').show ();
+
+				if (self.collection.length % 10 == 0)
+				{
+					self.$el.find ('.load-more-comments').show ();
+				}
 
 				if (self.collection.length == 0)
 				{
@@ -83,7 +87,12 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 			'success' : function ()
 			{
 				self.$el.find ('.loading-comments').hide ();
-				self.$el.find ('.load-more-comments').show ();
+				//self.$el.find ('.load-more-comments').show ();
+
+				if (self.collection.length % 10 == 0)
+				{
+					self.$el.find ('.load-more-comments').show ();
+				}
 			}
 		});
 
