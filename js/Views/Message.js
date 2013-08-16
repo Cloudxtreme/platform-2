@@ -115,7 +115,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			this.$el.find ('.parent-message-view').html (parentview.render().el);
 		}
 
-		this.$el.find ('span.actions.dropdown').parent ().on ('click', function (e)
+		this.$el.find ('span.actions.dropdown').on ('click', function (e)
 		{
 			e.stopPropagation ();
 			$(this).find ('.dropdown-menu').toggle ();
