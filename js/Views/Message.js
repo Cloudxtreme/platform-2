@@ -12,6 +12,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	'tagName' : 'tr',
 
 	'commentsVisible' : false,
+	'commentsView' : null,
+
 	'childrencontainer' : 'comment-container',
 
 	'initialize' : function ()
@@ -117,6 +119,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			e.stopPropagation ();
 		});
 
+		if (this.commentsVisible)
+		{
+			this.showchildrenexec ();
+		}
+
 		return this;
 	},
 
@@ -198,13 +205,17 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		}
 		else
 		{
-			this.commentsVisible = true;
-
-			this.$el.find ('.comment-label').html ('Hide comments');
-
-			var view = new Cloudwalkers.Views.Comments ({ 'parent' : this.model });
-			this.$el.find ('.' + this.childrencontainer).html (view.render ().el).show ();
+			this.commentsView = new Cloudwalkers.Views.Comments ({ 'parent' : this.model })
+			this.commentsView.render ();
+			this.showchildrenexec ();
 		}
+	},
+
+	'showchildrenexec' : function ()
+	{
+		this.commentsVisible = true;
+		this.$el.find ('.comment-label').html ('Hide comments');
+		this.$el.find ('.' + this.childrencontainer).html (this.commentsView.el).show ();
 	}
 
 });
