@@ -75,6 +75,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	'render' : function ()
 	{
 		var data = this.prepareData ();
+		var self = this;
 
 		if (typeof (data.parentmodel) != 'undefined' && typeof (this.options.childtemplate) != 'undefined')
 		{
@@ -114,9 +115,15 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			this.$el.find ('.parent-message-view').html (parentview.render().el);
 		}
 
-		this.$el.find ('span.actions').parent ().on ('mouseup', function (e)
+		this.$el.find ('span.actions.dropdown').parent ().on ('click', function (e)
 		{
 			e.stopPropagation ();
+			$(this).find ('.dropdown-menu').toggle ();
+
+			if ($(e.target).hasClass ('action'))
+			{
+				self.messageAction (e);
+			}
 		});
 
 		if (this.commentsVisible)
@@ -132,7 +139,20 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		//element.stopPropagation ();
 		//element.preventDefault ();
 
-		var action = $(element.currentTarget).attr ('data-action');
+		console.log (element);
+
+		if ($(element.currentTarget).is ('[data-action]'))
+		{
+			var action = $(element.currentTarget).attr ('data-action');
+		}
+		else if ($(element.target).is ('[data-action]'))
+		{
+			var action = $(element.target).attr ('data-action');	
+		}
+		else
+		{
+			var action = $(element.target).parent ('[data-action]').attr ('data-action');	
+		}
 		action = this.model.getAction (action);
 
 		var targetmodel = this.model;
