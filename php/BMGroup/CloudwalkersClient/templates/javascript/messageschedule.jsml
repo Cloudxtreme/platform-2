@@ -2,7 +2,7 @@
 <td>{{scheduledate}}</td>
 <td>{{#streams}}{{customname}}{{/streams}}</td>
 <!--<td>{{subject}}</td>-->
-<td class="hidden-480">{{{body.html}}}</td>
+<td class="hidden-480">{{#subject}}{{subject}}: {{/subject}}{{{body.html}}}</td>
 <td>
 	<span class="actions dropdown pull-right"> 
 		<i class="icon-share dropdown-toggle" data-toggle="dropdown"></i>
