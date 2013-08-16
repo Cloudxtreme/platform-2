@@ -5437,3 +5437,8 @@ Datatables Plugin(in v1.3)
 {
   clear: both;
 }
+
+.message-children:hover
+{
+  cursor: pointer;
+}

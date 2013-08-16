@@ -53,6 +53,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
         this.options.channel.bind('refresh', this.refresh, this);
         this.options.channel.bind('reset', this.refresh, this);
         this.options.channel.bind('sort', this.resort, this);
+        this.options.channel.bind('remove', this.removeMessage, this);
 
         Cloudwalkers.Session.bind 
         (
@@ -225,6 +226,11 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 				}
 			}
 		});
+	},
+
+	'removeMessage' : function (message)
+	{
+		this.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 	},
 
 	'refresh' : function ()

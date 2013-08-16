@@ -273,7 +273,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			success:function(objData)
 			{
 				//console.log (objData.message);
-				self.set (objData.message);
+				if (objData.removed)
+				{
+					// Remove the message
+					self.collection.remove (self);
+				}
+				else
+				{
+					self.set (objData.message);
+				}
 			}
 		});
 	},
