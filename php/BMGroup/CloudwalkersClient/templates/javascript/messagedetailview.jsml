@@ -26,7 +26,10 @@
 									</span>
 								</span>
 								{{#from}}
+
+									{{#url}}<a href="{{url}}" target="_BLANK">{{/url}}
 									{{name}}
+									{{#url}}</a>{{/url}}
 
 									{{#subject}}
 										<br>
