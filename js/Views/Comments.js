@@ -49,6 +49,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
         collection.bind('add', this.addOne, this);
         collection.bind('refresh', this.refresh, this);
         collection.bind('reset', this.refresh, this);
+        collection.bind('remove', this.removeMessage, this);
 		
 		return this;
 	},
@@ -88,6 +89,11 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		{
 			this.$el.find ('.comments-inner-container').html ('<p>Currently there are no comments.</p>');
 		}
+	},
+
+	'removeMessage' : function (message)
+	{
+		this.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 	},
 
 	'loadMore' : function ()
