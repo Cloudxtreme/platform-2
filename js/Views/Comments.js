@@ -52,7 +52,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		var index = message.collection.indexOf (message);
 
 		var selected = false;
-		if (typeof (this.options.selectedchild) != 'undefined')
+		if (this.options.selectedchild)
 		{
 			selected = this.options.selectedchild.get ('id') == message.get ('id');	
 		}
