@@ -5458,3 +5458,8 @@ li.comments-row.selected
 {
   background: #ffe399;
 }
+
+a:hover .timeline-body.more
+{
+  text-decoration: none;
+}
