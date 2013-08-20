@@ -93,7 +93,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 	'removeMessage' : function (message)
 	{
-		this.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
+		this.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 	},
 
 	'loadMore' : function ()
