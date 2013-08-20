@@ -8,12 +8,24 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 	'messageelement' : 'tr',
 	'id' : 'inbox',
 
+	'currentSelected' : null,
+
 	'render' : function ()
 	{
+		var self = this;
+
 		this.$innerEl = this.$el;
 		this.innerRender (this.$innerEl);
 
 		this.$el.attr ('id', 'list');
+
+		this.on ('content:change', function ()
+		{
+			if (self.currentSelected)
+			{
+				self.currentSelected.$el.find ('td').addClass ('active');
+			}
+		});
 
 		return this;
 	},
@@ -24,7 +36,10 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 		view.$el.click (function ()
 		{
 			self.$el.find ('td').removeClass ('active');
-			view.$el.find ('td').addClass ('active');
+
+			self.currentSelected = view;
+
+			self.currentSelected.$el.find ('td').addClass ('active');
 			self.trigger ('select:message', message);
 		});
 	},

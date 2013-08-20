@@ -101,7 +101,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			//self.options.channel.reset (); 
 			//self.options.channel.fetch ();
 			self.options.channel.update ();
-		}, 1000 * 30);
+		}, 1000 * 15);
 
 		return this;
 	},
@@ -217,6 +217,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 				}
 			}
 		});
+
+		this.trigger ('content:change');
 	},
 
 	'removeMessage' : function (message)
