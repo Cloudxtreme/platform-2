@@ -13,6 +13,9 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'selectMessage' : function (message)
 	{
+		console.log ('selecting message');
+		console.log (message);
+
 		var messageView;
 
 		var parameters = {
