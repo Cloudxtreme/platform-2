@@ -69,6 +69,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'additionalData' : function (data)
 	{
+		if (message.get ('type') == 'OUTGOING')
+		{
+			data.scheduledate = this.model.scheduledate ();
+		}
+
 		return data;
 	},
 
