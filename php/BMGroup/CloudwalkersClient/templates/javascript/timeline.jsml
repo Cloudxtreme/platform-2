@@ -8,9 +8,11 @@
 				<span class="time"></span>
 			</div>
 			<div class="timeline-icon"><i class="icon-chevron-down "></i></div>
-			<div class="timeline-body more">
-				<a href="{{showMoreButton}}"><strong>more...</strong></a>
-			</div>
+			<a href="{{showMoreButton}}">
+				<div class="timeline-body more">
+					<strong>View more</strong>
+				</div>
+			</a>
 		</li>
 
 	{{/showMoreButton}}
@@ -18,4 +20,4 @@
 </ul>
 
 <p class="loading">Please wait, we are loading your messages.</p>
-<a href="javascript:void(0);"><p class="load-more">View more</p></a>
+<p class="load-more"><a href="javascript:void(0);">Load more</a></p>
