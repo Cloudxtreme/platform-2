@@ -18,4 +18,4 @@
 </ul>
 
 <p class="loading">Please wait, we are loading your messages.</p>
-<p class="load-more"><a href="javascript:void(0);">Load more</a></p>
+<a href="javascript:void(0);"><p class="load-more">View more</p></a>
