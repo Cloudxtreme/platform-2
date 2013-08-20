@@ -17,7 +17,20 @@
 
 	{{/showMoreButton}}
 
+	<li class="timeline-blue load-more">
+		<div class="timeline-time">
+			<span class="date"></span>
+			<span class="time"></span>
+		</div>
+		<div class="timeline-icon"><i class="icon-chevron-down "></i></div>
+		<a href="javascript:void(0);">
+			<div class="timeline-body more">
+				<strong>View more</strong>
+			</div>
+		</a>
+	</li>
+
 </ul>
 
 <p class="loading">Please wait, we are loading your messages.</p>
-<p class="load-more"><a href="javascript:void(0);">Load more</a></p>
+<!--<p class="load-more"><a href="javascript:void(0);">Load more</a></p>-->
