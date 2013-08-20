@@ -48,6 +48,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return 'remove';
 		}
 
+		else if (action.token == 'delete')
+		{
+			return 'remove';
+		}
+
 		else if (action.token == 'like')
 		{
 			return 'thumbs-up';
