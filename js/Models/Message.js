@@ -58,6 +58,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return 'thumbs-up';
 		}
 
+		else if (action.token == 'unlike')
+		{
+			return 'thumbs-down';
+		}
+
 		else if (action.token == 'comment')
 		{
 			return 'comment-alt';
