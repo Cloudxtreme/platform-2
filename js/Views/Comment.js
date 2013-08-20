@@ -7,7 +7,14 @@ Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
 
 	'initialize' : function ()
 	{
+		var self = this;
+
 		this.options.template = 'comment';
+
+		this.model.on ('change', function ()
+		{
+			self.render ();	
+		});
 	},
 
 	'className' : 'comments-row',
