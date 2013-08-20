@@ -88,6 +88,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return 'comment';
 		}
 
+		else if (action.token == 'favorite')
+		{
+			return 'star';
+		}
+
+		else if (action.token == 'unfavorite')
+		{
+			return 'star-empty';
+		}
+
 		return action.token;
 	},
 
