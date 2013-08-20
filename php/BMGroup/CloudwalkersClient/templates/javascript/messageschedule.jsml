@@ -1,6 +1,6 @@
 
-<td>{{scheduledate}}</td>
-<td>
+<td class="button-post action message-action" data-action="internal-edit">{{scheduledate}}</td>
+<td class="button-post action message-action" data-action="internal-edit">
 	{{#streams}}
 
 		<i class="icon-{{network.icon}}"></i>
@@ -9,8 +9,8 @@
 	{{/streams}}
 </td>
 <!--<td>{{subject}}</td>-->
-<td class="hidden-480">{{#subject}}{{subject}}: {{/subject}}{{{body.plaintext}}}</td>
-<td>
+<td class="button-post action message-action" class="hidden-480" data-action="internal-edit">{{#subject}}{{subject}}: {{/subject}}{{{body.plaintext}}}</td>
+<td class="button-post action message-action" data-action="internal-edit">
 	<span class="actions dropdown pull-right"> 
 		<i class="icon-share dropdown-toggle" data-toggle="dropdown"></i>
 		<ul class="dropdown-menu">
