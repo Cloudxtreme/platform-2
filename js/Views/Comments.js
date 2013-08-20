@@ -22,6 +22,11 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		var collection = new Cloudwalkers.Collections.Comments ({ 'id' : this.options.parent.get ('id') });
 		this.collection = collection;
 
+		this.options.parent.on ('change', function ()
+		{
+			self.collection.fetch ();
+		});
+
 		collection.fetch ({
 			'success' : function( )
 			{
