@@ -221,6 +221,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			if (minutes < 10)
 				minutes = '0' + minutes;
 
+			if (scheduledate)
+			{
+				scheduledate.setMinutes (Math.floor (scheduledate.getMinutes () / 15) * 15);
+			}
+
 			data.times.push ({ 'time' :  hour + ':' + minutes, 'checked' : ( scheduledate && scheduledate.getHours () == hour && scheduledate.getMinutes () == minutes ) })
 		}
 
@@ -827,7 +832,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			hours = '0' + hours;
 		}
 
-		this.$el.find ('select[name=schedule_time]').val (hours + ':' + minutes);
+		var value = hours + ':' + minutes;
+
+		this.$el.find ('select[name=schedule_time]').val (value);
 	},
 
 	'setWithinDate' : function ()
