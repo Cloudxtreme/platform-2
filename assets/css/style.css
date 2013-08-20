@@ -5449,7 +5449,12 @@ Datatables Plugin(in v1.3)
   margin-top: 20px;
 }
 
+li.comments-row
+{
+  padding: 20px;
+}
+
 li.comments-row.selected
 {
-  background: #FFFF99;
+  background: #ffe399;
 }
