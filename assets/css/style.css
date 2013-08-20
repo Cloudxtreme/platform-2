@@ -5442,3 +5442,14 @@ Datatables Plugin(in v1.3)
 {
   cursor: pointer;
 }
+
+.comments-inner-container
+{
+  clear: both;
+  margin-top: 20px;
+}
+
+li.comments-row.selected
+{
+  background: #FFFF99;
+}

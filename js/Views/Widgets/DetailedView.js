@@ -20,14 +20,17 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 		// ALWAYS show the parent message
 		var parent = message.get ('parentmodel');
+		var selectedcomment = null;
 
 		if (parent)
 		{
+			selectedcomment = message;
 			message = parent;
 		}
 
 		var parameters = {
 			'model' : message,
+			'selectedchild' : selectedcomment,
 			'template' : 'messagedetailview',
 			'childtemplate' : 'messagedetailviewchild',
 			'originaltemplate' : 'messagedetailoriginal',

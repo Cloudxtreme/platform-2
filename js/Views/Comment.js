@@ -14,6 +14,14 @@ Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
 	{
 		data.parent = false;
 		return data;
+	},
+
+	'afterRender' : function ()
+	{
+		if (this.options.selected)
+		{
+			this.$el.addClass ('selected');
+		}
 	}
 
 	/*

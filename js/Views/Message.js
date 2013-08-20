@@ -136,6 +136,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			this.showchildrenexec ();
 		}
 
+		this.afterRender ();
+
 		return this;
 	},
 
@@ -238,7 +240,16 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		if (this.commentsView == null)
 		{
-			this.commentsView = new Cloudwalkers.Views.Comments ({ 'parent' : this.model })
+			var params = {};
+
+			params.parent = this.model;
+
+			if (typeof (this.options.selectedchild) != 'undefined')
+			{
+				params.selectedchild = this.options.selectedchild;
+			}
+
+			this.commentsView = new Cloudwalkers.Views.Comments (params)
 			this.commentsView.render ();
 		}
 
