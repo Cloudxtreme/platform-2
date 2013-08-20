@@ -10,7 +10,7 @@
 
 		<span>
 			{{#actions}}
-				<a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a>&nbsp;
+				<a href="javascript:void(0);" class="button-post action comment-message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a>&nbsp;
 			{{/actions}}
 		</span>
 	</div>

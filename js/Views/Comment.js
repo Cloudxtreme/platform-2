@@ -1,5 +1,10 @@
 Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
 
+	'events' : 
+	{
+		'click .button-post.action.comment-message-action' : 'messageAction'
+	},
+
 	'initialize' : function ()
 	{
 		this.options.template = 'comment';
