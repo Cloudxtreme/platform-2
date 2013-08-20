@@ -18,6 +18,14 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 		var messageView;
 
+		// ALWAYS show the parent message
+		var parent = message.get ('parentmodel');
+
+		if (parent)
+		{
+			message = parent;
+		}
+
 		var parameters = {
 			'model' : message,
 			'template' : 'messagedetailview',
