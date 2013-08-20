@@ -27,7 +27,7 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 			'showcomments' : true
 		};
 
-		messageView = new Cloudwalkers.Views.OutgoingMessage (parameters);
+		messageView = new Cloudwalkers.Views.Message (parameters);
 
 		this.$el.html (messageView.render ().el);
 	},
