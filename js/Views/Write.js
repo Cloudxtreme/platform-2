@@ -775,6 +775,17 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					return confirm ('Are you sure you want to repeat this message within such a short time?');
 				}
 			}
+
+			// See if networks are selected
+			if (!this.draft)
+			{
+				// Count selected networks
+				if (this.$el.find ('.channels input[type=checkbox]:checked').length == 0)
+				{
+					this.throwError ('Please select at least one stream to send too.');
+					return false;
+				}
+			}
 		}
 
 		return true;
