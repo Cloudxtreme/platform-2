@@ -13,8 +13,8 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'selectMessage' : function (message)
 	{
-		console.log ('selecting message');
-		console.log (message);
+		//console.log ('selecting message');
+		//console.log (message);
 
 		var messageView;
 
@@ -23,7 +23,8 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 			'template' : 'messagedetailview',
 			'childtemplate' : 'messagedetailviewchild',
 			'originaltemplate' : 'messagedetailoriginal',
-			'tagName' : 'div'
+			'tagName' : 'div',
+			'showcomments' : true
 		};
 
 		messageView = new Cloudwalkers.Views.OutgoingMessage (parameters);
