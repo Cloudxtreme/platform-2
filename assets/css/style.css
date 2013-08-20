@@ -5459,7 +5459,7 @@ li.comments-row.selected
   background: #ffe399;
 }
 
-a:hover .timeline-body.more
+.timeline a:hover
 {
   text-decoration: none;
 }
