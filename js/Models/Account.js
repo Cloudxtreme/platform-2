@@ -45,6 +45,14 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 					out.push (streams[j]);
 				}
 			}
+
+			else if (typeof (filters.statistics) != 'undefined')
+			{
+				if (streams[j].statistics == 1)
+				{
+					out.push (streams[j]);
+				}
+			}
 		}
 
 		//console.log (out);
@@ -53,7 +61,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 	'statisticchannels' : function ()
 	{
-		var streams = this.streams ({ 'incoming' : true });
+		var streams = this.streams ({ 'statistics' : true });
 		return streams;
 	}
 
