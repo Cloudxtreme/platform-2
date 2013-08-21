@@ -1,0 +1,16 @@
+<form action="#" class="form-horizontal form-row-seperated">
+	<div class="control-group">
+		<label class="control-label">Date Range</label>
+		<div class="controls">
+			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
+			<span class="text-inline">&nbsp;to&nbsp;</span>
+			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<button type="submit" class="btn">Refresh</button>
+		</divs>
+	</div>
+</form>
