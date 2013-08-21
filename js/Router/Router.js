@@ -6,7 +6,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'drafts' : 'drafts',
 		'users' : 'users',
 		'write' : 'write',
-		'reports' : 'reports',
+		'reports(/:streamid)' : 'reports',
 		'*path' : 'dashboard'
 	},
 
@@ -140,9 +140,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (view);
 	},
 
-	'reports' : function ()
+	'reports' : function (streamid)
 	{
-		var view = new Cloudwalkers.Views.Reports ();
+		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
+
+		if (streamid)
+		{
+			view.subnavclass = 'reports_' + streamid;
+		}
+
 		Cloudwalkers.RootView.setView (view);
 	}
 

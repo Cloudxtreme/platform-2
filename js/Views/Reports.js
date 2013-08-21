@@ -6,12 +6,22 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'initializeWidgets' : function ()
 	{
-		var streams = Cloudwalkers.Session.getStreams ();
-		var self = this;
+		//console.log (this.options);
 
-		for (var i = 0; i < streams.length; i ++)
+		if (typeof (this.options.stream) == 'undefined')
 		{
-			this.addStreamWidgets (streams[i]);
+			var streams = Cloudwalkers.Session.getStreams ();
+			var self = this;
+
+			for (var i = 0; i < streams.length; i ++)
+			{
+				this.addStreamWidgets (streams[i]);
+			}
+		}
+
+		else
+		{
+			this.addStreamWidgets (this.options.stream);
 		}
 	},
 

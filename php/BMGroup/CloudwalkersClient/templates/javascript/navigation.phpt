@@ -147,11 +147,17 @@
 
 
 	<li class="reports">
-		<a href="#reports">
-		<i class="icon-bar-chart"></i> 
-		<span class="title">Reports</span>
-		<span class="selected"></span>
-		</a>					
+		<a href="#reports" onclick="document.location='#reports';">
+			<i class="icon-bar-chart"></i> 
+			<span class="title">Reports</span>
+			<span class="selected"></span>
+		</a>
+
+		<ul class="sub-menu">
+			{{#statisticchannels}}
+				<li class="reports_{{id}}"><a href="#reports/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+			{{/statisticchannels}}
+		</ul>
 	</li>
 	
 	<li class="">

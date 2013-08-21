@@ -36,10 +36,25 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 					out.push (streams[j]);
 				}
 			}
+
+			else if (typeof (filters.incoming) != 'undefined')
+			{
+				//console.log (channels[i].streams[j].direction.OUTGOING);
+				if (streams[j].direction.OUTGOING == 1)
+				{
+					out.push (streams[j]);
+				}
+			}
 		}
 
 		//console.log (out);
 		return out;
+	},
+
+	'statisticchannels' : function ()
+	{
+		var streams = this.streams ({ 'incoming' : true });
+		return streams;
 	}
 
 });

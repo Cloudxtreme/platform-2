@@ -205,6 +205,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 		data.sortedchannels = sortedchannels;
 
+		data.statisticchannels = account.statisticchannels ();
+
 		data.scheduledstreams = account.streams ( { 'outgoing' : true });
 
 		//console.log (data);
