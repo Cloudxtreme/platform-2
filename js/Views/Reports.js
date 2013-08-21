@@ -4,11 +4,15 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 	'title' : 'Reports',
 	'half' : true,
 
+	'datepicker' : null,
+
 	'initializeWidgets' : function ()
 	{
 		//console.log (this.options);
+		this.datepicker = new Cloudwalkers.Views.Widgets.Datepicker ();
+		this.addWidget (this.datepicker, true);
 
-		if (typeof (this.options.stream) == 'undefined')
+		if (typeof (this.options.stream) == 'undefined' || !this.options.stream)
 		{
 			var streams = Cloudwalkers.Session.getStreams ();
 			var self = this;
@@ -36,18 +40,32 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 				{
 					for (var j = 0; j < data.statistics.length; j ++)
 					{
-						var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + data.statistics[j];
-
-						var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
-							'dataurl' : dataurl,
-							'title' : stream.name + ' ' + data.statistics[j]
-						});
-
-						self.addHalfWidget (widget, self.half);
-						self.half = !self.half;
+						self.addStreamWidget (stream, data.statistics[j]);
 					}
 				}
 			}
 		);
+	},
+
+	'addStreamWidget' : function (stream, statdata)
+	{
+		var self = this;
+
+		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + statdata;
+
+		var statistics = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : dataurl });
+
+		self.datepicker.on ('date:change', function (start, end)
+		{
+			statistics.setDateRange (start, end);
+		});
+
+		var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
+			'dataset' : statistics,
+			'title' : stream.name + ' ' + statdata
+		});
+
+		self.addHalfWidget (widget, self.half);
+		self.half = !self.half;
 	}
 });

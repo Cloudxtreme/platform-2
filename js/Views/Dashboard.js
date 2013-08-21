@@ -68,7 +68,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		else if (widgetdata.widget == 'numberstat')
 		{
-			widgetdata.dataurl = CONFIG_BASE_URL + 'json' + widgetdata.url;
+			var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+
+			widgetdata.dataset = datasource;
 
 			widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat (widgetdata);
 			this.addWidgetWithSettings (widget, widgetdata);
@@ -76,72 +78,13 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		else if (widgetdata.widget == 'linechart')
 		{
-			widgetdata.dataurl = CONFIG_BASE_URL + 'json' + widgetdata.url;
+			var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+
+			widgetdata.dataset = datasource;
 
 			widget = new Cloudwalkers.Views.Widgets.Charts.Linechart (widgetdata);
 			this.addWidgetWithSettings (widget, widgetdata);
 		}
-
-		// All types
-		/*
-		collection = new Cloudwalkers.Collections.TypedMessages ([], { 'id' : 'social', 'name' : 'Social media' });
-		widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : 'blue' });
-
-		this.addHalfWidget (widget);
-		*/
-
-		/*
-
-		// All types
-		collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : 'Inbox Co-Workers', 'canLoadMore' : false });
-		widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'yellow' });
-
-		this.addHalfWidget (widget);
-
-		// Useless stat bars
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat1, {}) });
-		this.addHalfWidget (widget, true);
-
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat2, {}) });
-		this.addHalfWidget (widget, false);
-		// End Useless stat bars
-
-
-		// All types
-		collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : 'Scheduled messages', 'canLoadMore' : false });
-		widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : 'red' });
-
-		this.addHalfWidget (widget);
-
-		// News and profiles
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == 'news' || channels[i].type == 'profiles')
-			{
-				collection = new Cloudwalkers.Collections.Channel 
-				(
-					[], 
-					{ 
-						'id' : channels[i].id, 
-						'name' : channels[i].name,
-						'amount' : 3,
-						'showMoreButton' : '#channel/' + channels[i].id,
-						'canLoadMore' : false
-					}
-				);
-
-				widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
-				this.addWidget (widget, true);
-			}
-		}
-
-		// STUPID STAT BLOCKS
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat3, {}) });
-		this.addHalfWidget (widget, true);
-
-		widget = new Cloudwalkers.Views.Widgets.HTMLWidget ({ 'html' : Mustache.render (Templates.stat4, {}) });
-		this.addHalfWidget (widget, false);
-		*/
 	},
 
 	'addWidgetWithSettings' : function (widget, widgetdata)

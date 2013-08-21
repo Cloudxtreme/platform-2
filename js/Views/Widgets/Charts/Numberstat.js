@@ -9,28 +9,25 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		element.html (Mustache.render (Templates.numberstat, this.options));
 
-		$.ajax 
-		(
-			self.options.dataurl,
-			{
-				'success' : function (data)
-				{
-					if (typeof (data.statistics) != 'undefined' 
-						&& typeof (data.statistics.values) != 'undefined' 
-						&& data.statistics.values.length > 0)
-					{
-						// Always last available value
-						self.$el.find ('.number').html (data.statistics.values[data.statistics.values.length - 1].value);
-					}
-					else
-					{
-						self.$el.find ('.number').html ('NaN');
-					}
-				}
-			}
-		);
+		this.options.dataset.getValues (function (values)
+		{
+			self.setValue (values);
+		});
 
 		return this;
+	},
+
+	'setValue' : function (values)
+	{
+		if (values && values.length > 0)
+		{
+			// Always last available value
+			this.$el.find ('.number').html (values[values.length - 1].value);
+		}
+		else
+		{
+			this.$el.find ('.number').html ('NaN');
+		}
 	}
 
 });
