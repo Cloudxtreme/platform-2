@@ -122,12 +122,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		e.preventDefault ();
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
-		this.setView (new Cloudwalkers.Views.Write ());
+		this.setView (new Cloudwalkers.Views.Write ({ 'redirect' : false }));
 	},
 
 	'editMessage' : function (model)
 	{
-		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
+		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
 		//this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
 	},
 
@@ -140,7 +140,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				{ 
 					'model' : model.clone (), 
 					'clone' : true, 
-					'actionparameters' : action.parameters 
+					'actionparameters' : action.parameters,
+					'redirect' : false
 				}
 			)
 		);
@@ -149,7 +150,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'shareMessage' : function (model)
 	{
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true }));
-		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true }));
+		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
 	},
 
 	'translateMenuIcon' : function (channel)

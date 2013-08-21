@@ -624,26 +624,29 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 					if (objData.success)
 					{
-						if (self.draft)
+						if (typeof (self.options.redirect) == 'undefined' || self.options.redirect)
 						{
-							if (window.location.hash != '#drafts')
+							if (self.draft)
 							{
-								window.location = '#drafts';
+								if (window.location.hash != '#drafts')
+								{
+									window.location = '#drafts';
+								}
+								else
+								{
+									Cloudwalkers.Router.Instance.drafts ();
+								}
 							}
 							else
 							{
-								Cloudwalkers.Router.Instance.drafts ();
-							}
-						}
-						else
-						{
-							if (window.location.hash != '#schedule')
-							{
-								window.location = '#schedule';
-							}
-							else
-							{
-								Cloudwalkers.Router.Instance.schedule (null);
+								if (window.location.hash != '#schedule')
+								{
+									window.location = '#schedule';
+								}
+								else
+								{
+									Cloudwalkers.Router.Instance.schedule (null);
+								}
 							}
 						}
 
