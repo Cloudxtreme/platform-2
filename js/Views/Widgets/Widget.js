@@ -42,6 +42,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		var self = this;
 		this.$el.find ('.' + tool.class).click (function (ev)
 		{
+			
 			self[tool.event] (ev);
 		});
 	}

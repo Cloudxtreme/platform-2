@@ -137,7 +137,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	// Just a small function to overwrite
 	'processMessageView' : function (message)
 	{
-
 	},
 
 	'getMessageView' : function (message)
