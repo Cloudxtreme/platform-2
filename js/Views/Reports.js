@@ -38,9 +38,18 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			{
 				'success' : function (data)
 				{
-					for (var j = 0; j < data.statistics.length; j ++)
+					if (data.statistics.length > 0)
 					{
-						self.addStreamWidget (stream, data.statistics[j]);
+						// Title
+						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.name });
+						self.addWidget (title, true);
+
+						self.half = true;
+
+						for (var j = 0; j < data.statistics.length; j ++)
+						{
+							self.addStreamWidget (stream, data.statistics[j]);
+						}
 					}
 				}
 			}
