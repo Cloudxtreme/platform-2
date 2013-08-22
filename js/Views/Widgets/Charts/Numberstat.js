@@ -19,7 +19,6 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 	'setValue' : function (values)
 	{
-		console.log (values);
 		if (values && values.length > 0)
 		{
 			// Always last available value
