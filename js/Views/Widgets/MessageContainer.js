@@ -8,6 +8,13 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'canLoadMore' : true,
 
+	'tools' : [
+		{
+			'event' : 'refreshWidget',
+			'class' : 'reload'
+		}
+	],
+
 	'initialize' : function ()
 	{
 		this.title = this.options.channel.name;
@@ -16,7 +23,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'events' : {
 		'click .load-more a' : 'loadMore',
-		'click .tools .reload' : 'refreshWidget'
 	},
 
 	'refreshWidget' : function (e)
