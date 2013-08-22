@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'events' : {
-		'click .load-more a' : 'loadMore',
+		'click .load-more a' : 'loadMore'
 	},
 
 	'refreshWidget' : function (e)
@@ -137,6 +137,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	// Just a small function to overwrite
 	'processMessageView' : function (message)
 	{
+
 	},
 
 	'getMessageView' : function (message)
