@@ -60,7 +60,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 	{
 		var self = this;
 
-		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + statdata;
+		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + statdata.token;
 
 		var statistics = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : dataurl });
 
@@ -71,7 +71,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
 			'dataset' : statistics,
-			'title' : stream.name + ' ' + statdata
+			'title' : stream.name + ' ' + statdata.name
 		});
 
 		self.addHalfWidget (widget, self.half);
