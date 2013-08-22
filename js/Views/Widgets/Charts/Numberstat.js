@@ -23,7 +23,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		if (values && values.length > 0)
 		{
 			// Always last available value
-			this.$el.find ('.number').html (values[values.length - 1].value);
+			this.$el.find ('.number').html (values[values.length - 1][1]);
 		}
 		else
 		{
