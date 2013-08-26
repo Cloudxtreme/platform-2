@@ -47,7 +47,8 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 					'tickDecimals' : 0
 				},
 				'bars' : {
-					show: true
+					'show': true,
+					'align': 'center'
 				}
 			}
 		);
