@@ -2,6 +2,7 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 
 	'title' : 'Bar chart',
 	'placeholder' : null,
+	'icon' : 'reorder',
 
 	'innerRender' : function (element)
 	{

@@ -1,24 +1,27 @@
-<form action="#" class="form-horizontal form-row-seperated">	
-	<div class="control-group">
-		<label class="control-label">Custom date</label>
-		<div class="controls">
+<p style="height: 40px;">
+	<span class="text-inline">
+		Last: 
+			<a href="javascript:void(0);" class="recent-range" data-range="604800">7</a> 
+			<a href="javascript:void(0);" class="recent-range" data-range="864000">10</a> 
+			<a href="javascript:void(0);" class="recent-range" data-range="1209600">14</a> 
+			<a href="javascript:void(0);" class="recent-range" data-range="2592000">30</a> 
+			<a href="javascript:void(0);" class="recent-range" data-range="7776000">90</a> 
+		days
+	</span>
+</p>
 
-			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
-			<span class="text-inline">&nbsp;to&nbsp;</span>
-			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
+<div style="float: right">
+	<form action="#" class="form-horizontal form-row-seperated">	
+		<div class="control-group">
+			<label class="control-label">Custom date</label>
+			<div class="controls">
 
-			<button type="submit" class="btn">Apply</button>
+				<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
+				<span class="text-inline">&nbsp;to&nbsp;</span>
+				<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
 
-			<br />
-			<span class="text-inline">
-				Last: 
-					<a href="javascript:void(0);" class="recent-range" data-range="604800">7</a> 
-					<a href="javascript:void(0);" class="recent-range" data-range="864000">10</a> 
-					<a href="javascript:void(0);" class="recent-range" data-range="1209600">14</a> 
-					<a href="javascript:void(0);" class="recent-range" data-range="2592000">30</a> 
-					<a href="javascript:void(0);" class="recent-range" data-range="7776000">90</a> 
-				days
-			</span>
+				<button type="submit" class="btn">Apply</button>
+			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</div>

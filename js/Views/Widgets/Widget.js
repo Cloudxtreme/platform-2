@@ -4,6 +4,7 @@
 Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
 	'title' : 'Untitled widget',
+	'icon' : 'inbox',
 	'color' : 'blue',
 
 	'tools' : [],
@@ -23,7 +24,19 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		if (typeof (this.options.color) != 'undefined')
 			this.color = this.options.color;
 
-		this.$el.html (Mustache.render (Templates.widget, { 'title' : this.title, 'color' : this.color, 'tools' : this.tools }));
+		this.$el.html 
+		(
+			Mustache.render 
+			(
+				Templates.widget, 
+				{ 
+					'title' : this.title, 
+					'color' : this.color, 
+					'icon' : this.icon,
+					'tools' : this.tools 
+				}
+			)
+		);
 
 		// Events
 		for (var i = 0; i < this.tools.length; i ++)

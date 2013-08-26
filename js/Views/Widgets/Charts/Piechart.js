@@ -2,6 +2,7 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 
 	'title' : 'Pie chart',
 	'placeholder' : null,
+	'icon' : 'reorder',
 
 	'innerRender' : function (element)
 	{

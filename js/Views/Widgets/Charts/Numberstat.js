@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'title' : 'Line chart',
+	'icon' : 'reorder',
 
 	'render' : function ()
 	{
