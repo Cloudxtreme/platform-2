@@ -5463,3 +5463,9 @@ li.comments-row.selected
 {
   text-decoration: none;
 }
+
+.table-container
+{
+  overflow: auto;
+  position: relative;
+}

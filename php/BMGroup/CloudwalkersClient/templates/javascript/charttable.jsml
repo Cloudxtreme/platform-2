@@ -1,0 +1,23 @@
+<table style="width: 100%;">
+
+	<tr>
+		{{#header}}
+			<th>
+				{{name}}
+			</th>
+		{{/header}}
+	</tr>
+
+	{{#rows}}
+
+		<tr>
+			{{#columns}}
+				<td>
+					{{value}}
+				</td>
+			{{/columns}}
+		</tr>
+
+	{{/rows}}
+
+</table>

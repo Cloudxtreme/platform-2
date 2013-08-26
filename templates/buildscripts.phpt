@@ -49,6 +49,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Numberstat.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Barchart.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Table.js"></script>
 
 <!-- Models -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>

@@ -92,33 +92,41 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		var values = [];
 		var category
 
-		for (var i = 0; i < inputvalues.length; i ++)
+		if (this.type == 'table')
 		{
-			// If time related chart, show time
-			if (this.type == 'time')
+			// NO processing required
+			return inputvalues;
+		}
+		else
+		{
+			for (var i = 0; i < inputvalues.length; i ++)
 			{
-				category = (new Date(inputvalues[i].date).getTime ());
+				// If time related chart, show time
+				if (this.type == 'time')
+				{
+					category = (new Date(inputvalues[i].date).getTime ());
+				}
+
+				// If categorized, show category (can be string)
+				else if (this.type == 'category')
+				{
+					category = inputvalues[i].category;
+				}
+
+				// Otherwise, just show counter
+				else 
+				{
+					category = i;
+				}
+
+				values.push 
+				([ 
+					category,
+					parseInt(inputvalues[i].value)
+				])
+
+				//console.log (data.statistics.values[i].value);
 			}
-
-			// If categorized, show category (can be string)
-			else if (this.type == 'category')
-			{
-				category = inputvalues[i].category;
-			}
-
-			// Otherwise, just show counter
-			else 
-			{
-				category = i;
-			}
-
-			values.push 
-			([ 
-				category,
-				parseInt(inputvalues[i].value)
-			])
-
-			//console.log (data.statistics.values[i].value);
 		}
 
 		return values;

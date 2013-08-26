@@ -53,18 +53,20 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				{
 					'success' : function (data)
 					{
+						// Set all regular items
+						var values = data.report.values;
+
+						delete data.report.values;
+						self.set (data.report);
+
 						// Set dataset
 						self.dataset = new Cloudwalkers.Models.StatisticDataset 
 						({ 
 							'entity' : 'report', 
-							'type' : 'category',
+							'type' : self.getDatasetType (),
 							'dataurl' : self.get ('dataurl'),
-							'initialvalues' : data.report.values
+							'initialvalues' : values
 						});
-
-						// Set all regular items
-						delete data.report.values;
-						self.set (data.report);
 
 						for (var i = 0; i < self.callbackqueue.length; i ++)
 						{
@@ -75,6 +77,22 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			);
 
 
+		}
+	},
+
+	'getDatasetType' : function ()
+	{
+		if (this.get ('type') == 'bars')
+		{
+			return 'category';
+		}
+		else if (this.get ('type') == 'table')
+		{
+			return 'table';
+		}
+		else
+		{
+			return 'category';
 		}
 	},
 
@@ -89,6 +107,14 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			if (type == 'bars')
 			{
 				var widget = new Cloudwalkers.Views.Widgets.Charts.Barchart ({
+					'dataset' : self.dataset,
+					'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				});
+			}
+
+			else if (type == 'table')
+			{
+				var widget = new Cloudwalkers.Views.Widgets.Charts.Table ({
 					'dataset' : self.dataset,
 					'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
 				});
