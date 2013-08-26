@@ -112,6 +112,15 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				});
 			}
 
+			else if (type == 'pie')
+			{
+				var widget = new Cloudwalkers.Views.Widgets.Charts.Piechart
+				({
+					'dataset' : self.dataset,
+					'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				});
+			}
+
 			else if (type == 'table')
 			{
 				var widget = new Cloudwalkers.Views.Widgets.Charts.Table ({
