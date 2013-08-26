@@ -5469,3 +5469,14 @@ li.comments-row.selected
   overflow: auto;
   position: relative;
 }
+
+.table-container td, 
+.table-container th
+{
+  padding: 15px;
+}
+
+.table-container th
+{
+  text-align: left;
+}
