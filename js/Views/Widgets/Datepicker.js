@@ -5,6 +5,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 
 	'title' : 'Date range',
 	'icon' : 'calendar',
+	'color' : 'grey',
 
 	'events' :
 	{
