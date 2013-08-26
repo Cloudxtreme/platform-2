@@ -1,21 +1,21 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
+Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'events' :
 	{
 		'submit form' : 'submit'
 	},
  
-	'render' : function ()
+	'innerRender' : function (element)
 	{
 		var data = {};
 
 		var self = this;
-		this.$el.html (Mustache.render (Templates.datepicker, data));
+		element.html (Mustache.render (Templates.datepicker, data));
 
-	    this.$el.find( "#ui_date_picker_range_from" ).datepicker({
+	    element.find( "#ui_date_picker_range_from" ).datepicker({
 	      defaultDate: "+1w",
 	      changeMonth: true,
 	      numberOfMonths: 2,
@@ -25,7 +25,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	      }
 	    });
 
-	    this.$el.find( "#ui_date_picker_range_to" ).datepicker({
+	    element.find( "#ui_date_picker_range_to" ).datepicker({
 	      defaultDate: "+1w",
 	      changeMonth: true,
 	      numberOfMonths: 2,
@@ -36,7 +36,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	    });
 
 	    // Recent buttons
-	    this.$el.find ('.recent-range').click (function (e)
+	    element.find ('.recent-range').click (function (e)
 	    {
 	    	var range = $(e.currentTarget).attr ('data-range');
 
@@ -58,8 +58,8 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	{
 		e.preventDefault ();
 
-		var from = this.$el.find( "#ui_date_picker_range_from" ).datepicker ('getDate');
-		var to = this.$el.find( "#ui_date_picker_range_to" ).datepicker ('getDate');
+		var from = element.find( "#ui_date_picker_range_from" ).datepicker ('getDate');
+		var to = element.find( "#ui_date_picker_range_to" ).datepicker ('getDate');
 
 		this.trigger ('date:change', from, to);
 	}
