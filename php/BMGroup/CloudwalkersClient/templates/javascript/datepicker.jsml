@@ -9,6 +9,7 @@
 
 			<button type="submit" class="btn">Apply</button>
 
+			<br />
 			<span class="text-inline">
 				Last: 
 					<a href="javascript:void(0);" class="recent-range" data-range="604800">7</a> 
