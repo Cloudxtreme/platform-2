@@ -80,6 +80,8 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			'title' : stream.customname + ' ' + statdata.name
 		});
 
+		widget.color = stream.network.icon + '-color';
+
 		self.addHalfWidget (widget, self.half);
 		self.half = !self.half;
 	},
@@ -94,6 +96,8 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		report.getWidget (function (widget)
 		{
+			widget.color = stream.network.icon + '-color';
+
 			self.datepicker.on ('date:change', function (start, end)
 			{
 				widget.setDateRange (start, end);

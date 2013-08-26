@@ -1667,6 +1667,50 @@ Box portlet
    border-top: 0;
 }
 
+.portlet.box.facebook-color .portlet-title { background-color: #3B5998; }
+.portlet.box.twitter-color .portlet-title  { background-color: #01a9da; }
+.portlet.box.linkedin-color .portlet-title { background-color: #1783BC; }
+.portlet.box.tumblr-color .portlet-title { background-color: #385775 ; }
+.portlet.box.google-plus-color .portlet-title  { background-color: #DD4C39 ; }
+.portlet.box.youtube-color .portlet-title  { background-color: #CC181E ; }
+.portlet.box.rss-color .portlet-title  { background-color: #f39501 ; }
+
+.portlet.box.facebook-color {  
+   border: 1px solid #3B5998;
+   border-top: 0;
+}
+
+.portlet.box.twitter-color {  
+   border: 1px solid #01a9da;
+   border-top: 0;
+}
+
+.portlet.box.linkedin-color {  
+   border: 1px solid #1783BC;
+   border-top: 0;
+}
+
+.portlet.box.tumblr-color {  
+   border: 1px solid #385775;
+   border-top: 0;
+}
+
+.portlet.box.google-plus-color {  
+   border: 1px solid #DD4C39;
+   border-top: 0;
+}
+
+.portlet.box.youtube-color {  
+   border: 1px solid #CC181E;
+   border-top: 0;
+}
+
+.portlet.box.rss-color {  
+   border: 1px solid #f39501;
+   border-top: 0;
+}
+
+
 .portlet.box.red .portlet-title {
   background-color: #e02222;
 } 
