@@ -3,6 +3,8 @@
 */
 Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend({
 
+	'title' : 'Date range',
+
 	'events' :
 	{
 		'submit form' : 'submit'
