@@ -15,12 +15,8 @@
 			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
 			<span class="text-inline">&nbsp;to&nbsp;</span>
 			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
-		</div>
-	</div>
 
-	<div class="control-group">
-		<div class="controls">
 			<button type="submit" class="btn">Apply</button>
-		</divs>
+		</div>
 	</div>
 </form>
