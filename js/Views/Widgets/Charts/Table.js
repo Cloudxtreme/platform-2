@@ -2,6 +2,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'title' : 'Line chart',
 	'placeholder' : null,
+	'size' : 'full',
 
 	'innerRender' : function (element)
 	{

@@ -99,8 +99,25 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		report.getWidget (function (widget)
 		{
-			self.addHalfWidget (widget, self.half);
-			self.half = !self.half;
+			// Check widget size
+			if (typeof (widget.size) != 'undefined')
+			{
+				if (widget.size == 'full')
+				{
+					self.addWidget (widget, true);
+					self.half = true;
+				}
+				else
+				{
+					self.addHalfWidget (widget, self.half);
+					self.half = !self.half;	
+				}
+			}
+			else
+			{
+				self.addHalfWidget (widget, self.half);
+				self.half = !self.half;
+			}
 		});
 	}
 });
