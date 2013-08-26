@@ -41,7 +41,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 					if (data.statistics.length > 0)
 					{
 						// Title
-						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.name });
+						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.customname });
 						self.addWidget (title, true);
 
 						self.half = true;
@@ -77,7 +77,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
 			'dataset' : statistics,
-			'title' : stream.name + ' ' + statdata.name
+			'title' : stream.customname + ' ' + statdata.name
 		});
 
 		self.addHalfWidget (widget, self.half);
