@@ -1,6 +1,6 @@
 <form action="#" class="form-horizontal form-row-seperated">	
 	<div class="control-group">
-		<label class="control-label">Date Range</label>
+		<label class="control-label">Custom date</label>
 		<div class="controls">
 
 			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
