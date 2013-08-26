@@ -55,6 +55,12 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			}
 		}
 
+		// Sort on priority
+		out.sort (function (a, b)
+		{
+			return a.priority > b.priority;
+		});
+
 		//console.log (out);
 		return out;
 	},

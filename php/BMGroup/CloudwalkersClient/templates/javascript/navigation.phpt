@@ -147,7 +147,7 @@
 
 
 	<li class="reports">
-		<a href="#reports" onclick="document.location='#reports';">
+		<a href="#reports">
 			<i class="icon-bar-chart"></i> 
 			<span class="title">Reports</span>
 			<span class="selected"></span>
