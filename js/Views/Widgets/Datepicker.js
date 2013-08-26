@@ -40,10 +40,15 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	    {
 	    	var range = $(e.currentTarget).attr ('data-range');
 
-	    	var start = new Date ();
-	    	start.setHours (0, 0, 0);
+	    	var end = new Date ();
+	    	end.setHours (0, 0, 0);
 
-	    	console.log (start);
+	    	var start = new Date (end - (range * 1000));
+
+	    	self.$el.find( "#ui_date_picker_range_from" ).datepicker ('setDate', start);
+	    	self.$el.find( "#ui_date_picker_range_to" ).datepicker ('setDate', end);
+
+	    	self.trigger ('date:change', start, end);
 	    });
 
 		return this;
