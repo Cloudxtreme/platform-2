@@ -5474,9 +5474,10 @@ li.comments-row.selected
 .table-container th
 {
   padding: 15px;
+  text-align: center;
 }
 
 .table-container th
 {
-  text-align: left;
+  text-align: center;
 }

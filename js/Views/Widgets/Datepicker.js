@@ -38,7 +38,12 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	    // Recent buttons
 	    this.$el.find ('.recent-range').click (function (e)
 	    {
-	    	console.log (e);
+	    	var range = $(e.currentTarget).attr ('data-range');
+
+	    	var start = new Date ();
+	    	start.setHours (0, 0, 0);
+
+	    	console.log (start);
 	    });
 
 		return this;
