@@ -25,17 +25,29 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 
 	'plot' : function (values)
 	{
+		// Afraid we'll have to prepare the data for this one
+		var ticks = [];
+		for (var i = 0; i < values.length; i ++)
+		{
+			// Only show one in 3
+			ticks.push ([ i, values[i][0] ]);
+			values[i][0] = i;
+		}
+
 		$.plot 
 		(
 			this.placeholder, 
 			[ values ], 
 			{
 				'xaxis' : {
-
+					'ticks' : ticks
 				},
 
 				'yaxis' : {
 					'tickDecimals' : 0
+				},
+				'bars' : {
+					show: true
 				}
 			}
 		);
