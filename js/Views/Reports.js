@@ -92,13 +92,13 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var report = new Cloudwalkers.Models.Report ({ 'dataurl' : dataurl });
 
-		self.datepicker.on ('date:change', function (start, end)
-		{
-			report.setDateRange (start, end);
-		});
-
 		report.getWidget (function (widget)
 		{
+			self.datepicker.on ('date:change', function (start, end)
+			{
+				widget.setDateRange (start, end);
+			});
+			
 			// Check widget size
 			if (typeof (widget.size) != 'undefined')
 			{
