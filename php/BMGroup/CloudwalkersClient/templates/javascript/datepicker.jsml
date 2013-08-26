@@ -1,8 +1,15 @@
-<form action="#" class="form-horizontal form-row-seperated">
+<form action="#" class="form-horizontal form-row-seperated">	
 	<div class="control-group">
 		<label class="control-label">Date Range</label>
 		<div class="controls">
-			<p>
+
+			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
+			<span class="text-inline">&nbsp;to&nbsp;</span>
+			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
+
+			<button type="submit" class="btn">Apply</button>
+
+			<span class="text-inline">
 				Last: 
 					<a href="javascript:void(0);" class="recent-range" data-range="604800">7</a> 
 					<a href="javascript:void(0);" class="recent-range" data-range="864000">10</a> 
@@ -10,13 +17,7 @@
 					<a href="javascript:void(0);" class="recent-range" data-range="2592000">30</a> 
 					<a href="javascript:void(0);" class="recent-range" data-range="7776000">90</a> 
 				days
-			</p>
-
-			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
-			<span class="text-inline">&nbsp;to&nbsp;</span>
-			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
-
-			<button type="submit" class="btn">Apply</button>
+			</span>
 		</div>
 	</div>
 </form>
