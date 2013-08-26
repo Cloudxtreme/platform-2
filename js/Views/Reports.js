@@ -51,6 +51,12 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 							self.addStreamWidget (stream, data.statistics[j]);
 						}
 					}
+
+					// Now also add the reports
+					for (var i = 0; i < stream.reports.length; i ++)
+					{
+						self.addReportWidget (stream, stream.reports[i]);
+					}
 				}
 			}
 		);
@@ -76,5 +82,25 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		self.addHalfWidget (widget, self.half);
 		self.half = !self.half;
+	},
+
+	'addReportWidget' : function (stream, reporttoken)
+	{
+		var self = this;
+
+		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/report/' + reporttoken;
+
+		var report = new Cloudwalkers.Models.Report ({ 'dataurl' : dataurl });
+
+		self.datepicker.on ('date:change', function (start, end)
+		{
+			report.setDateRange (start, end);
+		});
+
+		report.getWidget (function (widget)
+		{
+			self.addHalfWidget (widget, self.half);
+			self.half = !self.half;
+		});
 	}
 });

@@ -48,6 +48,7 @@
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Numberstat.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Barchart.js"></script>
 
 <!-- Models -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/User.js"></script>
@@ -56,6 +57,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Comment.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Stream.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/StatisticDataset.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Models/Report.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
