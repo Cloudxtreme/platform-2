@@ -35,6 +35,12 @@ Cloudwalkers.Views.Widgets.Datepicker = Backbone.View.extend({
 	      }
 	    });
 
+	    // Recent buttons
+	    this.$el.find ('.recent-range').click (function (e)
+	    {
+	    	console.log (e);
+	    });
+
 		return this;
 	},
 

@@ -5,6 +5,11 @@
 			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_from">
 			<span class="text-inline">&nbsp;to&nbsp;</span>
 			<input class="m-wrap small" size="16" type="text" value="" id="ui_date_picker_range_to">
+
+			<p>
+				<a href="javascript:void(0);" class="recent-range" data-range="604800">7 days</a> <br />
+				<a href="javascript:void(0);" class="recent-range" data-range="2419200">28 days</a> 
+			</p>
 		</div>
 	</div>
 
