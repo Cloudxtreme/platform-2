@@ -158,8 +158,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' })
 		widget.messagetemplate = 'messagetimelinetrending';
 
-		console.log (widget);
-
 		widgetcontainer.addWidget (widget);
 
 		widgetcontainer.navclass = 'trending';
