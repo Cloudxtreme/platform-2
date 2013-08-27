@@ -64,6 +64,17 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			data.channel = this.model.collection.id;
 		}
 
+		var statistics = [];
+		for (var stat in data.statistics)
+		{
+			statistics.push ({
+				'key' : stat,
+				'value' : data.statistics[stat]
+			});
+		}
+
+		data.stats = statistics;
+
 		return this.additionalData (data);
 	},
 
@@ -81,6 +92,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		var data = this.prepareData ();
 		var self = this;
+
+		console.log (data);
 
 		if (typeof (data.parentmodel) != 'undefined' && typeof (this.options.childtemplate) != 'undefined')
 		{

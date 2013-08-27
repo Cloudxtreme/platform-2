@@ -49,6 +49,9 @@
 		<div class="comments comment-container"></div>
 
 		<div class="timeline-footer">
+				{{#stats}}
+					{{value}} {{key}}
+				{{/stats}}
 			 	{{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong>{{/likes}}
 
 			 	{{#canHaveChildren}}
