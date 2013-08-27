@@ -68,7 +68,10 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/' + statdata.token;
 
+		var daterange = self.datepicker.getDateRange ();
+
 		var statistics = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : dataurl });
+		statistics.setDateRange (daterange[0], daterange[1]);
 
 		self.datepicker.on ('date:change', function (start, end)
 		{
@@ -94,13 +97,16 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var report = new Cloudwalkers.Models.Report ({ 'dataurl' : dataurl });
 
-		report.getWidget (function (widget)
+		report.getWidget (function (widget, dataset)
 		{
+			var daterange = self.datepicker.getDateRange ();
+			dataset.setDateRange (daterange[0], daterange[1]);
+
 			widget.color = stream.network.icon + '-color';
 
 			self.datepicker.on ('date:change', function (start, end)
 			{
-				widget.setDateRange (start, end);
+				dataset.setDateRange (start, end);
 			});
 			
 			// Check widget size

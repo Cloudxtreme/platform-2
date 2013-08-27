@@ -129,7 +129,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				});
 			}
 
-			callback (widget);
+			callback (widget, self.dataset);
 		});
 	},
 

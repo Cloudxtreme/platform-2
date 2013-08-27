@@ -1,4 +1,19 @@
+<ul class="breadcrumb">
+	<li>
+		Date range
+	</li>
 
+	<li class="pull-right no-text-shadow">
+		<div class="dashboard-report-range dashboard-date-range tooltips no-tooltip-on-touch-device responsive" data-tablet="" data-desktop="tooltips" data-placement="top" data-original-title="Change dashboard date range">
+			<i class="icon-calendar"></i>
+			<span></span>
+			<i class="icon-angle-down"></i>
+		</div>
+	</li>
+</ul>
+
+
+<!--
 <form action="#" class="form-horizontal form-row-seperated">	
 
 	<div style="float: right">
@@ -30,3 +45,4 @@
 		</div>
 	</div>
 </form>
+-->

@@ -19,11 +19,16 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		{
 			this.type = 'time';
 		}
+
+		this.isFetched = false;
+		this.daterange = null;
 	},
 
 	'setDateRange' : function (start, end)
 	{
 		var self = this;
+
+		this.daterange = [ start, end ];
 
 		$.ajax 
 		(
@@ -32,20 +37,16 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 				'success' : function (data)
 				{
 					//console.log (data);
-					var values = [];
-
-					for (var i = 0; i < data.statistics.values.length; i ++)
+					var values;
+					if (typeof(data[self.entity].values) != 'undefined')
 					{
-						var date = (new Date(data.statistics.values[i].date).getTime ());
-
-						values.push 
-						([ 
-							date,
-							parseInt(data.statistics.values[i].value)
-						])
-
-						//console.log (data.statistics.values[i].value);
+						values = self.processValues (data[self.entity].values);
 					}
+					else
+					{
+						values = false;
+					}
+
 
 					//console.log (values);
 
@@ -61,9 +62,17 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 	{
 		var self = this;
 
+		this.isFetched = true;
+
+		var url = self.get('dataurl');
+		if (this.daterange)
+		{
+			url += '?start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000)
+		}
+
 		$.ajax 
 		(
-			self.get('dataurl'),
+			url,
 			{
 				'success' : function (data)
 				{
