@@ -36,7 +36,7 @@
 
 			{{#sortedchannels.news}}
 				<li class="trending_{{id}}">
-					<a href="#trending/{{channelid}}">
+					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
 						<i class="icon-{{icon}}"></i> 
 						Followed Pages
 
@@ -51,7 +51,7 @@
 
 			{{#sortedchannels.profiles}}
 				<li class="trending_{{id}}">
-					<a href="#trending/{{channelid}}">
+					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
 						<i class="icon-{{icon}}"></i> 
 						{{name}}
 
