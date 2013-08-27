@@ -24,6 +24,36 @@
 		<span class="selected"></span>
 	</a>
 	</li>
+
+	<li class="trending">
+		<a href="#trending">
+			<i class="icon-thumbs-up"></i> 
+			<span class="title">Trending topics</span>
+			<span class="selected"></span>
+		</a>
+
+		<ul class="sub-menu">
+
+			{{#sortedchannels.news}}
+				<li class="trending_{{id}}">
+					<a href="#trending/{{channelid}}">
+						<i class="icon-{{icon}}"></i> 
+						{{name}}
+					</a>
+				</li>
+			{{/sortedchannels.news}}
+
+			{{#sortedchannels.profiles}}
+				<li class="trending_{{id}}">
+					<a href="#trending/{{channelid}}">
+						<i class="icon-{{icon}}"></i> 
+						{{name}}
+					</a>
+				</li>
+			{{/sortedchannels.profiles}}
+
+		</ul>
+	</li>
 	
 	{{#sortedchannels.inbox}}
 		<li class="channel_{{channelid}}">

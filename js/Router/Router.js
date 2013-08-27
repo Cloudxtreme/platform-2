@@ -7,6 +7,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'users' : 'users',
 		'write' : 'write',
 		'reports(/:streamid)' : 'reports',
+		'trending/:channel' : 'trending',
 		'*path' : 'dashboard'
 	},
 
@@ -124,6 +125,45 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			widgetcontainer.subnavclass = 'channel_' + id + '_' + streamid;
 			//console.log (widgetcontainer.subnavclass);
 		}
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
+	},
+
+	'trending' : function (channelid)
+	{
+		var channeldata = Cloudwalkers.Session.getChannelFromId (channelid);
+
+		var since = (Date.today().add({ days: -1 }));
+		if (channeldata.type == 'news')
+		{
+			since = (Date.today().add({ days: -7 }));
+		}
+
+		var channel = new Cloudwalkers.Collections.Trending 
+		(
+			[], 
+			{ 
+				'id' : channelid, 
+				'name' : 'Trending ' + channeldata.name,
+				'since' : since
+			}
+		);
+
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+		widgetcontainer.title = channeldata.name;
+
+		// Check the types
+		var widget;
+
+		widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' })
+		widget.messagetemplate = 'messagetimelinetrending';
+
+		console.log (widget);
+
+		widgetcontainer.addWidget (widget);
+
+		widgetcontainer.navclass = 'trending';
+		widgetcontainer.subnavclass = 'trending_' + channelid;
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},

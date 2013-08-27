@@ -63,6 +63,7 @@
 
 <!-- Collections -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Channel.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Trending.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/TypedMessages.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Scheduled.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>

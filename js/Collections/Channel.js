@@ -14,6 +14,10 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'_cancelCallback' : false,
 
+	'fetch_url' : 'json/channel/',
+
+	'since' : null,
+
 	'initialize' : function (models, options)
 	{
 		this.id = options.id;
@@ -23,6 +27,16 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		this.canLoadMore = (typeof (options.canLoadMore) == 'undefined' ? true : options.canLoadMore);
 		this.showMoreButton = (typeof (options.showMoreButton) == 'undefined' ? false : options.showMoreButton);
 
+		this.setComparator ();
+
+		if (typeof (options.since) != 'undefined')
+		{
+			this.since = options.since;
+		}
+	},
+
+	'setComparator' : function ()
+	{
 		this.comparator = function (message1, message2)
 		{
 			return message1.date ().getTime () < message2.date ().getTime () ? 1 : -1;
@@ -96,7 +110,12 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 			parameters[filter] = this.filters[filter].join (',');
 		}
 
-		var fetch_url = CONFIG_BASE_URL + 'json/channel/' + this.id + '?' + jQuery.param (parameters);
+		if (this.since)
+		{
+			parameters.since = Math.floor (this.since.getTime () / 1000);
+		}
+
+		var fetch_url = CONFIG_BASE_URL + this.fetch_url + this.id + '?' + jQuery.param (parameters);
 
 		// Default JSON-request options.
 		var params = _.extend({
