@@ -7,7 +7,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'users' : 'users',
 		'write' : 'write',
 		'reports(/:streamid)' : 'reports',
-		'trending/:channel' : 'trending',
+		'trending/:channel(/:streamid)' : 'trending',
 		'*path' : 'dashboard'
 	},
 
@@ -129,7 +129,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 
-	'trending' : function (channelid)
+	'trending' : function (channelid, streamid)
 	{
 		var channeldata = Cloudwalkers.Session.getChannelFromId (channelid);
 
@@ -149,6 +149,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			}
 		);
 
+		var filters = {};
+		if (typeof (streamid) != 'undefined')
+		{
+			filters['streams'] = [ streamid ];
+			channel.setFilters (filters);	
+		}
+
 		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
 		widgetcontainer.title = channeldata.name;
 
@@ -161,7 +168,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.addWidget (widget);
 
 		widgetcontainer.navclass = 'trending';
+
 		widgetcontainer.subnavclass = 'trending_' + channelid;
+		if (streamid)
+		{
+			widgetcontainer.subsubnavclass = 'trending_' + channelid + '_' + streamid;
+		}
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},

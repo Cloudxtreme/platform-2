@@ -39,6 +39,12 @@
 					<a href="#trending/{{channelid}}">
 						<i class="icon-{{icon}}"></i> 
 						Followed Pages
+
+						<ul class="sub-menu">
+							{{#streams}}
+								<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							{{/streams}}
+						</ul>
 					</a>
 				</li>
 			{{/sortedchannels.news}}
@@ -48,6 +54,12 @@
 					<a href="#trending/{{channelid}}">
 						<i class="icon-{{icon}}"></i> 
 						{{name}}
+
+						<ul class="sub-menu">
+							{{#streams}}
+								<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							{{/streams}}
+						</ul>
 					</a>
 				</li>
 			{{/sortedchannels.profiles}}
