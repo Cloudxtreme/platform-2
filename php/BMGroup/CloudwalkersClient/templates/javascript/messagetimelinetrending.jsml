@@ -10,7 +10,7 @@
 	
 		<span class="actions dropdown pull-right"> 
 			<i class="icon-share icon-2x dropdown-toggle" data-toggle="dropdown"></i>
-			<ul class="dropdown-menu">
+			<ul class="dropdown-menu" title="{{id}}">
 				{{#actions}}
 					<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/actions}}
