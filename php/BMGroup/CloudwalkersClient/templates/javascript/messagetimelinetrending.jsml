@@ -1,7 +1,7 @@
 <li class="timeline-blue {{#stream}}{{network.icon}}-color{{/stream}}">
 	<div class="timeline-time">
-		<span class="date">{{dateonly}}</span>
-		<span class="time">{{time}}</span>
+		<span class="date">{{dateonly}} {{time}}</span>
+		<span class="time">{{engagement}}</span>
 	</div>
 
 	<div class="timeline-icon"><i {{#stream}}class="icon-{{network.icon}}"{{/stream}}></i></div>
@@ -28,8 +28,6 @@
 					{{name}}
 				{{/from}}
 			</strong> 
-
-			({{engagement}} engagement)
 
 			<div class="timeline-footer"></div>
 
