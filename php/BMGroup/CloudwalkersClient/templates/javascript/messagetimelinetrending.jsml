@@ -50,9 +50,10 @@
 
 		<div class="timeline-footer">
 				{{#statistics}}
-					{{value}} {{name}}
+					<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
 				{{/statistics}}
-			 	{{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong>{{/likes}}
+
+			 	<!--{{#likes}}<strong class='interaction'><i class='icon-thumbs-up'></i> {{likes}} likes</strong>{{/likes}}-->
 
 			 	{{#canHaveChildren}}
 				 	<span class="children-button message-children">
