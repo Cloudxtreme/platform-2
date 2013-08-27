@@ -38,7 +38,7 @@
 				<li class="trending_{{id}}">
 					<a href="#trending/{{channelid}}">
 						<i class="icon-{{icon}}"></i> 
-						Social Feeds: Followed Pages
+						Followed Pages
 					</a>
 				</li>
 			{{/sortedchannels.news}}
