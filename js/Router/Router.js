@@ -133,10 +133,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		var channeldata = Cloudwalkers.Session.getChannelFromId (channelid);
 
-		var since = (Date.today().add({ days: -1 }));
+		var since = (Date.today().add({ days: -7 }));
 		if (channeldata.type == 'news')
 		{
-			since = (Date.today().add({ days: -7 }));
+			since = (Date.today().add({ days: -1 }));
 		}
 
 		var channel = new Cloudwalkers.Collections.Trending 
