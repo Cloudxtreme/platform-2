@@ -103,7 +103,6 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		this._load (function ()
 		{
 			var type = self.get ('type');
-			console.log (type);
 
 			if (type == 'bars')
 			{
