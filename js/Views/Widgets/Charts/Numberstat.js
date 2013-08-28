@@ -23,6 +23,11 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 			self.setValue (values);
 		});
 
+		this.options.dataset.on ('dataset:change', function (values)
+		{
+			self.setValue (values);
+		});
+
 		return this;
 	},
 

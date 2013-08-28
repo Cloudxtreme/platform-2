@@ -51,6 +51,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					}
 
 
+					self.setInternalParameters (data);
 					//console.log (values);
 
 					//var data = [ [[0, 0], [1, 1]] ];
@@ -104,22 +105,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					//console.log (values);
 					var values = self.processValues (data[self.entity].values);
 
-					//console.log (values);
-					//console.log (data[self.entity].display);
-					if (typeof (data[self.entity].display) != 'undefined')
-					{
-						self.display = data[self.entity].display;
-					}
-
-					if (typeof (data[self.entity].evolution) != 'undefined')
-					{
-						self.evolution = data[self.entity].evolution;
-					}
-
-					if (typeof (data[self.entity].interval) != 'undefined')
-					{
-						self.interval = data[self.entity].interval;
-					}
+					self.setInternalParameters (data);
 
 					//var data = [ [[0, 0], [1, 1]] ];
 					callback (values);
@@ -129,10 +115,36 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		);
 	},
 
+	'setInternalParameters' : function (data)
+	{
+		var self = this;
+		//console.log (values);
+		//console.log (data[self.entity].display);
+		if (typeof (data[self.entity].display) != 'undefined')
+		{
+			self.display = data[self.entity].display;
+		}
+
+		if (typeof (data[self.entity].evolution) != 'undefined')
+		{
+			self.evolution = data[self.entity].evolution;
+		}
+
+		if (typeof (data[self.entity].interval) != 'undefined')
+		{
+			self.interval = data[self.entity].interval;
+		}
+	},
+
 	'processValues' : function (inputvalues)
 	{
 		var values = [];
-		var category
+		var category;
+
+		if (!inputvalues)
+		{
+			return [];
+		}
 
 		if (this.type == 'table')
 		{

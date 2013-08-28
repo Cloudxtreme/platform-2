@@ -73,7 +73,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 
 		function (start, end) {
 			element.find('.dashboard-report-range span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-			self.trigger ('date:change', start, end.add ({ 'days' : 1 }));
+			self.trigger ('date:change', start, new Date (end.getTime ()).add ({ 'days' : 1 }));
 		});
 
 		element.find('.dashboard-report-range').show();
