@@ -129,6 +129,14 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				});
 			}
 
+			else if (type == 'line')
+			{
+				var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
+					'dataset' : self.dataset,
+					'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				});
+			}
+
 			callback (widget, self.dataset);
 		});
 	},
