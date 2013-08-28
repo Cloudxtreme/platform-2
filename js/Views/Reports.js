@@ -73,7 +73,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		// Replace all by numbers for now
 		var statistics = new Cloudwalkers.Models.StatisticDataset 
 		({ 
-			'dataurl' : dataurl + '/number' 
+			'dataurl' : dataurl //+ '/number' 
 		});
 		statistics.setDateRange (daterange[0], daterange[1]);
 
@@ -82,7 +82,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			statistics.setDateRange (start, end);
 		});
 
-		var widget = new Cloudwalkers.Views.Widgets.Charts.Comparison ({
+		var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
 			'dataset' : statistics,
 			'title' : stream.customname + ' ' + statdata.name
 		});
