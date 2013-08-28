@@ -5508,16 +5508,9 @@ li.comments-row.selected
   text-decoration: none;
 }
 
-.table-container
-{
-  overflow: auto;
-  position: relative;
-}
-
 .table-container td, 
 .table-container th
 {
-  padding: 15px;
   text-align: center;
 }
 
