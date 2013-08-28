@@ -103,6 +103,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		this._load (function ()
 		{
 			var type = self.get ('type');
+			console.log (type);
 
 			if (type == 'bars')
 			{
@@ -136,8 +137,6 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 					'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
 				});
 			}
-
-			console.log (widget);
 
 			callback (widget, self.dataset);
 		});
