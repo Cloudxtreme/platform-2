@@ -40,10 +40,10 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 				if (values.length > 1)
 				{
-					text += ' - ' + this.options.dataset.getInterval ();
-					text += ' - ' + Math.round(this.options.dataset.getEvolution () * 100) + '%';
+					text += ' | ' + this.options.dataset.getInterval ();
+					text += ' | ' + Math.round(this.options.dataset.getEvolution () * 100) + '%';
 
-					text += ' - B: ' + values[1][1];	
+					text += ' | B: ' + values[1][1];	
 				}
 
 				this.$el.find ('.number').html (text);
