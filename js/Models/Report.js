@@ -133,7 +133,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				});
 			}
 
-			else if (type == 'line')
+			else if (type == 'time')
 			{
 				var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
 					'dataset' : self.dataset,
