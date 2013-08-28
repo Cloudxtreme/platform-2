@@ -51,6 +51,10 @@
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/plugins/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/plugins/data-tables/DT_bootstrap.js"></script>
+
+
 <!-- END PAGE LEVEL SCRIPTS -->  
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>

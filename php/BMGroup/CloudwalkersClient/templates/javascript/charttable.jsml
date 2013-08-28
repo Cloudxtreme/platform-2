@@ -1,23 +1,27 @@
-<table style="width: 100%;">
+<table class="table table-striped table-bordered table-hover">
 
-	<tr>
-		{{#header}}
-			<th>
-				{{name}}
-			</th>
-		{{/header}}
-	</tr>
-
-	{{#rows}}
-
+	<thead>
 		<tr>
-			{{#columns}}
-				<td>
-					{{value}}
-				</td>
-			{{/columns}}
+			{{#header}}
+				<th>
+					{{name}}
+				</th>
+			{{/header}}
 		</tr>
+	</thead>
 
-	{{/rows}}
+	<tbody>
+		{{#rows}}
+
+			<tr>
+				{{#columns}}
+					<td>
+						{{value}}
+					</td>
+				{{/columns}}
+			</tr>
+
+		{{/rows}}
+	</tbody>
 
 </table>
