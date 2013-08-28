@@ -92,7 +92,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		}
 		else if (this.get ('type') == 'time')
 		{
-			return 'date';
+			return 'time';
 		}
 		else
 		{
