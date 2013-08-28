@@ -82,7 +82,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			statistics.setDateRange (start, end);
 		});
 
-		var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
+		var widget = new Cloudwalkers.Views.Widgets.Charts.Comparison ({
 			'dataset' : statistics,
 			'title' : stream.customname + ' ' + statdata.name
 		});
