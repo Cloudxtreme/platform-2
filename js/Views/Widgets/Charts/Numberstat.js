@@ -17,7 +17,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		if (this.network)
 			this.options.network = this.network;
 
-		element.html (Mustache.render (Templates[this.numberstat], this.options));
+		element.html (Mustache.render (Templates[this.template], this.options));
 
 		this.options.dataset.getValues (function (values)
 		{
