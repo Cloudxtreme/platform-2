@@ -90,6 +90,10 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			return 'table';
 		}
+		else if (this.get ('type') == 'time')
+		{
+			return 'date';
+		}
 		else
 		{
 			return 'category';
