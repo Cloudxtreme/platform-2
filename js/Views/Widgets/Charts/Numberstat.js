@@ -42,17 +42,18 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 			if (display == 'comparison')
 			{
-				var text = 'N: ' + values[0][1];
+				this.$el.find ('.interval').html ('').parent ().hide ();
+				this.$el.find ('.evolution').html ('').parent ().hide ();
+				this.$el.find ('.oldnumber').html ('').parent ().hide ();
 
 				if (values.length > 1)
 				{
-					text += ' | ' + this.options.dataset.getInterval ();
-					text += ' | ' + Math.round(this.options.dataset.getEvolution () * 100) + '%';
-
-					text += ' | B: ' + values[1][1];	
+					this.$el.find ('.interval').html (this.options.dataset.getInterval ()).parent ().show ();
+					this.$el.find ('.evolution').html (Math.round(this.options.dataset.getEvolution () * 100) + '%').parent ().show ();
+					this.$el.find ('.oldnumber').html (values[1][1]).parent ().show ();
 				}
 
-				this.$el.find ('.number').html (text);
+				this.$el.find ('.number').html (values[0][1]);
 			}
 
 			else
