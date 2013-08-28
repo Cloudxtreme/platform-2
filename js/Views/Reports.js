@@ -70,7 +70,11 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		var daterange = self.datepicker.getDateRange ();
 
-		var statistics = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : dataurl });
+		// Replace all by numbers for now
+		var statistics = new Cloudwalkers.Models.StatisticDataset 
+		({ 
+			'dataurl' : dataurl + '/number' 
+		});
 		statistics.setDateRange (daterange[0], daterange[1]);
 
 		self.datepicker.on ('date:change', function (start, end)
@@ -78,12 +82,13 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			statistics.setDateRange (start, end);
 		});
 
-		var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
+		var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
 			'dataset' : statistics,
 			'title' : stream.customname + ' ' + statdata.name
 		});
 
-		widget.color = stream.network.icon + '-color';
+		//widget.color = stream.network.icon + '-color';
+		widget.color = 'purple';
 
 		self.addHalfWidget (widget, self.half);
 		self.half = !self.half;

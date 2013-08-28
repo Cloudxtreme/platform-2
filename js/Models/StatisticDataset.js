@@ -22,6 +22,9 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 		this.isFetched = false;
 		this.daterange = null;
+		this.display = null;
+		this.interval = null;
+		this.evolution = null;
 	},
 
 	'setDateRange' : function (start, end)
@@ -58,6 +61,21 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		);
 	},
 
+	'getDisplay' : function ()
+	{
+		return this.display;
+	},
+
+	'getInterval' : function ()
+	{
+		return this.interval;
+	},
+
+	'getEvolution' : function ()
+	{
+		return this.evolution;
+	},
+
 	'getValues' : function (callback)
 	{
 		var self = this;
@@ -87,6 +105,21 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					var values = self.processValues (data[self.entity].values);
 
 					//console.log (values);
+					//console.log (data[self.entity].display);
+					if (typeof (data[self.entity].display) != 'undefined')
+					{
+						self.display = data[self.entity].display;
+					}
+
+					if (typeof (data[self.entity].evolution) != 'undefined')
+					{
+						self.evolution = data[self.entity].evolution;
+					}
+
+					if (typeof (data[self.entity].interval) != 'undefined')
+					{
+						self.interval = data[self.entity].interval;
+					}
 
 					//var data = [ [[0, 0], [1, 1]] ];
 					callback (values);
