@@ -73,7 +73,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 				{
 					this.$el.find ('.oldnumber').html (values[1][1]);
 					this.$el.find ('.difference').html (this.numberOutput (values[0][1] - values[1][1], true));
-					this.$el.find ('.evolution').html (this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100)) + '%');
+					this.$el.find ('.evolution').html (this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%');
 				}
 
 				this.$el.find ('.number').html (this.numberOutput (values[0][1]));
