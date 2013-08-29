@@ -72,7 +72,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 			widgetdata.dataset = datasource;
 
-			widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({ 'dataset' : widgetdata });
+			widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat (widgetdata);
 			this.addWidgetWithSettings (widget, widgetdata);
 		}
 
