@@ -41,8 +41,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 				{
 					//console.log (data);
 					var values;
-					if (typeof (data[self.entity]) != 'undefined' 
-						&& typeof(data[self.entity].values) != 'undefined')
+					if (typeof (data[self.entity]) != 'undefined')
 					{
 						self.setInternalParameters (data);
 						values = self.processValues (data[self.entity].values);
