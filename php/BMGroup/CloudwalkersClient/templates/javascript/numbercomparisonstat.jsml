@@ -4,7 +4,7 @@
 	</div>
 
 	<div class="parts">
-		<p>This <span class="interval"></span></p>
+		<p>Last <span class="interval"></span></p>
 		<p class="number nbr">?</p>
 	</div>
 
@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="parts">
-		<p>Last <span class="interval"></span></p>
+		<p>Previous <span class="interval"></span></p>
 		<p class="oldnumber nbr">?</p>
 	</div>
 
