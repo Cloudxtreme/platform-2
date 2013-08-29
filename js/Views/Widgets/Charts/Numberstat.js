@@ -56,18 +56,18 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	{
 		var display = this.options.dataset.getDisplay ();
 
+		this.$el.find ('.interval').html (this.options.dataset.getInterval ());
+
 		if (values && values.length > 0)
 		{
 			// Always last available value
 
 			if (display == 'comparison')
 			{
-				this.$el.find ('.interval').html ('');
+				//this.$el.find ('.interval').html ('');
 				this.$el.find ('.evolution').html ('');
 				this.$el.find ('.oldnumber').html ('');
 				this.$el.find ('.difference').html ('');
-
-				this.$el.find ('.interval').html (this.options.dataset.getInterval ());
 
 				if (values.length > 1)
 				{
