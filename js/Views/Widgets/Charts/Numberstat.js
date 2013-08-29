@@ -34,7 +34,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 	'numberOutput' : function (number, plus)
 	{
-		if (typeof (plus))
+		if (typeof (plus) == 'undefined')
 		{
 			plus = false;
 		}
