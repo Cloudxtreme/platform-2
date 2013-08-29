@@ -37,12 +37,18 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 				/*'Today': ['today', 'today'],
 				'Yesterday': ['yesterday', 'yesterday'],
 				*/
+				'Last 2 Days': [Date.today().add({
+						days: -1
+					}), 'today'],
+				'Last 5 Days': [Date.today().add({
+						days: -4
+					}), 'today'],
 				'Last 7 Days': [Date.today().add({
 						days: -6
 					}), 'today'],
-				/*'Last 30 Days': [Date.today().add({
-						days: -29
-					}), 'today'],*/
+				'Last 10 Days': [Date.today().add({
+						days: -9
+					}), 'today'],
 				'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
 				'Last Month': [Date.today().moveToFirstDayOfMonth().add({
 						months: -1
