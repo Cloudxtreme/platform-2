@@ -26,6 +26,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		this.options.dataset.getValues (function (values)
 		{
+			console.log (values);
 			self.setValue (values);
 		});
 
