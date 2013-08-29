@@ -86,7 +86,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		}
 		else
 		{
-			this.$el.find ('.number').html ('NaN');
+			this.$el.find ('.number').html ('/');
 		}
 	}
 
