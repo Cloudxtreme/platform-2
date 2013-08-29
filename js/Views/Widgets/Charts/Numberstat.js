@@ -32,6 +32,15 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		return this;
 	},
 
+	'numberOutput' : function (number)
+	{
+		if (number < 0)
+		{
+			return '- ' + Math.abs (number);
+		}
+		return number;
+	},
+
 	'setValue' : function (values)
 	{
 		var display = this.options.dataset.getDisplay ();
@@ -47,19 +56,19 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 				this.$el.find ('.oldnumber').html ('');
 
 				this.$el.find ('.interval').html (this.options.dataset.getInterval ());
-				this.$el.find ('.evolution').html (Math.round(this.options.dataset.getEvolution () * 100) + '%');
+				this.$el.find ('.evolution').html (this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100)) + '%');
 
 				if (values.length > 1)
 				{
 					this.$el.find ('.oldnumber').html (values[1][1]);
 				}
 
-				this.$el.find ('.number').html (values[0][1]);
+				this.$el.find ('.number').html (this.numberOutput (values[0][1]));
 			}
 
 			else
 			{
-				this.$el.find ('.number').html (values[values.length - 1][1]);
+				this.$el.find ('.number').html (this.numberOutput (values[values.length - 1][1]));
 			}
 		}
 		else
