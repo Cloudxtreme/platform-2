@@ -8,7 +8,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		}
 		else
 		{
-			this.entity = 'statistics';
+			this.entity = 'report';
 		}
 
 		if (typeof (options.type) != 'undefined')
