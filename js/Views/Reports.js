@@ -87,8 +87,8 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			'title' : stream.customname + ' ' + statdata.name
 		});
 
-		//widget.color = stream.network.icon + '-color';
-		widget.color = 'purple';
+		widget.color = stream.network.icon + '-color';
+		//widget.color = 'purple';
 
 		self.addHalfWidget (widget, self.half);
 		self.half = !self.half;

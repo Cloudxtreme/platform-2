@@ -5578,42 +5578,39 @@ Dashboard stats
   margin-right: 5px;
 }
 
+.dashboard-stat-comparison .parts .nbr
+{
+  margin-top: 5px;
+}
+
 .dashboard-stat-comparison.blue {
   background-color: #27a9e3;
 }
 
-.dashboard-stat-comparison.blue .more { 
-  background-color: #208dbe;
-} 
 
 .dashboard-stat-comparison.green {
   background-color: #28b779;
 }
 
-.dashboard-stat-comparison.green .more { 
-  background-color: #10a062;
-} 
 
 .dashboard-stat-comparison.red {
   background-color: #e7191b;
 }
 
-.dashboard-stat-comparison.red .more { 
-  background-color:#bc0d0e;
-} 
 
 .dashboard-stat-comparison.yellow {
   background-color: #ffb848;
 }
 
-.dashboard-stat-comparison.yellow .more { 
-  background-color: #cb871b;
-} 
 
 .dashboard-stat-comparison.purple {
   background-color: #852b99;
 }
 
-.dashboard-stat-comparison.purple .more { 
-  background-color: #6e1881;
-} 
+.dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
+.dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
+.dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
+.dashboard-stat-comparison.tumblr-color { background-color: #385775 ; }
+.dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
+.dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
+.dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }

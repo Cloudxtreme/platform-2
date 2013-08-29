@@ -5,17 +5,15 @@
 
 	<div class="parts">
 		<p>This <span class="interval"></span></p>
-		<span class="number">?</span>
+		<p class="number nbr">?</p>
 	</div>
 	<div class="parts">
 		<p>Last <span class="interval"></span></p>
-		<span class="oldnumber">?</span>
+		<p class="oldnumber nbr">?</p>
 	</div>
 
 	<div class="parts">
-		<div >
-			<p>Evolution</p>
-			<span class="evolution">?</p>
-		</div>
+		<p>Evolution</p>
+		<p class="evolution nbr">?</p>
 	</div>
 </div>
