@@ -1,25 +1,21 @@
-<div class="dashboard-stat {{color}}">
-	<div class="visual">
-		<i class="icon-{{network}}"></i>
+<div class="dashboard-stat-comparison {{color}}">
+	<div class="parts">
+		<p>{{title}}</p>
 	</div>
-	<div class="details">
-		<div class="number">
-			?
-		</div>
-		<div class="desc">                           
-			<span>
-				<span class="interval"></span> ago:
-			</span>
 
-			<span>
-				<span class="oldnumber"></span>
-			</span>
+	<div class="parts">
+		<p>This <span class="interval"></span></p>
+		<span class="number">?</span>
+	</div>
+	<div class="parts">
+		<p>Last <span class="interval"></span></p>
+		<span class="oldnumber">?</span>
+	</div>
 
-			<span>
-				(<span class="evolution"></span>), 
-			</span>
-
-			{{title}}
+	<div class="parts">
+		<div >
+			<p>Evolution</p>
+			<span class="evolution">?</p>
 		</div>
 	</div>
 </div>

@@ -5518,3 +5518,101 @@ li.comments-row.selected
 {
   text-align: center;
 }
+
+
+
+/***
+Dashboard stats
+***/
+.dashboard-stat-comparison {
+  margin-bottom: 25px;
+}
+
+.dashboard-stat-comparison:before,
+.dashboard-stat-comparison:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.dashboard-stat-comparison:after {
+  clear: both;
+}
+
+.dashboard-stat-comparison .visual {
+  width: 80px;
+  height:80px;
+  display: block;
+  float: left;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.dashboard-stat-comparison .visual i {
+  font-size: 65px;
+  color: #fff;
+}
+
+.dashboard-stat-comparison .details {
+  float: right;
+  padding-right: 10px;
+}
+
+.dashboard-stat-comparison .parts
+{
+  float: left;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: -1px;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+} 
+
+.dashboard-stat-comparison .parts p
+{
+  margin-bottom: 0;
+}
+
+.dashboard-stat-comparison.blue {
+  background-color: #27a9e3;
+}
+
+.dashboard-stat-comparison.blue .more { 
+  background-color: #208dbe;
+} 
+
+.dashboard-stat-comparison.green {
+  background-color: #28b779;
+}
+
+.dashboard-stat-comparison.green .more { 
+  background-color: #10a062;
+} 
+
+.dashboard-stat-comparison.red {
+  background-color: #e7191b;
+}
+
+.dashboard-stat-comparison.red .more { 
+  background-color:#bc0d0e;
+} 
+
+.dashboard-stat-comparison.yellow {
+  background-color: #ffb848;
+}
+
+.dashboard-stat-comparison.yellow .more { 
+  background-color: #cb871b;
+} 
+
+.dashboard-stat-comparison.purple {
+  background-color: #852b99;
+}
+
+.dashboard-stat-comparison.purple .more { 
+  background-color: #6e1881;
+} 
