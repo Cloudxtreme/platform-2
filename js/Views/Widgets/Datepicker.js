@@ -80,7 +80,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 		element.find('.dashboard-report-range').show();
 
 		element.find('.dashboard-report-range span').html(this.start.toString('MMMM d, yyyy') + 
-			' - ' + (new Date(this.end)).add ({'days' : 1 }).toString('MMMM d, yyyy'));
+			' - ' + (new Date(this.end)).add ({'days' : -1 }).toString('MMMM d, yyyy'));
 
 		/*
 
