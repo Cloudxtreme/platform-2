@@ -8,10 +8,10 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 	'color' : 'grey',
 
 	'start' : Date.today().add({
-		weeks: -1
+		days: -6
 	}),
 
-	'end' : Date.today(),
+	'end' : Date.today().add ({ 'days' : 1 }),
 
 	'events' :
 	{
@@ -79,7 +79,8 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 
 		element.find('.dashboard-report-range').show();
 
-		element.find('.dashboard-report-range span').html(this.start.toString('MMMM d, yyyy') + ' - ' + this.end.toString('MMMM d, yyyy'));
+		element.find('.dashboard-report-range span').html(this.start.toString('MMMM d, yyyy') + 
+			' - ' + (new Date(this.end)).add ({'days' : 1 }).toString('MMMM d, yyyy'));
 
 		/*
 
