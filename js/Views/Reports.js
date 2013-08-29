@@ -48,20 +48,23 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 						for (var j = 0; j < data.statistics.length; j ++)
 						{
-							self.addStreamWidget (stream, data.statistics[j]);
+							self.addReportWidget (stream, data.statistics[j]);
 						}
 					}
 
 					// Now also add the reports
+					/*
 					for (var i = 0; i < stream.reports.length; i ++)
 					{
 						self.addReportWidget (stream, stream.reports[i]);
 					}
+					*/
 				}
 			}
 		);
 	},
 
+	/*
 	'addStreamWidget' : function (stream, statdata)
 	{
 		var self = this;
@@ -92,47 +95,50 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		self.addHalfWidget (widget, self.half);
 		self.half = !self.half;
-	},
+	}
+	,
+	*/
 
-	'addReportWidget' : function (stream, reporttoken)
+	'addReportWidget' : function (stream, reportdata)
 	{
 		var self = this;
 
-		var dataurl = CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics/report/' + reporttoken;
+		//var dataurl = CONFIG_BASE_URL + 'json/' + statdata.url;
 
-		var report = new Cloudwalkers.Models.Report ({ 'dataurl' : dataurl });
+		reportdata.stream = stream;
 
-		report.getWidget (function (widget, dataset)
+		var report = new Cloudwalkers.Models.Report (reportdata);
+
+		var widget = report.getWidget ();
+
+		var daterange = self.datepicker.getDateRange ();
+		widget.getDataset ().setDateRange (daterange[0], daterange[1]);
+
+		widget.color = stream.network.icon + '-color';
+
+		self.datepicker.on ('date:change', function (start, end)
 		{
-			var daterange = self.datepicker.getDateRange ();
-			dataset.setDateRange (daterange[0], daterange[1]);
-
-			widget.color = stream.network.icon + '-color';
-
-			self.datepicker.on ('date:change', function (start, end)
+			widget.getDataset ().setDateRange (start, end);
+		});
+		
+		// Check widget size
+		if (typeof (widget.size) != 'undefined')
+		{
+			if (widget.size == 'full')
 			{
-				dataset.setDateRange (start, end);
-			});
-			
-			// Check widget size
-			if (typeof (widget.size) != 'undefined')
-			{
-				if (widget.size == 'full')
-				{
-					self.addWidget (widget, true);
-					self.half = true;
-				}
-				else
-				{
-					self.addHalfWidget (widget, self.half);
-					self.half = !self.half;	
-				}
+				self.addWidget (widget, true);
+				self.half = true;
 			}
 			else
 			{
 				self.addHalfWidget (widget, self.half);
-				self.half = !self.half;
+				self.half = !self.half;	
 			}
-		});
+		}
+		else
+		{
+			self.addHalfWidget (widget, self.half);
+			self.half = !self.half;
+		}
 	}
 });

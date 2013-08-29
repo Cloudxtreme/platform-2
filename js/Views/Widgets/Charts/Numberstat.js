@@ -6,6 +6,11 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'network' : null,
 	'template' : 'numberstat',
 
+	'getDataset' : function ()
+	{
+		return this.options.dataset;
+	},
+
 	'render' : function ()
 	{
 		var element = this.$el;
@@ -26,7 +31,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		this.options.dataset.on ('dataset:change', function (values)
 		{
-			self.setValue (values);
+			self.setValue (values[0].values);
 		});
 
 		return this;

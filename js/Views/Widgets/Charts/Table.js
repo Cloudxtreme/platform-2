@@ -5,6 +5,11 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 	'size' : 'full',
 	'icon' : 'reorder',
 
+	'getDataset' : function ()
+	{
+		return this.options.dataset;
+	},
+
 	'innerRender' : function (element)
 	{
 		var self = this;
@@ -21,7 +26,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 
 		this.options.dataset.on ('dataset:change', function (values)
 		{
-			self.plot (values);
+			self.plot (values[0].values);
 		});
 	},
 

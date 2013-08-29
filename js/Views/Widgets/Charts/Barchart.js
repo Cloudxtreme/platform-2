@@ -4,6 +4,11 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 	'placeholder' : null,
 	'icon' : 'reorder',
 
+	'getDataset' : function ()
+	{
+		return this.options.dataset;
+	},
+
 	'innerRender' : function (element)
 	{
 		var self = this;
@@ -20,12 +25,17 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 
 		this.options.dataset.on ('dataset:change', function (values)
 		{
-			self.plot (values);
+			self.plot (values[0].values);
 		});
 	},
 
 	'plot' : function (values)
 	{
+		if (!values)
+		{
+			return;
+		}
+
 		// Afraid we'll have to prepare the data for this one
 		var ticks = [];
 		for (var i = 0; i < values.length; i ++)

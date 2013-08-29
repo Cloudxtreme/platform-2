@@ -44,20 +44,29 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					if (typeof (data[self.entity]) != 'undefined')
 					{
 						self.setInternalParameters (data);
-						values = self.processValues (data[self.entity].values);
+						//values = self.processValues (data[self.entity].values);
 					}
 					else
 					{
 						console.log ('Information not expected:');
 						console.log (data);
-						values = false;
+						
+						return;
 					}
 
+					var series = [];
+
+					for (var i = 0; i < data[self.entity].series.length; i ++)
+					{
+						series.push ({
+							'values' : self.processValues (data[self.entity].series[i].values)
+						});
+					}
 
 					//console.log (values);
 
 					//var data = [ [[0, 0], [1, 1]] ];
-					self.trigger ('dataset:change', values);
+					self.trigger ('dataset:change', series);
 
 				}
 			}
@@ -79,7 +88,23 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		return this.evolution;
 	},
 
+	/**
+	* Get values, depreciated method to get all values 
+	* of the first dataset.
+	*/
 	'getValues' : function (callback)
+	{
+		var self = this;
+
+		this.getSeries (function (series)
+		{
+			//console.log (self.get ('dataurl'));
+			//console.log (series);
+			callback (series[0].values);
+		})
+	},
+
+	'getSeries' : function (callback)
 	{
 		var self = this;
 
@@ -103,14 +128,23 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 						return;
 					}
 
+					var series = [];
 
-					//console.log (values);
-					var values = self.processValues (data[self.entity].values);
+					for (var i = 0; i < data[self.entity].series.length; i ++)
+					{
+						series.push ({
+							'values' : self.processValues (data[self.entity].series[i].values)
+						});
+					}
 
-					self.setInternalParameters (data);
+					//var values = self.processValues (data[self.entity].values);
+
+					//self.setInternalParameters (data);
 
 					//var data = [ [[0, 0], [1, 1]] ];
-					callback (values);
+					//console.log (series);
+
+					callback (series);
 
 				}
 			}

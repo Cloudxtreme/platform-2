@@ -4,6 +4,11 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 	'placeholder' : null,
 	'icon' : 'reorder',
 
+	'getDataset' : function ()
+	{
+		return this.options.dataset;
+	},
+
 	'innerRender' : function (element)
 	{
 		var self = this;
@@ -20,7 +25,7 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 
 		this.options.dataset.on ('dataset:change', function (values)
 		{
-			self.plot (values);
+			self.plot (values[0].values);
 		});
 	},
 
