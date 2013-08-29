@@ -7,6 +7,12 @@
 		<p>This <span class="interval"></span></p>
 		<p class="number nbr">?</p>
 	</div>
+
+	<div class="parts">
+		<p>Difference</p>
+		<p class="difference nbr">?</p>
+	</div>
+
 	<div class="parts">
 		<p>Last <span class="interval"></span></p>
 		<p class="oldnumber nbr">?</p>
