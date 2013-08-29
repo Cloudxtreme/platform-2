@@ -5560,16 +5560,21 @@ Dashboard stats
 .dashboard-stat-comparison .parts
 {
   float: left;
-  width: 25%;
+  width: 20%;
   margin: 0;
   padding: 0;
   text-align: center;
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 1.12em;
+  font-weight: 400;
   color: #fff;
   margin-bottom: 10px;
   margin-top: 10px;
 } 
+
+.dashboard-stat-comparison .parts.title
+{
+  width: 40%;
+}
 
 .dashboard-stat-comparison .parts p
 {

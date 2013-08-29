@@ -1,5 +1,5 @@
 <div class="dashboard-stat-comparison {{color}}">
-	<div class="parts">
+	<div class="parts title">
 		<p>{{title}}</p>
 	</div>
 
