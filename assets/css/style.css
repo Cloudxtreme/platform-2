@@ -5574,6 +5574,8 @@ Dashboard stats
 .dashboard-stat-comparison .parts p
 {
   margin-bottom: 0;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .dashboard-stat-comparison.blue {
