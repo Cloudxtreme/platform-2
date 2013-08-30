@@ -43,7 +43,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					var values;
 					if (typeof (data[self.entity]) != 'undefined')
 					{
-						self.setInternalParameters (data);
+						self.setInternalParameters (data[self.entity].series[0]);
 						//values = self.processValues (data[self.entity].values);
 					}
 					else
@@ -139,7 +139,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 					//var values = self.processValues (data[self.entity].values);
 
-					//self.setInternalParameters (data);
+					self.setInternalParameters (data[self.entity].series[0]);
 
 					//var data = [ [[0, 0], [1, 1]] ];
 					//console.log (series);
@@ -156,19 +156,19 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		var self = this;
 		//console.log (data[self.entity].interval);
 		//console.log (data[self.entity].display);
-		if (typeof (data[self.entity].display) != 'undefined')
+		if (typeof (data.display) != 'undefined')
 		{
-			self.display = data[self.entity].display;
+			self.display = data.display;
 		}
 
-		if (typeof (data[self.entity].evolution) != 'undefined')
+		if (typeof (data.evolution) != 'undefined')
 		{
-			self.evolution = data[self.entity].evolution;
+			self.evolution = data.evolution;
 		}
 
-		if (typeof (data[self.entity].interval) != 'undefined')
+		if (typeof (data.interval) != 'undefined')
 		{
-			self.interval = data[self.entity].interval;
+			self.interval = data.interval;
 		}
 	},
 
