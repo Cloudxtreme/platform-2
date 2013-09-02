@@ -1,0 +1,9 @@
+<h1>{{name}}</h1>
+<p>{{unread}}</p>
+
+{{#streams}}
+
+	<h2>{{name}}</h2>
+	<p>{{unread}}</p>
+
+{{/streams}}
