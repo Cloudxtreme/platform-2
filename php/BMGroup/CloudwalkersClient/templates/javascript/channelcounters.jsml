@@ -12,6 +12,8 @@
 					<i class="icon-{{network.icon}}"></i>
 					<h4>{{name}}</h4>
 					<p class="number">{{unread}}</p>
+
+					<div class="clearer"></div>
 				</li>
 			{{/streams}}
 		</ul>

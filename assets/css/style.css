@@ -5663,17 +5663,21 @@ Dashboard stats
   padding-bottom: 20px;
 }
 
+.message-counter .streams li .clearer
+{
+  clear: both;
+}
+
 .messages-counter .streams li
 {
   border-bottom: 1px solid #ddd;
-  clear: both;
   padding-bottom: 10px;
 }
 
 .messages-counter .streams li i
 {
   float: left;
-  font-size: 17.5px;
+  font-size: 14px;
   line-height: 20px;
   margin-right: 10px;
   margin: 10px 0;
@@ -5682,6 +5686,7 @@ Dashboard stats
 .messages-counter .streams li h4
 {
   float: left;
+  font-size: 14px;
 }
 
 .messages-counter .streams li p.number
@@ -5692,6 +5697,6 @@ Dashboard stats
   line-height: 20px;
   color: inherit;
   text-rendering: optimizelegibility;
-  font-size: 17.5px;
+  font-size: 14px;
   font-weight: 300;
 }
