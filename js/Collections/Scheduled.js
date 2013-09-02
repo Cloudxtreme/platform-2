@@ -80,9 +80,10 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 	*/
 	'loadCounters' : function (callback)
 	{
+		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
 		$.ajax 
 		(
-			CONFIG_BASE_URL + 'json/scheduled/summary',
+			CONFIG_BASE_URL + 'json/scheduled/summary?' + jQuery.param (parameters),
 			{
 				'success' : function (data)
 				{
