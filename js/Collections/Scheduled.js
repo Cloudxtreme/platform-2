@@ -73,6 +73,23 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 		parameters.remove = false;
 		this.fetch (parameters);
+	},
+
+	/**
+	* Load the amount of messages etc etc.
+	*/
+	'loadCounters' : function (callback)
+	{
+		$.ajax 
+		(
+			CONFIG_BASE_URL + 'json/scheduled/summary',
+			{
+				'success' : function (data)
+				{
+					callback (data);
+				}
+			}
+		)
 	}
 
 });

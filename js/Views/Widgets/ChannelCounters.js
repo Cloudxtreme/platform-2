@@ -7,8 +7,6 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 	{
 		el.html (Mustache.render (Templates.channelcounters, this.options.channel));
 
-		console.log (this.options.channel);
-
 		return this;
 	}
 
