@@ -175,6 +175,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{
 			if (channels[i].type == widgetdata.type)
 			{
+				var since = (Date.today().add({ days: -7 }));
+
 				collection = new Cloudwalkers.Collections.Trending 
 				(
 					[], 
@@ -183,7 +185,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 						'name' : widgetdata.title,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
-						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channels[i].id : false
+						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channels[i].id : false,
+						'since' : since
 					}
 				);
 
