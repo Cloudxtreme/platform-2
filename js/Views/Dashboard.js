@@ -252,7 +252,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var report = new Cloudwalkers.Models.Report (reportdata.report);
 
 		var widget = report.getWidget ();
-		widget.color = reportdata.icon + '-color';
+		widget.color = reportdata.network + '-color';
 
 		this.addWidgetWithSettings (widget, reportdata);
 	}
