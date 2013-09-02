@@ -19,7 +19,6 @@
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Loading.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Header.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OriginalMessage.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ActionParameters.js"></script>
@@ -32,6 +31,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Title.js"></script>

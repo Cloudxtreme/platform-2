@@ -63,6 +63,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addDashboardScheduleCounter (widgetdata);
 		}
 
+		else if (widgetdata.widget == 'report')
+		{
+			this.addReportWidget (widgetdata);
+		}
+
 		else if (widgetdata.widget == 'drafts')
 		{
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
@@ -236,5 +241,19 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : widgetdata.title })
 		this.addWidgetWithSettings (widget, widgetdata);
+	},
+
+	'addReportWidget' : function (reportdata)
+	{
+		var self = this;
+
+		//var dataurl = CONFIG_BASE_URL + 'json/' + statdata.url;
+
+		var report = new Cloudwalkers.Models.Report (reportdata.report);
+
+		var widget = report.getWidget ();
+		widget.color = reportdata.icon + '-color';
+
+		this.addWidgetWithSettings (widget, reportdata);
 	}
 });
