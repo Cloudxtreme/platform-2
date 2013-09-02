@@ -48,6 +48,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addDashboardChannel (widgetdata);
 		}
 
+		else if (widgetdata.widget == 'trending')
+		{
+			this.addDashboardTrending (widgetdata);
+		}
+
 		else if (widgetdata.widget == 'channelcounter')
 		{
 			this.addDashboardChannelCounter (widgetdata);	
@@ -134,7 +139,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					[], 
 					{ 
 						'id' : channels[i].id, 
-						'name' : channels[i].name,
+						'name' : channels[i].title,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
 						'showMoreButton' : widgetdata.layout == 'timeline' ? '#channel/' + channels[i].id : false
@@ -150,6 +155,48 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				else if (widgetdata.layout == 'timeline')
 				{
 					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
+				}
+
+				// Size
+				this.addWidgetWithSettings (widget, widgetdata);
+			}
+		}
+	},
+
+	'addDashboardTrending' : function (widgetdata)
+	{
+		var widget;
+
+		var account = Cloudwalkers.Session.getAccount ();
+		var channels = account.channels ();
+		var collection;
+
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == widgetdata.type)
+			{
+				collection = new Cloudwalkers.Collections.Trending 
+				(
+					[], 
+					{ 
+						'id' : channels[i].id, 
+						'name' : widgetdata.name,
+						'amount' : widgetdata.messages,
+						'canLoadMore' : false,
+						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channels[i].id : false
+					}
+				);
+
+				// View
+				if (widgetdata.layout == 'list')
+				{
+					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title })
+				}
+
+				else if (widgetdata.layout == 'timeline')
+				{
+					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
+					widget.messagetemplate = 'messagetimelinetrending';
 				}
 
 				// Size
@@ -186,7 +233,5 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : widgetdata.title })
 		this.addWidgetWithSettings (widget, widgetdata);
-
-
 	}
 });
