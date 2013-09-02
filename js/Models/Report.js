@@ -29,6 +29,10 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			return 'time';
 		}
+		else if (this.get ('type') == 'text')
+		{
+			return 'text';
+		}
 		else
 		{
 			return 'category';
@@ -84,6 +88,14 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		else if (type == 'number')
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
+				'dataset' : self.dataset,
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+			});
+		}
+
+		else if (type == 'text')
+		{
+			var widget = new Cloudwalkers.Views.Widgets.Charts.Textstat ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
 			});

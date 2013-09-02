@@ -198,7 +198,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 				}
 
 				// If categorized, show category (can be string)
-				else if (this.type == 'category')
+				else if (this.type == 'category' || this.type == 'text')
 				{
 					category = inputvalues[i].category;
 				}
@@ -212,7 +212,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 				values.push 
 				([ 
 					category,
-					parseInt(inputvalues[i].value)
+					this.type != 'text' ? parseInt(inputvalues[i].value) : inputvalues[i].value
 				])
 
 				//console.log (data.statistics.values[i].value);

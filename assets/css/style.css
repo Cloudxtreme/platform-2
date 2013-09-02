@@ -5571,6 +5571,20 @@ Dashboard stats
   margin-top: 10px;
 } 
 
+.dashboard-stat-comparison .text-parts
+{
+  float: left;
+  width: 60%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.12em;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 .dashboard-stat-comparison .parts.title
 {
   width: 40%;
