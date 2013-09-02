@@ -45,6 +45,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/DraftList.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/HTMLWidget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Datepicker.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ChannelCounters.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Numberstat.js"></script>

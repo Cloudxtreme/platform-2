@@ -48,6 +48,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addDashboardChannel (widgetdata);
 		}
 
+		else if (widgetdata.widget == 'channelcounter')
+		{
+			this.addDashboardChannelCounter (widgetdata);	
+		}
+
 		else if (widgetdata.widget == 'drafts')
 		{
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
@@ -136,6 +141,26 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				{
 					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
 				}
+
+				// Size
+				this.addWidgetWithSettings (widget, widgetdata);
+			}
+		}
+	},
+
+	'addDashboardChannelCounter' : function (widgetdata)
+	{
+		var widget;
+
+		var account = Cloudwalkers.Session.getAccount ();
+		var channels = account.channels ();
+		var collection;
+
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == widgetdata.type)
+			{
+				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : widgetdata.title })
 
 				// Size
 				this.addWidgetWithSettings (widget, widgetdata);
