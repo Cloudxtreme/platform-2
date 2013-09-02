@@ -16,7 +16,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 			setTimeout (function ()
 			{
 				self.trigger ('content:change');
-			}, 1);
+			}, 100);
 		});
 
 		return this;
