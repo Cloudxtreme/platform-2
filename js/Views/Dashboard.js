@@ -110,6 +110,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addWidget (widget, true);
 			this.newline = true;
 		}
+
+		else
+		{
+			this.addWidgetSize (widget, false, widgetdata.size);
+		}
 	},
 
 	'addDashboardChannel' : function (widgetdata)

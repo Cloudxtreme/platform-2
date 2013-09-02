@@ -80,7 +80,7 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 
 		if (this.isLoaded)
 		{
-			this.addWidgetsDOM ([{ 'widget' : widget, 'size' : 'half', 'newline' : newline }]);
+			this.addWidgetsDOM ([{ 'widget' : widget, 'size' : size, 'newline' : newline }]);
 		}
 	},
 

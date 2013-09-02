@@ -1,9 +1,19 @@
-<h1>{{name}}</h1>
-<p>{{unread}}</p>
+<div class="messages-counter">
+	<div class="header">
+		<h3>{{name}}</h3>
+		<p class="number">{{unread}}</p>
+		<p class="messages">Messages</p>
+	</div>
 
-{{#streams}}
-
-	<h2>{{name}}</h2>
-	<p>{{unread}}</p>
-
-{{/streams}}
+	<div class="scroller" data-height="360px" data-always-visible="1" data-rail-visible1="1">
+		<ul class="streams">
+			{{#streams}}
+				<li>
+					<i class="icon-{{network.icon}}"></i>
+					<h4>{{name}}</h4>
+					<p class="number">{{unread}}</p>
+				</li>
+			{{/streams}}
+		</ul>
+	</div>
+</div>

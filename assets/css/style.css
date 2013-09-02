@@ -5633,3 +5633,65 @@ Dashboard stats
 .dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
 .dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
 .dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }
+
+/**
+* Message counter block
+*/
+.messages-counter .header
+{
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.messages-counter .header h3
+{
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.messages-counter .header p.number
+{
+  text-align: center;
+  font-size: 30px;
+}
+
+.messages-counter .header p.messages
+{
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.messages-counter .streams li
+{
+  border-bottom: 1px solid #ddd;
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.messages-counter .streams li i
+{
+  float: left;
+  font-size: 17.5px;
+  line-height: 20px;
+  margin-right: 10px;
+  margin: 10px 0;
+}
+
+.messages-counter .streams li h4
+{
+  float: left;
+}
+
+.messages-counter .streams li p.number
+{
+  float: right;
+  margin: 10px 0;
+  font-family: inherit;
+  line-height: 20px;
+  color: inherit;
+  text-rendering: optimizelegibility;
+  font-size: 17.5px;
+  font-weight: 300;
+}
