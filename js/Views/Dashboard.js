@@ -139,7 +139,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					[], 
 					{ 
 						'id' : channels[i].id, 
-						'name' : channels[i].title,
+						'name' : channels[i].name,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
 						'showMoreButton' : widgetdata.layout == 'timeline' ? '#channel/' + channels[i].id : false
@@ -180,7 +180,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					[], 
 					{ 
 						'id' : channels[i].id, 
-						'name' : widgetdata.name,
+						'name' : widgetdata.title,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
 						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channels[i].id : false
