@@ -15,10 +15,14 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 
 		$userdata = $client->get ('user/me');
 
+		return '<p>No content.</p>';
+
+		/*
 		$page = new Neuron_Core_Template ();
 		$page->set ('user', $userdata);
 
 		return $page->parse ('modules/cloudwalkersclient/pages/home/home.phpt');
+		*/
 	}
 	
 	public function dispatch (Neuron_Page $page)

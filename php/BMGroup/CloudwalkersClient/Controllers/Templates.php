@@ -16,7 +16,7 @@ class BMGroup_CloudwalkersClient_Controllers_Templates
 			{
 				$name = substr ($file, 0, -5);
 
-				$out[$name] = file_get_contents ($dir . $file);
+				$out[$name] = '<!-- ' . $file . '-->' . file_get_contents ($dir . $file) . '<!-- /' . $file . '-->';
 			}
 		}
 
