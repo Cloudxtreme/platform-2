@@ -1,14 +1,5 @@
 <ul class="page-sidebar-menu">
-	<li>
-		<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-		<div class="sidebar-toggler hidden-phone"></div>
-		<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-	</li>
 	
-	<li>
-		<!-- NO QUICK SEARCH... -->
-	</li>
-
 	<li class="start dashboard">
 		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
