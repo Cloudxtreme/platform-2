@@ -24,6 +24,9 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		if (typeof (this.options.color) != 'undefined')
 			this.color = this.options.color;
 
+		if (typeof (this.options.icon) != 'undefined' && this.options.icon)
+			this.icon = this.options.icon;
+
 		this.$el.html 
 		(
 			Mustache.render 

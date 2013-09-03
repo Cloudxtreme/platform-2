@@ -154,12 +154,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				// View
 				if (widgetdata.layout == 'list')
 				{
-					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title })
+					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
 				}
 
 				else if (widgetdata.layout == 'timeline')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
+					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red', 'icon' : widgetdata.icon })
 				}
 
 				// Size
@@ -198,12 +198,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				// View
 				if (widgetdata.layout == 'list')
 				{
-					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title })
+					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
 				}
 
 				else if (widgetdata.layout == 'timeline')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red' })
+					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red', 'icon' : widgetdata.icon })
 					widget.messagetemplate = 'messagetimelinetrending';
 				}
 
@@ -225,7 +225,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{
 			if (channels[i].type == widgetdata.type)
 			{
-				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : widgetdata.title })
+				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
 
 				// Size
 				this.addWidgetWithSettings (widget, widgetdata);
@@ -239,7 +239,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 
-		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : widgetdata.title })
+		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
 		this.addWidgetWithSettings (widget, widgetdata);
 	},
 
