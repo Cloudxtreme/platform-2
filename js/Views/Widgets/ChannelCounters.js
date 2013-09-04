@@ -5,7 +5,11 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 	'innerRender' : function (el)
 	{
-		el.html (Mustache.render (Templates.channelcounters, this.options.channel));
+		var data = {};
+		jQuery.extend (data, this.options.channel);
+
+		data.message_count = data.unread;
+		el.html (Mustache.render (Templates.messagecounter, data));
 
 		return this;
 	}
