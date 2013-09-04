@@ -26,6 +26,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<link href="<?php echo BASE_URL; ?>assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/widgets.css" rel="stylesheet" type="text/css" />
 		<!-- END GLOBAL MANDATORY STYLES -->
 		<!-- BEGIN PAGE LEVEL STYLES --> 
 		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -40,8 +41,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<!--<link href="<?php echo BASE_URL; ?>assets/css/pages/inbox.css" rel="stylesheet" type="text/css"/>-->
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
-
-		<link href="<?php echo BASE_URL; ?>assets/css/cloudwalkers.css" rel="stylesheet" type="text/css" />
 
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/monitoring.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
