@@ -244,7 +244,10 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			}
 		});
 
-		this.trigger ('content:change');
+		setTimeout (function ()
+		{
+			self.trigger ('content:change');
+		}, 1);
 	},
 
 	'removeMessage' : function (message)
