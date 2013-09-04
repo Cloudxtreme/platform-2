@@ -13,7 +13,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 
 		$_SESSION['account'] = null;
 
-		$userdata = $client->get ('user/me');
+		//$userdata = $client->get ('user/me');
 
 		return '<p>No content.</p>';
 
