@@ -1,0 +1,236 @@
+/**
+* Message counter block
+*/
+.messages-counter .messages-header	{
+	background: #2bbedc; padding: 12px 8px 6px; position: relative; top: -6px;
+	color: white; text-align: center; font-size: 1.2em;
+}
+
+.messages-counter .messages-header.unread-0	{ background: #eee; }
+
+.messages-counter .messages-header.unread-0 strong	{ font-weight: normal; }
+
+.messages-counter .messages-header .number strong	{ font-size: 1.2em; }
+
+.messages-counter .messages-stream li	{
+	min-height: 20px; margin: 0; padding: 10px 8px; background:#fff; border: 1px solid #ddd; border-bottom-width: 0;
+	font-size: 14px; font-weight: 300;
+}
+
+.messages-counter .messages-stream > li:nth-child(odd)	{ background:#f5f5f5 }
+
+.messages-counter .messages-stream li:hover	{ background:#eee; }
+
+.messages-counter .messages-stream > li:last-child	{ border-bottom-width: 1px; }
+
+.messages-counter .messages-stream span	{
+	float: right; background: #b1e2ec; border-radius: 5px !important; padding: 0 6px;
+	color: white; font-weight: bold;
+}
+
+.messages-counter .messages-stream span.unread-0	{
+	background: #eee; font-weight: normal;
+}
+
+.messages-counter .messages-stream i	{
+	font-size: 18px; float: left; padding: 2px 4px 6px 0;
+}
+
+
+/**
+ * Thijs
+ */
+.draft-message-item .picture  
+{
+  float: right;
+}
+
+.clearer
+{
+  clear: both;
+}
+
+.message-children:hover
+{
+  cursor: pointer;
+}
+
+.comments-inner-container
+{
+  clear: both;
+  margin-top: 20px;
+}
+
+li.comments-row
+{
+  padding: 10px;
+}
+
+li.comments-row.selected
+{
+  background: #ffe399;
+}
+
+.timeline a:hover
+{
+  text-decoration: none;
+}
+
+.table-container td, 
+.table-container th
+{
+  text-align: center;
+}
+
+.table-container th
+{
+  text-align: center;
+}
+
+
+
+/***
+Dashboard stats
+***/
+.dashboard-stat-comparison {
+  margin-bottom: 25px;
+}
+
+.dashboard-stat-comparison:before,
+.dashboard-stat-comparison:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.dashboard-stat-comparison:after {
+  clear: both;
+}
+
+.dashboard-stat-comparison .visual {
+  width: 80px;
+  height:80px;
+  display: block;
+  float: left;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.dashboard-stat-comparison .visual i {
+  font-size: 65px;
+  color: #fff;
+}
+
+.dashboard-stat-comparison .details {
+  float: right;
+  padding-right: 10px;
+}
+
+.dashboard-stat-comparison .parts
+{
+  float: left;
+  width: 15%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.12em;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+} 
+
+.dashboard-stat-comparison .text-parts
+{
+  float: left;
+  width: 60%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.12em;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.dashboard-stat-comparison .parts.title
+{
+  width: 40%;
+}
+
+.dashboard-stat-comparison .parts p
+{
+  margin-bottom: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.dashboard-stat-comparison .parts .nbr
+{
+  margin-top: 5px;
+}
+
+.dashboard-stat-comparison.blue {
+  background-color: #27a9e3;
+}
+
+
+.dashboard-stat-comparison.green {
+  background-color: #28b779;
+}
+
+
+.dashboard-stat-comparison.red {
+  background-color: #e7191b;
+}
+
+
+.dashboard-stat-comparison.yellow {
+  background-color: #ffb848;
+}
+
+
+.dashboard-stat-comparison.purple {
+  background-color: #852b99;
+}
+
+.dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
+.dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
+.dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
+.dashboard-stat-comparison.tumblr-color { background-color: #385775 ; }
+.dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
+.dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
+.dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }
+
+
+.fileupload-feedback
+{
+	margin-top: 15px;
+}
+
+.fileupload-feedback:after
+{
+	clear: both;
+	display: block;
+	content: "";
+}
+
+.fileupload-feedback .uploaded-file
+{
+	width: 180px;
+	text-align: center;
+	float: left;
+	padding: 20px 0;
+	margin-right: 15px;
+}
+
+.fileupload-feedback .uploaded-file img 
+{
+	max-width: 160px;
+	max-height: 144px;
+}
+
+.fileupload-feedback .uploaded-file a
+{
+	display: block;
+}
