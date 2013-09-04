@@ -66,6 +66,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
         this.options.channel.bind('refresh', this.refresh, this);
         this.options.channel.bind('reset', this.refresh, this);
         this.options.channel.bind('sort', this.resort, this);
+        //this.options.channel.bind('change', this.resort, this);
         this.options.channel.bind('remove', this.removeMessage, this);
 
         Cloudwalkers.Session.bind 
@@ -185,6 +186,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'resort' : function ()
 	{
+		//console.log ('--- RESORTING ---');
+
 		var self = this;
 
 		self.$innerEl.find ('p.no-current-messages').remove ();
@@ -194,23 +197,33 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		{
 			// Is already in the list?
 			var current = self.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']');
+			var element;
 
 			if (current.length > 0)
 			{
-				return;
+				element = current;
+			}
+			else
+			{
+
+				var messageView = self.getMessageView (message);
+				element = messageView.render ().el;
+
+				$(element).attr ('data-message-id', message.get ('id'));
+
+				if (index == 0)
+				{
+					self.onFirstAdd (message, messageView);
+				}
 			}
 
 			var index = message.collection.indexOf (message);
 
-			var messageView = self.getMessageView (message);
-			var element = messageView.render ().el;
-
-			$(element).attr ('data-message-id', message.get ('id'));
+			//console.log (index + ', ' + message.get ('body').plaintext);
 
 			if (index == 0)
 			{
 				self.$innerEl.find ('.messages-container').prepend (element);
-				self.onFirstAdd (message, messageView);
 			}
 			else
 			{

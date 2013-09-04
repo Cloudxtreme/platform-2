@@ -20,6 +20,8 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'initialize' : function (models, options)
 	{
+		var self = this;
+
 		this.id = options.id;
 		this.name = options.name;
 		this.amount = (typeof (options.amount) == 'undefined' ? 50 : options.amount);
@@ -33,6 +35,9 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		{
 			this.since = options.since;
 		}
+
+		// On change model date
+		this.on ('change:date', function () { self.sort (); });
 	},
 
 	'setComparator' : function ()
