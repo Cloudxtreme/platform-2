@@ -1,13 +1,13 @@
 <div class="messages-counter">
-	<div class="messages-header unread-{{message_counter}}">
-		<p class="number"><strong>{{message_counter}}</strong> New</p>
+	<div class="messages-header unread-{{message_count}}">
+		<p class="number"><strong>{{message_count}}</strong> New</p>
 	</div>
 
 	<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
 		<ul class="messages-stream">
 			{{#streams}}
 				<li>
-					<span class="number unread-{{message_counter}}">{{message_counter}}</span>
+					<span class="number unread-{{message_count}}">{{message_count}}</span>
 					<i class="icon-{{network.icon}}"></i>
 					{{name}}
 					
