@@ -2,8 +2,7 @@
 Compose Page
 ***/
 
-.portlet-title .caption	{ font-size: 1.12em; }
-.portlet-title .caption i	{ margin: 2px 12px 0 0; }
+.portlet-title .caption i	{ margin: 2px 12px 0 0; font-size: inherit; }
 
 #message .message-body	{ background: white; }
 

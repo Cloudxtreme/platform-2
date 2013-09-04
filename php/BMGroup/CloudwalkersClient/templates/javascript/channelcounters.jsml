@@ -1,19 +1,16 @@
 <div class="messages-counter">
-	<div class="header">
-		<h3>{{name}}</h3>
-		<p class="number">{{unread}}</p>
-		<p class="messages">Messages</p>
+	<div class="messages-header unread-{{unread}}">
+		<p class="number"><strong>{{unread}}</strong> New</p>
 	</div>
 
-	<div class="scroller" data-height="360px" data-always-visible="1" data-rail-visible1="1">
-		<ul class="streams">
+	<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
+		<ul class="messages-stream">
 			{{#streams}}
 				<li>
+					<span class="number unread-{{unread}}">{{unread}}</span>
 					<i class="icon-{{network.icon}}"></i>
-					<h4>{{name}}</h4>
-					<p class="number">{{unread}}</p>
-
-					<div class="clearer"></div>
+					{{name}}
+					
 				</li>
 			{{/streams}}
 		</ul>

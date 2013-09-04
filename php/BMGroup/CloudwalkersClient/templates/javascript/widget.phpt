@@ -8,7 +8,7 @@
 			{{/tools}}
 		</div>
 	</div>
-	<div class="portlet-body social-icon-colors" id='inbox-social'>
+	<div class="portlet-body social-icon-colors">
 		
 	</div>
 </div>

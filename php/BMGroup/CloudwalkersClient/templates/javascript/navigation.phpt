@@ -30,13 +30,15 @@
 					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
 						<i class="icon-{{icon}}"></i> 
 						Followed Pages
-
-						<ul class="sub-menu">
-							{{#streams}}
-								<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-							{{/streams}}
-						</ul>
+						<span class="arrow"></span>
+						<span class="selected"></span>
 					</a>
+					
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
 				</li>
 			{{/sortedchannels.news}}
 
@@ -45,13 +47,15 @@
 					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
 						<i class="icon-{{icon}}"></i> 
 						{{name}}
-
-						<ul class="sub-menu">
-							{{#streams}}
-								<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-							{{/streams}}
-						</ul>
+						<span class="arrow"></span>
+						<span class="selected"></span>
 					</a>
+					
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
 				</li>
 			{{/sortedchannels.profiles}}
 
@@ -63,6 +67,7 @@
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
+				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
@@ -86,6 +91,7 @@
 		<a href="#schedule" onclick="document.location='#schedule';">
 			<i class="icon-time"></i> 
 			<span class="title">Schedule</span>
+			<span class="arrow"></span>
 			<span class="selected"></span>
 		</a>
 
@@ -106,6 +112,7 @@
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
+				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
@@ -122,6 +129,7 @@
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
+				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
@@ -139,6 +147,7 @@
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
+				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
@@ -150,39 +159,12 @@
 		</li>
 	{{/sortedchannels.monitoring}}
 
-	
-	<!--
-	<li class="">
-		<a href="monitoring.html">
-		<i class="icon-tags"></i> 
-		<span class="title">Keyword monitoring</span>
-		<span class="arrow "></span>
-		<span class="selected"></span>
-		</a>
-	</li>
-	
-	<li class="">
-		<a href="pages.html">
-		<i class="icon-briefcase"></i> 
-		<span class="title">Company pages</span>
-		<span class="arrow "></span>
-		</a>
-	</li>
-	
-	<li class="">
-		<a href="feeds.html">
-		<i class="icon-globe"></i> 
-		<span class="title">Social Feeds</span>
-		<span class="arrow"></span>
-		</a>
-	</li>
-	-->
-
 
 	<li class="reports">
 		<a href="#reports" onclick="document.location='#reports';">
 			<i class="icon-bar-chart"></i> 
 			<span class="title">Reports</span>
+			<span class="arrow"></span>
 			<span class="selected"></span>
 		</a>
 
