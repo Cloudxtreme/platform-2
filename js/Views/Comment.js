@@ -34,6 +34,8 @@ Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
 		{
 			this.$el.addClass ('selected');
 		}
+
+		this.delegateEvents (this.events);
 	}
 
 	/*
