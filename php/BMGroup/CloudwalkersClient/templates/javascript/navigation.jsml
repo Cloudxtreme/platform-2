@@ -62,7 +62,11 @@
 	</li>
 
 	<li class="trending">
-		<a href="#trending">
+		<a href="#trending"
+			{{#sortedchannels.news}}
+				onclick="document.location='#trending/{{channelid}}';"
+			{{/sortedchannels.news}}
+		>
 			<i class="icon-thumbs-up"></i> 
 			<span class="title">Trending topics</span>
 			<span class="selected"></span>
