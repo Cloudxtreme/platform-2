@@ -4,7 +4,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'icon' : 'reorder',
 	'color' : null,
 	'network' : null,
-	'template' : 'numberstat',
+	'template' : 'dashboardstat',
 
 	'getDataset' : function ()
 	{
