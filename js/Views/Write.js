@@ -913,7 +913,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		return date;
 	},
 
-	'randomTime' : function ()
+	'getSelectedDate' : function ()
 	{
 		var self = this;
 		var date = new Date ();
@@ -937,7 +937,24 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			randomdate.setFullYear (this.$el.find ('select[name=schedule_year]').val ());
 		}
 
-		var randomminute = 60 * (8 + (Math.random () * 16));
+		return randomdate;
+	},
+
+	'randomTime' : function ()
+	{
+		var randomdate = this.getSelectedDate ();
+
+		var available_timestamps = [
+			{ 'start' : 60 * 8, 'end' : 60 * 9 },
+			{ 'start' : (60 * 12) + (15), 'end' : 60 * 14 },
+			{ 'start' : (60 * 19), 'end' : (60 * 24) - 1 },
+		];
+
+		var index = Math.floor (Math.random() * 3);
+
+		var daterange = available_timestamps[index];
+		var randomminute = daterange.start + (Math.random () * (daterange.end - daterange.start));
+
 		randomdate.setMinutes (randomminute);
 
 		this.setScheduleDate (randomdate);
