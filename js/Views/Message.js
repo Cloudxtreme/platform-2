@@ -123,7 +123,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		this.$el.find ('span.actions.dropdown').on ('click', function (e)
 		{
 			e.stopPropagation ();
-			$(this).find ('.dropdown-menu').toggle ();
+
+			$(this).find ('.dropdown-menu').dropdown ('toggle');
 
 			if ($(e.target).hasClass ('action'))
 			{
@@ -146,7 +147,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		//element.stopPropagation ();
 		//element.preventDefault ();
 
-		console.log (element);
+		//console.log (element);
 
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
