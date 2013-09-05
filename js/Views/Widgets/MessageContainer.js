@@ -199,6 +199,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			var current = self.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']');
 			var element;
 
+			var index = message.collection.indexOf (message);
+
 			if (current.length > 0)
 			{
 				element = current;
@@ -216,8 +218,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 					self.onFirstAdd (message, messageView);
 				}
 			}
-
-			var index = message.collection.indexOf (message);
 
 			//console.log (index + ', ' + message.get ('body').plaintext);
 
