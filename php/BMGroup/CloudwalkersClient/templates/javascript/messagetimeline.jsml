@@ -54,7 +54,7 @@
 				{{/statistics}}
 
 			 	{{#canHaveChildren}}
-				 	<span class="children-button message-children">
+				 	<span class="{{#children_count}}children-button message-children{{/children_count}}">
 				 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
 				 	</span>
 				 {{/canHaveChildren}}
