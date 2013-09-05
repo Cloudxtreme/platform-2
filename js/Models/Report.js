@@ -39,7 +39,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		}
 	},
 
-	'getWidget' : function (callback)
+	'getWidget' : function ()
 	{
 		var self = this;
 		var type = self.get ('type');
@@ -48,7 +48,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Barchart ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -57,7 +58,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Piechart
 			({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -65,7 +67,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Table ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -73,7 +76,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -81,7 +85,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Comparison ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -89,7 +94,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 
@@ -97,7 +103,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Textstat ({
 				'dataset' : self.dataset,
-				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name')
+				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
+				'stream' : this.get('stream')
 			});
 		}
 

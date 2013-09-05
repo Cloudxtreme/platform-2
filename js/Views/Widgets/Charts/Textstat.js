@@ -49,7 +49,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 		if (values && values.length > 0)
 		{
 			// Always last available value
-			data.details.push ({ 'content' : values[0][1], 'descr' : null });
+			data.details.push ({ 'content' : values[0][1], 'descr' : values[0][0] });
 		}
 		else
 		{
