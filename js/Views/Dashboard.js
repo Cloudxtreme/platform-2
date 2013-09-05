@@ -5,6 +5,29 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'newline' : false,
 
+	/*'initialize' : function ()
+	{
+		
+		this.templateData = {foo:'bar'};
+		
+	},*/
+	
+	'render' : function ()
+	{
+		
+		this.templateData = {foo:'bar'};
+		/*this.$el.html('loading...');
+		
+		$.get(CONFIG_BASE_URL +'/assets/templates/dashboard.jsml', _.bind(function(template)
+		{ 
+			this.$el.html(Mustache.render(template, this.templateData));	
+		}, this));*/
+		
+		this.$el.load(CONFIG_BASE_URL +'/assets/templates/dashboard.html');//, function(template){ this.$el.html(Mustache.render(template, this.templateData )) }, function(){ console.log('error'); });
+
+		return this;
+	},
+	
 	'initializeWidgets' : function ()
 	{
 		this.newline = true;
