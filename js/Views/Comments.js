@@ -41,7 +41,9 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 				if (self.collection.length == 0)
 				{
-					self.$el.find ('.comments-inner-container').html ('<p>No comments available right now.</p>');
+					var stream = self.options.parent.getStream ();
+					console.log (stream);
+					self.$el.find ('.comments-inner-container').html ('<p>' + stream.get ('textfields').nochildren + '</p>');
 				}
 			}
 		});
@@ -89,7 +91,8 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 		if (this.options.channel.length == 0)
 		{
-			this.$el.find ('.comments-inner-container').html ('<p>Currently there are no comments.</p>');
+			var stream = this.options.parent.getStream ();
+			this.$el.find ('.comments-inner-container').html ('<p>' + stream.get ('textfields').nochildren + '</p>');
 		}
 	},
 
