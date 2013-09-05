@@ -2,8 +2,8 @@
 	<thead>
 		<tr>
 			<th>Scheduled</th>
-			<th>Network</th>
-			<th class="hidden-480">content</th>
+			<th>Media</th>
+			<th class="hidden-480">Message</th>
 			<th></th>
 		</tr>
 	</thead>
