@@ -100,7 +100,14 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		{
 			//console.log (self.get ('dataurl'));
 			//console.log (series);
-			callback (series[0].values);
+			if (series.length > 0)
+			{
+				callback (series[0].values);
+			}
+			else
+			{
+				callback (null);
+			}
 		})
 	},
 

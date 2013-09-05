@@ -72,6 +72,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		widget.getDataset ().setDateRange (daterange[0], daterange[1]);
 
 		widget.color = stream.network.icon + '-color';
+		widget.network = stream.network;
 
 		self.datepicker.on ('date:change', function (start, end)
 		{

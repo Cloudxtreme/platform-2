@@ -4,7 +4,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 	'icon' : 'reorder',
 	'color' : null,
 	'network' : null,
-	'template' : 'textstat',
+	'template' : 'dashboardstat',
 
 	'getDataset' : function ()
 	{
@@ -39,19 +39,24 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 
 	'setValue' : function (values)
 	{
-		var display = this.options.dataset.getDisplay ();
+		var element = this.$el;
 
-		this.$el.find ('.interval').html (this.options.dataset.getInterval ());
+		var data = {};
+		$.extend (true, data, this.options);
+
+		data.details = [];
 
 		if (values && values.length > 0)
 		{
 			// Always last available value
-			this.$el.find ('.value').html (values[0][1]);
+			data.details.push ({ 'content' : values[0][1], 'descr' : null });
 		}
 		else
 		{
-			this.$el.find ('.value').html ('/');
+			data.details.push ({ 'content' : '☹', 'descr' : 'No information available at this time' });
 		}
+
+		element.html (Mustache.render (Templates[this.template], data));
 	}
 
 });

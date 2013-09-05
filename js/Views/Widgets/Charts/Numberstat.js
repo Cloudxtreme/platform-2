@@ -59,9 +59,15 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 	'setValue' : function (values)
 	{
+		var element = this.$el;
 		var display = this.options.dataset.getDisplay ();
 
-		this.$el.find ('.interval').html (this.options.dataset.getInterval ());
+		var data = {};
+		$.extend (true, data, this.options);
+
+		var interval = this.options.dataset.getInterval ();
+
+		data.details = [];
 
 		if (values && values.length > 0)
 		{
@@ -69,19 +75,14 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 			if (display == 'comparison')
 			{
-				//this.$el.find ('.interval').html ('');
-				this.$el.find ('.evolution').html ('');
-				this.$el.find ('.oldnumber').html ('');
-				this.$el.find ('.difference').html ('');
-
 				if (values.length > 1)
 				{
-					this.$el.find ('.oldnumber').html (values[1][1]);
-					this.$el.find ('.difference').html (this.numberOutput (values[0][1] - values[1][1], true));
-					this.$el.find ('.evolution').html (this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%');
+					data.details.push ({ 'content' : this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%', 'descr' : 'Evolution' });
+					data.details.push ({ 'content' : this.numberOutput (values[1][1], true), 'descr' : 'Previous' });
+					data.details.push ({ 'content' : this.numberOutput (values[0][1] - values[1][1], true), 'descr' : 'Difference' });
 				}
 
-				this.$el.find ('.number').html (this.numberOutput (values[0][1]));
+				data.details.push ({ 'content' : this.numberOutput (values[0][1]), 'descr' : 'Last ' + interval });
 			}
 
 			else
@@ -91,8 +92,10 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		}
 		else
 		{
-			this.$el.find ('.number').html ('/');
+			data.details.push ({ 'content' : '☹', 'descr' : 'No information available at this time' });
 		}
+
+		element.html (Mustache.render (Templates[this.template], data));
 	}
 
 });

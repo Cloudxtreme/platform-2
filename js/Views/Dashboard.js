@@ -225,7 +225,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{
 			if (channels[i].type == widgetdata.type)
 			{
-				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : channels[i].name, 'icon' : widgetdata.icon })
+				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : channels[i].name, 'icon' : widgetdata.icon, 'network' : widgetdata.network })
 
 				// Size
 				this.addWidgetWithSettings (widget, widgetdata);
@@ -239,7 +239,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 
-		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : 'Schedule', 'icon' : widgetdata.icon })
+		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : 'Schedule', 'icon' : widgetdata.icon, 'network' : widgetdata.network })
 		this.addWidgetWithSettings (widget, widgetdata);
 	},
 
@@ -252,7 +252,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var report = new Cloudwalkers.Models.Report (reportdata.report);
 
 		var widget = report.getWidget ();
-		widget.color = reportdata.network + '-color';
+		widget.color = reportdata.network.icon + '-color';
+		widget.network = reportdata.network;
 
 		this.addWidgetWithSettings (widget, reportdata);
 	}

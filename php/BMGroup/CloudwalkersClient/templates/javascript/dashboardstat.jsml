@@ -1,6 +1,6 @@
-<div class="dashboard-stat facebook-color">
+<div class="dashboard-stat {{network.icon}}-color">
 	<div class="visual">
-		<i class="icon-facebook"></i>
+		<i class="icon-{{network.icon}}"></i>
 	</div>
 
 	{{#details}}
@@ -15,6 +15,6 @@
 	{{/details}}
 
 	<a class="more" href="#">
-		<strong>{{accountname}}</strong> {{stattype}} <i class="m-icon-swapright m-icon-white"></i>
+		<strong>{{network.name}}</strong> {{title}} <i class="m-icon-swapright m-icon-white"></i>
 	</a>
 </div>

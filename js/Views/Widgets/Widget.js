@@ -6,6 +6,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	'title' : 'Untitled widget',
 	'icon' : 'inbox',
 	'color' : 'blue',
+	'network' : null,
 
 	'tools' : [],
 
@@ -36,7 +37,8 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 					'title' : this.title, 
 					'color' : this.color, 
 					'icon' : this.icon,
-					'tools' : this.tools 
+					'tools' : this.tools,
+					'network' : this.network
 				}
 			)
 		);
