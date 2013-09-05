@@ -229,9 +229,17 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			data.times.push ({ 'time' :  hour + ':' + minutes, 'checked' : ( scheduledate && scheduledate.getHours () == hour && scheduledate.getMinutes () == minutes ) })
 		}
 
+		// Ze buttons
+		data.canSchedule = true;
+		data.canSave = true;
+		data.canSendNow = true;
+
 		// Data
 		if (this.model)
 		{
+			//console.log (this.model);
+			data.canSave = this.model.get ('status') != 'SCHEDULED';
+
 			data.message = jQuery.extend (true, {}, this.model.attributes);
 
 			// Check for action attributes, if availalbe we need to process them
@@ -269,6 +277,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
 		//console.log (data);
+
 
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);

@@ -94,9 +94,18 @@
 								</table>
 								
 								<div class='message-buttons'>
-									<button class="btn blue" id='schedule-btn-toggle' type="button"><i class="icon-time"></i> Schedule message</button>
-									<button class="btn black right" id='button-response' type="button" value="send">Send now</button>	
-									<button style="margin-right: 15px;" class="btn black right" id='button-response' type="submit" value="draft">Save</button>	
+
+									{{#canSchedule}}
+										<button class="btn blue" id='schedule-btn-toggle' type="button"><i class="icon-time"></i> Schedule message</button>
+									{{/canSchedule}}
+
+									{{#canSendNow}}
+										<button class="btn black right" id='button-response' type="button" value="send">Send now</button>
+									{{/canSendNow}}
+
+									{{#canSave}}
+										<button style="margin-right: 15px;" class="btn black right" id='button-response' type="submit" value="draft">Save</button>	
+									{{/canSave}}
 								</div>
 								
 								<table class="message-schedule table table-striped table-bordered table-advance table-hover {{^showschedule}}hidden{{/showschedule}}">
@@ -210,7 +219,9 @@
 												
 												<!--</form>-->
 												
-												<button class="btn blue right" id='schedule-btn' type="submit">Schedule now</button>
+												{{#canSchedule}}
+													<button class="btn blue right" id='schedule-btn' type="submit">Schedule now</button>
+												{{/canSchedule}}
 											</td>
 										</tr>
 									</tbody>
