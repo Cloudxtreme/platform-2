@@ -2,7 +2,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'events' : 
 	{
-		'click .button-post.action.message-action' : 'messageAction',
+		'click [data-action]' : 'messageAction',
 		'click .children-button.message-children' : 'showchildren'
 	},
 
@@ -120,16 +120,17 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			this.$el.find ('.parent-message-view').html (parentview.render().el);
 		}
 
-		this.$el.find ('span.actions.dropdown').on ('click', function (e)
+		this.$el.find ('.actions.dropdown').on ('click', function (e)
 		{
 			e.stopPropagation ();
 
-			$(this).find ('.dropdown-menu').dropdown ('toggle');
+			self.$el.find ('.dropdown-menu').dropdown ('toggle');
 
-			if ($(e.target).hasClass ('action'))
+			self.$el.find ('[data-action]').unbind('click').click (function (e)
 			{
+				//alert ('yues');
 				self.messageAction (e);
-			}
+			})
 		});
 
 		if (this.commentsVisible || this.options.showcomments)
@@ -147,7 +148,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		//element.stopPropagation ();
 		//element.preventDefault ();
 
-		//console.log (element);
+		console.log (element);
 
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
