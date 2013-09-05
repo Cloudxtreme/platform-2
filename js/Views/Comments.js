@@ -42,7 +42,8 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 				if (self.collection.length == 0)
 				{
 					var stream = self.options.parent.getStream ();
-					console.log (stream);
+					
+					self.$el.find ('.load-more-comments').hide ();
 					self.$el.find ('.comments-inner-container').html ('<p>' + stream.get ('textfields').nochildren + '</p>');
 				}
 			}
