@@ -38,6 +38,16 @@
 
 
 /**
+ * Dashbaord stat
+ */
+.dashboard-stat .visual i	{ font-size: 63px !important; }
+.dashboard-stat .details	{ padding-right: 24px; }
+.dashboard-stat .details .number	{ font-size: 28px; }
+.dashboard-stat .details .desc	{ font-size: 14px; }
+.dashboard-stat .more	{ background-color: rgba(0,0,0,.12); }
+
+
+/**
  * Thijs
  */
 .draft-message-item .picture  
