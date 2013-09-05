@@ -10,6 +10,10 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		var parent = this.options.parent;
 
 		var data = {};
+
+		var stream = self.options.parent.getStream ();
+		data.textfields = stream.get ('textfields');
+
 		$(this.el).html (Mustache.render (Templates.comments, data));
 
 
@@ -18,6 +22,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		self.$el.find ('.loading-comments').show ();
 		self.$el.find ('.load-more-comments').hide ();
 		self.$el.find ('.comments-inner-container').hide ();
+		self.$el.find ('.no-comments').hide ();
 
 		var collection = new Cloudwalkers.Collections.Comments ({ 'id' : this.options.parent.get ('id') });
 		this.collection = collection;
@@ -41,10 +46,9 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 				if (self.collection.length == 0)
 				{
-					var stream = self.options.parent.getStream ();
-					
 					self.$el.find ('.load-more-comments').hide ();
-					self.$el.find ('.comments-inner-container').html ('<p>' + stream.get ('textfields').nochildren + '</p>');
+					self.$el.find ('.no-comments').show ();
+					self.$el.find ('.comments-inner-container').hide ();
 				}
 			}
 		});
@@ -113,7 +117,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 				self.$el.find ('.loading-comments').hide ();
 				//self.$el.find ('.load-more-comments').show ();
 
-				if (self.collection.length % 10 == 0)
+				if (self.collection.length % 10 == 0 && self.collection.length > 0)
 				{
 					self.$el.find ('.load-more-comments').show ();
 				}

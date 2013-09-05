@@ -4,3 +4,4 @@
 
 <p class="loading-comments">Please wait, we are loading the comments.</p>
 <p class="load-more-comments"><a href="javascript:void(0);">Load more</a></p>
+<p class="no-comments">{{textfields.nochildren}}</p>
