@@ -81,6 +81,7 @@ Style corrections and manual overrides
 /*.social-box-colors .facebook-color .time	{ color: #3B5998 !important; }*/
 .social-box-colors .facebook-color .timeline-body	{ background-color: #3B5998 !important; }
 .social-box-colors .facebook-color .timeline-body:after	{ border-right-color: #3B5998 !important; }
+.dashboard-stat.facebook-color	{ background-color: #3B5998; }
 
 .social-box-colors .twitter-color	{ border-color: #01a9da !important; }
 .social-box-colors .twitter-color .portlet-title	{ background-color: #01a9da !important; }
@@ -88,6 +89,7 @@ Style corrections and manual overrides
 .social-box-colors .twitter-color .time	{ color: #01a9da !important; }
 .social-box-colors .twitter-color .timeline-body	{ background-color: #01a9da !important; }
 .social-box-colors .twitter-color .timeline-body:after	{ border-right-color: #01a9da !important; }
+.dashboard-stat.twitter-color	{ background-color: #01a9da; }
 
 .social-box-colors .linkedin-color	{ border-color: #1783BC !important; }
 .social-box-colors .linkedin-color .portlet-title	{ background-color: #1783BC !important; }
@@ -95,6 +97,7 @@ Style corrections and manual overrides
 .social-box-colors .linkedin-color .time	{ color: #1783BC !important; }
 .social-box-colors .linkedin-color .timeline-body	{ background-color: #1783BC !important; }
 .social-box-colors .linkedin-color .timeline-body:after	{ border-right-color: #1783BC !important; }
+.dashboard-stat.linkedin-color	{ background-color: #1783BC; }
 
 .social-box-colors .tumblr-color	{ border-color: #385775 !important; }
 .social-box-colors .tumblr-color .portlet-title	{ background-color: #385775 !important; }
@@ -102,6 +105,7 @@ Style corrections and manual overrides
 .social-box-colors .tumblr-color .time	{ color: #385775 !important; }
 .social-box-colors .tumblr-color .timeline-body	{ background-color: #385775 !important; }
 .social-box-colors .tumblr-color .timeline-body:after	{ border-right-color: #385775 !important; }
+.dashboard-stat.tumblr-color	{ background-color: #385775; }
 
 .social-box-colors .google-plus-color	{ border-color: #DD4C39 !important; }
 .social-box-colors .google-plus-color .portlet-title	{ background-color: #DD4C39 !important; }
@@ -109,6 +113,7 @@ Style corrections and manual overrides
 /*.social-box-colors .google-plus-color .time	{ color: #DD4C39 !important; }*/
 .social-box-colors .google-plus-color .timeline-body	{ background-color: #DD4C39 !important; }
 .social-box-colors .google-plus-color .timeline-body:after	{ border-right-color: #DD4C39 !important; }
+.dashboard-stat.google-plus-color	{ background-color: #DD4C39; }
 
 .social-box-colors .youtube-color	{ border-color: #CC181E !important; }
 .social-box-colors .youtube-color .portlet-title	{ background-color: #CC181E !important; }
@@ -116,6 +121,7 @@ Style corrections and manual overrides
 .social-box-colors .youtube-color .time	{ color: #CC181E !important; }
 .social-box-colors .youtube-color .timeline-body	{ background-color: #CC181E !important; }
 .social-box-colors .youtube-color .timeline-body:after	{ border-right-color: #CC181E !important; }
+.dashboard-stat.youtube-color	{ background-color: #CC181E; }
 
 .social-box-colors .rss-color	{ border-color: #f39501 !important; }
 .social-box-colors .rss-color .portlet-title	{ background-color: #f39501 !important; }
@@ -123,6 +129,7 @@ Style corrections and manual overrides
 .social-box-colors .rss-color .time	{ color: #f39501 !important; }
 .social-box-colors .rss-color .timeline-body	{ background-color: #f39501 !important; }
 .social-box-colors .rss-color .timeline-body:after	{ border-right-color: #f39501 !important; }
+.dashboard-stat.rss-color	{ background-color: #f39501; }
 
 
 
