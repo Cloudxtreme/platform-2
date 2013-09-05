@@ -96,19 +96,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			}
 		);
 */
-		var tmpl = [
-		// tabindex is required for focus
-		'<div class="modal container hide fade" tabindex="-1">',
-			'<div class="modal-header">',
-				'<button type="button" style="right: 10px; position: absolute; z-index: 1000000;" data-dismiss="modal" aria-hidden="true">×</button>',
-			'</div>',
-			'<div class="modal-body modalcontainer">',
-				'<p>Please wait, we are loading your content</p>',
-			'</div>',
-			'<div class="modal-footer">',
-			'</div>',
-		'</div>'
-		].join('');
+		var tmpl = Templates.uipopup;
 		
 		var modal = $(tmpl).modal();
 		modal.find ('.modalcontainer').html (view.render ().el);
@@ -226,9 +214,53 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'confirm' : function (message, callback)
 	{
-		if (confirm (message))
+		var data = {};
+
+		data.message = message;
+		data.options = [
+			{
+				'token' : 'confirm',
+				'label' : 'Yes',
+				'description' : 'Confirm your action'
+			}
+		];
+
+		var tmpl = Mustache.render (Templates.uiconfirm, data);
+
+		var element = $(tmpl);
+		var modal = element.modal();
+
+		element.find ('[data-response=confirm]').click (function ()
 		{
 			callback ();
+			modal.modal ('hide');
+		});
+	},
+
+	'dialog' : function (message, options, callback)
+	{
+		var data = {};
+
+		data.message = message;
+		data.options = options;
+
+		var tmpl = Mustache.render (Templates.uidialog, data);
+
+		var element = $(tmpl);
+		var modal = element.modal();
+
+		var addevent = function (option)
+		{
+			element.find ('[data-response=' + option.token + ']').click (function ()
+			{
+				callback (option);
+				modal.modal ('hide');
+			});
+		}
+
+		for (var i = 0; i < options.length; i ++)
+		{
+			addevent (options[i]);
 		}
 	},
 

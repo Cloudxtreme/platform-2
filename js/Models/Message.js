@@ -193,29 +193,70 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'deleteMessage' : function ()
 	{
 		var self = this;
-		var url = 'post/?remove=' + this.get ('id');
 
-		Cloudwalkers.RootView.confirm 
-		(
-			'Are you sure you want to remove this message?', 
-
-			function () 
-			{
-				// Do the call
-				jQuery.ajax
-				({
-					dataType:"json", 
-					type:"get", 
-					url: url, 
-					success:function(objData)
+		// Repeat or skip?
+		if (this.repeat ().repeat)
+		{
+			Cloudwalkers.RootView.dialog 
+			(
+				'Are you sure you want to remove this message?', 
+				[
 					{
-						var collection = self.collection;
-						collection.reset ();
-						collection.fetch ();
-					}
-				});
-			}
-		);
+						'label' : 'Skip once',
+						'description' : 'Message will be skipped once',
+						'token' : 'skip'
+					},
+					{
+						'label' : 'Delete forever',
+						'description' : 'Message will never be repeated',
+						'token' : 'remove'
+					},
+				],
+				function (response) 
+				{
+					var url = 'post/?' + response.token + '=' + self.get ('id');
+
+					// Do the call
+					jQuery.ajax
+					({
+						dataType:"json", 
+						type:"get", 
+						url: url, 
+						success:function(objData)
+						{
+							var collection = self.collection;
+							collection.reset ();
+							collection.fetch ();
+						}
+					});
+				}
+			);
+		}
+		else
+		{
+			Cloudwalkers.RootView.confirm 
+			(
+				'Are you sure you want to remove this message?', 
+				function () 
+				{
+					var url = 'post/?remove=' + self.get ('id');
+
+					// Do the call
+					jQuery.ajax
+					({
+						dataType:"json", 
+						type:"get", 
+						url: url, 
+						success:function(objData)
+						{
+							var collection = self.collection;
+							collection.reset ();
+							collection.fetch ();
+						}
+					});
+				}
+			);
+		}
 	},
 
 	'humandate' : function ()
@@ -399,10 +440,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		var out = {};
 
+		out.repeat = false;
 		out.weekdays = {};
 
 		if (typeof (schedule) != 'undefined' && typeof (schedule.repeat) != 'undefined')
 		{
+			out.repeat = true;
+
 			// Need some calculations here
 			var intervalunit = this.calculateIntervalFromSeconds (schedule.repeat.interval);
 			if (intervalunit)

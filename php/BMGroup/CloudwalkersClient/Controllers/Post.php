@@ -26,8 +26,16 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		// Is remove?
 		if (isset ($_GET['remove']))
 		{
-			$result = $client->delete ('message/' . $_GET['remove'], array (), array ());
+			$result = $client->delete ('message/' . $_GET['remove'], array ('account' => $this->getCurrentAccount ()), array ());
 			return array ('success' => $result ? true : false, 'error' => 'Something went wrong while removing.', 'result' => $result);
+		}
+
+		// Is skip?
+		if (isset ($_GET['skip']))
+		{
+			$result = $client->put ('message/' . $_GET['skip'] . '/skip', array ('account' => $this->getCurrentAccount ()), array ());
+			//return array ('success' => $result ? true : false, 'error' => 'Something went wrong while skipping.', 'result' => $result);
+			return $result;
 		}
 
 		$message = Neuron_Core_Tools::getInput ('_POST', 'message', 'varchar');
