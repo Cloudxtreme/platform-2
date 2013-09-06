@@ -55,7 +55,7 @@ class BMGroup_CloudwalkersClient_Client
 
 		$this->api->oauth_version = '1.0a';
 		$this->api->request_token_url = $server . 'oauth1/requesttoken';
-		$this->api->dialog_url = $server . 'oauth1/authorize';
+		$this->api->dialog_url = $server . 'oauth1/authorize/web';
 		$this->api->access_token_url = $server . 'oauth1/accesstoken';
 		$this->api->append_state_to_redirect_uri = '';
 		$this->api->authorization_header = true;
