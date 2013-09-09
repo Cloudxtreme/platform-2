@@ -161,7 +161,7 @@
 																	<option value="{{time}}" {{#checked}}selected="selected"{{/checked}}>{{time}}</option>
 																{{/times}}
 															</select>
-															&nbsp; <label class="checkbox"><span><input name="schedule_random" type="checkbox" value=""></span> random</label>
+															&nbsp; <label class="checkbox"><span><input name="schedule_random" type="checkbox" value=""></span> Best time to post</label>
 														</div>
 													</div>
 													
