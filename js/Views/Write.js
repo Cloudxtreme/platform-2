@@ -43,7 +43,16 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// Sure you want to send now? Or save to draft?
 		if (this.$el.find ('.message-schedule').is (':visible'))
 		{
-			if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
+			if (
+				this.model && 
+				confirm ('Are you sure you want to sent this scheduled message now?')
+			)
+			{
+				this.setScheduleDate (new Date((new Date()).getTime () + (1000 * 60 * 15)));
+				$(e.toElement.form).trigger ('submit');				
+			}
+
+			else if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
 			{
 				this.clearScheduleDate ();
 				$(e.toElement.form).trigger ('submit');
