@@ -9,7 +9,7 @@
 				<li>
 					<span class="number unread-{{message_count}}">{{message_count}}</span>
 					<i class="icon-{{network.icon}}"></i>
-					{{name}}
+					{{customname}}
 					
 				</li>
 			{{/streams}}
