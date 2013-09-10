@@ -65,7 +65,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 
 		return unreadmessages;
-	}
+	},
 
 	'onSet' : function ()
 	{
