@@ -180,6 +180,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			$('.unread-messages-count').html (newnumber);
 		});
 
+		$('.unread-messages-count').html (Cloudwalkers.Session.getUser ().countUnreadMessages ());
+
 		// Redo navigation
 		var data = {};
 		var channels = account.channels ();

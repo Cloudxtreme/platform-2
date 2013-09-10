@@ -49,9 +49,9 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 	},
 
-	'onSet' : function ()
+	'countUnreadMessages' : function ()
 	{
-		var unreadmessages = null;
+		var unreadmessages = 0;
 		for (var j = 0; j < this.get ('accounts').length; j ++)
 		{
 			for (var i = 0; i < this.get ('accounts')[j].channels.length; i ++)
@@ -64,7 +64,12 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 			}
 		}
 
-		console.log (unreadmessages);
+		return unreadmessages;
+	}
+
+	'onSet' : function ()
+	{
+		var unreadmessages = this.countUnreadMessages ();
 
 		if (this.unreadmessages != unreadmessages)
 		{
