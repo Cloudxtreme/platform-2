@@ -13,7 +13,8 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 
 		$_SESSION['account'] = null;
 
-		//$userdata = $client->get ('user/me');
+		//var_dump ($client->post ('user/me/subscriptions', array (), array ('callback_url' => 'bla')));
+		//exit;
 
 		return '<p>No content.</p>';
 
