@@ -1,7 +1,11 @@
 Cloudwalkers.Models.User = Backbone.Model.extend({
 
+	'unreadMessages' : null,
+
 	'initialize' : function ()
 	{
+		var self = this;
+
 		var accountmodels = [];
 		var accounts = this.get ('accounts');
 
@@ -14,6 +18,8 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 
 			this.set ('accountmodels', accountmodels);
 		}
+
+		this.on ('change', function () { self.onSet () });
 	},
 
 	'url' : function ()
@@ -41,6 +47,31 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		{
 			return 'User';
 		}
+	},
+
+	'onSet' : function ()
+	{
+		var unreadmessages = null;
+		for (var j = 0; j < this.get ('accounts').length; j ++)
+		{
+			for (var i = 0; i < this.get ('accounts')[j].channels.length; i ++)
+			{
+				//console.log (this.get ('accounts')[j].channels);
+				if (this.get ('accounts')[j].channels[i].type == 'inbox')
+				{
+					unreadmessages += parseInt(this.get ('accounts')[j].channels[i].unread);
+				}
+			}
+		}
+
+		console.log (unreadmessages);
+
+		if (this.unreadmessages != unreadmessages)
+		{
+			this.trigger ('change:unread', unreadmessages);
+		}
+
+		this.unreadmessages = unreadmessages;
 	}
 
 });

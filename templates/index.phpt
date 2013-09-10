@@ -67,7 +67,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 					<!-- END RESPONSIVE MENU TOGGLER -->            
 					<!-- BEGIN TOP NAVIGATION MENU -->              
 					<ul class="nav pull-right">
-						
+					
+						<!-- BEGIN INBOX DROPDOWN -->
+						<li class="dropdown" id="header_inbox_bar">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<i class="icon-envelope"></i>
+								<span class="badge unread-messages-count">0</span>
+							</a>
+						</li>
+						<!-- END INBOX DROPDOWN -->
+
 						<!-- BEGIN USER LOGIN DROPDOWN -->
 						<li class="dropdown user">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">

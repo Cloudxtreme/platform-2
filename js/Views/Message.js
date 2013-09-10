@@ -153,6 +153,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 		this.afterRender ();
 
+		this.model.setRead ();
+
 		return this;
 	},
 

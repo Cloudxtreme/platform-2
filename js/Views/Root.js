@@ -174,6 +174,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'setAccount' : function (account)
 	{
+		// New messages
+		Cloudwalkers.Session.getUser ().on ('change:unread', function (newnumber)
+		{
+			$('.unread-messages-count').html (newnumber);
+		});
+
 		// Redo navigation
 		var data = {};
 		var channels = account.channels ();

@@ -86,6 +86,21 @@ Cloudwalkers.Session =
 			{
 				alert ('Your user is not linked to any account. Please contact an administrator.');
 			}
+
+			// Start refreshing
+			setInterval (function ()
+			{
+				self.poll ();
+			}, 1000 * 60)
+		});
+	},
+
+	'poll' : function ()
+	{
+		var self = this;
+		this.call ('user/me', null, null, function (data)
+		{
+			self.user.set (data);
 		});
 	},
 

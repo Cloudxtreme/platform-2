@@ -515,6 +515,21 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		return attachments;
+	},
+
+	'setRead' : function ()
+	{
+		var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '/read/';
+
+		// Do the call
+		jQuery.ajax
+		({
+			type:"get", 
+			url: url, 
+			success:function(objData)
+			{
+			}
+		});
 	}
 
 });
