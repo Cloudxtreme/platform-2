@@ -122,6 +122,11 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 
 				$data['date'] = date ('c', mktime ($time[0], $time[1], 0, $schedule_month, $schedule_day, $schedule_year));
 			}
+
+			else
+			{
+				$data['date'] = date ('c', time () - (60 * 60 * 1));
+			}
 		}
 
 		$repeat_delay_amount = Neuron_Core_Tools::getInput ('_POST', 'repeat_delay_amount', 'int');

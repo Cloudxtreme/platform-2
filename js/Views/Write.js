@@ -48,7 +48,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				confirm ('Are you sure you want to sent this scheduled message now?')
 			)
 			{
-				this.setScheduleDate (new Date((new Date()).getTime () + (1000 * 60 * 15)));
+				//this.setScheduleDate (new Date((new Date()).getTime () + (1000 * 60 * 15)));
+				this.clearScheduleDate ();
 				$(e.toElement.form).trigger ('submit');
 			}
 
