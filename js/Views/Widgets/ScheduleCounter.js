@@ -12,7 +12,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 
 		this.options.schedule.loadCounters (function (data)
 		{
-			el.html (Mustache.render (Templates.messagecounter, data.schedule));
+			el.html (Mustache.render (Templates.messagecounter, data.schedule, self.options));
 
 			setTimeout (function ()
 			{

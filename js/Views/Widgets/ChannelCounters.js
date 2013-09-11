@@ -8,7 +8,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		var el = this.$el;
 
 		var data = {};
-		jQuery.extend (true, data, this.options.channel);
+		jQuery.extend (true, data, this.options.channel, this.options);
 
 		data.message_count = data.unread;
 
