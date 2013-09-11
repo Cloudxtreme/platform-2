@@ -3,9 +3,10 @@
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
 		<div class="tools">
-			{{#tools}}
-				<a href="javascript:void(0);" class="{{class}}"></a>
-			{{/tools}}
+			
+			<!-- triggered in app.js -->
+			<a href="" class="collapse">{{message_count}}</a>
+
 		</div>
 	</div>
 	<div class="portlet-body social-icon-colors">
