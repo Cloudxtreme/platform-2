@@ -24,6 +24,7 @@
 			</h4>
 		</div>
 		<div class="post">
+
 			{{#subject}}
 				<h5>{{subject}}</h5>
 			{{/subject}}

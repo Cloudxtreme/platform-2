@@ -5,7 +5,7 @@
 		<li>
 			{{#stream}}
 				<div class='icon'>
-					<i class="icon-{{network.icon}}"></i>
+					<i class="icon-{{network.icon}}" title="{{id}}"></i>
 				</div>
 
 				{{customname}}
