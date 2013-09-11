@@ -10,9 +10,12 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 
 		el.html ('<p>Please wait, loading data.</p>');
 
-		this.options.schedule.loadCounters (function (data)
+		this.options.schedule.loadCounters (function (inputdata)
 		{
-			el.html (Mustache.render (Templates.messagecounter, data.schedule, self.options));
+			var data = {};
+			jQuery.extend (true, data, inputdata.schedule, self.options);
+
+			el.html (Mustache.render (Templates.messagecounter, data));
 
 			setTimeout (function ()
 			{
