@@ -79,6 +79,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			if (widgetdata.layout == 'dashboardmessagelist')
 			{
 				widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+				widget.messagetemplate = 'dashboardmessagedraft';
 			}
 			else
 			{
@@ -244,6 +245,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				else if (widgetdata.layout == 'dashboardmessagelist')
 				{
 					widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+					widget.messagetemplate = 'dashboardmessagetrending';
 				}
 
 				// Size
