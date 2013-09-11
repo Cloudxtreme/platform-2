@@ -1,6 +1,16 @@
 /**
 * Message counter block
 */
+
+.portlet.box.messagecounter .portlet-title .tools > .collapse	{
+	color: rgba(255,255,255,0);
+}
+
+
+.portlet.box.messagecounter .portlet-title .tools > .expand	{
+	background: white; color: #2bbedc; font-weight: bold; width: auto; border-radius: 24px; padding: 8px 4px;
+}
+
 .messages-counter .messages-header	{
 	background: #2bbedc; padding: 12px 8px 6px; position: relative; top: -6px;
 	color: white; text-align: center; font-size: 1.2em;
