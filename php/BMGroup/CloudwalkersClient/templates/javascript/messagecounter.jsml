@@ -5,11 +5,11 @@
 		<div class="tools">
 			
 			<!-- triggered in app.js -->
-			<a href="" class="collapse">{{message_count}} <i class='icon-chevron-down'></i></a>
+			<a href="" class="expand">{{message_count}} <i class='icon-chevron-down'></i></a>
 
 		</div>
 	</div>
-	<div class="portlet-body social-icon-colors">
+	<div class="portlet-body social-icon-colors" style="display: none;">
 		<div class="messages-counter">
 			
 			<div class="messages-header unread-{{message_count}}">
