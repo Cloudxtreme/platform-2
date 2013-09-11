@@ -1,7 +1,7 @@
 <!-- BEGIN PORTLET-->
-<div class="portlet box {{color}}">
+<div class="portlet box {{color}} messagecounter">
 	<div class="portlet-title line">
-		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
+		<div class="caption"><i class="icon-{{icon}}"></i>{{title}} <i class='icon-chevron-down'></i></div>
 		<div class="tools">
 			
 			<!-- triggered in app.js -->
