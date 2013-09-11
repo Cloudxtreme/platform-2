@@ -9,7 +9,7 @@
 
 
 .portlet.box.messagecounter .portlet-title .tools > .expand	{
-	position: relative; top: -6px; background: white; width: auto; border-radius: 12px !important; padding: 4px 8px;
+	position: relative; top: -5px; background: white; width: auto; border-radius: 12px !important; padding: 4px 8px;
 	color: #2bbedc; font-weight: bold; line-height: 1.2em;
 }
 .portlet.box.messagecounter .portlet-title .tools > .expand i	{ display: inline; float: none; font-size: inherit; }
