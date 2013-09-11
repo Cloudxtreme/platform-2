@@ -162,22 +162,26 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 		//element.stopPropagation ();
 		//element.preventDefault ();
-
-		console.log (element);
-
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
-			var action = $(element.currentTarget).attr ('data-action');
+			var actiontoken = $(element.currentTarget).attr ('data-action');
 		}
 		else if ($(element.target).is ('[data-action]'))
 		{
-			var action = $(element.target).attr ('data-action');	
+			var actiontoken = $(element.target).attr ('data-action');	
 		}
 		else
 		{
-			var action = $(element.target).parent ('[data-action]').attr ('data-action');	
+			var actiontoken = $(element.target).parent ('[data-action]').attr ('data-action');	
 		}
-		action = this.model.getAction (action);
+		
+		action = this.model.getAction (actiontoken);
+
+		if (action == null)
+		{
+			console.log ('Action not found: ' + actiontoken);
+			return;
+		}
 
 		var targetmodel = this.model;
 		if (typeof (action.target) != 'undefined')
@@ -188,11 +192,6 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			{
 				action = action.originalaction;
 			}
-		}
-
-		if (action == null)
-		{
-			return;
 		}
 
 		if (typeof (action.callback) != 'undefined')
