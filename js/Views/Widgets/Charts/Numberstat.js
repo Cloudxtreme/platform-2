@@ -92,7 +92,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		}
 		else
 		{
-			data.details.push ({ 'content' : '☹', 'descr' : 'No information available at this time' });
+			data.details.push ({ 'content' : '☹', 'descr' : 'No info' });
 		}
 
 		element.html (Mustache.render (Templates[this.template], data));
