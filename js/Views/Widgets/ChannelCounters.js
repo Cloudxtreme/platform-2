@@ -3,8 +3,10 @@
 */
 Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.extend({
 
-	'innerRender' : function (el)
+	'render' : function ()
 	{
+		var el = this.$el;
+
 		var data = {};
 		jQuery.extend (true, data, this.options.channel);
 

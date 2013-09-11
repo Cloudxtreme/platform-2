@@ -3,8 +3,9 @@
 */
 Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.extend({
 
-	'innerRender' : function (el)
+	'render' : function ()
 	{
+		var el = this.$el;
 		var self = this;
 
 		el.html ('<p>Please wait, loading data.</p>');
