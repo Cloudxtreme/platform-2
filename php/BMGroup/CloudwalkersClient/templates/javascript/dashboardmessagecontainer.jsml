@@ -1,0 +1,22 @@
+<!-- BEGIN PORTLET-->
+<div class="portlet box {{color}}">
+	<div class="portlet-title line">
+		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
+		<div class="tools">
+			
+			<!-- triggered in app.js -->
+			<a href="" class="expand">{{message_count}} <i class='icon-chevron-down'></i></a>
+
+		</div>
+	</div>
+	<div class="portlet-body social-icon-colors" style="display: none;">
+
+		<div class="scroller" data-height="360px" data-always-visible="1" data-rail-visible1="1">
+			<table class="table table-striped table-bordered table-advance table-hover messages-container"></table>
+
+			<p class="loading">Please wait, we are loading your messages.</p>
+			<p class="load-more"><a href="javascript:void(0);">Load more</a></p>
+		</div>
+	</div>
+</div>
+<!-- END PORTLET-->

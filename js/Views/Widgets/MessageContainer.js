@@ -55,12 +55,15 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		var self = this;
 		var data = {};
 
+		jQuery.extend (true, data, this.options);
+		console.log (data);
+
 		data.showMoreButton = typeof (this.options.channel.showMoreButton) != 'undefined' ? this.options.channel.showMoreButton : false;
 
 		element.html (Mustache.render (Templates[this.template], data));
 
-		this.$innerEl.find ('.load-more').hide ();
-		this.$innerEl.find ('.loading').show ();
+		element.find ('.load-more').hide ();
+		element.find ('.loading').show ();
 
         this.options.channel.bind('add', this.addOne, this);
         this.options.channel.bind('refresh', this.refresh, this);
@@ -128,13 +131,13 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		this.options.channel.loadMore ({
 			'success' : function ()
 			{
-				self.$innerEl.find ('.loading').hide ();
-				self.$innerEl.find ('.load-more').show ();
+				self.$el.find ('.loading').hide ();
+				self.$el.find ('.load-more').show ();
 			}
 		});
 
-		this.$innerEl.find ('.loading').show ();
-		this.$innerEl.find ('.load-more').hide ();
+		this.$el.find ('.loading').show ();
+		this.$el.find ('.load-more').hide ();
 	},
 
 	'destroy' : function ()
@@ -190,13 +193,13 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 		var self = this;
 
-		self.$innerEl.find ('p.no-current-messages').remove ();
+		self.$el.find ('p.no-current-messages').remove ();
 
 		// Go trough all messages
 		this.options.channel.each (function (message)
 		{
 			// Is already in the list?
-			var current = self.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']');
+			var current = self.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']');
 			var element;
 
 			var index = message.collection.indexOf (message);
@@ -223,14 +226,14 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 			if (index == 0)
 			{
-				self.$innerEl.find ('.messages-container').prepend (element);
+				self.$el.find ('.messages-container').prepend (element);
 			}
 			else
 			{
 				var previousmessage = message.collection.at (index - 1);
 
 				// Check if previous message is found
-				var previouselement = self.$innerEl.find ('.messages-container .message-view[data-message-id=' + previousmessage.get ('id') + ']');
+				var previouselement = self.$el.find ('.messages-container .message-view[data-message-id=' + previousmessage.get ('id') + ']');
 
 				if (previouselement.length > 0)
 				{
@@ -252,12 +255,12 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'removeMessage' : function (message)
 	{
-		this.$innerEl.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
+		this.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 	},
 
 	'refresh' : function ()
 	{
-		this.$innerEl.find ('.messages-container').html ('');
+		this.$el.find ('.messages-container').html ('');
 		this.resort ();
 		//this.options.channel.each (this.addOne, this);
 

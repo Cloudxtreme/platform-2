@@ -72,8 +72,19 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		else if (widgetdata.widget == 'drafts')
 		{
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
-			widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : widgetdata.color });
-			widget.template = 'messagecontainer';
+
+			var data = widgetdata;
+			widgetdata.channel = collection;
+
+			if (widgetdata.layout == 'dashboardmessagelist')
+			{
+				widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+			}
+			else
+			{
+				widget = new Cloudwalkers.Views.Widgets.DraftList (data);
+				widget.template = 'messagecontainer';
+			}
 
 			// Size
 			this.addWidgetWithSettings (widget, widgetdata);
@@ -81,8 +92,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		else if (widgetdata.widget == 'scheduled')
 		{
+			var data = widgetdata;
+			widgetdata.channel = collection;
+
 			collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
-			widget = new Cloudwalkers.Views.Widgets.ScheduledList ({ 'channel' : collection, 'color' : widgetdata.color });
+			widget = new Cloudwalkers.Views.Widgets.ScheduledList (data);
 
 			this.addWidgetWithSettings (widget, widgetdata);
 		}
@@ -165,15 +179,18 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					}
 				);
 
+				var data = widgetdata;
+				widgetdata.channel = collection;
+
 				// View
 				if (widgetdata.layout == 'list')
 				{
-					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
+					widget = new Cloudwalkers.Views.Widgets.MessageList (data)
 				}
 
 				else if (widgetdata.layout == 'timeline')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red', 'icon' : widgetdata.icon })
+					widget = new Cloudwalkers.Views.Widgets.Timeline (data)
 				}
 
 				// Size
@@ -209,16 +226,24 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					}
 				);
 
+				var data = widgetdata;
+				widgetdata.channel = collection;
+
 				// View
 				if (widgetdata.layout == 'list')
 				{
-					widget = new Cloudwalkers.Views.Widgets.MessageList ({ 'channel' : collection, 'color' : widgetdata.color, 'title' : widgetdata.title, 'icon' : widgetdata.icon })
+					widget = new Cloudwalkers.Views.Widgets.MessageList (data)
 				}
 
 				else if (widgetdata.layout == 'timeline')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : collection, 'color' : 'red', 'icon' : widgetdata.icon })
+					widget = new Cloudwalkers.Views.Widgets.Timeline (data)
 					widget.messagetemplate = 'messagetimelinetrending';
+				}
+
+				else if (widgetdata.layout == 'dashboardmessagelist')
+				{
+					widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
 				}
 
 				// Size
@@ -253,7 +278,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 
-		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter ({ 'schedule' : schedule, 'color' : widgetdata.color, 'title' : 'Schedule', 'icon' : widgetdata.icon, 'network' : widgetdata.network })
+		var data = widgetdata;
+		widgetdata.schedule = schedule;
+
+		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter (data)
 		this.addWidgetWithSettings (widget, widgetdata);
 	},
 
