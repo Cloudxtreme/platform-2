@@ -519,17 +519,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'setRead' : function ()
 	{
-		var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '/read/';
+		if (!this.get ('read'))
+		{
+			var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '/read/';
 
-		// Do the call
-		jQuery.ajax
-		({
-			type:"get", 
-			url: url, 
-			success:function(objData)
-			{
-			}
-		});
+			// Do the call
+			jQuery.ajax
+			({
+				type:"get", 
+				url: url, 
+				success:function(objData)
+				{
+				}
+			});
+		}
 	}
 
 });
