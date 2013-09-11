@@ -5,11 +5,13 @@
 .portlet.box.messagecounter .portlet-title .tools > .collapse	{
 	color: rgba(255,255,255,0);
 }
+.portlet.box.messagecounter .portlet-title .tools > .collapse i	{ display: none; }
 
 
 .portlet.box.messagecounter .portlet-title .tools > .expand	{
-	background: white; color: #2bbedc; font-weight: bold; width: auto; border-radius: 24px; padding: 8px 4px;
+	background: white; color: #2bbedc; font-weight: bold; width: auto; border-radius: 24px !important; padding: 8px 4px;
 }
+.portlet.box.messagecounter .portlet-title .tools > .expand i	{ display: inline; float: none; font-size: inherit; }
 
 .messages-counter .messages-header	{
 	background: #2bbedc; padding: 12px 8px 6px; position: relative; top: -6px;
