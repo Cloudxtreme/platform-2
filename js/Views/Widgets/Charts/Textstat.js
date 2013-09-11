@@ -53,7 +53,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 		}
 		else
 		{
-			data.details.push ({ 'content' : '☹', 'descr' : 'No information available at this time' });
+			data.details.push ({ 'content' : '☹', 'descr' : 'No info' });
 		}
 
 		element.html (Mustache.render (Templates[this.template], data));
