@@ -56,7 +56,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		var data = {};
 
 		jQuery.extend (true, data, this.options);
-		console.log (data);
 
 		data.showMoreButton = typeof (this.options.channel.showMoreButton) != 'undefined' ? this.options.channel.showMoreButton : false;
 
