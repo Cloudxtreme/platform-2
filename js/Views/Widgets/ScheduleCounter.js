@@ -15,6 +15,17 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 			var data = {};
 			jQuery.extend (true, data, inputdata.schedule, self.options);
 
+			// Order
+			data.streams.sort (function (a, b)
+			{
+				return a.message_count < b.message_count;
+			});
+
+			jQuery.each (data.streams, function (i, v)
+			{
+				data.streams[i].url = '#schedule/' + v.id;
+			});
+
 			el.html (Mustache.render (Templates.messagecounter, data));
 
 			setTimeout (function ()

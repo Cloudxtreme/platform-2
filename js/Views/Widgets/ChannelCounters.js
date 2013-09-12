@@ -12,6 +12,18 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 		data.message_count = data.unread;
 
+		//console.log (data);
+		
+		// Order
+		data.streams.sort (function (a, b)
+		{
+			return a.unread < b.unread;
+		});
+
+		jQuery.each (data.streams, function (i, v) {
+			data.streams[i].url = '#channel/' + data.channel.id + '/' + v.id;
+		});
+
 		for (var i = 0; i < data.streams.length; i ++)
 		{
 			data.streams[i].message_count = data.streams[i].unread;
