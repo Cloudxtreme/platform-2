@@ -53,6 +53,7 @@
  *	Dashboard message container
  */
 .portlet.box .message-view li	{ min-height: 20px; }
+.portlet.box .message-view li p	{ margin: 0px; }
 
 /**
  * Dashbaord stat
