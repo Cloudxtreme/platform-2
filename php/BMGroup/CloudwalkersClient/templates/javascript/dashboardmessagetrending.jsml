@@ -16,7 +16,7 @@
 			</span>
 		</li>
 
-		<li>
+		<li class='clear'>
 			
 			<small>
 				Followed by <strong>{{#stream}}{{customname}}{{/stream}}</strong>,
