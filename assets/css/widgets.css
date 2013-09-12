@@ -54,6 +54,12 @@
  */
 .portlet.box .message-view li	{ min-height: 20px; }
 .portlet.box .message-view li p	{ margin: 0px; }
+.portlet.box .message-view li p.link	{ margin-top: 8px; }
+
+.portlet.box .message-view li span.right.engagement	{
+	background: #666; border-radius: 12px; padding: 2px 6px;
+	color: white;
+}
 
 /**
  * Dashbaord stat
