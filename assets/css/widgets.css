@@ -61,7 +61,7 @@
 .portlet.box .message-view li p.link	{ margin-top: 8px; }
 
 .portlet.box .message-view li span.right.engagement	{
-	position: relative; top: -2px; background: #777; border-radius: 12px !important; padding: 2px 8px !important;
+	background: #777; border-radius: 12px !important; padding: 4px 8px !important;
 	color: white; line-height: 1em;
 }
 
