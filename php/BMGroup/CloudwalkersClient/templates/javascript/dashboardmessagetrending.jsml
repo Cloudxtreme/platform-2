@@ -11,7 +11,7 @@
 
 			{{#from}}{{name}}{{/from}}
 			
-			<span class='right engagement'>
+			<span class='right engagement count-{{engagement}}'>
 				{{engagement}}
 			</span>
 		</li>
