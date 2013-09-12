@@ -70,6 +70,7 @@
 /**
  * Dashbaord stat
  */
+.span3 .dashboard-stat .visual	{ width: 60px; }
 .dashboard-stat .visual i	{ font-size: 63px !important; }
 .dashboard-stat .details	{ padding-right: 24px; }
 .dashboard-stat .details .number	{ font-size: 28px; }
