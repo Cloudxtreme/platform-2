@@ -81,11 +81,11 @@
 .span3 .dashboard-stat .details	{ padding-right: 20px; }
 
 @media (min-width: 980px) and (max-width: 1152px) {
-	.dashboard-stat .details .number	{ font-size: 24px; }
+	.dashboard-stat .details .number	{ font-size: 24px; padding-top: 18px; }
 	.dashboard-stat .details .desc	{ font-size: 12px; }
 	.dashboard-stat .visual i	{ font-size: 56px !important; }
 	.span3 .dashboard-stat .details	{ padding-right: 10px; }
-	.span3 .dashboard-stat .visual	{ width: 50px; }
+	.span3 .dashboard-stat .visual	{ width: 50px; height: 68px; }
 }
 
 
