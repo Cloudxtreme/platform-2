@@ -70,13 +70,15 @@
 /**
  * Dashbaord stat
  */
-.span3 .dashboard-stat .visual	{ width: 60px; }
+
 .dashboard-stat .visual i	{ font-size: 63px !important; }
 .dashboard-stat .details	{ padding-right: 24px; }
 .dashboard-stat .details .number	{ font-size: 28px; }
 .dashboard-stat .details .desc	{ font-size: 14px; }
 .dashboard-stat .more	{ background-color: rgba(0,0,0,.12); }
 
+.span3 .dashboard-stat .visual	{ width: 58px; }
+.span3 .dashboard-stat .details	{ padding-right: 20px; }
 
 /**
  * Thijs
