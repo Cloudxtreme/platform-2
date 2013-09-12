@@ -18,11 +18,11 @@
 
 		<li class='clear'>
 			
-			<small>
+			<!--<small>
 				Followed by <strong>{{#stream}}{{customname}}{{/stream}}</strong>,
 				posted <span class="time time-since" data-date="{{date}}">{{date}}</span>
 			</small>
-			<br />
+			<br />-->
 			
 			{{#subject}}
 				<small>{{subject}}</small><br />
