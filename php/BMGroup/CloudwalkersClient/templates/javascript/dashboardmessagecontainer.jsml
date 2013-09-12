@@ -5,7 +5,7 @@
 		<div class="tools">
 			
 			<!-- triggered in app.js -->
-			<a href="" class="expand">{{message_count}} <i class='icon-chevron-down'></i></a>
+			<a href="" class="expand"></a>
 
 		</div>
 	</div>
