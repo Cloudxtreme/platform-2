@@ -2,16 +2,12 @@
 * Message counter block
 */
 
-.portlet.box.messagecounter .portlet-title .tools > .collapse	{
-	color: rgba(255,255,255,0);
-}
-.portlet.box.messagecounter .portlet-title .tools > .collapse i	{ display: none !important; }
-
-
+.portlet.box.messagecounter .portlet-title .tools > .collapse,
 .portlet.box.messagecounter .portlet-title .tools > .expand	{
 	position: relative; top: -5px; background: white; width: auto; border-radius: 12px !important; padding: 4px 8px;
 	color: #2bbedc; font-weight: bold; line-height: 1.2em;
 }
+.portlet.box.messagecounter .portlet-title .tools > .collapse i,
 .portlet.box.messagecounter .portlet-title .tools > .expand i	{ display: inline; float: none; font-size: inherit; }
 
 .messages-counter .messages-header	{
