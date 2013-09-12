@@ -88,6 +88,11 @@
 	.span3 .dashboard-stat .visual	{ width: 50px; height: 68px; padding-left: 10px; }
 }
 
+@media (min-width: 768px) and (max-width: 979px) {
+
+	#dashboard .span3	{ width: 48.93617021276595% !important; }
+}
+
 
 
 /**
