@@ -5,7 +5,7 @@
 		<div class="tools">
 			
 			<!-- triggered in app.js -->
-			<a href="" class="expand"></a>
+			<a href="" class="collapse"></a>
 
 		</div>
 	</div>
