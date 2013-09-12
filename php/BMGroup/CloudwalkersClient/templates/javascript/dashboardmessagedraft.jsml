@@ -2,9 +2,6 @@
 
 	<ul>
 		<li>
-			
-		</li>
-		<li>
 			{{#user}}
 				<img class="avatar" alt="" src="assets/img/avatar3.jpg"> <strong>{{name}}</strong>
 			{{/user}}
