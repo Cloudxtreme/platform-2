@@ -43,7 +43,7 @@
 			-->
 
 			{{#sortedattachments.link}}
-				<p class="link" style="margin-top: 10px;">
+				<p class="link">
 					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
 				</p>
 			{{/sortedattachments.link}}
