@@ -3,37 +3,30 @@
 	<ul>
 
 		<li>
-			<strong>{{engagement}}</strong>
-		</li>
-
-		<li>
-
-
 			{{#stream}}
 				<div class='icon'>
 					<i class="icon-{{network.icon}}"></i>
 				</div>
-
-				{{customname}}
 			{{/stream}}
 
-			<span class='right date'>
-				<span class="time time-since" data-date="{{date}}">
-					{{date}}
-				</span>
+			{{#from}}{{name}}{{/from}}
+			
+			<span class='right engagement'>
+				{{engagement}}
 			</span>
 		</li>
 
 		<li>
+			
+			<small>
+				Followed by <strong>{{#stream}}{{customname}}{{/stream}}</strong>,
+				posted <span class="time time-since" data-date="{{date}}">{{date}}</span>
+			</small>
+			<br />
+			
 			{{#subject}}
 				<small>{{subject}}</small><br />
 			{{/subject}}
-
-			<strong>
-				{{#from}}
-					{{name}}
-				{{/from}}
-			</strong> 
 
 			{{{body.html}}}
 
@@ -48,7 +41,7 @@
 			-->
 
 			{{#sortedattachments.link}}
-				<p class="link" style="margin-top: 10px;">
+				<p class="link">
 					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
 				</p>
 			{{/sortedattachments.link}}
