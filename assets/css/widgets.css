@@ -85,7 +85,7 @@
 	.dashboard-stat .details .desc	{ font-size: 12px; }
 	.dashboard-stat .visual i	{ font-size: 56px !important; }
 	.span3 .dashboard-stat .details	{ padding-right: 10px; }
-	.span3 .dashboard-stat .visual	{ width: 50px; height: 68px; }
+	.span3 .dashboard-stat .visual	{ width: 50px; height: 68px; padding-left: 10px; }
 }
 
 
