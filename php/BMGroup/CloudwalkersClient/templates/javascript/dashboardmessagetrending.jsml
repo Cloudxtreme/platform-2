@@ -28,7 +28,7 @@
 				<small>{{subject}}</small><br />
 			{{/subject}}
 
-			{{{body.html}}}
+			{{body.plaintext}}
 
 			<!--
 			<div class="picture">
