@@ -230,7 +230,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 		data.sortedchannels = sortedchannels;
 
-		data.statisticchannels = account.statisticchannels ();
+		data.statisticchannels = [];
+		jQuery.each (account.statisticchannels (), function (i, v)
+		{
+			data.statisticchannels.push (v.attributes);
+		});
 
 		data.scheduledstreams = [];
 		jQuery.each (account.streams ( { 'outgoing' : true } ), function (i, v)

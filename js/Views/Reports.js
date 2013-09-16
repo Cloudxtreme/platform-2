@@ -34,21 +34,21 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		var self = this;
 		$.ajax 
 		(
-			CONFIG_BASE_URL + 'json/stream/' + stream.id + '/statistics',
+			CONFIG_BASE_URL + 'json/stream/' + stream.get ('id') + '/statistics',
 			{
 				'success' : function (data)
 				{
 					if (data.statistics.length > 0)
 					{
 						// Title
-						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.customname });
+						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.attributes.customname });
 						self.addWidget (title, true);
 
 						self.half = true;
 
 						for (var j = 0; j < data.statistics.length; j ++)
 						{
-							self.addReportWidget (stream, data.statistics[j]);
+							self.addReportWidget (stream.attributes, data.statistics[j]);
 						}
 					}
 				}
@@ -73,6 +73,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		widget.color = stream.network.icon + '-color';
 		widget.network = stream.network;
+		widget.size = 4;
 
 		self.datepicker.on ('date:change', function (start, end)
 		{
