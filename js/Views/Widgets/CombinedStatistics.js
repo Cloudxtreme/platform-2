@@ -48,7 +48,6 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 		for (var i = 0; i < this.options.reports.length; i ++)
 		{
-			console.log (this.options.reports[i]);
 			attachEvent (this.options.reports[i]);
 		}
 
