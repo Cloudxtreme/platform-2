@@ -3,13 +3,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	'navclass' : 'dashboard',
 	'title' : 'Dashboard',
 
-	'newline' : false,
-	'sizecounter' : 0,
-
 	'initializeWidgets' : function ()
 	{
-		this.newline = true;
-
 		var collection;
 		var widget;
 
@@ -125,35 +120,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addWidgetWithSettings' : function (widget, widgetdata)
 	{
-		// Size
-		if (widgetdata.size == 'half')
-		{
-			this.addHalfWidget (widget, this.newline);
-
-			this.sizecounter += 6;
-		}
-		else if (widgetdata.size == 'full')
-		{
-			this.addWidget (widget, true);
-
-			this.newline = true;
-			this.sizecounter = 0;
-		}
-
-		else
-		{
-			this.addWidgetSize (widget, this.newline, widgetdata.size);
-			this.sizecounter += parseInt(widgetdata.size);
-		}
-
-		this.newline = false;
-
-		//console.log (this.sizecounter);
-		if (this.sizecounter >= 12)
-		{
-			this.sizecounter = 0;
-			this.newline = true;
-		}
+		this.add (widget, widgetdata.size);
 	},
 
 	'addDashboardChannel' : function (widgetdata)

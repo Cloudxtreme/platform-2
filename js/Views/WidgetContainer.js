@@ -7,6 +7,8 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	'title' : 'Widget Container',
 	'isLoaded' : false,
 	'currentLine' : null,
+	'sizecounter' : 0,
+	'newline' : true,
 
 	'initialize' : function ()
 	{
@@ -15,6 +17,9 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		this.widgets = [];
 		this.initializeWidgets ();
 		this.isLoaded = false;
+
+		this.newline = true;
+		this.sizecounter = 0;
 
 		this.on ('destroy', function ()
 		{
@@ -28,6 +33,42 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	'initializeWidgets' : function ()
 	{
 
+	},
+
+	/**
+	* Generic supersmart add method.
+	*/
+	'add' : function (widget, size)
+	{
+		if (typeof (size) == 'undefined')
+		{
+			size = widget.size;
+		}
+
+		if (size == 'full')
+		{
+			size = 12;
+		}
+		else if (size == 'half')
+		{
+			size = 6;
+		}
+		else
+		{
+			size = parseInt(size);
+		}
+
+		this.addWidgetSize (widget, this.newline, size);
+
+		this.sizecounter += size;
+		this.newline = false;
+
+		//console.log (this.sizecounter);
+		if (this.sizecounter >= 12)
+		{
+			this.sizecounter = 0;
+			this.newline = true;
+		}
 	},
 
 	'addHalfWidget' : function (widget, newline)
