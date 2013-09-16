@@ -22,6 +22,8 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 		if (this.network)
 			this.options.network = this.network;
 
+		this.options.footer = '&nbsp;';
+
 		element.html (Mustache.render (Templates[this.template], this.options));
 
 		this.options.dataset.getValues (function (values)
@@ -43,6 +45,8 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 
 		var data = {};
 		$.extend (true, data, this.options);
+
+		data.footer = '<strong>' + this.options.stream.customname + '</strong> ' + this.options.title;
 
 		data.details = [];
 

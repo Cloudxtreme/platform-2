@@ -80,7 +80,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 				if (values.length > 1)
 				{
 					data.footer = '<strong>' + this.numberOutput (values[0][1] - values[1][1], true) + '</strong> (';
-					data.footer += this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%) ' + 'Since ' + interval;
+					data.footer += this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%) ' + 'Since last ' + interval;
 					//data.details.push ({ 'content' : '(' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)', 'descr' : 'Evolution' });
 
 					//text += ' (' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)';
