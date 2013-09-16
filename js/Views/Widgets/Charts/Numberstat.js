@@ -68,26 +68,31 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		var interval = this.options.dataset.getInterval ();
 
 		data.details = [];
+		data.footer = '&nbsp;';
 
 		if (values && values.length > 0)
 		{
 			// Always last available value
-
 			if (display == 'comparison')
 			{
-				var text =  this.numberOutput (values[0][1]);
+				var text = this.numberOutput (values[0][1]);
 
 				if (values.length > 1)
 				{
+					data.footer = this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '% ' + 'Last ' + interval;
 					//data.details.push ({ 'content' : '(' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)', 'descr' : 'Evolution' });
 
-					text += ' (' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)';
+					//text += ' (' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)';
 
 					//data.details.push ({ 'content' : this.numberOutput (values[1][1], true), 'descr' : 'Previous' });
 					//data.details.push ({ 'content' : this.numberOutput (values[0][1] - values[1][1], true), 'descr' : 'Difference' });
 				}
+				else
+				{
+					data.footer = 'Last ' + interval;
+				}
 
-				data.details.push ({ 'content' : text, 'descr' : 'Last ' + interval });
+				data.details.push ({ 'content' : text, 'descr' : data.stream.customname + ' ' + data.title });
 			}
 
 			else
