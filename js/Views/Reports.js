@@ -88,7 +88,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			report = new Cloudwalkers.Models.Report (reportsdata[i]);			
 			report.getDataset ().setDateRange (daterange[0], daterange[1]);
 
-			self.datepicker.on ('date:change', function (start, end)
+			self.datepicker ().on ('date:change', function (start, end)
 			{
 				report.getDataset.setDateRange (start, end);
 			});
