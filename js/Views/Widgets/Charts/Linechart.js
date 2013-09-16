@@ -28,6 +28,7 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 		{
 			self.plot (values[0].values);
 		});
+		
 	},
 
     'showTooltip' : function (x, y, contents) {
