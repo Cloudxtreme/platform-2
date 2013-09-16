@@ -76,16 +76,12 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'addCombinedWidget' : function (stream, reportsdata)
 	{
-		var self = this;
-		var reports = [];
-		var report;
-
-		var daterange = self.datepicker.getDateRange ();
-
-		for (var i = 0; i < reportsdata.length; i ++)
+		function addReport (repdat)
 		{
+			var report;
+			
 			reportsdata[i].stream = stream;
-			report = new Cloudwalkers.Models.Report (reportsdata[i]);			
+			report = new Cloudwalkers.Models.Report (repdat);			
 			report.getDataset ().setDateRange (daterange[0], daterange[1]);
 
 			self.datepicker.on ('date:change', function (start, end)
@@ -94,6 +90,16 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			});
 
 			reports.push (report);
+		}
+
+		var self = this;
+		var reports = [];
+
+		var daterange = self.datepicker.getDateRange ();
+
+		for (var i = 0; i < reportsdata.length; i ++)
+		{
+			addReport (reportsdata[i]);
 		}
 
 		var widget = new Cloudwalkers.Views.Widgets.CombinedStatistics ({ 'reports' : reports, 'stream' : stream });
