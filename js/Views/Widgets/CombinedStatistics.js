@@ -23,7 +23,7 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 				'token' : 'day'
 			},
 			{
-				'name' : 'Weeks',
+				'name' : '7 days',
 				'token' : '7days'
 			},
 			{
