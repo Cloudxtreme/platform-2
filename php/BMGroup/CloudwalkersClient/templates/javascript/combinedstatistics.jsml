@@ -1,0 +1,50 @@
+<div class="portlet box {{#stream}}{{stream.network.icon}}-color{{/stream}}">
+	<div class="portlet-title">
+		<div class="caption"><i class="icon-comments"></i>
+			<span class="statistic-title">Statistics</span>
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn black">
+					<i class="icon-file"></i>
+					Reports
+					<i class="icon-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right">
+					{{#reports}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-report-id="{{uniqueid}}">
+								<i class="icon-file"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/reports}}
+				</ul>
+			</div>
+
+			<div class="btn-group">
+
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn black">
+					<i class="icon-time"></i>
+					Interval
+					<i class="icon-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right">
+					{{#intervals}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-report-id="{{id}}">
+								<i class="icon-time"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/intervals}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		
+	</div>
+</div>
