@@ -7,6 +7,11 @@ Cloudwalkers.Utilities.StreamLibrary = {
 
 	'streams' : [],
 
+	'reset' : function ()
+	{
+		this.streams = [];
+	},
+
 	'parse' : function (streams)
 	{
 		this.parseFromChannel (streams);
@@ -38,6 +43,11 @@ Cloudwalkers.Utilities.StreamLibrary = {
 			}
 		}
 		return null;
+	},
+
+	'getStreams' : function ()
+	{
+		return this.streams;
 	}
 
 }

@@ -80,9 +80,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				var out = [];
 				for (var i = 0; i < streams.length; i ++)
 				{
-					if (streams[i].network.name == stream.network.name)
+					if (streams[i].get ('network').name == stream.get ('network').name)
 					{
-						out.push (streams[i]);
+						out.push (streams[i].attributes);
 					}
 				}
 
@@ -132,11 +132,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		data.channels = [];
 		for (var i = 0; i < objData.streams.length; i ++)
 		{
-			if (objData.streams[i].direction.OUTGOING == 1)
+			if (objData.streams[i].get ('direction').OUTGOING == 1)
 			{
-				var tmp = objData.streams[i];
+				var tmp = objData.streams[i].attributes;
 
-				tmp.checked = typeof (streammap[objData.streams[i].id]) != 'undefined';
+				tmp.checked = typeof (streammap[objData.streams[i].get ('id')]) != 'undefined';
 
 				data.channels.push (tmp);
 			}
@@ -451,11 +451,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		for (var i = 0; i < streams.length; i ++)
 		{
-			if (streams[i].direction.OUTGOING == 1)
+			if (streams[i].get ('direction').OUTGOING == 1)
 			{
-				if (this.$el.find ('#channel_' + streams[i].id).is (':checked'))
+				if (this.$el.find ('#channel_' + streams[i].get ('id')).is (':checked'))
 				{
-					selectedstreams.push (streams[i]);
+					selectedstreams.push (streams[i].attributes);
 				}
 			}
 		}

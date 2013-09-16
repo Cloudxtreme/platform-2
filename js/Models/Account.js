@@ -31,7 +31,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			if (typeof (filters.outgoing) != 'undefined')
 			{
 				//console.log (channels[i].streams[j].direction.OUTGOING);
-				if (streams[j].direction.OUTGOING == 1)
+				if (streams[j].get ('direction').OUTGOING == 1)
 				{
 					out.push (streams[j]);
 				}
@@ -40,7 +40,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			else if (typeof (filters.incoming) != 'undefined')
 			{
 				//console.log (channels[i].streams[j].direction.OUTGOING);
-				if (streams[j].direction.OUTGOING == 1)
+				if (streams[j].get ('direction').OUTGOING == 1)
 				{
 					out.push (streams[j]);
 				}
@@ -48,7 +48,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 			else if (typeof (filters.statistics) != 'undefined')
 			{
-				if (streams[j].statistics == 1)
+				if (streams[j].get ('statistics') == 1)
 				{
 					out.push (streams[j]);
 				}

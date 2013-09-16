@@ -174,6 +174,19 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'setAccount' : function (account)
 	{
+		function navAddAccount (a)
+		{
+			$('<li class="account-selector"><a href="javascript:void(0);"><i class="icon-star"></i> ' + a.get ('name') + '</a></li>')
+				.prependTo ($('.dropdown.user ul'))
+				.addClass (account.get ('id') == a.get ('id') ? 'active' : null)
+				.find ('a').click (function ()
+				{
+					Cloudwalkers.Session.setAccount (a);
+					Cloudwalkers.Router.Instance.navigate ('dashboard/' + a.get ('id'), { 'trigger' : true });
+				}
+			);
+		}
+
 		// New messages
 		Cloudwalkers.Session.getUser ().on ('change:unread', function (newnumber)
 		{
@@ -181,6 +194,16 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		});
 
 		$('.unread-messages-count').html (Cloudwalkers.Session.getUser ().countUnreadMessages ());
+
+		// Set accounts
+		var accounts = Cloudwalkers.Session.getUser ().getAccounts ();
+
+		$('.dropdown.user li.account-selector').remove ();
+		$('.dropdown.user ul').prepend ('<li class="account-selector divider"></li>');
+		for (var i = accounts.length - 1; i >= 0; i --)
+		{
+			navAddAccount (accounts[i]);
+		}
 
 		// Redo navigation
 		var data = {};
@@ -209,7 +232,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		data.statisticchannels = account.statisticchannels ();
 
-		data.scheduledstreams = account.streams ( { 'outgoing' : true });
+		data.scheduledstreams = [];
+		jQuery.each (account.streams ( { 'outgoing' : true } ), function (i, v)
+		{
+			data.scheduledstreams.push (v.attributes);
+		});
+		
 
 		//console.log (data);
 

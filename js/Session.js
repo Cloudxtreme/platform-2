@@ -33,9 +33,23 @@ Cloudwalkers.Session =
 		return this.user != null;
 	},
 
-	'setAccount' : function (account)
+	'setAccount' : function (account, callback)
 	{
+		var self = this;
+
+		if (typeof (callback) == 'undefined')
+		{
+			callback = function () {};
+		}
+
+		this.user.set ('account', account.get ('id'));
 		this.account = account;
+
+		this.loadStreams (function ()
+		{
+			self.trigger ('account:change', self.account);
+			callback ();
+		})
 	},
 
 	'getAccount' : function ()
@@ -73,14 +87,14 @@ Cloudwalkers.Session =
 			// Set account
 			if (self.user.getAccounts ().length > 0)
 			{
-				self.setAccount (self.user.getAccounts ()[0]);
-				self.user.set ('account', self.user.getAccounts ()[0].get ('id'));
-
-				self.loadStreams (function ()
-				{
-					self.trigger ('account:change', self.account);
-					finalcallback ();
-				});
+				self.setAccount 
+				(
+					self.user.getAccounts ()[0],
+					function ()
+					{
+						finalcallback ();
+					}
+				)
 			}
 			else
 			{
@@ -106,6 +120,8 @@ Cloudwalkers.Session =
 
 	'loadStreams' : function (callback)
 	{
+		Cloudwalkers.Utilities.StreamLibrary.reset ();
+
 		var finalcallback = callback;
 		var self = this;
 
@@ -124,19 +140,12 @@ Cloudwalkers.Session =
 
 	'getStreams' : function ()
 	{
-		return this.streams;
+		return Cloudwalkers.Utilities.StreamLibrary.getStreams ();
 	},
 
 	'getStream' : function (id)
 	{
-		for (var i = 0; i < this.streams.length; i ++)
-		{
-			if (this.streams[i].id == id)
-			{
-				return this.streams[i];
-			}
-		}
-		return null;
+		return Cloudwalkers.Utilities.StreamLibrary.getFromId (id);
 	},
 
 	'getUser' : function ()
