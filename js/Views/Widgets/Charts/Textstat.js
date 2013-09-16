@@ -5,6 +5,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 	'color' : null,
 	'network' : null,
 	'template' : 'dashboardstat',
+	'size' : 3,
 
 	'getDataset' : function ()
 	{

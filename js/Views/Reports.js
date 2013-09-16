@@ -2,7 +2,6 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'navclass' : 'reports',
 	'title' : 'Reports',
-	'half' : true,
 
 	'datepicker' : null,
 
@@ -42,9 +41,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 					{
 						// Title
 						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.attributes.customname });
-						self.addWidget (title, true);
-
-						self.half = true;
+						self.add (title);
 
 						for (var j = 0; j < data.statistics.length; j ++)
 						{
@@ -80,23 +77,6 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		});
 		
 		// Check widget size
-		if (typeof (widget.size) != 'undefined')
-		{
-			if (widget.size == 'full')
-			{
-				self.addWidget (widget, true);
-				self.half = true;
-			}
-			else
-			{
-				self.addHalfWidget (widget, self.half);
-				self.half = !self.half;	
-			}
-		}
-		else
-		{
-			self.addHalfWidget (widget, self.half);
-			self.half = !self.half;
-		}
+		this.add (widget);
 	}
 });

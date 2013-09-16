@@ -3,6 +3,7 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 	'title' : 'Line chart',
 	'placeholder' : null,
 	'icon' : 'reorder',
+	'size' : 6,
 
 	'getDataset' : function ()
 	{

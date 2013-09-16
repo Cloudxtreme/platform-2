@@ -3,6 +3,7 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 	'title' : 'Pie chart',
 	'placeholder' : null,
 	'icon' : 'reorder',
+	'size' : 6,
 
 	'getDataset' : function ()
 	{

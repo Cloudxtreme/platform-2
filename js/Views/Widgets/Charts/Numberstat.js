@@ -1,10 +1,11 @@
 Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget.extend ({
 
-	'title' : 'Line chart',
+	'title' : 'Number stat',
 	'icon' : 'reorder',
 	'color' : null,
 	'network' : null,
 	'template' : 'dashboardstat',
+	'size' : 3,
 
 	'getDataset' : function ()
 	{
