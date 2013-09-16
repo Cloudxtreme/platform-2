@@ -34,7 +34,7 @@
 				<ul class="dropdown-menu pull-right">
 					{{#intervals}}
 						<li>
-							<a href="javascript:void(0);" class="report-link" data-report-id="{{id}}">
+							<a href="javascript:void(0);" class="report-link" data-interval-id="{{token}}">
 								<i class="icon-time"></i>
 								{{name}}
 							</a>

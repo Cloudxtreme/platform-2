@@ -24,18 +24,39 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 		this.daterange = null;
 		this.display = null;
 		this.interval = null;
+		this.intervalinput = null;
 		this.evolution = null;
+	},
+
+	'getDataURL': function ()
+	{
+		var url = this.get('dataurl') + '?';
+		if (this.daterange)
+		{
+			url += 'start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000) + '&';
+		}
+
+		if (this.intervalinput)
+		{
+			url += 'interval=' + this.intervalinput;
+		}
+
+		return url;
 	},
 
 	'setDateRange' : function (start, end)
 	{
 		var self = this;
-
 		this.daterange = [ start, end ];
+		this.refresh ();
+	},
 
+	'refresh' : function ()
+	{
+		var self = this;
 		$.ajax 
 		(
-			self.get('dataurl') + '?start=' + Math.floor(start.getTime () / 1000) + '&end=' + Math.floor(end.getTime () / 1000),
+			this.getDataURL (),
 			{
 				'success' : function (data)
 				{
@@ -71,6 +92,12 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 				}
 			}
 		);
+	},
+
+	'setInterval' : function (interval)
+	{
+		console.log (interval);
+		this.intervalinput = interval;
 	},
 
 	'getDisplay' : function ()
@@ -117,15 +144,9 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 		this.isFetched = true;
 
-		var url = self.get('dataurl');
-		if (this.daterange)
-		{
-			url += '?start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000)
-		}
-
 		$.ajax 
 		(
-			url,
+			this.getDataURL (),
 			{
 				'success' : function (data)
 				{

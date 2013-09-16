@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'size': 'full',
+	'currentReport' : null,
 
 	'render' : function ()
 	{
@@ -19,11 +20,11 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		data.intervals = [
 			{
 				'name' : 'Days',
-				'token' : 'days'
+				'token' : 'day'
 			},
 			{
 				'name' : 'Weeks',
-				'token' : 'weeks'
+				'token' : '7days'
 			},
 			{
 				'name' : '28 days',
@@ -37,7 +38,7 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		this.setReport (this.options.reports[0]);
 
 		// Change report events
-		function attachEvent (report)
+		function attachReportEvent (report)
 		{
 			//console.log ('[data-report-id="' + report.get ('uniqueid') + '"]');
 			el.find ('[data-report-id="' + report.get ('uniqueid') + '"]').click (function ()
@@ -46,9 +47,31 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 			});
 		}
 
+		function attachIntervalEvent (interval)
+		{
+			el.find ('[data-interval-id="' + interval.token + '"]').click (function ()
+			{
+				for (var i = 0; i < self.options.reports.length; i ++)
+				{
+					console.log (self.options.reports[i].getDataset ());
+					self.options.reports[i].getDataset ().setInterval (interval.token);
+				}
+
+				if (self.currentReport)
+				{
+					self.currentReport.getDataset ().refresh ();
+				}
+			});
+		}
+
 		for (var i = 0; i < this.options.reports.length; i ++)
 		{
-			attachEvent (this.options.reports[i]);
+			attachReportEvent (this.options.reports[i]);
+		}
+
+		for (var i = 0; i < data.intervals.length; i ++)
+		{
+			attachIntervalEvent (data.intervals[i]);
 		}
 
 		return this;
@@ -56,6 +79,8 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 	'setReport' : function (report)
 	{
+		this.currentReport = report;
+
 		var div = $('<div></div>');
 		this.$el.find ('.portlet-body').html (div);
 

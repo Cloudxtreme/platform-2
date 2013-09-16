@@ -4,14 +4,25 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 	'placeholder' : null,
 	'icon' : 'reorder',
 	'size' : 6,
+	'element' : null,
 
 	'getDataset' : function ()
 	{
 		return this.options.dataset;
 	},
 
+	'initialize' : function ()
+	{
+		var self = this;
+		this.options.dataset.on ('dataset:change', function (values)
+		{
+			self.plot (values[0].values);
+		});
+	},
+
 	'innerRender' : function (element)
 	{
+		this.element = element;
 		var self = this;
 
 		this.placeholder = $('<div class="chart" style="position: relative;"></div>');
@@ -24,11 +35,6 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 			self.plot (values);
 		});
 
-		this.options.dataset.on ('dataset:change', function (values)
-		{
-			self.plot (values[0].values);
-		});
-		
 	},
 
     'showTooltip' : function (x, y, contents) {
@@ -43,7 +49,7 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
                 'border-radius': '3px',
                 'background-color': '#333',
                 opacity: 0.80
-            }).appendTo(this.$el).fadeIn(200);
+            }).appendTo(this.element).fadeIn(200);
     },
 
 	'plot' : function (values)
