@@ -43,14 +43,60 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.attributes.customname });
 						self.add (title);
 
+						// We're going to combine all plain statistics in a special, combined widget.
+						var plainstatistics = [];
+						var other = [];
+
 						for (var j = 0; j < data.statistics.length; j ++)
 						{
-							self.addReportWidget (stream.attributes, data.statistics[j]);
+							if (data.statistics[j].token == 'plainstatistics')
+							{
+								plainstatistics.push (data.statistics[j]);
+							}
+
+							else
+							{
+								other.push (data.statistics[j]);
+							}
+						}
+
+						// Add combined statistic (on top)
+						self.addCombinedWidget (stream.attributes, plainstatistics);
+
+						// Add all others
+						for (var i = 0; i < other.length; i ++)
+						{
+							self.addReportWidget (stream.attributes, other[i]);
 						}
 					}
 				}
 			}
 		);
+	},
+
+	'addCombinedWidget' : function (stream, reportsdata)
+	{
+		var self = this;
+		var reports = [];
+		var report;
+
+		var daterange = self.datepicker.getDateRange ();
+
+		for (var i = 0; i < reportsdata.length; i ++)
+		{
+			reportsdata[i].stream = stream;
+			report = new Cloudwalkers.Models.Report (reportsdata[i]);			
+			report.getDataset ().setDateRange (daterange[0], daterange[1]);
+
+			reports.push (report);
+		}
+
+		var widget = new Cloudwalkers.Views.Widgets.CombinedStatistics ({ 'reports' : reports, 'stream' : stream });
+
+		widget.color = stream.network.icon + '-color';
+		widget.network = stream.network;
+
+		this.add (widget);
 	},
 
 	'addReportWidget' : function (stream, reportdata)

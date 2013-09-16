@@ -15,6 +15,11 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		});
 	},
 
+	'getDataset' : function ()
+	{
+		return this.dataset;
+	},
+
 	'getDatasetType' : function ()
 	{
 		if (this.get ('type') == 'bars')

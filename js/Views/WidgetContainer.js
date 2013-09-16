@@ -68,7 +68,7 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		//console.log (this.sizecounter);
 		this.sizecounter += size;
 
-		console.log (widget.title + ' : ' + this.sizecounter);
+		//console.log (widget.title + ' : ' + this.sizecounter);
 
 		if (this.sizecounter > 12)
 		{
