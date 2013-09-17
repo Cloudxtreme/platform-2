@@ -38,8 +38,6 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		//console.log (this.options.reports);
 		el.html (Mustache.render (Templates.combinedstatistics, data));
 
-		this.setReport (this.options.reports[0]);
-
 		// Change report events
 		function attachReportEvent (report)
 		{
@@ -107,6 +105,8 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		}
 
 		el.find ('[data-interval-id="' + data.intervals[0].token + '"]').click ();
+
+		this.setReport (this.options.reports[0]);
 
 		return this;
 	},
