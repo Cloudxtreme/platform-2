@@ -79,7 +79,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 		else if (type == 'time')
 		{
-			var widget = new Cloudwalkers.Views.Widgets.Charts.Linechart ({
+			var widget = new Cloudwalkers.Views.Widgets.Charts.Intervalchart ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 				'stream' : this.get('stream')

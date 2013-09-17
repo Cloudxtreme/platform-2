@@ -51,6 +51,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/CombinedStatistics.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Numberstat.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Textstat.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Comparison.js"></script>
