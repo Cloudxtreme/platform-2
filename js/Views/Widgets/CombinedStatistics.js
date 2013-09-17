@@ -2,12 +2,15 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 	'size': 'full',
 	'currentReport' : null,
+	'element' : null,
 
 	'render' : function ()
 	{
 		var self = this;
 		var data = {};
 		var el = this.$el;
+
+		this.element = el;
 
 		data.reports = [];
 		data.stream = this.options.stream;
@@ -51,10 +54,39 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		{
 			el.find ('[data-interval-id="' + interval.token + '"]').click (function ()
 			{
+				el.find ('.interval-value').html (interval.name);
+
+				// Calculate date interval
+				var units = 10;
+
+				var days = 1;
+				if (interval.token == 'day')
+				{
+					days = units;
+				}
+				else if (interval.token == '7days')
+				{
+					days = 7 * units;
+				}
+				else if (interval.token == '28days')
+				{
+					days = 28 * units;
+				}
+
+				var now = new Date();
+				var today = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
+				var start = new Date (today.getTime () - (60 * 60 * 24 * days * 1000));
+				var end = today;
+
+				//console.log ('Setting daterange from ' + start + ' to ' + end);
+
 				for (var i = 0; i < self.options.reports.length; i ++)
 				{
-					console.log (self.options.reports[i].getDataset ());
 					self.options.reports[i].getDataset ().setInterval (interval.token);
+
+					// Also set date range.
+					self.options.reports[i].getDataset ().setDateRange (start, end);
 				}
 
 				if (self.currentReport)
@@ -74,11 +106,15 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 			attachIntervalEvent (data.intervals[i]);
 		}
 
+		el.find ('[data-interval-id="' + data.intervals[0].token + '"]').click ();
+
 		return this;
 	},
 
 	'setReport' : function (report)
 	{
+		this.element.find ('.report-value').html (report.get ('name'));
+
 		this.currentReport = report;
 
 		var div = $('<div></div>');

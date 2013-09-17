@@ -81,21 +81,13 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			var report;
 			
 			reportsdata[i].stream = stream;
-			report = new Cloudwalkers.Models.Report (repdat);			
-			report.getDataset ().setDateRange (daterange[0], daterange[1]);
-
-			self.datepicker.on ('date:change', function (start, end)
-			{
-				report.getDataset ().setDateRange (start, end);
-			});
+			report = new Cloudwalkers.Models.Report (repdat);
 
 			reports.push (report);
 		}
 
 		var self = this;
 		var reports = [];
-
-		var daterange = self.datepicker.getDateRange ();
 
 		for (var i = 0; i < reportsdata.length; i ++)
 		{

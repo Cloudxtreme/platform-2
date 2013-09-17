@@ -7,7 +7,7 @@
 			<div class="btn-group">
 				<a href="javascript:void(0);" data-toggle="dropdown" class="btn black">
 					<i class="icon-file"></i>
-					Reports
+					Report: <span class="report-value"></span>
 					<i class="icon-angle-down"></i>
 				</a>
 
@@ -27,7 +27,7 @@
 
 				<a href="javascript:void(0);" data-toggle="dropdown" class="btn black">
 					<i class="icon-time"></i>
-					Interval
+					Interval: <span class="interval-value">Interval</span>
 					<i class="icon-angle-down"></i>
 				</a>
 
