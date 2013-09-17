@@ -1,28 +1,17 @@
 Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Widget.extend ({
 
-	'title' : 'Interval chart',
+	'title' : 'Bar chart',
 	'placeholder' : null,
 	'icon' : 'reorder',
 	'size' : 6,
-	'element' : null,
 
 	'getDataset' : function ()
 	{
 		return this.options.dataset;
 	},
 
-	'initialize' : function ()
-	{
-		var self = this;
-		this.options.dataset.on ('dataset:change', function (values)
-		{
-			self.plot (values[0].values);
-		});
-	},
-
 	'innerRender' : function (element)
 	{
-		this.element = element;
 		var self = this;
 
 		this.placeholder = $('<div class="chart" style="position: relative;"></div>');
@@ -35,26 +24,27 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			self.plot (values);
 		});
 
+		this.options.dataset.on ('dataset:change', function (values)
+		{
+			self.plot (values[0].values);
+		});
 	},
-
-    'showTooltip' : function (x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css({
-                position: 'absolute',
-                display: 'none',
-                top: y + 5,
-                left: x + 15,
-                border: '1px solid #333',
-                padding: '4px',
-                color: '#fff',
-                'border-radius': '3px',
-                'background-color': '#333',
-                opacity: 0.80
-            }).appendTo(this.element).fadeIn(200);
-    },
 
 	'plot' : function (values)
 	{
-		var self = this;
+		if (!values)
+		{
+			return;
+		}
+
+		// Afraid we'll have to prepare the data for this one
+		var ticks = [];
+		for (var i = 0; i < values.length; i ++)
+		{
+			// Only show one in 3
+			ticks.push ([ i, new Date (values[i][0]).toLocaleDateString() ]);
+			values[i][0] = i;
+		}
 
 		$.plot 
 		(
@@ -62,65 +52,18 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			[ values ], 
 			{
 				'xaxis' : {
-					'mode' : 'time'
+					'ticks' : ticks
 				},
 
 				'yaxis' : {
 					'tickDecimals' : 0
 				},
-
-				series: {
-					lines: {
-						show: true,
-						lineWidth: 2,
-						fill: true,
-						fillColor: {
-							colors: [{
-									opacity: 0.05
-								}, {
-									opacity: 0.01
-								}
-							]
-						}
-					},
-					points: {
-						show: true
-					},
-					shadowSize: 2
-				},
-
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#eee",
-                    borderWidth: 0
-                },
-                colors: ["#d12610", "#37b7f3", "#52e136"]
+				'bars' : {
+					'show': true,
+					'align': 'center'
+				}
 			}
 		);
-
-        var previousPoint = null;
-        this.placeholder.bind("plothover", function (event, pos, item) {
-            $("#x").text(pos.x.toFixed(2));
-            $("#y").text(pos.y.toFixed(2));
-
-            if (item) {
-                if (previousPoint != item.dataIndex) {
-                    previousPoint = item.dataIndex;
-
-                    $("#tooltip").remove();
-                    var x = item.datapoint[0],
-                        y = item.datapoint[1];
-
-                    x = (new Date(x)).toLocaleDateString();
-
-                    self.showTooltip(item.pageX, item.pageY, x + ': ' + y);
-                }
-            } else {
-                $("#tooltip").remove();
-                previousPoint = null;
-            }
-        });
 	}
 
 });
