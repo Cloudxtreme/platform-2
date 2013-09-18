@@ -3,7 +3,7 @@
 	<thead>
 		<tr>
 			{{#header}}
-				<th>
+				<th class="{{class}}">
 					{{name}}
 				</th>
 			{{/header}}
@@ -15,7 +15,7 @@
 
 			<tr>
 				{{#columns}}
-					<td>
+					<td class="{{class}}">
 						{{value}}
 					</td>
 				{{/columns}}

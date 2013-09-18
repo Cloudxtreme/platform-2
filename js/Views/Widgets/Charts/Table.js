@@ -35,9 +35,15 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 		var mustachedata = {};
 		mustachedata.header = [];
 
+		var columns = [];
+
 		for (var i = 0; i < values.header.length; i ++)
 		{
-			mustachedata.header.push ({ 'name' : values.header[i] });
+			mustachedata.header.push ({ 'name' : values.header[i], 'class' : typeof (values.classes[i]) != 'undefined' ? values.classes[i] : null });
+
+			columns.push ({
+				'sSortDataType' : 'dom-text'
+			});
 		}
 
 		mustachedata.rows = [];
@@ -46,7 +52,10 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 			var tmp = [];
 			for (var j = 0; j < values.rows[i].length; j ++)
 			{
-				tmp.push ({ 'value' : values.rows[i][j] });
+				tmp.push ({ 
+					'value' : values.rows[i][j], 
+					'class' : (typeof (values.classes[j]) != 'undefined' ? values.classes[j] : null ) 
+				});
 			}
 			mustachedata.rows.push ({ 'columns' : tmp });
 		}
@@ -55,12 +64,16 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 
 		this.placeholder.html (Mustache.render (Templates.charttable, mustachedata));
 
-		this.placeholder.find ('table').dataTable({
+		var table = this.placeholder.find ('table').dataTable({
             "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
             "bPaginate": false,
             "bFilter" : false
 		});
+
+		
+
+		table.fnSort ([ mustachedata.header.length - 1, 'desc' ]);
 	}
 
 });

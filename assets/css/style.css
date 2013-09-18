@@ -1381,7 +1381,7 @@ Portlets
   display: inline-block !important;
   font-size: 13px;
   margin-right: 5px;
-  color: #666;
+  color: white;
 }
 
 .portlet.blue > .portlet-title .caption, .portlet-title.blue .caption, 
