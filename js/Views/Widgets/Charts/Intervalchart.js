@@ -89,11 +89,18 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 
 		// Points
 		var o;
+		var growth;
 		for (var i = 0; i < values.length; i ++)
 		{
-			o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
-			
-			this.placeholder.append ('<div style="position: absolute; left: ' + (o.left - 24) + 'px; top: ' + (o.top - 13) + 'px; width: 40px; text-align: center; background: white; border: 1px solid orange; padding: 3px;">' + values[i][1] + '</div>');
+			if (i > 0)
+			{
+				growth = (values[i][1] - values[i-1][1]) / values[i-1][1];
+				growth *= 100;
+				growth = Math.floor (growth);
+
+				o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
+				this.placeholder.append ('<div style="position: absolute; left: ' + (o.left - 20) + 'px; top: ' + (o.top - 25) + 'px; width: 40px; text-align: center;">' + growth + '%</div>');
+			}
 		}
 	}
 
