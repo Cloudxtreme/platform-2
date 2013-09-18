@@ -17,7 +17,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		// Order
 		data.streams.sort (function (a, b)
 		{
-			return a.unread < b.unread;
+			return parseInt(a.unread) < parseInt(b.unread);
 		});
 
 		jQuery.each (data.streams, function (i, v) {

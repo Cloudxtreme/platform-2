@@ -18,7 +18,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 			// Order
 			data.streams.sort (function (a, b)
 			{
-				return a.message_count < b.message_count;
+				return parseInt(a.message_count) < parseInt(b.message_count);
 			});
 
 			jQuery.each (data.streams, function (i, v)
