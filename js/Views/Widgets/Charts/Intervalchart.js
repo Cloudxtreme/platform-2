@@ -125,12 +125,15 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			{
 				values[i][1] = parseInt(values[i][1]);
 
-				growth = (values[i][1] - values[i-1][1]) / Math.max(1, values[i-1][1]);
-				growth *= 100;
-				growth = Math.floor (growth);
+				if (values[i][1] > 0)
+				{
+					growth = (values[i][1] - values[i-1][1]) / Math.max(1, values[i-1][1]);
+					growth *= 100;
+					growth = Math.floor (growth);
 
-				o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
-				this.placeholder.append ('<div style="position: absolute; left: ' + (o.left - 20) + 'px; top: ' + (o.top + 2) + 'px; width: 40px; text-align: center;">' + growth + '%</div>');
+					o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
+					this.placeholder.append ('<div style="position: absolute; left: ' + (o.left - 20) + 'px; top: ' + (o.top + 2) + 'px; width: 40px; text-align: center;">' + growth + '%</div>');
+				}
 			}
 		}
 	}
