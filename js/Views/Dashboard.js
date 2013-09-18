@@ -181,6 +181,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			{
 				var since = (Date.today().add({ days: -7 }));
 
+				if (channels[i].type == 'news')
+				{
+					since = (Date.today().add({ days: -1 }));
+				}
+
 				collection = new Cloudwalkers.Collections.Trending 
 				(
 					[], 
