@@ -39,17 +39,40 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 
 		// Afraid we'll have to prepare the data for this one
 		var ticks = [];
+
+		var basevalue = [];
+		var additions = [];
+
 		for (var i = 0; i < values.length; i ++)
 		{
 			// Only show one in 3
 			ticks.push ([ i, new Date (values[i][0]).toLocaleDateString() ]);
 			values[i][0] = i;
+
+			if (i == 0)
+			{
+				basevalue.push ([ i, values[i][1] ]);
+				additions.push ([ i, 0 ]);
+			}
+			else
+			{
+				if (values[i-1][1] <= values[i][1])
+				{
+					basevalue.push ([ i, values[i-1][1] ]);
+					additions.push ([ i, values[i][1] - values[i-1][1] ]);
+				}
+				else
+				{
+					basevalue.push ([ i, values[i][1] ]);
+					additions.push ([ i, 0 ]);
+				}
+			}
 		}
 
 		var plot = $.plot 
 		(
 			this.placeholder, 
-			[ values ], 
+			[ basevalue, additions ], 
 			{
 				'xaxis' : {
 					'ticks' : ticks
@@ -60,6 +83,9 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 				},
 
 				series: {
+					stack : true,
+
+/*
 					lines: {
 						show: true,
 						lineWidth: 2,
@@ -76,13 +102,15 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 					points: {
 						show: true
 					},
-					shadowSize: 2
-				},
+*/
+					
+					shadowSize: 2,
 
-				'bars' : {
-					'show': true,
-					'align': 'center',
-					'barWidth': 0.8
+					'bars' : {
+						'show': true,
+						'align': 'center',
+						'barWidth': 0.8
+					}
 				}
 			}
 		);
@@ -94,6 +122,8 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 		{
 			if (i > 0)
 			{
+				values[i][1] = parseInt(values[i][1]);
+
 				growth = (values[i][1] - values[i-1][1]) / Math.max(1, values[i-1][1]);
 				growth *= 100;
 				growth = Math.floor (growth);
