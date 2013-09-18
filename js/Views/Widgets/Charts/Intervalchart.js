@@ -94,7 +94,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 		{
 			if (i > 0)
 			{
-				growth = (values[i][1] - values[i-1][1]) / values[i-1][1];
+				growth = (values[i][1] - values[i-1][1]) / Math.max(1, values[i-1][1]);
 				growth *= 100;
 				growth = Math.floor (growth);
 
