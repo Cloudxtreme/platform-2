@@ -5488,6 +5488,19 @@ Datatables Plugin(in v1.3)
   background-color: #eee !important;
 }
 
+.portlet.box .dataTable td.date,
+.portlet.box .dataTable th.date
+{
+  color: inherit;
+  font-style: inherit;
+}
+
+.dataTable td.text,
+.dataTable th.text
+{
+  text-align: left;
+}
+
 /**
 * Button colors
 */
