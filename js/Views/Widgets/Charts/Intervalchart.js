@@ -46,7 +46,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			values[i][0] = i;
 		}
 
-		$.plot 
+		var plot = $.plot 
 		(
 			this.placeholder, 
 			[ values ], 
@@ -58,12 +58,43 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 				'yaxis' : {
 					'tickDecimals' : 0
 				},
+
+				series: {
+					lines: {
+						show: true,
+						lineWidth: 2,
+						fill: true,
+						fillColor: {
+							colors: [{
+									opacity: 0.05
+								}, {
+									opacity: 0.01
+								}
+							]
+						}
+					},
+					points: {
+						show: true
+					},
+					shadowSize: 2
+				},
+
 				'bars' : {
 					'show': true,
-					'align': 'center'
+					'align': 'center',
+					'barWidth': 0.8
 				}
 			}
 		);
+
+		// Points
+		var o;
+		for (var i = 0; i < values.length; i ++)
+		{
+			o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
+			
+			this.placeholder.append ('<div style="position: absolute; left: ' + (o.left - 24) + 'px; top: ' + (o.top - 13) + 'px; width: 40px; text-align: center; background: white; border: 1px solid orange; padding: 3px;">' + values[i][1] + '</div>');
+		}
 	}
 
 });
