@@ -96,7 +96,6 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 	'setInterval' : function (interval)
 	{
-		console.log (interval);
 		this.intervalinput = interval;
 	},
 

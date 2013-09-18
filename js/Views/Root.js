@@ -187,13 +187,25 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			);
 		}
 
+		function setUnreadCount (newnumber)
+		{
+			if (newnumber > 0)
+			{
+				$('.unread-messages-count').html (newnumber).show ();
+			}
+			else
+			{
+				$('.unread-messages-count').html (0).hide ();	
+			}
+		}
+
 		// New messages
 		Cloudwalkers.Session.getUser ().on ('change:unread', function (newnumber)
 		{
-			$('.unread-messages-count').html (newnumber);
+			setUnreadCount (newnumber);
 		});
 
-		$('.unread-messages-count').html (Cloudwalkers.Session.getUser ().countUnreadMessages ());
+		setUnreadCount (Cloudwalkers.Session.getUser ().countUnreadMessages ());
 
 		// Set accounts
 		var accounts = Cloudwalkers.Session.getUser ().getAccounts ();

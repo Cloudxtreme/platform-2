@@ -71,7 +71,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
             "bFilter" : false
 		});
 
-		table.fnSort ([[ mustachedata.header.length - 1, 'desc' ]]);
+		table.fnSort ([ values.sort ]);
 	}
 
 });
