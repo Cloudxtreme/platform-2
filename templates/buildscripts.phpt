@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Cloudwalkers.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Session.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utils.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Storage.js"></script>
 
 <!-- Router -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Router/Router.js"></script>

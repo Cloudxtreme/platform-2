@@ -223,20 +223,43 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardChannelCounter' : function (widgetdata)
 	{
+		function createView (channel)
+		{
+			Cloudwalkers.Storage.get ('collapse_channel_' + channel.id, function (open)
+			{
+				open = open == 1;
+
+				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channel, 'color' : widgetdata.color, 'title' : channel.name, 'icon' : widgetdata.icon, 'network' : widgetdata.network, 'open' : open })
+
+				// Size
+				self.addWidgetWithSettings (widget, widgetdata);
+
+				// Toggle
+				widget.on ('view:expand', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_channel_' + channel.id, 1);
+				});
+
+				widget.on ('view:collapse', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_channel_' + channel.id, 0);
+				});
+
+			}, false);
+		}
+
 		var widget;
 
 		var account = Cloudwalkers.Session.getAccount ();
 		var channels = account.channels ();
 		var collection;
+		var self = this;
 
 		for (var i = 0; i < channels.length; i ++)
 		{
 			if (channels[i].type == widgetdata.type)
 			{
-				widget = new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : channels[i].name, 'icon' : widgetdata.icon, 'network' : widgetdata.network })
-
-				// Size
-				this.addWidgetWithSettings (widget, widgetdata);
+				createView (channels[i])
 			}
 		}
 	},
@@ -244,14 +267,32 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	'addDashboardScheduleCounter' : function (widgetdata)
 	{
 		var widget;
+		var self = this;
 
 		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 
 		var data = widgetdata;
 		widgetdata.schedule = schedule;
 
-		widget = new Cloudwalkers.Views.Widgets.ScheduleCounter (data)
-		this.addWidgetWithSettings (widget, widgetdata);
+		Cloudwalkers.Storage.get ('collapse_schedule', function (open)
+		{
+			data.open = open == 1;
+
+			widget = new Cloudwalkers.Views.Widgets.ScheduleCounter (data)
+
+			// Toggle
+			widget.on ('view:expand', function ()
+			{
+				Cloudwalkers.Storage.set ('collapse_schedule', 1);
+			});
+
+			widget.on ('view:collapse', function ()
+			{
+				Cloudwalkers.Storage.set ('collapse_schedule', 0);
+			});
+
+			self.addWidgetWithSettings (widget, widgetdata);
+		}, false);
 	},
 
 	'addReportWidget' : function (reportdata)

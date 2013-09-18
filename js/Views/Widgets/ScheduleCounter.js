@@ -3,6 +3,11 @@
 */
 Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.extend({
 
+	'events' : {
+		'click .tools .expand' : 'expand',
+		'click .tools .collapse' : 'collapse'
+	},
+
 	'render' : function ()
 	{
 		var el = this.$el;
@@ -35,6 +40,16 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 		});
 
 		return this;
+	},
+
+	'expand' : function ()
+	{
+		this.trigger ('view:expand');
+	},
+
+	'collapse' : function ()
+	{
+		this.trigger ('view:collapse');
 	}
 
 });
