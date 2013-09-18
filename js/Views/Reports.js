@@ -49,7 +49,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 						for (var j = 0; j < data.statistics.length; j ++)
 						{
-							if (data.statistics[j].token == 'plainstatistics')
+							if (data.statistics[j].type == 'time')
 							{
 								plainstatistics.push (data.statistics[j]);
 							}

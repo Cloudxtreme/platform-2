@@ -79,7 +79,8 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 				},
 
 				'yaxis' : {
-					'tickDecimals' : 0
+					'tickDecimals' : 0,
+					'min' : 0
 				},
 
 				series: {
