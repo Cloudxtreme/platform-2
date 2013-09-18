@@ -9,7 +9,9 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 	{
 		//console.log (this.options);
 		this.datepicker = new Cloudwalkers.Views.Widgets.Datepicker ();
-		this.addWidget (this.datepicker, true);
+
+		// Hide datapicker for now.
+		//this.addWidget (this.datepicker, true);
 
 		if (typeof (this.options.stream) == 'undefined' || !this.options.stream)
 		{
