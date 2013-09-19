@@ -5511,3 +5511,8 @@ Datatables Plugin(in v1.3)
 .btn.google-plus-color  { background-color: #DD4C39 ; }
 .btn.youtube-color  { background-color: #CC181E ;  color: white; }
 .btn.rss-color  { background-color: #f39501 ;  color: white; }
+
+.clickable
+{
+  cursor: pointer;
+}
