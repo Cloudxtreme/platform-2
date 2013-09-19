@@ -122,6 +122,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		widget.color = stream.network.icon + '-color';
 		widget.network = stream.network;
 		widget.showLink = false;
+		widget.showStreamName = false;
 
 		self.datepicker.on ('date:change', function (start, end)
 		{

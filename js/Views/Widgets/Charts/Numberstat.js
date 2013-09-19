@@ -7,6 +7,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'template' : 'dashboardstat',
 	'size' : 3,
 	'showLink' : true,
+	'showStreamName' : true,
 
 	'getDataset' : function ()
 	{
@@ -26,6 +27,9 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		if (this.showLink)
 			this.options.showLink = this.showLink;
+
+		if (this.showStreamName)
+			this.options.showStreamName = this.showStreamName;
 
 		element.html (Mustache.render (Templates[this.template], this.options));
 
@@ -75,6 +79,8 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		data.details = [];
 		data.footer = '&nbsp;';
 
+		var title;
+
 		if (values && values.length > 0)
 		{
 			// Always last available value
@@ -98,7 +104,16 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 					data.footer = 'Last ' + interval;
 				}
 
-				data.details.push ({ 'content' : text, 'descr' : data.stream.customname + ' ' + data.title });
+				if (this.options.showStreamName)
+				{
+					title = data.stream.customname + ' ' + data.title;
+				}
+				else
+				{
+					title = data.title;	
+				}
+
+				data.details.push ({ 'content' : text, 'descr' : title });
 			}
 
 			else
