@@ -6,6 +6,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'network' : null,
 	'template' : 'dashboardstat',
 	'size' : 3,
+	'showLink' : true,
 
 	'getDataset' : function ()
 	{
@@ -22,6 +23,9 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		if (this.network)
 			this.options.network = this.network;
+
+		if (this.showLink)
+			this.options.showLink = this.showLink;
 
 		element.html (Mustache.render (Templates[this.template], this.options));
 
