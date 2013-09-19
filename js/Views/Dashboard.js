@@ -101,7 +101,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 				// Size
 				self.addWidgetWithSettings (widget, widgetdata);
-			});
+			}, 1);
 		}
 
 		else if (widgetdata.widget == 'scheduled')
@@ -250,7 +250,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 				// Size
 				self.addWidgetWithSettings (widget, widgetdata);
-			});
+			}, 1);
 		}
 
 		var widget;
