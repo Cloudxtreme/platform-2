@@ -66,24 +66,42 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		else if (widgetdata.widget == 'drafts')
 		{
+			var self = this;
+
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
 
 			var data = widgetdata;
 			widgetdata.channel = collection;
 
-			if (widgetdata.layout == 'dashboardmessagelist')
+			Cloudwalkers.Storage.get ('collapse_drafts', function (open)
 			{
-				widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
-				widget.messagetemplate = 'dashboardmessagedraft';
-			}
-			else
-			{
-				widget = new Cloudwalkers.Views.Widgets.DraftList (data);
-				widget.template = 'messagecontainer';
-			}
+				data.open = open == 1;
 
-			// Size
-			this.addWidgetWithSettings (widget, widgetdata);
+				if (widgetdata.layout == 'dashboardmessagelist')
+				{
+					widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+					widget.messagetemplate = 'dashboardmessagedraft';
+				}
+				else
+				{
+					widget = new Cloudwalkers.Views.Widgets.DraftList (data);
+					widget.template = 'messagecontainer';
+				}
+
+				// Toggle
+				widget.on ('view:expand', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_drafts', 1);
+				});
+
+				widget.on ('view:collapse', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_drafts', 0);
+				});
+
+				// Size
+				self.addWidgetWithSettings (widget, widgetdata);
+			});
 		}
 
 		else if (widgetdata.widget == 'scheduled')
@@ -169,19 +187,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardTrending' : function (widgetdata)
 	{
-		var widget;
+		var self = this;
 
-		var account = Cloudwalkers.Session.getAccount ();
-		var channels = account.channels ();
-		var collection;
-
-		for (var i = 0; i < channels.length; i ++)
+		function createView (channel)
 		{
-			if (channels[i].type == widgetdata.type)
+			Cloudwalkers.Storage.get ('collapse_trending_' + channel.id, function (open)
 			{
 				var since = (Date.today().add({ days: -7 }));
 
-				if (channels[i].type == 'news')
+				if (channel.type == 'news')
 				{
 					since = (Date.today().add({ days: -1 }));
 				}
@@ -190,17 +204,20 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				(
 					[], 
 					{ 
-						'id' : channels[i].id, 
+						'id' : channel.id, 
 						'name' : widgetdata.title,
 						'amount' : widgetdata.messages,
 						'canLoadMore' : false,
-						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channels[i].id : false,
+						'showMoreButton' : widgetdata.layout == 'timeline' ? '#trending/' + channel.id : false,
 						'since' : since
 					}
 				);
 
 				var data = widgetdata;
 				widgetdata.channel = collection;
+
+				// Open or closed?
+				widgetdata.open = open == 1;
 
 				// View
 				if (widgetdata.layout == 'list')
@@ -220,8 +237,33 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 					widget.messagetemplate = 'dashboardmessagetrending';
 				}
 
+				// Toggle
+				widget.on ('view:expand', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_trending_' + channel.id, 1);
+				});
+
+				widget.on ('view:collapse', function ()
+				{
+					Cloudwalkers.Storage.set ('collapse_trending_' + channel.id, 0);
+				});
+
 				// Size
-				this.addWidgetWithSettings (widget, widgetdata);
+				self.addWidgetWithSettings (widget, widgetdata);
+			});
+		}
+
+		var widget;
+
+		var account = Cloudwalkers.Session.getAccount ();
+		var channels = account.channels ();
+		var collection;
+
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == widgetdata.type)
+			{
+				createView (channels[i]);
 			}
 		}
 	},
@@ -230,7 +272,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	{
 		function createView (channel)
 		{
-			Cloudwalkers.Storage.get ('collapse_channel_' + channel.id, function (open)
+			Cloudwalkers.Storage.get ('collapse_channelcounter_' + channel.id, function (open)
 			{
 				open = open == 1;
 
@@ -242,12 +284,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				// Toggle
 				widget.on ('view:expand', function ()
 				{
-					Cloudwalkers.Storage.set ('collapse_channel_' + channel.id, 1);
+					Cloudwalkers.Storage.set ('collapse_channelcounter_' + channel.id, 1);
 				});
 
 				widget.on ('view:collapse', function ()
 				{
-					Cloudwalkers.Storage.set ('collapse_channel_' + channel.id, 0);
+					Cloudwalkers.Storage.set ('collapse_channelcounter_' + channel.id, 0);
 				});
 
 			}, false);

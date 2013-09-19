@@ -8,6 +8,11 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'canLoadMore' : true,
 
+	'events' : {
+		'click .tools .expand' : 'expand',
+		'click .tools .collapse' : 'collapse'
+	},
+
 	'tools' : [
 		{
 			'event' : 'refreshWidget',
@@ -269,6 +274,16 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			this.$innerEl.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 		}
 		*/
+	},
+
+	'expand' : function ()
+	{
+		this.trigger ('view:expand');
+	},
+
+	'collapse' : function ()
+	{
+		this.trigger ('view:collapse');
 	}
 
 });

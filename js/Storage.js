@@ -5,6 +5,8 @@ Cloudwalkers.Storage =
 {
 	'set' : function (c_name, value, callback)
 	{
+		console.log ('Setting ' + c_name + ' to ' + value);
+
 		callback = callback || function () {};
 
 		var exdays = 365;
