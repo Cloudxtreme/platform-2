@@ -957,7 +957,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		var available_timestamps = [
 			{ 'start' : 60 * 8, 'end' : 60 * 9 },
 			{ 'start' : (60 * 12) + (15), 'end' : 60 * 14 },
-			{ 'start' : (60 * 19), 'end' : (60 * 24) - 1 },
+			{ 'start' : (60 * 19), 'end' : (60 * 24) - 1 }
 		];
 
 		var index = Math.floor (Math.random() * 3);

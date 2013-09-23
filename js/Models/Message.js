@@ -210,7 +210,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						'label' : 'Delete forever',
 						'description' : 'Message will never be repeated',
 						'token' : 'remove'
-					},
+					}
 				],
 				function (response) 
 				{
