@@ -202,7 +202,7 @@ Style corrections and manual overrides
 .loading-cloud	{ background: url(../img/loading-cloud.gif) no-repeat center; }
 
 /* Topnav - user */
-.dropdown.user .avatar	{ width: 28px; }
+.dropdown.user .avatar	{ width: 28px; background: white; }
 
 
 /***
