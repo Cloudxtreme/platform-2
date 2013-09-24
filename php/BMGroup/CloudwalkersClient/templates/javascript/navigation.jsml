@@ -69,6 +69,7 @@
 		>
 			<i class="icon-thumbs-up"></i> 
 			<span class="title">Trending topics</span>
+			<span class="arrow"></span>
 			<span class="selected"></span>
 		</a>
 
