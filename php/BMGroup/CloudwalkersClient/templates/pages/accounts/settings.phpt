@@ -180,6 +180,16 @@
 					</td>
 				</tr>
 
+			<?php } elseif ($v['type'] == 'boolean') { ?>
+				<tr>
+					<td class="first">
+						<?php echo $v['name']; ?>
+					</td>
+
+					<td>
+						<input type="checkbox" name="<?php echo $v['key']; ?>" value="1" <?php if ($v['value']) { ?>checked="checked"<?php } ?> />
+					</td>
+				</tr>
 			<?php } else { ?>
 					<tr>
 						<td class="first">
