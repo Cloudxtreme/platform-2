@@ -103,7 +103,7 @@
 				</tr>
 			<?php } ?>
 
-			<?php if ($caps['INCOMING']) { ?>
+			<?php if ($caps['INCOMING'] && $stream['canSetChannels']) { ?>
 				<tr>
 					<th colspan="2"><?php echo __('Channels'); ?></th>
 				</tr>

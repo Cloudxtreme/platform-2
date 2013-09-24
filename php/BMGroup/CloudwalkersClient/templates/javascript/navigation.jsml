@@ -160,6 +160,30 @@
 				{{#streams}}
 					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
+
+				{{#channels}}
+					<li>
+						<a href="javascript:void(0);">{{name}}</a>
+
+						<ul class="sub-menu">
+							{{#streams}}
+								<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							{{/streams}}
+
+							{{#channels}}
+								<li>
+									<a href="javascript:void(0);">{{name}}</a>
+
+									<ul class="sub-menu">
+										{{#streams}}
+											<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+										{{/streams}}									
+									</ul>
+								</li>
+							{{/channels}}
+						</ul>
+					</li>
+				{{/channels}}
 			</ul>
 		</li>
 	{{/sortedchannels.monitoring}}
