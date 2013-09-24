@@ -27,7 +27,7 @@ select:focus {
 	filter: none;
 	border: 0;
 	padding: 7px 14px; 
-	text-shadow: none;
+	
 	font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;  	
   color: #333333;
@@ -39,6 +39,10 @@ select:focus {
   -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
+
+  -webkit-text-shadow: none;
+     -moz-text-shadow: none;
+          text-shadow: none;
 }
 .btn:hover, 
 .btn:focus, 
@@ -90,6 +94,19 @@ select:focus {
   color: #fff !important;
 }
 
+.btn-group .btn.red.dropdown-toggle {
+  background-color: #d84a38 !important;
+}
+.btn-group .red.blue:hover, 
+.btn-group .red.blue:focus, 
+.btn-group .red.blue:active, 
+.btn-group .red.blue.active, 
+.btn-group .red.blue.disabled,
+.btn-group .red.blue[disabled] { 
+  background-color: #bb2413 !important;
+  color: #fff !important;
+}
+
 /*  Blue */
 .btn.transparent   
 {
@@ -114,6 +131,19 @@ select:focus {
   color: #fff !important;
 }
 
+.btn-group .btn.blue.dropdown-toggle {
+  background-color: #4d90fe !important;
+}
+.btn-group .btn.blue:hover, 
+.btn-group .btn.blue:focus, 
+.btn-group .btn.blue:active, 
+.btn-group .btn.blue.active, 
+.btn-group .btn.blue.disabled,
+.btn-group .btn.blue[disabled] { 
+  background-color: #0362fd !important;
+  color: #fff !important;
+}
+
 /*  Green */
 .btn.green {
   color: white;
@@ -126,6 +156,19 @@ select:focus {
 .btn.green.active,
 .btn.green.disabled, 
 .btn.green[disabled]{ 
+  background-color: #1d943b !important;
+  color: #fff !important;
+}
+
+.btn-group .btn.green.dropdown-toggle {
+  background-color: #35aa47 !important;
+}
+.btn-group .btn.green:hover, 
+.btn-group .btn.green:focus, 
+.btn-group .btn.green:active, 
+.btn-group .btn.green.active, 
+.btn-group .btn.green.disabled,
+.btn-group .btn.green[disabled] { 
   background-color: #1d943b !important;
   color: #fff !important;
 }
@@ -146,6 +189,20 @@ select:focus {
   color: #fff !important;
 }
 
+.btn-group .btn.purple.dropdown-toggle {
+  background-color: #852b99 !important;
+}
+.btn-group .btn.purple:hover, 
+.btn-group .btn.purple:focus, 
+.btn-group .btn.purple:active, 
+.btn-group .btn.purple.active, 
+.btn-group .btn.purple.disabled,
+.btn-group .btn.purple[disabled] { 
+  background-color: #6d1b81 !important;
+  color: #fff !important;
+}
+
+/*  Yellow */
 .btn.yellow {
   color: white; 
   text-shadow: none;	
@@ -161,6 +218,20 @@ select:focus {
   color: #fff !important;
 }
 
+.btn-group .btn.yellow.dropdown-toggle {
+  background-color: #ffb848 !important;
+}
+.btn-group .btn.yellow:hover, 
+.btn-group .btn.yellow:focus, 
+.btn-group .btn.yellow:active, 
+.btn-group .btn.yellow.active, 
+.btn-group .btn.yellow.disabled,
+.btn-group .btn.yellow[disabled] { 
+  background-color: #eca22e !important;
+  color: #fff !important;
+}
+
+/*  Black */
 .btn.black {
   color: white; 
   text-shadow: none;	
@@ -172,6 +243,19 @@ select:focus {
 .btn.black.active, 
 .btn.black.disabled,
 .btn.black[disabled] { 
+  background-color: #222222 !important;
+  color: #fff !important;
+}
+
+.btn-group .btn.black.dropdown-toggle {
+  background-color: #555555 !important;
+}
+.btn-group .btn.black:hover, 
+.btn-group .btn.black:focus, 
+.btn-group .btn.black:active, 
+.btn-group .btn.black.active, 
+.btn-group .btn.black.disabled,
+.btn-group .btn.black[disabled] { 
   background-color: #222222 !important;
   color: #fff !important;
 }
@@ -292,8 +376,59 @@ Glyphicons icons
 } 
 
 /***
+Popover
+ ***/
+.popover {
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);  
+  padding: 0 !important;
+}
+
+.popover .popover-title {
+    -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+          margin: 0 !important;
+}
+
+.info .popover .popover-title,
+.popover.info .popover-title,
+.info .popover .popover-content,
+.popover.info .popover-content {
+  color:#27a9e3;
+}
+
+.success .popover .popover-title,
+.popover.success .popover-title,
+.success .popover .popover-content,
+.popover.success .popover-content {
+  color:#468847;
+}
+
+.error .popover .popover-title,
+.popover.error .popover-title,
+.error .popover .popover-content,
+.popover.error .popover-content {
+  color:#B94A48;
+}
+
+.warning .popover .popover-title,
+.popover.warning .popover-title,
+.warning .popover .popover-content,
+.popover.warning .popover-content {
+  color:#C09853;
+}
+
+/***
 Dropdowns
 ***/
+
+ /*Fixing dropdown issue on mobile devices in Bootstrap 3.2.2*/
+.dropdown-backdrop {
+  position: static;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -351,6 +486,46 @@ Dropdowns
   background: #ccc;
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* bagin: sidebar menu badges */
+.dropdown-menu > li > a > .badge {
+   position: absolute;
+   margin-top: 1px;
+   right: 3px;
+   display: inline;
+   font-size: 11px;
+   height: auto;
+   font-weight: 300;
+   text-shadow:none;
+   padding: 2px 6px 2px 6px;
+   -webkit-border-radius: 12px !important;
+      -moz-border-radius: 12px !important;
+           border-radius: 12px !important;
+}
+
+.dropdown-menu > li > a > .badge.badge-roundless {
+  padding: 1px 6px 1px 6px;
+   -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+           border-radius: 0 !important;
+}
+
+.ie8 .dropdown-menu > li > a > .badge,
+.ie9 .dropdown-menu > li > a > .badge,
+.ie10 .dropdown-menu > li > a > .badge {
+  padding-top: 1px;
+}
+
+@-moz-document url-prefix() { 
+  .dropdown-menu > li > a > .badge {
+    padding: 1px 6px 3px 6px;
+  }
+  
+  .dropdown-menu > li > a > .badge.badge-roundless {
+    padding: 1px 6px 2px 6px;
+  }
+}
+/* end: sidebar menu badges */
 
 /***
 Forms
@@ -532,6 +707,14 @@ textarea[class*="span"].m-wrap
   margin-left: 0;
 }
 
+/* fix button toolbars */
+.btn-toolbar > .btn-group > .btn:hover,
+.btn-toolbar > .btn-group > .btn:focus,
+.btn-toolbar > .btn-group > .btn:active,
+.btn-toolbar > .btn-group > .btn.active {
+  z-index: 0 !important;
+}
+
 .input-prepend,
 .input-append {
 	border: 0;
@@ -628,7 +811,30 @@ select.m-wrap.large {
   width: 334px !important;
 }
 
-@media (max-width: 480px) {
+/***
+Input spinner(in v1.4)
+***/
+
+input[type="text"].spinner,
+input[type="password"].spinner,
+input[type="datetime"].spinner,
+input[type="datetime-local"].spinner,
+input[type="date"].spinner,
+input[type="month"].spinner,
+input[type="time"].spinner,
+input[type="week"].spinner,
+input[type="number"].spinner,
+input[type="email"].spinner,
+input[type="url"].spinner,
+input[type="search"].spinner,
+input[type="tel"].spinner,
+input[type="color"].spinner {
+  background-image: url("../img/input-spinner.gif") !important;
+  background-repeat: no-repeat;
+  background-position: right 8px;
+}
+
+@media (max-width: 768px) {
 
   .m-wrap.small {
     width: 100px !important;
@@ -708,6 +914,27 @@ Custom label and badges
 .label-default  {
   background-color: #999 !important;
   text-shadow: none !important;
+}
+
+/***
+Progress Bars
+***/
+.progress {  
+  border: 1px solid #f1f1f1; 
+  background-image: none !important;
+  filter: none !important;
+  -webkit-box-shadow: none !important;
+     -moz-box-shadow: none !important;
+          box-shadow: none !important;   
+
+}
+
+.progress-success .bar,
+.progress-danger .bar,
+.progress-info .bar,
+.progress-warning .bar {
+  background-image: none !important;
+  filter: none !important; 
 }
 
 /***

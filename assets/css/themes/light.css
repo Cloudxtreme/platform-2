@@ -375,3 +375,9 @@ Landscape phone to portrait tablet
     color: #999999;
   }
 }
+
+@media (max-width: 767px) {
+  body {
+    background-color: #333 !important;
+  }
+}

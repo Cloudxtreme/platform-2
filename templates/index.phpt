@@ -12,7 +12,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN HEAD -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Cloudwalkers</title>
+		<title>Cloudwalkers - Social Media Management Platform</title>
 
 		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 		<meta content="" name="description" />

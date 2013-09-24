@@ -1,6 +1,10 @@
-/***
-Large notebooks and desktops
-***/
+	/***
+ 	Main container
+ 	***/
+ 	.container,
+	.navbar-inner .container {
+		width: 1000px !important;
+	}
 
  	/***
  	Page sidebar
