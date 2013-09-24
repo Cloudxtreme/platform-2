@@ -201,6 +201,9 @@ Style corrections and manual overrides
 .loading		{ background: url(../img/loading.gif) no-repeat center; width: 100px; height: 60px; margin: 120px auto 0; }
 .loading-cloud	{ background: url(../img/loading-cloud.gif) no-repeat center; }
 
+/* Topnav - user */
+.dropdown.user .avatar	{ width: 28px; }
+
 
 /***
 General typography 
