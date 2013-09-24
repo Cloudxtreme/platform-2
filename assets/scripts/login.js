@@ -1,10 +1,7 @@
 var Login = function () {
-    
-    return {
-        //main function to initiate the module
-        init: function () {
-        	
-           $('.login-form').validate({
+
+	var handleLogin = function() {
+		$('.login-form').validate({
 	            errorElement: 'label', //default input error message container
 	            errorClass: 'help-inline', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
@@ -22,10 +19,10 @@ var Login = function () {
 
 	            messages: {
 	                username: {
-	                    required: "Username is required."
+	                    required: "Username is required1."
 	                },
 	                password: {
-	                    required: "Password is required."
+	                    required: "Password is required2."
 	                }
 	            },
 
@@ -48,20 +45,22 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
+	                form.submit();
 	            }
 	        });
 
 	        $('.login-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.login-form').validate().form()) {
-	                    window.location.href = "index.html";
+	                    $('.login-form').submit();
 	                }
 	                return false;
 	            }
 	        });
+	}
 
-	        $('.forget-form').validate({
+	var handleForgetPassword = function () {
+		$('.forget-form').validate({
 	            errorElement: 'label', //default input error message container
 	            errorClass: 'help-inline', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
@@ -98,14 +97,14 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
+	                form.submit();
 	            }
 	        });
 
 	        $('.forget-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
-	                    window.location.href = "index.html";
+	                    $('.forget-form').submit();
 	                }
 	                return false;
 	            }
@@ -121,12 +120,57 @@ var Login = function () {
 	            jQuery('.forget-form').hide();
 	        });
 
-	        $('.register-form').validate({
+	}
+
+	var handleRegister = function () {
+
+		function format(state) {
+            if (!state.id) return state.text; // optgroup
+            return "<img class='flag' src='assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+        }
+
+
+		$("#select2_sample4").select2({
+		  	placeholder: '<i class="icon-map-marker"></i>&nbsp;Select a Country',
+            allowClear: true,
+            formatResult: format,
+            formatSelection: format,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+
+			$('#select2_sample4').change(function () {
+                $('.register-form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+            });
+
+
+
+         $('.register-form').validate({
 	            errorElement: 'label', //default input error message container
 	            errorClass: 'help-inline', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
+	                
+	                fullname: {
+	                    required: true
+	                },
+	                email: {
+	                    required: true,
+	                    email: true
+	                },
+	                address: {
+	                    required: true
+	                },
+	                city: {
+	                    required: true
+	                },
+	                country: {
+	                    required: true
+	                },
+
 	                username: {
 	                    required: true
 	                },
@@ -136,10 +180,7 @@ var Login = function () {
 	                rpassword: {
 	                    equalTo: "#register_password"
 	                },
-	                email: {
-	                    required: true,
-	                    email: true
-	                },
+
 	                tnc: {
 	                    required: true
 	                }
@@ -168,13 +209,24 @@ var Login = function () {
 	            errorPlacement: function (error, element) {
 	                if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
 	                    error.addClass('help-small no-left-padding').insertAfter($('#register_tnc_error'));
-	                } else {
+	                } else if (element.closest('.input-icon').size() === 1) {
 	                    error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
+	                } else {
+	                	error.addClass('help-small no-left-padding').insertAfter(element);
 	                }
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
+	                form.submit();
+	            }
+	        });
+
+			$('.register-form input').keypress(function (e) {
+	            if (e.which == 13) {
+	                if ($('.register-form').validate().form()) {
+	                    $('.register-form').submit();
+	                }
+	                return false;
 	            }
 	        });
 
@@ -187,6 +239,16 @@ var Login = function () {
 	            jQuery('.login-form').show();
 	            jQuery('.register-form').hide();
 	        });
+	}
+    
+    return {
+        //main function to initiate the module
+        init: function () {
+        	
+            handleLogin();
+            handleForgetPassword();
+            handleRegister();        
+	       
         }
 
     };

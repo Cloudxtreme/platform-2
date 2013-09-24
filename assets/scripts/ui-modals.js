@@ -4,7 +4,7 @@ var UIModals = function () {
     var initModals = function () {
        
        	$.fn.modalmanager.defaults.resize = true;
-		$.fn.modalmanager.defaults.spinner = '<div class="loading-spinner fade" style="width: 200px; margin-left: -100px;"><img src="assets/img/ajax-modal-loading.gif" align="middle">&nbsp;<span style="font-weight:300; color: #eee; font-size: 18px; font-family:Open Sans;">&nbsp;Loading...</div>';
+		$.fn.modalmanager.defaults.spinner = '<div class="loading-spinner fade" style="width: 200px; margin-left: -100px;"><img src="assets/img/ajax-modal-loading.gif" align="middle">&nbsp;<span style="font-weight:300; color: #eee; font-size: 18px; font-family:Open Sans;">&nbsp;Loading...</span></div>';
 
 
        	var $modal = $('#ajax-modal');
@@ -15,7 +15,9 @@ var UIModals = function () {
 		 
 		  setTimeout(function(){
 		     $modal.load('ui_modals_ajax_sample.html', '', function(){
-		      $modal.modal();
+		      $modal.modal().on("hidden", function() {
+              	$modal.empty();
+              });
 		    });
 		  }, 1000);
 		});

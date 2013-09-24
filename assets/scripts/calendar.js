@@ -4,15 +4,6 @@ var Calendar = function () {
     return {
         //main function to initiate the module
         init: function () {
-
-            App.addResponsiveHandler(function () {
-                Calendar.initCalendar();
-            });
-
-            $('.page-sidebar .sidebar-toggler').click(function () {
-                Calendar.initCalendar();
-            });
-
             Calendar.initCalendar();
         },
 

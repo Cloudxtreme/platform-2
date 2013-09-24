@@ -94,8 +94,8 @@ var FormEditable = function () {
     }
 
     var initEditables = function () {
-        //defaults
 
+        //set editable mode based on URL parameter
         if (App.getURLParameter('mode') == 'inline') {
             $.fn.editable.defaults.mode = 'inline';
             $('#inline').attr("checked", true);
@@ -105,12 +105,13 @@ var FormEditable = function () {
             jQuery.uniform.update('#inline');
         }
 
+        //global settings 
         $.fn.editable.defaults.inputclass = 'm-wrap';
         $.fn.editable.defaults.url = '/post';
         $.fn.editableform.buttons = '<button type="submit" class="btn blue editable-submit"><i class="icon-ok"></i></button>';
         $.fn.editableform.buttons += '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
 
-        //editables 
+        //editables element samples 
         $('#username').editable({
             url: '/post',
             type: 'text',
@@ -127,6 +128,7 @@ var FormEditable = function () {
 
         $('#sex').editable({
             prepend: "not selected",
+            inputclass: 'm-wrap',
             source: [{
                     value: 1,
                     text: 'Male'
@@ -159,14 +161,16 @@ var FormEditable = function () {
             showbuttons: false
         });
 
-        $('#vacation').editable();
+        $('#vacation').editable({
+            rtl : App.isRTL() 
+        });
 
         $('#dob').editable({
             inputclass: 'm-wrap',
         });
 
         $('#event').editable({
-            placement: 'right',
+            placement: (App.isRTL() ? 'left' : 'right'),
             combodate: {
                 firstItem: 'name'
             }
@@ -179,6 +183,7 @@ var FormEditable = function () {
                 if (v && v.getDate() == 10) return 'Day cant be 10!';
             },
             datetimepicker: {
+                rtl : App.isRTL(),
                 todayBtn: 'linked',
                 weekStart: 1
             }
@@ -189,8 +194,7 @@ var FormEditable = function () {
         });
 
         $('#note').editable({
-            showbuttons : 'right',
-            inputclass : '',
+            showbuttons : (App.isRTL() ? 'left' : 'right')
         });
 
         $('#pencil').click(function (e) {
@@ -223,6 +227,10 @@ var FormEditable = function () {
                     text: 'orange'
                 }
             ]
+        });
+
+        $('#fruits').on('shown', function(e, reason) {
+            App.initUniform();
         });
 
         $('#tags').editable({
@@ -502,9 +510,9 @@ var FormEditable = function () {
         $('#address').editable({
             url: '/post',
             value: {
-                city: "Moscow",
-                street: "Lenina",
-                building: "12"
+                city: "San Francisco",
+                street: "Valencia",
+                building: "#24"
             },
             validate: function (value) {
                 if (value.city == '') return 'city is required!';
@@ -524,22 +532,28 @@ var FormEditable = function () {
         //main function to initiate the module
         init: function () {
 
+            // inii ajax simulation
             initAjaxMock();
 
+            // init editable elements
             initEditables();
 
+
+            // init editable toggler
             $('#enable').click(function () {
                 $('#user .editable').editable('toggleDisabled');
             });
 
+            // init 
             $('#inline').on('change', function (e) {
-                if ($('#inline').is(':checked')) {
+                if ($(this).is(':checked')) {
                     window.location.href = 'form_editable.html?mode=inline';
                 } else {
                     window.location.href = 'form_editable.html';
                 }
             });
 
+            // handle editable elements on hidden event fired
             $('#user .editable').on('hidden', function (e, reason) {
                 if (reason === 'save' || reason === 'nochange') {
                     var $next = $(this).closest('tr').next().find('.editable');

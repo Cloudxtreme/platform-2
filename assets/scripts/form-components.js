@@ -12,18 +12,6 @@ var FormComponents = function () {
         }
     }
 
-    var resetWysihtml5 = function () {
-        if (!jQuery().wysihtml5) {
-            return;
-        }
-
-        if ($('.wysihtml5').size() > 0) {
-            $('.wysihtml5').wysihtml5({
-                "stylesheets": ["assets/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
-            });
-        }
-    }
-
     var handleToggleButtons = function () {
         if (!jQuery().toggleButtons) {
             return;
@@ -85,10 +73,6 @@ var FormComponents = function () {
         $('#tags_2').tagsInput({
             width: 240
         });
-    }
-
-    var handlejQueryUIDatePickers = function () {
-        $( ".ui-date-picker" ).datepicker();
     }
 
     var handleDatePickers = function () {
@@ -232,21 +216,24 @@ var FormComponents = function () {
 
     var handleDatetimePicker = function () {        
 
-          $(".form_datetime").datetimepicker({
-              format: "dd MM yyyy - hh:ii",
-              pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
-          });
+        $(".form_datetime").datetimepicker({
+            isRTL: App.isRTL(),
+            format: "dd MM yyyy - hh:ii",
+            pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+        });
 
          $(".form_advance_datetime").datetimepicker({
-              format: "dd MM yyyy - hh:ii",
-              autoclose: true,
-              todayBtn: true,
-              startDate: "2013-02-14 10:00",
-              pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
-              minuteStep: 10
-          });
+            isRTL: App.isRTL(),
+            format: "dd MM yyyy - hh:ii",
+            autoclose: true,
+            todayBtn: true,
+            startDate: "2013-02-14 10:00",
+            pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
+            minuteStep: 10
+        });
 
          $(".form_meridian_datetime").datetimepicker({
+            isRTL: App.isRTL(),
             format: "dd MM yyyy - HH:ii P",
             showMeridian: true,
             autoclose: true,
@@ -298,7 +285,7 @@ var FormComponents = function () {
         $('.colorpicker-rgba').colorpicker();
     }
 
-    var handleSelec2 = function () {
+    var handleSelect2 = function () {
 
         $('#select2_sample1').select2({
             placeholder: "Select an option",
@@ -413,6 +400,121 @@ var FormComponents = function () {
         });
     }
 
+    var handleSelect2Modal = function () {
+
+        $('#select2_sample_modal_1').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
+
+        $('#select2_sample_modal_2').select2({
+            placeholder: "Select a State",
+            allowClear: true
+        });
+
+        $("#select2_sample_modal_3").select2({
+            allowClear: true,
+            minimumInputLength: 1,
+            query: function (query) {
+                var data = {
+                    results: []
+                }, i, j, s;
+                for (i = 1; i < 5; i++) {
+                    s = "";
+                    for (j = 0; j < i; j++) {
+                        s = s + query.term;
+                    }
+                    data.results.push({
+                        id: query.term + i,
+                        text: s
+                    });
+                }
+                query.callback(data);
+            }
+        });
+
+        function format(state) {
+            if (!state.id) return state.text; // optgroup
+            return "<img class='flag' src='assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+        }
+        $("#select2_sample_modal_4").select2({
+            allowClear: true,
+            formatResult: format,
+            formatSelection: format,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+        $("#select2_sample_modal_5").select2({
+            tags: ["red", "green", "blue", "yellow", "pink"]
+        });
+
+
+        function movieFormatResult(movie) {
+            var markup = "<table class='movie-result'><tr>";
+            if (movie.posters !== undefined && movie.posters.thumbnail !== undefined) {
+                markup += "<td valign='top'><img src='" + movie.posters.thumbnail + "'/></td>";
+            }
+            markup += "<td valign='top'><h5>" + movie.title + "</h5>";
+            if (movie.critics_consensus !== undefined) {
+                markup += "<div class='movie-synopsis'>" + movie.critics_consensus + "</div>";
+            } else if (movie.synopsis !== undefined) {
+                markup += "<div class='movie-synopsis'>" + movie.synopsis + "</div>";
+            }
+            markup += "</td></tr></table>"
+            return markup;
+        }
+
+        function movieFormatSelection(movie) {
+            return movie.title;
+        }
+
+        $("#select2_sample_modal_6").select2({
+            placeholder: "Search for a movie",
+            minimumInputLength: 1,
+            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
+                dataType: 'jsonp',
+                data: function (term, page) {
+                    return {
+                        q: term, // search term
+                        page_limit: 10,
+                        apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
+                    };
+                },
+                results: function (data, page) { // parse the results into the format expected by Select2.
+                    // since we are using custom formatting functions we do not need to alter remote JSON data
+                    return {
+                        results: data.movies
+                    };
+                }
+            },
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected movie's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the movie name is shown preselected
+                var id = $(element).val();
+                if (id !== "") {
+                    $.ajax("http://api.rottentomatoes.com/api/public/v1.0/movies/" + id + ".json", {
+                        data: {
+                            apikey: "ju6z9mjyajq2djue3gbvv26t"
+                        },
+                        dataType: "jsonp"
+                    }).done(function (data) {
+                        callback(data);
+                    });
+                }
+            },
+            formatResult: movieFormatResult, // omitted for brevity, see the source of this page
+            formatSelection: movieFormatSelection, // omitted for brevity, see the source of this page
+            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+            escapeMarkup: function (m) {
+                return m;
+            } // we do not want to escape markup since we are displaying html in results
+        });
+    }
+
     var handleMultiSelect = function () {
         $('#my_multi_select1').multiSelect();
         $('#my_multi_select2').multiSelect({
@@ -443,27 +545,204 @@ var FormComponents = function () {
         $('#input_ipv6').ipAddress({v:6});
     }
 
+    var handlePasswordStrengthChecker = function () {
+        var initialized = false;
+        var input = $("#password_strength");
+
+        input.keydown(function(){
+            if (initialized === false) {
+                // set base options
+                input.pwstrength({
+                    raisePower: 1.4,
+                    minChar: 8,
+                    verdicts: ["Weak", "Normal", "Medium", "Strong", "Very Strong"],
+                    scores: [17, 26, 40, 50, 60]
+                });
+
+                // add your own rule to calculate the password strength
+                input.pwstrength("addRule", "demoRule", function (options, word, score) {
+                    return word.match(/[a-z].[0-9]/) && score;
+                }, 10, true);
+
+                // set progress bar's width according to the input width
+                $('.progress', input.parents('.password-strength')).css('width', input.outerWidth() - 2); 
+
+                // set as initialized 
+                initialized = true;
+            }
+        });        
+    }
+
+    var handleUsernameAvailabilityChecker1 = function () {
+        var input = $("#username1_input");
+
+        $("#username1_checker").click(function(e){
+
+            if (input.val() === "") {
+                input.popover('destroy');    
+                input.popover({
+                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'html': true,
+                    'title': 'Username Availability',
+                    'content': 'Please enter a username to check its availability.',
+                });                
+                // add error class to the popover
+                input.data('popover').tip().addClass('error');
+                // set last poped popover to be closed on click(see App.js => handlePopovers function)     
+                App.setLastPopedPopover(input);
+                input.popover('show');
+                e.stopPropagation(); // prevent closing the popover
+
+                return;
+            }
+
+            var btn = $(this);
+
+            btn.attr('disabled', true);
+
+            input.attr("readonly", true).
+                attr("disabled", true).
+                addClass("spinner");
+
+            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+                btn.attr('disabled', false);
+
+                input.attr("readonly", false).
+                    attr("disabled", false).
+                    removeClass("spinner");
+
+                input.popover('destroy');    
+                input.popover({
+                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'html': true,
+                    'title': 'Username Availability',
+                    'content': res.message,
+                });
+
+                // change popover font color based on the result
+                if (res.status == 'OK') {
+                    input.data('popover').tip().addClass('success');
+                } else {
+                    input.data('popover').tip().addClass('error');
+                }
+
+                // set last poped popover to be closed on click(see App.js => handlePopovers function)     
+                App.setLastPopedPopover(input);
+
+                input.popover('show');
+
+            }, 'json');
+
+        });        
+    }
+
+    var handleUsernameAvailabilityChecker2 = function () {
+        $("#username2_input").change(function(){
+            var input = $(this);
+
+            if (input.val() === "") {
+                return;
+            }
+
+            input.attr("readonly", true).
+                attr("disabled", true).
+                addClass("spinner");
+
+            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+                input.attr("readonly", false).
+                    attr("disabled", false).
+                    removeClass("spinner");
+
+                input.popover('destroy');    
+                input.popover({
+                    'html': true,
+                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'title': 'Username Availability',
+                    'content': res.message,
+                });
+
+                // change popover font color based on the result
+                if (res.status == 'OK') {
+                    input.data('popover').tip().addClass('success');
+                } else {
+                    input.data('popover').tip().addClass('error');
+                }
+
+                // set last poped popover to be closed on click(see App.js => handlePopovers function)     
+                App.setLastPopedPopover(input);
+
+                input.popover('show');
+
+            }, 'json');
+
+        });        
+    }
+
+    var handleUsernameAvailabilityChecker3 = function () {
+        $("#username3_input").change(function(){
+            var input = $(this);
+
+            if (input.val() === "") {
+                return;
+            }
+
+            input.attr("readonly", true).
+                attr("disabled", true).
+                addClass("spinner");
+
+            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+                input.attr("readonly", false).
+                    attr("disabled", false).
+                    removeClass("spinner");
+
+                input.popover('destroy');    
+                input.popover({
+                    'html': true,
+                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'title': 'Username Availability',
+                    'content': res.message,
+                });
+
+                // change popover font color based on the result
+                if (res.status == 'OK') {
+                    input.closest('.control-group').removeClass('error').addClass('success');
+                    input.after('<span class="help-inline ok"></span>');                    
+                } else {
+                    input.closest('.control-group').removeClass('success').addClass('error');
+                    $('.help-inline.ok', input.closest('.control-group')).remove();
+                }
+
+                // set last poped popover to be closed on click(see App.js => handlePopovers function)     
+                App.setLastPopedPopover(input);
+
+                input.popover('show');
+
+            }, 'json');
+
+        });        
+    }
+
     return {
         //main function to initiate the module
         init: function () {
             handleWysihtml5();
             handleToggleButtons();
             handleTagsInput();
-            handlejQueryUIDatePickers();
             handleDatePickers();
             handleTimePickers();
             handleDatetimePicker();
             handleDateRangePickers();
             handleClockfaceTimePickers();
             handleColorPicker();
-            handleSelec2();
+            handleSelect2();
+            handleSelect2Modal();
             handleInputMasks();
             handleIPAddressInput();
             handleMultiSelect();
-
-            App.addResponsiveHandler(function(){
-                resetWysihtml5();
-            })
+            handlePasswordStrengthChecker();
+            handleUsernameAvailabilityChecker1();
+            handleUsernameAvailabilityChecker2();
+            handleUsernameAvailabilityChecker3();
         }
 
     };

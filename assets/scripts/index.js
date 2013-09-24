@@ -3,11 +3,9 @@ var Index = function () {
 
     return {
 
-        //main function to initiate the module
+        //main function
         init: function () {
-
             App.addResponsiveHandler(function () {
-                Index.initCalendar();
                 jQuery('.vmaps').each(function () {
                     var map = jQuery(this);
                     map.width(map.parent().width());
@@ -634,6 +632,14 @@ var Index = function () {
                 scrollTo: list.height()
             });
             */
+
+            $('body').on('click', '.message .name', function(e){
+                e.preventDefault(); // prevent click event
+
+                var name = $(this).text(); // get clicked user's full name
+                input.val('@' +  name + ':'); // set it into the input field
+                App.scrollTo(input); // scroll to input if needed
+            });
 
             btn.click(handleClick);
             input.keypress(function (e) {

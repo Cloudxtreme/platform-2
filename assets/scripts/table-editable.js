@@ -74,7 +74,7 @@ var TableEditable = function () {
             jQuery('#sample_editable_1_wrapper .dataTables_length select').addClass("m-wrap small"); // modify table per page dropdown
             jQuery('#sample_editable_1_wrapper .dataTables_length select').select2({
                 showSearchInput : false //hide search box with special css class
-            }); // initialzie select2 dropdown
+            }); // initialize select2 dropdown
 
             var nEditing = null;
 

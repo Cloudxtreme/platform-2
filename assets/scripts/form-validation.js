@@ -1,11 +1,7 @@
 var FormValidation = function () {
 
-
-    return {
-        //main function to initiate the module
-        init: function () {
-
-            // for more info visit the official plugin documentation: 
+    var handleValidation1 = function() {
+        // for more info visit the official plugin documentation: 
             // http://docs.jquery.com/Plugins/Validation
 
             var form1 = $('#form_sample_1');
@@ -63,7 +59,7 @@ var FormValidation = function () {
                         .closest('.control-group').removeClass('success').addClass('error'); // set error class to the control group
                 },
 
-                unhighlight: function (element) { // revert the change dony by hightlight
+                unhighlight: function (element) { // revert the change done by hightlight
                     $(element)
                         .closest('.control-group').removeClass('error'); // set error class to the control group
                 },
@@ -79,16 +75,23 @@ var FormValidation = function () {
                     error1.hide();
                 }
             });
+    }
 
-            //Sample 2
-            $('#form_2_select2').select2({
-                placeholder: "Select an Option",
-                allowClear: true
-            });
+    var handleValidation2 = function() {
+        // for more info visit the official plugin documentation: 
+        // http://docs.jquery.com/Plugins/Validation
+
 
             var form2 = $('#form_sample_2');
             var error2 = $('.alert-error', form2);
             var success2 = $('.alert-success', form2);
+
+            //IMPORTANT: update CKEDITOR textarea with actual content before submit
+            form2.on('submit', function() {
+                for(var instanceName in CKEDITOR.instances) {
+                    CKEDITOR.instances[instanceName].updateElement();
+                }
+            })
 
             form2.validate({
                 errorElement: 'span', //default input error message container
@@ -122,6 +125,12 @@ var FormValidation = function () {
                     service: {
                         required: true,
                         minlength: 2
+                    },
+                    editor1: {
+                        required: true
+                    },
+                    editor2: {
+                        required: true
                     }
                 },
 
@@ -140,10 +149,12 @@ var FormValidation = function () {
                         error.insertAfter("#form_2_education_chzn");
                     } else if (element.attr("name") == "membership") { // for uniform radio buttons, insert the after the given container
                         error.addClass("no-left-padding").insertAfter("#form_2_membership_error");
+                    } else if (element.attr("name") == "editor1" || element.attr("name") == "editor2") { // for wysiwyg editors
+                        error.insertAfter($(element.attr('data-error-container'))); 
                     } else if (element.attr("name") == "service") { // for uniform checkboxes, insert the after the given container
                         error.addClass("no-left-padding").insertAfter("#form_2_service_error");
                     } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavoir
+                        error.insertAfter(element); // for other inputs, just perform default behavior
                     }
                 },
 
@@ -160,13 +171,13 @@ var FormValidation = function () {
                         .closest('.control-group').removeClass('success').addClass('error'); // set error class to the control group
                 },
 
-                unhighlight: function (element) { // revert the change dony by hightlight
+                unhighlight: function (element) { // revert the change done by hightlight
                     $(element)
                         .closest('.control-group').removeClass('error'); // set error class to the control group
                 },
 
                 success: function (label) {
-                    if (label.attr("for") == "service" || label.attr("for") == "membership") { // for checkboxes and radip buttons, no need to show OK icon
+                    if (label.attr("for") == "service" || label.attr("for") == "membership") { // for checkboxes and radio buttons, no need to show OK icon
                         label
                             .closest('.control-group').removeClass('error').addClass('success');
                         label.remove(); // remove error label here
@@ -184,6 +195,17 @@ var FormValidation = function () {
 
             });
 
+            $('#form_2_select2').select2({
+                placeholder: "Select an Option",
+                allowClear: true
+            });
+
+            //apply validation on wysiwyg editors change, this only needed for chosen dropdown integration.
+            $('.wysihtml5, .ckeditor', form2).change(function () {
+                alert(1);
+                form2.validate().element($(this)); //revalidate the wysiwyg editors and show error or success message for the input
+            });
+
             //apply validation on chosen dropdown value change, this only needed for chosen dropdown integration.
             $('.chosen, .chosen-with-diselect', form2).change(function () {
                 form2.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
@@ -193,6 +215,28 @@ var FormValidation = function () {
             $('.select2', form2).change(function () {
                 form2.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
             });
+    }
+
+    var handleWysihtml5 = function() {
+        if (!jQuery().wysihtml5) {
+            
+            return;
+        }
+
+        if ($('.wysihtml5').size() > 0) {
+            $('.wysihtml5').wysihtml5({
+                "stylesheets": ["assets/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
+            });
+        }
+    }
+
+    return {
+        //main function to initiate the module
+        init: function () {
+
+            handleWysihtml5();
+            handleValidation1();
+            handleValidation2();
 
         }
 

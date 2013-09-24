@@ -2,7 +2,7 @@ var TableAdvanced = function () {
 
     var initTable1 = function() {
 
-        /* Formating function for row details */
+        /* Formatting function for row details */
         function fnFormatDetails ( oTable, nTr )
         {
             var aData = oTable.fnGetData( nTr );
@@ -32,7 +32,7 @@ var TableAdvanced = function () {
         } );
          
         /*
-         * Initialse DataTables, with no sorting on the 'details' column
+         * Initialize DataTables, with no sorting on the 'details' column
          */
         var oTable = $('#sample_1').dataTable( {
             "aoColumnDefs": [
@@ -49,7 +49,7 @@ var TableAdvanced = function () {
 
         jQuery('#sample_1_wrapper .dataTables_filter input').addClass("m-wrap small"); // modify table search input
         jQuery('#sample_1_wrapper .dataTables_length select').addClass("m-wrap small"); // modify table per page dropdown
-        jQuery('#sample_1_wrapper .dataTables_length select').select2(); // initialzie select2 dropdown
+        jQuery('#sample_1_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
          
         /* Add event listener for opening and closing details
          * Note that the indicator for showing which row is open is not controlled by DataTables,
@@ -88,7 +88,7 @@ var TableAdvanced = function () {
 
         jQuery('#sample_2_wrapper .dataTables_filter input').addClass("m-wrap small"); // modify table search input
         jQuery('#sample_2_wrapper .dataTables_length select').addClass("m-wrap small"); // modify table per page dropdown
-        jQuery('#sample_2_wrapper .dataTables_length select').select2(); // initialzie select2 dropdown
+        jQuery('#sample_2_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
 
         $('#sample_2_column_toggler input[type="checkbox"]').change(function(){
             /* Get the DataTables object again - this is not a recreation, just a get of the object */

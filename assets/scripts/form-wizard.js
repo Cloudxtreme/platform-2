@@ -112,7 +112,7 @@ var FormWizard = function () {
                     } else if (element.attr("name") == "payment[]") { // for uniform radio buttons, insert the after the given container
                         error.addClass("no-left-padding").insertAfter("#form_payment_error");
                     } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavoir
+                        error.insertAfter(element); // for other inputs, just perform default behavior
                     }
                 },
 
@@ -129,13 +129,13 @@ var FormWizard = function () {
                         .closest('.control-group').removeClass('success').addClass('error'); // set error class to the control group
                 },
 
-                unhighlight: function (element) { // revert the change dony by hightlight
+                unhighlight: function (element) { // revert the change done by hightlight
                     $(element)
                         .closest('.control-group').removeClass('error'); // set error class to the control group
                 },
 
                 success: function (label) {
-                    if (label.attr("for") == "gender" || label.attr("for") == "payment[]") { // for checkboxes and radip buttons, no need to show OK icon
+                    if (label.attr("for") == "gender" || label.attr("for") == "payment[]") { // for checkboxes and radio buttons, no need to show OK icon
                         label
                             .closest('.control-group').removeClass('error').addClass('success');
                         label.remove(); // remove error label here
