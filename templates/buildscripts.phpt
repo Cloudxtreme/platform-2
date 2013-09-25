@@ -33,6 +33,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ManageKeywords.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Title.js"></script>
@@ -50,6 +51,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ChannelCounters.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ScheduleCounter.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/CombinedStatistics.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/ChannelFilters.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Charts/Intervalchart.js"></script>

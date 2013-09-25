@@ -8,6 +8,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'write' : 'write',
 		'reports(/:streamid)' : 'reports',
 		'trending/:channel(/:streamid)' : 'trending',
+		'keywords' : 'managekeywords',
 		'*path' : 'dashboard'
 	},
 
@@ -104,13 +105,25 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		//console.log (channeldata);
 
-		if (channeldata.type == 'inbox' || channeldata.type == 'monitoring')
+		if (channeldata.type == 'monitoring')
+		{
+			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({  });
+			widgetcontainer.add (keywordfilter, 12);
+
+			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			widgetcontainer.add (listwidget, 4);
+
+			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			widgetcontainer.add (widget, 8);
+		}
+
+		else if (channeldata.type == 'inbox')
 		{
 			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.addWidgetSize (listwidget, false, 4);
 
 			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
-			widgetcontainer.addWidgetSize (widget, false, 8);			
+			widgetcontainer.addWidgetSize (widget, false, 8);
 		}
 		else
 		{
@@ -199,6 +212,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			view.subnavclass = 'reports_' + streamid;
 		}
 
+		Cloudwalkers.RootView.setView (view);
+	},
+
+	'managekeywords' : function ()
+	{
+		var view = new Cloudwalkers.Views.ManageKeywords ();
 		Cloudwalkers.RootView.setView (view);
 	}
 

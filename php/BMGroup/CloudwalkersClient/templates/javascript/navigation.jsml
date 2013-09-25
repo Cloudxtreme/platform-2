@@ -184,6 +184,15 @@
 						</ul>
 					</li>
 				{{/channels}}
+
+				<li>
+					<a href="#keywords">
+						<i class="icon-edit"></i> 
+						<span class="title">Manage keywords</span>
+						<span class="selected"></span>
+					</a>
+				</li>
+
 			</ul>
 		</li>
 	{{/sortedchannels.monitoring}}
