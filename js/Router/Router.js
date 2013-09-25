@@ -127,8 +127,20 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		if (channeldata.type == 'monitoring')
 		{
-			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({  });
+			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
 			widgetcontainer.add (keywordfilter, 12);
+
+			keywordfilter.on ('stream:change', function (stream)
+			{
+				var filters = {};
+
+				if (stream)
+				{
+					filters['streams'] = [ stream ];
+				}
+				
+				channel.setFilters (filters);
+			});
 
 			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.add (listwidget, 4);

@@ -3,27 +3,34 @@
 */
 Cloudwalkers.Views.Widgets.ChannelFilters = Backbone.View.extend({
 
+	'events' : {
+		'change select[name=stream]' : 'change'
+	},
+
 	'render' : function ()
 	{
-		var data = {};
+		var self = this;
+		var channel = this.options.channel;
 
-		data.categories = [];
+		this.$el.html ('<p>Please wait, loading streams.</p>');
 
-		data.categories.push ({
-			'id' : 1,
-			'name' : 'Brand',
-			'keywords' : 10
+		channel.getStreams (function (streams)
+		{
+			var data = {};
+
+			data.streams = streams;
+
+			self.$el.html (Mustache.render (Templates.channelfilters, data));
+
+			return this;
 		});
-
-		data.categories.push ({
-			'id' : 2,
-			'name' : 'Marketing',
-			'keywords' : 5
-		});
-
-		this.$el.html (Mustache.render (Templates.channelfilters, data));
 
 		return this;
+	},
+
+	'change' : function ()
+	{
+		this.trigger ('stream:change', this.$el.find ('select[name=stream]').val ());
 	}
 
 });

@@ -71,6 +71,28 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		}
 	},
 
+	'getStreams' : function (callback)
+	{
+		var fetch_url = CONFIG_BASE_URL + this.fetch_url + this.id;
+
+		var options = {};
+
+		options.success = function (data)
+		{
+			callback (data.channel.streams);
+		};
+
+		// Default JSON-request options.
+		var params = _.extend({
+			type:         'GET',
+			dataType:     'json',
+			url:		fetch_url,
+			cache: false
+		}, options);
+
+		return $.ajax(params);
+	},
+
 	'sync' : function(method, model, options) 
 	{
 		var self = this;

@@ -1,5 +1,7 @@
 <h1>CHANNEL FILTERS WIDGET</h1>
-<select>
-	<option>BLA</option>
-	<option>BLA</option>
+<select name="stream">
+	<option value="">All</option>
+	{{#streams}}
+		<option value="{{id}}">{{customname}}</option>
+	{{/streams}}
 </select>
