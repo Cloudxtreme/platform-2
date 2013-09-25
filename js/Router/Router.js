@@ -87,14 +87,28 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			return;
 		}
 
-		var channel = new Cloudwalkers.Collections.Channel 
-		(
-			[], 
-			{ 
-				'id' : id, 
-				'name' : channeldata.name
-			}
-		);
+		if (subchannelid > 0)
+		{
+			var channel = new Cloudwalkers.Collections.Channel 
+			(
+				[], 
+				{ 
+					'id' : subchannelid, 
+					'name' : channeldata.name
+				}
+			);
+		}
+		else
+		{
+			var channel = new Cloudwalkers.Collections.Channel 
+			(
+				[], 
+				{ 
+					'id' : id, 
+					'name' : channeldata.name
+				}
+			);
+		}
 
 		var filters = {};
 		if (typeof (streamid) != 'undefined')
