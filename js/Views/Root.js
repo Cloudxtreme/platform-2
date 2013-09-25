@@ -289,6 +289,24 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		});
 	},
 
+	'alert' : function (message, callback)
+	{
+		var data = {};
+
+		data.message = message;
+
+		var tmpl = Mustache.render (Templates.uiconfirm, data);
+
+		var element = $(tmpl);
+		var modal = element.modal();
+
+		element.find ('[data-response=confirm]').click (function ()
+		{
+			callback ();
+			modal.modal ('hide');
+		});
+	},
+
 	'dialog' : function (message, options, callback)
 	{
 		var data = {};

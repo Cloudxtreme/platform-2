@@ -1,9 +1,57 @@
 <h1>Manage keywords</h1>
 
+<form data-add-category="1">
+
+	<legend>Create category</legend>
+
+	<label for="category_create_name">Name:</label>
+	<input type="text" value="{{name}}" id="category_create_name" name="name" />
+
+	<button type="submit">Store</button>
+
+</form>
+
 <h2>Categories</h2>
-{{#categories}}
+<ul>
+	{{#categories}}
+		<li>
+			<h3>{{name}}</h3>
 
-	<h3>{{name}}</h3>
-	<p>{{keywords}} keywords</p>
+			<form data-edit-category-id="{{id}}">
 
-{{/categories}}
+				<legend>Edit category name</legend>
+
+				<label for="category_{{id}}_name">Name:</label>
+				<input type="text" value="{{name}}" id="category_{{id}}_name" name="name" />
+
+				<button type="submit">Store</button>
+
+			</form>
+
+			<p>
+				<a href="javascript:void(0);" data-delete-category-id="{{id}}">Delete category</a>
+			</p>
+
+			<ul>
+				{{#keywords}}
+					<li>
+						{{name}}
+
+						<a href="javascript:void(0);" data-delete-keyword-id="{{id}}">Delete keyword</a>
+					</li>
+				{{/keywords}}
+			</ul>
+
+			<form data-addkeyword-category-id="{{id}}">
+
+				<legend>Add keyword</legend>
+
+				<label for="addkeyword_{{id}}_name">Name:</label>
+				<input type="text" id="addkeyword_{{id}}_name" name="keyword" />
+
+				<button type="submit">Store</button>
+
+			</form>
+		</li>
+	{{/categories}}
+</ul>
