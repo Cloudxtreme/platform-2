@@ -19,6 +19,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/WidgetContainer.js"></script> 
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Loading.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Error.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Header.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Message.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/OriginalMessage.js"></script>

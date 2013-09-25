@@ -27,7 +27,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -123,7 +123,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -140,7 +140,7 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 			</ul>
 		</li>
@@ -158,27 +158,31 @@
 
 			<ul class="sub-menu">
 				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 				{{/streams}}
 
 				{{#channels}}
 					<li>
-						<a href="javascript:void(0);">{{name}}</a>
+						<a href="#channel/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">{{name}}</a>
 
 						<ul class="sub-menu">
 							{{#streams}}
-								<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+								<li class="channel_{{channelid}}_{{id}}">
+									<a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a>
+								</li>
 							{{/streams}}
 
 							{{#channels}}
 								<li>
-									<a href="javascript:void(0);">{{name}}</a>
+									<a href="#channel/{{channelid}}/{{id}}">{{name}}</a>
 
+									<!--
 									<ul class="sub-menu">
 										{{#streams}}
-											<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+											<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 										{{/streams}}									
 									</ul>
+									-->
 								</li>
 							{{/channels}}
 						</ul>
