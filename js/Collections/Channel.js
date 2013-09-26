@@ -79,7 +79,14 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 		options.success = function (data)
 		{
-			callback (data.channel.streams);
+			if (typeof (data.channel) != 'undefined' && typeof (data.channel.streams) != 'undefined')
+			{
+				callback (data.channel.streams);
+			}
+			else
+			{
+				callback ([]);
+			}
 		};
 
 		// Default JSON-request options.
