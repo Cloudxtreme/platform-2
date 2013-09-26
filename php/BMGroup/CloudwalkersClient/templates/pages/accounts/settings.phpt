@@ -4,6 +4,38 @@
 	<?php } ?>
 <?php } ?>
 
+<?php function showChannels ($stream, $channels) { ?>
+	<tr>
+		<th colspan="2"><?php echo __('Channels'); ?></th>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<?php showChannelsRecursive ($stream, $channels); ?>
+		</td>
+	</tr>
+<?php } ?>
+
+<?php function showChannelsRecursive ($stream, $channels, $level = 0) { ?>
+
+	<ul>
+		<?php foreach ($channels as $channel) { ?>
+			<li>
+				<input 
+					name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" 
+					<?php if (in_array ($channel['id'], $stream['channels'])) { ?>checked="checked"<?php } ?> 
+					type="checkbox" />
+
+					<?php echo $channel['name']; ?>
+
+					<?php showChannelsRecursive ($stream, $channel['channels'], $level + 1); ?>
+			</li>
+		<?php } ?>
+	</ul>
+
+<?php } ?>
+
+
 <?php function showStreams ($streams, $channels, $account, $onlyParentStreams = true) { ?>
 
 	<?php if (count ($streams) == 0) { return; } ?>
@@ -104,20 +136,7 @@
 			<?php } ?>
 
 			<?php if ($caps['INCOMING'] && $stream['canSetChannels']) { ?>
-				<tr>
-					<th colspan="2"><?php echo __('Channels'); ?></th>
-				</tr>
-				<?php foreach ($channels as $channel) { ?>
-					<tr>
-						<td colspan="2">
-							<input 
-								name="streams[<?php echo $stream['id']; ?>][channels][<?php echo $channel['id']; ?>]" 
-								<?php if (in_array ($channel['id'], $stream['channels'])) { ?>checked="checked"<?php } ?> 
-								type="checkbox" />
-							<?php echo $channel['name']; ?>
-						</td>
-					</tr>			
-				<?php } ?>
+				<?php showChannels ($stream, $channels); ?>
 			<?php } ?>
 		</table>
 
