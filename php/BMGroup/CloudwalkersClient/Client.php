@@ -119,7 +119,7 @@ class BMGroup_CloudwalkersClient_Client
 					{
 						$success = $client->CallAPI
 						(
-							$this->server . 'user/me', 'GET', 
+							$this->server . '1/user/me', 'GET', 
 							array
 							(
 								'format'=>'json'
@@ -199,6 +199,8 @@ class BMGroup_CloudwalkersClient_Client
 		{
 			return false;
 		}
+
+		$url = '1/' . $url;
 
 		$success = $this->api->CallAPI
 		(
