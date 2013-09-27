@@ -1,6 +1,7 @@
 <?php foreach ($data['processes'] as $v) { ?>
 
 	<h2><?php echo $v['process']; ?></h2>
+	<p>Stream: <?php echo $v['stream']; ?></p>
 	<p>Duration: <?php echo round($v['duration'] * 1000) / 1000; ?> seconds</p>
 
 <pre>
