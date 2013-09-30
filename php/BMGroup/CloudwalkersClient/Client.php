@@ -193,6 +193,11 @@ class BMGroup_CloudwalkersClient_Client
 		return $this->call ($url, $input, 'DELETE');
 	}
 
+	public function getNoLogin ($url)
+	{
+		return json_decode (file_get_contents ($this->server . $url), true);
+	}
+
 	private function call ($url, $input = array (), $method = 'GET')
 	{
 		if (!$this->isLogin ())

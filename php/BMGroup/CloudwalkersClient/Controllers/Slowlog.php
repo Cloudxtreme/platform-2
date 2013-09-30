@@ -6,7 +6,13 @@ class BMGroup_CloudwalkersClient_Controllers_Slowlog
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		
-		$data = $client->get ('/slowlog');
+		$data = $client->getNoLogin ('/slowlog');
+
+		if (!$data['processes'])
+		{
+			var_dump ($data);
+			exit;
+		}
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('data', $data);
