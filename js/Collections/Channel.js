@@ -71,17 +71,30 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		}
 	},
 
-	'getStreams' : function (callback)
+	'getStreams' : function (callback, allOfThem)
 	{
-		var fetch_url = CONFIG_BASE_URL + this.fetch_url + this.id;
+		if (typeof (allOfThem) == 'undefined')
+		{
+			allOfThem = false;
+		}
+
+		var fetch_url;
+		if (allOfThem)
+		{
+			fetch_url = CONFIG_BASE_URL + this.fetch_url + this.id + '/streams?descendants=1';
+		}
+		else
+		{
+			fetch_url = CONFIG_BASE_URL + this.fetch_url + this.id + '/streams?descendants=0';	
+		}
 
 		var options = {};
 
 		options.success = function (data)
 		{
-			if (typeof (data.channel) != 'undefined' && typeof (data.channel.streams) != 'undefined')
+			if (typeof (data.streams) != 'undefined')
 			{
-				callback (data.channel.streams);
+				callback (data.streams);
 			}
 			else
 			{

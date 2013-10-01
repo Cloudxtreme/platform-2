@@ -23,7 +23,7 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Backbone.View.extend({
 			self.$el.html (Mustache.render (Templates.channelfilters, data));
 
 			return this;
-		});
+		}, true);
 
 		return this;
 	},

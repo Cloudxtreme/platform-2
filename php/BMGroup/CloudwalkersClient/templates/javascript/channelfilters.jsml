@@ -11,7 +11,7 @@
 				<select name="stream">
 					<option value="">All</option>
 					{{#streams}}
-						<option value="{{id}}">{{#network}}{{name}}{{/network}}</option>
+						<option value="{{id}}">{{#network}}{{name}}{{/network}} {{customname}}</option>
 					{{/streams}}
 				</select>
 				
