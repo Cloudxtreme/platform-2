@@ -24,7 +24,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		});
 
 		jQuery.each (data.channels, function (i, v) {
-			data.channels[i].url = '#channel/' + data.channels.id + '/' + v.id;
+			data.channels[i].url = '#channel/' + data.channel.id + '/' + v.id;
 			data.channels[i].message_count = v.unread ? v.unread : 0;
 		});
 		
