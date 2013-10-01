@@ -25,6 +25,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 		jQuery.each (data.channels, function (i, v) {
 			data.channels[i].url = '#channel/' + data.channels.id + '/' + v.id;
+			data.channels[i].message_count = v.unread ? v.unread : 0;
 		});
 		
 		// Order
@@ -39,7 +40,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 		for (var i = 0; i < data.streams.length; i ++)
 		{
-			data.streams[i].message_count = data.streams[i].unread > 0 ? data.streams[i].unread : 0;
+			data.streams[i].message_count = v.unread > 0 ? v.unread : 0;
 		}
 
 		el.html (Mustache.render (Templates.messagecounter, data));
