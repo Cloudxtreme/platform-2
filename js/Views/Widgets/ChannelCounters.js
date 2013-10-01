@@ -36,12 +36,8 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 		jQuery.each (data.streams, function (i, v) {
 			data.streams[i].url = '#channel/' + data.channel.id + '/0/' + v.id;
-		});
-
-		for (var i = 0; i < data.streams.length; i ++)
-		{
 			data.streams[i].message_count = v.unread > 0 ? v.unread : 0;
-		}
+		});
 
 		el.html (Mustache.render (Templates.messagecounter, data));
 
