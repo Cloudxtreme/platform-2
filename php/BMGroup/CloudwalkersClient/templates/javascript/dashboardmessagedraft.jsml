@@ -1,4 +1,4 @@
-<td onclick="document.location='#channel/{{channel}}/{{#stream}}{{id}}{{/stream}}/{{id}}';" class="clickable">
+<td onclick="document.location='#drafts';" class="clickable">
 
 	<ul>
 		<li>
