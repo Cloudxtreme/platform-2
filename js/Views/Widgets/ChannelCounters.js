@@ -18,6 +18,14 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		data.message_count = data.unread;
 
 		//console.log (data);
+		data.channels.sort (function (a, b)
+		{
+			return parseInt(a.unread) < parseInt(b.unread);
+		});
+
+		jQuery.each (data.channels, function (i, v) {
+			data.channels[i].url = '#channel/' + data.channels.id + '/' + v.id;
+		});
 		
 		// Order
 		data.streams.sort (function (a, b)
@@ -26,12 +34,12 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		});
 
 		jQuery.each (data.streams, function (i, v) {
-			data.streams[i].url = '#channel/' + data.channel.id + '/' + v.id;
+			data.streams[i].url = '#channel/' + data.channel.id + '/0/' + v.id;
 		});
 
 		for (var i = 0; i < data.streams.length; i ++)
 		{
-			data.streams[i].message_count = data.streams[i].unread;
+			data.streams[i].message_count = data.streams[i].unread > 0 ? data.streams[i].unread : 0;
 		}
 
 		el.html (Mustache.render (Templates.messagecounter, data));

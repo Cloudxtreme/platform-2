@@ -21,6 +21,17 @@
 		
 			<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
 				<ul class="messages-stream">
+					{{#channels}}
+						<a href="{{url}}">
+							<li>
+								<span class="number unread-{{message_count}}">{{message_count}}</span>
+								<i class="icon-{{network.icon}}"></i>
+								{{name}}
+								
+							</li>
+						</a>
+					{{/channels}}
+
 					{{#streams}}
 						<a href="{{url}}">
 							<li>
