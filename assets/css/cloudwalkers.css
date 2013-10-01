@@ -95,6 +95,22 @@ nav	{
 .social-box-colors .rss-color .timeline-body:after	{ border-right-color: #f39501 !important; }
 .dashboard-stat.rss-color	{ background-color: #f39501; }
 
+.dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
+.dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
+.dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
+.dashboard-stat-comparison.tumblr-color { background-color: #385775 ; }
+.dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
+.dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
+.dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }
+
+.portlet.box.facebook-color { background-color: #3B5998; }
+.portlet.box.twitter-color  { background-color: #01a9da; }
+.portlet.box.linkedin-color { background-color: #1783BC; }
+.portlet.box.tumblr-color { background-color: #385775 ; }
+.portlet.box.google-plus-color  { background-color: #DD4C39 ; }
+.portlet.box.youtube-color  { background-color: #CC181E ; }
+.portlet.box.rss-color  { background-color: #f39501 ; }
+
 /**
 * Button colors
 */
@@ -458,13 +474,7 @@ Dashboard stats
   background-color: #852b99;
 }
 
-.dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
-.dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
-.dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
-.dashboard-stat-comparison.tumblr-color { background-color: #385775 ; }
-.dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
-.dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
-.dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }
+
 
 
 .fileupload-feedback
