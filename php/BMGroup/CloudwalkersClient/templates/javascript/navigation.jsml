@@ -1,5 +1,6 @@
 <ul class="page-sidebar-menu">
 	
+	<!-- Dashboard -->
 	<li class="start dashboard">
 		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
@@ -7,15 +8,72 @@
 		<span class="selected"></span>
 		</a>
 	</li>
-	
-	<li class="write">
-		<a href="#write">
-		<i class="icon-share-sign"></i> 
-		<span class="title">Compose message</span>
-		<span class="selected"></span>
-	</a>
+
+	<!-- Message Board -->	
+	<li class="message-board">
+		<a href="#message-board">
+			<i class="icon-share-sign"></i> 
+			<span class="title">Message board</span>
+			<span class="arrow"></span>
+			<span class="selected"></span>
+		</a>
+		<ul class="sub-menu">
+			<li class="write">
+				<a href="#write">
+					<i class="icon-share-alt"></i> 
+					<span class="title">Compose message</span>
+				</a>
+			</li>
+			
+			<li class="drafts">
+				<a href="#drafts">
+					<i class="icon-edit"></i> 
+					<span class="title">Drafts</span>
+				</a>
+			</li>
+			
+			<li class="schedule">
+				<a href="#schedule" onclick="document.location='#schedule';">
+					<i class="icon-time"></i> 
+					<span class="title">Scheduled</span>
+					<span class="arrow"></span>
+				</a>
+		
+				<ul class="sub-menu">
+					{{#scheduledstreams}}
+						<li class="schedule_{{id}}">
+							<a href="#schedule/{{id}}">
+								<i class="icon-{{network.icon}}"></i>
+								{{customname}}
+							</a>
+						</li>
+					{{/scheduledstreams}}
+				</ul>
+			</li>
+			
+			<li class="sent">
+				<a href="#sent" onclick="document.location='#sent';">
+					<i class="icon-cloud-upload"></i> 
+					<span class="title">Sent</span>
+					<span class="arrow"></span>
+				</a>
+		
+				<ul class="sub-menu">
+					{{#sentstreams}}
+						<li class="sent_{{id}}">
+							<a href="#sent/{{id}}">
+								<i class="icon-{{network.icon}}"></i>
+								{{customname}}
+							</a>
+						</li>
+					{{/sentstreams}}
+				</ul>
+			</li>
+			
+		</ul>
 	</li>
-	
+
+	<!-- Inbox -->
 	{{#sortedchannels.inbox}}
 		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
@@ -26,92 +84,32 @@
 			</a>
 
 			<ul class="sub-menu">
-				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-				{{/streams}}
+				
+				<li class="channels-social">
+					<a href="#channels-social">
+						<i class="icon-envelope"></i> 
+						<span class="title">Social</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
+				</li>
+				
+				<li class="channel-coworkers">
+					<a href="#channel-coworkers">
+						<i class="icon-envelope"></i> 
+						<span class="title">Co-workers</span>
+					</a>
+				</li>
+
 			</ul>
 		</li>
 	{{/sortedchannels.inbox}}
 
-	<li class="drafts">
-		<a href="#drafts">
-		<i class="icon-edit"></i> 
-		<span class="title">Drafts</span>
-		<span class="selected"></span>
-		</a>
-	</li>	
-
-	<li class="schedule">
-		<a href="#schedule" onclick="document.location='#schedule';">
-			<i class="icon-time"></i> 
-			<span class="title">Schedule</span>
-			<span class="arrow"></span>
-			<span class="selected"></span>
-		</a>
-
-		<ul class="sub-menu">
-			{{#scheduledstreams}}
-				<li class="schedule_{{id}}">
-					<a href="#schedule/{{id}}">
-						<i class="icon-{{network.icon}}"></i>
-						{{customname}}
-					</a>
-				</li>
-			{{/scheduledstreams}}
-		</ul>
-	</li>
-
-	<li class="trending">
-		<a href="#trending"
-			{{#sortedchannels.news}}
-				onclick="document.location='#trending/{{channelid}}';"
-			{{/sortedchannels.news}}
-		>
-			<i class="icon-thumbs-up"></i> 
-			<span class="title">Trending topics</span>
-			<span class="arrow"></span>
-			<span class="selected"></span>
-		</a>
-
-		<ul class="sub-menu">
-
-			{{#sortedchannels.news}}
-				<li class="trending_{{id}}">
-					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
-						<i class="icon-{{icon}}"></i> 
-						Followed Pages
-						<span class="arrow"></span>
-						<span class="selected"></span>
-					</a>
-					
-					<ul class="sub-menu">
-						{{#streams}}
-							<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-						{{/streams}}
-					</ul>
-				</li>
-			{{/sortedchannels.news}}
-
-			{{#sortedchannels.profiles}}
-				<li class="trending_{{id}}">
-					<a href="#trending/{{channelid}}" onclick="document.location='#trending/{{channelid}}';">
-						<i class="icon-{{icon}}"></i> 
-						{{name}}
-						<span class="arrow"></span>
-						<span class="selected"></span>
-					</a>
-					
-					<ul class="sub-menu">
-						{{#streams}}
-							<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-						{{/streams}}
-					</ul>
-				</li>
-			{{/sortedchannels.profiles}}
-
-		</ul>
-	</li>
-
+	<!-- Company Pages -->
 	{{#sortedchannels.profiles}}
 		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
@@ -120,15 +118,46 @@
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
-
+			
 			<ul class="sub-menu">
-				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-				{{/streams}}
+				
+				<li class="trending">
+					<a href="#trending"
+						{{#sortedchannels.news}}
+							onclick="document.location='#trending/{{channelid}}';"
+						{{/sortedchannels.news}}
+					>
+						<i class="icon-thumbs-up"></i> 
+						<span class="title">Trending posts</span>
+						<span class="arrow"></span>
+					</a>
+			
+					<ul class="sub-menu">
+						{{#sortedchannels.profiles}}
+							{{#streams}}
+								<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							{{/streams}}
+						{{/sortedchannels.profiles}}			
+					</ul>
+				</li>
+
+				<li class="channel-coworkers">
+					<a href="#channel-coworkers">
+						<i class="icon-briefcase"></i> 
+						<span class="title">Media</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
+				</li>
 			</ul>
 		</li>
 	{{/sortedchannels.profiles}}
 
+	<!-- Social Feeds -->
 	{{#sortedchannels.news}}
 		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
@@ -139,14 +168,43 @@
 			</a>
 
 			<ul class="sub-menu">
-				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-				{{/streams}}
+				<li class="trending">
+					<a href="#trending"
+						{{#sortedchannels.news}}
+							onclick="document.location='#trending/{{channelid}}';"
+						{{/sortedchannels.news}}
+					>
+						<i class="icon-thumbs-up"></i> 
+						<span class="title">Trending posts</span>
+						<span class="arrow"></span>
+					</a>
+			
+					<ul class="sub-menu">
+						{{#sortedchannels.news}}
+							{{#streams}}
+								<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							{{/streams}}
+						{{/sortedchannels.news}}
+					</ul>
+				</li>
+				
+				<li class="channel-coworkers">
+					<a href="#channel-coworkers">
+						<i class="icon-globe"></i> 
+						<span class="title">Media</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
+				</li>
 			</ul>
 		</li>
 	{{/sortedchannels.news}}
 
-	
+	<!-- Keyword Monitoring -->
 	{{#sortedchannels.monitoring}}
 		<li class="channel_{{channelid}}">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
@@ -157,13 +215,14 @@
 			</a>
 
 			<ul class="sub-menu">
-				{{#streams}}
-					<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-				{{/streams}}
 
 				{{#channels}}
 					<li>
-						<a href="#channel/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">{{name}}</a>
+						<a href="#channel/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">
+							<i class="icon-{{icon}}"></i> 
+							<span class="title">{{name}}</span>
+							<span class="arrow"></span>
+						</a>
 
 						<ul class="sub-menu">
 							{{#streams}}
@@ -191,7 +250,7 @@
 
 				<li>
 					<a href="#keywords">
-						<i class="icon-edit"></i> 
+						<i class="icon-plus"></i> 
 						<span class="title">Manage keywords</span>
 						<span class="selected"></span>
 					</a>
@@ -201,7 +260,56 @@
 		</li>
 	{{/sortedchannels.monitoring}}
 
+	<!-- COMPETITION -->
+	{{#sortedchannels.competition}}
+	<li class="competition">
+		<a href="#reports" onclick="document.location='#reports';">
+			<i class="icon-screenshot"></i> 
+			<span class="title">Competition</span>
+			<span class="arrow"></span>
+			<span class="selected"></span>
+		</a>
 
+		<ul class="sub-menu">
+			{{#channels}}
+				<li>
+					<a href="#channel/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">
+						<i class="icon-bullseye"></i> 
+						<span class="title">{{name}}</span>
+						<span class="arrow"></span>
+					</a>
+				</li>
+			{{/channels}}
+		</ul>
+	</li>
+	{{/sortedchannels.competition}}
+	
+	
+	<!-- Tools -->
+	<li class="tools">
+		<a href="#tools" onclick="document.location='#tools';">
+			<i class="icon-wrench"></i> 
+			<span class="title">Tools</span>
+			<span class="arrow"></span>
+			<span class="selected"></span>
+		</a>
+
+		<ul class="sub-menu">
+			{{#sortedchannels.tools}}
+				{{#channels}}
+					<li>
+						<a href="#tool/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">
+							<i class="icon-{{network.icon}}"></i> 
+							<span class="title">{{name}}</span>
+						</a>
+					</li>
+				{{/channels}}
+			{{/sortedchannels.tools}}
+		</ul>
+	</li>
+	
+	
+	<!-- Reports -->
 	<li class="reports">
 		<a href="#reports" onclick="document.location='#reports';">
 			<i class="icon-bar-chart"></i> 
@@ -217,6 +325,7 @@
 		</ul>
 	</li>
 	
+	<!-- User Settings -->
 	<li class="">
 		<a href="#users">
 		<i class="icon-group"></i> 

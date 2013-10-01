@@ -5,8 +5,9 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		'submit form[data-add-category]' : 'createCategory',
 		'submit form[data-edit-category-id]' : 'editCategory',
 		'submit form[data-addkeyword-category-id]' : 'addKeyword',
-		'click a[data-delete-category-id]' : 'deleteCategory',
-		'click a[data-delete-keyword-id]' : 'deleteKeyword'
+		'click i[data-edit-category-id]' : 'showEditCategory',
+		'click i[data-delete-category-id]' : 'deleteCategory',
+		'click i[data-delete-keyword-id]' : 'deleteKeyword'
 	},
 
 	'render' : function ()
@@ -49,6 +50,15 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			}
 		);
 	},
+	
+	'showEditCategory' : function (e)
+	{
+		var id = $(e.target).attr('data-edit-category-id');
+		
+		$('.category-'+ id +'-name').toggle().next().toggle();
+		
+	},
+
 
 	'editCategory' : function (e)
 	{
@@ -58,9 +68,9 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		//var data = $(e.target).serialize ();
 
 		var data = {};
-
+		
 		data.name = $(e.target).find ('[name="name"]').val ();
-		data.category = $(e.target).attr ('data-edit-category-id');
+		data.category = $(e.target).closest('tr').attr('data-category');
 
 		this.sendData 
 		(
@@ -80,8 +90,8 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		var self = this;
 		
 		var data = {};
-		data.keyword = $(e.target).find ('[name="keyword"]').val ();
-		data.category = $(e.target).attr ('data-addkeyword-category-id');
+		data.keyword = $('#keyword_create_name').val ();
+		data.category = $('#keyword_create_category').val();//.attr ('data-addkeyword-category-id');
 		data.locale = 'nl_BE';
 
 		this.sendData 
@@ -98,7 +108,10 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	'deleteCategory' : function (e)
 	{
 		var self = this;
-
+		
+		
+		return console.log(e.target);
+		
 		var data = {};
 		data.category = $(e.target).attr ('data-delete-category-id');
 

@@ -25,6 +25,9 @@ var App = function () {
         'yellow': '#ffb848'
     };
 
+    // last popep popover
+    var lastPopedPopover;
+    
     var handleInit = function() {
 
         if ($('body').css('direction') === 'rtl') {
@@ -33,7 +36,7 @@ var App = function () {
 
         isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
         isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
-        isIE10 = !! navigator.userAgent.match(/MSIE 10/);
+        isIE10 = !! navigator.userAgent.match(/MSIE 10.0/);
         
         if (isIE10) {
             jQuery('html').addClass('ie10'); // detect IE10 version

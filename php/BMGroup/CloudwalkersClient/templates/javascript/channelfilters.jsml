@@ -1,7 +1,23 @@
-<h1>CHANNEL FILTERS WIDGET</h1>
-<select name="stream">
-	<option value="">All</option>
-	{{#streams}}
-		<option value="{{id}}">{{#network}}{{name}}{{/network}}</option>
-	{{/streams}}
-</select>
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN PORTLET-->
+		<div class="portlet box grey" id="message">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-tags icon-large"></i>Channel Filters Widget</div>
+			</div>
+			<div class="portlet-body" id="inbox-workers">
+				
+				
+				<select name="stream">
+					<option value="">All</option>
+					{{#streams}}
+						<option value="{{id}}">{{#network}}{{name}}{{/network}}</option>
+					{{/streams}}
+				</select>
+				
+				
+			</div>
+		</div>
+		<!-- END PORTLET-->
+	</div>
+</div>
