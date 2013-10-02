@@ -22,6 +22,19 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		return channel;
 	},
 
+	'getChannelFromType' : function (type)
+	{
+		var channels = this.channels ();
+		for (var i = 0; i < channels.length; i ++)
+		{
+			if (channels[i].type == type)
+			{
+				return channels[i];
+			}
+		}
+		return null;
+	},
+
 	'_findChannelRecursive' : function (channels, id)
 	{
 		for (var i = 0; i < channels.length; i ++)

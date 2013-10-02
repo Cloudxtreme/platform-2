@@ -70,7 +70,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 					
 						<!-- BEGIN INBOX DROPDOWN -->
 						<li class="dropdown" id="header_inbox_bar">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<a href="#inbox" class="dropdown-toggle" >
 							<i class="icon-envelope"></i>
 								<span class="badge unread-messages-count" style="display: none;">0</span>
 							</a>

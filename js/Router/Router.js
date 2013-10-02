@@ -9,6 +9,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'reports(/:streamid)' : 'reports',
 		'trending/:channel(/:streamid)' : 'trending',
 		'keywords' : 'managekeywords',
+		'inbox' : 'inbox',
 		'*path' : 'dashboard'
 	},
 
@@ -251,6 +252,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		var view = new Cloudwalkers.Views.ManageKeywords ();
 		Cloudwalkers.RootView.setView (view);
+	},
+
+	'inbox' : function ()
+	{
+		var channel = Cloudwalkers.Session.getAccount ().getChannelFromType ('inbox');
+		if (channel)
+		{
+			document.location = '#channel/' + channel.id;
+		}
 	}
 
 });

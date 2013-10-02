@@ -51,6 +51,7 @@
 				</ul>
 			</li>
 			
+			<!--
 			<li class="sent">
 				<a href="#sent" onclick="document.location='#sent';">
 					<i class="icon-cloud-upload"></i> 
@@ -69,6 +70,7 @@
 					{{/sentstreams}}
 				</ul>
 			</li>
+			-->
 			
 		</ul>
 	</li>
@@ -99,7 +101,7 @@
 				</li>
 				
 				<li class="channel-coworkers">
-					<a href="#channel-coworkers">
+					<a href="#drafts">
 						<i class="icon-envelope"></i> 
 						<span class="title">Co-workers</span>
 					</a>
@@ -120,7 +122,20 @@
 			</a>
 			
 			<ul class="sub-menu">
-				
+
+				<li class="channel-coworkers">
+					<a href="#channel-coworkers">
+						<i class="icon-briefcase"></i> 
+						<span class="title">Media</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
+				</li>
+
 				<li class="trending">
 					<a href="#trending"
 						{{#sortedchannels.news}}
@@ -140,19 +155,6 @@
 						{{/sortedchannels.profiles}}			
 					</ul>
 				</li>
-
-				<li class="channel-coworkers">
-					<a href="#channel-coworkers">
-						<i class="icon-briefcase"></i> 
-						<span class="title">Media</span>
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub-menu">
-						{{#streams}}
-							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-						{{/streams}}
-					</ul>
-				</li>
 			</ul>
 		</li>
 	{{/sortedchannels.profiles}}
@@ -167,7 +169,20 @@
 				<span class="selected"></span>
 			</a>
 
-			<ul class="sub-menu">
+			<ul class="sub-menu">				
+				<li class="channel-coworkers">
+					<a href="#channel-coworkers">
+						<i class="icon-globe"></i> 
+						<span class="title">Media</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						{{#streams}}
+							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						{{/streams}}
+					</ul>
+				</li>
+
 				<li class="trending">
 					<a href="#trending"
 						{{#sortedchannels.news}}
@@ -185,19 +200,6 @@
 								<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 							{{/streams}}
 						{{/sortedchannels.news}}
-					</ul>
-				</li>
-				
-				<li class="channel-coworkers">
-					<a href="#channel-coworkers">
-						<i class="icon-globe"></i> 
-						<span class="title">Media</span>
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub-menu">
-						{{#streams}}
-							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-						{{/streams}}
 					</ul>
 				</li>
 			</ul>
@@ -286,6 +288,7 @@
 	
 	
 	<!-- Tools -->
+	<!--
 	<li class="tools">
 		<a href="#tools" onclick="document.location='#tools';">
 			<i class="icon-wrench"></i> 
@@ -307,6 +310,7 @@
 			{{/sortedchannels.tools}}
 		</ul>
 	</li>
+-->
 	
 	
 	<!-- Reports -->
