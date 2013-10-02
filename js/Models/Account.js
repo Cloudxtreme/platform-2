@@ -93,6 +93,16 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	{
 		var streams = this.streams ({ 'statistics' : true });
 		return streams;
+	},
+
+	'refresh' : function (callback)
+	{
+		var self = this;
+		Cloudwalkers.Session.call ('account/' + this.get ('id'), null, null, function (data)
+		{
+			self.set (data);
+			callback ();
+		});
 	}
 
 });

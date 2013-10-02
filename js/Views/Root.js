@@ -23,6 +23,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('.add-button').click (this.writeMessage);
 
 		Cloudwalkers.Session.on ('account:change', function (account) { self.setAccount (account); } );
+		Cloudwalkers.Session.on ('channels:change', function () { self.renderNavigation (); } );
 	},
 
 	'render' : function ()
@@ -205,8 +206,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			setUnreadCount (newnumber);
 		});
 
-		setUnreadCount (Cloudwalkers.Session.getUser ().countUnreadMessages ());
-
 		// Set accounts
 		var accounts = Cloudwalkers.Session.getUser ().getAccounts ();
 
@@ -216,6 +215,19 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		{
 			navAddAccount (accounts[i]);
 		}
+
+		setUnreadCount (Cloudwalkers.Session.getUser ().countUnreadMessages ());
+
+		// Set user
+		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));
+		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('name'));
+
+		this.renderNavigation ();
+	},
+
+	'renderNavigation' : function ()
+	{
+		var account = Cloudwalkers.Session.getAccount ();
 
 		// Redo navigation
 		var data = {};
@@ -254,14 +266,33 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			data.scheduledstreams.push (v.attributes);
 		});
 		
+		// Remove all empty second level channels
+		if (typeof (data.sortedchannels.monitoring) != 'undefined')
+		{
+			for (var i = 0; i < data.sortedchannels.monitoring.length; i ++)
+			{
+				var toremove = [];
+				for (var j = 0; j < data.sortedchannels.monitoring[i].channels.length; j ++)
+				{
+					if (data.sortedchannels.monitoring[i].channels[j].channels.length == 0)
+					{
+						//data.sortedchannels.monitoring[i].channels.splice (i, 1);
+						toremove.push (data.sortedchannels.monitoring[i].channels[j]);
+					}
+				}
 
-		//console.log (data);
+				for (var k = 0; k < toremove.length; k ++)
+				{
+					data.sortedchannels.monitoring[i].channels.splice 
+					(
+						data.sortedchannels.monitoring[i].channels.indexOf (toremove[k]), 
+						1
+					);
+				}
+			}
+		}
 
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
-
-		// Set user
-		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));
-		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('name'));
 	},
 
 	'confirm' : function (message, callback)

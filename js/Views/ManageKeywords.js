@@ -47,6 +47,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			function ()
 			{
 				self.render ();
+				Cloudwalkers.Session.refresh ();
 			}
 		);
 	},
@@ -79,6 +80,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			function ()
 			{
 				self.render ();
+				Cloudwalkers.Session.refresh ();
 			}
 		);
 	},
@@ -101,6 +103,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			function ()
 			{
 				self.render ();
+				Cloudwalkers.Session.refresh ();
 			}
 		);
 	},
@@ -119,6 +122,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			function ()
 			{
 				self.render ();
+				Cloudwalkers.Session.refresh ();
 			}
 		);
 	},
@@ -137,6 +141,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			function ()
 			{
 				self.render ();
+				Cloudwalkers.Session.refresh ();
 			}
 		);
 	},

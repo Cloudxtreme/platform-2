@@ -62,6 +62,14 @@ Cloudwalkers.Session =
 		return this.getAccount ().channel (id);
 	},
 
+	'refresh' : function ()
+	{
+		this.getAccount ().refresh (function ()
+		{
+			Cloudwalkers.Session.trigger ('channels:change');
+		});
+	},
+
 	'loadEssentialData' : function (callback)
 	{
 		var self = this;
