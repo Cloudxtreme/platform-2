@@ -4,7 +4,9 @@
 Cloudwalkers.Views.Widgets.ChannelFilters = Backbone.View.extend({
 
 	'events' : {
-		'change select[name=stream]' : 'change'
+		'change select[name=stream]' : 'changestream',
+		'change select[name=channel]' : 'changechannel',
+		'change select[name=network]' : 'changenetwork'
 	},
 
 	'render' : function ()
@@ -14,23 +16,76 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Backbone.View.extend({
 
 		this.$el.html ('<p>Please wait, loading streams.</p>');
 
-		channel.getStreams (function (streams)
+		channel.getChannels (function (subchannels)
 		{
-			var data = {};
+			channel.getStreams (function (streams)
+			{
+				var data = {};
 
-			data.streams = streams;
+				data.streams = streams;
+				data.channels = subchannels;
+				data.networks = self.bundlestreamsonnetwork (streams);
 
-			self.$el.html (Mustache.render (Templates.channelfilters, data));
+				self.$el.html (Mustache.render (Templates.channelfilters, data));
 
-			return this;
-		}, true);
+				return this;
+			}, true);
+		});
 
 		return this;
 	},
 
-	'change' : function ()
+	/**
+	* Bundle streams on networks
+	*/
+	'bundlestreamsonnetwork' : function (streams)
+	{
+		var map = {};
+
+		for (var i = 0; i < streams.length; i ++)
+		{
+			if (typeof (map[streams[i].network.token]) == 'undefined')
+			{
+				map[streams[i].network.token] = {
+					'network' : streams[i].network,
+					'streams' : [ streams[i] ]
+				};
+			}
+
+			else
+			{
+				map[streams[i].network.token].streams.push (streams[i]);
+			}
+		}
+
+		var out = [];
+
+		for (var key in map)
+		{
+			out.push (map[key]);
+		}
+
+		return out;
+	},
+
+	'changestream' : function ()
 	{
 		this.trigger ('stream:change', this.$el.find ('select[name=stream]').val ());
+	},
+
+	'changenetwork' : function ()
+	{
+		var streams = [];
+
+		var streamids = this.$el.find ('select[name=network]').val ().split (',');
+		streamids.pop ();
+
+		this.trigger ('stream:change', streamids);
+	},
+
+	'changechannel' : function ()
+	{
+		this.trigger ('channel:change', this.$el.find ('select[name=channel]').val ());	
 	}
 
 });

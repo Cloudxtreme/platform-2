@@ -3,19 +3,36 @@
 		<!-- BEGIN PORTLET-->
 		<div class="portlet box grey" id="message">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>Channel Filters Widget</div>
+				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
 			</div>
 			<div class="portlet-body" id="inbox-workers">
-				
-				
-				<select name="stream">
+
+				<label>Channels:</label>
+				<select name="channels">
 					<option value="">All</option>
-					{{#streams}}
-						<option value="{{id}}">{{#network}}{{name}}{{/network}} {{customname}}</option>
-					{{/streams}}
+					{{#channels}}
+						<option value="{{id}}">{{name}}</option>
+
+						{{#channels}}
+							<option value="{{id}}">&nbsp;{{name}}</option>
+
+							{{#channels}}
+								<option value="{{id}}">&nbsp;&nbsp;{{name}}</option>
+							{{/channels}}
+
+						{{/channels}}
+
+					{{/channels}}
 				</select>
 				
-				
+				<label>Sources:</label>
+				<select name="network">
+					<option value="">All</option>
+					{{#networks}}
+						<option value="{{#streams}}{{id}},{{/streams}}">{{#network}}{{name}}{{/network}}</option>
+					{{/networks}}
+				</select>
+
 			</div>
 		</div>
 		<!-- END PORTLET-->

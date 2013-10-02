@@ -59,16 +59,7 @@ Cloudwalkers.Session =
 
 	'getChannelFromId' : function (id)
 	{
-		var channels = this.getAccount ().channels ();
-
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].id == id)
-			{
-				return channels[i];
-			}
-		}
-		return null;
+		return this.getAccount ().channel (id);
 	},
 
 	'loadEssentialData' : function (callback)

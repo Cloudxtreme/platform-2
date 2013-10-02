@@ -113,6 +113,15 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		return $.ajax(params);
 	},
 
+	/**
+	* Return all sub channels
+	*/
+	'getChannels' : function (callback)
+	{
+		var channel = Cloudwalkers.Session.getChannelFromId (this.id);
+		callback (channel);
+	},
+
 	'sync' : function(method, model, options) 
 	{
 		var self = this;
