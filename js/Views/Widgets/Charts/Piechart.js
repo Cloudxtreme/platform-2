@@ -5,6 +5,8 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 	'icon' : 'reorder',
 	'size' : 6,
 
+	'maxSlices' : 10,
+
 	'getDataset' : function ()
 	{
 		return this.options.dataset;
@@ -36,6 +38,23 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 		{
 			this.placeholder.html ('<p>At this time there is no information available.</p>');
 			return;
+		}
+
+		// First sort on value
+		values.sort (function (a, b)
+		{
+			return b[1] - a[1];
+		});
+
+		var other = 0;
+		if (values.length > this.maxSlices)
+		{
+			while (values.length > (this.maxSlices - 1))
+			{
+				other += values.pop ()[1];
+			}
+
+			values.push ([ 'Other', other ]);
 		}
 
 		var piedata = [];
