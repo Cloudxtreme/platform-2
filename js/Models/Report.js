@@ -54,7 +54,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Barchart ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -64,7 +65,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -73,7 +75,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Table ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -82,7 +85,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Intervalchart ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -91,7 +95,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Comparison ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -100,7 +105,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 
@@ -109,7 +115,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Textstat ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
-				'stream' : this.get('stream')
+				'stream' : this.get('stream'),
+				'report' : this
 			});
 		}
 

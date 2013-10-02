@@ -79,6 +79,8 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		data.details = [];
 		data.footer = '&nbsp;';
 
+		data.report = this.options.report.attributes;
+
 		var title;
 
 		if (values && values.length > 0)
@@ -126,6 +128,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 			data.details.push ({ 'content' : '☹', 'descr' : 'No info' });
 		}
 
+		this.trigger ('content:change');
 		element.html (Mustache.render (Templates[this.template], data));
 	}
 

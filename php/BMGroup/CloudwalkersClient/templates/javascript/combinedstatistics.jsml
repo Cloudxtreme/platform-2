@@ -44,7 +44,11 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="portlet-body">
 		
+		<p class="statistic-description"></p>
+		<div class="statistic-container"></div>
+
 	</div>
 </div>

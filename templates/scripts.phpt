@@ -75,6 +75,8 @@
             App.initUniform(); // initialize uniform elements
             App.handleScrollers ();
 
+            jQuery('.tooltips').tooltip ();
+
 		});
 
 		//Cloudwalkers.RootView.on('content:change', function() {

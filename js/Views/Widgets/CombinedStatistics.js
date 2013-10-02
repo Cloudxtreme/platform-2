@@ -120,9 +120,10 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		this.currentReport = report;
 
 		var div = $('<div></div>');
-		this.$el.find ('.portlet-body').html (div);
+		this.$el.find ('.statistic-container').html (div);
 
 		this.$el.find ('.statistic-title').html (report.get ('name'));
+		this.$el.find ('.statistic-description').html (report.get ('description'));
 
 		report.getWidget ().innerRender (div);
 	}
