@@ -96,7 +96,7 @@
 												<li>
 													<i class="icon-tag icon-muted"></i>
 													{{name}}
-													<a href="javascript:void(0);" data-delete-keyword-id="{{id}}"><i class="icon-remove pull-right"></i></a>
+													<i class="icon-remove pull-right" data-delete-keyword-id="{{id}}"></i>
 												</li>
 											{{/keywords}}
 										</ul>

@@ -4,7 +4,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 
 		'submit form[data-add-category]' : 'createCategory',
 		'submit form[data-edit-category-id]' : 'editCategory',
-		'submit form[data-addkeyword-category-id]' : 'addKeyword',
+		'submit form[data-add-keyword]' : 'addKeyword',
 		'click i[data-edit-category-id]' : 'showEditCategory',
 		'click i[data-delete-category-id]' : 'deleteCategory',
 		'click i[data-delete-keyword-id]' : 'deleteKeyword'
@@ -93,7 +93,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		data.keyword = $('#keyword_create_name').val ();
 		data.category = $('#keyword_create_category').val();//.attr ('data-addkeyword-category-id');
 		data.locale = 'nl_BE';
-
+		
 		this.sendData 
 		(
 			CONFIG_BASE_URL + 'json/wizard/monitoring/createkeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
@@ -108,9 +108,6 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	'deleteCategory' : function (e)
 	{
 		var self = this;
-		
-		
-		return console.log(e.target);
 		
 		var data = {};
 		data.category = $(e.target).attr ('data-delete-category-id');
