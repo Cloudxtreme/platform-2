@@ -65,11 +65,24 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			start = 1;
 		}
 
+		// Values less than 10?
+		while (values.length < 10)
+		{
+			values.unshift ([null, 0]);
+		}
+
 		for (var i = start; i < values.length; i ++)
 		{
 			// Only show one in 3
-			date = new Date (values[i][0]);
-			datestring = date.getDate () + '/' + (date.getMonth () + 1) + '/' + date.getFullYear ();
+			if (values[i][0] != null)
+			{
+				date = new Date (values[i][0]);
+				datestring = date.getDate () + '/' + (date.getMonth () + 1) + '/' + date.getFullYear ();
+			}
+			else
+			{
+				datestring = '';
+			}
 
 			ticks.push ([ i, datestring ]);
 			values[i][0] = i;
