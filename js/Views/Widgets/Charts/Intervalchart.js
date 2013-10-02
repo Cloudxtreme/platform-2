@@ -159,7 +159,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 					growth = this.numberOutput (growth) + '%';
 
 					o = plot.pointOffset({ x: values[i][0], y: values[i][1]});
-					this.placeholder.append ('<div style="background: white; position: absolute; left: ' + (o.left - 50) + 'px; top: ' + (o.top - 25) + 'px; width: 100px; text-align: center;">' + growth + '</div>');
+					this.placeholder.append ('<div style="background: white; position: absolute; left: ' + (o.left - 30) + 'px; top: ' + (o.top - 25) + 'px; width: 60px; text-align: center;">' + growth + '</div>');
 				}
 			}
 		}
