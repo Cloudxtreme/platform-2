@@ -55,7 +55,9 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 				el.find ('.interval-value').html (interval.name);
 
 				// Calculate date interval
-				var units = 10;
+
+				// First one is ignored.
+				var units = 11;
 
 				var days = 1;
 				if (interval.token == 'day')

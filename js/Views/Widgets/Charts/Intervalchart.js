@@ -54,11 +54,24 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 
 		var basevalue = [];
 		var additions = [];
+		var date;
+		var datestring;
 
-		for (var i = 0; i < values.length; i ++)
+		var start = 0;
+
+		// If values is more than 10 (so, most of the times, 11), skip the first value.
+		if (values.length > 10)
+		{
+			start = 1;
+		}
+
+		for (var i = start; i < values.length; i ++)
 		{
 			// Only show one in 3
-			ticks.push ([ i, new Date (values[i][0]).toLocaleDateString() ]);
+			date = new Date (values[i][0]);
+			datestring = date.getDate () + '/' + (date.getMonth () + 1) + '/' + date.getFullYear ();
+
+			ticks.push ([ i, datestring ]);
 			values[i][0] = i;
 
 			if (i == 0)
