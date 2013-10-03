@@ -137,10 +137,8 @@
 				</li>
 
 				<li class="trending">
-					<a href="#trending"
-						{{#sortedchannels.news}}
+					<a href="#trending/{{channelid}}"
 							onclick="document.location='#trending/{{channelid}}';"
-						{{/sortedchannels.news}}
 					>
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
@@ -184,10 +182,8 @@
 				</li>
 
 				<li class="trending">
-					<a href="#trending"
-						{{#sortedchannels.news}}
+					<a href="#trending/{{channelid}}"
 							onclick="document.location='#trending/{{channelid}}';"
-						{{/sortedchannels.news}}
 					>
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
