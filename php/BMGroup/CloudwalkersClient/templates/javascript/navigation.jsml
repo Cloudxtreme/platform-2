@@ -232,14 +232,6 @@
 							{{#channels}}
 								<li>
 									<a class="channel_{{channelid}}_{{id}}" href="#channel/{{channelid}}/{{id}}">{{name}}</a>
-
-									<!--
-									<ul class="sub-menu">
-										{{#streams}}
-											<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-										{{/streams}}									
-									</ul>
-									-->
 								</li>
 							{{/channels}}
 						</ul>
