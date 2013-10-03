@@ -18,6 +18,8 @@ Style corrections and manual overrides
 	font-size: .9em;
 }
 
+.timeline-body a	{ color: white; font-weight: normal; }
+
 .timeline-img.pull-right	{ margin-right: 0 !important; }
 
 /* Comments */

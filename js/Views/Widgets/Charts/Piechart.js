@@ -76,7 +76,9 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 					'pie' : {
 						'show' : true
 					}
-				}
+				},
+				
+				'colors' : [ '#2bbedc', '#ffb848', '#852b99', '#e02222', '#ffe399','#AFD8F8','#A23C3C','#4DA74D','#BD9B33','#8CACC6']
 			}
 		);
 	}

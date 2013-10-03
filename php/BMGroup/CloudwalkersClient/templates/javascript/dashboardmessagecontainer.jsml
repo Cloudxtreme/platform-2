@@ -1,6 +1,6 @@
 <!-- BEGIN PORTLET-->
 <div class="portlet box {{color}}">
-	<div class="portlet-title line">
+	<div class="portlet-title line {{#open}}collapse{{/open}}{{^open}}expand{{/open}}-portlet">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
 		<div class="tools">
 			

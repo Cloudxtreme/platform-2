@@ -179,13 +179,11 @@ nav	{
 * Message counter block
 */
 
-.portlet.box.messagecounter .portlet-title .tools > .collapse,
-.portlet.box.messagecounter .portlet-title .tools > .expand	{
+.portlet.box.messagecounter .portlet-title .tools > a	{
 	position: relative; top: -5px; background: white; width: auto; border-radius: 12px !important; padding: 4px 8px;
 	color: #2bbedc; font-weight: bold; line-height: 1.2em;
 }
-.portlet.box.messagecounter .portlet-title .tools > .collapse:after,
-.portlet.box.messagecounter .portlet-title .tools > .expand:after
+.portlet.box.messagecounter .portlet-title .tools > a:after
 { 
   font-family: FontAwesome;
   font-weight: normal;
@@ -195,12 +193,12 @@ nav	{
   content: "\f078";
 }
 
-.portlet.box.messagecounter .portlet-title .tools > .expand:after
+.portlet.box.messagecounter .portlet-title.expand-portlet .tools > a:after
 {
  content: "\f077"; 
 }
 
-.portlet.box.messagecounter .portlet-title .tools > .collapse:after
+.portlet.box.messagecounter .portlet-title.collapse-portlet .tools > a:after
 {
   content: "\f078";
 }

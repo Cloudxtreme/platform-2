@@ -12,6 +12,7 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 
 	'innerRender' : function (element)
 	{
+		
 		var self = this;
 
 		this.placeholder = $('<div class="chart" style="position: relative;"></div>');
@@ -36,7 +37,7 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 		{
 			return;
 		}
-
+		
 		// Afraid we'll have to prepare the data for this one
 		var ticks = [];
 		for (var i = 0; i < values.length; i ++)
@@ -60,8 +61,12 @@ Cloudwalkers.Views.Widgets.Charts.Barchart = Cloudwalkers.Views.Widgets.Widget.e
 				},
 				'bars' : {
 					'show': true,
-					'align': 'center'
-				}
+					'align': 'center',
+					'fill': .78,
+					'lineWidth': 1
+				},
+
+				'colors' : [ '#2bbedc', '#ffb848', '#852b99', '#e02222', '#ffe399']
 			}
 		);
 	}

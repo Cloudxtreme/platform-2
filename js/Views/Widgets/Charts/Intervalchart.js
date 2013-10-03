@@ -129,11 +129,13 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 					'bars' : {
 						'show': true,
 						'align': 'center',
-						'barWidth': 0.8
+						'barWidth': 0.8,
+						'fill': .78,
+						'lineWidth': 1,
 					}
 				},
 
-				'colors' : [ '#ff0000', '#00ff00']
+				'colors' : [ '#2bbedc', '#ffb848', '#852b99', '#e02222', '#ffe399']
 			}
 		);
 
