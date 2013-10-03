@@ -10,8 +10,8 @@
 	</li>
 
 	<!-- Message Board -->	
-	<li class="message-board">
-		<a href="#message-board">
+	<li class="write">
+		<a href="#write" onclick="document.location='#write';">
 			<i class="icon-share-sign"></i> 
 			<span class="title">Message board</span>
 			<span class="arrow"></span>
@@ -77,7 +77,7 @@
 
 	<!-- Inbox -->
 	{{#sortedchannels.inbox}}
-		<li class="channel_{{channelid}}">
+		<li class="channel_{{channelid}} inbox">
 			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
@@ -101,7 +101,7 @@
 				</li>
 				
 				<li class="channel-coworkers">
-					<a href="#drafts">
+					<a href="#coworkers">
 						<i class="icon-envelope"></i> 
 						<span class="title">Co-workers</span>
 					</a>
