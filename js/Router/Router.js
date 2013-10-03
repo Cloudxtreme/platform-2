@@ -10,6 +10,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'trending/:channel(/:streamid)' : 'trending',
 		'keywords' : 'managekeywords',
 		'inbox' : 'inbox',
+		'coworkers' : 'coworkers',
 		'*path' : 'dashboard'
 	},
 
@@ -74,6 +75,27 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		widgetcontainer.title = 'Drafts';
 		widgetcontainer.navclass = 'drafts';
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
+	},
+
+	'coworkers' : function ()
+	{
+		var collection = new Cloudwalkers.Collections.Drafts
+		(
+			[], 
+			{ 
+				'name' : 'Draft messages'
+			}
+		);
+
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+
+		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
+		widgetcontainer.addWidget (widget);
+
+		widgetcontainer.title = 'Coworkers';
+		widgetcontainer.navclass = 'inbox';
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
