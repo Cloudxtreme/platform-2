@@ -131,7 +131,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 						'align': 'center',
 						'barWidth': 0.8,
 						'fill': .78,
-						'lineWidth': 1,
+						'lineWidth': 1
 					}
 				},
 

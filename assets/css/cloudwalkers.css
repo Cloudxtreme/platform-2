@@ -506,3 +506,20 @@ Dashboard stats
 {
 	display: block;
 }
+
+/**
+* Data tables
+*/
+.portlet.box .dataTable td.date,
+.portlet.box .dataTable th.date
+{
+  color: inherit;
+  font-style: inherit;
+  width: 125px;
+}
+
+.dataTable td.text,
+.dataTable th.text
+{
+  text-align: left;
+}
