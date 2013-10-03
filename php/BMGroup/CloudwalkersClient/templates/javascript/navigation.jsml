@@ -231,7 +231,7 @@
 
 							{{#channels}}
 								<li>
-									<a href="#channel/{{channelid}}/{{id}}">{{name}}</a>
+									<a class="channel_{{channelid}}_{{id}}" href="#channel/{{channelid}}/{{id}}">{{name}}</a>
 
 									<!--
 									<ul class="sub-menu">
