@@ -117,7 +117,7 @@
 
 					<td>
 						<?php switch ($setting['type']) {
-							case 'checkbox':
+							case 'boolean':
 								
 								echo '<input type="checkbox" name="streams['.$stream['id'].']['.$setting['key'] . ']" value="1" '.($setting['value'] == 1 ? 'checked="checked"' : null).' />';
 

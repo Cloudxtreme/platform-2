@@ -1,0 +1,22 @@
+<h1>Currently connected services</h1>
+
+<ul>
+	{{#connected}}
+		<li>
+			<a href="javascript:void(0);" data-open-service="{{id}}">{{name}} ({{account}})</a>
+
+			<div data-service-container="{{id}}" style="display: none;"></div>
+		</li>
+	{{/connected}}
+</ul>
+
+<h1>Connect a new account</h1>
+<ul>
+	{{#available}}
+		<li>
+			<a href="javascript:void(0);" data-add-service="{{id}}">
+				{{name}}
+			</a>
+		</li>
+	{{/available}}
+</ul>

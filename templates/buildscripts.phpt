@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Session.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utils.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Storage.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Net.js"></script>
 
 <!-- Router -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Router/Router.js"></script>
@@ -35,6 +36,8 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ManageKeywords.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Services.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Service.js"></script>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Title.js"></script>

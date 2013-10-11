@@ -41,6 +41,10 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 				return $client->put ($action, $_GET, json_decode ($entityBody));
 			break;
 
+			case 'delete':
+				return $client->delete ($action, $_GET);
+			break;
+
 			case 'get':
 			default:
 				return $client->get ($action, $_GET);
