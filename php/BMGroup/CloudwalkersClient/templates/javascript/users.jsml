@@ -149,7 +149,7 @@
 									<form action="#" role="form" style="display: none;">
 										
 										<div class="fileupload fileupload-new" data-provides="fileupload">
-											<div class="fileupload-new thumbnail avatar-big" style="background-image: url(http://www.placehold.it/300x300/EFEFEF/AAAAAA&amp;text=no+image)"></div>
+											<div class="fileupload-new thumbnail avatar-big" style="background-image: url(http://www.placehold.it/280/EFEFEF/AAAAAA&amp;text=no+image)"></div>
 											<div class="fileupload-preview fileupload-exists thumbnail avatar-big" style="max-width: 280px; max-height: 280px; line-height: 20px;"></div>
 											<div class="space10"></div>
 										
