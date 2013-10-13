@@ -37,6 +37,7 @@
 <script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.crosshair.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
 
+<script type="text/javascript" src="assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>     
 <script src="<?php echo BASE_URL; ?>assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>

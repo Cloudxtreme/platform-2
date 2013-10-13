@@ -1,11 +1,55 @@
-
-
-
-
-
 /***
 Profile Page
 ***/
+
+/* Profile settings */
+.profile div.avatar-big	{
+	width: 280px; height: 280px; margin: 10px auto; background: no-repeat center; border-radius: 50% !important; overflow: hidden;
+}
+
+/* Manage users */
+.profile .settings-users .user-container td	{ padding: 12px 4px 4px; }
+
+.profile .settings-users .user-container img.avatar	{
+	display: block; width: 34px; height: 34px; margin: -8px 0 3px; background-color: #ddd;
+}
+
+.profile .settings-users .user-container td i	{
+	font-size: 20px; color: #777; padding: 1px 0 0 4px; cursor: pointer;
+}
+
+.profile .settings-users .user-container td i:hover	{ color: #333; }
+
+.profile .settings-users input[type=text]	{
+	margin-bottom: 0px; padding: 6px 10px;
+}
+
+/* Account Settins */
+
+.settings-social .social-icon-colors	{
+	background: #f3f3f3;
+}
+
+.settings-social .btn-social	{
+	display: block; padding: 4px 20px; margin: 20px 0 8px; background: white; border-radius: 2px !important; border: 1px solid #dfdfdf; border-bottom-width: 3px;
+	font-size: 1.286em; line-height: 2.5em; color: #666;
+}
+
+.settings-social .btn-social:hover	{
+	background-color: white; padding-bottom: 6px; border-bottom-width: 1px; 
+}
+
+.settings-social .btn-social i	{
+	float: left; padding-right: 20px; margin-right: 10px; border-right: 1px solid #eee;
+	font-size: 1.167em; line-height: 2.142em;
+}
+
+.settings-social .social-container td.tools i	{
+	font-size: 20px; color: #777; padding: 1px 0 0 4px; cursor: pointer;
+}
+
+
+
 .profile {
   position:relative;
 }

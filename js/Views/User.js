@@ -14,7 +14,7 @@ Cloudwalkers.Views.User = Backbone.View.extend({
 
 		data.user = this.model.attributes;
 		data.user.functie = this.model.getFunction ();
-
+		
 		self.$el.html (Mustache.render (Templates.user, data));
 
 		return this;

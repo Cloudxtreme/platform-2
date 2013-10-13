@@ -319,7 +319,7 @@
 	
 	<!-- User Settings -->
 	<li class="">
-		<a href="#users">
+		<a href="#settings/users">
 		<i class="icon-group"></i> 
 		<span class="title">User Management</span>
 		<span class="selected"></span>

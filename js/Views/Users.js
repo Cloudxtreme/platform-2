@@ -24,6 +24,9 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 		this.addUserContainer ('Users', administrators);
 		//this.addUserContainer ('Co-Workers', users);
 
+		// Enable fileupload plugin
+		setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
+		
 		return this;
 	},
 
@@ -69,6 +72,7 @@ Cloudwalkers.Views.Users = Backbone.View.extend({
 		});
 
 		this.$el.append (html);
+
 	},
 
 	'addUser' : function ()

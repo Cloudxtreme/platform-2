@@ -38,6 +38,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css"/>
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/profile.css" rel="stylesheet" type="text/css"/>
 		<!--<link href="<?php echo BASE_URL; ?>assets/css/pages/inbox.css" rel="stylesheet" type="text/css"/>-->
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
@@ -85,7 +86,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 							<i class="icon-angle-down"></i>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#users"><i class="icon-user"></i> My Profile</a></li>
+								<li><a href="#settings"><i class="icon-cog"></i> Settings</a></li>
 								<li class="divider"></li>
 								<!--<li><a href="login.html"><i class="icon-lock"></i> Lock Screen</a></li>-->
 								<li><a href="<?php echo BASE_URL; ?>logout"><i class="icon-off"></i> Log Out</a></li>
