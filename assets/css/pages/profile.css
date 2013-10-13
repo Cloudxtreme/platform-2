@@ -36,7 +36,7 @@ Profile Page
 }
 
 .settings-social .btn-social:hover	{
-	background-color: white; padding-bottom: 6px; border-bottom-width: 1px; 
+	background-color: #f6f6f6 !important; padding-bottom: 6px; border-bottom-width: 1px; 
 }
 
 .settings-social .btn-social i	{
