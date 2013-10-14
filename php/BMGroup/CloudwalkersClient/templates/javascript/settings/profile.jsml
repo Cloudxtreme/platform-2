@@ -1,0 +1,106 @@
+<div class="tab-pane row-fluid settings-profile active" id="tab_1_1">
+
+	<div class="span4">
+		<div class="portlet box grey">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-camera-retro"></i>Profile picture</div>
+			</div>
+			<div class="portlet-body">
+				
+				<form action="#" role="form">
+					
+					<div id="user-avatar" class="fileupload fileupload-new" data-provides="fileupload">
+						<div class="fileupload-new thumbnail avatar-big" style="background-image: url(http://www.placehold.it/300/EFEFEF/AAAAAA&amp;text=no+image)"></div>
+						<div class="fileupload-preview fileupload-exists thumbnail avatar-big" style="max-width: 280px; max-height: 280px; line-height: 20px;"></div>
+						<div class="space10"></div>
+						
+						<div class="input-append">
+							<div class="uneditable-input span3">
+								<i class="icon-file fileupload-exists"></i>
+								<span class="fileupload-preview"></span>
+							</div>
+							<span class="btn btn-file">
+								<span class="fileupload-new">Select file</span>
+								<span class="fileupload-exists">Change</span>
+								<input type="file" />
+							</span>
+							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+						</div>
+					
+					</div>
+					<div class="clearfix"></div>
+					<div class="controls">
+						<span class="label label-important">NOTE</span>
+						<span>Please make sure your image is at least 300px wide</span>
+					</div>
+					<div class="space10"></div>
+					<div class="submit-btn">
+						<a href="#" class="btn green">Submit</a>
+						<a href="#" class="btn">Cancel</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="portlet box blue">
+			<div class="portlet-title line expand-portlet">
+				<div class="caption"><i class="icon-key"></i>Change password</div>
+				<div class="tools">
+					<a href="" class="expand"></a>
+				</div>
+			</div>
+			<div class="portlet-body" style='display: none;'>
+				
+				<form action="#">
+					<label class="control-label">Current Password</label>
+					<input type="password" class="m-wrap span12" />
+					<label class="control-label">New Password</label>
+					<input type="password" class="m-wrap span12" />
+					<label class="control-label">Re-type New Password</label>
+					<input type="password" class="m-wrap span12" />
+					<div class="submit-btn">
+						<a href="#" class="btn green">Change Password</a>
+						<a href="#" class="btn">Cancel</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+		
+	<div class="span8">
+		<div class="tab-content">
+			<div id="tab_1-1" class="tab-pane active">
+				<div style="height: auto;">
+					
+					<h3>Your profile</h3>
+					
+					<form action="javascript:void(0);" class="edit-user-profile">
+						<label class="control-label">Name</label>
+						<input name="name" type="text" placeholder="John" class="m-wrap span8" value="{{user.name}}" />
+
+						<!--
+						<label class="control-label">Last Name</label>
+						<input type="text" placeholder="Doe" class="m-wrap span8" />
+						<label class="control-label">Mobile Number</label>
+						<input type="text" placeholder="+1 646 580 DEMO (6284)" class="m-wrap span8" />
+						<label class="control-label">Interests</label>
+						<input type="text" placeholder="Design, Web etc." class="m-wrap span8" />
+						<label class="control-label">Occupation</label>
+						<input type="text" placeholder="Web Developer" class="m-wrap span8" />
+																			<label class="control-label">About</label>
+						<textarea class="span8 m-wrap" rows="3"></textarea>
+						<label class="control-label">Website Url</label>
+						<input type="text" placeholder="http://www.mywebsite.com" class="m-wrap span8" />
+						-->
+						<div class="submit-btn">
+							<button type="submit" class="btn green">Save Changes</button>
+							<button type="reset" class="btn">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</div>                                  
+
+</div>

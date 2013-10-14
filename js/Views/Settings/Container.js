@@ -1,13 +1,10 @@
 Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 
 	'events' : {
-		'click .add-user' : 'addUser',
-		'submit .edit-user-profile' : 'editUserProfile',
-		'click .invite-user' : 'addUser'
+
 	},
 
-	'class' : 'section',
-	'collections' : [],
+	'action' : null,
 
 	'setAction' : function (action)
 	{
@@ -18,80 +15,42 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 	{
 		var self = this;
 
-		var administrators = new Cloudwalkers.Collections.Users ([], {});
-		//var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
+		self.$el.html (Templates.settings.container);
 
-		this.collections.push (administrators);
-		//this.collections.push (users);
+		var view;
+		if (this.action == 'profile')
+		{
+			view = new Cloudwalkers.Views.Settings.Profile ();
+		}
 
-		//this.$el.append ('<div class="button-row"><a href="javascript:void(0);" class="add-user"><span>Add new user</span></a></div>');
+		else if (this.action == 'users')
+		{
+			view = new Cloudwalkers.Views.Settings.Users ();
+		}
 
-		this.addUserContainer ('Users', administrators);
-		//this.addUserContainer ('Co-Workers', users);
+		else if (this.action == 'services')
+		{
+			view = new Cloudwalkers.Views.Settings.Services ();
+		}
 
-		// Enable fileupload plugin
-		setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
+		else if (this.action == 'account')
+		{
+			view = new Cloudwalkers.Views.Settings.Users ();
+		}
+
+		else
+		{
+			view = new Cloudwalkers.Views.Settings.Users ();
+			this.action = 'profile';
+		}
+
+		// Set correct tab
+		this.$el.find ('.nav-tabs li').removeClass ('active');
+		this.$el.find ('.nav-tabs li a[href="#settings/'+this.action+'"]').parent ().addClass ('active');
+
+		// Set the view
+		this.$el.find ('.tab-content').html (view.render ().el);
 		
 		return this;
-	},
-
-	'addUserContainer' : function (title, collection)
-	{
-		var user = Cloudwalkers.Session.getUser ();
-
-		var self = this;
-
-		var data = {};
-		data.title = title;
-		data.user = user.attributes;
-
-		var html = $(Mustache.render (Templates.settings.users, data));
-
-		collection.on ('reset', function ()
-		{
-			html.find ('.user-container').html ('');
-		});
-
-		collection.on ('reset:all', function ()
-		{
-			for (var i = 0; i < self.collections.length; i ++)
-			{
-				self.collections[i].reset ();
-				self.collections[i].fetch ();
-			}
-		});
-
-		collection.on ('add', function (model)
-		{
-			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : model });
-			html.find ('.user-container').append (view.render ().el);
-		});
-
-		html.find ('.loading').show ();
-
-		collection.fetch ({
-			'success' : function ()
-			{
-				html.find ('.loading').hide ();
-			}
-		});
-
-		this.$el.append (html);
-
-	},
-
-	'addUser' : function ()
-	{
-		var view = new Cloudwalkers.Views.Settings.AddUser ();
-		Cloudwalkers.RootView.popup (view);
-	},
-
-	'editUserProfile' : function (e)
-	{
-		var user = Cloudwalkers.Session.getUser ();
-		var name = this.$el.find ('[name=name]').val ();
-
-		user.set ('name', name);
-		user.save ({}, { 'success' : function () {  }});
 	}
 });

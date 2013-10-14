@@ -260,7 +260,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'settings' : function (action)
 	{
-		console.log (action);
+		//console.log (action);
 
 		var view = new Cloudwalkers.Views.Settings.Container ();
 		view.setAction (action);
