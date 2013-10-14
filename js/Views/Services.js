@@ -82,6 +82,7 @@ Cloudwalkers.Views.Services = Backbone.View.extend({
 		container.show ();
 		container.html (view.render ().el);
 
+		// Rerender on 
 		view.on ('service:delete', function ()
 		{
 			self.render ();
@@ -103,6 +104,26 @@ Cloudwalkers.Views.Services = Backbone.View.extend({
 			}
 			else
 			{
+				// Most services will provide an authentication URL.
+				// If available, redirect user to that URL now.
+				$.each (data.service.settings, function (i, v)
+				{
+					if (v.type == 'link')
+					{
+						var url
+						if (v.url.indexOf ('?'))
+						{
+							url = v.url + '&return=' + encodeURIComponent(window.location);
+						}
+						else
+						{
+							url = v.url + '?return=' + encodeURIComponent(window.location);
+						}
+
+						window.location = url;
+					}
+				});
+
 				self.render ();
 			}
 		});
