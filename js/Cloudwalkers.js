@@ -1,6 +1,7 @@
 var Cloudwalkers = {
 
 	'Views' : {
+		'Settings': {},
 		'Widgets' : {
 			'Charts' : {}
 		}
