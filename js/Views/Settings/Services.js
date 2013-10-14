@@ -20,6 +20,8 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 				data.available = available.services;
 				data.connected = connected.services;
 
+				console.log (data);
+
 				self.$el.html (Mustache.render (Templates.settings.services, data));
 
 			});
@@ -78,15 +80,22 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		var self = this;
 		var container = self.$el.find ('[data-service-container=' + id + ']');
 
-		var view = new Cloudwalkers.Views.Service ({ 'serviceid' : id });
-		container.show ();
-		container.html (view.render ().el);
-
-		// Rerender on 
-		view.on ('service:delete', function ()
+		if (container.is(':visible'))
 		{
-			self.render ();
-		});
+			container.hide ();
+		}
+		else
+		{
+			var view = new Cloudwalkers.Views.Settings.Service ({ 'serviceid' : id });
+			container.show ();
+			container.html (view.render ().el);
+
+			// Rerender on 
+			view.on ('service:delete', function ()
+			{
+				self.render ();
+			});
+		}
 	},
 
 	'addServiceCall' : function (e)

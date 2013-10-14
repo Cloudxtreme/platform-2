@@ -4,6 +4,7 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 
 	},
 
+	'navclass' : 'settings',
 	'action' : null,
 
 	'setAction' : function (action)
@@ -15,7 +16,37 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 	{
 		var self = this;
 
-		self.$el.html (Templates.settings.container);
+		// Initiate tabs
+		var data = {};
+
+		data.tabs = [];
+
+		data.tabs.push ({
+			'url' : '#settings/profile',
+			'name' : 'Profile settings',
+			'active' : this.action == 'profile'
+		});
+
+		data.tabs.push ({
+			'url' : '#settings/users',
+			'name' : 'Manage users',
+			'active' : this.action == 'users'
+		});
+
+		data.tabs.push ({
+			'url' : '#settings/services',
+			'name' : 'Social connections',
+			'active' : this.action == 'services'
+		});
+
+		data.tabs.push ({
+			'url' : '#settings/account',
+			'name' : 'Account settings',
+			'active' : this.action == 'account'
+		});
+
+		// Render
+		self.$el.html (Mustache.render (Templates.settings.container, data));
 
 		var view;
 		if (this.action == 'profile')

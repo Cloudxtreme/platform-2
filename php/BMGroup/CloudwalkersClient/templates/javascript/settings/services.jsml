@@ -1,22 +1,76 @@
-<h1>Currently connected services</h1>
+<!-- Social Connections -->
+<div class="tab-pane settings-social row-fluid" id="tab_1_3">
+	
+	<div class="span4">
+		<div class="portlet box grey">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-globe"></i>Social platforms</div>
+			</div>
+			<div class="portlet-body social-icon-colors">
 
-<ul>
-	{{#connected}}
-		<li>
-			<a href="javascript:void(0);" data-open-service="{{id}}">{{name}} ({{account}})</a>
 
-			<div data-service-container="{{id}}" style="display: none;"></div>
-		</li>
-	{{/connected}}
-</ul>
+				{{#available}}
+					<a class='btn btn-lg btn-social' href="javascript:void(0);" data-add-service="{{id}}">
+						<i class='icon-{{icon}}'></i>Add {{name}}
+					</a>
+					<small>Some explanation why it's good for you brand to be visible on Facebook</small>
+				{{/available}}
+				
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div class="span8">
+	
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-cloud"></i>Active Social connections</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Network</th>
+							<th class="hidden-480">Account</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="social-container social-icon-colors">
 
-<h1>Connect a new account</h1>
-<ul>
-	{{#available}}
-		<li>
-			<a href="javascript:void(0);" data-add-service="{{id}}">
-				{{name}}
-			</a>
-		</li>
-	{{/available}}
-</ul>
+						{{#connected}}
+							<tr>
+								<td><i class="icon-{{icon}} icon-2x"></i></td>
+								<td>
+									<strong>
+										{{name}}
+									</strong>
+								</td>
+
+								<td>
+									<a href="javascript:void(0);" data-open-service="{{id}}">
+										{{account}}
+									</a>
+								</td>
+
+								<td class='tools'>
+									<i class="icon-edit pull-right" data-open-service="{{id}}"></i>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="5" data-service-container="{{id}}" style="display: none;">
+
+								</td>
+							</td>
+						{{/connected}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<!-- End Social Connections -->

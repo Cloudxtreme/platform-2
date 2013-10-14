@@ -318,7 +318,7 @@
 	</li>
 	
 	<!-- User Settings -->
-	<li class="">
+	<li class="settings">
 		<a href="#settings/users">
 		<i class="icon-group"></i> 
 		<span class="title">Settings</span>

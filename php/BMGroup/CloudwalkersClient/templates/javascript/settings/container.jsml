@@ -18,15 +18,14 @@
 			<!--BEGIN TABS-->
 			<div class="tabbable tabbable-custom tabbable-full-width">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#settings/profile">Profile settings</a></li>
-					<li><a href="#settings/users">Manage users</a></li>
-					<li><a href="#settings/services">Social connections</a></li>
-					<li><a href="#settings/account">Account settings</a></li>
+					{{#tabs}}
+						<li {{#active}}class="active"{{/active}}>
+							<a href="{{url}}">{{name}}</a>
+						</li>
+					{{/tabs}}
 				</ul>
 				<div class="tab-content">
 				
-					
-					
 				</div>
 			</div>
 			<!--END TABS-->
