@@ -29,16 +29,20 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Filter.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comments.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Comment.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Users.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/User.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/UserDetails.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/AddUser.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Reports.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/ManageKeywords.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Services.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Service.js"></script>
 
+<!-- Setting views -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Container.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Services.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Service.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Users.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/User.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/UserDetails.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/AddUser.js"></script>
+
+<!-- Widgets and misc views -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Title.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/MessageContainer.js"></script>

@@ -11,7 +11,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'keywords' : 'managekeywords',
 		'inbox' : 'inbox',
 		'coworkers' : 'coworkers',
-		'services' : 'services',
 		'*path' : 'dashboard'
 	},
 
@@ -259,9 +258,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (view);
 	},*/
 	
-	'settings' : function ()
+	'settings' : function (action)
 	{
-		var view = new Cloudwalkers.Views.Users ();
+		console.log (action);
+
+		var view = new Cloudwalkers.Views.Settings.Container ();
+		view.setAction (action);
 		Cloudwalkers.RootView.setView (view);
 	},
 
