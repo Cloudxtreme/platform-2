@@ -35,7 +35,7 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 
 		else if (this.action == 'account')
 		{
-			view = new Cloudwalkers.Views.Settings.Users ();
+			view = new Cloudwalkers.Views.Settings.Account ();
 		}
 
 		else

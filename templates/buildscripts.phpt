@@ -42,6 +42,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/UserDetails.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/AddUser.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Profile.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Settings/Account.js"></script>
 
 <!-- Widgets and misc views -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Views/Widgets/Widget.js"></script>
