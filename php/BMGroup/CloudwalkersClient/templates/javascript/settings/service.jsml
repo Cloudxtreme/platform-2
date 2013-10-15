@@ -72,7 +72,7 @@
 
 			<ol>
 				{{#parsedchannels}}
-					{{> channelview}}
+					{{> service_channel}}
 				{{/parsedchannels}}
 			</ol>
 		</fieldset>
