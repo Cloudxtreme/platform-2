@@ -40,8 +40,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 					Templates.settings.service, 
 					data.service,
 					{
-						'channelview' : Templates.settings.service_channel,
-						'groupedsettings' : Templates.settings.service_groupedsettings
+						'service_channel' : Templates.settings.service_channel
 					}
 				)
 			);
