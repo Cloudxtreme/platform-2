@@ -18,6 +18,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		data.message_count = data.unread;
 
 		//console.log (data);
+		console.log ('sorting channels');
 		data.channels.sort (function (a, b)
 		{
 			console.log (a.unread + " " + b.unread);
@@ -37,6 +38,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		});
 		
 		// Order
+		console.log ('sorting streams');
 		data.streams.sort (function (a, b)
 		{
 			if (a.unread == null)
