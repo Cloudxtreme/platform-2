@@ -18,6 +18,8 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		data.message_count = data.unread;
 
 		//console.log (data);
+		console.log (this.options.channel);
+
 		console.log ('sorting channels');
 		data.channels.sort (function (a, b)
 		{
