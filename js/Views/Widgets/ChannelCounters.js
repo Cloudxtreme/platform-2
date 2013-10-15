@@ -20,6 +20,8 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		//console.log (data);
 		data.channels.sort (function (a, b)
 		{
+			console.log (a + " " + b);
+
 			if (a == null)
 				a = 0;
 
@@ -42,7 +44,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 
 			if (b == null)
 				b = 0;
-			
+
 			return parseInt(a.unread) < parseInt(b.unread);
 		});
 
