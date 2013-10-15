@@ -32,7 +32,7 @@ Profile Page
 
 .settings-social .btn-social	{
 	display: block; padding: 4px 20px; margin: 20px 0 8px; background: white; border-radius: 2px !important; border: 1px solid #dfdfdf; border-bottom-width: 3px;
-	font-size: 1.286em; line-height: 2.5em; color: #666;
+	font-size: 1.385em; line-height: 2.5em; color: #666;
 }
 
 .settings-social .btn-social:hover	{
@@ -44,11 +44,20 @@ Profile Page
 	font-size: 1.167em; line-height: 2.142em;
 }
 
+.settings-social .social-container	{
+	font-size: 1.077em;
+}
+
+.settings-social .social-container i	{ font-size: 1.5em; }
+
 .settings-social .social-container td.tools i	{
-	font-size: 20px; color: #777; padding: 1px 0 0 4px; cursor: pointer;
+	font-size: 1.429em; color: #777; padding: 1px 0 0 4px; cursor: pointer;
 }
 
 
+/*
+	Defaults
+*/
 
 .profile {
   position:relative;
