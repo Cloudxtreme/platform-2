@@ -23,15 +23,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		console.log ('sorting channels');
 		data.channels.sort (function (a, b)
 		{
-			console.log (a.unread + " " + b.unread);
-
-			if (a.unread == null)
-				a.unread = 0;
-
-			if (b.unread == null)
-				b.unread = 0;
-
-			return parseInt(a.unread) < parseInt(b.unread);
+			return parseInt(b.unread) - parseInt(a.unread);
 		});
 
 		jQuery.each (data.channels, function (i, v) {
@@ -43,15 +35,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		console.log ('sorting streams');
 		data.streams.sort (function (a, b)
 		{
-			console.log (a.unread + " " + b.unread);
-			
-			if (a.unread == null)
-				a.unread = 0;
-
-			if (b.unread == null)
-				b.unread = 0;
-
-			return parseInt(a.unread) < parseInt(b.unread);
+			return parseInt(b.unread) - parseInt(a.unread);
 		});
 
 		jQuery.each (data.streams, function (i, v) {
