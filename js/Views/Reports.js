@@ -20,7 +20,10 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 			for (var i = 0; i < streams.length; i ++)
 			{
-				this.addStreamWidgets (streams[i]);
+				if (streams[i].get ('statistics'))
+				{
+					this.addStreamWidgets (streams[i]);
+				}
 			}
 		}
 

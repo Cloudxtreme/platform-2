@@ -241,7 +241,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.addWidget (widget);
 
 		//widgetcontainer.navclass = 'trending';
-		widgetcontainer.navclass = 'channel_' + id;
+		widgetcontainer.navclass = 'channel_' + channelid;
 
 		widgetcontainer.subnavclass = 'trending_' + channelid;
 		if (streamid)
