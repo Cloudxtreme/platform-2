@@ -98,6 +98,19 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		}
 	},
 
+	'processLink' : function (url)
+	{
+		if (url.indexOf ('?') > 0)
+		{
+			url = url + '&return=' + encodeURIComponent(window.location);
+		}
+		else
+		{
+			url = url + '?return=' + encodeURIComponent(window.location);
+		}
+		return url;
+	},
+
 	'addServiceCall' : function (e)
 	{
 		e.preventDefault ();
@@ -119,16 +132,8 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 				{
 					if (v.type == 'link')
 					{
-						var url
-						if (v.url.indexOf ('?'))
-						{
-							url = v.url + '&return=' + encodeURIComponent(window.location);
-						}
-						else
-						{
-							url = v.url + '?return=' + encodeURIComponent(window.location);
-						}
-
+						var url = self.processLink (v.url);
+						//alert (url);
 						window.location = url;
 					}
 				});

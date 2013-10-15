@@ -49,9 +49,37 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 		return this;
 	},
+
+	'processSettings': function (settings)
+	{
+		var self = this;
+
+		// Most services will provide an authentication URL.
+		$.each (settings, function (i, v)
+		{
+			if (v.type == 'link')
+			{
+				settings[i].url = self.processLink (v.url);
+			}
+		});
+	},
+
+	'processLink' : function (url)
+	{
+		if (url.indexOf ('?') > 0)
+		{
+			url = url + '&return=' + encodeURIComponent(window.location);
+		}
+		else
+		{
+			url = url + '?return=' + encodeURIComponent(window.location);
+		}
+		return url;
+	},
 	
 	'getServiceData' : function (id, callback)
 	{
+		var self = this;
 		Cloudwalkers.Session.call 
 		(
 			'wizard/service/' + id,
@@ -59,7 +87,11 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 				'account' : Cloudwalkers.Session.getAccount ().get ('id')
 			},
 			{},
-			callback
+			function (data)
+			{
+				self.processSettings (data.service.settings);
+				callback (data);
+			}
 		);
 	},
 
