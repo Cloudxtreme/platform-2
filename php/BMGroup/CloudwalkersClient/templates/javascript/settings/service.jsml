@@ -42,7 +42,7 @@
 
 	{{#parsedstreams}}
 
-		<h3>{{stream.customname}}</h3>
+		<h3>{{stream.name}}</h3>
 
 		<fieldset>
 
