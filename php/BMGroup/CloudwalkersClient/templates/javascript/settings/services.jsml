@@ -62,7 +62,7 @@
 								<td colspan="5" data-service-container="{{id}}" style="display: none;">
 
 								</td>
-							</td>
+							</tr>
 						{{/connected}}
 					</tbody>
 				</table>

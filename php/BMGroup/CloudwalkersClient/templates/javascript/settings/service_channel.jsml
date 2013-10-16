@@ -1,6 +1,6 @@
 <li>
 	<input type="checkbox" name="{{channel.name}}" {{#selected}}checked="checked"{{/selected}} data-stream-id="{{stream.id}}" data-channel-id="{{channel.id}}" />
-	<label>{{channel.name}}</label>
+	{{channel.name}}
 
 	{{#channels}}
 		<ul>
