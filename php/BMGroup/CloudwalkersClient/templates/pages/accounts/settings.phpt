@@ -79,36 +79,6 @@
 		</p>
 
 		<table>
-			<tr>
-				<td class="first">
-					Type
-				</td>
-
-				<td>
-					<select name="streams[<?php echo $stream['id']; ?>][type]">
-						<option value="SOCIAL" <?php if ($stream['type'] == 'SOCIAL') { echo 'selected="selected"'; } ?>>Social media</option>
-						<option value="WEB" <?php if ($stream['type'] == 'WEB') { echo 'selected="selected"'; } ?>>Web alerts</option>
-						<option value="COWORKERS" <?php if ($stream['type'] == 'COWORKERS') { echo 'selected="selected"'; } ?>>Internal, co-workers</option>
-					</select>
-				</td>
-			</tr>
-
-			<tr>
-				<td class="first">Custom name</td>
-
-				<td>
-					<input type="text" name="streams[<?php echo $stream['id']; ?>][customname]" value="<?php echo str_replace ('"', '\"', htmlentities ($stream['customname'])); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td class="first">Priority</td>
-
-				<td>
-					<input type="text" name="streams[<?php echo $stream['id']; ?>][priority]" value="<?php echo $stream['priority']; ?>" />
-				</td>
-			</tr>
-
 			<?php foreach ($stream['settings'] as $setting) { ?>
 				<tr>
 					<td class="first">
@@ -123,6 +93,19 @@
 
 							break;
 
+							case 'enum':
+								echo '<select name="streams['.$stream['id'].']['.$setting['key'] . ']">';
+								foreach ($setting['values'] as $v)
+								{
+									echo '<option value="WEB" ';
+									if ($setting['value'] == $v['key']) { 
+										echo 'selected="selected"'; 
+									}
+
+									echo '>' . $v['value'] . '</option>';
+								}
+								echo '</select>';
+							break;
 
 							default:
 
