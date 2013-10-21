@@ -12,6 +12,11 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Storage.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Net.js"></script>
 
+<!-- Utilities -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/StreamLibrary.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/Parser.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/Konami.js"></script>
+
 <!-- Router -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Router/Router.js"></script>
 
@@ -89,7 +94,3 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Comments.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Drafts.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>js/Collections/Users.js"></script>
-
-<!-- Utilities -->
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/StreamLibrary.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/Utilities/Parser.js"></script>
