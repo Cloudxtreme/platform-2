@@ -6,6 +6,7 @@ function Adventure ()
 	this.currentRoom = null;
 
 	this.inventory = {};
+	this.state = {};
 
 	this.obodyoverflow = null;
 
@@ -393,6 +394,20 @@ function Adventure ()
 	{
 		this.currentRoom = room;
 	};
+
+	this.setState = function (key, value)
+	{
+		this.state[key] = value;
+	};
+
+	this.getState = function (key)
+	{
+		if (typeof (this.state[key]) != 'undefined')
+		{
+			return this.state[key];
+		}
+		return false;
+	};
 	
 	this.addinput = function ()
 	{
@@ -448,7 +463,6 @@ function Adventure ()
 				out ('you come across an open door. Adventurous as you');
 				out ('are, you decide to go in. Right behind you, the door');
 				out ('closes and you hear steel bars lock the door shut.');
-				out ('It seems you won\'t be able to get out anytime soon...');
 				out ();
 			},
 
@@ -468,535 +482,55 @@ function Adventure ()
 						'EXAMINE' : function ()
 						{
 							out ('The <span class="catlab-adventure-item">LEAFLET</span> sais:');
-							out ('"Free shots tonight at Le <span class="catlab-adventure-subject">CHAT NOIR!</span>."');
-							out ('Suddenly you feel very thirsty.');
+							out ('"Free drinks tonight at the Charlatan!"');
+							out ('Suddenly, you feel quite thirsty.')
+						}
+					},
+
+					'KEY' : {
+						'LOOK' : function ()
+						{
+							out ('There is a <span class="catlab-adventure-item">KEY</span> on the ground.');
+						},
+						'EXAMINE' : function ()
+						{
+							out ('It seems to be a normal key.');
+						},
+						'USE' : function ()
+						{
+							if (self.getCurrentRoom ().NAME == 'start')
+							{
+								self.setState ('door', 'open');
+								out ('The key opens the door.')
+							}
+							else
+							{
+								out ('I\'m not sure what to do with that here.');
+							}
 						}
 					}
 				},
 				'GO' : {
 					'OUT' : function ()
 					{
-						out ('The door is locked.');
-					},
-					
-					'NORTH' : function ()
-					{
-						move (rooms.rewsDesk);
-					},
-					
-					'WEST' : function ()
-					{
-						move (rooms.vincentDesk);
-					}
-				}
-			},
-
-			'rewsDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Rew\'s desk.');
-				},
-
-				'GO' :
-				{
-					'SOUTH' : function ()
-					{
-						move (rooms.start);
-					},
-
-					'NORTH' : function ()
-					{
-						move (rooms.helensDesk);
-					},
-
-					'EAST' : function ()
-					{
-						move (rooms.footballTable);
-					}
-				},
-				'ITEMS' : 
-				{
-					'HELICOPTER' : {
-						'LOOK' : function ()
+						if (self.getState ('door') == 'open')
 						{
-							out ('On the helicopter you see a <span class="catlab-adventure-item">REMOTE HELICOPTER</span>.');
-						},
-						'EXAMINE' : function ()
+							move (rooms.deZuid);
+						}
+						else
 						{
-							out ('The helicopter is quite small, in comparison with Emmanuel\'s helicopter,');
-							out ('but it seems fun to play with.');
-						},
-						'USE' : function ()
-						{
-							out ('After crashing the helicopter a few time you grow bored of it.');
+							out ('The door is locked.');
 						}
 					}
 				}
 			},
 
-			'helensDesk' : {
+			'deZuid' : 
+			{
 				'LOOK' : function ()
 				{
-					out ('You are standing near Hélènes desk.');
-					out ('You see some stairs.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.rewsDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.kevinsDesk);
-					},
-
-					'NORTH' : function ()
-					{
-						move (rooms.pierreDesk);
-					},
-
-					'UP' : function ()
-					{
-						move (rooms.serverRoom);
-					}
-				}
-			},
-
-			'kevinsDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Kevins desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.helensDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.raphaelsDesk);
-					}
-				}
-			},
-
-			'raphaelsDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Raphaels desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.kevinsDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.dineshDesk);
-					}
-				}
-			},
-
-			'dineshDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Dinesh\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.raphaelsDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.thijsDesk);
-					}
-				}
-			},
-
-			'thijsDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Thijs\' desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.dineshDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.tanguyDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.loicDesk);
-					}
-				}
-			},
-
-			'tanguyDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Tanguy\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.thijsDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.emmanuelsDesk);
-					}
-				}
-			},
-
-			'emmanuelsDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Emmanuel\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.tanguyDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.juliaDesk);
-					},
-
-					'NORTH' : function ()
-					{
-						move (rooms.alexisDesk);
-					}
-				}
-			},
-
-			'juliaDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Julia\'s desk.');
-				},
-
-				'GO' :
-				{
-					'SOUTH' : function ()
-					{
-						move (rooms.bossDesk);
-					},
-
-					'NORTH' : function ()
-					{
-						move (rooms.emmanuelsDesk);
-					}
-				},
-
-				'ITEMS' : 
-				{
-					'ACCESS CARD' : {
-						'LOOK' : function ()
-						{
-							out ('On the desk there is an electronic <span class="catlab-adventure-item">ACCESS CARD</span>.');
-						},
-
-						'EXAMINE' : function ()
-						{
-							out ('It looks like an access card for a door.');	
-						},
-
-						'USE' : function ()
-						{
-							if (self.getCurrentRoom.NAME === 'start')
-							{
-								out ('The <span class="catlab-adventure-item">ACCESS CARD</span> opens the door.');
-							}
-							else
-							{
-								out ('I don\'t know what you want to do with an <span class="catlab-adventure-item">ACCESS CARD</span> here.');
-							}
-						}
-					}
-				}
-			},
-
-			'alexisDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near Alexis\' desk.');
-				},
-
-				'GO' :
-				{
-					'SOUTH' : function ()
-					{
-						move (rooms.emmanuelsDesk);
-					}
-				}
-			},
-
-			'bossDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Emmanuel the CEO\'s desk.');
-				},
-
-				'GO' :
-				{
-					'NORTH' : function ()
-					{
-						move (rooms.juliaDesk);
-					}
-				}
-			},
-
-			// Line 2
-			'loicDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Loïc\'s desk.');
-				},
-
-				'GO' :
-				{
-					'NORTH' : function ()
-					{
-						move (rooms.thijsDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.manuelDesk);
-					}
-				}
-			},
-
-			'manuelDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Manuel\'s desk.');
-				},
-
-				'GO' :
-				{
-					'NORTH' : function ()
-					{
-						move (rooms.loicDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.manuelDesk);
-					}
-				}
-			},
-
-			'aloisDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Aloïs\' desk.');
-				},
-
-				'GO' :
-				{
-					'NORTH' : function ()
-					{
-						move (rooms.manuelDesk);
-					},
-
-					'EAST' : function ()
-					{
-						move (rooms.vincentDesk);
-					}
-				}
-			},
-
-			'vincentDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Vincent\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.jeanbaptisteDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.aloisDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.samirDesk);
-					}
-				}
-			},
-
-			'jeanbaptisteDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Aloïs\' desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.marijanDesk);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.vincentDesk);
-					}
-				}
-			},
-
-			'marijanDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Marijan\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.start);
-					},
-
-					'WEST' : function ()
-					{
-						move (rooms.jeanbaptisteDesk);
-					}
-				}
-			},
-
-			// A little tour to the right
-			'samirDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Samir\'s desk.');
-				},
-
-				'GO' :
-				{
-					'WEST' : function ()
-					{
-						move (rooms.jeanDesk);
-					},
-
-					'NORTH' : function ()
-					{
-						move (rooms.vincentDesk);
-					}
-				}
-			},
-
-			'jeanDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Jean\'s desk.');
-				},
-
-				'GO' :
-				{
-					'EAST' : function ()
-					{
-						move (rooms.samirDesk);
-					}
-				}
-			},
-
-			// And let's not forget about piere & guillaume
-			'pierreDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Pierre\'s desk.');
-				},
-
-				'GO' :
-				{
-					'NORTH' : function ()
-					{
-						move (rooms.guillaumeDesk);
-					},
-
-					'SOUTH' : function ()
-					{
-						move (rooms.helensDesk);
-					}
-				}
-			},
-
-			'guillaumeDesk' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the Guillaume\'s desk.');
-				},
-
-				'GO' :
-				{
-					'SOUTH' : function ()
-					{
-						move (rooms.pierreDesk);
-					}
-				}
-			},
-
-			'footballTable' : {
-				'LOOK' : function ()
-				{
-					out ('You are standing near the table football.');
-				},
-
-				'GO' :
-				{
-					'WEST' : function ()
-					{
-						move (rooms.rewsDesk);
-					}
-				}
-			},
-
-			'serverRoom' : {
-				'LOOK' : function ()
-				{
-					out ('You are in the server room.');
-				},
-
-				'GO' :
-				{
-					'DOWN' : function ()
-					{
-						move (rooms.helensDesk);
-					}
+					out ('You are standing at the Zuid bus station.');
+					out ('You see an old woman feeding the pigeons.');
 				}
 			}
 		};
