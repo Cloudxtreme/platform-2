@@ -24,8 +24,7 @@ var Cloudwalkers = {
 			Backbone.history.start();
 		});
 
-		var k = new KNMI();
-		k.pattern = "38384040373937396665";
+		var k = new Konami();
 		k.code = function () { 
 			var url = CONFIG_BASE_URL + 'js/misc/adventure.js';
 			$.getScript (url, function () {
