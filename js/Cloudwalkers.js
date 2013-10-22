@@ -24,6 +24,7 @@ var Cloudwalkers = {
 			Backbone.history.start();
 		});
 
+		/*
 		var k = new Konami();
 		k.code = function () { 
 			var url = CONFIG_BASE_URL + 'js/misc/adventure.js';
@@ -37,6 +38,7 @@ var Cloudwalkers = {
 			});
 		};
 		k.load ();
+		*/
 	}
 
 };
