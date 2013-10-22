@@ -539,11 +539,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{
 		var body = this.get ('body');
 
-		console.log (body);
-
-		if (!body)
+		if (!body.plaintext)
 		{
-			return body;
+			return {
+				'html' : '',
+				'plaintext' : ''
+			};
 		}
 
 		var out = { 
