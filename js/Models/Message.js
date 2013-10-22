@@ -544,8 +544,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			'plaintext' : body.plaintext.substring (0, 100)
 		};
 
-		console.log (out);
-
 		return out;
 	}
 
