@@ -6,6 +6,8 @@ if (isset ($_GET['session_id']))
 }
 session_start ();
 
+date_default_timezone_set ('Europe/Brussels');
+
 define ('BASEPATH', dirname (dirname (__FILE__))  . '/');
 define ('PHP_BASEPATH', dirname (__FILE__)  . '/');
 
