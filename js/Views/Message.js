@@ -30,6 +30,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		var self = this;
 		var data = jQuery.extend(true, {}, this.model.attributes);
 
+		data.shortBody = this.model.shortBody ();
+
 		data.humandate = this.model.humandate();
 		data.dateonly = this.model.shortdate ();
 		data.time = this.model.time ();

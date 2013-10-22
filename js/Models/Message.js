@@ -533,6 +533,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				}
 			});
 		}
+	},
+
+	'shortBody' : function ()
+	{
+		var body = this.get ('body');
+
+		var out = { 
+			'html' : body.plaintext.substring (0, 100),
+			'plaintext' : body.plaintext.substring (0, 100)
+		};
+
+		console.log (out);
+
+		return out;
 	}
 
 });
