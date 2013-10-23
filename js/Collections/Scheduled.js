@@ -33,14 +33,14 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 			passtrough (response.messages);
 		}
 
-		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
+		var parameters = { };
 
 		for (var filter in this.filters)
 		{
 			parameters[filter] = this.filters[filter].join (',');
 		}
 
-		var fetch_url = CONFIG_BASE_URL + 'json/scheduled?' + jQuery.param (parameters);
+		var fetch_url = CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().get ('id') + '/scheduled?' + jQuery.param (parameters);
 
 		// Default JSON-request options.
 		var params = _.extend({
@@ -80,10 +80,9 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 	*/
 	'loadCounters' : function (callback)
 	{
-		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
 		$.ajax 
 		(
-			CONFIG_BASE_URL + 'json/scheduled/summary?' + jQuery.param (parameters),
+			CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().get ('id') + '/scheduled/summary',
 			{
 				'success' : function (data)
 				{

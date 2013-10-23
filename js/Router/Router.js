@@ -64,7 +64,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		(
 			[], 
 			{ 
-				'name' : 'Draft messages'
+				'name' : 'Draft messages',
+				'filter' : 'mine'
 			}
 		);
 
@@ -85,7 +86,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		(
 			[], 
 			{ 
-				'name' : 'Draft messages'
+				'name' : 'Draft messages',
+				'filter' : 'others'
 			}
 		);
 

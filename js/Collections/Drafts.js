@@ -6,9 +6,12 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 	'nextPageParameters' : null,
 	'canHaveFilters' : false,
 
+	'filter' : '',
+
 	'initialize' : function (models, options)
 	{
 		this.name = options.name;
+		this.filter = typeof (options.filter) != 'undefined' ? options.filter : '';
 
 		var d1;
 		var d2;
@@ -32,9 +35,10 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 			passtrough (response.messages);
 		}
 
-		var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
+		//var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
+		var whos = this.filter;
 
-		var fetch_url = CONFIG_BASE_URL + 'json/drafts?' + jQuery.param (parameters);
+		var fetch_url = CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().get ('id') + '/drafts/' + whos;
 
 		// Default JSON-request options.
 		var params = _.extend({
