@@ -5,10 +5,13 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 	public function getContent ()
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+
 		if (!$client->isLogin ())
 		{
-			//return '<p>Please login.</p>' . Neuron_URLBuilder::getUrl ('login');
+			echo '<p>Please login.</p>' . Neuron_URLBuilder::getUrl ('login');
 			$client->logout (Neuron_URLBuilder::getURL('login'));
+
+			exit;
 		}
 
 		$_SESSION['account'] = null;
