@@ -82,7 +82,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				{
 					if (streams[i].get ('network').name == stream.get ('network').name)
 					{
-						out.push (streams[i].attributes);
+						out.push (streams[i]);
 					}
 				}
 
