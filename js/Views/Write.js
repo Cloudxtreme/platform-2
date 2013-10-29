@@ -129,19 +129,18 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			}
 		}
 
-		data.channels = [];
-		for (var i = 0; i < objData.streams.length; i ++)
-		{
-            //console.log (objData.streams[i]);
-			if (objData.streams[i].direction.OUTGOING == 1)
-			{
-				var tmp = objData.streams[i];
+        data.channels = [];
+        for (var i = 0; i < objData.streams.length; i ++)
+        {
+            if (objData.streams[i].get ('direction').OUTGOING == 1)
+            {
+                var tmp = objData.streams[i].attributes;
 
-				tmp.checked = typeof (streammap[objData.streams[i].id]) != 'undefined';
+                tmp.checked = typeof (streammap[objData.streams[i].get ('id')]) != 'undefined';
 
-				data.channels.push (tmp);
-			}
-		}
+                data.channels.push (tmp);
+            }
+        }
 
 		data.BASE_URL = CONFIG_BASE_URL;
 
