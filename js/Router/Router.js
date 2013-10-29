@@ -7,7 +7,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'settings(/:sub)' : 'settings',
 		'write' : 'write',
 		'reports(/:streamid)' : 'reports',
-		'trending/:channel(/:streamid)' : 'trending',
+		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
 		'keywords' : 'managekeywords',
 		'inbox' : 'inbox',
 		'coworkers' : 'coworkers',
@@ -112,9 +112,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			return;
 		}
 
+        var channel;
+
 		if (subchannelid > 0)
 		{
-			var channel = new Cloudwalkers.Collections.Channel 
+			channel = new Cloudwalkers.Collections.Channel
 			(
 				[], 
 				{ 
@@ -125,7 +127,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 		else
 		{
-			var channel = new Cloudwalkers.Collections.Channel 
+			channel = new Cloudwalkers.Collections.Channel
 			(
 				[], 
 				{ 
@@ -150,6 +152,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		//console.log (channeldata);
 
+        var listwidget;
+
 		if (channeldata.type == 'monitoring')
 		{
 			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
@@ -167,7 +171,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 				channel.setFilters (filters);
 			});
 
-			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.add (listwidget, 4);
 
 			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
@@ -176,7 +180,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		else if (channeldata.type == 'inbox')
 		{
-			var listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.addWidgetSize (listwidget, false, 4);
 
 			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
@@ -184,7 +188,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 		else
 		{
-			widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid })
+			widget = new Cloudwalkers.Views.Widgets.Timeline({ 'channel': channel, 'color': 'blue', 'selectmessage': messageid });
 			widgetcontainer.addWidget (widget);
 		}
 
@@ -237,7 +241,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// Check the types
 		var widget;
 
-		widget = new Cloudwalkers.Views.Widgets.Timeline ({ 'channel' : channel, 'color' : 'blue' })
+		widget = new Cloudwalkers.Views.Widgets.Timeline({ 'channel': channel, 'color': 'blue' });
 		widget.messagetemplate = 'messagetimelinetrending';
 
 		widgetcontainer.addWidget (widget);
