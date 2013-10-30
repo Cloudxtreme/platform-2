@@ -79,14 +79,18 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 		if (index === 0)
 		{
-			//console.log ('test');
 			this.$el.find ('.comments-inner-container').prepend (element);
 		}
 
-		else
+		else if (this.$el.find ('.comments-inner-container .comments-row').eq (index - 1).length > 0)
 		{
 			this.$el.find ('.comments-inner-container .comments-row').eq (index - 1).after (element);
 		}
+
+        else
+        {
+            this.$el.find ('.comments-inner-container').append (element);
+        }
 	},
 
 	'refresh' : function ()
