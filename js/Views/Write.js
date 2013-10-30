@@ -17,7 +17,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click button[value=draft]' : 'setDraft',
 		'click [name=delay]' : 'setWithinDate',
 		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin',
-		'click #button-response[value=send]' : 'sendNow'
+		'click #button-response[value=send]' : 'sendNow',
+        'click .btnShortenURL' : 'shortenUrl'
 	},
 
 	'files' : [],
@@ -1018,5 +1019,24 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.$el.find ('#schedule-btn-toggle').toggleClass ('blue', !this.$el.find ('.message-schedule').is (':visible'));
 
 		this.trigger ('content:change');
-	}
+	},
+
+    'shortenUrl' : function (e)
+    {
+        e.preventDefault ();
+
+        var field = this.$el.find ('[name=url]');
+
+        $.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
+            'url' : field.val (),
+            'output' : 'jsonp',
+            'format': "json"
+        })
+        .done(function( data ) {
+            if (data.shortUrl)
+                field.val (data.shortUrl);
+            else
+                Cloudwalkers.RootView.alert (data.error.message);
+        });
+    }
 });

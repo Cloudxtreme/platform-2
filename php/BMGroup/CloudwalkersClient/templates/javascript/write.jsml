@@ -58,6 +58,8 @@
 													<div class='add-data {{^sortedattachments.link}}inactive{{/sortedattachments.link}}' data-toggle-id="url">
 														<label class="control-label">URL</label>
 														<input type="text" name="url" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
+
+                                                        <a href="javascript:void(0);" class="btnShortenURL">Shorten URL</a>
 													</div>
 
 													<div class='add-data {{^sortedattachments.image}}inactive{{/sortedattachments.image}}' data-toggle-id="picture">
