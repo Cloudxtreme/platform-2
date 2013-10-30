@@ -161,7 +161,10 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
         // Little helper method
         function parseStreamSettings (stream)
         {
-            var groupedsettings = {};
+            var groupedsettings = {
+                'string' : [],
+                'boolean' : []
+            };
             for (var j = 0; j < stream.settings.length; j ++)
             {
                 if (typeof (groupedsettings[stream.settings[j].type]) == 'undefined')
