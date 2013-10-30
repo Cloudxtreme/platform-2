@@ -40,7 +40,8 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 					Templates.settings.service, 
 					data.service,
 					{
-						'service_channel' : Templates.settings.service_channel
+						'service_channel' : Templates.settings.service_channel,
+                        'service_stream' : Templates.settings.service_stream
 					}
 				)
 			);
@@ -157,30 +158,67 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			return out;
 		}
 
-		service.parsedstreams = [];
+        // Little helper method
+        function parseStreamSettings (stream)
+        {
+            var groupedsettings = {};
+            for (var j = 0; j < stream.settings.length; j ++)
+            {
+                if (typeof (groupedsettings[stream.settings[j].type]) == 'undefined')
+                {
+                    groupedsettings[stream.settings[j].type] = [];
+                }
+                groupedsettings[stream.settings[j].type].push (stream.settings[j]);
+            }
 
-		for (var i = 0; i < service.streams.length; i ++)
-		{
-			var groupedsettings = {};
-			for (var j = 0; j < service.streams[i].settings.length; j ++)
-			{
-				if (typeof (groupedsettings[service.streams[i].settings[j].type]) == 'undefined')
-				{
-					groupedsettings[service.streams[i].settings[j].type] = [];
-				}
-				groupedsettings[service.streams[i].settings[j].type].push (service.streams[i].settings[j]);
-			}
+            stream.groupedsettings = groupedsettings;
+        }
 
-			service.streams[i].groupedsettings = groupedsettings;
+        function parseStreams ()
+        {
+            var out = [];
+            for (var i = 0; i < service.streams.length; i ++)
+            {
+                if (service.streams[i].canSetChannels && typeof (service.streams[i].parent) == 'undefined')
+                {
+                    parseStreamSettings (service.streams[i]);
 
-			if (service.streams[i].canSetChannels)
-			{
-				service.parsedstreams.push ({
-					'parsedchannels' : loadChannels (service.streams[i], channels),
-					'stream' : service.streams[i]
-				});
-			}
-		}
+                    out.push ({
+                        'parsedchannels' : loadChannels (service.streams[i], channels),
+                        'stream' : service.streams[i],
+                        'substreams' : parseSubstreams (service.streams[i])
+                    });
+                }
+            }
+            return out;
+        }
+
+        function parseSubstreams (stream)
+        {
+            var out = [];
+
+            // Get the children streams
+            $.each (service.streams, function (iii, v)
+            {
+                if ((typeof (v.parent) != 'undefined'))
+                {
+                    if (v.parent.id == stream.id)
+                    {
+                        parseStreamSettings (v);
+
+                        out.push ({
+                            'parsedchannels' : loadChannels (v, channels),
+                            'stream' : v,
+                            'substreams' : parseSubstreams (v)
+                        });
+                    }
+                }
+            });
+
+            return out;
+        }
+
+        service.parsedstreams = parseStreams ();
 	},
 
 	'submit' : function (e)

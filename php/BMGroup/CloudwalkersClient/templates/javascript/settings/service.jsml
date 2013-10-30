@@ -4,7 +4,7 @@
 
 		<legend>
 			General
-			
+
 			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">Delete</a>
 			<button type="submit" class="btn blue pull-right">Save</button>
 		</legend>
@@ -18,84 +18,46 @@
 						<input type="text" value="{{value}}" name="{{key}}" data-channel-setting="1" />
 						<hr>
 					{{/groupedsettings.string}}
-					
+
 					{{#groupedsettings.boolean}}
 						<input type="checkbox" value="1" name="{{key}}" {{#value}}checked="checked"{{/value}} data-channel-setting="1" />
 						{{name}}
 					{{/groupedsettings.boolean}}
 					</td>
-					
+
 					<td class="white-box center">
 					{{#groupedsettings.message}}
 						<p>{{message}}</p>
 					{{/groupedsettings.message}}
-					
+
 					{{#groupedsettings.link}}
 						<a href="{{url}}" target="_blank" class="btn black">{{name}}</a>
 					{{/groupedsettings.link}}
 					</td>
 				</tr>
-				
+
 				{{#parsedstreams.length}}
-				
+
 				<tr>
 					<td colspan="2">
 						<legend>Streams</legend>
 					</td>
 				</tr>
-				
+
 				{{/parsedstreams.length}}
 
 
 				{{#parsedstreams}}
-				<tr>	
-					<td>
-						<h3>{{stream.name}}</h3>
-						<p>{{stream.description}}</p>
-						
-						<ul>
-							{{#stream.groupedsettings.string}}
-							<li>
-								<label>{{name}}</label>
-								<input type="text" value="{{value}}" name="{{key}}" data-stream-setting="{{stream.id}}" />
-							</li>
-							{{/stream.groupedsettings.string}}
-					
-							{{#stream.groupedsettings.boolean}}
-							<li>
-								<input type="checkbox" value="1" name="{{key}}" {{#value}}checked="checked"{{/value}} data-stream-setting="{{stream.id}}" />
-								{{name}}
-							</li>
-							{{/stream.groupedsettings.boolean}}
-						</ul>
-					</td>
-					
-					<td class="white-box">
-						<fieldset>
-							<legend>Channels</legend>
-				
-							<ul>
-								{{#parsedchannels}}
-									{{> service_channel}}
-								{{/parsedchannels}}
-							</ul>
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<hr>
-					</td>
-				</tr>
+				    {{> service_stream }}
 				{{/parsedstreams}}
-				
+
 			</tbody>
 		</table>
 
 	</fieldset>
-	
-	
 
-	
+
+
+
 
 </form>
