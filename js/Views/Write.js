@@ -589,101 +589,111 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		e.preventDefault ();
 
-		var self = this;
-		var form = self.$el.find(e.currentTarget);
+        var self = this;
 
-		if (form.find ('input[name=title]').val () == 'Add a title to post')
-		{
-			form.find ('input[name=title]').val ('');	
-		}
+        setTimeout (function ()
+        {
+            var form = self.$el.find(e.currentTarget);
 
-		if (form.find ('input[name=url]').val () == 'URL')
-		{
-			form.find ('input[name=url]').val ('');	
-		}
+            if (form.find ('input[name=title]').val () == 'Add a title to post')
+            {
+                form.find ('input[name=title]').val ('');
+            }
 
-		var data = (form.serialize ());
-		
-		for (var i = 0; i < this.files.length; i ++)
-		{
-			data += '&files[]=' + escape(this.files[i]);
-		}
+            if (form.find ('input[name=url]').val () == 'URL')
+            {
+                form.find ('input[name=url]').val ('');
+            }
 
-		var url = CONFIG_BASE_URL + 'post/?account=' + Cloudwalkers.Session.getAccount ().get ('id');
-		if (this.model && !this.isClone ())
-		{
-			url += '&id=' + this.model.get ('id');
-		}
+            var data = (form.serialize ());
 
-		// This is a clone. We need to send the original message
-		// id so that the system can possibly take the correct measures.
-		else if (this.isClone ())
-		{
-			data += '&original_message=' + this.model.get ('id');
-		}
+            for (var i = 0; i < self.files.length; i ++)
+            {
+                data += '&files[]=' + escape(self.files[i]);
+            }
 
-		if (this.draft)
-		{
-			data += '&draft=true';
-		}
+            var url = CONFIG_BASE_URL + 'post/?account=' + Cloudwalkers.Session.getAccount ().get ('id');
+            if (self.model && !self.isClone ())
+            {
+                url += '&id=' + self.model.get ('id');
+            }
 
-		if (this.validate (true))
-		{
-			// Do the call
-			jQuery.ajax
-			({
-				async:true, 
-				cache:false, 
-				data: data, 
-				dataType:"json", 
-				type:"post", 
-				url: url, 
-				success:function(objData)
-				{
-					//console.log (window.location);
+            // This is a clone. We need to send the original message
+            // id so that the system can possibly take the correct measures.
+            else if (self.isClone ())
+            {
+                data += '&original_message=' + self.model.get ('id');
+            }
 
-					if (objData.success)
-					{
-						if (typeof (self.options.redirect) == 'undefined' || self.options.redirect)
-						{
-							if (self.draft)
-							{
-								if (window.location.hash != '#drafts')
-								{
-									window.location = '#drafts';
-								}
-								else
-								{
-									Cloudwalkers.Router.Instance.drafts ();
-								}
-							}
-							else
-							{
-								if (window.location.hash != '#schedule')
-								{
-									window.location = '#schedule';
-								}
-								else
-								{
-									Cloudwalkers.Router.Instance.schedule (null);
-								}
-							}
-						}
+            if (self.draft)
+            {
+                data += '&draft=true';
+            }
 
-						self.$el.html ('<p>Your message has been scheduled.</p>');
+            // Reset screen.
+            if (self.validate (true))
+            {
+                Cloudwalkers.Router.Instance.write ();
 
-						self.trigger ('popup:close');
-						Cloudwalkers.Session.trigger ('message:add');
+                // Do the call
+                jQuery.ajax
+                ({
+                    async:true,
+                    cache:false,
+                    data: data,
+                    dataType:"json",
+                    type:"post",
+                    url: url,
+                    success:function(objData)
+                    {
+                        //console.log (window.location);
 
-						return true;
-					}
-					else
-					{
-						alert (objData.error);
-					}
-				}
-			});
-		}
+                        if (objData.success)
+                        {
+                            if (typeof (self.options.redirect) == 'undefined' || !self.options.redirect)
+                            {
+                                if (self.draft)
+                                {
+                                    Cloudwalkers.RootView.alert ('Your message was saved.');
+                                    /*
+                                    if (window.location.hash != '#drafts')
+                                    {
+                                        window.location = '#drafts';
+                                    }
+                                    else
+                                    {
+                                        Cloudwalkers.Router.Instance.drafts ();
+                                    }
+                                    */
+                                }
+                                else
+                                {
+                                    if (window.location.hash != '#schedule')
+                                    {
+                                        window.location = '#schedule';
+                                    }
+                                    else
+                                    {
+                                        Cloudwalkers.Router.Instance.schedule (null);
+                                    }
+                                }
+                            }
+
+                            self.$el.html ('<p>Your message has been scheduled.</p>');
+
+                            self.trigger ('popup:close');
+                            Cloudwalkers.Session.trigger ('message:add');
+
+                            return true;
+                        }
+                        else
+                        {
+                            alert (objData.error);
+                        }
+                    }
+                });
+            }
+        }, 1);
 	},
 
 	'validate' : function (throwErrors)
