@@ -1,7 +1,7 @@
 <tr>
     <td>
         <h3>{{stream.name}}</h3>
-        <p><a href="javascript:void(0);" data-stream-details-id="{{stream.id}}">Details</a></p>
+        <p><a href="javascript:void(0);" data-stream-details-id="{{stream.id}}">Advanced settings</a></p>
         <p>{{stream.description}}</p>
 
         <ul>
