@@ -2,7 +2,8 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 	'events' : {
 		'submit form' : 'submit',
-		'click [data-delete]' : 'deleteServiceClick'
+		'click [data-delete]' : 'deleteServiceClick',
+        'click [data-stream-details-id]' : 'streamDetailView'
 	},
 
 	'service' : null,
@@ -233,8 +234,6 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 		var form = $(e.target);
 
-		var formdata = {};
-
 		var formdata = {
 			'streams' : {}
 		};
@@ -302,5 +301,15 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 				});
 			}
 		);
-	}
+	},
+
+    'streamDetailView' : function (e)
+    {
+        e.preventDefault ();
+
+        var streamid = $(e.target).attr ('data-stream-details-id');
+
+        var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
+        Cloudwalkers.RootView.popup (view);
+    }
 });
