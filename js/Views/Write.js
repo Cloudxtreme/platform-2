@@ -1026,6 +1026,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
         e.preventDefault ();
 
         var field = this.$el.find ('[name=url]');
+        var textarea = this.$el.find ('[name=message]');
 
         $.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
             'url' : field.val (),
@@ -1034,7 +1035,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
         })
         .done(function( data ) {
             if (data.shortUrl)
-                field.val (data.shortUrl);
+            {
+                textarea.val (textarea.val () + ' ' + data.shortUrl);
+                field.val ('');
+            }
             else
                 Cloudwalkers.RootView.alert (data.error.message);
         });
