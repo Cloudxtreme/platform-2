@@ -633,7 +633,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
             // Reset screen.
             if (self.validate (true))
             {
-                Cloudwalkers.Router.Instance.write ();
+                self.trigger ('popup:close');
+
+                self.$el.html ('<p>Please wait, storing message.</p>');
 
                 // Do the call
                 jQuery.ajax
@@ -650,11 +652,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
                         if (objData.success)
                         {
+                            self.$el.html ('<p>Your message has been scheduled.</p>');
+
                             if (typeof (self.options.redirect) == 'undefined' || !self.options.redirect)
                             {
                                 if (self.draft)
                                 {
                                     Cloudwalkers.RootView.alert ('Your message was saved.');
+                                    self.render ();
                                     /*
                                     if (window.location.hash != '#drafts')
                                     {
@@ -679,16 +684,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                 }
                             }
 
-                            self.$el.html ('<p>Your message has been scheduled.</p>');
-
-                            self.trigger ('popup:close');
                             Cloudwalkers.Session.trigger ('message:add');
 
                             return true;
                         }
                         else
                         {
-                            alert (objData.error);
+                            Cloudwalkers.RootView.alert (objData.error.message);
                         }
                     }
                 });
