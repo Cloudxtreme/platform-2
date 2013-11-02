@@ -296,7 +296,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	// Execute an action, if possible with parameters
-	'act' : function (action, parameters)
+	'act' : function (action, parameters, callback)
 	{
 		var self = this;
 
@@ -343,6 +343,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				{
 					self.set (objData.message);
 				}
+
+                callback ();
 			}
 		});
 	},

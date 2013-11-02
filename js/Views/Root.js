@@ -412,6 +412,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		*/
 
 		this.updatePlaceholder ();
-	}
+	},
 
+    'lockUI' : function ()
+    {
+        App.blockUI($('.page-content'), false);
+    },
+
+    'releaseUI' : function ()
+    {
+        App.unblockUI($('.page-content'));
+    }
 });

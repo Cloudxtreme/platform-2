@@ -214,7 +214,11 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				}
 				else if (action.type == 'simple')
 				{
-					targetmodel.act (action, {});
+                    Cloudwalkers.RootView.lockUI ();
+					targetmodel.act (action, {}, function ()
+                    {
+                        Cloudwalkers.RootView.releaseUI ();
+                    });
 				}
 
 				else if (action.type == 'write')
