@@ -1,68 +1,67 @@
 <td class="draft-message-item">
 
-	<ul class="button-post action message-action" data-action="internal-edit">
+	<div class="button-post action message-action" data-action="internal-edit">
 
-		<li>
-			{{#stream}}
-				<div class='icon'>
-					<i class="icon-{{network.icon}}"></i>
-				</div>
+        {{#stream}}
+            <div class='icon'>
+                <i class="icon-{{network.icon}}"></i>
+            </div>
+            {{customname}}
+        {{/stream}}
 
-				{{customname}}
-			{{/stream}}
+        <!-- Actions -->
+        <span class="actions icon-right dropdown" >
 
-			<span class='right date'>
-				<span class="time time-since" data-date="{{date}}">
-					{{date}}
-				</span>
-			</span>
+            <i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
 
-			{{#user}}
-				<strong>{{name}}:</strong><br />
-			{{/user}}
-		</li>
+            <ul class="dropdown-menu">
+                {{#actions}}
+                    <li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+                {{/actions}}
+            </ul>
+        </span>
+        <!-- /Actions -->
 
-		<li>
-			<div class="picture">
-				{{#sortedattachments.image}}
-					<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
-						<img src="{{url}}" alt="image description" width="93" height="68" />
-					</a>
-				{{/sortedattachments.image}}
-			</div>
+        {{#sortedattachments.image.length}}
+            <div class="picture" style="clear: both; margin-top: 10px;">
+                {{#sortedattachments.image}}
+                    <a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+                        <img src="{{url}}" alt="image description" width="93" height="68" />
+                    </a>
+                {{/sortedattachments.image}}
+            </div>
+        {{/sortedattachments.image.length}}
 
-			{{#subject}}
-				<small>{{subject}}</small><br />
-			{{/subject}}
+        <span class="right date" style="clear: right; margin-top: 10px;">
+            <span class="time time-since" data-date="{{date}}">
+                {{date}}
+            </span>
+        </span>
 
-			<strong>
-				{{#from}}
-					{{name}}
-				{{/from}}
-			</strong> 
+        {{#user}}
+            <strong>{{name}}</strong><br />
+        {{/user}}
 
-			{{{body.html}}}
+        {{#subject}}
+            <small>{{subject}}</small><br />
+        {{/subject}}
 
-			{{#sortedattachments.link}}
-				<p class="link" style="margin-top: 10px;">
-					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
-				</p>
-			{{/sortedattachments.link}}
+        <!--
+        <strong>
+            {{#from}}
+                {{name}}
+            {{/from}}
+        </strong>
+         -->
 
-			<div class="clearer"></div>
-		</li>
+        {{{body.html}}}
 
-		<li>
-			<span class='actions icon-right dropdown'>
+        {{#sortedattachments.link}}
+            <p class="link" style="margin-top: 10px;">
+                <a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+            </p>
+        {{/sortedattachments.link}}
 
-				<i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
-
-				<ul class="dropdown-menu">
-					{{#actions}}
-						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
-					{{/actions}}
-				</ul>
-			</span>
-		</li>
-	</ul>
+        <div class="clearer"></div>
+	</div>
 </td>

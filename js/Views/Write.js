@@ -985,8 +985,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
         // Hacky hacky no time.
         if (randomdate < now)
         {
-            this.randomTime ();
-            return;
+            randomdate = new Date();
+            randomdate.setHours (now.getHours () + 1);
         }
 
 		this.setScheduleDate (randomdate);
