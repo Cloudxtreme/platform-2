@@ -92,12 +92,16 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 				//self.$innerEl.find ('.comment-box').html ('');
 				//self.addAll ();
 				//element.find ('.loading').hide ();
-				
-				
 
-				if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
+				if (self.canLoadMore
+                    && (typeof (self.options.channel.loadMore) != 'undefined')
+                )
 				{
-					element.find ('.load-more').show ();
+                    if (self.options.channel.length > 0)
+                    {
+					    element.find ('.load-more').show ();
+                    }
+
 					element.find ('.timeline-loading').hide();
 				}
 
