@@ -168,8 +168,8 @@
 			</a>
 
 			<ul class="sub-menu">				
-				<li class="channel_{{channelid}}_0_{{id}}">
-					<a href="#channel/{{channelid}}/0/{{id}}">
+				<li class="channel_{{channelid}}">
+					<a href="#channel/{{channelid}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
 						<span class="arrow"></span>
