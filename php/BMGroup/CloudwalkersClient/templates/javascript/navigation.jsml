@@ -205,7 +205,7 @@
 	<!-- Keyword Monitoring -->
 	{{#sortedchannels.monitoring}}
 		<li class="channel_{{channelid}}">
-			<a href="javascript:void(0);">
+			<a href="#channel/{{channelid}}/{{channels.0.id}}">
 				<i class="icon-{{icon}}"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
