@@ -286,26 +286,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	
 	'handleSidebarMenu' : function () {
 		
+		// Toggle .active class
 		$('#sidebar .active').removeClass ('active');
 		$('a[href="#' + Backbone.history.fragment + '"]').parents('#sidebar > ul *').addClass ('active');
 		
-		//if(this.view.navclass)
-		//	$(').addClass ('active');
+		// Trace height
+		var height =  $(($(window).height() > $(document).height())? window: document).height();
+		$("#inner-content").css("min-height", height-42 + "px");
 		
-		/*$('.page-sidebar-menu li').removeClass ('active');
-		$('.page-sidebar-menu li.' + this.view.navclass).addClass ('active');
-
-		if (typeof (this.view.subnavclass) != 'undefined')
-		{
-			$('.page-sidebar-menu li ul li.' + this.view.subnavclass).addClass ('active');
-		}
-
-		if (typeof (this.view.subsubnavclass) != 'undefined')
-		{
-			//console.log (this.view.subsubnavclass);
-			$('.page-sidebar-menu li ul li ul li.' + this.view.subsubnavclass).addClass ('active');
-		}*/
-
     },
 	
 	'handleSidebarMenu_old' : function () {
