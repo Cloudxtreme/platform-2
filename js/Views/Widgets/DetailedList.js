@@ -21,10 +21,14 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 
 		this.on ('content:change', function ()
 		{
+			
+			self.maximizeView();
+			
 			if (self.currentSelected)
 			{
 				self.currentSelected.$el.find ('td').addClass ('active');
 			}
+			
 		});
 
 		return this;
@@ -62,6 +66,41 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 			//alert (this.options.selectmessage);
 			this.$el.find ('.messages-container').find ('[data-message-id=' + this.options.selectmessage + ']').click ();
 		}
-	}
+	},
+	
+	'maximizeView' : function() {
+		
+		$("#inboxcontainer, #list .portlet-body").css("height", ($("#inner-content").height() -90) + "px");
+		
+		this.addScroll();
+		
+	},
+	
+	'addScroll' : function () {
+
+		this.$el.find('.scroller').slimScroll({
+			size: '6px',
+			color: '#a1b2bd',
+			position: 'right',
+			height: 'auto',/*$("#inner-content").height() -90 + "px",*/
+			alwaysVisible: false,
+			railVisible: false,
+			disableFadeOut: true
+		});
+		
+		
+		/*$('.scroller').each(function () {
+			$(this).slimScroll({
+				size: '7px',
+				color: '#a1b2bd',
+				position: isRTL ? 'left' : 'right',
+				height: $(this).attr("data-height"),
+				alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
+				railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
+				disableFadeOut: true
+			});
+		});*/
+	},
+
 
 });

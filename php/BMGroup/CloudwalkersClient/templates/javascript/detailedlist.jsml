@@ -1,8 +1,8 @@
 <!-- BEGIN PORTLET-->
 <div class="portlet box" id='list'>
 	<div class="portlet-body social-icon-colors">
-		<div class="scroller" data-always-visible="1" data-rail-visible1="1" data-height="800px">
-			<table class="table table-striped table-bordered table-advance table-hover split messages-container inner-loading">
+		<div class="scroller">
+			<table class="table table-striped table-advance table-hover split messages-container inner-loading">
 
 			</table>
 

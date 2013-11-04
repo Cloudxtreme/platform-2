@@ -180,6 +180,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		else if (channeldata.type == 'inbox')
 		{
+			widgetcontainer.templatename = "inboxcontainer"; 
+			
 			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.addWidgetSize (listwidget, false, 4);
 

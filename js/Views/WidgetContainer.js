@@ -9,6 +9,7 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	'currentLine' : null,
 	'sizecounter' : 0,
 	'newline' : true,
+	'templatename': "widgetcontainer",
 
 	'initialize' : function ()
 	{
@@ -140,8 +141,10 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	{
 		var self = this;
 		this.isLoaded = true;
-
-		this.$el.html (Mustache.render (Templates.widgetcontainer, { 'title' : this.title }));
+		
+		this.$el.addClass("container-fluid");
+		
+		this.$el.html (Mustache.render (Templates[this.templatename], { 'title' : this.title }));
 
 		var container;
 

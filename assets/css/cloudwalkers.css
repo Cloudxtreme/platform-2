@@ -134,8 +134,8 @@ UPDATE TEST overrides
 /* Topnav - user */
 .dropdown.user .avatar	{ height: 28px; }
 
-/* temp */
-html, body { height: 100%; min-height: 100%;  }
+/* temp 
+html, body { height: 100%; min-height: 100%;  }*/
 
 
 /* end tempo */
@@ -309,8 +309,33 @@ nav	{
 .loading-cloud	{ background: url(../img/loading-cloud.gif) no-repeat center; }
 
 
+/**
+* Inbox Container
+*/
 
 
+
+#inboxcontainer	{
+	border: 1px solid #e6e6e6; background: #eee; z-index: 1;
+}
+
+#inboxcontainer #widgetcontainer,
+#inboxcontainer #widgetcontainer > .row-fluid,
+#inboxcontainer #widgetcontainer > .row-fluid > .span4,
+#list, #list > .portlet-body	{ height: inherit; }
+
+
+/*#inboxcontainer .row-fluid	{
+	min-height: inherit; box-sizing: border-box; padding-top: 50px; 
+}*/
+#list	{ background-color: white; border-right: 1px solid #ddd; }
+
+#list .message-view > td	{ border: 1px solid #ddd; border-width: 0 1px 1px 0 !important; }
+
+
+#widgetcontainer .span8	{
+	margin: 8px 1.06382978723404%;
+}
 
 
 /**

@@ -1,0 +1,17 @@
+<!-- BEGIN INBOX CONTAINER-->
+
+
+	<div class="row-fluid row-title">
+		<div class="span12"> 
+			<h3 class="page-title">{{title}}</h3>	
+		</div>
+	</div>
+	
+	<div id="inboxcontainer" class="row-fluid">
+		<div id="widgetcontainer">
+		
+		
+		</div>
+	</div>
+
+<!-- END INBOX CONTAINER-->    
