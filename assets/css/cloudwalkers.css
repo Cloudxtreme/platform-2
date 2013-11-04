@@ -452,7 +452,7 @@ nav	{
 
 .dashboard-stat .visual i	{ font-size: 63px !important; }
 .dashboard-stat .details	{ padding-right: 24px; max-width: 54%; }
-.dashboard-stat .details .number	{ font-size: 28px; }
+.dashboard-stat .details .number	{ font-size: 28px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dashboard-stat .details .desc	{ font-size: 14px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dashboard-stat .more	{ background-color: rgba(0,0,0,.12); }
 
