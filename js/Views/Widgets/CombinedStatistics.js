@@ -115,6 +115,7 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 	'setReport' : function (report)
 	{
+        console.log (report);
 		this.element.find ('.report-value').html (report.get ('name'));
 
 		this.currentReport = report;

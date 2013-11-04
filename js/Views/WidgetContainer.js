@@ -185,7 +185,11 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 			container.append (widgets[i].widget.render ().el);
 
 			this.currentline.append (container);
-			
+
+            if (typeof (widgets[i].widget.negotiateFunctionalities) == 'undefined')
+            {
+                console.log (widgets[i].widget);
+            }
 			widgets[i].widget.negotiateFunctionalities();
 		}
 
