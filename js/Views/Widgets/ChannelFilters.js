@@ -1,7 +1,7 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.ChannelFilters = Backbone.View.extend({
+Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
 		'change select[name=stream]' : 'changestream',
