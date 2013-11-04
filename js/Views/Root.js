@@ -496,12 +496,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		*/
 
 		//this.updatePlaceholder ();
-	}
-});
-/*
-	<<<<<<< .mine
-});
-=======
+	},
+
     'lockUI' : function ()
     {
         App.blockUI($('.page-content'), false);
@@ -511,7 +507,4 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
     {
         App.unblockUI($('.page-content'));
     }
-});>>>>>>> .r2136
-
-	
-*/
+});
