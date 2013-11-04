@@ -114,7 +114,9 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
         }
         else
         {
-            this.$el.html ('<p>There is currently no information available.</p>');
+            this.$el.find ('.statistic-container').html ('<p>There is currently no information available.</p>');
+            this.$el.find ('.statistic-title').html ('Combined statistics');
+            this.$el.find ('.statistic-description').html ('');
         }
 
 		return this;
