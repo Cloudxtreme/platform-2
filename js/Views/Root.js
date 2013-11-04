@@ -29,12 +29,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'render' : function ()
 	{
 		$('#inner-content').html (this.view.render ().el);
+		
+		this.handleSidebarMenu();
+		
 	},
 
 	'setView' : function (view, showMenu)
 	{
 		var self = this;
-
+		
 		if (this.view)
 		{
 			this.view.trigger ('destroy');
@@ -46,26 +49,10 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 
 		$('#header').toggle (showMenu);
-		$('#footer').toggle (showMenu);
 
 		this.view = view;
-
-		$('.page-sidebar-menu li').removeClass ('active');
-		$('.page-sidebar-menu li.' + this.view.navclass).addClass ('active');
-
-		if (typeof (this.view.subnavclass) != 'undefined')
-		{
-			$('.page-sidebar-menu li ul li.' + this.view.subnavclass).addClass ('active');
-		}
-
-		if (typeof (this.view.subsubnavclass) != 'undefined')
-		{
-			//console.log (this.view.subsubnavclass);
-			$('.page-sidebar-menu li ul li ul li.' + this.view.subsubnavclass).addClass ('active');
-		}
-
-		this.view.on ('content:change', function () { self.trigger ('content:change'); });
-
+		this.view.on ('content:change', function () { self.trigger ('content:change'); });		
+		
 		setTimeout (function ()
 		{
 			self.trigger ('view:change');
@@ -294,10 +281,34 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
 		
-		this.handleSidebarMenu();
+		//this.handleSidebarMenu();
 	},
 	
 	'handleSidebarMenu' : function () {
+		
+		$('#sidebar .active').removeClass ('active');
+		$('a[href="#' + Backbone.history.fragment + '"]').parents('#sidebar > ul *').addClass ('active');
+		
+		//if(this.view.navclass)
+		//	$(').addClass ('active');
+		
+		/*$('.page-sidebar-menu li').removeClass ('active');
+		$('.page-sidebar-menu li.' + this.view.navclass).addClass ('active');
+
+		if (typeof (this.view.subnavclass) != 'undefined')
+		{
+			$('.page-sidebar-menu li ul li.' + this.view.subnavclass).addClass ('active');
+		}
+
+		if (typeof (this.view.subsubnavclass) != 'undefined')
+		{
+			//console.log (this.view.subsubnavclass);
+			$('.page-sidebar-menu li ul li ul li.' + this.view.subsubnavclass).addClass ('active');
+		}*/
+
+    },
+	
+	'handleSidebarMenu_old' : function () {
          
         jQuery('.page-sidebar').on('click', 'li > a', function (e) {
                 
@@ -438,7 +449,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 	},
 
-	'updatePlaceholder' : function ()
+	/*'updatePlaceholder' : function ()
 	{
 		if(!Modernizr.input.placeholder){
 
@@ -464,7 +475,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			  })
 			});
 		}
-	},
+	},*/
 
 	'imagePopups' : function ()
 	{
@@ -484,7 +495,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}, 1);
 		*/
 
-		this.updatePlaceholder ();
+		//this.updatePlaceholder ();
 	}
 });
 /*
