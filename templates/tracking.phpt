@@ -1,4 +1,6 @@
 <!-- Piwik -->
+
+<!--
 <script type="text/javascript">
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
@@ -12,4 +14,6 @@
     g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
   })();
 </script>
+-->
+
 <!-- End Piwik Code -->
