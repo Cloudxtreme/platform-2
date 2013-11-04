@@ -39,11 +39,11 @@ UPDATE TEST overrides
 }
 
 .inner-loading	{
-	min-height: 20px; border-width: 1px !important;
+	min-height: 20px; border-width: 1px !important; 
 }
 
 .timeline-loading .inner-loading	{
-	border-color: #4b8df8 !important;
+	border-color: #4b8df8 !important; color: #c6c6c6 !important;
 }
 
 .portlet-loading *	{ background: #f6f6f6 !important; }
@@ -65,7 +65,7 @@ UPDATE TEST overrides
 }
 
 .inner-empty:after	{
-	margin-left: 46%; color: white; line-height: 2.4em; font-size: 12px;
+	margin-left: 46%; color: #c0c0c0; line-height: 2.4em; font-size: 12px;
 	content: "empty"; text-align: center;
 }
 
@@ -429,6 +429,10 @@ nav	{
 }
 
 .portlet.box .message-view li span.right.engagement.count-0	{ background: #ccc; }
+
+.portlet img.avatar	{
+	background-color: #ddd;
+}
 
 /**
  * Dashbaord stat

@@ -41,8 +41,9 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 		messageView = new Cloudwalkers.Views.Message (parameters);
 
 		this.$el.html (messageView.render ().el);
+		
 	},
-
+	
 	'render' : function ()
 	{
 		this.$el.html ('');
