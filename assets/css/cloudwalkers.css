@@ -322,8 +322,9 @@ nav	{
 #inboxcontainer #widgetcontainer,
 #inboxcontainer #widgetcontainer > .row-fluid,
 #inboxcontainer #widgetcontainer > .row-fluid > .span4,
-#list, #list > .portlet-body	{ height: inherit; }
+#list, #list > .portlet-body	{ height: inherit; max-height: inherit; }
 
+#inboxcontainer #widgetcontainer > .row-fluid > .span8, #inbox	{ max-height: inherit; }
 
 /*#inboxcontainer .row-fluid	{
 	min-height: inherit; box-sizing: border-box; padding-top: 50px; 
@@ -336,6 +337,8 @@ nav	{
 #widgetcontainer .span8	{
 	margin: 8px 1.06382978723404%;
 }
+
+
 
 
 /**

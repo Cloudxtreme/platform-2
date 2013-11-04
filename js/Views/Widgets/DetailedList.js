@@ -70,7 +70,9 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 	
 	'maximizeView' : function() {
 		
-		$("#inboxcontainer, #list .portlet-body").css("height", ($("#inner-content").height() -90) + "px");
+		var height = $("#inner-content").height() -90 + "px";
+		
+		$("#inboxcontainer, #list .portlet-body").css({"height": height, "max-height": height});
 		
 		this.addScroll();
 		
