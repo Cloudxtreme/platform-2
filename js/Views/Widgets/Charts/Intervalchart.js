@@ -136,7 +136,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 				},
 
                 'grid' : {
-                    axisMargin: 50
+                    borderWidth: 0
                 },
 
 				'colors' : [ '#2bbedc', '#ffb848', '#852b99', '#e02222', '#ffe399']
