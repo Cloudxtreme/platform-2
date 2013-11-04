@@ -64,6 +64,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 
 		this.placeholder.html (Mustache.render (Templates.charttable, mustachedata));
 
+        /*
 		var table = this.placeholder.find ('table').dataTable({
             "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
@@ -72,6 +73,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 		});
 
 		table.fnSort ([ values.sort ]);
+		*/
 	}
 
 });
