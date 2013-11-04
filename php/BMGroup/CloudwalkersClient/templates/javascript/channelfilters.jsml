@@ -16,9 +16,11 @@
 						{{#channels}}
 							<option value="{{id}}">&nbsp;{{name}}</option>
 
+                            <!--
 							{{#channels}}
 								<option value="{{id}}">&nbsp;&nbsp;{{name}}</option>
 							{{/channels}}
+                            -->
 
 						{{/channels}}
 
