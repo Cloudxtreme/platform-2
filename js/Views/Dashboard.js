@@ -270,13 +270,21 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		for (var i = 0; i < channels.length; i ++)
 			if (channels[i].type == widgetdata.type) var channel = channels[i];
+
+        var since = (Date.today().add({ days: -7 }));
+
+        if (channel.type == 'news')
+        {
+            since = (Date.today().add({ days: -1 }));
+        }
 		
 		widgetdata.open = 1;
 		widgetdata.channel = new Cloudwalkers.Collections.Trending ( [], { 
 			'id' : channel.id, 
 			'name' : widgetdata.title,
 			'amount' : widgetdata.messages,
-			'canLoadMore' : false
+			'canLoadMore' : false,
+            'since' : since
 		});
 		
 		var widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata)
