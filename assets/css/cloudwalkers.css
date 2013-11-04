@@ -2,7 +2,6 @@
 Style corrections and manual overrides
 ***/
 
-
 /***
 UPDATE TEST overrides
 ***/
@@ -339,6 +338,11 @@ nav	{
 }
 
 
+/**
+ *	Inbox
+ */
+
+.message-view	{ overflow: hidden; }
 
 
 /**

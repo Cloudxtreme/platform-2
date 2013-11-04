@@ -42,12 +42,21 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 		this.$el.html (messageView.render ().el);
 		
+		this.setHeight(messageView.$el);
+		
 	},
 	
 	'render' : function ()
 	{
 		this.$el.html ('');
+		
 		return this;
-	}
+	},
+	
+	'setHeight' : function($el) {
+		
+		$el.css("height", $("#inboxcontainer").height() - 16 + "px");
+		//console.log($("#inboxcontainer"))		
+	},
 
 });

@@ -237,9 +237,17 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 
 	},
+	
+	/*'negotiateFunctionalities' : function() {
+		
+		this.$el.css("height", $("#inboxcontainer").height() + "px");
+		console.log($("#inboxcontainer"))		
+	},
+	*/
 
 	'showchildren' : function (e)
 	{
+		
 		e.stopPropagation ();
 		e.preventDefault ();
 
