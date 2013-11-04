@@ -87,8 +87,8 @@
 
 			<ul class="sub-menu">
 				
-				<li class="channels-social">
-					<a href="#channels-social">
+				<li class="channel_{{channelid}}">
+					<a href="#channel/{{channelid}}">
 						<i class="icon-envelope"></i> 
 						<span class="title">Social</span>
 						<span class="arrow"></span>
@@ -123,15 +123,15 @@
 			
 			<ul class="sub-menu">
 
-				<li class="channel-coworkers">
-					<a href="#channel-coworkers">
+				<li class="channel_{{channelid}}">
+					<a href="#channel/{{channelid}}">
 						<i class="icon-briefcase"></i> 
 						<span class="title">Media</span>
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							<li class="channel_{{channelid}}_0_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
@@ -168,8 +168,8 @@
 			</a>
 
 			<ul class="sub-menu">				
-				<li class="channel-coworkers">
-					<a href="#channel-coworkers">
+				<li class="channel_{{channelid}}_0_{{id}}">
+					<a href="#channel/{{channelid}}/0/{{id}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
 						<span class="arrow"></span>
