@@ -345,6 +345,18 @@ nav	{
 * Message counter block
 */
 
+.portlet.box.messagecounter .portlet-title .caption	{
+	max-width: 62%; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+	font-size: 16px; 
+}
+
+.portlet.box.messagecounter .portlet-title .caption i	{
+	margin-top: 4px !important;  
+}
+
+
+	
+
 .portlet.box.messagecounter .portlet-title .tools > a	{
 	position: relative; top: -5px; background: white; width: auto; border-radius: 12px !important; padding: 4px 8px;
 	color: #2bbedc; font-weight: bold; line-height: 1.2em;
@@ -439,9 +451,9 @@ nav	{
  */
 
 .dashboard-stat .visual i	{ font-size: 63px !important; }
-.dashboard-stat .details	{ padding-right: 24px; }
+.dashboard-stat .details	{ padding-right: 24px; max-width: 54%; }
 .dashboard-stat .details .number	{ font-size: 28px; }
-.dashboard-stat .details .desc	{ font-size: 14px; }
+.dashboard-stat .details .desc	{ font-size: 14px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dashboard-stat .more	{ background-color: rgba(0,0,0,.12); }
 
 .span3 .dashboard-stat .visual	{ width: 58px; }
