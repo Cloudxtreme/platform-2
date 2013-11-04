@@ -32,7 +32,7 @@ var App = function () {
 
         if ($('body').css('direction') === 'rtl') {
             isRTL = true;
-        }
+        } 
 
         isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
         isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
@@ -158,6 +158,7 @@ var App = function () {
     }
 
     var handleSidebarMenu = function () {
+         
         jQuery('.page-sidebar').on('click', 'li > a', function (e) {
                 
                 if ($(this).next().hasClass('sub-menu') == false) {
@@ -541,6 +542,10 @@ var App = function () {
     }
 
     var handleDropdowns = function () {
+    
+    
+    	console.log($(".dropdown-menu.hold-on-click"));
+    
         $('body').on('click', '.dropdown-menu.hold-on-click', function(e){
             e.stopPropagation();
         })
@@ -691,7 +696,7 @@ var App = function () {
             $('#style_color').attr("href", "assets/css/themes/" + color + ".css");
             $.cookie('style_color', color);                
         }
-
+		
         $('.icon-color', panel).click(function () {
             $('.color-mode').show();
             $('.icon-color-close').show();
@@ -749,10 +754,10 @@ var App = function () {
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //core handlers
-            handleInit();
-            handleResponsiveOnResize(); // set and handle responsive    
-            handleUniform();        
-            handleScrollers(); // handles slim scrolling contents 
+            /* UPDATE-TEST  handleInit(); 
+            handleResponsiveOnResize(); // set and handle responsive 
+            handleUniform();         
+            handleScrollers(); // handles slim scrolling contents  
             handleResponsiveOnInit(); // handler responsive elements on page load
 
             //layout handlers
@@ -760,10 +765,10 @@ var App = function () {
             handleFixedSidebarHoverable(); // handles fixed sidebar on hover effect 
             handleSidebarMenu(); // handles main menu
             handleHorizontalMenu(); // handles horizontal menu
-            handleSidebarToggler(); // handles sidebar hide/show            
+            handleSidebarToggler(); // handles sidebar hide/show             
             handleFixInputPlaceholderForIE(); // fixes/enables html5 placeholder attribute for IE9, IE8
-            handleGoTop(); //handles scroll to top functionality in the footer
-            handleTheme(); // handles style customer tool
+            handleGoTop(); //handles scroll to top functionality in the footer 
+            handleTheme(); // handles style customer tool 
 
             //ui component handlers
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -772,9 +777,9 @@ var App = function () {
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
             handleAccordions(); //handles accordions
-            handleChoosenSelect(); // handles bootstrap chosen dropdowns     
+            handleChoosenSelect(); // handles bootstrap chosen dropdowns 
 
-            App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
+            App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.*/
         },
 
         'handleScrollers' : function ()
@@ -817,7 +822,7 @@ var App = function () {
 
         // wrapper function to  block element(indicate loading)
         blockUI: function (el, centerY) {
-            var el = jQuery(el); 
+           /* var el = jQuery(el); 
             el.block({
                     message: '<img src="./assets/img/ajax-loading.gif" align="">',
                     centerY: centerY != undefined ? centerY : true,
@@ -832,16 +837,16 @@ var App = function () {
                         opacity: 0.05,
                         cursor: 'wait'
                     }
-                });
+                });*/
         },
 
         // wrapper function to  un-block element(finish loading)
         unblockUI: function (el) {
-            jQuery(el).unblock({
+           /* jQuery(el).unblock({
                     onUnblock: function () {
                         jQuery(el).removeAttr("style");
                     }
-                });
+                });*/
         },
 
         // initializes uniform elements

@@ -76,8 +76,8 @@ Cloudwalkers.Session =
 		var finalcallback = callback;
 
 		// Loading
-		var view = new Cloudwalkers.Views.Loading ();
-		Cloudwalkers.RootView.setView (view, false);
+		//var view = new Cloudwalkers.Views.Loading ();
+		//Cloudwalkers.RootView.setView (view, false);
 
 		this.call ('user/me', null, null, function (data)
 		{

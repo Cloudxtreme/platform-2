@@ -21,7 +21,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'dashboard' : function ()
 	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard ());	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());	
 	},
 
 	'schedule' : function (streamid)

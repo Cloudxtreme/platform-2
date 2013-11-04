@@ -61,8 +61,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 		else if (type == 'pie')
 		{
-			var widget = new Cloudwalkers.Views.Widgets.Charts.Piechart
-			({
+			var widget = new Cloudwalkers.Views.Widgets.Charts.Piechart ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 				'stream' : this.get('stream'),

@@ -9,16 +9,9 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'canLoadMore' : true,
 
 	'events' : {
-		'click .tools .expand' : 'expand',
-		'click .tools .collapse' : 'collapse'
+		'click .portlet-title.line' : 'collapse',
+		'click .load-more a' : 'loadMore'
 	},
-
-	'tools' : [
-		{
-			'event' : 'refreshWidget',
-			'class' : 'reload'
-		}
-	],
 
 	'initialize' : function ()
 	{
@@ -31,10 +24,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		{
 			self.destroy ();
 		});
-	},
-
-	'events' : {
-		'click .load-more a' : 'loadMore'
 	},
 
 	'refreshWidget' : function (e)
@@ -67,7 +56,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		element.html (Mustache.render (Templates[this.template], data));
 
 		element.find ('.load-more').hide ();
-		element.find ('.loading').show ();
+		element.find ('.timeline-loading').show ();
 
         this.options.channel.bind('add', this.addOne, this);
         this.options.channel.bind('refresh', this.refresh, this);
@@ -98,19 +87,24 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			{
 				//console.log (self.options.channel.length);
 				
-				element.find ('p.no-current-messages').remove ();
+				//element.find ('p.no-current-messages').remove ();
 
 				//self.$innerEl.find ('.comment-box').html ('');
 				//self.addAll ();
-				element.find ('.loading').hide ();
+				//element.find ('.loading').hide ();
+				
+				
 
 				if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
 				{
 					element.find ('.load-more').show ();
+					element.find ('.timeline-loading').hide();
 				}
 
-				if (self.options.channel.length == 0)
-					element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
+				// Change laoding class
+				element.find('.inner-loading').toggleClass((self.options.channel.length)? 'inner-loading': 'inner-empty inner-loading');
+					
+					//element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 
 				self.afterInit ();
 			}
@@ -140,7 +134,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			}
 		});
 
-		this.$el.find ('.loading').show ();
+		element.find ('.timeline-loading').show ();
 		this.$el.find ('.load-more').hide ();
 	},
 
@@ -264,8 +258,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'refresh' : function ()
 	{
-		this.$el.find ('.messages-container').html ('');
-		this.resort ();
+		//this.$el.find ('.messages-container').html ('');
+		//this.resort ();
 		//this.options.channel.each (this.addOne, this);
 
 		/*
@@ -274,16 +268,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			this.$innerEl.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 		}
 		*/
-	},
-
-	'expand' : function ()
-	{
-		this.trigger ('view:expand');
-	},
-
-	'collapse' : function ()
-	{
-		this.trigger ('view:collapse');
 	}
 
 });

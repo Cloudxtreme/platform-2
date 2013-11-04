@@ -1,4 +1,4 @@
-<div class="dashboard-stat {{network.icon}}-color">
+<div class="dashboard-stat {{network.icon}}-color portlet-loading">
 	<div class="visual">
 		<i class="icon-{{network.icon}}"></i>
 	</div>

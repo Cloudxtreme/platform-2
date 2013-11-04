@@ -321,7 +321,7 @@
 	<li class="settings">
 		<a href="#settings/users">
 		<i class="icon-group"></i> 
-		<span class="title">Settings</span>
+		<span class="title">Manage Users</span>
 		<span class="selected"></span>
 		</a>
 	</li>

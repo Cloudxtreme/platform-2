@@ -30,10 +30,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardWidget' : function (widgetdata)
 	{
-		//console.log (widget);
-		var widget;
 
-		if (widgetdata.widget == 'title')
+		/*if (widgetdata.widget == 'title')
 		{
 			widget = new Cloudwalkers.Views.Widgets.Title (widgetdata);
 			this.addWidget (widget, true);
@@ -44,7 +42,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			this.addDashboardChannel (widgetdata);
 		}
 
-		else if (widgetdata.widget == 'trending')
+		else */if (widgetdata.widget == 'trending')
 		{
 			this.addDashboardTrending (widgetdata);
 		}
@@ -61,7 +59,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 		else if (widgetdata.widget == 'report')
 		{
-			this.addReportWidget (widgetdata);
+			//this.addReportWidget (widgetdata);
+			var report = new Cloudwalkers.Models.Report (widgetdata.report);
+
+			var widget = report.getWidget ();
+			widget.color = widgetdata.network.icon + '-color';
+			widget.network = widgetdata.network;
+	
+			this.add (widget, widgetdata.size);
 		}
 
 		else if (widgetdata.widget == 'drafts')
@@ -71,9 +76,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
 
 			var data = widgetdata;
+			data.open = 1;
 			widgetdata.channel = collection;
+			
+			widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+			widget.messagetemplate = 'dashboardmessagedraft';
+			
+			self.add(widget, widgetdata.size);
 
-			Cloudwalkers.Storage.get ('collapse_drafts', function (open)
+			/*Cloudwalkers.Storage.get ('collapse_drafts', function (open)
 			{
 				data.open = open == 1;
 
@@ -101,10 +112,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 				// Size
 				self.addWidgetWithSettings (widget, widgetdata);
-			}, 1);
+			}, 1);*/
 		}
 
-		else if (widgetdata.widget == 'scheduled')
+		/*else if (widgetdata.widget == 'scheduled')
 		{
 			var data = widgetdata;
 			widgetdata.channel = collection;
@@ -133,10 +144,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 			widget = new Cloudwalkers.Views.Widgets.Charts.Linechart (widgetdata);
 			this.addWidgetWithSettings (widget, widgetdata);
-		}
+		}*/
 	},
 
-	'addWidgetWithSettings' : function (widget, widgetdata)
+	/*'addWidgetWithSettings' : function (widget, widgetdata)
 	{
 		this.add (widget, widgetdata.size);
 	},
@@ -183,13 +194,13 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				this.addWidgetWithSettings (widget, widgetdata);
 			}
 		}
-	},
+	},*/
 
 	'addDashboardTrending' : function (widgetdata)
 	{
 		var self = this;
 
-		function createView (channel)
+		/*function createView (channel)
 		{
 			Cloudwalkers.Storage.get ('collapse_trending_' + channel.id, function (open)
 			{
@@ -251,27 +262,35 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				// Size
 				self.addWidgetWithSettings (widget, widgetdata);
 			}, 1);
-		}
-
-		var widget;
+		}*/
 
 		var account = Cloudwalkers.Session.getAccount ();
 		var channels = account.channels ();
 		var collection;
 
 		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == widgetdata.type)
-			{
-				createView (channels[i]);
-			}
-		}
+			if (channels[i].type == widgetdata.type) var channel = channels[i];
+		
+		widgetdata.open = 1;
+		widgetdata.channel = new Cloudwalkers.Collections.Trending ( [], { 
+			'id' : channel.id, 
+			'name' : widgetdata.title,
+			'amount' : widgetdata.messages,
+			'canLoadMore' : false
+		});
+		
+		var widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata)
+		widget.messagetemplate = 'dashboardmessagetrending';
+		
+		self.add (widget, widgetdata.size);
+		
 	},
 
 	'addDashboardChannelCounter' : function (widgetdata)
 	{
-		function createView (channel)
+		/*function createView (channel)
 		{
+			
 			Cloudwalkers.Storage.get ('collapse_channelcounter_' + channel.id, function (open)
 			{
 				open = open == 1;
@@ -293,7 +312,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 				});
 
 			}, false);
-		}
+		}*/
 
 		var widget;
 
@@ -306,7 +325,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{
 			if (channels[i].type == widgetdata.type)
 			{
-				createView (channels[i])
+				//createView (channels[i])
+				self.add(
+					new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : channels[i].name, 'icon' : widgetdata.icon, 'network' : widgetdata.network, 'open' : 1 }),
+					widgetdata.size
+				);
 			}
 		}
 	},
@@ -319,13 +342,20 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 
 		var data = widgetdata;
+		data.open = 1;
 		widgetdata.schedule = schedule;
+		
+		self.add(
+			new Cloudwalkers.Views.Widgets.ScheduleCounter(data),
+			widgetdata.size
+		);
+		
 
-		Cloudwalkers.Storage.get ('collapse_schedule', function (open)
+		/*Cloudwalkers.Storage.get ('collapse_schedule', function (open)
 		{
 			data.open = open == 1;
 
-			widget = new Cloudwalkers.Views.Widgets.ScheduleCounter (data)
+			widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(data)
 
 			// Toggle
 			widget.on ('view:expand', function ()
@@ -339,9 +369,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			});
 
 			self.addWidgetWithSettings (widget, widgetdata);
-		}, false);
-	},
-
+		}, false);*/
+	}
+	/*,
+	
 	'addReportWidget' : function (reportdata)
 	{
 		var self = this;
@@ -355,5 +386,5 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		widget.network = reportdata.network;
 
 		this.addWidgetWithSettings (widget, reportdata);
-	}
+	}*/
 });

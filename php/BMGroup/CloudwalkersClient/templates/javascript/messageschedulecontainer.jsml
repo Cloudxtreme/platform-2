@@ -8,6 +8,6 @@
 		</tr>
 	</thead>
 	<tbody class="messages-container">
-		
+		<tr><td colspan='4' class="inner-loading"></td></tr>
 	</tbody>
 </table>

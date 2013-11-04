@@ -1,5 +1,15 @@
 <ul class="timeline social-box-colors messages-container" id='pages'>
-
+	
+	<li class="timeline-loading load-more">
+		<div class="timeline-time"></div>
+		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
+		<a href="javascript:void(0);">
+			<div class="timeline-body more inner-loading">
+				Loading
+			</div>
+		</a>
+	</li>
+	
 	{{#showMoreButton}}
 
 		<li class="timeline-blue">
@@ -31,6 +41,3 @@
 	</li>
 
 </ul>
-
-<p class="loading">Please wait, we are loading your messages.</p>
-<!--<p class="load-more"><a href="javascript:void(0);">Load more</a></p>-->

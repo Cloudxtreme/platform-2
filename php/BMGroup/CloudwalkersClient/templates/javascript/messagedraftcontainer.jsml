@@ -1,4 +1,2 @@
-<table class="table table-striped table-bordered table-advance table-hover messages-container"></table>
-
-<p class="loading">Please wait, we are loading your messages.</p>
+<table class="table table-striped table-bordered table-advance table-hover messages-container inner-loading"></table>
 <p class="load-more"><a href="javascript:void(0);">Load more</a></p>

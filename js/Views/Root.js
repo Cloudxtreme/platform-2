@@ -293,7 +293,80 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
+		
+		this.handleSidebarMenu();
 	},
+	
+	'handleSidebarMenu' : function () {
+         
+        jQuery('.page-sidebar').on('click', 'li > a', function (e) {
+                
+                if ($(this).next().hasClass('sub-menu') == false) {
+                    if ($('.btn-navbar').hasClass('collapsed') == false) {
+                        $('.btn-navbar').click();
+                    }
+                    
+                    if ($(this).parent().parent().hasClass('sub-menu') == false) {
+                    	$('.page-sidebar .sub-menu').slideUp(200);
+                    	$('.page-sidebar .open').removeClass('open');
+                    }
+                    
+                    return;
+                }
+
+                var parent = $(this).parent().parent();
+				
+                parent.children('li.open').children('a').children('.arrow').removeClass('open');
+                parent.children('li.open').children('.sub-menu').slideUp(200);
+                parent.children('li.open').removeClass('open');
+
+                var sub = jQuery(this).next();
+                if (sub.is(":visible")) {
+                    jQuery('.arrow', jQuery(this)).removeClass("open");
+                    jQuery(this).parent().removeClass("open");
+                    sub.slideUp(200/*, function () {
+                            handleSidebarAndContentHeight();
+                        }*/);
+                } else {
+                    jQuery('.arrow', jQuery(this)).addClass("open");
+                    jQuery(this).parent().addClass("open");
+                    sub.slideDown(200/*, function () {
+                            handleSidebarAndContentHeight();
+                        }*/);
+                }
+
+                e.preventDefault();
+            });
+
+        // handle ajax links
+        jQuery('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
+                e.preventDefault();
+                App.scrollTop();
+
+                var url = $(this).attr("href");
+                var menuContainer = jQuery('.page-sidebar ul');
+                var pageContent = $('.page-content');
+                var pageContentBody = $('.page-content .page-content-body');
+
+                menuContainer.children('li.active').removeClass('active');
+                menuContainer.children('arrow.open').removeClass('open');
+
+                $(this).parents('li').each(function () {
+                        $(this).addClass('active');
+                        $(this).children('a > span.arrow').addClass('open');
+                    });
+                $(this).parents('li').addClass('active');
+
+                App.blockUI(pageContent, false);
+
+                $.post(url, {}, function (res) {
+                        App.unblockUI(pageContent);
+                        pageContentBody.html(res);
+                        App.fixContentHeight(); // fix content height
+                        App.initUniform(); // initialize uniform elements
+                    });
+            });
+    },
 
 	'confirm' : function (message, callback)
 	{
@@ -412,8 +485,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		*/
 
 		this.updatePlaceholder ();
-	},
-
+	}
+});
+/*
+	<<<<<<< .mine
+});
+=======
     'lockUI' : function ()
     {
         App.blockUI($('.page-content'), false);
@@ -423,4 +500,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
     {
         App.unblockUI($('.page-content'));
     }
-});
+});>>>>>>> .r2136
+
+	
+*/

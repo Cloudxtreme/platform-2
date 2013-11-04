@@ -9,6 +9,7 @@ Cloudwalkers.Views.Widgets.Timeline = Cloudwalkers.Views.Widgets.MessageContaine
 
 	'render' : function ()
 	{
+		
 		if (typeof (this.options.title) != 'undefined')
 		{
 			this.title = this.options.title;
@@ -34,7 +35,7 @@ Cloudwalkers.Views.Widgets.Timeline = Cloudwalkers.Views.Widgets.MessageContaine
 
 		var parameters = { 'title' : this.title, 'color' : this.color };
 		this.$el.html (Mustache.render (Templates.widgetnoborder, parameters));
-
+		
 		this.$innerEl = $(this.$el.find ('.portlet-body'));
 		this.innerRender (this.$innerEl);
 

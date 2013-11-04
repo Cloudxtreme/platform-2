@@ -185,6 +185,8 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 			container.append (widgets[i].widget.render ().el);
 
 			this.currentline.append (container);
+			
+			widgets[i].widget.negotiateFunctionalities();
 		}
 
 		setTimeout (function ()

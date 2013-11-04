@@ -103,22 +103,40 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 
 		<!-- BEGIN CONTAINER -->
-		<div class="page-container">
-			<!-- BEGIN SIDEBAR -->
-			<div class="page-sidebar nav-collapse collapse navigation-container">
-				<!-- BEGIN SIDEBAR MENU -->        
+		<div class="container-fluid page-container">
+			
+			<div class="row-fluid">
 				
-				<!-- END SIDEBAR MENU -->
-			</div>
-			<!-- END SIDEBAR -->
-			<!-- BEGIN PAGE -->
-			<div id="inner-content" class="page-content">
+				
+				<!-- BEGIN SIDEBAR -->
+				<div id="sidebar" class="span2 page-sidebar nav-collapse collapse navigation-container">
+					<!-- BEGIN SIDEBAR MENU -->        
+					
+					<!-- END SIDEBAR MENU -->
+				</div>
+				<!-- END SIDEBAR -->
+				<!-- BEGIN PAGE -->
+				<div id="inner-content" class="span10 page-content">
 
+					<div class="container-fluid">
+						
+						<div class="row-fluid">
+							
+							<div class="container-loading">
+								<i class="icon-cloud-download"></i>
+							</div>
+							
+						</div>
+						
+					</div>
+
+				</div>
+				<!-- END PAGE -->
+				
 			</div>
-			<!-- END PAGE -->
 		</div>
 		<!-- END CONTAINER -->
-		<!-- BEGIN FOOTER -->
+		<!-- BEGIN FOOTER
 		<div class="footer">
 			<div class="footer-inner">
 				2013 &copy; Cloudwalkers by bmgroup.
@@ -129,7 +147,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				</span>
 			</div>
 		</div>
-		<!-- END FOOTER -->
+		END FOOTER -->
 
 		<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 

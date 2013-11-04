@@ -130,6 +130,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		this.trigger ('content:change');
 		element.html (Mustache.render (Templates[this.template], data));
+		element.find('.portlet-loading').toggleClass('portlet-loading');
 	}
 
 });

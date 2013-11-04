@@ -1,17 +1,17 @@
 <!-- BEGIN PORTLET-->
 <div class="portlet box {{color}} messagecounter">
-	<div class="portlet-title line {{^open}}expand{{/open}}{{#open}}collapse{{/open}}-portlet">
+	<div class="portlet-title line">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
 		<div class="tools">
 			
-			<!-- triggered in app.js -->
+			<!-- triggered in app.js
 			<a href="">
 				{{message_count}} 
-			</a>
+			</a> -->
 
 		</div>
 	</div>
-	<div class="portlet-body social-icon-colors" {{^open}}style="display: none;"{{/open}}>
+	<div class="portlet-body social-icon-colors">
 		<div class="messages-counter">
 			<!--
 			<div class="messages-header unread-{{message_count}}">

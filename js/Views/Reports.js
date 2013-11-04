@@ -11,7 +11,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		this.datepicker = new Cloudwalkers.Views.Widgets.Datepicker ();
 
 		// Hide datapicker for now.
-		//this.addWidget (this.datepicker, true);
+		// this.addWidget (this.datepicker, true);
 
 		if (typeof (this.options.stream) == 'undefined' || !this.options.stream)
 		{
@@ -22,6 +22,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			{
 				if (streams[i].get ('statistics'))
 				{
+					
 					this.addStreamWidgets (streams[i]);
 				}
 			}
@@ -29,12 +30,14 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		else
 		{
+			
 			this.addStreamWidgets (this.options.stream);
 		}
 	},
 
 	'addStreamWidgets' : function (stream)
 	{
+		
 		var self = this;
 		$.ajax 
 		(
@@ -81,6 +84,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'addCombinedWidget' : function (stream, reportsdata)
 	{
+			
 		function addReport (repdat)
 		{
 			var report;
@@ -103,7 +107,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 		widget.color = stream.network.icon + '-color';
 		widget.network = stream.network;
-
+		
 		this.add (widget);
 	},
 
@@ -114,7 +118,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		//var dataurl = CONFIG_BASE_URL + 'json/' + statdata.url;
 
 		reportdata.stream = stream;
-
+		
 		var report = new Cloudwalkers.Models.Report (reportdata);
 
 		var widget = report.getWidget ();

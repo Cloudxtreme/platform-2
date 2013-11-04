@@ -13,7 +13,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 		var el = this.$el;
 		var self = this;
 
-		el.html ('<p>Please wait, loading data.</p>');
+		this.$el.html('<div class="portlet portlet-loading"></div>');
 
 		this.options.schedule.loadCounters (function (inputdata)
 		{
@@ -36,11 +36,12 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 			setTimeout (function ()
 			{
 				self.trigger ('content:change');
+				self.negotiateFunctionalities();
 			}, 100);
 		});
 
 		return this;
-	},
+	}/*,
 
 	'expand' : function ()
 	{
@@ -50,6 +51,6 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 	'collapse' : function ()
 	{
 		this.trigger ('view:collapse');
-	}
+	}*/
 
 });

@@ -4,8 +4,7 @@
 Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'events' : {
-		'click .tools .expand' : 'expand',
-		'click .tools .collapse' : 'collapse'
+		'click .portlet-title.line' : 'collapse'
 	},
 
 	'render' : function ()
@@ -41,16 +40,5 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		el.html (Mustache.render (Templates.messagecounter, data));
 
 		return this;
-	},
-
-	'expand' : function ()
-	{
-		this.trigger ('view:expand');
-	},
-
-	'collapse' : function ()
-	{
-		this.trigger ('view:collapse');
 	}
-
 });

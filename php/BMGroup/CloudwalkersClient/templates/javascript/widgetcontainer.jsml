@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<!-- END PAGE HEADER-->
-	<div id="widgetcontainer">
+	<div id="widgetcontainer" class="row-fluid">
 		
 		
 	</div>

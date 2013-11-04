@@ -61,7 +61,9 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 			data.details.push ({ 'content' : '☹', 'descr' : 'No info' });
 		}
 
+		
 		element.html (Mustache.render (Templates[this.template], data));
+		element.find('.portlet-loading').toggleClass('portlet-loading');
 	}
 
 });
