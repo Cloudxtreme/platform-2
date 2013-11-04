@@ -13,7 +13,7 @@
 					<a class='btn btn-lg btn-social' href="javascript:void(0);" data-add-service="{{id}}">
 						<i class='icon-{{icon}}'></i>Add {{name}}
 					</a>
-					<small>Some explanation why it's good for you brand to be visible on Facebook</small>
+					<small>{{info}}</small>
 				{{/available}}
 				
 			</div>
