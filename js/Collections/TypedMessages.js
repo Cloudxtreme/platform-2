@@ -59,7 +59,7 @@ Cloudwalkers.Collections.TypedMessages = Backbone.Collection.extend({
 
 			if (!self._cancelCallback)
 			{
-				//Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.type.streams);
+				Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.type.streams);
 				
 				// Set the next page
 				self.nextPageParameters  = response.type.next;

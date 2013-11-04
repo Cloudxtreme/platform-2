@@ -137,7 +137,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 			{
 				if (typeof (response.channel) != 'undefined')
 				{
-					//Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
+					Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
 				
 					// Set the next page
 					self.nextPageParameters  = response.channel.next;
