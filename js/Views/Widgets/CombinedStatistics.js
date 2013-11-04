@@ -108,14 +108,20 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 		el.find ('[data-interval-id="' + data.intervals[0].token + '"]').click ();
 
-		this.setReport (this.options.reports[0]);
+        if (this.options.reports.length > 0)
+        {
+		    this.setReport (this.options.reports[0]);
+        }
+        else
+        {
+            this.$el.html ('<p>There is currently no information available.</p>');
+        }
 
 		return this;
 	},
 
 	'setReport' : function (report)
 	{
-        console.log (report);
 		this.element.find ('.report-value').html (report.get ('name'));
 
 		this.currentReport = report;
