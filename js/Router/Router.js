@@ -1,6 +1,9 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
+		
+		'new/keywordsmanager' : 'keywordsmanager',
+	
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'schedule(/:stream)' : 'schedule',
 		'drafts' : 'drafts',
@@ -312,6 +315,17 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		var view = new Cloudwalkers.Views.Services ();
 		Cloudwalkers.RootView.setView (view);
-	}
+	},
+	
+	/*
+	 *		NEW
+	 *		v0.8.0 - nightwalker spretzel
+	 */
+	
+	'keywordsmanager' : function ()
+	{
+		var view = new Cloudwalkers.Views.ManageKeywords ();
+		Cloudwalkers.RootView.setView (view);
+	},
 
 });

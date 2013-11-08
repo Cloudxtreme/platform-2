@@ -6,6 +6,21 @@ Style corrections and manual overrides
 UPDATE TEST overrides
 ***/
 
+/**
+ *	Quick fixes
+ */
+.message-schedule .checkbox	{
+	padding-left: 25px !important; 
+}
+
+.channelfilters #inbox-workers {
+	min-height: 78px;
+}
+
+.channelfilters div.filter	{
+	width: 20%; padding-right: 20px; float: left;
+}
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }
@@ -342,7 +357,7 @@ nav	{
  *	Inbox
  */
 
-.message-view	{ overflow: hidden; }
+.message-view	{ overflow: hidden; min-height: 400px; }
 
 
 /**
@@ -456,7 +471,7 @@ nav	{
 
 .dashboard-stat .visual i	{ font-size: 63px !important; }
 .dashboard-stat .details	{ padding-right: 24px; max-width: 54%; }
-.dashboard-stat .details .number	{ font-size: 28px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dashboard-stat .details .number	{ font-size: 28px; width: 100%;/* white-space: nowrap; overflow: hidden; text-overflow: ellipsis;*/ }
 .dashboard-stat .details .desc	{ font-size: 14px; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dashboard-stat .more	{ background-color: rgba(0,0,0,.12); }
 

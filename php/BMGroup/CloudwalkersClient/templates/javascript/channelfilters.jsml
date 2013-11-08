@@ -1,39 +1,43 @@
 <div class="row-fluid">
 	<div class="span12">
 		<!-- BEGIN PORTLET-->
-		<div class="portlet box grey" id="message">
+		<div class="portlet box grey channelfilters" id="message">
 			<div class="portlet-title line">
 				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
 			</div>
 			<div class="portlet-body" id="inbox-workers">
 
-				<label>Channels:</label>
-				<select name="channels">
-					<option value="">All</option>
-					{{#channels}}
-						<option value="{{id}}">{{name}}</option>
-
+				<div class="filter">
+					<label>Categories:</label>
+					<select name="channels">
+						<option value="">All</option>
 						{{#channels}}
-							<option value="{{id}}">&nbsp;{{name}}</option>
-
-                            <!--
+							<option value="{{id}}">{{name}}</option>
+	
 							{{#channels}}
-								<option value="{{id}}">&nbsp;&nbsp;{{name}}</option>
+								<option value="{{id}}">&nbsp;{{name}}</option>
+	
+	                            <!--
+								{{#channels}}
+									<option value="{{id}}">&nbsp;&nbsp;{{name}}</option>
+								{{/channels}}
+	                            -->
+	
 							{{/channels}}
-                            -->
-
+	
 						{{/channels}}
-
-					{{/channels}}
-				</select>
+					</select>
+				</div>
 				
-				<label>Sources:</label>
-				<select name="network">
-					<option value="">All</option>
-					{{#networks}}
-						<option value="{{#streams}}{{id}},{{/streams}}">{{#network}}{{name}}{{/network}}</option>
-					{{/networks}}
-				</select>
+				<div class="filter">
+					<label>Sources:</label>
+					<select name="network">
+						<option value="">All</option>
+						{{#networks}}
+							<option value="{{#streams}}{{id}},{{/streams}}">{{#network}}{{name}}{{/network}}</option>
+						{{/networks}}
+					</select>
+				</div>
 
 			</div>
 		</div>
