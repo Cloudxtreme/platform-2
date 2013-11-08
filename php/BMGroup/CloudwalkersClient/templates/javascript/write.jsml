@@ -83,6 +83,8 @@
 													<div class='btn white'><label for="channel_{{id}}"><i class='icon-{{network.icon}}'></i> {{customname}}</label></div>
 												{{/channels}}
 
+                                                <div class="btn white"><label for=channel_coworkers"><i class="icon-envelope"></i> Coworkers</label></div>
+
 												<!--
 												<div class='btn white'><i class='icon-twitter'></i> bmgroup</div>
 												<div class='btn white'><i class='icon-tumblr'></i> bmgroup</div>
