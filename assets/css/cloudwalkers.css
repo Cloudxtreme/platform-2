@@ -21,6 +21,11 @@ UPDATE TEST overrides
 	width: 20%; padding-right: 20px; float: left;
 }
 
+/*table.messages-container	{
+	width: inherit;
+}*/
+
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }
@@ -357,7 +362,7 @@ nav	{
  *	Inbox
  */
 
-.message-view	{ overflow: hidden; min-height: 400px; }
+#inboxcontainer .message-view	{ overflow: hidden; min-height: 400px; }
 
 
 /**
