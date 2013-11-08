@@ -671,7 +671,7 @@ class http_class
 		if($ssl
 		&& strlen($this->socks_host_name))
 			return($this->SetError('establishing SSL connections via a SOCKS server is not yet supported', HTTP_CLIENT_ERROR_INVALID_PARAMETERS));
-		$this->use_curl=($ssl && $this->prefer_curl && function_exists("curl_init"));
+		$this->use_curl=( /*$ssl &&*/ $this->prefer_curl && function_exists("curl_init"));
 		switch($this->state)
 		{
 			case 'Connected':
