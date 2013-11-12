@@ -29,7 +29,6 @@ class BMGroup_CloudwalkersClient_Page
 		if ($client->isLogin ())
 		{
 			$user = $client->getUserData ();
-			$user = $user['user'];
 			$page->set ('user', $user);
 		}
 

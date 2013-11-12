@@ -166,7 +166,8 @@ class BMGroup_CloudwalkersClient_Client
 
 	public function getUserData ()
 	{
-		return $this->get ('user/me');
+		$user = $this->get ('user/me');
+		return $user['user'];
 	}
 
 	public function get ($url, $get = array ())

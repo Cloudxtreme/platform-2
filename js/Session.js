@@ -81,7 +81,7 @@ Cloudwalkers.Session =
 
 		this.call ('user/me', null, null, function (data)
 		{
-			self.user = new Cloudwalkers.Models.User (data);
+			self.user = new Cloudwalkers.Models.User (data.user);
 
 			// Set account
 			if (self.user.getAccounts ().length > 0)
@@ -113,7 +113,7 @@ Cloudwalkers.Session =
 		var self = this;
 		this.call ('user/me', null, null, function (data)
 		{
-			self.user.set (data);
+			self.user.set (data.user);
 		});
 	},
 
