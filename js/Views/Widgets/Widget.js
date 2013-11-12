@@ -10,6 +10,17 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
 	'tools' : [],
 
+    'initialize' : function ()
+    {
+        // Always add this to all your widget initializations
+        this.initializeWidget ();
+    },
+
+    'initializeWidget' : function ()
+    {
+        this.bind ('destroy', this.onDestroy);
+    },
+
 	'innerRender' : function (element)
 	{
 		element.html ('No inner content set.');
@@ -17,8 +28,6 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
 	'render' : function ()
 	{
-		
-		
 		var self = this;
 
 		if (typeof (this.options.title) != 'undefined')
@@ -121,6 +130,12 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 			});
 		});*/
 	},
+
+    'onDestroy' : function ()
+    {
+        this.$el.find ('.scroller').slimScroll('destroy');
+        this.$el.html ('DESTROYED');
+    },
 	
 	'collapse' : function ()
 	{

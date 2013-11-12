@@ -24,6 +24,9 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		{
 			self.destroy ();
 		});
+
+        // Always add this to all your widget initializations
+        this.initializeWidget ();
 	},
 
 	'refreshWidget' : function (e)
@@ -145,6 +148,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'destroy' : function ()
 	{
 		clearInterval (this.interval);
+
 	},
 
 	// Just a small function to overwrite
