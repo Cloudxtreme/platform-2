@@ -15,7 +15,7 @@
 <script src="<?php echo BASE_URL; ?>assets/plugins/excanvas.min.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/respond.min.js"></script>  
 <![endif]-->   
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
 <!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script> -->

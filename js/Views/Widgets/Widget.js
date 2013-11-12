@@ -77,8 +77,9 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	
 	'negotiateFunctionalities' : function() {
 		
+		
 		// Check for scroller
-		this.addScroll();
+		if(this.$el.find('.scroller').length) this.addScroll();
 		
 		// Check amountSign
 		if(this.options.channel && typeof this.options.channel.unread != "undefined")
