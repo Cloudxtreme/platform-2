@@ -134,8 +134,8 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
     'onDestroy' : function ()
     {
-        this.$el.find ('.scroller').slimScroll('destroy');
-        this.$el.html ('DESTROYED');
+        this.$el.find ('.scroller').slimScroll({'destroy':1});
+        //this.$el.html ('DESTROYED');
     },
 	
 	'collapse' : function ()
