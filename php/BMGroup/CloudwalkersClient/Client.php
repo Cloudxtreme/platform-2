@@ -133,9 +133,9 @@ class BMGroup_CloudwalkersClient_Client
 
 			if (!empty ($client->error))
 			{
-				echo $client->error;
+				echo 'Error: ' . $client->error;
+				var_dump ($user);
 				exit;
-				return false;
 			}
 
 			if(strlen($client->authorization_error))

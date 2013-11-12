@@ -64,6 +64,12 @@ class BMGroup_CloudwalkersClient_Controllers_User
 				{
 					$errors[] = $data['error']['message'];
 				}
+
+				else
+				{
+					$errors[] = 'Your password was changed.';
+				}
+
 			break;
 		}
 
