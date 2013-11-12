@@ -2353,7 +2353,7 @@ function BasicView(element, calendar, viewName) {
 		html += "</tbody>" +
 		        "</table>";
 
-		lockHeight(); // the unlock happens later, in setHeight()...
+		//lockHeight(); // the unlock happens later, in setHeight()...
 		if (table) {
 			table.remove();
 		}
@@ -2423,7 +2423,7 @@ function BasicView(element, calendar, viewName) {
 			}
 		});
 		
-		unlockHeight();
+		//unlockHeight();
 	}
 	
 	
@@ -2662,11 +2662,11 @@ function BasicView(element, calendar, viewName) {
 	// TODO: generalize this for all view rendering. (also in Calendar.js)
 
 	function lockHeight() {
-		setMinHeight(element, element.height());
+		//setMinHeight(element, element.height());
 	}
 
 	function unlockHeight() {
-		setMinHeight(element, 1);
+		//setMinHeight(element, 1);
 	}
 	
 }
