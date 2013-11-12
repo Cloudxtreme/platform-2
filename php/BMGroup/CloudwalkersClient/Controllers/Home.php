@@ -9,7 +9,8 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		if (!$client->isLogin ())
 		{
 			echo '<p>Please login.</p>' . Neuron_URLBuilder::getUrl ('login');
-			$client->logout (Neuron_URLBuilder::getURL('login'));
+			//$client->logout (Neuron_URLBuilder::getURL('login'));
+			echo '<script type="text/javascript">' . Neuron_URLBuilder::getUrl ('login') . '</script>';
 
 			exit;
 		}
