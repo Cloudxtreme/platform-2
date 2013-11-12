@@ -404,14 +404,14 @@ var App = function () {
 
     var handleGoTop = function () {
         /* set variables locally for increased performance */
-        jQuery('.footer').on('click', '.go-top', function (e) {
+        /*jQuery('.footer').on('click', '.go-top', function (e) {
                 App.scrollTo();
                 e.preventDefault();
-            });
+            });*/
     }
 
     var handlePortletTools = function () {
-        jQuery('body').on('click', '.portlet .tools a.remove', function (e) {
+        /*jQuery('body').on('click', '.portlet .tools a.remove', function (e) {
             e.preventDefault();
                 var removable = jQuery(this).parents(".portlet");
                 if (removable.next().hasClass('portlet') || removable.prev().hasClass('portlet')) {
@@ -424,9 +424,9 @@ var App = function () {
         jQuery('body').on('click', '.portlet .tools a.reload', function (e) {
             e.preventDefault();
                 var el = jQuery(this).parents(".portlet");
-                App.blockUI(el);
+                //App.blockUI(el);
                 window.setTimeout(function () {
-                        App.unblockUI(el);
+                        //App.unblockUI(el);
                     }, 1000);
         });
 
@@ -452,7 +452,7 @@ var App = function () {
                     jQuery(this).removeClass("expand-portlet").addClass("collapse-portlet");
                     el.slideDown(200);
                 }
-        });
+        });*/
     }
 
     var handleUniform = function () {
@@ -520,7 +520,7 @@ var App = function () {
     }
 
     var handleScrollers = function () {
-        $('.scroller').each(function () {
+        /*$('.scroller').each(function () {
                 $(this).slimScroll({
                         size: '7px',
                         color: '#a1b2bd',
@@ -530,7 +530,7 @@ var App = function () {
                         railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
                         disableFadeOut: true
                     });
-            });
+            });*/
     }
 
     var handleTooltips = function () {
@@ -784,11 +784,11 @@ var App = function () {
 
         'handleScrollers' : function ()
         {
-            handleScrollers ();
+            //handleScrollers ();
         },
 
         fixContentHeight: function () {
-            handleSidebarAndContentHeight();
+            //handleSidebarAndContentHeight();
         },
 
         addResponsiveHandler: function (func) {
@@ -797,31 +797,34 @@ var App = function () {
 
         // useful function to make equal height for contacts stand side by side
         setEqualHeight: function (els) {
-            var tallestEl = 0;
-            els = jQuery(els);
-            els.each(function () {
-                    var currentHeight = $(this).height();
-                    if (currentHeight > tallestEl) {
-                        tallestColumn = currentHeight;
-                    }
-                });
-            els.height(tallestEl);
+            //var tallestEl = 0;
+            //els = jQuery(els);
+           // els.each(function () {
+           //         var currentHeight = $(this).height();
+            //        if (currentHeight > tallestEl) {
+            //            tallestColumn = currentHeight;
+            //        }
+           //     });
+          //  els.height(tallestEl);
         },
 
         // wrapper function to scroll to an element
         scrollTo: function (el, offeset) {
-            pos = el ? el.offset().top : 0;
-            jQuery('html,body').animate({
-                    scrollTop: pos + (offeset ? offeset : 0)
-                }, 'slow');
+            //pos = el ? el.offset().top : 0;
+            //jQuery('html,body').animate({
+            //        scrollTop: pos + (offeset ? offeset : 0)
+            //    }, 'slow');
         },
 
         scrollTop: function () {
-            App.scrollTo();
+           // App.scrollTo();
         },
 
         // wrapper function to  block element(indicate loading)
         blockUI: function (el, centerY) {
+           
+           console.log("block UI")
+           
            /* var el = jQuery(el); 
             el.block({
                     message: '<img src="./assets/img/ajax-loading.gif" align="">',

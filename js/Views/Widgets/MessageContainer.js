@@ -32,13 +32,13 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 		//console.log (e);
 
-        var el = jQuery(e.currentTarget).parents(".portlet");
-        App.blockUI(el);
+        //var el = jQuery(e.currentTarget).parents(".portlet");
+        //App.blockUI(el);
 
 		this.options.channel.update ({
 			'success' : function ()
 			{
-				App.unblockUI(el);
+				//App.unblockUI(el);
 			}
 		});
 	},

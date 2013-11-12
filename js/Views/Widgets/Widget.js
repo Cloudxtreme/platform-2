@@ -122,33 +122,6 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		});*/
 	},
 	
-	'handleTools' : function(){
-		
-		jQuery('body').on('click', '.portlet .tools .collapse, .portlet .tools .expand', function (e) {
-            e.preventDefault();
-                var el = jQuery(this).closest(".portlet").children(".portlet-body");
-                if (jQuery(this).hasClass("collapse")) {
-                    jQuery(this).removeClass("collapse").addClass("expand");
-                    el.slideUp(200);
-                } else {
-                    jQuery(this).removeClass("expand").addClass("collapse");
-                    el.slideDown(200);
-                }
-        });
-        
-        jQuery('body').on('click', '.portlet .portlet-title.collapse-portlet, .portlet .portlet-title.expand-portlet', function (e) {
-            e.preventDefault();
-                var el = jQuery(this).closest(".portlet").children(".portlet-body");
-                if (jQuery(this).hasClass("collapse-portlet")) {
-                    jQuery(this).removeClass("collapse-portlet").addClass("expand-portlet");
-                    el.slideUp(200);
-                } else {
-                    jQuery(this).removeClass("expand-portlet").addClass("collapse-portlet");
-                    el.slideDown(200);
-                }
-        });
-	},
-	
 	'collapse' : function ()
 	{
 		this.$el.toggleClass("collapse-closed collapse-open");

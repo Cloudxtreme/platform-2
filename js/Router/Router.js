@@ -5,13 +5,14 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'new/keywordsmanager' : 'keywordsmanager',
 	
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
+		'keywords/:channel(/:subchannel)(/:stream)(/:messageid)' : 'keywords',
+		'keywords' : 'managekeywords',
 		'schedule(/:stream)' : 'schedule',
 		'drafts' : 'drafts',
 		'settings(/:sub)' : 'settings',
 		'write' : 'write',
 		'reports(/:streamid)' : 'reports',
 		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
-		'keywords' : 'managekeywords',
 		'inbox' : 'inbox',
 		'coworkers' : 'coworkers',
 		'*path' : 'dashboard'
@@ -212,6 +213,117 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
+	
+	'keywords' : function (id, subchannelid, streamid, messageid)
+	{
+		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
+
+		if (!channeldata)
+		{
+			Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Error ({'error' : 'Root channel not found: ' + id})); 
+			return;
+		}
+
+        var channel;
+        
+        console.log(subchannelid)
+
+		if (subchannelid > 0)
+		{
+			channel = new Cloudwalkers.Collections.Channel
+			(
+				[], 
+				{ 
+					'id' : subchannelid, 
+					'name' : channeldata.name
+				}
+			);
+		}
+		else
+		{
+			channel = new Cloudwalkers.Collections.Channel
+			(
+				[], 
+				{ 
+					'id' : id, 
+					'name' : channeldata.name
+				}
+			);
+		}
+
+		var filters = {};
+		if (typeof (streamid) != 'undefined')
+		{
+			filters['streams'] = [ streamid ];
+			channel.setFilters (filters);	
+		}
+
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+		widgetcontainer.title = channeldata.name;
+
+		// Check the types
+		var widget;
+
+		//console.log (channeldata);
+
+        var listwidget;
+
+		if (channeldata.type == 'monitoring')
+		{
+			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
+			widgetcontainer.add (keywordfilter, 12);
+
+			keywordfilter.on ('stream:change', function (stream)
+			{
+				var filters = {};
+
+				if (stream)
+				{
+					filters['streams'] = [ stream ];
+				}
+				
+				channel.setFilters (filters);
+			});
+
+			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			widgetcontainer.add (listwidget, 4);
+
+			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			widgetcontainer.add (widget, 8);
+		}
+
+		else if (channeldata.type == 'inbox')
+		{
+			widgetcontainer.templatename = "inboxcontainer"; 
+			
+			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			widgetcontainer.addWidgetSize (listwidget, false, 4);
+
+			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			widgetcontainer.addWidgetSize (widget, false, 8);
+		}
+		else
+		{
+			widget = new Cloudwalkers.Views.Widgets.Timeline({ 'channel': channel, 'color': 'blue', 'selectmessage': messageid });
+			widgetcontainer.addWidget (widget);
+		}
+
+		widgetcontainer.navclass = 'channel_' + id;
+
+		if (subchannelid)
+		{
+			widgetcontainer.subnavclass = 'channel_' + id + '_' + subchannelid;
+		}
+
+		else if (streamid)
+		{
+			widgetcontainer.subnavclass = 'channel_' + id + '_' + streamid;
+			//console.log (widgetcontainer.subnavclass);
+		}
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
+	},
+
 
 	'trending' : function (channelid, streamid)
 	{

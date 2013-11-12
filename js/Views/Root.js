@@ -340,7 +340,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
         // handle ajax links
         jQuery('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
                 e.preventDefault();
-                App.scrollTop();
+                //App.scrollTop();
 
                 var url = $(this).attr("href");
                 var menuContainer = jQuery('.page-sidebar ul');
@@ -356,13 +356,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
                     });
                 $(this).parents('li').addClass('active');
 
-                App.blockUI(pageContent, false);
+                //App.blockUI(pageContent, false);
 
                 $.post(url, {}, function (res) {
-                        App.unblockUI(pageContent);
+                        //App.unblockUI(pageContent);
                         pageContentBody.html(res);
-                        App.fixContentHeight(); // fix content height
-                        App.initUniform(); // initialize uniform elements
+                        //App.fixContentHeight(); // fix content height
+                        //App.initUniform(); // initialize uniform elements
                     });
             });
     },
@@ -488,11 +488,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
     'lockUI' : function ()
     {
-        App.blockUI($('.page-content'), false);
+    	console.log('Root lockUI')
+        //App.blockUI($('.page-content'), false);
     },
 
     'releaseUI' : function ()
     {
-        App.unblockUI($('.page-content'));
+    	console.log('Root releaseUI')
+        //App.unblockUI($('.page-content'));
     }
 });
