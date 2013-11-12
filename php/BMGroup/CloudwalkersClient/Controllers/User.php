@@ -26,6 +26,12 @@ class BMGroup_CloudwalkersClient_Controllers_User
 				$data['name'] = Neuron_Core_Tools::getInput ('_POST', 'name', 'varchar');
 				$data['firstname'] = Neuron_Core_Tools::getInput ('_POST', 'firstname', 'varchar');
 
+				$settings = json_decode (Neuron_Core_Tools::getInput ('_POST', 'settings', 'varchar'), true);
+				if ($settings)
+				{
+					$data['settings'] = $settings;
+				}
+
 				if (isset ($_FILES['avatar']))
 				{
 					if (!$_FILES['avatar']['error'])

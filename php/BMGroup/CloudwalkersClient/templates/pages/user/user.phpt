@@ -29,6 +29,11 @@
 		</li>
 
 		<li>
+			<label for="settings">Settings</label>
+			<input type="text" name="settings" id="settings" value="<?php echo htmlentities (json_encode ($user['settings'])); ?>" />
+		</li>
+
+		<li>
 			<button type="submit" value="edit" name="action">Store</button>
 		</li>
 	</ol>
