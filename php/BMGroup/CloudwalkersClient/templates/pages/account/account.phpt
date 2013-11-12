@@ -1,4 +1,13 @@
 <h1>Account</h1>
+
+<?php if (isset ($errors)) { ?>
+	<ul>
+		<?php foreach ($errors as $v) { ?>
+			<li><?php echo $v; ?></li>
+		<?php } ?>
+	</ul>
+<?php } ?>
+
 <h2>Account settings</h2>
 <form method="post">
 	<fieldset>

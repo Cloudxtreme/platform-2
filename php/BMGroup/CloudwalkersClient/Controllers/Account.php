@@ -42,11 +42,22 @@ class BMGroup_CloudwalkersClient_Controllers_Account
 					$errors[] = $data['error']['message'];
 				}
 
-				var_dump ($data);
-
 			break;
 
 			case 'invite':
+
+				$input = array ();
+				$input['email'] = Neuron_Core_Tools::getInput ('_POST', 'email', 'varchar');
+
+				$data = $client->post ('account/' . $account . '/user', array (), $input);
+				if (isset ($data['error']))
+				{
+					$errors[] = $data['error']['message'];
+				}
+				else
+				{
+					$errors[] = $input['email'] . ' was invited.';
+				}
 
 			break;
 		}
@@ -55,6 +66,7 @@ class BMGroup_CloudwalkersClient_Controllers_Account
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('account', $account);
+		$page->set ('errors', $errors);
 		return $page->parse ('modules/cloudwalkersclient/pages/account/account.phpt');
 	}
 }
