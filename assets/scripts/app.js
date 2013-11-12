@@ -158,7 +158,11 @@ var App = function () {
     }
 
     var handleSidebarMenu = function () {
-         
+        
+        console.log("Handle Sidebar menu ?!")
+        
+ 
+        
         jQuery('.page-sidebar').on('click', 'li > a', function (e) {
                 
                 if ($(this).next().hasClass('sub-menu') == false) {
@@ -217,10 +221,10 @@ var App = function () {
                     });
                 $(this).parents('li').addClass('active');
 
-                App.blockUI(pageContent, false);
+                //App.blockUI(pageContent, false);
 
                 $.post(url, {}, function (res) {
-                        App.unblockUI(pageContent);
+                        //App.unblockUI(pageContent);
                         pageContentBody.html(res);
                         App.fixContentHeight(); // fix content height
                         App.initUniform(); // initialize uniform elements

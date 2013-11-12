@@ -692,14 +692,14 @@ var Index = function () {
             },
 
             function (start, end) {
-                App.blockUI(jQuery("#dashboard"));
+                //App.blockUI(jQuery("#dashboard"));
                 setTimeout(function () {
-                    App.unblockUI(jQuery("#dashboard"));
+                    //App.unblockUI(jQuery("#dashboard"));
                     $.gritter.add({
                         title: 'Dashboard',
                         text: 'Dashboard date range updated.'
                     });
-                    App.scrollTo();
+                    //App.scrollTo();
                 }, 1000);
                 $('#dashboard-report-range span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
 
