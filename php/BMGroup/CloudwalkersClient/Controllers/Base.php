@@ -45,7 +45,7 @@ abstract class BMGroup_CloudwalkersClient_Controllers_Base
 		else
 		{
 			$userdata = $client->get ('user/me');
-			$accounts = $userdata['accounts'];
+			$accounts = $userdata['user']['accounts'];
 
 			$accountdata = array ();
 			foreach ($accounts as $v)
