@@ -28,7 +28,9 @@ class BMGroup_CloudwalkersClient_Page
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if ($client->isLogin ())
 		{
-			$page->set ('user', $client->getUserData ());
+			$user = $client->getUserData ();
+			$user = $user['user'];
+			$page->set ('user', $user);
 		}
 
 		return $page->parse ('modules/cloudwalkersclient/blocks/header.phpt');
