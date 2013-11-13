@@ -93,6 +93,9 @@ class BMGroup_CloudwalkersClient_Controllers_Test
 		// Update
 		$messagedata = $this->testEndpoint ('message/' . $messagedata['message']['id'], 'put', array ('account' => $account['id']), $message);
 
+		// Read
+		$read = $this->testEndpoint ('message/' . $messagedata['message']['id'] . '/read');
+
 		// Delete message
 		$delete = $this->testEndpoint ('message/' . $messagedata['message']['id'], 'delete');
 
