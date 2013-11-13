@@ -2,7 +2,7 @@
 	<img class="avatar" alt="{{user.name}}" src="{{#user.avatar}}{{user.avatar}}{{/user.avatar}}{{^user.avatar}}http://www.placehold.it/34/DDDDDD/FFFFFF&text=+{{/user.avatar}}">
 </td>
 <td>
-	{{user.name}}
+	{{user.displayname}}
 </td>
 <td class="hidden-480">
 	{{user.email}}
