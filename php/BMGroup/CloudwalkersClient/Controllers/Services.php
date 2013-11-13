@@ -159,7 +159,7 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		$data = $data['service'];
 		
 		$userdata = $client->get ('account/' . $this->getAccount (), array ('refresh' => 1));
-		$channels = $userdata['channels'];
+		$channels = $userdata['account']['channels'];
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('account', $data);
