@@ -4,65 +4,44 @@
 </script>
 
 
-<!-- BEGIN CORE PLUGINS -->
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
-<!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script> -->
-<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/uploader/jquery.iframe-transport.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/uploader/jquery.fileupload.js"></script>
-<!--<script src="<?php echo BASE_URL; ?>js/lib/fancybox.js" type="text/javascript"></script>-->
+<!-- JQUERY PLUGINS -->
+<script src="/assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.pie.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.stack.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.crosshair.js" type="text/javascript"></script>
+<script src="/assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
+<!-- JQUERY UI PLUGINS -->
+<script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/uploader/jquery.iframe-transport.js" type="text/javascript"></script>
+<script src="/assets/plugins/uploader/jquery.fileupload.js" type="text/javascript"></script>
+<!-- END JQUERY UI PLUGINS -->
+<!-- END JQUERY PLUGINS -->
+<!-- BOOTSTRAP PLUGINS -->
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>    
+<script src="/assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
+<!-- END BOOTSTRAP PLUGINS --> 
+<!-- BACKBONE PLUGINS -->
+<script src="/assets/plugins/mustache.js" type="text/javascript"></script>
+<script src="/assets/plugins/underscorejs/underscore.js" type="text/javascript"></script>
+<script src="/assets/plugins/backbonejs/backbone.js" type="text/javascript"></script>
+<!-- END BACKBONE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="<?php echo BASE_URL; ?>assets/plugins/excanvas.min.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/respond.min.js"></script>  
-<![endif]-->   
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
-<!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
- -->
- <script src="<?php echo BASE_URL; ?>assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>   
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script> -->
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.pie.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.stack.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.crosshair.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
+<script src="/assets/plugins/excanvas.min.js"></script>
+<script src="/assets/plugins/respond.min.js"></script>
+<script src="/assets/plugins/modernizr/modernizr.js"></script>
+<![endif]-->
 
-<!-- UPDATE-TEST <script type="text/javascript" src="assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script> -->
-<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>     
-<!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script> -->
-<!--<script src="<?php echo BASE_URL; ?>assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>-->
-
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="<?php echo BASE_URL; ?>assets/scripts/app.js" type="text/javascript"></script>
-<!-- UPDATE-TEST <script src="<?php echo BASE_URL; ?>assets/scripts/index.js" type="text/javascript"></script> -->
-<script src="<?php echo BASE_URL; ?>assets/scripts/charts.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
-<script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
-
-<!-- UPDATE-TEST <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/plugins/data-tables/jquery.dataTables.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/plugins/data-tables/DT_bootstrap.js"></script> -->
-
-
+<!-- PAGE LEVEL SCRIPTS -->
+<script src="/assets/scripts/app.js" type="text/javascript"></script>
+<script src="/assets/scripts/charts.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->  
-
-<script type="text/javascript" src="<?php echo BASE_URL; ?>templates/templates.js"></script>
-
 
 
 <?php include 'buildscripts.phpt'; ?>
@@ -71,87 +50,15 @@
 	jQuery(document).ready(function() {    
 
 		Cloudwalkers.RootView.on('content:change', function() {
-
-            //App.unblockUI(pageContent);
-            //pageContentBody.html(res);
-            //App.fixContentHeight(); // fix content height
-            //App.initUniform(); // initialize uniform elements
-           // App.handleScrollers ();
-
+			
+			/*
+			 *	Deprecated!
+			 *	should be OO...	
+			 */
+			App.initUniform();
             jQuery('.tooltips').tooltip ();
 
 		});
-
-		//Cloudwalkers.RootView.on('content:change', function() {
-
-			//console.log ('update!');
-
-			//App.init(); // initlayout and core plugins
-			//Index.init();
-
-		//	Index.initJQVMAP(); // init index page's custom scripts
-		//	Index.initCalendar(); // init index page's custom scripts
-		//	Index.initCharts(); // init index page's custom scripts
-		//	Index.initChat();
-		//	Index.initMiniCharts();
-		//	Index.initDashboardDaterange();
-		//	Index.initIntro();
-		//	Charts.init();
-		//	Charts.initCharts();
-		//	Charts.initPieCharts();
-		   
-		   
-		   
-		   
-		   /*	BUILD CHARTS
-		    *	snippets from <?php echo BASE_URL; ?>assets/scripts/charts.js
-		    */
-			
-			/*
-			var data = [];
-			var totalPoints = 250;
-			
-			// random data generator for plot charts
-			function getRandomData() {
-				if (data.length > 0) data = data.slice(1);
-				// do a random walk
-				while (data.length < totalPoints) {var prev = data.length > 0 ? data[data.length - 1] : 50;var y = prev + Math.random() * 10 - 5;if (y < 0) y = 0;if (y > 100) y = 100;data.push(y);}
-				// zip the generated y values with the x values
-				var res = [];
-				for (var i = 0; i < data.length; ++i) res.push([i, data[i]]); return res;
-			}
-			
-			var d1 = [];
-			for (var i = 0; i <= 10; i += 1)d1.push([i, parseInt(Math.random() * 30)]);
-			
-			var d2 = [];
-			for (var i = 0; i <= 10; i += 1)d2.push([i, parseInt(Math.random() * 30)]);
-			
-			var d3 = [];
-			for (var i = 0; i <= 10; i += 1)d3.push([i, parseInt(Math.random() * 30)]);
-			
-			var stack = 0,
-			bars = true,
-			lines = false,
-			steps = false;
-			
-			function plotWithOptions() {$.plot($("#chart_5"), [d1, d2, d3], {series: {stack: stack,lines: {show: lines,fill: true,steps: steps},bars: {show: bars,barWidth: 0.6}}});}
-			
-			$(".stackControls input").click(function (e) {e.preventDefault();stack = $(this).val() == "With stacking" ? true : null;plotWithOptions();});
-			$(".graphControls input").click(function (e) {e.preventDefault();bars = $(this).val().indexOf("Bars") != -1;lines = $(this).val().indexOf("Lines") != -1;steps = $(this).val().indexOf("steps") != -1;plotWithOptions();});
-			
-			plotWithOptions();
-			
-			var data = [];
-			var series = Math.floor(Math.random() * 10) + 1;
-			series = series < 5 ? 5 : series;
-			
-			for (var i = 0; i < series; i++) {data[i] = {label: "Series" + (i + 1),data: Math.floor(Math.random() * 100) + 1}}
-			
-			// DONUT
-			$.plot($("#donut"), data, {series: {pie: {innerRadius: 0.5,show: true}}});
-			*/
-		//});
 	});
 
 
