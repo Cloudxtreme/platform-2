@@ -12,6 +12,9 @@ UPDATE TEST overrides
 .message-schedule .checkbox	{
 	padding-left: 25px !important; 
 }
+.message-schedule .checkbox input	{
+	margin-top: -4px !important; 
+}
 
 .channelfilters #inbox-workers {
 	min-height: 78px;
