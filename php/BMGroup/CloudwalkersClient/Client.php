@@ -26,6 +26,9 @@ class BMGroup_CloudwalkersClient_Client
 	private $api;
 	private $server;
 
+	/**
+	 * @return BMGroup_CloudwalkersClient_Client
+	 */
 	public static function getInstance ()
 	{
 		static $in;
