@@ -69,7 +69,7 @@ Cloudwalkers.Net =
 		});
 	},
 
-	'delete' : function (method, get, callback)
+	'remove' : function (method, get, callback)
 	{
 		var url = CONFIG_BASE_URL + 'json/' + method;
 

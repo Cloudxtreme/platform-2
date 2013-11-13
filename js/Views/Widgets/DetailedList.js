@@ -102,7 +102,7 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 				disableFadeOut: true
 			});
 		});*/
-	},
+	}
 
 
 });

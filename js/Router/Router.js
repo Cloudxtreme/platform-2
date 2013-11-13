@@ -438,6 +438,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		var view = new Cloudwalkers.Views.ManageKeywords ();
 		Cloudwalkers.RootView.setView (view);
-	},
+	}
 
 });

@@ -57,6 +57,6 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 		
 		$el.css("height", $("#inboxcontainer").height() - 16 + "px");
 		//console.log($("#inboxcontainer"))		
-	},
+	}
 
 });

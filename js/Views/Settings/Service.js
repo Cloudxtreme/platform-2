@@ -111,7 +111,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 	'deleteService' : function (id, callback)
 	{
-		Cloudwalkers.Net.delete (
+		Cloudwalkers.Net.remove (
 			'wizard/service/' + id,
 			{
 				'account' : Cloudwalkers.Session.getAccount ().get ('id')	

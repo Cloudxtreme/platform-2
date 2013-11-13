@@ -41,9 +41,10 @@
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/app.js" type="text/javascript"></script>
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->  
+<!-- END PAGE LEVEL SCRIPTS -->
 
-
+<!-- Templates -->
+<script type="text/javascript" src="/templates/templates.js"></script>
 <?php include 'buildscripts.phpt'; ?>
 
 <script>

@@ -1,6 +1,3 @@
-<!-- Templates -->
-<script type="text/javascript" src="/templates/templates.js"></script>
-
 <!-- Deprecated -->
 <script type="text/javascript" src="/js/messages.js"></script>
 
