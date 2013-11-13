@@ -39,7 +39,7 @@
         </span>
 
         {{#user}}
-            <strong>{{name}}</strong><br />
+            <strong>{{displayname}}</strong><br />
         {{/user}}
 
         {{#subject}}

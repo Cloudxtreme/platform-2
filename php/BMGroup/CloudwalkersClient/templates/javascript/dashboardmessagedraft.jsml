@@ -3,7 +3,7 @@
 	<ul>
 		<li>
 			{{#user}}
-				<img class="avatar" alt="" src="{{avatar}}"> <strong>{{name}}</strong>
+				<img class="avatar" alt="" src="{{avatar}}"> <strong>{{displayname}}</strong>
 			{{/user}}
 			
 			<span class="right date"><span class="time time-since" data-date="{{date}}"></span></span>

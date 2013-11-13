@@ -19,7 +19,7 @@
 
 		<li>
 			{{#user}}
-				<strong>{{name}}:</strong>
+				<strong>{{displayname}}:</strong>
 			{{/user}}
 			
 			{{#subject}}

@@ -208,7 +208,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		// Set user
 		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));
-		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('name'));
+		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('displayname'));
 
 		this.renderNavigation ();
 	},
