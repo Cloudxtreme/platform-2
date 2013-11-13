@@ -90,6 +90,9 @@ class BMGroup_CloudwalkersClient_Controllers_Test
 		// Fetch this specific message
 		$messagedata = $this->testEndpoint ('message/' . $post['message']['id']);
 
+		// Update
+		$messagedata = $this->testEndpoint ('message/' . $messagedata['message']['id'], 'put', array ('account' => $account['id']), $message);
+
 		// Delete message
 		$delete = $this->testEndpoint ('message/' . $messagedata['message']['id'], 'delete');
 
