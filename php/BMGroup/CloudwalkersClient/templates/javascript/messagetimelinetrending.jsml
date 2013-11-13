@@ -34,9 +34,7 @@
 			{{#sortedattachments.image}}
 				<img class="timeline-img pull-right" src="{{url}}" alt="" />
 			{{/sortedattachments.image}}
-
-
-
+			
 			{{{body.html}}}
 
 			{{#sortedattachments.link}}
@@ -44,6 +42,7 @@
 					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
 				</p>
 			{{/sortedattachments.link}}
+			
 		</div>
 
 		<div class="comments comment-container"></div>

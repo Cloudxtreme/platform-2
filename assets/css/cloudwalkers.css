@@ -21,6 +21,11 @@ UPDATE TEST overrides
 	width: 20%; padding-right: 20px; float: left;
 }
 
+.dashboard-trending-limit-height	{
+	overflow: hidden; max-height: 60px; 
+	
+}
+
 /*table.messages-container	{
 	width: inherit;
 }*/

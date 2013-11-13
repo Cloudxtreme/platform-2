@@ -27,8 +27,10 @@
 			{{#subject}}
 				<small>{{subject}}</small><br />
 			{{/subject}}
-
-			{{body.plaintext}}
+			
+			<div class="dashboard-trending-limit-height">
+				{{body.plaintext}}
+			</div>
 
 			<!--
 			<div class="picture">
