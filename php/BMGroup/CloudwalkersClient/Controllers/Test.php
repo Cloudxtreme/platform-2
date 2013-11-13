@@ -17,6 +17,13 @@ class BMGroup_CloudwalkersClient_Controllers_Test
 			exit;
 		}
 
+		$code = Neuron_Core_Tools::getInput ('_GET', 'secret', 'varchar');
+		if ($code != 'bmgroupcw')
+		{
+			echo '<p>Please provide the secret token.</p>';
+			exit;
+		}
+
 		$user = $this->client->getUserData ();
 
 		echo '<pre>';
