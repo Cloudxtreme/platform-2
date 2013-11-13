@@ -115,36 +115,52 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			}, 1);*/
 		}
 
-		/*else if (widgetdata.widget == 'scheduled')
-		{
-			var data = widgetdata;
-			widgetdata.channel = collection;
+        else if (widgetdata.widget == 'coworkers')
+        {
+            var self = this;
 
-			collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
-			widget = new Cloudwalkers.Views.Widgets.ScheduledList (data);
+            collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false, 'filter' : 'others' });
 
-			this.addWidgetWithSettings (widget, widgetdata);
-		}
+            var data = widgetdata;
+            data.open = 1;
+            widgetdata.channel = collection;
 
-		else if (widgetdata.widget == 'numberstat')
-		{
-			var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+            widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+            widget.messagetemplate = 'dashboardmessagedraft';
 
-			widgetdata.dataset = datasource;
+            self.add(widget, widgetdata.size);
+        }
 
-			widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat (widgetdata);
-			this.addWidgetWithSettings (widget, widgetdata);
-		}
+        /*else if (widgetdata.widget == 'scheduled')
+        {
+            var data = widgetdata;
+            widgetdata.channel = collection;
 
-		else if (widgetdata.widget == 'linechart')
-		{
-			var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+            collection = new Cloudwalkers.Collections.Scheduled ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
+            widget = new Cloudwalkers.Views.Widgets.ScheduledList (data);
 
-			widgetdata.dataset = datasource;
+            this.addWidgetWithSettings (widget, widgetdata);
+        }
 
-			widget = new Cloudwalkers.Views.Widgets.Charts.Linechart (widgetdata);
-			this.addWidgetWithSettings (widget, widgetdata);
-		}*/
+        else if (widgetdata.widget == 'numberstat')
+        {
+            var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+
+            widgetdata.dataset = datasource;
+
+            widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat (widgetdata);
+            this.addWidgetWithSettings (widget, widgetdata);
+        }
+
+        else if (widgetdata.widget == 'linechart')
+        {
+            var datasource = new Cloudwalkers.Models.StatisticDataset ({ 'dataurl' : CONFIG_BASE_URL + 'json' + widgetdata.url });
+
+            widgetdata.dataset = datasource;
+
+            widget = new Cloudwalkers.Views.Widgets.Charts.Linechart (widgetdata);
+            this.addWidgetWithSettings (widget, widgetdata);
+        }*/
 	},
 
 	/*'addWidgetWithSettings' : function (widget, widgetdata)
