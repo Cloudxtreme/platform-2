@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 	'events' : {
-		'submit form' : 'submit'
+		'submit form.edit-managed-user' : 'submit'
 	},
 
 	'render' : function ()
@@ -9,7 +9,10 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 		var self = this;
 		var data = {};
 
+		var level = Number(this.model.get("level"));
 		var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
+		
+		levels[(level)? 1:0].checked = true;
 
 		data.user = this.model.attributes;
 		data.title = data.user.name;
@@ -30,28 +33,11 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 	'submit' : function (e)
 	{
-		var self = this;
-		e.preventDefault ();
+		
+		var data = {level: $("#level").val()};
+		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.model.get('id');
+		
+		Cloudwalkers.Net.put (url, {}, data, function(){ Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated."); });
 
-		var data = $(e.target).serializeArray ();
-		var userdata = {};		
-		for (var i = 0; i < data.length; i ++)
-		{
-			userdata[data[i].name] = data[i].value;
-		}
-
-		this.model.set ('level', userdata.level);
-		this.model.save 
-		(
-			{},
-			{
-				'success' : function ()
-				{
-					self.trigger ('popup:close');
-					var collection = self.model.collection;
-
-					collection.trigger ('reset:all');
-				}
-		});
 	}
 });

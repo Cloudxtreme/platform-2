@@ -1,9 +1,9 @@
 Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 
 	'events' : {
-		'click .add-user' : 'addUser',
-		'submit .edit-user-profile' : 'editUserProfile',
-		'click .invite-user' : 'addUser'
+		/*'click .add-user' : 'addUser',
+		'submit .edit-user-profile' : 'editUserProfile',*/
+		'submit .users-invite' : 'addUser'
 	},
 
 	'class' : 'section',
@@ -25,9 +25,10 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		//this.addUserContainer ('Co-Workers', users);
 
 		// Enable fileupload plugin
-		setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
+		//setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
 		
-		//this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
+		// Work widgets
+		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
 		
 		return this;
 	},
@@ -79,17 +80,22 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 
 	'addUser' : function ()
 	{
-		var view = new Cloudwalkers.Views.Settings.AddUser ();
-		Cloudwalkers.RootView.popup (view);
+		
+		var data = {email: $('input[name=invite-email]').val()}
+		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
+		
+		Cloudwalkers.Net.post (url, {}, data, function(resp){ 
+		
+			if(resp.error)	Cloudwalkers.RootView.growl('Oops', "There's something fishy about that e-mail address.");
+			else			Cloudwalkers.RootView.growl('User Management', "Invitation on it's way.");
+		});
+
 	},
-
-	'editUserProfile' : function (e)
+	
+	'deleteUser' : function ()
 	{
-		var user = Cloudwalkers.Session.getUser ();
-		var name = this.$el.find ('[name=name]').val ();
-
-		user.set ('name', name);
-		user.save ({}, { 'success' : function () {  }});
+		
+		//delete /account/ID/users/USER ID	
 	},
 	
 	'negotiateFunctionalities' : function(el) {

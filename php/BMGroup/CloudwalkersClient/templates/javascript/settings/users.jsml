@@ -1,7 +1,7 @@
 <div class="tab-pane settings-users row-fluid" id="tab_1_2">
 	
 	<div class="span4">
-		<div class="portlet box grey">
+		<div class="portlet box grey manage-users-edit-widget">
 			<div class="portlet-title line">
 				<div class="caption"><i class="icon-user"></i>Edit user</div>
 			</div>
@@ -27,15 +27,14 @@
 				</div>
 				<div class="portlet-body">
 					
-					<form>
+					<form action="javascript:void(0);" class="users-invite">
 						
 						<label for="invite-email">Email</label>
-						<input type="text" name="invite-email" id="invite-email" />
+						<input type="text" name="invite-email" />
 						
-						<a href="#" class="btn green" class="invite-user">Invite user</a>
+						<input type="submit" class="btn green" value="Invite user" />
 						
-						
-						<br /><small>Great spot for pending invitations...</small>
+						<!--Great spot for pending invitations...-->
 					</form>
 				</div>
 			</div>

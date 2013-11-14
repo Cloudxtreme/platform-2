@@ -2,12 +2,7 @@
 	<div class="title">
 		<div class="holder">
 			<div class="frame">
-				<span class="category">
-					<a href="javascript:void(0);">
-						<img src="images/ico21.png" alt="image description" width="28" height="28" />
-					</a>
-				</span>
-				<h2>{{title}}</h2>
+				<h3>{{user.firstname}} {{user.name}}</h3>
 			</div>
 		</div>
 	</div>
@@ -15,8 +10,8 @@
 		<div class="box-holder">
 			<div class="box-frame">
 				
-				<form>
-					<ol>
+				<form action="javascript:void(0);" class="edit-managed-user">
+					<ul>
 						<li>
 							<label for="level">Clearance level</label>
 							<select id="level" name="level">
@@ -27,9 +22,9 @@
 						</li>
 
 						<li>
-							<button type="submit">Save</button>
+							<button type="submit" class="btn black">Save</button>
 						</li>
-					</ol>
+					</ul>
 				</form>
 
 			</div>

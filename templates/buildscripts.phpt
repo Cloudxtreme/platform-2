@@ -41,7 +41,6 @@
 <script type="text/javascript" src="/js/Views/Settings/Users.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/User.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/UserDetails.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/AddUser.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
