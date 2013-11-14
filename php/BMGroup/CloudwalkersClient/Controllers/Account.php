@@ -49,7 +49,7 @@ class BMGroup_CloudwalkersClient_Controllers_Account
 				$input = array ();
 				$input['email'] = Neuron_Core_Tools::getInput ('_POST', 'email', 'varchar');
 
-				$data = $client->post ('account/' . $account . '/user', array (), $input);
+				$data = $client->post ('account/' . $account . '/users', array (), $input);
 				if (isset ($data['error']))
 				{
 					$errors[] = $data['error']['message'];
@@ -65,7 +65,7 @@ class BMGroup_CloudwalkersClient_Controllers_Account
 		$account = $client->get ('account/' . $account);
 
 		$page = new Neuron_Core_Template ();
-		$page->set ('account', $account);
+		$page->set ('account', $account['account']);
 		$page->set ('errors', $errors);
 		return $page->parse ('modules/cloudwalkersclient/pages/account/account.phpt');
 	}
