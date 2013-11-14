@@ -26,8 +26,12 @@ UPDATE TEST overrides
 
 .dashboard-trending-limit-height	{
 	overflow: hidden; max-height: 60px; 
-	
 }
+
+.avatar-big	{
+	background-size: 100% auto !important;
+}
+
 
 /*table.messages-container	{
 	width: inherit;
@@ -133,6 +137,11 @@ UPDATE TEST overrides
 
 .collapse-closed .portlet.box > .portlet-body	{ max-height: 0; padding: 0 10px; }
 .collapse-open .portlet.box > .portlet-body	{ max-height: 400px; padding: 10px; }
+
+.collapse-closed .portlet.box.dashboardwidget > .portlet-body,
+.collapse-closed .portlet.box.messagecounter > .portlet-body	{ padding: 0 2px 0 12px; }
+.collapse-open .portlet.box.dashboardwidget > .portlet-body,
+.collapse-open .portlet.box.messagecounter > .portlet-body	{ padding: 10px 2px 10px 12px; }
 
 .collapse-closed .portlet-body, .collapse-open .portlet-body	{
 	overflow: hidden;
@@ -297,6 +306,18 @@ nav	{
 .portlet.box.white .tools	{ position: relative; top: -4px; background: #ddd; }
 .portlet.box.white .tools > *	{ margin: 8px 8px 4px; }
 
+
+/* Dashboard widgets */
+@media (max-width: 1214px)	{
+	.portlet.box.dashboardwidget .time	{ display: none; }
+}
+
+.portlet.box.dashboardwidget table td {
+	max-width: 200px; overflow: hidden; box-sizing: border-box;
+}
+
+
+
 /* Inbox Portlet */
 .portlet.box  ul	{ margin:0; padding:0; list-style: none; }
 .portlet.box  li	{ min-height: 30px; }
@@ -340,11 +361,14 @@ nav	{
 * Inbox Container
 */
 
-
-
 #inboxcontainer	{
 	border: 1px solid #e6e6e6; background: #eee; z-index: 1;
 }
+
+#inboxcontainer.inner-loading *, #inboxcontainer.inner-empty *		{
+	display: none;
+}
+
 
 #inboxcontainer #widgetcontainer,
 #inboxcontainer #widgetcontainer > .row-fluid,
@@ -353,16 +377,17 @@ nav	{
 
 #inboxcontainer #widgetcontainer > .row-fluid > .span8, #inbox	{ max-height: inherit; }
 
-/*#inboxcontainer .row-fluid	{
-	min-height: inherit; box-sizing: border-box; padding-top: 50px; 
-}*/
+#inboxcontainer .messagelist	{
+	
+}
+
 #list	{ background-color: white; border-right: 1px solid #ddd; }
 
 #list .message-view > td	{ border: 1px solid #ddd; border-width: 0 1px 1px 0 !important; }
 
 
 #widgetcontainer .span8	{
-	margin: 8px 1.06382978723404%;
+	margin-top: 8px;/*margin: 8px 1.06382978723404%;*/
 }
 
 
@@ -372,6 +397,8 @@ nav	{
 
 #inboxcontainer .message-view	{ overflow: hidden; min-height: 400px; }
 
+#inboxcontainer .portlet > .portlet-title > .caption i	{ color: white; }
+
 
 /**
 * Message counter block
@@ -379,6 +406,11 @@ nav	{
 
 .portlet.box.messagecounter .portlet-title .caption	{
 	max-width: 62%; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+	font-size: 16px; 
+}
+
+.portlet.box.dashboardwidget .portlet-title .caption	{
+	max-width: 82%; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 	font-size: 16px; 
 }
 

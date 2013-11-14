@@ -27,6 +27,8 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		// Enable fileupload plugin
 		setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
 		
+		//this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
+		
 		return this;
 	},
 
@@ -88,5 +90,12 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 
 		user.set ('name', name);
 		user.save ({}, { 'success' : function () {  }});
+	},
+	
+	'negotiateFunctionalities' : function(el) {
+		
+		// Check collapse option
+		$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	}
+
 });

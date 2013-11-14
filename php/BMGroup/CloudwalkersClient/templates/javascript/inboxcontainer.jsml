@@ -7,8 +7,8 @@
 		</div>
 	</div>
 	
-	<div id="inboxcontainer" class="row-fluid">
-		<div id="widgetcontainer">
+	<div id="inboxcontainer" class="row-fluid inner-loading">
+		<div id="widgetcontainer" class="">
 		
 		
 		</div>

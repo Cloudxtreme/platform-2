@@ -77,6 +77,20 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 
 		this.unreadmessages = unreadmessages;
+	},
+	
+	'save' : function (callback)
+	{
+		var data = {firstname: this.get("firstname"), name: this.get("name"), avatar: this.get("avatarBase64")}
+		
+		Cloudwalkers.Net.put ('user/me', {}, data, callback);
+	},
+	
+	'savePassword' : function (oldpassword, newpassword, callback)
+	{
+		var data = {oldpassword:oldpassword, newpassword:newpassword}
+		
+		Cloudwalkers.Net.put ('user/me/password', {}, data, callback);
 	}
 
 });

@@ -14,6 +14,7 @@
 <script src="/assets/plugins/flot/jquery.flot.stack.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.crosshair.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
+<script src="/assets/plugins/gritter/js/jquery.gritter.min.js" type="text/javascript"></script>
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/uploader/jquery.iframe-transport.js" type="text/javascript"></script>

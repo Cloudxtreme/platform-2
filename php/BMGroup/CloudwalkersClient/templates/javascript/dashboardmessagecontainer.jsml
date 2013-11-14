@@ -1,11 +1,8 @@
 <!-- BEGIN PORTLET-->
-<div class="portlet box {{color}}">
+<div class="portlet box {{color}} dashboardwidget">
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
 		<div class="tools">
-			
-			<!-- triggered in app.js 
-			<a href="" class="{{#open}}collapse{{/open}}{{^open}}expand{{/open}}"></a>-->
 
 		</div>
 	</div>

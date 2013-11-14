@@ -186,10 +186,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		{
 			widgetcontainer.templatename = "inboxcontainer"; 
 			
-			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
+			listwidget = new Cloudwalkers.Views.Widgets.InboxList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.addWidgetSize (listwidget, false, 4);
-
-			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			
+			//widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			widget = new Cloudwalkers.Views.Widgets.InboxMessage({ 'list' : listwidget });
 			widgetcontainer.addWidgetSize (widget, false, 8);
 		}
 		else
