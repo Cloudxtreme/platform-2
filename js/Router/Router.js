@@ -120,7 +120,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		if (subchannelid > 0)
 		{
-            channeldata = Cloudwalkers.Session.getChannelFromId (subchannelid);
 
 			channel = new Cloudwalkers.Collections.Channel
 			(
@@ -162,6 +161,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		if (channeldata.type == 'monitoring')
 		{
+			
 			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
 			widgetcontainer.add (keywordfilter, 12);
 
@@ -229,7 +229,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
         var channel;
         
-        console.log(subchannelid)
+       // console.log(subchannelid)
 
 		if (subchannelid > 0)
 		{
