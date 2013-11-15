@@ -47,11 +47,6 @@
 													<button class='btn' data-toggle-target="subject" type="button">subject</button>
 													<button class='btn' data-toggle-target="url" type="button">URL</button>
 													<button class='btn' data-toggle-target="picture" type="button">picture</button>
-                                                    <select class="btn blue" style="background-color: #2bbedc; height: 34px;">
-                                                        <option>Add conversion tag</option>
-                                                        <option>job campaign</option>
-                                                        <option>followers campaign</option>
-                                                    </select>
 
 													<!--<button class='btn blue'>tags</button>-->
 													
@@ -87,8 +82,6 @@
 												{{#channels}}
 													<div class='btn white'><label for="channel_{{id}}"><i class='icon-{{network.icon}}'></i> {{customname}}</label></div>
 												{{/channels}}
-
-                                                <div class="btn white"><label for=channel_coworkers"><i class="icon-envelope"></i> Coworkers</label></div>
 
 												<!--
 												<div class='btn white'><i class='icon-twitter'></i> bmgroup</div>
