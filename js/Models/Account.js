@@ -46,7 +46,11 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			}
 			else if (channels[i].channels.length > 0)
 			{
-				return this._findChannelRecursive (channels[i].channels, id);
+				var tmp = this._findChannelRecursive (channels[i].channels, id);
+                if (tmp != null)
+                {
+                    return tmp;
+                }
 			}
 		}
 
