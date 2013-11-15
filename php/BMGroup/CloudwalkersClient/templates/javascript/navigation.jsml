@@ -318,6 +318,7 @@
 	</li>
 	
 	<!-- User Settings -->
+	{{#level}}
 	<li class="settings">
 		<a href="#settings/users">
 		<i class="icon-group"></i> 
@@ -325,4 +326,14 @@
 		<span class="selected"></span>
 		</a>
 	</li>
+	{{/level}}
+	{{^level}}
+	<li class="settings">
+		<a href="#settings/profile">
+		<i class="icon-user"></i> 
+		<span class="title">Profile Settings</span>
+		<span class="selected"></span>
+		</a>
+	</li>
+	{{/level}}
 </ul>

@@ -216,11 +216,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'renderNavigation' : function ()
 	{
 		var account = Cloudwalkers.Session.getAccount ();
-
+		
 		// Redo navigation
 		var data = {};
+		data.level = Number(account.attributes.currentuser.level);
+		
 		var channels = account.channels ();
-
 		var sortedchannels = {};
 
 		data.channels = [];
