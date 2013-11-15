@@ -6,7 +6,7 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	'events' : {
 		'change select[name=stream]' : 'changestream',
 		'change select[name=channel]' : 'changechannel',
-		'change select[name=network]' : 'changenetwork'
+		'click [data-network-streams]' : 'changenetwork'
 	},
 
 	'render' : function ()
@@ -41,7 +41,10 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	'bundlestreamsonnetwork' : function (streams)
 	{
 		var map = {};
-
+		
+		
+		
+		
 		for (var i = 0; i < streams.length; i ++)
 		{
 			if (typeof (map[streams[i].network.token]) == 'undefined')
@@ -73,14 +76,14 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		this.trigger ('stream:change', this.$el.find ('select[name=stream]').val ());
 	},
 
-	'changenetwork' : function ()
+	'changenetwork' : function (e)
 	{
-		var streams = [];
-
-		var streamids = this.$el.find ('select[name=network]').val ().split (',');
-		streamids.pop ();
-
-		this.trigger ('stream:change', streamids);
+		$(e.currentTarget).toggleClass("inactive active")
+		
+		var networks = this.$el.find ('.filter .active');
+		var streamids = networks.size()? networks.attr('data-network-streams').split (','): [];
+		
+		this.trigger ('stream:change', $.grep(streamids, function(item){ return (item); }));
 	},
 
 	'changechannel' : function ()

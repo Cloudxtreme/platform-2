@@ -29,14 +29,23 @@
 					</select>
 				</div>
 				
-				<div class="filter">
-					<label>Sources:</label>
+				<div class="filter social-icon-colors">
+					
+					{{#networks}}
+						<div class="btn white active" data-network-streams="{{#streams}}{{id}},{{/streams}}">
+							<i class="icon-{{#network}}{{icon}}{{/network}}"></i>
+						</div>
+					{{/networks}}
+										
+					
+					
+					<!--<label>Sources:</label>
 					<select name="network">
 						<option value="">All</option>
 						{{#networks}}
 							<option value="{{#streams}}{{id}},{{/streams}}">{{#network}}{{name}}{{/network}}</option>
 						{{/networks}}
-					</select>
+					</select>-->
 				</div>
 
 			</div>
