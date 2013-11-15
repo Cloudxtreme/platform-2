@@ -84,7 +84,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			'error' : function (e)
 			{
 				//alert ('Error');
-				console.log (e);
+				//console.log (e);
 			},
 			'success' : function (e)
 			{
