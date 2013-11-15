@@ -36,7 +36,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 
 		user.set ('firstname', firstname);
 		user.set ('name', name);
-		user.save ( function () { Cloudwalkers.RootView.growl('User Profile', "Smooth update."); });
+		user.save ( function () { Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated"); });
 	},
 	
 	'editUserAvatar' : function () {
@@ -82,7 +82,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			function (data) {
 				
 				if(data.error)	Cloudwalkers.RootView.growl('Oops', "That's not correct.");
-				else			Cloudwalkers.RootView.growl('User Profile', "Smooth update.");
+				else			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
 			}
 		);
 	},

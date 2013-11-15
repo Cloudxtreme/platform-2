@@ -32,6 +32,14 @@ UPDATE TEST overrides
 	background-size: 100% auto !important;
 }
 
+table.charttable .text	{
+	text-align: left;
+} 
+
+#widgetcontainer.managekeywords	.span8	{ margin-top: 0; }
+
+.send-message i.icon-envelope-alt	{ margin-top: 1px !important; }
+
 
 /*table.messages-container	{
 	width: inherit;
@@ -99,6 +107,8 @@ UPDATE TEST overrides
 	margin-left: 46%; color: #c0c0c0; line-height: 2.4em; font-size: 12px;
 	content: "empty"; text-align: center;
 }
+
+#inboxcontainer.inner-empty:after	{ content: "no messages"; }
 
 /* Widget generals */
 

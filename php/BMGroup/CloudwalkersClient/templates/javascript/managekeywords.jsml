@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<!-- END PAGE HEADER-->
-	<div id="widgetcontainer">
+	<div id="widgetcontainer" class="managekeywords">
 		
 		<div class="row-fluid">
 			<div class="span4">
@@ -22,9 +22,11 @@
 					<div class="portlet-body">
 						<form data-add-category="1">
 							<label for="category_create_name">Name:</label>
-							<input type="text" value="{{name}}" id="category_create_name" name="name" />
-						
-							<button class="btn blue" type="submit">Create</button>
+							
+							
+							<input type="text" value="{{name}}" id="category_create_name" name="name" class="m-wrap span7" />
+							<button class="btn blue span4 pull-right" type="submit">Create</button>
+							
 						</form>
 					</div>
 				</div>
@@ -46,9 +48,9 @@
 							</select>
 							
 							<label for="keyword_create_name">Name:</label>
-							<input type="text" value="{{name}}" id="keyword_create_name" name="name" />
+							<input type="text" value="{{name}}" id="keyword_create_name" name="name" class="m-wrap span7" />
 						
-							<button class="btn blue" type="submit">Create</button>
+							<button class="btn blue span4 pull-right" type="submit">Create</button>
 						</form>
 					</div>
 				</div>

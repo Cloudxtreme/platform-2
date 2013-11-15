@@ -29,12 +29,18 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 	
 	'deleteUser' : function (e)
 	{
-		$(e.currentTarget).parents("tr").remove();
+		var self = this;
+		var tr = $(e.currentTarget).parents("tr");
 		
-		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.model.get('id');
-		Cloudwalkers.Net.delete (url, {}, data, function(){
+		Cloudwalkers.RootView.confirm ("You are about to remove " + this.model.get('firstname') + ". Sure?", function(){
 			
-			Cloudwalkers.RootView.growl('Manage Users', "That's an ex-user.");
+			tr.remove();
+			
+			var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + self.model.get('id');
+			Cloudwalkers.Net.remove (url, {}, function(){
+			
+				Cloudwalkers.RootView.growl('Manage Users', "That's an ex-user.");
+			});
 		});
 	}
 	
