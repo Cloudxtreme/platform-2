@@ -1,7 +1,7 @@
 <ul class="page-sidebar-menu">
 	
 	<!-- Dashboard -->
-	<li class="start dashboard">
+	<li class="start dashboard active">
 		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
 		<span class="title">Dashboard</span>
