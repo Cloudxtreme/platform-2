@@ -19,10 +19,8 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount ();
 		
 		data.level = Number(account.attributes.currentuser.level);
-
+		
 		// Initiate tabs
-		var data = {};
-
 		data.tabs = [];
 		
 		data.tabs.push ({
