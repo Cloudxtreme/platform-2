@@ -288,6 +288,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	
 	'handleSidebarMenu' : function () {
 		
+		// Ignore Dashboard start
+		if(!Backbone.history.fragment) return null;
+		
 		// Toggle .active class
 		$('#sidebar .active').removeClass ('active');
 		$('a[href="#' + Backbone.history.fragment + '"]').parents('#sidebar > ul *').addClass ('active');
