@@ -23,6 +23,7 @@
 <script type="text/javascript" src="/js/Views/Loading.js"></script>
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/Header.js"></script>
+<script type="text/javascript" src="/js/Views/Entry.js"></script>
 <script type="text/javascript" src="/js/Views/Message.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
 <script type="text/javascript" src="/js/Views/ActionParameters.js"></script>

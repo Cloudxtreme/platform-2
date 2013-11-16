@@ -603,6 +603,9 @@ nav	{
 	clear: both; width: 100%;
 }
 
+#monitorlist div.icon	{ width: 32px; margin: 0; }
+#monitorlist div.content	{ margin-left: 32px; }
+
 
 /**
  * Thijs
