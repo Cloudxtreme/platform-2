@@ -52,6 +52,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/MonitorList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedView.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>

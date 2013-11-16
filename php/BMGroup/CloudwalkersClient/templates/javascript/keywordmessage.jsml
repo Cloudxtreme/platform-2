@@ -1,0 +1,21 @@
+<td class="{{#stream}}{{network.icon}}-color{{/stream}}">
+	<ul>
+		<li>			
+			<span class="date pull-right">
+				<span class="time time-since" data-date="{{date}}">{{humandate}}</span>
+			</span>
+
+			{{#stream}}
+				<div class="icon"><i class="icon-{{network.icon}}"></i></div>
+				<strong>{{customname}}</strong>
+			{{/stream}}
+		</li>
+		<li>
+			{{#from}}
+				{{name}}
+			{{/from}}<br />
+
+			{{{body.html}}}
+		</li>
+	</ul>
+</td>

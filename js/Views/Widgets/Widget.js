@@ -77,7 +77,6 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	
 	'negotiateFunctionalities' : function() {
 		
-		
 		// Check for scroller
 		if(this.$el.find('.scroller').length) this.addScroll();
 		

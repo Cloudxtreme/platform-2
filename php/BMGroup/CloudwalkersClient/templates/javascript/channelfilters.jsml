@@ -1,35 +1,14 @@
 <div class="row-fluid">
 	<div class="span12">
 		<!-- BEGIN PORTLET-->
-		<div class="portlet box grey channelfilters" id="message">
+		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
 				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
 			</div>
-			<div class="portlet-body" id="inbox-workers">
+			<div class="portlet-body">
 
-				<div class="filter">
-					<label>Categories:</label>
-					<select name="channels">
-						<option value="">All</option>
-						{{#channels}}
-							<option value="{{id}}">{{name}}</option>
-	
-							{{#channels}}
-								<option value="{{id}}">&nbsp;{{name}}</option>
-	
-	                            <!--
-								{{#channels}}
-									<option value="{{id}}">&nbsp;&nbsp;{{name}}</option>
-								{{/channels}}
-	                            -->
-	
-							{{/channels}}
-	
-						{{/channels}}
-					</select>
-				</div>
 				
-				<div class="filter social-icon-colors">
+				<div class="filter network-list social-icon-colors">
 					
 					{{#networks}}
 						<div class="btn white active" data-network-streams="{{#streams}}{{id}},{{/streams}}">
@@ -37,7 +16,10 @@
 						</div>
 					{{/networks}}
 										
-					
+					<br /><br />
+					<small>
+						<a href="#settings/services">manage networks</a>
+					</small>
 					
 					<!--<label>Sources:</label>
 					<select name="network">
@@ -47,6 +29,46 @@
 						{{/networks}}
 					</select>-->
 				</div>
+				
+				<hr />
+				
+				<div class="filter keyword-list">
+					<label>{{name}} keywords</label>
+					<!--<select name="channels">
+						<option value="">All</option>
+						{{#channels}}
+							<option value="{{id}}">{{name}}</option>
+	
+							{{#channels}}
+								<option value="{{id}}">{{name}}</option>
+	
+								{{#channels}}
+									<option value="{{id}}">{{name}}</option>
+								{{/channels}}
+	
+							{{/channels}}
+	
+						{{/channels}}
+					</select>-->
+					
+					<ul>
+					{{#channels}}
+						{{#channels}}
+							<li class='active' data-keyword-id="{{id}}">
+								<i class="icon-tag icon-muted"></i> {{name}}
+							</li>
+						{{/channels}}
+					{{/channels}}
+					</ul>
+					
+					<div class="clear">
+					<br>
+					<small>
+						<a href="#keywords">manage keywords</a>
+					</small>
+				</div>
+				
+				
 
 			</div>
 		</div>

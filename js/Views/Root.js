@@ -4,6 +4,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'header' : null,
 	'footer' : null,
+	
+	'clock'  : 2000,
 
 	'initialize' : function ()
 	{
@@ -24,6 +26,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		Cloudwalkers.Session.on ('account:change', function (account) { self.setAccount (account); } );
 		Cloudwalkers.Session.on ('channels:change', function () { self.renderNavigation (); } );
+		
+		
+		//this.tm = window.setInterval(this.monitor.bind(this), this.clock);
 	},
 
 	'render' : function ()
@@ -502,5 +507,24 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
     {
     	console.log('Root releaseUI')
         //App.unblockUI($('.page-content'));
-    }
+    },
+    
+    /*'monitor' : function ()
+    {
+	    
+	    this.monitorDate()
+	    
+    },
+    
+    'monitorDate' : function ()
+    {
+	    $("[data-date]").each( function(){
+		    
+		    var ts = new Date($(this).attr("data-date"));
+		    
+		    console.log(ts);
+		    
+	    });
+	    
+    }*/
 });

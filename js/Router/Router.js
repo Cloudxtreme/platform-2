@@ -161,8 +161,48 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		if (channeldata.type == 'monitoring')
 		{
+			widgetcontainer.templatename = "keywordcontainer"; 
 			
-			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
+			var channeldata = Cloudwalkers.Session.getChannelFromId (channel.id);
+			
+			
+			var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel, 'name' : channeldata.name });
+			widgetcontainer.add (keywordfilter, 4);
+
+			keywordfilter.on ('stream:change', function (stream)
+			{
+				var filters = {};
+
+				if (stream)
+				{
+					filters['streams'] = [ stream ];
+				}
+				
+				channel.setFilters (filters);
+			});
+			
+			keywordfilter.on ('channel:change', function (keywords)
+			{
+				
+				var filters = {};
+
+				if (keywords)
+				{
+					filters['channels'] = [ keywords ];
+				}
+				
+				channel.setFilters (filters);
+			});
+
+			
+			listwidget = new Cloudwalkers.Views.Widgets.MonitorList ({ 'channel' : channel, 'name' : channeldata.name, 'selectmessage' : messageid });
+			widgetcontainer.add (listwidget, 8);
+
+			//widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
+			//widgetcontainer.add (widget, 8);
+			
+			
+			/*var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel });
 			widgetcontainer.add (keywordfilter, 12);
 
 			keywordfilter.on ('stream:change', function (stream)
@@ -181,7 +221,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			widgetcontainer.add (listwidget, 4);
 
 			widget = new Cloudwalkers.Views.Widgets.DetailedView ({ 'list' : listwidget });
-			widgetcontainer.add (widget, 8);
+			widgetcontainer.add (widget, 8);*/
 		}
 
 		else if (channeldata.type == 'inbox')
@@ -287,7 +327,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 				
 				channel.setFilters (filters);
 			});
-
+			
 			listwidget = new Cloudwalkers.Views.Widgets.DetailedList ({ 'channel' : channel, 'color' : 'blue', 'selectmessage' : messageid });
 			widgetcontainer.add (listwidget, 4);
 

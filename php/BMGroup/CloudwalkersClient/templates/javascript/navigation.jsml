@@ -219,10 +219,10 @@
 						<a href="#channel/{{channelid}}/{{id}}" onclick="document.location='#channel/{{channelid}}/{{id}}';">
 							<i class="icon-{{icon}}"></i> 
 							<span class="title">{{name}}</span>
-							<span class="arrow"></span>
+							<!--<span class="arrow"></span>-->
 						</a>
 
-						<ul class="sub-menu">
+						<!--<ul class="sub-menu">
 							{{#streams}}
 								<li class="channel_{{channelid}}_{{id}}">
 									<a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a>
@@ -234,7 +234,7 @@
 									<a class="channel_{{channelid}}_{{id}}" href="#channel/{{channelid}}/{{id}}">{{name}}</a>
 								</li>
 							{{/channels}}
-						</ul>
+						</ul>-->
 					</li>
 				{{/channels}}
 

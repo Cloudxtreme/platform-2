@@ -20,11 +20,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		this.title = this.options.channel.name;
 		this.canLoadMore = typeof (this.options.channel.canLoadMore) == 'undefined' ? true : this.options.channel.canLoadMore;
 
-		this.on ('destroy', function ()
-		{
-			self.destroy ();
-		});
-
         // Always add this to all your widget initializations
         this.initializeWidget ();
 	},
@@ -145,11 +140,12 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		this.$el.find ('.load-more').hide ();
 	},
 
-	'destroy' : function ()
-	{
-		clearInterval (this.interval);
-
-	},
+	
+	'onDestroy' : function ()
+    {
+        clearInterval (this.interval);
+        this.$el.find ('.scroller').slimScroll({'destroy':1});
+    },
 
 	// Just a small function to overwrite
 	'processMessageView' : function (message)

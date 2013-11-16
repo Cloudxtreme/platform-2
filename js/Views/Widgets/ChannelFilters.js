@@ -4,9 +4,8 @@
 Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
-		'change select[name=stream]' : 'changestream',
-		'change select[name=channel]' : 'changechannel',
-		'click [data-network-streams]' : 'changenetwork'
+		'click [data-network-streams]' : 'changenetwork',
+		'click [data-keyword-id]' : 'changekeyword'
 	},
 
 	'render' : function ()
@@ -14,14 +13,13 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		var self = this;
 		var channel = this.options.channel;
 
-		this.$el.html ('<p>Please wait, loading streams.</p>');
+		var data = {};
+		data.name = this.options.name;
 
 		channel.getChannels (function (subchannels)
 		{
 			channel.getStreams (function (streams)
 			{
-				var data = {};
-
 				data.streams = streams;
 				data.channels = subchannels;
 				data.networks = self.bundlestreamsonnetwork (streams);
@@ -71,24 +69,41 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		return out;
 	},
 
-	'changestream' : function ()
-	{
-		this.trigger ('stream:change', this.$el.find ('select[name=stream]').val ());
-	},
-
 	'changenetwork' : function (e)
 	{
 		$(e.currentTarget).toggleClass("inactive active")
 		
-		var networks = this.$el.find ('.filter .active');
-		var streamids = networks.size()? networks.attr('data-network-streams').split (','): [];
+		var networks = this.$el.find ('.filter.network-list .active');
+		
+		// if all channels are inactive, re-activate first
+		if(!networks.size())
+		{
+			this.$el.find ('.filter.network-list .inactive:first-child').toggleClass("inactive active");
+			networks = this.$el.find ('.filter.network-list .active');
+		}
+		
+		var streamids = networks.attr('data-network-streams').split (',');
 		
 		this.trigger ('stream:change', $.grep(streamids, function(item){ return (item); }));
 	},
-
-	'changechannel' : function ()
+	
+	'changekeyword' : function (e)
 	{
-		this.trigger ('channel:change', this.$el.find ('select[name=channel]').val ());	
+		$(e.currentTarget).toggleClass("inactive active")
+		
+		var keywords = this.$el.find ('.filter.keyword-list .active');
+		var keywordids = [];
+		
+		// if all channels are inactive, re-activate first
+		if(!keywords.size())
+		{
+			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
+			keywords = this.$el.find ('.filter.keyword-list .active');
+		}
+		
+		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
+
+		this.trigger ('channel:change', keywordids);	
 	}
 
 });
