@@ -527,6 +527,10 @@ nav	{
 	.span3 .dashboard-stat .visual	{ width: 50px; height: 68px; padding-left: 10px; }
 }
 
+/**
+ *	Timeline
+ **/
+ul.timeline	{ margin-top: 25px; }
 
 /**
  * Category List

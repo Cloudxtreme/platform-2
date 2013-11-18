@@ -65,6 +65,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			var widget = report.getWidget ();
 			widget.color = widgetdata.network.icon + '-color';
 			widget.network = widgetdata.network;
+			widget.dashboard = true;
 	
 			this.add (widget, widgetdata.size);
 		}

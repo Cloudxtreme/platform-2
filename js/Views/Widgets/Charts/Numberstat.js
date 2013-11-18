@@ -25,6 +25,9 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 		if (this.network)
 			this.options.network = this.network;
 
+		if (this.dashboard)
+			this.options.dashboard = this.dashboard;
+		
 		if (this.showLink)
 			this.options.showLink = this.showLink;
 
