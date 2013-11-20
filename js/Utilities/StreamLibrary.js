@@ -41,7 +41,7 @@ Cloudwalkers.Utilities.StreamLibrary = {
 		{
 			if (this.touch (streams[i]))
             {
-                //alert ('Stream not preloaded.');
+                alert ('Stream not preloaded, this shouldn\'t happen.');
                 console.log ('Stream NOT preloaded!');
                 console.log (streams[i]);
             }
