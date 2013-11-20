@@ -4,7 +4,7 @@ Cloudwalkers.Session =
 	'account' : null,
 	'streams' : null,
 
-	'call' : function (method, get, post, callback)
+	/*'call' : function (method, get, post, callback)
 	{
 		var url = CONFIG_BASE_URL + 'json/' + method;
 
@@ -26,7 +26,7 @@ Cloudwalkers.Session =
 				}
 			}
 		);
-	},
+	},*/
 
 	'isLoaded' : function ()
 	{
@@ -75,11 +75,30 @@ Cloudwalkers.Session =
 		var self = this;
 		var finalcallback = callback;
 
-		// Loading
-		//var view = new Cloudwalkers.Views.Loading ();
-		//Cloudwalkers.RootView.setView (view, false);
+		Cloudwalkers.Net.get('user/me', null, function(data)
+		{
+			self.user = new Cloudwalkers.Models.User (data.user);
+			
+			// Set account
+			if (self.user.getAccounts ().length > 0)
+			{
+				self.setAccount 
+				(
+					self.user.getAccounts ()[0],
+					finalcallback
+					
+				)
+			}
+			else
+			{
+				alert ('Your user is not linked to any account. Please contact an administrator.');
+			}
+			
+		});
 
-		this.call ('user/me', null, null, function (data)
+		//console.log(Backbone.sync)
+
+		/*this.call ('user/me', null, null, function (data)
 		{
 			self.user = new Cloudwalkers.Models.User (data.user);
 
@@ -105,7 +124,7 @@ Cloudwalkers.Session =
 			{
 				self.poll ();
 			}, 1000 * 60)
-		});
+		});*/
 	},
 
 	'poll' : function ()
@@ -123,8 +142,19 @@ Cloudwalkers.Session =
 
 		var finalcallback = callback;
 		var self = this;
+		
+		Cloudwalkers.Net.get('account/' + this.getAccount ().id + '/streams', null, function (data)
+		{
+			self.streams = data.streams;
+			Cloudwalkers.Utilities.StreamLibrary.parse (self.streams);
+			
+			setTimeout (function ()
+			{
+				finalcallback ();	
+			}, 1);
+		});
 
-		this.call ('account/' + this.getAccount ().id + '/streams', {}, {}, function (data)
+		/*this.call (, {}, {}, function (data)
 		{
 			self.streams = data.streams;
 			Cloudwalkers.Utilities.StreamLibrary.parse (self.streams);
@@ -134,7 +164,7 @@ Cloudwalkers.Session =
 				finalcallback ();	
 			}, 1);
 			
-		});
+		});*/
 	},
 
 	'getStreams' : function ()

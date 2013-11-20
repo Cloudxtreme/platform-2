@@ -31,7 +31,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	{
 		return this.get ('accountmodels');
 	},
-
+	
 	'name' : function ()
 	{
 		return this.get ('name');

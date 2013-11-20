@@ -61,6 +61,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 			var messageView = new Cloudwalkers.Views.Entry (parameters);
 			var	element = messageView.render ().el;
 			
+			this.entries.push (messageView);
+			
 			//$(element).attr ('data-message-id', message.get ('id'));
 			
 			this.$el.find ('.messages-container').append(element);

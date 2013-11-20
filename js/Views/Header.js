@@ -33,10 +33,9 @@ Cloudwalkers.Views.Header = Backbone.View.extend({
 		// Load the notifications
 		if (Cloudwalkers.Session.getAccount ())
 		{
-			Cloudwalkers.Session.call 
+			Cloudwalkers.Net.get
 			(
 				'account/' + Cloudwalkers.Session.getAccount ().get ('id') + '/notifications',
-				false,
 				false,
 				function (data)
 				{

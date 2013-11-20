@@ -15,41 +15,13 @@
 							<i class="icon-{{#network}}{{icon}}{{/network}}"></i>
 						</div>
 					{{/networks}}
-										
-					<br /><br />
-					<small>
-						<a href="#settings/services">manage networks</a>
-					</small>
-					
-					<!--<label>Sources:</label>
-					<select name="network">
-						<option value="">All</option>
-						{{#networks}}
-							<option value="{{#streams}}{{id}},{{/streams}}">{{#network}}{{name}}{{/network}}</option>
-						{{/networks}}
-					</select>-->
+
 				</div>
 				
 				<hr />
 				
 				<div class="filter keyword-list">
 					<label>{{name}} keywords</label>
-					<!--<select name="channels">
-						<option value="">All</option>
-						{{#channels}}
-							<option value="{{id}}">{{name}}</option>
-	
-							{{#channels}}
-								<option value="{{id}}">{{name}}</option>
-	
-								{{#channels}}
-									<option value="{{id}}">{{name}}</option>
-								{{/channels}}
-	
-							{{/channels}}
-	
-						{{/channels}}
-					</select>-->
 					
 					<ul>
 					{{#channels}}

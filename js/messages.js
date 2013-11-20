@@ -1,8 +1,11 @@
-function getTimeSince (date)
+/*function getTimeSince (date)
 {
  	var interval;
  	var seconds = Math.floor((new Date() - date) / 1000);
 
+    
+    
+    
     if (seconds < 0)
     {
         return 'just now';
@@ -23,19 +26,6 @@ function getTimeSince (date)
     }
     else
     {
-        /*
-        var y = (new Date()).getFullYear ();
-        if (y - date.getFullYear () > 0)
-        {
-            return y - date.getFullYear () + ' years';
-        }
-
-        var m = (new Date()).getMonth ();
-        if (m - date.getMonth () > 0)
-        {
-            return m - date.getMonth () + ' months';
-        }
-        */
 
         date.setFullYear (date.getFullYear (), date.getMonth (), date.getDate ());
 
@@ -62,21 +52,7 @@ function getTimeSince (date)
         }
     }
 
-    /*
-    if (interval >= 1) {
-        return interval + " years";
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) {
-        return interval + " months";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval >= 1) {
-        return interval + " days";
-    }
 
-    return Math.floor(seconds) + " seconds";
-    */
 }
 
 function updateTimers ()
@@ -88,4 +64,4 @@ function updateTimers ()
 	});	
 }
 
-setInterval (updateTimers, 50);
+setInterval (updateTimers, 50);*/

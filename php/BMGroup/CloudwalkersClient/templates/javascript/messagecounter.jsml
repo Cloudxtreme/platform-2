@@ -1,53 +1,27 @@
-<!-- BEGIN PORTLET-->
 <div class="portlet box {{color}} messagecounter">
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
-		<div class="tools">
-			
-			<!-- triggered in app.js
-			<a href="">
-				{{message_count}} 
-			</a> -->
-
-		</div>
+		<div class="tools"></div>
 	</div>
+
 	<div class="portlet-body social-icon-colors">
 		<div class="messages-counter">
-			<!--
-			<div class="messages-header unread-{{message_count}}">
-				<p class="number"><strong>{{message_count}}</strong> New</p>
-			</div>
-			-->
-		
+
 			<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
 				<ul class="messages-stream">
-					{{#channels}}
+
+					{{#list}}
 						<a href="{{url}}">
 							<li>
-								<span class="number unread-{{message_count}}">{{message_count}}</span>
+								<span class="number unread-{{unread}}">{{unread}}</span>
 								<i class="icon-{{icon}}"></i>
 								{{name}}
-								
 							</li>
 						</a>
-					{{/channels}}
+					{{/list}}
 
-					{{#streams}}
-						<a href="{{url}}">
-							<li>
-								<span class="number unread-{{message_count}}">{{message_count}}</span>
-								<i class="icon-{{network.icon}}"></i>
-								{{customname}}
-								
-							</li>
-						</a>
-					{{/streams}}
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- END PORTLET-->
-
-
-

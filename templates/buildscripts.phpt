@@ -1,6 +1,3 @@
-<!-- Deprecated -->
-<script type="text/javascript" src="/js/messages.js"></script>
-
 <!-- Application -->
 <script type="text/javascript" src="/js/Cloudwalkers.js"></script>
 <script type="text/javascript" src="/js/Session.js"></script>
@@ -11,7 +8,6 @@
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/StreamLibrary.js"></script>
 <script type="text/javascript" src="/js/Utilities/Parser.js"></script>
-<script type="text/javascript" src="/js/Utilities/Konami.js"></script>
 
 <!-- Router -->
 <script type="text/javascript" src="/js/Router/Router.js"></script>
@@ -47,6 +43,7 @@
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
 
 <!-- Widgets and misc views -->
+<script type="text/javascript" src="/js/Views/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Title.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>

@@ -2,15 +2,10 @@ Cloudwalkers.Net =
 {
     'get' : function (method, get, callback)
     {
-        var url = CONFIG_BASE_URL + 'json/' + method;
+        var url = CONFIG_BASE_URL + 'json/' + method + (get? '?' + jQuery.param (get): '');
 
-        if (typeof (get) != 'undefined' && get)
+        $.ajax (
         {
-            url += '?' + jQuery.param (get);
-        }
-
-        jQuery.ajax
-        ({
             type:"get",
             url: url,
             cache : false,

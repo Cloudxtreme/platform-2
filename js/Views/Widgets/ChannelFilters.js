@@ -74,6 +74,7 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		$(e.currentTarget).toggleClass("inactive active")
 		
 		var networks = this.$el.find ('.filter.network-list .active');
+		var networkids = '';
 		
 		// if all channels are inactive, re-activate first
 		if(!networks.size())
@@ -82,9 +83,11 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 			networks = this.$el.find ('.filter.network-list .active');
 		}
 		
-		var streamids = networks.attr('data-network-streams').split (',');
+		networks.each( function() {
+			networkids += $(this).attr('data-network-streams');
+		});
 		
-		this.trigger ('stream:change', $.grep(streamids, function(item){ return (item); }));
+		this.trigger ('stream:change', $.grep(networkids.split (','), function(item){ return (item); }));
 	},
 	
 	'changekeyword' : function (e)

@@ -3,11 +3,6 @@
 */
 Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.extend({
 
-	'events' : {
-		'click .tools .expand' : 'expand',
-		'click .tools .collapse' : 'collapse'
-	},
-
 	'render' : function ()
 	{
 		var el = this.$el;
@@ -17,7 +12,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 
 		this.options.schedule.loadCounters (function (inputdata)
 		{
-			var data = {};
+			var data = { list: [] };
 			jQuery.extend (true, data, inputdata.schedule, self.options);
 
 			// Order
@@ -26,9 +21,11 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 				return parseInt(a.message_count) < parseInt(b.message_count);
 			});
 
-			jQuery.each (data.streams, function (i, v)
+			$.each (data.streams, function (i, v)
 			{
-				data.streams[i].url = '#schedule/' + v.id;
+				data.list.push(
+					{ name: v.customname, url: '#schedule/' + v.id, unread: v.message_count ? v.message_count : 0, icon: v.network.icon }
+				)
 			});
 
 			el.html (Mustache.render (Templates.messagecounter, data));
@@ -41,16 +38,5 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 		});
 
 		return this;
-	}/*,
-
-	'expand' : function ()
-	{
-		this.trigger ('view:expand');
-	},
-
-	'collapse' : function ()
-	{
-		this.trigger ('view:collapse');
-	}*/
-
+	}
 });

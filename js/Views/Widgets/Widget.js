@@ -7,6 +7,10 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	'icon' : 'inbox',
 	'color' : 'blue',
 	'network' : null,
+	'entries' : [],
+	'events' : {
+		'click .portlet-title.line' : 'collapse'
+	},
 
 	'tools' : [],
 
@@ -133,6 +137,12 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
     'onDestroy' : function ()
     {
+       
+		$.each(this.entries, function(i, entry)
+		{
+			entry.trigger ('destroy');
+		});
+		
         this.$el.find ('.scroller').slimScroll({'destroy':1});
         //this.$el.html ('DESTROYED');
     },

@@ -56,10 +56,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Widgets.DetailedVie
 	
 	'setHeight' : function($el) {
 		
-		console.log("Set Message Height");
-		
-		$el.css("height", $("#inboxcontainer").height() - 16 + "px");
-		//console.log($("#inboxcontainer"))		
+		$el.css("height", $("#inboxcontainer").height() - 16 + "px");	
 	},
 	
 	'addScroll' : function ($el) {

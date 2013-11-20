@@ -23,17 +23,5 @@ var Cloudwalkers = {
 			Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();
 			Backbone.history.start();
 		});
-		
-		// Konami
-		var k = new Konami();k.code = function () {var url = CONFIG_BASE_URL + 'js/misc/adventure.js';$.getScript (url, function () {var g = new Adventure ();g.finish = function (){};
-				g.start ();
-			});
-		};
-		k.load ();
 	}
-
 };
-
-$(document).ready(function() {
-	Cloudwalkers.init ();
-});

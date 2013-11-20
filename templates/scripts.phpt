@@ -49,8 +49,10 @@
 <?php include 'buildscripts.phpt'; ?>
 
 <script>
-	jQuery(document).ready(function() {    
-
+	$(document).ready(function() {   
+		
+		Cloudwalkers.init ();
+		
 		Cloudwalkers.RootView.on('content:change', function() {
 			
 			/*

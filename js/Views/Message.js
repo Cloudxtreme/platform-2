@@ -117,7 +117,9 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			$(this.el).html (Mustache.render (Templates[this.template], data));
 		}
 
+		/* Goner
 		updateTimers ();
+		*/
 
 		//console.log (this.model.attributes);
 		if (data.parentmodel)
