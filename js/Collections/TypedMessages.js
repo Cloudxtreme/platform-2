@@ -1,3 +1,6 @@
+/** @depreciated */
+
+/*
 Cloudwalkers.Collections.TypedMessages = Backbone.Collection.extend({
 
 	'id' : null,
@@ -124,3 +127,4 @@ Cloudwalkers.Collections.TypedMessages = Backbone.Collection.extend({
 	}
 
 });
+*/

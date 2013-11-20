@@ -1,3 +1,8 @@
+/**
+ * @depreciated
+ */
+
+/*
 Cloudwalkers.Views.Filter = Backbone.View.extend({
 
 	'collection' : null,
@@ -192,3 +197,4 @@ Cloudwalkers.Views.Filter = Backbone.View.extend({
 	}
 
 });
+    */

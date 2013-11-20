@@ -1,6 +1,9 @@
 /**
 * A standard widget
 */
+
+/**
+ * @depreciated
 Cloudwalkers.Views.Widgets.HTMLWidget = Backbone.View.extend({
 
 	'title' : 'Untitled widget',
@@ -18,3 +21,4 @@ Cloudwalkers.Views.Widgets.HTMLWidget = Backbone.View.extend({
 	}
 
 });
+ */

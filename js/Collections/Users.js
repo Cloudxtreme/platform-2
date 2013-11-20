@@ -1,3 +1,4 @@
+/**
 Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,

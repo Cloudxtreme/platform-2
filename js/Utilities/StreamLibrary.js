@@ -1,7 +1,16 @@
 /**
-* This object stores all stream information and grants access to 
-* all streams that have been loaded in the library.
-* It is used to set the "stream" variable in the message objects
+ * @TODO
+ * Currently, all channel calls return an array of streams
+ * Since this information is also available in /user/me, the
+ * call parseFromChannel will be depreciated soon.
+ */
+
+/**
+ * This object stores all stream information and grants access to
+ * all streams that have been loaded in the library.
+ * It is used to set the "stream" variable in the message objects
+ *
+ *
 */
 Cloudwalkers.Utilities.StreamLibrary = {
 
@@ -14,14 +23,28 @@ Cloudwalkers.Utilities.StreamLibrary = {
 
 	'parse' : function (streams)
 	{
-		this.parseFromChannel (streams);
+        for (var i = 0; i < streams.length; i ++)
+        {
+            this.touch (streams[i]);
+
+            // Do all children as well
+            if (typeof (streams[i].streams) != 'undefined')
+            {
+                this.parse (streams[i].streams);
+            }
+        }
 	},
 
 	'parseFromChannel' : function (streams)
 	{
 		for (var i = 0; i < streams.length; i ++)
 		{
-			this.touch (streams[i]);
+			if (this.touch (streams[i]))
+            {
+                //alert ('Stream not preloaded.');
+                console.log ('Stream NOT preloaded!');
+                console.log (streams[i]);
+            }
 		}
 	},
 
@@ -30,7 +53,9 @@ Cloudwalkers.Utilities.StreamLibrary = {
 		if (this.getFromId (stream.id) == null)
 		{
 			this.streams.push (new Cloudwalkers.Models.Stream (stream));
+            return true;
 		}
+        return false;
 	},
 
 	'getFromId' : function (id)

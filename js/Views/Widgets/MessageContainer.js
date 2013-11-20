@@ -56,9 +56,9 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		element.find ('.load-more').hide ();
 		element.find ('.timeline-loading').show ();
 
-        this.options.channel.bind('add', this.addOne, this);
-        this.options.channel.bind('refresh', this.refresh, this);
-        this.options.channel.bind('reset', this.refresh, this);
+        //this.options.channel.bind('add', this.addOne, this);
+        //this.options.channel.bind('refresh', this.refresh, this);
+        //this.options.channel.bind('reset', this.refresh, this);
         this.options.channel.bind('sort', this.resort, this);
         //this.options.channel.bind('change', this.resort, this);
         this.options.channel.bind('remove', this.removeMessage, this);
