@@ -3,7 +3,6 @@
 	var Cloudwalkers = {};
 </script>
 
-
 <!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
