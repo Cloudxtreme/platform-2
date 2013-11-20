@@ -115,7 +115,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	'refresh' : function (callback)
 	{
 		var self = this;
-		Cloudwalkers.Session.call ('account/' + this.get ('id'), null, null, function (data)
+		Cloudwalkers.Net ('account/' + this.get ('id'), null, function (data)
 		{
 			self.set (data);
 			callback ();

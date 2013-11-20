@@ -32,26 +32,24 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	
 	'getAvailable' : function (callback)
 	{
-		Cloudwalkers.Session.call 
+		Cloudwalkers.Net.get 
 		(
 			'wizard/service/available',
 			{
 				'account' : Cloudwalkers.Session.getAccount ().get ('id')
 			},
-			{},
 			callback
 		);
 	},
 
 	'getConnected' : function (callback)
 	{
-		Cloudwalkers.Session.call 
+		Cloudwalkers.Net.get 
 		(
 			'wizard/service/list',
 			{
 				'account' : Cloudwalkers.Session.getAccount ().get ('id')
 			},
-			{},
 			callback
 		);
 	},

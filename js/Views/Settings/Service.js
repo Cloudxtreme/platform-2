@@ -81,7 +81,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 	'getServiceData' : function (id, callback)
 	{
 		var self = this;
-		Cloudwalkers.Session.call 
+		Cloudwalkers.Net.get 
 		(
 			'wizard/service/' + id,
 			{
