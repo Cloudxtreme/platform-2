@@ -15,7 +15,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 			exit;
 		}
 
-		$_SESSION['account'] = null;
+		//$_SESSION['account'] = null;
 
 		//var_dump ($client->post ('user/me/subscriptions', array (), array ('callback_url' => 'bla')));
 		//exit;
