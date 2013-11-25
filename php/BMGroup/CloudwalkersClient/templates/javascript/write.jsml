@@ -66,6 +66,12 @@
 														<input class="fileupload" id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}upload" multiple />
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>
+
+                                                    <select class="btn blue" style="background-color: #2bbedc; height: 34px;">
+                                                        <option>Add conversion tag</option>
+                                                        <option>job campaign</option>
+                                                        <option>followers campaign</option>
+                                                    </select>
 													
 													<h2>Select media</h2>
 												<!--</form>-->
@@ -82,6 +88,9 @@
 												{{#channels}}
 													<div class='btn white'><label for="channel_{{id}}"><i class='icon-{{network.icon}}'></i> {{customname}}</label></div>
 												{{/channels}}
+
+                                                <!-- Temporary cheat -->
+                                                <div class='btn white'><label for="channel_{{id}}"><i class='icon-user'></i> Co-workers</label></div>
 
 												<!--
 												<div class='btn white'><i class='icon-twitter'></i> bmgroup</div>
