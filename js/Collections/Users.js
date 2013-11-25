@@ -1,4 +1,3 @@
-
 Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,
@@ -25,7 +24,6 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 				out.push (tmp);
 			}
 
-			//console.log (response);
 			passtrough (out);
 		}
 

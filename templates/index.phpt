@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-Template Name: Cloudwalkers - Responsive Admin Dashboard Template build with Twitter Bootstrap 2.3.1
-Version: 1.3
-Author: KeenThemes
-Website: http://www.bmgroup.com/preview/?theme=metronic
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469
--->
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
@@ -52,55 +45,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<body class="page-header-fixed page-sidebar-fixed">
 
 		<!-- BEGIN HEADER -->
-		<div class="header navbar navbar-inverse navbar-fixed-top">
-			<!-- BEGIN TOP NAVIGATION BAR -->
+		<div id="header" class="header navbar navbar-inverse navbar-fixed-top">
+			<!-- Top Nagivation -->
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<!-- BEGIN LOGO -->
-					<a class="brand" href="/#dashboard">
-					<img src="<?php echo BASE_URL; ?>assets/img/logo.png" alt="logo"/>
-					</a>
-					<!-- END LOGO -->
-					<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-					<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-					<img src="<?php echo BASE_URL; ?>assets/img/menu-toggler.png" alt="" />
-					</a>          
-					<!-- END RESPONSIVE MENU TOGGLER -->            
-					<!-- BEGIN TOP NAVIGATION MENU -->              
-					<ul class="nav pull-right">
-					
-						<!-- BEGIN INBOX DROPDOWN -->
-						<li class="dropdown" id="header_inbox_bar">
-							<a href="#inbox" class="dropdown-toggle" >
-							<i class="icon-envelope"></i>
-								<span class="badge unread-messages-count" style="display: none;">0</span>
-							</a>
-						</li>
-						<!-- END INBOX DROPDOWN -->
 
-						<!-- BEGIN USER LOGIN DROPDOWN -->
-						<li class="dropdown user">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img class="avatar" alt=""  /> 
-							<span class="username">...</span>
-							<i class="icon-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#settings"><i class="icon-cog"></i> Settings</a></li>
-								<li class="divider"></li>
-								<!--<li><a href="login.html"><i class="icon-lock"></i> Lock Screen</a></li>-->
-								<li><a href="<?php echo BASE_URL; ?>logout"><i class="icon-off"></i> Log Out</a></li>
-							</ul>
-						</li>
-						<!-- END USER LOGIN DROPDOWN -->
-					</ul>
-					<!-- END TOP NAVIGATION MENU --> 
+					<a class="brand" href="/#dashboard">
+						<img src="/assets/img/logo.png" alt="logo"/>
+					</a>
+
+					<!-- Responsive menu toggler -->
+					<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+					<img src="/assets/img/menu-toggler.png" alt="" />
+					</a>          
+					<!-- end Responsive menu toggler -->
+
 				</div>
 			</div>
-			<!-- END TOP NAVIGATION BAR -->
+			<!-- end Top Navigation -->
 		</div>
 		<!-- END HEADER -->
-
 
 		<!-- BEGIN CONTAINER -->
 		<div class="container-fluid page-container">

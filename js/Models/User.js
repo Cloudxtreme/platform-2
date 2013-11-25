@@ -1,42 +1,28 @@
 Cloudwalkers.Models.User = Backbone.Model.extend({
-
-	'unreadMessages' : null,
-
-	'initialize' : function ()
+	
+	'parse' : function (response)
 	{
-		var self = this;
-
-		var accountmodels = [];
-		var accounts = this.get ('accounts');
-
-		if (accounts)
-		{
-			for (var i = 0; i < accounts.length; i ++)
-			{
-				accountmodels.push (new Cloudwalkers.Models.Account (accounts[i]));
-			}
-
-			this.set ('accountmodels', accountmodels);
-		}
-
-		this.on ('change', function () { self.onSet () });
+		Store.write(this.url(), [response.user]);
+		return response.user;
 	},
 
 	'url' : function ()
 	{
-		return CONFIG_BASE_URL + 'json/account/' + this.get ('account') + '/users/' + this.get ('id');
-	},
-
-	'getAccounts' : function ()
-	{
-		return this.get ('accountmodels');
+		return CONFIG_BASE_URL + 'json/user/' + this.id;
 	},
 	
-	'name' : function ()
-	{
-		return this.get ('name');
-	},
+	'sync' : function (method, model, options) {
+		
+		if( method == "read")
+			Store.get(this.url(), null, function(data)
+			{
+				if(data) this.set(data);
 
+			}.bind(this));
+		
+		return Backbone.sync(method, model, options);
+	},
+	
 	'getFunction' : function ()
 	{
 		if (this.get ('level') == 10)
@@ -49,48 +35,10 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 	},
 
-	'countUnreadMessages' : function ()
-	{
-		var unreadmessages = 0;
-		for (var j = 0; j < this.get ('accounts').length; j ++)
-		{
-			for (var i = 0; i < this.get ('accounts')[j].channels.length; i ++)
-			{
-				//console.log (this.get ('accounts')[j].channels);
-				if (this.get ('accounts')[j].channels[i].type == 'inbox')
-				{
-					unreadmessages += parseInt(this.get ('accounts')[j].channels[i].unread);
-				}
-			}
-		}
-
-		return unreadmessages;
-	},
-
-	'onSet' : function ()
-	{
-		var unreadmessages = this.countUnreadMessages ();
-
-		if (this.unreadmessages != unreadmessages)
-		{
-			this.trigger ('change:unread', unreadmessages);
-		}
-
-		this.unreadmessages = unreadmessages;
-	},
-	
 	'save' : function (callback)
 	{
 		var data = {firstname: this.get("firstname"), name: this.get("name"), avatar: this.get("avatarBase64")}
 		
 		Cloudwalkers.Net.put ('user/me', {}, data, callback);
-	},
-	
-	'savePassword' : function (oldpassword, newpassword, callback)
-	{
-		var data = {oldpassword:oldpassword, newpassword:newpassword}
-		
-		Cloudwalkers.Net.put ('user/me/password', {}, data, callback);
 	}
-
 });

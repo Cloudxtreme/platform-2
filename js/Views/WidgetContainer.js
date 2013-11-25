@@ -41,7 +41,6 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	*/
 	'add' : function (widget, size)
 	{
-		//console.log (widget.size);
 		if (typeof (size) == 'undefined')
 		{
 			size = widget.size;
@@ -64,16 +63,10 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 			size = 12;
 		}
 
-		//console.log (this.sizecounter);
-
-		//console.log (this.sizecounter);
 		this.sizecounter += size;
-
-		//console.log (widget.title + ' : ' + this.sizecounter);
 
 		if (this.sizecounter > 12)
 		{
-			//console.log ('newline!');
 			this.sizecounter = size;
 			this.newline = true;
 		}
@@ -189,10 +182,6 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 
 			this.currentline.append (container);
 
-            if (typeof (widgets[i].widget.negotiateFunctionalities) == 'undefined')
-            {
-                console.log (widgets[i].widget);
-            }
 			widgets[i].widget.negotiateFunctionalities();
 		}
 

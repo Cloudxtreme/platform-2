@@ -3,9 +3,14 @@
 	var Cloudwalkers = {};
 </script>
 
+<!-- TEMPORARY CDN'S, UNTILL PLATFORM CACHING -->
+<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="//cdn.jsdelivr.net/uniformjs/2.1.1/jquery.uniform.min.js" type="text/javascript" ></script>
+<script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
 <!-- JQUERY PLUGINS -->
-<script src="/assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
@@ -14,6 +19,7 @@
 <script src="/assets/plugins/flot/jquery.flot.crosshair.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
 <script src="/assets/plugins/gritter/js/jquery.gritter.min.js" type="text/javascript"></script>
+
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/uploader/jquery.iframe-transport.js" type="text/javascript"></script>
@@ -28,9 +34,6 @@
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 <!-- END BOOTSTRAP PLUGINS --> 
 <!-- BACKBONE PLUGINS -->
-<script src="/assets/plugins/mustache.js" type="text/javascript"></script>
-<script src="/assets/plugins/underscorejs/underscore.js" type="text/javascript"></script>
-<script src="/assets/plugins/backbonejs/backbone.js" type="text/javascript"></script>
 <!-- END BACKBONE PLUGINS -->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
@@ -50,21 +53,8 @@
 <script>
 	$(document).ready(function() {   
 		
-		Cloudwalkers.init ();
+		Store = new StorageClass();
 		
-		Cloudwalkers.RootView.on('content:change', function() {
-			
-			/*
-			 *	Deprecated!
-			 *	should be OO...	
-			 */
-			App.initUniform();
-            jQuery('.tooltips').tooltip ();
-
-		});
+		Cloudwalkers.init ();
 	});
-
-
-
-
 </script>

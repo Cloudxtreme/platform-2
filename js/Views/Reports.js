@@ -7,7 +7,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'initializeWidgets' : function ()
 	{
-		//console.log (this.options);
+
 		this.datepicker = new Cloudwalkers.Views.Widgets.Datepicker ();
 
 		// Hide datapicker for now.
@@ -28,11 +28,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			}
 		}
 
-		else
-		{
-			
-			this.addStreamWidgets (this.options.stream);
-		}
+		else this.addStreamWidgets (this.options.stream);
 	},
 
 	'addStreamWidgets' : function (stream)

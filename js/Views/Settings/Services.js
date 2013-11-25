@@ -9,8 +9,6 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	{
 		var self = this;
 
-		//self.$el.html ('<p>Please wait, loading data.</p>');
-
 		self.getAvailable (function (available)
 		{
 			self.getConnected (function (connected)
@@ -19,8 +17,6 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 
 				data.available = available.services;
 				data.connected = connected.services;
-
-				//console.log (data);
 
 				self.$el.html (Mustache.render (Templates.settings.services, data));
 

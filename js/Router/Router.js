@@ -84,7 +84,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (streamid)
 		{
 			widgetcontainer.subnavclass = 'schedule_' + streamid;
-			//console.log (widgetcontainer.subnavclass);
 		}
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
@@ -244,15 +243,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		widgetcontainer.addWidget (widget);
 
-		//widgetcontainer.navclass = 'trending';
-		widgetcontainer.navclass = 'channel_' + channelid;
-
-		widgetcontainer.subnavclass = 'trending_' + channelid;
-		if (streamid)
-		{
-			widgetcontainer.subsubnavclass = 'trending_' + channelid + '_' + streamid;
-		}
-
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 	
@@ -260,39 +250,26 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	/**
 	 *	Monitoring
 	 **/
-	 
 	'monitoring' : function (id, catid, messageid)
 	{
-
 		// Parameters
-		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
+		var channel = Cloudwalkers.Session.getChannelFromId (id);
+		var category = channel.get("channels").filter(function(cat){ return cat.id == catid }).pop();//Cloudwalkers.Session.getChannelFromId (catid);
 		
-		if (!channeldata) return this.home();
+		if (!channel || !category) return this.home();
 		
-		var channel = this.channel_(channeldata, catid);
-
-
 		// Visualisation
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ({name: channel.get("name")});
 		widgetcontainer.templatename = "keywordcontainer"; 
-			
-		var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'channel' : channel, 'name' : channeldata.name });
+		
+		var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'category' : category }); //ChannelFilters ({ 'channel' : channel, 'name' : channeldata.name });
 		widgetcontainer.add (keywordfilter, 4);
-
-		keywordfilter.on ('stream:change', function (stream)
-		{
-			channel.setFilters ({streams: [ stream ] });
-		});
 		
-		keywordfilter.on ('channel:change', function (keywords)
-		{
-			channel.setFilters ({channels: [ keywords ] });
-		});
-		
-		var listwidget = new Cloudwalkers.Views.Widgets.MonitorList ({ 'channel' : channel, 'name' : channeldata.name, 'selectmessage' : messageid });
+		var listwidget = new Cloudwalkers.Views.Widgets.MonitorList ({ 'category' : category, 'streams': keywordfilter.streams, 'keywords': keywordfilter.keywords });
 		widgetcontainer.add (listwidget, 8);
 		
-		Cloudwalkers.RootView.setView (widgetcontainer); 
+		Cloudwalkers.RootView.setView (widgetcontainer);
+
 	},
 	
 	'managekeywords' : function ()
@@ -325,13 +302,24 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'settings' : function (action)
 	{
-		//console.log (action);
-
 		var view = new Cloudwalkers.Views.Settings.Container ();
 		view.setAction (action);
 		Cloudwalkers.RootView.setView (view);
 	},
 
-	'home' : function () { window.location = "/"; }
+	'home' : function () { window.location = "/"; },
+	
+	'exception' : function (errno)
+	{ 
+		var red = "/";
+		
+		switch(errno)
+		{
+			case 401 : red = "/401.html";
+			case 503 : red = "/503.html";
+
+			default : window.location = red;
+		}
+	}
 
 });

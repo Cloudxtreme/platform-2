@@ -4,31 +4,22 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'header' : null,
 	'footer' : null,
-	
-	'clock'  : 2000,
 
 	'initialize' : function ()
 	{
 		var self = this;
 
-		this.bind ('view:change', this.render, this);
+		// // this.bind ('view:change', this.render, this);
 
-		this.header = new Cloudwalkers.Views.Header ();
+		this.navigation = new Cloudwalkers.Views.Navigation ();
+		this.navigation.fit();
 
-		$('#header').html (this.header.render ().el);
+		this.on ('content:change', this.onchange, this);
 
-		this.on ('content:change', function ()
-		{
-			self.onchange ();
-		});
+		// // $('.add-button').click (this.writeMessage);
 
-		$('.add-button').click (this.writeMessage);
-
-		Cloudwalkers.Session.on ('account:change', function (account) { self.setAccount (account); } );
-		Cloudwalkers.Session.on ('channels:change', function () { self.renderNavigation (); } );
-		
-		
-		//this.tm = window.setInterval(this.monitor.bind(this), this.clock);
+		// // Cloudwalkers.Session.on ('account:change', function (account) { self.setAccount (account); } );
+		//Cloudwalkers.Session.on ('channels:change', function () { self.renderNavigation (); } );
 	},
 
 	'render' : function ()
@@ -36,34 +27,24 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		$('#inner-content').html (this.view.render ().el);
 		
-		this.handleSidebarMenu();
-		
+		this.navigation.handleSidebarMenu();
 	},
 
-	'setView' : function (view, showMenu)
+	'setView' : function (view)
 	{
-		var self = this;
 		
 		if (this.view)
-		{
 			this.view.trigger ('destroy');
-		}
 
-		if (typeof (showMenu) == 'undefined')
-		{
-			showMenu = true;
-		}
+		this.view = view;	
+			
+		this.render();
 
-		$('#header').toggle (showMenu);
-
-		this.view = view;
-		this.view.on ('content:change', function () { self.trigger ('content:change'); });		
-		
-		setTimeout (function ()
+		/*setTimeout (function ()
 		{
 			self.trigger ('view:change');
 			self.trigger ('content:change');
-		}, 1);
+		}, 1);*/
 	},
 
 	'popup' : function (view)
@@ -141,32 +122,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
 	},
 
-	'translateMenuIcon' : function (channel)
-	{
-		if (channel.type == 'news')
-		{
-			return 'globe';
-		}
+	
 
-		else if (channel.type == 'profiles')
-		{
-			return 'briefcase';
-		}
-
-		else if (channel.type == 'inbox')
-		{
-			return 'inbox';
-		}
-
-		else if (channel.type == 'monitoring')
-		{
-			return 'tags';
-		}
-
-		return channel.type;
-	},
-
-	'setAccount' : function (account)
+	/*'setAccount' : function (account)
 	{
 		function navAddAccount (a)
 		{
@@ -216,9 +174,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('displayname'));
 
 		this.renderNavigation ();
-	},
+	},*/
 
-	'renderNavigation' : function ()
+	/*'renderNavigation' : function ()
 	{
 		var account = Cloudwalkers.Session.getAccount ();
 		
@@ -289,89 +247,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
 		
 		//this.handleSidebarMenu();
-	},
-	
-	'handleSidebarMenu' : function () {
-		
-		// Ignore Dashboard start
-		if(!Backbone.history.fragment) return null;
-		
-		// Toggle .active class
-		$('#sidebar .active').removeClass ('active');
-		$('a[href="#' + Backbone.history.fragment + '"]').parents('#sidebar > ul *').addClass ('active');
-		
-		// Trace height
-		var height =  $(($(window).height() > $(document).height())? window: document).height();
-		$("#inner-content").css("min-height", height-42 + "px");
-		
-    },
-	
-	/*'handleSidebarMenu_old' : function () {
-         
-        jQuery('.page-sidebar').on('click', 'li > a', function (e) {
-                
-                if ($(this).next().hasClass('sub-menu') == false) {
-                    if ($('.btn-navbar').hasClass('collapsed') == false) {
-                        $('.btn-navbar').click();
-                    }
-                    
-                    if ($(this).parent().parent().hasClass('sub-menu') == false) {
-                    	$('.page-sidebar .sub-menu').slideUp(200);
-                    	$('.page-sidebar .open').removeClass('open');
-                    }
-                    
-                    return;
-                }
-
-                var parent = $(this).parent().parent();
-				
-                parent.children('li.open').children('a').children('.arrow').removeClass('open');
-                parent.children('li.open').children('.sub-menu').slideUp(200);
-                parent.children('li.open').removeClass('open');
-
-                var sub = jQuery(this).next();
-                if (sub.is(":visible")) {
-                    jQuery('.arrow', jQuery(this)).removeClass("open");
-                    jQuery(this).parent().removeClass("open");
-                    sub.slideUp(200);
-                } else {
-                    jQuery('.arrow', jQuery(this)).addClass("open");
-                    jQuery(this).parent().addClass("open");
-                    sub.slideDown(200);
-                }
-
-                e.preventDefault();
-            });
-
-        // handle ajax links
-        jQuery('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
-                e.preventDefault();
-                //App.scrollTop();
-
-                var url = $(this).attr("href");
-                var menuContainer = jQuery('.page-sidebar ul');
-                var pageContent = $('.page-content');
-                var pageContentBody = $('.page-content .page-content-body');
-
-                menuContainer.children('li.active').removeClass('active');
-                menuContainer.children('arrow.open').removeClass('open');
-
-                $(this).parents('li').each(function () {
-                        $(this).addClass('active');
-                        $(this).children('a > span.arrow').addClass('open');
-                    });
-                $(this).parents('li').addClass('active');
-
-                //App.blockUI(pageContent, false);
-
-                $.post(url, {}, function (res) {
-                        //App.unblockUI(pageContent);
-                        pageContentBody.html(res);
-                        //App.fixContentHeight(); // fix content height
-                        //App.initUniform(); // initialize uniform elements
-                    });
-            });
-    },*/
+	},*/
 
 	'confirm' : function (message, callback)
 	{
@@ -448,34 +324,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 	},
 
-	/*'updatePlaceholder' : function ()
-	{
-		if(!Modernizr.input.placeholder){
-
-			$('[placeholder]').focus(function() {
-			  var input = $(this);
-			  if (input.val() == input.attr('placeholder')) {
-				input.val('');
-				input.removeClass('placeholder');
-			  }
-			}).blur(function() {
-			  var input = $(this);
-			  if (input.val() == '' || input.val() == input.attr('placeholder')) {
-				input.addClass('placeholder');
-				input.val(input.attr('placeholder'));
-			  }
-			}).blur();
-			$('[placeholder]').parents('form').submit(function() {
-			  $(this).find('[placeholder]').each(function() {
-				var input = $(this);
-				if (input.val() == input.attr('placeholder')) {
-				  input.val('');
-				}
-			  })
-			});
-		}
-	},*/
-
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
@@ -483,48 +331,10 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'onchange': function ()
 	{
-		var self = this;
-
 		/*
-
-		setTimeout (function ()
-		{
-			jcf.customForms.replaceAll();
-			self.imagePopups ();
-		}, 1);
-		*/
-
-		//this.updatePlaceholder ();
-	},
-
-    'lockUI' : function ()
-    {
-    	console.log('Root lockUI')
-        //App.blockUI($('.page-content'), false);
-    },
-
-    'releaseUI' : function ()
-    {
-    	console.log('Root releaseUI')
-        //App.unblockUI($('.page-content'));
-    },
-    
-    /*'monitor' : function ()
-    {
-	    
-	    this.monitorDate()
-	    
-    },
-    
-    'monitorDate' : function ()
-    {
-	    $("[data-date]").each( function(){
-		    
-		    var ts = new Date($(this).attr("data-date"));
-		    
-		    console.log(ts);
-		    
-	    });
-	    
-    }*/
+		 *	Deprecated, should be OO...	
+		 */
+		App.initUniform();
+		$('.tooltips').tooltip ();
+	}
 });

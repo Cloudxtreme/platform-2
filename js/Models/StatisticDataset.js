@@ -1,3 +1,7 @@
+/**
+ *	Deprecated, should integrate in Report
+ **/
+
 Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 	'initialize' : function (options)
@@ -60,12 +64,10 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 			{
 				'success' : function (data)
 				{
-					//console.log (data);
 					var values;
 					if (typeof (data[self.entity]) != 'undefined')
 					{
 						self.setInternalParameters (data[self.entity].series[0]);
-						//values = self.processValues (data[self.entity].values);
 					}
 					else
 					{
@@ -84,11 +86,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 						});
 					}
 
-					//console.log (values);
-
-					//var data = [ [[0, 0], [1, 1]] ];
 					self.trigger ('dataset:change', series);
-
 				}
 			}
 		);
@@ -124,8 +122,6 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 
 		this.getSeries (function (series)
 		{
-			//console.log (self.get ('dataurl'));
-			//console.log (series);
 			if (series.length > 0)
 			{
 				callback (series[0].values);
@@ -164,12 +160,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 						});
 					}
 
-					//var values = self.processValues (data[self.entity].values);
-
 					self.setInternalParameters (data[self.entity].series[0]);
-
-					//var data = [ [[0, 0], [1, 1]] ];
-					//console.log (series);
 
 					callback (series);
 
@@ -181,8 +172,7 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 	'setInternalParameters' : function (data)
 	{
 		var self = this;
-		//console.log (data[self.entity].interval);
-		//console.log (data[self.entity].display);
+
 		if (typeof (data.display) != 'undefined')
 		{
 			self.display = data.display;
@@ -241,8 +231,6 @@ Cloudwalkers.Models.StatisticDataset = Backbone.Model.extend({
 					category,
 					this.type != 'text' ? parseInt(inputvalues[i].value) : inputvalues[i].value
 				])
-
-				//console.log (data.statistics.values[i].value);
 			}
 		}
 

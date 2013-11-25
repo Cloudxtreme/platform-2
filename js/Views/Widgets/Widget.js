@@ -23,6 +23,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
     'initializeWidget' : function ()
     {
         this.bind ('destroy', this.onDestroy);
+        this.bind ('add', function(){ console.log("View add triggrered")});
     },
 
 	'innerRender' : function (element)

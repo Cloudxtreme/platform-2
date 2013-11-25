@@ -13,9 +13,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Widgets.DetailedVie
 
 	'selectMessage' : function (message)
 	{
-		//console.log ('selecting message');
-		//console.log (message);
-
 		var messageView;
 
 		// ALWAYS show the parent message

@@ -1,6 +1,6 @@
 <div class="row-fluid">
 	<div class="span12">
-		<!-- BEGIN PORTLET-->
+
 		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
 				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
@@ -11,8 +11,8 @@
 				<div class="filter network-list social-icon-colors">
 					
 					{{#networks}}
-						<div class="btn white active" data-network-streams="{{#streams}}{{id}},{{/streams}}">
-							<i class="icon-{{#network}}{{icon}}{{/network}}"></i>
+						<div class="btn white active" data-network-streams="{{ids}}">
+							<i class="icon-{{icon}}"></i>
 						</div>
 					{{/networks}}
 
@@ -22,19 +22,15 @@
 				
 				<div class="filter keyword-list">
 					<label>{{name}} keywords</label>
-					
 					<ul>
-					{{#channels}}
-						{{#channels}}
+					{{#keywords}}
 							<li class='active' data-keyword-id="{{id}}">
 								<i class="icon-tag icon-muted"></i> {{name}}
 							</li>
-						{{/channels}}
-					{{/channels}}
+					{{/keywords}}
 					</ul>
-					
-					<div class="clear">
-					<br>
+					<div class="clear"></div>
+
 					<small>
 						<a href="#keywords">manage keywords</a>
 					</small>
@@ -44,6 +40,6 @@
 
 			</div>
 		</div>
-		<!-- END PORTLET-->
+
 	</div>
 </div>

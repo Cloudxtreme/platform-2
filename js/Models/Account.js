@@ -1,38 +1,34 @@
 Cloudwalkers.Models.Account = Backbone.Model.extend({
-
+	
 	'initialize' : function ()
 	{
-
+		// Collect streams, fetch triggered in User model
+		this.streams = new Cloudwalkers.Collections.Streams();	
+		
+		// Collect Channel, add from Account.channels
+		this.channels = new Cloudwalkers.Collections.Channels();
+		this.channels.add(this.get("channels"));	
 	},
-
+	
 	'avatar' : function ()
 	{
 		return this.get ('avatar');
 	},
 
-	'channels' : function ()
+	'getChannels' : function ()
 	{
-		var channels = this.get ('channels');
-		return channels;
+		return this.channels.models;
 	},
 
-	'channel' : function (id)
+	'getChannel' : function (id)
 	{
-		var channel = this._findChannelRecursive (this.channels (), id);
+		var channel = this._findChannelRecursive (this.getChannels (), id);
 		return channel;
 	},
 
 	'getChannelFromType' : function (type)
 	{
-		var channels = this.channels ();
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == type)
-			{
-				return channels[i];
-			}
-		}
-		return null;
+		return Cloudwalkers.Session.getAccount().channels.findWhere({type: type});
 	},
 
 	'_findChannelRecursive' : function (channels, id)
@@ -41,7 +37,6 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		{
 			if (channels[i].id == id)
 			{
-				//console.log (channels[i]);
 				return channels[i];
 			}
 			else if (channels[i].channels.length > 0)
@@ -56,62 +51,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 		return null;
 	},
-
-	'streams' : function (filters)
-	{
-		var out = [];
-		var streams = Cloudwalkers.Session.getStreams ();
-
-		if (typeof (filters) == 'undefined')
-		{
-			filters = {};
-		}
-
-		for (var j = 0; j < streams.length; j ++)
-		{
-			if (typeof (filters.outgoing) != 'undefined')
-			{
-				//console.log (channels[i].streams[j].direction.OUTGOING);
-				if (streams[j].get ('direction').OUTGOING == 1)
-				{
-					out.push (streams[j]);
-				}
-			}
-
-			else if (typeof (filters.incoming) != 'undefined')
-			{
-				//console.log (channels[i].streams[j].direction.OUTGOING);
-				if (streams[j].get ('direction').OUTGOING == 1)
-				{
-					out.push (streams[j]);
-				}
-			}
-
-			else if (typeof (filters.statistics) != 'undefined')
-			{
-				if (streams[j].get ('statistics') == 1)
-				{
-					out.push (streams[j]);
-				}
-			}
-		}
-
-		// Sort on priority
-		out.sort (function (a, b)
-		{
-			return a.priority < b.priority;
-		});
-
-		//console.log (out);
-		return out;
-	},
-
-	'statisticchannels' : function ()
-	{
-		var streams = this.streams ({ 'statistics' : true });
-		return streams;
-	},
-
+	
 	'refresh' : function (callback)
 	{
 		var self = this;

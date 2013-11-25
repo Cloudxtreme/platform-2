@@ -28,22 +28,11 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	{
 		e.preventDefault ();
 
-		//console.log (e);
-
-        //var el = jQuery(e.currentTarget).parents(".portlet");
-        //App.blockUI(el);
-
-		this.options.channel.update ({
-			'success' : function ()
-			{
-				//App.unblockUI(el);
-			}
-		});
+		this.options.channel.update ();
 	},
 
 	'innerRender' : function (element)
 	{
-		//element.html ('<p>Please wait, loading messages.</p>');
 		var self = this;
 		var data = {};
 
@@ -56,11 +45,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		element.find ('.load-more').hide ();
 		element.find ('.timeline-loading').show ();
 
-        //this.options.channel.bind('add', this.addOne, this);
-        //this.options.channel.bind('refresh', this.refresh, this);
-        //this.options.channel.bind('reset', this.refresh, this);
         this.options.channel.bind('sort', this.resort, this);
-        //this.options.channel.bind('change', this.resort, this);
         this.options.channel.bind('remove', this.removeMessage, this);
 
         Cloudwalkers.Session.bind 
@@ -76,21 +61,8 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 		// Fetch!
 		this.options.channel.fetch ({
-			'error' : function (e)
-			{
-				//alert ('Error');
-				//console.log (e);
-			},
 			'success' : function (e)
 			{
-				//console.log (self.options.channel.length);
-				
-				//element.find ('p.no-current-messages').remove ();
-
-				//self.$innerEl.find ('.comment-box').html ('');
-				//self.addAll ();
-				//element.find ('.loading').hide ();
-
 				if (self.canLoadMore
                     && (typeof (self.options.channel.loadMore) != 'undefined')
                 )
@@ -105,8 +77,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 				// Change laoding class
 				element.find('.inner-loading').toggleClass((self.options.channel.length)? 'inner-loading': 'inner-empty inner-loading');
-					
-					//element.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
 
 				self.afterInit ();
 			}
@@ -115,8 +85,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		// Auth refresh
 		this.interval = setInterval (function ()
 		{
-			//self.options.channel.reset (); 
-			//self.options.channel.fetch ();
 			self.options.channel.update ();
 		}, 1000 * 15);
 
@@ -163,7 +131,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 			'tagName' : this.messageelement
 		};
 
-		//console.log (parameters);
 		messageView = new Cloudwalkers.Views.Message (parameters);
 		this.processMessageView (message, messageView);
 
@@ -191,8 +158,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'resort' : function ()
 	{
-		//console.log ('--- RESORTING ---');
-
 		var self = this;
 
 		self.$el.find ('p.no-current-messages').remove ();
@@ -223,8 +188,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 					self.onFirstAdd (message, messageView);
 				}
 			}
-
-			//console.log (index + ', ' + message.get ('body').plaintext);
 
 			if (index == 0)
 			{
@@ -262,16 +225,6 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 
 	'refresh' : function ()
 	{
-		//this.$el.find ('.messages-container').html ('');
-		//this.resort ();
-		//this.options.channel.each (this.addOne, this);
 
-		/*
-		if (this.options.channel.length == 0)
-		{
-			this.$innerEl.find ('.messages-container').html ('<p class="no-current-messages">Currently there are no messages.</p>');
-		}
-		*/
 	}
-
 });

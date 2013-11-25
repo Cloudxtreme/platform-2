@@ -8,7 +8,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
-			//console.log (data.parent);
 		}
 		else
 		{
@@ -27,7 +26,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if (this.get ('parent'))
 		{
 			this.get ('parentmodel').set (this.get ('parent'));
-			//this.get ('parentmodel').trigger ('change');
 		}
 	},
 
@@ -305,9 +303,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			parameters = {};
 		}
 
-		//console.log ('Contacting ' + action.name + ' with parameters:');
-		//console.log (parameters);
-
 		var data = {
 			'actions' : [
 				{
@@ -318,9 +313,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		};
 
 		var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '?account=' + Cloudwalkers.Session.getAccount ().get ('id');
-
-		//console.log (url);
-		//console.log (data);
 
 		// Do the call
 		jQuery.ajax
@@ -333,7 +325,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			cache : false,
 			success:function(objData)
 			{
-				//console.log (objData.message);
 				if (objData.removed)
 				{
 					// Remove the message
@@ -480,7 +471,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{
 		if (this.get ('stream'))
 		{
-			return Cloudwalkers.Utilities.StreamLibrary.getFromId (this.get ('stream'));
+			return Cloudwalkers.Session.getAccount().streams.get(this.get ('stream'));
 		}
 		return null;
 	},
@@ -499,8 +490,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				if (attachment.type == 'link')
 				{
 					// Check if link is also available in page
-					//console.log (this.attributes.body.plaintext);
-
 					if (this.attributes.body.plaintext == null
 						|| this.attributes.body.plaintext.indexOf (attachment.url) === -1)
 					{

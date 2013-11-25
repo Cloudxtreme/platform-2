@@ -37,11 +37,12 @@ Cloudwalkers.Utilities.StreamLibrary = {
 
 	'parseFromChannel' : function (streams)
 	{
+		
 		for (var i = 0; i < streams.length; i ++)
 		{
 			if (this.touch (streams[i]))
             {
-                alert ('Stream not preloaded, this shouldn\'t happen.');
+                // Deprecated: alert ('Stream not preloaded, this shouldn\'t happen.');
                 console.log ('Stream NOT preloaded!');
                 console.log (streams[i]);
             }

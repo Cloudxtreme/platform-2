@@ -11,7 +11,7 @@
 
 	<!-- Message Board -->	
 	<li class="write">
-		<a href="#write" onclick="document.location='#write';">
+		<a href="#write">
 			<i class="icon-share-sign"></i> 
 			<span class="title">Message board</span>
 			<span class="arrow"></span>
@@ -33,21 +33,21 @@
 			</li>
 			
 			<li class="schedule">
-				<a href="#schedule" onclick="document.location='#schedule';">
+				<a href="#schedule">
 					<i class="icon-time"></i> 
 					<span class="title">Scheduled</span>
 					<span class="arrow"></span>
 				</a>
 		
 				<ul class="sub-menu">
-					{{#scheduledstreams}}
+					{{#scheduled}}
 						<li class="schedule_{{id}}">
 							<a href="#schedule/{{id}}">
 								<i class="icon-{{network.icon}}"></i>
 								{{customname}}
 							</a>
 						</li>
-					{{/scheduledstreams}}
+					{{/scheduled}}
 				</ul>
 			</li>
 			
@@ -55,10 +55,10 @@
 	</li>
 
 	<!-- Inbox -->
-	{{#sortedchannels.inbox}}
+	{{#sorted.inbox}}
 		<li>
 			<a href="#inbox/{{channelid}}">
-				<i class="icon-{{icon}}"></i> 
+				<i class="icon-inbox"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
@@ -86,13 +86,13 @@
 				</li>
 			</ul>
 		</li>
-	{{/sortedchannels.inbox}}
+	{{/sorted.inbox}}
 
 	<!-- Company Accounts -->
-	{{#sortedchannels.profiles}}
-		<li class="channel_{{channelid}}">
-			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
-				<i class="icon-{{icon}}"></i> 
+	{{#sorted.profiles}}
+		<li>
+			<a href="#channel/{{channelid}}">
+				<i class="icon-briefcase"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
@@ -100,7 +100,7 @@
 			
 			<ul class="sub-menu">
 
-				<li class="channel_{{channelid}}">
+				<li>
 					<a href="#channel/{{channelid}}">
 						<i class="icon-briefcase"></i> 
 						<span class="title">Media</span>
@@ -108,15 +108,13 @@
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li class="channel_{{channelid}}_0_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
 
 				<li class="trending">
-					<a href="#trending/{{channelid}}"
-							onclick="document.location='#trending/{{channelid}}';"
-					>
+					<a href="#trending/{{channelid}}">
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
 						<span class="arrow"></span>
@@ -132,20 +130,20 @@
 				</li>
 			</ul>
 		</li>
-	{{/sortedchannels.profiles}}
+	{{/sorted.profiles}}
 
 	<!-- Profiles we follow -->
-	{{#sortedchannels.news}}
-		<li class="channel_{{channelid}}">
-			<a href="#channel/{{channelid}}" onclick="document.location='#channel/{{channelid}}';">
-				<i class="icon-{{icon}}"></i> 
+	{{#sorted.news}}
+		<li>
+			<a href="#channel/{{channelid}}">
+				<i class="icon-globe"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
 			<ul class="sub-menu">				
-				<li class="channel_{{channelid}}">
+				<li>
 					<a href="#channel/{{channelid}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
@@ -153,15 +151,13 @@
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li class="channel_{{channelid}}_{{id}}"><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
 
 				<li class="trending">
-					<a href="#trending/{{channelid}}"
-							onclick="document.location='#trending/{{channelid}}';"
-					>
+					<a href="#trending/{{channelid}}">
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
 						<span class="arrow"></span>
@@ -177,13 +173,13 @@
 				</li>
 			</ul>
 		</li>
-	{{/sortedchannels.news}}
+	{{/sorted.news}}
 
 	<!-- Keyword Monitoring -->
-	{{#sortedchannels.monitoring}}
+	{{#sorted.monitoring}}
 		<li>
 			<a href="#monitoring/{{channelid}}/{{channels.0.id}}">
-				<i class="icon-{{icon}}"></i> 
+				<i class="icon-tags"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
@@ -192,12 +188,14 @@
 			<ul class="sub-menu">
 
 				{{#channels}}
+					{{#channels.length}}
 					<li>
 						<a href="#monitoring/{{channelid}}/{{id}}">
 							<i class="icon-{{icon}}"></i> 
 							<span class="title">{{name}}</span>
 						</a>
 					</li>
+					{{/channels.length}}
 				{{/channels}}
 
 				<li>
@@ -208,11 +206,11 @@
 				</li>
 			</ul>
 		</li>
-	{{/sortedchannels.monitoring}}
+	{{/sorted.monitoring}}
 
 	<!-- Reports -->
 	<li>
-		<a href="#reports/{{statisticchannels.0.id}}">
+		<a href="#reports/{{reports.0.id}}">
 			<i class="icon-bar-chart"></i> 
 			<span class="title">Reports</span>
 			<span class="arrow"></span>
@@ -220,9 +218,9 @@
 		</a>
 
 		<ul class="sub-menu">
-			{{#statisticchannels}}
+			{{#reports}}
 				<li><a href="#reports/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-			{{/statisticchannels}}
+			{{/reports}}
 		</ul>
 	</li>
 	

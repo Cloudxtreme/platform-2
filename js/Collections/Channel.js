@@ -1,3 +1,7 @@
+/**
+ *	Deprecated, remove Router instances first.
+ **/
+
 Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 	'id' : null,
@@ -113,9 +117,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 		return $.ajax(params);
 	},
 
-	/**
-	* Return all sub channels
-	*/
+
 	'getChannels' : function (callback)
 	{
 		var channel = Cloudwalkers.Session.getChannelFromId (this.id);
@@ -137,6 +139,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 			{
 				if (typeof (response.channel) != 'undefined')
 				{
+					
 					Cloudwalkers.Utilities.StreamLibrary.parseFromChannel (response.channel.streams);
 				
 					// Set the next page
@@ -144,7 +147,6 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 					self.streams = response.channel.streams;
 
-					//console.log (response);
 					passtrough (response.channel.messages);
 				}
 			}

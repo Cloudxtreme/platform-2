@@ -10,7 +10,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var widget;
 
 		// All channels
-		var account = Cloudwalkers.Session.getAccount ();
+		var account = Cloudwalkers.Session.getAccount();
 
 		var self = this;
 
@@ -20,12 +20,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 			{
 				'success' : function (result)
 				{
-					
-							
-					//console.log(result)
-					
-					
-					
 					for (var i = 0; i < result.widgets.length; i ++)
 					{
 						self.addDashboardWidget (result.widgets[i]);
@@ -81,21 +75,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardTrending' : function (widgetdata)
 	{
-		var self = this;
-		var account = Cloudwalkers.Session.getAccount ();
-		var channels = account.channels ();
-		var collection;
 
-		for (var i = 0; i < channels.length; i ++)
-			if (channels[i].type == widgetdata.type) var channel = channels[i];
-
-        var since = (Date.today().add({ days: -7 }));
-
-        if (channel.type == 'news')
-        {
-            since = (Date.today().add({ days: -1 }));
-        }
+		var channels = Cloudwalkers.Session.getAccount().channels;
+		var channel = channels.where({type: widgetdata.type}).pop();
 		
+        var since = (Date.today().add(
+        	{ days: (widgetdata.type == 'news')? -1: -7 }
+        ));
+
 		widgetdata.open = 1;
 		widgetdata.channel = new Cloudwalkers.Collections.Trending ( [], { 
 			'id' : channel.id, 
@@ -108,31 +95,21 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		var widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata)
 		widget.messagetemplate = 'dashboardmessagetrending';
 		
-		self.add (widget, widgetdata.size);
+		this.add (widget, widgetdata.size);
 		
 	},
-
+	
 	'addDashboardChannelCounter' : function (widgetdata)
 	{
+		var channels = Cloudwalkers.Session.getAccount().channels;
+		var channel = channels.where({type: widgetdata.type}).pop();
 		
+		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
-		
-		var widget;
-		var account = Cloudwalkers.Session.getAccount ();
-		var channels = account.channels ();
-		var collection;
-		var self = this;
-
-		for (var i = 0; i < channels.length; i ++)
-		{
-			if (channels[i].type == widgetdata.type)
-			{
-				self.add(
-					new Cloudwalkers.Views.Widgets.ChannelCounters ({ 'channel' : channels[i], 'color' : widgetdata.color, 'title' : channels[i].name, 'icon' : widgetdata.icon, 'network' : widgetdata.network, 'open' : 1 }),
-					widgetdata.size
-				);
-			}
-		}
+		this.add(
+			new Cloudwalkers.Views.Widgets.ChannelCounters (widgetdata),
+			widgetdata.size
+		);
 	},
 
 	'addDashboardScheduleCounter' : function (widgetdata)

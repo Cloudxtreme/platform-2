@@ -1,3 +1,7 @@
+/**
+ *	Deprecated, Should integrate in Streams.
+ **/
+
 Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.Message,
@@ -29,7 +33,6 @@ Cloudwalkers.Collections.Scheduled = Backbone.Collection.extend({
 		var passtrough = options.success;
 		options.success = function (response)
 		{
-			//console.log (response);
 			passtrough (response.messages);
 		}
 

@@ -1,4 +1,4 @@
-Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
+Cloudwalkers.Collections.Comments = Cloudwalkers.Collections.Messages.extend({
 
 	'id' : null,
 	'model' : Cloudwalkers.Models.Comment,
@@ -49,9 +49,7 @@ Cloudwalkers.Collections.Comments = Backbone.Collection.extend({
 		{
 			// Set the next page
 			self.nextPageParameters  = response.next;
-			//console.log (self.nextPageParameters);
 
-			//console.log (response);
 			passtrough (response.message.children);
 		}
 

@@ -13,9 +13,6 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'selectMessage' : function (message)
 	{
-		//console.log ('selecting message');
-		//console.log (message);
-
 		var messageView;
 
 		// ALWAYS show the parent message
@@ -55,8 +52,7 @@ Cloudwalkers.Views.Widgets.DetailedView = Cloudwalkers.Views.Widgets.Widget.exte
 	
 	'setHeight' : function($el) {
 		
-		$el.css("height", $("#inboxcontainer").height() - 16 + "px");
-		//console.log($("#inboxcontainer"))		
+		$el.css("height", $("#inboxcontainer").height() - 16 + "px");	
 	}
 
 });

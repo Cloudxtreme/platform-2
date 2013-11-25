@@ -35,13 +35,11 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 			}
 		];
 
-		//console.log (this.options.reports);
 		el.html (Mustache.render (Templates.combinedstatistics, data));
 
 		// Change report events
 		function attachReportEvent (report)
 		{
-			//console.log ('[data-report-id="' + report.get ('uniqueid') + '"]');
 			el.find ('[data-report-id="' + report.get ('uniqueid') + '"]').click (function ()
 			{
 				self.setReport (report);
@@ -78,8 +76,6 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 				var start = new Date (today.getTime () - (60 * 60 * 24 * days * 1000));
 				var end = today;
-
-				//console.log ('Setting daterange from ' + start + ' to ' + end);
 
 				for (var i = 0; i < self.options.reports.length; i ++)
 				{

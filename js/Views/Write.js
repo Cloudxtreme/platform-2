@@ -34,8 +34,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'sendNow' : function (e)
 	{
-		//console.log (e);
-
 		e.preventDefault ();
 		e.stopPropagation ();
 
@@ -49,7 +47,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				confirm ('Are you sure you want to sent this scheduled message now?')
 			)
 			{
-				//this.setScheduleDate (new Date((new Date()).getTime () + (1000 * 60 * 15)));
 				this.clearScheduleDate ();
 				$(e.toElement.form).trigger ('submit');
 			}
@@ -106,7 +103,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		{
 			for (var i = 0; i < this.options.actionparameters.length; i ++)
 			{
-				//console.log (this.options.actionparameters[i]);
 				this.actionparameters[this.options.actionparameters[i].token] = this.options.actionparameters[i];
 			}
 		}
@@ -131,17 +127,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
         data.channels = [];
-        for (var i = 0; i < objData.streams.length; i ++)
+        
+        $.each(objData.streams.where({outgoing: 1}), function(i, stream)
         {
-            if (objData.streams[i].get ('direction').OUTGOING == 1)
-            {
-                var tmp = objData.streams[i].attributes;
-
-                tmp.checked = typeof (streammap[objData.streams[i].get ('id')]) != 'undefined';
-
-                data.channels.push (tmp);
-            }
-        }
+			stream.attributes.checked = typeof (streammap[stream.id]) != 'undefined';
+			data.channels.push (stream.attributes);
+        });
 
 		data.BASE_URL = CONFIG_BASE_URL;
 
@@ -248,7 +239,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		// Data
 		if (this.model)
 		{
-			//console.log (this.model);
 			data.canSave = this.model.get ('status') != 'SCHEDULED';
 
 			data.message = jQuery.extend (true, {}, this.model.attributes);
@@ -272,23 +262,14 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				}
 			}
 
-			//console.log (this.model.get ('attachments'))
-			//console.log (data.attachments);
-			//console.log (data.sortedattachments);
-
 			// Should we open the schedule?
-
-			//console.log (this.model.repeat ());
-
 			data.showschedule = false;
+			
 			if (this.model.scheduledate (false) || typeof (this.model.repeat ().interval) != 'undefined')
 			{
 				data.showschedule = true;
 			}
 		}
-
-		//console.log (data);
-
 
 		var popup = Mustache.render(Templates['write'], data);
 		self.$el.html (popup);
@@ -340,12 +321,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			{
 				self.$el.find ('[data-toggle-id=' + id + ']').hide ();	
 				visible = false;
-				//$(this).toggleClass ('active', false);
 			}
 
 			else
 			{
-				//$(this).toggleClass ('active', true);
 				visible = true;
 				self.$el.find ('[data-toggle-id=' + id + ']').show ();
 			}
@@ -401,7 +380,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		img.attr ('src', file.url);
 
-		//p.append (file.name + ' ');
 		p.append (img);
 
 		a.html ('Delete');
@@ -430,11 +408,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				data:"", 
 				dataType:"json", 
 				type:"get", 
-				url: file.delete_url, 
-				success:function(objData)
-				{
-					// This is just for show.
-				}
+				url: file.delete_url
 			});
 		});
 
@@ -447,10 +421,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 	'getValidationRules' : function ()
 	{
+		var self = this;
 		var streams = Cloudwalkers.Session.getStreams ();
 		var selectedstreams = [];
 
-		for (var i = 0; i < streams.length; i ++)
+		 $.each(streams.where({outgoing: 1}), function(i, stream)
+        {
+			if (self.$el.find ('#channel_' + stream.id).is (':checked'))
+			{
+				selectedstreams.push (stream.attributes);
+			}
+        });
+
+
+		/*for (var i = 0; i < streams.length; i ++)
 		{
 			if (streams[i].get ('direction').OUTGOING == 1)
 			{
@@ -459,7 +443,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					selectedstreams.push (streams[i].attributes);
 				}
 			}
-		}
+		}*/
 
 		// Fetch all the limitations
 		var limitations = {};
@@ -467,7 +451,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		{
 			for (var limitation in selectedstreams[i].network.limitations)
 			{
-				//limitations.push ({ 'limitation' : limitation, 'value' : selectedstreams[i].network.limitations[limitation] });
 				if (typeof (limitations[limitation]) == 'undefined')
 				{
 					// Just go with it.
@@ -648,9 +631,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                     url: url,
                     success:function(objData)
                     {
-                        //console.log (window.location);
-
-                        if (objData.success)
+                       if (objData.success)
                         {
                             self.$el.html ('<p>Your message has been scheduled.</p>');
 
@@ -660,16 +641,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                 {
                                     Cloudwalkers.RootView.alert ('Your message was saved.');
                                     self.render ();
-                                    /*
-                                    if (window.location.hash != '#drafts')
-                                    {
-                                        window.location = '#drafts';
-                                    }
-                                    else
-                                    {
-                                        Cloudwalkers.Router.Instance.drafts ();
-                                    }
-                                    */
                                 }
                                 else
                                 {
@@ -1033,7 +1004,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			this.setScheduleDate (date);
 		}
 
-		//console.log ('this');
 		this.$el.find ('.message-schedule').toggleClass ('hidden');
 
 		this.$el.find ('#schedule-btn-toggle').toggleClass ('black', this.$el.find ('.message-schedule').is (':visible'));

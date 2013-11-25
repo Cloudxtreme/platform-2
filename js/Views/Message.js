@@ -53,8 +53,6 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			}
 		}
 
-		//console.log (this.model);
-
 		// Stream information
 		if (this.model.getStream ())
 		{
@@ -117,15 +115,8 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 			$(this.el).html (Mustache.render (Templates[this.template], data));
 		}
 
-		/* Goner
-		updateTimers ();
-		*/
-
-		//console.log (this.model.attributes);
 		if (data.parentmodel)
 		{
-			//console.log (data.parent);
-
 			var parameters = { 'model' : data.parentmodel };
 
 			if (typeof (this.options.originaltemplate) != 'undefined')
@@ -164,8 +155,6 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'messageAction' : function (element)
 	{
-		//element.stopPropagation ();
-		//element.preventDefault ();
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
 			var actiontoken = $(element.currentTarget).attr ('data-action');
@@ -216,11 +205,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 				}
 				else if (action.type == 'simple')
 				{
-                    //Cloudwalkers.RootView.lockUI ();
-					targetmodel.act (action, {}, function ()
-                    {
-                        //Cloudwalkers.RootView.releaseUI ();
-                    });
+					targetmodel.act (action, {}, function (){});
 				}
 
 				else if (action.type == 'write')
@@ -239,13 +224,6 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	{
 
 	},
-	
-	/*'negotiateFunctionalities' : function() {
-		
-		this.$el.css("height", $("#inboxcontainer").height() + "px");
-		console.log($("#inboxcontainer"))		
-	},
-	*/
 
 	'showchildren' : function (e)
 	{

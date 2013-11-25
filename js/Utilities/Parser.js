@@ -5,8 +5,6 @@ Cloudwalkers.Utilities.Parser =
 {
 	'parseFromMessage' : function (str, message)
 	{
-		//console.log ('parsing ' + str);
-
 		str = str.replace ('{{from.name}}', message.get('from') ? message.get ('from')[0].name : null);
 		str = str.replace ('{{body.plaintext}}', message.get('body') ? message.get ('body').plaintext : null);
 

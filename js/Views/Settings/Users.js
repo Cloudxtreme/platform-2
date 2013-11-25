@@ -14,19 +14,11 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		var self = this;
 
 		var administrators = new Cloudwalkers.Collections.Users ([], {});
-		//var users = new Cloudwalkers.Collections.Users ([], { 'filters' : { 'level' : 0 }});
 
 		this.collections.push (administrators);
-		//this.collections.push (users);
-
-		//this.$el.append ('<div class="button-row"><a href="javascript:void(0);" class="add-user"><span>Add new user</span></a></div>');
 
 		this.addUserContainer ('Users', administrators);
-		//this.addUserContainer ('Co-Workers', users);
 
-		// Enable fileupload plugin
-		//setTimeout( function(){ console.log($('#user-avatar').fileupload({name: "avatar"})); }, 200);
-		
 		// Work widgets
 		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
 		

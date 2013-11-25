@@ -42,18 +42,12 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.e
 
 		jQuery.extend (true, data, this.options);
 
-		//data.showMoreButton = typeof (this.options.channel.showMoreButton) != 'undefined' ? this.options.channel.showMoreButton : false;
-
 		element.html (Mustache.render (Templates[this.template], data));
 
-		//element.find ('.load-more').hide ();
-		//element.find ('.timeline-loading').show ();
-
-        this.options.channel.bind('add', this.addOne, this);
+		this.options.channel.bind('add', this.addOne, this);
         this.options.channel.bind('refresh', this.refresh, this);
         this.options.channel.bind('reset', this.refresh, this);
         this.options.channel.bind('sort', this.resort, this);
-        //this.options.channel.bind('change', this.resort, this);
         this.options.channel.bind('remove', this.removeMessage, this);
 
         Cloudwalkers.Session.bind 
@@ -71,24 +65,10 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.e
 		this.options.channel.fetch ({
 			'error' : function (e)
 			{
-				//alert ('Error');
 				console.log (e);
 			},
 			'success' : function (e)
 			{
-
-				/*if (self.canLoadMore
-                    && (typeof (self.options.channel.loadMore) != 'undefined')
-                )
-				{
-                    if (self.options.channel.length > 0)
-                    {
-					    element.find ('.load-more').show ();
-                    }
-
-					element.find ('.timeline-loading').hide();
-				}*/
-				
 				if (self.options.channel.length) self.maximizeView();
 
 				// Change laoding class
@@ -101,8 +81,6 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.e
 		// Auth refresh
 		this.interval = setInterval (function ()
 		{
-			//self.options.channel.reset (); 
-			//self.options.channel.fetch ();
 			self.options.channel.update ();
 		}, 1000 * 15);
 
