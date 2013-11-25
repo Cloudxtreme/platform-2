@@ -122,7 +122,7 @@ class BMGroup_CloudwalkersClient_Client
 					{
 						$success = $client->CallAPI
 						(
-							$this->server . '1/user/me', 'GET', 
+							$this->server . '1/user/me/info', 'GET',
 							array
 							(
 								'format'=>'json'
@@ -169,7 +169,7 @@ class BMGroup_CloudwalkersClient_Client
 
 	public function getUserData ()
 	{
-		$user = $this->get ('user/me');
+		$user = $this->get ('user/me/info');
 		return $user['user'];
 	}
 
