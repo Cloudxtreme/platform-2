@@ -168,7 +168,9 @@ table.charttable .text	{
 
 
 /* Topnav - user */
-.dropdown.user .avatar	{ height: 28px; }
+.dropdown.user .avatar	{
+	height: 28px; border-radius: 50% !important;
+}
 
 /* temp 
 html, body { height: 100%; min-height: 100%;  }*/
@@ -609,6 +611,8 @@ ul.timeline	{ margin-top: 25px; }
 
 #monitorlist div.icon	{ width: 32px; margin: 0; }
 #monitorlist div.content	{ margin-left: 32px; }
+
+#monitolist tr.hidden	{ display: none; }
 
 
 /**
