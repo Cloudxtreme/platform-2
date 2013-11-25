@@ -37,7 +37,7 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 			cache: false
 		}, options);
 
-		// Make the request.
+
 		return $.ajax(params);
 	}
 
