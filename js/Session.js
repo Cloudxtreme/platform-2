@@ -12,15 +12,40 @@ Cloudwalkers.Session =
 	{
 		return this.user != null;
 	},
+	
+	'getUser' : function ()
+	{
+		return this.user;
+	},
 
 	'getAccount' : function (id)
 	{
 		return (id)? this.user.accounts.get(id):  this.user.account;
 	},
-
-	'getChannelFromId' : function (id)
+	
+	'getAccounts' : function (id)
 	{
-		return this.getAccount ().channels.get (id);
+		this.user.accounts;
+	},
+	
+	'getChannel' : function (id)
+	{
+		return this.user.account.channels.get (id);
+	},
+	
+	'getChannels' : function (id)
+	{
+		return this.user.account.channels;
+	},
+	
+	'getStream' : function (id)
+	{
+		return this.user.account.streams.get (id);
+	},
+	
+	'getStreams' : function ()
+	{
+		return this.user.account.streams;
 	},
 
 	'refresh' : function ()
@@ -46,21 +71,6 @@ Cloudwalkers.Session =
 		{
 			self.user.set (data.user);
 		});
-	},
-
-	'getStreams' : function ()
-	{
-		return Cloudwalkers.Session.getAccount().streams;
-	},
-
-	'getStream' : function (id)
-	{
-		return Cloudwalkers.Session.getAccount().streams.get (id);
-	},
-
-	'getUser' : function ()
-	{
-		return this.user;
 	}
 }
 

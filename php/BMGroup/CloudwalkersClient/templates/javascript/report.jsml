@@ -3,19 +3,17 @@
 		<i class="icon-{{network.icon}}"></i>
 	</div>
 
-	{{#details}}
 	<div class="details">
 		<div class="number">
-			{{content}}
+			{{details.content}}
 		</div>
 		<div class="desc">                           
-			{{descr}}
+			{{details.title}}
 		</div>
 	</div>
-	{{/details}}
 
-	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
-		{{{footer}}}
+	<a class="more" href="#reports/{{streamid}}">
+		{{{details.description}}}
 		<i class="{{#dashboard}}icon-chevron-right{{/dashboard}}{{^dashboard}}icon-question-sign{{/dashboard}} m-icon-white tooltips" data-placement="top" data-original-title="{{report.description}}"></i>
 	</a>
 </div>

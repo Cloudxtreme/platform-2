@@ -4,7 +4,6 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	'model' : Cloudwalkers.Models.Stream,
 	
 	'initialize' : function(){
-		
 	},
 	
 	'url' : function()
@@ -56,7 +55,17 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 		});
 		
 		return networksarray;
-	}
+	},
+	
+	'filterReportStreams' : function ()
+	{
+		var reportables = {};
+		
+				
+		return reportables;
+	},
+	
+	
 	
 	/*
 	// Sort stream on priority

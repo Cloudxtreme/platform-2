@@ -47,7 +47,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 		var data = {};
 		$.extend (true, data, this.options);
 
-		data.footer = '<strong>' + this.options.stream.customname + '</strong> ' + this.options.title;
+		data.footer = '<strong>' + this.options.stream.get("customname") + '</strong> ' + this.options.title;
 
 		data.details = [];
 

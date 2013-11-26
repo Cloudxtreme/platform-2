@@ -65,6 +65,12 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		this.toggleEntries(null);
 	},
 	
+	'fail' : function ()
+	{
+		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
+	},
+
+	
 	'add' : function (e, pos)
 	{
 		

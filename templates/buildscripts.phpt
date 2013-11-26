@@ -14,39 +14,28 @@
 <script type="text/javascript" src="/js/Router/Router.js"></script>
 
 <!-- Views -->
-<script type="text/javascript" src="/js/Views/Root.js"></script>   
-<script type="text/javascript" src="/js/Views/WidgetContainer.js"></script> 
-
-<script type="text/javascript" src="/js/Views/Loading.js"></script>
-<script type="text/javascript" src="/js/Views/Error.js"></script>
+<script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
-<script type="text/javascript" src="/js/Views/Entry.js"></script>
+<script type="text/javascript" src="/js/Views/WidgetContainer.js"></script> 
 <script type="text/javascript" src="/js/Views/Message.js"></script>
-<script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
-<script type="text/javascript" src="/js/Views/ActionParameters.js"></script>
+
+<!-- Page Views -->
+<script type="text/javascript" src="/js/Views/Dashboard.js"></script>
+<script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
+<script type="text/javascript" src="/js/Views/Inbox.js"></script>
+<script type="text/javascript" src="/js/Views/Timeline.js"></script>
+<script type="text/javascript" src="/js/Views/KeywordMonitoring.js"></script>
+<script type="text/javascript" src="/js/Views/Reports.js"></script>
+<script type="text/javascript" src="/js/Views/Settings.js"></script>
+
+<!-- Widgets Views -->
+<script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
+<script type="text/javascript" src="/js/Views/Entry.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Filter.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
-<script type="text/javascript" src="/js/Views/Dashboard.js"></script>
-<script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
-
-<!-- Setting views -->
-<script type="text/javascript" src="/js/Views/Settings/Container.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Services.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Service.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Users.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/User.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/UserDetails.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
-
-<!-- Widgets and misc views -->
-<script type="text/javascript" src="/js/Views/Widget.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/Title.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
@@ -65,7 +54,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/ScheduleCounter.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ChannelFilters.js"></script>
-
+<script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Numberstat.js"></script>
@@ -74,6 +63,25 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Barchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Piechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
+
+<!-- Deprecated views -->
+<script type="text/javascript" src="/js/Views/Widget.js"></script>
+<script type="text/javascript" src="/js/Views/Loading.js"></script>
+<script type="text/javascript" src="/js/Views/Error.js"></script>
+<script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
+<script type="text/javascript" src="/js/Views/ActionParameters.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Title.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Container.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Services.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Service.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Users.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/User.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/UserDetails.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
+<script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
+
 
 <!-- Models -->
 <script type="text/javascript" src="/js/Models/Account.js"></script>

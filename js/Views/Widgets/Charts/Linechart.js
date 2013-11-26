@@ -1,3 +1,6 @@
+/*
+	Deprecated?
+*/
 Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'title' : 'Line chart',

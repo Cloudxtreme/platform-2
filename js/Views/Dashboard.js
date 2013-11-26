@@ -1,83 +1,79 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'title' : 'Dashboard',
-	'widgets' : {},
+	'widgetlist' : [
+		{widget: "channelcounter", type: "inbox", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
+		{widget: "channelcounter", type: "monitoring", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
+		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
+		{widget: "coworkers", type: "drafts", size: 4, title: "Inbox Co-workers", color: "yellow", icon: "edit"},
+		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up"},
+		{widget: "trending", type: "news", size: 4, title: "Trending Social Feed", color: "red", icon: "thumbs-up"},
+	],
 	
-
-	'initializeWidgets' : function ()
+	'initialize' : function ()
 	{
-		var collection;
-		var widget;
-
-		// All channels
-		var account = Cloudwalkers.Session.getAccount();
-
-		var self = this;
-
-		$.ajax 
-		(
-			CONFIG_BASE_URL + 'json/account/' + account.id + '/dashboard',
-			{
-				'success' : function (result)
-				{
-					for (var i = 0; i < result.widgets.length; i ++)
-					{
-						self.addDashboardWidget (result.widgets[i]);
-					}
-				}
-			}
-		);
-	},
-
-	'addDashboardWidget' : function (widgetdata)
-	{
+		// Report widgets (dynamic)
+		this.addDynamicReports();
 		
-		if (widgetdata.widget == 'trending')
-			this.addDashboardTrending (widgetdata);
-
-		else if (widgetdata.widget == 'channelcounter')
-			this.addDashboardChannelCounter (widgetdata);	
-
-		else if (widgetdata.widget == 'schedulecounter')
-			this.addDashboardScheduleCounter (widgetdata);
-
-		else if (widgetdata.widget == 'report')
-		{
-			var report = new Cloudwalkers.Models.Report (widgetdata.report);
-
-			var widget = report.getWidget ();
-			widget.color = widgetdata.network.icon + '-color';
-			widget.network = widgetdata.network;
-			widget.dashboard = true;
+		// Static widgets
+		for(n in this.widgetlist) 
+			switch(this.widgetlist[n].widget)
+			{
+				case 'trending':
+					this.addDashboardTrending (this.widgetlist[n]);
+					break;
+					
+				case 'channelcounter':
+					this.addDashboardChannelCounter (this.widgetlist[n]);
+					break;
+					
+				case 'schedulecounter':
+					this.addDashboardScheduleCounter (this.widgetlist[n]);
+					break;
+					
+				case 'report':
+					this.addDashboardReport (this.widgetlist[n]);
+					break;
+					
+				case 'drafts':
+					this.addDashboardDrafts (this.widgetlist[n]);
+					break;
+					
+				case 'coworkers':
+					this.addInboxCoworkers (this.widgetlist[n]);
+					break;
+			}
+	},
 	
-			this.add (widget, widgetdata.size);
-		}
-		else if (widgetdata.widget == 'drafts')
-		{
-			var self = this;
-
-			collection = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
-
-			var data = widgetdata;
-			data.open = 1;
-			widgetdata.channel = collection;
-			
-			widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
-			widget.messagetemplate = 'dashboardmessagedraft';
-			
-			self.add(widget, widgetdata.size);
-
-		}
-        else if (widgetdata.widget == 'coworkers')
-			this.addInboxCoworkers (widgetdata);
-
+	'addDynamicReports' : function ()
+	{
+		var streams =  Cloudwalkers.Session.getStreams();
+		var reportables = streams.where({statistics: 1});
+		
+		for(n in reportables)
+			switch(reportables[n].get("network").token)
+			{
+				case "facebook":
+					this.widgetlist.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/likes"});
+					this.widgetlist.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext/"});
+					break;
+					
+				case "twitter":
+					this.widgetlist.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/followers_count"});
+					this.widgetlist.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext/"});
+					break;	
+			}
 	},
 
 	'addDashboardTrending' : function (widgetdata)
 	{
 
-		var channels = Cloudwalkers.Session.getAccount().channels;
-		var channel = channels.where({type: widgetdata.type}).pop();
+		/*var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
+		widgetdata.streams = channel.streams;
+		
+		new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata)*/
+		
+		var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
 		
         var since = (Date.today().add(
         	{ days: (widgetdata.type == 'news')? -1: -7 }
@@ -102,7 +98,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 	'addDashboardChannelCounter' : function (widgetdata)
 	{
 		var channels = Cloudwalkers.Session.getAccount().channels;
-		var channel = channels.where({type: widgetdata.type}).pop();
+		var channel = channels.findWhere({type: widgetdata.type});
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
@@ -114,18 +110,32 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardScheduleCounter' : function (widgetdata)
 	{
-		var widget;
+		this.add(
+			new Cloudwalkers.Views.Widgets.ScheduleCounter(widgetdata),
+			widgetdata.size
+		);
+	},
+	
+	'addDashboardReport' : function (widgetdata)
+	{
+		var report = new Cloudwalkers.Views.Widgets.Report({stream: widgetdata.stream, type: widgetdata.type});
+		report.dashboard = true;
+		
+		this.add (report, widgetdata.size);
+	},
+	
+	'addDashboardDrafts' : function (widgetdata)
+	{
 		var self = this;
-		var schedule = new Cloudwalkers.Collections.Scheduled ([], { 'title' : 'Schedule' });
 		var data = widgetdata;
 		
 		data.open = 1;
-		widgetdata.schedule = schedule;
+		widgetdata.channel = new Cloudwalkers.Collections.Drafts ([], { 'name' : widgetdata.title, 'canLoadMore' : false });
 		
-		self.add(
-			new Cloudwalkers.Views.Widgets.ScheduleCounter(data),
-			widgetdata.size
-		);
+		widget = new Cloudwalkers.Views.Widgets.DashboardMessageList (data)
+		widget.messagetemplate = 'dashboardmessagedraft';
+		
+		self.add(widget, widgetdata.size);
 	},
 	
 	'addInboxCoworkers' : function (widgetdata)

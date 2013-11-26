@@ -16,6 +16,9 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
     'initialize' : function ()
     {
+        if(!this.options.color) this.options.color = this.color;
+        
+        
         // Always add this to all your widget initializations
         this.initializeWidget ();
     },
@@ -86,8 +89,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		if(this.$el.find('.scroller').length) this.addScroll();
 		
 		// Check amountSign
-		if(this.options.channel && typeof this.options.channel.unread != "undefined")
-			this.appendAmountSign(this.options.channel.unread);
+		if(this.options.counter) this.appendCounter();
 		
 		// Check collapse option
 		if(typeof this.options.open != "undefined")
@@ -104,10 +106,15 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
 	},
 	
-	'appendAmountSign' : function(amount) {
+	'appendCounter' : function(amount) {
 		
-		this.$el.find(".tools").append($('<span class="count">' + amount + '</span>'));
+		var count = 0;
+		this.$el.find("li .number, li .count").each(function(){ count += Number($(this).text())});
 		
+		if(count > 999) count = "+999";
+		if(count < 0) count = 0;
+		
+		this.$el.find(".tools").append($('<span class="count">' + count + '</span>'));
 	},
 	
 	'addScroll' : function () {

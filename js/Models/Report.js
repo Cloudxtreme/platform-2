@@ -1,20 +1,46 @@
 Cloudwalkers.Models.Report = Backbone.Model.extend({
+	
+	/* table	time	category	text	else (numbers, bars, pie) */
 
-	'dataset' : null,
-
-	'initialize' : function ()
+	'getDetails' : function ()
 	{
-		var self = this;
-
-		// Set dataset
-		self.dataset = new Cloudwalkers.Models.StatisticDataset 
-		({ 
-			'entity' : 'report', 
-			'type' : self.getDatasetType (),
-			'dataurl' : CONFIG_BASE_URL + 'json/' + self.get ('url')
-		});
+		var stat = this.attributes.series[0];
+		var details = this[this.attributes.type + "Details"](stat);
+		
+		details.title = stat.name;
+		
+		return details;
 	},
+	
+	/**
+	 *	Details by type
+	 */
+	  'textDetails' : function (stat)
+	 {
+	 
+		var stream = Cloudwalkers.Session.getStream(this.get("streamid"));
 
+		return {
+			content : stat.values[0].value,
+			description : "<strong>" + stream.get("customname") + "</strong>"
+		}
+	 },
+	 
+	 'comparisonDetails' : function (stat)
+	 {
+	 
+		var diff = stat.values[0].value - stat.values[1].value;
+		if(diff > 0) diff = "+ " + diff ;
+		
+		var perc = Math.round(stat.values[0].value / stat.values[1].value *100) - 100;
+
+		return {
+			content : stat.values[0].value,
+			description : "<strong>" + diff + "</strong> (" + perc + "%) in last " + stat.interval
+		}
+	 },
+	
+	
 	'getDataset' : function ()
 	{
 		return this.dataset;
@@ -101,6 +127,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 		else if (type == 'number')
 		{
+			
 			var widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
 				'dataset' : self.dataset,
 				'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),

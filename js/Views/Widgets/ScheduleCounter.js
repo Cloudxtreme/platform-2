@@ -5,13 +5,32 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 
 	'render' : function ()
 	{
-		var el = this.$el;
+		var streams = Cloudwalkers.Session.getStreams();
+		var data = {
+			color: this.color,
+			icon: this.options.icon,
+			title: this.options.title,
+			list: []
+		};
+		
+		$.each (streams.where({outgoing: 1}), function (i, stream)
+			{
+				data.list.push(
+					{ name: stream.get("customname"), url: '#schedule/' + stream.id, unread: stream.get("count").scheduled, icon: stream.get("network").icon }
+				)
+			});
+
+		this.$el.html (Mustache.render (Templates.messagecounter, data));
+		
+		/*var el = this.$el;
 		var self = this;
 
 		this.$el.html('<div class="portlet portlet-loading"></div>');
 
 		this.options.schedule.loadCounters (function (inputdata)
 		{
+			console.log(inputdata)
+			
 			var data = { list: [] };
 			jQuery.extend (true, data, inputdata.schedule, self.options);
 
@@ -28,14 +47,14 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 				)
 			});
 
-			el.html (Mustache.render (Templates.messagecounter, data));
+			
 
 			setTimeout (function ()
 			{
 				self.trigger ('content:change');
 				self.negotiateFunctionalities();
 			}, 100);
-		});
+		});*/
 
 		return this;
 	}

@@ -1,5 +1,7 @@
 Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget.extend ({
-
+	
+	// {widget: "report", size: "3", stream: reportables[n], report: {url: "/stream/" + reportables[n].id + "/statistics/numbercomparison/likes", type: "comparison", name: "Fans"}}
+	
 	'title' : 'Number stat',
 	'icon' : 'reorder',
 	'color' : null,
@@ -8,14 +10,15 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'size' : 3,
 	'showLink' : true,
 	'showStreamName' : true,
-
+	
 	'getDataset' : function ()
-	{
+	{	
 		return this.options.dataset;
 	},
 
 	'render' : function ()
 	{
+		
 		var element = this.$el;
 		var self = this;
 
@@ -111,7 +114,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 				if (this.options.showStreamName)
 				{
-					title = data.stream.customname + ' ' + data.title;
+					title = "Foo" + ' ' + data.title;//data.stream.get("customname") + ' ' + data.title;
 				}
 				else
 				{
