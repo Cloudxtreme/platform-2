@@ -71,7 +71,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		/*var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
 		widgetdata.streams = channel.streams;
 		
-		new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata)*/
+		new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);*/
 		
 		var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
 		

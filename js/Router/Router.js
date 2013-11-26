@@ -149,7 +149,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			Backbone.history.fragment += "/" + id; 
 		}
 		else
-			var channeldata = Cloudwalkers.Session.getChannelFromId (id);
+			var channeldata = Cloudwalkers.Session.getChannel (id);
 		
 		if (!channeldata) return this.home();
 		
@@ -180,7 +180,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'channel' : function (id, subchannelid, streamid, messageid)
 	{
 		
-		var channeldata = Cloudwalkers.Session.getChannelFromId (id);
+		var channeldata = Cloudwalkers.Session.getChannel (id);
 		
 		if (!channeldata) return this.home();
 
@@ -207,7 +207,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'trending' : function (channelid, streamid)
 	{
-		var channeldata = Cloudwalkers.Session.getChannelFromId (channelid);
+		var channeldata = Cloudwalkers.Session.getChannel (channelid);
 
 		var since = (Date.today().add({ days: -7 }));
 		if (channeldata.type == 'news')
@@ -253,8 +253,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'monitoring' : function (id, catid, messageid)
 	{
 		// Parameters
-		var channel = Cloudwalkers.Session.getChannelFromId (id);
-		var category = channel.get("channels").filter(function(cat){ return cat.id == catid }).pop();//Cloudwalkers.Session.getChannelFromId (catid);
+		var channel = Cloudwalkers.Session.getChannel (id);
+		var category = channel.get("channels").filter(function(cat){ return cat.id == catid }).pop();//Cloudwalkers.Session.getChannel (catid);
 		
 		if (!channel || !category) return this.home();
 		

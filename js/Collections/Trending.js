@@ -127,7 +127,7 @@ Cloudwalkers.Collections.Trending = Backbone.Collection.extend ({
 	*/
 	'getChannels' : function (callback)
 	{
-		var channel = Cloudwalkers.Session.getChannelFromId (this.id);
+		var channel = Cloudwalkers.Session.getChannel (this.id);
 		callback (channel);
 	},
 
