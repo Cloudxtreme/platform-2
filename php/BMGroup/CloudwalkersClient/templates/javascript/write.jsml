@@ -89,9 +89,6 @@
 													<div class='btn white'><label for="channel_{{id}}"><i class='icon-{{network.icon}}'></i> {{customname}}</label></div>
 												{{/channels}}
 
-                                                <!-- Temporary cheat -->
-                                                <div class='btn white'><label for="channel_{{id}}"><i class='icon-user'></i> Co-workers</label></div>
-
 												<!--
 												<div class='btn white'><i class='icon-twitter'></i> bmgroup</div>
 												<div class='btn white'><i class='icon-tumblr'></i> bmgroup</div>
