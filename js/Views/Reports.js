@@ -1,13 +1,15 @@
 Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 
 	'navclass' : 'reports',
-	'title' : 'Reports',
+	'title' : 'Report',
 
 	'datepicker' : null,
 
 	'initializeWidgets' : function ()
 	{
 
+		this.title = this.title + " " + this.options.stream.get("customname");
+		
 		this.datepicker = new Cloudwalkers.Views.Widgets.Datepicker ();
 
 		// Hide datapicker for now.
@@ -44,8 +46,8 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 					if (data.statistics.length > 0)
 					{
 						// Title
-						var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.attributes.customname });
-						self.add (title);
+						//var title = new Cloudwalkers.Views.Widgets.Title ({ 'title' : stream.attributes.customname });
+						//self.add (title);
 
 						// We're going to combine all plain statistics in a special, combined widget.
 						var plainstatistics = [];
@@ -120,7 +122,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		var widget = report.getWidget ();
 
 		var daterange = self.datepicker.getDateRange ();
-		widget.getDataset ().setDateRange (daterange[0], daterange[1]);
+		report.setDateRange (daterange[0], daterange[1]);
 
 		widget.color = stream.network.icon + '-color';
 		widget.network = stream.network;

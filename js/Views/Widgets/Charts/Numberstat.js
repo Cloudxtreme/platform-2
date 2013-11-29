@@ -13,7 +13,7 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	
 	'getDataset' : function ()
 	{	
-		return this.options.dataset;
+		return this.options.model;
 	},
 
 	'render' : function ()
@@ -39,12 +39,12 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 
 		element.html (Mustache.render (Templates[this.template], this.options));
 
-		this.options.dataset.getValues (function (values)
+		this.options.model.getValues (function (values)
 		{
 			self.setValue (values);
 		});
 
-		this.options.dataset.on ('dataset:change', function (values)
+		this.options.model.on ('dataset:change', function (values)
 		{
 			self.setValue (values[0].values);
 		});
@@ -75,12 +75,12 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 	'setValue' : function (values)
 	{
 		var element = this.$el;
-		var display = this.options.dataset.getDisplay ();
+		var display = this.options.model.getDisplay ();
 
 		var data = {};
 		$.extend (true, data, this.options);
 
-		var interval = this.options.dataset.getInterval ();
+		var interval = this.options.model.getInterval ();
 
 		data.details = [];
 		data.footer = '&nbsp;';
@@ -99,10 +99,10 @@ Cloudwalkers.Views.Widgets.Charts.Numberstat = Cloudwalkers.Views.Widgets.Widget
 				if (values.length > 1)
 				{
 					data.footer = '<strong>' + this.numberOutput (values[0][1] - values[1][1], true) + '</strong> (';
-					data.footer += this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%) ' + 'Since last ' + interval;
-					//data.details.push ({ 'content' : '(' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)', 'descr' : 'Evolution' });
+					data.footer += this.numberOutput (Math.round(this.options.model.getEvolution () * 100), true) + '%) ' + 'Since last ' + interval;
+					//data.details.push ({ 'content' : '(' + this.numberOutput (Math.round(this.options.model.getEvolution () * 100), true) + '%)', 'descr' : 'Evolution' });
 
-					//text += ' (' + this.numberOutput (Math.round(this.options.dataset.getEvolution () * 100), true) + '%)';
+					//text += ' (' + this.numberOutput (Math.round(this.options.model.getEvolution () * 100), true) + '%)';
 
 					//data.details.push ({ 'content' : this.numberOutput (values[1][1], true), 'descr' : 'Previous' });
 					//data.details.push ({ 'content' : this.numberOutput (values[0][1] - values[1][1], true), 'descr' : 'Difference' });

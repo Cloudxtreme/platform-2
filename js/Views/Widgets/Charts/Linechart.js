@@ -11,13 +11,13 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 
 	'getDataset' : function ()
 	{
-		return this.options.dataset;
+		return this.options.model;
 	},
 
 	'initialize' : function ()
 	{
 		var self = this;
-		this.options.dataset.on ('dataset:change', function (values)
+		this.options.model.on ('dataset:change', function (values)
 		{
 			self.plot (values[0].values);
 		});
@@ -33,7 +33,7 @@ Cloudwalkers.Views.Widgets.Charts.Linechart = Cloudwalkers.Views.Widgets.Widget.
 		element.html ('');
 		element.append (this.placeholder);
 
-		this.options.dataset.getValues (function (values)
+		this.options.model.getValues (function (values)
 		{
 			self.plot (values);
 		});

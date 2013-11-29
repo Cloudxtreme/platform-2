@@ -23,12 +23,6 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 		// Initiate tabs
 		data.tabs = [];
 		
-		data.tabs.push ({
-			'url' : '#settings/profile',
-			'name' : 'Profile settings',
-			'active' : this.action == 'profile'
-		});
-
 		if(data.level)
 		{
 			data.tabs.push ({
@@ -49,6 +43,13 @@ Cloudwalkers.Views.Settings.Container = Backbone.View.extend({
 				'active' : this.action == 'account'
 			});
 		}
+		
+		data.tabs.push ({
+			'url' : '#settings/profile',
+			'name' : 'Profile settings',
+			'active' : this.action == 'profile'
+		});
+
 
 		// Render
 		self.$el.html (Mustache.render (Templates.settings.container, data));

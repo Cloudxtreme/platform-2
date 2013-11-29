@@ -9,7 +9,7 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 
 	'getDataset' : function ()
 	{
-		return this.options.dataset;
+		return this.options.model;
 	},
 
 	'render' : function ()
@@ -27,12 +27,12 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 
 		element.html (Mustache.render (Templates[this.template], this.options));
 
-		this.options.dataset.getValues (function (values)
+		this.options.model.getValues (function (values)
 		{
 			self.setValue (values);
 		});
 
-		this.options.dataset.on ('dataset:change', function (values)
+		this.options.model.on ('dataset:change', function (values)
 		{
 			self.setValue (values[0].values);
 		});
@@ -46,8 +46,8 @@ Cloudwalkers.Views.Widgets.Charts.Textstat = Cloudwalkers.Views.Widgets.Widget.e
 
 		var data = {};
 		$.extend (true, data, this.options);
-
-		data.footer = '<strong>' + this.options.stream.get("customname") + '</strong> ' + this.options.title;
+		
+		data.footer = '<strong>' + this.options.stream.customname + '</strong> ' + this.options.title;
 
 		data.details = [];
 

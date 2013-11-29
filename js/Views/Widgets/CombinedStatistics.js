@@ -79,10 +79,14 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 
 				for (var i = 0; i < self.options.reports.length; i ++)
 				{
-					self.options.reports[i].getDataset ().setInterval (interval.token);
+					
+					self.options.reports[i].intervalinput = interval.token;//getDataset ().setInterval (interval.token);
 
 					// Also set date range.
-					self.options.reports[i].getDataset ().setDateRange (start, end);
+					self.options.reports[i].daterange = [ start, end ];//.getDataset ().setDateRange (start, end);
+					
+					self.options.reports[i].refresh ();
+					
 				}
 
 				if (self.currentReport)

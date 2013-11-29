@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 
 	'getDataset' : function ()
 	{
-		return this.options.dataset;
+		return this.options.model;
 	},
 
 	'innerRender' : function (element)
@@ -19,12 +19,12 @@ Cloudwalkers.Views.Widgets.Charts.Table = Cloudwalkers.Views.Widgets.Widget.exte
 		element.html ('');
 		element.append (this.placeholder);
 
-		this.options.dataset.getValues (function (values)
+		this.options.model.getValues (function (values)
 		{
 			self.plot (values);
 		});
 
-		this.options.dataset.on ('dataset:change', function (values)
+		this.options.model.on ('dataset:change', function (values)
 		{
 			self.plot (values[0].values);
 		});

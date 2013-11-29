@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 
 	'getDataset' : function ()
 	{
-		return this.options.dataset;
+		return this.options.model;
 	},
 
 	'innerRender' : function (element)
@@ -18,13 +18,13 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 
 		element.html ('');
 		element.append (this.placeholder);
-
-		this.options.dataset.getValues (function (values)
+		
+		this.options.model.getValues (function (values)
 		{
 			self.plot (values);
 		});
 
-		this.options.dataset.on ('dataset:change', function (values)
+		this.options.model.on ('dataset:change', function (values)
 		{
 			self.plot (values[0].values);
 		});
