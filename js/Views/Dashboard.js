@@ -6,7 +6,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{widget: "channelcounter", type: "inbox", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
 		{widget: "channelcounter", type: "monitoring", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
 		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
-		{widget: "coworkers", type: "drafts", size: 4, title: "Draft messages", color: "yellow", icon: "edit", open: true},
+		{widget: "coworkers", type: "drafts", size: 4, title: "Co-worker drafts", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
 		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true},
 		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true},
 	],

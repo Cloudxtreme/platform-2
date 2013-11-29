@@ -287,22 +287,36 @@ nav	{
 .span4 .portlet.box img.avatar	{
 	margin: 0 5px 5px 0; width: 20px; height: 20px; 
 }
+.span4 .portlet.box strong	{
+	color: #005580; 
+}
+.span4 .portlet.box	a {
+	color: black; 
+}
+.span4 .portlet.box a:hover	{
+	text-decoration: none; 
+}
 
 .portlet.box.blue > .portlet-title { background-color: #2bbedc !important; } 
 
-/* Widgets entry actions */
+
+/* Widgets Entry actions */
+
 .portlet.box div.pull-right	{
 	margin-left: 10px; 
 }
 
 .portlet .messages-container .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
-	color: #aaa; font-style: italic; text-align: right;
+	color: #aaa; font-style: italic; text-align: right; line-height: 20px; 
 }
+.span4 .portlet .messages-container .date	{ font-size: 12px; }
 
-.span4 .portlet .messages-container .date	{
-	font-size: 12px; line-height: 22px; 
+.portlet .messages-container .media	{
+	width: 12px; height: 14px; padding: 1px 2px; margin: 0 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
+	color: white; text-align: center;
 }
+.portlet .messages-container .media	i	{ font-size: 10px; }
 
 .portlet .messages-container .link i,
 .portlet .dropdown-toggle.icon-share-alt	{

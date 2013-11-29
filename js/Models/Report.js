@@ -7,8 +7,6 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		var stat = this.attributes.series[0];
 		var details = this[this.attributes.type + "Details"](stat);
 		
-		details.title = stat.name;
-		
 		return details;
 	},
 	
@@ -22,6 +20,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 		return {
 			content : stat.values[0].value,
+			title: stat.name,
 			description : "<strong>" + stream.get("customname") + "</strong>"
 		}
 	 },
@@ -36,7 +35,8 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 		return {
 			content : stat.values[0].value,
-			description : "<strong>" + diff + "</strong> (" + perc + "%) in last " + stat.interval
+			title: "<strong>" + diff + "</strong> (" + perc + "%) in last " + stat.interval,
+			description : stat.name
 		}
 	 },
 	

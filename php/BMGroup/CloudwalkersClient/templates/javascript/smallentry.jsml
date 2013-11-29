@@ -1,0 +1,20 @@
+{{#url}}<a href="{{url}}">{{/url}}
+	<div class='pull-right'>
+		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		<div class="media"><i class="icon-{{media.icon}}"></i></div>
+	</div>
+	
+	{{#user}}
+		<img class="avatar" alt="" src="{{avatar}}">
+		<strong>{{displayname}}</strong>
+	{{/user}}
+	
+	{{#from}}
+		<i class="icon-{{icon}}"></i>
+		<strong>{{name}}</strong>
+	{{/from}}
+	
+	<div class='content'>
+		{{{body.plaintext}}}
+	</div>
+{{#url}}</a>{{/url}}

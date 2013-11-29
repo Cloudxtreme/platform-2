@@ -39,13 +39,15 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		
 		collection.each (function (message)
 		{
-			var parameters = {
+			var data = {
 				'model' : message,
-				'template' : 'messageentry',
+				'template' : 'smallentry',
 				'type' : type
 			};
 			
-			var messageView = new Cloudwalkers.Views.Entry (parameters);
+			if(this.options.link) message.link = this.options.link;
+			
+			var messageView = new Cloudwalkers.Views.Entry (data);
 			//messageView.clickable(this.options.link);
 			
 			$container.append(messageView.render().el);

@@ -23,24 +23,31 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{
 		
 		var data = this.attributes;
+		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
-		// HACK
-		var stream = Cloudwalkers.Session.getStream((this.collection.endpoint == "stream")? this.collection.parentid: data.stream);
-
-		if(type == "trending")
+		if(data.attachments)
 		{
-			data.trending = (this.get("engagement") < 100)? this.get("engagement"): "+99";
-			data.date = null;
-		}
+			data.media = data.attachments.slice(-1)[0];
+			data.media.icon = (data.media.type == "image")? "picture" : data.media.type;
+		
+		} else data.media = {icon: "reorder"};
 		
 		if(stream)
 		{
 			data.icon = stream.get("network").icon;
-			data.share = this.filterShareData(stream);
+			data.url = this.link? this.link: "#" + type + "/" + this.collection.parentid; //this.location();
 		}
 		
-		data.url = "#";//this.location;
-
+		if(type == "trending")
+		{
+			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
+			data.date = null;
+		
+		} else if(type == "full")
+		{
+			data.url = null;
+			data.share = this.filterShareData(stream);
+		}
 
 		return data;
 	},
@@ -68,10 +75,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'location' : function ()
 	{
+		return "#";
+		
+		/*if(this.link) return this.link;
+		
 		var channel = this.channel? this.channel: Cloudwalkers.Session.getChannel(this.collection.parentid);
 		var stream = Cloudwalkers.Session.getStream(this.attributes.stream);
 		
-		return "#" + channel.get("type") + "/" + channel.id + "/0/" + stream.id + "/" + this.id;
+		return "#" + channel.get("type") + "/" + channel.id + "/0/" + stream.id + "/" + this.id;*/
 	},
 	
 	

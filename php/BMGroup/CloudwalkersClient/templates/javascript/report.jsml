@@ -8,7 +8,7 @@
 			{{details.content}}
 		</div>
 		<div class="desc">                           
-			{{details.title}}
+			{{{details.title}}}
 		</div>
 	</div>
 
