@@ -51,6 +51,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 			message.channel = this.category;
 			
 			var parameters = {
+				'tagName': "tr",
 				'model' : message,
 				'streamid' : message.get("stream"),
 				'template' : 'keywordentry'
