@@ -300,37 +300,37 @@ nav	{
 	color: #aaa; font-style: italic; text-align: right;
 }
 
-.portlet .span4 .messages-container .date	{
+.span4 .portlet .messages-container .date	{
 	font-size: 12px; line-height: 22px; 
 }
 
-.portlet .messages-container .link i,
-.portlet .portlet .dropdown-toggle.icon-share-alt	{
+.messages-container .link i,
+.dropdown-toggle.icon-share-alt	{
 	padding: 2px 0 2px 1px; background-color: #555 !important; border-radius: 2px; float: none;
 	color: white; font-size: 12px;
 }
-.portlet .dropdown-toggle.icon-share-alt:hover	{ background-color: #333 !important; }
+.dropdown-toggle.icon-share-alt:hover	{ background-color: #333 !important; }
 
-.portlet .messages-container .link,
-.portlet .messages-container .trending	{
+.messages-container .link,
+.messages-container .trending	{
 	display: block; min-width: 14px; height: 16px; padding: 0 1px; margin: 2px 0 2px 8px; background: #555; border-radius: 2px !important;
 	color: white; font-size: 10px; text-align: center; line-height: 16px;
 }
-.portlet .messages-container .trending-0	{ background: #ccc; }
+.messages-container .trending-0	{ background: #ccc; }
 
-.portlet .messages-container .link	{
+.messages-container .link	{
 	width: 16px; padding: 0; margin: 4px 0 4px 8px; background-color: #999;
 }
-.portlet .messages-container .link i.icon-picture	{ font-size: 11px; }
+.messages-container .link i.icon-picture	{ font-size: 11px; }
 
-.portlet .messages-container .link:hover	{
+.messages-container .link:hover	{
 	text-decoration: none; background: #333;
 }
 
 
 /* Actions Dropdown */
 
-.portlet .messages-container .actions	{
+.messages-container .actions	{
 	display: block; margin-left: 8px;
 }
 
@@ -361,7 +361,7 @@ nav	{
 
 
 /* List Portlet */
-.messages-list li	{
+.portlet .messages-list li	{
 	min-height: 20px;
 	font-size: 14px;
 }
