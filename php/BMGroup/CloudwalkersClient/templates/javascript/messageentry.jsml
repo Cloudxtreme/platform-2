@@ -13,7 +13,7 @@
 				</ul>
 			</span>
 		{{/share.length}}
-		<!--{{#url}}<a href="{{url}}" class="link"><i class="icon-{{#attachments.length}}picture{{/attachments.length}}{{^attachments.length}}reorder{{/attachments.length}}"></i></a>{{/url}}-->
+		{{#url}}<a href="{{url}}" class="link"><i class="icon-{{#attachments.length}}picture{{/attachments.length}}{{^attachments.length}}reorder{{/attachments.length}}"></i></a>{{/url}}
 
 	</div>
 	
