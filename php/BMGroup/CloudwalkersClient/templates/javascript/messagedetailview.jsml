@@ -29,12 +29,17 @@
 	
 									{{#url}}<a href="{{url}}" target="_BLANK">{{name}}</a>{{/url}}
 									{{^url}}{{name}}{{/url}}
-	
-									{{#subject}}
-										<br>
-										<strong class="title">{{subject}}</strong>
-									{{/subject}}
+
 								{{/from}}
+
+                                {{#subject}}
+
+                                    {{#from}}
+                                        <br>
+                                    {{/from}}
+
+                                    <strong class="title">{{subject}}</strong>
+                                {{/subject}}
 							</li>
 						</ul>
 						</td>
