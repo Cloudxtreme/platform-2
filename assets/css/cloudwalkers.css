@@ -173,7 +173,7 @@ nav	{
 }
 
 .portlet.box .portlet-title .caption	{
-	max-width: 62%; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+	max-width: 70%; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 	font-size: 16px; 
 }
 
