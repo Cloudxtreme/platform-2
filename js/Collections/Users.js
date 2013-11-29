@@ -1,8 +1,6 @@
 Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,
-	
-	'filters' : {},
 	'processing' : false,
 
 	'initialize' : function (models, options)
@@ -16,7 +14,7 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{
+	{	
 		Store.write(this.url(), [response.users]); 
 		return response.users;
 	},

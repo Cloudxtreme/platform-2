@@ -1,11 +1,5 @@
 Cloudwalkers.Models.User = Backbone.Model.extend({
 	
-	'parse' : function (response)
-	{
-		Store.write(this.url(), [response.user]);
-		return response.user;
-	},
-
 	'url' : function ()
 	{
 		return CONFIG_BASE_URL + 'json/user/' + this.id;

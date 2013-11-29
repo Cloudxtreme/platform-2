@@ -23,7 +23,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		account.users.hook({success: this.fill.bind(this), error: this.fail});
 		
-		
+		this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
 		
 		
 		/*
@@ -34,7 +34,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		this.addUserContainer ('Users', administrators);
 
 		// Work widgets
-		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });*/
+		*/
 		
 		return this;
 	},
@@ -43,8 +43,6 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	'fill' : function (collection)
 	{	
 		var $container = this.$el.find(".user-container").eq(-1);
-		
-		console.log(collection);
 		
 		collection.each (function (user)
 		{
@@ -120,8 +118,9 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	
 	'negotiateFunctionalities' : function(el) {
 		
+		
 		// Check collapse option
-		$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+		$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	},
 	
 	'fail' : function ()

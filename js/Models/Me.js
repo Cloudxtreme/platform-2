@@ -17,6 +17,12 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		return CONFIG_BASE_URL + 'json/user/me';
 	},
 	
+	'parse' : function (response)
+	{
+		Store.write(this.url(), [response.user]);
+		return response.user;
+	},
+	
 	'sync' : function (method, model, options)
 	{
 		if( method == "read")
