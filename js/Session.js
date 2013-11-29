@@ -19,9 +19,14 @@ Cloudwalkers.Session =
 		this.user.fetch();
 	},
 	
-	'getUser' : function ()
+	'getUser' : function (id)
 	{
-		return this.user;
+		return (id)? this.user.account.users.get (id):  this.user;
+	},
+	
+	'getUsers' : function ()
+	{
+		return this.user.account.users;
 	},
 
 	'getAccount' : function (id)

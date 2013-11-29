@@ -9,6 +9,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Collect Channel, add from Account.channels
 		this.channels = new Cloudwalkers.Collections.Channels();
 		this.channels.add(this.get("channels"));	
+		
+		// Prep Users collection, fetch on demand
+		this.users = new Cloudwalkers.Collections.Users();
+		
 	},
 	
 	'avatar' : function ()

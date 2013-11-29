@@ -5,31 +5,12 @@
 	{{user.displayname}}
 </td>
 <td class="hidden-480">
-	{{user.email}}
+	<small>{{user.email}}</small>
 </td>
 <td>
-	<span class="label label-success">{{user.functie}}</span>
+	<span class="label label-success">{{user.role}}</span>
 </td>
 <td>
 	<i class="icon-remove pull-right" data-delete-user-id="{{user.id}}"></i>
 	<i class="icon-edit-sign pull-right" data-edit-user-id="{{user.id}}"></i>
 </td>
-
-<!--
-<div class="text-post">
-	<a href="javascript:void(0);" class="button-details"><span>details</span></a>
-	<div class="picture">
-		<a href="#">
-			<img src="images/img7.png" alt="image description" width="53" height="53">
-		</a>
-	</div>
-	<div class="text">
-		<div class="name-row">
-			<span>{{user.name}}</span>
-		</div>
-		<ul class="category-list">
-			<li><a href="#">{{user.function}}</a></li>
-		</ul>
-	</div>
-</div>
--->

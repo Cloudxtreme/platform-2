@@ -14,7 +14,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		var data = {};
 
 		data.user = this.model.attributes;
-		data.user.functie = this.model.getFunction ();
+		data.user.role = this.model.getRole ();
 		
 		self.$el.html (Mustache.render (Templates.settings.user, data));
 

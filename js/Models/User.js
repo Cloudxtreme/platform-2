@@ -23,7 +23,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'getFunction' : function ()
+	'getRole' : function ()
 	{
 		if (this.get ('level') == 10)
 		{

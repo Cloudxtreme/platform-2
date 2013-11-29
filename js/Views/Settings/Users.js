@@ -8,11 +8,25 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 
 	'class' : 'section',
 	'collections' : [],
+	
+	'initialize' : function ()
+	{
+
+	},
 
 	'render' : function ()
 	{
-		var self = this;
-
+		var account = Cloudwalkers.Session.getAccount();
+		var data = {};
+		
+		this.$el.html (Mustache.render (Templates.settings.users, data));
+		
+		account.users.hook({success: this.fill.bind(this), error: this.fail});
+		
+		
+		
+		
+		/*
 		var administrators = new Cloudwalkers.Collections.Users ([], {});
 
 		this.collections.push (administrators);
@@ -20,9 +34,23 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		this.addUserContainer ('Users', administrators);
 
 		// Work widgets
-		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
+		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });*/
 		
 		return this;
+	},
+	
+	
+	'fill' : function (collection)
+	{	
+		var $container = this.$el.find(".user-container").eq(-1);
+		
+		console.log(collection);
+		
+		collection.each (function (user)
+		{
+			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : user });
+			$container.append(view.render().el);
+		});
 	},
 
 	'addUserContainer' : function (title, collection)
@@ -94,6 +122,11 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		// Check collapse option
 		$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+	},
+	
+	'fail' : function ()
+	{
+		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
 	}
 
 });

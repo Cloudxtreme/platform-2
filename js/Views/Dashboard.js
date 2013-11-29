@@ -7,8 +7,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		{widget: "channelcounter", type: "monitoring", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
 		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-worker drafts", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
-		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true},
-		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true},
+		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
+		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1},
 	],
 	
 	'initialize' : function ()
@@ -101,9 +101,17 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 
 	'addDashboardTrending' : function (widgetdata)
 	{
+		
+		
 		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
 		widgetdata.channel.messages.parameters.sort = "engagement";
 		
+		if(widgetdata.since)
+		{
+			var since = Math.round(Date.now()/1000);
+			widgetdata.channel.messages.parameters.since = since - 86400 *widgetdata.since;
+		}
+
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 	
