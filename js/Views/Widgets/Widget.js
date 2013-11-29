@@ -9,7 +9,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	'network' : null,
 	'entries' : [],
 	'events' : {
-		'click .portlet-title.line' : 'collapse'
+		
 	},
 
 	'tools' : [],
@@ -103,6 +103,8 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		if(this.$el.find(".tools .count").length)
 				this.$el.find(".tools .count").addClass('collapse');
 		else	this.$el.find(".tools").append($('<span class="collapse pull-right"></span>'));
+		
+		this.$el.find(".portlet-title.line").on("click", this.collapse.bind(this));
 
 	},
 	
@@ -157,6 +159,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 	
 	'collapse' : function ()
 	{
+		
 		this.$el.toggleClass("collapse-closed collapse-open");
 		//this.trigger ('view:collapse');
 	}

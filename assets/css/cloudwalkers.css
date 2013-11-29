@@ -24,7 +24,8 @@ table.charttable .text	{ text-align: left; }
 
 #inboxcontainer.inner-empty:after	{ content: "no messages"; }
 
-.clickable	{ cursor: pointer; }
+.span12 .messages-container td	{ width: 10%; word-wrap:break-word; }
+
 
 
 /* Keyframes */
@@ -184,6 +185,9 @@ nav	{
 
 .portlet.box .portlet-title .caption i	{
 	margin-top: 4px !important;  
+}
+.portlet.box .portlet-title .caption i.icon-large	{
+	margin-top: 0 !important;  
 }
 
 .portlet.box .portlet-title .tools > a	{
@@ -361,6 +365,10 @@ nav	{
 
 .actions.pull-right > .dropdown-menu	{
 	right: 32px; top: 0px;
+}
+
+.portlet .message-view .dropdown-menu li	{
+	min-height: 0; padding: 4px;
 }
 
 
