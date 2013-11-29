@@ -405,7 +405,7 @@ nav	{
 .social-icon-colors .icon-tumblr			{ color: #385775; }
 .social-icon-colors .icon-google-plus	{ color: #DD4C39; }
 .social-icon-colors .icon-youtube		{ color: #CC181E; }
-.social-icon-colors .icon-rss			{ color: #ff9c00; }
+.social-icon-colors .icon-web			{ color: #ff9c00; }
 
 .social-box-colors .facebook-color	{ border-color: #3B5998 !important; }
 .social-box-colors .facebook-color .portlet-title	{ background-color: #3B5998 !important; }
@@ -455,13 +455,13 @@ nav	{
 .social-box-colors .youtube-color .timeline-body:after	{ border-right-color: #CC181E !important; }
 .dashboard-stat.youtube-color	{ background-color: #CC181E; }
 
-.social-box-colors .rss-color	{ border-color: #f39501 !important; }
-.social-box-colors .rss-color .portlet-title	{ background-color: #f39501 !important; }
-.social-box-colors .rss-color .inherit	{ color: white; background: #f39501 !important; }
-.social-box-colors .rss-color .time	{ color: #f39501 !important; }
-.social-box-colors .rss-color .timeline-body	{ background-color: #f39501 !important; }
-.social-box-colors .rss-color .timeline-body:after	{ border-right-color: #f39501 !important; }
-.dashboard-stat.rss-color	{ background-color: #f39501; }
+.social-box-colors .web-color	{ border-color: #f39501 !important; }
+.social-box-colors .web-color .portlet-title	{ background-color: #f39501 !important; }
+.social-box-colors .web-color .inherit	{ color: white; background: #f39501 !important; }
+.social-box-colors .web-color .time	{ color: #f39501 !important; }
+.social-box-colors .web-color .timeline-body	{ background-color: #f39501 !important; }
+.social-box-colors .web-color .timeline-body:after	{ border-right-color: #f39501 !important; }
+.dashboard-stat.web-color	{ background-color: #f39501; }
 
 .dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
 .dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
@@ -469,7 +469,7 @@ nav	{
 .dashboard-stat-comparison.tumblr-color { background-color: #385775 ; }
 .dashboard-stat-comparison.google-plus-color  { background-color: #DD4C39 ; }
 .dashboard-stat-comparison.youtube-color  { background-color: #CC181E ; }
-.dashboard-stat-comparison.rss-color  { background-color: #f39501 ; }
+.dashboard-stat-comparison.web-color  { background-color: #f39501 ; }
 
 .portlet.box.facebook-color { background-color: #3B5998; }
 .portlet.box.twitter-color  { background-color: #01a9da; }
@@ -477,7 +477,7 @@ nav	{
 .portlet.box.tumblr-color { background-color: #385775 ; }
 .portlet.box.google-plus-color  { background-color: #DD4C39 ; }
 .portlet.box.youtube-color  { background-color: #CC181E ; }
-.portlet.box.rss-color  { background-color: #f39501 ; }
+.portlet.box.web-color  { background-color: #f39501 ; }
 .portlet.box.compass-color  { background-color: #f39501 ; }
 
 /**
@@ -489,7 +489,7 @@ nav	{
 .btn.tumblr-color { background-color: #385775 ;  color: white; }
 .btn.google-plus-color  { background-color: #DD4C39 ; color: white; }
 .btn.youtube-color  { background-color: #CC181E ;  color: white; }
-.btn.rss-color  { background-color: #f39501 ;  color: white; }
+.btn.web-color  { background-color: #f39501 ;  color: white; }
 
 
 /* Missing Portlet Colors */
