@@ -38,6 +38,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			data.icon = stream.get("network").icon;
 			data.share = this.filterShareData(stream);
 		}
+		
+		data.url = "#";//this.location;
+
 
 		return data;
 	},
