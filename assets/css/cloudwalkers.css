@@ -304,26 +304,26 @@ nav	{
 	font-size: 12px; line-height: 22px; 
 }
 
-.messages-container .link i,
-.dropdown-toggle.icon-share-alt	{
+.portlet .messages-container .link i,
+.portlet .dropdown-toggle.icon-share-alt	{
 	padding: 2px 0 2px 1px; background-color: #555 !important; border-radius: 2px; float: none;
 	color: white; font-size: 12px;
 }
-.dropdown-toggle.icon-share-alt:hover	{ background-color: #333 !important; }
+.portlet .dropdown-toggle.icon-share-alt:hover	{ background-color: #333 !important; }
 
-.messages-container .link,
-.messages-container .trending	{
+.portlet .messages-container .link,
+.portlet .messages-container .trending	{
 	display: block; min-width: 14px; height: 16px; padding: 0 1px; margin: 2px 0 2px 8px; background: #555; border-radius: 2px !important;
 	color: white; font-size: 10px; text-align: center; line-height: 16px;
 }
-.messages-container .trending-0	{ background: #ccc; }
+.portlet .messages-container .trending-0	{ background: #ccc; }
 
-.messages-container .link	{
+.portlet .messages-container .link	{
 	width: 16px; padding: 0; margin: 4px 0 4px 8px; background-color: #999;
 }
-.messages-container .link i.icon-picture	{ font-size: 11px; }
+.portlet .messages-container .link i.icon-picture	{ font-size: 11px; }
 
-.messages-container .link:hover	{
+.portlet .messages-container .link:hover	{
 	text-decoration: none; background: #333;
 }
 
