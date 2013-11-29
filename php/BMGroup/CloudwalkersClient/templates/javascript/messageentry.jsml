@@ -1,0 +1,32 @@
+
+	<div class='pull-right'>
+		{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
+		{{^date}}<span class="trending trending-{{trending}}">{{trending}}</span>{{/date}}
+		{{#share.length}}
+			<span class="actions dropdown">
+				<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+			
+				<ul class="dropdown-menu">
+				{{#share}}
+					<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{action}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+				{{/share}}
+				</ul>
+			</span>
+		{{/share.length}}
+		<!--{{#url}}<a href="{{url}}" class="link"><i class="icon-{{#attachments.length}}picture{{/attachments.length}}{{^attachments.length}}reorder{{/attachments.length}}"></i></a>{{/url}}-->
+
+	</div>
+	
+	{{#user}}
+		<img class="avatar" alt="" src="{{avatar}}">
+		<strong><a href="#">{{displayname}}</a></strong>
+	{{/user}}
+	
+	{{#from}}
+		<i class="icon-{{icon}}"></i>
+		<strong><a href="{{url}}" target="_blank">{{name}}</a></strong>
+	{{/from}}
+	
+	<div class='content'>
+		{{{body.html}}}
+	</div>

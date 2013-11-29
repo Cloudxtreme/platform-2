@@ -1,11 +1,11 @@
 
 <td class="{{network.icon}}-color" data-message-id={{id}}>
-	<span class="date pull-right">
-		<span class="time time-since" data-date="{{date}}">{{humandate}}</span>
+	<span class="pull-right">
+		<span class="date" data-date="{{date}}">{{humandate}}</span>
 	</span>
 
 		<div class="icon">
-			<i class="icon-{{network.icon}}"></i>
+			<i class="icon-{{icon}}"></i>
 		</div>
 				
 		{{#from}}

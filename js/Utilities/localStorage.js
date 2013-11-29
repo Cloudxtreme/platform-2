@@ -49,6 +49,32 @@ var StorageClass = function(successCallback, errorCallback) {
 	}
 	
 	/*
+	 * EXISTS function
+	 *
+	 * Return true or false if storage item exists.
+	 * This function DOES return synchronic (if no callback is provided), but asyncronic callback usage is strongly advised.
+	 */
+	 
+	 this.exists = function(type, selector, callback) {
+		
+		var group = JSON.parse(window.localStorage.getItem(type));  
+		
+		if(selector)
+			for(key in selector)
+				group = group.filter(function(el){ return (el[key] == selector[key]); });
+		
+		var exists = (group && group.length);
+		
+		if(callback)
+		{
+			callback(exists);
+			return this;
+		}
+		
+		return exists;
+	}
+	
+	/*
 	 * POST function
 	 *
 	 * Insert a new entry in local storage
@@ -163,4 +189,5 @@ var StorageClass = function(successCallback, errorCallback) {
 		
 		return this;
 	}
+
 }

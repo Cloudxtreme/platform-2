@@ -18,7 +18,60 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		
 	},
+	
+	'filterData' : function (type)
+	{
+		
+		var data = this.attributes;
+		
+		// HACK
+		var stream = Cloudwalkers.Session.getStream((this.collection.endpoint == "stream")? this.collection.parentid: data.stream);
 
+		if(type == "trending")
+		{
+			data.trending = (this.get("engagement") < 100)? this.get("engagement"): "+99";
+			data.date = null;
+		}
+		
+		if(stream)
+		{
+			data.icon = stream.get("network").icon;
+			data.share = this.filterShareData(stream);
+		}
+
+		return data;
+	},
+
+	'filterShareData' : function (stream)
+	{
+		var share = [];
+		
+		if(stream.get("network").token == "twitter")
+		{
+			share.push({action: "favorite", icon: "star", name: "Favorite"});
+			share.push({action: "retweet", icon: "retweet", name: "Retweet"});
+		}
+		
+		if(stream.get("outgoing"))
+		{
+			share.push({action: "delete", icon: "remove", name: "Delete"});
+			share.push({action: "reply", icon: "comment", name: "Reply"});
+		}
+		
+		share.push({action: "internal-share", icon: "share-alt", name: "Share"});	
+
+		return share;
+	},
+	
+	'location' : function ()
+	{
+		var channel = this.channel? this.channel: Cloudwalkers.Session.getChannel(this.collection.parentid);
+		var stream = Cloudwalkers.Session.getStream(this.attributes.stream);
+		
+		return "#" + channel.get("type") + "/" + channel.id + "/0/" + stream.id + "/" + this.id;
+	},
+	
+	
 	'afterChange' : function ()
 	{
 		this.addInternalActions ();

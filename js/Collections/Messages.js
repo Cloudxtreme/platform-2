@@ -1,10 +1,11 @@
 Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'model' : Cloudwalkers.Models.Message,
+	'processing' : false,
 	
-	'initialize' : function(options)
+	'initialize' : function(list, options)
 	{
-		this.channelid = options.id;
+		this.parentid = options.id;
 		this.endpoint = options.endpoint? options.endpoint: "channel";
 		
 		this.parameters = {
@@ -15,12 +16,33 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'url' : function()
 	{		
-		return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.channelid + "?" + $.param (this.parameters);
+		return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.parentid + "?" + $.param (this.parameters);
 	},
 	
 	'parse' : function (response)
 	{
-		return response.channel.messages;
+		if(response.stream) return response.stream.messages;
+		if(response.channel) return response.channel.messages;
+		if(response.messages) return response.messages;
+	},
+	
+	'sync' : function (method, model, options) {
+		
+		this.processing = true;
+		
+		return Backbone.sync(method, model, options);
+	},
+	
+	'hook' : function(callbacks)
+	{
+		if(callbacks.records) this.parameters.records = callbacks.records;
+		
+		
+		if(!this.processing) this.fetch({error: callbacks.error});
+		
+		else if(this.length) callbacks.success(this);
+
+		this.on("sync", callbacks.success);	
 	},
 	
 	'next' : function (params)
@@ -28,9 +50,4 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		this.parameters.page ++;
 		this.fetch(params);
 	}
-	
-	/*'sync' : function(method, model, options)
-	{
-		return Backbone.sync(method, model, options);
-	}*/
 });

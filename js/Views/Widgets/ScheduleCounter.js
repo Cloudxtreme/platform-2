@@ -3,6 +3,18 @@
 */
 Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.extend({
 
+	 'initialize' : function ()
+    {
+        if(!this.options.color) this.options.color = this.color;
+        
+        // HACK
+        Cloudwalkers.Session.on("change:streams", this.rebuild, this);
+        
+        // Always add this to all your widget initializations
+        this.initializeWidget ();
+    },
+
+	
 	'render' : function ()
 	{
 		var streams = Cloudwalkers.Session.getStreams();
@@ -57,5 +69,16 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 		});*/
 
 		return this;
+	},
+	
+	// HACK
+	'rebuild' : function ()
+	{
+		if(!this.$el.find("li").size())
+		{
+			this.render();
+			this.addScroll();
+		}
 	}
+	
 });

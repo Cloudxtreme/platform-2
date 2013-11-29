@@ -1,8 +1,6 @@
 Cloudwalkers.Session = 
 {
 	'user' : null,
-	'account' : null,
-	'streams' : null,
 	'settings' : {
 		'currentAccount' : null,
 		'viewMode' : null
@@ -11,6 +9,14 @@ Cloudwalkers.Session =
 	'isLoaded' : function ()
 	{
 		return this.user != null;
+	},
+	
+	'loadEssentialData' : function (callback)
+	{
+		this.user = new Cloudwalkers.Models.Me();
+
+		this.user.once("change", callback);
+		this.user.fetch();
 	},
 	
 	'getUser' : function ()
@@ -56,14 +62,6 @@ Cloudwalkers.Session =
 		});
 	},
 
-	'loadEssentialData' : function (callback)
-	{
-		this.user = new Cloudwalkers.Models.Me();
-
-		this.user.once("change", callback);
-		this.user.fetch();
-	},
-
 	'poll' : function ()
 	{
 		var self = this;
@@ -71,6 +69,11 @@ Cloudwalkers.Session =
 		{
 			self.user.set (data.user);
 		});
+	},
+	
+	'reset' : function ()
+	{
+		window.localStorage.clear();
 	}
 }
 

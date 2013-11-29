@@ -4,6 +4,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	'model' : Cloudwalkers.Models.Stream,
 	
 	'initialize' : function(){
+		
 	},
 	
 	'url' : function()

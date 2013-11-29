@@ -15,6 +15,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.navigation.fit();
 
 		this.on ('content:change', this.onchange, this);
+		
+		Cloudwalkers.Session.on("change:first", this.rebuild, this);
 
 		// // $('.add-button').click (this.writeMessage);
 
@@ -46,7 +48,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			self.trigger ('content:change');
 		}, 1);*/
 	},
-
+	
 	'popup' : function (view)
 	{
 		var self = this;

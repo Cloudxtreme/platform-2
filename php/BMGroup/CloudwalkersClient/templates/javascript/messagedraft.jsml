@@ -39,7 +39,8 @@
         </span>
 
         {{#user}}
-            <strong>{{displayname}}</strong><br />
+        	<img class="avatar" alt="" src="{{avatar}}">
+        	<strong>{{displayname}}</strong><br />
         {{/user}}
 
         {{#subject}}

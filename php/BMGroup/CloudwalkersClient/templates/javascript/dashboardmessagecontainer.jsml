@@ -1,4 +1,3 @@
-<!-- BEGIN PORTLET-->
 <div class="portlet box {{color}} dashboardwidget">
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
@@ -9,8 +8,7 @@
 	<div class="portlet-body social-icon-colors">
 
 		<div class="scroller" data-height="360px" data-always-visible="1" data-rail-visible1="1">
-			<table class="table table-striped table-bordered table-advance table-hover messages-container inner-loading"></table>
+			<ul class="messages-container inner-loading"></ul>
 		</div>
 	</div>
 </div>
-<!-- END PORTLET-->

@@ -3,7 +3,8 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	'initialize' : function ()
 	{
 		// Collect streams, fetch triggered in User model
-		this.streams = new Cloudwalkers.Collections.Streams();	
+		this.streams = new Cloudwalkers.Collections.Streams();
+		this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
 		
 		// Collect Channel, add from Account.channels
 		this.channels = new Cloudwalkers.Collections.Channels();

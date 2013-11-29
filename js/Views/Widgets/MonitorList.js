@@ -11,16 +11,16 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 	
 		var streams = [];
 		$.each(this.options.streams, function(i, stream){ streams.push(stream.id)}.bind(this));
-	
+		
 		this.networkStreams = streams;
 		this.keywordStreams = streams;
-		this.category = this.options.category;
+		this.category = new Cloudwalkers.Models.Channel(this.options.category);
 		this.title = this.options.category.name;
 		
 		//$.each(this.options.keywords, function(i, keyword){ this.keywords.push(keyword.id)}.bind(this));
 		
 		if(!this.category.messages)
-			this.category.messages = new Cloudwalkers.Collections.Messages({id: this.category.id, records: 25});
+			this.category.messages = new Cloudwalkers.Collections.Messages([], {id: this.category.id, records: 25});
 		
 		Cloudwalkers.Session.on ('stream:filter', this.toggleEntries.bind(this, "networks"));
 		Cloudwalkers.Session.on ('channel:filter', this.toggleEntries.bind(this, "keywords"));
@@ -47,7 +47,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		// Go trough all messages
 		collection.each (function (message)
 		{
-			message.attributes.network = message.getStream ().attributes.network;
+			//message.attributes.network = message.getStream ().attributes.network;
+			message.channel = this.category;
 			
 			var parameters = {
 				'model' : message,

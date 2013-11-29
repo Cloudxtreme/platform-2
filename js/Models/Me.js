@@ -9,6 +9,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		this.on ('change:accounts', this.updateAccounts);
 		this.on ('change:id', Cloudwalkers.Router.home);
+
 	},
 
 	'url' : function ()
@@ -18,16 +19,24 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		
 		if( method == "read")
 			Store.get(this.url(), null, function(data)
 			{
 				if(data) this.set(data);
 
 			}.bind(this));
-		
+			
+		//if(!Store.exists(this.url())) options.success = this.firstSync;
+
+
 		return Backbone.sync(method, model, options);
 	},
+	
+	/*'firstSync' : function ()
+	{
+		
+		Cloudwalkers.Session.trigger("change:first");
+	},*/
 	
 	'updateAccounts' : function (data)
 	{

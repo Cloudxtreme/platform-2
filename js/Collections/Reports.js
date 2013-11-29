@@ -26,6 +26,15 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		
 		return Backbone.sync(method, model, options);
 	},
+	
+	'hook' : function(callbacks)
+	{
+		if(!this.processing) this.fetch({error: callbacks.error});
+		
+		else if(this.length) callbacks.success();
+
+		this.on("sync", callbacks.success);	
+	}
 
 	
 });

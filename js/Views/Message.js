@@ -222,7 +222,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'afterRender' : function ()
 	{
-
+		this.time()
 	},
 
 	'showchildren' : function (e)
@@ -266,6 +266,28 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		this.commentsVisible = true;
 		this.$el.find ('.comment-label').html ('Hide comments');
 		this.$el.find ('.' + this.childrencontainer).html (this.commentsView.el).show ();
+	},
+	
+	// Static HACK
+	
+	'time' : function ()
+	{
+		var now = new Date;
+		var date = new Date(this.$el.find("[data-date]").attr("data-date"));
+		var diff = Math.round((now.getTime()-date.getTime()) *.001);
+		var human;
+		
+		if(diff < 60)			human = "now";
+		else if(diff < 3600)	human = Math.round(diff/60) + "m";
+		else if(diff < 86400)	human = Math.round(diff/3600) + "h";
+		else if(diff < 2592000)	human = Math.round(diff/86400) + "d";
+		else					human = Math.round(diff/2592000) + "mo";
+		//else					human = "long ago";
+		
+		this.$el.find("[data-date]").html(human);
+		
+		//this.tm = setTimeout(this.time.bind(this), 60000);
 	}
+
 
 });
