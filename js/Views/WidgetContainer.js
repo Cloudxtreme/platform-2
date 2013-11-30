@@ -14,14 +14,16 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	'initialize' : function ()
 	{
 		var self = this;
-
+		
 		this.widgets = [];
 		this.initializeWidgets ();
 		this.isLoaded = false;
 
 		this.newline = true;
 		this.sizecounter = 0;
-
+		
+		this.title = this.options.title? this.options.title: this.title;
+		
 		this.on ('destroy', function ()
 		{
 			for (var i = 0; i < this.widgets.length; i ++)

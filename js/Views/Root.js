@@ -35,12 +35,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'setView' : function (view)
 	{
 		
-		if (this.view)
-			this.view.trigger ('destroy');
-
+		if (this.view) this.view.trigger ('destroy');
+		Cloudwalkers.Session.trigger('destroy:view');
+		
 		this.view = view;	
 			
 		this.render();
+		
+		
 
 		/*setTimeout (function ()
 		{

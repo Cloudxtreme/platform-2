@@ -121,11 +121,9 @@
 					</a>
 			
 					<ul class="sub-menu">
-						{{#sortedchannels.profiles}}
-							{{#streams}}
-								<li class="trending_{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-							{{/streams}}
-						{{/sortedchannels.profiles}}			
+					{{#streams}}
+						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					{{/streams}}
 					</ul>
 				</li>
 			</ul>
@@ -164,11 +162,9 @@
 					</a>
 			
 					<ul class="sub-menu">
-						{{#sortedchannels.news}}
-							{{#streams}}
-								<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-							{{/streams}}
-						{{/sortedchannels.news}}
+					{{#streams}}
+						<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+					{{/streams}}
 					</ul>
 				</li>
 			</ul>
@@ -228,10 +224,17 @@
 	{{#level}}
 	<li class="settings">
 		<a href="#settings/users">
-		<i class="icon-cogs"></i> 
-		<span class="title">Settings</span>
-		<span class="selected"></span>
+			<i class="icon-cogs"></i> 
+			<span class="title">Settings</span>
+			<span class="arrow"></span>
+			<span class="selected"></span>
 		</a>
+		<ul class="sub-menu">
+			<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">Manage users</span></a></li>
+			<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">Social connections</span></a></li>
+			<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">Account settings</span></a></li>
+			<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">Profile settings</span></a></li>
+		</ul>
 	</li>
 	{{/level}}
 	{{^level}}

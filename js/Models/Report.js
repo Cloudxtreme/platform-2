@@ -246,59 +246,6 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		this.refresh ();
 	},
 	
-	'getValues' : function (callback)
-	{
-		var self = this;
-
-		this.getSeries (function (series)
-		{
-			if (series.length > 0)
-			{
-				callback (series[0].values);
-			}
-			else
-			{
-				callback (null);
-			}
-		})
-	},
-
-	'getSeries' : function (callback)
-	{
-		var self = this;
-
-		this.isFetched = true;
-
-		$.ajax 
-		(
-			this.getDataURL (),
-			{
-				'success' : function (data)
-				{
-					if (typeof (data[self.entity]) == 'undefined')
-					{
-						callback (false);
-						return;
-					}
-
-					var series = [];
-
-					for (var i = 0; i < data[self.entity].series.length; i ++)
-					{
-						series.push ({
-							'values' : self.processValues (data[self.entity].series[i].values)
-						});
-					}
-
-					self.setInternalParameters (data[self.entity].series[0]);
-
-					callback (series);
-
-				}
-			}
-		);
-	},
-	
 	'setInterval' : function (interval)
 	{
 		this.intervalinput = interval;
@@ -352,6 +299,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 			{
 				'success' : function (data)
 				{
+					
 					if (typeof (data[self.entity]) == 'undefined')
 					{
 						callback (false);
@@ -398,6 +346,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 	'processValues' : function (inputvalues)
 	{
+
 		var values = [];
 		var category;
 
@@ -413,6 +362,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		}
 		else
 		{
+			
 			for (var i = 0; i < inputvalues.length; i ++)
 			{
 				// If time related chart, show time
@@ -422,11 +372,11 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 				}
 
 				// If categorized, show category (can be string)
-				else if (this.type == 'category' || this.type == 'text')
+				else if (this.type == 'category' || this.type == 'text' || this.type == 'pie')
 				{
 					category = inputvalues[i].category;
 				}
-
+				
 				// Otherwise, just show counter
 				else 
 				{

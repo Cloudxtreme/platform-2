@@ -4,6 +4,7 @@
 Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList.extend({
 
 	'id' : 'monitorparent',
+	'reloadLimit' : 0,
 	'entries' : [],
 	
 	'initialize' : function ()
@@ -17,15 +18,14 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		this.category = new Cloudwalkers.Models.Channel(this.options.category);
 		this.title = this.options.category.name;
 		
-		//$.each(this.options.keywords, function(i, keyword){ this.keywords.push(keyword.id)}.bind(this));
-		
 		if(!this.category.messages)
 			this.category.messages = new Cloudwalkers.Collections.Messages([], {id: this.category.id, records: 25});
 		
-		Cloudwalkers.Session.on ('stream:filter', this.toggleEntries.bind(this, "networks"));
-		Cloudwalkers.Session.on ('channel:filter', this.toggleEntries.bind(this, "keywords"));
+
 		this.once ('content:change', this.addScroll);
-		
+		this.listenTo(Cloudwalkers.Session, 'stream:filter', this.toggleEntries.bind(this, "networks"));
+		this.listenTo(Cloudwalkers.Session, 'channel:filter', this.toggleEntries.bind(this, "keywords"));
+
 		this.initializeWidget ();
 	},
 
@@ -35,6 +35,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		this.category.messages.fetch({ success: this.fill.bind(this), error: this.fail.bind(this) });
 		
 		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.options.category.name }));
+		
+		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 
 		return this;
 	},
@@ -42,19 +44,17 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 	'fill' : function (collection)
 	{
 		this.trigger ('content:change');
-		this.$el.find('.inner-loading').toggleClass(collection.length? 'inner-loading': 'inner-empty inner-loading');
+		this.$el.find('.inner-loading').removeClass(collection.length? 'inner-loading inner-empty empty-recent': 'inner-loading');
 		
 		// Go trough all messages
 		collection.each (function (message)
 		{
-			//message.attributes.network = message.getStream ().attributes.network;
 			message.channel = this.category;
 			
 			var parameters = {
-				'tagName': "tr",
 				'model' : message,
 				'streamid' : message.get("stream"),
-				'template' : 'keywordentry'
+				'template' : 'messageentry'//keywordentry
 			};
 			
 			var messageView = new Cloudwalkers.Views.Entry (parameters);
@@ -78,7 +78,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		
 		if(e && pos == "top") return null;
 		
-		this.$el.find('table').addClass('inner-loading');
+		this.$el.find('ul').addClass('inner-loading');
 		this.category.messages.next({ success: this.fill.bind(this), error: this.fail.bind(this) });
 		
 	},
@@ -88,10 +88,10 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		var data = data;
 		var streams = [];
 		
-		this.$el.find('tr.hidden').removeClass('hidden');
+		this.$el.find('li.hidden').removeClass('hidden');
 		
 		if(type == "networks")
-			this.networkStreams = streams = data;
+			this.networkStreams = streams = data.map(function(el){ return Number(el)});
 				
 		else if(type) {
 			$.each(this.options.keywords, function(i, keyword)
@@ -99,7 +99,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 				if($.inArray(keyword.id, data) >= 0)
 					for(i in keyword.streams) streams.push(keyword.streams[i].id);
 			});
-			this.keywordStreams = streams;
+			this.keywordStreams = streams.map(function(el){ return Number(el)});
 		}		
 		
 		$.each(this.entries, function(i, entry)
@@ -109,8 +109,15 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 				entry.$el.addClass('hidden');
 		
 		}.bind(this));
-		
-		if(this.$el.find('tr:not(.hidden)').size() < 8) this.add();
+	
+		if(this.$el.find('li:not(.hidden)').size() < 8 && ++this.reloadLimit <= 3) this.add();
+		else this.reloadLimit = 0;
+
+		if(!this.$el.find('li:not(.hidden)').size() && !this.reloadLimit) this.$el.find('.messages-container').addClass('inner-empty empty-recent'); 
+		// Hack
+		//if(! this.$el.find('li:not(.hidden)').size() && this.reloadLimit == 3)	
+		//	   
+		//else this.$el.find('.messages-container').removeClass('inner-empty empty-recent');
 	},
 		
 	'fail' : function ()

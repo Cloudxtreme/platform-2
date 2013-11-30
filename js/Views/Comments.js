@@ -6,6 +6,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 
 	'render' : function ()
 	{
+		
 		var self = this;
 		var parent = this.options.parent;
 
@@ -15,7 +16,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		data.textfields = stream.get ('textfields');
 
 		$(this.el).html (Mustache.render (Templates.comments, data));
-
+		
 
 		//$(this.el).find ('.comments').html ('<p>Please wait, we are loading the comments.</p>');
 
@@ -36,6 +37,7 @@ Cloudwalkers.Views.Comments = Backbone.View.extend({
 		collection.fetch ({
 			'success' : function( )
 			{
+				
 				self.$el.find ('.comments-inner-container').show ();
 				self.$el.find ('.loading-comments').hide ();
 

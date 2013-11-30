@@ -48,50 +48,10 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 			if(this.options.link) message.link = this.options.link;
 			
 			var messageView = new Cloudwalkers.Views.Entry (data);
-			//messageView.clickable(this.options.link);
 			
 			$container.append(messageView.render().el);
 		}.bind(this));
 		
-		
-		/*messages.each(function(entry){
-			
-			var data = entry.filterData();
-			
-			this.$el.find(".messages-container").append(Mustache.render (Templates.messageentry, data));
-			
-		}.bind(this));*/
-		
-	
-		
-		
-		
-		
-		//if(messages.length)
-		//	this.$el.find('.inner-loading').removeClass('inner-loading');
-		
-		
-		/*messages.each( function(message)
-		{
-
-			this.$el.append("<div>Foo</div>");//" + message.get("body").html + "
-			
-		}.bind(this));*/
-		
-		/*var report = this.stream.reports.findWhere({uniqueid: this.options.type});
-		
-		if(!report) return null;
-		
-		this.$el.html (Mustache.render (Templates[this.template],
-		{
-			dashbaord: this.dashboard,
-			streamid: this.stream.id,
-			network: this.stream.get("network"),
-			details: report.getDetails()
-
-		}));
-		
-		this.trigger ('content:change');*/
 
 	},
 	

@@ -57,10 +57,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		if( Number(current) == NaN || !this.accounts.get(current))
 			Cloudwalkers.Session.settings.currentAccount = current = data.changed.accounts[0].id;
-			
+		
+		
 		// Set current account
 		this.account = this.accounts.get(current);
 		this.account.streams.fetch();
+		
+		// Set current user level
+		this.level = Number(this.account.get("currentuser").level);
 		
 		Cloudwalkers.Session.trigger("change:accounts")
 	},

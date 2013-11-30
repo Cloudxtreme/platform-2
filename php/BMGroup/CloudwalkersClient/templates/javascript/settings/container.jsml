@@ -19,7 +19,7 @@
 			<div class="tabbable tabbable-custom tabbable-full-width">
 				<ul class="nav nav-tabs">
 					{{#tabs}}
-						<li {{#active}}class="active"{{/active}}>
+						<li>
 							<a href="{{url}}">{{name}}</a>
 						</li>
 					{{/tabs}}

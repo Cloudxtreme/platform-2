@@ -12,10 +12,10 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 	{
 		var self = this;
 
-		self.$el.html ('<p>Please wait, loading data.</p>');
-
 		self.getServiceData (this.options.serviceid, function (data)
 		{
+			self.$el.closest(".inner-loading").removeClass("inner-loading");
+			
 			// Set service data
 			self.service = data.service;
 
@@ -87,7 +87,6 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			{
 				'account' : Cloudwalkers.Session.getAccount ().get ('id')
 			},
-			{},
 			function (data)
 			{
 				self.processSettings (data.service.settings);
@@ -122,7 +121,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 	'setStreamChannels' : function (service)
 	{
-		var channels = Cloudwalkers.Session.getAccount ().channels ();
+		var channels = Cloudwalkers.Session.getAccount ().getChannels ();
 
 		function loadChannels (stream, channels)
 		{
@@ -146,11 +145,13 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 					'selected' : selected,
 					'channels' : []
 				};
-
+				
+				var subchannels = channels[i].attributes? channels[i].get("channels"): channels[i].channels;
+				
 				// Recursive!
-				if (channels[i].channels.length > 0)
+				if (subchannels && subchannels.length)
 				{
-					tmp.channels = loadChannels (stream, channels[i].channels);
+					tmp.channels = loadChannels (stream, subchannels);
 				}
 
 				out.push (tmp);

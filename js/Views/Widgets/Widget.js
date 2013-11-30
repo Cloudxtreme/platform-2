@@ -104,6 +104,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 				this.$el.find(".tools .count").addClass('collapse');
 		else	this.$el.find(".tools").append($('<span class="collapse pull-right"></span>'));
 		
+		
 		this.$el.find(".portlet-title.line").on("click", this.collapse.bind(this));
 
 	},
@@ -154,12 +155,12 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 		});
 		
         this.$el.find ('.scroller').slimScroll({'destroy':1});
+        this.remove();
         //this.$el.html ('DESTROYED');
     },
 	
 	'collapse' : function ()
 	{
-		
 		this.$el.toggleClass("collapse-closed collapse-open");
 		//this.trigger ('view:collapse');
 	}

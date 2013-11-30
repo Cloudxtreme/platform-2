@@ -7,49 +7,41 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 
 	'render' : function ()
 	{
-		var self = this;
-
-		self.getAvailable (function (available)
-		{
-			self.getConnected (function (connected)
-			{
-				var data = {};
-
-				data.available = available.services;
-				data.connected = connected.services;
-
-				self.$el.html (Mustache.render (Templates.settings.services, data));
-
-			});
-		});
+		var account = Cloudwalkers.Session.getAccount();
+		var data = {};
+		
+		
+		this.$el.html (Mustache.render (Templates.settings.services, data));
+		
+		// Get Service options
+		Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
+		
+		// Get connected Services
+		Cloudwalkers.Net.get ('wizard/service/list', {'account': account.id}, this.appendConnected.bind(this));
 
 		return this;
 	},
 	
-	'getAvailable' : function (callback)
-	{
-		Cloudwalkers.Net.get 
-		(
-			'wizard/service/available',
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			callback
-		);
+	'appendOptions' : function(available) {
+		
+		var $container = this.$el.find("#service-options .portlet-body").removeClass("inner-loading");
+		
+		for (n in available.services)
+		{
+			$container.append(Mustache.render (Templates.settings.service_option, available.services[n]));
+		}
 	},
-
-	'getConnected' : function (callback)
-	{
-		Cloudwalkers.Net.get 
-		(
-			'wizard/service/list',
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			callback
-		);
+	
+	'appendConnected' : function(connected) {
+		
+		var widget = this.$el.find("#service-connected .inner-loading").removeClass("inner-loading");
+		
+		for (n in connected.services)
+		{
+			widget.find(".social-container").append(Mustache.render (Templates.settings.service_connected, connected.services[n]));
+		}
 	},
-
+	
 	'addService' : function (id, callback)
 	{
 		Cloudwalkers.Net.post 
@@ -135,5 +127,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 				self.render ();
 			}
 		});
-	}
+	},
+	
+	'negotiateFunctionalities' : function(el) {},
 });

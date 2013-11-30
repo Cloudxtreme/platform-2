@@ -9,7 +9,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 	'canLoadMore' : true,
 
 	'events' : {
-		'click .portlet-title.line' : 'collapse',
+		/*'click .portlet-title.line' : 'collapse',*/
 		'click .load-more a' : 'loadMore'
 	},
 
@@ -99,12 +99,12 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
 		this.options.channel.loadMore ({
 			'success' : function ()
 			{
-				self.$el.find ('.loading').hide ();
+				self.$el.find ('.timeline-loading').hide ();
 				self.$el.find ('.load-more').show ();
 			}
 		});
 
-		element.find ('.timeline-loading').show ();
+		this.$el.find ('.timeline-loading').show ();
 		this.$el.find ('.load-more').hide ();
 	},
 

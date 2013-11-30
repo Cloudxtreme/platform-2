@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 		element.append (this.placeholder);
 
 		this.options.model.getValues (function (values)
-		{
+		{	
 			self.plot (values);
 		});
 

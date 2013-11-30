@@ -24,9 +24,18 @@ table.charttable .text	{ text-align: left; }
 
 #inboxcontainer.inner-empty:after	{ content: "no messages"; }
 
-.span12 .messages-container td	{ width: 10%; word-wrap:break-word; }
+.span12 .messages-container td	{ width: 10%; word-wrap: break-word; }
 
+#monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
 
+[data-service-container].inner-loading	{ border-width: 0 !important; }
+
+#service-connected .social-container	{
+	background-color: white;
+}
+
+.statistic-container .chart	{ overflow-y: visible !important; }
+.statistic-container .chart div	{ line-height: 24px; }
 
 /* Keyframes */
 @-webkit-keyframes bluepulse {
@@ -105,6 +114,15 @@ nav	{
 	min-height: 20px; border-width: 1px !important; 
 }
 
+.portlet-body.inner-loading	{
+	min-height: 12px; border-width: 0 !important; 
+}
+
+.portlet-body.inner-loading *	{
+	display: none;
+}
+
+
 .timeline-loading .inner-loading	{
 	border-color: #4b8df8 !important; color: #c6c6c6 !important;
 }
@@ -128,6 +146,9 @@ nav	{
 	margin-left: 46%; color: #c0c0c0; line-height: 2.4em; font-size: 12px;
 	content: "empty"; text-align: center;
 }
+
+.inner-empty.empty-recent:after	{ content: "no recent messages"; }
+
 
 /* Widget title */
 
@@ -661,7 +682,7 @@ ul.timeline	{ margin-top: 25px; }
 }
 
 #monitorlist div.icon	{ width: 32px; margin: 0; }
-#monitorlist div.content	{ margin-left: 32px; }
+#monitorlist div.content	{ margin-left: 28px; }
 
 #monitolist tr.hidden	{ display: none; }
 

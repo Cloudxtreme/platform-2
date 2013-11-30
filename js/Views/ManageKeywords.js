@@ -14,7 +14,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	{
 		var self = this;
 
-		this.$el.html ('<p>Please wait, loading data.</p>');
+		this.$el.addClass("inner-loading");
 
 		$.ajax (
 			CONFIG_BASE_URL + 'json/wizard/monitoring/list?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
@@ -22,6 +22,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 				'success' : function (data)
 				{
 					self.$el.html (Mustache.render (Templates.managekeywords, data));
+					self.$el.removeClass("inner-loading");
 				}
 			}
 		)

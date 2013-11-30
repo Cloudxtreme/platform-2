@@ -1,0 +1,16 @@
+	<tr>
+		<td><i class="icon-{{icon}}"></i></td>
+		<td>{{name}}</td>
+		<td>
+			<a data-open-service="{{id}}">{{account}}</a>
+		</td>
+		<td class='tools'>
+			<i class="icon-edit-sign pull-right" data-open-service="{{id}}"></i>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="5" data-service-container="{{id}}" style="display: none;">
+
+		</td>
+	</tr>

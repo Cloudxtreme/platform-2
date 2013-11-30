@@ -14,6 +14,6 @@
 
 	<a class="more" href="#reports/{{streamid}}">
 		{{{details.description}}}
-		<i class="{{#dashboard}}icon-chevron-right{{/dashboard}}{{^dashboard}}icon-question-sign{{/dashboard}} m-icon-white tooltips" data-placement="top" data-original-title="{{report.description}}"></i>
+		{{#dashboard}}<i class="icon-chevron-right m-icon-white"></i>{{/dashboard}}
 	</a>
 </div>

@@ -92,6 +92,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'render' : function ()
 	{
+			
 		var data = this.prepareData ();
 		var self = this;
 
@@ -248,6 +249,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'showchildrenexec' : function ()
 	{
+	
 		if (this.commentsView == null)
 		{
 			var params = {};

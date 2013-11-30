@@ -1,7 +1,4 @@
-<!-- Account Settings -->
-<div class="tab-pane row-fluid settings-account" id="tab_1_4">
-
-	<div class="span12">
+	<div class="span8 offset4">
 		<div class="tab-content">
 			<div id="tab_1-1" class="tab-pane active">
 				<div style="height: auto;">
@@ -10,10 +7,10 @@
 					
 					<form action="javascript:void(0);" class="edit-account">
 						<label class="control-label">Name</label>
-						<input name="name" type="text" placeholder="John" class="m-wrap span8" value="{{user.name}}" />
+						<input name="name" type="text" placeholder="Company name" class="m-wrap span8" value="{{name}}" />
 
 						<div class="submit-btn">
-							<button type="submit" class="btn green">Save Changes</button>
+							<button type="submit" class="btn green edit-account">Save Changes</button>
 							<button type="reset" class="btn">Cancel</button>
 						</div>
 					</form>
@@ -21,7 +18,4 @@
 			</div>
 			
 		</div>
-	</div>                                  
-
-</div>
-<!-- End Account Settings -->
+	</div>

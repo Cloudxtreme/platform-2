@@ -22,8 +22,6 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.e
 		this.on ('content:change', function ()
 		{
 			
-			
-			
 			if (self.currentSelected)
 			{
 				self.currentSelected.$el.find ('td').addClass ('active');

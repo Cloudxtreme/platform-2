@@ -259,7 +259,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (!channel || !category) return this.home();
 		
 		// Visualisation
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ({name: channel.get("name")});
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ({title: "Keyword monitoring"});//({name: channel.get("name")});
 		widgetcontainer.templatename = "keywordcontainer"; 
 		
 		var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'category' : category }); //ChannelFilters ({ 'channel' : channel, 'name' : channeldata.name });
@@ -300,10 +300,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Settings
 	 **/
 	 
-	'settings' : function (action)
+	'settings' : function (endpoint)
 	{
-		var view = new Cloudwalkers.Views.Settings.Container ();
-		view.setAction (action);
+		/*var view = new Cloudwalkers.Views.Settings.Container ();
+		view.setAction (action);*/
+		
+		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);
 	},
 

@@ -31,29 +31,9 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
 		
+		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		
 		return this;
-		
-		/*var self = this;
-		var channel = this.options.channel;
-
-		var data = {};
-		data.name = this.options.name;
-		
-		channel.getChannels (function (subchannels)
-		{
-			channel.getStreams (function (streams)
-			{
-				data.streams = streams;
-				data.channels = subchannels;
-				data.networks = self.bundlestreamsonnetwork (streams);
-				
-				self.$el.html (Mustache.render (Templates.channelfilters, data));
-
-				return this;
-			}, true);
-		});*/
-
-		
 	},
 
 	/**

@@ -2,21 +2,11 @@
 <div class="tab-pane settings-social row-fluid" id="tab_1_3">
 	
 	<div class="span4">
-		<div class="portlet box grey">
+		<div id="service-options" class="portlet box grey">
 			<div class="portlet-title line">
 				<div class="caption"><i class="icon-globe"></i>Social platforms</div>
 			</div>
-			<div class="portlet-body social-icon-colors">
-
-
-				{{#available}}
-					<a class='btn btn-lg btn-social' href="javascript:void(0);" data-add-service="{{id}}">
-						<i class='icon-{{icon}}'></i>Add {{name}}
-					</a>
-					<small>{{info}}</small>
-				{{/available}}
-				
-			</div>
+			<div class="portlet-body social-icon-colors inner-loading"></div>
 		</div>
 		
 	</div>
@@ -24,11 +14,11 @@
 	
 	<div class="span8">
 	
-		<div class="portlet box blue">
+		<div id="service-connected" class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption"><i class="icon-cloud"></i>Active Social connections</div>
 			</div>
-			<div class="portlet-body">
+			<div class="portlet-body inner-loading">
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -38,33 +28,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody class="social-container social-icon-colors">
-
-						{{#connected}}
-							<tr>
-								<td><i class="icon-{{icon}}"></i></td>
-								<td>
-									{{name}}
-								</td>
-
-								<td>
-									<a href="javascript:void(0);" data-open-service="{{id}}">
-										{{account}}
-									</a>
-								</td>
-
-								<td class='tools'>
-									<i class="icon-edit-sign pull-right" data-open-service="{{id}}"></i>
-								</td>
-							</tr>
-
-							<tr>
-								<td colspan="5" data-service-container="{{id}}" style="display: none;">
-
-								</td>
-							</tr>
-						{{/connected}}
-					</tbody>
+					<tbody class="social-container social-icon-colors"></tbody>
 				</table>
 			</div>
 		</div>

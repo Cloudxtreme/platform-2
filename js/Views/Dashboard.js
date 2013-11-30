@@ -1,7 +1,6 @@
-Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
+Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Dashboard',
-	'span' : 0,
 	'widgets' : [
 		{widget: "channelcounter", type: "inbox", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
 		{widget: "channelcounter", type: "monitoring", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
@@ -82,21 +81,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Widgets.WidgetContainer.extend
 		}
 
 		return this;
-	},
-	
-	'appendWidget' : function(widget, span) {
-		
-		if(span == NaN) span = 12;
-		
-		if(!this.span)
-			$("<div></div>").appendTo(this.$container).addClass("row-fluid");	
-		
-		this.span = (span + this.span < 12)? span + this.span: 0;
-		
-		this.$container.find(".row-fluid").eq(-1).append( widget.render().el );
-		
-		widget.$el.addClass("span" + span);
-		widget.negotiateFunctionalities();
 	},
 
 	'addDashboardTrending' : function (widgetdata)

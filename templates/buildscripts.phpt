@@ -16,6 +16,7 @@
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
+<script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/WidgetContainer.js"></script> 
 <script type="text/javascript" src="/js/Views/Message.js"></script>
 

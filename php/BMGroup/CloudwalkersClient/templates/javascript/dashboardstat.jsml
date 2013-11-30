@@ -16,6 +16,5 @@
 
 	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
 		{{{footer}}}
-		<i class="{{#dashboard}}icon-chevron-right{{/dashboard}}{{^dashboard}}icon-question-sign{{/dashboard}} m-icon-white tooltips" data-placement="top" data-original-title="{{report.description}}"></i>
 	</a>
 </div>

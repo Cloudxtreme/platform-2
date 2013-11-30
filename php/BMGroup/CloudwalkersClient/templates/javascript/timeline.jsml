@@ -1,6 +1,6 @@
 <ul class="timeline social-box-colors messages-container" id='pages'>
 	
-	<li class="timeline-loading load-more">
+	<li class="timeline-blue timeline-loading">
 		<div class="timeline-time"></div>
 		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
 		<a href="javascript:void(0);">
@@ -10,23 +10,7 @@
 		</a>
 	</li>
 	
-	{{#showMoreButton}}
-
-		<li class="timeline-blue">
-			<div class="timeline-time">
-				<span class="date"></span>
-				<span class="time"></span>
-			</div>
-			<div class="timeline-icon"><i class="icon-chevron-down "></i></div>
-			<a href="{{showMoreButton}}">
-				<div class="timeline-body more">
-					<strong>View more</strong>
-				</div>
-			</a>
-		</li>
-
-	{{/showMoreButton}}
-
+	
 	<li class="timeline-blue load-more">
 		<div class="timeline-time">
 			<span class="date"></span>
@@ -41,3 +25,6 @@
 	</li>
 
 </ul>
+
+
+

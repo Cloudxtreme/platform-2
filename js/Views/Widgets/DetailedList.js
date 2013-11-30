@@ -12,6 +12,7 @@ Cloudwalkers.Views.Widgets.DetailedList = Cloudwalkers.Views.Widgets.MessageCont
 
 	'render' : function ()
 	{
+		
 		var self = this;
 
 		this.$innerEl = this.$el;

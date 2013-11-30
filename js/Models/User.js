@@ -25,7 +25,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 		else
 		{
-			return 'User';
+			return 'Co-worker';
 		}
 	},
 

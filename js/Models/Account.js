@@ -65,6 +65,13 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			self.set (data);
 			callback ();
 		});
+	},
+	
+	'save' : function (callback)
+	{
+		var data = {name: this.get("name")}
+		
+		Cloudwalkers.Net.put ('account/' + this.id, {}, data, callback);
 	}
 
 });
