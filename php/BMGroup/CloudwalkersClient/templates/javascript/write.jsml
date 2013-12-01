@@ -67,11 +67,13 @@
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>
 
+                                                <!--
                                                     <select class="btn blue" style="background-color: #2bbedc; height: 34px;">
                                                         <option>Add conversion tag</option>
                                                         <option>job campaign</option>
                                                         <option>followers campaign</option>
                                                     </select>
+                                                -->
 													
 													<h2>Select media</h2>
 												<!--</form>-->
