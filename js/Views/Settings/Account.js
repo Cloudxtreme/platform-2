@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
-		'submit .edit-account' : 'editAccount',
+		'submit .edit-account' : 'editAccount'
 	},
 
 	'render' : function ()

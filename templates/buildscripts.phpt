@@ -36,7 +36,6 @@
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
-<script type="text/javascript" src="/js/Views/Reports.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
@@ -100,7 +99,6 @@
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
 <script type="text/javascript" src="/js/Collections/Comments.js"></script>
-<script type="text/javascript" src="/js/Collections/Messages.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <!-- deprecated collections -->
 <script type="text/javascript" src="/js/Collections/Channel.js"></script>
