@@ -1,4 +1,4 @@
-<li class="timeline-blue {{#stream}}{{network.icon}}-color{{/stream}}">
+<li class="timeline-blue {{stream.network.token}}-color">
 	<div class="timeline-time">
 		<span class="date">{{dateonly}} {{time}}</span>
 		<span class="time">{{engagement}}</span>
