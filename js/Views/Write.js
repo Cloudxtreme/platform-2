@@ -18,7 +18,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click [name=delay]' : 'setWithinDate',
 		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin',
 		'click #button-response[value=send]' : 'sendNow',
-        'click .btnShortenURL' : 'shortenUrl'
+        'click .btnShortenURL' : 'shortenUrl',
+        'change select[name=campaign]' : 'selectCampaign',
+        'click [name=add-campaign]' : 'addCampaign',
 	},
 
 	'files' : [],
@@ -63,6 +65,20 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			$(e.toElement.form).trigger ('submit');
 		}
 	},
+	
+	'selectCampaign' : function (e)
+	{
+
+		var value = Number(this.$el.find("select[name=campaigns]").val());
+		
+		if(!value) this.$el.find(".new-campaign, select[name=campaigns]").toggleClass("inactive");
+
+	},
+	
+	'addCampaign' : function (e)
+	{
+		/* Black hole */
+	},
 
 	'getAvailableStreams' : function ()
 	{
@@ -96,6 +112,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.files = [];
 		this.draft = false;
 		this.sendnow = false;
+		
+		var account = Cloudwalkers.Session.getAccount();
 
 		this.actionparameters = {};
 
@@ -270,8 +288,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				data.showschedule = true;
 			}
 		}
-
-		var popup = Mustache.render(Templates['write'], data);
+		
+		data.campaigns = account.get("campaigns");
+		
+		var popup = Mustache.render(Templates.write, data);
 		self.$el.html (popup);
 
 		self.$el.find ('[name=url]').change (function ()

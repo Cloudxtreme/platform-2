@@ -16,8 +16,21 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		//this.on("change", )
 	},
 	
+	'parse' : function (response)
+	{
+		return response.account? response.account: response;
+	},
+	
+	'url' : function ()
+	{
+		return CONFIG_BASE_URL + 'json/account/' + this.id;
+	},
+	
 	'activate' : function ()
 	{	
+		// get extended account data
+		this.fetch();
+		
 		// add from Account.channels
 		this.channels.add(this.get("channels"));
 		

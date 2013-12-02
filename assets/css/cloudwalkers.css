@@ -37,6 +37,10 @@ table.charttable .text	{ text-align: left; }
 .statistic-container .chart	{ overflow-y: visible !important; }
 .statistic-container .chart div	{ line-height: 24px; }
 
+.add-data select.inactive, .new-campaign.inactive	{ display: none; }
+input[name="campaign-name"]	{ height: 24px; margin: 0; }
+
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }

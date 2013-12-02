@@ -47,6 +47,7 @@
 													<button class='btn' data-toggle-target="subject" type="button">Subject</button>
 													<button class='btn' data-toggle-target="url" type="button">URL</button>
 													<button class='btn' data-toggle-target="picture" type="button">Picture</button>
+													<button class='btn' data-toggle-target="campaign" type="button">Campaign</button>
 
 													<!--<button class='btn blue'>tags</button>-->
 													
@@ -66,6 +67,21 @@
 														<input class="fileupload" id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}upload" multiple />
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>
+													
+													<div class='add-data inactive' data-toggle-id="campaign">
+														<select name="campaign">
+	                                                        <option value='0'>select campaign</option>
+	                                                        {{#campaigns}}<option value='{{id}}'>{{name}}</option>{{/campaigns}}
+															<option disabled="disabled">- - - - - - - - - - - </option>
+															<option value='0'>add new...</option>
+														</select>
+														<div class="new-campaign inactive">
+															<input type="text" name="campaignname" placeholder="campaign name" />
+															<button class='btn' name="add-campaign" type="button">Add</button>
+														</div>
+													</div>
+													
+													
 
                                                 <!--
                                                     <select class="btn blue" style="background-color: #2bbedc; height: 34px;">
