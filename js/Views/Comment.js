@@ -37,19 +37,4 @@ Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
 
 		this.delegateEvents (this.events);
 	}
-
-	/*
-	'render' : function ()
-	{
-		var data = {};
-
-		data.comment = this.model.attributes;
-		data.comment.humandate = this.model.humandate ();
-
-		$(this.el).html (Mustache.render (Templates.comment, data));
-
-		return this;
-	}
-	*/
-
 });

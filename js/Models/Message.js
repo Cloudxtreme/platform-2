@@ -324,9 +324,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'humandate' : function ()
+	'humandate' : function (entry)
 	{
-		var date = this.date ();
+		var date = (new Date(entry? entry: this.get ('date')));
+		
 		return Cloudwalkers.Utils.longdate (date);
 	},
 
@@ -415,43 +416,19 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		var schedule = this.get ('schedule');
-		var time = (new Date());
+		
+		if(!schedule) return false;
 
 		if (showtext)
-		{
-			if (schedule)
-			{
-				if (schedule.date == 'ASAP')
-				{
-					// Do nothing
-					return 'ASAP';
-				}
+	
+			return (schedule.date == 'ASAP')? schedule.date: this.humandate(schedule.date);
 
-				else
-				{
-					time = (new Date(schedule.date));
-				}
-			}
+		else if (schedule.date == 'ASAP')
 
-			return Cloudwalkers.Utils.longdate (time);
-		}
+			return false;
 		else
-		{
-			if (schedule)
-			{
-				if (schedule.date == 'ASAP')
-				{
-					// Do nothing
-					return false;
-				}
+			return (new Date(schedule.date));
 
-				else
-				{
-					time = (new Date(schedule.date));
-					return time;
-				}
-			}
-		}
 	},
 
 	'calculateIntervalFromSeconds' : function (intervalSeconds)

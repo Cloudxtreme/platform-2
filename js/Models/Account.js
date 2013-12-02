@@ -25,7 +25,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.streams.fetch();
 		
 		// Connect ping to account
-		// this.ping = new Cloudwalkers.Session.Ping({id: this.id});
+		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
 	},
 	
 	'avatar' : function ()

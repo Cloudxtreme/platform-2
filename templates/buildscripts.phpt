@@ -1,15 +1,14 @@
 <!-- Application -->
 <script type="text/javascript" src="/js/Cloudwalkers.js"></script>
 <script type="text/javascript" src="/js/Session.js"></script>
-<script type="text/javascript" src="/js/Utils.js"></script>
-<script type="text/javascript" src="/js/Storage.js"></script>
-<script type="text/javascript" src="/js/Net.js"></script>
 
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/StreamLibrary.js"></script>
 <script type="text/javascript" src="/js/Utilities/Parser.js"></script>
 <script type="text/javascript" src="/js/Utilities/Ping.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
+<script type="text/javascript" src="/js/Utilities/Utils.js"></script>
+<script type="text/javascript" src="/js/Utilities/Net.js"></script>
 
 <!-- Router -->
 <script type="text/javascript" src="/js/Router/Router.js"></script>
@@ -79,7 +78,6 @@
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 
-
 <!-- Models -->
 <script type="text/javascript" src="/js/Models/Account.js"></script>
 <script type="text/javascript" src="/js/Models/Channel.js"></script>
@@ -89,8 +87,6 @@
 <script type="text/javascript" src="/js/Models/Message.js"></script>
 <script type="text/javascript" src="/js/Models/Comment.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
-<!-- deprecated models -->
-<script type="text/javascript" src="/js/Models/StatisticDataset.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
