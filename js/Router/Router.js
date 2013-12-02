@@ -13,6 +13,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'keywords' : 'managekeywords',
 		'reports(/:streamid)' : 'reports',
 		'settings(/:sub)' : 'settings',
+		'dashboard/:accountid' : 'changeaccount',
 		'*path' : 'dashboard'
 	},
 
@@ -45,7 +46,19 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());	
 	},
 	
+	/**
+	 *	Account Switch
+	 **/
 
+	'changeaccount' : function (accountid)
+	{	
+		if(accountid != Cloudwalkers.Session.get("currentAccount"))
+		{
+			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {patch: true, success: this.home});//, {success: this.home});
+			//this.home()
+		}
+	},
+	
 	/**
 	 *	Message board
 	 **/
@@ -302,8 +315,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'settings' : function (endpoint)
 	{
-		/*var view = new Cloudwalkers.Views.Settings.Container ();
-		view.setAction (action);*/
 		
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);

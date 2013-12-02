@@ -6,13 +6,26 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.streams = new Cloudwalkers.Collections.Streams();
 		this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
 		
-		// Collect Channel, add from Account.channels
+		// Collect Channel
 		this.channels = new Cloudwalkers.Collections.Channels();
-		this.channels.add(this.get("channels"));	
 		
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
 		
+		// Listen to account changes
+		//this.on("change", )
+	},
+	
+	'activate' : function ()
+	{	
+		// add from Account.channels
+		this.channels.add(this.get("channels"));
+		
+		// Fetch Account streams
+		this.streams.fetch();
+		
+		// Connect ping to account
+		// this.ping = new Cloudwalkers.Session.Ping({id: this.id});
 	},
 	
 	'avatar' : function ()

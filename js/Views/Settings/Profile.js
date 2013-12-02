@@ -36,7 +36,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 
 		user.set ('firstname', firstname);
 		user.set ('name', name);
-		user.save ( function () { Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated"); });
+		user.saveProfile ( function () { Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated"); });
 	},
 	
 	'editUserAvatar' : function () {
@@ -52,7 +52,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 				var base64img = e.target.result;
 				
 				user.set ('avatarBase64', base64img );
-				user.save ( function () {
+				user.saveProfile ( function () {
 					
 					Cloudwalkers.RootView.growl('User Profile', "You have a brand new avatar now.");
 					$(".avatar-big").css('background-image',"url(" + base64img + ")");

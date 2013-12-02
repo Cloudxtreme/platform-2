@@ -9,7 +9,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		this.on ('change:accounts', this.updateAccounts);
 		this.on ('change:id', Cloudwalkers.Router.home);
-
+		this.on ('change:settings', Cloudwalkers.Session.updateSettings)
 	},
 
 	'url' : function ()
@@ -20,6 +20,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'parse' : function (response)
 	{
 		Store.write(this.url(), [response.user]);
+		
 		return response.user;
 	},
 	
@@ -31,21 +32,13 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				if(data) this.set(data);
 
 			}.bind(this));
-			
-		//if(!Store.exists(this.url())) options.success = this.firstSync;
-
 
 		return Backbone.sync(method, model, options);
 	},
 	
-	/*'firstSync' : function ()
-	{
-		
-		Cloudwalkers.Session.trigger("change:first");
-	},*/
-	
 	'updateAccounts' : function (data)
 	{
+		
 		if(!data.changed.accounts.length)
 			return Cloudwalkers.RootView.exception(401);
 		
@@ -56,17 +49,20 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		var current = Cloudwalkers.Session.settings.currentAccount;
 		
 		if( Number(current) == NaN || !this.accounts.get(current))
+		{
 			Cloudwalkers.Session.settings.currentAccount = current = data.changed.accounts[0].id;
-		
-		
-		// Set current account
-		this.account = this.accounts.get(current);
-		this.account.streams.fetch();
-		
+			
+			// Set current account
+			this.account = this.accounts.get(current);
+			this.account.activate();
+			
+			Cloudwalkers.Session.updateSetting('currentAccount', current);
+		}
+
 		// Set current user level
 		this.level = Number(this.account.get("currentuser").level);
 		
-		Cloudwalkers.Session.trigger("change:accounts")
+		Cloudwalkers.Session.trigger("change:accounts");
 	},
 
 	'countUnreadMessages' : function ()

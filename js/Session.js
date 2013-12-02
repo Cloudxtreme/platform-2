@@ -19,6 +19,33 @@ Cloudwalkers.Session =
 		this.user.fetch();
 	},
 	
+	'updateSettings' : function(user)
+	{
+		// Hack: solve array issue
+		if(user && user.get("settings").length === 0) return null;
+		
+		$.extend(Cloudwalkers.Session.settings, user.get("settings"));
+	},
+	
+	'updateSetting' : function(attribute, value, callbacks)
+	{
+	
+		if( Cloudwalkers.Session.settings[attribute] != value)
+		{
+			// Update session
+			Cloudwalkers.Session.settings[attribute] = value;
+			
+			// Update user
+			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.settings}, callbacks);
+		}
+	},
+	
+	'get' : function(attribute)
+	{
+		// Update session
+		return Cloudwalkers.Session.settings[attribute];
+	},
+	
 	'getUser' : function (id)
 	{
 		return (id)? this.user.account.users.get (id):  this.user;
@@ -64,15 +91,6 @@ Cloudwalkers.Session =
 		this.getAccount ().refresh (function ()
 		{
 			Cloudwalkers.Session.trigger ('channels:change');
-		});
-	},
-
-	'poll' : function ()
-	{
-		var self = this;
-		this.call ('user/me', null, null, function (data)
-		{
-			self.user.set (data.user);
 		});
 	},
 	

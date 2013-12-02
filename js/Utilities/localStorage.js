@@ -59,7 +59,7 @@ var StorageClass = function(successCallback, errorCallback) {
 		
 		var group = JSON.parse(window.localStorage.getItem(type));  
 		
-		if(selector)
+		if(group && selector)
 			for(key in selector)
 				group = group.filter(function(el){ return (el[key] == selector[key]); });
 		

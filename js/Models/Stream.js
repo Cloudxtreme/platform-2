@@ -15,6 +15,6 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 			this.reports.streamid = this.id;
 		}
 
-	},
+	}
 
 });

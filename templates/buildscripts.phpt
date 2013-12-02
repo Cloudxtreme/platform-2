@@ -8,6 +8,7 @@
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/StreamLibrary.js"></script>
 <script type="text/javascript" src="/js/Utilities/Parser.js"></script>
+<script type="text/javascript" src="/js/Utilities/Ping.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
 
 <!-- Router -->
@@ -33,7 +34,6 @@
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
-<script type="text/javascript" src="/js/Views/Filter.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
@@ -49,7 +49,6 @@
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DraftList.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/HTMLWidget.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ChannelCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduleCounter.js"></script>
@@ -66,13 +65,11 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
 
 <!-- Deprecated views -->
-<script type="text/javascript" src="/js/Views/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Loading.js"></script>
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
 <script type="text/javascript" src="/js/Views/ActionParameters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Title.js"></script>
-<script type="text/javascript" src="/js/Views/Settings/Container.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Services.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Service.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Users.js"></script>

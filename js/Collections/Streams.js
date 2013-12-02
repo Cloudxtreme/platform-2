@@ -64,10 +64,8 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 		
 				
 		return reportables;
-	},
-	
-	
-	
+	}
+		
 	/*
 	// Sort stream on priority
 	streams.sort (function (a, b)

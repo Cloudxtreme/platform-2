@@ -129,5 +129,5 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		});
 	},
 	
-	'negotiateFunctionalities' : function(el) {},
+	'negotiateFunctionalities' : function(el) {}
 });

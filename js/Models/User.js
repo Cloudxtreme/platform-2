@@ -29,7 +29,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		}
 	},
 
-	'save' : function (callback)
+	'saveProfile' : function (callback)
 	{
 		var data = {firstname: this.get("firstname"), name: this.get("name"), avatar: this.get("avatarBase64")}
 		

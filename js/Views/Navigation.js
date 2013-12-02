@@ -104,7 +104,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	'toggleNotifications' : function( )
 	{
 		this.$el.find ('.notification-popup').toggle ();
-	},
+	}
 	
 	// Add unread count logic for inbox icon
 	/*
