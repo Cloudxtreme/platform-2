@@ -431,6 +431,7 @@ nav	{
 .social-icon-colors .icon-google-plus	{ color: #DD4C39; }
 .social-icon-colors .icon-youtube		{ color: #CC181E; }
 .social-icon-colors .icon-web			{ color: #ff9c00; }
+.social-icon-colors .icon-blog			{ color: #ff9c00; }
 
 .social-box-colors .facebook-color	{ border-color: #3B5998 !important; }
 .social-box-colors .facebook-color .portlet-title	{ background-color: #3B5998 !important; }
@@ -488,6 +489,14 @@ nav	{
 .social-box-colors .web-color .timeline-body:after	{ border-right-color: #f39501 !important; }
 .dashboard-stat.web-color	{ background-color: #f39501; }
 
+.social-box-colors .blog-color	{ border-color: #f39501 !important; }
+.social-box-colors .blog-color .portlet-title	{ background-color: #f39501 !important; }
+.social-box-colors .blog-color .inherit	{ color: white; background: #f39501 !important; }
+.social-box-colors .blog-color .time	{ color: #f39501 !important; }
+.social-box-colors .blog-color .timeline-body	{ background-color: #f39501 !important; }
+.social-box-colors .blog-color .timeline-body:after	{ border-right-color: #f39501 !important; }
+.dashboard-stat.blog-color	{ background-color: #f39501; }
+
 .dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
 .dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
 .dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
@@ -503,7 +512,7 @@ nav	{
 .portlet.box.google-plus-color  { background-color: #DD4C39 ; }
 .portlet.box.youtube-color  { background-color: #CC181E ; }
 .portlet.box.web-color  { background-color: #f39501 ; }
-.portlet.box.compass-color  { background-color: #f39501 ; }
+.portlet.box.blog-color  { background-color: #f39501 ; }
 
 /**
 * Button colors
@@ -515,6 +524,7 @@ nav	{
 .btn.google-plus-color  { background-color: #DD4C39 ; color: white; }
 .btn.youtube-color  { background-color: #CC181E ;  color: white; }
 .btn.web-color  { background-color: #f39501 ;  color: white; }
+.btn.blog-color  { background-color: #f39501 ;  color: white; }
 
 
 /* Missing Portlet Colors */
