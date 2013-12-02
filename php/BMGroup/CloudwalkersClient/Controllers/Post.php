@@ -88,6 +88,18 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 
 		$data['attachments'] = $attachments;
 
+		$campaign = Neuron_Core_Tools::getInput ('_POST', 'campaign', 'varchar');
+		if ($campaign)
+		{
+			$data['campaign'] = $campaign;
+		}
+
+		$campaignname = Neuron_Core_Tools::getInput ('_POST', 'campaignname', 'varchar');
+		if ($campaignname)
+		{
+			$data['campaignname'] = $campaignname;
+		}
+
 		// Delay
 		if ($delay = Neuron_Core_Tools::getInput ('_POST', 'delay', 'int'))
 		{
