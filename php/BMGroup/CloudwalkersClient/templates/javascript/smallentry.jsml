@@ -6,8 +6,9 @@
 	
 	{{#user}}
 		<img class="avatar" alt="" src="{{avatar}}">
-		<strong>{{displayname}}</strong>
+		<strong>{{firstname}} {{lastname}}</strong>
 	{{/user}}
+
 	
 	{{#from}}
 		<i class="icon-{{icon}}"></i>

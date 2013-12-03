@@ -1,17 +1,42 @@
 <!-- Application -->
 <script type="text/javascript" src="/js/Cloudwalkers.js"></script>
 <script type="text/javascript" src="/js/Session.js"></script>
+<script type="text/javascript" src="/js/Router.js"></script>
 
 <!-- Utilities -->
-<script type="text/javascript" src="/js/Utilities/StreamLibrary.js"></script>
-<script type="text/javascript" src="/js/Utilities/Parser.js"></script>
 <script type="text/javascript" src="/js/Utilities/Ping.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
+
+<!-- Deprecated Utilities -->
 <script type="text/javascript" src="/js/Utilities/Utils.js"></script>
 <script type="text/javascript" src="/js/Utilities/Net.js"></script>
+<script type="text/javascript" src="/js/Utilities/StreamLibrary.js"></script>
+<script type="text/javascript" src="/js/Utilities/Parser.js"></script>
 
-<!-- Router -->
-<script type="text/javascript" src="/js/Router/Router.js"></script>
+<!-- Models -->
+<script type="text/javascript" src="/js/Models/Account.js"></script>
+<script type="text/javascript" src="/js/Models/Channel.js"></script>
+<script type="text/javascript" src="/js/Models/User.js"></script>
+<script type="text/javascript" src="/js/Models/Me.js"></script>
+<script type="text/javascript" src="/js/Models/Stream.js"></script>
+<script type="text/javascript" src="/js/Models/Message.js"></script>
+<script type="text/javascript" src="/js/Models/Comment.js"></script>
+<script type="text/javascript" src="/js/Models/Report.js"></script>
+
+<!-- Collections -->
+<script type="text/javascript" src="/js/Collections/Accounts.js"></script>
+<script type="text/javascript" src="/js/Collections/Users.js"></script>
+<script type="text/javascript" src="/js/Collections/Channels.js"></script>
+<script type="text/javascript" src="/js/Collections/Streams.js"></script>
+<script type="text/javascript" src="/js/Collections/Messages.js"></script>
+<script type="text/javascript" src="/js/Collections/Comments.js"></script>
+<script type="text/javascript" src="/js/Collections/Reports.js"></script>
+
+<!-- deprecated collections -->
+<script type="text/javascript" src="/js/Collections/Channel.js"></script>
+<script type="text/javascript" src="/js/Collections/Trending.js"></script>
+<script type="text/javascript" src="/js/Collections/Scheduled.js"></script>
+<script type="text/javascript" src="/js/Collections/Drafts.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Root.js"></script>
@@ -19,6 +44,10 @@
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/WidgetContainer.js"></script> 
 <script type="text/javascript" src="/js/Views/Message.js"></script>
+<!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
+
+<!-- Deprecated Views -->
+<script type="text/javascript" src="/js/Views/WidgetContainer.js"></script> 
 
 <!-- Page Views -->
 <script type="text/javascript" src="/js/Views/Dashboard.js"></script>
@@ -77,27 +106,3 @@
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
-
-<!-- Models -->
-<script type="text/javascript" src="/js/Models/Account.js"></script>
-<script type="text/javascript" src="/js/Models/Channel.js"></script>
-<script type="text/javascript" src="/js/Models/User.js"></script>
-<script type="text/javascript" src="/js/Models/Me.js"></script>
-<script type="text/javascript" src="/js/Models/Stream.js"></script>
-<script type="text/javascript" src="/js/Models/Message.js"></script>
-<script type="text/javascript" src="/js/Models/Comment.js"></script>
-<script type="text/javascript" src="/js/Models/Report.js"></script>
-
-<!-- Collections -->
-<script type="text/javascript" src="/js/Collections/Accounts.js"></script>
-<script type="text/javascript" src="/js/Collections/Users.js"></script>
-<script type="text/javascript" src="/js/Collections/Channels.js"></script>
-<script type="text/javascript" src="/js/Collections/Streams.js"></script>
-<script type="text/javascript" src="/js/Collections/Messages.js"></script>
-<script type="text/javascript" src="/js/Collections/Comments.js"></script>
-<script type="text/javascript" src="/js/Collections/Reports.js"></script>
-<!-- deprecated collections -->
-<script type="text/javascript" src="/js/Collections/Channel.js"></script>
-<script type="text/javascript" src="/js/Collections/Trending.js"></script>
-<script type="text/javascript" src="/js/Collections/Scheduled.js"></script>
-<script type="text/javascript" src="/js/Collections/Drafts.js"></script>

@@ -15,7 +15,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	},
 	
 	'url' : function()
-	{		
+	{
 		return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.parentid + "?" + $.param (this.parameters);
 	},
 	

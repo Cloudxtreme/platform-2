@@ -14,12 +14,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 	'url' : function ()
 	{
-		return CONFIG_BASE_URL + 'json/user/me';
+		//var param = Store.exists("me")? "?include_accounts=ids": "";
+		
+		return CONFIG_BASE_URL + "json/user/me"; //+ param;
 	},
 	
 	'parse' : function (response)
 	{
-		Store.write(this.url(), [response.user]);
+		Store.write("me", [response.user]);
 		
 		return response.user;
 	},
@@ -27,13 +29,20 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'sync' : function (method, model, options)
 	{
 		if( method == "read")
-			Store.get(this.url(), null, function(data)
+			Store.get("me", null, function(data)
 			{
-				if(data) this.set(data);
+				if(data) this.setFromLocal(data);
 
 			}.bind(this));
 
 		return Backbone.sync(method, model, options);
+	},
+	
+	'setFromLocal' : function (data)
+	{
+		console.log(data);
+		
+		this.set(data);
 	},
 	
 	'updateAccounts' : function (data)

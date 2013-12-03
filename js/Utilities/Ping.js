@@ -4,9 +4,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	'timeout' : 0,
 	'cursor' : false,
 	
-	'parameters' : {
-		precision : 2	
-	},
+	'parameters' : {},
 	
 	'initialize' : function() {
 		
@@ -19,6 +17,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		
 		this.on("change:paging", this.setCursor, this);
 		this.on("change:updates", this.updates, this);
+		this.on("change:add", this.addModels, this);
 	},
 	
 	'setCursor' : function(dynamic, changed)
@@ -50,18 +49,20 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	 'updates' : function(ping, updates)
 	 {
 		 if(!updates.length) return null;
-		 
-		 var channels = [];
-		 var streams = [];
-		 
-		 for (n in updates)
-		 {
-			 channels = channels.concat(updates[n].channels);
-			 streams = streams.concat(updates[n].streams);
-		 }
-		 
-		 console.log("ping success callback: ", channels, streams);
+		 		 
+		 console.log("ping updates callback: ", updates);
 	 },
+	 
+	 /**
+	 *	Add [something]	
+	 **/
+	 'addModels' : function(ping, add)
+	 {
+		 if(!add.length) return null;
+		 
+		 console.log("ping add callback: ", add);
+	 },
+
 	
 	'schedule' : function()
 	{

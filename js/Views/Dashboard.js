@@ -114,8 +114,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
 		widgetdata.link = "#coworkers";
 		
-		var streamid = widgetdata.channel.get("streams")[0].id;
-		widgetdata.stream = Cloudwalkers.Session.getStream(streamid);
+		var draftstreams = widgetdata.channel.get("streams").filter(function(stream){ return stream.token=="draft"});
+		
+		widgetdata.streamid = draftstreams.pop().id;
+		
+		//var streamid = draftstreams.pop().id;
+		//widgetdata.stream = Cloudwalkers.Session.getStream(streamid);
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},

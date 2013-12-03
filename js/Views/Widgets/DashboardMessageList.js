@@ -17,10 +17,11 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	{
 		this.$el.html (Mustache.render (Templates.dashboardmessagecontainer, this.options));
 		
-		if(this.options.stream)
+		if(this.options.streamid)
 		{
-				this.options.stream.messages = new Cloudwalkers.Collections.Messages([], {id: this.options.stream.id, endpoint: "stream"});
-				var messages = this.options.stream.messages;
+				// HACK! Stream model should already exist
+				//this.options.stream.messages = new Cloudwalkers.Collections.Messages([], {id: this.options.stream.id, endpoint: "stream"});
+				var messages = new Cloudwalkers.Collections.Messages([], {id: this.options.streamid, endpoint: "stream"});
 		} else	var messages = this.options.channel.messages;
 		
 		messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
@@ -28,8 +29,11 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		return this;
 	},
 	
-	'fill' : function (collection)
+	'fill' : function (collection, b)
 	{	
+		
+		console.log(this.options.link, collection, b)
+		
 		this.$el.find('.inner-loading').toggleClass(collection.length? 'inner-loading': 'inner-empty inner-loading');
 		
 		var $container = this.$el.find(".messages-container").eq(-1);

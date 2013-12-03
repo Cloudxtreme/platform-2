@@ -25,6 +25,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var data = this.attributes;
 		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
+		//console.log(data)
+		
 		if(data.attachments)
 		{
 			data.media = data.attachments.slice(-1)[0];
