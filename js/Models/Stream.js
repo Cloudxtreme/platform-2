@@ -2,7 +2,6 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
 	'initialize' : function(){
 		
-		
 		/*if(this.get("incoming"))
 		{
 			this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
@@ -15,6 +14,16 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 			this.reports.streamid = this.id;
 		}
 
+	},
+	
+	'parse' : function(response)
+	{
+		Store.updateById("streams", response, function(exists, stream)
+		{
+			if(!exists) Store.post("streams", stream);
+		});
+		
+		return response;
 	}
 
 });

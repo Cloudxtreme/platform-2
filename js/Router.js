@@ -54,7 +54,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{	
 		if(accountid != Cloudwalkers.Session.get("currentAccount"))
 		{
-			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {patch: true, success: this.home});
+			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home}); //patch: true
 		}
 	},
 	
@@ -319,7 +319,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (view);
 	},
 
-	'home' : function () { window.location = "/"; },
+	'home' : function ()
+	{
+		Cloudwalkers.Session.reset();
+		window.location = "/";
+	},
 	
 	'exception' : function (errno)
 	{ 

@@ -4,26 +4,46 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'initialize' : function (data)
 	{
-		
 		this.accounts = new Cloudwalkers.Collections.Accounts();
 		
-		this.on ('change:accounts', this.updateAccounts);
-		this.on ('change:id', Cloudwalkers.Router.home);
 		this.on ('change:settings', Cloudwalkers.Session.updateSettings)
+		this.on ('change:accounts', this.setAccounts);
+		//this.on ('change:id', Cloudwalkers.Session.reset);
+		this.on ('change:id', Cloudwalkers.Router.home);
+		
 	},
 
 	'url' : function ()
 	{
-		//var param = Store.exists("me")? "?include_accounts=ids": "";
+		var param = Store.exists("me")? "?include_accounts=ids": "";
 		
-		return CONFIG_BASE_URL + "json/user/me"; //+ param;
+		return CONFIG_BASE_URL + "json/user/me" + param;
 	},
 	
 	'parse' : function (response)
 	{
+		if(!Store.exists("me"))
+		{
+			this.firstLoad(response.user);
+		}
+
 		Store.write("me", [response.user]);
 		
 		return response.user;
+	},
+	
+	'firstLoad' : function (me)
+	{
+		// store and simplify accounts
+		for(n in me.accounts)
+		{
+			Store.post("accounts", me.accounts[n]);
+			
+			me.accounts[n] = me.accounts[n].id;
+		}
+			
+		// Add current account if non-existant
+		if(!me.settings.currentAccount) me.settings.currentAccount = me.accounts[0];
 	},
 	
 	'sync' : function (method, model, options)
@@ -31,64 +51,29 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		if( method == "read")
 			Store.get("me", null, function(data)
 			{
-				if(data) this.setFromLocal(data);
+				if(data) this.set(data);
 
 			}.bind(this));
 
 		return Backbone.sync(method, model, options);
 	},
 	
-	'setFromLocal' : function (data)
-	{
-		console.log(data);
-		
-		this.set(data);
-	},
-	
-	'updateAccounts' : function (data)
+	'setAccounts' : function (data)
 	{
 		
-		if(!data.changed.accounts.length)
+		// Prevent dislodged user access
+		if(!this.get("accounts").length)
 			return Cloudwalkers.RootView.exception(401);
 		
-		// Add Accounts
-		this.accounts.add(data.changed.accounts, {merge: true});
+		Store.filter("accounts", null, function(accounts){ this.accounts.add(accounts); }.bind(this));
 		
-		// Add Session.setting
-		var current = Cloudwalkers.Session.settings.currentAccount;
-		
-		if( Number(current) == NaN || !this.accounts.get(current))
-		{
-			Cloudwalkers.Session.settings.currentAccount = current = data.changed.accounts[0].id;
-			
-			// Set current account
-			this.account = this.accounts.get(current);
-			this.account.activate();
-			
-			Cloudwalkers.Session.updateSetting('currentAccount', current);
-		}
+		// Set current account
+		this.account = this.accounts.get(Cloudwalkers.Session.get("currentAccount"));
+		this.account.activate();
 
 		// Set current user level
 		this.level = Number(this.account.get("currentuser").level);
-		
-		Cloudwalkers.Session.trigger("change:accounts");
-	},
 
-	'countUnreadMessages' : function ()
-	{
-		var unreadmessages = 0;
-		for (var j = 0; j < this.get ('accounts').length; j ++)
-		{
-			for (var i = 0; i < this.get ('accounts')[j].channels.length; i ++)
-			{
-				if (this.get ('accounts')[j].channels[i].type == 'inbox')
-				{
-					unreadmessages += parseInt(this.get ('accounts')[j].channels[i].unread);
-				}
-			}
-		}
-
-		return unreadmessages;
 	},
 
 	'savePassword' : function (oldpassword, newpassword, callback)

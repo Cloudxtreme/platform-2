@@ -19,6 +19,23 @@ Cloudwalkers.Session =
 		this.user.fetch();
 	},
 	
+	'refresh' : function ()
+	{
+		this.getAccount ().refresh (function ()
+		{
+			Cloudwalkers.Session.trigger ('channels:change');
+		});
+	},
+	
+	'reset' : function ()
+	{
+		window.localStorage.clear();
+	},
+	
+	/**
+	 *	Session settings functions
+	 **/
+	
 	'updateSettings' : function(user)
 	{
 		// Hack: solve array issue
@@ -32,10 +49,9 @@ Cloudwalkers.Session =
 	
 		if( Cloudwalkers.Session.settings[attribute] != value)
 		{
-			// Update session
+			// Update session and save on user
 			Cloudwalkers.Session.settings[attribute] = value;
 			
-			// Update user
 			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.settings}, callbacks);
 		}
 	},
@@ -46,6 +62,10 @@ Cloudwalkers.Session =
 		return Cloudwalkers.Session.settings[attribute];
 	},
 	
+	/**
+	 *	Users shortcut functions
+	 **/
+	
 	'getUser' : function (id)
 	{
 		return (id)? this.user.account.users.get (id):  this.user;
@@ -55,6 +75,10 @@ Cloudwalkers.Session =
 	{
 		return this.user.account.users;
 	},
+	
+	/**
+	 *	Accounts shortcut functions
+	 **/
 
 	'getAccount' : function (id)
 	{
@@ -66,6 +90,10 @@ Cloudwalkers.Session =
 		this.user.accounts;
 	},
 	
+	/**
+	 *	Channels shortcut functions
+	 **/
+	
 	'getChannel' : function (id)
 	{
 		return this.user.account.channels.get (id);
@@ -76,6 +104,10 @@ Cloudwalkers.Session =
 		return this.user.account.channels;
 	},
 	
+	/**
+	 *	Streams shortcut functions
+	 **/
+	
 	'getStream' : function (id)
 	{
 		return this.user.account.streams.get (id);
@@ -84,19 +116,6 @@ Cloudwalkers.Session =
 	'getStreams' : function ()
 	{
 		return this.user.account.streams;
-	},
-
-	'refresh' : function ()
-	{
-		this.getAccount ().refresh (function ()
-		{
-			Cloudwalkers.Session.trigger ('channels:change');
-		});
-	},
-	
-	'reset' : function ()
-	{
-		window.localStorage.clear();
 	}
 }
 

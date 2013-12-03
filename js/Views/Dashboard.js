@@ -56,10 +56,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		{
 			switch(widgets[n].widget)
 			{
-				case 'trending':
-					var widget = this.addDashboardTrending (widgets[n]);
-					break;
-					
 				case 'channelcounter':
 					var widget = this.addDashboardChannelCounter (widgets[n]);
 					break;
@@ -68,12 +64,16 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
 					break;
 					
-				case 'report':
-					var widget = new Cloudwalkers.Views.Widgets.Report(widgets[n]);
-					break;
-					
 				case 'coworkers':
 					var widget = this.addInboxCoworkers (widgets[n]);
+					break;
+					
+				case 'trending':
+					var widget = this.addDashboardTrending (widgets[n]);
+					break;
+					
+				case 'report':
+					var widget = new Cloudwalkers.Views.Widgets.Report(widgets[n]);
 					break;
 			}
 			
@@ -81,6 +81,32 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		}
 
 		return this;
+	},
+	
+	'addDashboardChannelCounter' : function (widgetdata)
+	{
+		
+		var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
+		
+		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
+		
+		return new Cloudwalkers.Views.Widgets.ChannelCounters (widgetdata);
+	},
+	
+	'addInboxCoworkers' : function (widgetdata)
+	{
+		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
+		widgetdata.link = "#coworkers";
+		
+		var draftstreams = widgetdata.channel.get("streams").filter(function(stream){ return stream.token=="draft"});
+		
+		if(draftstreams.length)
+			widgetdata.streamid = draftstreams.pop().id;
+		
+		//var streamid = draftstreams.pop().id;
+		//widgetdata.stream = Cloudwalkers.Session.getStream(streamid);
+		
+		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 
 	'addDashboardTrending' : function (widgetdata)
@@ -96,31 +122,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			widgetdata.channel.messages.parameters.since = since - 86400 *widgetdata.since;
 		}
 
-		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
-	},
-	
-	'addDashboardChannelCounter' : function (widgetdata)
-	{
-		var channels = Cloudwalkers.Session.getAccount().channels;
-		var channel = channels.findWhere({type: widgetdata.type});
-		
-		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
-		
-		return new Cloudwalkers.Views.Widgets.ChannelCounters (widgetdata);
-	},
-	
-	'addInboxCoworkers' : function (widgetdata)
-	{
-		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
-		widgetdata.link = "#coworkers";
-		
-		var draftstreams = widgetdata.channel.get("streams").filter(function(stream){ return stream.token=="draft"});
-		
-		widgetdata.streamid = draftstreams.pop().id;
-		
-		//var streamid = draftstreams.pop().id;
-		//widgetdata.stream = Cloudwalkers.Session.getStream(streamid);
-		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 	

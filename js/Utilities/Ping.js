@@ -27,7 +27,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		
 		else {
 			this.cursor = changed.cursors.after;
-			Store.update("ping", {id: this.id}, {cursor: this.cursor});
+			Store.updateById("ping", {id: this.id, cursor: this.cursor});
 		}
 	},
 	

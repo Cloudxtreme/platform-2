@@ -133,7 +133,7 @@ var StorageClass = function(successCallback, errorCallback) {
 	/*
 	 * UPDATE function (id based)
 	 *
-	 * Update (an) existing (entry|entries) with new data, overwriting existing data
+	 * Update an existing entry with new data, overwriting existing data
 	 * Calls null if no object is found, the object(s) if updated
 	 */
 	 
@@ -142,8 +142,7 @@ var StorageClass = function(successCallback, errorCallback) {
 		var collection = JSON.parse(window.localStorage.getItem(type));  
 		var group = collection;
 		
-		if(!group) 			callback(content);
-		else if(!selector)	callback(group.shift());
+		if(!selector || !group)	callback(null, content);
 		else {
 		
 			for(key in selector)
@@ -155,7 +154,38 @@ var StorageClass = function(successCallback, errorCallback) {
 			
 			window.localStorage.setItem(type, JSON.stringify(collection));
 			
-			if(callback) callback(group);
+			if(callback)
+				if(group.length)	callback(group)
+				else				callback(null, content);
+		}
+		
+		return this;
+	}
+	
+	/*
+	 * UPDATE BY ID function (id based)
+	 *
+	 * Update an existing entry with new data, overwriting existing data
+	 * Calls null if no object is found, the object if updated
+	 */
+	 
+	 this.updateById = function(type, content, callback) {
+		
+		var collection = JSON.parse(window.localStorage.getItem(type));
+		var entry = false;
+		
+		if(!collection || !content.id)	callback(null, content);
+		else {
+		
+			for(n in collection)
+				if(collection[n].id == content.id)
+					collection[n] = entry = $.extend(collection[n], content);		
+			
+			window.localStorage.setItem(type, JSON.stringify(collection));
+			
+			if(callback)
+				if(entry)	callback(entry)
+				else		callback(null, content);
 		}
 		
 		return this;

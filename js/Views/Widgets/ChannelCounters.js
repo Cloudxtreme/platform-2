@@ -11,28 +11,18 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 		var streams = data.channel.get("streams");
 		var channels = data.channel.get("channels");
 		
+		var list = (streams.length)? streams: channels;
+		
 		// Order
-		channels.sort (function (a, b)
+		list.sort (function (a, b)
 		{
 			return parseInt(b.unread) - parseInt(a.unread);
 		});
 		
-		streams.sort (function (a, b)
-		{
-			return parseInt(b.unread) - parseInt(a.unread);
-		});
-		
-		$.each (channels, function (i, v)
+		$.each (list, function (i, v)
 		{
 			data.list.push(
-				{ name: v.name, url: '#' + data.type + '/' + data.channel.id + '/' + v.id, unread: v.unread ? v.unread : 0, icon: v.icon }
-			)
-		});
-
-		$.each (streams, function (i, v)
-		{
-			data.list.push(
-				{ name: v.customname, url: '#' + data.type + '/' + data.channel.id + '/' + v.id, unread: v.unread ? v.unread : 0, icon: v.network.icon }
+				{ name: v.name, url: '#' + data.type + '/' + data.channel.id + '/' + v.id, unread: v.unread ? v.unread : 0, icon: v.network? v.network.icon: data.icon }
 			)
 		});
 
