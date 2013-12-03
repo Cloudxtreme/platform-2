@@ -77,7 +77,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DraftList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/ChannelCounters.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduleCounter.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ChannelFilters.js"></script>

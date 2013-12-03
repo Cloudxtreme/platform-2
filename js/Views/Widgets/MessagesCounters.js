@@ -1,7 +1,7 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.MessagesCounter = Cloudwalkers.Views.Widgets.Widget.extend({
+Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'render' : function ()
 	{
@@ -26,7 +26,7 @@ Cloudwalkers.Views.Widgets.MessagesCounter = Cloudwalkers.Views.Widgets.Widget.e
 			)
 		});
 
-		this.$el.html (Mustache.render (Templates.messagescounter, data));
+		this.$el.html (Mustache.render (Templates.messagescounters, data));
 
 		return this;
 	}

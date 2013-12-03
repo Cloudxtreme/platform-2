@@ -2,8 +2,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Dashboard',
 	'widgets' : [
-		{widget: "messagescounter", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
-		{widget: "messagescounter", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
+		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
+		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
 		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-worker drafts", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
 		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
@@ -56,8 +56,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		{
 			switch(widgets[n].widget)
 			{
-				case 'channelcounter':
-					var widget = this.addDashboardChannelCounter (widgets[n]);
+				case 'messagescounters':
+					var widget = this.addMessagesCounters (widgets[n]);
 					break;
 					
 				case 'schedulecounter':
@@ -83,14 +83,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 	
-	'addDashboardChannelCounter' : function (widgetdata)
+	'addMessagesCounters' : function (widgetdata)
 	{
 		
 		var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
-		return new Cloudwalkers.Views.Widgets.UnreadCounters (widgetdata);
+		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
 	},
 	
 	'addInboxCoworkers' : function (widgetdata)
