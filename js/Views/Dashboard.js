@@ -2,8 +2,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Dashboard',
 	'widgets' : [
-		{widget: "channelcounter", type: "inbox", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
-		{widget: "channelcounter", type: "monitoring", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
+		{widget: "messagescounter", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
+		{widget: "messagescounter", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
 		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-worker drafts", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
 		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
@@ -90,7 +90,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
-		return new Cloudwalkers.Views.Widgets.ChannelCounters (widgetdata);
+		return new Cloudwalkers.Views.Widgets.UnreadCounters (widgetdata);
 	},
 	
 	'addInboxCoworkers' : function (widgetdata)

@@ -1,17 +1,16 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.extend({
+Cloudwalkers.Views.Widgets.MessagesCounter = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'render' : function ()
 	{
-		var data = { list: [] };
+		var data = { list: [] };		
 		$.extend (data, this.options);
 		
-		var streams = data.channel.get("streams");
-		var channels = data.channel.get("channels");
-		
-		var list = (streams.length)? streams: channels;
+		// The list source is either the substreams or subchannels
+		if(data.source)
+			var list = data.channel.get(data.source);
 		
 		// Order
 		list.sort (function (a, b)
@@ -19,6 +18,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 			return parseInt(b.unread) - parseInt(a.unread);
 		});
 		
+		// Parse
 		$.each (list, function (i, v)
 		{
 			data.list.push(
@@ -26,7 +26,7 @@ Cloudwalkers.Views.Widgets.ChannelCounters = Cloudwalkers.Views.Widgets.Widget.e
 			)
 		});
 
-		this.$el.html (Mustache.render (Templates.messagecounter, data));
+		this.$el.html (Mustache.render (Templates.messagescounter, data));
 
 		return this;
 	}
