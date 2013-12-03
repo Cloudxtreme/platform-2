@@ -5,6 +5,11 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 
 	 'initialize' : function ()
     {
+        
+        console.log(Cloudwalkers.Session.getStreams());
+        
+        
+        
         if(!this.options.color) this.options.color = this.color;
         
         // HACK
@@ -32,7 +37,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 				)
 			});
 
-		this.$el.html (Mustache.render (Templates.messagecounter, data));
+		this.$el.html (Mustache.render (Templates.messagescounters, data));
 		
 		/*var el = this.$el;
 		var self = this;
