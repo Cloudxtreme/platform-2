@@ -6,7 +6,7 @@ Cloudwalkers.Views.Widgets.ScheduleCounter = Cloudwalkers.Views.Widgets.Widget.e
 	 'initialize' : function ()
     {
         
-        console.log(Cloudwalkers.Session.getStreams());
+        //console.log(Cloudwalkers.Session.getChannels());
         
         
         
