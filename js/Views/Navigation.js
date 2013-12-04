@@ -27,7 +27,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		Cloudwalkers.Session.user.accounts.each(function(model)
 		{
-			data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Cloudwalkers.Session.settings.currentAccount)})
+			data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Cloudwalkers.Session.get("currentAccount"))})
 		});
 		
 		this.header = Mustache.render (Templates.header, data);

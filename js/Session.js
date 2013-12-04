@@ -1,10 +1,10 @@
 Cloudwalkers.Session = 
 {
 	'user' : null,
-	'settings' : {
+	/*'settings' : {
 		'currentAccount' : null,
 		'viewMode' : null
-	},
+	},*/
 
 	'isLoaded' : function ()
 	{
@@ -41,25 +41,25 @@ Cloudwalkers.Session =
 		// Hack: solve array issue
 		if(user && user.get("settings").length === 0) return null;
 		
-		$.extend(Cloudwalkers.Session.settings, user.get("settings"));
+		//$.extend(Cloudwalkers.Session.settings, user.get("settings"));
 	},
 	
 	'updateSetting' : function(attribute, value, callbacks)
 	{
 	
-		if( Cloudwalkers.Session.settings[attribute] != value)
+		if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
 		{
 			// Update session and save on user
-			Cloudwalkers.Session.settings[attribute] = value;
+			Cloudwalkers.Session.user.attributes.settings[attribute] = value;
 			
-			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.settings}, callbacks);
+			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.user.attributes.settings}, callbacks);
 		}
 	},
 	
 	'get' : function(attribute)
 	{
 		// Update session
-		return Cloudwalkers.Session.settings[attribute];
+		return Cloudwalkers.Session.user.attributes.settings[attribute];
 	},
 	
 	/**
