@@ -20,7 +20,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click #button-response[value=send]' : 'sendNow',
         'click .btnShortenURL' : 'shortenUrl',
         'change select[name=campaign]' : 'selectCampaign',
-        'click [name=add-campaign]' : 'addCampaign',
+        'click [name=add-campaign]' : 'addCampaign'
 	},
 
 	'files' : [],
