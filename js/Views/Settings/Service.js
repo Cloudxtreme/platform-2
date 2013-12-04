@@ -141,7 +141,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 				}
 
 				var tmp  = {
-					'channel' : channels[i],
+					'channel' : channels[i].attributes,
 					'selected' : selected,
 					'channels' : []
 				};
