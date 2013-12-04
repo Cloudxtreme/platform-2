@@ -32,7 +32,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	'fill' : function (collection, b)
 	{	
 		
-		console.log(this.options.link, collection, b)
+		// console.log(this.options.link, collection, b)
 		
 		this.$el.find('.inner-loading').toggleClass(collection.length? 'inner-loading': 'inner-empty inner-loading');
 		
