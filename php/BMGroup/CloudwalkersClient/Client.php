@@ -224,6 +224,20 @@ class BMGroup_CloudwalkersClient_Client
 			$data
 		);
 
+		if (Neuron_Core_Tools::getInput ('_GET', 'output', 'varchar') == 'table')
+		{
+			header('Content-Type: text/html; charset=utf-8');
+
+			echo '<h1>TABLE OUTPUT: ' . $this->server . $url . '</h1>';
+			echo '<h2>Sent</h2>';
+			echo '<pre>';
+			print_r ($input);
+			echo '</pre>';
+			echo '<h2>Received</h2>';
+			echo ($data);
+			exit;
+		}
+
 		if (!$success)
 		{
 			header('Content-Type: text/html; charset=utf-8');
