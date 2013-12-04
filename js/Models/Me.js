@@ -24,7 +24,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{
 		if(!Store.exists("me"))
 		{
-			this.firstLoad(response.user);
+			response.user = this.firstLoad(response.user);
 		}
 
 		Store.write("me", [response.user]);
@@ -39,11 +39,13 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		{
 			Store.post("accounts", me.accounts[n]);
 			
-			this.attributes.accounts[n] = me.accounts[n].id;
+			me.accounts[n] = me.accounts[n].id;
 		}
-			
+		
 		// Add current account if non-existant
-		if(!me.settings.currentAccount) this.attributes.settings.currentAccount = me.accounts[0];
+		if(!me.settings.currentAccount) me.settings = {currentAccount: me.accounts[0]};
+		
+		return me;
 	},
 	
 	'sync' : function (method, model, options)
