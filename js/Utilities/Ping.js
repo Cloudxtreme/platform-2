@@ -39,7 +39,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	},
 	
 	'parse' : function(response) {
-		
+	
 		return response.pong;
 	},
 	

@@ -22,11 +22,15 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'parse' : function (response)
 	{
+		console.log("freshly incoming me/full:", response.user)
+		
 		if(!Store.exists("me"))
 		{
 			response.user = this.firstLoad(response.user);
 		}
-
+		
+		console.log("freshly parsed me:", response.user)
+		
 		Store.write("me", [response.user]);
 		
 		return response.user;
@@ -41,10 +45,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			
 			me.accounts[n] = me.accounts[n].id;
 		}
-		
+
 		// Add current account if non-existant
 		if(!me.settings.currentAccount) me.settings = {currentAccount: me.accounts[0]};
-		
+
 		return me;
 	},
 	
@@ -54,6 +58,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			Store.get("me", null, function(data)
 			{
 				if(data) this.set(data);
+				
+				console.log("localstored me:", data)
 
 			}.bind(this));
 
@@ -69,13 +75,29 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		Store.filter("accounts", null, function(accounts){ this.accounts.add(accounts); }.bind(this));
 		
+		var current = Cloudwalkers.Session.get("currentAccount");
+		setTimeout( function(){ Cloudwalkers.Session.get("currentAccount") },100);
+		
 		// Set current account
-		this.account = this.accounts.get(Cloudwalkers.Session.get("currentAccount"));
+		this.account = this.getCurrentAccount();
 		this.account.activate();
 
 		// Set current user level
 		this.level = Number(this.account.get("currentuser").level);
 
+	},
+	
+	'getCurrentAccount' : function()
+	{
+		var current = Cloudwalkers.Session.get("currentAccount");
+		
+		if(!current)
+		{
+			current = this.attributes.accounts[0];
+			this.save({settings: {currentAccount: current}});
+		} 
+		
+		return this.accounts.get(current);
 	},
 
 	'savePassword' : function (oldpassword, newpassword, callback)
