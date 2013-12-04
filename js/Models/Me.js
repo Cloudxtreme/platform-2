@@ -22,14 +22,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'parse' : function (response)
 	{
-		console.log("freshly incoming me/full:", response.user)
-		
 		if(!Store.exists("me"))
 		{
 			response.user = this.firstLoad(response.user);
 		}
-		
-		console.log("freshly parsed me:", response.user)
 		
 		Store.write("me", [response.user]);
 		
@@ -58,8 +54,6 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			Store.get("me", null, function(data)
 			{
 				if(data) this.set(data);
-				
-				console.log("localstored me:", data)
 
 			}.bind(this));
 

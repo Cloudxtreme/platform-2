@@ -13,8 +13,6 @@ Cloudwalkers.Session =
 	
 	'loadEssentialData' : function (callback)
 	{
-		console.log("load page, me exists:", Store.exists("me"))
-		
 		this.user = new Cloudwalkers.Models.Me();
 
 		this.user.once("change", callback);
@@ -62,9 +60,6 @@ Cloudwalkers.Session =
 	
 	'get' : function(attribute)
 	{
-		
-		console.log("get "+ attribute +" from settings:", Cloudwalkers.Session.user.attributes.settings[attribute], Cloudwalkers.Session.user.attributes.settings)
-		
 		// Update session
 		return Cloudwalkers.Session.user.attributes.settings[attribute];
 	},
