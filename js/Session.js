@@ -36,13 +36,15 @@ Cloudwalkers.Session =
 	 *	Session settings functions
 	 **/
 	
-	'updateSettings' : function(user)
+	/*'updateSettings' : function(user)
 	{
 		// Hack: solve array issue
 		if(user && user.get("settings").length === 0) return null;
 		
+		
+		
 		//$.extend(Cloudwalkers.Session.settings, user.get("settings"));
-	},
+	},*/
 	
 	'updateSetting' : function(attribute, value, callbacks)
 	{

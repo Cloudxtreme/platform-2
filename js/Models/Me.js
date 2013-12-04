@@ -6,7 +6,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{
 		this.accounts = new Cloudwalkers.Collections.Accounts();
 		
-		this.on ('change:settings', Cloudwalkers.Session.updateSettings)
+		//this.on ('change:settings', Cloudwalkers.Session.updateSettings)
 		this.on ('change:accounts', this.setAccounts);
 		//this.on ('change:id', Cloudwalkers.Session.reset);
 		this.on ('change:id', Cloudwalkers.Router.home);
