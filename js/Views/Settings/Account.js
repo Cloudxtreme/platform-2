@@ -25,5 +25,10 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		account.save ( function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); });
 	},
 	
-	'negotiateFunctionalities' : function(el) {}
+	'negotiateFunctionalities' : function(el) {
+		
+		// Check collapse option
+		this.$el.find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+	}
+
 });
