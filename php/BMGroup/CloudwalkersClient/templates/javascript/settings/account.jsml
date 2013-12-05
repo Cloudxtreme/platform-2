@@ -1,21 +1,33 @@
-	<div class="span8 offset4">
-		<div class="tab-content">
-			<div id="tab_1-1" class="tab-pane active">
-				<div style="height: auto;">
-					
-					<h3>Account</h3>
-					
-					<form action="javascript:void(0);" class="edit-account">
-						<label class="control-label">Name</label>
-						<input name="name" type="text" placeholder="Company name" class="m-wrap span8" value="{{name}}" />
+<div class="tab-pane row-fluid settings-account active">
 
-						<div class="submit-btn">
-							<button type="submit" class="btn green edit-account">Save Changes</button>
-							<button type="reset" class="btn">Cancel</button>
-						</div>
-					</form>
+	<div class="span4 collapse-open">
+		<div class="portlet box yellow">
+			<div class="portlet-title line expand-portlet">
+				<div class="caption"><i class="icon-bar-chart"></i>Campaigns</div>
+				<div class="tools">
+					<span class="collapse pull-right"></span>
 				</div>
 			</div>
-			
+			<div class="portlet-body">
+				
+			</div>
 		</div>
 	</div>
+
+	<div class="span8">
+		<div style="height: auto;">
+			
+			<h3>Account</h3>
+			
+			<form action="javascript:void(0);" class="edit-account">
+				<label class="control-label">Name</label>
+				<input name="name" type="text" placeholder="Company name" class="m-wrap span8" value="{{name}}" />
+
+				<div class="submit-btn">
+					<button type="submit" class="btn green edit-account">Save Changes</button>
+					<button type="reset" class="btn">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
