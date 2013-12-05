@@ -95,31 +95,27 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'addInboxCoworkers' : function (widgetdata)
 	{
-		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
+		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
+		
+
+		widgetdata.model = channel.getStream("draft");
 		widgetdata.link = "#coworkers";
 		
-		var draftstreams = widgetdata.channel.get("streams").filter(function(stream){ return stream.token=="draft"});
-		
-		if(draftstreams.length)
-			widgetdata.streamid = draftstreams.pop().id;
-		
-		//var streamid = draftstreams.pop().id;
-		//widgetdata.stream = Cloudwalkers.Session.getStream(streamid);
+		//if(draftstreams.length)
+		//	widgetdata.streamid = draftstreams.pop().id;
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 
 	'addDashboardTrending' : function (widgetdata)
 	{
-		
-		
-		widgetdata.channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
-		widgetdata.channel.messages.parameters.sort = "engagement";
+		widgetdata.model = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
+		widgetdata.model.messages.parameters.sort = "engagement";
 		
 		if(widgetdata.since)
 		{
 			var since = Math.round(Date.now()/1000);
-			widgetdata.channel.messages.parameters.since = since - 86400 *widgetdata.since;
+			widgetdata.model.messages.parameters.since = since - 86400 *widgetdata.since;
 		}
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);

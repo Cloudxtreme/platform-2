@@ -231,10 +231,10 @@ var StorageClass = function(successCallback, errorCallback) {
 		for(var x in localStorage) {
 			var amount = (localStorage[x].length * 2) / 1024 / 1024;
 			total += amount;
-			console.log( x + " = " + amount.toFixed(4) + " MB");
+			console.log( x, amount.toFixed(4) + " MB");
 		}
 		
-		console.log( "Total: " + total.toFixed(2) + " MB");
+		console.log( "Total localStorage", total.toFixed(2) + " MB");
 		
 		return total.toFixed(2);
 	 } 

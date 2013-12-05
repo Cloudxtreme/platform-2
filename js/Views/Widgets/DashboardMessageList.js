@@ -17,14 +17,14 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	{
 		this.$el.html (Mustache.render (Templates.dashboardmessagecontainer, this.options));
 		
-		if(this.options.streamid)
-		{
+		//if(this.options.streamid)
+		//{
 				// HACK! Stream model should already exist
 				//this.options.stream.messages = new Cloudwalkers.Collections.Messages([], {id: this.options.stream.id, endpoint: "stream"});
-				var messages = new Cloudwalkers.Collections.Messages([], {id: this.options.streamid, endpoint: "stream"});
-		} else	var messages = this.options.channel.messages;
+				//var messages = new Cloudwalkers.Collections.Messages([], {id: this.options.streamid, endpoint: "stream"});
+		//} else	var messages = this.options.channel.messages;
 		
-		messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
+		this.options.model.messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
 
 		return this;
 	},

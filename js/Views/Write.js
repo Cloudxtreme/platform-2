@@ -69,9 +69,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'selectCampaign' : function (e)
 	{
 
-		var value = Number(this.$el.find("select[name=campaigns]").val());
+		var value = Number(this.$el.find("select[name=campaign]").val());
 		
-		if(!value) this.$el.find(".new-campaign, select[name=campaigns]").toggleClass("inactive");
+		if(!value) this.$el.find(".new-campaign, select[name=campaign]").toggleClass("inactive");
 
 	},
 	

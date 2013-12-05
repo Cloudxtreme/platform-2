@@ -38,7 +38,7 @@ table.charttable .text	{ text-align: left; }
 .statistic-container .chart div	{ line-height: 24px; }
 
 .add-data select.inactive, .new-campaign.inactive	{ display: none; }
-input[name="campaign-name"]	{ height: 24px; margin: 0; }
+input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 
 /* Keyframes */

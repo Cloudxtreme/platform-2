@@ -7,6 +7,8 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 			this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
 		}*/
 		
+		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
+		
 		// Has reports?
 		if(this.get("statistics"))
 		{
