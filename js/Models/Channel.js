@@ -17,6 +17,8 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 			var identifier = identifier;
 			var streams = this.get("streams").filter(function(stream){ return stream.token==identifier});
 			
+			if(!streams.length) return null;
+			
 			var id = streams.shift().id;
 		}
 		 

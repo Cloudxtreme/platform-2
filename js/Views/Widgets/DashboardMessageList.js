@@ -24,7 +24,8 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 				//var messages = new Cloudwalkers.Collections.Messages([], {id: this.options.streamid, endpoint: "stream"});
 		//} else	var messages = this.options.channel.messages;
 		
-		this.options.model.messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
+		if(this.options.model)
+			this.options.model.messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
 
 		return this;
 	},
