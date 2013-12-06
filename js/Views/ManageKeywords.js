@@ -4,11 +4,13 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 
 		'submit form[data-add-category]' : 'createCategory',
 		'submit form[data-edit-category-id]' : 'editCategory',
-		'submit form[data-add-keyword]' : 'addKeyword',
 		'click i[data-edit-category-id]' : 'showEditCategory',
 		'click i[data-delete-category-id]' : 'deleteCategory',
 		'click li[data-edit-keyword-id]' : 'showEditKeyword',
-		'click i[data-delete-keyword-id]' : 'deleteKeyword'
+		'click i[data-delete-keyword-id]' : 'deleteKeyword',
+		'click button[data-keyword-filter]' : 'toggleFilter',
+		'click button.add-keyword' : 'addKeyword',
+		'click button.edit-keyword' : 'editKeyword'
 	},
 
 	'render' : function ()
@@ -22,7 +24,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		Cloudwalkers.Net.get('wizard/monitoring/list', {account: Cloudwalkers.Session.getAccount().id}, this.fill.bind(this));
 		
 		Cloudwalkers.Net.get('wizard/monitoring/values/countries', {account: Cloudwalkers.Session.getAccount().id}, this.fillFilter.bind(this, "countries"));
-		Cloudwalkers.Net.get('wizard/monitoring/values/languages', {account: Cloudwalkers.Session.getAccount().id}, this.fillFilter.bind(this, "countries"));
+		Cloudwalkers.Net.get('wizard/monitoring/values/languages', {account: Cloudwalkers.Session.getAccount().id}, this.fillFilter.bind(this, "languages"));
 		
 		/*$.ajax (
 			CONFIG_BASE_URL + 'json/wizard/monitoring/list?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
@@ -38,10 +40,23 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		return this;
 	},
 	
-	'fillFilter' : function (response)
+	'fillFilter' : function (filter, response)
 	{	
+		if(filter == "countries")
+		{
+			var $select = this.$el.find("#filter_region");
+			var list = response.countries;
 		
+		} else if(filter == "languages")
+		{
+			var $select = this.$el.find("#filter_locale");
+			var list = response.languages;
+		}
 		
+		$.each(list, function(n, entry)
+		{
+			$select.append("<option value='" + entry.token + "'>" + entry.name + "</option>");	
+		});
 
 	},
 	
@@ -56,30 +71,14 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		$.each (response.categories, function (i, category)
 		{
 			$container.append(Mustache.render (Templates.categoryentry, category));
+			
+			$.each(category.keywords, function(n, keyword){ category.keywords[n].category = category.id });
+			
 			keywords = keywords.concat(category.keywords);
 		
 		}.bind(this));
 		
 		this.keywords = keywords;
-		
-		// Go trough all messages
-		/*var type = (this.options.type == "news" || this.options.type == "profiles")? "trending": this.options.type; 
-		
-		collection.each (function (message)
-		{
-			var data = {
-				'model' : message,
-				'template' : 'smallentry',
-				'type' : type
-			};
-			
-			if(this.options.link) message.link = this.options.link;
-			
-			var messageView = new Cloudwalkers.Views.Entry (data);
-			
-			$container.append(messageView.render().el);
-		}.bind(this));
-		*/
 
 	},
 
@@ -116,11 +115,37 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	
 	'showEditKeyword' : function (e)
 	{
-		//var id = $(e.target).attr('data-edit-category-id');
-		//$('.category-'+ id +'-name').toggle().next().toggle();
-		
 		this.$el.find(".add-keyword").addClass("inactive");
 		this.$el.find(".edit-keyword").removeClass("inactive");
+		
+		var id = $(e.target).attr("data-edit-keyword-id");
+		
+		var keyword = this.keywords.filter(function(entry){ return entry.id == id }).shift();
+		
+		this.$el.find("#keyword_create_category").val(keyword.category);
+		this.$el.find("#keyword_create_name").val(keyword.name);
+		
+		
+	},
+	
+	'editKeyword' : function (e)
+	{
+		e.preventDefault ();
+		
+		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
+		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
+		
+		
+		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
+	},
+	
+	'toggleFilter' : function (e)
+	{
+		e.preventDefault ();
+		
+		var filter = $(e.target).attr("data-keyword-filter");
+		
+		this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
 		
 	},
 

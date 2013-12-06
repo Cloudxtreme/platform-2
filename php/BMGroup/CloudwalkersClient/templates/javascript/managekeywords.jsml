@@ -41,52 +41,61 @@
 						<div class="caption"><i class="icon-tag"></i>Manage keyword</div>
 					</div>
 					
-					<div class="portlet-body add-keyword">
-						<form data-add-keyword="1">
+					<div class="portlet-body manage-keyword">
+						<form data-keyword="true">
 							
 							<label for="keyword_create_category">Category:</label>
 							<select id="keyword_create_category">
+								<option value="">select category...</option>
 								{{#categories}}
 									<option value="{{id}}">{{name}}</option>
 								{{/categories}}
 							</select>
 							
 							<label for="keyword_create_name">Name:</label>
-							<input type="text" value="{{name}}" id="keyword_create_name" name="name" class="m-wrap span7" />
-						
-							<button class="btn blue span4 pull-right" type="submit">Create</button>
-						</form>
-					</div>
-					
-					<div class="portlet-body edit-keyword inactive">
-						<form data-edit-keyword="1">
-							
-							<label for="keyword_create_category">Category:</label>
-							<select id="keyword_create_category">
-								{{#categories}}
-									<option value="{{id}}">{{name}}</option>
-								{{/categories}}
-							</select>
-							
-							<label for="keyword_create_name">Name:</label>
-							<input type="text" value="{{name}}" id="keyword_create_name" name="name" class="m-wrap span12" />
+							<input type="text" value="" placeholder="keyword name" id="keyword_create_name" name="name" class="m-wrap span12" />
 							<br><br>
 							
-							<label for="keyword_create_name">Filters:</label>
-							<div class="keyword-filters">
+							<label>Filters:</label>
+							<div class="keyword-edit-filters">
 								<span class=''>
-									<button class="btn span6" data-keywrd-filter="filter-include">Include</button>
-									<button class="btn span6" data-keywrd-filter="filter-exclude">Exclude</button>
+									<button class="btn span6" data-keyword-filter="filter-include">Include</button>
+									<button class="btn span6" data-keyword-filter="filter-exclude">Exclude</button>
 								</span>
 								<br><br>
 								<span class=''>
-									<button class="btn span6" data-keywrd-filter="filter-locale">Languages</button>
-									<button class="btn span6" data-keywrd-filter="filter-region">Countries</button>
+									<button class="btn span6" data-keyword-filter="filter-locale">Languages</button>
+									<button class="btn span6" data-keyword-filter="filter-region">Countries</button>
 								</span>
+								<br><br><br>
+								
+								<div class="keyword-filter inactive" data-keyword-filter="filter-include">
+									<label for="filter_include"><i class='icon-filter'></i> Include <small> use space separated words</small></label>
+									<input type="text" value="" id="filter_include" name="name" class="m-wrap span12" /> 
+								</div>
+								<div class="keyword-filter inactive" data-keyword-filter="filter-exclude">
+									<label for="filter_exclude"><i class='icon-filter'></i> Exclude <small> use space separated words</small></label>
+									<input type="text" value="" id="filter_exclude" name="name" class="m-wrap span12" /> 
+								</div>
+								<div class="keyword-filter inactive" data-keyword-filter="filter-locale">
+									<label for="filter_locale"><i class='icon-filter'></i> Language <small> select from list</small></label>
+									<select id="filter_locale">
+										<option value="0">Use all</option>
+										<option value="0" disabled>-----------</option>
+									</select>
+								</div>
+								<div class="keyword-filter inactive" data-keyword-filter="filter-region">
+									<label for="filter_region"><i class='icon-filter'></i> Country <small> select from list</small></label>
+									<select id="filter_region">
+										<option value="0">Global</option>
+										<option value="0" disabled>-----------</option>
+									</select>
+								</div>
 							</div>
-							<br><br><br>
 							
-							<button class="btn blue" type="submit">Change</button>
+							<button class="btn blue add-keyword">Create</button>
+							<button class="btn blue edit-keyword inactive">Update</button>
+							
 						</form>
 					</div>
 				</div>
