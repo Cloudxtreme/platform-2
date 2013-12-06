@@ -38,6 +38,13 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		return this;
 	},
 	
+	'fillFilter' : function (response)
+	{	
+		
+		
+
+	},
+	
 	'fill' : function (response)
 	{	
 		

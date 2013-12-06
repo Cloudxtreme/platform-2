@@ -58,7 +58,7 @@
 						</form>
 					</div>
 					
-					<div class="portlet-body edit-keyword">
+					<div class="portlet-body edit-keyword inactive">
 						<form data-edit-keyword="1">
 							
 							<label for="keyword_create_category">Category:</label>
@@ -74,9 +74,17 @@
 							
 							<label for="keyword_create_name">Filters:</label>
 							<div class="keyword-filters">
-							
+								<span class=''>
+									<button class="btn span6" data-keywrd-filter="filter-include">Include</button>
+									<button class="btn span6" data-keywrd-filter="filter-exclude">Exclude</button>
+								</span>
+								<br><br>
+								<span class=''>
+									<button class="btn span6" data-keywrd-filter="filter-locale">Languages</button>
+									<button class="btn span6" data-keywrd-filter="filter-region">Countries</button>
+								</span>
 							</div>
-							<br>
+							<br><br><br>
 							
 							<button class="btn blue" type="submit">Change</button>
 						</form>
