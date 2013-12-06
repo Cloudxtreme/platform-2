@@ -85,7 +85,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{
 		var current = Cloudwalkers.Session.get("currentAccount");
 		
-		console.log(this.attributes.accounts)
+		console.log("Accounts:", this.attributes.accounts, current)
 		
 		if(!current)
 		{
