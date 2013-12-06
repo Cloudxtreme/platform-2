@@ -87,7 +87,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{
 		var current = Cloudwalkers.Session.get("currentAccount");
 		
-		console.log("Accounts:", this.attributes.accounts, current)
+		//console.log("Accounts:", this.attributes.accounts, current)
 		
 		if(!current)
 		{
@@ -101,7 +101,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		
 		// Hack
-		var account = this.accounts.get(String(current));
+		var account = this.accounts.get(Number(current));
+		
+		console.log("retreived account:", account)
+		
 		if(!account || !account.id)
 		{	
 			account = this.accounts.get(Number(current));	
