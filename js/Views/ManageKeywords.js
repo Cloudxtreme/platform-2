@@ -133,6 +133,7 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		e.preventDefault ();
 		
 		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
+		this.$el.find("[data-keyword] select").val(0);
 		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
 		
 		

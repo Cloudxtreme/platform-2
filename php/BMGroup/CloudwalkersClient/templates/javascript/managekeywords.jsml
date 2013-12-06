@@ -46,7 +46,7 @@
 							
 							<label for="keyword_create_category">Category:</label>
 							<select id="keyword_create_category">
-								<option value="">select category...</option>
+								<option value="0">select category...</option>
 								{{#categories}}
 									<option value="{{id}}">{{name}}</option>
 								{{/categories}}
