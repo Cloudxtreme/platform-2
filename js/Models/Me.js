@@ -37,6 +37,9 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// store and simplify accounts
 		for(n in me.accounts)
 		{
+			//hack
+			me.accounts[n].id = Number(me.accounts[n].id);
+			
 			Store.post("accounts", me.accounts[n]);
 			
 			me.accounts[n] = me.accounts[n].id;
@@ -70,7 +73,6 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		Store.filter("accounts", null, function(accounts){ this.accounts.add(accounts); }.bind(this));
 		
 		var current = Cloudwalkers.Session.get("currentAccount");
-		setTimeout( function(){ Cloudwalkers.Session.get("currentAccount") },100);
 		
 		// Set current account
 		this.account = this.getCurrentAccount();
@@ -89,13 +91,21 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		if(!current)
 		{
+			// hack
+			Store.filter("accounts", null, function(accounts){ this.accounts.add(accounts); }.bind(this));
+			
 			current = this.attributes.accounts[0].id? this.attributes.accounts[0].id: this.attributes.accounts[0];
 			this.save({settings: {currentAccount: current}});
 		}
 		
+		
+		
 		// Hack
 		var account = this.accounts.get(String(current));
-		if(!account || !account.id) account = this.accounts.get(Number(current));
+		if(!account || !account.id)
+		{	
+			account = this.accounts.get(Number(current));	
+		}
 		
 		return account;
 	},
