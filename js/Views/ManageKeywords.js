@@ -7,16 +7,24 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		'submit form[data-add-keyword]' : 'addKeyword',
 		'click i[data-edit-category-id]' : 'showEditCategory',
 		'click i[data-delete-category-id]' : 'deleteCategory',
+		'click li[data-edit-keyword-id]' : 'showEditKeyword',
 		'click i[data-delete-keyword-id]' : 'deleteKeyword'
 	},
 
 	'render' : function ()
 	{
-		var self = this;
-
-		this.$el.addClass("inner-loading");
-
-		$.ajax (
+		
+		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "monitoring"});
+		var data = {categories: channel.get("channels")};
+		
+		this.$el.html (Mustache.render (Templates.managekeywords, data));
+		
+		Cloudwalkers.Net.get('wizard/monitoring/list', {account: Cloudwalkers.Session.getAccount().id}, this.fill.bind(this));
+		
+		Cloudwalkers.Net.get('wizard/monitoring/values/countries', {account: Cloudwalkers.Session.getAccount().id}, this.fillFilter.bind(this, "countries"));
+		Cloudwalkers.Net.get('wizard/monitoring/values/languages', {account: Cloudwalkers.Session.getAccount().id}, this.fillFilter.bind(this, "countries"));
+		
+		/*$.ajax (
 			CONFIG_BASE_URL + 'json/wizard/monitoring/list?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
 			{
 				'success' : function (data)
@@ -25,9 +33,47 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 					self.$el.removeClass("inner-loading");
 				}
 			}
-		)
+		)*/
 
 		return this;
+	},
+	
+	'fill' : function (response)
+	{	
+		
+		this.$el.find('.inner-loading').removeClass('inner-loading');
+		
+		var $container = this.$el.find(".category-list tbody").eq(-1);
+		var keywords = [];
+		
+		$.each (response.categories, function (i, category)
+		{
+			$container.append(Mustache.render (Templates.categoryentry, category));
+			keywords = keywords.concat(category.keywords);
+		
+		}.bind(this));
+		
+		this.keywords = keywords;
+		
+		// Go trough all messages
+		/*var type = (this.options.type == "news" || this.options.type == "profiles")? "trending": this.options.type; 
+		
+		collection.each (function (message)
+		{
+			var data = {
+				'model' : message,
+				'template' : 'smallentry',
+				'type' : type
+			};
+			
+			if(this.options.link) message.link = this.options.link;
+			
+			var messageView = new Cloudwalkers.Views.Entry (data);
+			
+			$container.append(messageView.render().el);
+		}.bind(this));
+		*/
+
 	},
 
 	'createCategory' : function (e)
@@ -58,6 +104,16 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		var id = $(e.target).attr('data-edit-category-id');
 		
 		$('.category-'+ id +'-name').toggle().next().toggle();
+		
+	},
+	
+	'showEditKeyword' : function (e)
+	{
+		//var id = $(e.target).attr('data-edit-category-id');
+		//$('.category-'+ id +'-name').toggle().next().toggle();
+		
+		this.$el.find(".add-keyword").addClass("inactive");
+		this.$el.find(".edit-keyword").removeClass("inactive");
 		
 	},
 
@@ -170,5 +226,10 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 				}
 			}
 		);
+	},
+	
+	'fail' : function ()
+	{
+		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
 	}
 });

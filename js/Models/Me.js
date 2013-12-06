@@ -87,7 +87,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		if(!current)
 		{
-			current = this.attributes.accounts[0];
+			current = this.attributes.accounts[0].id? this.attributes.accounts[0].id: this.attributes.accounts[0];
 			this.save({settings: {currentAccount: current}});
 		} 
 		

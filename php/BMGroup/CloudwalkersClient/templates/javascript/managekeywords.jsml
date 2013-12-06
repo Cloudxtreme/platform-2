@@ -34,10 +34,14 @@
 				
 				<!-- BEGIN PORTLET-->
 				<div class="portlet box blue">
-					<div class="portlet-title line">
+					<div class="portlet-title line add-keyword">
 						<div class="caption"><i class="icon-tag"></i>Add keyword</div>
 					</div>
-					<div class="portlet-body">
+					<div class="portlet-title line edit-keyword inactive">
+						<div class="caption"><i class="icon-tag"></i>Manage keyword</div>
+					</div>
+					
+					<div class="portlet-body add-keyword">
 						<form data-add-keyword="1">
 							
 							<label for="keyword_create_category">Category:</label>
@@ -53,6 +57,30 @@
 							<button class="btn blue span4 pull-right" type="submit">Create</button>
 						</form>
 					</div>
+					
+					<div class="portlet-body edit-keyword">
+						<form data-edit-keyword="1">
+							
+							<label for="keyword_create_category">Category:</label>
+							<select id="keyword_create_category">
+								{{#categories}}
+									<option value="{{id}}">{{name}}</option>
+								{{/categories}}
+							</select>
+							
+							<label for="keyword_create_name">Name:</label>
+							<input type="text" value="{{name}}" id="keyword_create_name" name="name" class="m-wrap span12" />
+							<br><br>
+							
+							<label for="keyword_create_name">Filters:</label>
+							<div class="keyword-filters">
+							
+							</div>
+							<br>
+							
+							<button class="btn blue" type="submit">Change</button>
+						</form>
+					</div>
 				</div>
 				<!-- END PORTLET-->
 		
@@ -65,48 +93,11 @@
 					<div class="portlet-title line">
 						<div class="caption"><i class="icon-tasks"></i>Category overview</div>
 					</div>
-					<div class="portlet-body">
+					<div class="portlet-body inner-loading">
 						
 						<table class="table table-striped table-bordered table-advance table-hover">
 							<tbody>
 							
-							{{#categories}}
-							
-								<tr data-category="{{id}}">
-									<td class="category-{{id}}-name"><h4>{{name}}</h4></td>
-									<td class="category-{{id}}-edit border-left" style='display: none;'>
-										
-										<form data-edit-category-id="{{id}}">
-						
-											<input type="text" value="{{name}}" id="category_{{id}}_name" name="name" />
-							
-											<button class="btn blue" type="submit">Change name</button>
-						
-										</form>
-									
-									</td>
-									<td>
-										<i class="icon-remove icon-2x pull-right" data-delete-category-id="{{id}}"></i>
-										<i class="icon-edit-sign icon-2x pull-right" data-edit-category-id="{{id}}"></i>
-									</td>
-								</tr>
-								<tr id="category-{id}-tags">
-									<td colspan='2'>
-										
-										<ul>
-											{{#keywords}}
-												<li>
-													<i class="icon-tag icon-muted"></i>
-													{{name}}
-													<i class="icon-remove pull-right" data-delete-keyword-id="{{id}}"></i>
-												</li>
-											{{/keywords}}
-										</ul>
-										
-									</td>
-								</tr>
-							
-							{{/categories}}
 							</tbody>
 						</table>
 						

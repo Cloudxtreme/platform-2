@@ -1,45 +1,33 @@
-<div class="row-fluid">
-	<div class="span12">
+	<tr data-category="{{id}}">
+		<td class="category-{{id}}-name"><h4>{{name}}</h4></td>
+		<td class="category-{{id}}-edit border-left" style='display: none;'>
+			
+			<form data-edit-category-id="{{id}}">
 
-		<div class="portlet box grey channelfilters">
-			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
-			</div>
-			<div class="portlet-body">
+				<input type="text" value="{{name}}" id="category_{{id}}_name" name="name" />
 
-				
-				<div class="filter network-list social-icon-colors">
-					
-					{{#networks}}
-						<div class="btn white active" data-network-streams="{{ids}}">
-							<i class="icon-{{icon}}"></i>
-						</div>
-					{{/networks}}
+				<button class="btn blue" type="submit">Change name</button>
 
-				</div>
-				
-				<hr />
-				
-				<div class="filter keyword-list">
-					<label>{{name}} keywords</label>
-					<ul>
-					{{#keywords}}
-							<li class='active' data-keyword-id="{{id}}">
-								<i class="icon-tag icon-muted"></i> {{name}}
-							</li>
-					{{/keywords}}
-					</ul>
-					<div class="clear"></div>
-
-					<small>
-						<a href="#keywords">manage keywords</a>
-					</small>
-				</div>
-				
-				
-
-			</div>
-		</div>
-
-	</div>
-</div>
+			</form>
+		
+		</td>
+		<td>
+			<i class="icon-remove icon-2x pull-right" data-delete-category-id="{{id}}"></i>
+			<i class="icon-edit-sign icon-2x pull-right" data-edit-category-id="{{id}}"></i>
+		</td>
+	</tr>
+	<tr id="category-{id}-tags">
+		<td colspan='2'>
+			
+			<ul>
+				{{#keywords}}
+					<li data-edit-keyword-id="{{id}}">
+						<i class="icon-tag icon-muted"></i>
+						{{name}}
+						<i class="icon-remove pull-right" data-delete-keyword-id="{{id}}"></i>
+					</li>
+				{{/keywords}}
+			</ul>
+			
+		</td>
+	</tr>

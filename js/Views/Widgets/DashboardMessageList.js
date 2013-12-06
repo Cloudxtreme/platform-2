@@ -30,7 +30,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		return this;
 	},
 	
-	'fill' : function (collection, b)
+	'fill' : function (collection)
 	{	
 		
 		// console.log(this.options.link, collection, b)
