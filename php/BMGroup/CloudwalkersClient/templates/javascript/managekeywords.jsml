@@ -96,6 +96,8 @@
 							<button class="btn blue add-keyword">Create</button>
 							<button class="btn blue edit-keyword inactive">Update</button>
 							
+							<button class="btn blue cancel-edit-keyword">Cancel</button>
+							
 						</form>
 					</div>
 				</div>

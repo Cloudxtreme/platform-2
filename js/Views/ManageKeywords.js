@@ -40,26 +40,6 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		return this;
 	},
 	
-	'fillFilter' : function (filter, response)
-	{	
-		if(filter == "countries")
-		{
-			var $select = this.$el.find("#filter_region");
-			var list = response.countries;
-		
-		} else if(filter == "languages")
-		{
-			var $select = this.$el.find("#filter_locale");
-			var list = response.languages;
-		}
-		
-		$.each(list, function(n, entry)
-		{
-			$select.append("<option value='" + entry.token + "'>" + entry.name + "</option>");	
-		});
-
-	},
-	
 	'fill' : function (response)
 	{	
 		
@@ -79,6 +59,26 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		}.bind(this));
 		
 		this.keywords = keywords;
+
+	},
+	
+	'fillFilter' : function (filter, response)
+	{	
+		if(filter == "countries")
+		{
+			var $select = this.$el.find("#filter_region");
+			var list = response.countries;
+		
+		} else if(filter == "languages")
+		{
+			var $select = this.$el.find("#filter_locale");
+			var list = response.languages;
+		}
+		
+		$.each(list, function(n, entry)
+		{
+			$select.append("<option value='" + entry.token + "'>" + entry.name + "</option>");	
+		});
 
 	},
 
@@ -112,44 +112,6 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		$('.category-'+ id +'-name').toggle().next().toggle();
 		
 	},
-	
-	'showEditKeyword' : function (e)
-	{
-		this.$el.find(".add-keyword").addClass("inactive");
-		this.$el.find(".edit-keyword").removeClass("inactive");
-		
-		var id = $(e.target).attr("data-edit-keyword-id");
-		
-		var keyword = this.keywords.filter(function(entry){ return entry.id == id }).shift();
-		
-		this.$el.find("#keyword_create_category").val(keyword.category);
-		this.$el.find("#keyword_create_name").val(keyword.name);
-		
-		
-	},
-	
-	'editKeyword' : function (e)
-	{
-		e.preventDefault ();
-		
-		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
-		this.$el.find("[data-keyword] select").val(0);
-		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
-		
-		
-		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
-	},
-	
-	'toggleFilter' : function (e)
-	{
-		e.preventDefault ();
-		
-		var filter = $(e.target).attr("data-keyword-filter");
-		
-		this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
-		
-	},
-
 
 	'editCategory' : function (e)
 	{
@@ -174,7 +136,26 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 			}
 		);
 	},
+	
+	'deleteCategory' : function (e)
+	{
+		var self = this;
+		
+		var data = {};
+		data.category = $(e.target).attr ('data-delete-category-id');
 
+		this.sendData 
+		(
+			CONFIG_BASE_URL + 'json/wizard/monitoring/deletecategory?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
+			data,
+			function ()
+			{
+				self.render ();
+				Cloudwalkers.Session.refresh ();
+			}
+		);
+	},
+	
 	'addKeyword' : function (e)
 	{
 		e.preventDefault ();
@@ -198,25 +179,32 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		);
 	},
 
-	'deleteCategory' : function (e)
+	'showEditKeyword' : function (e)
 	{
-		var self = this;
+		this.$el.find(".add-keyword").addClass("inactive");
+		this.$el.find(".edit-keyword").removeClass("inactive");
 		
-		var data = {};
-		data.category = $(e.target).attr ('data-delete-category-id');
+		var id = $(e.target).attr("data-edit-keyword-id");
+		
+		var keyword = this.keywords.filter(function(entry){ return entry.id == id }).shift();
+		
+		this.$el.find("#keyword_create_category").val(keyword.category);
+		this.$el.find("#keyword_create_name").val(keyword.name);
 
-		this.sendData 
-		(
-			CONFIG_BASE_URL + 'json/wizard/monitoring/deletecategory?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
-			data,
-			function ()
-			{
-				self.render ();
-				Cloudwalkers.Session.refresh ();
-			}
-		);
 	},
-
+	
+	'editKeyword' : function (e)
+	{
+		e.preventDefault ();
+		
+		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
+		this.$el.find("[data-keyword] select").val(0);
+		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
+		
+		
+		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
+	},
+	
 	'deleteKeyword' : function (e)
 	{
 		var self = this;
@@ -234,6 +222,16 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 				Cloudwalkers.Session.refresh ();
 			}
 		);
+	},
+	
+	'toggleFilter' : function (e)
+	{
+		e.preventDefault ();
+		
+		var filter = $(e.target).attr("data-keyword-filter");
+		
+		this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
+		
 	},
 
 	'sendData' : function (url, data, callback)
