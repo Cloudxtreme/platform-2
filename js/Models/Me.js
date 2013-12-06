@@ -23,10 +23,15 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'parse' : function (response)
 	{
+		var response = response;
+		
 		if(!Store.exists("me"))
 		{
 			response.user = this.firstLoad(response.user);
 		}
+		
+		// Hack
+		Store.filter("accounts", null, function(accounts){ if(!accounts.length) this.firstLoad(response.user)  }.bind(this));
 		
 		Store.write("me", [response.user]);
 		
