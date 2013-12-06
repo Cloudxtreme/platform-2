@@ -91,9 +91,13 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		{
 			current = this.attributes.accounts[0].id? this.attributes.accounts[0].id: this.attributes.accounts[0];
 			this.save({settings: {currentAccount: current}});
-		} 
+		}
 		
-		return this.accounts.get(current);
+		// Hack
+		var account = this.accounts.get(String(current));
+		if(!account || !account.id) account = this.accounts.get(Number(current));
+		
+		return account;
 	},
 
 	'savePassword' : function (oldpassword, newpassword, callback)
