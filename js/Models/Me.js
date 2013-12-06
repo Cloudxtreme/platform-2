@@ -40,6 +40,9 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'firstLoad' : function (me)
 	{
+		
+		console.log("first log accounts:", me.accounts)
+		
 		// store and simplify accounts
 		for(n in me.accounts)
 		{
@@ -109,9 +112,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		console.log("retreived account:", this.accounts.models)
 		
+		// Hack
 		if(!account || !account.id)
 		{	
-			account = this.accounts.get(Number(current));	
+			Cloudwalkers.Session.reset();
+			window.location = "/";
 		}
 		
 		return account;
