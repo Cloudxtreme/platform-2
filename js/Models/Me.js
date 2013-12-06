@@ -15,7 +15,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 	'url' : function ()
 	{
-		var param = Store.exists("me")? "?include_accounts=ids": "";
+		// Hack
+		var param = ""; // Store.exists("me")? "?include_accounts=ids": "";
 		
 		return CONFIG_BASE_URL + "json/user/me" + param;
 	},
@@ -97,8 +98,6 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			current = this.attributes.accounts[0].id? this.attributes.accounts[0].id: this.attributes.accounts[0];
 			this.save({settings: {currentAccount: current}});
 		}
-		
-		
 		
 		// Hack
 		var account = this.accounts.get(Number(current));
