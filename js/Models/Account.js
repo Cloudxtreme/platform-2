@@ -7,8 +7,11 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.streams = new Cloudwalkers.Collections.Streams();
 		this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
 		
-		// Collect Channel
+		// Collect Channels
 		this.channels = new Cloudwalkers.Collections.Channels();
+		
+		// Collect Campaigns
+		this.campaigns = new Cloudwalkers.Collections.Campaigns();
 		
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
@@ -41,6 +44,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			this.channels.collectStreams();
 			this.streams.fetch();	
 		}
+		
+		// add campaigns
+		this.campaigns.add(this.get("campaigns"));
+		console.log(this.campaigns)
 		
 		// Connect ping to account
 		this.ping = new Cloudwalkers.Session.Ping({id: this.id});

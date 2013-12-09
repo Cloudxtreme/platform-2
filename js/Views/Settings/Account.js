@@ -2,7 +2,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
 		'submit .edit-account' : 'editAccount',
-		'click i[data-delete-campaign-id]' : 'deleteCategory'
+		'click i[data-delete-campaign-id]' : 'deleteCampaign'
 	},
 
 	'render' : function ()
@@ -24,6 +24,14 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		
 		account.set ('name', name);
 		account.save ( function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); });
+	},
+	
+	'deleteCampaign' : function (e)
+	{
+		var self = this;
+		
+		var data = {};
+		data.category = $(e.target).attr ('data-delete-category-id');
 	},
 	
 	'negotiateFunctionalities' : function(el) {
