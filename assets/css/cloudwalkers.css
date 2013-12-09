@@ -40,7 +40,7 @@ table.charttable .text	{ text-align: left; }
 .add-data select.inactive, .new-campaign.inactive	{ display: none; }
 input[name="campaignname"]	{ height: 24px; margin: 0; }
 
-.managekeywords .inactive	{ display: none; }
+.managekeywords .inactive, .campaign-list .inactive	{ display: none; }
 
 
 /* Keyframes */

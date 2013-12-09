@@ -14,16 +14,11 @@
 					{{#campaigns}}
 						<li>
 							<i class="yellow icon-bullseye"></i>
-							<span class="name">{{name}}</span>
-							
-							<!--<span class="campaign-form inactive" data-campaign-id="{{id}}">
-								<input name="edit-campaign" value="{{name}}" /><button class='btn' name="edit-campaign" type="button">Change</button>
-							</span>
+							<span class="campaign-name">{{name}}</span>
 							
 							<span class="pull-right">
-								<i class="icon-edit-sign" data-edit-campaign-id="{{id}}"></i>
 								<i class="icon-remove" data-delete-campaign-id="{{id}}"></i>
-							</span>-->
+							</span>
 						</li>
 					{{/campaigns}}
 					

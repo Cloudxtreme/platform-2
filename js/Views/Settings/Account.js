@@ -1,7 +1,8 @@
 Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
-		'submit .edit-account' : 'editAccount'
+		'submit .edit-account' : 'editAccount',
+		'click i[data-delete-campaign-id]' : 'deleteCategory'
 	},
 
 	'render' : function ()

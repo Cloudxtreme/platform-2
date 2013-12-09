@@ -10,7 +10,8 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		'click i[data-delete-keyword-id]' : 'deleteKeyword',
 		'click button[data-keyword-filter]' : 'toggleFilter',
 		'click button.add-keyword' : 'addKeyword',
-		'click button.edit-keyword' : 'editKeyword'
+		'click button.update-edit-keyword' : 'editKeyword',
+		'click .cancel-edit-keyword' : 'toggleToCreateKeyword'
 	},
 
 	'render' : function ()
@@ -195,12 +196,18 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	
 	'editKeyword' : function (e)
 	{
+		
+		
+		this.toggleToCreateKeyword(e);
+	},
+	
+	'toggleToCreateKeyword' : function (e)
+	{
 		e.preventDefault ();
 		
 		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
 		this.$el.find("[data-keyword] select").val(0);
 		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
-		
 		
 		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
 	},
