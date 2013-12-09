@@ -177,7 +177,7 @@ Cloudwalkers.Collections.Channel = Backbone.Collection.extend({
 
 		// Default JSON-request options.
 		var params = _.extend({
-			type:         'POST',
+			type:         'GET',
 			dataType:     'json',
 			url:			method == 'read' ? fetch_url : '',
 			cache: false
