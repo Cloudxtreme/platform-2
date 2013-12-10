@@ -49,6 +49,8 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		var $container = this.$el.find(".category-list tbody").eq(-1);
 		var keywords = [];
 		
+		console.log("categories:", response.categories);
+		
 		$.each (response.categories, function (i, category)
 		{
 			$container.append(Mustache.render (Templates.categoryentry, category));
@@ -160,14 +162,27 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 	'addKeyword' : function (e)
 	{
 		e.preventDefault ();
+		
+		//console.log($(e.target).attr())
 
 		var self = this;
 		
 		var data = {};
 		data.keyword = $('#keyword_create_name').val ();
 		data.category = $('#keyword_create_category').val();//.attr ('data-addkeyword-category-id');
-		data.locale = 'nl_BE';
 		
+		if($('#filter_include').val())
+			data.include = $('#filter_include').val();
+			
+		if($('#filter_exclude').val())
+			data.exclude = $('#filter_exclude').val();
+			
+		if(Number($('#filter_locale').val()) != 0)
+			data.languages = [$('#filter_locale').val()];
+			
+		if(Number($('#filter_region').val()) != 0)
+			data.countries = [$('#filter_region').val()];
+
 		this.sendData 
 		(
 			CONFIG_BASE_URL + 'json/wizard/monitoring/createkeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
@@ -178,10 +193,17 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 				Cloudwalkers.Session.refresh ();
 			}
 		);
+		
+		this.toggleToCreateKeyword();
 	},
 
 	'showEditKeyword' : function (e)
 	{
+		
+		this.toggleToCreateKeyword(e);
+		
+		this.$el.selectedkeywordid = $(e.target).attr("data-edit-keyword-id");
+		
 		this.$el.find(".add-keyword").addClass("inactive");
 		this.$el.find(".edit-keyword").removeClass("inactive");
 		
@@ -191,12 +213,51 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		
 		this.$el.find("#keyword_create_category").val(keyword.category);
 		this.$el.find("#keyword_create_name").val(keyword.name);
+		
+		if(keyword.include)
+			$('#filter_include').val(keyword.include);
+			
+		if(keyword.exclude)
+			 $('#filter_exclude').val(keyword.exclude);
+			
+		if(keyword.languages.length)
+			$('#filter_locale').val(keyword.languages[0]);
+			
+		if(keyword.countries)
+			$('#filter_region').val(keyword.countries[0]);
 
 	},
 	
 	'editKeyword' : function (e)
 	{
+		var self = this;
 		
+		var data = {};
+		data.keyword = this.$el.selectedkeywordid;
+		data.category = $('#keyword_create_category').val();//.attr ('data-addkeyword-category-id');
+		
+		if($('#filter_include').val())
+			data.include = $('#filter_include').val();
+			
+		if($('#filter_exclude').val())
+			data.exclude = $('#filter_exclude').val();
+			
+		if(Number($('#filter_locale').val()) != 0)
+			data.languages = [$('#filter_locale').val()];
+			
+		if(Number($('#filter_region').val()) != 0)
+			data.countries = [$('#filter_region').val()];
+
+		this.sendData 
+		(
+			CONFIG_BASE_URL + 'json/wizard/monitoring/editkeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
+			data,
+			function ()
+			{
+				self.render ();
+				Cloudwalkers.Session.refresh ();
+			}
+		);
 		
 		this.toggleToCreateKeyword(e);
 	},
@@ -207,9 +268,9 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		
 		this.$el.find("[data-keyword] input, [data-keyword] select").val('');
 		this.$el.find("[data-keyword] select").val(0);
-		this.$el.find("[data-keyword] .keyword-filter").addClass("inactive");
+		this.$el.find("[data-keyword] .keyword-filter, .edit-keyword").addClass("inactive");
 		
-		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
+		this.$el.find(".add-keyword").removeClass("inactive");
 	},
 	
 	'deleteKeyword' : function (e)

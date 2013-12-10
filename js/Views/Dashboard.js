@@ -4,7 +4,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'widgets' : [
 		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
 		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
-		{widget: "schedulecounter", type: "news", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
+		{widget: "schedulecounter", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-worker drafts", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
 		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
 		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1}
@@ -12,9 +12,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'initialize' : function ()
 	{
-		
-		 // HACK
-        Cloudwalkers.Session.on("change:streams", this.rebuild, this);
+
 	},
 	
 	'addDynamicReports' : function ()
@@ -61,11 +59,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					break;
 					
 				case 'schedulecounter':
-					var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
+					var widget = this.addScheduleCounters (widgets[n]);//var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
 					break;
 					
 				case 'coworkers':
-					var widget = this.addInboxCoworkers (widgets[n]);
+					var widget = this.addDashboardDrafts (widgets[n]);
 					break;
 					
 				case 'trending':
@@ -93,16 +91,30 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
 	},
 	
-	'addInboxCoworkers' : function (widgetdata)
+	'addScheduleCounters' : function (widgetdata)
 	{
+		
 		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
 		
+		// Prep and sort list
+		channel.attributes.outgoing = [];
+		
+		$.each(channel.attributes.additional.outgoing, function(n, entry)
+		{
+			channel.attributes.outgoing.push($.extend(entry, {unread: entry.count.scheduled})); 
+		});
+		
+		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
+		
+		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
+	},
+	
+	'addDashboardDrafts' : function (widgetdata)
+	{
+		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
 
 		widgetdata.model = channel.getStream("draft");
 		widgetdata.link = "#coworkers";
-		
-		//if(draftstreams.length)
-		//	widgetdata.streamid = draftstreams.pop().id;
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
@@ -119,19 +131,5 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		}
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
-	},
-	
-	// HACK
-	'rebuild' : function ()
-	{
-		if(this.$el.find(".span3").size()) return null;
-		
-		var widgets = this.addDynamicReports();
-		
-		for(n in widgets)
-			this.appendWidget(
-				new Cloudwalkers.Views.Widgets.Report(widgets[n]),
-				Number(widgets[n].size)
-			);
 	}
 });

@@ -20,19 +20,22 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount ();
 		var name = this.$el.find ('[name=name]').val ();
 		
-		console.log("ready to save")
-		
 		account.set ('name', name);
 		account.save ( function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); });
 	},
 	
 	'deleteCampaign' : function (e)
 	{
-		var self = this;
+		var account = Cloudwalkers.Session.getAccount();
+		var campaign = account.campaigns.get( $(e.target).attr ('data-delete-campaign-id'));
 		
-		var data = {};
-		data.category = $(e.target).attr ('data-delete-category-id');
+		campaign.destroy({success: function()
+		{
+			this.closest('li').remove();
+			
+		}.bind($(e.target))});
 	},
+
 	
 	'negotiateFunctionalities' : function(el) {
 		

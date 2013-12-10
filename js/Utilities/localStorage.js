@@ -95,21 +95,24 @@ var StorageClass = function(successCallback, errorCallback) {
 	}
 	
 	/*
-	 * POST desc function
+	 * POST Backbone Collection
 	 *
 	 * Insert a new entry in local storage, desc
 	 */
 	 
-	 this.post_descending = function(type, content, callback) {
+	 this.postCollection = function(type, collection, callback) {
 		
 		var group = JSON.parse(window.localStorage.getItem(type));  
 		if(!group)
 			group = [];
 			
-		group.unshift(content);
+		collection.each(function(model){
+			group.push(model.attributes);
+		});
+		
 		window.localStorage.setItem(type, JSON.stringify(group))
 		
-		if(callback) callback(content, group.length-1);
+		if(callback) callback(content, group.length);
 		
 		return this;
 	}
@@ -124,6 +127,35 @@ var StorageClass = function(successCallback, errorCallback) {
 		
 		
 		window.localStorage.setItem(type, JSON.stringify(content))
+		
+		if(callback) callback(content);
+		
+		return this;
+	}
+	
+	/*
+	 * SET Backbone Model function
+	 *
+	 * Update existing or insert a new entry in local storage
+	 */
+	 
+	 this.set = function(type, content, callback) {
+			
+		var set = false;
+		 
+		var group = JSON.parse(window.localStorage.getItem(type));  
+		if(!group)
+			group = [];
+			
+		for(n in  group) if(group[n].id == content.id)
+		{
+			$.extend(group[n], content);
+			set = true;
+		}
+		
+		if(!set) group.push(content);
+		
+		window.localStorage.setItem(type, JSON.stringify(group));
 		
 		if(callback) callback(content);
 		

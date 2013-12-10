@@ -264,24 +264,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 	'monitoring' : function (id, catid, messageid)
 	{
-		// Parameters
-		var channel = Cloudwalkers.Session.getChannel (id);
-		var category = channel.get("channels").filter(function(cat){ return cat.id == catid }).pop();//Cloudwalkers.Session.getChannel (catid);
-		
-		if (!channel || !category) return this.home();
-		
-		// Visualisation
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ({title: "Keyword monitoring"});//({name: channel.get("name")});
-		widgetcontainer.templatename = "keywordcontainer"; 
-		
-		var keywordfilter = new Cloudwalkers.Views.Widgets.ChannelFilters ({ 'category' : category }); //ChannelFilters ({ 'channel' : channel, 'name' : channeldata.name });
-		widgetcontainer.add (keywordfilter, 4);
-		
-		var listwidget = new Cloudwalkers.Views.Widgets.MonitorList ({ 'category' : category, 'streams': keywordfilter.streams, 'keywords': keywordfilter.keywords });
-		widgetcontainer.add (listwidget, 8);
-		
-		Cloudwalkers.RootView.setView (widgetcontainer);
-
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(catid)}));	
 	},
 	
 	'managekeywords' : function ()
@@ -323,6 +306,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		Cloudwalkers.Session.reset();
 		window.location = "/";
+		
+		return false;
 	},
 	
 	'exception' : function (errno)

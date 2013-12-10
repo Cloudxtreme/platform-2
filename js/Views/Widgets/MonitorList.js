@@ -15,8 +15,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		
 		this.networkStreams = streams;
 		this.keywordStreams = streams;
-		this.category = new Cloudwalkers.Models.Channel(this.options.category);
-		this.title = this.options.category.name;
+		this.category = this.options.category;
 		
 		if(!this.category.messages)
 			this.category.messages = new Cloudwalkers.Collections.Messages([], {id: this.category.id, records: 25});
@@ -34,7 +33,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 
 		this.category.messages.fetch({ success: this.fill.bind(this), error: this.fail.bind(this) });
 		
-		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.options.category.name }));
+		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 
@@ -78,8 +77,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		
 		if(e && pos == "top") return null;
 		
-		this.$el.find('ul').addClass('inner-loading');
-		this.category.messages.next({ success: this.fill.bind(this), error: this.fail.bind(this) });
+		//this.$el.find('ul').addClass('inner-loading');
+		//this.category.messages.next({ success: this.fill.bind(this), error: this.fail.bind(this) });
 		
 	},
 	

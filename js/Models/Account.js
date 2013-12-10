@@ -46,8 +46,12 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 		
 		// add campaigns
-		this.campaigns.add(this.get("campaigns"));
-		console.log(this.campaigns)
+		Store.filter("campaigns", null, function(list){
+			
+			this.campaigns.add((list.length)? list: this.get("campaigns"));
+
+		}.bind(this));
+		
 		
 		// Connect ping to account
 		this.ping = new Cloudwalkers.Session.Ping({id: this.id});

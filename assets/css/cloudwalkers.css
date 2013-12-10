@@ -40,7 +40,22 @@ table.charttable .text	{ text-align: left; }
 .add-data select.inactive, .new-campaign.inactive	{ display: none; }
 input[name="campaignname"]	{ height: 24px; margin: 0; }
 
-.managekeywords .inactive, .campaign-list .inactive	{ display: none; }
+.managekeywords .inactive	{ display: none; }
+
+.campaign-list	{font-size: 14px; }
+.campaign-list li	{ line-height: 2em; }
+.campaign-list .icon-bullseye	{ color: #DA4631; }
+.campaign-list .icon-remove	{
+	padding: 0 8px; cursor: pointer;
+}
+
+.btn.load-more	{
+	width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
+	color: #777; font-size: .9em;
+}
+
+.load-more.inactive, .load-more.hidden	{ display: none; }
+
 
 
 /* Keyframes */

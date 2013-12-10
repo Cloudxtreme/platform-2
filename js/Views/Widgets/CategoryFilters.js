@@ -1,7 +1,7 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
+Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
 		'click [data-network-streams]' : 'changenetwork',
@@ -10,8 +10,10 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	
 	'initialize' : function ()
     {
-        var streams = [];
-		this.keywords = this.options.category.channels;
+		this.category = this.options.category;
+		this.keywords = this.category.get("channels");
+		
+		var streams = [];
 		
 		$.each(this.keywords, function(i, keyword)
 		{
@@ -26,7 +28,7 @@ Cloudwalkers.Views.Widgets.ChannelFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		var data = {keywords: this.keywords};
 		
-		data.name = this.options.category.name;
+		data.name = this.category.name;
 		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));

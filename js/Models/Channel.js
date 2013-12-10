@@ -3,6 +3,15 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	'initialize' : function ()
 	{
 		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id});
+		
+
+		// add child channels and streams to collection
+		Cloudwalkers.Session.setChannels(this.get("channels"));
+		Cloudwalkers.Session.setStreams(this.get("streams"));
+		
+		
+		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
+		
 	},
 	
 	/**

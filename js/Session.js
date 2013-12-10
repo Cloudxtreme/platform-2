@@ -15,7 +15,7 @@ Cloudwalkers.Session =
 	{
 		this.user = new Cloudwalkers.Models.Me();
 
-		this.user.once("change", callback);
+		this.user.once("activated", callback);
 		this.user.fetch();
 	},
 	
@@ -30,6 +30,11 @@ Cloudwalkers.Session =
 	'reset' : function ()
 	{
 		window.localStorage.clear();
+	},
+	
+	'home' : function()
+	{
+		Cloudwalkers.Router.Instance.home();	
 	},
 	
 	/**
@@ -106,6 +111,13 @@ Cloudwalkers.Session =
 		return this.user.account.channels;
 	},
 	
+	'setChannels' : function (list)
+	{
+		if(list.length) this.user.account.channels.add(list, {merge: true});
+		
+		return this;
+	},
+	
 	/**
 	 *	Streams shortcut functions
 	 **/
@@ -118,6 +130,13 @@ Cloudwalkers.Session =
 	'getStreams' : function ()
 	{
 		return this.user.account.streams;
+	},
+	
+	'setStreams' : function (list)
+	{
+		if(list.length) this.user.account.streams.add(list, {merge: true});
+		
+		return this;
 	}
 }
 

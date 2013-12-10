@@ -4,18 +4,15 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'initialize' : function (data)
 	{
-		this.accounts = new Cloudwalkers.Collections.Accounts();
+		// Load data
+		this.once('change', this.activate);
 		
-		//this.on ('change:settings', Cloudwalkers.Session.updateSettings)
-		this.on ('change:accounts', this.setAccounts);
-		//this.on ('change:id', Cloudwalkers.Session.reset);
-		this.on ('change:id', Cloudwalkers.Router.home);
-		
+		// Prevent conflicting user login
+		this.on ('change:id', function(id){ if(this.previous("id")) Cloudwalkers.Session.home(); });
 	},
 
 	'url' : function ()
 	{
-
 		var param = Store.exists("me")? "?include_accounts=ids": "";
 		
 		return CONFIG_BASE_URL + "json/user/me" + param;
@@ -23,35 +20,17 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'parse' : function (response)
 	{
-		var response = response;
-		
+		// Parse first load
 		if(!Store.exists("me"))
 		{
-			response.user = this.firstLoad(response.user);
+			response.user = this.firstload(response.user);
 		}
 		
+		/* Write hould be reference to user id */
 		Store.write("me", [response.user]);
+		Store.set("users", response.user);
 		
 		return response.user;
-	},
-	
-	'firstLoad' : function (me)
-	{
-		
-		console.log("first log accounts:", me.accounts)
-		
-		// store and simplify accounts
-		for(n in me.accounts)
-		{
-			Store.post("accounts", me.accounts[n]);
-			
-			me.accounts[n] = me.accounts[n].id;
-		}
-
-		// Add current account if non-existant
-		if(!me.settings.currentAccount) me.settings = {currentAccount: me.accounts[0]};
-
-		return me;
 	},
 	
 	'sync' : function (method, model, options)
@@ -66,45 +45,65 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'setAccounts' : function (data)
+	'firstload' : function (me)
 	{
+		// Store accounts
+		$.each(me.accounts, function(n, account)
+		{
+			Store.set("accounts", account);
+			
+		}.bind(this));
 		
+		// Check default account
+		if(!me.settings.currentAccount)
+			me.settings = {currentAccount: me.accounts[0].id};
+			
+		return me;
+	},
+	
+	'activate' : function (data)
+	{
 		// Prevent dislodged user access
 		if(!this.get("accounts").length)
 			return Cloudwalkers.RootView.exception(401);
 		
-		Store.filter("accounts", null, function(accounts){ this.accounts.add(accounts); }.bind(this));
-		
-		var current = Cloudwalkers.Session.get("currentAccount");
-		
-		// Set current account
-		this.account = this.getCurrentAccount();
-		this.account.activate();
+		// Get stored accounts
+		Store.filter("accounts", null, function(accounts)
+		{
+			this.accounts = new Cloudwalkers.Collections.Accounts(accounts);
+			
+			// Set current account
+			this.account = this.getCurrentAccount();
+			this.account.activate();
+			
+			// Set current user level
+			this.level = Number(this.account.get("currentuser").level);
+			
+			// Call callback
+			this.trigger('activated');
 
-		// Set current user level
-		this.level = Number(this.account.get("currentuser").level);
-
+		}.bind(this));
 	},
 	
 	'getCurrentAccount' : function()
 	{
-		var current = Cloudwalkers.Session.get("currentAccount");
+		// Get current account view
+		var current = Cloudwalkers.Session.get("currentAccount");	
 		
 		if(!current)
 		{
-			current = this.attributes.accounts[0].id? this.attributes.accounts[0].id: this.attributes.accounts[0];
+			current = this.accounts.at(0).id;
 			this.save({settings: {currentAccount: current}});
 		}
-		
+
 		var account = this.accounts.get(Number(current));
 		
-		// Hack
+		// Emergency check, force full reload
 		if(!account || !account.id)
 		{	
-			Cloudwalkers.Session.reset();
-			window.location = "/";
+			 return Cloudwalkers.Session.home();
 		}
-		
+
 		return account;
 	},
 

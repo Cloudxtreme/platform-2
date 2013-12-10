@@ -7,6 +7,7 @@
 		<div class="scroller">
 			<!--<table class="table table-striped table-bordered table-advance table-hover messages-container inner-loading"></table>-->
 			<ul class="messages-container inner-loading"></ul>
+			<input type="button" class="btn load-more" value="load more" />
 		</div>
 	</div>
 </div>
