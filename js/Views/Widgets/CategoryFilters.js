@@ -4,8 +4,8 @@
 Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
-		'click [data-network-streams]' : 'filter',//'changenetwork',
-		'click [data-keyword-id]' : 'filter'//'changekeyword'
+		'click [data-network-streams]' : 'filter',
+		'click [data-keyword-id]' : 'filter'
 	},
 	
 	'initialize' : function ()
@@ -72,48 +72,8 @@ Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.e
 		});
 
 		// Fetch filtered messages
-		this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}})
-
-	},
-
-	'changenetwork' : function (e)
-	{
-		$(e.currentTarget).toggleClass("inactive active");
+		this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 		
-		var networks = this.$el.find ('.filter.network-list .active');
-		var networkids = [];
-		
-		if(!networks.size())
-		{
-			this.$el.find ('.filter.network-list .inactive:first-child').toggleClass("inactive active");
-			networks = this.$el.find ('.filter.network-list .active');
-		}
-		
-		networks.each( function()
-		{
-			networkids = networkids.concat($(this).attr('data-network-streams').split(","));
-		});
-
-		Cloudwalkers.Session.trigger ('stream:filter', networkids);
-	},
-	
-	'changekeyword' : function (e)
-	{
-		$(e.currentTarget).toggleClass("inactive active")
-		
-		var keywords = this.$el.find ('.filter.keyword-list .active');
-		var keywordids = [];
-		
-		// if all channels are inactive, re-activate first
-		if(!keywords.size())
-		{
-			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
-			keywords = this.$el.find ('.filter.keyword-list .active');
-		}
-		
-		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
-
-		Cloudwalkers.Session.trigger ('channel:filter', keywordids);
+		return this;
 	}
-
 });
