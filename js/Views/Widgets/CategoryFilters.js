@@ -4,8 +4,8 @@
 Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
-		'click [data-network-streams]' : 'changenetwork',
-		'click [data-keyword-id]' : 'changekeyword'
+		'click [data-network-streams]' : 'filter',//'changenetwork',
+		'click [data-keyword-id]' : 'filter'//'changekeyword'
 	},
 	
 	'initialize' : function ()
@@ -37,63 +37,47 @@ Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.e
 		
 		return this;
 	},
-
-	/**
-	* Bundle streams on networks
 	
-	'bundlestreamsonnetwork' : function (streams)
+	'filter' : function (e)
 	{
-		var map = {};
+		$(e.currentTarget).toggleClass("inactive active")
 		
-		
-		
-		
-		for (var i = 0; i < streams.length; i ++)
-		{
-			if (typeof (map[streams[i].network.token]) == 'undefined')
-			{
-				map[streams[i].network.token] = {
-					'network' : streams[i].network,
-					'streams' : [ streams[i] ]
-				};
-			}
-
-			else
-			{
-				map[streams[i].network.token].streams.push (streams[i]);
-			}
-		}
-
-		var out = [];
-
-		for (var key in map)
-		{
-			out.push (map[key]);
-		}
-
-		return out;
-	},*/
-
-	'changenetwork' : function (e)
-	{
-		/*$(e.currentTarget).toggleClass("inactive active")
-		
-		var networks = this.$el.find ('.filter.network-list .active');
-		var networkids = '';
+		// Get all active channels
+		var keywords = this.$el.find ('.filter.keyword-list .active');
+		var keywordids = [];
 		
 		// if all channels are inactive, re-activate first
+		if(!keywords.size())
+		{
+			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
+			keywords = this.$el.find ('.filter.keyword-list .active');
+		}
+		
+		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
+		
+		// Get all active streams
+		var networks = this.$el.find ('.filter.network-list .active');
+		var networkids = [];
+		
+		// if all networks are inactive, re-activate first
 		if(!networks.size())
 		{
 			this.$el.find ('.filter.network-list .inactive:first-child').toggleClass("inactive active");
 			networks = this.$el.find ('.filter.network-list .active');
 		}
-		
-		networks.each( function() {
-			networkids += $(this).attr('data-network-streams');
+
+		networks.each( function()
+		{
+			networkids = networkids.concat($(this).attr('data-network-streams').split(","));
 		});
-		
-		this.trigger ('stream:change', $.grep(networkids.split (','), function(item){ return (item); }));*/
-		
+
+		// Fetch filtered messages
+		this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}})
+
+	},
+
+	'changenetwork' : function (e)
+	{
 		$(e.currentTarget).toggleClass("inactive active");
 		
 		var networks = this.$el.find ('.filter.network-list .active');
@@ -115,22 +99,6 @@ Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.e
 	
 	'changekeyword' : function (e)
 	{
-		/*$(e.currentTarget).toggleClass("inactive active")
-		
-		var keywords = this.$el.find ('.filter.keyword-list .active');
-		var keywordids = [];
-		
-		// if all channels are inactive, re-activate first
-		if(!keywords.size())
-		{
-			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
-			keywords = this.$el.find ('.filter.keyword-list .active');
-		}
-		
-		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
-
-		this.trigger ('channel:change', keywordids);	*/
-		
 		$(e.currentTarget).toggleClass("inactive active")
 		
 		var keywords = this.$el.find ('.filter.keyword-list .active');

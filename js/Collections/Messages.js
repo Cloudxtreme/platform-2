@@ -5,7 +5,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'initialize' : function(list, options)
 	{
-		this.parentid = options.id;
+		this.parentid = options.id? options.id: null;
 		this.endpoint = options.endpoint? options.endpoint: "channel";
 		
 		this.parameters = {
@@ -16,7 +16,10 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.parentid + "/messages?" + $.param (this.parameters);
+		if(this.endpoint && this.parentid)
+			 
+			 return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.parentid + "/messages?" + $.param (this.parameters);
+		else return CONFIG_BASE_URL + "json/message?" + $.param (this.parameters);
 	},
 	
 	'parse' : function (response)
@@ -31,6 +34,27 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		this.processing = true;
 		
 		return Backbone.sync(method, model, options);
+	},
+	
+	'seed' : function(ids)
+	{
+		
+		var fresh = [];
+		
+		for(n in ids)
+		{
+			message = this.add({id: ids[n]});
+			
+			if(!message.get("date") || message.outdated) fresh.push(ids[n]);
+		}
+		
+		// Get list based on ids
+		this.parameters = {ids: fresh.join(",")};
+		this.fetch();
+		
+		// Clean the parameters
+		this.parameters = {};
+			
 	},
 	
 	'hook' : function(callbacks)

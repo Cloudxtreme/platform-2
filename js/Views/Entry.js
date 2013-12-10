@@ -1,22 +1,21 @@
 Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'tagName' : 'li',
+	'template': 'messageentry',
 	
 	'initialize' : function ()
 	{
-		var self = this;
-		this.model.on ('change', function ()
-		{
-			self.render ();	
-		});
+		
+		if(this.options.template) this.template = this.options.template;
+		
+		this.model.on ('change', this.render.bind(this));
 		
 		this.on ('destroy', this.destroy);
 	},
 
 	'render' : function ()
 	{
-		
-		this.$el.html (Mustache.render (Templates[this.options.template], this.options.model.filterData(this.options.type)));
+		this.$el.html (Mustache.render (Templates[this.template], this.options.model.filterData(this.options.type)));
 		
 		if(this.$el.find("[data-date]")) this.time();
 		

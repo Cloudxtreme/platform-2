@@ -15,6 +15,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
+		
+		// Prep global Messages collection
+		this.messages = new Cloudwalkers.Collections.Messages([],{});
 	},
 	
 	'parse' : function (response)

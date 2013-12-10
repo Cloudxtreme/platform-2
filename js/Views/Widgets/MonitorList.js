@@ -22,8 +22,16 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		
 
 		this.once ('content:change', this.addScroll);
-		this.listenTo(Cloudwalkers.Session, 'stream:filter', this.toggleEntries.bind(this, "networks"));
-		this.listenTo(Cloudwalkers.Session, 'channel:filter', this.toggleEntries.bind(this, "keywords"));
+		//this.listenTo(Cloudwalkers.Session, 'stream:filter', this.toggleEntries.bind(this, "networks"));
+		//this.listenTo(Cloudwalkers.Session, 'channel:filter', this.toggleEntries.bind(this, "keywords"));
+		
+		this.listenTo(Cloudwalkers.Session, "filter", this.clean)
+		
+		
+		// Listen to category
+		this.listenTo(this.category, 'change:messages', this.fill);
+		this.category.fetch({endpoint: "messageids", parameters:{records: 25}})
+		
 
 		this.initializeWidget ();
 	},
@@ -31,16 +39,52 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 	'render' : function ()
 	{
 
-		this.category.messages.fetch({ success: this.fill.bind(this), error: this.fail.bind(this) });
+		//this.category.messages.fetch({ success: this.fill.bind(this), error: this.fail.bind(this) });
 		
 		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));
+		this.$container = this.$el.find ('.messages-container');
+		this.$el.find(".load-more").hide();
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 
 		return this;
 	},
 	
-	'fill' : function (collection)
+	'fill' : function (category, ids){
+		
+		// Clean load
+		$.each(this.entries, function(n, entry){ entry.remove()});
+		this.entries = [];
+		
+		this.$container.removeClass("inner-loading");
+		this.$el.find(".load-more").show();
+		
+		
+		// Activate messages
+		Cloudwalkers.Session.getMessages().seed(ids);
+		
+		// Add messages to view
+		for (n in ids)
+		{
+			var message = Cloudwalkers.Session.getMessage(ids[n])
+			message.channel = this.category;
+			
+			var messageView = new Cloudwalkers.Views.Entry ({model: message});
+			this.entries.push (messageView);
+			
+			this.$container.append(messageView.render().el);
+		}
+	},
+	
+	/*'clean' : function (){
+		
+		this.$container.addClass("inner-loading");
+		this.$el.find(".load-more").hide();
+		
+		$.each(this.entries, function(n, entry){ entry.remove()});
+	},*/
+	
+	/*'fill' : function (collection)
 	{
 		this.trigger ('content:change');
 		this.$el.find('.inner-loading').removeClass(collection.length? 'inner-loading inner-empty empty-recent': 'inner-loading');
@@ -64,7 +108,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		}.bind(this));
 		
 		this.toggleEntries(null);
-	},
+	},*/
 	
 	'fail' : function ()
 	{
@@ -76,6 +120,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 	{
 		
 		if(e && pos == "top") return null;
+		
+		
+		
 		
 		//this.$el.find('ul').addClass('inner-loading');
 		//this.category.messages.next({ success: this.fill.bind(this), error: this.fail.bind(this) });

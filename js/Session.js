@@ -137,7 +137,21 @@ Cloudwalkers.Session =
 		if(list.length) this.user.account.streams.add(list, {merge: true});
 		
 		return this;
-	}
+	},
+	
+	/**
+	 *	Messages shortcut functions
+	 **/
+	
+	'getMessage' : function (id)
+	{
+		return this.user.account.messages.get (id);
+	},
+	
+	'getMessages' : function ()
+	{
+		return this.user.account.messages;
+	},
 }
 
 // Add events
