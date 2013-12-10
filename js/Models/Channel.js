@@ -22,8 +22,6 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	{
 		var param = (this.parameters)? "?"+ $.param(this.parameters): "";
 		
-		console.log(param)
-		
 		return CONFIG_BASE_URL + 'json/channel/' + this.id + this.endpoint + param;
 	},
 	

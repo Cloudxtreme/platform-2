@@ -20,8 +20,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		if(!this.category.messages)
 			this.category.messages = new Cloudwalkers.Collections.Messages([], {id: this.category.id, records: 25});
 		
+		this.on("all", function(a, b){ console.log(a, b)})
 
-		this.once ('content:change', this.addScroll);
+		//this.once ('content:change', this.addScroll);
 		//this.listenTo(Cloudwalkers.Session, 'stream:filter', this.toggleEntries.bind(this, "networks"));
 		//this.listenTo(Cloudwalkers.Session, 'channel:filter', this.toggleEntries.bind(this, "keywords"));
 		
@@ -30,6 +31,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		
 		// Listen to category
 		this.listenTo(this.category, 'change:messages', this.fill);
+		this.listenTo(this.category, 'request', this.showloading);
+		this.listenTo(this.category, 'sync', this.hideloading);
 		this.category.fetch({endpoint: "messageids", parameters:{records: 25}})
 		
 
@@ -46,8 +49,20 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.DetailedList
 		this.$el.find(".load-more").hide();
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		
+		setTimeout(this.addScroll.bind(this), 200)
 
 		return this;
+	},
+	
+	'showloading' : function (){
+		
+		this.$el.find(".icon-cloud-download").show();
+	},
+	
+	'hideloading' : function (){
+		
+		this.$el.find(".icon-cloud-download").hide();
 	},
 	
 	'fill' : function (category, ids){
