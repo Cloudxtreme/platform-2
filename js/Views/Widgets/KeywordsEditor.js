@@ -1,7 +1,4 @@
-/**
-* A standard widget
-*/
-Cloudwalkers.Views.Widgets.CategoryFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
+Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
 		'click [data-network-streams]' : 'filter',

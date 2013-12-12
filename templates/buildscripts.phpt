@@ -71,6 +71,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/MonitorFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedView.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
@@ -82,7 +83,6 @@
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/CategoryFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
