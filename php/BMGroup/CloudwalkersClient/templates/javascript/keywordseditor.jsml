@@ -1,0 +1,98 @@
+	<!-- Add Category -->
+	<div class="portlet box grey addcategory">
+		<div class="portlet-title line">
+			<div class="caption"><i class="icon-plus"></i>Add category</div>
+			<div class="tools">
+				<i class="icon-cloud-upload" style="display: none;"></i>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<form data-add-category="1">
+				<label for="category_create_name">Name:</label>
+				
+				<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
+				<button class="btn blue span4 pull-right" type="submit">Create</button>
+				
+			</form>
+		</div>
+	</div>
+	<!-- end Add Category -->
+	
+	<!-- Manage keyword -->
+	<div class="portlet box blue managekeyword">
+		<div class="portlet-title line add-keyword">
+			<div class="caption"><i class="icon-tag"></i>Add keyword</div>
+			<div class="tools">
+				<i class="icon-cloud-upload" style="display: none;"></i>
+			</div>
+		</div>
+		<div class="portlet-title line edit-keyword inactive">
+			<div class="caption"><i class="icon-tag"></i>Manage keyword</div>
+			<div class="tools">
+				<i class="icon-cloud-upload" style="display: none;"></i>
+			</div>
+		</div>
+		
+		<div class="portlet-body manage-keyword">
+			<form data-keyword="true">
+				
+				<label for="keyword_manage_category">Category:</label>
+				<select id="keyword_manage_category">
+					<option value="0">select category...</option>
+					{{#categories}}
+						<option value="{{id}}">{{name}}</option>
+					{{/categories}}
+				</select>
+				
+				<label for="keyword_manage_name">Name:</label>
+				<input type="text" value="" placeholder="keyword name" id="keyword_manage_name" name="name" class="m-wrap span12" />
+				<br><br>
+				
+				<label>Filters:</label>
+				<div class="keyword-edit-filters">
+					<span class=''>
+						<button class="btn span6" data-keyword-filter="filter-include">Include</button>
+						<button class="btn span6" data-keyword-filter="filter-exclude">Exclude</button>
+					</span>
+					<br><br>
+					<span class=''>
+						<button class="btn span6" data-keyword-filter="filter-languages">Languages</button>
+						<button class="btn span6" data-keyword-filter="filter-countries">Countries</button>
+					</span>
+					<br><br><br>
+					
+					<div class="keyword-filter inactive" data-keyword-filter="filter-include">
+						<label for="filter_include"><i class='icon-filter'></i> Include <small> use space separated words</small></label>
+						<input type="text" value="" id="filter_include" name="name" class="m-wrap span12" /> 
+					</div>
+					<div class="keyword-filter inactive" data-keyword-filter="filter-exclude">
+						<label for="filter_exclude"><i class='icon-filter'></i> Exclude <small> use space separated words</small></label>
+						<input type="text" value="" id="filter_exclude" name="name" class="m-wrap span12" /> 
+					</div>
+					<div class="keyword-filter inactive" data-keyword-filter="filter-languages">
+						<label for="filter_languages"><i class='icon-filter'></i> Language <small> select from list</small></label>
+						<select multiple id="filter_languages" name="languages" data-placeholder="All languages...">
+						{{#filteroptions.languages}}
+							<option value="{{token}}">{{name}}</option>
+						{{/filteroptions.languages}}
+						</select>
+					</div>
+					<div class="keyword-filter inactive" data-keyword-filter="filter-countries">
+						<label for="filter_countries"><i class='icon-filter'></i> Country <small> select from list</small></label>
+						<select multiple id="filter_countries" name="countries" data-placeholder="Global...">
+						{{#filteroptions.countries}}
+							<option value="{{token}}">{{name}}</option>
+						{{/filteroptions.countries}}
+						</select>
+					</div>
+				</div>
+				
+				<button class="btn blue add-keyword">Create</button>
+				<button class="btn blue update-keyword edit-keyword inactive">Update</button>
+				
+				<button class="btn cancel-edit-keyword edit-keyword inactive">Cancel</button>
+				
+			</form>
+		</div>
+	</div>
+	<!-- end Manage keyword -->

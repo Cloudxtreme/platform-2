@@ -1,76 +1,83 @@
-Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
+Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.extend ({
 
 	'events' : {
-		'click [data-network-streams]' : 'filter',
-		'click [data-keyword-id]' : 'filter'
+		'submit form[data-add-category]' : 'addCategory',
+		'click button.add-keyword' : 'addKeyword',
+		'click button.update-keyword' : 'updateKeyword',
+		'click .cancel-edit-keyword' : 'render',
+		'click button[data-keyword-filter]' : 'toggleFilter'
 	},
 	
 	'initialize' : function ()
-    {
-		this.category = this.options.category;
-		this.keywords = this.category.get("channels");
+	{
+		this.channel = Cloudwalkers.Session.getChannel("monitoring");
 		
-		var streams = [];
-		
-		$.each(this.keywords, function(i, keyword)
-		{
-			streams = streams.concat(keyword.streams);
-		});
-		
-		this.streams = streams;        
-        this.initializeWidget ();
-    },
+		// Listen to categories
+		this.listenTo(this.channel, 'change:channels', this.render);
+	},
 
 	'render' : function ()
 	{
-		var data = {keywords: this.keywords};
+		var account = Cloudwalkers.Session.getAccount();
+		var filters = account.get("filteroptions");
 		
-		data.name = this.category.name;
-		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
+		// Check presets
+		if(!filters) account.fetch({endpoint: "filteroptions", success: this.render.bind(this)})
 
-		this.$el.html (Mustache.render (Templates.channelfilters, data));
+		// Data
+		var data = {filteroptions: filters, categories: this.channel.get("channels")};
 		
-		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		this.$el.html (Mustache.render (Templates.keywordseditor, data));
+		
+		// Chosen
+		this.$el.find("select").chosen({width: "100%"});
 		
 		return this;
 	},
 	
-	'filter' : function (e)
+	'addCategory' : function (e)
 	{
-		$(e.currentTarget).toggleClass("inactive active")
+		e.preventDefault ();
 		
-		// Get all active channels
-		var keywords = this.$el.find ('.filter.keyword-list .active');
-		var keywordids = [];
+		var object = {name: $("#category_create_name").val()};
 		
-		// if all channels are inactive, re-activate first
-		if(!keywords.size())
-		{
-			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
-			keywords = this.$el.find ('.filter.keyword-list .active');
-		}
-		
-		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
-		
-		// Get all active streams
-		var networks = this.$el.find ('.filter.network-list .active');
-		var networkids = [];
-		
-		// if all networks are inactive, re-activate first
-		if(!networks.size())
-		{
-			this.$el.find ('.filter.network-list .inactive:first-child').toggleClass("inactive active");
-			networks = this.$el.find ('.filter.network-list .active');
-		}
+		this.channel.post(object)
 
-		networks.each( function()
-		{
-			networkids = networkids.concat($(this).attr('data-network-streams').split(","));
-		});
+		this.$el.find(".addcategory .icon-cloud-upload").show();
 
-		// Fetch filtered messages
-		this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
+	},
+	
+	'addKeyword' : function (e)
+	{
+		e.preventDefault ();
 		
-		return this;
+		var category = Cloudwalkers.Session.getChannel(Number($("#keyword_manage_category").val()));
+		
+		category.post(this.keywordParameters());
+
+		this.$el.find(".managekeyword .icon-cloud-upload").show();
+
+	},
+	
+	'updateKeyword' : function (e)
+	{
+		e.preventDefault ();
+		
+		var category = Cloudwalkers.Session.getChannel(Number($("#keyword_manage_category").val()));
+		
+		category.save(this.keywordParameters());
+
+		this.$el.find(".managekeyword .icon-cloud-upload").show();
+
+	},
+
+	'toggleFilter' : function (e)
+	{
+		e.preventDefault ();
+		
+		var filter = $(e.target).attr("data-keyword-filter");
+		
+		this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
+		
 	}
 });

@@ -2,10 +2,6 @@
 Style corrections and manual overrides
 ***/
 
-/***
-UPDATE TEST overrides
-***/
-
 /**
  *	Quick fixes
  */
@@ -57,7 +53,7 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 .load-more.inactive, .load-more.hidden	{ display: none; }
 
 .chosen-container	{
-	margin-bottom: 10px; 
+	margin-bottom: 20px; 
 }
 
 
@@ -641,31 +637,37 @@ ul.timeline	{ margin-top: 25px; }
 
 
 /**
- * Category List
+ * Manage keywords
  */
- 
-.category-list ul li	{
+
+.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
+
+.portlet.keywordsoverview h4	{ margin-top: 6px; }
+
+.portlet.keywordsoverview div.clear	{ clear: both; }
+
+.portlet.keywordsoverview ul ul li	{
 	float: left; width: 31.2%; padding: 4px; margin: 2px .9%; border: 1px solid #ccc; box-sizing: border-box; box-shadow: 0 1px #eee; background: rgba(255,255,255,.5);
 	font-size: 1.08em; line-height: 2em;
 }
 
-.category-list table i.pull-right	{
-	padding: 6px 2px 2px 2px; color: #222; text-shadow: 0 1px white; cursor: pointer;
+.portlet.keywordsoverview ul .pull-right i	{
+	padding: 6px 2px 2px; color: #222; text-shadow: 0 1px white; cursor: pointer;
 }
 
-.category-list table i.pull-right.icon-2x	{
+.portlet.keywordsoverview i.icon-2x	{
 	font-size: 21px; padding-top: 8px; 
 }
 
-.category-list table td.border-left	{
-	border-left: 1px solid #ddd;
-}
+.portlet.keywordsoverview i.pull-right	{ float: right; }
 
-.category-list table form	{
-	margin: 3px 0;
-}
+.portlet.keywordsoverview li[data-edit-keyword-id]	{ cursor: pointer; }
 
-.category-list table form input, #category_create_name, #keyword_create_name	{
+.portlet.keywordsoverview .messages-container li[data-edit-keyword-id] i	{ padding-top: 5px; }
+
+.portlet.keywordsoverview form	{ margin: 3px 0; }
+
+.portlet.keywordsoverview input, #category_create_name, #keyword_create_name	{
 	font-size: 1.2em; margin: 0 2px; padding: 6px;
 }
 

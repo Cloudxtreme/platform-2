@@ -1,5 +1,7 @@
 Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
+	'endpoint' : "",
+	
 	'initialize' : function ()
 	{
 
@@ -22,14 +24,23 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'parse' : function (response)
 	{
-		Store.updateById("accounts", response.account);
+		this.endpoint = "";
+		
+		Store.set("accounts", response.account);
 		
 		return response.account;
 	},
 	
 	'url' : function ()
+	{		
+		return CONFIG_BASE_URL + 'json/account/' + this.id + this.endpoint;
+	},
+	
+	'sync' : function (method, model, options)
 	{
-		return CONFIG_BASE_URL + 'json/account/' + this.id;
+		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+
+		return Backbone.sync(method, model, options);
 	},
 	
 	'activate' : function ()

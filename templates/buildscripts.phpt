@@ -58,6 +58,7 @@
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
 <script type="text/javascript" src="/js/Views/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/KeywordMonitoring.js"></script>
+<script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 
@@ -73,6 +74,8 @@
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/KeywordsEditor.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/KeywordsOverview.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedView.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
@@ -107,4 +110,3 @@
 <script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
-<script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>

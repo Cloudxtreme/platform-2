@@ -3,23 +3,6 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'title' : "Page",
 	'span' : 0,
 	'widgets' : [],
-	
-	'initialize' : function ()
-	{
-		/*
-		proper listen attachmant: 
-		this.listenTo(this.model, "change", this.render);
-		
-		to keep in mind:
-		this.on ('destroy', function ()
-		{
-			for (var i = 0; i < this.widgets.length; i ++)
-			{
-				self.widgets[i].widget.trigger ('destroy');
-			}
-		});
-		*/
-	},
 
 	'render' : function ()
 	{

@@ -156,12 +156,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// Parameters
 		if(!id)
 		{
-			var channeldata = Cloudwalkers.Session.getAccount ().getChannelFromType ('inbox');
+			var channeldata = Cloudwalkers.Session.getChannel ('inbox');
 			id = channeldata.id;
 			Backbone.history.fragment += "/" + id; 
 		}
 		else
-			var channeldata = Cloudwalkers.Session.getChannel (id);
+			var channeldata = Cloudwalkers.Session.getChannel (Number(id));
 		
 		if (!channeldata) return this.home();
 		
@@ -192,7 +192,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'channel' : function (id, subchannelid, streamid, messageid)
 	{
 		
-		var channeldata = Cloudwalkers.Session.getChannel (id);
+		var channeldata = Cloudwalkers.Session.getChannel (Number(id));
 		
 		if (!channeldata) return this.home();
 
@@ -219,7 +219,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'trending' : function (channelid, streamid)
 	{
-		var channeldata = Cloudwalkers.Session.getChannel (channelid);
+		var channeldata = Cloudwalkers.Session.getChannel (Number(channelid));
 
 		var since = (Date.today().add({ days: -7 }));
 		if (channeldata.type == 'news')
@@ -264,7 +264,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 	'monitoring' : function (id, catid, messageid)
 	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(catid)}));	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(Number(catid))}));	
 	},
 	
 	'managekeywords' : function ()

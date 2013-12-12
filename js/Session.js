@@ -103,7 +103,7 @@ Cloudwalkers.Session =
 	
 	'getChannel' : function (id)
 	{
-		return this.user.account.channels.get (id);
+		return (typeof id == "number")? this.user.account.channels.get(id): this.user.account.channels.findWhere({type: id});
 	},
 	
 	'getChannels' : function (id)
@@ -113,7 +113,7 @@ Cloudwalkers.Session =
 	
 	'setChannels' : function (list)
 	{
-		if(list.length) this.user.account.channels.add(list, {merge: true});
+		if(list && list.length) this.user.account.channels.add(list, {merge: true});
 		
 		return this;
 	},
@@ -134,7 +134,7 @@ Cloudwalkers.Session =
 	
 	'setStreams' : function (list)
 	{
-		if(list.length) this.user.account.streams.add(list, {merge: true});
+		if(list && list.length) this.user.account.streams.add(list, {merge: true});
 		
 		return this;
 	},

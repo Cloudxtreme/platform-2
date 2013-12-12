@@ -1,9 +1,11 @@
 Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	
 	'endpoint' : '',
+	'parameters' : '',
 	
 	'initialize' : function ()
 	{
+		// deprecated?
 		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id});
 		
 
@@ -11,18 +13,16 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		Cloudwalkers.Session.setChannels(this.get("channels"));
 		Cloudwalkers.Session.setStreams(this.get("streams"));
 		
-		
 		//this.on("all", function(a, b){ console.log(a, b); });
-		
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},
 	
 	'url' : function()
 	{
-		var param = (this.parameters)? "?"+ $.param(this.parameters): "";
+		var id = this.id? this.id: "";
 		
-		return CONFIG_BASE_URL + 'json/channel/' + this.id + this.endpoint + param;
+		return CONFIG_BASE_URL + 'json/channel/' + id + this.endpoint + this.parameters;
 	},
 	
 	'parse' : function(response)
@@ -53,10 +53,36 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	 
 	'sync' : function (method, model, options)
 	{
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
-		this.parameters = (options.parameters)? options.parameters: null;
+		if(method == "read")
+		{
+			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+			
+		} else if(method == "create")
+		{
+			this.endpoint = (options.parent)? options.parent + "/channels": "";  
+		}
 
 		return Backbone.sync(method, model, options);
+	},
+	
+	'post' : function(object)
+	{
+		Cloudwalkers.Session.getAccount().channels.create(object, {parent: this.id, wait: true, success: function(model)
+		{
+			// Hack
+			var channels = this.get("channels");
+			channels.push(model.attributes)
+			
+			this.set({channels: channels}).trigger("change:channels");
+			this.store();
+			
+		}.bind(this)});	
+	},
+	
+	'store' : function()
+	{
+		Store.set("channels", this.attributes);
 	},
 	 
 	'filterMessages' : function(filters, page, callbacks)

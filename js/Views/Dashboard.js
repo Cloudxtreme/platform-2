@@ -84,7 +84,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'addMessagesCounters' : function (widgetdata)
 	{
 		
-		var channel = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
+		var channel = Cloudwalkers.Session.getChannel(widgetdata.type);
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
@@ -94,7 +94,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'addScheduleCounters' : function (widgetdata)
 	{
 		
-		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
+		var channel = Cloudwalkers.Session.getChannel("internal");
 		
 		// Prep and sort list
 		channel.attributes.outgoing = [];
@@ -111,7 +111,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'addDashboardDrafts' : function (widgetdata)
 	{
-		var channel = Cloudwalkers.Session.getChannels().findWhere({type: "internal"});
+		var channel = Cloudwalkers.Session.getChannel("internal");
 
 		widgetdata.model = channel.getStream("draft");
 		widgetdata.link = "#coworkers";
@@ -121,7 +121,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addDashboardTrending' : function (widgetdata)
 	{
-		widgetdata.model = Cloudwalkers.Session.getChannels().findWhere({type: widgetdata.type});
+		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
 		widgetdata.model.messages.parameters.sort = "engagement";
 		
 		if(widgetdata.since)
