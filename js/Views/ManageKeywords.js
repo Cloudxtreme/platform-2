@@ -49,8 +49,6 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		var $container = this.$el.find(".category-list tbody").eq(-1);
 		var keywords = [];
 		
-		console.log("categories:", response.categories);
-		
 		$.each (response.categories, function (i, category)
 		{
 			$container.append(Mustache.render (Templates.categoryentry, category));
@@ -71,17 +69,21 @@ Cloudwalkers.Views.ManageKeywords = Backbone.View.extend({
 		{
 			var $select = this.$el.find("#filter_region");
 			var list = response.countries;
+			//var select = $("#filter_locale");
 		
 		} else if(filter == "languages")
 		{
 			var $select = this.$el.find("#filter_locale");
 			var list = response.languages;
+			//var select = $("#filter_region");
 		}
 		
 		$.each(list, function(n, entry)
 		{
 			$select.append("<option value='" + entry.token + "'>" + entry.name + "</option>");	
 		});
+		
+		//select.chosen({width: "100%"});
 
 	},
 

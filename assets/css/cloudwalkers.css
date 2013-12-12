@@ -56,6 +56,9 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 .load-more.inactive, .load-more.hidden	{ display: none; }
 
+.chosen-container	{
+	margin-bottom: 10px; 
+}
 
 
 /* Keyframes */

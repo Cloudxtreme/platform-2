@@ -79,17 +79,11 @@
 								</div>
 								<div class="keyword-filter inactive" data-keyword-filter="filter-locale">
 									<label for="filter_locale"><i class='icon-filter'></i> Language <small> select from list</small></label>
-									<select id="filter_locale">
-										<option value="0">Use all</option>
-										<option value="0" disabled>-----------</option>
-									</select>
+									<select multiple id="filter_locale" data-placeholder="Choose a language..."></select>
 								</div>
 								<div class="keyword-filter inactive" data-keyword-filter="filter-region">
 									<label for="filter_region"><i class='icon-filter'></i> Country <small> select from list</small></label>
-									<select id="filter_region">
-										<option value="0">Global</option>
-										<option value="0" disabled>-----------</option>
-									</select>
+									<select multiple id="filter_region"  data-placeholder="Choose a country..."></select>
 								</div>
 							</div>
 							

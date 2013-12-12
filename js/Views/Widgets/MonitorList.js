@@ -32,6 +32,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));
 		
 		this.$container = this.$el.find ('.messages-container');
+		this.$el.find(".load-more").hide();
 		
 		return this;
 	},
