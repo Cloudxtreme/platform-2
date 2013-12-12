@@ -1,5 +1,10 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
 
+    'url' : function ()
+    {
+        return CONFIG_BASE_URL + 'json/message/' + this.get ('id');
+    },
+
 	'initialize' : function ()
 	{
 		this.on ('change', this.afterChange);
@@ -291,9 +296,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						url: url, 
 						success:function(objData)
 						{
+                            /*
 							var collection = self.collection;
-							collection.reset ();
-							collection.fetch ();
+
+                            if (collection)
+                            {
+							    collection.reset ();
+							    collection.fetch ();
+                            }
+                            */
+                            self.trigger ("destroy", self, self.collection);
 						}
 					});
 				}
@@ -306,21 +318,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				'Are you sure you want to remove this message?', 
 				function () 
 				{
-					var url = 'post/?remove=' + self.get ('id');
-
-					// Do the call
-					jQuery.ajax
-					({
-						dataType:"json", 
-						type:"get", 
-						url: url, 
-						success:function(objData)
-						{
-							var collection = self.collection;
-							collection.reset ();
-							collection.fetch ();
-						}
-					});
+                    self.destroy ();
+                    //self.trigger ("destroy", self, self.collection);
 				}
 			);
 		}
@@ -398,7 +397,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				if (objData.removed)
 				{
 					// Remove the message
-					self.collection.remove (self);
+                    /*
+                    if (self.collection)
+                    {
+					    self.collection.remove (self);
+                    }
+                    */
+                    self.trigger ("destroy", self, self.collection);
 				}
 				else
 				{
