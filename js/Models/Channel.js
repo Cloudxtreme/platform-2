@@ -13,7 +13,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		Cloudwalkers.Session.setChannels(this.get("channels"));
 		Cloudwalkers.Session.setStreams(this.get("streams"));
 		
-		//this.on("all", function(a, b){ console.log(a, b); });
+		this.on("all", function(a, b){ console.log(a, b); });
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},

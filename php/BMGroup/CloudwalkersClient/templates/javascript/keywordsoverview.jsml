@@ -25,7 +25,7 @@
 				
 			</li>
 			<li id="category-{{id}}-tags">
-				<ul>
+				<ul data-edit-category="{{id}}">
 					{{#channels}}
 						<li data-edit-keyword-id="{{id}}">
 							<i class="icon-tag icon-muted"></i>

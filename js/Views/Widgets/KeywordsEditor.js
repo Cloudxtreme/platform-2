@@ -16,8 +16,12 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		this.listenTo(this.channel, 'change:channels', this.render);
 	},
 
-	'render' : function ()
+	'render' : function (e)
 	{
+		// Prevent "cancel" page reload
+		if(e && e.preventDefault) e.preventDefault();
+		
+		
 		var account = Cloudwalkers.Session.getAccount();
 		var filters = account.get("filteroptions");
 		
@@ -59,16 +63,52 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 	},
 	
+	'fillKeyword' : function (e)
+	{
+		e.preventDefault ();
+		
+		// Reset editor
+		this.render();
+		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
+		
+		// Collect keyword
+		var id = Number($(e.target).attr("data-edit-keyword-id"));
+		var keyword = this.editing = Cloudwalkers.Session.getChannel(id);
+		var filters = keyword.get("settings");
+		
+		$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
+		$('#keyword_manage_name').val(keyword.get("name"));
+		$('#filter_include').val(filters.include);
+		$('#filter_exclude').val(filters.exclude);
+		
+		for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
+		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
+		
+		// Update chosen
+		this.$el.find("select").trigger('chosen:updated');
+		
+	},
+	
 	'updateKeyword' : function (e)
 	{
 		e.preventDefault ();
 		
-		var category = Cloudwalkers.Session.getChannel(Number($("#keyword_manage_category").val()));
-		
-		category.save(this.keywordParameters());
+		this.editing.save(this.keywordParameters());
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 
+	},
+	
+	'keywordParameters' : function()
+	{
+		var object = {name: $("#keyword_manage_name").val(), settings: {}};
+		
+		object.settings.include = $("#filter_include").val();
+		object.settings.exclude = $("#filter_exclude").val();
+		object.settings.languages = $("#filter_languages").val();
+		object.settings.countries = $("#filter_countries").val();
+		
+		return object;
 	},
 
 	'toggleFilter' : function (e)
