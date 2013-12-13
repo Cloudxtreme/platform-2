@@ -27,8 +27,12 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		data.name = this.category.name;
 		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
+		
+		
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
+		
+		if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		

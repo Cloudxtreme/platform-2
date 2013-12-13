@@ -18,6 +18,11 @@
 
 				</div>
 				
+				<div class='building-notice inactive'>
+					<strong>Building your data</strong>
+					<br>This will take a minute or so.
+				</div>
+								
 				<hr />
 				
 				<div class="filter keyword-list">

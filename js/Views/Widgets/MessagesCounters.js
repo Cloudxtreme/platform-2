@@ -15,14 +15,17 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		// Order
 		list.sort (function (a, b)
 		{
-			return parseInt(b.unread) - parseInt(a.unread);
+			return parseInt(b.count.incomingUnread) - parseInt(a.count.incomingUnread);
 		});
 		
 		// Parse
 		$.each (list, function (i, v)
 		{
+			
+			console.log(v.count.incomingUnread);
+			
 			data.list.push(
-				{ name: v.name, url: '#' + data.type + '/' + data.channel.id + '/' + v.id, unread: v.unread ? v.unread : 0, icon: v.network? v.network.icon: data.icon }
+				{ name: v.name, url: '#' + data.type + '/' + data.channel.id + '/' + v.id, unread: v.count.incomingUnread ? v.count.incomingUnread : 0, icon: v.network? v.network.icon: data.icon }
 			)
 		});
 
