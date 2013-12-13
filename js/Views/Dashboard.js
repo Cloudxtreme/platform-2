@@ -10,52 +10,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1}
 	],
 	
-	'initialize' : function ()
-	{
-		
-		console.log("Experiment")
-		
-		var messages = Cloudwalkers.Session.getMessages();
-		var channel_0 = Cloudwalkers.Session.getChannel(123);
-		var channel_1 = Cloudwalkers.Session.getChannel(136);
-		
-		messages.on("all", function(a, b){ console.log("messages", a, b); });
-		channel_1.on("all", function(a, b){ console.log("channel_1", a, b); });
-		channel_1.messages.on("all", function(a, b){ console.log("channel_1 > messages", a, b); });
-		
-		messages.add({id: 999, name: "Foo"});
-		
-		var message = messages.get(999);
-		
-		channel_0.messages.add(message);
-		channel_1.messages.add(message);
-		
-		var message_from_0 = channel_0.messages.get(999);
-		
-		message_from_0.set({name: "Bar"});
-		
-		message.destroy();
-		
-		
-		
-		
-		
-		
-		
-		
-		//channel_0.messages.add({id: 999, name: "Foo"});
-		//channel_1.messages.add({id: 999, name: "Bar"}, {merge: true});
-		//channel_0.messages.findWhere({name: "Foo"})
-		
-		
-		
-		//channel.messages.add (Cloudwalkers.Session.getMessage(ids[n]));
-		
-		
-		
-		
-		
-	},
 	
 	'addDynamicReports' : function ()
 	{
@@ -83,6 +37,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{
+		
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		
 		this.$el.addClass("container-fluid");

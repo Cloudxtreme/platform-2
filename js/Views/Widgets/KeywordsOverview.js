@@ -21,7 +21,17 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		this.editor = this.options.editor;
 		
 		// Listen to categories
-		this.listenTo(this.channel, 'change:channels', this.render);
+		this.listenTo(this.channel, 'change', this.render);
+		
+	},
+	
+	// Hack
+	'forceChange' : function(channels)
+	{
+		console.log("brute force");
+		
+		window.localStorage.clear();
+		window.location.reload();
 	},
 	
 	'render' : function ()
@@ -46,7 +56,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var id = Number($(e.target).closest('form').attr('data-edit-category-id'));
 		var category = Cloudwalkers.Session.getChannel(id);
 		
-		category.save({name: $(e.target).find('[name="name"]').val()});
+		// Hack
+		category.save({name: $(e.target).find('[name="name"]').val()}, {success: this.forceChange});
 		
 		$('.category-'+ id +'-name').toggle().next().toggle();
 	},

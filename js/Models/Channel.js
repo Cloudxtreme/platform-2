@@ -15,7 +15,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		Cloudwalkers.Session.setChannels(this.get("channels"));
 		Cloudwalkers.Session.setStreams(this.get("streams"));
 		
-		//this.on("all", function(a, b){ console.log("channel model:", a, b); });
+		//this.on("all", function(a, b){ console.log("channel:", a, b); });
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},
@@ -68,16 +68,24 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'post' : function(object)
+	'post' : function(object, callback)
 	{
+		// Hack	
+		var callback = callback
+		
 		Cloudwalkers.Session.getAccount().channels.create(object, {parent: this.id, wait: true, success: function(model)
 		{
+			// Double hack
+			if(callback) callback();
+			
 			// Hack
 			var channels = this.get("channels");
 			channels.push(model.attributes)
 			
 			this.set({channels: channels}).trigger("change:channels");
 			this.store();
+			
+			
 			
 		}.bind(this)});	
 	},

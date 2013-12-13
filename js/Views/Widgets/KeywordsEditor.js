@@ -15,6 +15,20 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		// Listen to categories
 		this.listenTo(this.channel, 'change:channels', this.render);
 	},
+	
+	// Hack
+	'forceChange' : function(channels)
+	{
+		console.log("brute force");
+		
+		setTimeout(function(){
+			
+			window.localStorage.clear();
+			window.location.reload();
+			
+		}, 100)
+		
+	},
 
 	'render' : function (e)
 	{
@@ -45,7 +59,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var object = {name: $("#category_create_name").val()};
 		
-		this.channel.post(object)
+		this.channel.post(object, this.forceChange)
 
 		this.$el.find(".addcategory .icon-cloud-upload").show();
 
@@ -57,7 +71,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var category = Cloudwalkers.Session.getChannel(Number($("#keyword_manage_category").val()));
 		
-		category.post(this.keywordParameters());
+		category.post(this.keywordParameters(), this.forceChange);
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 
@@ -93,7 +107,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 		
-		this.editing.save(this.keywordParameters());
+		this.editing.save(this.keywordParameters(), {success: this.forceChange});
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 

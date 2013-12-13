@@ -1,6 +1,3 @@
-/**
-* A standard widget
-*/
 Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'id' : 'monitorparent',
@@ -23,7 +20,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.listenTo(this.category, 'sync', this.hideloading);
 		
 		// Load category messages
-		this.category.fetch({endpoint: "messageids", parameters:{records: 25}})
+		this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
 	},
 
 	'render' : function ()
