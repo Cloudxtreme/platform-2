@@ -1,6 +1,6 @@
 <?php
 
-define ('VERSION', '0.9.1.2');
+define ('VERSION', '0.9.2.0');
 
 error_reporting (-1);
 ini_set ('display_errors', 1);

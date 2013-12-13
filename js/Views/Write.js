@@ -91,12 +91,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			if (stream)
 			{
-				var out = [];
+                // don't look at this!
+				var out = new Backbone.Collection ();
 				for (var i = 0; i < streams.models.length; i ++)
 				{
 					if (streams.models[i].get ('network').name == stream.get ('network').name)
 					{
-						out.push (streams.models[i]);
+						out.add (streams.models[i]);
 					}
 				}
 
