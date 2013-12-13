@@ -84,9 +84,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	{
 		var streams = Cloudwalkers.Session.getStreams ();
 		
-		console.log(streams)
-		
-
 		// If this is an action parameter, only show streams of the same network
 		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
 		{
