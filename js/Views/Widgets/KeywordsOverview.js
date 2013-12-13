@@ -152,7 +152,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		);*/
 		
 		return false;
-	},
+	}
 	/*
 
 	'sendData' : function (url, data, callback)

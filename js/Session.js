@@ -154,7 +154,7 @@ Cloudwalkers.Session =
 	'getMessages' : function ()
 	{
 		return this.user.account.messages;
-	},
+	}
 }
 
 // Add events
