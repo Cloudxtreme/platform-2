@@ -121,7 +121,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 	'setStreamChannels' : function (service)
 	{
-		var channels = Cloudwalkers.Session.getAccount ().getChannels ();
+		var channels = Cloudwalkers.Session.getChannels ();
 
 		function loadChannels (stream, channels)
 		{

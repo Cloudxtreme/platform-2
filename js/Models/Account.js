@@ -5,10 +5,6 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	'initialize' : function ()
 	{
 
-		// Collect streams, fetch triggered in User model
-		this.streams = new Cloudwalkers.Collections.Streams();
-		this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
-		
 		// Collect Channels
 		this.channels = new Cloudwalkers.Collections.Channels();
 		
@@ -18,6 +14,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
 		
+		// Collect streams, fetch triggered in User model
+		this.streams = new Cloudwalkers.Collections.Streams();
+		//this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
+
 		// Prep global Messages collection
 		this.messages = new Cloudwalkers.Collections.Messages([],{});
 	},
@@ -45,31 +45,37 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'activate' : function ()
 	{	
+		// Load Channels
+		Store.filter("channels", null, function(list){ this.channels.add((list.length)? list: this.get("channels")); }.bind(this));
+		
+		// Load Campaigns
+		Store.filter("campaigns", null, function(list){ this.campaigns.add((list.length)? list: this.get("campaigns")); }.bind(this));
+		
+		// Connect ping to account
+		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
+		
 		// get extended account data
 		// this.fetch();
 		
 		// add channels & channel streams
-		this.channels.add(this.get("channels"));
+		//this.channels.add(this.get("channels"));
 		
-		if( Store.exists("streams"))
+		/*if( Store.exists("streams"))
 			Store.filter("streams", null, function(streams){ this.streams.add(streams); }.bind(this));
 		
 		else {
 			this.channels.collectStreams();
 			this.streams.fetch();	
-		}
+		}*/
 		
 		// add campaigns
-		Store.filter("campaigns", null, function(list){
+		/*Store.filter("campaigns", null, function(list){
 			
 			this.campaigns.add((list.length)? list: this.get("campaigns"));
 
-		}.bind(this));
-		
-		
-		// Connect ping to account
-		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
-	},
+		}.bind(this));*/
+
+	}/*,
 	
 	'avatar' : function ()
 	{
@@ -128,6 +134,6 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		var data = {name: this.get("name")}
 		
 		Cloudwalkers.Net.put ('account/' + this.id, {}, data, callback);
-	}
+	}*/
 
 });

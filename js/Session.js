@@ -21,10 +21,13 @@ Cloudwalkers.Session =
 	
 	'refresh' : function ()
 	{
-		this.getAccount ().refresh (function ()
+		
+		console.log("Session.refresh triggered")
+		
+		/*this.getAccount ().refresh (function ()
 		{
 			Cloudwalkers.Session.trigger ('channels:change');
-		});
+		});*/
 	},
 	
 	'reset' : function ()

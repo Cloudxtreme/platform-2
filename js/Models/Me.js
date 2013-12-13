@@ -83,6 +83,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.trigger('activated');
 
 		}.bind(this));
+		
 	},
 	
 	'getCurrentAccount' : function()

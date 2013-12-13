@@ -1,6 +1,10 @@
 Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
-	'initialize' : function(){
+	'initialize' : function(attributes){
+		
+		// Save channel data
+		Store.set("streams", attributes);
+		
 		
 		/*if(this.get("incoming"))
 		{

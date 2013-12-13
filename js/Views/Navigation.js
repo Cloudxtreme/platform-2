@@ -43,7 +43,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		data.level = Number(account.get('currentuser').level);
 
-		var channels = account.getChannels ();
+		var channels = Cloudwalkers.Session.getChannels ();
 		var sorted = {};
 		
 

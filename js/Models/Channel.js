@@ -3,17 +3,19 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	'endpoint' : '',
 	'parameters' : '',
 	
-	'initialize' : function ()
+	'initialize' : function (attributes)
 	{
 		// deprecated?
 		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id});
 		
+		// Save channel data
+		Store.set("channels", attributes);
 
 		// add child channels and streams to collection
 		Cloudwalkers.Session.setChannels(this.get("channels"));
 		Cloudwalkers.Session.setStreams(this.get("streams"));
 		
-		this.on("all", function(a, b){ console.log(a, b); });
+		//this.on("all", function(a, b){ console.log("channel model:", a, b); });
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},
