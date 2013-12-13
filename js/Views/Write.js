@@ -83,6 +83,9 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'getAvailableStreams' : function ()
 	{
 		var streams = Cloudwalkers.Session.getStreams ();
+		
+		console.log(streams)
+		
 
 		// If this is an action parameter, only show streams of the same network
 		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
@@ -92,11 +95,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			if (stream)
 			{
 				var out = [];
-				for (var i = 0; i < streams.length; i ++)
+				for (var i = 0; i < streams.models.length; i ++)
 				{
-					if (streams[i].get ('network').name == stream.get ('network').name)
+					if (streams.models[i].get ('network').name == stream.get ('network').name)
 					{
-						out.push (streams[i]);
+						out.push (streams.models[i]);
 					}
 				}
 
