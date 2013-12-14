@@ -43,6 +43,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 			{
 				'success' : function (data)
 				{
+					
 					if (data.statistics.length > 0)
 					{
 						// Title

@@ -50,7 +50,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		return {
 			content : stat.values[0].value,
 			title: stat.name,
-			description : "<strong>" + stream.get("customname") + "</strong>"
+			description : stream.get("customname")
 		}
 	 },
 	 

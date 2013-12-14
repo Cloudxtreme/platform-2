@@ -56,6 +56,11 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 	margin-bottom: 20px; 
 }
 
+#widgetcontainer .portlet.box .portlet-title i	{ color: white; }
+
+.span4 .dashboardwidget li .content	{ max-height: 60px; overflow: hidden; }
+
+
 
 /* Keyframes */
 @-webkit-keyframes bluepulse {

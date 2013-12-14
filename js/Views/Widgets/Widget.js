@@ -36,16 +36,19 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 
 	'render' : function ()
 	{
+
 		var self = this;
 
 		if (typeof (this.options.title) != 'undefined')
 			this.title = this.options.title;
 
-		if (typeof (this.options.color) != 'undefined')
-			this.color = this.options.color;
+		//if (typeof (this.options.color) != 'undefined')
+		//	this.color = this.options.color;
 
 		if (typeof (this.options.icon) != 'undefined' && this.options.icon)
 			this.icon = this.options.icon;
+			
+		console.log(this.title, this.color)
 
 		this.$el.html 
 		(
