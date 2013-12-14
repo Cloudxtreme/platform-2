@@ -27,10 +27,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'filterData' : function (type)
 	{
 		
+		// Handle loading messages
+		if(!this.get("date")) return this.attributes;
+		
 		var data = this.attributes;
 		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
-		//console.log(data)
 		
 		if(data.attachments)
 		{
@@ -65,8 +67,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		if(stream.get("network").token == "twitter")
 		{
-			share.push({action: "favorite", icon: "star", name: "Favorite"});
-			share.push({action: "retweet", icon: "retweet", name: "Retweet"});
+			// share.push({action: "favorite", icon: "star", name: "Favorite"});
+			// share.push({action: "retweet", icon: "retweet", name: "Retweet"});
+		}
+		
+		if(stream.get("network").token == "facebook")
+		{
+			share.push({action: "like", icon: "thumbs-up", name: "Like"});
+			share.push({action: "comment", icon: "comment-alt", name: "Comment"});
 		}
 		
 		if(stream.get("outgoing"))
@@ -351,6 +359,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'getAction' : function (token)
 	{
+		console.log(token, this.get ('actions'))
+		
 		var actions = this.get ('actions');
 		for (var i = 0; i < actions.length; i ++)
 		{

@@ -3,6 +3,11 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'tagName' : 'li',
 	'template': 'messageentry',
 	
+	'events' : 
+	{
+		'click *[data-action]' : 'action',
+	},
+	
 	'initialize' : function ()
 	{
 		
@@ -29,6 +34,73 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			document.location = url;
 			
 		}.bind(this, url? url: this.options.model.location()));
+	},
+	
+	'action' : function (element)
+	{
+		if ($(element.currentTarget).is ('[data-action]'))
+		{
+			var actiontoken = $(element.currentTarget).attr ('data-action');
+		}
+		else if ($(element.target).is ('[data-action]'))
+		{
+			var actiontoken = $(element.target).attr ('data-action');	
+		}
+		else
+		{
+			var actiontoken = $(element.target).parent ('[data-action]').attr ('data-action');	
+		}
+		
+		action = this.model.getAction (actiontoken);
+
+		if (action == null)
+		{
+			console.log ('No action found: ' + actiontoken);
+			return;
+		}
+
+		var targetmodel = this.model;
+		if (typeof (action.target) != 'undefined')
+		{
+			targetmodel = action.target;
+
+			if (typeof (action.originalaction) != 'undefined')
+			{
+				action = action.originalaction;
+			}
+		}
+
+		if (typeof (action.callback) != 'undefined')
+		{
+			action.callback (targetmodel);
+		}
+		else
+		{
+			if (action)
+			{
+				if (action.type == 'dialog')
+				{
+					var view = new Cloudwalkers.Views.ActionParameters ({
+						'message' : targetmodel,
+						'action' : action
+					});
+					Cloudwalkers.RootView.popup (view);
+				}
+				else if (action.type == 'simple')
+				{
+					targetmodel.act (action, {}, function (){});
+				}
+
+				else if (action.type == 'write')
+				{
+					Cloudwalkers.RootView.writeDialog 
+					(
+						targetmodel,
+						action
+					);
+				}
+			}
+		}
 	},
 	
 	'time' : function ()

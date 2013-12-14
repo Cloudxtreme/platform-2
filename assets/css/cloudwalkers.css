@@ -62,6 +62,8 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 
 
+
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }
@@ -407,7 +409,7 @@ nav	{
 }
 
 .actions .dropdown-menu	{
-	margin: 2px 0 0 -62px !important; min-width: 120px !important;
+	margin: 2px 0 0 -62px; min-width: 120px;
 }
 
 .actions.icon-right > .dropdown-menu, .actions.pull-right > .dropdown-menu	{
@@ -424,6 +426,23 @@ nav	{
 .portlet .message-view .dropdown-menu li	{
 	min-height: 0; padding: 4px;
 }
+
+.messagelist .actions.dropdown	{ margin: -2px 0 2px 8px;  }
+
+.messagelist .actions.dropdown ul.dropdown-menu	{
+	min-width: 90px; margin: -19px 0 0 -94px;
+}
+
+.messagelist .actions.dropdown li	{
+	padding: 6px 10px; min-height: 0;
+	font-size: 12px; 
+}
+
+.messagelist .actions.dropdown li a	{
+	padding: 0;
+}
+
+.messagelist .actions.dropdown li i	{ font-size: inherit; }
 
 
 /* Dashboard widgets */
