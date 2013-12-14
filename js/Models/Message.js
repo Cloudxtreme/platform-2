@@ -359,7 +359,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'getAction' : function (token)
 	{
-		console.log(token, this.get ('actions'))
 		
 		var actions = this.get ('actions');
 		for (var i = 0; i < actions.length; i ++)
