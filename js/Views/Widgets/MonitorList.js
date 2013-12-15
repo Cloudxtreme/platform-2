@@ -64,10 +64,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Add messages to view
 		for (n in ids)
 		{
-			var message = Cloudwalkers.Session.getMessage(ids[n])
-			message.channel = this.category;
+			var message = Cloudwalkers.Session.getMessage(ids[n]);
 			
-			var messageView = new Cloudwalkers.Views.Entry ({model: message, type: "full"});
+			var messageView = new Cloudwalkers.Views.Entry ({model: message, type: "full", template: "messagefullentry"});
 			this.entries.push (messageView);
 			
 			this.$container.append(messageView.render().el);

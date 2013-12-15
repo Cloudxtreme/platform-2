@@ -1,7 +1,19 @@
 
 	<div class='pull-right'>
 		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		{{#share.length}}
+			<span class="actions dropdown">
+				<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+			
+				<ul class="dropdown-menu">
+				{{#share}}
+					<li><a class="button-post action message-action" data-action="{{action}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+				{{/share}}
+				</ul>
+			</span>
+		{{/share.length}}
 		<div class="media"><i class="icon-{{media.icon}}"></i></div>
+
 	</div>
 	
 	{{#user}}
@@ -15,5 +27,5 @@
 	{{/from}}
 	
 	<div class='content'>
-		{{{body.plaintext}}}
+		{{{body.html}}}
 	</div>
