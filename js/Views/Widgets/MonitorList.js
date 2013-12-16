@@ -58,15 +58,16 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 			this.entries = [];
 		}
 		
-		// Activate messages
-		Cloudwalkers.Session.getMessages().seed(ids);
+		// Get messages
+		var messages = this.category.messages.seed(ids);
+		//Cloudwalkers.Session.getMessages().seed(ids);
 		
 		// Add messages to view
-		for (n in ids)
+		for (n in messages)
 		{
-			var message = Cloudwalkers.Session.getMessage(ids[n]);
+			//var message = Cloudwalkers.Session.getMessage(ids[n]);
 			
-			var messageView = new Cloudwalkers.Views.Entry ({model: message, type: "full", template: "messagefullentry"});
+			var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], type: "full", template: "messagefullentry"});
 			this.entries.push (messageView);
 			
 			this.$container.append(messageView.render().el);

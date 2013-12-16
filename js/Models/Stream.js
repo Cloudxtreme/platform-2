@@ -2,16 +2,15 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
 	'initialize' : function(attributes){
 		
+		
 		// Save channel data
-		Store.set("streams", attributes);
+		//Store.set("streams", attributes);
 		
+		// Child messages
+		this.messages = new Cloudwalkers.Collections.Messages();
+
 		
-		/*if(this.get("incoming"))
-		{
-			this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
-		}*/
-		
-		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
+		//this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
 		
 		// Has reports?
 		if(this.get("statistics"))
@@ -22,14 +21,33 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
 	},
 	
+	'url' : function()
+	{
+		var id = this.id? this.id: "";
+		
+		return CONFIG_BASE_URL + 'json/stream/' + id + this.endpoint + this.parameters;
+	},
+	
 	'parse' : function(response)
 	{
-		Store.updateById("streams", response, function(exists, stream)
-		{
-			if(!exists) Store.post("streams", stream);
-		});
+		Store.set("streams", response.stream);
 		
-		return response;
-	}
+		return response.stream;
+	},
+	
+	'sync' : function (method, model, options)
+	{
+		if(method == "read")
+		{
+			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+			
+		} else if(method == "create")
+		{
+			this.endpoint = (options.parent)? options.parent + "/streams": "";  
+		}
+
+		return Backbone.sync(method, model, options);
+	},
 
 });

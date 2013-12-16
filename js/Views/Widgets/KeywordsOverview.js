@@ -5,82 +5,99 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'id' : 'monitorparent',
 	'entries' : [],
-	
+
 	'events' : {
-		'submit form[data-edit-category-id]' : 'editCategory',
-		'click i[data-edit-category-id]' : 'showEditCategory',
-		'click i[data-delete-category-id]' : 'deleteCategory',
-		'click li[data-edit-keyword-id]' : 'showEditKeyword',
-		'click i[data-delete-keyword-id]' : 'deleteKeyword'
+		'submit form' : 'editCategory',
+		'click .edit-toggler' : 'toggleEditCategory',
+		'click .delete-category' : 'deleteCategory',
+		'click .delete-keyword' : 'deleteKeyword',
+		'click [data-keyword]' : 'toggleEditKeyword'
 	},
-	
+
 	'initialize' : function ()
 	{
 		this.channel = Cloudwalkers.Session.getChannel("monitoring");
 		
 		this.editor = this.options.editor;
 		
-		// Listen to categories
-		this.listenTo(this.channel, 'change', this.render);
-		
+		// Listen to channel changes
+		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
 	},
-	
-	// Hack
-	'forceChange' : function(channels)
-	{
-		console.log("brute force");
-		
-		window.localStorage.clear();
-		window.location.reload();
-	},
-	
+
 	'render' : function ()
 	{	
-		this.$el.html (Mustache.render (Templates.keywordsoverview, {categories: this.channel.get("channels")}));
+		
+		//console.log("rendering KeywordsOverview")
+		
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
+		
+		this.$el.html (Mustache.render (Templates.keywordsoverview, {categories: categories}));
+		
+		// Limit counting
+		Cloudwalkers.Session.getAccount().monitorlimit(
+			'keywords',
+			this.channel.channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length }),
+			$(".add-keyword")
+		);	
 		
 		return this;
 	},
-	
-	
-	'showEditCategory' : function (e)
+
+	'toggleEditCategory' : function (e)
 	{
-		var id = $(e.target).attr('data-edit-category-id');
+		e.stopPropagation();
 		
-		$('.category-'+ id +'-name').toggle().next().toggle();
+		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
 	'editCategory' : function (e)
 	{
-		e.preventDefault ();
+		e.stopPropagation();
 
-		var id = Number($(e.target).closest('form').attr('data-edit-category-id'));
-		var category = Cloudwalkers.Session.getChannel(id);
+		var $cat = $(e.target).closest('[data-category]');
+		var name = $cat.find('[name="name"]').val();
 		
-		// Hack
-		category.save({name: $(e.target).find('[name="name"]').val()}, {success: this.forceChange});
+		Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).save({name: name});
 		
-		$('.category-'+ id +'-name').toggle().next().toggle();
+		$cat.find('h4').html(name);
+		
+		return false;
 	},
-	
+
 	'deleteCategory' : function (e)
 	{
-		var id = Number($(e.target).attr('data-delete-category-id'));
+		e.stopPropagation();
 		
-		var category = Cloudwalkers.Session.getChannel(id);
+		var $cat = $(e.target).closest('[data-category]');
 		
-		category.destroy();
+		Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
 		
-		$('[data-category="'+ id +'"], #category-'+ id +'-tags').remove();
+		$cat.next().remove();
+		$cat.remove();
 	},
 
-	'showEditKeyword' : function (e)
+	'toggleEditKeyword' : function (e)
 	{
-		e.preventDefault();
+		e.stopPropagation();
+
+		var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
 		
-		this.editor.fillKeyword(e)
+		this.editor.fillKeyword(id, e);
 	},
-	
-	/*'editKeyword' : function (e)
+
+	'deleteKeyword' : function (e)
+	{
+		e.stopPropagation();
+		
+		var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
+		
+		Cloudwalkers.Session.getChannel(id).destroy();
+		
+		$(e.target).parent().remove();
+	}
+
+	/*
+	'editKeyword' : function (e)
 	{
 		var self = this;
 		
@@ -112,9 +129,9 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		);
 		
 		this.toggleToCreateKeyword(e);
-	},*/
+	},
 	
-	/*'toggleToCreateKeyword' : function (e)
+	'toggleToCreateKeyword' : function (e)
 	{
 		e.preventDefault ();
 		
@@ -123,37 +140,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		this.$el.find("[data-keyword] .keyword-filter, .edit-keyword").addClass("inactive");
 		
 		this.$el.find(".add-keyword").removeClass("inactive");
-	},*/
-	
-	'deleteKeyword' : function (e)
-	{
-		e.stopPropagation();
-		
-		var id = Number($(e.target).attr ('data-delete-keyword-id'));
-		
-		Cloudwalkers.Session.getChannel(id).destroy();
-		
-		$(e.target).parent().remove();
-		
-		/*var self = this;
-
-		var data = {};
-		data.keyword = $(e.target).attr ('data-delete-keyword-id');
-
-		this.sendData 
-		(
-			CONFIG_BASE_URL + 'json/wizard/monitoring/deletekeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
-			data,
-			function ()
-			{
-				self.render ();
-				Cloudwalkers.Session.refresh ();
-			}
-		);*/
-		
-		return false;
-	}
-	/*
+	},
 
 	'sendData' : function (url, data, callback)
 	{
@@ -183,9 +170,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'fail' : function ()
 	{
 		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
-	}*/
-
-
+	}
+	*/
 });
 
 

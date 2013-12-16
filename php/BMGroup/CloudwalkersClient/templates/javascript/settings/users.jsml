@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		
-		<div class="collapse-closed">
+		<div class="collapse-closed invite-user">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
 					<div class="caption"><i class="icon-envelope-alt"></i>Invite new user</div>

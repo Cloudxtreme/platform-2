@@ -5,16 +5,21 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	
 	'initialize' : function(){
 		
+		if( Cloudwalkers.Session.user.account)
+			Cloudwalkers.Session.getStreams().listenTo(this, "add", Cloudwalkers.Session.getStreams().distantAdd)
 	},
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/streams';
+		var param = this.parameters? "?" + $.param (this.parameters): "";
+		
+		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/streams' + param;
 	},
 	
 	'parse' : function (response)
 	{
-		Store.write(this.url(), [response.streams]); 
+		this.parameters = false;
+		
 		return response.streams;
 	},
 	
@@ -31,8 +36,68 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
+	'distantAdd' : function(model)
+	{
+		if(!this.get(model.id)) this.add(model);	
+	},
+	
+	'seed' : function(ids)
+	{
+		// Ignore empty id lists
+		if(!ids || !ids.length) return [];
+		
+		var list = [];
+		var fresh = _.compact( ids.map(function(id)
+		{
+			stream = Cloudwalkers.Session.getStream(id);
+			
+			this.add(stream? stream: {id: id});
+			
+			list.push(stream? stream: this.get(id));
+			
+			if(!stream || stream.outdated) return id;
+		
+		}, this));
+		
+		// Get list based on ids
+		if(fresh.length)
+		{
+			this.parameters = {ids: fresh.join(",")};
+			this.fetch();
+		}
+
+		return list;
+	},
+	
+	/*'seed' : function(ids)
+	{
+		// Ignore empty id lists
+		if(!ids || !ids.length) return [];
+		
+		var fresh = _.compact( ids.map(function(id)
+		{
+			stream = Cloudwalkers.Session.getStream(id);
+			
+			this.add(stream? stream: {id: id});
+			
+			if(!stream || stream.outdated) return id;
+		
+		}, this));
+		
+		// Get list based on ids
+		if(fresh.length)
+		{
+			this.parameters = {ids: fresh.join(",")};
+			this.fetch();
+		}
+
+		return this;
+	},*/
+	
 	'filterNetworks' : function (streams, asArray)
 	{
+		if(!streams) streams = this.models;
+		
 		var networks = {};
 		
 		$.each(streams, function(i, stream)

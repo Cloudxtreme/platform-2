@@ -80,7 +80,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.level = Number(this.account.get("currentuser").level);
 			
 			// Call callback
-			this.trigger('activated');
+			this.trigger("activated");
+			//setTimeout(this.trigger, 100, 'activated');
 
 		}.bind(this));
 		

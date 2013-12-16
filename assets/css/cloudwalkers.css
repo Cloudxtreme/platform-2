@@ -60,8 +60,12 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 .span4 .dashboardwidget li .content	{ max-height: 60px; overflow: hidden; }
 
+.alert, .alert .close	{ margin-top: 6px; }
 
+.limited	{ opacity: .5; cursor: default; }
+.limited .portlet-body, .limited .tools	{ display: none !important; }
 
+.btn.blue.limited[disabled]	{ background: #ddd !important; }
 
 
 /* Keyframes */
@@ -672,9 +676,10 @@ ul.timeline	{ margin-top: 25px; }
  * Manage keywords
  */
 
-.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
+.portlet.keywordsoverview .messages-container li	{ min-height: 10px; cursor: default; }
 
 .portlet.keywordsoverview h4	{ margin-top: 6px; }
+.portlet.keywordsoverview h4	{ width: 50%; cursor: default; }
 
 .portlet.keywordsoverview div.clear	{ clear: both; }
 

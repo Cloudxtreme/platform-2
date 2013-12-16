@@ -30,7 +30,7 @@
 					<ul>
 					{{#keywords}}
 							<li class='active' data-keyword-id="{{id}}">
-								<i class="icon-tag icon-muted"></i> {{name}}
+								<i class="icon-tag icon-muted"></i> {{attributes.name}}
 							</li>
 					{{/keywords}}
 					</ul>
@@ -40,8 +40,6 @@
 						<a href="#keywords">manage keywords</a>
 					</small>
 				</div>
-				
-				
 
 			</div>
 		</div>

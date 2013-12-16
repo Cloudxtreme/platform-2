@@ -5,17 +5,19 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	
 	'initialize' : function (attributes)
 	{
-		// deprecated?
-		this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id});
+		// Child channels
+		this.channels = new Cloudwalkers.Collections.Channels();
+		this.channels.seed(this.get("channels"));
 		
-		// Save channel data
-		Store.set("channels", attributes);
-
-		// add child channels and streams to collection
-		Cloudwalkers.Session.setChannels(this.get("channels"));
-		Cloudwalkers.Session.setStreams(this.get("streams"));
+		// Child streams
+		this.streams = new Cloudwalkers.Collections.Streams();
+		this.streams.seed(this.get("streams"));
 		
-		//this.on("all", function(a, b){ console.log("channel:", a, b); });
+		// Child messages
+		this.messages = new Cloudwalkers.Collections.Messages();//([], {id: this.id});
+		
+		// Listeners
+		this.on("change", function(model){ Store.set("channels", model.attributes)});
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},
@@ -29,6 +31,11 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{
+		if(response.error) return [];
+		
+		// Save channel data
+		Store.set("channels", response.channel);
+		
 		return response.channel;	
 	},
 	
@@ -39,7 +46,13 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	'getStream' : function(identifier)
 	{
 		 
-		if(typeof identifier == 'string')
+		var param = {};
+		param[(typeof identifier == 'string')? "token": "id"] = identifier;
+		
+		return this.streams.findWhere(param);
+		
+		
+		/*if(typeof identifier == 'string')
 		{
 			var identifier = identifier;
 			var streams = this.get("streams").filter(function(stream){ return stream.token==identifier});
@@ -49,7 +62,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 			var id = streams.shift().id;
 		}
 		 
-		return Cloudwalkers.Session.getStream((id)? id: identifier);
+		return Cloudwalkers.Session.getStream((id)? id: identifier);*/
 
 	 },
 	 
@@ -66,9 +79,11 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		}
 
 		return Backbone.sync(method, model, options);
-	},
+	}
 	
-	'post' : function(object, callback)
+	
+	
+	/*'post' : function(object, callback)
 	{
 		// Hack	
 		var callback = callback
@@ -107,5 +122,5 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		
 		 
 	 }
-
+	 */
 });

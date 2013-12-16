@@ -47,32 +47,32 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		var widgets = this.widgets.concat(this.addDynamicReports());
 		
 		// Append widgets
-		for(n in widgets)
+		for(i in widgets)
 		{
-			switch(widgets[n].widget)
+			switch(widgets[i].widget)
 			{
 				case 'messagescounters':
-					var widget = this.addMessagesCounters (widgets[n]);
+					var widget = this.addMessagesCounters (widgets[i]);
 					break;
 					
 				case 'schedulecounter':
-					var widget = this.addScheduleCounters (widgets[n]);//var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
+					var widget = this.addScheduleCounters (widgets[i]);//var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
 					break;
 					
 				case 'coworkers':
-					var widget = this.addDashboardDrafts (widgets[n]);
+					var widget = this.addDashboardDrafts (widgets[i]);
 					break;
 					
 				case 'trending':
-					var widget = this.addDashboardTrending (widgets[n]);
+					var widget = this.addDashboardTrending (widgets[i]);
 					break;
 					
 				case 'report':
-					var widget = new Cloudwalkers.Views.Widgets.Report(widgets[n]);
+					var widget = new Cloudwalkers.Views.Widgets.Report(widgets[i]);
 					break;
 			}
 			
-			this.appendWidget(widget, Number(widgets[n].size));
+			this.appendWidget(widget, Number(widgets[i].size));
 		}
 
 		return this;
@@ -93,13 +93,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		
 		var channel = Cloudwalkers.Session.getChannel("internal");
 		
+		channel.outgoing = new Cloudwalkers.Collections.Streams(channel.get("additional").outgoing);
+		
 		// Prep and sort list
-		channel.attributes.outgoing = [];
+		/*channel.attributes.outgoing = [];
 		
 		$.each(channel.attributes.additional.outgoing, function(n, entry)
 		{
 			channel.attributes.outgoing.push($.extend(entry, {unread: entry.count.scheduled})); 
-		});
+		});*/
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
@@ -119,13 +121,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'addDashboardTrending' : function (widgetdata)
 	{
 		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
-		widgetdata.model.messages.parameters.sort = "engagement";
-		
-		if(widgetdata.since)
-		{
-			var since = Math.round(Date.now()/1000);
-			widgetdata.model.messages.parameters.since = since - 86400 *widgetdata.since;
-		}
+		widgetdata.filters = {
+			sort: "engagement",
+			since: Math.round(Date.now()/1000) - 86400 *widgetdata.since
+		};
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	}

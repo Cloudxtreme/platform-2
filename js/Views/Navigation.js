@@ -8,7 +8,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	{
 		// Interact with Session triggers
 		Cloudwalkers.Session.on ('change:accounts', this.renderHeader, this);
-		Cloudwalkers.Session.on ('account:change change:accounts change:channels change:streams', this.render, this);
+		//Cloudwalkers.Session.on ('account:change change:accounts change:channels change:streams', this.render, this);
+		
+		// Listen to channel changes
+		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 	},
 	
 	'fit' : function ()
@@ -39,28 +43,35 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	{
 
 		var account = Cloudwalkers.Session.getAccount ();
-		var data = { sorted: {}, reports: [], scheduled: []};
+		var data = {reports: []};
 		
 		data.level = Number(account.get('currentuser').level);
 
-		var channels = Cloudwalkers.Session.getChannels ();
-		var sorted = {};
+		// Scheduled
+		data.scheduled = account.streams.where({outgoing: 1});
 		
+		// Inbox
+		var inbox = account.channels.findWhere({type: "inbox"});
+		data.inbox = {channelid: inbox.id, streams: inbox.streams.models, name: inbox.get("name")};
+		
+		// Profiles
+		var profiles = account.channels.findWhere({type: "profiles"});
+		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
 
-		account.channels.each(function(channel)
+		// News
+		var news = account.channels.findWhere({type: "news"});
+		data.news = {channelid: news.id, streams: news.streams.models, name: news.get("name")};
+		
+		// Monitoring
+		var monitoring = account.channels.findWhere({type: "monitoring"});
+		data.monitoring = {channelid: monitoring.id, channels: monitoring.channels.models, name: monitoring.get("name")};
+		
+		// Reports
+		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
 		{
-			data.sorted[channel.get('type')] = {channelid: channel.id, name: channel.get('name'), streams: channel.get('streams'), channels: channel.get('channels')};
+			return stream.attributes;
 		});
 		
-		$.each(account.streams.where({ 'statistics': 1 }), function(i, stream)
-		{
-			data.reports.push(stream.attributes);
-		});
-		
-		$.each(account.streams.where({ 'outgoing': 1 }), function(i, stream)
-		{
-			data.scheduled.push(stream.attributes);
-		});
 
 		this.$el.html (Mustache.render(Templates.navigation, data));
 		

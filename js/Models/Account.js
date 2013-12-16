@@ -2,21 +2,21 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'endpoint' : "",
 	
+	'limits' : {users: 50, networks: 15, keywords: 10},
+	
 	'initialize' : function ()
 	{
-
 		// Collect Channels
 		this.channels = new Cloudwalkers.Collections.Channels();
+		
+		// Collect streams, fetch triggered in User model
+		this.streams = new Cloudwalkers.Collections.Streams();
 		
 		// Collect Campaigns
 		this.campaigns = new Cloudwalkers.Collections.Campaigns();
 		
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
-		
-		// Collect streams, fetch triggered in User model
-		this.streams = new Cloudwalkers.Collections.Streams();
-		//this.streams.on("sync", function(e){ Cloudwalkers.Session.trigger("change:streams");})	
 
 		// Prep global Messages collection
 		this.messages = new Cloudwalkers.Collections.Messages([],{});
@@ -43,13 +43,25 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
+	'firstload' : function()
+	{
+		// Store channels and their children
+		$.each(this.get("channels"), function(n, channel){ Cloudwalkers.Session.storeChannel(channel); });
+	},
+	
 	'activate' : function ()
 	{	
+		// First load
+		if(!Store.exists("channels")) this.firstload();
+		
+		// Load Streams (first, so channels find them)
+		Store.filter("streams", null, function(list){ this.streams.add(list); }.bind(this));
+		
 		// Load Channels
-		Store.filter("channels", null, function(list){ this.channels.add((list.length)? list: this.get("channels")); }.bind(this));
+		Store.filter("channels", null, function(list){ this.channels.add(list); }.bind(this));
 		
 		// Load Campaigns
-		Store.filter("campaigns", null, function(list){ this.campaigns.add((list.length)? list: this.get("campaigns")); }.bind(this));
+		Store.filter("campaigns", null, function(list){ this.campaigns.add(list); }.bind(this));
 		
 		// Connect ping to account
 		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
@@ -75,7 +87,28 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 		}.bind(this));*/
 
-	}/*,
+	},
+	
+	'monitorlimit' : function(type, current, target)
+	{
+		if(current >= this.limits[type])
+		{
+			setTimeout(function(type, target)
+			{
+				$('.alert-info').remove();
+				
+				Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
+			
+				if(target) target.addClass("limited").attr("disabled", true);
+	
+			}, 50, type, target);
+					
+			return true;
+		}
+		
+		return false;
+	}
+	/*,
 	
 	'avatar' : function ()
 	{

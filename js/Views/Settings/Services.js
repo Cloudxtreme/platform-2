@@ -35,11 +35,15 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	'appendConnected' : function(connected) {
 		
 		var widget = this.$el.find("#service-connected .inner-loading").removeClass("inner-loading");
+		var count = 0;
 		
 		for (n in connected.services)
 		{
 			widget.find(".social-container").append(Mustache.render (Templates.settings.service_connected, connected.services[n]));
+			count++
 		}
+		
+		Cloudwalkers.Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
 	},
 	
 	'addService' : function (id, callback)

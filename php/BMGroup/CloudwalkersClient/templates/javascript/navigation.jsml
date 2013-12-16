@@ -43,8 +43,8 @@
 					{{#scheduled}}
 						<li class="schedule_{{id}}">
 							<a href="#schedule/{{id}}">
-								<i class="icon-{{network.icon}}"></i>
-								{{customname}}
+								<i class="icon-{{attributes.network.icon}}"></i>
+								{{attributes.customname}}
 							</a>
 						</li>
 					{{/scheduled}}
@@ -55,7 +55,7 @@
 	</li>
 
 	<!-- Inbox -->
-	{{#sorted.inbox}}
+	{{#inbox}}
 		<li>
 			<a href="#inbox/{{channelid}}">
 				<i class="icon-inbox"></i> 
@@ -73,7 +73,7 @@
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li><a href="#inbox/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							<li><a href="#inbox/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
@@ -86,10 +86,10 @@
 				</li>
 			</ul>
 		</li>
-	{{/sorted.inbox}}
+	{{/inbox}}
 
 	<!-- Company Accounts -->
-	{{#sorted.profiles}}
+	{{#profiles}}
 		<li>
 			<a href="#channel/{{channelid}}">
 				<i class="icon-briefcase"></i> 
@@ -107,9 +107,9 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						{{#streams}}
-							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-						{{/streams}}
+					{{#streams}}
+						<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
+					{{/streams}}
 					</ul>
 				</li>
 
@@ -122,16 +122,16 @@
 			
 					<ul class="sub-menu">
 					{{#streams}}
-						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
 					</ul>
 				</li>
 			</ul>
 		</li>
-	{{/sorted.profiles}}
+	{{/profiles}}
 
 	<!-- Profiles we follow -->
-	{{#sorted.news}}
+	{{#news}}
 		<li>
 			<a href="#channel/{{channelid}}">
 				<i class="icon-globe"></i> 
@@ -149,7 +149,7 @@
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{attributes.customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
@@ -163,16 +163,16 @@
 			
 					<ul class="sub-menu">
 					{{#streams}}
-						<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
+						<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
 					</ul>
 				</li>
 			</ul>
 		</li>
-	{{/sorted.news}}
+	{{/news}}
 
 	<!-- Keyword Monitoring -->
-	{{#sorted.monitoring}}
+	{{#monitoring}}
 		<li>
 			<a href="#monitoring/{{channelid}}/{{channels.0.id}}">
 				<i class="icon-tags"></i> 
@@ -184,14 +184,14 @@
 			<ul class="sub-menu">
 
 				{{#channels}}
-					{{#channels.length}}
+					{{#channels.models.length}}
 					<li>
 						<a href="#monitoring/{{channelid}}/{{id}}">
-							<i class="icon-{{icon}}"></i> 
-							<span class="title">{{name}}</span>
+							<i class="icon-tags"></i> 
+							<span class="title">{{attributes.name}}</span>
 						</a>
 					</li>
-					{{/channels.length}}
+					{{/channels.models.length}}
 				{{/channels}}
 
 				<li>
@@ -202,7 +202,7 @@
 				</li>
 			</ul>
 		</li>
-	{{/sorted.monitoring}}
+	{{/monitoring}}
 
 	<!-- Reports -->
 	<li>

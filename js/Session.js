@@ -114,12 +114,38 @@ Cloudwalkers.Session =
 		return this.user.account.channels;
 	},
 	
-	'setChannels' : function (list)
+	/*'setChannels' : function (list)
 	{
 		if(list && list.length) this.user.account.channels.add(list, {merge: true});
 		
 		return this;
+	},*/
+	
+	'storeChannel' : function(channel)
+	{
+		// Store child channels
+		if( channel.channels && channel.channels.length)
+			channel.channels = channel.channels.map(function(el)
+			{ 
+				Cloudwalkers.Session.storeChannel(el);
+				return el.id;
+			});
+		
+		// Store child streams
+		if( channel.streams && channel.streams.length)
+			channel.streams = channel.streams.map(function(el)
+			{ 
+				Store.post("streams", el);
+				return el.id;
+			});
+		
+		
+		//console.log("channel:", channel, "children:", channel.channels)
+			
+		Store.post("channels", channel);
 	},
+	
+	
 	
 	/**
 	 *	Streams shortcut functions
@@ -135,12 +161,12 @@ Cloudwalkers.Session =
 		return this.user.account.streams;
 	},
 	
-	'setStreams' : function (list)
+	/*'setStreams' : function (list)
 	{
 		if(list && list.length) this.user.account.streams.add(list, {merge: true});
 		
 		return this;
-	},
+	},*/
 	
 	/**
 	 *	Messages shortcut functions

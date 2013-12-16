@@ -8,26 +8,24 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	'initialize' : function ()
     {
 		this.category = this.options.category;
-		this.keywords = this.category.get("channels");
+		//this.keywords = this.category.channels;
 		
-		var streams = [];
+		this.streams = [];
 		
-		$.each(this.keywords, function(i, keyword)
+		this.category.channels.each(function(channel)
 		{
-			streams = streams.concat(keyword.streams);
-		});
-		
-		this.streams = streams;        
+			this.streams = this.streams.concat(channel.streams.models);
+		}, this);
+		    
         this.initializeWidget ();
     },
 
 	'render' : function ()
 	{
-		var data = {keywords: this.keywords};
+		var data = {keywords: this.category.channels.models};
 		
-		data.name = this.category.name;
+		data.name = this.category.get("name");
 		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
-		
 		
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));

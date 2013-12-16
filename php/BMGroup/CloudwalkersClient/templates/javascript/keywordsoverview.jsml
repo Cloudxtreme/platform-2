@@ -11,28 +11,28 @@
 			<li data-category="{{id}}">
 				
 				<div class="pull-right">
-					<i class="icon-edit-sign icon-2x" data-edit-category-id="{{id}}"></i>
-					<i class="icon-remove icon-2x" data-delete-category-id="{{id}}"></i>
+					<i class="icon-edit-sign icon-2x  edit-toggler"></i>
+					<i class="icon-remove icon-2x delete-category"></i>
 				</div>
 				
-				<span class="category-{{id}}-name"><h4>{{name}}</h4></span>
-				<span class="category-{{id}}-edit border-left" style='display: none;'>
-					<form data-edit-category-id="{{id}}">
-						<input type="text" value="{{name}}" id="category_{{id}}_name" name="name" />
-						<button class="btn blue" type="submit">Change name</button>
+				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
+				<span class="category-edit border-left" style='display: none;'>
+					<form>
+						<input type="text" value="{{name}}" name="name" />
+						<button class="btn blue edit-toggler" type="submit">Change name</button>
 					</form>
 				</span>
 				
 			</li>
-			<li id="category-{{id}}-tags">
-				<ul data-edit-category="{{id}}">
-					{{#channels}}
-						<li data-edit-keyword-id="{{id}}">
+			<li>
+				<ul>
+					{{#keywords}}
+						<li data-keyword="{{id}}">
 							<i class="icon-tag icon-muted"></i>
-							{{name}}
-							<i class="icon-remove pull-right" data-delete-keyword-id="{{id}}"></i>
+							{{attributes.name}}
+							<i class="icon-remove pull-right delete-keyword"></i>
 						</li>
-					{{/channels}}
+					{{/keywords}}
 				</ul>
 				<div class="clear"></div>
 			</li>

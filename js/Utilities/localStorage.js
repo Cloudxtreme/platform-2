@@ -140,7 +140,7 @@ var StorageClass = function(successCallback, errorCallback) {
 	 */
 	 
 	 this.set = function(type, content, callback) {
-			
+		
 		var set = false;
 		 
 		var group = JSON.parse(window.localStorage.getItem(type));  
