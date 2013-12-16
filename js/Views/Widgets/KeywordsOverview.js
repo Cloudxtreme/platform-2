@@ -30,13 +30,6 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		
 		this.$el.html (Mustache.render (Templates.keywordsoverview, {categories: categories}));
 		
-		// Limit counting
-		Cloudwalkers.Session.getAccount().monitorlimit(
-			'keywords',
-			this.channel.channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length }),
-			".add-keyword"
-		);	
-		
 		return this;
 	},
 
