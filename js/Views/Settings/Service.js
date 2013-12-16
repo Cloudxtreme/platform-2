@@ -127,13 +127,22 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		{
 			var out = [];
 
-			for (var i = 0; i < channels.length; i ++)
+			//for (var i = 0; i < channels.length; i ++)
+            channels.each (function (channel)
 			{
+                //console.log (channels);
+                //console.log (channel);
+
+                if (channel.get ('parent') || !channel.get ('name'))
+                {
+                    return;
+                }
+
 				// Check if selected
 				var selected = false;
 				for (var j = 0; j < stream.channels.length; j ++)
 				{
-					if (stream.channels[j] == channels[i].id)
+					if (stream.channels[j] == channel.get ('id'))
 					{
 						selected = true;
 						break;
@@ -141,21 +150,21 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 				}
 
 				var tmp  = {
-					'channel' : channels[i].attributes,
+					'channel' : channel.attributes,
 					'selected' : selected,
 					'channels' : []
 				};
 				
-				var subchannels = channels[i].attributes? channels[i].get("channels"): channels[i].channels;
+				var subchannels = channel.attributes? channel.get("channels"): channel.channels;
 				
 				// Recursive!
 				if (subchannels && subchannels.length)
 				{
-					tmp.channels = loadChannels (stream, subchannels);
+					//tmp.channels = loadChannels (stream, new Backbone.Collection (subchannels));
 				}
 
 				out.push (tmp);
-			}
+			});
 
 			return out;
 		}
