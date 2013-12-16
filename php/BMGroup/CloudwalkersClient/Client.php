@@ -224,6 +224,9 @@ class BMGroup_CloudwalkersClient_Client
 			$data
 		);
 
+		//var_dump ($this->api->response_status);
+		http_response_code ($this->api->response_status);
+
 		if (Neuron_Core_Tools::getInput ('_GET', 'output', 'varchar') == 'table')
 		{
 			header('Content-Type: text/html; charset=utf-8');
