@@ -99,7 +99,11 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 				
 				Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
 			
-				if(target) target.addClass("limited").attr("disabled", true);
+				if(target)
+				{
+					if(typeof target == "string") target = $(target);
+					target.addClass("limited").attr("disabled", true);
+				}
 	
 			}, 50, type, target);
 					
