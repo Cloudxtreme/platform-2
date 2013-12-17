@@ -137,7 +137,7 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 
 			else
 			{
-				$data['date'] = date ('c', time () - (60 * 60 * 1));
+				$data['date'] = date ('c', time ());
 			}
 		}
 
