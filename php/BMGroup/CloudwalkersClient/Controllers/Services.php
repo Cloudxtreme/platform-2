@@ -205,8 +205,13 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 		{
 			// Add the service
 			$data = $client->post ('services', array ('account' => $this->getAccount ()), array ('id' => $addid, 'refresh' => 1));
+			if (isset ($data['error']))
+			{
+				return '<p class="error">' . $data['error']['message'] . '</p>';
+			}
 
-			header ('Location: ' . Neuron_URLBuilder::getURL ('services/', $data['id']));
+			header ('Location: ' . Neuron_URLBuilder::getURL ('services/', $data['service']['id']));
+			return 'Redirect';
 		}
 
 		$data = $client->get ('services/available', array ('account' => $this->getAccount (), 'refresh' => 1));
