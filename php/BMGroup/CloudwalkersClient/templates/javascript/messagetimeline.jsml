@@ -26,6 +26,12 @@
 			<strong>
 				{{#from}}
 					{{name}}
+
+					<!-- for debug -->
+					{{#lang}}
+						<!-- for debug -->
+						<span class="language">[ {{lang}} ]</span>
+					{{/lang}}
 				{{/from}}
 			</strong> 
 
