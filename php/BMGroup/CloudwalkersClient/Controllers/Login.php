@@ -16,7 +16,7 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 
 		else
 		{
-			return $client->login ();
+			var_dump ($client->login ());
 		}
 	}
 }
