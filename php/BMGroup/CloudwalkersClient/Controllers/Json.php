@@ -14,6 +14,7 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
+			http_response_code (401);
 			return array ('error' => array ('message' => 'You are not authenticated.'));
 		}
 
