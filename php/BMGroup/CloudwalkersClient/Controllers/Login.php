@@ -6,6 +6,9 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
+		var_dump (true);
+		exit;
+
 		$_SESSION['account'] = null;
 
 		if ($client->isLogin ())
