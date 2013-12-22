@@ -11,6 +11,7 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 		if ($client->isLogin ())
 		{
 			echo '<p>' . __('You are already logged in.') . '</p>';
+			header ('Location: ' . Neuron_URLBuilder::getURL ());
 		}
 
 		else
