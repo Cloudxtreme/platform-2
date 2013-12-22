@@ -783,7 +783,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		}
 
 		var date = this.getScheduleDate ();
-		if (date)
+		if (date && !this.model)
 		{
 			if (date < (new Date()))
 			{
