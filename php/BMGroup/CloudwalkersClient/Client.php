@@ -304,6 +304,6 @@ class BMGroup_CloudwalkersClient_Client
 		$_SESSION['oauth_token'] = $this->api->access_token;
 		$_SESSION['oauth_secret'] = $this->api->access_token_secret;
 
-		header ('Location: ' . Neuron_URLBuilder::getURL ());
+		header ('Location: ' . Neuron_URLBuilder::getURL ('/'));
 	}
 }
