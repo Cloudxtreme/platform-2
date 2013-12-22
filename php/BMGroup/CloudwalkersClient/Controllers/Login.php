@@ -10,7 +10,7 @@ class BMGroup_CloudwalkersClient_Controllers_Login
 
 		if ($client->isLogin ())
 		{
-			return '<p>' . __('You are already logged in.') . '</p>';
+			echo '<p>' . __('You are already logged in.') . '</p>';
 		}
 
 		else
