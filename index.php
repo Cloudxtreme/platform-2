@@ -5,6 +5,9 @@ require ('php/connect.php');
 define ('DEBUG', ((isset($_GET['debug'])) && (in_array($_SERVER['REMOTE_ADDR'], array('94.224.104.197'/*Roel*/, '78.22.195.135'/*Bureau*/)))));
 
 $module = Neuron_Core_Tools::getInput ('_GET', 'rewritepagemodule', 'varchar');
+var_dump ($module);
+exit;
+
 $input = array ();
 if ($module)
 {
