@@ -2,7 +2,7 @@
 class BMGroup_CloudwalkersClient_Controllers_Login
 	extends BMGroup_CloudwalkersClient_Controllers_Base
 {
-	public function getContent ()
+	public function dispatch (Neuron_Page $page)
 	{
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
