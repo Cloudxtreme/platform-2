@@ -63,6 +63,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Load Campaigns
 		Store.filter("campaigns", null, function(list){ this.campaigns.add(list); }.bind(this));
 		
+		// Filter limits
+		this.limits = this.get("plan").limits;
+		
 		// Connect ping to account
 		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
 		

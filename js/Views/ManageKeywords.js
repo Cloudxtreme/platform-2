@@ -4,6 +4,11 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function()
 	{
+		// Listen to channels for limit.
+		setTimeout(this.limitlistener, 50);
+		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
+		
+		
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		
 		this.$el.addClass("container-fluid managekeywords");
@@ -16,10 +21,7 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 		// Add overview widget
 		var list = new Cloudwalkers.Views.Widgets.KeywordsOverview({editor: editor});
 		this.appendWidget(list, 8);
-		
-		// Listen to channels for limit.
-		setTimeout(this.limitlistener, 50);
-		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
+
 		
 		this.widgets = [editor, list];
 		
