@@ -17,7 +17,20 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 		var list = new Cloudwalkers.Views.Widgets.KeywordsOverview({editor: editor});
 		this.appendWidget(list, 8);
 		
+		// Listen to channels for limit.
+		setTimeout(this.limitlistener, 50);
+		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
+		
+		this.widgets = [editor, list];
+		
 		return this;
+	},
+	
+	'limitlistener' : function()
+	{
+		var limit = Cloudwalkers.Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
+		
+		Cloudwalkers.Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
 	}
 
 });

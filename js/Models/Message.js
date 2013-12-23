@@ -33,6 +33,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var data = this.attributes;
 		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
+		data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 		
 		if(data.attachments)
 		{
@@ -44,7 +45,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(stream)
 		{
 			data.icon = stream.get("network").icon;
-			data.url = this.link? this.link: "#" + type + "/" + this.collection.parentid; //this.location();
 		}
 		
 		if(type == "trending")

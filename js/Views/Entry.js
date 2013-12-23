@@ -27,14 +27,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		return this;
 	},
 	
-	'clickable' : function(url)
+	/*'clickable' : function(url)
 	{
 		this.$el.on("click", function(url)
 		{ 
 			document.location = url;
 			
 		}.bind(this, url? url: this.options.model.location()));
-	},
+	},*/
 	
 	'action' : function (element)
 	{

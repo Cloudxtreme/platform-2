@@ -37,14 +37,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		// Chosen
 		this.$el.find("select").chosen({width: "100%"});
-		
-		// Limit counting
-		Cloudwalkers.Session.getAccount().monitorlimit(
-			'keywords',
-			this.channel.channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length }),
-			".add-keyword"
-		);	
-		
+
 		return this;
 	},
 	

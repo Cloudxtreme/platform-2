@@ -93,6 +93,27 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	{
 		if(current >= this.limits[type])
 		{
+			$('.alert-info').remove();
+				
+			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
+		
+			if(target)
+			{
+				if(typeof target == "string") target = $(target);
+				target.addClass("limited").attr("disabled", true);
+			}
+
+					
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/*'monitorlimit' : function(type, current, target)
+	{
+		if(current >= this.limits[type])
+		{
 			setTimeout(function(type, target)
 			{
 				$('.alert-info').remove();
@@ -111,7 +132,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 		
 		return false;
-	}
+	}*/
 	/*,
 	
 	'avatar' : function ()

@@ -29,6 +29,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		$('#inner-content').html (this.view.render ().el);
 		
+		if(this.view.finish) this.view.finish();
+		
 		this.navigation.handleSidebarMenu();
 	},
 
