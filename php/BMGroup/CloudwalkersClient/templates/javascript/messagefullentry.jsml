@@ -24,11 +24,6 @@
 	{{#from}}
 		<i class="icon-{{icon}}"></i>
 		<strong><a href="{{url}}" target="_blank">{{name}}</a></strong>
-
-		<!-- for debug -->
-		{{#lang}}
-			<span class="language">[ {{lang}} ]</span>
-		{{/lang}}
 	{{/from}}
 	
 	<div class='content'>
