@@ -78,7 +78,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		}
 
 		return list;
-	},
+	}
 	
 	/*'seed' : function(ids)
 	{

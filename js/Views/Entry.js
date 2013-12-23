@@ -5,7 +5,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'events' : 
 	{
-		'click *[data-action]' : 'action',
+		'click *[data-action]' : 'action'
 	},
 	
 	'initialize' : function ()

@@ -48,6 +48,6 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		}
 
 		return Backbone.sync(method, model, options);
-	},
+	}
 
 });
