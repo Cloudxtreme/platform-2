@@ -64,31 +64,11 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		Store.filter("campaigns", null, function(list){ this.campaigns.add(list); }.bind(this));
 		
 		// Filter limits
-		this.limits = this.get("plan").limits;
+		if( this.get("plan"))
+			this.limits = this.get("plan").limits;
 		
 		// Connect ping to account
 		this.ping = new Cloudwalkers.Session.Ping({id: this.id});
-		
-		// get extended account data
-		// this.fetch();
-		
-		// add channels & channel streams
-		//this.channels.add(this.get("channels"));
-		
-		/*if( Store.exists("streams"))
-			Store.filter("streams", null, function(streams){ this.streams.add(streams); }.bind(this));
-		
-		else {
-			this.channels.collectStreams();
-			this.streams.fetch();	
-		}*/
-		
-		// add campaigns
-		/*Store.filter("campaigns", null, function(list){
-			
-			this.campaigns.add((list.length)? list: this.get("campaigns"));
-
-		}.bind(this));*/
 
 	},
 	
