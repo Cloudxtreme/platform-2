@@ -173,27 +173,32 @@ class BMGroup_CloudwalkersClient_Client
 		return $user['user'];
 	}
 
+    private function http_build_query ($get)
+    {
+        return http_build_query ($get, null, '&', PHP_QUERY_RFC3986);
+    }
+
 	public function get ($url, $get = array ())
 	{
-		$url .= '?' . http_build_query ($get);
+		$url .= '?' . $this->http_build_query ($get);
 		return $this->call ($url, array (), 'GET');
 	}
 
 	public function put ($url, $get, $input = array ())
 	{
-		$url .= '?' . http_build_query ($get);
+		$url .= '?' . $this->http_build_query ($get);
 		return $this->call ($url, $input, 'PUT');
 	}
 
 	public function post ($url, $get, $input = array ())
 	{
-		$url .= '?' . http_build_query ($get);
+		$url .= '?' . $this->http_build_query ($get);
 		return $this->call ($url, $input, 'POST');
 	}
 
 	public function delete ($url, $get, $input = array ())
 	{
-		$url .= '?' . http_build_query ($get);
+		$url .= '?' . $this->http_build_query ($get);
 		return $this->call ($url, $input, 'DELETE');
 	}
 
