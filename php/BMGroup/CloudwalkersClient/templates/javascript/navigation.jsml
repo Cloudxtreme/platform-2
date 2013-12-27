@@ -72,9 +72,9 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						{{#streams}}
+						{{#streams_sssss}}
 							<li><a href="#inbox/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-						{{/streams}}
+						{{/streams_sssss}}
 					</ul>
 				</li>
 				

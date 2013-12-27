@@ -44,16 +44,24 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		
 		
 		// Parse filters Hack
-		//this.$el.find(".inbox-filter select").on("chosen:ready", this.togglefilter.bind(this, {currentTarget: this.$el.find(".select-contacts-filter")})).on("input", function(a,b,c){ console.log("change", a, b, c) });
 		this.$el.find(".inbox-filter select").eq(1).on("chosen:ready", function()
 		{
 			this.togglefilter({currentTarget: this.$el.find(".select-contacts-filter")});
 			
 			this.$el.find("#filter_contacts_chosen input").on("input", this.contactsinputtrigger.bind(this));
 			
+		}.bind(this)).on("change", function(e,m){
+			
+			var param = {records: 50};
+			var values = $(e.currentTarget).val();
+			
+			if(values.length) param.contacts = values.join(",");
+			
+			this.model.fetch({endpoint: "messageids", parameters: param});
+			
 		}.bind(this));
 		
-		this.$el.find(".inbox-filter select").chosen({width: "75%"});
+		this.$el.find(".inbox-filter select").chosen({width: "76%"});
 		
 		
 		return this;
