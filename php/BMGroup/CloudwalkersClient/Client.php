@@ -176,7 +176,13 @@ class BMGroup_CloudwalkersClient_Client
     private function http_build_query ($get)
     {
         //return http_build_query ($get, null, '&', PHP_QUERY_RFC3986);
-        return http_build_query ($get);
+        //return http_build_query ($get);
+        $out = '';
+        foreach ($get as $k => $v)
+        {
+            $out .= rawurlencode ($k) . '=' . rawurlencode ($v) . '&';
+        }
+        return substr ($out, 0, -1);
     }
 
 	public function get ($url, $get = array ())
