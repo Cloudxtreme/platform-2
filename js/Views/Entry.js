@@ -5,7 +5,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'events' : 
 	{
-		'click *[data-action]' : 'action'
+		'click *[data-action]' : 'action',
+		'click' : 'toggle'
 	},
 	
 	'initialize' : function ()
@@ -26,6 +27,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		return this;
 	},
+	
+	'toggle' : function() { this.trigger("toggle", this); },
 	
 	/*'clickable' : function(url)
 	{

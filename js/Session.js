@@ -73,20 +73,6 @@ Cloudwalkers.Session =
 	},
 	
 	/**
-	 *	Users shortcut functions
-	 **/
-	
-	'getUser' : function (id)
-	{
-		return (id)? this.user.account.users.get (id):  this.user;
-	},
-	
-	'getUsers' : function ()
-	{
-		return this.user.account.users;
-	},
-	
-	/**
 	 *	Accounts shortcut functions
 	 **/
 
@@ -168,6 +154,36 @@ Cloudwalkers.Session =
 		return this;
 	},*/
 	
+	
+	/**
+	 *	Users shortcut functions
+	 **/
+	
+	'getUser' : function (id)
+	{
+		return (id)? this.user.account.users.get (id):  this.user;
+	},
+	
+	'getUsers' : function ()
+	{
+		return this.user.account.users;
+	},
+	
+	
+	/**
+	 *	Contacts shortcut functions
+	 **/
+	
+	'getContact' : function (id)
+	{
+		return this.user.account.contacts.get (id);
+	},
+	
+	'getContacts' : function ()
+	{
+		return this.user.account.contacts;
+	},
+	
 	/**
 	 *	Messages shortcut functions
 	 **/
@@ -180,6 +196,20 @@ Cloudwalkers.Session =
 	'getMessages' : function ()
 	{
 		return this.user.account.messages;
+	},
+	
+	/**
+	 *	Messages shortcut functions
+	 **/
+	
+	'getComment' : function (id)
+	{
+		return this.user.account.comments.get (id);
+	},
+	
+	'getComments' : function ()
+	{
+		return this.user.account.comments;
 	}
 }
 

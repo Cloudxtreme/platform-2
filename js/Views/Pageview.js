@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Pageview = Backbone.View.extend({
 
 	'title' : "Page",
+	'className' : "container-fluid",
 	'span' : 0,
 	'widgets' : [],
 	'widgetviews' : [],
@@ -13,7 +14,7 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'render' : function ()
 	{
 		// Build Pageview
-		this.$el.addClass ("container-fluid").html (Mustache.render (Templates.pageview, {'title' : this.title}));
+		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
 		
 		// Widgets parent
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -49,6 +50,11 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		
 		widget.$el.addClass("span" + span);
 		widget.negotiateFunctionalities();
+	},
+	
+	'appendhtml' : function(html)
+	{
+		this.$container.children().last().append(html);
 	},
 	
 	'destroy' : function ()

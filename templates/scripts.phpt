@@ -9,8 +9,8 @@
 <script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
-<!-- JQUERY PLUGINS -->
 
+<!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
 <script src="/assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
@@ -20,6 +20,7 @@
 <script src="/assets/plugins/flot/jquery.flot.time.js" type="text/javascript"></script>
 <script src="/assets/plugins/gritter/js/jquery.gritter.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/moment.min.js" type="text/javascript"></script>
 
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>

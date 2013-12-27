@@ -19,24 +19,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'initialize' : function (){},
 	
-	'channel_' : function (channeldata, subid, streamid)
-	{
-		
-		var channel = new Cloudwalkers.Collections.Channel (
-			[],
-			{'id' : (subid)? subid: channeldata.id, 'name' : channeldata.name | "" }
-		);
-		
-		if (streamid)
-		{
-			var filters = { streams: [ streamid ] };
-			channel.setFilters (filters);	
-		}
-		
-		return channel;
-	},
-	
-	
 	/**
 	 *	Dashboard
 	 **/
@@ -150,6 +132,36 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Inbox
 	 **/
 	 
+	 'inbox' : function (id, streamid, messageid)
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
+		
+		if (!channel) return this.home();
+		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id);
+		
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, streamid: streamid}));
+	},
+	 
+	/*
+	'channel_' : function (channeldata, subid, streamid)
+	{
+		
+		var channel = new Cloudwalkers.Collections.Channel (
+			[],
+			{'id' : (subid)? subid: channeldata.id, 'name' : channeldata.name | "" }
+		);
+		
+		if (streamid)
+		{
+			var filters = { streams: [ streamid ] };
+			channel.setFilters (filters);	
+		}
+		
+		return channel;
+	},
+	
 	'inbox' : function (id, streamid, messageid)
 	{
 
@@ -180,7 +192,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.addWidgetSize (widget, false, 8);
 		
 		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
+	},*/
 	
 	
 	/**

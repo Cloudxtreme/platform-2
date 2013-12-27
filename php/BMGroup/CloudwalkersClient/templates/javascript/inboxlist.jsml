@@ -1,0 +1,18 @@
+<div class="inbox-filter">
+	<div class="btn-white select-streams-filter"><i class="icon-globe"></i></div>
+	<div class="btn-white select-contacts-filter"><i class="icon-user"></i></div>
+	
+	<select multiple id="filter_streams" name="streams-select" data-placeholder="All networks">
+	{{#streams}}
+		<option value="{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</option>
+	{{/streams}}
+	</select>
+	
+	<select multiple id="filter_contacts" name="contacts-select" data-placeholder="Everybody"></select>
+
+</div>
+
+<div class="scroller">
+	<ul class="list inner-loading"></ul>
+	<input type="button" class="btn load-more" value="load more" />
+</div>

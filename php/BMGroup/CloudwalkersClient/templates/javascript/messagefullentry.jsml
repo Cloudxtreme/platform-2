@@ -16,14 +16,14 @@
 
 	</div>
 	
-	{{#user}}
-		<img class="avatar" alt="" src="{{avatar}}">
-		<strong><a href="#">{{displayname}}</a></strong>
-	{{/user}}
-	
 	{{#from}}
+	{{#iconview}}
 		<i class="icon-{{icon}}"></i>
-		<strong><a href="{{url}}" target="_blank">{{name}}</a></strong>
+	{{/iconview}}
+	{{^iconview}}
+		<img class="avatar" alt="" src="{{avatar}}">
+	{{/iconview}}
+		<strong><a href="{{url}}" target="_blank">{{displayname}}</a></strong>
 	{{/from}}
 	
 	<div class='content'>

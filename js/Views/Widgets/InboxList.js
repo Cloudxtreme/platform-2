@@ -1,6 +1,252 @@
-/**
-* A standard widget
-*/
+Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend({
+
+	'id' : 'inboxlist',
+	'entries' : [],
+	'filters' : {contacts:{string:""}},
+	
+	'events' : {
+		'click .select-streams-filter' : 'togglefilter',
+		'click .select-contacts-filter' : 'togglefilter',
+		'click .load-more' : 'more'
+	},
+	
+	'initialize' : function ()
+	{
+		// Which model to focus on
+		this.model = (this.options.streamid)?
+			Cloudwalkers.Session.getStream(Number(this.options.streamid)): this.options.channel;
+			
+			
+		// Clear the model (prevent non-change view failure)
+		this.model.set({messages: []});
+		
+		// Listen to model
+		this.listenTo(this.model, 'change:messages', this.fill);
+		this.listenTo(this.model, 'request', this.showloading);
+		this.listenTo(this.model, 'sync', this.hideloading);
+		
+		// Load model messages
+		this.model.fetch({endpoint: "messageids", parameters:{records: 50}});
+		
+		// Listen to contacts collection
+		//this.listenTo(this.model.contacts, 'sync', this.newcontacts);
+		this.listenTo(this.model.contacts, 'add', this.addcontactselect);
+		this.listenTo(this.model.messages, 'change:from', this.seedcontacts);
+	},
+
+	'render' : function ()
+	{	
+		// Get template
+		this.$el.html (Mustache.render (Templates.inboxlist, {streams: this.model.streams.models}));
+		
+		this.$container = this.$el.find ('ul.list');
+		this.$el.find(".load-more").hide();
+		
+		
+		// Parse filters Hack
+		//this.$el.find(".inbox-filter select").on("chosen:ready", this.togglefilter.bind(this, {currentTarget: this.$el.find(".select-contacts-filter")})).on("input", function(a,b,c){ console.log("change", a, b, c) });
+		this.$el.find(".inbox-filter select").eq(1).on("chosen:ready", function()
+		{
+			this.togglefilter({currentTarget: this.$el.find(".select-contacts-filter")});
+			
+			this.$el.find("#filter_contacts_chosen input").on("input", this.contactsinputtrigger.bind(this));
+			
+		}.bind(this));
+		
+		this.$el.find(".inbox-filter select").chosen({width: "75%"});
+		
+		
+		return this;
+	},
+	
+	'showloading' : function ()
+	{
+		this.$el.find(".icon-cloud-download").show();
+		this.$el.find(".load-more").hide();
+	},
+	
+	'hideloading' : function ()
+	{
+		this.$el.find(".icon-cloud-download").hide();
+		this.$el.find(".load-more").show();
+		
+		this.$container.removeClass("inner-loading");
+	},
+	
+	'fill' : function (category, ids)
+	{
+		// Clean load or add
+		if(this.incremental) this.incremental = false;
+		else
+		{
+			$.each(this.entries, function(n, entry){ entry.remove()});
+			this.entries = [];
+		}
+		
+		// Get messages
+		var messages = this.model.messages.seed(ids);
+		var preload = [];
+
+		// Add messages to view
+		for (n in messages)
+		{
+			var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], template: 'smallentry', type: 'inbox'});
+			this.entries.push (messageView);
+			
+			this.$container.append(messageView.render().el);
+			
+			this.listenTo(messageView, "toggle", this.toggle);
+		}
+		
+		// Toggle first message
+		if( this.entries.length)
+			this.toggle(this.entries[0]);
+	},
+	
+	'toggle' : function(view)
+	{
+		if (this.inboxmessage) this.inboxmessage.remove();
+
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		
+		$(".inbox-container").html(this.inboxmessage.render().el);
+		
+		this.$el.find(".list .active").removeClass("active");
+		view.$el.addClass("active");
+		
+	},
+	
+	'togglefilter' : function(e)
+	{
+		$(".inbox-filter .active").removeClass("active");
+		
+		var iscontacts = $(e.currentTarget).addClass("active").hasClass("select-contacts-filter");
+		
+		this.$el.find(iscontacts? "#filter_contacts_chosen": "#filter_streams_chosen").addClass("active");
+		
+	},
+	
+	/* Contacts Filter Functions */
+	
+	'seedcontacts' : function (message)
+	{
+		var contacts = message.get("from");
+		
+		if (contacts.length)
+			this.model.contacts.add(contacts);	
+	},
+	
+	'addcontactselect' : function(contact)
+	{
+		if(!this.$el.find("select option[value=" + contact.id + "]").length)
+			
+			this.updatecontactsselect();
+	},
+	
+	'updatecontactsselect' : function ()
+	{
+		var $select = $("#filter_contacts");
+		var $input = $("#filter_contacts_chosen input");
+		
+		var selected = $select.val();
+		var string = $input.val();
+		
+		$select.empty();
+
+		this.model.contacts.each(function(contact)
+		{
+			$select.append("<option value='"+ contact.id +"'>" + contact.get("displayname") + "</option>");
+		});
+		
+		for(n in selected) $select.find('[value='+selected[n]+']').attr("selected", "selected");
+		
+		$select.trigger("chosen:updated");
+		$input.val(string);
+	},
+	
+	'newcontacts' : function ()
+	{
+		var $select = $("#filter_contacts");
+		var selected = $select.val();
+		
+		var $input = $("#filter_contacts_chosen input");
+		var string = $input.val();
+		
+		$select.html("");
+
+		this.model.contacts.each(function(contact)
+		{
+			$select.append("<option value='"+ contact.id +"'>" + contact.get("displayname") + "</option>");
+		});
+		
+		for(n in selected) $select.find('[value='+selected[n]+']').attr("selected", "selected");
+		
+		$select.trigger("chosen:updated");
+		$input.val(string);
+	},
+	
+	'contactsinputtrigger' : function()
+	{
+		// Parameters
+		var string = $("#filter_contacts_chosen input").val().toLowerCase();
+		
+		var contacts = this.model.contacts.filter(function(contact)
+		{
+			var displayname = contact.get("displayname").toLowerCase();
+			var name = contact.get("name");
+			
+			return displayname.indexOf(string) >= 0 || (name && name.toLowerCase().indexOf(string) >= 0); 
+		});
+
+		// Ask for more
+		if (contacts.length <= 3 && string.length >= 2) this.requestcontacts(string);
+	},
+	
+	'requestcontacts' : function(string)
+	{
+		if(string != this.filters.contacts.string)
+		{
+			var param = {q: string};
+			param[this.model.get("objectType")] = this.model.id;
+			
+			if(!this.model.contacts.processing)
+			{
+				this.filters.contacts.string = string;
+				this.model.contacts.fetch({remove: false, parameters: param});
+			}
+		}
+	},
+	
+	'more' : function ()
+	{
+		this.incremental = true;
+		
+		// update parameters with after cursor	
+		var param = this.model.parameters;
+		param.after = this.model.get("paging").cursors.after;
+		
+		this.model.fetch({endpoint: "messageids", parameters:param})
+		
+	},
+	
+	'negotiateFunctionalities' : function() {
+		
+		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		
+		this.addScroll();
+	},
+	
+	'addScroll' : function () {
+
+		this.$el.find('.scroller').slimScroll({
+			height: $("#inner-content").height() -165 + "px",
+
+		});
+	}
+});
+
+
+/*
 Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.extend({
 
 	'template' : 'detailedlist',
@@ -142,4 +388,4 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.DetailedList.e
 	}
 
 
-});
+});*/

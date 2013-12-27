@@ -51,8 +51,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.scheduled = account.streams.where({outgoing: 1});
 		
 		// Inbox
-		var inbox = account.channels.findWhere({type: "inbox"});
-		data.inbox = {channelid: inbox.id, streams: inbox.streams.models, name: inbox.get("name")};
+		var inbox = Cloudwalkers.Session.getChannel("inbox");
+		if(inbox) data.inbox = {channelid: inbox.id, streams: inbox.streams.models, name: inbox.get("name")};
 		
 		// Profiles
 		var profiles = account.channels.findWhere({type: "profiles"});

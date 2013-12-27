@@ -38,6 +38,8 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		
 		this.processing = true;
 		
+		if(options.parentid) this.parentid = options.parentid;
+		
 		return Backbone.sync(method, model, options);
 	},
 	

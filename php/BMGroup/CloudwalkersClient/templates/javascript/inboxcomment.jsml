@@ -1,0 +1,27 @@
+<li {{#active}}class="active"{{/active}}>
+
+	{{#from}}
+		<img class="avatar" alt="" src="{{avatar}}" />
+		<strong>{{displayname}}: </strong>
+	{{/from}}
+	
+	{{#attachments}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attachments}}
+	
+	{{{body.html}}}
+	
+	{{#attachments}}
+		{{#link}}
+			<div class="attachment-link">
+				<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+			</div>
+		{{/link}}
+	{{/attachments}}
+	
+	<div class="comment-info pull-right">
+		{{fulldate}}
+	</div>
+</li>

@@ -1,6 +1,7 @@
 Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Manage Keywords',
+	'className' : "container-fluid managekeywords",
 	
 	'render' : function()
 	{
@@ -10,8 +11,6 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 		
 		
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
-		
-		this.$el.addClass("container-fluid managekeywords");
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 		// Add edit widget

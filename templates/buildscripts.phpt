@@ -19,6 +19,7 @@
 <script type="text/javascript" src="/js/Models/Channel.js"></script>
 <script type="text/javascript" src="/js/Models/Campaign.js"></script>
 <script type="text/javascript" src="/js/Models/User.js"></script>
+<script type="text/javascript" src="/js/Models/Contact.js"></script>
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
@@ -30,6 +31,7 @@
 <script type="text/javascript" src="/js/Collections/Services.js"></script>
 <script type="text/javascript" src="/js/Collections/Campaigns.js"></script>
 <script type="text/javascript" src="/js/Collections/Users.js"></script>
+<script type="text/javascript" src="/js/Collections/Contacts.js"></script>
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>

@@ -1,6 +1,6 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
-	'title' : 'Dashboard',
+	'title' : "Dashboard",
 	'widgets' : [
 		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
 		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
@@ -39,8 +39,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	{
 		
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
-		
-		this.$el.addClass("container-fluid");
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Report widgets (dynamic)

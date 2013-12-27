@@ -31,7 +31,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		
 		
 		// Build Pageview
-		this.$el.addClass ("container-fluid").html (Mustache.render (Templates.tabview, {title : this.title, tabs: this.tabs}));
+		this.$el.html (Mustache.render (Templates.tabview, {title : this.title, tabs: this.tabs}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Set correct tab

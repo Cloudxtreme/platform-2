@@ -8,6 +8,9 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		
 		// Child messages
 		this.messages = new Cloudwalkers.Collections.Messages();
+		
+		// Child contacts (temp hack, should be channel level only)
+		this.contacts = new Cloudwalkers.Collections.Contacts();
 
 		
 		//this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});

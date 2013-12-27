@@ -2,7 +2,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
     'url' : function ()
     {
-        return CONFIG_BASE_URL + 'json/message/' + this.get ('id');
+        return CONFIG_BASE_URL + 'json/message/' + this.id;
     },
 
 	'initialize' : function ()
@@ -33,6 +33,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var data = this.attributes;
 		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
+		// Hack
+		if(!data.from.length) data.from = [{}];
+		
 		data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 		
 		if(data.attachments)
@@ -51,11 +54,19 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
 			data.date = null;
+			data.iconview = true;
+		
+		} else if(type == "inbox")
+		{
+			data.url = null;
+			data.media = {icon: data.icon};
+			
 		
 		} else if(type == "full")
 		{
 			data.url = null;
 			data.share = this.filterShareData(stream);
+			data.iconview = true;
 		}
 
 		return data;

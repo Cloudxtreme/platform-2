@@ -17,9 +17,15 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		
 		// Prep Users collection, fetch on demand
 		this.users = new Cloudwalkers.Collections.Users();
+		
+		// Prep Contacts collection, fetch on demand
+		this.contacts = new Cloudwalkers.Collections.Contacts();
 
 		// Prep global Messages collection
-		this.messages = new Cloudwalkers.Collections.Messages([],{});
+		this.messages = new Cloudwalkers.Collections.Messages();
+		
+		// Prep global Comments collection
+		this.comments = new Cloudwalkers.Collections.Comments();
 	},
 	
 	'parse' : function (response)

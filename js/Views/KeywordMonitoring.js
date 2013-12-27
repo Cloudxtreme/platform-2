@@ -1,7 +1,7 @@
 Cloudwalkers.Views.KeywordMonitoring = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Keyword Monitoring',
-	'widgets' : {},
+	'className' : "container-fluid monitoring",
 	
 	'initialize' : function ()
 	{
@@ -18,8 +18,6 @@ Cloudwalkers.Views.KeywordMonitoring = Cloudwalkers.Views.Pageview.extend({
 	'render' : function()
 	{
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
-		
-		this.$el.addClass("container-fluid monitoring");
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 
