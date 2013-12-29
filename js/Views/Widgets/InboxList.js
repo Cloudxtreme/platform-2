@@ -1,22 +1,30 @@
 Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend({
 
+	// To-do: if url streamid is given, load network-related only.
+	// To-do: add loading underneath message view
+	// To-do: local manipulate list-view & toggle
+
 	'id' : 'inboxlist',
 	'entries' : [],
-	'filters' : {contacts:{string:""}},
+	'filters' : {
+		contacts : {string:"", list:[]},
+		streams : []
+	},
 	
 	'events' : {
-		'click .select-streams-filter' : 'togglefilter',
-		'click .select-contacts-filter' : 'togglefilter',
+		'click [data-toggle]' : 'togglefilter',
+		'input .input-rounded' : 'comparesuggestions',
+		'click [data-contact]' : 'filtercontacts',
+		'click [data-close-contact]' : 'filtercontacts',
+		'click [data-streams]' : 'filterstreams',
 		'click .load-more' : 'more'
 	},
 	
 	'initialize' : function ()
 	{
 		// Which model to focus on
-		this.model = (this.options.streamid)?
-			Cloudwalkers.Session.getStream(Number(this.options.streamid)): this.options.channel;
-			
-			
+		this.model = this.options.channel;
+
 		// Clear the model (prevent non-change view failure)
 		this.model.set({messages: []});
 		
@@ -29,39 +37,22 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.model.fetch({endpoint: "messageids", parameters:{records: 50}});
 		
 		// Listen to contacts collection
-		//this.listenTo(this.model.contacts, 'sync', this.newcontacts);
-		this.listenTo(this.model.contacts, 'add', this.addcontactselect);
+		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 		this.listenTo(this.model.messages, 'change:from', this.seedcontacts);
 	},
 
 	'render' : function ()
 	{	
+		// Template data
+		var param = {streams: [], networks: this.model.streams.filterNetworks(null, true)};
+
+		this.model.streams.each (function(stream){ param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname")}); });
+		
 		// Get template
-		this.$el.html (Mustache.render (Templates.inboxlist, {streams: this.model.streams.models}));
+		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
 		this.$container = this.$el.find ('ul.list');
 		this.$el.find(".load-more").hide();
-		
-		
-		// Parse filters Hack
-		this.$el.find(".inbox-filter select").eq(1).on("chosen:ready", function()
-		{
-			this.togglefilter({currentTarget: this.$el.find(".select-contacts-filter")});
-			
-			this.$el.find("#filter_contacts_chosen input").on("input", this.contactsinputtrigger.bind(this));
-			
-		}.bind(this)).on("change", function(e,m){
-			
-			var param = {records: 50};
-			var values = $(e.currentTarget).val();
-			
-			if(values.length) param.contacts = values.join(",");
-			
-			this.model.fetch({endpoint: "messageids", parameters: param});
-			
-		}.bind(this));
-		
-		this.$el.find(".inbox-filter select").chosen({width: "76%"});
 		
 		
 		return this;
@@ -99,16 +90,15 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		for (n in messages)
 		{
 			var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], template: 'smallentry', type: 'inbox'});
+			
 			this.entries.push (messageView);
+			this.listenTo(messageView, "toggle", this.toggle);
 			
 			this.$container.append(messageView.render().el);
-			
-			this.listenTo(messageView, "toggle", this.toggle);
 		}
 		
 		// Toggle first message
-		if( this.entries.length)
-			this.toggle(this.entries[0]);
+		if(this.entries.length) this.toggle(this.entries[0]);
 	},
 	
 	'toggle' : function(view)
@@ -121,108 +111,171 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
-		
 	},
 	
 	'togglefilter' : function(e)
 	{
-		$(".inbox-filter .active").removeClass("active");
+		var button = $(e.currentTarget);
+		var toggle = button.data("toggle");
+		var selected = button.hasClass("selected");
 		
-		var iscontacts = $(e.currentTarget).addClass("active").hasClass("select-contacts-filter");
+		$("[data-toggle].selected").removeClass("selected");
+		$("[id^=filter_]").addClass("hidden");
 		
-		this.$el.find(iscontacts? "#filter_contacts_chosen": "#filter_streams_chosen").addClass("active");
-		
+		if(!selected)
+		{
+			button.addClass("selected");
+			$("#filter_" + toggle).removeClass("hidden");
+		}
 	},
-	
-	/* Contacts Filter Functions */
 	
 	'seedcontacts' : function (message)
 	{
 		var contacts = message.get("from");
 		
-		if (contacts.length)
-			this.model.contacts.add(contacts);	
+		if (contacts.length) this.model.contacts.add(contacts);	
 	},
 	
-	'addcontactselect' : function(contact)
+	'comparesuggestions' : function (iscontact)
 	{
-		if(!this.$el.find("select option[value=" + contact.id + "]").length)
-			
-			this.updatecontactsselect();
-	},
-	
-	'updatecontactsselect' : function ()
-	{
-		var $select = $("#filter_contacts");
-		var $input = $("#filter_contacts_chosen input");
+		var string = $("#filter_contacts input").val();
 		
-		var selected = $select.val();
-		var string = $input.val();
+		if(!string) return this.hidesuggestions();
+		else string = string.toLowerCase();
 		
-		$select.empty();
+		var contacts = this.model.contacts.filter(this.comparenamefilter.bind(this, string));
+		
+		// On typed, search for more
+		if (contacts.length < 5 && !iscontact.cid && string.length > 2) this.requestcontacts(string);
 
-		this.model.contacts.each(function(contact)
+		if (!contacts.length)
 		{
-			$select.append("<option value='"+ contact.id +"'>" + contact.get("displayname") + "</option>");
-		});
+			return this.hidesuggestions();
+		} 
+		else this.showsuggestions(contacts.slice(0,10));
 		
-		for(n in selected) $select.find('[value='+selected[n]+']').attr("selected", "selected");
-		
-		$select.trigger("chosen:updated");
-		$input.val(string);
 	},
 	
-	'newcontacts' : function ()
+	'comparenamefilter' : function(string, contact)
 	{
-		var $select = $("#filter_contacts");
-		var selected = $select.val();
-		
-		var $input = $("#filter_contacts_chosen input");
-		var string = $input.val();
-		
-		$select.html("");
-
-		this.model.contacts.each(function(contact)
-		{
-			$select.append("<option value='"+ contact.id +"'>" + contact.get("displayname") + "</option>");
-		});
-		
-		for(n in selected) $select.find('[value='+selected[n]+']').attr("selected", "selected");
-		
-		$select.trigger("chosen:updated");
-		$input.val(string);
+		return contact.get("displayname").toLowerCase().indexOf(string) >= 0 || (contact.get("name") && contact.get("name").toLowerCase().indexOf(string) >= 0);
 	},
 	
-	'contactsinputtrigger' : function()
+	'showsuggestions' : function(contacts)
 	{
-		// Parameters
-		var string = $("#filter_contacts_chosen input").val().toLowerCase();
+		this.$el.find("#filter_contacts label").removeClass("hidden");
+		this.$el.find("ul.contacts-suggestions").empty();
 		
-		var contacts = this.model.contacts.filter(function(contact)
-		{
-			var displayname = contact.get("displayname").toLowerCase();
-			var name = contact.get("name");
-			
-			return displayname.indexOf(string) >= 0 || (name && name.toLowerCase().indexOf(string) >= 0); 
-		});
-
-		// Ask for more
-		if (contacts.length <= 3 && string.length >= 2) this.requestcontacts(string);
+		for (n in contacts)
+			this.$el.find("ul.contacts-suggestions").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));
+	},
+	
+	'hidesuggestions' : function()
+	{
+		this.$el.find("#filter_contacts label").addClass("hidden");
+		this.$el.find("ul.contacts-suggestions").empty();
 	},
 	
 	'requestcontacts' : function(string)
 	{
 		if(string != this.filters.contacts.string)
 		{
-			var param = {q: string};
-			param[this.model.get("objectType")] = this.model.id;
-			
 			if(!this.model.contacts.processing)
 			{
+				this.$el.find(".loading-contacts").removeClass("hidden");
+				
 				this.filters.contacts.string = string;
-				this.model.contacts.fetch({remove: false, parameters: param});
-			}
+				this.model.contacts.fetch({remove: false, parameters: {q: string, channels: this.model.id}, success: this.loadedcontacts.bind(this)});
+			
+			} else this.filters.contacts.buffered = string;
 		}
+	},
+	
+	'loadedcontacts' : function()
+	{
+		this.$el.find(".loading-contacts").addClass("hidden");
+		
+		// Check pending requests
+		if(this.filters.contacts.buffered)
+		{
+			this.requestcontacts(this.filters.contacts.buffered);
+			this.filters.contacts.buffered = false;
+		}
+	},
+	
+	'filtercontacts' : function (e)
+	{
+		var button = $(e.currentTarget);
+		var param = {};
+		
+		// Add or remove contact
+		if(button.data("contact"))
+		{
+			var contact = Cloudwalkers.Session.getContact(button.data("contact"));
+			
+			if(this.filters.contacts.list.indexOf(contact.id) < 0)
+			{
+				this.filters.contacts.list.push(contact.id);
+				this.$el.find("ul.contacts-placeholder").append(Mustache.render (Templates.contactselectedentry, contact.attributes));
+			}
+
+		} else {
+			
+			var id = button.data("close-contact");
+			this.filters.contacts.list = this.filters.contacts.list.filter(function(n){ return n != id });
+			
+			this.$el.find("[data-close-contact="+ id +"]").parent().remove();
+		}
+		
+		// Fetch filtered messages
+		this.model.fetch({endpoint: "messageids", parameters: this.filterparameters()});
+		
+		return this;
+	},
+	
+	'filterstreams' : function (e)
+	{
+		var button = $(e.currentTarget);
+		var param = {records: 20};
+		var streamids = [];
+		
+		button.active = button.toggleClass("inactive active").hasClass("active");
+		
+		var networks = this.$el.find ('div[data-streams].active');
+		
+		// Manipulate other buttons (one ugly motherfucker, just because we can)
+		$(button.attr("data-streams").split(" ").map(function(id){ return '[data-streams~="'+ id +'"]'; }).join(",")).removeClass(button.active? "inactive": "active").addClass(button.active? "active": "inactive")
+		
+
+		// Listing
+		this.$el.find ('li[data-streams].active').each(function() { streamids.push($(this).data('streams')) });
+		
+		// Network doublecheck (false enables)
+		$(streamids.map(function(id){ return 'div[data-streams~="'+ id +'"]'; }).join(",")).removeClass("inactive").addClass("active")
+		
+		this.filters.streams = streamids;
+		
+		// Empty list if required
+		if (!streamids.length)
+		{
+			this.$container.empty();
+			return $(".inbox-container").empty();
+		}
+		
+		// Fetch filtered messages
+		this.model.fetch({endpoint: "messageids", parameters: this.filterparameters()});
+		
+		return this;
+	},
+	
+	'filterparameters' : function() {
+		
+		var param = {records: 20};
+		
+		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
+		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
+		
+		return param;
 	},
 	
 	'more' : function ()

@@ -45,29 +45,22 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		var keywords = this.$el.find ('.filter.keyword-list .active');
 		var keywordids = [];
 		
-		// if all channels are inactive, re-activate first
-		if(!keywords.size())
-		{
-			this.$el.find ('.filter.keyword-list .inactive:first-child').toggleClass("inactive active");
-			keywords = this.$el.find ('.filter.keyword-list .active');
-		}
-		
+		// if all channels are inactive
+		if(!keywords.size()) return this.list.$container.empty();
+
 		keywords.each(function(){ keywordids.push($(this).attr('data-keyword-id'))});
+		
 		
 		// Get all active streams
 		var networks = this.$el.find ('.filter.network-list .active');
 		var networkids = [];
 		
-		// if all networks are inactive, re-activate first
-		if(!networks.size())
-		{
-			this.$el.find ('.filter.network-list .inactive:first-child').toggleClass("inactive active");
-			networks = this.$el.find ('.filter.network-list .active');
-		}
+		// if all networks are inactive
+		if(!networks.size()) return this.list.$container.empty();
 
 		networks.each( function()
 		{
-			networkids = networkids.concat($(this).attr('data-network-streams').split(","));
+			networkids = networkids.concat($(this).attr('data-network-streams').split(" "));
 		});
 
 		// Fetch filtered messages

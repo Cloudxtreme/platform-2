@@ -116,7 +116,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 		
 		$.each(networks, function(i, network)
 		{
-			network.ids = network.ids.join(",");
+			network.ids = network.ids.join(" ");
 			networksarray.push(network);
 		});
 		

@@ -77,8 +77,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Visualise	
 		this.$el.html(Mustache.render (Templates.inboxmessage, param));
 		
-		console.log("message params: ", param)
-		
 		return this;
 	},
 	
