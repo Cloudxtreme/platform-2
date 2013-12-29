@@ -68,7 +68,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 			
 			list.push(message? message: this.get(id));
 			
-			if(!message || message.outdated) return id;
+			if(!message || !message.get("objectType") || message.outdated) return id;
 		
 		}, this));
 		

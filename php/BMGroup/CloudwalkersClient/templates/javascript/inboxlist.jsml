@@ -25,16 +25,6 @@
 	
 	<label class="hidden">Suggestions</label>
 	<ul class="contacts-suggestions"></ul>
-	
-	<!--
-	<select multiple id="filter_streams" name="streams-select" data-placeholder="All networks">
-	{{#streams}}
-		<option value="{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</option>
-	{{/streams}}
-	</select>
-	
-	<select multiple id="filter_contacts" name="contacts-select" data-placeholder="Everybody"></select>
-	-->
 
 </div>
 
