@@ -1,4 +1,4 @@
-<div class="message-header {{icon}}-color">
+<div class="message-header {{icon}}-color" data-id="{{id}}">
 	<div class="inherit">
 		{{#from}}
 		<div class="pull-right">

@@ -5,7 +5,19 @@
 		<a class="brand" href="/#dashboard">
 			<img src="/assets/img/logo.png" alt="logo"/>
 		</a>
-
+		
+		<div class="header-icon" data-header-action="contacts">
+			<i class="icon-group"></i>
+		</div>
+		
+		<div class="header-icon" data-header-action="messages">
+			<i class="icon-envelope"></i>
+		</div>
+		
+		<div class="header-icon" data-header-action="notifications">
+			<i class="icon-globe"></i>
+		</div>
+		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 			<img src="/assets/img/menu-toggler.png" alt="" />
 		</a>          

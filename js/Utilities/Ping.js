@@ -1,6 +1,8 @@
 Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	
-	'interval' : 30,
+	'interval' : 30000,	// avg interval: 30 sec
+	'min' : 10000,		// min interval: 10 sec
+	'max' : 90000,		// max interval: 1,5 min
 	'timeout' : 0,
 	'cursor' : false,
 	
@@ -26,8 +28,11 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 			Store.get("ping", {id: this.id}, function(entry) {if(entry) this.cursor = entry.cursor;}.bind(this));
 		
 		else {
+
+			this.interval += Math.round( .2 * (this.min - this.interval));
 			this.cursor = changed.cursors.after;
-			Store.updateById("ping", {id: this.id, cursor: this.cursor});
+			
+			Store.set("ping", {id: this.id, cursor: this.cursor});
 		}
 	},
 	
@@ -39,7 +44,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	},
 	
 	'parse' : function(response) {
-	
+		
 		return response.pong;
 	},
 	
@@ -66,13 +71,17 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	
 	'schedule' : function()
 	{
-		/* The Schedule function schould be dynamic towards response density */
-		
 		this.timeout = setTimeout( function()
 		{
 			this.fetch({success: this.schedule.bind(this), error: this.toing});
 			
-		}.bind(this), this.interval *1000);
+		}.bind(this), this.timer());
+	},
+	
+	'timer' : function()
+	{
+		/* Dynamic response density */
+		return this.interval += Math.round( .05 * (this.max - this.interval));
 	},
 	
 	'toing' : function()

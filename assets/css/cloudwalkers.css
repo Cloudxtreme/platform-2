@@ -113,6 +113,14 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 
 /* TOP NAV */
+.header-icon	{
+	float: left; padding: 8px 4px;
+	color: #333; font-size: 17.5px;
+}
+
+.header-icon:hover	{ color: #666; }
+
+
 .dropdown form	{ margin-bottom: 0; }
 
 .dropdown textarea	{
