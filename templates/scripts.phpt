@@ -5,7 +5,7 @@
 
 <!-- TEMPORARY CDN'S, UNTILL PLATFORM CACHING -->
 <!--<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>-->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascritp"></script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascritp"></script>
 <script src="//cdn.jsdelivr.net/uniformjs/2.1.1/jquery.uniform.min.js" type="text/javascript" ></script>
 <script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
