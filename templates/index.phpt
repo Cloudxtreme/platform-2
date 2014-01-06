@@ -45,84 +45,52 @@
 
 	<body class="page-header-fixed page-sidebar-fixed">
 
-		<!-- BEGIN HEADER -->
+		<!-- Header -->
 		<div id="header" class="header navbar navbar-inverse navbar-fixed-top">
-			<!-- Top Nagivation -->
 			<div class="navbar-inner">
 				<div class="container-fluid">
-
 					<a class="brand" href="/#dashboard">
 						<img src="/assets/img/logo.png" alt="logo"/>
 					</a>
-
-					<!-- Responsive menu toggler -->
-					<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-					<img src="/assets/img/menu-toggler.png" alt="" />
-					</a>          
-					<!-- end Responsive menu toggler -->
-
 				</div>
 			</div>
-			<!-- end Top Navigation -->
 		</div>
-		<!-- END HEADER -->
+		<!-- end Header -->
 
-		<!-- BEGIN CONTAINER -->
+		<!-- Container -->
 		<div class="container-fluid page-container">
 			
 			<div class="row-fluid">
 				
+				<!-- Navigation -->
+				<div id="sidebar" class="span2"></div>
+				<!-- end Navigation -->
 				
-				<!-- BEGIN SIDEBAR -->
-				<div id="sidebar" class="span2 page-sidebar nav-collapse collapse navigation-container">
-					<!-- BEGIN SIDEBAR MENU -->        
-					
-					<!-- END SIDEBAR MENU -->
-				</div>
-				<!-- END SIDEBAR -->
-				<!-- BEGIN PAGE -->
+				<!-- Share -->
+				<div id="share" class="span2 collapsed"></div>
+				<!-- end Share -->
+				
+				<!-- Pageview -->
 				<div id="inner-content" class="span10 page-content">
 
 					<div class="container-fluid">
-						
 						<div class="row-fluid">
-							
 							<div class="container-loading">
 								<i class="icon-cloud-download"></i>
 							</div>
-							
 						</div>
-						
 					</div>
 
 				</div>
-				<!-- END PAGE -->
+				<!-- en Pageview -->
 				
 			</div>
 		</div>
-		<!-- END CONTAINER -->
-		<!-- BEGIN FOOTER
-		<div class="footer">
-			<div class="footer-inner">
-				2013 &copy; Cloudwalkers by bmgroup.
-			</div>
-			<div class="footer-tools">
-				<span class="go-top">
-				<i class="icon-angle-up"></i>
-				</span>
-			</div>
-		</div>
-		END FOOTER -->
+		<!-- end Container -->
 
-		<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-
-		<!-- Application -->
-			<?php include 'scripts.phpt'; ?>
-		<!-- /Application -->
-
-		<!-- END JAVASCRIPTS -->
-
-		<?php include 'tracking.phpt'; ?>
+		<!-- Application scripts -->
+		<?php include 'scripts.phpt'; ?>
+		<!-- end Application scripts -->
 		
 	</body>
 </html>

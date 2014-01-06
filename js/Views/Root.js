@@ -13,6 +13,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		this.navigation = new Cloudwalkers.Views.Navigation ();
 		this.navigation.fit();
+		
+		//this.share = new Cloudwalkers.Views.Share ();
+		//this.share.fit();
 
 		this.on ('content:change', this.onchange, this);
 		
@@ -51,6 +54,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			self.trigger ('view:change');
 			self.trigger ('content:change');
 		}, 1);*/
+	},
+	
+	'viewshare' : function ()
+	{
+		this.share.show();
+		
 	},
 	
 	'popup' : function (view)

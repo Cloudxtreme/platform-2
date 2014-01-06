@@ -14,11 +14,11 @@
 		<a href="#write">
 			<i class="icon-share-sign"></i> 
 			<span class="title">Message board</span>
-			<span class="arrow"></span>
+			<!--<span class="arrow"></span>-->
 			<span class="selected"></span>
 		</a>
-		<ul class="sub-menu">
-			<li class="write">
+		<!--<ul class="sub-menu">
+			<li>
 				<a href="#write">
 					<i class="icon-share-alt"></i> 
 					<span class="title">Compose message</span>
@@ -51,7 +51,7 @@
 				</ul>
 			</li>
 			
-		</ul>
+		</ul>-->
 	</li>
 
 	<!-- Inbox -->
@@ -69,7 +69,7 @@
 					<a href="#inbox/{{channelid}}">
 						<i class="icon-envelope"></i> 
 						<span class="title">Social</span>
-						<span class="arrow"></span>
+						<!--<span class="arrow"></span>-->
 					</a>
 					<ul class="sub-menu">
 						{{#streams_sssss}}
