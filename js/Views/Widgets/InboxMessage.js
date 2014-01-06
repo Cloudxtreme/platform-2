@@ -19,7 +19,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 
 	'render' : function ()
 	{
-
+		
 		var param = {}
 		
 		// Hacky check: is this really a message?

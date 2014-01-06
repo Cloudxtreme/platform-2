@@ -25,6 +25,9 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		// Which model to focus on
 		this.model = this.options.channel;
 
+		// Type of chidren (messages | notifications)
+		this.endpoint = this.options.type.slice(0, -1) + "ids";
+
 		// Clear the model (prevent non-change view failure)
 		this.model.set({messages: []});
 		
@@ -34,7 +37,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.listenTo(this.model, 'sync', this.hideloading);
 		
 		// Load model messages
-		this.model.fetch({endpoint: "messageids", parameters:{records: 50}});
+		this.model.fetch({endpoint: this.endpoint, parameters:{records: 50}});
 		
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
@@ -227,7 +230,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.fetch({endpoint: "messageids", parameters: this.filterparameters()});
+		this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
 		
 		return this;
 	},
@@ -262,7 +265,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.fetch({endpoint: "messageids", parameters: this.filterparameters()});
+		this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
 		
 		return this;
 	},
@@ -285,7 +288,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		var param = this.model.parameters;
 		param.after = this.model.get("paging").cursors.after;
 		
-		this.model.fetch({endpoint: "messageids", parameters:param})
+		this.model.fetch({endpoint: this.endpoint, parameters:param})
 		
 	},
 	
