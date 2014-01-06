@@ -5,6 +5,10 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'initialize' : function()//(list, options)
 	{
+		// Prep parameters
+		this.parameters = {};
+		
+		
 		//this.parentid = options.id? options.id: null;
 		//this.endpoint = options.endpoint? options.endpoint: "channel";
 		
@@ -17,27 +21,42 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 			Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd)
 	},
 	
-	'url' : function()
+	'url' : function(a)
 	{
+		// Get parent model
+		var url = (this.parentmodel)?
+
+			CONFIG_BASE_URL + "json/" + this.parentmodel.get("objectType") + "/" + this.parentmodel.id :
+			CONFIG_BASE_URL + "json/message";
+				
+		if(this.endpoint)	url += "/" + this.endpoint;
+
+		return this.parameters? url + "?" + $.param (this.parameters): url;
+			
 		//if(this.endpoint && this.parentid)
 			 
 		//	 return CONFIG_BASE_URL + "json/" + this.endpoint + "/" + this.parentid + "/messages?" + $.param (this.parameters);
 		//else return CONFIG_BASE_URL + "json/message?" + $.param (this.parameters);
-		
-		return CONFIG_BASE_URL + "json/message?" + $.param (this.parameters);
 	},
 	
 	'parse' : function (response)
 	{
+
+		var messages = this.parentmodel?
+		
+			response[this.parentmodel.get("objectType")].messages :
+			response.messages;
+		
 		//if(response.stream) return response.stream.messages;
 		//if(response.channel) return response.channel.messages;
-		if(response.messages) return response.messages;
+		return messages;
 	},
 	
 	'sync' : function (method, model, options) {
 		
 		this.processing = true;
 		
+		// ! Deprecated
 		if(options.parentid) this.parentid = options.parentid;
 		
 		return Backbone.sync(method, model, options);
@@ -48,17 +67,69 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
-	'touch' : function(params)
+	/*
+		Touch messages
+		First: check Store for ids list (within Ping lifetime)
+		Second: request list update, if needed
+	*/
+	
+	'touch' : function(model, params, callback)
 	{
+		// Work data
+		this.parentmodel = model;
+		this.endpoint = model.childtype + "ids";
 		
+		if(params) $.extend(true, this.parameters, params);
+
 		
+		// Check for history (within ping lifetime)
+		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor},
+			function(callback, response){
+
+				var messages = (response && response.messageids.length)?
+					this.existing(response.messageids): [];
+				
+				// If stored messages are found
+				if (messages.length) callback(messages)
+				
+				// Fetch & Store results
+				else this.fetch({success: this.touchresponse.bind(this, this.url(), callback)});
+			
+			}.bind(this, callback));
+		
+	},
+	
+	'touchresponse' : function(url, callback, collection, response)
+	{
+		// Get ids
+		var ids = response[this.parentmodel.get("objectType")].messages;
+		
+		// Store results based on url (for parameters)
+		Store.set("touches", {id: url, messageids: ids, ping: Cloudwalkers.Session.getPing().cursor});
+	
+		// Seed ids to collection (get non-stored messages)
+		callback(this.seed(ids));
+	},
+	
+	'existing' : function(ids)
+	{		
+		var list = _.compact( ids.map(function(id)
+		{
+			var message = Cloudwalkers.Session.getMessage(id);
+			
+			if(message && message.get("objectType") && !message.outdated) return message;
+		
+		}, this));
+
+		return list;
 	},
 	
 	'seed' : function(ids)
 	{
+
 		// Ignore empty id lists
 		if(!ids || !ids.length) return [];
-		
+
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
@@ -75,6 +146,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Get list based on ids
 		if(fresh.length)
 		{
+			this.endpoint = "messages"
 			this.parameters = {ids: fresh.join(",")};
 			this.fetch();
 		}

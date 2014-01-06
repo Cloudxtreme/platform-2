@@ -24,6 +24,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 	},
 	
+	'parse' : function(response)
+	{	
+		if(typeof response != "number")
+			Store.set("messages", response);
+		
+		return response;
+	},
+	
 	'filterData' : function (type)
 	{
 		

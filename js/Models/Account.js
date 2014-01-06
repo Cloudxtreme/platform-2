@@ -69,6 +69,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Load Campaigns
 		Store.filter("campaigns", null, function(list){ this.campaigns.add(list); }.bind(this));
 		
+		// Load Messages
+		Store.filter("messages", null, function(list){ this.messages.add(list); }.bind(this));
+		
 		// Filter limits
 		if( this.get("plan"))
 			this.limits = this.get("plan").limits;

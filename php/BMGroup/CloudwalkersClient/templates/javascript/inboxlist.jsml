@@ -39,6 +39,6 @@
 </div>
 
 <div class="scroller clearfix">
-	<ul class="list inner-loading"></ul>
+	<ul class="list"></ul>
 	<input type="button" class="btn load-more" value="load more" />
 </div>

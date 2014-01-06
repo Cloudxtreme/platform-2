@@ -73,6 +73,15 @@ Cloudwalkers.Session =
 	},
 	
 	/**
+	 *	Ping shortcut function
+	 **/
+
+	'getPing' : function (id)
+	{
+		return this.user.account.ping;
+	},
+	
+	/**
 	 *	Accounts shortcut functions
 	 **/
 
@@ -83,7 +92,7 @@ Cloudwalkers.Session =
 	
 	'getAccounts' : function (id)
 	{
-		this.user.accounts;
+		return this.user.accounts;
 	},
 	
 	/**

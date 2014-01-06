@@ -15,7 +15,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 		
 		// DEV Check
-		$.get(CONFIG_BASE_URL + "json/version", this.devheader.bind(this))
+		$.get(CONFIG_BASE_URL + "json/version", this.version.bind(this))
 		
 		
 	},
@@ -27,14 +27,22 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.render();
 	},
 	
-	'devheader' : function (response)
+	'version' : function (response)
 	{
-
+		// Add DEV views
 		if( response.platform.name == "TESTING")
 		{
 			this.development = true;
 			$('#header').html (this.renderHeader().header);
 		}
+		
+		// Check for version.
+		if(!Cloudwalkers.Session.get("version"))
+			Cloudwalkers.Session.updateSetting("version", response.platform.version)
+				
+		else if(Cloudwalkers.Session.get("version") != response.platform.version)
+			Cloudwalkers.Session.home();
+			
 		
 	},
 	
