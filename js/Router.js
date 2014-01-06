@@ -15,6 +15,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'reports(/:streamid)' : 'reports',
 		'settings(/:sub)' : 'settings',
 		'dashboard/:accountid' : 'changeaccount',
+		'home' : 'home',
 		'*path' : 'dashboard'
 	},
 

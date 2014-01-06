@@ -13,6 +13,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Listen to channel changes
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
+		
+		// DEV Check
+		$.get(CONFIG_BASE_URL + "json/version", this.devheader.bind(this))
+		
+		
 	},
 	
 	'fit' : function ()
@@ -22,9 +27,20 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.render();
 	},
 	
+	'devheader' : function (response)
+	{
+
+		if( response.platform.name == "TESTING")
+		{
+			this.development = true;
+			$('#header').html (this.renderHeader().header);
+		}
+		
+	},
+	
 	'renderHeader' : function ()
 	{		
-		var data = {};
+		var data = {dev: this.development};
 		
 		data.user = Cloudwalkers.Session.user.attributes;
 		data.accounts =  [];
