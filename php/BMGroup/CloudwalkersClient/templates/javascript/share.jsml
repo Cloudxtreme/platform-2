@@ -1,0 +1,59 @@
+
+<!-- General -->
+<div class="share-general">
+	<h2>New Post</h2>
+	
+	<input type="text" placeholder="Title" class="hidden" />
+	
+	<textarea rows="4" placeholder="Compose message..."></textarea>
+	
+	<div class="row-fluid">
+		<div class="btn span10"><i class="icon-camera"></i></div>
+		<div class="btn span5 hidden">URL</div>
+		<div class="share-counter span2">140</div>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span5 share-list-header header-active">Networks</div>
+		<div class="span2 share-list-header header-ghost">or</div>
+		<div class="span5 share-list-header">Contacts</div>
+	</div>
+	
+	<div class="scroller" data-height="240">
+		<ul class="share-list social-icon-colors">
+			<li class="active"><i class="icon-briefcase"></i> Co-workers cloud <span class="pull-right">&bullet;</span></li>
+			{{#streams}}
+				<li><i class="icon-{{icon}}"></i> {{name}} <span class="pull-right">&bullet;</span></li>
+			{{/streams}}
+		</ul>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="btn btn-schedule span5"><i class="icon-time"></i> Schedule</div>
+		<div class="btn btn-inverse span5">Post</div>
+		<div class="btn span2"><i class="icon-save"></i></div>
+	</div>
+		
+</div>
+
+<!-- Direct Message -->
+<div class="share-direct hidden">
+	<h2>New Message</h2>
+	
+	<input type="text" placeholder="Title" class="hidden" />
+	
+	<textarea rows="3"></textarea>
+	
+	<div class="row-fluid">
+		<div class="btn span10"><i class="icon-camera"></i></div>
+		<div class="btn span5 hidden">URL</div>
+		<div class="share-counter span2">140</div>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="btn btn-schedule span5"><i class="icon-time"></i> Schedule</div>
+		<div class="btn btn-inverse span5">Message</div>
+		<div class="btn span2"><i class="icon-save"></i></div>
+	</div>
+		
+</div>
