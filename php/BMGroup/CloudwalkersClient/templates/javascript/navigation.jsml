@@ -17,7 +17,7 @@
 			<!--<span class="arrow"></span>-->
 			<span class="selected"></span>
 		</a>
-		<!--<ul class="sub-menu">
+		<ul class="sub-menu">
 			<li>
 				<a href="#write">
 					<i class="icon-share-alt"></i> 
@@ -51,7 +51,7 @@
 				</ul>
 			</li>
 			
-		</ul>-->
+		</ul>
 	</li>
 
 	<!-- Inbox -->
@@ -68,19 +68,25 @@
 				<li>
 					<a href="#inbox/{{channelid}}">
 						<i class="icon-envelope"></i> 
-						<span class="title">Social</span>
+						<span class="title">Messages</span>
 						<!--<span class="arrow"></span>-->
 					</a>
-					<ul class="sub-menu">
-						{{#streams_sssss}}
+					<!--<ul class="sub-menu">
+						{{#streams}}
 							<li><a href="#inbox/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-						{{/streams_sssss}}
-					</ul>
+						{{/streams}}
+					</ul>-->
+				</li>
+				<li>
+					<a href="#inbox/{{channelid}}/notifications">
+						<i class="icon-globe"></i> 
+						<span class="title">Notifications</span>
+					</a>
 				</li>
 				
 				<li>
 					<a href="#coworkers">
-						<i class="icon-envelope"></i> 
+						<i class="icon-group"></i> 
 						<span class="title">Co-workers</span>
 					</a>
 				</li>

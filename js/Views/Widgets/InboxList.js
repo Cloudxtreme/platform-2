@@ -54,7 +54,6 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.$container = this.$el.find ('ul.list');
 		this.$el.find(".load-more").hide();
 		
-		
 		return this;
 	},
 	
