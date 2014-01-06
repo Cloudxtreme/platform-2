@@ -67,14 +67,16 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	
 	'showloading' : function ()
 	{
-		this.$el.find(".icon-cloud-download").show();
-		this.$el.find(".load-more").hide();
+		this.$container.addClass("inner-loading")
+		
+		//this.$el.find(".icon-cloud-download").show();
+		//this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
 	{
-		this.$el.find(".icon-cloud-download").hide();
-		this.$el.find(".load-more").show();
+		//this.$el.find(".icon-cloud-download").hide();
+		//this.$el.find(".load-more").show();
 		
 		this.$container.removeClass("inner-loading");
 	},
