@@ -6,8 +6,10 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 	'render' : function()
 	{
 
-		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
+		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.options.type}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
+		
+		
 		
 		// Add list widget
 		var list = new Cloudwalkers.Views.Widgets.InboxList(this.options);

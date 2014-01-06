@@ -83,16 +83,18 @@
 						<span class="title">Notifications</span>
 					</a>
 				</li>
-				
-				<li>
-					<a href="#coworkers">
-						<i class="icon-group"></i> 
-						<span class="title">Co-workers</span>
-					</a>
-				</li>
 			</ul>
 		</li>
 	{{/inbox}}
+	
+		<!-- Co-workers cloud -->
+		<li>
+			<a href="#coworkers">
+				<i class="icon-group"></i> 
+				<span class="title">Co-workers</span>
+				<span class="selected"></span>
+			</a>
+		</li>
 
 	<!-- Company Accounts -->
 	{{#profiles}}

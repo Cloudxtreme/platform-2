@@ -274,6 +274,10 @@ nav	{
 	background-color: #99e2f3;
 }
 
+
+/* Pageview */
+.page-content .page-title	{ text-transform: capitalize; }
+
 /* Widget */
 
 /* Widget Loading */
