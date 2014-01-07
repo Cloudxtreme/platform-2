@@ -10,7 +10,6 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		
-		
 		// Add list widget
 		var list = new Cloudwalkers.Views.Widgets.InboxList(this.options);
 		this.appendWidget(list, 4);

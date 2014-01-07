@@ -33,14 +33,10 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.model.set({messages: []});
 		
 		// Listen to model
-		//this.listenTo(this.model, 'change:messages', this.fill);
+		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'sync', this.hideloading);
-		
-		// Load model messages
-		//this.model.fetch({endpoint: this.endpoint, parameters:{records: 50}});
 
-		
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 		this.listenTo(this.model.messages, 'change:from', this.seedcontacts);
@@ -57,10 +53,9 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
 		this.$container = this.$el.find ('ul.list');
-		//this.$el.find(".load-more").hide();
 		
 		// Load messages
-		this.model.messages.touch(this.model, {records: 50}, this.fill.bind(this));
+		this.model.messages.touch(this.model, {records: 50});
 		
 		return this;
 	},
@@ -73,43 +68,22 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.$el.find(".load-more").hide();
 	},
 	
-	'hideloading' : function ()
+	'hideloading' : function (collection, response)
 	{
-		//this.$el.find(".icon-cloud-download").hide();
-		this.$el.find(".load-more").show();
+		if(collection.cursor && response.channel.messages.length)
+			this.$el.find(".load-more").show();
 		
 		this.$container.removeClass("inner-loading");
 	},
 	
-	'fill' : function (messages)
+	'hidemore' : function()
 	{
-		console.log("fill called:", Cloudwalkers.Session.getPing().cursor)
-		
-		// Clean load or add
-		if(this.incremental) this.incremental = false;
-		else
-		{
-			$.each(this.entries, function(n, entry){ entry.remove()});
-			this.entries = [];
-		}
-
-		// Add messages to view
-		for (n in messages)
-		{
-			var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], template: 'smallentry', type: 'inbox'});
-			
-			this.entries.push (messageView);
-			this.listenTo(messageView, "toggle", this.toggle);
-			
-			this.$container.append(messageView.render().el);
-		}
-		
-		// Toggle first message
-		if(this.entries.length) this.toggle(this.entries[0]);
+		this.$el.find(".load-more").hide();
 	},
 	
-	/*'fill' : function (category, ids)
+	'fill' : function (messages)
 	{
+		
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -117,10 +91,6 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 			$.each(this.entries, function(n, entry){ entry.remove()});
 			this.entries = [];
 		}
-		
-		// Get messages
-		var messages = this.model.messages.seed(ids);
-		var preload = [];
 
 		// Add messages to view
 		for (n in messages)
@@ -134,8 +104,9 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Toggle first message
-		if(this.entries.length) this.toggle(this.entries[0]);
-	},*/
+		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
+		else 					this.hidemore();
+	},
 	
 	'toggle' : function(view)
 	{
@@ -264,8 +235,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.messages.touch(this.model, this.filterparameters(), this.fill.bind(this));
-		//this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
+		this.model.messages.touch(this.model, this.filterparameters());
 		
 		return this;
 	},
@@ -300,8 +270,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.messages.touch(this.model, this.filterparameters(), this.fill.bind(this));
-		//this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
+		this.model.messages.touch(this.model, this.filterparameters());
 		
 		return this;
 	},
@@ -320,16 +289,9 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	{
 		this.incremental = true;
 		
-		var hasmore = this.model.messages.more(this.model, this.filterparameters(), this.fill.bind(this));
+		var hasmore = this.model.messages.more(this.model, this.filterparameters());
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
-		
-		// update parameters with after cursor	
-		//var param = this.model.parameters;
-		//param.after = this.model.get("paging").cursors.after;
-		//this.model.messages.more(this.model, this.filterparameters(), this.fill.bind(this));
-		//this.model.fetch({endpoint: this.endpoint, parameters:param})
-		
 	},
 	
 	'negotiateFunctionalities' : function() {
