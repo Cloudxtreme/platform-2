@@ -14,7 +14,7 @@
 		<strong>{{displayname}}</strong>
 	{{/from}}
 
-	<div class='content'>
+	<div class='content' data-id="{{id}}">
 		{{{body.plaintext}}}
 	</div>
 {{#url}}</a>{{/url}}

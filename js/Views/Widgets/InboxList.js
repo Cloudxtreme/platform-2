@@ -57,7 +57,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
 		this.$container = this.$el.find ('ul.list');
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 		
 		// Load messages
 		this.model.messages.touch(this.model, {records: 50}, this.fill.bind(this));
@@ -70,13 +70,13 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		this.$container.addClass("inner-loading")
 		
 		//this.$el.find(".icon-cloud-download").show();
-		//this.$el.find(".load-more").hide();
+		this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
 	{
 		//this.$el.find(".icon-cloud-download").hide();
-		//this.$el.find(".load-more").show();
+		this.$el.find(".load-more").show();
 		
 		this.$container.removeClass("inner-loading");
 	},
@@ -264,7 +264,8 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
+		this.model.messages.touch(this.model, this.filterparameters(), this.fill.bind(this));
+		//this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
 		
 		return this;
 	},
@@ -299,7 +300,8 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 		}
 		
 		// Fetch filtered messages
-		this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
+		this.model.messages.touch(this.model, this.filterparameters(), this.fill.bind(this));
+		//this.model.fetch({endpoint: this.endpoint, parameters: this.filterparameters()});
 		
 		return this;
 	},
@@ -318,11 +320,15 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	{
 		this.incremental = true;
 		
-		// update parameters with after cursor	
-		var param = this.model.parameters;
-		param.after = this.model.get("paging").cursors.after;
+		var hasmore = this.model.messages.more(this.model, this.filterparameters(), this.fill.bind(this));
 		
-		this.model.fetch({endpoint: this.endpoint, parameters:param})
+		if(!hasmore) this.$el.find(".load-more").hide();
+		
+		// update parameters with after cursor	
+		//var param = this.model.parameters;
+		//param.after = this.model.get("paging").cursors.after;
+		//this.model.messages.more(this.model, this.filterparameters(), this.fill.bind(this));
+		//this.model.fetch({endpoint: this.endpoint, parameters:param})
 		
 	},
 	

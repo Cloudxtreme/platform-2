@@ -2,6 +2,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'model' : Cloudwalkers.Models.Message,
 	'processing' : false,
+	'paging' : {},
 	
 	'initialize' : function()//(list, options)
 	{
@@ -41,11 +42,19 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'parse' : function (response)
 	{
-
+		// Get messages (or ids)
 		var messages = this.parentmodel?
 		
 			response[this.parentmodel.get("objectType")].messages :
 			response.messages;
+			
+		// Get paging
+		var paging = this.parentmodel?
+		
+			response[this.parentmodel.get("objectType")].paging :
+			response.paging;
+		
+		this.setcursor(paging);
 		
 		//if(response.stream) return response.stream.messages;
 		//if(response.channel) return response.channel.messages;
@@ -67,6 +76,14 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
+	'setcursor' : function (paging) {
+
+		// Without paging, it's a messages call
+		if(!paging) return false;
+
+		this.cursor = paging.cursors.after;
+	},
+	
 	/*
 		Touch messages
 		First: check Store for ids list (within Ping lifetime)
@@ -78,9 +95,9 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Work data
 		this.parentmodel = model;
 		this.endpoint = model.childtype + "ids";
+		this.parameters = params;
 		
-		if(params) $.extend(true, this.parameters, params);
-
+		console.log(this.url())
 		
 		// Check for history (within ping lifetime)
 		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor},
@@ -90,7 +107,8 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 					this.existing(response.messageids): [];
 				
 				// If stored messages are found
-				if (messages.length) callback(messages)
+				if (messages.length && messages.length == response.messageids.length)
+					callback(messages)
 				
 				// Fetch & Store results
 				else this.fetch({success: this.touchresponse.bind(this, this.url(), callback)});
@@ -126,7 +144,6 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'seed' : function(ids)
 	{
-
 		// Ignore empty id lists
 		if(!ids || !ids.length) return [];
 
@@ -135,6 +152,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		{
 			message = Cloudwalkers.Session.getMessage(id);
 			
+			// Deprecated?
 			this.add(message? message: {id: id});
 			
 			list.push(message? message: this.get(id));
@@ -146,12 +164,23 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Get list based on ids
 		if(fresh.length)
 		{
-			this.endpoint = "messages"
+			this.endpoint = "messages";
+			// HACK: ?ids should not have an additional ?records 
 			this.parameters = {ids: fresh.join(",")};
 			this.fetch();
 		}
 
 		return list;
+	},
+	
+	'more' : function(model, params, callback)
+	{
+		if(!this.cursor) return false;
+		
+		params.after = this.cursor;
+		this.touch(model, params, callback)
+		
+		return this;
 	}
 	
 	/*'seed' : function(ids)
