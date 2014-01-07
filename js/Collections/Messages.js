@@ -175,6 +175,8 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'more' : function(model, params, callback)
 	{
+		console.log(this.cursor)
+		
 		if(!this.cursor) return false;
 		
 		params.after = this.cursor;
