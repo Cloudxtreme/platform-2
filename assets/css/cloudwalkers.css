@@ -745,6 +745,12 @@ nav	{
 * Inbox Container
 */
 
+.inbox .page-title i	{
+	margin-left: 12px;
+	font-size: 21px; color: #ccc;
+	-webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite;
+}
+
 #widgetcontainer > .row-fluid, #inboxlist	{ height: inherit; }
 
 #inboxcontainer	{

@@ -21,8 +21,8 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
 		
-		
-		
+		// Add global loader
+		this.$el.find(".page-title").append('<i class="icon-cloud-download hidden"></i>');
 		
 		
 		

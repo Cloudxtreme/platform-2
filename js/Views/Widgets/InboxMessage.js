@@ -72,6 +72,9 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			
 		// Load messages
 		this.message.related.touch(this.message, {records: 20});
+		
+		// Show global loader
+		$(".page-title i").removeClass("hidden");
 	},
 	
 	'fillrelated' : function(models)
@@ -97,8 +100,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			this.$related.append(view.render().el);
 		}
 		
-		// Toggle first message
-		//if(!this.entries.length) this.hidemorerelated();
+		// Hide global loader
+		$(".page-title i").addClass("hidden");
 	},
 	
 	'addNotifications' : function()
