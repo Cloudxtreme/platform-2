@@ -2,10 +2,11 @@
 	<div class="inherit">
 		{{#from}}
 		<div class="pull-right">
-			<span class="date">{{fulldate}}</span>
+			<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
 		</div>
 		
 		<img class="avatar" alt="" src="{{avatar}}">
+		{{displayname}}
 		{{/from}}
 	</div>
 </div>

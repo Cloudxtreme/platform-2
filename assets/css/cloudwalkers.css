@@ -1042,6 +1042,10 @@ nav	{
 	margin-top: 10px; background: white; box-shadow: 0 0 3px #d6d6d6;
 }
 
+.inbox-container .related-messages img.avatar {
+	margin-top: -2px; width: 24px; height: 24px; border: 0;  background-color: #ddd; border-radius: 50% !important; 
+}
+
 
 
 /**
