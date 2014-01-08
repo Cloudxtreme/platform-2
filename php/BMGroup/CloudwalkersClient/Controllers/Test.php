@@ -94,8 +94,15 @@ class BMGroup_CloudwalkersClient_Controllers_Test
 
 		$post = $this->testEndpoint ('message', 'post', array ('account' => $account['id']), $message);
 
+        //var_dump ($post);
+
 		// Fetch this specific message
 		$messagedata = $this->testEndpoint ('message/' . $post['message']['id']);
+        if (isset ($messagedata['error']))
+        {
+            var_dump ($messagedata['error']);
+            return;
+        }
 
 		// Update
 		$messagedata = $this->testEndpoint ('message/' . $messagedata['message']['id'], 'put', array ('account' => $account['id']), $message);
