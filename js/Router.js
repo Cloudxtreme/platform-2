@@ -145,7 +145,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
 		
 		if (!channel) return this.home();
-		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id);
+		if (!type) type = "messages";
+		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id + "/" + type);
 		
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));

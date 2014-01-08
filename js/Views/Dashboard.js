@@ -2,7 +2,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : "Dashboard",
 	'widgets' : [
-		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true},
+		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, link: "#inbox"},
 		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
 		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers"},

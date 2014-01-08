@@ -21,7 +21,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		list.each(function(el)
 		{
 			var attr = el.attributes;
-			var url = '#' + data.type + '/' + data.channel.id + '/' + el.id;
+			var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + el.id;
 			
 			data.list.push({ name: attr.name, url: url, unread: attr.count.incomingUnread ? attr.count.incomingUnread : 0, icon: attr.network ?attr.network.icon: data.icon });
 		});
