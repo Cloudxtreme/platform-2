@@ -5,7 +5,7 @@
 	
 	<input type="text" placeholder="Title" class="hidden" />
 	
-	<textarea rows="4" placeholder="Compose message..."></textarea>
+	<textarea rows="4"></textarea>
 	
 	<div class="row-fluid">
 		<div class="btn span10"><i class="icon-camera"></i></div>
