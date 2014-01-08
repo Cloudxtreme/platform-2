@@ -117,7 +117,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		$('a[href="#' + path + '"]').parents('#sidebar .page-sidebar-menu *').addClass ('active');
 		
 		// Trace height
-		var height =  $(($(window).height() > $(document).height())? window: document).height();
+		var height =  Cloudwalkers.RootView.height(true);//$(($(window).height() > $(document).height())? window: document).height();
 		$("#inner-content").css("min-height", height-42 + "px");
 		
     },

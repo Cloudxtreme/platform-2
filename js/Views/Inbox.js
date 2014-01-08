@@ -33,7 +33,7 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 	'finish' : function()
 	{
 		// View minus title height 
-		var height = Cloudwalkers.RootView.height() -135;
+		var height = Cloudwalkers.RootView.height() -140;
 		
 		this.$el.find("#widgetcontainer").height(height);
 		
