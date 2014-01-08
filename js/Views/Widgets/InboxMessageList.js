@@ -298,7 +298,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'addScroll' : function () {
 
 		this.$el.find('.scroller').slimScroll({
-			height: $("#inner-content").height() -165 + "px",
+			height: "inherit",
 
 		});
 	}

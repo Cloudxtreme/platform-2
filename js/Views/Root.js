@@ -18,8 +18,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		//this.share.fit();
 
 		this.on ('content:change', this.onchange, this);
-		
-		Cloudwalkers.Session.on("change:first", this.rebuild, this);
+
+		//Cloudwalkers.Session.on("change:first", this.rebuild, this);
 
 		// // $('.add-button').click (this.writeMessage);
 
@@ -60,6 +60,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		this.share.show();
 		
+	},
+	
+	'height' : function (strict)
+	{
+		var view = $(window).height(); 
+		var document = $(document).height();
+		
+		return (strict)?
+			(document > view? document: view): view;
 	},
 	
 	'popup' : function (view)

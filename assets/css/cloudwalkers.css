@@ -745,6 +745,8 @@ nav	{
 * Inbox Container
 */
 
+#widgetcontainer > .row-fluid, #inboxlist	{ height: inherit; }
+
 #inboxcontainer	{
 	border: 1px solid #e6e6e6; background: #eee; z-index: 1;
 }

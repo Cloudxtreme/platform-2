@@ -21,15 +21,29 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
 		
+		
+		
+		
+		
+		
+		
+		return this;
+	},
+	
+	'finish' : function()
+	{
+		// View minus title height 
+		var height = Cloudwalkers.RootView.height() -135;
+		
+		this.$el.find("#widgetcontainer").height(height);
+		
 		// Add scroller for message
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
 		$message.parent().slimScroll({
-			height: $("#inner-content").height() -97 + "px",
+			height: "inherit",
 
 		});
-		
-		return this;
 	}
 	
 });
