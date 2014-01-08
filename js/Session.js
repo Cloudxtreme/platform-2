@@ -208,7 +208,21 @@ Cloudwalkers.Session =
 	},
 	
 	/**
-	 *	Messages shortcut functions
+	 *	Notifications shortcut functions
+	 **/
+	
+	'getNotification' : function (id)
+	{
+		return this.user.account.notifications.get (id);
+	},
+	
+	'getNotifications' : function ()
+	{
+		return this.user.account.notifications;
+	},
+	
+	/**
+	 *	Messages shortcut functions - deprecated
 	 **/
 	
 	'getComment' : function (id)

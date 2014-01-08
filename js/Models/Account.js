@@ -24,7 +24,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Prep global Messages collection
 		this.messages = new Cloudwalkers.Collections.Messages();
 		
-		// Prep global Comments collection
+		// Prep global Notifications collection
+		this.notifications = new Cloudwalkers.Collections.Notifications();
+		
+		// Prep global Comments collection - deprecated
 		this.comments = new Cloudwalkers.Collections.Comments();
 	},
 	

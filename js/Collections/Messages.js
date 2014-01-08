@@ -1,10 +1,13 @@
 Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'model' : Cloudwalkers.Models.Message,
+	'typestring' : "messages",
+	'modelstring' : "message",
 	'processing' : false,
 	'parameters' : {},
 	'paging' : {},
 	'cursor' : false,
+	
 	
 	'initialize' : function()
 	{
@@ -24,7 +27,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		var url = (this.parentmodel)?
 
 			CONFIG_BASE_URL + "json/" + this.parentmodel.get("objectType") + "/" + this.parentmodel.id :
-			CONFIG_BASE_URL + "json/messages";
+			CONFIG_BASE_URL + "json/"+ this.typestring;
 				
 		if(this.endpoint)	url += "/" + this.endpoint;
 
@@ -40,7 +43,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Get paging
 		this.setcursor(response.paging)
 
-		return response.messages;
+		return response[this.typestring];
 	},
 	
 	'sync' : function (method, model, options) {
@@ -62,16 +65,16 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	{
 		// Work data
 		this.parentmodel = model;
-		this.endpoint = model.childtype + "ids";
+		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
 		
 		// Check for history (within ping lifetime)
 		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor},
 			function(response)
 			{
-				if (response && response.messageids.length)
+				if (response && response.modelids.length)
 				{
-					this.seed(response.messageids);
+					this.seed(response.modelids);
 					this.cursor = response.cursor;
 				}
 				else this.fetch({success: this.touchresponse.bind(this, this.url())});
@@ -82,10 +85,10 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	'touchresponse' : function(url, collection, response)
 	{
 		// Get ids
-		var ids = response[this.parentmodel.get("objectType")].messages;
+		var ids = response[this.parentmodel.get("objectType")][this.typestring];
 		
 		// Store results based on url
-		Store.set("touches", {id: url, messageids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 	
 		// Seed ids to collection
 		this.seed(ids);
@@ -99,20 +102,20 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
-			message = Cloudwalkers.Session.getMessage(id);
+			model = Cloudwalkers.Session.getMessage(id);
 			
-			this.add(message? message: {id: id});
+			this.add(model? model: {id: id});
 			
-			list.push(message? message: this.get(id));
+			list.push(model? model: this.get(id));
 			
-			if(!message || !message.get("objectType") || message.outdated) return id;
+			if(!model || !model.get("objectType") || model.outdated) return id;
 		
 		}, this));
 		
 		// Get list based on ids
 		if(fresh.length)
 		{
-			this.endpoint = this.parentmodel? this.parentmodel.childtype + "s": null;
+			this.endpoint = this.parentmodel? this.typestring: null;
 			this.parameters = {ids: fresh.join(",")};
 			
 			this.fetch();

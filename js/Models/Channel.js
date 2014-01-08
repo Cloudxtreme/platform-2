@@ -14,13 +14,19 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		this.streams.seed(this.get("streams"));
 		
 		// Child messages
-		this.messages = new Cloudwalkers.Collections.Messages();//([], {id: this.id});
+		this.messages = new Cloudwalkers.Collections.Messages();
+		
+		// Child notifications
+		this.notifications = new Cloudwalkers.Collections.Notifications();
 		
 		// Child contacts
 		this.contacts = new Cloudwalkers.Collections.Contacts();
 		
 		// Listeners
 		this.on("change", function(model){ Store.set("channels", model.attributes)});
+		
+		this.listenTo(this.messages, 'change:from', this.seedcontacts);
+		this.listenTo(this.notifications, 'change:from', this.seedcontacts);
 		//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 		
 	},
@@ -40,6 +46,21 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		Store.set("channels", response.channel);
 		
 		return response.channel;	
+	},
+	
+	'sync' : function (method, model, options)
+	{
+		if(method == "read")
+		{
+			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+			
+		} else if(method == "create")
+		{
+			this.endpoint = (options.parent)? options.parent + "/channels": "";  
+		}
+
+		return Backbone.sync(method, model, options);
 	},
 	
 	/**
@@ -69,20 +90,12 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 
 	 },
 	 
-	'sync' : function (method, model, options)
-	{
-		if(method == "read")
-		{
-			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
-			
-		} else if(method == "create")
-		{
-			this.endpoint = (options.parent)? options.parent + "/channels": "";  
-		}
-
-		return Backbone.sync(method, model, options);
-	}
+	'seedcontacts' : function (child)
+	{	
+		var contacts = child.get("from");
+		
+		if (contacts && contacts.length) this.contacts.add(contacts);	
+	},
 	
 	
 	

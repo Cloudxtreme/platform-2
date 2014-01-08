@@ -26,6 +26,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{	
+		if(response.message) response = response.message;
+	
 		if(typeof response != "number")
 			Store.set("messages", response);
 		

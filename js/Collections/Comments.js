@@ -1,3 +1,4 @@
+/* ! Deprecated */
 Cloudwalkers.Collections.Comments = Cloudwalkers.Collections.Messages.extend({
 
 	'model' : Cloudwalkers.Models.Comment,

@@ -19,6 +19,82 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 
 	'render' : function ()
 	{
+		// Parameters
+		var params = {};
+		$.extend(params, this.message.attributes);
+
+		if (params.date)
+			params.fulldate = moment(params.date).format("DD MMM YYYY HH:mm");
+		
+		if (params.attachments)
+		{
+			params.attachments = {};
+			$.each(this.message.get("attachments"), function(n, object){ params.attachments[object.type] = object });
+		}
+		
+		if (this.message.get("stream"))
+		{
+			var stream = Cloudwalkers.Session.getStream(this.message.get("stream"));
+			
+			params.icon = stream.get("network").icon;
+			params.networkdescription = stream.get("defaultname");
+			params.stream = stream;
+			
+			params.share = this.message.filterShareData(stream);
+		}	
+		
+		// Visualise	
+		this.$el.html(Mustache.render (Templates.inboxmessage, params));
+		
+		// Check notifications
+		if (this.options.notification)
+		{
+			// Does collection exist?
+			if(!this.message.notifications)
+				this.message.notifications = new Cloudwalkers.Collections.Notifications();
+			
+			// Load notifications
+			this.listenTo(this.message.notifications, 'seed', this.fillNotifcations);
+			this.message.notifications.touch(this.message, {records: 50});
+		}
+			
+		
+		/*var param = {}
+		
+		// Hacky check: is this really a message?
+		if (this.message.get("date") && this.message.get("objectType") == "comment")
+		{
+			this.comment = this.message;
+			
+			this.stopListening(this.message);
+			
+			var messages = Cloudwalkers.Session.getMessages().seed([this.message.get("parent").id]);
+			this.message = messages[0];
+			
+			this.listenTo(this.message, 'change', this.render.bind(this));
+		}
+		
+		// Load Comments
+		if (this.comment)
+		{
+			param.commented = {from: this.comment.get("from")[0], timeago: moment(this.comment.get("date")).fromNow()};
+			
+			// Fetch (hack: should be only once)
+			if(!this.message.comments)
+				this.message.comments = new Cloudwalkers.Collections.Comments();
+			
+			this.message.comments.fetch({parentid: this.message.id});
+			
+			this.listenTo(this.message.comments, 'sync', this.fillComments);
+		}		
+
+		*/
+		
+		return this;
+	},
+
+	/*'render' : function ()
+	{
 		
 		var param = {}
 		
@@ -78,9 +154,14 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.$el.html(Mustache.render (Templates.inboxmessage, param));
 		
 		return this;
+	},*/
+	
+	'addNotifications' : function()
+	{
+		
 	},
 	
-	'fillComments' : function(collection)
+	'fillNotifactions' : function(collection)
 	{
 		// Don't proceed when empty
 		if(!collection.length) return false;
