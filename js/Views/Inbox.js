@@ -21,6 +21,14 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
 		
+		// Add scroller for message
+		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
+		
+		$message.parent().slimScroll({
+			height: $("#inner-content").height() -97 + "px",
+
+		});
+		
 		return this;
 	}
 	

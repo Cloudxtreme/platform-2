@@ -942,7 +942,7 @@ nav	{
 
 /* Inbox Container */
 #widgetcontainer .span8.inbox-container	{
-	width: 65.98%; margin-left: 1.2%; margin-top: 12px;
+	/*width: 65.98%;*/ width: 98.8%; margin-left: 1.2%; margin-top: 12px;
 }
 
 /* Inbox Message */

@@ -15,7 +15,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.message = this.options.model;
 
 		this.listenTo(this.message, 'change', this.render.bind(this));
-		
 	},
 
 	'render' : function ()
@@ -59,13 +58,14 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'showrelated' : function()
 	{	
+		// Create & append related container
+		this.$related = $('<ul></ul>');
+		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
+		
+		
 		// Create related collection
 		if(!this.message.related)
 			this.message.related = new Cloudwalkers.Collections.Messages({modelstring: "related", typestring: "related", parenttype: "message"});
-			
-		// Create & append container
-		this.$related = $('<ul></ul>');
-		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
 		
 		// Listen to collection
 		this.listenTo(this.message.related, 'seed', this.fillrelated);
