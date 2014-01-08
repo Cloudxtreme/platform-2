@@ -8,6 +8,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	'initialize' : function ()
     {
 		this.category = this.options.category;
+		this.category.childtype = "message";
 		//this.keywords = this.category.channels;
 		
 		this.streams = [];
@@ -64,7 +65,8 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		});
 
 		// Fetch filtered messages
-		this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
+		this.category.messages.touch(this.category, {records: 40, channels: keywordids.join(","), streams: networkids.join(",")}); //this.collection.touch(this.model, {records: 50, group: 1});
+		//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 		
 		return this;
 	}

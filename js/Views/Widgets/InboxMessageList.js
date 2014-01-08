@@ -125,8 +125,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'togglefilter' : function(e)
 	{
-		console.log(this.model.contacts)
-		
+
 		var button = $(e.currentTarget);
 		var toggle = button.data("toggle");
 		var selected = button.hasClass("selected");

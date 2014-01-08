@@ -41,12 +41,14 @@
 		
 				<ul class="sub-menu">
 					{{#scheduled}}
-						<li class="schedule_{{id}}">
-							<a href="#schedule/{{id}}">
+						{{#streams}}
+						<li>
+							<a href="#schedule/{{channelid}}/{{id}}">
 								<i class="icon-{{attributes.network.icon}}"></i>
 								{{attributes.customname}}
 							</a>
 						</li>
+						{{/streams}}
 					{{/scheduled}}
 				</ul>
 			</li>

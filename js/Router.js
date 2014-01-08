@@ -4,7 +4,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		
 		'write' : 'write',
 		'share' : 'share',
-		'schedule(/:stream)' : 'schedule',
+		'schedule(/:channel)(/:stream)' : 'schedule',
 		'drafts' : 'drafts',
 		'inbox(/:channel)(/:type)(/:streamid)' : 'inbox',
 		'coworkers' : 'coworkers',
@@ -57,7 +57,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.viewshare ("general");
 	},
 	 
-	'schedule' : function (streamid)
+	'schedule' : function (channelid, streamid)
 	{
 		var parameters = 			
 		{ 
@@ -118,7 +118,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		(
 			[], 
 			{ 
-				'name' : 'Draft messages',
+				'name' : 'Co-worker wall',
 				'filter' : 'others'
 			}
 		);
@@ -128,7 +128,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
 		widgetcontainer.addWidget (widget);
 
-		widgetcontainer.title = 'Coworkers';
+		widgetcontainer.title = 'Co-workers';
 		widgetcontainer.navclass = 'inbox';
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 

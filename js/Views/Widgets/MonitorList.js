@@ -15,12 +15,15 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.category.set({messages: []});
 		
 		// Listen to category
-		this.listenTo(this.category, 'change:messages', this.fill);
-		this.listenTo(this.category, 'request', this.showloading);
-		this.listenTo(this.category, 'sync', this.hideloading);
+		this.listenTo(this.category.messages, 'seed', this.fill);
+		this.listenTo(this.category.messages, 'request', this.showloading);
+		this.listenTo(this.category.messages, 'sync', this.hideloading);
+		// this.listenTo(this.category, 'change:messages', this.fill);
+		// this.listenTo(this.category, 'request', this.showloading);
+		// this.listenTo(this.category, 'sync', this.hideloading);
 		
 		// Load category messages
-		this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
+		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
 	},
 
 	'render' : function ()
@@ -30,6 +33,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$el.find(".load-more").hide();
+		
+		// Load category messages
+		this.category.messages.touch(this.category, {records: 40});
 		
 		return this;
 	},
@@ -48,7 +54,32 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$container.removeClass("inner-loading");
 	},
 	
-	'fill' : function (category, ids)
+	'fill' : function (list)
+	{		
+		// Clean load or add
+		if(this.incremental) this.incremental = false;
+		else
+		{
+			$.each(this.entries, function(n, entry){ entry.remove()});
+			this.entries = [];
+		}
+		
+		// Get messages
+		//var messages = this.category.messages.seed(ids);
+		
+		// Add messages to view
+		for (n in list)
+		{
+			//var message = Cloudwalkers.Session.getMessage(ids[n]);
+			
+			var view = new Cloudwalkers.Views.Entry ({model: list[n], type: "full", template: "messagefullentry"});
+			this.entries.push (view);
+			
+			this.$container.append(view.render().el);
+		}
+	},
+	
+	/*'fill' : function (category, ids)
 	{
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
@@ -72,9 +103,18 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 			
 			this.$container.append(messageView.render().el);
 		}
-	},
+	},*/
 	
 	'more' : function ()
+	{
+		this.incremental = true;
+		
+		var hasmore = this.category.messages.more(this.category, this.category.parameters);
+		
+		if(!hasmore) this.$el.find(".load-more").hide();
+	},
+	
+	/*'more' : function ()
 	{
 		this.incremental = true;
 		
@@ -84,7 +124,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		this.category.fetch({endpoint: "messageids", parameters:param})
 		
-	},
+	},*/
 	
 	'negotiateFunctionalities' : function() {
 		

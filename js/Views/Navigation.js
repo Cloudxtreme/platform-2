@@ -72,7 +72,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.level = Number(account.get('currentuser').level);
 
 		// Scheduled
-		data.scheduled = account.streams.where({outgoing: 1});
+		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
+		data.scheduled.streams = account.streams.where({outgoing: 1});
 		
 		// Inbox
 		var inbox = Cloudwalkers.Session.getChannel("inbox");
