@@ -91,7 +91,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	'touchresponse' : function(url, collection, response)
 	{
 		// Get ids
-		var ids = response[this.parentmodel.get("objectType")][this.typestring];
+		var ids = response[this.parenttype][this.typestring];
 		
 		// Store results based on url
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
