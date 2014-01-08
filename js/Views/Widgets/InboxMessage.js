@@ -3,7 +3,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'tagName' : 'div',
 	'className' : "message social-box-colors",
-
+	'related' : [],
+	
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
@@ -41,146 +42,99 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			params.stream = stream;
 			
 			params.share = this.message.filterShareData(stream);
-		}	
+		}
+		
+		// add optional notifications
+		if(this.options.notification)
+			params.commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
 		
 		// Visualise	
 		this.$el.html(Mustache.render (Templates.inboxmessage, params));
 		
-		// Check notifications
-		if (this.options.notification)
-		{
-			// Does collection exist?
-			if(!this.message.notifications)
-				this.message.notifications = new Cloudwalkers.Collections.Notifications();
-			
-			// Load notifications
-			this.listenTo(this.message.notifications, 'seed', this.fillNotifcations);
-			this.message.notifications.touch(this.message, {records: 50});
-		}
-			
-		
-		/*var param = {}
-		
-		// Hacky check: is this really a message?
-		if (this.message.get("date") && this.message.get("objectType") == "comment")
-		{
-			this.comment = this.message;
-			
-			this.stopListening(this.message);
-			
-			var messages = Cloudwalkers.Session.getMessages().seed([this.message.get("parent").id]);
-			this.message = messages[0];
-			
-			this.listenTo(this.message, 'change', this.render.bind(this));
-		}
-		
-		// Load Comments
-		if (this.comment)
-		{
-			param.commented = {from: this.comment.get("from")[0], timeago: moment(this.comment.get("date")).fromNow()};
-			
-			// Fetch (hack: should be only once)
-			if(!this.message.comments)
-				this.message.comments = new Cloudwalkers.Collections.Comments();
-			
-			this.message.comments.fetch({parentid: this.message.id});
-			
-			this.listenTo(this.message.comments, 'sync', this.fillComments);
-		}		
-
-		*/
+		// Check notifications (second conditional, after message render)
+		if (this.options.notification) this.addNotifications();
 		
 		return this;
 	},
-
-	/*'render' : function ()
+	
+	'showrelated' : function()
+	{	
+		// Create related collection
+		if(!this.message.related)
+			this.message.related = new Cloudwalkers.Collections.Messages({modelstring: "related", typestring: "related", parenttype: "message"});
+			
+		// Create & append container
+		this.$related = $('<ul></ul>');
+		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
+		
+		// Listen to collection
+		this.listenTo(this.message.related, 'seed', this.fillrelated);
+			
+		// Load messages
+		this.message.related.touch(this.message, {records: 20});
+	},
+	
+	'fillrelated' : function(models)
 	{
-		
-		var param = {}
-		
-		// Hacky check: is this really a message?
-		if (this.message.get("date") && this.message.get("objectType") == "comment")
+		// Clean load or add
+		if(this.incremental) this.incremental = false;
+		else
 		{
-			this.comment = this.message;
-			
-			this.stopListening(this.message);
-			
-			var messages = Cloudwalkers.Session.getMessages().seed([this.message.get("parent").id]);
-			this.message = messages[0];
-			
-			this.listenTo(this.message, 'change', this.render.bind(this));
+			$.each(this.related, function(n, entry){ entry.remove()});
+			this.related = [];
 		}
 		
-		// Parameters
-		$.extend(param, this.message.attributes);
-		
-		if (param.attachments)
-		{
-			param.attachments = {};
-			$.each(this.message.get("attachments"), function(n, object){ param.attachments[object.type] = object });
-		}
-			
-		
-		// Load Comments
-		if (this.comment)
-		{
-			param.commented = {from: this.comment.get("from")[0], timeago: moment(this.comment.get("date")).fromNow()};
-			
-			// Fetch (hack: should be only once)
-			if(!this.message.comments)
-				this.message.comments = new Cloudwalkers.Collections.Comments();
-			
-			this.message.comments.fetch({parentid: this.message.id});
-			
-			this.listenTo(this.message.comments, 'sync', this.fillComments);
-		}		
-		
-			
-		if (this.message.get("stream"))
-		{
-			var stream = Cloudwalkers.Session.getStream(this.message.get("stream"));
-			
-			param.icon = stream.get("network").icon;
-			param.networkdescription = stream.get("defaultname");
-			param.stream = stream;
-			
-			param.share = this.message.filterShareData(stream);
-		}		
-		
-		if (param.date)
-			param.fulldate = moment(param.date).format("DD MMM YYYY HH:mm");
+		// Filter out existing model
+		models = models.filter(function(model){ return model.id != this.message.id }.bind(this));
 
-		// Visualise	
-		this.$el.html(Mustache.render (Templates.inboxmessage, param));
+		// Add models to view
+		for (n in models)
+		{	
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'inbox'});
+			
+			this.related.push (view);
+			
+			this.$related.append(view.render().el);
+		}
 		
-		return this;
-	},*/
+		// Toggle first message
+		//if(!this.entries.length) this.hidemorerelated();
+	},
 	
 	'addNotifications' : function()
 	{
+		// Does collection exist?
+		if(!this.message.notifications)
+			this.message.notifications = new Cloudwalkers.Collections.Notifications();
 		
+		// Load notifications
+		this.listenTo(this.message.notifications, 'seed', this.fillNotifications);
+		this.listenTo(this.message.notifications, 'sync', this.fillNotifications);
+		this.message.notifications.touch(this.message, {records: 50});
 	},
 	
-	'fillNotifactions' : function(collection)
+	'fillNotifications' : function(list)
 	{
 		// Don't proceed when empty
-		if(!collection.length) return false;
+		if(!list.length) return false;
+		
+		// Create array if collection
+		if(list.models) list = list.models;
 		
 		// Clear comments list
 		var $container = this.$el.find(".message-comments ul").eq(0).html("");
-		
-		collection.each(function(comment){
+	
+		for(n in list)
+		{
+			var date = list[n].get("date")? moment(list[n].get("date")).format("DD MMM YYYY HH:mm"): null;
+			var param = {from: list[n].get("from"), body: list[n].get("body"), fulldate: date, active: list[n].id == this.options.notification.id, attachments: {}};
 			
-			var param = {from: comment.get("from"), body: comment.get("body"), fulldate: moment(comment.get("date")).format("DD MMM YYYY HH:mm"), active: comment.id == this.comment.id, attachments: {}}
-			
-			if (comment.get("attachments"))
-				$.each(comment.get("attachments"), function(n, object){ param.attachments[object.type] = object });
-			
+			if (list[n].get("attachments"))
+				$.each(list[n].get("attachments"), function(n, object){ param.attachments[object.type] = object });
+				
 			$container.append(Mustache.render(Templates.inboxcomment, param));
-			
-		}.bind(this));
-		
-	} 
+		}		
+	}
 });
 
 /*

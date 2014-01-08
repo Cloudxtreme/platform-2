@@ -1,8 +1,11 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
 
-    'url' : function ()
+    'url' : function (params)
     {
-        return CONFIG_BASE_URL + 'json/message/' + this.id;
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/message/' + this.id + this.endpoint :
+        	CONFIG_BASE_URL + 'json/message/' + this.id;
     },
 
 	'initialize' : function ()
@@ -34,18 +37,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return response;
 	},
 	
+	'sync' : function (method, model, options)
+	{
+		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+
+		return Backbone.sync(method, model, options);
+	},
+	
 	'filterData' : function (type)
 	{
-		
 		// Handle loading messages
 		if(!this.get("date")) return this.attributes;
 		
 		var data = this.attributes;
 		var stream = Cloudwalkers.Session.getStream(data.stream);
-		
-		// Hack
-		if(!data.from.length) data.from = [{}];
-		
 		
 		if(data.attachments)
 		{

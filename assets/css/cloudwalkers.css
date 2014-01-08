@@ -1033,7 +1033,14 @@ nav	{
 	color: white; font-size: 12px;
 }
 
+/* Inbox related messages */
+.inbox-container .related-messages	{
+	list-style: none; margin-left: 0;
+}
 
+.inbox-container .related-messages > li	{
+	margin-top: 10px; background: white; box-shadow: 0 0 3px #d6d6d6;
+}
 
 
 

@@ -1,0 +1,35 @@
+<div class="message-header {{icon}}-color" data-id="{{id}}">
+	<div class="inherit">
+		{{#from}}
+		<div class="pull-right">
+			<span class="date">{{fulldate}}</span>
+		</div>
+		
+		<img class="avatar" alt="" src="{{avatar}}">
+		{{/from}}
+	</div>
+</div>
+
+<div class="message-body">
+	{{#attachments}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attachments}}
+	
+	{{{body.html}}}
+	
+	{{#attachments}}
+		{{#link}}
+			<div class="attachment-link">
+				<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+			</div>
+		{{/link}}
+	{{/attachments}}
+</div>
+
+<div class="message-actions">
+	{{#actions}}
+		<div class="btn-white"><i class="icon-{{icon}}"></i></div>
+	{{/actions}}
+</div>

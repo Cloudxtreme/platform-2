@@ -21,7 +21,10 @@
 		{{/link}}
 	{{/attachments}}
 	
-	<div class="comment-info pull-right">
-		{{fulldate}}
-	</div>
+	{{#fulldate}}
+	<div class="comment-info pull-right">{{fulldate}}</div>
+	{{/fulldate}}
+	{{^fulldate}}
+	<i class="icon-cloud-download"></i>
+	{{/fulldate}}
 </li>

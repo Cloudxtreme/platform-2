@@ -9,8 +9,11 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	'cursor' : false,
 	
 	
-	'initialize' : function()
+	'initialize' : function(options)
 	{
+		// Override type strings if required
+		if(options) $.extend(this, options);
+		
 		// Put "add" listener to global messages collection
 		if( Cloudwalkers.Session.user.account)
 			Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd)
@@ -23,10 +26,13 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'url' : function(a)
 	{
+		// Hack
+		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
+		
 		// Get parent model
 		var url = (this.parentmodel)?
 
-			CONFIG_BASE_URL + "json/" + this.parentmodel.get("objectType") + "/" + this.parentmodel.id :
+			CONFIG_BASE_URL + "json/" + this.parenttype + "/" + this.parentmodel.id :
 			CONFIG_BASE_URL + "json/"+ this.typestring;
 				
 		if(this.endpoint)	url += "/" + this.endpoint;
@@ -35,11 +41,11 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{
+	{		
 		// Solve response json tree problem
 		if (this.parentmodel)
-			response = response[this.parentmodel.get("objectType")];
-			
+			response = response[this.parenttype];
+
 		// Get paging
 		this.setcursor(response.paging)
 
