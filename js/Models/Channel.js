@@ -58,6 +58,10 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		} else if(method == "create")
 		{
 			this.endpoint = (options.parent)? options.parent + "/channels": "";  
+		
+		} else if(method == "delete")
+		{
+			this.endpoint = "";  
 		}
 
 		return Backbone.sync(method, model, options);

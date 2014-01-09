@@ -80,7 +80,7 @@ Cloudwalkers.Session =
 	{
 		var messagecount = Store.count("messages");
 		
-		if(messagecount > 500)
+		if(messagecount > 400)
 			Store.filter("messages", null, function(list)
 			{
 				// Sort list timestamp ASC
@@ -91,7 +91,7 @@ Cloudwalkers.Session =
 				});
 				
 				// Save newest, remove oldest
-				list = list.slice(0, 400);
+				list = list.slice(0, 300);
 				Store.write("messages", list);
 				
 				// Clean touch id-lists
