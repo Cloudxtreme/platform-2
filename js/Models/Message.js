@@ -412,6 +412,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	// Execute an action, if possible with parameters
 	'act' : function (action, parameters, callback)
 	{
+		
+		Cloudwalkers.RootView.growl (action.name, "The " + action.token + " went as planned, Sir.");
+		
 		var self = this;
 
 		if (typeof (parameters) == 'undefined')
