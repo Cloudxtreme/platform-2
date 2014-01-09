@@ -73,6 +73,30 @@ Cloudwalkers.Session =
 	},
 	
 	/**
+	 *	Manage storage
+	 **/
+
+	'manage' : function ()
+	{
+		var messagecount = Store.count("messages");
+		
+		if(messagecount > 500)
+			Store.filter("messages", null, function(list)
+			{
+				// Sort list timestamp ASC
+				list.sort(function (a, b) {
+					if (a.stamp > b.stamp) return 1;
+					if (a.stamp < b.stamp) return -1;
+					return 0;
+				});
+				
+				// Save newest, remove oldest
+				list = list.slice(0, 400);
+				Store.write("messages", list);
+			});
+	},
+	
+	/**
 	 *	Ping shortcut function
 	 **/
 

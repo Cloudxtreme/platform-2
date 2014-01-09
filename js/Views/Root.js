@@ -14,8 +14,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		this.navigation = new Cloudwalkers.Views.Navigation ();
 		this.navigation.fit();
 		
-		this.share = new Cloudwalkers.Views.Share ();
-		this.share.fit();
+		//this.share = new Cloudwalkers.Views.Share ();
+		//this.share.fit();
 
 		this.on ('content:change', this.onchange, this);
 
@@ -47,7 +47,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			
 		this.render();
 		
-		
+		Cloudwalkers.Session.manage();
 
 		/*setTimeout (function ()
 		{

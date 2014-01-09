@@ -32,7 +32,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(response.message) response = response.message;
 	
 		if(typeof response != "number")
-			Store.set("messages", response);
+			this.stamp(response);
 		
 		return response;
 	},
@@ -42,6 +42,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 
 		return Backbone.sync(method, model, options);
+	},
+	
+	'stamp' : function(params)
+	{
+		if (!params) params = {id: this.id};
+		
+		params.stamp = Math.round(new Date().getTime() *.001)
+		
+		Store.set("messages", params);
+		
+		return this;
 	},
 	
 	'filterData' : function (type)

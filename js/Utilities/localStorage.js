@@ -252,6 +252,20 @@ var StorageClass = function(successCallback, errorCallback) {
 		return this;
 	}
 	
+	/*
+	 * COUNT function
+	 *
+	 * Count the group.
+	 * Returns the number directly.
+	 */
+	 
+	 this.count = function(type) {
+		
+		var collection = JSON.parse(window.localStorage.getItem(type)); 
+		
+		return (collection)? collection.length : 0;
+	}
+	
 	/**
 	 *	CALC function
 	 *	log total localStorage size

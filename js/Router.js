@@ -28,8 +28,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'dashboard' : function ()
 	{	
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
-		
-		Store.filter("messages", null, function(list){ console.log(list) });
 	},
 	
 	/**
