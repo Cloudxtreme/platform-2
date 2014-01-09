@@ -88,6 +88,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			data.url = null;
 			data.media = {icon: data.icon};
+			data.body.plaintext = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";
 			
 		
 		} else if(type == "full")
