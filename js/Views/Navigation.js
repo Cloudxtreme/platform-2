@@ -37,11 +37,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		// Check for version.
-		if(!Cloudwalkers.Session.get("version"))
+		/*if(!Cloudwalkers.Session.get("version"))
 			Cloudwalkers.Session.updateSetting("version", response.platform.version)
 				
 		else if(Cloudwalkers.Session.get("version") != response.platform.version)
-			Cloudwalkers.Session.home();
+			Cloudwalkers.Session.home();*/
 			
 		
 	},
