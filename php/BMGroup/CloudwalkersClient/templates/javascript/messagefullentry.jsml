@@ -7,7 +7,7 @@
 			
 				<ul class="dropdown-menu">
 				{{#share}}
-					<li><a class="button-post action message-action" data-action="{{action}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/share}}
 				</ul>
 			</span>
