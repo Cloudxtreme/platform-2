@@ -20,7 +20,7 @@ Cloudwalkers.Collections.Comments = Cloudwalkers.Collections.Messages.extend({
 	'parse' : function (response)
 	{
 		if(response.message) return response.message.children;
-	},
+	}
 
 });
 

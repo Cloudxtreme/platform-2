@@ -41,7 +41,7 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
 		$message.parent().slimScroll({
-			height: "inherit",
+			height: "inherit"
 
 		});
 	}

@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'events' : 
 	{
-		'click *[data-action]' : 'action',
+		'click *[data-action]' : 'action'
 	},
 	
 	'initialize' : function ()

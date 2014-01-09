@@ -99,7 +99,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 		var contacts = child.get("from");
 		
 		if (contacts && contacts.length) this.contacts.add(contacts);	
-	},
+	}
 	
 	
 	
