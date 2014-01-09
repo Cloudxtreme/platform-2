@@ -159,7 +159,7 @@
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{network.icon}}"></i> {{attributes.customname}}</a></li>
+							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>
@@ -173,7 +173,7 @@
 			
 					<ul class="sub-menu">
 					{{#streams}}
-						<li class="trending{{channelid}}_{{id}}"><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{network.icon}}"></i> {{attributes.customname}}</a></li>
+						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
 					</ul>
 				</li>

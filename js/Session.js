@@ -93,6 +93,16 @@ Cloudwalkers.Session =
 				// Save newest, remove oldest
 				list = list.slice(0, 400);
 				Store.write("messages", list);
+				
+				// Clean touch id-lists
+				Store.filter("touches", null, function(list)
+				{
+					var cursor = Cloudwalkers.Session.getPing().cursor;
+					
+					list = list.filter(function(touch){ return touch.ping == cursor; });
+					
+					Store.write("touches", list);
+				});
 			});
 	},
 	
