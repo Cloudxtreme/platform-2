@@ -40,7 +40,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			params.networkdescription = stream.get("defaultname");
 			params.stream = stream;
 			
-			params.share = this.message.filterShareData(stream);
+			//params.share = this.message.filterShareData(stream);
 		}
 		
 		// add optional notifications
