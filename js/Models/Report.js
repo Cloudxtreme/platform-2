@@ -30,7 +30,6 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		this.evolution = null;
 	},
 	
-	
 	'getDetails' : function ()
 	{
 		var stat = this.attributes.series[0];
