@@ -60,11 +60,11 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		var diff = stat.values[0].value - stat.values[1].value;
 		if(diff > 0) diff = "+ " + diff ;
 		
-		var perc = Math.round(stat.values[0].value / stat.values[1].value *100) - 100;
+		var perc = stat.values[1].value? " (" + (Math.round(stat.values[0].value / stat.values[1].value *100) - 100) + "%)" : "";
 
 		return {
 			content : stat.values[0].value,
-			title: "<strong>" + diff + "</strong> (" + perc + "%) in last " + stat.interval,
+			title: "<strong>" + diff + "</strong>" + perc + " in last " + stat.interval,
 			description : stat.name
 		}
 	 },

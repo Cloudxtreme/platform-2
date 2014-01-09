@@ -115,7 +115,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.listenTo(this.message.notifications, 'seed', this.fillNotifications);
 		//this.listenTo(this.message.notifications, 'sync', this.fillNotifications);
 		
-		this.message.notifications.touch(this.message, {records: 50});
+		this.message.notifications.touch(this.message, {records: 50, group: 1});
 	},
 	
 	'fillNotifications' : function (list)

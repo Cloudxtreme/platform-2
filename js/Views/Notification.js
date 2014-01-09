@@ -8,9 +8,6 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		// Add options to view
 		if (options) $.extend(this, options);
 		
-		if(this.active) this.className = "active";
-		
-		
 		this.model.on ('change', this.render.bind(this));
 	},
 
@@ -22,6 +19,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM YYYY HH:mm");
 		if (this.model.get("attachments"))	$.each(this.model.get("attachments"), function(n, object){ params.attachments[object.type] = object });
 		
+		if (this.active) this.$el.addClass("active");
 		
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
