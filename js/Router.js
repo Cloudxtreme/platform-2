@@ -119,7 +119,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			[], 
 			{ 
 				'name' : 'Co-worker wall',
-				'filter' : 'others'
+				'filter' : ''
 			}
 		);
 
