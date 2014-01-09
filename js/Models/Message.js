@@ -29,10 +29,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{	
+		if(typeof response == "number") return {id: response};
+		
 		if(response.message) response = response.message;
-	
-		if(typeof response != "number")
-			this.stamp(response);
+		
+		this.stamp(response);
 		
 		return response;
 	},

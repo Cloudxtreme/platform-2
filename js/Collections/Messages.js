@@ -41,7 +41,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{		
+	{
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];
@@ -75,17 +75,19 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		this.parameters = params;
 		
 		// Check for history (within ping lifetime)
-		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor},
-			function(response)
-			{
-				if (response && response.modelids.length)
-				{
-					this.seed(response.modelids);
-					this.cursor = response.cursor;
-				}
-				else this.fetch({success: this.touchresponse.bind(this, this.url())});
-				
-			}.bind(this));
+		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+	},
+	
+	'touchlocal' : function(touch)
+	{
+		// Is there a local touch list (and filled)?
+		if (touch && touch.modelids.length)
+		{
+			this.seed(touch.modelids);
+			this.cursor = touch.cursor;
+		
+		} else this.fetch({success: this.touchresponse.bind(this, this.url())});
+		
 	},
 	
 	'touchresponse' : function(url, collection, response)

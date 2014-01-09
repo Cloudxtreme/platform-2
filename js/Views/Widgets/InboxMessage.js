@@ -4,6 +4,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	'tagName' : 'div',
 	'className' : "message social-box-colors",
 	'related' : [],
+	'notifications' : [],
 	
 	'events' : 
 	{
@@ -51,7 +52,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.$el.html(Mustache.render (Templates.inboxmessage, params));
 		
 		// Check notifications (second conditional, after message render)
-		if (this.options.notification) this.addNotifications();
+		if (this.options.notification && this.message.get("objectType")) this.addNotifications();
 		
 		return this;
 	},
@@ -112,10 +113,37 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Load notifications
 		this.listenTo(this.message.notifications, 'seed', this.fillNotifications);
-		this.listenTo(this.message.notifications, 'sync', this.fillNotifications);
+		//this.listenTo(this.message.notifications, 'sync', this.fillNotifications);
+		
 		this.message.notifications.touch(this.message, {records: 50});
 	},
 	
+	'fillNotifications' : function (list)
+	{
+		// Clean load
+		if(this.notifications.length)
+		{
+			$.each(this.notifications, function(n, entry){ entry.remove()});
+			this.notifications = [];
+		}
+		
+		// Create array if collection
+		if(list.models) list = list.models;
+		
+		// Clear comments list
+		var $container = this.$el.find(".message-comments ul").eq(0).html("");
+
+		// Add models to view
+		for (n in list)
+		{
+			var view = new Cloudwalkers.Views.Notification ({model: list[n], template: 'inboxcomment', active: list[n].id == this.options.notification.id});
+			this.notifications.push (view);
+			
+			$container.append(view.render().el);
+		}
+	}
+	
+	/*
 	'fillNotifications' : function(list)
 	{
 		// Don't proceed when empty
@@ -126,18 +154,21 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Clear comments list
 		var $container = this.$el.find(".message-comments ul").eq(0).html("");
-	
+		
 		for(n in list)
 		{
 			var date = list[n].get("date")? moment(list[n].get("date")).format("DD MMM YYYY HH:mm"): null;
-			var param = {from: list[n].get("from"), body: list[n].get("body"), fulldate: date, active: list[n].id == this.options.notification.id, attachments: {}};
+			var active = list[n].id == this.options.notification.id;
+			
+			var param = {from: list[n].get("from"), body: list[n].get("body"), fulldate: date, active: active, attachments: {}};
 			
 			if (list[n].get("attachments"))
 				$.each(list[n].get("attachments"), function(n, object){ param.attachments[object.type] = object });
 				
 			$container.append(Mustache.render(Templates.inboxcomment, param));
-		}		
+		}
 	}
+	*/
 });
 
 /*

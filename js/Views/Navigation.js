@@ -42,7 +42,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 				
 		else if(Cloudwalkers.Session.get("version") != response.platform.version)
 			Cloudwalkers.Session.home();*/
-			
 		
 	},
 	
@@ -115,11 +114,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Toggle .active class
 		$('#sidebar .active').removeClass ('active');
 		$('a[href="#' + path + '"]').parents('#sidebar .page-sidebar-menu *').addClass ('active');
-		
-		// Trace height
-		var height =  Cloudwalkers.RootView.height(true);//$(($(window).height() > $(document).height())? window: document).height();
-		$("#inner-content").css("min-height", height-42 + "px");
-		
     },
 
 	'setNotifications' : function (notifications)

@@ -21,21 +21,25 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
 		
+		// Pageview listeners
+		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
+				
 		// Add global loader
 		//this.$el.find(".page-title").append('<i class="icon-cloud-download hidden"></i>');
-		
-		
-		
+
 		
 		return this;
 	},
 	
+	'resize' : function(height)
+	{
+		this.$el.find("#widgetcontainer").height(height -140);
+	},
+	
 	'finish' : function()
 	{
-		// View minus title height 
-		var height = Cloudwalkers.RootView.height() -140;
 		
-		this.$el.find("#widgetcontainer").height(height);
+		this.resize(Cloudwalkers.RootView.height());
 		
 		// Add scroller for message
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");

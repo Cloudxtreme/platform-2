@@ -18,6 +18,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		//this.share.fit();
 
 		this.on ('content:change', this.onchange, this);
+		$(window).on("resize", this.resize.bind(this));
+		
+		this.resize();
+		
+		//$(window).on("resize", this.resize);
 
 		//Cloudwalkers.Session.on("change:first", this.rebuild, this);
 
@@ -69,6 +74,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		return (strict)?
 			(document > view? document: view): view;
+	},
+	
+	'resize' : function()
+	{
+		// Trigger resize and catch height
+		var height = this.height(true);
+		this.trigger("resize", height);
+		
+		$("#inner-content").css("min-height", height-42 + "px");
 	},
 	
 	'popup' : function (view)
@@ -360,6 +374,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'onchange': function ()
 	{
+		console.log("onchange triggered")
+		
 		/*
 		 *	Deprecated, should be OO...	
 		 */
