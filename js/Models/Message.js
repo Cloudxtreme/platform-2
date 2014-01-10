@@ -23,8 +23,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 
 		//this.addInternalActions ();
-		
-		
 	},
 	
 	'parse' : function(response)

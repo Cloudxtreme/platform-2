@@ -14,7 +14,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function()
 	{
 		// Check for outdated streams
-		// this.checkoutdated();
+		this.checkoutdated();
 	},
 	
 	'addDynamicReports' : function ()
