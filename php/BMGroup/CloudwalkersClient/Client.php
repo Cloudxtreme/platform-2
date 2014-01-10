@@ -197,6 +197,12 @@ class BMGroup_CloudwalkersClient_Client
 		return $this->call ($url, $input, 'PUT');
 	}
 
+    public function patch ($url, $get, $input = array ())
+    {
+        $url .= '?' . $this->http_build_query ($get);
+        return $this->call ($url, $input, 'PATCH');
+    }
+
 	public function post ($url, $get, $input = array ())
 	{
 		$url .= '?' . $this->http_build_query ($get);
