@@ -261,6 +261,7 @@ class BMGroup_CloudwalkersClient_Client
 
 		if (!$success)
 		{
+            http_response_code (500);
 			header('Content-Type: text/html; charset=utf-8');
 
 			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
@@ -275,6 +276,7 @@ class BMGroup_CloudwalkersClient_Client
 
 		if (!is_array ($data) && !is_object ($data))
 		{
+            http_response_code (500);
 			header('Content-Type: text/html; charset=utf-8');
 
 			echo '<h1>API ERROR: ' . $this->server . $url . '</h1>';
@@ -291,6 +293,7 @@ class BMGroup_CloudwalkersClient_Client
 
 		if (!$dataarr)
 		{
+            http_response_code (500);
 			var_dump ($data);
 		}
 
