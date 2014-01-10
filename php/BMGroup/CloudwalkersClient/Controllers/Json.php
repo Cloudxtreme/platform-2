@@ -43,7 +43,7 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 			break;
 
             case 'patch':
-                return $client->put ($action, $_GET, json_decode ($entityBody));
+                return $client->patch ($action, $_GET, json_decode ($entityBody));
             break;
 
 			case 'delete':
