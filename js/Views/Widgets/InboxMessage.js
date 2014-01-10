@@ -160,7 +160,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	'markasread' : function()
 	{
 		// Send update
-		//this.message.save({read: 1}, {patch: true, wait: true});
+		this.message.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
 		Cloudwalkers.Session.getPing().outdated("streams", this.message.get("stream"));
