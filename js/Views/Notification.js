@@ -24,7 +24,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
 		// Mark as read
-		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
+		if (this.model.get("objectType") && this.model.get("read") === 0) this.markasread();
 		
 		return this;
 	},
@@ -32,7 +32,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 	'markasread' : function()
 	{
 		// Send update
-		//this.message.save({read: 1}, {patch: true, wait: true});
+		this.model.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
 		Cloudwalkers.Session.getPing().outdated("streams", this.model.stream);

@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : "Dashboard",
+	
 	'widgets' : [
 		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, link: "#inbox"},
 		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
@@ -10,6 +11,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1}
 	],
 	
+	'initialize' : function()
+	{
+		// Check for outdated streams
+		// this.checkoutdated();
+	},
 	
 	'addDynamicReports' : function ()
 	{
@@ -117,5 +123,18 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		};
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
+	},
+	
+	'checkoutdated' : function()
+	{
+		var streams = Cloudwalkers.Session.getPing().outdated("streams");
+		
+		if(streams.length)
+		{
+			var collection = Cloudwalkers.Session.getStreams();
+			
+			collection.parameters = {ids: streams.map(function(model) { return model.id }).join(",")};
+			collection.fetch();
+		}
 	}
 });
