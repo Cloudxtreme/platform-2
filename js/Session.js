@@ -110,9 +110,14 @@ Cloudwalkers.Session =
 	 *	Ping shortcut function
 	 **/
 
-	'getPing' : function (id)
+	'getPing' : function ()
 	{
 		return this.user.account.ping;
+	},
+	
+	'ping' : function ()
+	{
+		this.user.account.ping.request();
 	},
 	
 	/**

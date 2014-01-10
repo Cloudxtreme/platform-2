@@ -2,18 +2,11 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
 	'initialize' : function(attributes){
 		
-		
-		// Save channel data
-		//Store.set("streams", attributes);
-		
 		// Child messages
 		this.messages = new Cloudwalkers.Collections.Messages();
 		
 		// Child contacts (temp hack, should be channel level only)
 		this.contacts = new Cloudwalkers.Collections.Contacts();
-
-		
-		//this.messages = new Cloudwalkers.Collections.Messages([], {id: this.id, endpoint: "stream"});
 		
 		// Has reports?
 		if(this.get("statistics"))
@@ -21,7 +14,9 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 			this.reports = new Cloudwalkers.Collections.Reports();
 			this.reports.streamid = this.id;
 		}
-
+		
+		// Listen to outdates
+		this.on("outdated", this.fetch)
 	},
 	
 	'url' : function()
@@ -33,9 +28,11 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{
-		Store.set("streams", response.stream);
+		if(response.stream) response = response.stream;
 		
-		return response.stream;
+		Store.set("streams", response);
+		
+		return response;
 	},
 	
 	'sync' : function (method, model, options)

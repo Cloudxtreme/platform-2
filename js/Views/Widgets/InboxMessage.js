@@ -8,6 +8,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'events' : 
 	{
+		'remove' : 'destroy',
 		'click *[data-action]' : 'action'
 	},
 	
@@ -163,7 +164,12 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.message.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
-		Cloudwalkers.Session.getPing().outdated("streams", this.message.get("stream"));
+		Cloudwalkers.Session.getStreams().outdated(this.message.get("stream"));
+	},
+	
+	'destroy' : function()
+	{
+		$.each(this.notifications, function(n, entry){ entry.remove()});
 	}
 	
 });

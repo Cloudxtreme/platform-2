@@ -4,6 +4,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'entries' : [],
 	
 	'events' : {
+		'remove' : 'destroy',
 		'click .load-more' : 'more'
 	},
 	
@@ -34,7 +35,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$container = this.$el.find ('.messages-container');
 		this.$el.find(".load-more").hide();
 		
-		// Load category messages
+		// Load category message
 		this.category.messages.touch(this.category, {records: 40});
 		
 		return this;
@@ -142,5 +143,10 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 			alwaysVisible: false,
 			railVisible: false
 		});
+	},
+	
+	'destroy' : function()
+	{
+		$.each(this.entries, function(n, entry){ entry.remove()});
 	}
 });

@@ -12,6 +12,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'events' : {
+		'remove' : 'destroy',
 		'click [data-toggle]' : 'togglefilter',
 		'input .input-rounded' : 'comparesuggestions',
 		'click [data-contact]' : 'filtercontacts',
@@ -22,6 +23,10 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'initialize' : function ()
 	{
+		/*// Unread test 
+		var test = Cloudwalkers.Session.getMessage(4475450); //4368951, 3351274
+		test.save({read: 0}, {patch: true, wait: true}); // */
+		
 		// Which model to focus on
 		this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
@@ -302,5 +307,10 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			height: "inherit"
 
 		});
+	},
+	
+	'destroy' : function()
+	{
+		$.each(this.entries, function(n, entry){ entry.remove()});
 	}
 });

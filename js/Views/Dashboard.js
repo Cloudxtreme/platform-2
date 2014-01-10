@@ -14,7 +14,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function()
 	{
 		// Check for outdated streams
-		this.checkoutdated();
+		Cloudwalkers.Session.ping();
+		
+		tm = setInterval(function(){
+			
+			console.log("stream unread:", Cloudwalkers.Session.getStream(348).get("count").incomingUnread);
+			
+			
+		}, 2000)
+		
 	},
 	
 	'addDynamicReports' : function ()
@@ -123,18 +131,5 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		};
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
-	},
-	
-	'checkoutdated' : function()
-	{
-		var streams = Cloudwalkers.Session.getPing().outdated("streams");
-		
-		if(streams.length)
-		{
-			var collection = Cloudwalkers.Session.getStreams();
-			
-			collection.parameters = {ids: streams.map(function(model) { return model.id }).join(",")};
-			collection.fetch();
-		}
 	}
 });

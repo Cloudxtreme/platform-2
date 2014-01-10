@@ -18,7 +18,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		this.fetch({success: this.schedule.bind(this), error: this.toing});
 		
 		this.on("change:paging", this.setCursor, this);
-		this.on("change:updates", this.updates, this);
+		this.on("change:updates", this.updateModels, this);
 		this.on("change:add", this.addModels, this);
 	},
 	
@@ -51,11 +51,25 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	/**
 	 *	Update [something]	
 	 **/
-	 'updates' : function(ping, updates)
+	 'updateModels' : function(ping, updates)
 	 {
-		 if(!updates.length) return null;
-		 		 
-		 console.log("ping updates callback: ", updates);
+		// Accounts
+		if (updates.accounts) Cloudwalkers.Session.getAccounts().updates(updates.accounts);
+		
+		// Streams
+		if (updates.streams) Cloudwalkers.Session.getStreams().updates(updates.streams);
+		
+		// Messages
+		if (updates.messages) Cloudwalkers.Session.getMessages().updates(updates.messages);
+		
+		// Notifications
+		if (updates.notifications) Cloudwalkers.Session.getNotifications().updates(updates.notifications);
+		
+		// Users
+		if (updates.users) Cloudwalkers.Session.getUsers().updates(updates.users);
+		
+		// Contacts
+		if (updates.contacts) Cloudwalkers.Session.getContacts().updates(updates.contacts);
 	 },
 	 
 	 /**
@@ -67,31 +81,21 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		 
 		 console.log("ping add callback: ", add);
 	 },
-	 
-	 /**
-	 *	Outdated function
-	 *	Read collection (no id) or set model (id given) state.
-	 **/
-	 'outdated' : function(collection, id)
-	 {
-		// Collection
-		var collection = Cloudwalkers.Session.getAccount()[collection];
-		
-		if(!id) return collection.filter(function(model){ return model.outdated});
-		
-		// Update model
-		var model = collection.get(id);
-		model.outdated = true;
-		
-		return model;
-	 },
 
+	 'request' : function()
+	 {
+		// Remove running schedule
+		window.clearTimeout(this.timeout);
+		
+		// Fetch.
+		this.fetch({success: this.schedule.bind(this), error: this.toing.bind(this)});
+	 },
 	
 	'schedule' : function()
 	{
 		this.timeout = setTimeout( function()
 		{
-			this.fetch({success: this.schedule.bind(this), error: this.toing});
+			this.fetch({success: this.schedule.bind(this), error: this.toing.bind(this)});
 			
 		}.bind(this), this.timer());
 	},
@@ -105,5 +109,9 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	'toing' : function()
 	{	
 		Cloudwalkers.RootView.growl ("Ping", "There is no pong.");
+		
+		// Schedule new Ping, with max allowed interval.
+		this.interval = this.max;
+		this.schedule();
 	}
 });

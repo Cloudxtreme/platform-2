@@ -25,13 +25,13 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options) {
 		
-		// Store Local
+		/*// Store Local - deprecated
 		if( method == "read")
 			Store.get(this.url(), null, function(data)
 			{
 				if(data) this.add(data);
 
-			}.bind(this));
+			}.bind(this));*/
 		
 		return Backbone.sync(method, model, options);
 	},
@@ -39,6 +39,33 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	'distantAdd' : function(model)
 	{
 		if(!this.get(model.id)) this.add(model);	
+	},
+	
+	'updates' : function (ids)
+	{
+		for(n in ids)
+		{
+			var model = this.get(ids[n]);
+			
+			if(model && model.get("objectType"))
+			{
+				// Store with outdated parameter
+				Store.set(this.typestring, {id: model.id, outdated: true});
+				
+				// Trigger active models
+				model.outdated = true;
+				model.trigger("outdated");
+			}
+		}
+	},
+
+	'outdated' : function(id)
+	{
+		// Collection
+		if(!id) return this.filter(function(model){ return model.outdated});
+		
+		// Update model
+		var model = this.updates([id]);
 	},
 	
 	'seed' : function(ids)

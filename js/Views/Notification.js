@@ -35,6 +35,6 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		this.model.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
-		Cloudwalkers.Session.getPing().outdated("streams", this.model.stream);
+		Cloudwalkers.Session.getStreams().outdated(this.message.get("stream"));
 	}
 });
