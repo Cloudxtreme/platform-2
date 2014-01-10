@@ -67,6 +67,24 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		 
 		 console.log("ping add callback: ", add);
 	 },
+	 
+	 /**
+	 *	Outdated function
+	 *	Read collection (no id) or set model (id given) state.
+	 **/
+	 'outdated' : function(collection, id)
+	 {
+		// Collection
+		var collection = Cloudwalkers.Session.getAccount()[collection];
+		
+		if(!id) return collection.filter(function(model){ return model.outdated});
+		
+		// Update model
+		var model = collection.get(id);
+		model.outdated = true;
+		
+		return model;
+	 },
 
 	
 	'schedule' : function()

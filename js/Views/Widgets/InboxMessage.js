@@ -15,11 +15,14 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	{
 		this.message = this.options.model;
 
-		this.listenTo(this.message, 'change', this.render.bind(this));
+		this.listenTo(this.message, 'change', this.render);
 	},
 
 	'render' : function ()
 	{
+		// Manage loading
+		this.loading(!this.message.get("objectType"));
+		
 		// Parameters
 		var params = {};
 		$.extend(params, this.message.attributes);
@@ -40,8 +43,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			params.icon = stream.get("network").icon;
 			params.networkdescription = stream.get("defaultname");
 			params.stream = stream;
-			
-			//params.share = this.message.filterShareData(stream);
 		}
 		
 		// add optional notifications
@@ -54,15 +55,26 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Check notifications (second conditional, after message render)
 		if (this.options.notification && this.message.get("objectType")) this.addNotifications();
 		
+		// Mark as read
+		if (this.message.get("objectType") && !this.message.get("read")) this.markasread();
+		
 		return this;
+	},
+	
+	'loading' : function(show)
+	{
+		 if(show)	$(".inbox").addClass("loading");
+		 else		$(".inbox").removeClass("loading");
 	},
 	
 	'showrelated' : function()
 	{	
+		// Show loading
+		this.loading(true);
+	
 		// Create & append related container
 		this.$related = $('<ul></ul>');
 		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
-		
 		
 		// Create related collection
 		if(!this.message.related)
@@ -73,9 +85,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			
 		// Load messages
 		this.message.related.touch(this.message, {records: 20});
-		
-		// Show global loader
-		$(".page-title i").removeClass("hidden");
 	},
 	
 	'fillrelated' : function(models)
@@ -101,19 +110,21 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			this.$related.append(view.render().el);
 		}
 		
-		// Hide global loader
-		$(".page-title i").addClass("hidden");
+		// Hide loading
+		this.loading(false);
 	},
 	
 	'addNotifications' : function()
 	{
+		// Manage loading
+		this.loading(true);
+		
 		// Does collection exist?
 		if(!this.message.notifications)
 			this.message.notifications = new Cloudwalkers.Collections.Notifications();
 		
 		// Load notifications
 		this.listenTo(this.message.notifications, 'seed', this.fillNotifications);
-		//this.listenTo(this.message.notifications, 'sync', this.fillNotifications);
 		
 		this.message.notifications.touch(this.message, {records: 50, group: 1});
 	},
@@ -141,103 +152,18 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			
 			$container.append(view.render().el);
 		}
+		
+		// Manage loading
+		this.loading(false);
+	},
+	
+	'markasread' : function()
+	{
+		// Send update
+		//this.message.save({read: 1}, {patch: true, wait: true});
+		
+		// Mark stream
+		Cloudwalkers.Session.getPing().outdated("streams", this.message.get("stream"));
 	}
 	
-	/*
-	'fillNotifications' : function(list)
-	{
-		// Don't proceed when empty
-		if(!list.length) return false;
-		
-		// Create array if collection
-		if(list.models) list = list.models;
-		
-		// Clear comments list
-		var $container = this.$el.find(".message-comments ul").eq(0).html("");
-		
-		for(n in list)
-		{
-			var date = list[n].get("date")? moment(list[n].get("date")).format("DD MMM YYYY HH:mm"): null;
-			var active = list[n].id == this.options.notification.id;
-			
-			var param = {from: list[n].get("from"), body: list[n].get("body"), fulldate: date, active: active, attachments: {}};
-			
-			if (list[n].get("attachments"))
-				$.each(list[n].get("attachments"), function(n, object){ param.attachments[object.type] = object });
-				
-			$container.append(Mustache.render(Templates.inboxcomment, param));
-		}
-	}
-	*/
 });
-
-/*
-Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Widgets.DetailedView.extend({
-
-	'id' : 'inbox',
-
-	'initialize' : function ()
-	{
-		var self = this;
-		this.options.list.on ('select:message', function (message) { self.selectMessage (message); });
-	},
-
-	'selectMessage' : function (message)
-	{
-		var messageView;
-
-		// ALWAYS show the parent message
-		var parent = message.get ('parentmodel');
-		var selectedcomment = null;
-
-		if (parent)
-		{
-			selectedcomment = message;
-			message = parent;
-		}
-
-		var parameters = {
-			'model' : message,
-			'selectedchild' : selectedcomment,
-			'template' : 'messagedetailview',
-			'childtemplate' : 'messagedetailviewchild',
-			'originaltemplate' : 'messagedetailoriginal',
-			'tagName' : 'div',
-			'showcomments' : true
-		};
-
-		messageView = new Cloudwalkers.Views.Message (parameters);
-
-		this.$el.html (messageView.render ().el);
-		
-		this.setHeight(messageView.$el);
-		this.addScroll(messageView.$el);
-		
-	},
-	
-	'render' : function ()
-	{
-		this.$el.html ('');
-		
-		return this;
-	},
-	
-	'setHeight' : function($el) {
-		
-		$el.css("height", $("#inboxcontainer").height() - 16 + "px");	
-	},
-	
-	'addScroll' : function ($el) {
-
-		$el.find('.scroller').slimScroll({
-			size: '6px',
-			color: '#a1b2bd',
-			position: 'right',
-			height: 'auto',
-			alwaysVisible: false,
-			railVisible: false,
-			disableFadeOut: true
-		});
-	}
-});
-*/

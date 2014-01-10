@@ -36,7 +36,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		}.bind($(e.target))});
 	},
 
-	
+	/* on it's way to be deprecated */
 	'negotiateFunctionalities' : function(el) {
 		
 		// Check collapse option

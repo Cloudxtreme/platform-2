@@ -5,10 +5,8 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'span' : 0,
 	'widgets' : [],
 	'widgetviews' : [],
-	
-	'initialize' : function()
-	{
-		this.on("destroy", this.destroy)
+	'events' : {
+		'remove': 'destroy'
 	},
 
 	'render' : function ()
@@ -60,9 +58,5 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'destroy' : function ()
 	{
 		$.each(this.widgetviews, function(i, view){ view.remove() });
-		
-		this.remove();
 	}
-
-	
 });

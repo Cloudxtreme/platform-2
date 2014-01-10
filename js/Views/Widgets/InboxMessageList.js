@@ -1,7 +1,6 @@
 Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	// To-do: if url streamid is given, load network-related only.
-	// To-do: add loading underneath message view
 	// To-do: local manipulate list-view & toggle
 
 	'id' : 'inboxlist',
@@ -57,10 +56,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'showloading' : function ()
 	{
 		this.$container.addClass("inner-loading");
+
+		$(".inbox").addClass("loading");
 		
-		$(".page-title i").removeClass("hidden");
-		
-		//this.$el.find(".icon-cloud-download").show();
 		this.$el.find(".load-more").hide();
 	},
 	
@@ -68,8 +66,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{
 		if(collection.cursor && response.channel[this.collectionstring].length)
 			this.$el.find(".load-more").show();
-			
-		$(".page-title i").addClass("hidden");
+
+		$(".inbox").removeClass("loading");
 		
 		this.$container.removeClass("inner-loading");
 	},

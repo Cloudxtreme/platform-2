@@ -9,6 +9,7 @@
 		<i class="icon-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
+		<div class="dot {{media.icon}}-color"></div>
 		<img class="avatar" alt="" src="{{avatar}}">
 	{{/iconview}}
 		<strong>{{displayname}}</strong>

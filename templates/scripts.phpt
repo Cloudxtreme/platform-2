@@ -4,7 +4,6 @@
 </script>
 
 <!-- TEMPORARY CDN'S, UNTILL PLATFORM CACHING -->
-<!--<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>-->
 <script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="//cdn.jsdelivr.net/uniformjs/2.1.1/jquery.uniform.min.js" type="text/javascript" ></script>
 <script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
@@ -45,7 +44,6 @@
 <![endif]-->
 
 <!-- PAGE LEVEL SCRIPTS -->
-<script src="/assets/scripts/app.js" type="text/javascript"></script>
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 

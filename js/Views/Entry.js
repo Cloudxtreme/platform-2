@@ -5,18 +5,16 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'events' : 
 	{
+		'remove' : 'destroy',
 		'click *[data-action]' : 'action',
-		'click' : 'toggle'
+		'click' : 'toggle',
 	},
 	
 	'initialize' : function ()
 	{
-		
 		if(this.options.template) this.template = this.options.template;
 		
-		this.model.on ('change', this.render.bind(this));
-		
-		this.on ('destroy', this.destroy);
+		this.listenTo(this.model, 'change', this.render);
 	},
 
 	'render' : function ()
@@ -25,19 +23,19 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(this.$el.find("[data-date]")) this.time();
 		
+		if(this.options.type == "inbox") this.checkUnread();
+		
 		return this;
 	},
 	
 	'toggle' : function() { this.trigger("toggle", this); },
 	
-	/*'clickable' : function(url)
+	'checkUnread' : function()
 	{
-		this.$el.on("click", function(url)
-		{ 
-			document.location = url;
-			
-		}.bind(this, url? url: this.options.model.location()));
-	},*/
+		if(this.model.get("objectType") && !this.model.get("read"))
+		
+			this.$el.addClass("unread")
+	},
 	
 	'action' : function (element)
 	{
@@ -118,16 +116,15 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		else if(diff < 86400)	human = Math.round(diff/3600) + "h";
 		else if(diff < 2592000)	human = Math.round(diff/86400) + "d";
 		else					human = Math.round(diff/2592000) + "mo";
-		//else					human = "long ago";
 		
 		this.$el.find("[data-date]").html(human);
 		
-		this.tm = setTimeout(this.time.bind(this), 60000);
+		this.tm = setTimeout(this.time.bind(this), 1000);//60000);
 	},
 	
 	'destroy' : function ()
     {
-        window.clearTimeout(this.tm);
+		window.clearTimeout(this.tm);
     }
 
 });

@@ -712,6 +712,15 @@ nav	{
 .portlet.box.web-color  { background-color: #f39501 ; }
 .portlet.box.blog-color  { background-color: #f39501 ; }
 
+.dot.facebook-color { background-color: #3B5998; }
+.dot.twitter-color  { background-color: #01a9da; }
+.dot.linkedin-color { background-color: #1783BC; }
+.dot.tumblr-color { background-color: #385775 ; }
+.dot.google-plus-color  { background-color: #DD4C39 ; }
+.dot.youtube-color  { background-color: #CC181E ; }
+.dot.web-color  { background-color: #f39501 ; }
+.dot.blog-color  { background-color: #f39501 ; }
+
 /**
 * Button colors
 */
@@ -795,6 +804,17 @@ nav	{
 
 .inbox #widgetcontainer	{
 	border: 1px solid #e6e6e6; background: #eee; z-index: 1; box-shadow: inset 0 0 3px #d6d6d6;
+}
+
+
+
+.inbox.loading h3.page-title:after	{
+	float: right; width: 10%; height: 21px; display: block;
+	text-align: right; font-family: FontAwesome; font-size: 21px; color: #ddd; line-height: 2.4em; 
+	content: "\F0ED"; -webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
 }
 
 #inboxlist {
@@ -887,6 +907,11 @@ nav	{
 #inboxlist .list li.active	{ background: #d9edf7; }
 #inboxlist .list li.active:hover	{ background: #b1e2ec; }
 
+#inboxlist .list li.unread { line-height: 24px; }
+#inboxlist .list li.unread .dot { display: block; }
+#inboxlist .list li.unread .avatar { display: none; }
+
+
 #inboxlist .list span.number	{
 	float: right; background: #b1e2ec; border-radius: 5px !important; padding: 0 6px;
 	color: white; font-weight: bold;
@@ -901,6 +926,10 @@ nav	{
 #inboxlist .list .icon	{ float: left; margin-right: 8px; color: #2bbedc; font-size: 18px; padding: 2px 4px 0 0; vertical-align: center; }
 #inboxlist .list .icon-right	{ float: right; color: #666; font-size: 1.3em; }
 
+#inboxlist .list .dot {
+	display: none; float: left; position: relative; top: 3px;  margin-right: 10px; width: 8px; height: 8px; border: 6px solid white; border-radius: 50% !important; 
+}
+.dot { background-color: #5373d0; }
 
 #inboxlist .list img.avatar {
 	position: relative; top: 2px; margin: 0 5px 5px 0; width: 22px; height: 22px;  background-color: #ddd; border-radius: 50% !important; 

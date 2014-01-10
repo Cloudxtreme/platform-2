@@ -119,9 +119,9 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		//delete /account/ID/users/USER ID	
 	},
 	
+	/* on it's way to be deprecated */
 	'negotiateFunctionalities' : function(el) {
-		
-		
+	
 		// Check collapse option
 		$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	},

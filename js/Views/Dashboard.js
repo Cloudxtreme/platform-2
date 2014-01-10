@@ -54,7 +54,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					break;
 					
 				case 'schedulecounter':
-					var widget = this.addScheduleCounters (widgets[i]);//var widget = new Cloudwalkers.Views.Widgets.ScheduleCounter(widgets[n]);
+					var widget = this.addScheduleCounters (widgets[i]);
 					break;
 					
 				case 'coworkers':
@@ -92,14 +92,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		var channel = Cloudwalkers.Session.getChannel("internal");
 		
 		channel.outgoing = new Cloudwalkers.Collections.Streams(channel.get("additional").outgoing);
-		
-		// Prep and sort list
-		/*channel.attributes.outgoing = [];
-		
-		$.each(channel.attributes.additional.outgoing, function(n, entry)
-		{
-			channel.attributes.outgoing.push($.extend(entry, {unread: entry.count.scheduled})); 
-		});*/
 		
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		

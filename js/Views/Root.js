@@ -17,7 +17,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		//this.share = new Cloudwalkers.Views.Share ();
 		//this.share.fit();
 
-		this.on ('content:change', this.onchange, this);
+		//this.on ('content:change', this.onchange, this);
 		$(window).on("resize", this.resize.bind(this));
 		
 		this.resize();
@@ -45,7 +45,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'setView' : function (view)
 	{
 		
-		if (this.view) this.view.trigger ('destroy');
+		if (this.view) this.view.remove();
 		Cloudwalkers.Session.trigger('destroy:view');
 		
 		this.view = view;	
@@ -370,16 +370,5 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
-	},
-
-	'onchange': function ()
-	{
-		console.log("onchange triggered")
-		
-		/*
-		 *	Deprecated, should be OO...	
-		 */
-		App.initUniform();
-		$('.tooltips').tooltip ();
 	}
 });

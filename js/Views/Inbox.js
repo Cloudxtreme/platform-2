@@ -23,9 +23,6 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		
 		// Pageview listeners
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
-				
-		// Add global loader
-		//this.$el.find(".page-title").append('<i class="icon-cloud-download hidden"></i>');
 
 		
 		return this;
@@ -44,10 +41,7 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		// Add scroller for message
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
-		$message.parent().slimScroll({
-			height: "inherit"
-
-		});
+		$message.parent().slimScroll({height: "inherit"});
 	}
 	
 });

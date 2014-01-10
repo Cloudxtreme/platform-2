@@ -10,6 +10,9 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 	'sizecounter' : 0,
 	'newline' : true,
 	'templatename': "widgetcontainer",
+	'events' : {
+		'remove': 'destroy'
+	},
 
 	'initialize' : function ()
 	{
@@ -23,14 +26,6 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		this.sizecounter = 0;
 		
 		this.title = this.options.title? this.options.title: this.title;
-		
-		this.on ('destroy', function ()
-		{
-			for (var i = 0; i < this.widgets.length; i ++)
-			{
-				self.widgets[i].widget.trigger ('destroy');
-			}
-		});
 	},
 
 	'initializeWidgets' : function ()
@@ -191,6 +186,14 @@ Cloudwalkers.Views.Widgets.WidgetContainer = Backbone.View.extend({
 		{
 			self.trigger ('content:change');
 		}, 1);
+	},
+	
+	'destroy' : function ()
+	{
+		for (n in this.widgets)
+		{
+			this.widgets[n].widget.trigger ('destroy');
+		}
 	}
 
 });

@@ -87,6 +87,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		);
 	},
 	
+	/* on it's way to be deprecated */
 	'negotiateFunctionalities' : function(el) {
 		
 		// Check collapse option
