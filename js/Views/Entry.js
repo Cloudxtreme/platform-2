@@ -118,7 +118,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		this.$el.find("[data-date]").html(human);
 		
-		this.tm = setTimeout(this.time.bind(this), 1000);//60000);
+		this.tm = setTimeout(this.time.bind(this), 60000);
 	},
 	
 	'destroy' : function ()
