@@ -13,7 +13,7 @@
 					{{#list}}
 						<a href="{{url}}">
 							<li>
-								<span class="number unread-{{unread}}">{{unread}}</span>
+								<span class="number unread-{{count}}">{{count}}</span>
 								<i class="icon-{{icon}}"></i>
 								{{name}}
 							</li>

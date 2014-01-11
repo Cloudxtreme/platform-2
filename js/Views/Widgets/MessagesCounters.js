@@ -20,10 +20,13 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		for (n in this.list.models)
 		{
+			// Add change listeners
 			this.listenTo(this.list.models[n], "change", this.render);
 			this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
-		}
 			
+			// Place counter
+			this.list.models[n].count = this.list.models[n].get("count")[options.countString];
+		}
 	},
 	
 	'render' : function ()
@@ -31,10 +34,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		var data = { list: [] };		
 		$.extend (data, this.options);
 		
-		this.list.comparator = function (a, b)
-		{
-			return (b.get("count").incomingUnread? b.get("count").incomingUnread: 0) - (a.get("count").incomingUnread? a.get("count").incomingUnread: 0);
-		}
+		this.list.comparator = function (a, b) { return b.count - a.count }
 		
 		this.list.sort();
 		
@@ -43,7 +43,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 			var attr = model.attributes;
 			var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
 			
-			data.list.push({ name: attr.name, url: url, unread: attr.count.incomingUnread ? attr.count.incomingUnread : 0, icon: attr.network ?attr.network.icon: data.icon });
+			data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
 		});
 
 		this.$el.html (Mustache.render (Templates.messagescounters, data));

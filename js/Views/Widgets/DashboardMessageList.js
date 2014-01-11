@@ -7,16 +7,24 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	'messagetemplate' : 'dashboardmessage',
 	'entries' : [],
 	
-	'initialize' : function()
+	'initialize' : function(options)
 	{
+		if (options) $.extend(this, options); 
+			
+		if(!this.model.messages)
+			this.model.messages = new Cloudwalkers.Collections.Messages();
 		
-		this.model = this.options.model;		
+		
 
 		// Clear the category (prevent non-change view failure)
-		this.model.set({messages: []});
+		//this.model.set({messages: []});
 		
 		// Listen to category
-		this.listenTo(this.model, 'change:messages', this.fill);
+		//this.listenTo(this.model, 'change:messages', this.fill);
+		
+		// Listen to model
+		this.listenTo(this.model.messages, 'seed', this.fill);
+		
 		
 		this.initializeWidget ();
 	},
@@ -26,28 +34,46 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		this.$el.html (Mustache.render (Templates.dashboardmessagecontainer, this.options));
 		this.$container = this.$el.find ('.messages-container');
 		
+		this.type = (this.type == "news" || this.type == "profiles")? "trending": this.type;
+		
 		if(!this.options.filters) this.options.filters = {};
 		this.options.filters.records = 10;
 		
+		// Load messages
+		this.model.messages.touch(this.model, this.filters);
+		
+		 
+		
 		// Load category messages
-		this.model.fetch({endpoint: "messageids", parameters:this.options.filters});
-		
-		
-		//if(this.options.streamid)
-		//{
-				// HACK! Stream model should already exist
-				//this.options.stream.messages = new Cloudwalkers.Collections.Messages([], {id: this.options.stream.id, endpoint: "stream"});
-				//var messages = new Cloudwalkers.Collections.Messages([], {id: this.options.streamid, endpoint: "stream"});
-		//} else	var messages = this.options.channel.messages;
-		
-		
-		//if(this.options.model)
-		//	this.options.model.messages.hook({success: this.fill.bind(this), error: this.fail, records: 10});
+		//this.model.fetch({endpoint: "messageids", parameters:this.options.filters});
 
 		return this;
 	},
 	
-	'fill' : function (model, ids)
+	'fill' : function (models)
+	{
+		// Hide loader
+		this.$el.find('.inner-loading').toggleClass(models.length? 'inner-loading': 'inner-empty inner-loading');
+		
+		// Clean load
+		$.each(this.entries, function(n, entry){ entry.remove()});
+		this.entries = [];
+
+		// Add models to view
+		for (n in models)
+		{
+			// Add link
+			if(this.link) models[n].link = this.link;
+			
+			// Render view
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: this.type});
+			this.entries.push (view);
+			
+			this.$container.append(view.render().el);
+		}
+	},
+
+	/*'fill' : function (model, ids)
 	{
 		
 		this.$el.find('.inner-loading').toggleClass(ids.length? 'inner-loading': 'inner-empty inner-loading');
@@ -76,36 +102,6 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 			
 			this.$container.append(messageView.render().el);
 		}
-	},
-	
-	/*'fill' : function (collection)
-	{	
-		
-		// console.log(this.options.link, collection, b)
-		
-		this.$el.find('.inner-loading').toggleClass(collection.length? 'inner-loading': 'inner-empty inner-loading');
-		
-		var $container = this.$el.find(".messages-container").eq(-1);
-		
-		// Go trough all messages
-		var type = (this.options.type == "news" || this.options.type == "profiles")? "trending": this.options.type; 
-		
-		collection.each (function (message)
-		{
-			var data = {
-				'model' : message,
-				'template' : 'smallentry',
-				'type' : type
-			};
-			
-			if(this.options.link) message.link = this.options.link;
-			
-			var messageView = new Cloudwalkers.Views.Entry (data);
-			
-			$container.append(messageView.render().el);
-		}.bind(this));
-		
-
 	},*/
 	
 	'fail' : function ()

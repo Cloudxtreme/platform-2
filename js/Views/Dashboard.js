@@ -3,9 +3,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'title' : "Dashboard",
 	
 	'widgets' : [
-		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, link: "#inbox"},
-		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true},
-		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true},
+		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, link: "#inbox", countString: "incomingUnread"},
+		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming"},
+		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled"},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
 		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
 		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1}
@@ -15,13 +15,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	{
 		// Check for outdated streams
 		Cloudwalkers.Session.ping();
-		
-		tm = setInterval(function(){
-			
-			console.log("stream unread:", Cloudwalkers.Session.getStream(348).get("count").incomingUnread);
-			
-			
-		}, 2000)
 		
 	},
 	
@@ -127,7 +120,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
 		widgetdata.filters = {
 			sort: "engagement",
-			since: Math.round(Date.now()/1000) - 86400 *widgetdata.since
+			since: Math.round(Date.now()/3600000) *3600 - 86400 *widgetdata.since
 		};
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
