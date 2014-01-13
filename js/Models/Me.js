@@ -57,7 +57,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// Check default account
 		if(!me.settings.currentAccount)
 			me.settings = {currentAccount: me.accounts[0].id};
-			
+						
 		return me;
 	},
 	

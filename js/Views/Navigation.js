@@ -111,6 +111,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Ignore Dashboard start
 		if(!path) return null;
 		
+		this.setActive(path);
+    },
+    
+    'setActive' : function (path) {
+		
 		// Toggle .active class
 		$('#sidebar .active').removeClass ('active');
 		$('a[href="#' + path + '"]').parents('#sidebar .page-sidebar-menu *').addClass ('active');

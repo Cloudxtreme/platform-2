@@ -67,6 +67,7 @@
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
+<script type="text/javascript" src="/js/Views/Firsttime.js"></script>
 
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>

@@ -14,6 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'keywords' : 'managekeywords',
 		'reports(/:streamid)' : 'reports',
 		'settings(/:sub)' : 'settings',
+		'firsttime' : 'firsttime',
 		'dashboard/:accountid' : 'changeaccount',
 		'home' : 'home',
 		'*path' : 'dashboard'
@@ -27,6 +28,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'dashboard' : function ()
 	{	
+		// Check first-timer
+		if (Cloudwalkers.Session.getAccount().get("firstTime"))
+			 
+			return this.navigate("#firsttime", true);
+		
+		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
 	},
 	
@@ -321,6 +328,16 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);
 	},
+	
+	/**
+	 *	First-time
+	 **/
+
+	'firsttime' : function ()
+	{	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
+	},
+	
 
 	'home' : function ()
 	{
