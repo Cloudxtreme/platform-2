@@ -6,6 +6,8 @@
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/Ping.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
+<script type="text/javascript" src="/js/Utilities/IDBStorage.js"></script>
+<script type="text/javascript" src="/js/Utilities/IDBstores.js"></script>
 
 <!-- Deprecated Utilities -->
 <script type="text/javascript" src="/js/Utilities/Utils.js"></script>

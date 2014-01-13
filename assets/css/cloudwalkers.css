@@ -1064,6 +1064,10 @@ nav	{
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
+.inbox-container .message-comments img {
+	max-height: 22px; 
+}
+
 .inbox-container .message-comments p { display: inline; }
 
 .inbox-container .comment-info {

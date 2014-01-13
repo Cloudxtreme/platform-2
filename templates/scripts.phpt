@@ -54,7 +54,11 @@
 <script>
 	$(document).ready(function() {   
 		
-		Store = new StorageClass();
+		Store = new StorageClassLocal();
+		
+		/*Store = window.indexedDB?
+			new StorageClassIDB("CloudwalkersDB", 1):
+			new StorageClassLocal();*/
 		
 		Cloudwalkers.init ();
 	});

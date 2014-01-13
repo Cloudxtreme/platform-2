@@ -1,5 +1,36 @@
-var StorageClassLocal = function(successCallback, errorCallback) {
+var StorageClassIDB = function(dbname, version) {
 	
+	/*
+	 * RETREIVE db
+	 *
+	 * Get the indexed db
+	 * Update if needed
+	 */
+	
+	var db;
+	var request = indexedDB.open(dbname, version);
+	
+	var error = function(err) { console.log("IndexedDB error.", err); }
+	
+	// Start-up Error
+	request.onerror = function(event) {
+		
+		console.log("IndexedDB locked.");
+		
+		// Retreive backup
+		Store = new StorageClassLocal();
+	};
+	
+	// Start-up Success
+	request.onsuccess = function(event) {
+
+		db = request.result;
+		db.onerror = error;
+	};
+	
+	// Upgrade needed
+	request.onupgradeneeded = IDBstores;
+
 	/*
 	 * GET function
 	 *
@@ -28,7 +59,7 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 	 * FILTER function
 	 *
 	 * Return matching array, empty array otherwise.
-	 * if no selector is given, return all members of type
+	 * if no selector is given, return all memebers of type
 	 */
 	 
 	 this.filter = function(type, selector, callback) {
