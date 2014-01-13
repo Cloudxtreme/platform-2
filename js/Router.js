@@ -246,7 +246,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'trending' : function (channelid, streamid)
 	{
-		var channeldata = Cloudwalkers.Session.getChannel (Number(channelid));
+		// Get channel from url
+		var channel = Cloudwalkers.Session.getChannel(channelid);
+		
+		// View
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Trending({model: channel}));
+		
+		/*var channeldata = Cloudwalkers.Session.getChannel (Number(channelid));
 
 		var since = (Date.today().add({ days: -7 }));
 		if (channeldata.type == 'news')
@@ -282,7 +288,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		widgetcontainer.addWidget (widget);
 
-		Cloudwalkers.RootView.setView (widgetcontainer); 
+		Cloudwalkers.RootView.setView (widgetcontainer); */
 	},
 	
 

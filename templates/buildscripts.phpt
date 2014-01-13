@@ -63,6 +63,7 @@
 <script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
 <script type="text/javascript" src="/js/Views/Timeline.js"></script>
+<script type="text/javascript" src="/js/Views/Trending.js"></script>
 <script type="text/javascript" src="/js/Views/KeywordMonitoring.js"></script>
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
