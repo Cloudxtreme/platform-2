@@ -125,7 +125,7 @@
 
 		<?php if ($caps['INCOMING']) { ?>
 			<div class="last-messages">
-				<a href="<?php echo BASE_URL; ?>json/stream/<?php echo $stream['id']; ?>?records=3&refresh=1&forcerefresh=1&debug=1&output=table" class="load-message-link" data-stream-id="<?php echo $stream['id']; ?>">Load last 3 messages</a>
+				<a href="<?php echo BASE_URL; ?>json/stream/<?php echo $stream['id']; ?>/messages?records=3&refresh=1&forcerefresh=1&debug=1&output=table" class="load-message-link" data-stream-id="<?php echo $stream['id']; ?>">Load last 3 messages</a>
 			</div>
 		<?php } ?>
 
