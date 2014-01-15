@@ -16,14 +16,20 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		if (!this.model.users) this.model.users = new Cloudwalkers.Collections.Users();
 		
 		// Listen to contacts collection
-		this.listenTo(this.model.contacts, 'add', this.fill);
-		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
+		this.listenTo(this.model.users, 'add', this.fill);
+		this.listenTo(this.model.users, 'add', this.comparesuggestions);
     },
 
 	'render' : function ()
 	{
 		// View
 		this.$el.html (Mustache.render (Templates.coworkersfilters));
+		
+		this.$container = this.$el.find("#users-list").eq(0);
+		
+		// Get users
+		
+		
 		
 		/*var data = {keywords: this.category.channels.models};
 		
@@ -100,30 +106,21 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	
 	'fill' : function (models)
 	{
-		// Clean load or add
-		if(this.incremental) this.incremental = false;
-		else
-		{
-			$.each(this.entries, function(n, entry){ entry.remove()});
-			this.entries = [];
-		}
-
+		console.log(models)
+		
+		// Clean load
+		$.each(this.entries, function(n, entry){ entry.remove()});
+		this.entries = [];
+		
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'inbox'});
+			var view = new Cloudwalkers.Views.User ({model: models[n], template: 'smalluser', type: 'listitem'});
 			
 			this.entries.push (view);
-			this.listenTo(view, "toggle", this.toggle);
+			this.listenTo(view, "select", this.select);
 			
 			this.$container.append(view.render().el);
-			
-			// Filter contacts
-			this.model.seedcontacts(models[n]);
 		}
-		
-		// Toggle first message
-		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
-		else 					this.hidemore();
 	}
 });

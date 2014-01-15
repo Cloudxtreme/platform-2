@@ -62,11 +62,11 @@
 					<br><br><br>
 					
 					<div class="keyword-filter inactive" data-keyword-filter="filter-include">
-						<label for="filter_include"><i class='icon-filter'></i> Include <small> use space separated words</small></label>
+						<label for="filter_include"><i class='icon-filter'></i> Include <small> use comma separated words</small></label>
 						<input type="text" value="" id="filter_include" name="name" class="m-wrap span12" /> 
 					</div>
 					<div class="keyword-filter inactive" data-keyword-filter="filter-exclude">
-						<label for="filter_exclude"><i class='icon-filter'></i> Exclude <small> use space separated words</small></label>
+						<label for="filter_exclude"><i class='icon-filter'></i> Exclude <small> use comma separated words</small></label>
 						<input type="text" value="" id="filter_exclude" name="name" class="m-wrap span12" /> 
 					</div>
 					<div class="keyword-filter inactive" data-keyword-filter="filter-languages">

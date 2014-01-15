@@ -80,8 +80,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
 		$('#keyword_manage_name').val(keyword.get("name"));
-		$('#filter_include').val(filters.include? filters.include.join(" "): "");
-		$('#filter_exclude').val(filters.exclude? filters.exclude.join(" "): "");
+		$('#filter_include').val(filters.include? filters.include.join(", "): "");
+		$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
 		
 		for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
 		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
@@ -103,8 +103,14 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		var object = {name: $("#keyword_manage_name").val(), settings: {}};
 
-		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(" ");
-		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(" ");
+		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
+		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
+		
+		if (object.settings.include.length)
+			for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
+			
+		if (object.settings.exclude.length)
+			for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
 		
 		object.settings.languages = $("#filter_languages").val();
 		object.settings.countries = $("#filter_countries").val();

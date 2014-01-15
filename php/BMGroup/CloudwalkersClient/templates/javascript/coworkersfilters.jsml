@@ -23,7 +23,7 @@
 				
 				<div>
 					<label>Contributing co-workers</label>
-					<ul id="coworkers-list" class="inner-loading">
+					<ul id="users-list" class="inner-loading">
 					<!-- {{#users}}
 						<li class='active' data-keyword-id="{{id}}">
 							<i class="icon-tag icon-muted"></i> {{attributes.name}}

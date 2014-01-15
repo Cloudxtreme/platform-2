@@ -17,6 +17,23 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
+	'filterData' : function (type)
+	{
+		
+		var data = this.attributes;
+		
+		if(type == "listitem")
+		{
+			data.arrow = true;
+			
+		} else {
+			
+			data.role = this.getRole();
+		}
+
+		return data;
+	},
+	
 	'getRole' : function ()
 	{
 		if (this.get ('level') == 10)
