@@ -62,6 +62,7 @@
 <script type="text/javascript" src="/js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
+<script type="text/javascript" src="/js/Views/Coworkers.js"></script>
 <script type="text/javascript" src="/js/Views/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Trending.js"></script>
 <script type="text/javascript" src="/js/Views/KeywordMonitoring.js"></script>
@@ -81,6 +82,8 @@
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CoworkersFilters.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CoworkersList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/KeywordsEditor.js"></script>

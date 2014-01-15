@@ -1,0 +1,44 @@
+<div class="row-fluid">
+	<div class="span12">
+
+		<div class="portlet box grey channelfilters">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-group icon-large"></i>Co-workers</div>
+			</div>
+			<div class="portlet-body">
+
+				
+				<div id="filter_contacts" class="clearfix">
+		
+					<ul class="contacts-placeholder"></ul>
+					
+					<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="Search co-workers..." />
+					
+					<label class="hidden">Suggestions</label>
+					<ul class="contacts-suggestions"></ul>
+				
+				</div>
+				
+				<br />
+				
+				<div>
+					<label>Contributing co-workers</label>
+					<ul id="coworkers-list" class="inner-loading">
+					<!-- {{#users}}
+						<li class='active' data-keyword-id="{{id}}">
+							<i class="icon-tag icon-muted"></i> {{attributes.name}}
+						</li>
+					{{/users}} -->
+					</ul>
+					<div class="clear"></div>
+
+					<small>
+						<a href="#settings/users">manage users</a>
+					</small>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -64,7 +64,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		if(data.attachments)
 		{
-			data.media = data.attachments.slice(-1)[0];
+			data.media = data.attachments[data.attachments.length -1];
 			data.media.icon = (data.media.type == "image")? "picture" : data.media.type;
 		
 		} else data.media = {icon: "reorder"};
@@ -93,6 +93,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			data.url = null;
 			data.share = this.filterShareData(stream);
 			data.iconview = true;
+			
+			if(data.attachments)
+			{
+				data.attached = {};
+				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
+			}
 		}
 
 		return data;
@@ -412,7 +418,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'act' : function (action, parameters, callback)
 	{
 		
-		Cloudwalkers.RootView.growl (action.name, "The " + action.token + " went as planned, Sir.");
+		Cloudwalkers.RootView.growl (action.name, "The " + action.token + " is planned with success.");
 		
 		var self = this;
 

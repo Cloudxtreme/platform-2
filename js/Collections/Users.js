@@ -1,22 +1,37 @@
 Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,
+	'typestring' : "users",
+	'modelstring' : "user",
 	'processing' : false,
 
 	'initialize' : function (models, options)
 	{
-		//this.filters = options.filters;
+		// Global collection gets created before session build-up
+		if( Cloudwalkers.Session.user.account)
+		{
+			Cloudwalkers.Session.getUsers().listenTo(this, "add", Cloudwalkers.Session.getUsers().distantAdd);
+		}
 	},
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/users';
+		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
 	},
 	
 	'parse' : function (response)
 	{	
-		Store.write(this.url(), [response.users]); 
-		return response.users;
+		this.parameters = "";
+		this.processing = false;
+		
+		if(!response[this.typestring]) response.account[this.typestring];
+		
+		return response[this.typestring];
+	},
+	
+	'distantAdd' : function(model)
+	{
+		if(!this.get(model.id)) this.add(model);	
 	},
 	
 	'sync' : function (method, model, options) {

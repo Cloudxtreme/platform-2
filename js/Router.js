@@ -118,6 +118,16 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
+	
+	/**
+	 *	Co-workers wall
+	 **/
+	 
+	/* 'coworkers' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
+	},*/
+	 
 
 	'coworkers' : function ()
 	{
@@ -247,13 +257,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	/*'trending' : function (channelid, streamid)
 	{
 		// Get channel from url
-		var channel = Cloudwalkers.Session.getChannel(channelid);
+		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
 		
 		// View
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Trending({model: channel}));
 		
-		
-	},*/
+	}, */
 	
 	'trending' : function (channelid, streamid)
 	{

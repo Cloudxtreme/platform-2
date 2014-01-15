@@ -7,7 +7,7 @@
 			
 				<ul class="dropdown-menu">
 				{{#share}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{action}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/share}}
 				</ul>
 			</span>
@@ -15,6 +15,14 @@
 		<div class="media"><i class="icon-{{media.icon}}"></i></div>
 
 	</div>
+	
+	{{#attached}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attached}}
+	
+	
 	
 	{{#from}}
 	{{#iconview}}
@@ -27,5 +35,18 @@
 	{{/from}}
 	
 	<div class='content'>
+		
+		{{#subject}}
+		<strong>{{subject}}</strong><br />
+		{{/subject}}
+		
 		{{{body.html}}}
+		
+		{{#attached}}
+			{{#link}}
+				<div class="attachment-link">
+					<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+				</div>
+			{{/link}}
+		{{/attached}}
 	</div>

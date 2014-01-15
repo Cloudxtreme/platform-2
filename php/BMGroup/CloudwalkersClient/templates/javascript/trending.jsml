@@ -1,4 +1,19 @@
-<ul class="timeline social-box-colors messages-container" id='pages'>
+	<div class="trending-filter">
+	
+		<div class="filter-group social-icon-colors">
+			
+			<label>Networks</label>
+			
+			{{#networks}}
+			<div class="btn-white active" data-streams="{{ids}}"><i class="icon-{{icon}}"></i></div>
+			{{/networks}}
+
+		</div>
+	</div>
+
+<ul class="trending timeline social-box-colors messages-container" id='pages'>
+	
+
 	
 	<li class="timeline-blue timeline-loading">
 		<div class="timeline-time"></div>

@@ -23,7 +23,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	{
 		var id = this.id? this.id: "";
 		
-		return CONFIG_BASE_URL + 'json/stream/' + id + this.endpoint + this.parameters;
+		return CONFIG_BASE_URL + 'json/streams/' + id + this.endpoint + this.parameters;
 	},
 	
 	'parse' : function(response)

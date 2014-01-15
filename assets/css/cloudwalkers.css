@@ -35,6 +35,11 @@ li.btn-white	{
 	color: #01547d; text-shadow: 0 1px white;
 }
 
+.btn-white.btn-round	{
+	display: block; width: 32px; height: 32px; padding: 4px; border-radius: 100% !important;
+	font-size: 18px; text-align: center; line-height: 1.72em;
+}
+
 
 /**
  *	Quick fixes
@@ -551,6 +556,22 @@ nav	{
 .portlet .messages-container .link:hover	{
 	text-decoration: none; background: #333;
 }
+
+.portlet .messages-container .attachment-image	{
+	padding: 2px; border: 1px solid #eee; margin: -2px 0 0 10px; max-height: 68px; max-width: 33.3%; opacity: .25;
+}
+
+.portlet .messages-container li:hover .attachment-image	{ opacity: 1; }
+
+.portlet .messages-container .attachment-link	{
+	padding: 2px 8px; display: inline; border-radius: 20px !important; background: #d9edf7;
+}
+
+.portlet .messages-container .attachment-link i	{
+	color: white; padding-right: 2px; float: none;
+	font-size: 14px; line-height: 2em;
+}
+
 
 
 /* Actions Dropdown */
@@ -1177,6 +1198,22 @@ ul.timeline	{ margin-top: 25px; }
 
 /*.timeline .messages-container .message-view */
 
+
+/**
+*	Trending
+*/
+.trending-filter	{
+	margin-top: 20px; padding: 8px 20px; border: 1px solid #ddd; border-radius: 2px !important; 
+	line-height: 2em; 
+}
+
+.trending-filter label {
+	color: #aaa; font-weight: 300;
+}
+
+.trending-filter .btn-white	{
+	font-size:  17.5px;
+}
 
 /**
  * Manage keywords
