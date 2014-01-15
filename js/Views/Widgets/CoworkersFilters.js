@@ -125,5 +125,5 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		// Toggle first message
 		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
 		else 					this.hidemore();
-	},
+	}
 });

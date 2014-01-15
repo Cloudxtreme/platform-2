@@ -62,5 +62,5 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		// Check collapse option
 		if(typeof this.options.open != "undefined")
 			this.appendCollapseble(this.options.open);
-	},
+	}
 });

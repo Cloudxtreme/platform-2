@@ -7,7 +7,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		'remove' : 'destroy',
 		'click *[data-action]' : 'action',
-		'click' : 'toggle',
+		'click' : 'toggle'
 	},
 	
 	'initialize' : function ()
