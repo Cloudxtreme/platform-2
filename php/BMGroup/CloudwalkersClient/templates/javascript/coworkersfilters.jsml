@@ -7,11 +7,8 @@
 			</div>
 			<div class="portlet-body">
 
-				
 				<div id="filter_contacts" class="clearfix">
-		
-					<ul class="contacts-placeholder"></ul>
-					
+
 					<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="Search co-workers..." />
 					
 					<label class="hidden">Suggestions</label>

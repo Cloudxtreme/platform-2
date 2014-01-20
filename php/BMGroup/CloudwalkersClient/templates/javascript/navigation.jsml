@@ -101,7 +101,7 @@
 	<!-- Company Accounts -->
 	{{#profiles}}
 		<li>
-			<a href="#channel/{{channelid}}">
+			<a href="#timeline/{{channelid}}">
 				<i class="icon-briefcase"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
@@ -111,14 +111,14 @@
 			<ul class="sub-menu">
 
 				<li>
-					<a href="#channel/{{channelid}}">
+					<a href="#timeline/{{channelid}}">
 						<i class="icon-briefcase"></i> 
 						<span class="title">Media</span>
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 					{{#streams}}
-						<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
+						<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
 					</ul>
 				</li>
@@ -143,7 +143,7 @@
 	<!-- Profiles we follow -->
 	{{#news}}
 		<li>
-			<a href="#channel/{{channelid}}">
+			<a href="#timeline/{{channelid}}">
 				<i class="icon-globe"></i> 
 				<span class="title">{{name}}</span>
 				<span class="arrow"></span>
@@ -152,14 +152,14 @@
 
 			<ul class="sub-menu">				
 				<li>
-					<a href="#channel/{{channelid}}">
+					<a href="#timeline/{{channelid}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 						{{#streams}}
-							<li><a href="#channel/{{channelid}}/0/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
+							<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 						{{/streams}}
 					</ul>
 				</li>

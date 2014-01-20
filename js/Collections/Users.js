@@ -6,7 +6,8 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 	'processing' : false,
 
 	'initialize' : function (models, options)
-	{
+	{	
+
 		// Global collection gets created before session build-up
 		if( Cloudwalkers.Session.user.account)
 		{

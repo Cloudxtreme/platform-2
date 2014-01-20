@@ -10,9 +10,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		'click' : 'toggle'
 	},
 	
-	'initialize' : function ()
+	'initialize' : function (options)
 	{
-		if(this.options.template) this.template = this.options.template;
+		//if(this.options.template) this.template = this.options.template;
+		if(options) $.extend(this, options);
 		
 		this.listenTo(this.model, 'change', this.render);
 	},

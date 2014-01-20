@@ -48,6 +48,14 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		}
 
 		return Backbone.sync(method, model, options);
+	},
+	
+	'seedusers' : function (child)
+	{	
+
+		var users = child.get("from");
+		
+		if (users && users.length) this.users.add(users);	
 	}
 
 });

@@ -9,6 +9,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'inbox(/:channel)(/:type)(/:streamid)' : 'inbox',
 		'coworkers' : 'coworkers',
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
+		'timeline/:channel(/:stream)' : 'timeline',
 		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
@@ -123,13 +124,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Co-workers wall
 	 **/
 	 
-	/* 'coworkers' : function ()
+	'coworkers' : function ()
 	{
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
-	},*/
+	},
 	 
 
-	'coworkers' : function ()
+	/*'coworkers' : function ()
 	{
 		var collection = new Cloudwalkers.Collections.Drafts
 		(
@@ -149,7 +150,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.navclass = 'inbox';
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
+	},*/
 	
 	
 	/**
@@ -219,12 +220,48 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},*/
 	
+	/**
+	 * Timeline
+	**/
+	
+	'timeline' : function (channelid, streamid)
+	{
+		// Get model from url
+		var model = streamid?
+			Cloudwalkers.Session.getStream(Number(streamid)) :
+			Cloudwalkers.Session.getChannel(Number(channelid));
+
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40}}));
+	},
 	
 	/**
-	 *	Company Pages
-	 *	Social Feeds
-	 *	Trending
-	 **/
+	 * Trending
+	**/
+	
+	'trending' : function (channelid, streamid)
+	{
+		// Get model from url
+		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
+		var model = streamid? Cloudwalkers.Session.getStream(Number(streamid)): channel;
+			
+		// Parameters
+		var span = channel.get('type') == "news"? 1: 7;
+		var params = {
+			since: Math.round(Date.now()/3600000) *3600 - 86400 *span,
+			sort: 'engagement',
+			records: 40
+		}
+
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
+	},
+	
+	/** 
+	 *	Company Pages	! Deprecated
+	 *	Social Feeds	! Deprecated
+	 *	Trending		! Deprecated
+	 *
 
 	'channel' : function (id, subchannelid, streamid, messageid)
 	{
@@ -252,7 +289,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.addWidget (widget);
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
+	},*/
 
 	/*'trending' : function (channelid, streamid)
 	{
@@ -262,7 +299,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// View
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Trending({model: channel}));
 		
-	}, */
+	},
 	
 	'trending' : function (channelid, streamid)
 	{
@@ -303,7 +340,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		widgetcontainer.addWidget (widget);
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
+	}, */
 	
 
 	/**

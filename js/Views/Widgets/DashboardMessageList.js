@@ -52,6 +52,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	
 	'fill' : function (models)
 	{
+		
 		// Hide loader
 		this.$el.find('.inner-loading').toggleClass(models.length? 'inner-loading': 'inner-empty inner-loading');
 		

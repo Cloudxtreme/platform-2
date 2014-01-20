@@ -1,5 +1,7 @@
 Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.extend ({
-
+	'filters' : {
+		users : {string:"", list:[]}
+	},
 	'events' : {
 		'remove' : 'destroy',
 		'input .input-rounded' : 'comparesuggestions',
@@ -14,9 +16,10 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Check contacts collection existance
 		if (!this.model.users) this.model.users = new Cloudwalkers.Collections.Users();
+		else this.model.users.reset();
 		
 		// Listen to contacts collection
-		this.listenTo(this.model.users, 'add', this.fill);
+		//this.listenTo(this.model.users, 'add', this.fill);
 		this.listenTo(this.model.users, 'add', this.comparesuggestions);
     },
 
@@ -48,7 +51,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	
 	'comparesuggestions' : function (isuser)
 	{
-		var string = $("#filter_users input").val();
+		var string = $("#filter_contacts input").val();
 		
 		if(!string) return this.hidesuggestions();
 		else string = string.toLowerCase();
@@ -56,7 +59,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		var users = this.model.users.filter(this.comparenamefilter.bind(this, string));
 		
 		// On typed, search for more
-		if (users.length < 5 && !isuser.cid && string.length > 2) this.requestcontacts(string);
+		if (users.length < 5 && !isuser.cid && string.length > 2) this.requestusers(string);
 
 		if (!users.length)
 		{
@@ -70,6 +73,52 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	{
 		return user.get("displayname").toLowerCase().indexOf(string) >= 0 || (user.get("name") && user.get("name").toLowerCase().indexOf(string) >= 0);
 	},
+	
+	'hidesuggestions' : function()
+	{
+		// Load current users
+		this.fill(this.model.users.models);
+	},
+	
+	'showsuggestions' : function(contacts)
+	{
+		
+		this.fill(contacts);
+		
+		/*this.$el.find("#filter_contacts label").removeClass("hidden");
+		this.$el.find("ul.contacts-suggestions").empty();
+		
+		for (n in contacts)
+			this.$el.find("ul.users-list").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));*/
+	},
+	
+	'requestusers' : function(string)
+	{
+		if(string != this.filters.users.string)
+		{
+			if(!this.model.users.processing)
+			{
+				this.$el.find(".loading-contacts").removeClass("hidden");
+				
+				this.filters.users.string = string;
+				this.model.users.fetch({remove: false, parameters: {q: string}, success: this.loadedusers.bind(this)});
+			
+			} else this.filters.users.buffered = string;
+		}
+	},
+	
+	'loadedusers' : function()
+	{
+		this.$el.find(".loading-contacts").addClass("hidden");
+		
+		// Check pending requests
+		if(this.filters.users.buffered)
+		{
+			this.requestusers(this.filters.users.buffered);
+			this.filters.users.buffered = false;
+		}
+	},
+
 	
 	'filter' : function (e)
 	{
@@ -105,9 +154,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'fill' : function (models)
-	{
-		console.log(models)
-		
+	{	
 		// Clean load
 		$.each(this.entries, function(n, entry){ entry.remove()});
 		this.entries = [];
@@ -122,5 +169,16 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 			
 			this.$container.append(view.render().el);
 		}
+		
+		// End loading
+		this.$el.find(".inner-loading").removeClass("inner-loading")
+	},
+	
+	'select' : function(view)
+	{	
+		// Render list
+		this.list.render({users: view.model.id, records: 20});
+		/*
+		this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
 	}
 });

@@ -1,49 +1,51 @@
-<li class="timeline-blue {{stream.network.token}}-color">
+
+
+<li class="{{#objectType}}timeline-blue{{/objectType}}{{^objectType}}timeline-empty{{/objectType}} {{networktoken}}-color">
 	<div class="timeline-time">
 		<span class="date">{{dateonly}}</span>
 		<span class="time">{{time}}</span>
 	</div>
 
-	<div class="timeline-icon"><i {{#stream}}class="icon-{{network.icon}}"{{/stream}}></i></div>
+	<div class="timeline-icon"><i class="icon-{{icon}}"></i></div>
 
 	<div class="timeline-body">
 	
 		<span class="actions dropdown pull-right"> 
-			<i class="icon-share icon-2x dropdown-toggle" data-toggle="dropdown"></i>
+			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/actions}}
 			</ul>
 		</span>
 		
-		{{#subject}}
-			<h2>{{subject}}</h2>
-		{{/subject}}
-		
 		<div class="timeline-content">
-
-			<strong>
-				{{#from}}
-					{{name}}
-				{{/from}}
-			</strong> 
-
-			<div class="timeline-footer"></div>
-
-			{{#sortedattachments.image}}
+			
+			{{#attached.image}}
 				<img class="timeline-img pull-right" src="{{url}}" alt="" />
-			{{/sortedattachments.image}}
+			{{/attached.image}}
+			
+			{{#from}}
+				<a href="{{url}}" class="timeline-user" title="{{icon}} {{displayname}}" target="_blank">{{displayname}}</a>
+				<br />
+			{{/from}}
+			
+			
 
-
+			{{#subject}}
+				<strong>{{subject}}</strong><br />
+			{{/subject}}
 
 			{{{body.html}}}
 
-			{{#sortedattachments.link}}
-				<p>
-					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
-				</p>
-			{{/sortedattachments.link}}
+			
+			
+			{{#attached.link}}
+				<br />
+				<div class="attachment-link">
+					<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+				</div>
+			{{/attached.link}}
 		</div>
 
 		<div class="comments comment-container"></div>

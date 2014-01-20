@@ -2,6 +2,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'id' : 'coworkersparent',
 	'title': "Co-workers messages",
+	'parameters' : {records: 20},
 	'entries' : [],
 	
 	'events' : {
@@ -11,22 +12,19 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	
 	'initialize' : function (options)
 	{
-		if(options) $.extend(this, options);		
+		if(options) $.extend(this, options);	
 		
+		// Add collection
 		if (!this.model.messages) this.model.messages = new Cloudwalkers.Collections.Messages();
-
-		// Clear the category (prevent non-change view failure)
-		// Deprecated? Check.
-		this.model.set({messages: []});
 		
-		// Listen to model messages
-		//this.listenTo(this.model.messages, 'seed', this.fill);
-		//this.listenTo(this.model.messages, 'request', this.showloading);
+		// Listen to model messages and users
+		this.listenTo(this.model.messages, 'seed', this.fill);
+		this.listenTo(this.model.messages, 'request', this.showloading);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
 	},
 
-	'render' : function ()
-	{
+	'render' : function (params)
+	{	
 		// Get template
 		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
 		
@@ -34,7 +32,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$el.find(".load-more").hide();
 		
 		// Load category message
-		this.model.messages.touch(this.model, {records: 20});
+		this.model.messages.touch(this.model, params? params: this.paramters);
 		
 		return this;
 	},
@@ -69,13 +67,19 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		// Add messages to view
 		for (n in list)
 		{
-			//var message = Cloudwalkers.Session.getMessage(ids[n]);
-			
-			var view = new Cloudwalkers.Views.Entry ({model: list[n], type: "full", template: "messagefullentry"});
+			var view = new Cloudwalkers.Views.Entry ({model: list[n], type: "full", template: "coworkersmessage"});
 			this.entries.push (view);
+
+			// Filter user
+			if (list[n].get("from")) this.model.seedusers(list[n]);
+			
+			else this.listenTo(list[n], "change:from", this.model.seedusers.bind(this.model))
 			
 			this.$container.append(view.render().el);
 		}
+		
+		// Hide loading
+		this.hideloading();
 	},
 	
 	/*'fill' : function (category, ids)

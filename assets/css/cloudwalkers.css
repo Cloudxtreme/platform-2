@@ -312,10 +312,13 @@ nav	{
 
 .building-notice.inactive	{ display: none; }
 
-
+.timeline .timeline-loading .inner-loading	{
+	padding: 15px 20px; width: 20%;
+}
 
 .timeline-loading .inner-loading	{
-	border-color: #4b8df8 !important; color: #c6c6c6 !important;
+	border-color: #4b8df8 !important;
+	color: #c6c6c6 !important;
 }
 
 .portlet-loading *	{ background: #f6f6f6 !important; }
@@ -339,6 +342,7 @@ nav	{
 }
 
 .inner-empty.empty-recent:after	{ content: "no recent messages"; }
+
 
 
 /* Widget title */
@@ -1192,12 +1196,16 @@ nav	{
 }
 
 /**
- *	Timeline
+ *	Co-workers wall
  **/
-ul.timeline	{ margin-top: 25px; }
+.coworkers .portlet.box img.avatar {
+	top: 3px; height: 24px; width: 24px; 
+}
 
-/*.timeline .messages-container .message-view */
-
+/**
+ *	Timeline: seperate .css
+ **/
+ 
 
 /**
 *	Trending
@@ -1342,11 +1350,6 @@ li.comments-row
 li.comments-row.selected
 {
   background: #ffe399;
-}
-
-.timeline a:hover
-{
-  text-decoration: none;
 }
 
 .table-container td, 

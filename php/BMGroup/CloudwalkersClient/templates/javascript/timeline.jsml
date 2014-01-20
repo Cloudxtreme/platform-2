@@ -3,25 +3,20 @@
 	<li class="timeline-blue timeline-loading">
 		<div class="timeline-time"></div>
 		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
-		<a href="javascript:void(0);">
-			<div class="timeline-body more inner-loading">
-				Loading
-			</div>
-		</a>
+		<div class="timeline-body more inner-loading">
+			Loading
+		</div>
 	</li>
 	
-	
-	<li class="timeline-blue load-more">
+	<li class="timeline-grey load-more">
 		<div class="timeline-time">
 			<span class="date"></span>
 			<span class="time"></span>
 		</div>
 		<div class="timeline-icon"><i class="icon-chevron-down "></i></div>
-		<a href="javascript:void(0);">
-			<div class="timeline-body more">
-				<strong>View more</strong>
-			</div>
-		</a>
+		<div class="timeline-body more">
+			<strong>View more</strong>
+		</div>
 	</li>
 
 </ul>

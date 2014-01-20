@@ -2,10 +2,36 @@
 Style corrections and manual overrides
 ***/
 
-.active.open .sub-menu a i	{ color: #ddd; }
 
-.actions.dropdown.pull-right	{
-	margin: 6px 6px; cursor: pointer;
+
+ul.timeline	{ margin-top: 25px; }
+
+.timeline .load-more *	{ cursor: pointer; }
+
+.timeline .timeline-content	{ margin-left: 10px; }
+
+.load-more .timeline-body.more	{ padding: 15px 20px; width: 20%; }
+
+.timeline .more a	{ color: white; }
+
+.timeline .dropdown-toggle.icon-share-alt	{
+	padding: 2px 0 2px 1px; background-color: white !important; border-radius: 2px; float: none;
+	color: #4a4a4a; font-size: 14px;
+}
+.timeline .dropdown-toggle.icon-share-alt:hover	{ background-color: rgba(255,255,255, .8) !important; }
+
+.timeline .timeline-body .timeline-img	{ margin-bottom: 6px !important; }
+
+.timeline .active.open .sub-menu a i	{ color: #ddd; }
+
+.timeline .actions.dropdown.pull-right	{
+	margin: 2px; cursor: pointer;
+}
+
+.timeline p	{ margin: 0; }
+
+.timeline .timeline-user	{
+	font-size: 14px; 
 }
 
 .actions.dropdown.pull-right.open > i	{ color: #ccc; }
@@ -18,9 +44,34 @@ Style corrections and manual overrides
 	font-size: .9em;
 }
 
-.timeline-body a	{ color: white; font-weight: normal; }
+.timeline li.timeline-empty .timeline-body {
+	background: #ccc; width: 20%;
+}
 
-.timeline-img.pull-right	{ margin-right: 0 !important; }
+.timeline li.timeline-empty .timeline-body:after { border-right-color: #ccc; }
+
+.timeline-body	{ font-size: 13px; }
+.timeline-body a	{ color: white; font-weight: normal; text-decoration: none; }
+
+.timeline .timeline-img	{
+	padding: 2px; margin: 1px 4px 0 10px; background: rgba(255,255,255, .2); max-height: 124px; max-width: 33.3%; border-radius: 2px !important;
+} 
+
+.timeline .attachment-link	{
+	padding: 2px 8px; display: inline; border-radius: 20px !important; background: rgba(255,255,255, .12);
+}
+
+.timeline .attachment-link:hover	{ background: rgba(255,255,255, .2); }
+
+.timeline .attachment-link i	{
+	color: rgba(0,0,0,.24); padding-right: 2px; float: none;
+	font-size: 14px; line-height: 2em;
+}
+
+.timeline .actions.pull-right >	.dropdown-menu	{
+	border: 0; right: 22px; top: -1px; border-radius: 2px !important; 
+}
+
 
 /* Comments */
 
@@ -104,19 +155,19 @@ Timeline UI Base
 	font-size: 24px;
 }
 
-.timeline > li .timeline-content { 
+/*.timeline > li .timeline-content { 
 	font-size: 14px;
-}
+}*/
 
 .ie8 .timeline > li .timeline-body h2 { 
 	border-bottom: 1px solid #eee;
 }
 
-.timeline > li .timeline-body img.timeline-img { 
+/*.timeline > li .timeline-body img.timeline-img { 
   width: 75px;
   height: 75px;
   margin: 5px 10px 0 0px;
-}
+}*/
 
 .timeline > li .timeline-body img.pull-right {
   margin-left: 10px;

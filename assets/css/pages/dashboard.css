@@ -1,15 +1,3 @@
 /***
 Dashboard Page
 ***/
-
-/* Dashboard Timeline */
-.timeline-body.more	{
-	padding: 16px 40px 18px !important; width: 25%;
-}
-.timeline .more a	{ color: white; }
-
-.timeline-body .timeline-img	{ margin-bottom: 6px !important; }
-
-.timeline-footer .pull-right	{
-	margin: 0 5px !important;
-}

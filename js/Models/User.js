@@ -1,12 +1,16 @@
 Cloudwalkers.Models.User = Backbone.Model.extend({
 	
+	'initialize' : function ()
+	{
+	},
+	
 	'url' : function ()
 	{
 		return CONFIG_BASE_URL + 'json/user/' + this.id;
 	},
 	
 	'sync' : function (method, model, options) {
-		
+
 		if( method == "read")
 			Store.get(this.url(), null, function(data)
 			{

@@ -72,6 +72,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(stream)
 		{
 			data.icon = stream.get("network").icon;
+			data.networktoken = stream.get("network").token;
 			data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 			
 		} else data.url = this.link;
@@ -88,18 +89,31 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			data.media = {icon: data.icon};
 			data.body.plaintext = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
 		
-		} else if(type == "full")
+		} else if(type == "full" || type == "fulltrending")
 		{
 			data.url = null;
 			data.share = this.filterShareData(stream);
 			data.iconview = true;
+			
+			if(data.date)
+			{
+				data.dateonly = moment(data.date).format("DD MMM YYYY");
+				data.time = moment(data.date).format("HH:mm");
+			}
 			
 			if(data.attachments)
 			{
 				data.attached = {};
 				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
 			}
+			
+			if(type == "fulltrending")
+			{
+				data.time = this.get("engagement");
+			}
 		}
+		
+		
 
 		return data;
 	},
