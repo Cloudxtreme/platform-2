@@ -5,7 +5,7 @@ Cloudwalkers.Views.User = Backbone.View.extend({
 	
 	'events' : 
 	{
-		'click' : 'select',
+		'click' : 'select'
 	},
 	
 	'initialize' : function (options)
