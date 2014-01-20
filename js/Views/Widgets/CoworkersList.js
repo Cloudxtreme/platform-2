@@ -112,7 +112,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		this.incremental = true;
 		
-		var hasmore = this.category.messages.more(this.category, this.category.parameters);
+		var hasmore = this.model.messages.more(this.category, this.model.parameters);
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
