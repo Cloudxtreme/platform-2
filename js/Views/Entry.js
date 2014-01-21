@@ -9,6 +9,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		'remove' : 'destroy',
 		'click *[data-action]' : 'action',
 		'click [data-notifications]' : 'loadNotifications',
+		'click [data-youtube]' : 'loadYoutube',
 		'click' : 'toggle'
 	},
 	
@@ -73,6 +74,19 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			
 			$container.append(view.render().el);
 		}
+	},
+	
+	'loadYoutube' : function ()
+	{		
+		// Get container
+		var $container = this.$el.find(".timeline-video").eq(0);
+		var url = $container.data("youtube");
+		
+		// Activate container
+		$container.attr("data-youtube", "").removeClass("inactive");
+
+		// Add youtube to view
+		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 	
 	'action' : function (element)
