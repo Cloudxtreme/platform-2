@@ -76,7 +76,6 @@ ul.timeline	{ margin-top: 25px; }
 	position: relative; left: 82px; top: 50px;
 	font-family: FontAwesome; font-size: 28px; color: rgba(255,255,255, .8); text-shadow: 0 2px rgba(0,0,0, .1);
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
-
 }
 
 .timeline .actions.pull-right >	.dropdown-menu	{
