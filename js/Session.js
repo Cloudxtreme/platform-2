@@ -261,6 +261,20 @@ Cloudwalkers.Session =
 	},
 	
 	/**
+	 *	Reports shortcut functions
+	 **/
+	
+	'getReport' : function (id)
+	{
+		return this.user.account.reports.get (id);
+	},
+	
+	'getReports' : function ()
+	{
+		return this.user.account.reports;
+	},
+	
+	/**
 	 *	Messages shortcut functions - deprecated
 	 **/
 	

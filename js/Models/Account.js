@@ -27,6 +27,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Prep global Notifications collection
 		this.notifications = new Cloudwalkers.Collections.Notifications();
 		
+		// Prep global Reports collection
+		this.reports = new Cloudwalkers.Collections.Reports();
+		
 		// Prep global Comments collection - deprecated
 		this.comments = new Cloudwalkers.Collections.Comments();
 	},

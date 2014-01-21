@@ -106,10 +106,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
 		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 		
-		if (object.settings.include.length)
+		if (object.settings.include && object.settings.include.length)
 			for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
 			
-		if (object.settings.exclude.length)
+		if (object.settings.exclude && object.settings.exclude.length)
 			for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
 		
 		object.settings.languages = $("#filter_languages").val();

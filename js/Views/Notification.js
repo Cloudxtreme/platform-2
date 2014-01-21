@@ -16,7 +16,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		// Build parameters
 		var params = {from: this.model.get("from"), body: this.model.get("body"), attachments: {}};
 		
-		if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM YYYY HH:mm");
+		if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM");
 		if (this.model.get("attachments"))	$.each(this.model.get("attachments"), function(n, object){ params.attachments[object.type] = object });
 		
 		if (this.active) this.$el.addClass("active");

@@ -923,6 +923,16 @@ nav	{
 
 #inboxlist .inbox-filter .btn-white	{ padding: 5px 8px; }
 
+@media (max-width: 1250px)	{
+	
+	#inboxlist .inbox-filter .btn-white	{ padding: 5px 6px; }
+}
+
+@media (max-width: 1160px)	{
+	
+	#inboxlist .inbox-filter .filter-group.pull-right	{ float: none; margin-bottom: 10px; }
+}
+
 .inbox-filter i { color: #a6b0cc; }
 
 #filter_contacts, #filter_streams	{ 
@@ -1150,7 +1160,7 @@ nav	{
 .inbox-container .message-comments p { display: inline; }
 
 .inbox-container .comment-info {
-	color: white; font-size: 12px;
+	color: #aac1cd; font-size: 12px;
 }
 
 /* Inbox related messages */
