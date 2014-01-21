@@ -48,22 +48,20 @@
 			{{/attached.link}}
 		</div>
 
-		<div class="comments comment-container"></div>
-
 		<div class="timeline-footer">
-				{{#statistics}}
-					<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
-				{{/statistics}}
+			{{#statistics}}
+				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
+			{{/statistics}}
 
-			 	{{#canHaveChildren}}
-				 	<span class="{{#children_count}}children-button message-children{{/children_count}}">
-				 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
-				 	</span>
-				 {{/canHaveChildren}}
-
-			 <!--
-			 <button class='btn small white pull-right children-button message-children' id='comments-btn'><i class='icon-comments-alt'></i> <span class="comment-label">Show comments</span></button>
-				-->
+		 	{{#canHaveChildren}}
+			 	<span {{#children_count}}data-notifications="true"{{/children_count}}>
+			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
+			 	</span>
+			 {{/canHaveChildren}}
+			 
+			 <ul class="timeline-comments">
+				 
+			 </ul>
 		</div>
 	</div>
 </li>

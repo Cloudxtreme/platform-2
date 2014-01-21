@@ -73,16 +73,53 @@ ul.timeline	{ margin-top: 25px; }
 }
 
 
-/* Comments */
+/* Timeline Comments */
 
-.comments ul	{ margin:0; padding:0; list-style: none; }
+*[data-notifications]	{
+	cursor: pointer;
+}
+
+ul.timeline-comments	{
+	margin-left: 0;
+}
+
+.timeline-comments .comments-pointer	{
+	position: relative; width: 12px; height: 12px; top: 6px; left: 20px; background: #d9edf7; -webkit-transform: rotate(45deg);
+}
+
+.timeline-comments i.icon-cloud-download	{
+	color: white; padding: 0 4px 4px 2px;
+	-webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite;
+}
+
+.timeline-comments li	{ padding: 8px; background: rgba(255,255,255, .04); }
+
+.timeline-comments li:nth-child(even)	{ background: rgba(255,255,255, .1); }
+
+.timeline-comments li:first-child	{ margin-top: 4px; }
+
+.timeline-comments img.avatar {
+	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
+}
+
+.timeline-comments img {
+	max-height: 22px; 
+}
+
+.timeline-comments p { display: inline; }
+
+.timeline-comments .comment-info {
+	color: #aac1cd; font-size: 12px;
+}
+
+/*.comments ul	{ margin:0; padding:0; list-style: none; }
 .comments li	{ margin-top: 12px; padding: 10px 12px 0; clear: both; min-height: 30px; border-top: 1px solid rgba(255,255,255,.24); }
 
 .comments img.avatar { float: left; margin: 0 12px 8px 0px; height: 36px; width: 36px; border-radius: 50% !important; }
 .comments .title { padding-right: 12px; }
 
 .comments .date { font-style: italic; font-size: .92em; }
-.comments .content { line-height: 1.24em; }
+.comments .content { line-height: 1.24em; }*/
 
 
 /***

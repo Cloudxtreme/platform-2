@@ -79,7 +79,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		this.hideloading();
 	},
-	
+
 	'more' : function ()
 	{
 		this.incremental = true;
