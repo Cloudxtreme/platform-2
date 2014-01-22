@@ -30,12 +30,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			{
 				case "facebook":
 					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/likes", dashboard: true});
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext/", dashboard: true});
+					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext", dashboard: true});
 					break;
 					
 				case "twitter":
 					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/followers_count", dashboard: true});
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext/", dashboard: true});
+					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext", dashboard: true});
 					break;	
 			}
 		

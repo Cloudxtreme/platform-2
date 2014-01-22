@@ -20,7 +20,7 @@ Cloudwalkers.Views.Widgets.Report = Cloudwalkers.Views.Widgets.Widget.extend ({
 	
 	'fill' : function ()
 	{	
-		var report = this.stream.reports.findWhere({uniqueid: this.options.type});
+		var report = this.stream.reports.findWhere({token: this.options.type});
 		
 		if(!report) return null;
 		
