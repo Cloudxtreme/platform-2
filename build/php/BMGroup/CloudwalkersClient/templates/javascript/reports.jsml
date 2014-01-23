@@ -1,0 +1,318 @@
+
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div id="portlet-config" class="modal hide">
+	<div class="modal-header">
+		<button data-dismiss="modal" class="close" type="button"></button>
+		<h3>portlet Settings</h3>
+	</div>
+	<div class="modal-body">
+		<p>Here will be a configuration form</p>
+	</div>
+</div>
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN PAGE CONTAINER-->
+<div class="container-fluid">
+	<!-- BEGIN PAGE HEADER-->
+	<div class="row-fluid">
+		<div class="span12">          
+			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+			<h3 class="page-title">
+				Statistics <small>charts &amp; graphs</small>
+			</h3>
+			<ul class="breadcrumb">
+				<li>
+					<i class="icon-home"></i>
+					<a href="index.html">Home</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">Statistics</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">Visual charts</a></li>
+			</ul>
+			<!-- END PAGE TITLE & BREADCRUMB-->
+		</div>
+	</div>
+	<!-- END PAGE HEADER-->
+	<!-- BEGIN CHART PORTLETS-->
+	<div class="row-fluid">
+		<div class="span12">
+			<!-- BEGIN BASIC CHART PORTLET-->
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Basic Chart</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+						<a href="javascript:;" class="remove"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="chart_1" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 175px; top: 278px; left: 19px; text-align: center;">0.0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 175px; top: 278px; left: 228px; text-align: center;">π/2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 175px; top: 278px; left: 444px; text-align: center;">π</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 175px; top: 278px; left: 647px; text-align: center;">3π/2</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 263px; left: 2px; text-align: right;">-2.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 230px; left: 2px; text-align: right;">-1.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 197px; left: 2px; text-align: right;">-1.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 164px; left: 2px; text-align: right;">-0.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 132px; left: 6px; text-align: right;">0.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 99px; left: 6px; text-align: right;">0.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 66px; left: 6px; text-align: right;">1.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 33px; left: 6px; text-align: right;">1.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 6px; text-align: right;">2.0</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="legend"><div style="position: absolute; width: 51px; height: 66px; top: 15px; right: 17px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:15px;right:17px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel">sin(x)</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel">cos(x)</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden"></div></div></td><td class="legendLabel">tan(x)</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+			<!-- END BASIC CHART PORTLET-->                 
+			<!-- BEGIN TRACKING CURVES PORTLET-->
+			<div class="portlet box green">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Tracking Curves</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+						<a href="javascript:;" class="remove"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="chart_3" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 23px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 143px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 264px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 384px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 505px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 622px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 109px; top: 278px; left: 743px; text-align: center;">12</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 241px; left: 2px; text-align: right;">-1.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 186px; left: 2px; text-align: right;">-0.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 132px; left: 6px; text-align: right;">0.0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 77px; left: 6px; text-align: right;">0.5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 22px; left: 6px; text-align: right;">1.0</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="legend"><div style="position: absolute; width: 88px; height: 44px; top: 15px; right: 13px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:15px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel" style="width: 66px;">sin(x) = 0.33</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel" style="width: 66px;">cos(x) = 0.94</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+			<!-- END TRACKING CURVES PORTLET-->
+			<!-- BEGIN DYNAMIC CHART PORTLET-->
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Dynamic Chart</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+						<a href="javascript:;" class="remove"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="chart_4" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 280px; left: 12px; text-align: right;">0%</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 224px; left: 6px; text-align: right;">20%</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 168px; left: 6px; text-align: right;">40%</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 112px; left: 6px; text-align: right;">60%</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 56px; left: 6px; text-align: right;">80%</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 0px; text-align: right;">100%</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas></div>
+				</div>
+			</div>
+			<!-- END DYNAMIC CHART PORTLET-->
+			<!-- BEGIN STACK CHART CONTROLS PORTLET-->
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Stack Chart Controls</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+						<a href="javascript:;" class="remove"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="chart_5" style="height: 350px; padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 350px;" width="877" height="350"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 16px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 96px; text-align: center;">1</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 176px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 257px; text-align: center;">3</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 337px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 417px; text-align: center;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 497px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 577px; text-align: center;">7</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 658px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 738px; text-align: center;">9</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 73px; top: 328px; left: 815px; text-align: center;">10</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 313px; left: 8px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 261px; left: 2px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 209px; left: 2px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 157px; left: 2px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 104px; left: 2px; text-align: right;">40</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 52px; left: 2px; text-align: right;">50</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 2px; text-align: right;">60</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 350px;" width="877" height="350"></canvas></div>
+					<div class="btn-toolbar">
+						<div class="btn-group stackControls">
+							<input type="button" class="btn blue" value="With stacking">
+							<input type="button" class="btn red" value="Without stacking">
+						</div>
+						<div class="space5"></div>
+						<div class="btn-group graphControls">
+							<input type="button" class="btn" value="Bars">
+							<input type="button" class="btn" value="Lines">
+							<input type="button" class="btn" value="Lines with steps">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END STACK CHART CONTROLS PORTLET-->
+			<!-- BEGIN INTERACTIVE CHART PORTLET-->
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Interactive Chart</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+						<a href="javascript:;" class="remove"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="chart_2" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 49px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 108px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 166px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 224px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 280px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 338px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 396px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 455px; text-align: center;">16</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 513px; text-align: center;">18</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 571px; text-align: center;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 630px; text-align: center;">22</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 688px; text-align: center;">24</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 746px; text-align: center;">26</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 805px; text-align: center;">28</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 54px; top: 280px; left: 863px; text-align: center;">30</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 265px; left: 12px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 245px; left: 6px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 224px; left: 6px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 204px; left: 6px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 183px; left: 6px; text-align: right;">40</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 163px; left: 6px; text-align: right;">50</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 143px; left: 6px; text-align: right;">60</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 122px; left: 6px; text-align: right;">70</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 102px; left: 6px; text-align: right;">80</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 82px; left: 6px; text-align: right;">90</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 61px; left: 0px; text-align: right;">100</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 41px; left: 0px; text-align: right;">110</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 20px; left: 0px; text-align: right;">120</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 0px; text-align: right;">130</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 877px; height: 300px;" width="877" height="300"></canvas><div class="legend"><div style="position: absolute; width: 90px; height: 44px; top: 15px; right: 13px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:15px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(209,38,16);overflow:hidden"></div></div></td><td class="legendLabel">Unique Visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(55,183,243);overflow:hidden"></div></div></td><td class="legendLabel">Page Views</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+			<!-- END INTERACTIVE CHART PORTLET-->                 
+		</div>
+	</div>
+	<!-- END CHART PORTLETS-->
+	<!-- BEGIN PIE CHART PORTLET-->
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Default</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Default Pie with Legend.</h4>
+					<div id="pie_chart" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="legend"><div style="position: absolute; width: 64px; height: 220px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel">Series1</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel">Series2</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden"></div></div></td><td class="legendLabel">Series3</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden"></div></div></td><td class="legendLabel">Series4</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden"></div></div></td><td class="legendLabel">Series5</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(189,155,51);overflow:hidden"></div></div></td><td class="legendLabel">Series6</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(140,172,198);overflow:hidden"></div></div></td><td class="legendLabel">Series7</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(162,60,60);overflow:hidden"></div></div></td><td class="legendLabel">Series8</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(61,133,61);overflow:hidden"></div></div></td><td class="legendLabel">Series9</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(118,51,189);overflow:hidden"></div></div></td><td class="legendLabel">Series10</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+			<div class="portlet box purple">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph1</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Default Pie without Legend</h4>
+					<div id="pie_chart_1" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 0px; left: 202.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(237,194,64);">Series1<br>3%</div></span><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 19px; left: 256.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(175,216,248);">Series2<br>11%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 91px; left: 312.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(203,75,75);">Series3<br>12%</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 182px; left: 306.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(77,167,77);">Series4<br>11%</div></span><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 240px; left: 251.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(148,64,237);">Series5<br>9%</div></span><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 256px; left: 177.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(189,155,51);">Series6<br>10%</div></span><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 219px; left: 98.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(140,172,198);">Series7<br>12%</div></span><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 109px; left: 62.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(162,60,60);">Series8<br>18%</div></span><span class="pieLabel" id="pieLabel8" style="position: absolute; top: 27px; left: 110.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(61,133,61);">Series9<br>6%</div></span><span class="pieLabel" id="pieLabel9" style="position: absolute; top: 3px; left: 156.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(118,51,189);">Series10<br>8%</div></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph2</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Added a semi-transparent background to the labels and a custom labelFormatter function.</h4>
+					<div id="pie_chart_2" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 0px; left: 202px; background-color: rgb(237, 194, 64); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 0px; left: 202px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series1<br>3%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 19px; left: 256px; background-color: rgb(175, 216, 248); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 19px; left: 256px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 91px; left: 312px; background-color: rgb(203, 75, 75); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 91px; left: 312px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 182px; left: 306px; background-color: rgb(77, 167, 77); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 182px; left: 306px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 240px; left: 251px; background-color: rgb(148, 64, 237); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 240px; left: 251px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series5<br>9%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 256px; left: 177px; background-color: rgb(189, 155, 51); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 256px; left: 177px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 219px; left: 98px; background-color: rgb(140, 172, 198); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 219px; left: 98px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 109px; left: 62px; background-color: rgb(162, 60, 60); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 109px; left: 62px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 27px; left: 110px; background-color: rgb(61, 133, 61); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel8" style="position: absolute; top: 27px; left: 110px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series9<br>6%</div></span><div class="pieLabelBackground" style="position: absolute; width: 46px; height: 44px; top: 3px; left: 156px; background-color: rgb(118, 51, 189); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel9" style="position: absolute; top: 3px; left: 156px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series10<br>8%</div></span></div>
+				</div>
+			</div>
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph3</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Slightly more transparent label backgrounds and adjusted the radius values to place them within the pie.</h4>
+					<div id="pie_chart_3" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 16px; left: 201px; background-color: rgb(237, 194, 64); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 16px; left: 201px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series1<br>3%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 32px; left: 248px; background-color: rgb(175, 216, 248); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 32px; left: 248px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 95px; left: 297px; background-color: rgb(203, 75, 75); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 95px; left: 297px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 176px; left: 291px; background-color: rgb(77, 167, 77); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 176px; left: 291px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 226px; left: 244px; background-color: rgb(148, 64, 237); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 226px; left: 244px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series5<br>9%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 240px; left: 179px; background-color: rgb(189, 155, 51); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 240px; left: 179px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 208px; left: 110px; background-color: rgb(140, 172, 198); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 208px; left: 110px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 111px; left: 78px; background-color: rgb(162, 60, 60); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 111px; left: 78px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 39px; left: 120px; background-color: rgb(61, 133, 61); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel8" style="position: absolute; top: 39px; left: 120px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series9<br>6%</div></span><div class="pieLabelBackground" style="position: absolute; width: 46px; height: 44px; top: 19px; left: 160px; background-color: rgb(118, 51, 189); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel9" style="position: absolute; top: 19px; left: 160px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series10<br>8%</div></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PIE CHART PORTLET-->
+	<!-- BEGIN PIE CHART PORTLET-->
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph4</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Semi-transparent, black-colored label background.</h4>
+					<div id="pie_chart_4" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 16px; left: 201px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 16px; left: 201px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series1<br>3%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 32px; left: 248px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 32px; left: 248px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 95px; left: 297px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 95px; left: 297px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 176px; left: 291px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 176px; left: 291px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 226px; left: 244px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 226px; left: 244px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series5<br>9%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 240px; left: 179px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 240px; left: 179px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 208px; left: 110px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 208px; left: 110px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 111px; left: 78px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 111px; left: 78px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 39px; left: 120px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel8" style="position: absolute; top: 39px; left: 120px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series9<br>6%</div></span><div class="pieLabelBackground" style="position: absolute; width: 46px; height: 44px; top: 19px; left: 160px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel9" style="position: absolute; top: 19px; left: 160px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series10<br>8%</div></span></div>
+				</div>
+			</div>
+			<div class="portlet box purple">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph5</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Semi-transparent, black-colored label background placed at pie edge.</h4>
+					<div id="pie_chart_5" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 16px; left: 201px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 16px; left: 201px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series1<br>3%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 32px; left: 248px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 32px; left: 248px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 95px; left: 297px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 95px; left: 297px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 176px; left: 291px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 176px; left: 291px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 226px; left: 244px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 226px; left: 244px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series5<br>9%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 240px; left: 179px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 240px; left: 179px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 208px; left: 110px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 208px; left: 110px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 111px; left: 78px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 111px; left: 78px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 39px; left: 120px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel8" style="position: absolute; top: 39px; left: 120px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series9<br>6%</div></span><div class="pieLabelBackground" style="position: absolute; width: 46px; height: 44px; top: 19px; left: 160px; background-color: rgb(0, 0, 0); opacity: 0.5;"></div><span class="pieLabel" id="pieLabel9" style="position: absolute; top: 19px; left: 160px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series10<br>8%</div></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph6</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Added a semi-transparent background to the labels and a custom labelFormatter function.</h4>
+					<div id="pie_chart_6" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 43px; left: 241px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 99px; left: 285px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 170px; left: 280px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 228px; left: 180px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 199px; left: 118px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 113px; left: 90px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span></div>
+				</div>
+			</div>
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph7</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>Labels can be hidden if the slice is less than a given percentage of the pie (10% in this case).</h4>
+					<div id="pie_chart_7" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 13px; left: 230.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(175,216,248);">Series2<br>11%</div></span><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 69px; left: 296.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(203,75,75);">Series3<br>12%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 156px; left: 308.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(77,167,77);">Series4<br>11%</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 224px; left: 265.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(189,155,51);">Series6<br>10%</div></span><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 250px; left: 186.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(140,172,198);">Series7<br>12%</div></span><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 198px; left: 89.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(162,60,60);">Series8<br>18%</div></span><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 43px; left: 105px;"><div style="font-size:x-small;text-align:center;padding:2px;color:#999;">Other<br>26%</div></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PIE CHART PORTLET-->
+	<!-- BEGIN PIE CHART PORTLET-->
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph8</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>The radius can also be set to a specific size (even larger than the container itself).</h4>
+					<div id="pie_chart_8" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 19px; left: 256px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 91px; left: 312px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 182px; left: 306px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 256px; left: 177px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 219px; left: 98px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><span class="pieLabel" id="pieLabel7" style="position: absolute; top: 109px; left: 62px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span></div>
+				</div>
+			</div>
+			<div class="portlet box purple">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph9</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>SThe pie can be tilted at an angle.</h4>
+					<div id="pie_chart_9" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 39.5px; left: 253px; background-color: rgb(175, 216, 248); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 39.5px; left: 253px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series2<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 82.5px; left: 354px; background-color: rgb(203, 75, 75); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 82.5px; left: 354px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series3<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 149.5px; left: 373px; background-color: rgb(77, 167, 77); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 149.5px; left: 373px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series4<br>11%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 202px; left: 306px; background-color: rgb(189, 155, 51); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 202px; left: 306px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series6<br>10%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 222.5px; left: 185px; background-color: rgb(140, 172, 198); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 222.5px; left: 185px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series7<br>12%</div></span><div class="pieLabelBackground" style="position: absolute; width: 40px; height: 44px; top: 182px; left: 34px; background-color: rgb(162, 60, 60); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel5" style="position: absolute; top: 182px; left: 34px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Series8<br>18%</div></span><div class="pieLabelBackground" style="position: absolute; width: 34px; height: 44px; top: 62.5px; left: 56px; background-color: rgb(153, 153, 153); opacity: 0.8;"></div><span class="pieLabel" id="pieLabel6" style="position: absolute; top: 62.5px; left: 56px;"><div style="font-size:8pt;text-align:center;padding:2px;color:white;">Other<br>26%</div></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph10</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>A donut hole can be added.</h4>
+					<div id="donut" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="legend"><div style="position: absolute; width: 64px; height: 220px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel">Series1</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel">Series2</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden"></div></div></td><td class="legendLabel">Series3</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden"></div></div></td><td class="legendLabel">Series4</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden"></div></div></td><td class="legendLabel">Series5</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(189,155,51);overflow:hidden"></div></div></td><td class="legendLabel">Series6</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(140,172,198);overflow:hidden"></div></div></td><td class="legendLabel">Series7</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(162,60,60);overflow:hidden"></div></div></td><td class="legendLabel">Series8</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(61,133,61);overflow:hidden"></div></div></td><td class="legendLabel">Series9</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(118,51,189);overflow:hidden"></div></div></td><td class="legendLabel">Series10</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-reorder"></i>Graph11</div>
+					<div class="tools">
+						<a href="#portlet-config" data-toggle="modal" class="config"></a>
+						<a href="javascript:;" class="reload"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<h4>The pie can be made interactive with hover and click events.</h4>
+					<div id="interactive" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 418px; height: 300px;" width="418" height="300"></canvas><div class="legend"><div style="position: absolute; width: 64px; height: 220px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel">Series1</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel">Series2</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden"></div></div></td><td class="legendLabel">Series3</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden"></div></div></td><td class="legendLabel">Series4</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden"></div></div></td><td class="legendLabel">Series5</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(189,155,51);overflow:hidden"></div></div></td><td class="legendLabel">Series6</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(140,172,198);overflow:hidden"></div></div></td><td class="legendLabel">Series7</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(162,60,60);overflow:hidden"></div></div></td><td class="legendLabel">Series8</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(61,133,61);overflow:hidden"></div></div></td><td class="legendLabel">Series9</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(118,51,189);overflow:hidden"></div></div></td><td class="legendLabel">Series10</td></tr></tbody></table></div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PIE CHART PORTLET-->
+	<!-- END PAGE CONTENT-->
+</div>
+<!-- BEGIN PAGE CONTAINER-->     

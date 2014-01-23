@@ -1,0 +1,15 @@
+<div class="portlet box blue messagelist" id='monitorlist'>
+	<div class="portlet-title line">
+		<div class="caption"><i class="icon-tags icon-large"></i>{{name}}</div>
+		<div class="tools">
+			<i class="icon-cloud-download"></i>
+		</div>
+	</div>
+
+	<div class="portlet-body social-icon-colors">
+		<div class="scroller">
+			<ul class="messages-container"></ul>
+			<input type="button" class="btn load-more" value="load more" />
+		</div>
+	</div>
+</div>

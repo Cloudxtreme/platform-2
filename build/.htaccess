@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteRule ^([^?]+) index.php?rewritepagemodule=$1&%{QUERY_STRING}  [PT]
+#ModPagespeed off
+
+php_value newrelic.appname "Cloudwalkers Development Client"

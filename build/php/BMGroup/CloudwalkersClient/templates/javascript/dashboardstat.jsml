@@ -1,0 +1,20 @@
+<div class="dashboard-stat {{network.icon}}-color">
+	<div class="visual">
+		<i class="icon-{{network.icon}}"></i>
+	</div>
+
+	{{#details}}
+	<div class="details">
+		<div class="number">
+			{{content}}
+		</div>
+		<div class="desc">                           
+			{{descr}}
+		</div>
+	</div>
+	{{/details}}
+
+	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
+		{{{footer}}}
+	</a>
+</div>

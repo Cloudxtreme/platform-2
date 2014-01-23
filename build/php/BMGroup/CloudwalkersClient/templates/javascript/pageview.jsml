@@ -1,0 +1,9 @@
+<!-- {{title}} pageview -->
+
+	<div class="row-fluid">
+		<h3 class="page-title">{{title}}</h3>
+	</div>
+
+	<div id="widgetcontainer" class="row-fluid"></div>
+	
+<!-- end pageview -->   

@@ -1,0 +1,38 @@
+<!-- Social Connections -->
+<div class="tab-pane settings-social row-fluid" id="tab_1_3">
+	
+	<div class="span4">
+		<div id="service-options" class="portlet box grey">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-globe"></i>Social platforms</div>
+			</div>
+			<div class="portlet-body social-icon-colors inner-loading"></div>
+		</div>
+		
+	</div>
+	
+	
+	<div class="span8">
+	
+		<div id="service-connected" class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-cloud"></i>Active Social connections</div>
+			</div>
+			<div class="portlet-body inner-loading">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Network</th>
+							<th class="hidden-480">Account</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="social-container social-icon-colors"></tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<!-- End Social Connections -->

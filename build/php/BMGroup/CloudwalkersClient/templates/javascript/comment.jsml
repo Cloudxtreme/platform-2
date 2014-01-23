@@ -1,0 +1,17 @@
+{{#from}}
+	<img class="avatar" alt="" src="{{avatar}}">
+{{/from}}
+
+<span>
+	{{#from}}<strong class='title'>{{name}}</strong>{{/from}}
+	<span class="date time time-since" data-date="{{date}}" title="Stream {{stream.id}}">{{date}}</span>
+	<div class='content'>
+		{{{body.html}}}
+
+		<span>
+			{{#actions}}
+				<a href="javascript:void(0);" class="button-post action comment-message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a>&nbsp;
+			{{/actions}}
+		</span>
+	</div>
+</span>

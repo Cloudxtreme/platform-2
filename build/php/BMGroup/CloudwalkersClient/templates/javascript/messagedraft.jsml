@@ -1,0 +1,68 @@
+<td class="draft-message-item">
+
+	<div class="button-post action message-action" data-action="internal-edit">
+
+        {{#stream}}
+            <div class='icon'>
+                <i class="icon-{{network.icon}}"></i>
+            </div>
+            {{customname}}
+        {{/stream}}
+
+        <!-- Actions -->
+        <span class="actions icon-right dropdown" >
+
+            <i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
+
+            <ul class="dropdown-menu">
+                {{#actions}}
+                    <li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+                {{/actions}}
+            </ul>
+        </span>
+        <!-- /Actions -->
+
+        {{#sortedattachments.image.length}}
+            <div class="picture" style="clear: both; margin-top: 10px;">
+                {{#sortedattachments.image}}
+                    <a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+                        <img src="{{url}}" alt="image description" width="93" height="68" />
+                    </a>
+                {{/sortedattachments.image}}
+            </div>
+        {{/sortedattachments.image.length}}
+
+        <span class="right date" style="clear: right; margin-top: 10px;">
+            <span class="time time-since" data-date="{{date}}">
+                {{date}}
+            </span>
+        </span>
+
+        {{#user}}
+        	<img class="avatar" alt="" src="{{avatar}}">
+        	<strong>{{displayname}}</strong><br />
+        {{/user}}
+
+        {{#subject}}
+            <small>{{subject}}</small><br />
+        {{/subject}}
+
+        <!--
+        <strong>
+            {{#from}}
+                {{name}}
+            {{/from}}
+        </strong>
+         -->
+
+        {{{body.html}}}
+
+        {{#sortedattachments.link}}
+            <p class="link" style="margin-top: 10px;">
+                <a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+            </p>
+        {{/sortedattachments.link}}
+
+        <div class="clearer"></div>
+	</div>
+</td>

@@ -1,0 +1,48 @@
+<div class="row-fluid">
+	<div class="span12">
+
+		<div class="portlet box grey channelfilters">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
+			</div>
+			<div class="portlet-body">
+
+				
+				<div class="filter network-list social-icon-colors">
+					
+					{{#networks}}
+						<div class="btn white active" data-network-streams="{{ids}}">
+							<i class="icon-{{icon}}"></i>
+						</div>
+					{{/networks}}
+
+				</div>
+				
+				<div class='building-notice inactive'>
+					<strong>Building your data</strong>
+					<br>This will take a minute or so.
+				</div>
+								
+				<hr />
+				
+				<div class="filter keyword-list">
+					<label>{{name}} keywords</label>
+					<ul>
+					{{#keywords}}
+							<li class='active' data-keyword-id="{{id}}">
+								<i class="icon-tag icon-muted"></i> {{attributes.name}}
+							</li>
+					{{/keywords}}
+					</ul>
+					<div class="clear"></div>
+
+					<small>
+						<a href="#keywords">manage keywords</a>
+					</small>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

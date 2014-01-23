@@ -1,0 +1,50 @@
+/***
+Compose Page
+***/
+
+.portlet-title .caption i	{ margin: 2px 12px 0 0; font-size: inherit; }
+
+#message .message-body	{ background: white; }
+
+button.btn.blue	{ background: #2bbedc; }
+button.btn.blue:hover	{ background-color: #666 !important; }
+
+.add-data	{ margin-top: 24px; }
+
+
+.channels .btn.white	{
+	padding: 0; border-radius: 2px !important; border: 1px solid #ccc; box-sizing: border-box;  background: #eee; box-shadow: inset 0 1px #e0e0e0;
+	text-align: center;
+}
+
+.channels .btn.white:not(.active) i	{
+	color: #aaa !important;
+}
+
+.channels .btn.white.active	{
+	box-shadow: 0 1px #eee !important; background-color: rgba(255,255,255,.5) !important;
+}
+
+
+/*
+.channels .btn.white	{
+	border-radius: 2px !important; border: 1px solid #eee; border-bottom: #ccc solid 3px; background: white;
+	padding: 0;
+}*/
+
+.channels .btn.white label {
+	margin: 0; padding: 7px 14px;
+	color: #777;
+}
+
+.channels .btn.white.active label { color: black; }
+
+/*.btn.white:hover	{
+	border-bottom: #ccc solid 1px; background-color: white !important;
+}
+
+.btn.white.active	{
+	border: 1px solid green;
+}*/
+
+.message-schedule	{ margin-top: 10px; }

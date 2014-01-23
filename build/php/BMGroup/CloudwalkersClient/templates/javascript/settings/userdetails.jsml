@@ -1,0 +1,32 @@
+<div class="lightbox">
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<h3>{{user.firstname}} {{user.name}}</h3>
+			</div>
+		</div>
+	</div>
+	<div class="form-box" style="width: 400px;">
+		<div class="box-holder">
+			<div class="box-frame">
+				
+				<form action="javascript:void(0);" class="edit-managed-user">
+					<ul>
+						<li>
+							<label for="level">Clearance level</label>
+							<select id="level" name="level">
+								{{#levels}}
+									<option value="{{level}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+								{{/levels}}
+							</select>
+						</li>
+
+						<li>
+							<button type="submit" class="btn black">Save</button>
+						</li>
+					</ul>
+				</form>
+
+			</div>
+		</div>
+	</div>

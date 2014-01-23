@@ -1,0 +1,63 @@
+<form>
+
+	<fieldset>
+
+		<legend>
+			General
+
+			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">Delete</a>
+			<button type="submit" class="btn blue pull-right">Save</button>
+		</legend>
+
+		<table class="inner-service">
+			<tbody>
+				<tr>
+					<td>
+					{{#groupedsettings.string}}
+						<label>{{name}}</label>
+						<input type="text" value="{{value}}" name="{{key}}" data-channel-setting="1" />
+						<hr>
+					{{/groupedsettings.string}}
+
+					{{#groupedsettings.boolean}}
+						<input type="checkbox" value="1" name="{{key}}" {{#value}}checked="checked"{{/value}} data-channel-setting="1" />
+						{{name}}
+					{{/groupedsettings.boolean}}
+					</td>
+
+					<td class="white-box center">
+					{{#groupedsettings.message}}
+						<p>{{message}}</p>
+					{{/groupedsettings.message}}
+
+					{{#groupedsettings.link}}
+						<a href="{{url}}" target="_blank" class="btn black">{{name}}</a>
+					{{/groupedsettings.link}}
+					</td>
+				</tr>
+
+				{{#parsedstreams.length}}
+
+				<tr>
+					<td colspan="2">
+						<legend>Streams</legend>
+					</td>
+				</tr>
+
+				{{/parsedstreams.length}}
+
+
+				{{#parsedstreams}}
+				    {{> service_stream }}
+				{{/parsedstreams}}
+
+			</tbody>
+		</table>
+
+	</fieldset>
+
+
+
+
+
+</form>

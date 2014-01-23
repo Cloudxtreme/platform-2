@@ -1,0 +1,21 @@
+{{#url}}<a href="{{url}}">{{/url}}
+	<div class='pull-right'>
+		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		{{#media}}<div class="media"><i class="icon-{{media.icon}}"></i></div>{{/media}}
+	</div>
+	
+	{{#from}}
+	{{#iconview}}
+		<i class="icon-{{icon}}"></i>
+	{{/iconview}}
+	{{^iconview}}
+		<div class="dot {{media.icon}}-color"></div>
+		<img class="avatar" alt="" src="{{avatar}}">
+	{{/iconview}}
+		<strong>{{displayname}}</strong>
+	{{/from}}
+
+	<div class='content' data-id="{{id}}">
+		{{{body.plaintext}}}
+	</div>
+{{#url}}</a>{{/url}}

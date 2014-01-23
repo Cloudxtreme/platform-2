@@ -1,0 +1,5 @@
+/***
+Style corrections and manual overrides
+***/
+
+img.avatar { margin-top: -2px; height: 24px; width: 24px; border-radius: 50% !important; }

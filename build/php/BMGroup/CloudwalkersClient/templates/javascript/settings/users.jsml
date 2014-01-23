@@ -1,0 +1,70 @@
+<div class="tab-pane settings-users row-fluid" id="tab_1_2">
+	
+	<div class="span4">
+		<div class="portlet box grey manage-users-edit-widget">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-user"></i>Edit user</div>
+			</div>
+			<div class="portlet-body">
+				
+				<div class='edit-filler'>
+					<center>Select user</center>
+				</div>
+				
+				<form action="#" role="form" style="display: none;">
+					
+				</form>
+			</div>
+		</div>
+		
+		<div class="collapse-closed invite-user">
+			<div class="portlet box blue">
+				<div class="portlet-title line expand-portlet">
+					<div class="caption"><i class="icon-envelope-alt"></i>Invite new user</div>
+					<div class="tools">
+						<span class="collapse pull-right"></span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					
+					<form action="javascript:void(0);" class="users-invite">
+						
+						<label for="invite-email">Email</label>
+						<input type="text" name="invite-email" />
+						
+						<input type="submit" class="btn green" value="Invite user" />
+						
+						<!--Great spot for pending invitations...-->
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="span8">
+	
+		<div class="portlet box purple">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-group"></i>Userlist</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th class="hidden-480">e-mail</th>
+							<th>type</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="user-container">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>

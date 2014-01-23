@@ -1,0 +1,42 @@
+<div class="portlet box blue keywordsoverview">
+	<div class="portlet-title line">
+		<div class="caption">
+			<i class="icon-tasks"></i> Categories overview
+		</div>
+	</div>
+
+	<div class="portlet-body social-icon-colors">
+		<ul class="messages-container">
+		{{#categories}}
+			<li data-category="{{id}}">
+				
+				<div class="pull-right">
+					<i class="icon-edit-sign icon-2x  edit-toggler"></i>
+					<i class="icon-remove icon-2x delete-category"></i>
+				</div>
+				
+				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
+				<span class="category-edit border-left" style='display: none;'>
+					<form>
+						<input type="text" value="{{name}}" name="name" />
+						<button class="btn blue edit-toggler" type="submit">Change name</button>
+					</form>
+				</span>
+				
+			</li>
+			<li>
+				<ul>
+					{{#keywords}}
+						<li data-keyword="{{id}}">
+							<i class="icon-tag icon-muted"></i>
+							{{attributes.name}}
+							<i class="icon-remove pull-right delete-keyword"></i>
+						</li>
+					{{/keywords}}
+				</ul>
+				<div class="clear"></div>
+			</li>
+		{{/categories}}
+		</ul>
+	</div>
+</div>

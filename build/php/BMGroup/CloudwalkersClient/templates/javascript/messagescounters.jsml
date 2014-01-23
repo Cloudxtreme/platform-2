@@ -1,0 +1,27 @@
+<div class="portlet box {{color}}">
+	<div class="portlet-title line">
+		<div class="caption"><i class="icon-{{icon}}"></i>{{title}}</div>
+		<div class="tools"></div>
+	</div>
+
+	<div class="portlet-body social-icon-colors">
+		<div class="messages-counter">
+
+			<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
+				<ul class="messages-container messages-list">
+
+					{{#list}}
+						<a href="{{url}}">
+							<li>
+								<span class="number unread-{{count}}">{{count}}</span>
+								<i class="icon-{{icon}}"></i>
+								{{name}}
+							</li>
+						</a>
+					{{/list}}
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
