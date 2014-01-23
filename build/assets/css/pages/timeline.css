@@ -68,6 +68,16 @@ ul.timeline	{ margin-top: 25px; }
 	font-size: 14px; line-height: 2em;
 }
 
+.timeline .timeline-video {
+	margin: 2px 5px; width: 200px; height: 120px; background: black center no-repeat; background-size: 100%; border-radius: 2px !important;
+}
+
+.timeline .timeline-video.inactive:after {
+	position: relative; left: 82px; top: 50px;
+	font-family: FontAwesome; font-size: 28px; color: rgba(255,255,255, .8); text-shadow: 0 2px rgba(0,0,0, .1);
+	content: "\F16A"; -webkit-font-smoothing: antialiased;
+}
+
 .timeline .actions.pull-right >	.dropdown-menu	{
 	border: 0; right: 22px; top: -1px; border-radius: 2px !important; 
 }

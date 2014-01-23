@@ -24,6 +24,10 @@
 		{{/image}}
 	{{/attachments}}
 	
+	{{#attached.video}}
+		<div class="pull-right inbox-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+	{{/attached.video}}
+	
 	{{{body.html}}}
 	
 	{{#attachments}}

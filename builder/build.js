@@ -6,12 +6,14 @@ var util = require ('util');
 var CONFIG_SOURCEPATH = fs.realpathSync (__dirname + '/../');
 var CONFIG_BUILDPATH = fs.realpathSync (__dirname + '/../build/');
 
+console.log (CONFIG_BUILDPATH);
+
 wrench.copyDirSyncRecursive(CONFIG_SOURCEPATH, CONFIG_BUILDPATH, {
 	forceDelete: true, // Whether to overwrite existing directory or not
 	excludeHiddenUnix: false, // Whether to copy hidden Unix files or not (preceding .)
 	preserveFiles: false, // If we're overwriting something and the file already exists, keep the existing
 	inflateSymlinks: true, // Whether to follow symlinks or not when copying files,
-	exclude : 'build$'
+	exclude : /(build|\.git|builder)$/
 });
 
 if (fs.existsSync (CONFIG_BUILDPATH + '/public'))
