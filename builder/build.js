@@ -3,29 +3,35 @@ var fs = require ('fs');
 var wrench = require('wrench');
 var util = require ('util');
 
-var CONFIG_SOURCEPATH = fs.realpathSync (__dirname + '/../website/');
+var CONFIG_SOURCEPATH = fs.realpathSync (__dirname + '/../');
 var CONFIG_BUILDPATH = fs.realpathSync (__dirname + '/../build/');
 
 wrench.copyDirSyncRecursive(CONFIG_SOURCEPATH, CONFIG_BUILDPATH, {
-    forceDelete: true, // Whether to overwrite existing directory or not
-    excludeHiddenUnix: false, // Whether to copy hidden Unix files or not (preceding .)
-    preserveFiles: false, // If we're overwriting something and the file already exists, keep the existing
-    inflateSymlinks: true // Whether to follow symlinks or not when copying files
+	forceDelete: true, // Whether to overwrite existing directory or not
+	excludeHiddenUnix: false, // Whether to copy hidden Unix files or not (preceding .)
+	preserveFiles: false, // If we're overwriting something and the file already exists, keep the existing
+	inflateSymlinks: true, // Whether to follow symlinks or not when copying files,
+	exclude : 'build$'
 });
 
 if (fs.existsSync (CONFIG_BUILDPATH + '/public'))
 {
-    wrench.rmdirSyncRecursive (CONFIG_BUILDPATH + '/public');
+	wrench.rmdirSyncRecursive (CONFIG_BUILDPATH + '/public');
+}
+
+if (fs.existsSync (CONFIG_BUILDPATH + '/.idea'))
+{
+	wrench.rmdirSyncRecursive (CONFIG_BUILDPATH + '/.idea');
 }
 
 if (fs.existsSync (CONFIG_BUILDPATH + '/php/config/db-local.php'))
 {
-    fs.unlinkSync (CONFIG_BUILDPATH + '/php/config/db-local.php');
+	fs.unlinkSync (CONFIG_BUILDPATH + '/php/config/db-local.php');
 }
 
 if (fs.existsSync (CONFIG_BUILDPATH + '/php/config/social-local.php'))
 {
-    fs.unlinkSync (CONFIG_BUILDPATH + '/php/config/social-local.php');
+	fs.unlinkSync (CONFIG_BUILDPATH + '/php/config/social-local.php');
 }
 
 // Compress all javascript files into one huge bulk
@@ -50,25 +56,25 @@ for (var i = 0; i < paths.length; i ++)
 //console.log (jsfilesout);
 
 /*for (var i = 0; i < jsfiles.length; i ++)
-{
-	var split = jsfiles[i].split ('.');
-	if (split[split.length-1] == 'js')
-	{
-		jsfilesout.push (CONFIG_BUILDPATH + '/js/' + jsfiles[i]);
-	}
-}
-*/
+ {
+ var split = jsfiles[i].split ('.');
+ if (split[split.length-1] == 'js')
+ {
+ jsfilesout.push (CONFIG_BUILDPATH + '/js/' + jsfiles[i]);
+ }
+ }
+ */
 
 // Compress into one huge js file
 new compressor.minify({
-    type: 'gcc',
-    fileIn: jsfilesout,
-    fileOut: CONFIG_BUILDPATH + '/js/cloudwalkers.min.js',
-    callback: function(err){
+	type: 'gcc',
+	fileIn: jsfilesout,
+	fileOut: CONFIG_BUILDPATH + '/js/cloudwalkers.min.js',
+	callback: function(err){
 
-	    if(err) {
-	        console.log(err);
-	    }
+		if(err) {
+			console.log(err);
+		}
 
 		// Now remove all those javascript files
 		for (var i = 0; i < jsfilesout.length; i ++)
@@ -80,13 +86,12 @@ new compressor.minify({
 		fs.unlinkSync (CONFIG_BUILDPATH + '/templates/buildscripts.phpt');
 
 		fs.writeFile(CONFIG_BUILDPATH + '/templates/buildscripts.phpt', '<script type="text/javascript" src="<?php echo BASE_URL; ?>js/cloudwalkers.min.js"></script>', function(err) {
-		    if(err) {
-		        console.log(err);
-		    } else {
-		        console.log("The file was saved!");
-		    }
-		}); 
+			if(err) {
+				console.log(err);
+			} else {
+				console.log("The file was saved!");
+			}
+		});
 
-    }
+	}
 });
-
