@@ -80,6 +80,7 @@
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
+<script type="text/javascript" src="/js/Views/Chart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
@@ -102,6 +103,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Numberstat.js"></script>

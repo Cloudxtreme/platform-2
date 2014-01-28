@@ -30,6 +30,28 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		this.evolution = null;
 	},
 	
+	'parse' : function(response)
+	{	
+		if(typeof response == "number") return {id: response};
+		
+		if(response.report) response = response.report;
+		
+		this.stamp(response);
+		
+		return response;
+	},
+	
+	'stamp' : function(params)
+	{
+		if (!params) params = {id: this.id};
+		
+		params.stamp = Math.round(new Date().getTime() *.001)
+		
+		Store.set("reports", params);
+		
+		return this;
+	},
+	
 	'getDetails' : function ()
 	{
 		var stat = this.attributes.series[0];
@@ -40,9 +62,9 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 	
 	/**
 	 *	Details by type
-	 */
-	  'textDetails' : function (stat)
-	 {
+	 */ 
+	'textDetails' : function (stat)
+	{
 	 
 		var stream = Cloudwalkers.Session.getStream(this.get("streamid"));
 

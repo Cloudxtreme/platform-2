@@ -44,7 +44,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{
-		
+		// Pageview
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		

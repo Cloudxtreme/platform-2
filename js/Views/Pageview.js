@@ -55,6 +55,15 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		this.$container.children().last().append(html);
 	},
 	
+	'cleanviews' : function ()
+	{
+		if(this.widgetviews.length)
+		{
+			this.destroy();
+			this.widgetviews = [];
+		}
+	},
+	
 	'destroy' : function ()
 	{	
 		$.each(this.widgetviews, function(i, view){ view.remove() });
