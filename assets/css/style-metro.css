@@ -4,9 +4,9 @@ Modify bootstrap buttons
 
 /* remove rounds from all elements */
 div, input, select, textarea, span, img, table, td, th, p, a, button, ul, li {
-  -webkit-border-radius: 0 !important;
-     -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
 }
 
 a:focus {
@@ -36,9 +36,9 @@ select:focus {
   -webkit-box-shadow: none !important;
      -moz-box-shadow: none !important;
           box-shadow: none !important;
-  -webkit-border-radius: 0 !important;
-     -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
 
   -webkit-text-shadow: none;
      -moz-text-shadow: none;
