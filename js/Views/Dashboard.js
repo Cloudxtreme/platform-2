@@ -109,7 +109,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	{
 		var channel = Cloudwalkers.Session.getChannel("internal");
 
-		widgetdata.model = channel.getStream("draft");
+		widgetdata.model = channel.getStream("coworkers");
 		widgetdata.link = "#coworkers";
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);

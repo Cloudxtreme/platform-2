@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'id' : 'monitorparent',
+	'parameters' : {records: 40},
 	'entries' : [],
 	
 	'events' : {
@@ -36,7 +37,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.find(".load-more").hide();
 		
 		// Load category message
-		this.category.messages.touch(this.category, {records: 40});
+		this.category.messages.touch(this.category, this.parameters);
 		
 		return this;
 	},
@@ -110,7 +111,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	{
 		this.incremental = true;
 		
-		var hasmore = this.category.messages.more(this.category, this.category.parameters);
+		var hasmore = this.category.messages.more(this.category, this.parameters);//this.category.parameters);
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},

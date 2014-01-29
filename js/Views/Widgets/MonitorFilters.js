@@ -63,9 +63,12 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		{
 			networkids = networkids.concat($(this).attr('data-network-streams').split(" "));
 		});
+		
+		// Add filters to list
+		this.list.parameters = {records: 40, channels: keywordids.join(","), streams: networkids.join(",")};
 
 		// Fetch filtered messages
-		this.category.messages.touch(this.category, {records: 40, channels: keywordids.join(","), streams: networkids.join(",")}); //this.collection.touch(this.model, {records: 50, group: 1});
+		this.category.messages.touch(this.category, this.list.parameters); //this.collection.touch(this.model, {records: 50, group: 1});
 		//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 		
 		return this;

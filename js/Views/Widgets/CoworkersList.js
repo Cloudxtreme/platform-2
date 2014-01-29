@@ -46,9 +46,10 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	'hideloading' : function ()
 	{
 		this.$el.find(".icon-cloud-download").hide();
-		this.$el.find(".load-more").show();
-		
 		this.$container.removeClass("inner-loading");
+		
+		if (this.model.messages.cursor)
+			this.$el.find(".load-more").show();
 	},
 	
 	'fill' : function (list)
@@ -114,7 +115,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		//console.log(parameters)
 		
-		var hasmore = this.model.messages.more(this.model, this.model.parameters);
+		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},

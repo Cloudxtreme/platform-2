@@ -24,7 +24,7 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
-	'url' : function(a)
+	/*'url' : function(a)
 	{
 		// Hack
 		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
@@ -38,13 +38,13 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		if(this.endpoint)	url += "/" + this.endpoint;
 
 		return this.parameters? url + "?" + $.param (this.parameters): url;
-	},
+	},*/
 	
-	/*
+	
 	'url' : function()
 	{
 		return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
-	},*/
+	},
 	
 	'parse' : function (response)
 	{

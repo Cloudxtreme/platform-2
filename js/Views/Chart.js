@@ -21,8 +21,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{
 		
 		this.$el.html (Mustache.render (Templates.chart, {title: this.title}));
-		
-		console.log(this.$el.find("canvas").get(0))
 			
 		// Select data & chart type
 		var data  = this.parse[this.chart](this.model)

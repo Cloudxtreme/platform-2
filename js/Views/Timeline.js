@@ -1,5 +1,6 @@
 Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
+	'id' : "timeline",
 	'parameters': { 'records' : 20 },
 	'entries' : [],
 	'events' : 
@@ -22,12 +23,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'showloading': function()
 	{
-		this.$el.find(".timeline-loading").show();
+		this.$el.addClass("loading");
+		//this.$el.find(".timeline-loading").show();
 	},
 	
 	'hideloading': function()
 	{
-		this.$el.find(".timeline-loading").hide();
+		this.$el.removeClass("loading");
+		//this.$el.find(".timeline-loading").hide();
 	},
 	
 	'render' : function ()
