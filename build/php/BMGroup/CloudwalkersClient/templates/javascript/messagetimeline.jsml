@@ -6,10 +6,10 @@
 		<span class="time">{{time}}</span>
 	</div>
 
-	<div class="timeline-icon"><i class="icon-{{icon}}"></i></div>
+	<div class="timeline-icon"><i class="icon-{{#icon}}{{icon}}{{/icon}}{{^icon}}cloud-download{{/icon}}"></i></div>
 
 	<div class="timeline-body">
-	
+		{{#objectType}}
 		<span class="actions dropdown pull-right"> 
 			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
@@ -51,7 +51,7 @@
 				</div>
 			{{/attached.link}}
 		</div>
-
+		
 		<div class="timeline-footer">
 			{{#statistics}}
 				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
@@ -67,5 +67,6 @@
 				 
 			 </ul>
 		</div>
+		{{/objectType}}
 	</div>
 </li>

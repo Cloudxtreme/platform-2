@@ -312,15 +312,6 @@ nav	{
 
 .building-notice.inactive	{ display: none; }
 
-.timeline .timeline-loading .inner-loading	{
-	padding: 15px 20px; width: 20%;
-}
-
-.timeline-loading .inner-loading	{
-	border-color: #4b8df8 !important;
-	color: #c6c6c6 !important;
-}
-
 .portlet-loading *	{ background: #f6f6f6 !important; }
 
 .portlet.portlet-loading:after, .inner-loading:after	{ 

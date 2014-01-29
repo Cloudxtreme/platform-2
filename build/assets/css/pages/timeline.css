@@ -2,7 +2,24 @@
 Style corrections and manual overrides
 ***/
 
+/* Timeline Loading */
 
+#timeline .inner-loading { display: none; }
+
+#timeline.loading .inner-loading	{
+	display: block; padding: 15px 20px; width: 20%; border-color: #aaa !important;
+	color: #c6c6c6 !important;
+}
+
+#timeline.loading .timeline > li.timeline-loading .timeline-body:after {
+	top: 15px; border-right-color: #aaa;
+}
+
+.timeline .timeline-body	{ min-height: 32px; }
+
+#timeline.loading .timeline-body, .load-more .timeline-body.more	{ min-height: 20px; }
+
+/* Timeline loaded */
 
 ul.timeline	{ margin-top: 25px; }
 
