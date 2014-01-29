@@ -1,0 +1,77 @@
+/***
+Reports Pageview
+***/
+
+#statistics.loading h3.stats-header-timeview:after	{
+	width: 10%; padding-left: 10px;
+	text-align: right; font-family: FontAwesome; font-size: 21px; color: #ddd; 
+	content: "\F0ED"; -webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#statistics.loading h3.stats-header-timeview	{ color: #666; }
+
+.stats-header	{
+	height: 40px;
+}
+
+.stats-header .period-buttons	{
+	margin: -8px 8px 0 0;
+}
+
+h3.stats-header-timeview	{
+	display: inline;
+	font-size: 20px; text-transform: capitalize;
+}
+
+.stats-header .pull-right .btn, .header-custom .btn	{
+	border-radius: 4px; 
+}
+
+.stats-header .chosen-container	{
+	height: 40px; margin: 6px 0 0 8px;
+}
+
+.stats-header .chosen-single	{
+	height: 30px;
+	line-height: 2.2em;
+}
+
+.stats-header .chosen-single > div	{
+	margin-top: 4px;
+}
+
+.stats-header .chosen-drop	{
+	margin-top: -12px;
+}
+
+.stats-header .header-custom input	{
+	margin-bottom: 0; padding: 6px; 
+}
+
+/***
+Stats Summary
+***/
+
+.stats-summary table {
+	width: 100%; margin: 40px 0; height: 80px; 
+}
+
+.stats-summary td {
+	vertical-align: top; border: 2px dashed white;
+}
+
+#statistics.loading .stats-summary td {
+	background: #fcfcfc; border-color: #eee;
+}
+#statistics.loading .stats-summary .stats-summary-title { color: #aaa; } 
+#statistics.loading .stats-summary .stats-summary-counter { display: none; } 
+
+.stats-summary-title { color: #777; }
+
+.stats-summary-counter	{
+	font-weight: bold; font-size: 20px; 
+}
+
