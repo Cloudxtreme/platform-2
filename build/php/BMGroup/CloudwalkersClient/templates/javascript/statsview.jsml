@@ -1,0 +1,46 @@
+	<!-- stats pageview -->
+	<div class="row-fluid">
+		<h3 class="page-title"> </h3>
+	</div>
+	
+	<div class="row-fluid stats-header">
+		
+		{{^customActive}}
+		<span class="period-buttons btn-group">
+			<a class="btn" id="subtract"><i class="icon-caret-left"></i></a>
+			<a class="btn" id="add"><i class="icon-caret-right"></i></a>
+		</span>
+		{{/customActive}}
+			
+		<h3 class="stats-header-timeview"><strong>{{periodstring}}{{span}}: </strong>{{timeview}}</h3>
+		
+		<div class="pull-right">
+			
+			{{#period}}<a class="btn" id="now">now</a>{{/period}}
+			<a class="btn"><i class="icon-print"></i></a>
+			<select>
+				<optgroup label="Time spans">
+					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
+					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>Quarter</option>
+					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>Year</option>
+				</optgroup>
+				<optgroup label="Extra">
+					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>Custom</option>
+				</optgroup>
+			</select>
+
+		</div>
+		
+		{{#customActive}}
+		<div class="header-custom">
+			<input id="start" type="text" value="{{startstring}}" />
+			<input id="end" type="text" value="{{endstring}}" />
+			<a class="btn" id="show">show</a>
+		</div>
+		{{/customActive}}
+	</div>
+	
+	<div id="widgetcontainer" class="row-fluid"></div>
+
+	<!-- end stats pageview -->

@@ -152,7 +152,7 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		this.trigger("seed", list);
 
 		return list;
-	},
+	}
 
 	
 });

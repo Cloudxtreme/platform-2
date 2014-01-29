@@ -31,12 +31,14 @@
 <!-- BOOTSTRAP PLUGINS -->
 <script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
-<script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>    
+<script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script> 
+<script src="/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 <!-- END BOOTSTRAP PLUGINS --> 
-<!-- BACKBONE PLUGINS -->
-<!-- END BACKBONE PLUGINS -->
+<!-- HTML5 PLUGINS -->
+<script src="/assets/plugins/chart.js/Chart.min.js"></script>
+<!-- END HTML5 PLUGINS -->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
 <script src="/assets/plugins/respond.min.js"></script>

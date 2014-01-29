@@ -12,12 +12,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #subtract': 'subtractperiod',
 		'click #now': 'changespan',
 		'click #show': 'changecustom',
-		'change .stats-header select': 'changespan',
+		'change .stats-header select': 'changespan'
 	},
 	
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-		{widget: "Chart", data: {chart: "PolarArea"}, span: 6},
+		{widget: "Chart", data: {chart: "PolarArea"}, span: 6}
 	],
 	
 	'initialize' : function(options)
