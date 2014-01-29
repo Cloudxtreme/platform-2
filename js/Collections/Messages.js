@@ -90,8 +90,6 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		
 		// Without paging, it's a messages call (ignore)
 		if(!paging) return false;
-		
-		console.log("first, set cursor", paging.cursors.after)
 
 		this.cursor = paging.cursors.after? paging.cursors.after: false;
 	},
@@ -123,8 +121,6 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	{
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
-		
-		console.log("second, store cursor", this.cursor)
 		
 		// Store results based on url
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
