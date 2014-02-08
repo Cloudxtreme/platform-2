@@ -96,7 +96,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			$.each(this.entries, function(n, entry){ entry.remove()});
 			this.entries = [];
 		}
-
+		
 		// Add models to view
 		for (n in models)
 		{
@@ -282,7 +282,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = {records: 20, group: 1};
+		var param = {records: 20, group: 1, debug: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");

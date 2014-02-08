@@ -40,7 +40,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		return this.parameters? url + "?" + $.param (this.parameters): url;
 	},
 	
-	'parse' : function (response)
+	'parse' : function (response, b, c)
 	{
 		// Solve response json tree problem
 		if (this.parentmodel)
@@ -136,12 +136,20 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
-			model = Cloudwalkers.Session.getMessage(id);
+			// In current Collection
+			var model = this.get(id);
 			
-			//if(!model)
-			model = new Cloudwalkers.Models.Message({id: id});
+			// Or in Session collection
+			if(!model)
+			{
+				model = Cloudwalkers.Session.getMessage(id);
+				this.add(model);
+			}
 			
-			this.add(model);
+			// Or create new
+			if(!model) model = this.create({id: id});
+				
+			list.push(model);
 			
 			if(model.get("objectType") && !model.outdated) model.stamp();
 			else return id;
@@ -154,11 +162,13 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 			this.endpoint = this.parentmodel? this.typestring: null;
 			this.parameters = {ids: fresh.join(",")};
 			
-			this.fetch();
+			//console.log("start fetch", this.parameters)
+			
+			this.fetch({remove: false});
 		}
 		
 		// Trigger listening models
-		this.trigger("seed", this.models);
+		this.trigger("seed", list);
 
 		return list;
 	},

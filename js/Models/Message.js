@@ -10,6 +10,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'initialize' : function ()
 	{
+		// Deprecated?
 		this.on ('change', this.afterChange);
 
 		if (typeof (this.attributes.parent) != 'undefined')
@@ -17,7 +18,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
-		else this.trigger ('change');
+		//else this.trigger ('change');
 
 	},
 	
@@ -25,8 +26,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		if(typeof response == "number") response = {id: response};
 		if(response.message) response = response.message;
-		
-		this.stamp(response);
 		
 		return response;
 	},
