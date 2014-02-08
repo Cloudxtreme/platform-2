@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Widgets.InboxNotificationList = Cloudwalkers.Views.Widgets.InboxMessageList.extend({
 	
 	'collectionstring' : "notifications",
+	'check' : "hasNotifications",
 			
 	'toggle' : function(view)
 	{

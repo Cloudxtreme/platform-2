@@ -678,6 +678,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                         Cloudwalkers.Router.Instance.schedule (null);
                                     }
                                 }
+                            
+                            } else {
+	                            //hack
+	                            window.location.reload();
                             }
 
                             Cloudwalkers.Session.trigger ('message:add');

@@ -19,13 +19,8 @@
 				<br />
 				
 				<div>
-					<label>Contributing co-workers</label>
 					<ul id="users-list" class="inner-loading">
-					<!-- {{#users}}
-						<li class='active' data-keyword-id="{{id}}">
-							<i class="icon-tag icon-muted"></i> {{attributes.name}}
-						</li>
-					{{/users}} -->
+
 					</ul>
 					<div class="clear"></div>
 

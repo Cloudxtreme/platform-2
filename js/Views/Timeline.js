@@ -44,6 +44,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		this.$container = this.$el.find("ul.timeline").eq(0);
 		this.$loadmore = this.$el.find(".load-more").remove();
+		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
@@ -77,8 +78,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		}
 		
 		// Add loadmore button
-		if (models.length)
+		if (this.collection.cursor)
 			this.$container.append(this.$loadmore);
+		
+		else if(!models.length)
+			this.$container.append(this.$nocontent);
 		
 		this.hideloading();
 	},

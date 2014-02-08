@@ -107,6 +107,15 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 .btn.blue.limited[disabled]	{ background: #ddd !important; }
 
 
+tbody.messages-container i	{
+	padding: 0 2px 0 6px !important; float: none !important;
+}
+
+.notification-action	{
+	padding: 1px 3px; margin: 0 2px; border-radius: 2px !important; background: white;
+	color: #333; font-size: 12px;
+}
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }
@@ -283,7 +292,7 @@ nav	{
 
 
 /* Pageview */
-.page-content .page-title	{ text-transform: capitalize; }
+.page-content .page-title	{ /*text-transform: capitalize;*/ }
 
 /* Widget */
 
@@ -1212,6 +1221,11 @@ nav	{
 .coworkers .portlet.box img.avatar {
 	top: 3px; height: 24px; width: 24px; 
 }
+
+#users-list	i { padding-top: 8px; }
+
+#users-list	li { cursor: pointer; }
+#users-list	li:hover { background: #f6f6f6; }
 
 /**
  *	Timeline: seperate .css

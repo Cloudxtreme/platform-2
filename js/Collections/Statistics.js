@@ -1,22 +1,22 @@
-Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
+Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	
-	'model' : Cloudwalkers.Models.Message,
-	'typestring' : "messages",
-	'modelstring' : "message",
+	'model' : Cloudwalkers.Models.Report,
+	'typestring' : "reports",
+	'modelstring' : "report",
 	'processing' : false,
 	'parameters' : {},
 	'paging' : {},
 	'cursor' : false,
 	
-	
-	'initialize' : function(options)
-	{
+	'initialize' : function(options){
+		
 		// Override type strings if required
-		if(options) $.extend(this, options);
+		if (options) $.extend(this, options);
 		
 		// Put "add" listener to global messages collection
 		if( Cloudwalkers.Session.user.account)
-			Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd)
+			Cloudwalkers.Session.getReports().listenTo(this, "add", Cloudwalkers.Session.getReports().distantAdd)
+		
 	},
 	
 	'distantAdd' : function(model)
@@ -24,7 +24,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
-	'url' : function(a)
+	/*'url' : function(a)
 	{
 		// Hack
 		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
@@ -38,6 +38,12 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		if(this.endpoint)	url += "/" + this.endpoint;
 
 		return this.parameters? url + "?" + $.param (this.parameters): url;
+	},*/
+	
+	
+	'url' : function()
+	{
+		return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
 	},
 	
 	'parse' : function (response)
@@ -45,11 +51,10 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];
-
-		// Get paging
-		this.setcursor(response.paging)
 		
-		return response[this.typestring];
+		for(n in response.reports) response.reports[n].streamid = this.streamid;
+		
+		return response.reports;
 	},
 	
 	'sync' : function (method, model, options) {
@@ -59,31 +64,13 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'updates' : function (ids)
+	'hook' : function(callbacks)
 	{
-		for(n in ids)
-		{
-			var model = this.get(ids[n]);
-			
-			if(model && model.get("objectType"))
-			{
-				// Store with outdated parameter
-				Store.set(this.typestring, {id: ids[n], outdated: true});
-				
-				// Trigger active models
-				model.outdated = true;
-				model.trigger("outdated");
-			}
-		}
-	},
-
-	'outdated' : function(id)
-	{
-		// Collection
-		if(!id) return this.filter(function(model){ return model.outdated});
+		if(!this.processing) this.fetch({error: callbacks.error});
 		
-		// Update model
-		var model = this.updates([id]);
+		else if(this.length) callbacks.success();
+
+		this.on("sync", callbacks.success);	
 	},
 	
 	'setcursor' : function (paging) {
@@ -91,7 +78,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Without paging, it's a messages call (ignore)
 		if(!paging) return false;
 
-		this.cursor = paging.cursors.after? paging.cursors.after: false;
+		this.cursor = paging.cursors? paging.cursors.after: false;
 	},
 	
 	'touch' : function(model, params)
@@ -110,10 +97,11 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Is there a local touch list (and filled)?
 		if (touch && touch.modelids.length)
 		{
-			this.cursor = touch.cursor;
 			this.seed(touch.modelids);
+			this.cursor = touch.cursor;
 		
 		} else this.fetch({success: this.touchresponse.bind(this, this.url())});
+		
 	},
 	
 	'touchresponse' : function(url, collection, response)
@@ -130,21 +118,24 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'seed' : function(ids)
 	{
+		
+		
+		
 		// Ignore empty id lists
 		if(!ids) ids = [];
 
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
-			model = Cloudwalkers.Session.getMessage(id);
+			model = Cloudwalkers.Session.getReport(id);
 			
-			//if(!model)
-			model = new Cloudwalkers.Models.Message({id: id});
+			this.add(model? model: {id: id});
 			
-			this.add(model);
+			if(!model) model = this.get(id);
 			
-			if(model.get("objectType") && !model.outdated) model.stamp();
-			else return id;
+			list.push(model.stamp());
+			
+			if(!model || !model.get("objectType") || model.outdated) return id;
 		
 		}, this));
 		
@@ -158,18 +149,10 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		}
 		
 		// Trigger listening models
-		this.trigger("seed", this.models);
+		this.trigger("seed", list);
 
 		return list;
-	},
-	
-	'more' : function(model, params)
-	{
-		if(!this.cursor) return false;
-		
-		params.after = this.cursor;
-		this.touch(model, params)
-		
-		return this;
 	}
+
+	
 });

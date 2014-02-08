@@ -15,14 +15,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'initialize' : function (options)
 	{
-		//if(this.template) this.template = this.template;
 		if(options) $.extend(this, options);
 		
 		this.listenTo(this.model, 'change', this.render);
 	},
 
 	'render' : function ()
-	{
+	{	
+		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type)));
 		
 		if(this.$el.find("[data-date]")) this.time();

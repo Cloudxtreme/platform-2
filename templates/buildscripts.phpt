@@ -81,6 +81,10 @@
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
 <script type="text/javascript" src="/js/Views/Chart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Legenda.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/HeatCalendar.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>

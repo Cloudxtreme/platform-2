@@ -1,6 +1,7 @@
 {{#url}}<a href="{{url}}">{{/url}}
 	<div class='pull-right'>
-		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		{{#istrending}}<span class="date">{{trending}}</span>{{/istrending}}
+		{{^istrending}}{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}{{/istrending}}
 		{{#media}}<div class="media"><i class="icon-{{media.icon}}"></i></div>{{/media}}
 	</div>
 	

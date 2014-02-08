@@ -17,18 +17,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
-		else
-		{
-			this.trigger ('change');
-		}
+		else this.trigger ('change');
 
-		//this.addInternalActions ();
 	},
 	
 	'parse' : function(response)
 	{	
-		if(typeof response == "number") return {id: response};
-		
+		if(typeof response == "number") response = {id: response};
 		if(response.message) response = response.message;
 		
 		this.stamp(response);
@@ -79,8 +74,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		if(type == "trending")
 		{
+			data.istrending = true;
 			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
-			data.date = null;
+			//data.date = null;
 			data.iconview = true;
 		
 		} else if(type == "inbox")
@@ -360,7 +356,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						type:"get", 
 						url: url, 
 						success:function(objData)
-						{
+						{   
                             /*
 							var collection = self.collection;
 
@@ -371,8 +367,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             }
                             */
                             self.trigger ("destroy", self, self.collection);
+                            
+                            // Hack
+							window.location.reload();
+                            
 						}
 					});
+					
 				}
 			);
 		}
@@ -383,8 +384,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				'Are you sure you want to remove this message?', 
 				function () 
 				{
-                    self.destroy ();
+                    self.destroy ({success:function(){
+	                    
+	                    // Hack
+						window.location.reload();
+	                    
+                    }});
                     //self.trigger ("destroy", self, self.collection);
+
 				}
 			);
 		}

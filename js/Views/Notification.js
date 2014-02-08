@@ -3,6 +3,12 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 	'tagName' : 'li',
 	'template': 'message',
 	
+	'events' : {
+		'mouseover' : 'toggleactions',
+		'mouseout' : 'toggleactions',
+		'click *[data-notification-action]' : 'action'
+	},
+	
 	'initialize' : function (options)
 	{
 		// Add options to view
@@ -14,7 +20,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 	'render' : function ()
 	{
 		// Build parameters
-		var params = {from: this.model.get("from"), body: this.model.get("body"), attachments: {}};
+		var params = {from: this.model.get("from"), body: this.model.get("body"), actions: this.model.get("actions"), attachments: {}};
 		
 		if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM");
 		if (this.model.get("attachments"))	$.each(this.model.get("attachments"), function(n, object){ params.attachments[object.type] = object });
@@ -29,6 +35,11 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		return this;
 	},
 	
+	'toggleactions' : function()
+	{
+		this.$el.find(".message-actions, .comment-info").toggleClass("hidden");	
+	},
+	
 	'markasread' : function()
 	{
 		// Send update
@@ -37,5 +48,61 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		// Mark stream
 		if (this.model.get("stream"))
 			Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
+	},
+	
+	'action' : function (element)
+	{
+		var actiontoken = $(element.currentTarget).data ('notification-action');
+		
+		action = this.model.getAction (actiontoken);
+
+		if (action == null)
+		{
+			console.log ('No action found: ' + actiontoken);
+			return;
+		}
+
+		var targetmodel = this.model;
+		if (typeof (action.target) != 'undefined')
+		{
+			targetmodel = action.target;
+
+			if (typeof (action.originalaction) != 'undefined')
+			{
+				action = action.originalaction;
+			}
+		}
+
+		if (typeof (action.callback) != 'undefined')
+		{
+			action.callback (targetmodel);
+		}
+		else
+		{
+			if (action)
+			{
+				if (action.type == 'dialog')
+				{
+					var view = new Cloudwalkers.Views.ActionParameters ({
+						'message' : targetmodel,
+						'action' : action
+					});
+					Cloudwalkers.RootView.popup (view);
+				}
+				else if (action.type == 'simple')
+				{
+					targetmodel.act (action, {}, function (){});
+				}
+
+				else if (action.type == 'write')
+				{
+					Cloudwalkers.RootView.writeDialog 
+					(
+						targetmodel,
+						action
+					);
+				}
+			}
+		}
 	}
 });

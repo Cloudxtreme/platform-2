@@ -5,6 +5,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 	'id' : 'inboxlist',
 	'entries' : [],
+	'check' : "hasMessages",
 	'collectionstring' : "messages",
 	'filters' : {
 		contacts : {string:"", list:[]},
@@ -39,9 +40,17 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'render' : function ()
 	{	
 		// Template data
-		var param = {streams: [], networks: this.model.streams.filterNetworks(null, true)};
+		var param = {streams: [], networks: []};
+		
+		// Select streams
+		this.model.streams.each (function(stream)
+		{
+			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
 
-		this.model.streams.each (function(stream){ param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname")}); });
+		}.bind(this));
+		
+		// Select networks
+		param.networks = this.model.streams.filterNetworks(param.streams, true);
 		
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));

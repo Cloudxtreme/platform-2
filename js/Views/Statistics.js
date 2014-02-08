@@ -17,7 +17,25 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-		{widget: "Chart", data: {chart: "PolarArea"}, span: 6}
+		{widget: "Chart", data: {chart: "PolarArea", title: "Contacts"}, span: 6},
+		{widget: "Chart", data: {chart: "Doughnut", title: "By Age"}, span: 3},
+		{widget: "Chart", data: {chart: "Doughnut", title: "By Gender"}, span: 3},
+		
+		{widget: "Info", data: {title: "Contact Evolution"}, span: 3},
+		{widget: "Info", data: {title: "Post Activity"}, span: 3},
+		{widget: "Info", data: {title: "Activity?"}, span: 3},
+		{widget: "Info", data: {title: "Page Views?"}, span: 3},
+		
+		{widget: "Chart", data: {chart: "PolarArea", title: "Regional Popularity"}, span: 6},
+		{widget: "Legenda", data: {}, span: 3},
+		{widget: "Combo", data: { widgets: [
+			{widget: "Chart", data: {chart: "Doughnut", title: "Country"}, span: 12},
+			{widget: "Chart", data: {chart: "Doughnut", title: "By Gender"}, span: 12},
+		]}, span: 3},
+		
+		{widget: "Chart", data: {chart: "Line", title: "Best Time to Post"}, span: 6},
+		{widget: "HeatCalendar", data: {title: "Activity Calendar"}, span: 6},
+		
 	],
 	
 	'initialize' : function(options)
