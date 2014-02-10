@@ -1086,8 +1086,8 @@ nav	{
 	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
 }
 
-.inbox-container .message-header strong {
-	color: inherit;
+.inbox-container .message-header a {
+	color: inherit; font-weight: bold;
 }
 
 .inbox-container .message-header .date {

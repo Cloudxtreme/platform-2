@@ -9,7 +9,7 @@
 		
 		<img class="avatar" alt="" src="{{avatar}}">
 		<div>
-			<strong>{{displayname}}</strong>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
 			<br /><em>on {{networkdescription}}</em>
 		</div>
 		{{/from}}
