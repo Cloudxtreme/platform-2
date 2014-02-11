@@ -1,4 +1,14 @@
-Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend({
+/**
+* A standard widget
+*/
+Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
+
+	'template' : 'messagedraftcontainer',
+	'messagetemplate' : 'messagedraft'
+
+});
+
+/*Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'id' : 'drafts',
 	'parameters' : {records: 20},
@@ -109,7 +119,7 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend(
 			
 			this.$container.append(messageView.render().el);
 		}
-	},*/
+	},* /
 	
 	'more' : function ()
 	{
@@ -132,7 +142,7 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend(
 		
 		this.category.fetch({endpoint: "messageids", parameters:param})
 		
-	},*/
+	},* /
 	
 	'negotiateFunctionalities' : function() {
 		
@@ -156,17 +166,8 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend(
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
 	}
-});
-
-
-
-
-/**
-* A standard widget
-* /
-Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
-
-	'template' : 'messagedraftcontainer',
-	'messagetemplate' : 'messagedraft'
-
 });*/
+
+
+
+
