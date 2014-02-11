@@ -26,6 +26,7 @@
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
 <script type="text/javascript" src="/js/Models/Comment.js"></script>
+<script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 
 <!-- Collections -->
@@ -38,6 +39,7 @@
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
+<script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Comments.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 

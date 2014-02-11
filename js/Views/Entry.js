@@ -8,6 +8,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		'remove' : 'destroy',
 		'click *[data-action]' : 'action',
+		'click *[data-action]' : 'triggeraction',
 		'click [data-notifications]' : 'loadNotifications',
 		'click [data-youtube]' : 'loadYoutube',
 		'click' : 'toggle'
@@ -30,6 +31,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(this.type == "inbox" && this.model.get("objectType")) this.checkUnread();
 		
 		return this;
+	},
+	
+	'triggeraction' : function (element)
+	{
+		// Action token
+		var token = $(element.currentTarget).data ('action');
+		
+		this.model.trigger("action", token);
 	},
 	
 	'toggle' : function() { this.trigger("toggle", this); },

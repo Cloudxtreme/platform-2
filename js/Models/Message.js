@@ -7,9 +7,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
         	CONFIG_BASE_URL + 'json/message/' + this.id + this.endpoint :
         	CONFIG_BASE_URL + 'json/message/' + this.id;
     },
+    
+    /* Actions: see below. */
 
 	'initialize' : function ()
 	{
+		
+		// Actions
+		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		
 		// Deprecated?
 		this.on ('change', this.afterChange);
 
@@ -18,8 +24,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
-		//else this.trigger ('change');
-
 	},
 	
 	'parse' : function(response)
@@ -70,6 +74,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			data.icon = stream.get("network").icon;
 			data.networktoken = stream.get("network").token;
+			data.networkdescription = stream.get("defaultname");
 			data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 			
 		} else data.url = this.link;
@@ -109,6 +114,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			{
 				data.time = this.get("engagement");
 			}
+		
+		} else if(type == "inboxmessage")
+		{
+			// Temp hack, should be in "full"
+			
+			if (data.date)
+				data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
+			
+			if (data.attachments)
+			{
+				data.attached = {};
+				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
+			}
+
+			// add optional notifications
+			if(this.options.notification)
+				data.commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
+				
+			// render actions
+			data.actions = this.actions.rendertokens(this.get("actiontokens"));
 		}
 		
 		
@@ -674,5 +699,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		return out;
 	}
-
 });
+
+

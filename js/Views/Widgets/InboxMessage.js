@@ -10,7 +10,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	{
 		'remove' : 'destroy',
 		'click *[data-youtube]' : 'loadYoutube',
-		'click *[data-action]' : 'action'
+		'click div[data-action]' : 'triggeraction',
 	},
 	
 	'initialize' : function ()
@@ -50,6 +50,9 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// add optional notifications
 		if(this.options.notification)
 			params.commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
+			
+		// render actions
+		params.actions = this.message.actions.rendertokens(this.message.get("actiontokens"));
 		
 		// Visualise	
 		this.$el.html(Mustache.render (Templates.inboxmessage, params));
