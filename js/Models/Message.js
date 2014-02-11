@@ -54,7 +54,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 	
 	'filterData' : function (type, data)
-	{
+	{	
+		
+		data.iconview = false;
+		
 		// Handle loading messages
 		if(!this.get("date")) return this.attributes;
 		
