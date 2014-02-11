@@ -3,14 +3,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'tagName' : 'li',
 	'template': 'messageentry',
 	'notifications' : [],
+	'parameters' : {},
 	
 	'events' : 
 	{
 		'remove' : 'destroy',
-		'click *[data-action]' : 'action',
-		'click *[data-action]' : 'triggeraction',
 		'click [data-notifications]' : 'loadNotifications',
 		'click [data-youtube]' : 'loadYoutube',
+		'click *[data-action]' : 'action',
 		'click' : 'toggle'
 	},
 	
@@ -19,12 +19,13 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(options) $.extend(this, options);
 		
 		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'action:toggle', this.toggleaction);
 	},
 
 	'render' : function ()
 	{	
 		// Visualize
-		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type)));
+		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type, this.parameters)));
 		
 		if(this.$el.find("[data-date]")) this.time();
 		
@@ -33,12 +34,20 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		return this;
 	},
 	
-	'triggeraction' : function (element)
+	'action' : function (element)
 	{
 		// Action token
 		var token = $(element.currentTarget).data ('action');
 		
 		this.model.trigger("action", token);
+	},
+	
+	'toggleaction' : function (token, newaction)
+	{
+		// Action element
+		var action = this.$el.find('div[data-action="' + token + '"]').data("action", newaction.token);
+		
+		action.find("i").attr("class", "").addClass("icon-" + newaction.icon);
 	},
 	
 	'toggle' : function() { this.trigger("toggle", this); },
@@ -98,7 +107,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 	
-	'action' : function (element)
+	/*'action' : function (element)
 	{
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
@@ -163,7 +172,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 				}
 			}
 		}
-	},
+	},*/
 	
 	'time' : function ()
 	{

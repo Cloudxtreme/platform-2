@@ -1,7 +1,19 @@
 
 	<div class='pull-right'>
 		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
-		{{#share.length}}
+		
+		{{#actions.length}}
+		<span class="actions dropdown">
+			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+			
+			<ul class="dropdown-menu">
+			{{#actions}}
+				<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+			{{/actions}}
+			</ul>
+		</span>
+		{{/actions.length}}
+		<!--{{#share.length}}
 			<span class="actions dropdown">
 				<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			
@@ -11,7 +23,7 @@
 				{{/share}}
 				</ul>
 			</span>
-		{{/share.length}}
+		{{/share.length}}-->
 		<div class="media"><i class="icon-{{media.icon}}"></i></div>
 
 	</div>

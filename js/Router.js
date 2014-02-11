@@ -55,6 +55,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Message board
 	 **/
 	 
+	
 	'write' : function ()
 	{
 		var view = new Cloudwalkers.Views.Write ();

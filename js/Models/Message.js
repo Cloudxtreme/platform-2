@@ -13,11 +13,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'initialize' : function ()
 	{
 		
-		// Actions
-		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
-		
+				
 		// Deprecated?
-		this.on ('change', this.afterChange);
+		//this.on ('change', this.afterChange);
 
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
@@ -55,12 +53,25 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return this;
 	},
 	
-	'filterData' : function (type)
+	'filterData' : function (type, data)
 	{
 		// Handle loading messages
 		if(!this.get("date")) return this.attributes;
 		
-		var data = this.attributes;
+		if(!data) var data = {};
+		
+		$.extend(data, this.attributes);
+		
+		// Actions
+		if($.inArray(type, ["full", "fulltrending", "inboxmessage"]) > -1)
+		{
+			if(!this.actions) this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+			
+			data.actions = this.actions.rendertokens();
+		}
+
+		
+		// Stream		
 		var stream = Cloudwalkers.Session.getStream(data.stream);
 		
 		if(data.attachments)
@@ -79,6 +90,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			
 		} else data.url = this.link;
 		
+		
 		if(type == "trending")
 		{
 			data.istrending = true;
@@ -95,11 +107,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		} else if(type == "full" || type == "fulltrending")
 		{
 			data.url = null;
-			data.share = this.filterShareData(stream);
 			data.iconview = true;
 			
 			if(data.date)
 			{
+				data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
 				data.dateonly = moment(data.date).format("DD MMM YYYY");
 				data.time = moment(data.date).format("HH:mm");
 			}
@@ -114,27 +126,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			{
 				data.time = this.get("engagement");
 			}
-		
-		} else if(type == "inboxmessage")
-		{
-			// Temp hack, should be in "full"
-			
-			if (data.date)
-				data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
-			
-			if (data.attachments)
-			{
-				data.attached = {};
-				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
-			}
-
-			// add optional notifications
-			if(this.options.notification)
-				data.commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
-				
-			// render actions
-			data.actions = this.actions.rendertokens(this.get("actiontokens"));
 		}
+		
 		
 		
 

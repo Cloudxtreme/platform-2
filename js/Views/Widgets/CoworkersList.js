@@ -32,7 +32,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$el.find(".load-more").hide();
 		
 		// Load category message
-		this.model.messages.touch(this.model, params? params: this.paramters);
+		this.model.messages.touch(this.model, params? params: this.parameters);
 		
 		return this;
 	},

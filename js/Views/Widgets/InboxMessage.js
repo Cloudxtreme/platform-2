@@ -4,64 +4,35 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	'tagName' : 'div',
 	'className' : "message social-box-colors",
 	'related' : [],
+	'messageview' : [],
 	'notifications' : [],
 	
 	'events' : 
 	{
 		'remove' : 'destroy',
 		'click *[data-youtube]' : 'loadYoutube',
-		'click div[data-action]' : 'triggeraction',
-	},
-	
-	'initialize' : function ()
-	{
-		this.message = this.options.model;
-
-		this.listenTo(this.message, 'change', this.render);
+		'click *[data-action]' : 'action',
 	},
 
 	'render' : function ()
 	{
 		// Manage loading
-		this.loading(!this.message.get("objectType"));
-		
-		// Parameters
-		var params = {};
-		$.extend(params, this.message.attributes);
-
-		if (params.date)
-			params.fulldate = moment(params.date).format("DD MMM YYYY HH:mm");
-		
-		if (params.attachments)
-		{
-			params.attachments = {};
-			$.each(this.message.get("attachments"), function(n, object){ params.attachments[object.type] = object });
-		}
-		
-		if (this.message.get("stream"))
-		{
-			var stream = Cloudwalkers.Session.getStream(this.message.get("stream"));
-			
-			params.icon = stream.get("network").icon;
-			params.networkdescription = stream.get("defaultname");
-			params.stream = stream;
-		}
+		this.loading(!this.model.get("objectType"));
 		
 		// add optional notifications
 		if(this.options.notification)
-			params.commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
-			
-		// render actions
-		params.actions = this.message.actions.rendertokens(this.message.get("actiontokens"));
+			var commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
 		
-		// Visualise	
-		this.$el.html(Mustache.render (Templates.inboxmessage, params));
+		// Visualize
+		this.$el.html (Mustache.render (Templates.inboxmessage, this.model.filterData('full', {commented: commented})));
+		
+		this.time();
 		
 		// Check notifications (second conditional, after message render)
-		if (this.options.notification && this.message.get("objectType")) this.addNotifications();
+		if (this.options.notification && this.model.get("objectType")) this.addNotifications();
 		
 		// Mark as read
-		if (this.message.get("objectType") && !this.message.get("read")) this.markasread();
+		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 		
 		return this;
 	},
@@ -82,14 +53,14 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
 		
 		// Create related collection
-		if(!this.message.related)
-			this.message.related = new Cloudwalkers.Collections.Messages({modelstring: "related", typestring: "related", parenttype: "message"});
+		if(!this.model.related)
+			this.model.related = new Cloudwalkers.Collections.Messages({modelstring: "related", typestring: "related", parenttype: "message"});
 		
 		// Listen to collection
-		this.listenTo(this.message.related, 'seed', this.fillrelated);
+		this.listenTo(this.model.related, 'seed', this.fillrelated);
 			
 		// Load messages
-		this.message.related.touch(this.message, {records: 20});
+		this.model.related.touch(this.model, {records: 20});
 	},
 	
 	'fillrelated' : function(models)
@@ -103,12 +74,12 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		}
 		
 		// Filter out existing model
-		models = models.filter(function(model){ return model.id != this.message.id }.bind(this));
+		models = models.filter(function(model){ return model.id != this.model.id }.bind(this));
 
 		// Add models to view
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'inbox'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'full'});
 			
 			this.related.push (view);
 			
@@ -125,13 +96,13 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.loading(true);
 		
 		// Does collection exist?
-		if(!this.message.notifications)
-			this.message.notifications = new Cloudwalkers.Collections.Notifications();
+		if(!this.model.notifications)
+			this.model.notifications = new Cloudwalkers.Collections.Notifications();
 		
 		// Load notifications
-		this.listenTo(this.message.notifications, 'seed', this.fillNotifications);
+		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
 		
-		this.message.notifications.touch(this.message, {records: 50, group: 1});
+		this.model.notifications.touch(this.model, {records: 50, group: 1});
 	},
 	
 	'fillNotifications' : function (list)
@@ -165,15 +136,17 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	'markasread' : function()
 	{
 		// Send update
-		this.message.save({read: 1}, {patch: true, wait: true});
+		this.model.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
-		Cloudwalkers.Session.getStreams().outdated(this.message.get("stream"));
+		Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
 	},
 	
 	'destroy' : function()
 	{
+		$.each(this.modelview, function(n, entry){ entry.remove()});
 		$.each(this.notifications, function(n, entry){ entry.remove()});
+		$.each(this.related, function(n, entry){ entry.remove()});
 	}
 	
 });
