@@ -187,7 +187,7 @@ Cloudwalkers.Session =
 	
 	'getStream' : function (id)
 	{
-		return this.user.account.streams.get (id);
+		return (typeof id == "number")?  this.user.account.streams.get (id):  this.user.account.streams.findWhere({token: id});
 	},
 	
 	'getStreams' : function ()

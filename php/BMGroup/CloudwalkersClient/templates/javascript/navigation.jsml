@@ -14,7 +14,6 @@
 		<a href="#write">
 			<i class="icon-share-sign"></i> 
 			<span class="title">Message board</span>
-			<!--<span class="arrow"></span>-->
 			<span class="selected"></span>
 		</a>
 		<ul class="sub-menu">
