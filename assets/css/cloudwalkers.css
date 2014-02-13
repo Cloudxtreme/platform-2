@@ -129,7 +129,7 @@ tbody.messages-container i	{
 
 /* TOP NAV */
 .header-icon	{
-	float: left; padding: 8px 4px;
+	float: left; padding: 8px 4px; cursor: pointer;
 	color: #333; font-size: 17.5px;
 }
 
