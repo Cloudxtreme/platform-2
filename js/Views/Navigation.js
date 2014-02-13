@@ -15,16 +15,28 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 		
 		// DEV Check
-		$.get(CONFIG_BASE_URL + "json/version", this.version.bind(this))
+		$.get(CONFIG_BASE_URL + "json/version", this.version.bind(this));
 		
+	},
+	
+	'headeraction' : function(element)
+	{
+		// Action token
+		var token = $(element.currentTarget).data ('header-action');
 		
+		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox", true);
+		if(token == 'contacts') Cloudwalkers.Router.Instance.navigate("#coworkers", true);
+		if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
+		//this.model.trigger("action", token);
 	},
 	
 	'fit' : function ()
 	{
 		$('#header').html (this.renderHeader().header);
 		$('#sidebar').html (this.render().el);
-		this.render();
+		//this.render();
+
+		$("#header").on("click", '*[data-header-action]', this.headeraction);
 	},
 	
 	'version' : function (response)

@@ -1,0 +1,14 @@
+	<td>{{fulldate}}</td>
+	<td>
+	{{#streams}}
+		<div class="network"><i class="icon-{{network.icon}}"></i>{{name}}</div>
+	{{/streams}}
+	</td>
+	<td class="ellipsed-25">
+		{{#subject}}{{subject}}{{/subject}}
+		{{^subject}}{{body.plaintext}}{{/subject}}
+	</td>
+	<td>
+		<span class="pull-right" data-action="delete"><i class="icon-remove"></i></span>
+		<span class="pull-right" data-action="edit"><i class="icon-edit-sign"></i></span>
+	</td>

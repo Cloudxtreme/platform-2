@@ -11,9 +11,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
     /* Actions: see below. */
 
 	'initialize' : function ()
-	{
-		
-				
+	{			
 		// Deprecated?
 		//this.on ('change', this.afterChange);
 
@@ -26,10 +24,19 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{	
-		if(typeof response == "number") response = {id: response};
-		if(response.message) response = response.message;
+		if (typeof response == "number") response = {id: response};
+		else {
+		
+			if (response.message) response = response.message;
+			this.checkloaded(response);
+		}
 		
 		return response;
+	},
+	
+	'checkloaded' : function (response)
+	{
+		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
 	},
 	
 	'sync' : function (method, model, options)

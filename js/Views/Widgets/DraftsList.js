@@ -1,16 +1,17 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
+/*Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
 
 	'template' : 'messagedraftcontainer',
 	'messagetemplate' : 'messagedraft'
 
-});
+});*/
 
-/*Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.Widget.extend({
+Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend({
 
-	'id' : 'drafts',
+	'id' : 'draftsparent',
+	'title': "Draft messages",
 	'parameters' : {records: 20},
 	'entries' : [],
 	
@@ -21,18 +22,15 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContain
 	
 	'initialize' : function (options)
 	{
-		if(options) $.extend(this, options);
+		if(options) $.extend(this, options);	
 		
-		// Add model
-		if(!this.model)		
-			this.model = Cloudwalkers.Session.getStream(this.type);
-
 		// Add collection
 		if (!this.model.messages) this.model.messages = new Cloudwalkers.Collections.Messages();
 		
 		// Listen to model messages and users
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
+		//this.listenTo(this.model.messages, 'sync', this.hideloading);
 	},
 
 	'render' : function (params)
@@ -119,7 +117,7 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContain
 			
 			this.$container.append(messageView.render().el);
 		}
-	},* /
+	},*/
 	
 	'more' : function ()
 	{
@@ -142,7 +140,7 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContain
 		
 		this.category.fetch({endpoint: "messageids", parameters:param})
 		
-	},* /
+	},*/
 	
 	'negotiateFunctionalities' : function() {
 		
@@ -166,7 +164,7 @@ Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContain
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
 	}
-});*/
+});
 
 
 

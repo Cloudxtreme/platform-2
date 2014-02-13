@@ -8,7 +8,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	{
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
-		'edit' : {name: "Edit", icon: 'edit', token: 'delete', type: 'write', redirect: false},
+		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'write', redirect: false},
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'dialog'},
 		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', maxsize: {'twitter': 140}},
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},

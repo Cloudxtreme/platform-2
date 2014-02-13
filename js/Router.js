@@ -5,6 +5,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'write' : 'write',
 		'share' : 'share',
 		'schedule(/:channel)(/:stream)' : 'schedule',
+		'scheduled' : 'scheduled',
 		'drafts' : 'drafts',
 		'inbox(/:channel)(/:type)(/:streamid)' : 'inbox',
 		'coworkers' : 'coworkers',
@@ -66,7 +67,65 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		Cloudwalkers.RootView.viewshare ("general");
 	},
+	
+	/*'drafts' : function ()
+	{
+		var collection = new Cloudwalkers.Collections.Drafts
+		(
+			[], 
+			{ 
+				'name' : 'Draft messages',
+				'filter' : 'mine'
+			}
+		);
+
+		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
+
+		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
+		widgetcontainer.addWidget (widget);
+
+		widgetcontainer.title = 'Drafts';
+		widgetcontainer.navclass = 'drafts';
+
+		Cloudwalkers.RootView.setView (widgetcontainer); 
+	},*/
+	
+	/**
+	 *	Co-workers wall
+	 **/
 	 
+	'coworkers' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
+	},
+	
+	/**
+	 *	Inbox
+	 **/
+	 
+	 'inbox' : function (id, type, streamid)
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
+		
+		if (!channel) return this.home();
+		if (!type) type = "messages";
+		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id + "/" + type);
+		
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
+	},
+	
+	'drafts' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+	},
+	
+	'scheduled' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Scheduled());
+	},
+	
 	'schedule' : function (channelid, streamid)
 	{
 		var parameters = 			
@@ -98,54 +157,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 
 		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
-
-	'drafts' : function ()
-	{
-		var collection = new Cloudwalkers.Collections.Drafts
-		(
-			[], 
-			{ 
-				'name' : 'Draft messages',
-				'filter' : 'mine'
-			}
-		);
-
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
-
-		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
-		widgetcontainer.addWidget (widget);
-
-		widgetcontainer.title = 'Drafts';
-		widgetcontainer.navclass = 'drafts';
-
-		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
-	
-	/**
-	 *	Co-workers wall
-	 **/
-	 
-	'coworkers' : function ()
-	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
-	},
-	
-	/**
-	 *	Inbox
-	 **/
-	 
-	 'inbox' : function (id, type, streamid)
-	{
-		// Parameters
-		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
-		
-		if (!channel) return this.home();
-		if (!type) type = "messages";
-		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id + "/" + type);
-		
-		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
 	},
 	
 	/**

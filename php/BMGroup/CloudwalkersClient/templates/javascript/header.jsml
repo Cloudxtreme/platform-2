@@ -14,8 +14,14 @@
 			<i class="icon-envelope"></i>
 		</div>
 		
+		<!--
 		<div class="header-icon" data-header-action="notifications">
 			<i class="icon-globe"></i>
+		</div>
+		-->
+		
+		<div class="header-icon active" data-header-action="post">
+			<i class="icon-share-sign"></i>
 		</div>
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
