@@ -194,7 +194,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'reports' : function (streamid)
 	{
-		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
+		
+		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
 
 		if (streamid)
 		{
