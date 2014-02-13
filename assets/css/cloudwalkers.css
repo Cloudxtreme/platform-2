@@ -1213,7 +1213,7 @@ nav	{
 #scheduledlist tr > td:nth-child(1)	{ width: 20%; padding: 8px 10px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 #scheduledlist tr > td:nth-child(3)	{ width: 40%; padding-right: 4px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 #scheduledlist tr > td:nth-child(4)	{ width: 10%; padding: 8px 0; }
-#scheduledlist tr > td:nth-child(4) i	{ padding: 0 10px 0 0 !important; }
+#scheduledlist tr > td:nth-child(4) i	{ padding: 0 10px 0 0 !important; cursor: pointer; }
 
 #scheduledlist .network	{
 	float: left; box-sizing: border-box; width: 48%; padding: 1px 2px 2px 0; margin: 0 2% 2px 0; background: white; border-radius: 20px;
