@@ -66,7 +66,7 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 		if(all) this.button = false;
 
 		// Fetch filtered messages
-		this.model.messages.touch(this.model, streams? {records: 20, target: streams} : {records: 40});
+		this.model.messages.touch(this.model, streams? {records: 20, target: streams, sort: 'asc'} : {records: 40, sort: 'asc'});
 		
 		return this;
 	},
