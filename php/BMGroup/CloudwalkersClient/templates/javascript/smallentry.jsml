@@ -2,7 +2,7 @@
 	<div class='pull-right'>
 		{{#istrending}}<span class="date">{{trending}}</span>{{/istrending}}
 		{{^istrending}}{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}{{/istrending}}
-		{{#media}}<div class="media"><i class="icon-{{media.icon}}"></i></div>{{/media}}
+		<div class="media"><i class="icon-{{media}}"></i></div>
 	</div>
 	
 	{{#from}}
@@ -10,7 +10,7 @@
 		<i class="icon-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
-		<div class="dot {{media.icon}}-color"></div>
+		<div class="dot {{media}}-color"></div>
 		<img class="avatar" alt="" src="{{avatar}}">
 	{{/iconview}}
 		<strong>{{displayname}}</strong>

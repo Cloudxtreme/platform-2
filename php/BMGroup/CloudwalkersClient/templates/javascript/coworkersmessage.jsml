@@ -12,7 +12,7 @@
 				</ul>
 			</span>
 		{{/actions.length}}
-		<div class="media"><i class="icon-{{media.icon}}"></i></div>
+		<div class="media"><i class="icon-{{media}}"></i></div>
 
 	</div>
 	

@@ -117,6 +117,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addDashboardTrending' : function (widgetdata)
 	{
+		widgetdata.trending = true;
 		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
 		widgetdata.filters = {
 			sort: "engagement",

@@ -24,6 +24,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'render' : function ()
 	{	
+		console.log(this.model.id, 'entry', this.parameters)
+		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type, this.parameters)));
 		

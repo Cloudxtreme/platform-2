@@ -67,7 +67,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 			if(this.link) models[n].link = this.link;
 			
 			// Render view
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: this.type});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: this.type, parameters: {trending: this.trending}});
 			this.entries.push (view);
 			
 			this.$container.append(view.render().el);

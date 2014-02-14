@@ -6,7 +6,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'scheduled' : 'scheduled',
 		'drafts' : 'drafts',
-		'inbox(/:channel)(/:type)(/:streamid)' : 'inbox',
+		'inbox(/:type)(/:streamid)' : 'inbox',
 		'coworkers' : 'coworkers',
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'timeline/:channel(/:stream)' : 'timeline',
@@ -102,14 +102,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Inbox
 	 **/
 	 
-	 'inbox' : function (id, type, streamid)
+	 'inbox' : function (type, streamid)
 	{
 		// Parameters
-		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
+		var channel = Cloudwalkers.Session.getChannel ('inbox');
 		
 		if (!channel) return this.home();
 		if (!type) type = "messages";
-		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id + "/" + type);
 		
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));

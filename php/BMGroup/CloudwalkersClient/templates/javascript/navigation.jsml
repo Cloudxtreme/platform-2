@@ -58,22 +58,22 @@
 	<!-- Inbox -->
 	{{#inbox}}
 		<li>
-			<a href="#inbox/{{channelid}}/messages">
+			<a href="#inbox/messages">
 				<i class="icon-inbox"></i> 
-				<span class="title">{{name}}</span>
+				<span class="title">Inbox</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
 			<ul class="sub-menu">
 				<li>
-					<a href="#inbox/{{channelid}}/messages">
+					<a href="#inbox/messages">
 						<i class="icon-envelope"></i> 
 						<span class="title">Messages</span>
 					</a>
 				</li>
 				<li>
-					<a href="#inbox/{{channelid}}/notifications">
+					<a href="#inbox/notifications">
 						<i class="icon-globe"></i> 
 						<span class="title">Notifications</span>
 					</a>

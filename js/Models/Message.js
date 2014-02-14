@@ -62,59 +62,62 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'filterData' : function (type, data)
 	{	
-		
-		data.iconview = false;
-		
+	
 		// Handle loading messages
-		if(!this.get("date")) return this.attributes;
+		if(!this.get("objectType")) return this.attributes;
 		
-		if(!data) var data = {};
-		
-		$.extend(data, this.attributes);
-		
+		var trending = data.trending;
+		var data = {};
+
+		$.extend(data, {iconview: false, from: this.get("from"), body: this.get("body"), date: this.get("date"), objectType: this.get("objectType")}); //this.attributes, 
+
 		// Actions
-		if($.inArray(type, ["full", "fulltrending", "inboxmessage"]) > -1)
+		if($.inArray(type, ["full", "inboxmessage"]) > -1)
 		{
-			if(!this.actions) this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+			if(!this.actions)
+				this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 			
 			data.actions = this.actions.rendertokens();
 		}
 
-		
+
 		// Stream		
-		var stream = Cloudwalkers.Session.getStream(data.stream);
-		
-		if(data.attachments)
-		{
-			data.media = data.attachments[data.attachments.length -1];
-			data.media.icon = (data.media.type == "image")? "picture" : data.media.type;
-		
-		} else data.media = {icon: "reorder"};
+		var stream = Cloudwalkers.Session.getStream(this.get("stream"));
 		
 		if(stream)
 		{
 			data.icon = stream.get("network").icon;
 			data.networktoken = stream.get("network").token;
-			data.networkdescription = stream.get("defaultname");
+			data.networkdescription = stream.get("name");
 			data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 			
 		} else data.url = this.link;
+
 		
-		
-		if(type == "trending")
+		// Attachments and media
+		if(this.get("attachments"))
 		{
-			data.istrending = true;
-			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
-			//data.date = null;
-			data.iconview = true;
+			var attachments = this.get("attachments");
+			
+			// Media
+			data.media = attachments[attachments.length -1];
+			data.media = (data.media.type == "image")? "picture" : data.media.type;
+			
+			// Attachments
+			data.attached = {};
+			$.each(attachments, function(n, object){ data.attached[object.type] = object });
 		
-		} else if(type == "inbox")
+		} else data.media = "reorder";
+		
+		// Type dependancies	
+		
+		if(type == "inbox")
 		{
 			data.url = null;
 			data.media = {icon: data.icon};
 			data.body.plaintext = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
 		
-		} else if(type == "full" || type == "fulltrending")
+		} else if(type == "full")
 		{
 			data.url = null;
 			data.iconview = true;
@@ -125,21 +128,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				data.dateonly = moment(data.date).format("DD MMM YYYY");
 				data.time = moment(data.date).format("HH:mm");
 			}
-			
-			if(data.attachments)
-			{
-				data.attached = {};
-				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
-			}
-			
-			if(type == "fulltrending")
-			{
-				data.time = this.get("engagement");
-			}
 		}
 		
+		// Add trending parameter
+		if(trending)
+		{
+			data.istrending = true;
+			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
+			data.iconview = true;
+			data.time = this.get("engagement");
+		}
 		
+		//data.attached = false;
 		
+		console.log(this.id, this.attributes, data)
 
 		return data;
 	},
