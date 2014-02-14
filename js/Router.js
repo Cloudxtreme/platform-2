@@ -14,7 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
-		'reports' : 'stats',
+		'reports' : 'statistics',
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
 		'dashboard/:accountid' : 'changeaccount',
@@ -66,28 +66,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		Cloudwalkers.RootView.viewshare ("general");
 	},
-	
-	/*'drafts' : function ()
-	{
-		var collection = new Cloudwalkers.Collections.Drafts
-		(
-			[], 
-			{ 
-				'name' : 'Draft messages',
-				'filter' : 'mine'
-			}
-		);
-
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
-
-		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
-		widgetcontainer.addWidget (widget);
-
-		widgetcontainer.title = 'Drafts';
-		widgetcontainer.navclass = 'drafts';
-
-		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},*/
 	
 	/**
 	 *	Co-workers wall
@@ -160,17 +138,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
 	},
-	
-	/*'trending' : function (channelid, streamid)
-	{
-		// Get channel from url
-		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
-		
-		// View
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Trending({model: channel}));
-		
-	}, */
-	
 
 	/**
 	 *	Monitoring
@@ -209,8 +176,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Stats (new Reports)
 	 **/
 
-	'stats' : function (streamid)
+	'statistics' : function (streamid)
 	{
+		
+		console.log("init statistics")
 		
 		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
 								Cloudwalkers.Session.getAccount();

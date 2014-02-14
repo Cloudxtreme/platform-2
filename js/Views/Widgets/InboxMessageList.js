@@ -100,7 +100,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'inbox'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'full'});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);

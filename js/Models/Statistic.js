@@ -1,4 +1,4 @@
-Cloudwalkers.Models.Stream = Backbone.Model.extend({
+Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	
 	'parameters' : {},
 	
@@ -19,6 +19,8 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		
 		// Listen to outdates
 		this.on("outdated", this.fetch)
+		
+		console.log("statistic model loaded")
 	},
 	
 	'url' : function()

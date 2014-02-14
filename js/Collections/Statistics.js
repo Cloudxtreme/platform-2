@@ -1,8 +1,8 @@
-Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
+Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	
-	'model' : Cloudwalkers.Models.Report,
-	'typestring' : "reports",
-	'modelstring' : "report",
+	'model' : Cloudwalkers.Models.Statistic,
+	'typestring' : "statistics",
+	'modelstring' : "statistic",
 	'processing' : false,
 	'parameters' : {},
 	'paging' : {},
@@ -16,6 +16,8 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		// Put "add" listener to global messages collection
 		if( Cloudwalkers.Session.user.account)
 			Cloudwalkers.Session.getReports().listenTo(this, "add", Cloudwalkers.Session.getReports().distantAdd)
+			
+		console.log("statics collection triggered")
 		
 	},
 	
@@ -24,12 +26,11 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
-	/*'url' : function(a)
+	'url' : function(a)
 	{
-		// Hack
+		// Get parent model
 		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 		
-		// Get parent model
 		var url = (this.parentmodel)?
 
 			CONFIG_BASE_URL + "json/" + this.parenttype + "/" + this.parentmodel.id :
@@ -38,23 +39,6 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		if(this.endpoint)	url += "/" + this.endpoint;
 
 		return this.parameters? url + "?" + $.param (this.parameters): url;
-	},*/
-	
-	
-	'url' : function()
-	{
-		return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
-	},
-	
-	'parse' : function (response)
-	{
-		// Solve response json tree problem
-		if (this.parentmodel)
-			response = response[this.parenttype];
-		
-		for(n in response.reports) response.reports[n].streamid = this.streamid;
-		
-		return response.reports;
 	},
 	
 	'sync' : function (method, model, options) {
@@ -64,13 +48,11 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'hook' : function(callbacks)
+	'parse' : function (response)
 	{
-		if(!this.processing) this.fetch({error: callbacks.error});
+		console.log("parsing collection", response)
 		
-		else if(this.length) callbacks.success();
-
-		this.on("sync", callbacks.success);	
+		return response;	
 	},
 	
 	'setcursor' : function (paging) {
@@ -89,7 +71,7 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		this.parameters = params;
 		
 		// Check for history (within ping lifetime)
-		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		Store.get("touches", {id: this.url()}, this.touchlocal.bind(this));
 	},
 	
 	'touchlocal' : function(touch)
@@ -98,10 +80,8 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		if (touch && touch.modelids.length)
 		{
 			this.seed(touch.modelids);
-			this.cursor = touch.cursor;
 		
 		} else this.fetch({success: this.touchresponse.bind(this, this.url())});
-		
 	},
 	
 	'touchresponse' : function(url, collection, response)
@@ -110,7 +90,7 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		var ids = response[this.parenttype][this.typestring];
 		
 		// Store results based on url
-		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor});
 	
 		// Seed ids to collection
 		this.seed(ids);
@@ -118,9 +98,7 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	
 	'seed' : function(ids)
 	{
-		
-		
-		
+
 		// Ignore empty id lists
 		if(!ids) ids = [];
 

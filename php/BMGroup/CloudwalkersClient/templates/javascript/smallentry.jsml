@@ -17,6 +17,6 @@
 	{{/from}}
 
 	<div class='content' data-id="{{id}}">
-		{{{body.plaintext}}}
+		{{{body.intro}}}
 	</div>
 {{#url}}</a>{{/url}}

@@ -1,7 +1,7 @@
 Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	
 	'model' : Cloudwalkers.Models.Report,
-	'typestring' : "reports",
+	'typestring' : "statistics",
 	'modelstring' : "report",
 	'processing' : false,
 	'parameters' : {},
@@ -40,12 +40,11 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 		return this.parameters? url + "?" + $.param (this.parameters): url;
 	},*/
 	
-	
 	'url' : function()
 	{
 		return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
 	},
-	
+		
 	'parse' : function (response)
 	{
 		// Solve response json tree problem

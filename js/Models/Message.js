@@ -69,17 +69,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var trending = data.trending;
 		var data = {};
 
-		$.extend(data, this.attributes, {iconview: false}) //, from: this.get("from"), body: this.get("body"), date: this.get("date"), objectType: this.get("objectType")}); // 
-
-		// Actions
-		if($.inArray(type, ["full", "inboxmessage"]) > -1)
-		{
-			if(!this.actions)
-				this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
-			
-			data.actions = this.actions.rendertokens();
-		}
-
+		$.extend(data, this.attributes, {iconview: false}); 
 
 		// Stream		
 		var stream = Cloudwalkers.Session.getStream(this.get("stream"));
@@ -110,24 +100,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		} else data.media = "reorder";
 		
 		// Type dependancies	
-		
-		if(type == "inbox")
-		{
-			data.url = null;
-			data.media = {icon: data.icon};
-			data.body.plaintext = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
-		
-		} else if(type == "full")
+		if(type == "full")
 		{
 			data.url = null;
 			data.iconview = true;
 			
+			data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
+			
+			// Date
 			if(data.date)
 			{
 				data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
 				data.dateonly = moment(data.date).format("DD MMM YYYY");
 				data.time = moment(data.date).format("HH:mm");
 			}
+			
+			// Actions
+			if(!this.actions)
+				this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+			
+			data.actions = this.actions.rendertokens();
 		}
 		
 		// Add trending parameter
@@ -142,43 +134,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return data;
 	},
 
-	'filterShareData' : function (stream)
-	{
-		var share = [];
-		
-		if(stream.get("network").token == "twitter")
-		{
-			// share.push({action: "favorite", icon: "star", name: "Favorite"});
-			// share.push({action: "retweet", icon: "retweet", name: "Retweet"});
-		}
-		
-		if(stream.get("network").token == "facebook")
-		{
-			share.push({action: "like", icon: "thumbs-up", name: "Like"});
-			share.push({action: "comment", icon: "comment-alt", name: "Comment"});
-		}
-		
-		if(stream.get("outgoing"))
-		{
-			share.push({action: "delete", icon: "remove", name: "Delete"});
-			share.push({action: "reply", icon: "comment", name: "Reply"});
-		}
-		
-		share.push({action: "internal-share", icon: "share-alt", name: "Share"});	
-
-		return share;
-	},
-	
 	'location' : function ()
 	{
 		return "#";
-		
-		/*if(this.link) return this.link;
-		
-		var channel = this.channel? this.channel: Cloudwalkers.Session.getChannel(this.collection.parentid);
-		var stream = Cloudwalkers.Session.getStream(this.attributes.stream);
-		
-		return "#" + channel.get("type") + "/" + channel.id + "/0/" + stream.id + "/" + this.id;*/
 	},
 	
 	

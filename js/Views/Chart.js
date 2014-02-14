@@ -14,11 +14,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model.statistics, 'seed', this.render);
 	},
 
 	'render' : function ()
 	{
+		
+		console.log(this.model.statistics.models)
 		
 		this.$el.html (Mustache.render (Templates.chart, {title: this.title}));
 			

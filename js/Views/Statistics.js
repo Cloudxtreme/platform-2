@@ -6,6 +6,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'timespan' : "week",
 	'period' : 0,
 	'custom' : false,
+	'views' : [],
+	
 	'events' : {
 		'remove': 'destroy',
 		'click #add': 'addperiod',
@@ -46,13 +48,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// this.model = Cloudwalkers.Session.getStream(264);
 		
 		// Check if collection exists
-		if(!this.model.reports) this.model.reports = new Cloudwalkers.Collections.Reports();
+		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
 		
 		// Which collection to focus on
-		this.collection = this.model.reports;
+		this.collection = this.model.statistics;
 		
 		// Listen to model
-		//this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'sync', this.hideloading);
 		
@@ -91,8 +92,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
 			
-			console.log("widget:", view, this.widgets[n].span)
-			
+			//console.log("widget:", view, this.widgets[n].span)
+			this.views.push(view);
 			this.appendWidget(view, this.widgets[n].span);
 		}
 		

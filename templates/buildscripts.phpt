@@ -28,6 +28,7 @@
 <script type="text/javascript" src="/js/Models/Comment.js"></script>
 <script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
+<script type="text/javascript" src="/js/Models/Statistic.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -42,6 +43,7 @@
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Comments.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
+<script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 
 <!-- deprecated collections -->
 <script type="text/javascript" src="/js/Collections/Channel.js"></script>
