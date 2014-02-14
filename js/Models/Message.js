@@ -69,7 +69,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var trending = data.trending;
 		var data = {};
 
-		$.extend(data, {iconview: false, from: this.get("from"), body: this.get("body"), date: this.get("date"), objectType: this.get("objectType")}); //this.attributes, 
+		$.extend(data, this.attributes, {iconview: false}) //, from: this.get("from"), body: this.get("body"), date: this.get("date"), objectType: this.get("objectType")}); // 
 
 		// Actions
 		if($.inArray(type, ["full", "inboxmessage"]) > -1)
@@ -138,10 +138,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			data.iconview = true;
 			data.time = this.get("engagement");
 		}
-		
-		//data.attached = false;
-		
-		console.log(this.id, this.attributes, data)
 
 		return data;
 	},
