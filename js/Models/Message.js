@@ -682,18 +682,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 				else if (action.type == 'write')
 				{
-					/*
 					Cloudwalkers.RootView.writeDialog
 						(
 							targetmodel,
 							action
 						);
-					*/
-					var view = new Cloudwalkers.Views.ActionParameters ({
-						'message' : targetmodel,
-						'action' : action
-					});
-					Cloudwalkers.RootView.popup (view);
 				}
 			}
 		}
