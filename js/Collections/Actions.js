@@ -11,7 +11,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'write', redirect: false},
 		
 		// Hack!
-		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":"@{{from.name}} "}]},
 		'dm' : {name: "Reply", icon: 'comments-alt', token: 'dm', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
