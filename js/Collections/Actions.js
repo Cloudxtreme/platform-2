@@ -9,8 +9,12 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'write', redirect: false},
-		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'dialog'},
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', maxsize: {'twitter': 140}},
+		
+		// Hack!
+		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, actionparameters: {"token":"message","name":"Message","type":"string","required":false,"value":""}},
+		
+		// Hack!
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', clone: true, maxsize: {'twitter': 140}, actionparameters: {"token":"message","name":"Message","type":"string","required":false,"value":""}},
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'options', toggle: 'like'},
@@ -54,6 +58,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	
 	'startaction' : function (token)
 	{
+		
 		// Triggered action
 		var action = this.templates[token];
 
@@ -65,7 +70,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		}
 		else if (action.type == 'dialog')
 		{
+			action.model = this.parent; 
 			Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write (action));
+			
 		}
 		else if (action.type == 'confirm')
 		{

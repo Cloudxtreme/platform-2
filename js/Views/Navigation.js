@@ -24,7 +24,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Action token
 		var token = $(element.currentTarget).data ('header-action');
 		
-		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox", true);
+		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
 		if(token == 'contacts') Cloudwalkers.Router.Instance.navigate("#coworkers", true);
 		if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
 		//this.model.trigger("action", token);
@@ -36,7 +36,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		$('#sidebar').html (this.render().el);
 		//this.render();
 
-		$("#header").on("click", '*[data-header-action]', this.headeraction);
+		$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction);
 	},
 	
 	'version' : function (response)

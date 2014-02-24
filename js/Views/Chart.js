@@ -14,58 +14,55 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.listenTo(this.model.statistics, 'seed', this.render);
+		this.listenTo(this.model.statistics, 'ready', this.fill);
 	},
 
 	'render' : function ()
-	{
-		
-		console.log(this.model.statistics.models)
-		
+	{	
+		// Create view
 		this.$el.html (Mustache.render (Templates.chart, {title: this.title}));
-			
+		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
+		
 		// Select data & chart type
-		var data  = this.parse[this.chart](this.model)
-		var chart = new Chart(this.$el.find("canvas").get(0).getContext("2d"))[this.chart](data);
+		var data  = this.parse[this.chart]();
+		var chart = new Chart(this.canvas)[this.chart](data);
 
-		
-		
 		return this;
 	},
 	
+	'fill' : function (collection)
+	{
+		
+		
+		
+		this.parse.collection = collection;
+		
+		// Select data & chart type
+		var data  = this.parse[this.chart](this.model, this.filterfunc)
+		var chart = new Chart(this.canvas)[this.chart](data);
+	},
+	
 	'parse' : {
-		PolarArea : function (model)
+		PolarArea : function (model, func)
 		{
-			return [ 
-				{
-					value : 30,
-					color: "#D97041"
-				},
-				{
-					value : 90,
-					color: "#C7604C"
-				},
-				{
-					value : 24,
-					color: "#21323D" 
-				},
-				{
-					value : 58,
-					color: "#9D9B7F"
-				},
-				{
-					value : 82,
-					color: "#7D4F6D"
-				},
-				{
-					value : 8,
-					color: "#584A5E"
-				}
-			]
+			// Placeholder data
+			if(!model)
+				return [{value :50, color: "#ffffff"}, {value :100, color: "#f9f9f9"}];
+			
+			else return this.collection[func]();
 		},
 		
-		Doughnut : function (model)
+		Doughnut : function (model, func)
 		{
+			
+			// Placeholder data
+			if(!model)
+				return [{value :50, color: "#f7f7f7"}, {value :50, color: "#fafafa"}];
+			
+			var stat = this.collection.latest();
+			
+			return stat[func]();
+			
 			return [
 				{
 					value: 30,
@@ -92,6 +89,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		Line : function (model)
 		{
+			// Placeholder data
+			if(!model)
+				return {labels : ["",""], datasets : [{fillColor : "rgba(220,220,220, .1)", pointStrokeColor : "#fff", data : [1,100]}]};
+			
+			
 			return {
 				labels : ["January","February","March","April","May","June","July"],
 				datasets : [

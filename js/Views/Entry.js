@@ -29,7 +29,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(this.$el.find("[data-date]")) this.time();
 		
-		if(this.type == "inbox" && this.model.get("objectType")) this.checkUnread();
+		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
 		
 		return this;
 	},

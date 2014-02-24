@@ -1,14 +1,6 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
-
-    'url' : function (params)
-    {
-        return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/message/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/message/' + this.id;
-    },
-    
-    /* Actions: see below. */
+	
+	'typestring' : "messages",
 
 	'initialize' : function ()
 	{			
@@ -24,10 +16,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{	
-		if (typeof response == "number") response = {id: response};
+		// A new object
+		if (typeof response == "number") return response = {id: response};
+		
+		
 		else {
 		
+			// Is it a child message?
 			if (response.message) response = response.message;
+			
+			// Handle fresh loads
+			this.stamp(response);
 			this.checkloaded(response);
 		}
 		
@@ -39,27 +38,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
 	},
 	
-	'sync' : function (method, model, options)
-	{
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
-		
-		// Hack
-		if(method == "update") return false;
-		
-		return Backbone.sync(method, model, options);
-	},
-	
-	'stamp' : function(params)
-	{
-		if (!params) params = {id: this.id};
-		
-		params.stamp = Math.round(new Date().getTime() *.001)
-		
-		Store.set("messages", params);
-		
-		return this;
-	},
-	
 	'filterData' : function (type, data)
 	{	
 	
@@ -67,7 +45,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(!this.get("objectType")) return this.attributes;
 		
 		var trending = data.trending;
-		var data = {};
+		var data = {iconview: data.iconview};
 
 		$.extend(data, this.attributes, {iconview: false}); 
 
@@ -103,9 +81,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(type == "full")
 		{
 			data.url = null;
-			data.iconview = true;
-			
-			data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
 			
 			// Date
 			if(data.date)
@@ -130,6 +105,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			data.iconview = true;
 			data.time = this.get("engagement");
 		}
+		
+		// Add limited text
+		data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";
 
 		return data;
 	},

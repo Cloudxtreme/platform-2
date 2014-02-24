@@ -78,13 +78,18 @@
 						<span class="title">Notifications</span>
 					</a>
 				</li>
+				<li>
+					<a data-header-action="post">
+						<i class="icon-pencil"></i> 
+						<span class="title">Post message</span>
+					</a>
+				</li>
 				<li class="drafts">
 					<a href="#drafts">
 						<i class="icon-edit"></i> 
 						<span class="title">Drafts</span>
 					</a>
 				</li>
-				
 				<li class="schedule">
 					<a href="#scheduled">
 						<i class="icon-time"></i> 

@@ -47,6 +47,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'firstload' : function (me)
 	{
+
 		// Store accounts
 		$.each(me.accounts, function(n, account)
 		{

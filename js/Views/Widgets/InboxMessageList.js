@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		'click .load-more' : 'more'
 	},
 	
-	'initialize' : function ()
+	'initialize' : function (options, pageviewoptions)
 	{
 		// Which model to focus on
 		this.model = this.options.channel;
@@ -100,7 +100,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'full'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'full', checkunread: true, parameters:{iconview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -157,6 +157,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		var contacts = this.model.contacts.filter(this.comparenamefilter.bind(this, string));
 		
+		
+		
 		// On typed, search for more
 		if (contacts.length < 5 && !iscontact.cid && string.length > 2) this.requestcontacts(string);
 
@@ -206,6 +208,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'loadedcontacts' : function()
 	{
 		this.$el.find(".loading-contacts").addClass("hidden");
+		
 		
 		// Check pending requests
 		if(this.filters.contacts.buffered)

@@ -1,65 +1,132 @@
 Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	
+	'typestring' : "statistics",
 	'parameters' : {},
 	
-	'initialize' : function(attributes){
-		
-		// Child messages
-		this.messages = new Cloudwalkers.Collections.Messages();
-		
-		// Child contacts (temp hack, should be channel level only)
-		this.contacts = new Cloudwalkers.Collections.Contacts();
-		
-		// Has reports?
-		if(this.get("statistics"))
-		{
-			this.reports = new Cloudwalkers.Collections.Reports();
-			this.reports.streamid = this.id;
-		}
-		
+	'initialize' : function(attributes)
+	{
 		// Listen to outdates
-		this.on("outdated", this.fetch)
-		
-		console.log("statistic model loaded")
+		//this.on("outdated", this.fetch)
 	},
 	
-	'url' : function()
+	pluck : function (key, streamid)
 	{
-		var id = this.id? this.id: "";
+		var response = 0;
 		
-		return CONFIG_BASE_URL + 'json/streams/' + id + this.endpoint + this.parameters;
-	},
-	
-	'parse' : function(response)
-	{
-		if(response.stream) response = response.stream;
+		if(!this.get("streams")) return response;
 		
-		Store.set("streams", response);
+		$.each(this.get("streams"), function(i, stream)
+		{
+			if(!streamid && stream[key]) 	response+= Number(stream[key]);
+			else if(streamid == stream.id)	response = stream[key];
+		});
 		
 		return response;
 	},
 	
-	'sync' : function (method, model, options)
+	all : function (key)
 	{
-		if(method == "read")
+		var response = [];
+		
+		if(!this.get("streams")) return response;
+		
+		$.each(this.get("streams"), function(i, stream)
 		{
-			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
-			
-		} else if(method == "create")
-		{
-			this.endpoint = (options.parent)? options.parent + "/streams": "";  
-		}
-
-		return Backbone.sync(method, model, options);
+			if(!streamid && stream[key]) 	response.push(stream[key]);
+			else if(streamid == stream.id)	response = stream[key];
+		});
+		
+		return response;
 	},
 	
-	'seedusers' : function (child)
-	{	
-
-		var users = child.get("from");
+	/**
+	 *	Column data
+	 **/
+	 
+	'contacts' : function (single)
+	{
 		
-		if (users && users.length) this.users.add(users);	
+		var list = [];
+		
+		if(!this.get("streams")) return list;
+		
+		if(!single)
+		{
+			$.each(this.get("streams"), function(i, log){
+				
+				var stream = Cloudwalkers.Session.getStream(log.id);
+				
+				// Temp hack
+				if(stream)
+				{
+					var token = stream.get("network").token;
+					var value = log["contacts"];
+				
+					if (value)
+						list.push({color: this.networkcolors[token], value: Number(value)});
+				}
+	
+			}.bind(this));
+		}
+		
+		return list;
+	},
+	
+	'age' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'gender' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'regional' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'countries' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'cities' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'besttime' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
+	},
+	
+	'activity' : function (single)
+	{
+		
+		var list = [];
+
+		return { counter: list};
 	}
+
 
 });

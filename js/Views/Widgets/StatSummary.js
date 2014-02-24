@@ -14,10 +14,9 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		if (options) $.extend(this, options);
 		
 		// Which collection to focus on
-		this.collection = this.model.reports;
-		
-		//this.listenTo(this.collection, 'sync', this.render);
-		this.listenTo(this.collection, 'seed', this.render);
+		this.collection = this.model.statistics;
+
+		this.listenTo(this.collection, 'ready', this.fill);
 		
 	},
 	
@@ -28,7 +27,6 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		for (n in this.columnviews)
 		{			
-			$.extend(this.columns[this.columnviews[n]], this[this.columns[this.columnviews[n]].func]());
 			params.columns.push(this.columns[this.columnviews[n]]);
 		}
 
@@ -38,17 +36,27 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		return this;
 	},
 	
+	'fill' : function()
+	{
+		this.$el.find("[data-type]").each(function(i, el){
+			
+			var func = $(el).data("type");
+			
+			$(el).find(".stats-summary-counter").html(this[func]().counter);
+			
+		}.bind(this));
+	},
+	
 	/**
 	 *	Column data
 	 **/
 	 
 	'parsecontacts' : function ()
 	{
-		//["numbercomparison/followers_count","",""
+		// Get most recent stat
+		var stat = this.collection.latest();
 		
-		
-		
-		return { counter: 1};
+		return { counter: stat.pluck("contacts")};
 	},
 	
 	'parsescore' : function ()
@@ -58,30 +66,14 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'parsesent' : function ()
 	{
-		return { counter: 1};
+		// Get most recent stat
+		var stat = this.collection.latest();
+		
+		return { counter: stat.pluck("messages")};
 	},
 	
 	'parseactivity' : function ()
 	{
 		return { counter: 1};
-	},
-	
-	'fill' : function ()
-	{	
-		/*var report = this.stream.reports.findWhere({token: this.options.type});
-		
-		if(!report) return null;
-		
-		var data = {
-			dashboard: this.options.dashboard,
-			streamid: this.stream.id,
-			network: this.stream.get("network"),
-			details: report.getDetails()
-		}
-		
-		this.$el.html (Mustache.render (Templates[this.template], data));
-		
-		this.trigger ('content:change');*/
-
 	}
 });

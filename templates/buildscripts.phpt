@@ -39,6 +39,7 @@
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
+<script type="text/javascript" src="/js/Collections/Related.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Comments.js"></script>

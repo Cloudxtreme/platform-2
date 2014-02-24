@@ -130,14 +130,19 @@ tbody.messages-container i	{
 /* TOP NAV */
 .header-icon	{
 	float: left; padding: 8px 4px; cursor: pointer;
-	color: #333; font-size: 17.5px;
+	color: #4a4a4a; font-size: 17.5px;
 }
 
 .header-icon:hover	{ color: #666; }
 
-.header-icon.active	{ color: #ccc; }
-.header-icon.active:hover	{ color: white; }
+.header-icon.active	{
+	padding: 2px 12px 3px; margin: 8px 4px 0; background: #4a4a4a; border-radius: 20px;
+	font-size: 15px; color: #ccc; line-height: 1em;
+}
 
+.header-icon.active	i { font-size: 17.5px; padding-right: 3px; line-height: 1em; }
+
+.header-icon.active:hover	{ color: white; }
 
 
 
@@ -218,8 +223,6 @@ nav	{
 }
 
 #share.collapsed	{ width: 0; }
-
-#sidebar li.write.active > a	{ background-color: #2bbedc !important; }
 
 #share > div	{
 	margin: 20px 10px; 
@@ -999,12 +1002,23 @@ nav	{
 #inboxlist .list > li:nth-child(odd):hover,
 #inboxlist .list > a:nth-child(odd) li:hover	{ background: #efefef; }
 
-#inboxlist .list li.active	{ background: #d9edf7; }
-#inboxlist .list li.active:hover	{ background: #b1e2ec; }
+#inboxlist .list li.active,
+#inboxlist .list li.active:hover,
+#inboxlist .list li.active strong,
+#inboxlist .list li.active .date,
+#inboxlist .list li.active .media	{
+	background: #2bbedc;
+	color: white;
+}
 
-#inboxlist .list li.unread { line-height: 24px; }
+#inboxlist .list li.active .content	{ color: #bbebf9; }
+
+#inboxlist .list li.unread { line-height: 24px; background: #e3f1f8; }
+#inboxlist .list li.unread:nth-child(odd) { line-height: 24px; background: #d9edf7; }
 #inboxlist .list li.unread .dot { display: block; }
-#inboxlist .list li.unread .avatar { display: none; }
+#inboxlist .list li.unread .media i { display: none; }
+#inboxlist .list li.unread .media 	{ background: none; }
+#inboxlist .list li.unread .date	{ color: #005580; font-weight: bold; }
 
 
 #inboxlist .list span.number	{
@@ -1022,7 +1036,7 @@ nav	{
 #inboxlist .list .icon-right	{ float: right; color: #666; font-size: 1.3em; }
 
 #inboxlist .list .dot {
-	display: none; float: left; position: relative; top: 3px;  margin-right: 10px; width: 8px; height: 8px; border: 6px solid white; border-radius: 50% !important; 
+	display: none; width: 10px; height: 10px; border: 2px solid white; border-radius: 50% !important; 
 }
 .dot { background-color: #5373d0; }
 

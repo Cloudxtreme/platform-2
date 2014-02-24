@@ -21,13 +21,13 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{	
+	{
 		this.parameters = "";
 		this.processing = false;
 		
-		if(!response[this.typestring]) response.account[this.typestring];
+		return response[this.typestring]?
 		
-		return response[this.typestring];
+			response[this.typestring]: response.account[this.typestring];
 	},
 	
 	'distantAdd' : function(model)

@@ -21,7 +21,7 @@
 		-->
 		
 		<div class="header-icon active" data-header-action="post">
-			<i class="icon-share-sign"></i>
+			<i class="icon-pencil"></i> Post
 		</div>
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">

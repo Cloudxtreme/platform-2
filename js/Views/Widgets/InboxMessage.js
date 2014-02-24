@@ -23,8 +23,12 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		if(this.options.notification)
 			var commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
 		
+		// Parameters
+		var params = this.model.filterData('full', {commented: commented});
+		params.commented = commented;
+		
 		// Visualize
-		this.$el.html (Mustache.render (Templates.inboxmessage, this.model.filterData('full', {commented: commented})));
+		this.$el.html (Mustache.render (Templates.inboxmessage, params));
 		
 		this.time();
 		
@@ -54,7 +58,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Create related collection
 		if(!this.model.related)
-			this.model.related = new Cloudwalkers.Collections.Messages({modelstring: "related", typestring: "related", parenttype: "message"});
+			this.model.related = new Cloudwalkers.Collections.Related();
 		
 		// Listen to collection
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
@@ -107,6 +111,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'fillNotifications' : function (list)
 	{
+		
 		// Clean load
 		if(this.notifications.length)
 		{

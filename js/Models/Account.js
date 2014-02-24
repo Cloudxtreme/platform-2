@@ -27,11 +27,15 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Prep global Notifications collection
 		this.notifications = new Cloudwalkers.Collections.Notifications();
 		
-		// Prep global Reports collection
+		// Prep global Statistics collection
+		this.statistics = new Cloudwalkers.Collections.Statistics();
+		
+		// Prep global Reports collection // Deprecated?
 		this.reports = new Cloudwalkers.Collections.Reports();
 		
 		// Prep global Comments collection - deprecated
 		this.comments = new Cloudwalkers.Collections.Comments();
+
 	},
 	
 	'parse' : function (response)
@@ -67,10 +71,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		if(!Store.exists("channels")) this.firstload();
 		
 		// Load Streams (first, so channels find them)
-		Store.filter("streams", null, function(list){ this.streams.add(list); }.bind(this));
+		Store.filter("streams", null, function(list) { this.streams.add(list); }.bind(this));
 		
 		// Load Channels
-		Store.filter("channels", null, function(list){ this.channels.add(list); }.bind(this));
+		Store.filter("channels", null, function(list) { this.channels.add(list); }.bind(this));
 		
 		// Load Campaigns
 		Store.filter("campaigns", null, function(list){ this.campaigns.add(list); }.bind(this));
@@ -78,7 +82,10 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Load Messages
 		Store.filter("messages", null, function(list){ this.messages.add(list); }.bind(this));
 		
-		// Load Reports
+		// Load Statistics
+		Store.filter("statistics", null, function(list){ this.statistics.add(list); }.bind(this));
+		
+		// Load Reports // Deprecated?
 		Store.filter("reports", null, function(list){ this.reports.add(list); }.bind(this));
 		
 		// Filter limits

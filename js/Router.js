@@ -179,8 +179,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'statistics' : function (streamid)
 	{
 		
-		console.log("init statistics")
-		
 		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
 								Cloudwalkers.Session.getAccount();
 		

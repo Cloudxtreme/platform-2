@@ -1,22 +1,37 @@
 /**
-*
-* This is a mess.
-* I'm sorry.
-* Needs a rewrite.
-*
-*/
+ *	Write
+ *	probably the most important view.
+ *
+ */
 
 Cloudwalkers.Views.Write = Backbone.View.extend({
 
-	'files' : [],
-	'draft' : false,
-	'sendnow' : false,
-	'className' : 'write',
-	'navclass' : 'write',
 	'title' : "Compose message",
+	'tagName' : 'form',
+	'className' : 'write',
+	'typestring' : "messages",
+	
+	'sendnow' : false,
+	'files' : [],
+	'options' : [],
+	
+	'formoptions' : {
+		'facebook' : ["url", "images", "fulltext"],
+		'twitter' : ["url", "images"],
+		'google-plus' : ["url", "images", "fulltext"],
+		'linkedin' : ["url", "images", "fulltext", "subject"],
+		'mobile-phone' : [],
+		'blog' : ["url", "images", "fulltext", "subject"],
+		'group' : ["url", "images"],
+	},
+	
+	// Twitter link = 23
 	
 	'events' : 
 	{
+		'click li[data-stream-id]' : 'togglestream',
+		'keyup [name=body].limited' : 'countchars',
+		
 		'submit form' : 'submit',
 		'keyup textarea[name=message]' : 'updateCounter',
 		'keyup input[name=title]' : 'updateCounter',
@@ -27,100 +42,52 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'click #button-response[value=send]' : 'sendNow',
         'click .btnShortenURL' : 'shortenUrl',
         'change select[name=campaign]' : 'selectCampaign',
-        'click [name=add-campaign]' : 'addCampaign'
+        'click [name=add-campaign]' : 'addCampaign',
 	},
 	
-	'initialize' : function ()
+	'initialize' : function (options)
 	{
+		// Parameters
+		if(options) $.extend(this, options);
 		
-	},
-
-	'setDraft' : function ()
-	{
-		this.draft = true;
-	},
-
-	'sendNow' : function (e)
-	{
-		e.preventDefault ();
-		e.stopPropagation ();
-
-		this.sendnow = true;
-
-		// Sure you want to send now? Or save to draft?
-		if (this.$el.find ('.message-schedule').is (':visible'))
-		{
-			if (
-				this.model && 
-				confirm ('Are you sure you want to sent this scheduled message now?')
-			)
-			{
-				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
-			}
-
-			else if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
-			{
-				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
-			}
-		}
-		else
-		{
-			this.clearScheduleDate ();
-			$(e.toElement.form).trigger ('submit');
-		}
-	},
-	
-	'selectCampaign' : function (e)
-	{
-
-		var value = Number(this.$el.find("select[name=campaign]").val());
-		
-		if(!value) this.$el.find(".new-campaign, select[name=campaign]").toggleClass("inactive");
-
-	},
-	
-	'addCampaign' : function (e)
-	{
-		/* Black hole */
-	},
-
-	'getAvailableStreams' : function ()
-	{
-		//var streams = Cloudwalkers.Session.getStreams ();
-        var channel = Cloudwalkers.Session.getChannel("internal");
-        var streams = new Cloudwalkers.Collections.Streams(channel.get("additional").outgoing);
-
-        //console.log (streams);
-		
-		// If this is an action parameter, only show streams of the same network
-		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
-		{
-			var stream = Cloudwalkers.Session.getStream (this.model.get ('stream'));
-
-			if (stream)
-			{
-                // don't look at this!
-				var out = new Backbone.Collection ();
-				for (var i = 0; i < streams.models.length; i ++)
-				{
-					if (streams.models[i].get ('network').name == stream.get ('network').name)
-					{
-						out.add (streams.models[i]);
-					}
-				}
-
-				return out;
-			}
-		}
-
-		return streams;
+		// Actions
+		this.on("ready", this.ready);
 	},
 
 	'render' : function ()
 	{
-		this.files = [];
+		// Parameters
+		var data = {streams: [], input: {}, attachments: {}};
+		
+		// Stream data
+		Cloudwalkers.Session.getChannel("outgoing").streams.each(function(stream)
+		{
+			data.streams.push({id: stream.id, name: stream.get("name"), token: stream.get("network").icon});
+		});
+		
+
+		// Exisiting model
+		if (this.model)
+		{
+			// Input
+			data.input.subject = this.model.get("subject");
+			data.input.body = this.model.get("body").html;
+		
+			var attachments = this.model.get("attachments");
+		
+			// Attachments
+			if (attachments)
+				$.each(attachments, function(n, item){ data.attachments[item.type] = {value: item.url}});
+		}
+		
+
+		// New model
+		else this.model = Cloudwalkers.Session.getAccount()[this.typestring].add({new: true});
+		
+		// Time selection
+		setTimeout( function() { this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'}); }.bind(this), 100 );
+		
+		/*this.files = [];
 		this.draft = false;
 		this.sendnow = false;
 		
@@ -300,11 +267,24 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			}
 		}
 		
-		data.campaigns = account.get("campaigns");
+		data.campaigns = account.get("campaigns");*/
 		
-		var popup = Mustache.render(Templates.write, data);
-		self.$el.html (popup);
-
+		// Create view
+		var view = Mustache.render(Templates.write, data);
+		this.$el.html (view);
+		
+		this.$body = this.$el.find("[name=body]");
+		
+		// Find actions
+		this.actions = [
+			{name: "Post message", classname: data.scheduled? "blue hidden": "blue", attributes: [{attr: "data-toggle", value: "collapse"}, {attr: "data-target", value: "#schedule"}]},
+			{name: "Hide schedule", classname: data.scheduled? "blue": "blue hidden", attributes: [{attr: "data-toggle", value: "collapse"}, {attr: "data-target", value: "#schedule"}]},
+			{name: "Send", classname: data.scheduled? "pull-right black hidden": "pull-right black", action: "ready"},
+			{name: "Schedule", classname: data.scheduled? "pull-right black": "pull-right black hidden", action: "ready"},
+			{name: "Save", classname: "pull-right", action: "save"}
+		];
+		
+		/*
 		self.$el.find ('[name=url]').change (function ()
 		{
 			self.updateCounter ();
@@ -385,9 +365,148 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			self.$el.find ('#schedule-btn-toggle').toggleClass ('black', self.$el.find ('.message-schedule').is (':visible'));
 			self.$el.find ('#schedule-btn-toggle').toggleClass ('blue', !self.$el.find ('.message-schedule').is (':visible'));
-		}, 200);
+		}, 200);*/
 
 		return this;
+	},
+	
+	'countchars' : function (e)
+	{
+		this.$body
+	},
+	
+	'togglestream' : function (e)
+	{
+		$(e.currentTarget).toggleClass("inactive active");
+		
+		this.managestreams();
+	},
+	
+	'managestreams' : function ()
+	{
+		// Parameters
+		var streams = this.$el.find("[data-stream-id].active").map(function(){ return Cloudwalkers.Session.getStream($(this).data("stream-id"))}).get();
+		this.options = [];
+		
+		$.each(streams, function(n, stream){ this.options = $.extend(this.options, this.formoptions[stream.get("network").token]) }.bind(this));
+		
+		// Toggle form elements
+		this.toggleoptions();
+	},
+	
+	'toggleoptions' : function ()
+	{
+		
+		// Subject
+		var subject = (this.options.indexOf("subject") >= 0);
+		$('[name="subject"]')[subject? "removeClass": "addClass"]("hidden").get(0).disabled = !subject;
+		
+		// Body limit
+		var limit = (this.options.indexOf("fulltext") < 0);
+		$("#counter")[limit? "show": "hide"]();
+		$("[name=body]")[limit? "addClass": "removeClass"]("limited");
+		
+		// Link
+		$('[data-target="#url"]')[(this.options.indexOf("url") < 0)? "addClass": "removeClass"]("disabled");
+		
+		// Image
+		$('[data-target="#images"]')[(this.options.indexOf("images") < 0)? "addClass": "removeClass"]("disabled");
+	},
+	
+	
+
+	
+	/*'getAvailableStreams' : function ()
+	{
+		//var streams = Cloudwalkers.Session.getStreams ();
+        var channel = Cloudwalkers.Session.getChannel("internal");
+        var streams = new Cloudwalkers.Collections.Streams(channel.get("additional").outgoing);
+
+		
+		// If this is an action parameter, only show streams of the same network
+		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
+		{
+			var stream = Cloudwalkers.Session.getStream (this.model.get ('stream'));
+
+			if (stream)
+			{
+                // don't look at this!
+				var out = new Backbone.Collection ();
+				for (var i = 0; i < streams.models.length; i ++)
+				{
+					if (streams.models[i].get ('network').name == stream.get ('network').name)
+					{
+						out.add (streams.models[i]);
+					}
+				}
+
+				return out;
+			}
+		}
+
+		return streams;
+	},*/
+	
+	
+	'setDraft' : function ()
+	{
+		this.draft = true;
+	},
+
+	'sendNow' : function (e)
+	{
+		e.preventDefault ();
+		e.stopPropagation ();
+
+		this.sendnow = true;
+
+		// Sure you want to send now? Or save to draft?
+		if (this.$el.find ('.message-schedule').is (':visible'))
+		{
+			if (
+				this.model && 
+				confirm ('Are you sure you want to sent this scheduled message now?')
+			)
+			{
+				this.clearScheduleDate ();
+				$(e.toElement.form).trigger ('submit');
+			}
+
+			else if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
+			{
+				this.clearScheduleDate ();
+				$(e.toElement.form).trigger ('submit');
+			}
+		}
+		else
+		{
+			this.clearScheduleDate ();
+			$(e.toElement.form).trigger ('submit');
+		}
+	},
+	
+	'selectCampaign' : function (e)
+	{
+
+		var value = Number(this.$el.find("select[name=campaign]").val());
+		
+		if(!value) this.$el.find(".new-campaign, select[name=campaign]").toggleClass("inactive");
+
+	},
+	
+	'addCampaign' : function (e)
+	{
+		/* Black hole */
+	},
+
+	
+	
+	'ready' : function (popup)
+	{
+		
+		
+		// Close popup
+		popup.modal('hide');
 	},
 
 	/**
@@ -711,8 +830,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			throwErrors = false;
 		}
 
-		var length = this.$el.find ('textarea[name=message]').val ().length;	
-		this.$el.find ('.total-text-counter').html (length);
+		if(this.$el.find ('textarea[name=message]').val ())
+		{
+			var length = this.$el.find ('textarea[name=message]').val ().length;	
+			this.$el.find ('.total-text-counter').html (length);
+		}
+		
 
 		var rules = this.getValidationRules ();
 		
@@ -924,7 +1047,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			return false;
 		}
 
-		if (this.$el.find ('select[name=schedule_time]').val () != 'Time')
+		if (this.$el.find ('select[name=schedule_time]').val () != 'Time' && this.$el.find ('select[name=schedule_time]').val ())
 		{
 			var time = this.$el.find ('select[name=schedule_time]').val ().split (':');
 

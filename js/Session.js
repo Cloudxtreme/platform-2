@@ -261,7 +261,22 @@ Cloudwalkers.Session =
 	},
 	
 	/**
+	 *	Statistics shortcut functions
+	 **/
+	
+	'getStatistic' : function (id)
+	{
+		return this.user.account.statistics.get (id);
+	},
+	
+	'getStatistics' : function ()
+	{
+		return this.user.account.statistics;
+	},
+	
+	/**
 	 *	Reports shortcut functions
+	 *	Deprectated?
 	 **/
 	
 	'getReport' : function (id)
