@@ -62,7 +62,7 @@
 		<!-- BEGIN FOOTER -->
 		<div class="footer">
 			<div class="footer-inner">
-				2013 &copy; Cloudwalkers by bmgroup.
+				2014 &copy; Cloudwalkers by bmgroup.
 			</div>
 			<div class="footer-tools">
 				<span class="go-top">

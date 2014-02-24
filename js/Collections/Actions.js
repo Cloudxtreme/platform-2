@@ -11,10 +11,11 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'write', redirect: false},
 		
 		// Hack!
-		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, actionparameters: {"token":"message","name":"Message","type":"string","required":false,"value":""}},
+		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'dm' : {name: "Reply", icon: 'comments-alt', token: 'dm', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', clone: true, maxsize: {'twitter': 140}, actionparameters: {"token":"message","name":"Message","type":"string","required":false,"value":""}},
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', clone: true, maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'options', toggle: 'like'},
@@ -58,9 +59,11 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	
 	'startaction' : function (token)
 	{
-		
 		// Triggered action
 		var action = this.templates[token];
+
+		this.parent.messageAction (action);
+		return;
 
 		// Activate action
 		if (action.type == 'write')
@@ -71,7 +74,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		else if (action.type == 'dialog')
 		{
 			action.model = this.parent; 
-			Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write (action));
+			//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write (action));
 			
 		}
 		else if (action.type == 'confirm')

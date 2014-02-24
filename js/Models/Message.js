@@ -635,6 +635,68 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		};
 
 		return out;
+	},
+
+	'messageAction' : function (action)
+	{
+		console.log (action);
+
+		if (action == null)
+		{
+			console.log ('Action not found: ' + actiontoken);
+			return;
+		}
+
+		var targetmodel = this;
+
+		if (typeof (action.target) != 'undefined')
+		{
+			targetmodel = action.target;
+
+			if (typeof (action.originalaction) != 'undefined')
+			{
+				action = action.originalaction;
+			}
+		}
+
+		if (typeof (action.callback) != 'undefined')
+		{
+			action.callback (targetmodel);
+		}
+		else
+		{
+			if (action)
+			{
+				if (action.type == 'dialog')
+				{
+					var view = new Cloudwalkers.Views.ActionParameters ({
+						'message' : targetmodel,
+						'action' : action
+					});
+					Cloudwalkers.RootView.popup (view);
+				}
+				else if (action.type == 'simple')
+				{
+					targetmodel.act (action, {}, function (){});
+				}
+
+				else if (action.type == 'write')
+				{
+					/*
+					Cloudwalkers.RootView.writeDialog
+						(
+							targetmodel,
+							action
+						);
+					*/
+					var view = new Cloudwalkers.Views.ActionParameters ({
+						'message' : targetmodel,
+						'action' : action
+					});
+					Cloudwalkers.RootView.popup (view);
+				}
+			}
+		}
 	}
 });
 
