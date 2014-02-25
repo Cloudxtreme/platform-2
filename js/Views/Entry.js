@@ -24,8 +24,16 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'render' : function ()
 	{
+		
+		// Parameters
+		$.extend(this.parameters, this.model.attributes);
+		
+		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+		
+		
+		
 		// Visualize
-		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type, this.parameters)));
+		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
 		

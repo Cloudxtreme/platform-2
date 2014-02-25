@@ -100,7 +100,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'full', checkunread: true, parameters:{iconview: true}});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry'/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -125,7 +125,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		this.inboxmessage.showrelated(view.model);
+		this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");

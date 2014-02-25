@@ -41,7 +41,10 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.list.each(function(model)
 		{
 			var attr = model.attributes;
-			var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
+			
+			// Hack!
+			if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
+			else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
 			
 			data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
 		});

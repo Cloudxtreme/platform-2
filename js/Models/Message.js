@@ -26,6 +26,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			if (response.message) response = response.message;
 			
 			// Handle fresh loads
+			response = this.filterData(response);
+			
 			this.stamp(response);
 			this.checkloaded(response);
 		}
@@ -38,7 +40,68 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
 	},
 	
-	'filterData' : function (type, data)
+	'filterData' : function (response)
+	{	
+		// Set up filtered data
+		var filtered = {};
+		var values = ["id", "objectType", "actiontokens", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent"]
+		
+		$.each(values, function(n, value){ filtered[value] = response[value]});
+		
+
+		// Stream		
+		var stream = Cloudwalkers.Session.getStream(response.stream);
+		
+		if(stream)
+		{
+			filtered.icon = stream.get("network").icon;
+			filtered.networktoken = stream.get("network").token;
+			filtered.networkdescription = stream.get("name");	
+		}
+
+		// Attachments and media
+		if(response.attachments)
+		{			
+			// Media
+			filtered.media = response.attachments[response.attachments.length -1];
+			filtered.media = (filtered.media.type == "image")? "picture" : filtered.media.type;
+			
+			// Attachments
+			filtered.attached = {};
+			$.each(response.attachments, function(n, object){ filtered.attached[object.type] = object });
+		
+		} else filtered.media = "reorder";
+		
+		// If trending
+		if(response.engagement) filtered.trending = response.engagement < 1000? response.engagement: "+999";
+
+		// Add limited text
+		filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
+		
+		// Date
+		if(response.date)
+		{
+			filtered.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
+			filtered.dateonly = moment(response.date).format("DD MMM YYYY");
+			filtered.time = moment(response.date).format("HH:mm");
+		}
+
+
+		return filtered;
+	},
+	
+	'filterActions' : function ()
+	{	
+		if(!this.get("actiontokens")) return [];
+		
+		// Actions
+		if(!this.actions)
+			this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		
+		return this.actions.rendertokens();
+	},
+	
+	/*'filterData' : function (type, data)
 	{	
 	
 		// Handle loading messages
@@ -110,7 +173,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";
 
 		return data;
-	},
+	},*/
 
 	'location' : function ()
 	{
@@ -639,7 +702,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'messageAction' : function (action)
 	{
-		console.log (action);
 
 		if (action == null)
 		{

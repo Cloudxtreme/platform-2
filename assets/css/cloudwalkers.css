@@ -480,6 +480,8 @@ nav	{
 
 .portlet .messages-container p	{ margin: 0px; }
 
+.dashboardwidget .messages-container li	{ cursor: pointer; }
+
 /*
 .portlet.box .message-view li	{ min-height: 20px; }
 .portlet.box .message-view li.clear	{
@@ -1036,7 +1038,7 @@ nav	{
 #inboxlist .list .icon-right	{ float: right; color: #666; font-size: 1.3em; }
 
 #inboxlist .list .dot {
-	display: none; width: 10px; height: 10px; border: 2px solid white; border-radius: 50% !important; 
+	display: none; width: 10px; height: 10px; margin-left: 10px; border: 2px solid white; border-radius: 50% !important; 
 }
 .dot { background-color: #5373d0; }
 

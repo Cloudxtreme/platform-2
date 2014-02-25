@@ -24,8 +24,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			var commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
 		
 		// Parameters
-		var params = this.model.filterData('full', {commented: commented});
-		params.commented = commented;
+		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
+		$.extend(params, this.model.attributes, {actions: this.model.filterActions()})
 		
 		// Visualize
 		this.$el.html (Mustache.render (Templates.inboxmessage, params));
