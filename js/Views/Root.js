@@ -146,23 +146,34 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		if (action.token == 'edit')
 		{
-			// Edit? We must not clone the message.
-			clone = false;
-			parameters = {};
+			this.popup
+			(
+				new Cloudwalkers.Views.Write
+				(
+					{
+						'model' : model.clone (),
+						'clone' : false,
+						'redirect': false
+					}
+				)
+			);
 		}
 
-		this.popup
-		(
-			new Cloudwalkers.Views.Write 
-			(
-				{ 
-					'model' : model.clone (), 
-					'clone' : clone,
-					'actionparameters' : parameters,
-					'redirect' : false
-				}
-			)
-		);
+		else
+		{
+			this.popup
+				(
+					new Cloudwalkers.Views.Write
+					(
+						{
+							'model' : model.clone (),
+							'clone' : clone,
+							'actionparameters' : parameters,
+							'redirect' : false
+						}
+					)
+				);
+		}
 	},
 
 	'shareMessage' : function (model)
