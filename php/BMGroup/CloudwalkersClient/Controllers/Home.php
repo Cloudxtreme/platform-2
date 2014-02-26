@@ -5,9 +5,9 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 	public function getContent ()
 	{
 		// Check for https redirect
-		if (substr (BASE_URL, 0, 5) == 'https' && !isset($_SERVER['HTTPS'] ) )
+		if (HAS_SSL && !isset($_SERVER['HTTPS'] ) )
 		{
-			header ('Location: ' . BASE_URL);
+			header ('Location: http://' . $_SERVER['SERVER_NAME'] . '/');
 			return;
 		}
 
