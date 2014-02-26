@@ -54,7 +54,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 				
 				// Trigger active models
 				model.outdated = true;
-				model.trigger("outdated");
+				model.trigger("outdated", model);
 			}
 		}
 	},

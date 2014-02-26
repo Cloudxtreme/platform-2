@@ -6,15 +6,15 @@ Cloudwalkers.Views.Scheduled = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function ()
 	{
 		// Select draft stream (should be integrated)
-		var channel = Cloudwalkers.Session.getChannel("internal");
+		//var channel = Cloudwalkers.Session.getChannel("internal");
 		
-		this.model = channel.getStream("scheduled");
+		this.model = Cloudwalkers.Session.getStream("scheduled"); //channel.getStream("scheduled");
 
 		// Emergency break
 		if (!this.model) return Cloudwalkers.Session.home();
 		
 		// Listen for changes
-		this.listenTo(this.model, 'outdated', this.model.fetch);
+		//this.listenTo(this.model, 'outdated', this.model.fetch);
 		this.listenTo(this.model, 'sync', this.render);
 	},
 	

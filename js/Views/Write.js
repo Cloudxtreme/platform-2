@@ -123,8 +123,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.files = [];
 		this.draft = false;
 		this.sendnow = false;
-
-		console.log (this.model);
 		
 		var account = Cloudwalkers.Session.getAccount();
 
@@ -632,6 +630,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
             if (self.model && !self.isClone ())
             {
                 url += '&id=' + self.model.get ('id');
+				
+				// Hack
+				//self.model.set({"outdated": true});
+                
             }
 
             // This is a clone. We need to send the original message
@@ -652,7 +654,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                 self.trigger ('popup:close');
 
                 self.$el.html ('<p>Please wait, storing message.</p>');
-
+				
                 // Do the call
                 jQuery.ajax
                 ({
@@ -666,7 +668,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                     {
                        if (objData.success)
                         {
-                            self.$el.html ('<p>Your message has been scheduled.</p>');
+  
+                          	self.$el.html ('<p>Your message has been scheduled.</p>');
 
                             if (typeof (self.options.redirect) == 'undefined' || !self.options.redirect)
                             {
@@ -674,6 +677,16 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                 {
                                     Cloudwalkers.RootView.alert ('Your message was saved.');
                                     self.render ();
+                                    
+                                     // Hack!
+                                    if(self.model)
+                                    {
+                                        var stream = Cloudwalkers.Session.getStream(objData.result.message.stream);
+                                        var message = stream.messages.get(self.model.id);
+                                        
+                                        message.set(message.filterData(objData.result.message));
+                                    
+                                    } else window.location.reload();
                                 }
                                 else
                                 {
@@ -683,7 +696,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                     }
                                     else
                                     {
-                                        Cloudwalkers.Router.Instance.scheduled (null);
+                                        // Hack!
+                                        if(self.model)
+                                        {
+	                                        var stream = Cloudwalkers.Session.getStream(objData.result.message.stream);
+	                                        var message = stream.messages.get(self.model.id);
+	                                        
+	                                        message.set(message.filterData(objData.result.message));
+	                                    
+	                                    } else window.location.reload();
                                     }
                                 }
                             
