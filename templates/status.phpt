@@ -1,5 +1,13 @@
 <h1>Cloudwalker Status Report</h1>
 
+<ul>
+	<?php foreach ($colors as $k => $v) { ?>
+		<li style="background: <?php echo $v[0]; ?>; color: <?php echo $v[1]; ?>">
+			<?php echo ($k / 60) . ' minutes'; ?>
+		</li>
+	<?php } ?>
+</ul>
+
 <?php foreach ($user['accounts'] as $account) { ?>
 
     <h2>

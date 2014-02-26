@@ -12,9 +12,6 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 
 	public function dispatch (Neuron_Page $page)
 	{
-		ksort ($this->colors, SORT_DESC);
-		$this->colors = array_reverse ($this->colors, true);
-
 		$page = new Neuron_Core_Template ();
 		$page->set ('content', $this->getContent ());
 		echo $page->parse ('modules/cloudwalkersclient/setting-index.phpt');
@@ -25,6 +22,9 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 	*/
 	public function getContent ()
 	{
+		ksort ($this->colors, SORT_DESC);
+		$this->colors = array_reverse ($this->colors, true);
+
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if (!$client->isLogin ())
 		{
@@ -47,6 +47,7 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 
 		$page = new Neuron_Core_Template ();
 		$page->set ('user', $user);
+		$page->set ('colors', $this->colors);
 		return $page->parse ('status.phpt');
 	}
 
