@@ -123,6 +123,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.files = [];
 		this.draft = false;
 		this.sendnow = false;
+
+		console.log (this.model);
 		
 		var account = Cloudwalkers.Session.getAccount();
 
@@ -675,13 +677,13 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                 }
                                 else
                                 {
-                                    if (window.location.hash != '#schedule')
+                                    if (window.location.hash != '#scheduled')
                                     {
-                                        window.location = '#schedule';
+                                        window.location = '#scheduled';
                                     }
                                     else
                                     {
-                                        Cloudwalkers.Router.Instance.schedule (null);
+                                        Cloudwalkers.Router.Instance.scheduled (null);
                                     }
                                 }
                             

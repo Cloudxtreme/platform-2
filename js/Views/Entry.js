@@ -16,10 +16,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'initialize' : function (options)
 	{
+		// HACK!
+		this.parameters = {};
+		
 		if(options) $.extend(this, options);
 		
 		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
 	'render' : function ()
@@ -29,8 +33,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$.extend(this.parameters, this.model.attributes);
 		
 		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
-		
-		
 		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)

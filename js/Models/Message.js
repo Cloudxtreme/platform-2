@@ -12,6 +12,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
+		
+		// Actions
+		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 	},
 	
 	'parse' : function(response)
@@ -44,7 +47,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent"]
+		var values = ["id", "objectType", "actiontokens", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule"]
 		
 		$.each(values, function(n, value){ filtered[value] = response[value]});
 		
@@ -74,7 +77,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// If trending
 		if(response.engagement) filtered.trending = response.engagement < 1000? response.engagement: "+999";
-
+		
+		// If scheduled
+		if(filtered.schedule) filtered.scheduledate = moment(filtered.schedule.date).format("DD MMM YYYY HH:mm");
+		
 		// Add limited text
 		filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
 		
@@ -93,10 +99,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'filterActions' : function ()
 	{	
 		if(!this.get("actiontokens")) return [];
-		
-		// Actions
-		if(!this.actions)
-			this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 		
 		return this.actions.rendertokens();
 	},
