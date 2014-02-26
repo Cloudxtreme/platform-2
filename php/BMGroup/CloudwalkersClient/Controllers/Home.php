@@ -7,7 +7,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		// Check for https redirect
 		if (HAS_SSL && !isset($_SERVER['HTTPS'] ) )
 		{
-			header ('Location: http://' . $_SERVER['SERVER_NAME'] . '/');
+			header ('Location: https://' . $_SERVER['SERVER_NAME'] . '/');
 			return;
 		}
 
