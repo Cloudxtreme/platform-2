@@ -53,6 +53,9 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	'toggleall' : function ()
 	{
 		this.showsuggestions(this.model.users.models);
+		
+		// Load category message
+		this.model.messages.touch(this.model, {records: 20});
 	},
 	
 	'comparesuggestions' : function (isuser)

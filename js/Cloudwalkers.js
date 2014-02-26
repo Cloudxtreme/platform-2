@@ -157,7 +157,7 @@ Backbone.Collection = Backbone.Collection.extend({
 				
 				// Trigger active models
 				model.outdated = true;
-				model.trigger("outdated");
+				model.trigger("outdated", model);
 			}
 		}
 	},

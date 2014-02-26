@@ -5,7 +5,8 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 	'events' : {
 		'remove' : 'destroy',
 		'input .input-rounded' : 'comparesuggestions',
-		'click .load-more' : 'more'
+		'click .load-more' : 'more',
+		'click .toggleall.active' : 'toggleall'
 	},
 	
 	'initialize' : function (options)
@@ -49,8 +50,20 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 		return this;
 	},
 	
+	'toggleall' : function ()
+	{
+		this.showsuggestions(this.model.users.models);
+		
+		// Load category message
+		this.model.messages.touch(this.model, {records: 20});
+	},
+	
 	'comparesuggestions' : function (isuser)
 	{
+		// Toggle all active
+		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
+		
+		
 		var string = $("#filter_contacts input").val();
 		
 		if(!string) return this.hidesuggestions();
