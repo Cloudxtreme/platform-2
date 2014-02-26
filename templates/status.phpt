@@ -2,7 +2,10 @@
 
 <?php foreach ($user['accounts'] as $account) { ?>
 
-    <h2><?php echo $account['name']; ?></h2>
+    <h2>
+		<?php echo $account['name']; ?>
+		<?php echo $account['online'] ? ' [ONLINE] ' : '[OFFLINE]'; ?>
+	</h2>
     <table>
 
         <tr>
