@@ -141,14 +141,24 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'writeDialog' : function (model, action)
 	{
+		var clone = true;
+		var parameters = action.parameters;
+
+		if (action.token == 'edit')
+		{
+			// Edit? We must not clone the message.
+			clone = false;
+			parameters = {};
+		}
+
 		this.popup
 		(
 			new Cloudwalkers.Views.Write 
 			(
 				{ 
 					'model' : model.clone (), 
-					'clone' : true, 
-					'actionparameters' : action.parameters,
+					'clone' : clone,
+					'actionparameters' : parameters,
 					'redirect' : false
 				}
 			)
