@@ -1,4 +1,4 @@
-	<td>{{fulldate}}</td>
+	<td>{{scheduledate}}</td>
 	<td>
 	{{#streams}}
 		<div class="network"><i class="icon-{{network.icon}}"></i>{{name}}</div>
