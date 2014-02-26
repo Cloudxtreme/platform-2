@@ -4,6 +4,13 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 {
 	public function getContent ()
 	{
+		// Check for https redirect
+		if (substr (BASE_URL, 0, 5) == 'https' && !isset($_SERVER['HTTPS'] ) )
+		{
+			header ('Location: ' . BASE_URL);
+			return;
+		}
+
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
 		if (!$client->isLogin ())
