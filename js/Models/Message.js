@@ -77,7 +77,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// If trending
 		if(response.engagement) filtered.trending = response.engagement < 1000? response.engagement: "+999";
-
+		
+		// If scheduled
+		if(filtered.schedule) filtered.scheduledate = moment(filtered.schedule.date).format("DD MMM YYYY HH:mm");
+		
 		// Add limited text
 		filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
 		
