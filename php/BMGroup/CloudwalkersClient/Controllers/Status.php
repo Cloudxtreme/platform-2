@@ -40,7 +40,8 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		{
 			foreach ($account['streams'] as $kstream => $stream)
 			{
-				$user['accounts'][$kaccount]['streams'][$kstream]['warningcolor'] = $this->getWarningColor ($stream['lastRefresh']);
+				$user['accounts'][$kaccount]['streams'][$kstream]['warningcolor'] = $this->getWarningColor ($stream);
+				$user['accounts'][$kaccount]['streams'][$kstream]['refreshPriorityString'] = $this->getRefreshPriorityString ($stream['refreshPriority']);
 			}
 		}
 
@@ -49,13 +50,32 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		return $page->parse ('status.phpt');
 	}
 
-	private function getWarningColor ($date)
+	private function getWarningColor ($data)
 	{
-		$since = time () - $date;
+		$date = $data['lastRefresh'];
+		$level = $data['refreshPriority'];
 
+		if ($level > 0)
+		{
+			$since = time () - $date;
+			return $this->getWarningColorSince ($since);
+		}
+		else
+		{
+			$since = time () - $data['nextRefresh'];
+			if ($since > 0)
+			{
+				return $this->getWarningColorSince ($since);
+			}
+		}
+		return array ('#990000', 'white');
+	}
+
+	private function getWarningColorSince ($since)
+	{
 		if ($since <= 300)
 		{
-			return '#ffffff';
+			return array ('#ffffff', 'black');
 		}
 
 		foreach ($this->colors as $k => $v)
@@ -66,6 +86,28 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 			}
 		}
 
-		return '#990000';
+		return array ('#990000', 'white');
+	}
+
+	private function getRefreshPriorityString ($priority)
+	{
+		switch ($priority)
+		{
+			case 0:
+				return 'PREDICTED';
+			break;
+
+			case 1:
+				return 'WHEN ONLINE';
+			break;
+
+			case 2:
+				return 'CONSTANTLY';
+			break;
+
+			default:
+				return 'UNKNOWN REFRESH PRIORITY: ' . $priority;
+			break;
+		}
 	}
 }
