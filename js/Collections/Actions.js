@@ -62,10 +62,34 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		// Triggered action
 		var action = this.templates[token];
 
+		// BRAND NEW WAY!
+		if (action.type == 'confirm')
+		{
+			this[token] (this.parent);
+			return;
+		}
+
+		else if (action.type == 'options')
+		{
+			// Create Action
+			var like = this.create(action);
+
+			// Toggle
+			if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+
+			// Notify action (temp)
+			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
+
+			return;
+		}
+
+		// No? Fallback to old system.
 		this.parent.messageAction (action);
+
 		return;
 
 		// Activate action
+		/*
 		if (action.type == 'write')
 		{
 			action.model = this.parent;
@@ -92,6 +116,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 			// Notify action (temp)
 			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
 		}
+		*/
 	},
 	
 	'delete' : function (model)
