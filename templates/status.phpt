@@ -1,6 +1,7 @@
+<h1>Cloudwalker Status Report</h1>
+
 <?php foreach ($user['accounts'] as $account) { ?>
 
-    <h1>Cloudwalker Status Report</h1>
     <h2><?php echo $account['name']; ?></h2>
     <table>
 
