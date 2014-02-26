@@ -12,6 +12,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
+		
+		// Actions
+		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 	},
 	
 	'parse' : function(response)
@@ -93,10 +96,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'filterActions' : function ()
 	{	
 		if(!this.get("actiontokens")) return [];
-		
-		// Actions
-		if(!this.actions)
-			this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 		
 		return this.actions.rendertokens();
 	},
