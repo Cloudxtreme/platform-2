@@ -123,6 +123,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.files = [];
 		this.draft = false;
 		this.sendnow = false;
+
+		console.log (this.model);
 		
 		var account = Cloudwalkers.Session.getAccount();
 

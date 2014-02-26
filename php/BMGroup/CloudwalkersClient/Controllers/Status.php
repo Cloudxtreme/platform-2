@@ -6,7 +6,7 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		300 => array ('#FFFFCC', 'black'),
 		600 => array ('#FFFF99', 'black'),
 		1200 => array ('#FFCC33', 'black'),
-		2400 => array ('#FF3333', 'black'),
+		2400 => array ('#FF3333', 'white'),
 		3600 => array ('#FF0000', 'white')
 	);
 
