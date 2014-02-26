@@ -7,8 +7,9 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		// Check for https redirect
 		if (HAS_SSL && !isset($_SERVER['HTTPS'] ) )
 		{
-			header ('Location: https://' . $_SERVER['SERVER_NAME'] . '/');
-			return;
+			$url = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+			header ('Location: ' . $url);
+			return 'Redirecting you to ' . $url;
 		}
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
