@@ -62,7 +62,7 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		}
 		else
 		{
-			$since = time () - $data['nextRefresh'];
+			$since = $data['nextRefresh'] - time ();
 			if ($since > 0)
 			{
 				return $this->getWarningColorSince ($since);
