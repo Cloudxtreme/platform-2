@@ -9,7 +9,9 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 		{
 			$url = 'https://' . $_SERVER['SERVER_NAME'] . '/';
 			header ('Location: ' . $url);
-			return 'Redirecting you to ' . $url;
+
+			echo 'Redirecting you to ' . $url;
+			exit;
 		}
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
