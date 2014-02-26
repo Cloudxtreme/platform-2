@@ -14,7 +14,7 @@
 
         <?php foreach ($account['streams'] as $stream) { ?>
 
-            <tr style="background: <?php echo $stream['warningcolor']; ?>;">
+            <tr style="background: <?php echo $stream['warningcolor'][0]; ?>; color: <?php echo $stream['warningcolor'][1]; ?>;">
 
                 <td style="padding: 10px;"><?php echo $stream['service']['name']; ?></td>
                 <td style="padding: 10px;"><?php echo $stream['id']; ?></td>

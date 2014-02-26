@@ -3,15 +3,18 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 	extends BMGroup_CloudwalkersClient_Controllers_Base
 {
 	private $colors = array (
-		300 => '#FFFFCC',
-		600 => '#FFFF99',
-		1200 => '#FFCC33',
-		2400 => '#FF3333',
-		3600 => '#FF0000'
+		300 => array ('#FFFFCC', 'black'),
+		600 => array ('#FFFF99', 'black'),
+		1200 => array ('#FFCC33', 'black'),
+		2400 => array ('#FF3333', 'black'),
+		3600 => array ('#FF0000', 'white')
 	);
 
 	public function dispatch (Neuron_Page $page)
 	{
+		ksort ($this->colors, SORT_DESC);
+		$this->colors = array_reverse ($this->colors, true);
+
 		$page = new Neuron_Core_Template ();
 		$page->set ('content', $this->getContent ());
 		echo $page->parse ('modules/cloudwalkersclient/setting-index.phpt');
@@ -37,7 +40,7 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		{
 			foreach ($account['streams'] as $kstream => $stream)
 			{
-				$user['accounts'][$kaccount][$kstream]['warningcolor'] = $this->getWarningColor ($stream['lastRefresh']);
+				$user['accounts'][$kaccount]['streams'][$kstream]['warningcolor'] = $this->getWarningColor ($stream['lastRefresh']);
 			}
 		}
 
