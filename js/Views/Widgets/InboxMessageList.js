@@ -49,6 +49,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 		}.bind(this));
 		
+		console.log(param)
+		
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
 		

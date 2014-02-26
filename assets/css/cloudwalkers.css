@@ -45,6 +45,8 @@ li.btn-white	{
  *	Quick fixes
  */
 
+[data-header-action]	{ cursor: pointer; }
+
 .message-schedule .checkbox	{ padding-left: 25px !important; }
 .message-schedule .checkbox input	{ margin-top: -4px !important; }
 
