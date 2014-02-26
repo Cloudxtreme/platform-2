@@ -23,10 +23,11 @@
 
 					</ul>
 					<div class="clear"></div>
+					
+					<br />
+					<span class="toggleall inactive">show all</span>
 
-					<small>
-						<a href="#settings/users">manage users</a>
-					</small>
+					<small class="pull-right"><a  href="#settings/users">manage users</a></small>
 				</div>
 
 			</div>

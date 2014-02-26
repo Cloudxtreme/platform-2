@@ -38,6 +38,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return response;
 	},
 	
+	'sync' : function (method, model, options)
+	{
+		
+		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+		
+		// Hack
+		if(method == "update") return false;
+		
+		return Backbone.sync(method, model, options);
+	},
+	
 	'checkloaded' : function (response)
 	{
 		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
@@ -395,10 +406,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 							    collection.fetch ();
                             }
                             */
+                            
                             self.trigger ("destroy", self, self.collection);
                             
                             // Hack
-							window.location.reload();
+							//window.location.reload();
                             
 						}
 					});
@@ -416,7 +428,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                     self.destroy ({success:function(){
 	                    
 	                    // Hack
-						window.location.reload();
+						 self.trigger ("destroy", self, self.collection);
+						//window.location.reload();
 	                    
                     }});
                     //self.trigger ("destroy", self, self.collection);
