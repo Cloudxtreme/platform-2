@@ -40,7 +40,7 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		{
 			foreach ($account['streams'] as $kstream => $stream)
 			{
-				$user['accounts'][$kaccount]['streams'][$kstream]['warningcolor'] = $this->getWarningColor ($stream);
+				$user['accounts'][$kaccount]['streams'][$kstream]['warningcolor'] = $this->getWarningColor ($stream, $account['online']);
 				$user['accounts'][$kaccount]['streams'][$kstream]['refreshPriorityString'] = $this->getRefreshPriorityString ($stream['refreshPriority']);
 			}
 		}
@@ -50,12 +50,15 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 		return $page->parse ('status.phpt');
 	}
 
-	private function getWarningColor ($data)
+	private function getWarningColor ($data, $isOnline)
 	{
 		$date = $data['lastRefresh'];
 		$level = $data['refreshPriority'];
 
-		if ($level > 0)
+		if (
+			$level == 2 ||
+			($level == 1 && $isOnline)
+		)
 		{
 			$since = time () - $date;
 			return $this->getWarningColorSince ($since);
@@ -68,6 +71,8 @@ class BMGroup_CloudwalkersClient_Controllers_Status
 				return $this->getWarningColorSince ($since);
 			}
 		}
+
+
 		return array ('#fff', 'black');
 	}
 
