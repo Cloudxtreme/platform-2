@@ -9,6 +9,7 @@
             <th style="padding: 10px;">Service</th>
             <th style="padding: 10px;">Stream ID</th>
             <th style="padding: 10px;">Name</th>
+			<th style="padding: 10px;">Average messages / day</th>
             <th style="padding: 10px;">Last Refresh</th>
             <th style="padding: 10px;">Next Refresh</th>
         </tr>
@@ -20,6 +21,7 @@
                 <td style="padding: 10px;"><?php echo $stream['service']['name']; ?></td>
                 <td style="padding: 10px;"><?php echo $stream['id']; ?></td>
                 <td style="padding: 10px;"><?php echo $stream['name']; ?></td>
+				<td style="padding: 10px;"><?php echo $stream['averageMessagesDay']; ?></td>
                 <td style="padding: 10px;"><?php echo date ('c', $stream['lastRefresh']); ?></td>
                 <td style="padding: 10px;"><?php echo date ('c', $stream['nextRefresh']); ?></td>
 
