@@ -11,12 +11,16 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options) {
 
+		// Hack
+		if(method == "update") return false;
+		
 		if( method == "read")
 			Store.get(this.url(), null, function(data)
 			{
 				if(data) this.set(data);
 
 			}.bind(this));
+
 		
 		return Backbone.sync(method, model, options);
 	},

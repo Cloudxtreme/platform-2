@@ -7,6 +7,14 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		'click [data-edit-user-id]' : 'openDetails',
 		'click [data-delete-user-id]' : 'deleteUser'
 	},
+	
+	'initialize' : function (options)
+	{
+		// HACK!
+		this.parameters = {};
+		
+		this.listenTo(this.model, 'change', this.render);
+	},
 
 	'render' : function ()
 	{

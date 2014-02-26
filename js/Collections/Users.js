@@ -7,7 +7,10 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'initialize' : function (models, options)
 	{	
-
+		
+		// Override type strings if required
+		if(options) $.extend(this, options);
+		
 		// Global collection gets created before session build-up
 		if( Cloudwalkers.Session.user.account)
 		{
@@ -15,10 +18,18 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 		}
 	},
 	
-	'url' : function()
+	/*'url' : function()
 	{
 		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
-	},
+	},*/
+	
+	 'url' : function (params)
+    {
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");
+    },
 	
 	'parse' : function (response)
 	{
@@ -35,7 +46,7 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
-	'sync' : function (method, model, options) {
+	/*'sync' : function (method, model, options) {
 		
 		// Store Local
 		if( method == "read")
@@ -45,6 +56,17 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 			}.bind(this));
 		
+		return Backbone.sync(method, model, options);
+	},*/
+	
+	'sync' : function (method, model, options)
+	{
+		if(method == "read")
+		{
+			this.processing = true;
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+		}
+
 		return Backbone.sync(method, model, options);
 	},
 	
@@ -73,6 +95,18 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 		
 		// Update model
 		var model = this.updates([id]);
+	},
+	
+	'touchresponse' : function(url, collection, response)
+	{
+		// Get ids
+		var ids = response.account[this.typestring];
+		
+		// Store results based on url
+		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+	
+		// Seed ids to collection
+		this.seed(ids);
 	},
 	
 	'hook' : function(callbacks)

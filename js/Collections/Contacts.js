@@ -15,16 +15,7 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 		}
 	},
 	
-	'sync' : function (method, model, options)
-	{
-		if(method == "read")
-		{
-			this.processing = true;
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
-		}
-
-		return Backbone.sync(method, model, options);
-	},
+	
 	
 	'updates' : function (ids)
 	{

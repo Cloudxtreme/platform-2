@@ -1212,12 +1212,14 @@ nav	{
 /**
 * Scheduled
 */
-#scheduledfilters #filter_streams	{ border-bottom: 0px; padding-right: 0; position: relative; left: 2px; }
-#scheduledfilters .toggleall	{
+
+.toggleall	{
 	background: #4a4a4a; display: inline; padding: 2px 10px; border-radius: 20px; cursor: pointer;
 	color: white; font-size: 12px;
 }
-#scheduledfilters .toggleall.inactive	{ background: #ddd; cursor: default; }
+.toggleall.inactive	{ background: #ddd; cursor: default; }
+
+#scheduledfilters #filter_streams	{ border-bottom: 0px; padding-right: 0; position: relative; left: 2px; }
 
 #scheduledlist table	{ table-layout: fixed; font-size: 14px;  }
 #scheduledlist tr	{ clear: both; }
