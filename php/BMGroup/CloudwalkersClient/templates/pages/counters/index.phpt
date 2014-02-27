@@ -16,6 +16,8 @@
 
 				function updateStreamData (stream)
 				{
+					var okay = true;
+
 					var element = streamdom[stream.id];
 					var streamcounters = counters[stream.id];
 
@@ -28,8 +30,24 @@
 							element.find ('ul').append (streamcounters[this]);
 						}
 
+						if (stream.count[this] == null || stream.count[this] < 0)
+						{
+							okay = false;
+						}
+
 						streamcounters[this].find ('span.value').html (stream.count[this]);
 					});
+
+					if (okay)
+					{
+						element.addClass ('okay');
+						element.removeClass ('error');
+					}
+					else
+					{
+						element.addClass ('error');
+						element.removeClass ('okay');
+					}
 
 					element.effect ('highlight', {}, 1000);
 				}
@@ -131,6 +149,13 @@
 				margin: 5px;
 				padding: 5px;
 				border: 1px solid black;
+			}
+
+			div.stream.error
+			{
+				border: 1px solid red;
+				background: indianred;
+				color: white;
 			}
 
 			h3
