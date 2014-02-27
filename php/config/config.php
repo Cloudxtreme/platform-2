@@ -40,6 +40,11 @@ if (!defined ('BASE_SSL_URL'))
 	define ('BASE_SSL_URL', 'https://' . $_SERVER['SERVER_NAME'] . '/');	
 }
 
+if (!defined ('HAS_SSL'))
+{
+	define ('HAS_SSL', false);
+}
+
 // Template directory
 Neuron_Core_Template::setTemplatePath ('templates/');
 

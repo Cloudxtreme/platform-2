@@ -1,6 +1,6 @@
 Cloudwalkers.Collections.Notifications = Cloudwalkers.Collections.Messages.extend({
 	
-	'model' : Cloudwalkers.Models.Comment,
+	'model' : Cloudwalkers.Models.Notification,
 	'typestring' : "notifications",
 	'modelstring' : "notification",
 	

@@ -26,7 +26,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		this.fetch();
 	},
 	
-	'url' : function()
+	'url' : function ()
 	{
 		var id = this.id? this.id: "";
 		
@@ -36,6 +36,9 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	'parse' : function(response)
 	{
 		if(response.stream) response = response.stream;
+		
+		// Hack
+		this.outdated = response.outdated = false;
 		
 		Store.set("streams", response);
 		

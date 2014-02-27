@@ -42,12 +42,16 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Template data
 		var param = {streams: [], networks: []};
 		
+		console.log(this.model)
+		
 		// Select streams
 		this.model.streams.each (function(stream)
 		{
 			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
 
 		}.bind(this));
+		
+		console.log(param)
 		
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
