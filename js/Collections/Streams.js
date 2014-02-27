@@ -82,7 +82,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 			
 			list.push(stream? stream: this.get(id));
 			
-			if(!stream || stream.outdated) return id;
+			if(!stream /*|| stream.outdated*/) return id;
 		
 		}, this));
 		

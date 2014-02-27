@@ -25,7 +25,7 @@
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
-<script type="text/javascript" src="/js/Models/Comment.js"></script>
+<script type="text/javascript" src="/js/Models/Notification.js"></script>
 <script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
