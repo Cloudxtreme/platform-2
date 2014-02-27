@@ -18,6 +18,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		// The list source is either the streams or subchannels
 		this.list = options.channel[options.source];
 		
+		if(this.list)
 		for (n in this.list.models)
 		{
 			// Add change listeners
@@ -34,21 +35,24 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		var data = { list: [] };		
 		$.extend (data, this.options);
 		
-		this.list.comparator = function (a, b) { return b.count - a.count }
-		
-		this.list.sort();
-		
-		this.list.each(function(model)
-		{
-			var attr = model.attributes;
+		if(this.list)
+		{	
+			this.list.comparator = function (a, b) { return b.count - a.count }
 			
-			// Hack!
-			if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
-			else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
+			this.list.sort();
 			
-			data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
-		});
-
+			this.list.each(function(model)
+			{
+				var attr = model.attributes;
+				
+				// Hack!
+				if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
+				else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
+				
+				data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
+			});
+		}
+		
 		this.$el.html (Mustache.render (Templates.messagescounters, data));
 
 		return this;
