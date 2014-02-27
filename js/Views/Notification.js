@@ -45,10 +45,10 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		return this;
 	},
 	
-	'action' : function (element)
+	'action' : function (e)
 	{
 		// Action token
-		var token = $(element.currentTarget).data ('notification-action');
+		var token = $(e.currentTarget).data ('notification-action');
 		
 		this.model.trigger("action", token);
 	},
@@ -61,9 +61,12 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		action.find("i").attr("class", "").addClass("icon-" + newaction.icon);
 	},
 	
-	'toggleactions' : function()
+	'toggleactions' : function(e)
 	{
-		this.$el.find(".message-actions, .comment-info").toggleClass("hidden");	
+		var out = e.originalEvent.type == "mouseout";
+		
+		this.$el.find(".message-actions")[out? "addClass": "removeClass"]("hidden");
+		this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");	
 	},
 	
 	'markasread' : function()
