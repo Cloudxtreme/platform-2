@@ -84,7 +84,7 @@
 									var stream = this;
 
 									var element = $('<div class="stream"></div>');
-									element.append ('<h3>' + this.name + '</h3>');
+									element.append ('<h3>' + this.name.substr (0, 30) + '</h3>');
 									element.append ('<ul class="counters"></ul>');
 									streamdom[this.id] = element;
 									counters[this.id] = {};
