@@ -26,16 +26,28 @@
 					{
 						if (typeof (streamcounters[this]) == 'undefined')
 						{
-							streamcounters[this] = $('<li><span class="name">' + this + ':</span><span class="value"></span></li>');
+							streamcounters[this] = $('<li><span class="name">' + this + ':</span><span class="value"></span> <span class="progress"></span></li>');
 							element.find ('ul').append (streamcounters[this]);
 						}
 
+						var oldvalue = streamcounters[this].find ('span.value').html ();
 						if (stream.count[this] == null || stream.count[this] < 0)
 						{
 							okay = false;
 						}
 
 						streamcounters[this].find ('span.value').html (stream.count[this]);
+
+						if (oldvalue)
+						{
+							var dt = stream.count[this] - oldvalue;
+
+							if (dt >= 0)
+							{
+								dt = '+' + dt;
+							}
+							streamcounters[this].find ('span.progress').html (dt);
+						}
 					});
 
 					if (okay)
@@ -177,6 +189,12 @@
 			li .name
 			{
 				width: 150px;
+				display: inline-block;
+			}
+
+			li .value
+			{
+				width: 40px;
 				display: inline-block;
 			}
 		</style>
