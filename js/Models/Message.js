@@ -93,7 +93,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(filtered.schedule) filtered.scheduledate = moment(filtered.schedule.date).format("DD MMM YYYY HH:mm");
 		
 		// Add limited text
-		filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
+		if(response.body) filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
 		
 		// Date
 		if(response.date)

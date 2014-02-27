@@ -78,9 +78,12 @@ Cloudwalkers.Session =
 
 	'manage' : function ()
 	{
+
+		// Limit messages
+		
 		var messagecount = Store.count("messages");
 		
-		if(messagecount > 400)
+		if(messagecount > 200)
 			Store.filter("messages", null, function(list)
 			{
 				// Sort list timestamp ASC
@@ -91,7 +94,7 @@ Cloudwalkers.Session =
 				});
 				
 				// Save newest, remove oldest
-				list = list.slice(0, 300);
+				list = list.slice(0, 100);
 				Store.write("messages", list);
 				
 				// Clean touch id-lists
@@ -104,6 +107,27 @@ Cloudwalkers.Session =
 					Store.write("touches", list);
 				});
 			});
+			
+			
+		// Limit reports
+		
+		var reportcount = Store.count("reports");
+		
+		if(reportcount > 25)
+			Store.filter("reports", null, function(list)
+			{
+				// Sort list timestamp ASC
+				list.sort(function (a, b) {
+					if (a.stamp > b.stamp) return 1;
+					if (a.stamp < b.stamp) return -1;
+					return 0;
+				});
+				
+				// Save newest, remove oldest
+				list = list.slice(0, 10);
+				Store.write("messages", list);
+			});
+
 	},
 	
 	/**
