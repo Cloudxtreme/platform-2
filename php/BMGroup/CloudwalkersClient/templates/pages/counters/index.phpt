@@ -146,7 +146,7 @@
 				float: left;
 				border: 1px solid gray;
 				background: white;
-				margin: 5px;
+				margin: 2px;
 				padding: 5px;
 				border: 1px solid black;
 			}
