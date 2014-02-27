@@ -49,7 +49,8 @@
 	<div class='content'>
 		
 		{{#subject}}
-		<strong>{{subject}}</strong><br />
+			{{#url}}<a href="{{url}}"><strong>{{subject}}</strong></a><br />{{/url}}
+			{{^url}}<strong>{{subject}}</strong><br />{{/url}}
 		{{/subject}}
 		
 		{{{body.html}}}

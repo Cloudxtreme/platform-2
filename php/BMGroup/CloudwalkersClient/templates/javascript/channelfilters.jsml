@@ -15,7 +15,11 @@
 							<i class="icon-{{icon}}"></i>
 						</div>
 					{{/networks}}
-
+					
+					<div class="clear"></div>
+					<br />
+					
+					<li class="toggleall inactive">select all</li>
 				</div>
 				
 				<div class='building-notice inactive'>
@@ -34,11 +38,15 @@
 							</li>
 					{{/keywords}}
 					</ul>
+					
 					<div class="clear"></div>
+					<br />
 
-					<small>
+					<small class="pull-right">
 						<a href="#keywords">manage keywords</a>
 					</small>
+					
+					<li class="toggleall inactive">select all</li>
 				</div>
 
 			</div>
