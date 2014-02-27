@@ -38,14 +38,26 @@ class BMGroup_CloudwalkersClient_FrontController
 
 	private function getControllerFromInput ($module)
 	{
-		$classname = 'BMGroup_CloudwalkersClient_Controllers_' . ucfirst ($module);
+		if (empty ($module))
+		{
+			$classname = 'BMGroup_CloudwalkersClient_Controllers_Home';
+		}
+
+		else
+		{
+			$classname = 'BMGroup_CloudwalkersClient_Controllers_' . ucfirst ($module);
+		}
 
 		if (class_exists ($classname))
 		{
 			return new $classname ();
 		}
 
-		return new BMGroup_CloudwalkersClient_Controllers_Home ();
+		http_response_code (404);
+		echo '<p>Controller not found: ' . $module . '</p>';
+		exit;
+
+		//return new BMGroup_CloudwalkersClient_Controllers_Home ();
 	}
 
 	public function dispatch (Neuron_Page $page)
