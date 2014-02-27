@@ -66,7 +66,7 @@
 
 				function refreshStream (streamid)
 				{
-					console.log ('Refreshing stream ' + streamid);
+					//console.log ('Refreshing stream ' + streamid);
 					$.ajax ('/json/streams/' + streamid,
 						{
 							'success' : function (stream)
@@ -75,6 +75,33 @@
 							}
 						}
 					);
+				}
+
+				function showMessage (message)
+				{
+					var oneliner = '[' + message.stream + '] ';
+
+					if (message.subject)
+					{
+						oneliner += '<strong>' + message.subject + '</strong>: ';
+					}
+
+					oneliner += message.body.plaintext;
+
+					console.log (oneliner);
+				}
+
+				function showMessages (newMessages)
+				{
+					$.ajax ('/json/messages?ids=' + newMessages.join (','), {
+						'success' : function (data)
+						{
+							$.each (data.messages, function ()
+							{
+								showMessage (this);
+							});
+						}
+					});
 				}
 
 				var lastpage = '';
@@ -92,6 +119,28 @@
 							{
 								refreshStream (this);
 							});
+						}
+
+						var newMessages = [];
+
+						// Also collect all messages
+						if (typeof (data.pong.add) != 'undefined'
+							&& typeof (data.pong.add.streams) != 'undefined')
+						{
+							//console.log (data.pong.updates.streams);
+							$.each (data.pong.add.streams, function ()
+							{
+								var stream = this;
+								$.each (stream.messages, function ()
+								{
+									newMessages.push (this);
+								});
+							});
+						}
+
+						if (newMessages.length > 0)
+						{
+							showMessages (newMessages);
 						}
 
 						setTimeout (ping, 1000);
