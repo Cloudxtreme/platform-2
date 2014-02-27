@@ -194,7 +194,7 @@
 
 			li .value
 			{
-				width: 40px;
+				width: 60px;
 				display: inline-block;
 			}
 		</style>
