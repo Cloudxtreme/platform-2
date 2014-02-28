@@ -171,7 +171,7 @@
 									// Click = refresh
 									element.click (function ()
 									{
-										refreshStream (stream.id);
+										//refreshStream (stream.id);
 										$(this).toggleClass ('selected');
 									});
 
