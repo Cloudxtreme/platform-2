@@ -5,7 +5,7 @@
 			<label>Networks</label>
 			
 			{{#networks}}
-			<div class="btn-white active" data-streams="{{ids}}"><i class="icon-{{icon}}"></i></div>
+			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
 			{{/networks}}
 			
 			<div class="btn-white toggle-streams" data-toggle="streams">more...</div>
@@ -36,7 +36,7 @@
 			<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
 		{{/streams}}
 		</ul>
-	
+		<li class="toggleall inactive">select all</li>
 	</div>
 	
 	<div class="clearfix">
