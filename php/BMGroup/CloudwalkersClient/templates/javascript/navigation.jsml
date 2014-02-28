@@ -55,6 +55,7 @@
 		</ul>
 	</li> -->
 
+	{{#level}}
 	<!-- Inbox -->
 	{{#inbox}}
 		<li>
@@ -99,6 +100,7 @@
 			</ul>
 		</li>
 	{{/inbox}}
+	{{/level}}
 	
 		<!-- Co-workers cloud -->
 		<li>
@@ -150,7 +152,8 @@
 			</ul>
 		</li>
 	{{/profiles}}
-
+	
+	{{#level}}
 	<!-- Profiles we follow -->
 	{{#news}}
 		<li>
@@ -242,7 +245,6 @@
 	</li>
 	
 	<!-- User Settings -->
-	{{#level}}
 	<li class="settings">
 		<a href="#settings/users">
 			<i class="icon-cogs"></i> 

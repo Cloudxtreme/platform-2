@@ -40,6 +40,7 @@ Cloudwalkers.Views.Widgets.CombinedStatistics = Cloudwalkers.Views.Widgets.Widge
 		// Change report events
 		function attachReportEvent (report)
 		{
+			
 			el.find ('[data-report-id="' + report.get ('uniqueid') + '"]').click (function ()
 			{
 				self.setReport (report);

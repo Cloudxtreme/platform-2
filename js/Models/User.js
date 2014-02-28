@@ -2,6 +2,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'initialize' : function ()
 	{
+
 	},
 	
 	'url' : function ()
@@ -9,7 +10,28 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return CONFIG_BASE_URL + 'json/user/' + this.id;
 	},
 	
-	'sync' : function (method, model, options) {
+	'parse' : function(response)
+	{	
+		console.log(response);
+		
+		// A new object
+		if (typeof response == "number") response = {id: response};
+		
+		// Store incoming object
+		else this.stamp(response);
+
+		return response;
+	},
+	
+	/*'parse' : function(response)
+	{	
+		// A new object
+		if (typeof response == "number") response = {id: response};
+
+		return response;
+	},*/
+	
+	/*'sync' : function (method, model, options) {
 
 		// Hack
 		if(method == "update") return false;
@@ -23,7 +45,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 
 		
 		return Backbone.sync(method, model, options);
-	},
+	},*/
 	
 	'filterData' : function (type)
 	{

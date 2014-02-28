@@ -49,9 +49,7 @@ li.btn-white	{
 
 .attachment-link	{ white-space: nowrap; }
 
-.black-icons i	{
-	color: black !important;
-}
+.black-icons i	{ color: black !important; }
 
 .actions,
 [data-keyword],
