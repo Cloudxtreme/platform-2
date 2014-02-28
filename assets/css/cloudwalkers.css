@@ -48,7 +48,11 @@ li.btn-white	{
 .messages-container .media i	{ color: white; }
 
 .attachment-link	{ white-space: nowrap; }
- 
+
+.black-icons i	{
+	color: black !important;
+}
+
 .actions,
 [data-keyword],
 [data-open-service],
