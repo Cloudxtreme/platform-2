@@ -172,6 +172,7 @@
 									element.click (function ()
 									{
 										refreshStream (stream.id);
+										$(this).toggleClass ('selected');
 									});
 
 									$('#container').append (element);
@@ -201,6 +202,7 @@
 				font-size: 12px;
 				font-family: Verdana;
 			}
+
 			div.stream
 			{
 				width: 250px;
@@ -245,6 +247,12 @@
 			{
 				width: 60px;
 				display: inline-block;
+			}
+
+			div.selected
+			{
+				border-color: blue;
+				background: #66CCFF;
 			}
 		</style>
 
