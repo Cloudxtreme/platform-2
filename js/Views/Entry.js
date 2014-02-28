@@ -71,11 +71,17 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'loadNotifications' : function()
 	{
 		
-		// Does collection exist?
+		// Collapse if open
+		if(this.$el.find(".timeline-comments li").size())
+			
+			return this.$el.find(".timeline-comments li").remove();
+		
+		
+		/*// Does collection exist?
 		if(!this.model.notifications)
 			this.model.notifications = new Cloudwalkers.Collections.Notifications();
 		
-		console.log(this.model.notifications)
+		console.log(this.model.notifications)*/
 		
 		// Load notifications
 		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
@@ -206,6 +212,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'destroy' : function ()
     {
+		// To-do:
+		//this.model.notifications.trigger("destroy");
+		
 		window.clearTimeout(this.tm);
     }
 
