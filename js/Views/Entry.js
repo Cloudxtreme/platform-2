@@ -75,6 +75,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(!this.model.notifications)
 			this.model.notifications = new Cloudwalkers.Collections.Notifications();
 		
+		console.log(this.model.notifications)
+		
 		// Load notifications
 		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
 		
