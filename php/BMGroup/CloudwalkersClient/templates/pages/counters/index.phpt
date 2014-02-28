@@ -89,6 +89,7 @@
 					oneliner += message.body.plaintext;
 
 					console.log (oneliner);
+					$('#newsticker').html (oneliner);
 				}
 
 				function showMessages (newMessages)
@@ -141,6 +142,7 @@
 						if (newMessages.length > 0)
 						{
 							showMessages (newMessages);
+
 						}
 
 						setTimeout (ping, 1000);
@@ -254,11 +256,23 @@
 				border-color: blue;
 				background: #66CCFF;
 			}
+
+			#newsticker
+			{
+                background: #eee;
+                border: 1px solid red;
+                margin: 3px;
+                padding: 5px;
+			}
 		</style>
 
 	</head>
 
 	<body>
+
+        <div id="newsticker">
+            &nbsp;
+        </div>
 
 		<div id="container">
 
