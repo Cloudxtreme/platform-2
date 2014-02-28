@@ -11,11 +11,15 @@
 				<div class="filter network-list social-icon-colors">
 					
 					{{#networks}}
-						<div class="btn white active" data-network-streams="{{ids}}">
+						<div class="btn white active filter" data-network-streams="{{ids}}">
 							<i class="icon-{{icon}}"></i>
 						</div>
 					{{/networks}}
-
+					
+					<div class="clear"></div>
+					<br />
+					
+					<li class="toggleall networks inactive">select all</li>
 				</div>
 				
 				<div class='building-notice inactive'>
@@ -29,16 +33,20 @@
 					<label>{{name}} keywords</label>
 					<ul>
 					{{#keywords}}
-							<li class='active' data-keyword-id="{{id}}">
-								<i class="icon-tag icon-muted"></i> {{attributes.name}}
-							</li>
+						<li class='active filter' data-keyword-id="{{id}}">
+							<i class="icon-tag icon-muted"></i> {{attributes.name}}
+						</li>
 					{{/keywords}}
 					</ul>
+					
 					<div class="clear"></div>
+					<br />
 
-					<small>
+					<small class="pull-right">
 						<a href="#keywords">manage keywords</a>
 					</small>
+					
+					<li class="toggleall keywords inactive">select all</li>
 				</div>
 
 			</div>

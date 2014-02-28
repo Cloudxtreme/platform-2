@@ -25,5 +25,5 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	{
 		console.log("collection destroyed")
 		this.reset();
-	},
+	}
 });

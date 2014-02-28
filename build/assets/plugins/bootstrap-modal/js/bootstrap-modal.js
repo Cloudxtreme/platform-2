@@ -296,6 +296,7 @@
 		},
 
 		teardown: function () {
+			
 			if (!this.$parent.length){
 				this.$element.remove();
 				this.$element = null;

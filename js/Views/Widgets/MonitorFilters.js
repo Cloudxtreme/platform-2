@@ -4,7 +4,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		'click [data-network-streams]' : 'filternetworks',
 		'click [data-keyword-id]' : 'filterkeywords',
 		'click .toggleall.networks.active' : 'toggleallnetworks',
-		'click .toggleall.keywords.active' : 'toggleallkeywords',
+		'click .toggleall.keywords.active' : 'toggleallkeywords'
 	},
 	
 	'initialize' : function ()

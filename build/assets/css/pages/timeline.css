@@ -28,6 +28,7 @@ ul.timeline	{ margin-top: 25px; }
 .timeline .timeline-content	{ margin-left: 10px; }
 
 .load-more .timeline-body.more	{ padding: 15px 20px; width: 20%; }
+.no-content .timeline-body.more	{ padding: 10px 20px; width: 20%; }
 
 .timeline .more a	{ color: white; }
 
@@ -137,6 +138,12 @@ ul.timeline-comments	{
 
 .timeline-comments .comment-info {
 	color: #aac1cd; font-size: 12px;
+}
+
+.timeline-comments .message-actions	{ clear: both; padding: 5px 18px; }
+
+.timeline-comments .message-actions div	{
+	position: relative; top: -5px; display: inline;
 }
 
 /*.comments ul	{ margin:0; padding:0; list-style: none; }
