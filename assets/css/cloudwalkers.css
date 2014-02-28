@@ -44,8 +44,14 @@ li.btn-white	{
 /**
  *	Quick fixes
  */
-
-[data-header-action]	{ cursor: pointer; }
+ 
+.attachment-link	{ white-space: nowrap; }
+ 
+.actions,
+[data-keyword],
+[data-open-service],
+[data-header-action],
+.category-name.edit-toggler h4	{ cursor: pointer; }
 
 .message-schedule .checkbox	{ padding-left: 25px !important; }
 .message-schedule .checkbox input	{ margin-top: -4px !important; }
@@ -1303,10 +1309,10 @@ nav	{
  * Manage keywords
  */
 
-.portlet.keywordsoverview .messages-container li	{ min-height: 10px; cursor: default; }
+.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
 
 .portlet.keywordsoverview h4	{ margin-top: 6px; }
-.portlet.keywordsoverview h4	{ width: 50%; cursor: default; }
+.portlet.keywordsoverview h4	{ width: 50%; }
 
 .portlet.keywordsoverview div.clear	{ clear: both; }
 
