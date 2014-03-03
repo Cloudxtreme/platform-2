@@ -81,7 +81,19 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		var data = {reports: []};
 		
 		data.level = Number(account.get('currentuser').level);
-
+		
+		// Administrator
+		if(data.level)
+		{
+			// News
+			var news = account.channels.findWhere({type: "news"});
+			data.news = {channelid: news.id, streams: news.streams.models, name: news.get("name")};
+			
+			// Monitoring
+			var monitoring = account.channels.findWhere({type: "monitoring"});
+			data.monitoring = {channelid: monitoring.id, channels: monitoring.channels.models, name: monitoring.get("name")};
+		}
+		
 		// Scheduled
 		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
 		data.scheduled.streams = account.streams.where({outgoing: 1});
@@ -92,14 +104,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Profiles
 		var profiles = account.channels.findWhere({type: "profiles"});
 		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
-
-		// News
-		var news = account.channels.findWhere({type: "news"});
-		data.news = {channelid: news.id, streams: news.streams.models, name: news.get("name")};
 		
-		// Monitoring
-		var monitoring = account.channels.findWhere({type: "monitoring"});
-		data.monitoring = {channelid: monitoring.id, channels: monitoring.channels.models, name: monitoring.get("name")};
+		
 		
 		// Reports
 		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)

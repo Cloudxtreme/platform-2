@@ -15,6 +15,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		
+		// Children
+		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
 	'parse' : function(response)

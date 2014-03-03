@@ -17,6 +17,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'reports' : 'statistics',
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
+		'work' : 'coworkdashboard',
 		'dashboard/:accountid' : 'changeaccount',
 		'home' : 'home',
 		'*path' : 'dashboard'
@@ -34,6 +35,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (Cloudwalkers.Session.getAccount().get("firstTime"))
 			 
 			return this.navigate("#firsttime", true);
+			
+		// Check administrator level
+		if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
+			 
+			return this.navigate("#work", true);
 		
 		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
@@ -214,6 +220,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'firsttime' : function ()
 	{	
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
+	},
+	
+	/**
+	 *	Co-worker Dashboard
+	 **/
+
+	'coworkdashboard' : function ()
+	{	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkdashboard());
 	},
 	
 

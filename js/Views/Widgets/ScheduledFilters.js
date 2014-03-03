@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 	'events' : {
 		'remove' : 'destroy',
 		'click *[data-streams]' : 'filter',
-		'click .toggleall.active' : 'toggleall',
+		'click .toggleall.active' : 'toggleall'
 	},
 	
 	'initialize' : function (options)

@@ -44,13 +44,18 @@ li.btn-white	{
 /**
  *	Quick fixes
  */
- 
+
+.messages-container .media i	{ color: white; }
+
 .attachment-link	{ white-space: nowrap; }
- 
+
+.black-icons i	{ color: black !important; }
+
 .actions,
 [data-keyword],
 [data-open-service],
 [data-header-action],
+[data-notification-action],
 .category-name.edit-toggler h4	{ cursor: pointer; }
 
 .message-schedule .checkbox	{ padding-left: 25px !important; }

@@ -14,8 +14,14 @@
 			<i class="icon-envelope"></i>
 		</div>
 		
+		<!--
 		<div class="header-icon" data-header-action="notifications">
 			<i class="icon-globe"></i>
+		</div>
+		-->
+		
+		<div class="header-icon active" data-header-action="post">
+			<i class="icon-pencil"></i> Post
 		</div>
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
@@ -44,7 +50,7 @@
 				<ul class="dropdown-menu">
 				{{#accounts}}
 					<li class="account-selector{{#active}} active{{/active}}">
-						<a href="#dashboard/{{id}}"><i class="icon-star"></i>{{name}}</a>
+						<a href="#dashboard/{{id}}"><i class="icon-briefcase"></i> {{name}}</a>
 					</li>
 				{{/accounts}}
 					<li class="account-selector divider"></li>

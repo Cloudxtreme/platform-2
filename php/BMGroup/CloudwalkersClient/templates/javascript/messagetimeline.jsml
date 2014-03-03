@@ -1,6 +1,6 @@
 
 
-<li class="{{#objectType}}timeline-blue{{/objectType}}{{^objectType}}timeline-empty{{/objectType}} {{networktoken}}-color">
+<li class="{{#objectType}}timeline-blue{{/objectType}}{{^objectType}}timeline-empty{{/objectType}} {{networktoken}}-color" data-message-id="{{id}}">
 	<div class="timeline-time">
 		<span class="date">{{dateonly}}</span>
 		

@@ -18,7 +18,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		'input .input-rounded' : 'comparesuggestions',
 		'click [data-contact]' : 'filtercontacts',
 		'click [data-close-contact]' : 'filtercontacts',
+		'click [data-networks]' : 'filternetworks',
 		'click [data-streams]' : 'filterstreams',
+		'click .toggleall.active' : 'toggleall',
 		'click .load-more' : 'more'
 	},
 	
@@ -36,13 +38,27 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 	},
+	
+	'toggleall' : function ()
+	{
+		
+		this.filternetworks(null, true);
+		this.togglestreams(true);
+	},
+	
+	'togglestreams' : function(all)
+	{
+		// Toggle streams
+		this.$el.find('[data-networks], [data-streams]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		
+		// Toggle select button
+		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+	},
 
 	'render' : function ()
 	{	
 		// Template data
 		var param = {streams: [], networks: []};
-		
-		console.log(this.model)
 		
 		// Select streams
 		this.model.streams.each (function(stream)
@@ -50,8 +66,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
 
 		}.bind(this));
-		
-		console.log(param)
 		
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
@@ -162,7 +176,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		var contacts = this.model.contacts.filter(this.comparenamefilter.bind(this, string));
 		
 		
-		
 		// On typed, search for more
 		if (contacts.length < 5 && !iscontact.cid && string.length > 2) this.requestcontacts(string);
 
@@ -252,7 +265,69 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'filterstreams' : function (e)
+	'filternetworks' : function (e, all)
+	{
+		
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("networks") == $(e.currentTarget).data("networks");
+
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("networks")).split(" ");
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (streams)
+		{
+			$(streams.map(function(id){ return '[data-streams="'+ id +'"]'; }).join(",")).removeClass("inactive").addClass("active");
+			this.filters.streams = streams;
+		
+		} else this.filters.streams = [];
+			
+		// Fetch filtered messages
+		this.collection.touch(this.model, this.filterparameters());
+		
+		return this;
+	},
+	
+	'filterstreams' : function (e, all)
+	{
+		
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("streams") == $(e.currentTarget).data("streams");
+
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var stream = all? null: Number(this.button.data("streams"));
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (stream)
+		{
+			$('[data-networks~="'+ stream +'"]').removeClass("inactive").addClass("active");
+			this.filters.streams = [stream];
+		
+		} else this.filters.streams = [];
+			
+		// Fetch filtered messages
+		this.collection.touch(this.model, this.filterparameters());
+		
+		return this;
+	},
+	
+	/*'filterstreams' : function (e)
 	{
 		var button = $(e.currentTarget);
 		var param = {records: 20};
@@ -285,7 +360,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.collection.touch(this.model, this.filterparameters());
 		
 		return this;
-	},
+	},*/
 	
 	'filterparameters' : function() {
 		

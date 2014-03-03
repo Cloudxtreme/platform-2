@@ -23,7 +23,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 	{
 		var self = this;
 		var data = {};
-
+		
 		data.user = this.model.attributes;
 		data.user.role = this.model.getRole ();
 		
