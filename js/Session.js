@@ -86,7 +86,7 @@ Cloudwalkers.Session =
 			return data;
 		
 		} else throw TypeError ("Use only strings or objects for function viewsettings");
-	}
+	},
 	
 	/**
 	 *	Manage storage
