@@ -109,11 +109,6 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 		return account;
 	},
-	
-	'level' : function ()
-	{
-		return Number(Cloudwalkers.Session.getAccount().get('currentuser').level);
-	},
 
 	'savePassword' : function (oldpassword, newpassword, callback)
 	{

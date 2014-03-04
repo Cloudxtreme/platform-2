@@ -28,6 +28,21 @@ var Cloudwalkers = {
 };
 
 /**
+ *	Cloudwalkers level Exceptions
+ **/
+
+function AuthorizationError (message)
+{
+	this.name = "Not Authorized";
+	this.message = (message || "Not authorized for the current user (no matching authorization token)")
+	this.stack = (new Error()).stack;
+}
+
+AuthorizationError.prototype = new Error();
+AuthorizationError.prototype.constructor = AuthorizationError;
+
+
+/**
  *	Backbone Extensions
  **/
  

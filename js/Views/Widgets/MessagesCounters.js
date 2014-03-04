@@ -4,11 +4,12 @@
 Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.extend({
 	'entries' : [],
 	'events' : {
-		'input .input-rounded' : 'comparesuggestions',
+		'click a[href]' : 'updatesettings'
+		/*'input .input-rounded' : 'comparesuggestions',
 		'click [data-contact]' : 'filtercontacts',
 		'click [data-close-contact]' : 'filtercontacts',
 		'click [data-streams]' : 'filterstreams',
-		'click .load-more' : 'more'
+		'click .load-more' : 'more'*/
 	},
 	
 	'initialize' : function(options)
@@ -56,6 +57,18 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.$el.html (Mustache.render (Templates.messagescounters, data));
 
 		return this;
+	},
+	
+	'updatesettings' : function ()
+	{
+		
+		//var settings = Cloudwalkers.Session.viewsettings("messages");
+		
+		
+		
+		//views.selectedstream
+		
+		//updateSetting
 	},
 	
 	'negotiateFunctionalities' : function() {

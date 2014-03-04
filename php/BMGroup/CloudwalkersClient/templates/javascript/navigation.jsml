@@ -159,7 +159,7 @@
 		<li>
 			<a href="#timeline/{{channelid}}">
 				<i class="icon-globe"></i> 
-				<span class="title">{{name}}</span>
+				<span class="title">Accounts we follow</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>

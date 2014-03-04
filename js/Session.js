@@ -1,5 +1,6 @@
 Cloudwalkers.Session = 
 {
+	
 	'user' : null,
 	/*'settings' : {
 		'currentAccount' : null,
@@ -71,6 +72,21 @@ Cloudwalkers.Session =
 		// Update session
 		return Cloudwalkers.Session.user.attributes.settings[attribute];
 	},
+	
+	'viewsettings' : function(data)
+	{
+		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
+			Cloudwalkers.Session.user.attributes.settings.viewsettings = Cloudwalkers.RootView.navigation.mapviews();
+		
+		if(typeof data == "string") return this.get("viewsettings")[data];
+		
+		else if(typeof data == "object")
+		{
+			$.extend(Cloudwalkers.Session.user.attributes.settings.viewsettings, data);
+			return data;
+		
+		} else throw TypeError ("Use only strings or objects for function viewsettings");
+	}
 	
 	/**
 	 *	Manage storage
