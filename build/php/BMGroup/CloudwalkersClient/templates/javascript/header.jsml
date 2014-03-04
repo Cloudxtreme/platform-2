@@ -10,6 +10,7 @@
 			<i class="icon-group"></i>
 		</div>
 		
+		{{#level}}
 		<div class="header-icon" data-header-action="messages">
 			<i class="icon-envelope"></i>
 		</div>
@@ -23,6 +24,7 @@
 		<div class="header-icon active" data-header-action="post">
 			<i class="icon-pencil"></i> Post
 		</div>
+		{{/level}}
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 			<img src="/assets/img/menu-toggler.png" alt="" />
