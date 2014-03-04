@@ -12,7 +12,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'id' : 'scheduledlist',
 	'title': "Scheduled messages",
-	'parameters' : {records: 20, sort: 'asc'},
+	'parameters' : {records: 200, sort: 'asc'},
 	'entries' : [],
 	
 	'events' : {
