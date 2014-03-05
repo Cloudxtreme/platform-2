@@ -263,7 +263,8 @@
                 border: 1px solid red;
                 margin: 3px;
                 padding: 5px;
-				height: 30px;
+				height: 40px;
+				overflow: hidden;
 			}
 		</style>
 
