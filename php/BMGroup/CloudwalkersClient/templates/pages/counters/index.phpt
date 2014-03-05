@@ -241,7 +241,7 @@
 
 			li .name
 			{
-				width: 150px;
+				width: 120px;
 				display: inline-block;
 			}
 
