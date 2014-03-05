@@ -9,12 +9,11 @@
 		</a>
 	</li>
 
-	<!-- Message Board -->	
+	<!-- Message Board
 	<li class="write">
 		<a href="#write">
 			<i class="icon-share-sign"></i> 
 			<span class="title">Message board</span>
-			<!--<span class="arrow"></span>-->
 			<span class="selected"></span>
 		</a>
 		<ul class="sub-menu">
@@ -54,40 +53,54 @@
 			</li>
 			
 		</ul>
-	</li>
+	</li> -->
 
+	{{#level}}
 	<!-- Inbox -->
 	{{#inbox}}
 		<li>
-			<a href="#inbox/{{channelid}}/messages">
+			<a href="#inbox/messages">
 				<i class="icon-inbox"></i> 
-				<span class="title">{{name}}</span>
+				<span class="title">Inbox</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
 
 			<ul class="sub-menu">
 				<li>
-					<a href="#inbox/{{channelid}}/messages">
+					<a href="#inbox/messages">
 						<i class="icon-envelope"></i> 
 						<span class="title">Messages</span>
-						<!--<span class="arrow"></span>-->
 					</a>
-					<!--<ul class="sub-menu">
-						{{#streams}}
-							<li><a href="#inbox/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-						{{/streams}}
-					</ul>-->
 				</li>
 				<li>
-					<a href="#inbox/{{channelid}}/notifications">
+					<a href="#inbox/notifications">
 						<i class="icon-globe"></i> 
 						<span class="title">Notifications</span>
+					</a>
+				</li>
+				<li>
+					<a data-header-action="post">
+						<i class="icon-pencil"></i> 
+						<span class="title">Post message</span>
+					</a>
+				</li>
+				<li class="drafts">
+					<a href="#drafts">
+						<i class="icon-edit"></i> 
+						<span class="title">Drafts</span>
+					</a>
+				</li>
+				<li class="schedule">
+					<a href="#scheduled">
+						<i class="icon-time"></i> 
+						<span class="title">Scheduled</span>
 					</a>
 				</li>
 			</ul>
 		</li>
 	{{/inbox}}
+	{{/level}}
 	
 		<!-- Co-workers cloud -->
 		<li>
@@ -139,13 +152,14 @@
 			</ul>
 		</li>
 	{{/profiles}}
-
+	
+	{{#level}}
 	<!-- Profiles we follow -->
 	{{#news}}
 		<li>
 			<a href="#timeline/{{channelid}}">
 				<i class="icon-globe"></i> 
-				<span class="title">{{name}}</span>
+				<span class="title">Accounts we follow</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -231,7 +245,6 @@
 	</li>
 	
 	<!-- User Settings -->
-	{{#level}}
 	<li class="settings">
 		<a href="#settings/users">
 			<i class="icon-cogs"></i> 

@@ -45,7 +45,18 @@ li.btn-white	{
  *	Quick fixes
  */
 
-[data-header-action]	{ cursor: pointer; }
+.messages-container .media i	{ color: white; }
+
+.attachment-link	{ white-space: nowrap; }
+
+.black-icons i	{ color: black !important; }
+
+.actions,
+[data-keyword],
+[data-open-service],
+[data-header-action],
+[data-notification-action],
+.category-name.edit-toggler h4	{ cursor: pointer; }
 
 .message-schedule .checkbox	{ padding-left: 25px !important; }
 .message-schedule .checkbox input	{ margin-top: -4px !important; }
@@ -990,9 +1001,6 @@ nav	{
 
 #filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
 
-
-
-
 #inboxlist .list li	{
 	min-height: 40px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
 	font-weight: 300;
@@ -1011,7 +1019,7 @@ nav	{
 #inboxlist .list li.active strong,
 #inboxlist .list li.active .date,
 #inboxlist .list li.active .media	{
-	background: #2bbedc;
+	background: #2bbedc !important;
 	color: white;
 }
 
@@ -1303,10 +1311,10 @@ nav	{
  * Manage keywords
  */
 
-.portlet.keywordsoverview .messages-container li	{ min-height: 10px; cursor: default; }
+.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
 
 .portlet.keywordsoverview h4	{ margin-top: 6px; }
-.portlet.keywordsoverview h4	{ width: 50%; cursor: default; }
+.portlet.keywordsoverview h4	{ width: 50%; }
 
 .portlet.keywordsoverview div.clear	{ clear: both; }
 

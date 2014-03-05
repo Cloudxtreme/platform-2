@@ -31,7 +31,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
 		
-		// Load messages
+		// Load users
 		this.collection.touch(Cloudwalkers.Session.getAccount(), {records: 100});
 		
 		/*
@@ -57,7 +57,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : models[n] });
+			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : models[n], view: this });
 			$container.append(view.render().el);
 		}
 		

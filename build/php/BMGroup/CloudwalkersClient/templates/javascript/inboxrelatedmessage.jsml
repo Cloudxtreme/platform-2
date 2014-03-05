@@ -6,7 +6,7 @@
 		</div>
 		
 		<img class="avatar" alt="" src="{{avatar}}">
-		{{displayname}}
+		<a href="{{url}}" target="_blank">{{displayname}}</a>
 		{{/from}}
 	</div>
 </div>

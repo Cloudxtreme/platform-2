@@ -15,7 +15,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'dm' : {name: "DM", icon: 'comments-alt', token: 'dm', type: 'dialog', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'write', clone: true, maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
@@ -53,6 +53,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	{
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
+		
+		// Admin only
+		if(!Cloudwalkers.Session.getUser().level) return [];
 		
 		return tokens.map(function(token)
 			{ return this.templates[token] }.bind(this));

@@ -11,7 +11,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	{
 		'remove' : 'destroy',
 		'click *[data-youtube]' : 'loadYoutube',
-		'click *[data-action]' : 'action',
+		'click *[data-action]' : 'action'
 	},
 
 	'render' : function ()

@@ -11,7 +11,7 @@ Cloudwalkers.Models.Notification = Cloudwalkers.Models.Message.extend({
 			// if (response.message) response = response.message;
 			
 			// Handle fresh loads
-			//response = this.filterData(response);
+			response = this.filterData(response);
 			
 			this.stamp(response);
 			//this.checkloaded(response);

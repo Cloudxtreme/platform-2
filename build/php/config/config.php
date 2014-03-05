@@ -1,6 +1,6 @@
 <?php
 
-define ('VERSION', '0.9.3.2');
+define ('VERSION', '1.0.0.0-RC1');
 
 error_reporting (-1);
 ini_set ('display_errors', 1);
@@ -38,6 +38,11 @@ if (!defined ('BASE_URL'))
 if (!defined ('BASE_SSL_URL'))
 {
 	define ('BASE_SSL_URL', 'https://' . $_SERVER['SERVER_NAME'] . '/');	
+}
+
+if (!defined ('HAS_SSL'))
+{
+	define ('HAS_SSL', false);
 }
 
 // Template directory

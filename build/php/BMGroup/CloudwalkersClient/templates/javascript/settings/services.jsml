@@ -16,7 +16,7 @@
 	
 		<div id="service-connected" class="portlet box blue">
 			<div class="portlet-title">
-				<div class="caption"><i class="icon-cloud"></i>Active Social connections</div>
+				<div class="caption"><i class="icon-cloud"></i>Active social connections</div>
 			</div>
 			<div class="portlet-body inner-loading">
 				<table class="table table-striped table-hover">

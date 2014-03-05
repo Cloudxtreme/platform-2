@@ -1,7 +1,7 @@
 
 	<div class='pull-right'>
 		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
-		<div class="media"><i class="icon-{{media.icon}}"></i></div>
+		<div class="media"><i class="icon-{{media}}"></i></div>
 	</div>
 	
 	{{#user}}

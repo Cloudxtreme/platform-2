@@ -18,12 +18,8 @@ Cloudwalkers.Views.Widgets.InboxNotificationList = Cloudwalkers.Views.Widgets.In
 	'showmessage' : function(model)
 	{
 		// Load message
-		var message;
-		
-		console.log("showmessage", model.attributes)
-		
-		if(model.get("parent"))	message = Cloudwalkers.Session.getMessage(model.get("parent").id);
-		else					message = new Cloudwalkers.Models.Message({id: model.get("parent").id});
+		var message = Cloudwalkers.Session.getMessage(model.get("parent").id);
+		if(!message) message = new Cloudwalkers.Models.Message({id: model.get("parent").id});
 		
 		this.model.messages.add(message);
 		

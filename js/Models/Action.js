@@ -22,5 +22,5 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 		var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
 		
 		return CONFIG_BASE_URL + 'json/' + parent + '/actions/' + this.get("token") + param;
-	},
+	}
 });

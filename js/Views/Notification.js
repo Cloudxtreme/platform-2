@@ -1,6 +1,5 @@
-Cloudwalkers.Views.Notification = Backbone.View.extend({
+Cloudwalkers.Views.Notification = Cloudwalkers.Views.Entry.extend({
 	
-	'tagName' : 'li',
 	'template': 'message',
 	
 	'events' : {
@@ -9,7 +8,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		'click *[data-notification-action]' : 'action'
 	},
 	
-	'initialize' : function (options)
+	/*'initialize' : function (options)
 	{
 		// Add options to view
 		if (options) $.extend(this, options);
@@ -20,12 +19,20 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		
 		this.model.on ('change', this.render.bind(this));
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
-	},
+	},*/
 
 	'render' : function ()
 	{
 		
-		// Build parameters
+		// Parameters
+		$.extend(this.parameters, this.model.attributes);
+		
+		if(this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+		
+		// Visualize
+		this.$el.html (Mustache.render (Templates[this.template], this.parameters));
+		
+		/*// Build parameters
 		var params = {from: this.model.get("from"), body: this.model.get("body"), attachments: {}};
 		
 		if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM");
@@ -40,7 +47,7 @@ Cloudwalkers.Views.Notification = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
 		// Mark as read
-		if (this.model.get("objectType") && this.model.get("read") === 0) this.markasread();
+		if (this.model.get("objectType") && this.model.get("read") === 0) this.markasread();*/
 		
 		return this;
 	},

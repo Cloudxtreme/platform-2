@@ -156,6 +156,13 @@ class BMGroup_CloudwalkersClient_Controllers_Services
 
 		$data = $client->get ('services/' . $id, array ('account' => $this->getAccount (), 'refresh' => 1));
 
+		if (empty ($data['service']))
+		{
+			echo 'Something went wrong when fetching service:';
+			echo '<pre>' . print_r ($data, true) . '</pre>';
+			exit;
+		}
+
 		$data = $data['service'];
 		
 		$userdata = $client->get ('account/' . $this->getAccount (), array ('refresh' => 1));
