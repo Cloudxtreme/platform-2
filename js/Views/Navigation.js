@@ -65,7 +65,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	'version' : function (response)
 	{
 		// Add DEV views
-		if( response.platform.name == "TESTING")
+		if( response.platform.name == "TESTING" || response.platform.name == "DEVELOPMENT")
 		{
 			this.development = true;
 			$('#header').html (this.renderHeader().header);
