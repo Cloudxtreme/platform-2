@@ -54,6 +54,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 		
+		// Admin only
+		if(!Cloudwalkers.Session.getUser().level) return [];
+		
 		return tokens.map(function(token)
 			{ return this.templates[token] }.bind(this));
 	},

@@ -12,8 +12,6 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'parse' : function(response)
 	{	
-		console.log(response);
-		
 		// A new object
 		if (typeof response == "number") response = {id: response};
 		
