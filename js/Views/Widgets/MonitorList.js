@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	'id' : 'monitorparent',
-	'parameters' : {records: 40},
+	'parameters' : {records: 40, markasread: true},
 	'entries' : [],
 	
 	'events' : {
@@ -51,7 +51,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'hideloading' : function ()
 	{
 		this.$el.find(".icon-cloud-download").hide();
-		this.$el.find(".load-more").show();
+		
+		if (this.category.messages.cursor)
+			this.$el.find(".load-more").show();
 		
 		this.$container.removeClass("inner-loading");
 	},
@@ -72,8 +74,6 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Add messages to view
 		for (n in list)
 		{
-			//var message = Cloudwalkers.Session.getMessage(ids[n]);
-			
 			var view = new Cloudwalkers.Views.Entry ({model: list[n], type: "full", template: "messagefullentry"});
 			this.entries.push (view);
 			

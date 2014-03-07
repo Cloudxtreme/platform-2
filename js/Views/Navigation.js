@@ -188,11 +188,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		for(n in this.views)
 		{
-			views[this.views[n].name] = {};
+			views[this.views[n].name] = {streams: []};
 			
 			// children on same level
 			if(this.views[n].children) 
-				for(i in this.views[n].children) views[this.views[n].children[i].name] = {};
+				for(i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
 		}
 		
 		return views;

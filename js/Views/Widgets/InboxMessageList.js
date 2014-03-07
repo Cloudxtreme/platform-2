@@ -392,9 +392,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Memory cloth
 		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
 		
+		if(!settings.streams) settings.streams = [];
+		
 		// And store
-		if(settings.streams != this.filters.streams)
-		{	
+		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
+		{
 			settings.streams = this.filters.streams;
 			Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
 		}

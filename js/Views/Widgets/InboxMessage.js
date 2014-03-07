@@ -37,7 +37,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Mark as read
 		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
-		
+
 		return this;
 	},
 	
@@ -64,7 +64,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
 			
 		// Load messages
-		this.model.related.touch(this.model, {records: 20});
+		this.model.related.touch(this.model, {records: 20, markasread: true});
 	},
 	
 	'fillrelated' : function(models)
@@ -106,7 +106,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Load notifications
 		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
 		
-		this.model.notifications.touch(this.model, {records: 50, group: 1});
+		this.model.notifications.touch(this.model, {records: 50, markasread: true/* deprecated? group: 1*/});
 	},
 	
 	'fillNotifications' : function (list)
@@ -140,6 +140,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'markasread' : function()
 	{
+		
 		// Send update
 		this.model.save({read: 1}, {patch: true, wait: true});
 		
