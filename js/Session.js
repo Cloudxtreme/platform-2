@@ -57,11 +57,13 @@ Cloudwalkers.Session =
 	
 	'updateSetting' : function(attribute, value, callbacks)
 	{
-	
+		
 		if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
 		{
 			// Update session and save on user
 			Cloudwalkers.Session.user.attributes.settings[attribute] = value;
+			
+			callbacks = ($.extend(callbacks, {patch: true}) || {patch: true});
 			
 			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.user.attributes.settings}, callbacks);
 		}
@@ -70,22 +72,38 @@ Cloudwalkers.Session =
 	'get' : function(attribute)
 	{
 		// Update session
-		return Cloudwalkers.Session.user.attributes.settings[attribute];
+		return this.user.get("settings")[attribute];
 	},
 	
-	'viewsettings' : function(data)
+	'clone' : function(obj)
+	{
+		if(obj == null || typeof(obj) != 'object') return obj;
+		
+		var output = obj.constructor();
+		
+		for (var key in obj)
+			output[key] = this.clone(obj[key]);
+		
+		return output;
+	},
+	
+	'viewsettings' : function(value, content)
 	{
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
-			Cloudwalkers.Session.user.attributes.settings.viewsettings = Cloudwalkers.RootView.navigation.mapviews();
+			Cloudwalkers.Session.user.attributes.settings.viewsettings = Cloudwalkers.RootView.navigation.mapViews();
 		
-		if(typeof data == "string") return this.get("viewsettings")[data];
+		var viewsettings = this.clone(this.get("viewsettings"));
 		
-		else if(typeof data == "object")
+		if(!content) return viewsettings[value];
+		
+		else if(value && content)
 		{
-			$.extend(Cloudwalkers.Session.user.attributes.settings.viewsettings, data);
-			return data;
+			viewsettings[value] = $.extend(viewsettings[value], content);
+			this.updateSetting("viewsettings", viewsettings);
+			
+			return viewsettings[value];
 		
-		} else throw TypeError ("Use only strings or objects for function viewsettings");
+		} else throw TypeError ("Not the right parameters were met for function viewsettings");
 	},
 	
 	/**

@@ -50,7 +50,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 				if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
 				else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
 				
-				data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
+				data.list.push({ id: attr.id, name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
 			});
 		}
 		
@@ -59,16 +59,21 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'updatesettings' : function ()
+	'updatesettings' : function (e)
 	{
+		// Currently streams only
+		if(this.options.source != "streams") return null;
+
+		var model = this.list.get($(e.currentTarget).data("stream"));
+		var view = model.get("childtypes")[0] + "s";
 		
-		//var settings = Cloudwalkers.Session.viewsettings("messages");
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(view);
 		
+		// ... And store
+		settings.streams = [model.id];
+		Cloudwalkers.Session.viewsettings(view, settings);
 		
-		
-		//views.selectedstream
-		
-		//updateSetting
 	},
 	
 	'negotiateFunctionalities' : function() {
