@@ -54,6 +54,9 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 		// Create & append related container
 		this.$related = $('<ul></ul>');
+		this.$prelated = $('<ul></ul>');
+		
+		this.$el.before(this.$prelated.addClass("related-messages social-box-colors"));
 		this.$el.after(this.$related.addClass("related-messages social-box-colors"));
 		
 		// Create related collection
@@ -69,6 +72,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'fillrelated' : function(models)
 	{
+		
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -78,7 +82,15 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		}
 		
 		// Filter out existing model
-		models = models.filter(function(model){ return model.id != this.model.id }.bind(this));
+		var append = false;
+		models = models.filter(function(model)
+		{
+			if(model.id == this.model.id) append = true;
+			model.append = append;
+			
+			return model.id != this.model.id
+		
+		}.bind(this));
 
 		// Add models to view
 		for (n in models)
@@ -87,7 +99,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			
 			this.related.push (view);
 			
-			this.$related.append(view.render().el);
+			this[models[n].append? "$related": "$prelated"].append(view.render().el);
 		}
 		
 		// Hide loading

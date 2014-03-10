@@ -56,19 +56,22 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			)
 			{
 				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
+				this.form.trigger ('submit');
+				//$(e.toElement.form).trigger ('submit');
 			}
 
 			else if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
 			{
 				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
+				this.form.trigger ('submit');
+				//$(e.toElement.form).trigger ('submit');
 			}
 		}
 		else
 		{
 			this.clearScheduleDate ();
-			$(e.toElement.form).trigger ('submit');
+			this.form.trigger ('submit');
+			//$(e.toElement.form).trigger ('submit');
 		}
 	},
 	
@@ -304,6 +307,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		
 		var popup = Mustache.render(Templates.write, data);
 		self.$el.html (popup);
+		
+		this.form = this.$el.find('form').eq(0);
 
 		self.$el.find ('[name=url]').change (function ()
 		{
