@@ -3,9 +3,19 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 	'title' : 'Inbox',
 	'className' : "container-fluid inbox",
 	
+	'initialize' : function ()
+	{
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(this.options.type);
+		
+		if (settings.streams)
+			this.options.filters = {contacts : {string:"", list:[]}, streams : settings.streams};
+	},
+	
 	'render' : function()
 	{
-		
+
+		// Create pageview
 		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.options.type}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
@@ -13,7 +23,7 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		this.options.channel.childtype = this.options.type.slice(0, -1);
 		
 		// Add list widget
-		var list = this.options.channel.childtype == "message"?
+		var list = this.options.type == "messages"?
 		
 			new Cloudwalkers.Views.Widgets.InboxMessageList(this.options):
 			new Cloudwalkers.Views.Widgets.InboxNotificationList(this.options);

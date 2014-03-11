@@ -86,7 +86,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Load notifications
 		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
 		
-		this.model.notifications.touch(this.model, {records: 50});
+		this.model.notifications.touch(this.model, {records: 50, markasread: true});
 		
 	},
 	

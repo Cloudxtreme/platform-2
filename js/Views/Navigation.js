@@ -65,7 +65,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	'version' : function (response)
 	{
 		// Add DEV views
-		if( response.platform.name == "TESTING")
+		if( response.platform.name == "TESTING" || response.platform.name == "DEVELOPMENT")
 		{
 			this.development = true;
 			$('#header').html (this.renderHeader().header);
@@ -188,11 +188,11 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		for(n in this.views)
 		{
-			views[this.views[n].name] = {};
+			views[this.views[n].name] = {streams: []};
 			
 			// children on same level
 			if(this.views[n].children) 
-				for(i in this.views[n].children) views[this.views[n].children[i].name] = {};
+				for(i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
 		}
 		
 		return views;

@@ -61,7 +61,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		return this;
 	},
 	
-	'filter' : function (e, all)
+	/*'filter' : function (e, all)
 	{
 		// Check button state
 		if(!all)
@@ -75,12 +75,12 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		var streams = all? null: this.button.data("streams");
 		
 		if(all) this.button = false;
-
+		
 		// Fetch filtered messages
 		this.model.messages.touch(this.model, streams? {records: 20, targets: streams, sort: 'asc'} : {records: 40, sort: 'asc'});
 		
 		return this;
-	},
+	},*/
 
 	
 	'filternetworks' : function (e, all)

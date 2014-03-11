@@ -24,8 +24,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		'click .load-more' : 'more'
 	},
 	
-	'initialize' : function (options, pageviewoptions)
+	'initialize' : function (options, /* Deprecated? */ pageviewoptions)
 	{
+		
+		if(options) $.extend(this, options);
+		
 		// Which model to focus on
 		this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
@@ -73,10 +76,18 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
+		// Set selected streams
+		if (this.filters.streams.length)
+		{
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
+			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
+		
 		this.$container = this.$el.find ('ul.list');
 		
 		// Load messages
-		this.collection.touch(this.model, {records: 50, group: 1});
+		this.collection.touch(this.model, this.filterparameters());
 		
 		return this;
 	},
@@ -289,7 +300,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			this.filters.streams = streams;
 		
 		} else this.filters.streams = [];
-			
+		
 		// Fetch filtered messages
 		this.collection.touch(this.model, this.filterparameters());
 		
@@ -318,7 +329,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		{
 			$('[data-networks~="'+ stream +'"]').removeClass("inactive").addClass("active");
 			this.filters.streams = [stream];
-		
+			
 		} else this.filters.streams = [];
 			
 		// Fetch filtered messages
@@ -364,12 +375,31 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = {records: 20, group: 1, debug: 1};
+		var param = {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
 		
+		// And store
+		this.storeview();
+		
 		return param;
+	},
+	
+	'storeview' : function ()
+	{
+		
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
+		
+		if(!settings.streams) settings.streams = [];
+		
+		// And store
+		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
+		{
+			settings.streams = this.filters.streams;
+			Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
+		}
 	},
 	
 	'more' : function ()

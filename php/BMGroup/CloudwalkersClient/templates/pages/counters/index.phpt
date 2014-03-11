@@ -241,7 +241,7 @@
 
 			li .name
 			{
-				width: 150px;
+				width: 120px;
 				display: inline-block;
 			}
 
@@ -263,6 +263,8 @@
                 border: 1px solid red;
                 margin: 3px;
                 padding: 5px;
+				height: 40px;
+				overflow: hidden;
 			}
 		</style>
 

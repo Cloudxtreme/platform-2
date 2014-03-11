@@ -120,7 +120,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			Cloudwalkers.Session.getChannel(Number(channelid));
 
 		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40}}));
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40, markasread: true}}));
 	},
 	
 	/**
@@ -138,7 +138,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var params = {
 			since: Math.round(Date.now()/3600000) *3600 - 86400 *span,
 			sort: 'engagement',
-			records: 40
+			records: 40,
+			markasread: true
 		}
 
 		// Visualisation

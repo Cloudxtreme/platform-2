@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'id' : "timeline",
-	'parameters': { 'records' : 20 },
+	'parameters': { records: 20, markasread: true },
 	'entries' : [],
 	'events' : 
 	{
