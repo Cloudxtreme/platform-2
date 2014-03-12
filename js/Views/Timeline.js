@@ -15,17 +15,19 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		this.collection = this.model.messages;
 		
+		this.$el.addClass("loading");
+		
 		// Listen to model
 		this.listenTo(this.collection, 'seed', this.fill);
-		this.listenTo(this.collection, 'request', this.showloading);
+		//this.listenTo(this.collection, 'request', this.showloading);
 		//this.listenTo(this.collection, 'sync', this.hideloading);
 	},
 	
-	'showloading': function()
+	/*'showloading': function()
 	{
-		this.$el.addClass("loading");
+		
 		//this.$el.find(".timeline-loading").show();
-	},
+	},*/
 	
 	'hideloading': function()
 	{
