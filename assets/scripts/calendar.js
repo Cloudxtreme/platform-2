@@ -111,7 +111,7 @@ var Calendar = function () {
                 events: [{
                         title: 'All Day Event',                        
                         start: new Date(y, m, 1),
-                        backgroundColor: 'yellow' /*App.getLayoutColorCode('yellow')*/
+                        backgroundColor: 'orange' /*App.getLayoutColorCode('yellow')*/
                     }, {
                         title: 'Long Event',
                         start: new Date(y, m, d - 5),
@@ -121,7 +121,7 @@ var Calendar = function () {
                         title: 'Repeating Event',
                         start: new Date(y, m, d - 3, 16, 0),
                         allDay: false,
-                        backgroundColor: 'green' /*App.getLayoutColorCode('red')*/
+                        backgroundColor: 'red' /*App.getLayoutColorCode('red')*/
                     }, {
                         title: 'Repeating Event',
                         start: new Date(y, m, d + 4, 16, 0),
@@ -135,19 +135,19 @@ var Calendar = function () {
                         title: 'Lunch',
                         start: new Date(y, m, d, 12, 0),
                         end: new Date(y, m, d, 14, 0),
-                        backgroundColor: 'green' /*App.getLayoutColorCode('grey')*/,
+                        backgroundColor: 'grey' /*App.getLayoutColorCode('grey')*/,
                         allDay: false,
                     }, {
                         title: 'Birthday Party',
                         start: new Date(y, m, d + 1, 19, 0),
                         end: new Date(y, m, d + 1, 22, 30),
-                        backgroundColor: 'green' /*App.getLayoutColorCode('purple')*/,
+                        backgroundColor: 'blue' /*App.getLayoutColorCode('purple')*/,
                         allDay: false,
                     }, {
                         title: 'Click for Google',
                         start: new Date(y, m, 28),
                         end: new Date(y, m, 29),
-                        backgroundColor: 'green' /*App.getLayoutColorCode('yellow')*/,
+                        backgroundColor: 'orange' /*App.getLayoutColorCode('yellow')*/,
                         url: 'http://google.com/',
                     }
                 ]
