@@ -97,6 +97,12 @@
 						<span class="title">Scheduled</span>
 					</a>
 				</li>
+				<li class="calendar">
+					<a href="#calendar">
+						<i class="icon-calendar"></i> 
+						<span class="title">Calendar</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 	{{/inbox}}

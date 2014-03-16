@@ -4,9 +4,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		
 		'write' : 'write',
 		'share' : 'share',
-		'scheduled' : 'scheduled',
-		'drafts' : 'drafts',
 		'inbox(/:type)(/:streamid)' : 'inbox',
+		'drafts' : 'drafts',
+		'scheduled' : 'scheduled',
+		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'timeline/:channel(/:stream)' : 'timeline',
@@ -106,6 +107,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'scheduled' : function ()
 	{
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Scheduled());
+	},
+	
+	'calendar' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Calendar());
 	},
 	
 	/**
