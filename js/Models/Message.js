@@ -117,6 +117,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return this.actions.rendertokens();
 	},
 	
+	'filterCalReadable' : function ()
+	{
+		var loaded = (this.get("objectType"));
+		
+		if(!this.calNode) this.calNode = {};
+		
+		// Calendar node elements
+		/*this.calNode = {
+			title: loaded? (this.get("title")? this.get("title"): this.get("body").plaintext): "",
+			start: loaded? new Date(this.get("date")): new Date(),
+			className: loaded? this.get("networktoken") + '-color': 'hidden'
+		}*/
+		
+		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0,12): "...",
+		this.calNode.start = loaded? new Date(this.get("date")): new Date(),
+		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden'
+		
+		return this;
+	},
+	
 	/*'filterData' : function (type, data)
 	{	
 	
