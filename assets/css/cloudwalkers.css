@@ -45,6 +45,15 @@ li.btn-white	{
  *	Quick fixes
  */
 
+#calendar .fc-event-media	{
+	opacity: .5; padding: 5px 3px 0 0;
+}
+
+#calendar .fc-event-time i,
+#calendar .fc-event-title	{
+	font-size: 12px; padding: 0 2px; line-height: 18px;
+}
+
 .messages-container .media i	{ color: white; }
 
 .attachment-link	{ white-space: nowrap; }

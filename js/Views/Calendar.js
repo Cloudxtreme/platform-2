@@ -46,55 +46,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'populate' : function (from, to, callback)
 	{
 		
-		// Touch Stream
+		// Touch Channel
 		this.listenToOnce(this.model.messages, 'seed', this.fill.bind(this, callback));
 		this.model.messages.touch(this.model, {records: 999, since: Math.round(from.getTime() /1000), until: Math.round(to.getTime() /1000)});
 		
-		
-		/*var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		
-		
-		
-		callback([{
-			title: 'Twitter post',                        
-			start: new Date(y, m, 1),
-			className: 'facebook-color',
-			allDay: false,
-		}, {
-			title: 'Facebook message',
-			start: new Date(y, m, d - 5),
-			className: 'facebook-color',
-			allDay: false,
-		}, {
-			title: 'Linkedin message',
-			start: new Date(y, m, d - 3, 16, 0),
-			className: 'facebook-color',
-			allDay: false,
-		},{
-			title: 'Google+ message',
-			start: new Date(y, m, d, 10, 30),
-			className: 'youtube-color',
-			allDay: false,
-		}, {
-			title: 'Youtube movie',
-			start: new Date(y, m, d, 12, 0),
-			className: 'youtube-color',
-			allDay: false,
-		}, {
-			title: 'Blog Post',
-			start: new Date(y, m, d + 1, 19, 0),
-			className: 'youtube-color',
-			allDay: false,
-		}, {
-			title: 'Co-worker message',
-			start: new Date(y, m, 28),
-			className: 'youtube-color',
-			url: 'http://google.com/',
-			allDay: false,
-		}]);*/
 	},
 	
 	'fill' : function (callback, list)
@@ -170,7 +125,27 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			editable: false,
 			droppable: false, // this allows things to be dropped onto the calendar !!!
 			allDayDefault: false,
+			allDaySlot: false,
+			axisFormat: 'H:mm',
+			defaultEventMinutes: 30,
+			slotEventOverlap: false,
 			events: this.populate.bind(this),
+			 
+			eventRender: function(event, element) {
+				
+				// Prevent empty renders
+				if(!event.icon) return false;
+				
+				// Append network icon
+				$(element).find(".fc-event-time").html("<i class='icon-" + event.icon + "'></i>");
+				
+				// Append media icon
+				if (event.media)
+					$(element).find(".fc-event-inner").prepend("<i class='fc-event-media pull-right icon-" + event.media + "'></i>");
+				
+				
+			}
+			
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped
 			

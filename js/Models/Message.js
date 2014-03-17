@@ -120,19 +120,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'filterCalReadable' : function ()
 	{
 		var loaded = (this.get("objectType"));
+		var media =  loaded && this.get("media") != "reorder";
 		
 		if(!this.calNode) this.calNode = {};
 		
-		// Calendar node elements
-		/*this.calNode = {
-			title: loaded? (this.get("title")? this.get("title"): this.get("body").plaintext): "",
-			start: loaded? new Date(this.get("date")): new Date(),
-			className: loaded? this.get("networktoken") + '-color': 'hidden'
-		}*/
 		
-		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0,12): "...",
+		
+		// Calendar node elements
+		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0, media? 11: 15): "...",
 		this.calNode.start = loaded? new Date(this.get("date")): new Date(),
-		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden'
+		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden';
+		this.calNode.icon = loaded? this.get("icon"): null;
+		this.calNode.media = media? this.get("media"): null;
 		
 		return this;
 	},
