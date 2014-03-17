@@ -142,8 +142,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				// Append media icon
 				if (event.media)
 					$(element).find(".fc-event-inner").prepend("<i class='fc-event-media pull-right icon-" + event.media + "'></i>");
-				
-				
 			}
 			
 			
