@@ -2,6 +2,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Calendar',
 	'className' : "container-fluid calendar",
+	'events' : {
+		'remove': 'destroy'
+	},
 	
 	'initialize' : function ()
 	{
@@ -131,9 +134,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			slotEventOverlap: false,
 			events: this.populate.bind(this),
 			 
-			eventRender: function(event, element) {
-				
-				// Prevent empty renders
+			eventRender: function(event, element)
+			{	
+			
+				// Prevent empty renders (rendered is hack)
 				if(!event.icon) return false;
 				
 				// Append network icon
@@ -142,7 +146,14 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				// Append media icon
 				if (event.media)
 					$(element).find(".fc-event-inner").prepend("<i class='fc-event-media pull-right icon-" + event.media + "'></i>");
-			}
+				
+				// Tooltip
+				$(element).data("title", event.intro).tooltip({html: true, delay: 500, placement: 'top'});
+				
+				// Hack! Prevent endless re-renders
+				event.rendered = true;
+
+			},
 			
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped
