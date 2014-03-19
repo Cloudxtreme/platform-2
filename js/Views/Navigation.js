@@ -20,7 +20,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			{name: 'post', title: "Post message", icon: "pencil", url: false, authorized: 0, attributes: {'data-header-action': "post"}},
 			{name: 'settings', title: "Account Settings", icon: "briefcase", url: "#settings/account", authorized: 0},
 			{name: 'profile', title: "Profile settings", icon: "user", authorized: 0}
-		]},
+		]}
 	],
 	
 	'events' : {
