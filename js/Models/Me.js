@@ -104,6 +104,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// Emergency check, force full reload
 		if(!account || !account.id)
 		{	
+			 this.save({settings: {currentAccount: this.accounts.at(0).id}});
+			 
 			 return Cloudwalkers.Session.home();
 		}
 

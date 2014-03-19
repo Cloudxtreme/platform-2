@@ -12,7 +12,7 @@ Cloudwalkers.Views.Widgets.InboxNotificationList = Cloudwalkers.Views.Widgets.In
 		else this.listenToOnce(view.model, "change", this.showmessage)
 				
 		this.$el.find(".list .active").removeClass("active");
-		view.$el.addClass("active");
+		view.$el.addClass("active").removeClass("unread");
 	},
 	
 	'showmessage' : function(model)
