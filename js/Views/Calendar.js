@@ -3,7 +3,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'title' : 'Calendar',
 	'className' : "container-fluid calendar",
 	'events' : {
-		'remove': 'destroy'
+		'remove': 'destroy',
+		'change select' : 'toggleView',
+		'click #subtract' : 'prev',
+		'click #add' : 'next',
 	},
 	
 	'initialize' : function ()
@@ -28,7 +31,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function()
 	{
-		this.$el.html (Mustache.render (Templates.calendar, { 'title' : this.title }));
+		this.$el.html (Mustache.render (Templates.calendar, {'monthActive': true}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Chosen
@@ -61,8 +64,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 		this.listenToOnce(this.model.messages, 'ready', function(){ console.log("triggered Ready"); });
 
-		
-		this.model.messages.touch(this.model, {records: 999, since: from.unix(), until: to.unix()}); // {records: 999, since: Math.round(from.getTime() /1000), until: Math.round(to.getTime() /1000)}
+		this.model.messages.touch(this.model, {records: 999, since: from.unix(), until: to.unix()});
 		
 	},
 	
@@ -99,44 +101,27 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		//this.hideloading();
 	},
 	
+	'toggleView' : function (e)
+	{	
+		// Toggle Calendar
+		$('#calendar').fullCalendar ('changeView', $(e.currentTarget).val());
+	},
+	
+	'prev' : function () { $('#calendar').fullCalendar('prev'); },
+	
+	'next' : function () { $('#calendar').fullCalendar('next'); },
+	
+	/**
+	 *	Fullcalendar plugin
+	 *	http://arshaw.com/fullcalendar/docs2/
+	**/
+	
 	'initCalendar' : function () {
 	
-		/**
-		 *	Fullcalendar plugin
-		 *	http://arshaw.com/fullcalendar/docs2/
-		**/
 		
-		var h = {};
 		
-		// Visualize
-		if ($('#calendar').parents(".portlet").width() <= 720) {
-			$('#calendar').addClass("mobile");
-			h = {
-				left: 'title, prev, next',
-				center: '',
-				right: 'today,month,agendaWeek' /*'today,month,agendaWeek,agendaDay'*/
-			};
-		} else {
-			$('#calendar').removeClass("mobile");
-			h = {
-				left: 'title',
-				center: '',
-				right: 'prev,next,today,month,agendaWeek' /*'prev,next,today,month,agendaWeek,agendaDay'*/
-			};
-		}
-		
-		/*$('#drafts-list div.external-event').each(function () {
-			initDrag($(this))
-		});*/
-		
-		/* $('#event_add').unbind('click').click(function () {
-		var title = $('#event_title').val();
-		addEvent(title);
-		});*/
-		
-		//$('#calendar').fullCalendar('destroy'); // destroy the calendar
 		$('#calendar').fullCalendar({ //re-initialize the calendar
-			header: {left: '', center: '', right: ''}/*h*/,
+			header: false,
 			slotMinutes: 30,
 			editable: false,
 			droppable: false, // this allows things to be dropped onto the calendar !!!

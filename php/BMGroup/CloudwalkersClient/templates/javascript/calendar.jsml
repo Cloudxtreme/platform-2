@@ -20,9 +20,9 @@
 			<a class="btn"><i class="icon-print"></i></a>
 			<select>
 				<optgroup label="Time spans">
-					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
+					<option value="agendaWeek" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
 					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
-					<option value="list" {{#listActive}}selected="true"{{/listActive}}>List view</option>
+					<!--<option value="list" {{#listActive}}selected="true"{{/listActive}}>List view</option>-->
 				</optgroup>
 			</select>
 
