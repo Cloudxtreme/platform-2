@@ -3,15 +3,17 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 	'title' : "First Time",
 	'events' : {
 		'remove': 'destroy',
-		'click [data-add-service]' : 'addServiceCall'
+		'click [data-add-service]' : 'addService'
 	},
 	
 	'initialize' : function()
 	{
-		var account = Cloudwalkers.Session.getAccount();
+		// Create Services collection
+		this.services = new Cloudwalkers.Collections.Services();
 		
-		// Get Service options
-		Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
+		// Get Services options 
+		this.listenTo(this.services, "available:ready", this.appendOptions)
+		this.services.fetchAvailable();
 
 	},
 		
@@ -32,18 +34,21 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 	
-	'appendOptions' : function(available) {
+	'appendOptions' : function(services, available) {
 		
 		var $container = this.$el.find(".networks-list");
 		
-		for (n in available.services)
+		for (n in available)
 		{
-			$container.append(Mustache.render (Templates.settings.service_option, available.services[n]));
+			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
 		}
 	},
 	
-	'addService' : function (id, callback)
+	/*'addService' : function (id, callback)
 	{
+		
+		
+		
 		Cloudwalkers.Net.post 
 		(
 			'wizard/service/add',
@@ -55,7 +60,7 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 			},
 			callback
 		);
-	},
+	},*/
 
 	'processLink' : function (url)
 	{
@@ -70,14 +75,25 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		return url;
 	},
 
-	'addServiceCall' : function (e)
+	'addService' : function (e)
 	{
 		e.preventDefault ();
+		
+		// Service token
+		var token = $(e.target).data ('add-service');
+		
+		/*this.listenToOnce(this.service, "sync", function()
+		{
+			
+			console.log(a,b,c)
+		});
+		*/
+		
+		console.log(this.services.create({},{wait: true, endpoint: token}).attributes);
 
-		var self = this;
-		var id = $(e.target).attr ('data-add-service');
 
-		this.addService (id, function (data)
+
+		/*this.addService (id, function (data)
 		{
 			if (typeof (data.error) != 'undefined')
 			{
@@ -99,7 +115,7 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 
 				self.render ();
 			}
-		});
+		});*/
 	},
 	
 	'destroy' : function ()

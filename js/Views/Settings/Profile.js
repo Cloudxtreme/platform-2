@@ -33,10 +33,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		var user = Cloudwalkers.Session.getUser ();
 		var firstname = this.$el.find ('[name=firstname]').val ();
 		var name = this.$el.find ('[name=name]').val ();
-
-		user.set ('firstname', firstname);
-		user.set ('name', name);
-		user.saveProfile ( function () { Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated"); });
+		
+		user.save ({firstname: firstname, name: name}, {patch: true, success: function ()
+		{
+			Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated");
+		}});
 	},
 	
 	'editUserAvatar' : function () {
@@ -51,13 +52,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 				var user = Cloudwalkers.Session.getUser ();
 				var base64img = e.target.result;
 				
-				user.set ('avatarBase64', base64img );
-				user.saveProfile ( function () {
-					
+				user.save ({avatarBase64: base64img}, {patch: true, success: function ()
+				{
 					Cloudwalkers.RootView.growl('User Profile', "You have a brand new avatar now.");
 					$(".avatar-big").css('background-image',"url(" + base64img + ")");
-					
-				});
+				}});
 			};       
 			
 			FR.readAsDataURL( files[0] );
@@ -66,25 +65,25 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 	
 	'editUserPassword' : function () {
 		
-		if(this.$el.find ('[name=pass1]').val() != this.$el.find ('[name=pass2]').val())
+		var oldpassword = this.$el.find ('[name=pass0]').val();
+		var newpassword = this.$el.find ('[name=pass1]').val();
+		
+		if (newpassword != this.$el.find ('[name=pass2]').val())
 		{
 			Cloudwalkers.RootView.growl('Oops', "Please re-type your new password.");
 			return null;
 		}
 		
 		var user = Cloudwalkers.Session.getUser ();
-		var firstname = this.$el.find ('[name=firstname]').val ();
-		var name = this.$el.find ('[name=name]').val ();
-
-		user.savePassword (
-			this.$el.find ('[name=pass0]').val(),
-			this.$el.find ('[name=pass1]').val(),
-			function (data) {
-				
-				if(data.error)	Cloudwalkers.RootView.growl('Oops', "That's not correct.");
-				else			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
-			}
-		);
+		
+		user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
+		{
+			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
+		
+		}, error: function()
+		{
+			Cloudwalkers.RootView.growl('Oops', "That's not correct.");
+		}});
 	},
 	
 	/* on it's way to be deprecated */

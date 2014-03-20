@@ -79,7 +79,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			
 			this.appendWidget(widget, Number(widgets[i].size));
 		}
-
+		
 		return this;
 	},
 	

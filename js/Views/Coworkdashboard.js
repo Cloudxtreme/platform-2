@@ -9,10 +9,6 @@ Cloudwalkers.Views.Coworkdashboard = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function()
 	{
 		var account = Cloudwalkers.Session.getAccount();
-		
-		// Get Service options
-		//Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
-
 	},
 		
 	'render' : function ()
@@ -42,20 +38,7 @@ Cloudwalkers.Views.Coworkdashboard = Cloudwalkers.Views.Pageview.extend({
 		}
 	},
 	
-	'addService' : function (id, callback)
-	{
-		Cloudwalkers.Net.post 
-		(
-			'wizard/service/add',
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			{
-				'id' : id
-			},
-			callback
-		);
-	},*/
+	*/
 
 	'processLink' : function (url)
 	{

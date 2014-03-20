@@ -35,8 +35,6 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Check notifications (second conditional, after message render)
 		if (this.options.notification && this.model.get("objectType")) this.addNotifications();
 		
-		console.log(this.model.attributes)
-		
 		// Mark as read
 		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 
