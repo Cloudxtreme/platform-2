@@ -31,6 +31,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.calendar, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
+		// Chosen
+		this.$el.find("select").chosen({width: "200px", disable_search_threshold: 10, inherit_select_classes: true});
+		
+		// Init FullCalendar
 		setTimeout( this.initCalendar.bind(this), 10);
 
 		// Add filter widget
@@ -46,23 +50,30 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 	
-	'populate' : function (from, to, callback)
+	'populate' : function (from, to, timezone, callback)
 	{
-		
 		// Touch Channel
-		this.listenToOnce(this.model.messages, 'seed', this.fill.bind(this, callback));
-		this.model.messages.touch(this.model, {records: 999, since: Math.round(from.getTime() /1000), until: Math.round(to.getTime() /1000)});
+		//this.listenToOnce(this.model.messages, 'seed', this.fill.bind(this, callback));
+		
+		this.listenToOnce(this.model.messages, 'ready', this.fill.bind(this, callback));
+		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
+		//this.listenTo(this.model.messages, 'cached:partial', this.fill.bind(this, callback));
+	
+		this.listenToOnce(this.model.messages, 'ready', function(){ console.log("triggered Ready"); });
+
+		
+		this.model.messages.touch(this.model, {records: 999, since: from.unix(), until: to.unix()}); // {records: 999, since: Math.round(from.getTime() /1000), until: Math.round(to.getTime() /1000)}
 		
 	},
 	
-	'fill' : function (callback, list)
-	{		
+	'fill' : function (callback, collection)
+	{
+		
 		var nodes = [];
 		
-		for (n in list)
+		for (n in collection.models)
 		{
-			this.listenToOnce(list[n].filterCalReadable(), "change:date", this.updatenode);
-			nodes.push(list[n].calNode);
+			nodes.push(collection.models[n].filterCalReadable().calNode);
 		}
 	
 		callback(nodes);
@@ -90,8 +101,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'initCalendar' : function () {
 	
-		// Fullcalendar plugin
-		
+		/**
+		 *	Fullcalendar plugin
+		 *	http://arshaw.com/fullcalendar/docs2/
+		**/
 		
 		var h = {};
 		
@@ -121,22 +134,22 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		addEvent(title);
 		});*/
 		
-		$('#calendar').fullCalendar('destroy'); // destroy the calendar
+		//$('#calendar').fullCalendar('destroy'); // destroy the calendar
 		$('#calendar').fullCalendar({ //re-initialize the calendar
-			header: h,
+			header: {left: '', center: '', right: ''}/*h*/,
 			slotMinutes: 30,
 			editable: false,
 			droppable: false, // this allows things to be dropped onto the calendar !!!
 			allDayDefault: false,
 			allDaySlot: false,
 			axisFormat: 'H:mm',
-			defaultEventMinutes: 30,
+			defaultTimedEventDuration: '00:30:00',
 			slotEventOverlap: false,
 			events: this.populate.bind(this),
 			 
 			eventRender: function(event, element)
 			{	
-			
+
 				// Prevent empty renders (rendered is hack)
 				if(!event.icon) return false;
 				

@@ -260,6 +260,11 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Trigger listening models
 		this.trigger("seed", list);
+		
+		//Trigger cached, partial or empty load
+		/*if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
+		else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
+		else if (!ids.length)							this.trigger("cached:empty", this, list);*/
 
 		return list;
 	},
