@@ -43,27 +43,10 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
 		}
 	},
-	
-	/*'addService' : function (id, callback)
-	{
-		
-		
-		
-		Cloudwalkers.Net.post 
-		(
-			'wizard/service/add',
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			{
-				'id' : id
-			},
-			callback
-		);
-	},*/
 
 	'processLink' : function (url)
 	{
+		
 		if (url.indexOf ('?') > 0)
 		{
 			url = url + '&return=' + encodeURIComponent(window.location);
@@ -82,40 +65,20 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		// Service token
 		var token = $(e.target).data ('add-service');
 		
-		/*this.listenToOnce(this.service, "sync", function()
+		this.listenToOnce(this.services, "sync", function(service)
 		{
-			
-			console.log(a,b,c)
-		});
-		*/
+			$.each (service.get("settings"), function (n, setting)
+			{
+				if (setting.type == 'link')
+					window.location = this.processLink (setting.url);
+				
+			}.bind(this));
 		
-		console.log(this.services.create({},{wait: true, endpoint: token}).attributes);
+			this.render();
+		});
+		
+		this.services.create({},{wait: true, endpoint: token});
 
-
-
-		/*this.addService (id, function (data)
-		{
-			if (typeof (data.error) != 'undefined')
-			{
-				Cloudwalkers.RootView.alert (data.error.message);
-			}
-			else
-			{
-				// Most services will provide an authentication URL.
-				// If available, redirect user to that URL now.
-				$.each (data.service.settings, function (i, v)
-				{
-					if (v.type == 'link')
-					{
-						var url = self.processLink (v.url);
-						//alert (url);
-						window.location = url;
-					}
-				});
-
-				self.render ();
-			}
-		});*/
 	},
 	
 	'destroy' : function ()
