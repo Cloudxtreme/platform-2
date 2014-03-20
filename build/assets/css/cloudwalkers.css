@@ -44,7 +44,6 @@ li.btn-white	{
 /**
  *	Quick fixes
  */
-
 .messages-container .media i	{ color: white; }
 
 .attachment-link	{ white-space: nowrap; }
@@ -772,6 +771,16 @@ nav	{
 .dot.web-color  { background-color: #f39501 ; }
 .dot.blog-color  { background-color: #f39501 ; }
 
+.portlet.calendar .fc-event.facebook-color { background-color: #3B5998; }
+.portlet.calendar .fc-event.twitter-color  { background-color: #01a9da; }
+.portlet.calendar .fc-event.linkedin-color { background-color: #1783BC; }
+.portlet.calendar .fc-event.tumblr-color { background-color: #385775 ; }
+.portlet.calendar .fc-event.google-plus-color  { background-color: #DD4C39 ; }
+.portlet.calendar .fc-event.youtube-color  { background-color: #CC181E ; }
+.portlet.calendar .fc-event.web-color  { background-color: #f39501 ; }
+.portlet.calendar .fc-event.blog-color  { background-color: #f39501 ; }
+.portlet.calendar .fc-event.coworkers-color  { background-color: #666; }
+
 /**
 * Button colors
 */
@@ -1217,6 +1226,29 @@ nav	{
 .inbox-container .related-messages img.avatar {
 	margin-top: -2px; width: 24px; height: 24px; border: 0;  background-color: #ddd; border-radius: 50% !important; 
 }
+
+
+/**
+*	Calendar
+*/
+
+#calendar .fc-event	{
+	cursor: pointer;
+}
+
+#calendar .fc-event-media	{
+	opacity: .5; padding: 7px 4px 0 0;
+}
+
+#calendar .fc-event-time i,
+#calendar .fc-event-title	{
+	font-size: 12px; padding: 0 2px; line-height: 24px;
+}
+
+#calendar .tooltip	{
+	min-width: 148px; max-width: 240px; cursor: default; z-index: 9999;
+}
+
 
 
 /**

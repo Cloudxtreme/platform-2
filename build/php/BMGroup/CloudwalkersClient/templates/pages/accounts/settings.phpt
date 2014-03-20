@@ -156,6 +156,10 @@
 <form method="post">
 	<h2><?php echo __('Settings'); ?></h2>
 
+    <p>
+	    <a href="<?php echo BASE_URL; ?>json/services/<?php echo $account['id']; ?>/errors?output=table">Show recent errors</a>
+    </p>
+
 	<table>
 		<?php foreach ($account['settings'] as $v) { ?>
 			<?php if ($v['type'] == 'link') { ?>

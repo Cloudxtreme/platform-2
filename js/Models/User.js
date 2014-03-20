@@ -21,6 +21,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return response;
 	},
 	
+	
 	/*'parse' : function(response)
 	{	
 		// A new object
@@ -72,12 +73,5 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		{
 			return 'Co-worker';
 		}
-	},
-
-	'saveProfile' : function (callback)
-	{
-		var data = {firstname: this.get("firstname"), name: this.get("name"), avatar: this.get("avatarBase64")}
-		
-		Cloudwalkers.Net.put ('user/me', {}, data, callback);
 	}
 });

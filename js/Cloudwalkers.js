@@ -58,7 +58,7 @@ AuthorizationError.prototype.constructor = AuthorizationError;
 
 Backbone.Model = Backbone.Model.extend({
 	
-	 'url' : function (params)
+	'url' : function (params)
     {
         return this.endpoint?
         
@@ -234,13 +234,11 @@ Backbone.Collection = Backbone.Collection.extend({
 			
 			// Or in Session collection
 			if(!model)
-			{
 				model = Cloudwalkers.Session.user.account[this.typestring].get (id);
-				this.add(model);
-			}
 			
 			// Or create new
 			if(!model) model = this.create({id: id});
+			else this.add(model);
 				
 			list.push(model);
 			

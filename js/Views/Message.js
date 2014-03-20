@@ -250,7 +250,9 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 	'showchildrenexec' : function ()
 	{
 	
-		if (this.commentsView == null)
+		console.log("!", "Deprecation error")
+		
+		/*if (this.commentsView == null)
 		{
 			var params = {};
 
@@ -267,7 +269,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 		this.commentsVisible = true;
 		this.$el.find ('.comment-label').html ('Hide comments');
-		this.$el.find ('.' + this.childrencontainer).html (this.commentsView.el).show ();
+		this.$el.find ('.' + this.childrencontainer).html (this.commentsView.el).show ();*/
 	},
 	
 	// Static HACK

@@ -2,9 +2,9 @@ Cloudwalkers.Collections.Related = Cloudwalkers.Collections.Messages.extend({
 
 	'typestring' : "related",
 	'modelstring' : "related",
-	'parenttype' : "message",
+	'parenttype' : "message"
 	
-	'seed' : function(ids)
+	/*'seed' : function(ids)
 	{
 		// Ignore empty id lists
 		if(!ids) ids = [];
@@ -45,6 +45,6 @@ Cloudwalkers.Collections.Related = Cloudwalkers.Collections.Messages.extend({
 		this.trigger("seed", list);
 
 		return list;
-	}
+	}*/
 
 });

@@ -166,7 +166,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				// Hack! Prevent endless re-renders
 				event.rendered = true;
 
-			},
+			}
 			
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped

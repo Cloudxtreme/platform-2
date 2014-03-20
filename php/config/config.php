@@ -1,9 +1,10 @@
 <?php
 
-define ('VERSION', '1.0.0.0-RC1');
+define ('VERSION', '1.0.1.0-RC2');
 
 error_reporting (-1);
 ini_set ('display_errors', 1);
+
 
 // If db-local.php is found, use that one.
 // Otherwise use db.php

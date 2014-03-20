@@ -34,7 +34,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.reports = new Cloudwalkers.Collections.Reports();
 		
 		// Prep global Comments collection - deprecated
-		this.comments = new Cloudwalkers.Collections.Comments();
+		// this.comments = new Cloudwalkers.Collections.Comments();
 
 	},
 	
@@ -186,23 +186,6 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 
 		return null;
-	},
-	
-	'refresh' : function (callback)
-	{
-		var self = this;
-		Cloudwalkers.Net ('account/' + this.get ('id'), null, function (data)
-		{
-			self.set (data);
-			callback ();
-		});
-	},
-	
-	'save' : function (callback)
-	{
-		var data = {name: this.get("name")}
-		
-		Cloudwalkers.Net.put ('account/' + this.id, {}, data, callback);
 	}*/
 
 });
