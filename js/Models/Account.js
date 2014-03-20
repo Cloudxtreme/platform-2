@@ -34,7 +34,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.reports = new Cloudwalkers.Collections.Reports();
 		
 		// Prep global Comments collection - deprecated
-		this.comments = new Cloudwalkers.Collections.Comments();
+		// this.comments = new Cloudwalkers.Collections.Comments();
 
 	},
 	

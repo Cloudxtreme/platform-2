@@ -76,7 +76,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		else if (action.type == 'options')
 		{
 			// Create Action
-			var like = this.create(action);
+			var actionModel = this.create(action);
 
 			// Toggle
 			if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);

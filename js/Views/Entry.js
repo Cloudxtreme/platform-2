@@ -54,12 +54,16 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
-		// Action element
-		var action = this.$el.find('[data-action="' + token + '"]').data("action", newaction.token);
+
+		var current = this.$el.find('[data-action="' + token + '"]');
+		var clone = current.clone().attr("data-action", newaction.token);
 		
-		// Hack
-		if(action.is("a"))	action.html("<i class='icon-" + newaction.icon + "'></i> " + newaction.name);
-		else 				action.find("i").attr("class", "").addClass("icon-" + newaction.icon);
+		// new Action edits
+		if(current.is("a"))	clone.html("<i class='icon-" + newaction.icon + "'></i> " + newaction.name);
+		else 				clone.find("i").attr("class", "").addClass("icon-" + newaction.icon);
+		
+		// Remove old Action
+		current.before(clone).remove();
 	},
 	
 	'toggle' : function() { this.trigger("toggle", this); },

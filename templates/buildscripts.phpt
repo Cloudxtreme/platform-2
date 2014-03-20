@@ -42,12 +42,12 @@
 <script type="text/javascript" src="/js/Collections/Related.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
-<script type="text/javascript" src="/js/Collections/Comments.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 
-<!-- deprecated collections -->
+<!-- deprecated collections 
 <script type="text/javascript" src="/js/Collections/Channel.js"></script>
+<script type="text/javascript" src="/js/Collections/Comments.js"></script>-->
 <script type="text/javascript" src="/js/Collections/Trending.js"></script>
 <script type="text/javascript" src="/js/Collections/Scheduled.js"></script>
 <script type="text/javascript" src="/js/Collections/Drafts.js"></script>
