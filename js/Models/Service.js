@@ -21,5 +21,5 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		else response = response.service;
 		
 		return response;
-	},
+	}
 });
