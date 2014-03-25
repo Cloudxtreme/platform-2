@@ -12,12 +12,10 @@
 	
 	</div>
 	<div id="filter_streams" class="hidden clearfix">
-		<div class="scroller">
-			<ul class="social-icon-colors">
-			{{#streams}}
-				<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
-			{{/streams}}
-			</ul>
-			<li class="toggleall inactive">select all</li>
-		</div>
+		<ul class="social-icon-colors">
+		{{#streams}}
+			<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
+		{{/streams}}
+		</ul>
+		<li class="toggleall inactive">select all</li>
 	</div>

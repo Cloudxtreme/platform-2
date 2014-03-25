@@ -4,6 +4,7 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 	'filters' : {},
 	'events' : {
 		'remove' : 'destroy',
+		'click [data-toggle]' : 'togglefilter',
 		'click [data-networks]' : 'filternetworks',
 		'click [data-streams]' : 'filterstreams',
 		'click .toggleall.active' : 'toggleall'
@@ -40,16 +41,29 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 	
 	'toggleall' : function ()
 	{
+		this.filternetworks(null, true);
+		this.togglestreams(true);
+	},
+	
+	'togglefilter' : function(e)
+	{
+
+		var button = $(e.currentTarget);
+		var toggle = button.data("toggle");
+		var selected = button.hasClass("selected");
 		
-		this.filter(true);
-		this.togglefilters(true);
+		$("[data-toggle].selected").removeClass("selected");
+		$("[id^=filter_]").addClass("hidden");
+		
+		if(!selected)
+		{
+			button.addClass("selected");
+			$("#filter_" + toggle).removeClass("hidden");
+		}
 	},
 	
 	'togglefilters' : function(all)
 	{
-		
-		
-		
 		// Toggle streams
 		this.$el.find('li').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
 		

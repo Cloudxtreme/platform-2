@@ -20,6 +20,14 @@ Style corrections and manual overrides
 	line-height: 2.5em; border-right: 1px solid #ddd !important;
 }
 
+#calendarfilters #filter_streams	{
+	position: absolute; background-color: white; width: inherit; z-index: 1001; box-shadow: 0 0 1px rgba(0,0,0,.5)
+}
+
+#calendarfilters #filter_streams ul	{
+	margin: 0; 
+}
+
 
 /**
 *	Calendar Stats

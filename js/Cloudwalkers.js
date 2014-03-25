@@ -192,8 +192,11 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
 		
-		// Check for history (within ping lifetime)
-		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		// Check for history (within ping lifetime), temp disabled
+		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		
+		// Hard-wired request (no caching)
+		this.fetch({success: this.touchresponse.bind(this, this.url())});
 	},
 	
 	'touchlocal' : function(touch)
@@ -219,6 +222,9 @@ Backbone.Collection = Backbone.Collection.extend({
 		// Seed ids to collection
 		this.seed(ids);
 	},
+	
+	/**
+	 *	Caching seed
 	
 	'seed' : function(ids)
 	{
@@ -259,11 +265,34 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.trigger("seed", list);
 		
 		//Trigger cached, partial or empty load
-		/*if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
-		else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
-		else if (!ids.length)							this.trigger("cached:empty", this, list);*/
+		//if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
+		//else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
+		//else if (!ids.length)							this.trigger("cached:empty", this, list);
 
 		return list;
+	},*/
+	
+	/**
+		Temp: non-caching seed
+	**/
+	'seed' : function(ids)
+	{
+		// Ignore empty id lists
+		if(!ids) ids = [];
+		
+		// Get list based on ids
+		if(ids.length)
+		{
+			this.endpoint = this.parentmodel? this.typestring: null;
+			this.parameters = {ids: ids.join(",")};
+			
+			this.fetch({remove: false});
+		}
+		
+		// Trigger listening models
+		this.trigger("seed", ids);
+
+		return ids;
 	},
 	
 	'more' : function(model, params)
