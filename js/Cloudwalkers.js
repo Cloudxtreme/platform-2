@@ -54,7 +54,6 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	sync			handle fetch requests and prevent trigger-happy update requests
  *	stamp			add timestamp to model and store
  **/
- 
 
 Backbone.Model = Backbone.Model.extend({
 	

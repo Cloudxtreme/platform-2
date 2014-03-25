@@ -112,6 +112,8 @@
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CalSummary.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CalendarFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Numberstat.js"></script>

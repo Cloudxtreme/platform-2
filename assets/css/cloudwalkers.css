@@ -44,6 +44,9 @@ li.btn-white	{
 /**
  *	Quick fixes
  */
+
+.hidden	{ display: none; }
+
 .messages-container .media i	{ color: white; }
 
 .attachment-link	{ white-space: nowrap; }

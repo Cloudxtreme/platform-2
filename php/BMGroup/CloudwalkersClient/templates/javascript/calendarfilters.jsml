@@ -1,0 +1,23 @@
+	<div class="cal-filter">
+	
+		<div class="filter-group social-icon-colors">
+			<label>Networks</label>
+			
+			{{#networks}}
+			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
+			{{/networks}}
+			
+			<div class="btn-white toggle-streams" data-toggle="streams">more...</div>
+		</div>
+	
+	</div>
+	<div id="filter_streams" class="hidden clearfix">
+		<div class="scroller">
+			<ul class="social-icon-colors">
+			{{#streams}}
+				<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
+			{{/streams}}
+			</ul>
+			<li class="toggleall inactive">select all</li>
+		</div>
+	</div>

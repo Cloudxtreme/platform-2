@@ -432,7 +432,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             }
                             */
                             
-                            self.trigger ("destroy", self, self.collection);
+                           self.trigger("destroy", {wait: true})
+                           // self.trigger ("destroy", self, self.collection);
                             
                             // Hack
 							window.location.reload();

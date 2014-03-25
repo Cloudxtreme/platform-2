@@ -89,19 +89,23 @@ Cloudwalkers.Session =
 	
 	'viewsettings' : function(value, content)
 	{
-		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
-			Cloudwalkers.Session.user.attributes.settings.viewsettings = Cloudwalkers.RootView.navigation.mapViews();
+		// Split into accounts
+		var pointer = "account_" + this.getAccount().id;
+		
+		
+		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
 		
 		var viewsettings = this.clone(this.get("viewsettings"));
 		
-		if(!content) return viewsettings[value];
+		if(!content) return viewsettings[pointer][value];
 		
 		else if(value && content)
 		{
-			viewsettings[value] = $.extend(viewsettings[value], content);
+			viewsettings[pointer][value] = $.extend(viewsettings[pointer][value], content);
 			this.updateSetting("viewsettings", viewsettings);
 			
-			return viewsettings[value];
+			return viewsettings[pointer][value];
 		
 		} else throw TypeError ("Not the right parameters were met for function viewsettings");
 	},

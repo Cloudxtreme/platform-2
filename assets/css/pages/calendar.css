@@ -3,11 +3,67 @@ Style corrections and manual overrides
 ***/
 
 /**
+*	Calendar Filters
+*/
+
+#calendarfilters	{
+	margin-top: 32px; border: 1px solid #dfdfdf; border-bottom-color: #bbb; border-radius: 2px; 
+}
+
+#calendarfilters .cal-filter { padding: 8px 10px 12px; }
+
+#calendarfilters .cal-filter label {
+	color: #aaa; font-weight: 300;
+}
+
+#calendarfilters .filter-group .btn-white	{
+	line-height: 2.5em; border-right: 1px solid #ddd !important;
+}
+
+
+/**
+*	Calendar Stats
+*/
+
+.stats-summary.cal-summary table	{ margin: 32px 0 0; }
+
+.cal-summary small	{
+	color: #666; font-size: 14px;
+}
+
+.cal-summary .media-entry	{
+	display: inline-block; padding: 0 10px; margin: 2px 0;  background: #b1e2ec; border-radius: 40px;
+	color: white; font-size: 14px; font-weight: normal; 
+}
+
+.cal-summary .media-entry i	{
+	display: block; float: left; width: 16px; padding: 4px 8px 0 0;
+}
+
+.caltrending	{
+	max-width: 260px;
+	font-size: 14px; font-weight: normal;
+}
+
+.caltrending .pull-right	{
+	text-align: right;
+}
+
+.caltrending .media	{ margin: 0 0 12px 4px; }
+
+.caltrending .content	{ font-size: 13px; }
+
+
+/**
 *	Calendar
 */
 
 #calendar	{
-	margin: 40px 0;
+	margin: 0 0 40px;
+}
+
+#calendar .fc-view.fc-grid	{
+	padding-top: 32px;
 }
 
 #calendar .fc-event	{
@@ -26,6 +82,8 @@ Style corrections and manual overrides
 #calendar .tooltip	{
 	min-width: 148px; max-width: 240px; cursor: default; z-index: 9999;
 }
+
+
 
 /***
 Calendar with full calendar
