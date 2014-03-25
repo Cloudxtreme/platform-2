@@ -10,12 +10,8 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		'remove': 'destroy',
 		'change select' : 'toggleView',
 		'click #subtract' : 'prev',
-<<<<<<< HEAD
 		'click #add' : 'next',
 		'click #now' : 'now',
-=======
-		'click #add' : 'next'
->>>>>>> 187a5f5997fde063ad16c85e05da3bb737ec8747
 	},
 	
 	'initialize' : function ()
