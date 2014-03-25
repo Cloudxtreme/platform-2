@@ -423,6 +423,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.files.push (file.url);
 
+		if (self.files.length > 0)
+		{
+			$('.fileupload').hide ();
+		}
+
 		a.click (function ()
 		{
 			for (var i = 0; i < self.files.length; i ++)
@@ -432,6 +437,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					self.files.splice (i, 1);
 					break;
 				}
+			}
+
+			if (self.files.length == 0)
+			{
+				$('.fileupload').show ();
 			}
 
 			p.remove ();
