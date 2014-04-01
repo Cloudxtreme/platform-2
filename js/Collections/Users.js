@@ -18,7 +18,6 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 	
 	'parse' : function (response)
 	{
-		console.log("parsing", response)
 		
 		// Solve response json tree problem
 		if (this.parentmodel)

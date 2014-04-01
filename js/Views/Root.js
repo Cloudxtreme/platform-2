@@ -33,7 +33,10 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'render' : function ()
 	{
+		// Emergency break
+		if(!this.view) return null;
 		
+		// Do some rendering
 		$('#inner-content').html (this.view.render ().el);
 		
 		if(this.view.finish) this.view.finish();
