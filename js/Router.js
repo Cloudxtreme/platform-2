@@ -80,7 +80,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'coworkers' : function ()
 	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
+		Cloudwalkers.RootView.render (new Cloudwalkers.Views.Coworkers());
 	},
 	
 	/**

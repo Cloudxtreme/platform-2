@@ -92,6 +92,8 @@ Cloudwalkers.Session =
 		// Split into accounts
 		var pointer = "account_" + this.getAccount().id;
 		
+		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
+			Cloudwalkers.Session.user.attributes.settings.viewsettings = {};
 		
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
