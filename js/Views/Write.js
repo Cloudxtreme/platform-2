@@ -425,7 +425,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		if (self.files.length > 0)
 		{
-			$('.fileupload').hide ();
+			//$('.fileupload').hide ();
 		}
 
 		a.click (function ()
