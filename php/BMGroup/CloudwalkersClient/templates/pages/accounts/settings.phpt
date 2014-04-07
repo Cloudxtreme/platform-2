@@ -28,8 +28,7 @@
 
 					<?php echo $channel['name']; ?>
 
-					<?php // showChannelsRecursive ($stream, $channel['channels'], $level + 1);
-					?>
+					<?php // showChannelsRecursive ($stream, $channel['channels'], $level + 1); ?>
 			</li>
 		<?php } ?>
 	</ul>
