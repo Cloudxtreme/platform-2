@@ -3,12 +3,12 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'title' : "Dashboard",
 	
 	'widgets' : [
-		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, link: "#inbox", countString: "incomingUnread"},
+		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread"},
 		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming"},
-		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled"},
+		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled"},
 		{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers"},
-		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7},
-		{widget: "trending", type: "news", size: 4, title: "Trending Profiles we follow", color: "red", icon: "thumbs-up", open: true, since: 1}
+		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/"},
+		{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/"}
 	],
 	
 	'initialize' : function()
@@ -79,7 +79,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			
 			this.appendWidget(widget, Number(widgets[i].size));
 		}
-
+		
 		return this;
 	},
 	
@@ -107,9 +107,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'addDashboardDrafts' : function (widgetdata)
 	{
-		var channel = Cloudwalkers.Session.getChannel("internal");
+		//var channel = Cloudwalkers.Session.getChannel("internal");
 
-		widgetdata.model = channel.getStream("coworkers");
+		widgetdata.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
 		widgetdata.link = "#coworkers";
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
@@ -117,6 +117,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addDashboardTrending' : function (widgetdata)
 	{
+		widgetdata.trending = true;
 		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
 		widgetdata.filters = {
 			sort: "engagement",

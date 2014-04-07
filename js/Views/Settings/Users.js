@@ -11,7 +11,13 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	
 	'initialize' : function ()
 	{
-
+		
+		this.collection = new Cloudwalkers.Collections.Users();
+		
+		// Listen to model
+		this.listenTo(this.collection, 'seed', this.fill);
+		this.listenTo(this.collection, 'request', this.showloading);
+		this.listenTo(this.collection, 'sync', this.hideloading);
 	},
 
 	'render' : function ()
@@ -21,10 +27,12 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		this.$el.html (Mustache.render (Templates.settings.users, data));
 		
-		account.users.hook({success: this.fill.bind(this), error: this.fail});
+		//account.users.hook({success: this.fill.bind(this), error: this.fail});
 		
 		this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
 		
+		// Load users
+		this.collection.touch(Cloudwalkers.Session.getAccount(), {records: 100});
 		
 		/*
 		var administrators = new Cloudwalkers.Collections.Users ([], {});
@@ -40,18 +48,24 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	},
 	
 	
-	'fill' : function (collection)
+	'fill' : function (models)
 	{	
 		
-		Cloudwalkers.Session.getAccount().monitorlimit('users', collection.length, $(".invite-user"));
+		Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
 
 		var $container = this.$el.find(".user-container").eq(-1);
 		
-		collection.each (function (user)
+		for (n in models)
+		{
+			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : models[n], view: this });
+			$container.append(view.render().el);
+		}
+		
+		/*collection.each (function (user)
 		{
 			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : user });
 			$container.append(view.render().el);
-		});
+		});*/
 	},
 
 	'addUserContainer' : function (title, collection)

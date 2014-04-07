@@ -15,7 +15,25 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 		}
 	},
 	
-	'sync' : function (method, model, options)
+	'url' : function (params)
+    {
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");
+    },
+    
+    'parse' : function (response)
+	{
+		this.parameters = "";
+		this.processing = false;
+		
+		return response[this.typestring]?
+		
+			response[this.typestring]: response.account[this.typestring];
+	},
+	    
+    'sync' : function (method, model, options)
 	{
 		if(method == "read")
 		{

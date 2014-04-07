@@ -7,12 +7,23 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		'click [data-edit-user-id]' : 'openDetails',
 		'click [data-delete-user-id]' : 'deleteUser'
 	},
+	
+	'initialize' : function (options)
+	{
+		// Parameters	
+		if(options) $.extend(this, options);
+		
+		// HACK!
+		this.parameters = {};
+		
+		this.listenTo(this.model, 'change', this.render);
+	},
 
 	'render' : function ()
 	{
 		var self = this;
 		var data = {};
-
+		
 		data.user = this.model.attributes;
 		data.user.role = this.model.getRole ();
 		
@@ -23,7 +34,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 
 	'openDetails' : function ()
 	{
-		var view = new Cloudwalkers.Views.Settings.UserDetails ({ 'model' : this.model });
+		var view = new Cloudwalkers.Views.Settings.UserDetails ({ 'model' : this.model, 'view': this.view });
 		$(".manage-users-edit-widget .portlet-body").html(view.render().el);
 	},
 	

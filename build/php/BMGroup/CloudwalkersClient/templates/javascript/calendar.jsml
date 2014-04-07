@@ -1,0 +1,79 @@
+	<!-- Calendar pageview -->
+	<div class="row-fluid">
+		<h3 class="page-title"> </h3>
+	</div>
+	
+	<div class="row-fluid stats-header">
+		
+		{{^customActive}}
+		<span class="period-buttons btn-group">
+			<a class="btn" id="subtract"><i class="icon-caret-left"></i></a>
+			<a class="btn" id="add"><i class="icon-caret-right"></i></a>
+		</span>
+		{{/customActive}}
+			
+		<h3 class="stats-header-timeview"><strong>{{periodstring}}{{span}}: </strong>{{timeview}}</h3>
+		
+		<div class="pull-right">
+			
+			{{#period}}<a class="btn" id="now">now</a>{{/period}}
+			<a class="btn"><i class="icon-print"></i></a>
+			<select>
+				<optgroup label="Time spans">
+					<option value="agendaWeek" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
+					<!--<option value="list" {{#listActive}}selected="true"{{/listActive}}>List view</option>-->
+				</optgroup>
+			</select>
+
+		</div>
+		
+		{{#customActive}}
+		<div class="header-custom">
+			<input id="start" type="text" value="{{startstring}}" />
+			<input id="end" type="text" value="{{endstring}}" />
+			<a class="btn" id="show">show</a>
+		</div>
+		{{/customActive}}
+	</div>
+
+	<div id="widgetcontainer" class="row-fluid">
+		
+		<div id="calendar" class="has-no-toolbar"></div>
+		
+		<!--
+		<div class="portlet box blue calendar">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-reorder"></i>Calendar</div>
+			</div>
+			<div class="portlet-body light-grey">
+				<div class="row-fluid">
+					
+					<div class="span3 responsive" data-tablet="span12 fix-margin" data-desktop="span8">
+						
+						<h3 class="event-form-title">Draft messages</h3>
+						<div id="external-events">
+							<hr />
+							<div id="drafts-list">
+								
+								<div class="drafts-loading">
+									<i class="icon-cloud-download"></i>
+								</div>
+								
+							</div>
+							<hr class="visible-phone" />
+						</div>
+						         
+					</div>
+					
+					<div class="span9">
+						<div id="calendar" class="has-toolbar"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		-->
+		
+	</div>
+
+<!-- end pageview -->   

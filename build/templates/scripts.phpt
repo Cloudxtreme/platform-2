@@ -21,6 +21,7 @@
 <script src="/assets/plugins/gritter/js/jquery.gritter.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/chosen/chosen.jquery.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/moment.min.js" type="text/javascript"></script>
+<script src="assets/plugins/fullcalendar/fullcalendar.js"></script>
 
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
@@ -37,7 +38,7 @@
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 <!-- END BOOTSTRAP PLUGINS --> 
 <!-- HTML5 PLUGINS -->
-<!-- <script src="/assets/plugins/chart.js/Chart.min.js"></script> -->
+<script src="/assets/plugins/chart.js/Chart.min.js"></script>
 <!-- END HTML5 PLUGINS -->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>

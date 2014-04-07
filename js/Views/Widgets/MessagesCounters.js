@@ -4,11 +4,12 @@
 Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.extend({
 	'entries' : [],
 	'events' : {
-		'input .input-rounded' : 'comparesuggestions',
+		'click a[href]' : 'updatesettings'
+		/*'input .input-rounded' : 'comparesuggestions',
 		'click [data-contact]' : 'filtercontacts',
 		'click [data-close-contact]' : 'filtercontacts',
 		'click [data-streams]' : 'filterstreams',
-		'click .load-more' : 'more'
+		'click .load-more' : 'more'*/
 	},
 	
 	'initialize' : function(options)
@@ -18,6 +19,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		// The list source is either the streams or subchannels
 		this.list = options.channel[options.source];
 		
+		if(this.list)
 		for (n in this.list.models)
 		{
 			// Add change listeners
@@ -34,21 +36,44 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		var data = { list: [] };		
 		$.extend (data, this.options);
 		
-		this.list.comparator = function (a, b) { return b.count - a.count }
-		
-		this.list.sort();
-		
-		this.list.each(function(model)
-		{
-			var attr = model.attributes;
-			var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
+		if(this.list)
+		{	
+			this.list.comparator = function (a, b) { return b.count - a.count }
 			
-			data.list.push({ name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
-		});
-
+			this.list.sort();
+			
+			this.list.each(function(model)
+			{
+				var attr = model.attributes;
+				
+				// Hack!
+				if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
+				else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
+				
+				data.list.push({ id: attr.id, name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
+			});
+		}
+		
 		this.$el.html (Mustache.render (Templates.messagescounters, data));
 
 		return this;
+	},
+	
+	'updatesettings' : function (e)
+	{
+		// Currently streams only
+		if(this.options.source != "streams") return null;
+
+		var model = this.list.get($(e.currentTarget).data("stream"));
+		var view = model.get("childtypes")[0] + "s";
+		
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(view);
+		
+		// ... And store
+		settings.streams = [model.id];
+		Cloudwalkers.Session.viewsettings(view, settings);
+		
 	},
 	
 	'negotiateFunctionalities' : function() {

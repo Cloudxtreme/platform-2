@@ -27,7 +27,7 @@ Cloudwalkers.Views.ActionParameters = Backbone.View.extend({
 				data.input[v.type] = [];
 			}
 
-			if (v.value != "")
+			if (typeof (v.value) != 'undefined' && v.value != "")
 			{
 				v.value = Cloudwalkers.Utilities.Parser.parseFromMessage (v.value, message);
 			}

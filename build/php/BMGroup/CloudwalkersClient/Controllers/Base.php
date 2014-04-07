@@ -23,6 +23,11 @@ abstract class BMGroup_CloudwalkersClient_Controllers_Base
 	*/
 	protected function getAccount ()
 	{
+		if (isset ($_GET['account']))
+		{
+			$_SESSION['account'] = $_GET['account'];
+		}
+
 		if (isset ($_SESSION['account']))
 		{
 			return $_SESSION['account'];

@@ -25,8 +25,10 @@
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
-<script type="text/javascript" src="/js/Models/Comment.js"></script>
+<script type="text/javascript" src="/js/Models/Notification.js"></script>
+<script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
+<script type="text/javascript" src="/js/Models/Statistic.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -37,15 +39,11 @@
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
+<script type="text/javascript" src="/js/Collections/Related.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
-<script type="text/javascript" src="/js/Collections/Comments.js"></script>
+<script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
-
-<!-- deprecated collections -->
-<script type="text/javascript" src="/js/Collections/Channel.js"></script>
-<script type="text/javascript" src="/js/Collections/Trending.js"></script>
-<script type="text/javascript" src="/js/Collections/Scheduled.js"></script>
-<script type="text/javascript" src="/js/Collections/Drafts.js"></script>
+<script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Root.js"></script>
@@ -62,6 +60,9 @@
 <script type="text/javascript" src="/js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
+<script type="text/javascript" src="/js/Views/Drafts.js"></script>
+<script type="text/javascript" src="/js/Views/Scheduled.js"></script>
+<script type="text/javascript" src="/js/Views/Calendar.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkers.js"></script>
 <script type="text/javascript" src="/js/Views/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Trending.js"></script>
@@ -71,6 +72,7 @@
 <script type="text/javascript" src="/js/Views/Statistics.js"></script>
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 <script type="text/javascript" src="/js/Views/Firsttime.js"></script>
+<script type="text/javascript" src="/js/Views/Coworkdashboard.js"></script>
 
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
@@ -81,10 +83,18 @@
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
 <script type="text/javascript" src="/js/Views/Chart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Legenda.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/HeatCalendar.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DraftsList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DraftsFilters.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/ScheduledList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/ScheduledFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CoworkersFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CoworkersList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MonitorFilters.js"></script>
@@ -96,9 +106,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/ScheduledList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/DraftList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>

@@ -1,5 +1,6 @@
 Cloudwalkers.Session = 
 {
+	
 	'user' : null,
 	/*'settings' : {
 		'currentAccount' : null,
@@ -56,11 +57,13 @@ Cloudwalkers.Session =
 	
 	'updateSetting' : function(attribute, value, callbacks)
 	{
-	
+		
 		if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
 		{
 			// Update session and save on user
 			Cloudwalkers.Session.user.attributes.settings[attribute] = value;
+			
+			callbacks = ($.extend(callbacks, {patch: true}) || {patch: true});
 			
 			Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.user.attributes.settings}, callbacks);
 		}
@@ -69,7 +72,38 @@ Cloudwalkers.Session =
 	'get' : function(attribute)
 	{
 		// Update session
-		return Cloudwalkers.Session.user.attributes.settings[attribute];
+		return this.user.get("settings")[attribute];
+	},
+	
+	'clone' : function(obj)
+	{
+		if(obj == null || typeof(obj) != 'object') return obj;
+		
+		var output = obj.constructor();
+		
+		for (var key in obj)
+			output[key] = this.clone(obj[key]);
+		
+		return output;
+	},
+	
+	'viewsettings' : function(value, content)
+	{
+		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
+			Cloudwalkers.Session.user.attributes.settings.viewsettings = Cloudwalkers.RootView.navigation.mapViews();
+		
+		var viewsettings = this.clone(this.get("viewsettings"));
+		
+		if(!content) return viewsettings[value];
+		
+		else if(value && content)
+		{
+			viewsettings[value] = $.extend(viewsettings[value], content);
+			this.updateSetting("viewsettings", viewsettings);
+			
+			return viewsettings[value];
+		
+		} else throw TypeError ("Not the right parameters were met for function viewsettings");
 	},
 	
 	/**
@@ -78,9 +112,12 @@ Cloudwalkers.Session =
 
 	'manage' : function ()
 	{
+
+		// Limit messages
+		
 		var messagecount = Store.count("messages");
 		
-		if(messagecount > 400)
+		if(messagecount > 200)
 			Store.filter("messages", null, function(list)
 			{
 				// Sort list timestamp ASC
@@ -91,7 +128,7 @@ Cloudwalkers.Session =
 				});
 				
 				// Save newest, remove oldest
-				list = list.slice(0, 300);
+				list = list.slice(0, 100);
 				Store.write("messages", list);
 				
 				// Clean touch id-lists
@@ -104,6 +141,27 @@ Cloudwalkers.Session =
 					Store.write("touches", list);
 				});
 			});
+			
+			
+		// Limit reports
+		
+		var reportcount = Store.count("reports");
+		
+		if(reportcount > 25)
+			Store.filter("reports", null, function(list)
+			{
+				// Sort list timestamp ASC
+				list.sort(function (a, b) {
+					if (a.stamp > b.stamp) return 1;
+					if (a.stamp < b.stamp) return -1;
+					return 0;
+				});
+				
+				// Save newest, remove oldest
+				list = list.slice(0, 10);
+				Store.write("messages", list);
+			});
+
 	},
 	
 	/**
@@ -187,7 +245,7 @@ Cloudwalkers.Session =
 	
 	'getStream' : function (id)
 	{
-		return this.user.account.streams.get (id);
+		return (typeof id == "number")?  this.user.account.streams.get (id):  this.user.account.streams.findWhere({token: id});
 	},
 	
 	'getStreams' : function ()
@@ -261,7 +319,22 @@ Cloudwalkers.Session =
 	},
 	
 	/**
+	 *	Statistics shortcut functions
+	 **/
+	
+	'getStatistic' : function (id)
+	{
+		return this.user.account.statistics.get (id);
+	},
+	
+	'getStatistics' : function ()
+	{
+		return this.user.account.statistics;
+	},
+	
+	/**
 	 *	Reports shortcut functions
+	 *	Deprectated?
 	 **/
 	
 	'getReport' : function (id)

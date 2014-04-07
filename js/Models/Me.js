@@ -13,7 +13,9 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 	'url' : function ()
 	{
-		var param = Store.exists("me")? "?include_accounts=ids": "";
+		var param = this.endpoint?
+			this.endpoint :
+			(Store.exists("me")? "?include_accounts=ids": "");
 		
 		return CONFIG_BASE_URL + "json/user/me" + param;
 	},
@@ -35,6 +37,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		// For specific methods
+		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+		
+		// Caching
 		if( method == "read")
 			Store.get("me", null, function(data)
 			{
@@ -47,6 +53,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'firstload' : function (me)
 	{
+
 		// Store accounts
 		$.each(me.accounts, function(n, account)
 		{
@@ -103,16 +110,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// Emergency check, force full reload
 		if(!account || !account.id)
 		{	
+			 this.save({settings: {currentAccount: this.accounts.at(0).id}});
+			 
 			 return Cloudwalkers.Session.home();
 		}
 
 		return account;
-	},
-
-	'savePassword' : function (oldpassword, newpassword, callback)
-	{
-		var data = {oldpassword:oldpassword, newpassword:newpassword}
-		
-		Cloudwalkers.Net.put ('user/me/password', {}, data, callback);
 	}
 });

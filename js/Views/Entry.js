@@ -3,33 +3,67 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'tagName' : 'li',
 	'template': 'messageentry',
 	'notifications' : [],
+	'parameters' : {},
 	
 	'events' : 
 	{
 		'remove' : 'destroy',
-		'click *[data-action]' : 'action',
 		'click [data-notifications]' : 'loadNotifications',
 		'click [data-youtube]' : 'loadYoutube',
+		'click *[data-action]' : 'action',
 		'click' : 'toggle'
 	},
 	
 	'initialize' : function (options)
 	{
-		//if(this.template) this.template = this.template;
+		// HACK!
+		this.parameters = {};
+		
 		if(options) $.extend(this, options);
 		
 		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'action:toggle', this.toggleaction);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
 	'render' : function ()
 	{
-		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type)));
+		
+		// Parameters
+		$.extend(this.parameters, this.model.attributes);
+		
+		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+		
+		// Visualize
+		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
 		
-		if(this.type == "inbox" && this.model.get("objectType")) this.checkUnread();
+		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
 		
 		return this;
+	},
+	
+	'action' : function (element)
+	{
+		// Action token
+		var token = $(element.currentTarget).data ('action');
+		
+		this.model.trigger("action", token);
+	},
+	
+	'toggleaction' : function (token, newaction)
+	{
+
+		var current = this.$el.find('[data-action="' + token + '"]');
+		var clone = current.clone().attr("data-action", newaction.token);
+		
+		// new Action edits
+		if(current.is("a"))	clone.html("<i class='icon-" + newaction.icon + "'></i> " + newaction.name);
+		else 				clone.find("i").attr("class", "").addClass("icon-" + newaction.icon);
+		
+		// Remove old Action
+		current.before(clone).remove();
 	},
 	
 	'toggle' : function() { this.trigger("toggle", this); },
@@ -43,14 +77,22 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'loadNotifications' : function()
 	{
 		
-		// Does collection exist?
+		// Collapse if open
+		if(this.$el.find(".timeline-comments li").size())
+			
+			return this.$el.find(".timeline-comments li").remove();
+		
+		
+		/*// Does collection exist?
 		if(!this.model.notifications)
 			this.model.notifications = new Cloudwalkers.Collections.Notifications();
+		
+		console.log(this.model.notifications)*/
 		
 		// Load notifications
 		this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
 		
-		this.model.notifications.touch(this.model, {records: 50});
+		this.model.notifications.touch(this.model, {records: 50, markasread: true});
 		
 	},
 	
@@ -89,7 +131,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 	
-	'action' : function (element)
+	/*'action' : function (element)
 	{
 		if ($(element.currentTarget).is ('[data-action]'))
 		{
@@ -154,7 +196,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 				}
 			}
 		}
-	},
+	},*/
 	
 	'time' : function ()
 	{
@@ -176,6 +218,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'destroy' : function ()
     {
+		// To-do:
+		//this.model.notifications.trigger("destroy");
+		
 		window.clearTimeout(this.tm);
     }
 

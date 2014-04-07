@@ -2,6 +2,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'initialize' : function ()
 	{
+
 	},
 	
 	'url' : function ()
@@ -9,17 +10,41 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return CONFIG_BASE_URL + 'json/user/' + this.id;
 	},
 	
-	'sync' : function (method, model, options) {
+	'parse' : function(response)
+	{	
+		// A new object
+		if (typeof response == "number") response = {id: response};
+		
+		// Store incoming object
+		else this.stamp(response);
 
+		return response;
+	},
+	
+	
+	/*'parse' : function(response)
+	{	
+		// A new object
+		if (typeof response == "number") response = {id: response};
+
+		return response;
+	},*/
+	
+	/*'sync' : function (method, model, options) {
+
+		// Hack
+		if(method == "update") return false;
+		
 		if( method == "read")
 			Store.get(this.url(), null, function(data)
 			{
 				if(data) this.set(data);
 
 			}.bind(this));
+
 		
 		return Backbone.sync(method, model, options);
-	},
+	},*/
 	
 	'filterData' : function (type)
 	{
@@ -48,12 +73,5 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		{
 			return 'Co-worker';
 		}
-	},
-
-	'saveProfile' : function (callback)
-	{
-		var data = {firstname: this.get("firstname"), name: this.get("name"), avatar: this.get("avatarBase64")}
-		
-		Cloudwalkers.Net.put ('user/me', {}, data, callback);
 	}
 });

@@ -5,6 +5,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 	'id' : 'inboxlist',
 	'entries' : [],
+	'check' : "hasMessages",
 	'collectionstring' : "messages",
 	'filters' : {
 		contacts : {string:"", list:[]},
@@ -17,12 +18,17 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		'input .input-rounded' : 'comparesuggestions',
 		'click [data-contact]' : 'filtercontacts',
 		'click [data-close-contact]' : 'filtercontacts',
+		'click [data-networks]' : 'filternetworks',
 		'click [data-streams]' : 'filterstreams',
+		'click .toggleall.active' : 'toggleall',
 		'click .load-more' : 'more'
 	},
 	
-	'initialize' : function ()
+	'initialize' : function (options, /* Deprecated? */ pageviewoptions)
 	{
+		
+		if(options) $.extend(this, options);
+		
 		// Which model to focus on
 		this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
@@ -35,21 +41,53 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 	},
+	
+	'toggleall' : function ()
+	{
+		
+		this.filternetworks(null, true);
+		this.togglestreams(true);
+	},
+	
+	'togglestreams' : function(all)
+	{
+		// Toggle streams
+		this.$el.find('[data-networks], [data-streams]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		
+		// Toggle select button
+		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+	},
 
 	'render' : function ()
 	{	
 		// Template data
-		var param = {streams: [], networks: this.model.streams.filterNetworks(null, true)};
+		var param = {streams: [], networks: []};
+		
+		// Select streams
+		this.model.streams.each (function(stream)
+		{
+			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
 
-		this.model.streams.each (function(stream){ param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname")}); });
+		}.bind(this));
+		
+		// Select networks
+		param.networks = this.model.streams.filterNetworks(param.streams, true);
 		
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
+		// Set selected streams
+		if (this.filters.streams.length)
+		{
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
+			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
+		
 		this.$container = this.$el.find ('ul.list');
 		
 		// Load messages
-		this.collection.touch(this.model, {records: 50, group: 1});
+		this.collection.touch(this.model, this.filterparameters());
 		
 		return this;
 	},
@@ -87,11 +125,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			$.each(this.entries, function(n, entry){ entry.remove()});
 			this.entries = [];
 		}
-
+		
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: 'inbox'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry'/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -116,7 +154,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		this.inboxmessage.showrelated(view.model);
+		this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
@@ -147,6 +185,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		else string = string.toLowerCase();
 		
 		var contacts = this.model.contacts.filter(this.comparenamefilter.bind(this, string));
+		
 		
 		// On typed, search for more
 		if (contacts.length < 5 && !iscontact.cid && string.length > 2) this.requestcontacts(string);
@@ -198,6 +237,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{
 		this.$el.find(".loading-contacts").addClass("hidden");
 		
+		
 		// Check pending requests
 		if(this.filters.contacts.buffered)
 		{
@@ -236,7 +276,69 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'filterstreams' : function (e)
+	'filternetworks' : function (e, all)
+	{
+		
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("networks") == $(e.currentTarget).data("networks");
+
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("networks")).split(" ");
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (streams)
+		{
+			$(streams.map(function(id){ return '[data-streams="'+ id +'"]'; }).join(",")).removeClass("inactive").addClass("active");
+			this.filters.streams = streams;
+		
+		} else this.filters.streams = [];
+		
+		// Fetch filtered messages
+		this.collection.touch(this.model, this.filterparameters());
+		
+		return this;
+	},
+	
+	'filterstreams' : function (e, all)
+	{
+		
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("streams") == $(e.currentTarget).data("streams");
+
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var stream = all? null: Number(this.button.data("streams"));
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (stream)
+		{
+			$('[data-networks~="'+ stream +'"]').removeClass("inactive").addClass("active");
+			this.filters.streams = [stream];
+			
+		} else this.filters.streams = [];
+			
+		// Fetch filtered messages
+		this.collection.touch(this.model, this.filterparameters());
+		
+		return this;
+	},
+	
+	/*'filterstreams' : function (e)
 	{
 		var button = $(e.currentTarget);
 		var param = {records: 20};
@@ -269,7 +371,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.collection.touch(this.model, this.filterparameters());
 		
 		return this;
-	},
+	},*/
 	
 	'filterparameters' : function() {
 		
@@ -278,7 +380,26 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
 		
+		// And store
+		this.storeview();
+		
 		return param;
+	},
+	
+	'storeview' : function ()
+	{
+		
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
+		
+		if(!settings.streams) settings.streams = [];
+		
+		// And store
+		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
+		{
+			settings.streams = this.filters.streams;
+			Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
+		}
 	},
 	
 	'more' : function ()

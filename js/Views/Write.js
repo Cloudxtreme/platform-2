@@ -8,6 +8,13 @@
 
 Cloudwalkers.Views.Write = Backbone.View.extend({
 
+	'files' : [],
+	'draft' : false,
+	'sendnow' : false,
+	'className' : 'write',
+	'navclass' : 'write',
+	'title' : "Compose message",
+	
 	'events' : 
 	{
 		'submit form' : 'submit',
@@ -22,12 +29,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
         'change select[name=campaign]' : 'selectCampaign',
         'click [name=add-campaign]' : 'addCampaign'
 	},
-
-	'files' : [],
-	'draft' : false,
-	'sendnow' : false,
-
-	'navclass' : 'write',
+	
+	'initialize' : function ()
+	{
+		
+	},
 
 	'setDraft' : function ()
 	{
@@ -50,19 +56,22 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			)
 			{
 				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
+				this.form.trigger ('submit');
+				//$(e.toElement.form).trigger ('submit');
 			}
 
 			else if (confirm ('Are you sure you want to send your message right now? Your schedule details will be lost.'))
 			{
 				this.clearScheduleDate ();
-				$(e.toElement.form).trigger ('submit');
+				this.form.trigger ('submit');
+				//$(e.toElement.form).trigger ('submit');
 			}
 		}
 		else
 		{
 			this.clearScheduleDate ();
-			$(e.toElement.form).trigger ('submit');
+			this.form.trigger ('submit');
+			//$(e.toElement.form).trigger ('submit');
 		}
 	},
 	
@@ -298,6 +307,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		
 		var popup = Mustache.render(Templates.write, data);
 		self.$el.html (popup);
+		
+		this.form = this.$el.find('form').eq(0);
 
 		self.$el.find ('[name=url]').change (function ()
 		{
@@ -624,6 +635,10 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
             if (self.model && !self.isClone ())
             {
                 url += '&id=' + self.model.get ('id');
+				
+				// Hack
+				//self.model.set({"outdated": true});
+                
             }
 
             // This is a clone. We need to send the original message
@@ -644,7 +659,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                 self.trigger ('popup:close');
 
                 self.$el.html ('<p>Please wait, storing message.</p>');
-
+				
                 // Do the call
                 jQuery.ajax
                 ({
@@ -658,7 +673,8 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                     {
                        if (objData.success)
                         {
-                            self.$el.html ('<p>Your message has been scheduled.</p>');
+  
+                          	self.$el.html ('<p>Your message has been scheduled.</p>');
 
                             if (typeof (self.options.redirect) == 'undefined' || !self.options.redirect)
                             {
@@ -666,18 +682,40 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                                 {
                                     Cloudwalkers.RootView.alert ('Your message was saved.');
                                     self.render ();
+                                    
+                                     // Hack!
+                                    if(self.model)
+                                    {
+                                        var stream = Cloudwalkers.Session.getStream(objData.result.message.stream);
+                                        var message = stream.messages.get(self.model.id);
+                                        
+                                        message.set(message.filterData(objData.result.message));
+                                    
+                                    } else window.location.reload();
                                 }
                                 else
                                 {
-                                    if (window.location.hash != '#schedule')
+                                    if (window.location.hash != '#scheduled')
                                     {
-                                        window.location = '#schedule';
+                                        window.location = '#scheduled';
                                     }
                                     else
                                     {
-                                        Cloudwalkers.Router.Instance.schedule (null);
+                                        // Hack!
+                                        if(self.model)
+                                        {
+	                                        var stream = Cloudwalkers.Session.getStream(objData.result.message.stream);
+	                                        var message = stream.messages.get(self.model.id);
+	                                        
+	                                        message.set(message.filterData(objData.result.message));
+	                                    
+	                                    } else window.location.reload();
                                     }
                                 }
+                            
+                            } else {
+	                            //hack
+	                            window.location.reload();
                             }
 
                             Cloudwalkers.Session.trigger ('message:add');

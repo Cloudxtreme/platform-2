@@ -20,39 +20,23 @@ var Calendar = function () {
 
             var h = {};
 
-            if (App.isRTL()) {
-                 if ($('#calendar').parents(".portlet").width() <= 720) {
-                    $('#calendar').addClass("mobile");
-                    h = {
-                        right: 'title, prev, next',
-                        center: '',
-                        right: 'agendaDay, agendaWeek, month, today'
-                    };
-                } else {
-                    $('#calendar').removeClass("mobile");
-                    h = {
-                        right: 'title',
-                        center: '',
-                        left: 'agendaDay, agendaWeek, month, today, prev,next'
-                    };
-                }                
+            
+			if ($('#calendar').parents(".portlet").width() <= 720) {
+                $('#calendar').addClass("mobile");
+                h = {
+                    left: 'title, prev, next',
+                    center: '',
+                    right: 'today,month,agendaWeek,agendaDay'
+                };
             } else {
-                 if ($('#calendar').parents(".portlet").width() <= 720) {
-                    $('#calendar').addClass("mobile");
-                    h = {
-                        left: 'title, prev, next',
-                        center: '',
-                        right: 'today,month,agendaWeek,agendaDay'
-                    };
-                } else {
-                    $('#calendar').removeClass("mobile");
-                    h = {
-                        left: 'title',
-                        center: '',
-                        right: 'prev,next,today,month,agendaWeek,agendaDay'
-                    };
-                }
+                $('#calendar').removeClass("mobile");
+                h = {
+                    left: 'title',
+                    center: '',
+                    right: 'prev,next,today,month,agendaWeek,agendaDay'
+                };
             }
+            
            
 
             var initDrag = function (el) {
@@ -127,22 +111,22 @@ var Calendar = function () {
                 events: [{
                         title: 'All Day Event',                        
                         start: new Date(y, m, 1),
-                        backgroundColor: App.getLayoutColorCode('yellow')
+                        backgroundColor: 'orange' /*App.getLayoutColorCode('yellow')*/
                     }, {
                         title: 'Long Event',
                         start: new Date(y, m, d - 5),
                         end: new Date(y, m, d - 2),
-                        backgroundColor: App.getLayoutColorCode('green')
+                        backgroundColor: 'green' /*App.getLayoutColorCode('green')*/
                     }, {
                         title: 'Repeating Event',
                         start: new Date(y, m, d - 3, 16, 0),
                         allDay: false,
-                        backgroundColor: App.getLayoutColorCode('red')
+                        backgroundColor: 'red' /*App.getLayoutColorCode('red')*/
                     }, {
                         title: 'Repeating Event',
                         start: new Date(y, m, d + 4, 16, 0),
                         allDay: false,
-                        backgroundColor: App.getLayoutColorCode('green')
+                        backgroundColor: 'green' /*App.getLayoutColorCode('green')*/
                     }, {
                         title: 'Meeting',
                         start: new Date(y, m, d, 10, 30),
@@ -151,19 +135,19 @@ var Calendar = function () {
                         title: 'Lunch',
                         start: new Date(y, m, d, 12, 0),
                         end: new Date(y, m, d, 14, 0),
-                        backgroundColor: App.getLayoutColorCode('grey'),
+                        backgroundColor: 'grey' /*App.getLayoutColorCode('grey')*/,
                         allDay: false,
                     }, {
                         title: 'Birthday Party',
                         start: new Date(y, m, d + 1, 19, 0),
                         end: new Date(y, m, d + 1, 22, 30),
-                        backgroundColor: App.getLayoutColorCode('purple'),
+                        backgroundColor: 'blue' /*App.getLayoutColorCode('purple')*/,
                         allDay: false,
                     }, {
                         title: 'Click for Google',
                         start: new Date(y, m, 28),
                         end: new Date(y, m, 29),
-                        backgroundColor: App.getLayoutColorCode('yellow'),
+                        backgroundColor: 'orange' /*App.getLayoutColorCode('yellow')*/,
                         url: 'http://google.com/',
                     }
                 ]

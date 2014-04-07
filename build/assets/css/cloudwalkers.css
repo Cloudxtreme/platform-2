@@ -44,6 +44,19 @@ li.btn-white	{
 /**
  *	Quick fixes
  */
+.messages-container .media i	{ color: white; }
+
+.attachment-link	{ white-space: nowrap; }
+
+.black-icons i	{ color: black !important; }
+
+.actions,
+[data-keyword],
+[data-open-service],
+[data-header-action],
+[data-notification-action],
+.category-name.edit-toggler h4	{ cursor: pointer; }
+
 .message-schedule .checkbox	{ padding-left: 25px !important; }
 .message-schedule .checkbox input	{ margin-top: -4px !important; }
 
@@ -107,6 +120,15 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 .btn.blue.limited[disabled]	{ background: #ddd !important; }
 
 
+tbody.messages-container i	{
+	padding: 0 2px 0 6px !important; float: none !important;
+}
+
+.notification-action	{
+	padding: 1px 3px; margin: 0 2px; border-radius: 2px !important; background: white;
+	color: #333; font-size: 12px;
+}
+
 /* Keyframes */
 @-webkit-keyframes bluepulse {
 	0% { color: #2bbedc; }	50% { color: #c5e3ee; }	100% { color: #2bbedc; }
@@ -119,11 +141,21 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 
 /* TOP NAV */
 .header-icon	{
-	float: left; padding: 8px 4px;
-	color: #333; font-size: 17.5px;
+	float: left; padding: 8px 4px; cursor: pointer;
+	color: #4a4a4a; font-size: 17.5px;
 }
 
 .header-icon:hover	{ color: #666; }
+
+.header-icon.active	{
+	padding: 2px 12px 3px; margin: 8px 4px 0; background: #4a4a4a; border-radius: 20px;
+	font-size: 15px; color: #ccc; line-height: 1em;
+}
+
+.header-icon.active	i { font-size: 17.5px; padding-right: 3px; line-height: 1em; }
+
+.header-icon.active:hover	{ color: white; }
+
 
 
 .dropdown form	{ margin-bottom: 0; }
@@ -204,8 +236,6 @@ nav	{
 
 #share.collapsed	{ width: 0; }
 
-#sidebar li.write.active > a	{ background-color: #2bbedc !important; }
-
 #share > div	{
 	margin: 20px 10px; 
 }
@@ -283,7 +313,7 @@ nav	{
 
 
 /* Pageview */
-.page-content .page-title	{ text-transform: capitalize; }
+.page-content .page-title	{ /*text-transform: capitalize;*/ }
 
 /* Widget */
 
@@ -461,6 +491,8 @@ nav	{
 }
 
 .portlet .messages-container p	{ margin: 0px; }
+
+.dashboardwidget .messages-container li	{ cursor: pointer; }
 
 /*
 .portlet.box .message-view li	{ min-height: 20px; }
@@ -739,6 +771,16 @@ nav	{
 .dot.web-color  { background-color: #f39501 ; }
 .dot.blog-color  { background-color: #f39501 ; }
 
+#calendar .fc-event.facebook-color { background-color: #3B5998; }
+#calendar .fc-event.twitter-color  { background-color: #01a9da; }
+#calendar .fc-event.linkedin-color { background-color: #1783BC; }
+#calendar .fc-event.tumblr-color { background-color: #385775 ; }
+#calendar .fc-event.google-plus-color  { background-color: #DD4C39 ; }
+#calendar .fc-event.youtube-color  { background-color: #CC181E ; }
+#calendar .fc-event.web-color  { background-color: #f39501 ; }
+#calendar .fc-event.blog-color  { background-color: #f39501 ; }
+#calendar .fc-event.coworkers-color  { background-color: #666; }
+
 /**
 * Button colors
 */
@@ -968,9 +1010,6 @@ nav	{
 
 #filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
 
-
-
-
 #inboxlist .list li	{
 	min-height: 40px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
 	font-weight: 300;
@@ -984,12 +1023,23 @@ nav	{
 #inboxlist .list > li:nth-child(odd):hover,
 #inboxlist .list > a:nth-child(odd) li:hover	{ background: #efefef; }
 
-#inboxlist .list li.active	{ background: #d9edf7; }
-#inboxlist .list li.active:hover	{ background: #b1e2ec; }
+#inboxlist .list li.active,
+#inboxlist .list li.active:hover,
+#inboxlist .list li.active strong,
+#inboxlist .list li.active .date,
+#inboxlist .list li.active .media	{
+	background: #2bbedc !important;
+	color: white;
+}
 
-#inboxlist .list li.unread { line-height: 24px; }
+#inboxlist .list li.active .content	{ color: #bbebf9; }
+
+#inboxlist .list li.unread { line-height: 24px; background: #e3f1f8; }
+#inboxlist .list li.unread:nth-child(odd) { line-height: 24px; background: #d9edf7; }
 #inboxlist .list li.unread .dot { display: block; }
-#inboxlist .list li.unread .avatar { display: none; }
+#inboxlist .list li.unread .media i { display: none; }
+#inboxlist .list li.unread .media 	{ background: none; }
+#inboxlist .list li.unread .date	{ color: #005580; font-weight: bold; }
 
 
 #inboxlist .list span.number	{
@@ -1007,7 +1057,7 @@ nav	{
 #inboxlist .list .icon-right	{ float: right; color: #666; font-size: 1.3em; }
 
 #inboxlist .list .dot {
-	display: none; float: left; position: relative; top: 3px;  margin-right: 10px; width: 8px; height: 8px; border: 6px solid white; border-radius: 50% !important; 
+	display: none; width: 10px; height: 10px; margin-left: 10px; border: 2px solid white; border-radius: 50% !important; 
 }
 .dot { background-color: #5373d0; }
 
@@ -1077,8 +1127,8 @@ nav	{
 	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
 }
 
-.inbox-container .message-header strong {
-	color: inherit;
+.inbox-container .message-header a {
+	color: inherit; font-weight: bold;
 }
 
 .inbox-container .message-header .date {
@@ -1180,8 +1230,36 @@ nav	{
 
 
 /**
-* Message counter block
+* Scheduled
 */
+
+.toggleall	{
+	background: #4a4a4a; display: inline; padding: 2px 10px; border-radius: 20px; cursor: pointer;
+	color: white; font-size: 12px;
+}
+.toggleall.inactive	{ background: #ddd; cursor: default; }
+
+#scheduledfilters #filter_streams	{ border-bottom: 0px; padding-right: 0; position: relative; left: 2px; }
+
+#scheduledlist table	{ table-layout: fixed; font-size: 14px;  }
+#scheduledlist tr	{ clear: both; }
+
+#scheduledlist thead	{ font-weight: bold; }
+#scheduledlist thead tr > td:nth-child(4)	{ text-align: center; font-weight: 100; }
+
+#scheduledlist tr > td	{ box-sizing: border-box; padding: 8px 0 4px; }
+#scheduledlist tr > td:nth-child(1)	{ width: 20%; padding: 8px 10px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#scheduledlist tr > td:nth-child(3)	{ width: 40%; padding-right: 4px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#scheduledlist tr > td:nth-child(4)	{ width: 10%; padding: 8px 0; }
+#scheduledlist tr > td:nth-child(4) i	{ padding: 0 10px 0 0 !important; cursor: pointer; }
+
+#scheduledlist .network	{
+	float: left; box-sizing: border-box; width: 48%; padding: 1px 2px 2px 0; margin: 0 2% 2px 0; background: white; border-radius: 20px;
+	font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+#scheduledlist .network i	{
+	font-size: 14px;
+}
 
 
 
@@ -1213,6 +1291,11 @@ nav	{
 	top: 3px; height: 24px; width: 24px; 
 }
 
+#users-list	i { padding-top: 8px; }
+
+#users-list	li { cursor: pointer; }
+#users-list	li:hover { background: #f6f6f6; }
+
 /**
  *	Timeline: seperate .css
  **/
@@ -1238,10 +1321,10 @@ nav	{
  * Manage keywords
  */
 
-.portlet.keywordsoverview .messages-container li	{ min-height: 10px; cursor: default; }
+.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
 
 .portlet.keywordsoverview h4	{ margin-top: 6px; }
-.portlet.keywordsoverview h4	{ width: 50%; cursor: default; }
+.portlet.keywordsoverview h4	{ width: 50%; }
 
 .portlet.keywordsoverview div.clear	{ clear: both; }
 

@@ -18,10 +18,20 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		}
 		
 		// Listen to outdates
-		this.on("outdated", this.fetch)
+		this.on("outdated", this.update);
 	},
 	
-	'url' : function()
+	'outdated' : function ()
+	{
+		this.fetch();
+	},
+	
+	'update' : function ()
+	{
+		this.fetch();
+	},
+	
+	'url' : function ()
 	{
 		var id = this.id? this.id: "";
 		
@@ -31,6 +41,9 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	'parse' : function(response)
 	{
 		if(response.stream) response = response.stream;
+		
+		// Hack
+		this.outdated = response.outdated = false;
 		
 		Store.set("streams", response);
 		

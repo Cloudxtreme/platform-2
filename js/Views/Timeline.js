@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'id' : "timeline",
-	'parameters': { 'records' : 20 },
+	'parameters': { records: 20, markasread: true },
 	'entries' : [],
 	'events' : 
 	{
@@ -15,17 +15,19 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		this.collection = this.model.messages;
 		
+		this.$el.addClass("loading");
+		
 		// Listen to model
 		this.listenTo(this.collection, 'seed', this.fill);
-		this.listenTo(this.collection, 'request', this.showloading);
+		//this.listenTo(this.collection, 'request', this.showloading);
 		//this.listenTo(this.collection, 'sync', this.hideloading);
 	},
 	
-	'showloading': function()
+	/*'showloading': function()
 	{
-		this.$el.addClass("loading");
+		
 		//this.$el.find(".timeline-loading").show();
-	},
+	},*/
 	
 	'hideloading': function()
 	{
@@ -44,6 +46,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		this.$container = this.$el.find("ul.timeline").eq(0);
 		this.$loadmore = this.$el.find(".load-more").remove();
+		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
@@ -69,7 +72,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Add models to view
 		for (n in models)
 		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'messagetimeline', type: this.trending? 'fulltrending': 'full'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'messagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 			
 			this.entries.push (view);
 			
@@ -77,8 +80,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		}
 		
 		// Add loadmore button
-		if (models.length)
+		if (this.collection.cursor)
 			this.$container.append(this.$loadmore);
+		
+		else if(!models.length)
+			this.$container.append(this.$nocontent);
 		
 		this.hideloading();
 	},

@@ -1,6 +1,6 @@
 Cloudwalkers.Collections.Notifications = Cloudwalkers.Collections.Messages.extend({
 	
-	'model' : Cloudwalkers.Models.Comment,
+	'model' : Cloudwalkers.Models.Notification,
 	'typestring' : "notifications",
 	'modelstring' : "notification",
 	
@@ -8,6 +8,9 @@ Cloudwalkers.Collections.Notifications = Cloudwalkers.Collections.Messages.exten
 	{
 		// Put "add" listener to global notifications collection
 		if( Cloudwalkers.Session.user.account)
-			Cloudwalkers.Session.getNotifications().listenTo(this, "add", Cloudwalkers.Session.getNotifications().distantAdd)
+			Cloudwalkers.Session.getNotifications().listenTo(this, "add", Cloudwalkers.Session.getNotifications().distantAdd);
+			
+		// Destroy listener
+		this.on("destroy", this.destroy)
 	}
 });

@@ -5,37 +5,64 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 	'modelstring' : "user",
 	'processing' : false,
 
-	'initialize' : function (models, options)
-	{	
-
-		// Global collection gets created before session build-up
+	
+	'initialize' : function(options)
+	{
+		// Override type strings if required
+		if(options) $.extend(this, options);
+		
+		// Put "add" listener to global users collection
 		if( Cloudwalkers.Session.user.account)
-		{
-			Cloudwalkers.Session.getUsers().listenTo(this, "add", Cloudwalkers.Session.getUsers().distantAdd);
-		}
+			Cloudwalkers.Session.getUsers().listenTo(this, "add", Cloudwalkers.Session.getUsers().distantAdd);	
 	},
 	
-	'url' : function()
+	'parse' : function (response)
+	{
+		console.log("parsing", response)
+		
+		// Solve response json tree problem
+		if (this.parentmodel)
+			response = response[this.parenttype];
+	
+		// Get paging
+		this.setcursor(response.paging);
+		
+		// Ready?
+		if(!response.paging) this.ready();
+		
+		return response[this.typestring];
+	},
+
+	
+	/*'url' : function()
 	{
 		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
 	},
 	
-	'parse' : function (response)
-	{	
+	'url' : function (params)
+    {
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
+        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");
+    },*/
+	
+	/*'parse' : function (response)
+	{
 		this.parameters = "";
 		this.processing = false;
 		
-		if(!response[this.typestring]) response.account[this.typestring];
+		return response[this.typestring]?
 		
-		return response[this.typestring];
-	},
+			response[this.typestring]: response.account[this.typestring];
+	},*/
 	
-	'distantAdd' : function(model)
+	/*'distantAdd' : function(model)
 	{
 		if(!this.get(model.id)) this.add(model);	
-	},
+	},*/
 	
-	'sync' : function (method, model, options) {
+	/*'sync' : function (method, model, options) {
 		
 		// Store Local
 		if( method == "read")
@@ -46,7 +73,18 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 			}.bind(this));
 		
 		return Backbone.sync(method, model, options);
-	},
+	},*/
+	
+	/*'sync' : function (method, model, options)
+	{
+		if(method == "read")
+		{
+			this.processing = true;
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+		}
+
+		return Backbone.sync(method, model, options);
+	},*/
 	
 	'updates' : function (ids)
 	{
@@ -74,6 +112,18 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 		// Update model
 		var model = this.updates([id]);
 	},
+	
+	/*'touchresponse' : function(url, collection, response)
+	{
+		// Get ids
+		var ids = response.account[this.typestring];
+		
+		// Store results based on url
+		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+	
+		// Seed ids to collection
+		this.seed(ids);
+	},*/
 	
 	'hook' : function(callbacks)
 	{

@@ -20,6 +20,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		this.on("change:paging", this.setCursor, this);
 		this.on("change:updates", this.updateModels, this);
 		this.on("change:add", this.addModels, this);
+		this.on("change:remove", this.removeModels, this);
 	},
 	
 	'setCursor' : function(dynamic, changed)
@@ -80,6 +81,16 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		 if(!add.length) return null;
 		 
 		 console.log("ping add callback: ", add);
+	 },
+	 
+	 /**
+	 *	Remove [something]	
+	 **/
+	 'removeModels' : function(ping, remove)
+	 {
+		 if(!remove.length) return null;
+		 
+		 console.log("ping remove callback: ", remove);
 	 },
 
 	 'request' : function()

@@ -1,7 +1,6 @@
 Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'view' : null,
-
 	'header' : null,
 	'footer' : null,
 
@@ -85,30 +84,30 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$("#inner-content").css("min-height", height-42 + "px");
 	},
 	
+	'popup_new' : function (view)
+	{
+
+		// Parameters
+		var content = view.render().el;
+		var params = {title: view.title, actions: view.actions};
+		
+		// View
+		var modal = $(Mustache.render (Templates.popup, params)).modal();
+		modal.find(".modal-body").html(content);
+		
+		// Actions
+		if (view.actions)
+			modal.find(".modal-footer [data-action]").on("click", function(popup, e){ this.trigger($(e.currentTarget).data("action"), popup)}.bind(view, modal));
+		
+		// Close listener
+		modal.on ("hide", function (){ this.remove(); }.bind(view));
+	},
+
+	
 	'popup' : function (view)
 	{
 		var self = this;
 
-		/*
-
-		$.fancybox
-		(
-			'<p>Please wait, we are loading your content.</p>',
-			{
-				content : view.render ().el,
-				padding: 0,
-				cyclic: false,
-				overlayShow: true,
-				overlayOpacity: 0.4,
-				overlayColor: '#000000',
-				titlePosition: 'inside',
-				onComplete : function ()
-				{
-					self.trigger ('content:change');
-				}
-			}
-		);
-*/
 		var tmpl = Templates.uipopup;
 		
 		var modal = $(tmpl).modal();
@@ -135,23 +134,46 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'editMessage' : function (model)
 	{
 		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
+		
+		
 		//this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
 	},
 
 	'writeDialog' : function (model, action)
 	{
-		this.popup
-		(
-			new Cloudwalkers.Views.Write 
+		var clone = true;
+		var parameters = action.parameters;
+
+		if (action.token == 'edit')
+		{
+			this.popup
 			(
-				{ 
-					'model' : model.clone (), 
-					'clone' : true, 
-					'actionparameters' : action.parameters,
-					'redirect' : false
-				}
-			)
-		);
+				new Cloudwalkers.Views.Write
+				(
+					{
+						'model' : model.clone (),
+						'clone' : false,
+						'redirect': false
+					}
+				)
+			);
+		}
+
+		else
+		{
+			this.popup
+				(
+					new Cloudwalkers.Views.Write
+					(
+						{
+							'model' : model.clone (),
+							'clone' : clone,
+							'actionparameters' : parameters,
+							'redirect' : false
+						}
+					)
+				);
+		}
 	},
 
 	'shareMessage' : function (model)

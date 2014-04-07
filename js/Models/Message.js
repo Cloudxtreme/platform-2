@@ -1,160 +1,221 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
-
-    'url' : function (params)
-    {
-        return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/message/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/message/' + this.id;
-    },
+	
+	'typestring' : "messages",
 
 	'initialize' : function ()
-	{
-		this.on ('change', this.afterChange);
+	{			
+		// Deprecated?
+		//this.on ('change', this.afterChange);
 
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
 			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
 			this.get ('parentmodel').trigger ('change');
 		}
-		else
-		{
-			this.trigger ('change');
-		}
-
-		//this.addInternalActions ();
+		
+		// Actions
+		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		
+		// Children
+		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
 	'parse' : function(response)
 	{	
-		if(typeof response == "number") return {id: response};
+		// A new object
+		if (typeof response == "number") return response = {id: response};
 		
-		if(response.message) response = response.message;
 		
-		this.stamp(response);
+		else {
+		
+			// Is it a child message?
+			if (response.message) response = response.message;
+			
+			// Handle fresh loads
+			response = this.filterData(response);
+			
+			this.stamp(response);
+			this.checkloaded(response);
+		}
 		
 		return response;
 	},
 	
 	'sync' : function (method, model, options)
 	{
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
-
+		
+		// Hack
+		if(method == "update") return false;
+		
 		return Backbone.sync(method, model, options);
 	},
 	
-	'stamp' : function(params)
+	'checkloaded' : function (response)
 	{
-		if (!params) params = {id: this.id};
+		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
+	},
+	
+	'filterData' : function (response)
+	{	
+		// Set up filtered data
+		var filtered = {};
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule"]
 		
-		params.stamp = Math.round(new Date().getTime() *.001)
+		$.each(values, function(n, value){ filtered[value] = response[value]});
 		
-		Store.set("messages", params);
+
+		// Stream		
+		var stream = Cloudwalkers.Session.getStream(response.stream);
+		
+		if(stream)
+		{
+			filtered.icon = stream.get("network").icon;
+			filtered.networktoken = stream.get("network").token;
+			filtered.networkdescription = stream.get("name");	
+		}
+
+		// Attachments and media
+		if(response.attachments)
+		{			
+			// Media
+			filtered.media = response.attachments[response.attachments.length -1];
+			filtered.media = (filtered.media.type == "image")? "picture" : filtered.media.type;
+			
+			// Attachments
+			filtered.attached = {};
+			$.each(response.attachments, function(n, object){ filtered.attached[object.type] = object });
+		
+		} else filtered.media = "reorder";
+		
+		// If trending
+		if(response.engagement) filtered.trending = response.engagement < 1000? response.engagement: "+999";
+		
+		// If scheduled
+		if(filtered.schedule) filtered.scheduledate = moment(filtered.schedule.date).format("DD MMM YYYY HH:mm");
+		
+		// Add limited text
+		if(response.body) filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
+		
+		// Date
+		if(response.date)
+		{
+			filtered.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
+			filtered.dateonly = moment(response.date).format("DD MMM YYYY");
+			filtered.time = moment(response.date).format("HH:mm");
+		}
+
+
+		return filtered;
+	},
+	
+	'filterActions' : function ()
+	{	
+		if(!this.get("actiontokens")) return [];
+		
+		return this.actions.rendertokens();
+	},
+	
+	'filterCalReadable' : function ()
+	{
+		var loaded = (this.get("objectType"));
+		var media =  loaded && this.get("media") != "reorder";
+		
+		if(!this.calNode) this.calNode = {id: this.id};
+		
+		// Calendar node elements
+		this.calNode.start = loaded? $.fullCalendar.moment(this.get("date")): $.fullCalendar.moment(); /*new Date(this.get("date")): new Date()*/
+		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0, media? 12: 16): "...";
+		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden';
+		this.calNode.networkdescription = loaded? this.get("networkdescription"): null;
+		this.calNode.intro = loaded? this.get("body").intro: null;
+		this.calNode.icon = loaded? this.get("icon"): null;
+		this.calNode.media = media? this.get("media"): null;
+		
+		// Prettify intro
+		if(loaded && this.calNode.intro.length >= 72) this.calNode.intro += "...";
 		
 		return this;
 	},
 	
-	'filterData' : function (type)
-	{
+	/*'filterData' : function (type, data)
+	{	
+	
 		// Handle loading messages
-		if(!this.get("date")) return this.attributes;
+		if(!this.get("objectType")) return this.attributes;
 		
-		var data = this.attributes;
-		var stream = Cloudwalkers.Session.getStream(data.stream);
-		
-		if(data.attachments)
-		{
-			data.media = data.attachments[data.attachments.length -1];
-			data.media.icon = (data.media.type == "image")? "picture" : data.media.type;
-		
-		} else data.media = {icon: "reorder"};
+		var trending = data.trending;
+		var data = {iconview: data.iconview};
+
+		$.extend(data, this.attributes, {iconview: false}); 
+
+		// Stream		
+		var stream = Cloudwalkers.Session.getStream(this.get("stream"));
 		
 		if(stream)
 		{
 			data.icon = stream.get("network").icon;
 			data.networktoken = stream.get("network").token;
+			data.networkdescription = stream.get("name");
 			data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
 			
 		} else data.url = this.link;
+
 		
-		if(type == "trending")
+		// Attachments and media
+		if(this.get("attachments"))
 		{
-			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
-			data.date = null;
-			data.iconview = true;
-		
-		} else if(type == "inbox")
-		{
-			data.url = null;
-			data.media = {icon: data.icon};
-			data.body.plaintext = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";	
-		
-		} else if(type == "full" || type == "fulltrending")
-		{
-			data.url = null;
-			data.share = this.filterShareData(stream);
-			data.iconview = true;
+			var attachments = this.get("attachments");
 			
+			// Media
+			data.media = attachments[attachments.length -1];
+			data.media = (data.media.type == "image")? "picture" : data.media.type;
+			
+			// Attachments
+			data.attached = {};
+			$.each(attachments, function(n, object){ data.attached[object.type] = object });
+		
+		} else data.media = "reorder";
+		
+		// Type dependancies	
+		if(type == "full")
+		{
+			data.url = null;
+			
+			// Date
 			if(data.date)
 			{
+				data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
 				data.dateonly = moment(data.date).format("DD MMM YYYY");
 				data.time = moment(data.date).format("HH:mm");
 			}
 			
-			if(data.attachments)
-			{
-				data.attached = {};
-				$.each(data.attachments, function(n, object){ data.attached[object.type] = object });
-			}
+			// Actions
+			if(!this.actions)
+				this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 			
-			if(type == "fulltrending")
-			{
-				data.time = this.get("engagement");
-			}
+			data.actions = this.actions.rendertokens();
 		}
 		
+		// Add trending parameter
+		if(trending)
+		{
+			data.istrending = true;
+			data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
+			data.iconview = true;
+			data.time = this.get("engagement");
+		}
 		
+		// Add limited text
+		data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";
 
 		return data;
-	},
+	},*/
 
-	'filterShareData' : function (stream)
-	{
-		var share = [];
-		
-		if(stream.get("network").token == "twitter")
-		{
-			// share.push({action: "favorite", icon: "star", name: "Favorite"});
-			// share.push({action: "retweet", icon: "retweet", name: "Retweet"});
-		}
-		
-		if(stream.get("network").token == "facebook")
-		{
-			share.push({action: "like", icon: "thumbs-up", name: "Like"});
-			share.push({action: "comment", icon: "comment-alt", name: "Comment"});
-		}
-		
-		if(stream.get("outgoing"))
-		{
-			share.push({action: "delete", icon: "remove", name: "Delete"});
-			share.push({action: "reply", icon: "comment", name: "Reply"});
-		}
-		
-		share.push({action: "internal-share", icon: "share-alt", name: "Share"});	
-
-		return share;
-	},
-	
 	'location' : function ()
 	{
 		return "#";
-		
-		/*if(this.link) return this.link;
-		
-		var channel = this.channel? this.channel: Cloudwalkers.Session.getChannel(this.collection.parentid);
-		var stream = Cloudwalkers.Session.getStream(this.attributes.stream);
-		
-		return "#" + channel.get("type") + "/" + channel.id + "/0/" + stream.id + "/" + this.id;*/
 	},
 	
 	
@@ -360,7 +421,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						type:"get", 
 						url: url, 
 						success:function(objData)
-						{
+						{   
                             /*
 							var collection = self.collection;
 
@@ -370,9 +431,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 							    collection.fetch ();
                             }
                             */
+                            
                             self.trigger ("destroy", self, self.collection);
+                            
+                            // Hack
+							window.location.reload();
+                            
 						}
 					});
+					
 				}
 			);
 		}
@@ -383,8 +450,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				'Are you sure you want to remove this message?', 
 				function () 
 				{
-                    self.destroy ();
+                    self.destroy ({success:function(){
+	                    
+	                    // Hack
+						 self.trigger ("destroy", self, self.collection);
+						//window.location.reload();
+	                    
+                    }});
                     //self.trigger ("destroy", self, self.collection);
+
 				}
 			);
 		}
@@ -664,6 +738,61 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		};
 
 		return out;
-	}
+	},
 
+	'messageAction' : function (action)
+	{
+
+		if (action == null)
+		{
+			console.log ('Action not found: ' + actiontoken);
+			return;
+		}
+
+		var targetmodel = this;
+
+		if (typeof (action.target) != 'undefined')
+		{
+			targetmodel = action.target;
+
+			if (typeof (action.originalaction) != 'undefined')
+			{
+				action = action.originalaction;
+			}
+		}
+
+		if (typeof (action.callback) != 'undefined')
+		{
+			action.callback (targetmodel);
+		}
+		else
+		{
+			if (action)
+			{
+				if (action.type == 'dialog')
+				{
+					var view = new Cloudwalkers.Views.ActionParameters ({
+						'message' : targetmodel,
+						'action' : action
+					});
+					Cloudwalkers.RootView.popup (view);
+				}
+				else if (action.type == 'simple')
+				{
+					targetmodel.act (action, {}, function (){});
+				}
+
+				else if (action.type == 'write')
+				{
+					Cloudwalkers.RootView.writeDialog
+						(
+							targetmodel,
+							action
+						);
+				}
+			}
+		}
+	}
 });
+
+

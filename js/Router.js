@@ -4,9 +4,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		
 		'write' : 'write',
 		'share' : 'share',
-		'schedule(/:channel)(/:stream)' : 'schedule',
+		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
-		'inbox(/:channel)(/:type)(/:streamid)' : 'inbox',
+		'scheduled' : 'scheduled',
+		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'timeline/:channel(/:stream)' : 'timeline',
@@ -14,9 +15,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
-		'reports' : 'stats',
+		'reports' : 'statistics',
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
+		'work' : 'coworkdashboard',
 		'dashboard/:accountid' : 'changeaccount',
 		'home' : 'home',
 		'*path' : 'dashboard'
@@ -34,6 +36,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (Cloudwalkers.Session.getAccount().get("firstTime"))
 			 
 			return this.navigate("#firsttime", true);
+			
+		// Check administrator level
+		if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
+			 
+			return this.navigate("#work", true);
 		
 		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
@@ -55,6 +62,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Message board
 	 **/
 	 
+	
 	'write' : function ()
 	{
 		var view = new Cloudwalkers.Views.Write ();
@@ -64,61 +72,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'share' : function ()
 	{
 		Cloudwalkers.RootView.viewshare ("general");
-	},
-	 
-	'schedule' : function (channelid, streamid)
-	{
-		var parameters = 			
-		{ 
-			'name' : 'Scheduled messages'
-		};
-
-		var filters = {};
-
-		if (typeof (streamid) != 'undefined' && streamid)
-		{
-			filters.streams = [ streamid ];
-		}
-
-		var channel = new Cloudwalkers.Collections.Scheduled ([], parameters);
-		channel.setFilters (filters);
-
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
-
-		var widget = new Cloudwalkers.Views.Widgets.ScheduledTable ({ 'channel' : channel, 'color' : 'blue' });
-		widgetcontainer.addWidget (widget);
-
-		widgetcontainer.navclass = 'schedule';
-		widgetcontainer.title = 'Schedule';
-
-		if (streamid)
-		{
-			widgetcontainer.subnavclass = 'schedule_' + streamid;
-		}
-
-		Cloudwalkers.RootView.setView (widgetcontainer); 
-	},
-
-	'drafts' : function ()
-	{
-		var collection = new Cloudwalkers.Collections.Drafts
-		(
-			[], 
-			{ 
-				'name' : 'Draft messages',
-				'filter' : 'mine'
-			}
-		);
-
-		var widgetcontainer = new Cloudwalkers.Views.Widgets.WidgetContainer ();
-
-		var widget = new Cloudwalkers.Views.Widgets.DraftList ({ 'channel' : collection, 'color' : 'blue' });
-		widgetcontainer.addWidget (widget);
-
-		widgetcontainer.title = 'Drafts';
-		widgetcontainer.navclass = 'drafts';
-
-		Cloudwalkers.RootView.setView (widgetcontainer); 
 	},
 	
 	/**
@@ -134,17 +87,31 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Inbox
 	 **/
 	 
-	 'inbox' : function (id, type, streamid)
+	 'inbox' : function (type, streamid)
 	{
 		// Parameters
-		var channel = Cloudwalkers.Session.getChannel (id? Number(id): 'inbox');
+		var channel = Cloudwalkers.Session.getChannel ('inbox');
 		
 		if (!channel) return this.home();
 		if (!type) type = "messages";
-		if (!id) Cloudwalkers.Router.Instance.navigate("#inbox/" + channel.id + "/" + type);
 		
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
+	},
+	
+	'drafts' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+	},
+	
+	'scheduled' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Scheduled());
+	},
+	
+	'calendar' : function ()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Calendar());
 	},
 	
 	/**
@@ -159,7 +126,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			Cloudwalkers.Session.getChannel(Number(channelid));
 
 		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40}}));
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40, markasread: true}}));
 	},
 	
 	/**
@@ -177,23 +144,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var params = {
 			since: Math.round(Date.now()/3600000) *3600 - 86400 *span,
 			sort: 'engagement',
-			records: 40
+			records: 40,
+			markasread: true
 		}
 
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
 	},
-	
-	/*'trending' : function (channelid, streamid)
-	{
-		// Get channel from url
-		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
-		
-		// View
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Trending({model: channel}));
-		
-	}, */
-	
 
 	/**
 	 *	Monitoring
@@ -216,7 +173,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'reports' : function (streamid)
 	{
-		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
+		
+		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
 
 		if (streamid)
 		{
@@ -231,7 +189,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Stats (new Reports)
 	 **/
 
-	'stats' : function (streamid)
+	'statistics' : function (streamid)
 	{
 		
 		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
@@ -269,6 +227,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'firsttime' : function ()
 	{	
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
+	},
+	
+	/**
+	 *	Co-worker Dashboard
+	 **/
+
+	'coworkdashboard' : function ()
+	{	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkdashboard());
 	},
 	
 

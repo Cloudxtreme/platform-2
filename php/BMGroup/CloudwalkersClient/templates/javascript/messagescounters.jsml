@@ -11,7 +11,7 @@
 				<ul class="messages-container messages-list">
 
 					{{#list}}
-						<a href="{{url}}">
+						<a href="{{url}}" data-stream="{{id}}">
 							<li>
 								<span class="number unread-{{count}}">{{count}}</span>
 								<i class="icon-{{icon}}"></i>

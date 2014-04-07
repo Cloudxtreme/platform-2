@@ -128,19 +128,6 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	'store' : function()
 	{
 		Store.set("channels", this.attributes);
-	},
-	 
-	'filterMessages' : function(filters, page, callbacks)
-	 {
-		// Endpoints
-		// "/channel/{channelId}/messageids?streams=1,2&channels=4,5"
-		// "message/?ids=14,2,3,4,5"
-		
-		//Cloudwalkers.Net.get("/channel/"+this.category.id+"/messageids", null, function(response){ console.log(response) })
-		
-		
-		
-		 
-	 }
+	}
 	 */
 });

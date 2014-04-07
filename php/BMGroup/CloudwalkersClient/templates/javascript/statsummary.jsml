@@ -2,7 +2,7 @@
 	<tbody>
 		<tr>
 		{{#columns}}
-			<td class="stats-summary-column {{#extended}}column-extended{{/extended}}">
+			<td class="stats-summary-column {{#extended}}column-extended{{/extended}}" data-type="{{func}}">
 				<span class="stats-summary-title">{{title}}</span>
 				<div class="stats-summary-counter">{{counter}}</div>
 				{{#extended}}

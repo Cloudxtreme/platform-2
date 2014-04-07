@@ -58,9 +58,14 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 		
-		var category = Cloudwalkers.Session.getChannel(Number($("#keyword_manage_category").val()));
+		var catid = Number($("#keyword_manage_category").val())
 		
-		category.channels.create(this.keywordParameters(), {parent: category.id, wait: true});//, this.forceChange);
+		// Check selected
+		if(!catid) return Cloudwalkers.RootView.alert("Don't forget to select a category.");
+		
+		var category = Cloudwalkers.Session.getChannel(catid);
+		
+		category.channels.create(this.keywordParameters(), {parent: catid, wait: true});//, this.forceChange);
 		//Cloudwalkers.Session.getAccount().channels.create(object, {parent: this.id, wait: true
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();

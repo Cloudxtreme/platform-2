@@ -34,10 +34,10 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		this.$el.html (Mustache.render (Templates.dashboardmessagecontainer, this.options));
 		this.$container = this.$el.find ('.messages-container');
 		
-		this.type = (this.type == "news" || this.type == "profiles")? "trending": this.type;
+		//this.type = (this.type == "news" || this.type == "profiles")? "trending": this.type;
 		
-		if(!this.options.filters) this.options.filters = {};
-		this.options.filters.records = 10;
+		//if(!this.options.filters) this.options.filters = {};
+		//this.options.filters.records = 10;
 		
 		// Load messages
 		this.model.messages.touch(this.model, this.filters);
@@ -67,11 +67,22 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 			if(this.link) models[n].link = this.link;
 			
 			// Render view
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', type: this.type});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry', /*type: this.type, */ parameters: {trendview: this.trending, mediaview: !this.trending}});
 			this.entries.push (view);
 			
 			this.$container.append(view.render().el);
+			
+			this.listenTo(view, "toggle", this.toggle);
 		}
+	},
+	
+	'toggle' : function (el)
+	{
+		
+		// Get URL
+		var link = this.sublink? this.sublink + this.model.id: this.link;
+		
+		Cloudwalkers.Router.Instance.navigate(link, true);
 	},
 
 	/*'fill' : function (model, ids)
