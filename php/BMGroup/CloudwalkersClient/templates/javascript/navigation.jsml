@@ -1,3 +1,8 @@
+
+<a class="btn btn-compose">
+	<i class="icon-pencil"></i> Compose
+</a>
+
 <ul class="page-sidebar-menu">
 	
 	<!-- Dashboard -->

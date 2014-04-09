@@ -13,8 +13,6 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 			
 		if(!this.model.messages)
 			this.model.messages = new Cloudwalkers.Collections.Messages();
-		
-		
 
 		// Clear the category (prevent non-change view failure)
 		//this.model.set({messages: []});

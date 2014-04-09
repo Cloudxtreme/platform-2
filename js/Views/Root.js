@@ -126,6 +126,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			self.trigger ('content:change');
 		});
 	},
+	
+	'compose' : function ()
+	{
+		// Create Compose view
+		var view = new Cloudwalkers.Views.Compose({type: "post"});
+		
+		view.render().$el.modal();
+	},
 
 	'writeMessage' : function (e)
 	{

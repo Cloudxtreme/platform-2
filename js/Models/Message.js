@@ -139,6 +139,33 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return this;
 	},
 	
+	'addvariation' : function(id)
+	{
+		var variations = this.get("variations");
+		var length = variations.push({stream: id, body: {}});
+		
+		return variations[length-1];
+	},
+	
+	'variation' : function (id, key, value)
+	{
+		// Get variation object
+		var input = this.get("variations").filter(function(el){ if(el.stream == id) return el; });
+	
+		if (input.length) input = input[0];
+		else if(value || typeof key == 'object') input = this.addvariation(id);
+		
+		// Return value	
+		if (!value && typeof key != 'object') return input[key];
+		
+		// Or set value(s)
+		else 
+		{
+			if(value) input[key] = value;
+			else if(typeof key == 'object') $.extend(true, input, key);
+		}		
+	},
+	
 	/*'filterData' : function (type, data)
 	{	
 	

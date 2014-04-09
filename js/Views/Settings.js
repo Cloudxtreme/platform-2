@@ -19,13 +19,14 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 
 		// Build tabs
 		if(this.level)
-		{
+			
 			this.tabs = [
 				{url: '#settings/users', name: "Manage users"},
 				{url: '#settings/services', name: "Social connections"},
 				{url: '#settings/account', name: "Account settings"}
 			];
-		}
+		
+		else this.tabs = [];
 		
 		this.tabs.push ({url: '#settings/profile', name: "Profile settings"});
 		

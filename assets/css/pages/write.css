@@ -22,6 +22,8 @@ Style corrections and manual overrides
 
 /* Write */
 
+.send-message i.icon-envelope-alt	{ margin-top: 1px !important; }
+
 .write h3	{ line-height: 1em; margin-bottom: 20px; }
 
 .write label	{
@@ -76,6 +78,11 @@ Style corrections and manual overrides
 #schedule label	{
 	display: inline; padding: 0 10px; line-height: 1em;
 }
+
+
+.message-schedule .checkbox	{ padding-left: 25px !important; }
+.message-schedule .checkbox input	{ margin-top: -4px !important; }
+
 
 #repeat	label.inactive, #repeat select.inactive {
 	opacity: .25;
