@@ -87,7 +87,41 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container = this.$el.find ('ul.list');
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		//this.collection.touch(this.model, this.filterparameters());
+		this.demo = function(){
+			
+			function lazyload(els,index){
+				setTimeout(function(){
+					els.eq(index).addClass('loaded');
+					if(index<els.length){
+						lazyload(els,index+1);
+					}
+				},100);
+			}
+
+			function removeLoad(){
+				$('.list-loading').addClass('done');
+			}
+
+			function isLoaded(){
+				elements = $('.unloaded');
+				console.log(elements);
+				lazyload(elements,0);
+				$('.progress-bar').addClass('loaded');
+				removeLoad();
+			}
+
+			function startLoad(){
+				$('.progress-bar').addClass('loading');
+				setTimeout(function(){
+					isLoaded();
+				},3000);
+			}
+
+			setTimeout(function(){
+				startLoad();
+			},0);
+		}();
 		
 		return this;
 	},
