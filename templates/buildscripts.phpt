@@ -61,6 +61,7 @@
 <script type="text/javascript" src="/js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
+<script type="text/javascript" src="/js/Views/Demo.js"></script>
 <script type="text/javascript" src="/js/Views/Drafts.js"></script>
 <script type="text/javascript" src="/js/Views/Scheduled.js"></script>
 <script type="text/javascript" src="/js/Views/Calendar.js"></script>
@@ -125,6 +126,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
 
 <!-- Deprecated views -->
+<script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>
 <script type="text/javascript" src="/js/Views/Loading.js"></script>
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
