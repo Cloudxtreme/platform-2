@@ -199,6 +199,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		} else
 		{
+			if(!val.html) val.html = "";
+			
 			this.$el.find("[data-option=fullbody] textarea").val(val.html);
 			this.$el.find("[data-option=limit]").html(140 -val.html.length);
 		}

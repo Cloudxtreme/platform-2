@@ -74,7 +74,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
 		
 		// Get template
-		this.$el.html (Mustache.render (Templates.inboxlist, param));
+		this.$el.html (Mustache.render (Templates.demolist, param));
 		
 		// Set selected streams
 		if (this.filters.streams.length)
