@@ -127,6 +127,7 @@
 
 <!-- Deprecated views -->
 <script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DemoMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Loading.js"></script>
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>

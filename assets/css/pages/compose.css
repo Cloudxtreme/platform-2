@@ -151,6 +151,12 @@ Style corrections and manual overrides
 	float: right; margin-left: 120px;
 }
 
+/**
+ *	Collapsable: images
+**/
+
+#compose [data-collapsable=images] input	{ display: none; }
+
 
 /**
  *	Footer

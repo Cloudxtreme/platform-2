@@ -35,7 +35,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'blur [data-option] input' : 'monitor',
 		'blur [data-option] textarea' : 'monitor',
-		'keyup [data-option] textarea' : 'monitor'
+		'keyup [data-option] textarea' : 'monitor',
+		
+		'click .add-snapshot' : 'addsnapshot',
+		'change [data-collapsable=images] input' : 'listentosnapshot'
 	},
 	
 	/*'title' : "Compose message",
@@ -209,6 +212,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (options.indexOf("images") >= 0)		this.$el.find("[data-collapsable=images].hidden").removeClass("hidden");
 		else									this.$el.find("[data-collapsable=images]").addClass("hidden");
 		
+		if (options.indexOf("multiple") >= 0)	this.$el.find("[data-collapsable=images] input").attr("multiple", "multiple");
+		else									this.$el.find("[data-collapsable=images] input").removeAttr("multiple");
+		
 		// Link options
 		if (options.indexOf("link") >= 0)		this.$el.find("[data-collapsable=link].hidden").removeClass("hidden");
 		else									this.$el.find("[data-collapsable=link]").addClass("hidden");
@@ -237,6 +243,26 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update draft
 		if (streamid)	this.draft.variation(streamid, input);
 		else 			this.draft.set(input);
+	},
+	
+	'addsnapshot' : function (e)
+	{
+		
+		$("[data-collapsable=images] input").click();
+		
+		
+	},
+	
+	'listentosnapshot' : function (e)
+	{
+		var files = e.currentTarget.files;
+		
+		console.log(files)
+		
+		var snapshot = $("<li><img /></li>").prependTo("[data-collapsable=images] ul");
+		
+		
+		
 	},
 	
 	/* Deprecated */

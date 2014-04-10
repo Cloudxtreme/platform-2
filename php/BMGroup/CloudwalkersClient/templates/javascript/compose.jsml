@@ -44,7 +44,14 @@
 		
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
-			<div class="collapsable-content"></div>
+			<div class="collapsable-content">
+				
+				<ul>
+					<li class="add-snapshot">&plus;</li>
+				</ul>
+				<input type="file" multiple="multiple" />
+				
+			</div>
 			<div class="summary"></div>
 			
 			<div class="btn-white" data-toggle="images">Images</div>
