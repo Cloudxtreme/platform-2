@@ -3,8 +3,12 @@ Style corrections and manual overrides
 ***/
 
 /**
- *	Upcoming generic classes
- */
+ *	Generic classes
+**/
+
+.hidden	{ display: none; }
+
+
 
 /* White Button */
 .btn-white	{
@@ -42,42 +46,13 @@ li.btn-white	{
 
 
 /**
- *	Quick fixes
+ *	DEPRECATED
  */
-
-.hidden	{ display: none; }
-
-.messages-container .media i	{ color: white; }
-
-.attachment-link	{ white-space: nowrap; }
-
-.black-icons i	{ color: black !important; }
-
-.actions,
-[data-keyword],
-[data-open-service],
-[data-header-action],
-[data-notification-action],
-.category-name.edit-toggler h4	{ cursor: pointer; }
-
-.message-schedule .checkbox	{ padding-left: 25px !important; }
-.message-schedule .checkbox input	{ margin-top: -4px !important; }
 
 .dashboard-trending-limit-height	{
 	overflow: hidden; max-height: 60px; 
 }
 
-.avatar-big	{ background-size: 100% auto !important; }
-
-table.charttable .text	{ text-align: left; }
-
-.send-message i.icon-envelope-alt	{ margin-top: 1px !important; }
-
-#inboxcontainer.inner-empty:after	{ content: "no messages"; }
-
-.span12 .messages-container td	{ width: 10%; word-wrap: break-word; }
-
-#monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
 
 [data-service-container].inner-loading	{ border-width: 0 !important; }
 
@@ -91,7 +66,7 @@ table.charttable .text	{ text-align: left; }
 .add-data select.inactive, .new-campaign.inactive	{ display: none; }
 input[name="campaignname"]	{ height: 24px; margin: 0; }
 
-.managekeywords .inactive	{ display: none; }
+
 
 .campaign-list	{font-size: 14px; }
 .campaign-list li	{ line-height: 2em; }
@@ -123,9 +98,7 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 .btn.blue.limited[disabled]	{ background: #ddd !important; }
 
 
-tbody.messages-container i	{
-	padding: 0 2px 0 6px !important; float: none !important;
-}
+
 
 .notification-action	{
 	padding: 1px 3px; margin: 0 2px; border-radius: 2px !important; background: white;
@@ -229,6 +202,19 @@ nav	{
 #sidebar.collapsed span.title	{ display: none; }
 
 #sidebar.collapsed ul.page-sidebar-menu > li > ul.sub-menu > li > a	{ padding-left: 15px !important; }
+
+#sidebar .btn-compose	{
+	display: block; margin: 20px 15px 8px; background-color: #2bbedc; border-bottom: 2px solid #1aa6c2; border-radius: 2px; box-shadow: 0 0 1px rgba(0,0,0, .4);
+	color: white; text-shadow: 0 -1px 0 rgba(0,0,0, .12) !important; font-weight: 100;
+}
+
+#sidebar .btn-compose:hover	{ 
+	padding-bottom: 8px; border-bottom-width: 1px; background-color: #27c9ea !important;
+}
+
+#sidebar .btn-compose i	{
+	position: relative; left: -8px;
+}
 
 /* SHARE */
 
@@ -444,28 +430,17 @@ nav	{
   content: "\f078";
 }
 
-.portlet.box .portlet-title.expand-portlet .tools > a:after
-{
- content: "\f077"; 
+.portlet.box .portlet-title.expand-portlet .tools > a:after	{ content: "\f077"; }
+
+.portlet.box .portlet-title.collapse-portlet .tools > a:after	{ content: "\f078"; }
+
+.messages-container .media i	{ color: white; }
+
+tbody.messages-container i	{
+	padding: 0 2px 0 6px !important; float: none !important;
 }
 
-.portlet.box .portlet-title.collapse-portlet .tools > a:after
-{
-  content: "\f078";
-}
-
-/*.messages-counter .messages-header	{
-	background: #2bbedc; padding: 12px 8px 6px; position: relative; top: -6px;
-	color: white; text-align: center; font-size: 1.2em;
-}
-
-.messages-counter .messages-header.unread-0	{ background: #eee; }
-
-.messages-counter .messages-header.unread-0 strong	{ font-weight: normal; }
-
-.messages-counter .messages-header .number strong	{ font-size: 1.2em; }
-
-.messages-counter .messages-stream a:hover	{ text-decoration: none; }*/
+.span12 .messages-container td	{ width: 10%; word-wrap: break-word; }
 
 .portlet .messages-container li	{
 	min-height: 60px; margin: 0; padding: 10px 8px; background:#fff; border: 1px solid #ddd; border-bottom-width: 0;
@@ -597,10 +572,14 @@ nav	{
 	padding: 2px 8px; display: inline; border-radius: 20px !important; background: #d9edf7;
 }
 
+.attachment-link	{ white-space: nowrap; }
+
 .portlet .messages-container .attachment-link i	{
 	color: white; padding-right: 2px; float: none;
 	font-size: 14px; line-height: 2em;
 }
+
+
 
 
 
@@ -893,8 +872,10 @@ nav	{
 #inboxcontainer #widgetcontainer > .row-fluid > .span8, #inbox	{ max-height: inherit; }
 
 #inboxcontainer #widgetcontainer .span8	{
-	margin-top: 8px;/*margin: 8px 1.06382978723404%;*/
+	margin-top: 8px;/
 }
+
+#inboxcontainer.inner-empty:after	{ content: "no messages"; }
 
 #list	{ background-color: white; border-right: 1px solid #ddd; }
 
@@ -1013,7 +994,7 @@ nav	{
 
 #filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
 
-#inboxlist .list li	{
+#inboxlist .list li, #inboxlist .list-loading	{
 	min-height: 40px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
 	font-weight: 300;
 }
@@ -1109,6 +1090,57 @@ nav	{
 #inboxlist .list .link:hover	{
 	text-decoration: none; background: #333;
 }
+
+/* Demo loading */
+
+.list-loading{
+	position: absolute; width: 100%; background-color: #f5f5f5 !important; top:0px;
+}
+.list-loading:before{
+	font-family: FontAwesome; font-size: 3em; color: #CCC; content: "\F0ED"; -webkit-font-smoothing: antialiased; 	position: relative; top: 12px; left: 6px;
+	-webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite;
+}
+.list-loading.done{
+	top: -10px;	opacity: 0;
+	-webkit-transition: all .15s ease-out;
+}
+
+.unloaded{
+	opacity: 0; position: relative;	bottom: 10px;
+	-webkit-transition: all .25s ease-out;
+}
+
+.unloaded.loaded	{opacity: 1; bottom: 0px;}
+
+.btn.load-more	{display: none;}
+
+.progress-wrap{
+	width:100%;
+	height:5px;
+	position: absolute;
+	z-index: 1;
+}
+
+.progress-bar{
+	height: 100%;
+	width: 0%;
+	background-color: #e02222;
+	opacity: 1;
+	-webkit-transition: width 3s ease-out;
+}
+
+.progress-bar.loading{
+	width: 100%;
+}
+
+.progress-bar.loaded{
+	opacity: 0;
+	-webkit-transition: opacity .15s ease-out;
+	
+}
+
+
+/* Demo loading end */
 
 /* Inbox Container */
 #widgetcontainer .span8.inbox-container	{
@@ -1356,7 +1388,9 @@ nav	{
 	font-size: 1.2em; margin: 0 2px; padding: 6px;
 }
 
+#monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
 
+.managekeywords .inactive	{ display: none; }
 
 
 /**
@@ -1414,6 +1448,20 @@ nav	{
 
 #monitolist tr.hidden	{ display: none; }
 
+/**
+ *	Reports
+**/
+
+.black-icons i	{ color: black !important; }
+
+.actions,
+[data-keyword],
+[data-open-service],
+[data-header-action],
+[data-notification-action],
+.category-name.edit-toggler h4	{ cursor: pointer; }
+
+
 
 /**
  * Thijs
@@ -1454,6 +1502,8 @@ li.comments-row.selected
 {
   text-align: center;
 }
+
+table.charttable .text	{ text-align: left; }
 
 .table-container th
 {

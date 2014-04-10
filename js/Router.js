@@ -2,6 +2,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
 		
+		'demo' : 'demo',
+		
 		'write' : 'write',
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
@@ -25,6 +27,22 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	},
 
 	'initialize' : function (){},
+	
+	/**
+	 *	Demo
+	 **/
+	 
+	 'demo' : function (type, streamid)
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel ('inbox');
+		
+		var type = "messages";
+		
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Demo({channel: channel, type: type, streamid: streamid}));
+	},
+
 	
 	/**
 	 *	Dashboard

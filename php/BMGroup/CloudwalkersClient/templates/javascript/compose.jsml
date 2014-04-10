@@ -1,0 +1,97 @@
+
+<aside>
+	<h3>Networks</h3>
+	<ul class="compose-streams social-icon-colors">
+	{{#streams}}
+		<li data-streams="{{id}}" class="btn-white inactive"><i class="icon-{{attributes.network.icon}}"></i><span>{{attributes.defaultname}}</span></li>
+	{{/streams}}
+	</ul>
+</aside>
+
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3>{{title}}</h3>
+	</div>
+	<div class="modal-body">
+
+		<section class="stream-tabs">
+			<div class="stream-tab active">Default</div>
+		</section>
+		
+		<section data-type="post">
+			
+			<!--<div class="input-prepend">
+				<span class="add-on"><i class="icon-cloud"></i></span>
+				<input type="text" placeholder="Subject" />
+			</div>
+			
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-cloud"></i></span>
+				<textarea></textarea>
+			</div>-->
+			
+			<div class="input-symbol" data-option="subject">
+				<input type="text" placeholder="Subject" />
+			</div>
+			
+			<div class="input-symbol" data-option="fullbody">
+				<textarea></textarea>
+				<div class='limit-counter' data-option="limit">140</div>
+			</div>
+			
+		</section>
+		
+		<section data-collapsable="images" class="collapsed clearfix first">
+			
+			<div class="collapsable-content"></div>
+			<div class="summary"></div>
+			
+			<div class="btn-white" data-toggle="images">Images</div>
+			
+		</section>
+		
+		<section data-collapsable="link" class="collapsed clearfix">
+			
+			<div class="collapsable-content"></div>
+			<div class="summary"></div>
+			
+			<div class="btn-white" data-toggle="link">Link</div>
+			
+		</section>
+		
+		<section data-collapsable="campaign" class="collapsed clearfix">
+			
+			<div class="collapsable-content"></div>
+			<div class="summary"></div>
+			
+			<div class="btn-white" data-toggle="campaign">Campaign</div>
+			
+		</section>
+		
+		<section data-collapsable="schedule" class="collapsed clearfix">
+			
+			<div class="collapsable-content"></div>
+			<div class="summary"></div>
+			
+			<div class="btn-white" data-toggle="schedule">Schedule</div>
+			
+		</section>
+		
+		<section data-collapsable="repeat" class="collapsed clearfix last">
+		
+			<div class="collapsable-content"></div>
+			<div class="summary"></div>
+			
+			<div class="btn-white" data-toggle="repeat">Repeat</div>
+			
+		</section>
+		
+		
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn">Save</button>
+		<button class="btn btn-primary">Post</button>
+	</div>
+</div>

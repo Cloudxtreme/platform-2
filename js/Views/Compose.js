@@ -1,12 +1,44 @@
 /**
- *	Write
+ *	Compose
  *	probably the most important view.
  *
 **/
 
-Cloudwalkers.Views.Write = Backbone.View.extend({
-
-	'title' : "Compose message",
+Cloudwalkers.Views.Compose = Backbone.View.extend({
+	
+	'id' : "compose",
+	'className' : "modal hide fade clearfix",
+	'type' : "post",
+	'network' : "default",
+	
+	'titles' : {
+		'post' : "Write Post"
+	},
+	
+	'options' : {
+		false :			["subject","link","images"],
+		'twitter' :		["images"],
+		'facebook' :	["subject","fullbody","link","images"],
+		'linkedin' :	["subject","fullbody","link","images"],
+		'tumblr' :		["subject","fullbody","link","images"],
+		'google-plus' :	["subject","fullbody","link","images"],
+		'youtube' :		["subject","fullbody","link","video"],
+		'blog' :		["subject","fullbody","link","images"],
+		'group' :		["images","link"],
+		'mobile-phone':	[]
+	},
+	
+	'events' : {
+		'click li[data-streams]' : 'togglestreams',
+		'click .stream-tabs div' : 'togglestream',
+		'click [data-toggle]' : 'toggleoption',
+		
+		'blur [data-option] input' : 'monitor',
+		'blur [data-option] textarea' : 'monitor',
+		'keyup [data-option] textarea' : 'monitor'
+	},
+	
+	/*'title' : "Compose message",
 	'tagName' : 'form',
 	'className' : 'write',
 	'typestring' : "messages",
@@ -25,8 +57,6 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		'group' : ["url", "images"],
 	},
 	
-	// Twitter link = 23
-	
 	'events' : 
 	{
 		'click li[data-stream-id]' : 'togglestream',
@@ -43,19 +73,177 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
         'click .btnShortenURL' : 'shortenUrl',
         'change select[name=campaign]' : 'selectCampaign',
         'click [name=add-campaign]' : 'addCampaign',
-	},
+	},*/
 	
 	'initialize' : function (options)
 	{
 		// Parameters
 		if(options) $.extend(this, options);
 		
-		// Actions
-		this.on("ready", this.ready);
+		// Available Streams
+		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
+				
+		// Draft message
+		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "body": {}});
+
 	},
 
 	'render' : function ()
 	{
+		// Collect data
+		var params = {};
+		params.streams = this.streams.models;
+		params.title = this.titles[this.type];
+		
+		// Create view
+		var view = Mustache.render(Templates.compose, params);
+		this.$el.html (view);
+
+		return this;
+	},
+	
+	'toggleoption' : function (e)
+	{
+		var $btn = $(e.currentTarget);
+		var option = $btn.data("toggle");
+		
+		$btn.parent().toggleClass("collapsed");
+	},
+	
+	'togglestreams' : function (e)
+	{
+		var $btn = $(e.currentTarget);
+		var id = $btn.data("streams");
+		var stream = Cloudwalkers.Session.getStream(id);
+		
+		// Switch buttons and tabs
+		if(!$btn.hasClass("active"))
+			
+			this.$el.find(".stream-tabs").append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
+			
+		else {
+			this.$el.find("[data-stream="+ id +"]").remove();
+			
+			// Shift active stream
+			if(!this.$el.find(".stream-tabs div.active").size())
+			{
+				var activediv = this.$el.find(".stream-tabs div").eq(0);
+				var activeid = activediv.data('stream');
+				
+				activediv.addClass('active');
+				
+				// Toggle subcontents
+				this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
+			}
+		}
+		
+		$btn.toggleClass("inactive active");
+			
+	},
+	
+	'togglestream' : function (e)
+	{
+		var $btn = $(e.currentTarget);
+		var id = $btn.data("stream");
+		
+		var stream = id? Cloudwalkers.Session.getStream(id): false;
+		
+		this.$el.find(".stream-tabs div.active").removeClass('active');
+		
+		$btn.addClass('active');
+		
+		// Toggle subcontent
+		this.togglesubcontent(stream);
+	},
+	
+	'togglesubcontent' : function (stream)
+	{
+		this.activestream = stream;
+		
+		// Get the right network
+		var network = stream? stream.get("network").token: false;
+		var icon = stream? stream.get('network').icon: 'default';
+		var options = this.options[network];
+		var id = stream? stream.id: false;
+		
+		//var input = this.getinput(network, id);
+		
+		// Add network icon
+		this.$el.find(".modal-body").get(0).className = "modal-body";
+		this.$el.find(".modal-body").addClass(icon + "-theme");
+		
+		// Subject
+		if (options.indexOf("subject") >= 0)
+		{
+			this.$el.find("[data-option=subject].hidden").removeClass("hidden");
+			
+			var val = network?	this.draft.variation(id, "subject"): this.draft.get("subject");
+			
+			if(network && !val)	this.$el.find("[data-option=subject] input").val("").attr("placeholder", this.draft.get("subject"));
+			else 				this.$el.find("[data-option=subject] input").val(val);
+		
+		} else					this.$el.find("[data-option=subject]").addClass("hidden");
+
+		
+
+		// Full Body
+		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
+		else									this.$el.find("[data-option=limit].hidden").removeClass("hidden");
+		
+		var val = network? this.draft.variation(id, "body"): this.draft.get("body");
+		
+		if(network && (!val || !val.html))
+		{
+			this.$el.find("[data-option=fullbody] textarea").val("").attr("placeholder", this.draft.get("body").html);
+			if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
+		
+		} else
+		{
+			if(!val.html) val.html = "";
+			
+			this.$el.find("[data-option=fullbody] textarea").val(val.html);
+			this.$el.find("[data-option=limit]").html(140 -val.html.length);
+		}
+		
+		// Image options
+		if (options.indexOf("images") >= 0)		this.$el.find("[data-collapsable=images].hidden").removeClass("hidden");
+		else									this.$el.find("[data-collapsable=images]").addClass("hidden");
+		
+		// Link options
+		if (options.indexOf("link") >= 0)		this.$el.find("[data-collapsable=link].hidden").removeClass("hidden");
+		else									this.$el.find("[data-collapsable=link]").addClass("hidden");
+
+	},
+	
+	'monitor' : function (e)
+	{
+		// Stream
+		var streamid = this.activestream? this.activestream.id: false;
+		var input = {body: {}};
+		
+		// Subject
+		var val = this.$el.find("[data-option=subject] input").val();
+		if(!streamid || (streamid && this.draft.variation(streamid, "subject") != val)) input.subject = val;
+		
+		// Body (will be extended with a shadow body)
+		var val = this.$el.find("[data-option=fullbody] textarea").val();
+		var body = this.draft.variation(streamid, "body");
+		
+		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
+		
+		// Limit counter
+		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
+		
+		// Update draft
+		if (streamid)	this.draft.variation(streamid, input);
+		else 			this.draft.set(input);
+	},
+	
+	/* Deprecated */
+	
+	'render_old' : function ()
+	{
+
 		// Parameters
 		var data = {streams: [], input: {}, attachments: {}};
 		
@@ -375,12 +563,12 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.$body
 	},
 	
-	'togglestream' : function (e)
+	/*'togglestream' : function (e)
 	{
 		$(e.currentTarget).toggleClass("inactive active");
 		
 		this.managestreams();
-	},
+	},*/
 	
 	'managestreams' : function ()
 	{
