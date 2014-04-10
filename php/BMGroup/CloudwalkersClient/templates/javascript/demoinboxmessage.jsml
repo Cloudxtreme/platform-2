@@ -1,0 +1,64 @@
+<div class="message-header {{icon}}-color" data-id="{{id}}" style="position: relative;">
+	<!--<div class="progress-wrap">
+		<div class="progress-bar">
+			<div class="tip"/>
+		</div>
+	</div>-->
+	<div class="header-loading {{isdone}}"></div>
+	<div class="inherit">
+		{{#from}}
+		<div class="pull-right">
+			<span class="date">{{fulldate}}</span>
+			<i class="icon-{{icon}}"></i>
+		</div>
+		
+		
+		<img class="avatar" alt="" src="{{avatar}}">
+		<div>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<br /><em>on {{networkdescription}}</em>
+		</div>
+		{{/from}}
+
+	</div>
+</div>
+
+<div class="message-body">
+	{{#attached.image}}
+		<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+	{{/attached.image}}
+	
+	{{#attached.video}}
+		<div class="pull-right inbox-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+	{{/attached.video}}
+	
+	{{{body.html}}}
+	
+	{{#attached.link}}
+		<div class="attachment-link">
+			<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+		</div>
+	{{/attached.link}}
+</div>
+
+<div class="message-actions">
+	{{#actions}}
+		<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+	{{/actions}}
+</div>
+
+{{#commented}}
+<div class="message-comments">
+
+	<div class="scroller">
+		<div class="comments-pointer"></div>
+	
+		<ul>
+			<li>
+				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> commented {{timeago}}
+			</li>
+		</ul>
+	</div>
+
+</div>
+{{/commented}}

@@ -26,8 +26,11 @@ Cloudwalkers.Views.Widgets.DemoMessage = Cloudwalkers.Views.Entry.extend({
 		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
 		$.extend(params, this.model.attributes, {actions: this.model.filterActions()})
 		
+		if(params.body !== undefined){ //passes onto the html a class representing that the content has been loaded
+			params.isdone = "done";
+		}
 		// Visualize
-		this.$el.html (Mustache.render (Templates.inboxmessage, params));
+		this.$el.html (Mustache.render (Templates.demoinboxmessage, params));
 		
 		this.time();
 		

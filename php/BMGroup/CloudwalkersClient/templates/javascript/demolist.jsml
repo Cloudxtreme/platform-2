@@ -42,15 +42,17 @@
 	<div class="clearfix" style="position: relative;">
 		<ul class="list">
 			<div class="progress-wrap">
-				<div class="progress-bar"></div>
+				<div class="progress-bar">
+					<div class="tip"/>
+				</div>
 			</div>
-				<li class="list-loading"></li>
-				<li class="unloaded">Dummy data</li>
-				<li class="unloaded">Dummy data</li>
-				<li class="unloaded">Dummy data</li>
-				<li class="unloaded">Dummy data</li>
-				<li class="unloaded">Dummy data</li>
-				<li class="unloaded">Dummy data</li>
+			<li class="list-loading"></li>
+			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li>
 		</ul>
 		<input type="button" class="btn load-more" value="load more" />
 	</div>

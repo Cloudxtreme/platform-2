@@ -87,7 +87,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container = this.$el.find ('ul.list');
 		
 		// Load messages
-		//this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters());
 		this.demo = function(){
 			
 			function lazyload(els,index){
@@ -96,7 +96,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 					if(index<els.length){
 						lazyload(els,index+1);
 					}
-				},100);
+				},50);
 			}
 
 			function removeLoad(){
@@ -105,7 +105,6 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 			function isLoaded(){
 				elements = $('.unloaded');
-				console.log(elements);
 				lazyload(elements,0);
 				$('.progress-bar').addClass('loaded');
 				removeLoad();
@@ -183,7 +182,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.DemoMessage({model: view.model});
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
