@@ -111,7 +111,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<button class="btn">Save</button>
-		<button class="btn btn-primary">Post</button>
+		<button id="save" class="btn">Save</button>
+		<button id="post" class="btn btn-primary">Post</button>
 	</div>
 </div>

@@ -41,6 +41,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .add-snapshot' : 'addsnapshot',
 		'change [data-collapsable=images] input' : 'listentofiles',
 		'click .photo-booth' : 'listentobooth',
+		
+		'click #post' : 'post',
+		'click #save' : 'save'
 	},
 	
 	/*'title' : "Compose message",
@@ -89,7 +92,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 				
 		// Draft message
-		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "body": {}});
+		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streamids": [], "body": {}});
 
 	},
 
@@ -123,14 +126,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("streams");
+		
 		var stream = Cloudwalkers.Session.getStream(id);
+		var streamids = this.draft.get("streams");
 		
 		// Switch buttons and tabs
 		if(!$btn.hasClass("active"))
-			
+		{
 			this.$el.find(".stream-tabs").append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
 			
-		else {
+			// Add to draft
+			streamids.push(id);
+			
+		} else {
 			this.$el.find("[data-stream="+ id +"]").remove();
 			
 			// Shift active stream
@@ -144,6 +152,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				// Toggle subcontents
 				this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
 			}
+			
+			// Remove from draft
+			streamids.splice(streamids.indexOf(id), 1);
 		}
 		
 		$btn.toggleClass("inactive active");
@@ -328,6 +339,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Hide Photo Booth
 		this.$el.find(".photo-booth").addClass("hidden");
+	},
+	
+	'post' : function()
+	{
+		this.draft.save({status: "scheduled"}, {patch: true});
+	},
+	
+	'save' : function()
+	{
+		this.draft.save({status: "draft"}, {patch: true});
 	},
 	
 	/* Deprecated */

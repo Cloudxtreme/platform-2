@@ -20,6 +20,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
+	'url' : function (params)
+    {
+        if(!this.id)
+        	return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	CONFIG_BASE_URL + 'json/' + this.typestring + this.id;
+    },
+
 	'parse' : function(response)
 	{	
 		// A new object
