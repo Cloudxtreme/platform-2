@@ -39,6 +39,7 @@
 <!-- END BOOTSTRAP PLUGINS --> 
 <!-- HTML5 PLUGINS -->
 <script src="/assets/plugins/chart.js/Chart.min.js"></script>
+<script src="/assets/plugins/media.js"></script>
 <!-- END HTML5 PLUGINS -->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>

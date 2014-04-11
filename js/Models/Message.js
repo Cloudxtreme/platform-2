@@ -139,6 +139,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return this;
 	},
 	
+	'attach' : function (attach, index)
+	{
+		var attachments = this.get("attachments");
+		
+		var response = (index && attachments[index])?	$.extend(attachments[index], attach) :
+														attachments.push(attach);
+			
+		this.set({attachments: attachments});
+		
+		return response;
+	},
+	
+	'unattach' : function (index)
+	{
+		var attachments = this.get("attachments");
+		
+		// Remove attachment
+		attachments.splice(index, 1);
+	},
+	
 	'addvariation' : function(id)
 	{
 		var variations = this.get("variations");

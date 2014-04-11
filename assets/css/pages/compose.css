@@ -132,7 +132,7 @@ Style corrections and manual overrides
 }
 
 #compose .modal-body section .btn-white[data-toggle]	{
-	width: 90px; height: 32px; display: block; box-sizing: border-box;
+	float: left; width: 90px; height: 32px; display: block; box-sizing: border-box;
 	text-align: center;
 }
 
@@ -148,7 +148,7 @@ Style corrections and manual overrides
 
 
 #compose [data-collapsable] .summary	{
-	float: right; margin-left: 120px;
+	margin-left: 100px;
 }
 
 /**
@@ -157,6 +157,40 @@ Style corrections and manual overrides
 
 #compose [data-collapsable=images] input	{ display: none; }
 
+#compose [data-collapsable=images] .collapsable-content > div > span	{
+	background: #ddd; float: left; padding: 10px; border-radius: 3px;
+	font-size: 1.2em; color: white; 
+}
+
+#compose [data-collapsable=images] ul	{
+	margin: 0 0 4px 90px; list-style: none;
+}
+
+#compose [data-collapsable=images] li	{
+	float: left; width: 40px; height: 38px; margin-left: 4px; border-radius: 3px; background: #aaa center no-repeat; background-size: 125% auto; cursor: pointer;
+	font-size: 38px; color: white; font-weight: 100; text-align: center; line-height: .92em;
+}
+
+#compose [data-collapsable=images] .summary li	{
+	width: 34px; height: 32px; border-radius: 2px;
+}
+
+#compose .photo-booth	{
+	float: right; width: 240px; background-color: #ddd; border-radius: 3px; overflow: hidden;
+}
+
+#compose .photo-booth h2	{
+	text-align: center; color: white; font-weight: normal; font-size: 1.2em; line-height: 1.1em;
+}
+
+#compose .photo-booth video	{ width: 100%; }
+
+#compose .photo-booth .capture-button	{
+	position: absolute; margin-left: 100px; margin-top: -110px;
+	font-size: 35px; color: rgba(255,255,255, .2);
+}
+
+#compose .photo-booth:hover .capture-button	{ color: rgba(255,255,255, .6); }
 
 /**
  *	Footer

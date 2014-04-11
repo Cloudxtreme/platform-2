@@ -21,16 +21,6 @@
 		
 		<section data-type="post">
 			
-			<!--<div class="input-prepend">
-				<span class="add-on"><i class="icon-cloud"></i></span>
-				<input type="text" placeholder="Subject" />
-			</div>
-			
-			<div class="input-prepend">
-				<span class="add-on"><i class="icon-cloud"></i></span>
-				<textarea></textarea>
-			</div>-->
-			
 			<div class="input-symbol" data-option="subject">
 				<input type="text" placeholder="Subject" />
 			</div>
@@ -45,16 +35,39 @@
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
 			<div class="collapsable-content">
+					
+				<div class="photo-booth hidden">
+					<h2>Photo Booth</h2>
+					
+					<video autoplay></video>
+					<canvas style="display:none;" width="640" height="480"></canvas>
+					
+					<div class='capture-button'><i class="icon-camera-retro"></i></div>
+					
+					<div id="snapshot"><i class="fa fa-camera-retro"></i></div>
+				</div>
 				
-				<ul>
-					<li class="add-snapshot">&plus;</li>
-				</ul>
 				<input type="file" multiple="multiple" />
 				
+				<div >
+					<span>Pictures</span>
+					<ul class="pictures-container clearfix">
+						<li class="add-file">&plus;</li>
+					</ul>
+				</div>
+				
+				<div class="clearfix">
+					<span>Camera</span>
+					<ul class="snapshots-container clearfix">
+						<li class="add-snapshot">&plus;</li>
+					</ul>
+				</div>
+				
 			</div>
-			<div class="summary"></div>
 			
 			<div class="btn-white" data-toggle="images">Images</div>
+			
+			<ul class="summary"></ul>
 			
 		</section>
 		
