@@ -3,8 +3,11 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 	'title' : 'Inbox',
 	'className' : "container-fluid inbox",
 	
-	'initialize' : function ()
+	'initialize' : function (options)
 	{
+
+		if(options) $.extend(this, options);
+
 		// Memory cloth
 		var settings = Cloudwalkers.Session.viewsettings(this.options.type);
 		
@@ -27,7 +30,7 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
-		
+
 		// Pageview listeners
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 

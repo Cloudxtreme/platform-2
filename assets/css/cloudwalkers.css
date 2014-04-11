@@ -1111,6 +1111,22 @@ tbody.messages-container i	{
 	-webkit-transition: all .15s ease-out;
 }
 
+.list-loading.empty-list:before{
+	content: "\F042"; -webkit-animation: none; color: #CCC;
+}
+
+.list-loading.empty-list{
+	background-color: #eee !important;
+}
+
+.inbox-container.empty-content{
+	height: 100%; text-align: center;
+}
+
+.inbox-container.empty-content:before{
+	font-family: FontAwesome; font-size: 200px; color: #CCC; content: "\F042"; -webkit-font-smoothing: antialiased; position: relative; top: 50%;
+}
+
 .header-loading.done{
 	top: 0px;
 }

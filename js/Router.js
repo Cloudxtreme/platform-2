@@ -2,7 +2,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
 		
-		'demo' : 'demo',
+		'demo(/:demotype)' : 'demo',
 		
 		'write' : 'write',
 		'share' : 'share',
@@ -32,7 +32,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Demo
 	 **/
 	 
-	 'demo' : function (type, streamid)
+	 'demo' : function (demotype)
 	{
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
@@ -40,7 +40,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var type = "messages";
 		
 		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Demo({channel: channel, type: type, streamid: streamid}));
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Demo({channel: channel, type: type, demotype: demotype}));
 	},
 
 	

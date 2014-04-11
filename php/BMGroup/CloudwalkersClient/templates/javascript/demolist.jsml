@@ -45,12 +45,12 @@
 				<div class="tip"/>
 			</div>
 			<li class="list-loading"></li>
+<!-- 			<li class="unloaded">Dummy data</li>
 			<li class="unloaded">Dummy data</li>
 			<li class="unloaded">Dummy data</li>
 			<li class="unloaded">Dummy data</li>
 			<li class="unloaded">Dummy data</li>
-			<li class="unloaded">Dummy data</li>
-			<li class="unloaded">Dummy data</li>
+			<li class="unloaded">Dummy data</li> -->
 		</ul>
 		<input type="button" class="btn load-more" value="load more" />
 	</div>
