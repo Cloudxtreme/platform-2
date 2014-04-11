@@ -1120,7 +1120,7 @@ tbody.messages-container i	{
 }
 
 .inbox-container.empty-content{
-	height: 100%; text-align: center;
+	height: 90%; text-align: center;
 }
 
 .inbox-container:before{
