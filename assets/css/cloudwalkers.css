@@ -1112,7 +1112,7 @@ tbody.messages-container i	{
 }
 
 .list-loading.empty-list:before{
-	content: "\F042"; -webkit-animation: none; color: #CCC;
+	content: "\F042"; -webkit-animation: none; color: #ddd;
 }
 
 .list-loading.empty-list{
@@ -1123,8 +1123,13 @@ tbody.messages-container i	{
 	height: 100%; text-align: center;
 }
 
+.inbox-container:before{
+	font-family: FontAwesome; font-size: 0px; color: #ddd; content: "\F042"; -webkit-font-smoothing: antialiased; position: relative; top: 50%;
+	-webkit-transition: font .15s ease-out;
+}
+
 .inbox-container.empty-content:before{
-	font-family: FontAwesome; font-size: 200px; color: #CCC; content: "\F042"; -webkit-font-smoothing: antialiased; position: relative; top: 50%;
+	font-size: 140px;
 }
 
 .header-loading.done{
@@ -1132,9 +1137,7 @@ tbody.messages-container i	{
 }
 
 .header-loading:before{
-	font-size: 28px;
-	left: 20px;
-	top: 20px;
+	font-size: 28px; left: 20px; top: 20px;
 }
 
 .unloaded{
