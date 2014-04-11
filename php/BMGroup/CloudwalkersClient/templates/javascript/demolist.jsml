@@ -41,10 +41,8 @@
 	
 	<div class="clearfix" style="position: relative;">
 		<ul class="list">
-			<div class="progress-wrap">
-				<div class="progress-bar">
-					<div class="tip"/>
-				</div>
+			<div class="progress-bar">
+				<div class="tip"/>
 			</div>
 			<li class="list-loading"></li>
 			<li class="unloaded">Dummy data</li>

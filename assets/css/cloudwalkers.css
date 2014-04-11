@@ -1130,12 +1130,8 @@ tbody.messages-container i	{
 
 .btn.load-more	{display: none;}
 
-.progress-wrap	{
-	width:100%;	height:2px;	position: absolute;	z-index: 1;
-}
-
 .progress-bar{
-	position: relative; height: 100%; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1;
+	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1;
 	-webkit-transition: width 3s ease-out;
 }
 
