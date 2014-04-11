@@ -1,9 +1,4 @@
 <div class="message-header {{icon}}-color" data-id="{{id}}" style="position: relative;">
-	<!--<div class="progress-wrap">
-		<div class="progress-bar">
-			<div class="tip"/>
-		</div>
-	</div>-->
 	<div class="header-loading {{isdone}}"></div>
 	<div class="inherit">
 		{{#from}}
