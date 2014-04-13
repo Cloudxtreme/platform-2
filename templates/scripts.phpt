@@ -22,6 +22,7 @@
 <script src="/assets/plugins/chosen/chosen.jquery.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/moment.min.js" type="text/javascript"></script>
 <script src="assets/plugins/fullcalendar/fullcalendar.js"></script>
+<script src="assets/plugins/scrollrefresh/scrollrefresh.js"></script>
 
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>

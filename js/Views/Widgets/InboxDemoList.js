@@ -85,9 +85,15 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		}
 		
 		this.$container = this.$el.find ('ul.list');
+		this.$el.find ('.scroller').scrollrefresh({
+		//	callback: function(){
+		//		alert("callback working!");
+		//	},
+			effectheight: 28
+		});
 		
 		// Load messages
-		//this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters());
 		this.demotype == 'empty' ? this.emptydemo() : this.demo();
 		
 		return this;
