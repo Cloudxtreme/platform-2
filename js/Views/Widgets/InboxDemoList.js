@@ -91,8 +91,10 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$el.find ('.scroller').scrollrefresh({
 			callback: function(){
 				d();
+				running(true);
 				setTimeout(function(){
 					this.restart();
+					this.running(false);
 				},1000);
 			},
 			effectheight: 40,

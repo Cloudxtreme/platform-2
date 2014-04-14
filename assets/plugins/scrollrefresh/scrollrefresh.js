@@ -34,6 +34,8 @@
 			quad: function (t) { return t*t/(dis.settings.easingstrength*100)  }
 		}
 
+		this.isrunning = false;
+
 		if(options){ //Apply custom options
 			dis.settings = $.extend(dis.settings, options);
 		}
@@ -57,6 +59,10 @@
 		}else{
 			this[0].attachEvent("onmousewheel", _onWheel);
 		}
+	};
+
+	this.running = function(value) {
+		dis.isrunning = value;
 	};
 
 	this.onScroll = function (e){
@@ -105,6 +111,7 @@
 	this.restart = function() {
 		dis.variables.currentheight = dis.variables.originalheight;
 		$("."+dis.settings.effectdiv).animate({marginTop: dis.variables.originalheight}, 200);
+		$("."+dis.settings.effectdiv).html(dis.settings.scrolltext);
 	};
 
 	this.refresh = function(){
@@ -121,12 +128,14 @@
 		$("."+dis.settings.effectdiv).css('margin-top', '0px');
 		$("."+dis.settings.effectdiv).html(dis.settings.loadingtext);
 
-		if(dis.settings.callback){
+		if(!dis.isrunning){
+			if(dis.settings.callback){
 			//Do the callback (container refresh through Ajax?)
 			dis.settings.callback();
-		}else{
-			//Refresh browser
-			location.reload();	
+			}else{
+				//Refresh browser
+				location.reload();	
+			}
 		}
 	};
 
