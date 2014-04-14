@@ -119,14 +119,12 @@
 					
 		// set CSS to avoid "over-scrolling"
 		$("."+dis.settings.effectdiv).css('margin-top', '0px');
+		$("."+dis.settings.effectdiv).html(dis.settings.loadingtext);
 
 		if(dis.settings.callback){
 			//Do the callback (container refresh through Ajax?)
 			dis.settings.callback();
-			restart();
 		}else{
-
-			$("."+dis.settings.effectdiv).html(dis.settings.loadingtext);
 			//Refresh browser
 			location.reload();	
 		}

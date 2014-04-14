@@ -91,8 +91,11 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$el.find ('.scroller').scrollrefresh({
 			callback: function(){
 				d();
+				setTimeout(function(){
+					this.restart();
+				},1000);
 			},
-			effectheight: 28,
+			effectheight: 40,
 			scrolltime: 400
 		});
 		
@@ -142,7 +145,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		setTimeout(function(){
 			startLoad();
-		},0);
+		},1000);
 	},
 
 	'emptydemo' : function ()
