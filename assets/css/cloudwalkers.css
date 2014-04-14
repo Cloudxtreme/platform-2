@@ -76,7 +76,7 @@ input[name="campaignname"]	{ height: 24px; margin: 0; }
 }
 
 .btn.load-more	{
-	width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
+width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
 	color: #777; font-size: .9em;
 }
 
@@ -1163,6 +1163,17 @@ tbody.messages-container i	{
 
 .tip{
 	position: absolute;	height: 100%; right: 0px; width: 50px; -webkit-box-shadow: #2bbedc 1px 0 4px 1px; -webkit-border-radius: 100%;
+}
+
+/* Css corresponding to the default settings*/
+.sr-effect-div{
+	position: relative; height: 40px; width:100%; /* Necessary?*/ margin-top: -70px;
+}
+
+/* Default style*/
+.sr-default{
+	width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
+	color: #777; font-size: .9em; text-align: center; vertical-align: middle; font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 /* Demo loading end */
