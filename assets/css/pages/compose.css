@@ -34,6 +34,11 @@ Style corrections and manual overrides
 	padding: 6px 20px; margin: 0; border-width: 0 0 1px 0;
 }
 
+#compose .thank-you	{
+	margin: 120px auto;
+	text-align: center; font-size: 140px; color: #333;
+}
+
 
 /**
  *	Main content
@@ -191,6 +196,29 @@ Style corrections and manual overrides
 }
 
 #compose .photo-booth:hover .capture-button	{ color: rgba(255,255,255, .6); }
+
+
+/**
+ *	Collapsable: link
+**/
+
+#compose [data-collapsable=link] .input-symbol	{ margin-left: 104px; }
+#compose [data-collapsable=link] .input-symbol input	{ margin-bottom: 0; }
+
+#compose [data-collapsable=link] .summary	{  max-width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+
+#compose [data-collapsable=link] .summary span	{
+	max-width: 100%; padding: 7px 12px; background: #eee; border-radius: 3px;
+	font-size: 14px; color: #888; text-shadow: 0 1px 0 white; line-height: 2.34em;
+}
+/*#compose [data-collapsable=link] input	{
+	margin-left: 100px; width: 82%; display: block;
+}
+
+#compose [data-collapsable=link] input:before	{
+	margin-left: 101px;
+}*/
+
 
 /**
  *	Footer

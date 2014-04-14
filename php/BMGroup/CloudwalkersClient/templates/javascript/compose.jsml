@@ -43,8 +43,6 @@
 					<canvas style="display:none;" width="640" height="480"></canvas>
 					
 					<div class='capture-button'><i class="icon-camera-retro"></i></div>
-					
-					<div id="snapshot"><i class="fa fa-camera-retro"></i></div>
 				</div>
 				
 				<input type="file" multiple="multiple" />
@@ -73,10 +71,15 @@
 		
 		<section data-collapsable="link" class="collapsed clearfix">
 			
-			<div class="collapsable-content"></div>
-			<div class="summary"></div>
-			
 			<div class="btn-white" data-toggle="link">Link</div>
+			
+			<div class="collapsable-content">
+				<div class="input-symbol" data-option="link">
+					<input type="text" placeholder="http://" />
+				</div>
+			</div>
+			
+			<div class="summary" data-toggle="link"></div>
 			
 		</section>
 		
