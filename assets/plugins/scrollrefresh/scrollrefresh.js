@@ -123,6 +123,7 @@
 		if(dis.settings.callback){
 			//Do the callback (container refresh through Ajax?)
 			dis.settings.callback();
+			restart();
 		}else{
 
 			$("."+dis.settings.effectdiv).html(dis.settings.loadingtext);

@@ -60,6 +60,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'render' : function ()
 	{	
+
 		// Template data
 		var param = {streams: [], networks: []};
 		
@@ -85,15 +86,18 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		}
 		
 		this.$container = this.$el.find ('ul.list');
+
+		var d = this.demo;
 		this.$el.find ('.scroller').scrollrefresh({
-		//	callback: function(){
-		//		alert("callback working!");
-		//	},
-			effectheight: 28
+			callback: function(){
+				d();
+			},
+			effectheight: 28,
+			scrolltime: 400
 		});
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		//this.collection.touch(this.model, this.filterparameters());
 		this.demotype == 'empty' ? this.emptydemo() : this.demo();
 		
 		return this;
@@ -101,6 +105,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'demo': function ()
 	{
+
 		function lazyload(els,index){
 			setTimeout(function(){
 				els.eq(index).addClass('loaded');
@@ -110,8 +115,13 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 			},50);
 		}
 
+		function restartIt(){
+			$('.progress-bar').removeClass('loaded').removeClass('loading');
+		}
+
 		function removeLoad(){
 			$('.list-loading').addClass('done');
+			restartIt();
 		}
 
 		function isLoaded(){
@@ -123,7 +133,9 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		function startLoad(){
 			$('.progress-bar').addClass('loading');
+			$('.list-loading').removeClass('done');
 			setTimeout(function(){
+				//console.log("startload");
 				isLoaded();
 			},3000);
 		}
