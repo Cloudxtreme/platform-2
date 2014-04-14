@@ -65,12 +65,20 @@ Style corrections and manual overrides
  *	Stream tabs
 **/
 
+/*#compose div.tabs-container	{
+	margin: 0 8.82% 18px; padding-bottom: 12px; overflow-x: scroll; overflow-y: hidden; border-radius: 2px; border: solid #ddd; border-width: 1px 0 0 0;
+}
+
 #compose section.stream-tabs	{
-	height: 32px; padding: 0; margin: 0 8.82% 30px; background-color: #efefef; border-radius: 2px; border: 1px solid #ddd; 
+	width: auto; height: 32px; padding: 0; background-color: #efefef;  overflow-x: visible; white-space: nowrap; border-radius: 2px; border: solid #ddd; border-width: 0 1px 1px 1px;
+}*/
+
+#compose section.stream-tabs	{
+	width: auto; height: 32px; padding: 0; margin: 0 8.82% 30px; background-color: #efefef; border-radius: 2px; border: 1px solid #ddd; overflow-x: visible; overflow-y: hidden; white-space: nowrap;
 }
 
 #compose .stream-tab	{
-	display: inline-block; height: 100%; padding: 0 14px; border: solid #ddd; border-width: 1px 1px 0 0; border-top-color: #e6e6e6; cursor: pointer;
+	display: inline-block; height: 100%; padding: 0 14px; background: #efefef; border: solid #ddd; border-width: 1px 1px 0 0; border-top-color: #e6e6e6; cursor: pointer;
 	color: #777; text-shadow: 0 1px 0 white; line-height: 2.4em;
 }
 
