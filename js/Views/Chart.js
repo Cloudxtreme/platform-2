@@ -77,6 +77,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				if(!added) data.push({value : counter, color : color});
 			}			
 		});
+
+		data = _(data).sortBy(function(ntwk) {
+		    return ntwk.value;
+		});
+		
 		console.log(JSON.stringify(data));
 		return data;
 	},

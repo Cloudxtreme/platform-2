@@ -103,7 +103,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		// Load statistics
 		this.collection.touch(this.model, this.filterparameters());
-
+		
 		return this;
 	},
 	
