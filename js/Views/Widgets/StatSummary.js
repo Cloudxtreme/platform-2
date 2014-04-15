@@ -38,6 +38,9 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'fill' : function()
 	{
+		
+		console.log(this.collection.latest())
+		
 		this.$el.find("[data-type]").each(function(i, el){
 			
 			var func = $(el).data("type");

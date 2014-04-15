@@ -21,7 +21,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 
 	},
 	
-	'touch' : function (model, params)
+	/*'touch' : function (model, params)
 	{
 		// Work data
 		this.parentmodel = model;
@@ -30,7 +30,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		
 		// Check for history (without! ping lifetime)
 		Store.get("touches", {id: this.url()}, this.touchlocal.bind(this));
-	},
+	},*/
 	
 	
 	'latest' : function ()
@@ -46,8 +46,6 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'contacts' : function (single)
 	{
 		var stat = this.latest();
-		
-		console.log("streams", stat)
 		
 		var list = [];
 		
