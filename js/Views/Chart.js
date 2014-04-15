@@ -9,12 +9,21 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		'click [data-youtube]' : 'loadYoutube',
 		'click' : 'toggle'*/
 	},
+	'columns' :  {
+		"contacts" : "parsecontacts",
+		"age" : "parseage",
+		"gender" : "parsegender",
+		"regional" : "parseregional",
+		"besttime" : "parsebesttime"
+	},
 	
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
+
+		this.collection = this.model.statistics;
 		
-		this.listenTo(this.model.statistics, 'ready', this.fill);
+		this.listenTo(this.collection, 'ready', this.fill);
 	},
 
 	'render' : function ()
@@ -24,26 +33,64 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 		
 		// Select data & chart type
-		var data  = this.parse[this.chart]();
-		var chart = new Chart(this.canvas)[this.chart](data);
-
+		//var data  = this.parse[this.chart]();
+		//var chart = new Chart(this.canvas)[this.chart](data);
+		
 		return this;
 	},
 	
 	'fill' : function (collection)
+
 	{
-		
-		
-		
 		this.parse.collection = collection;
 		
 		// Select data & chart type
-		var data  = this.parse[this.chart](this.model, this.filterfunc)
+		var temp = this.columns[this.filterfunc];
+		var data = this[temp](collection);
+		
+		//var data  = this.parse[this.chart](this.model, this.filterfunc)
 		var chart = new Chart(this.canvas)[this.chart](data);
 	},
+
+	parsecontacts : function(collection){
+
+		var data = [];
+		
+		var streams = collection.latest().get("streams");
+		streams.forEach(function(stream){
+			var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+			var color = collection.networkcolors[network];
+			var counter, added = false;
+
+			if(stream["contacts"]){ //Object/int: structure
+				if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
+				else if(_.isNumber(stream[key]))	counter = Number(stream["contacts"]);
+			}
+
+			if(_.isNumber(counter)){
+				data.map(function(obj, index) {
+				    if(obj.color == color) {
+				       	obj.value += counter;
+				       	added = true;
+				    }
+				});
+				if(!added) data.push({value : counter, color : color});
+			}			
+		});
+		console.log(JSON.stringify(data));
+		return data;
+	},
+
+	parseage : function(collection){},
+
+	parsegender : function(collection){},
+
+	parseregional : function(collection){},
+
+	parsebesttime : function(collection){},
 	
 	'parse' : {
-		PolarArea : function (model, func)
+		PolarArea : function ()
 		{
 			// Placeholder data
 			if(!model)
@@ -92,7 +139,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			// Placeholder data
 			if(!model)
 				return {labels : ["",""], datasets : [{fillColor : "rgba(220,220,220, .1)", pointStrokeColor : "#fff", data : [1,100]}]};
-			
 			
 			return {
 				labels : ["January","February","March","April","May","June","July"],

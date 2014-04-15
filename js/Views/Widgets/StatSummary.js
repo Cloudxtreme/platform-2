@@ -39,8 +39,6 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	'fill' : function()
 	{
 		
-		console.log(this.collection.latest())
-		
 		this.$el.find("[data-type]").each(function(i, el){
 			
 			var func = $(el).data("type");
@@ -64,7 +62,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'parsescore' : function ()
 	{
-		return { counter: 1};
+		return { counter: 0};
 	},
 	
 	'parsesent' : function ()
@@ -72,11 +70,12 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		// Get most recent stat
 		var stat = this.collection.latest();
 		
-		return { counter: stat.pluck("messages")};
+		//return { counter: stat.pluck("messages")};
+		return 0;
 	},
 	
 	'parseactivity' : function ()
 	{
-		return { counter: 1};
+		return { counter: 0};
 	}
 });

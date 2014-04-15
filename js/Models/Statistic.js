@@ -10,14 +10,18 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	},
 	
 	pluck : function (key, streamid)
-	{
+	{ 
 		var response = 0;
 		
 		if(!this.get("streams")) return response;
-		
+
 		$.each(this.get("streams"), function(i, stream)
 		{
-			if(!streamid && stream[key]) 	response+= Number(stream[key]);
+			if(!streamid && stream[key]){ //Object/int: structure
+				if(_.isNumber(stream[key].total))	response+= Number(stream[key].total);
+				else if(_.isNumber(stream[key]))	response+= Number(stream[key]);
+			}
+
 			else if(streamid == stream.id)	response = stream[key];
 		});
 		
