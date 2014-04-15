@@ -19,7 +19,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-		{widget: "Chart", data: {filterfunc: "contacts", chart: "PolarArea", title: "Contacts"}, span: 6},
+		{widget: "Chart", data: {filterfunc: "contacts", chart: "Pie", title: "Contacts"}, span: 6},
 		{widget: "Chart", data: {filterfunc: "age", chart: "Doughnut", title: "By Age"}, span: 3},
 		{widget: "Chart", data: {filterfunc: "gender", chart: "Doughnut", title: "By Gender"}, span: 3},
 		
@@ -56,8 +56,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'ready', this.hideloading);
+		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 	},
 	
+	resize : function(){
+		//this.render();
+	},
+
 	'showloading' : function ()
 	{
 		this.$el.addClass("loading");
