@@ -178,7 +178,7 @@
 							var found = false;
 							for (var i = 0; i < me.user.accounts.length; i ++)
 							{
-								if (me.user.accounts[0].id == params.account)
+								if (me.user.accounts[i].id == params.account)
 								{
 									account = me.user.accounts[i];
 									found = true;
