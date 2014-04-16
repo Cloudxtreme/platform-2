@@ -43,9 +43,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	{
 		this.parse.collection = collection;
+
 		//Span container width
 		var width = this.el.clientWidth;
-		
+		//Resize canvas to the correct size
+		this.canvas.canvas.style.width = width + "px";
+		this.canvas.canvas.style.height = width + "px";
+		this.canvas.canvas.width = width;
+		this.canvas.canvas.height = width;
+
 		// Select data & chart type
 		var temp = this.columns[this.filterfunc];
 		var data = this[temp](collection);
