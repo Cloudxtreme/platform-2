@@ -35,7 +35,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	
 	'latest' : function ()
 	{
-		return this.models.slice(-1)[0];
+		return this.at(this.length-1);
 	},
 
 

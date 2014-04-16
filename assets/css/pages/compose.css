@@ -213,19 +213,45 @@ Style corrections and manual overrides
 #compose [data-collapsable=link] .input-symbol	{ margin-left: 104px; }
 #compose [data-collapsable=link] .input-symbol input	{ margin-bottom: 0; }
 
-#compose [data-collapsable=link] .summary	{  max-width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 
-#compose [data-collapsable=link] .summary span	{
+
+#compose [data-collapsable=link] .summary,
+#compose [data-collapsable=campaign] .summary	{
+	max-width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+}
+
+#compose [data-collapsable=link] .summary span,
+#compose [data-collapsable=campaign] .summary span	{
 	max-width: 100%; padding: 7px 12px; background: #eee; border-radius: 3px;
 	font-size: 14px; color: #888; text-shadow: 0 1px 0 white; line-height: 2.34em;
 }
-/*#compose [data-collapsable=link] input	{
-	margin-left: 100px; width: 82%; display: block;
+
+/**
+ *	Collapsable: campaign
+**/
+
+#compose [data-collapsable=campaign] .hidden	{ display: none; }
+
+#compose [data-collapsable=campaign] .collapsable-content	{
+	margin-left: 102px; 
 }
 
-#compose [data-collapsable=link] input:before	{
-	margin-left: 101px;
-}*/
+#compose [data-collapsable=campaign] .chosen-container,
+#compose [data-collapsable=campaign] .chosen-single	{
+	height: 30px; border-radius: 3px; line-height: 2.2em; margin: 0px;
+}
+
+#compose [data-collapsable=campaign] .chosen-single > div	{ margin-top: 3px; }
+
+#compose [data-collapsable=campaign] .add-campaign	{
+	padding: 1px 10px; margin-left: 4px; position: relative; top: 7px; border-radius: 3px; background: #aaa; cursor: pointer;
+	font-size: 22px; color: white; font-weight: 100; line-height: .9em;
+}
+
+#compose [data-collapsable=campaign] input	{ padding-left: 8px; }
+#compose [data-collapsable=campaign] .campaign-name	{
+	width: 50%; float: left; margin: 0 3px 0 0;
+}
 
 
 /**
@@ -235,6 +261,52 @@ Style corrections and manual overrides
 #compose .modal-footer	{
 	border-top: 1px solid #ddd;
 }
+
+
+/**
+ *	Preview mode
+**/
+
+#compose	{
+	height: auto;
+	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+}
+
+#compose.preview-mode	{
+	height: 98%;
+	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+}
+
+#compose table.end-preview	{
+	float: left; height: 100%; border-right: 1px solid #eee; opacity: 0;
+	-webkit-transform: translate3d(-280px, 0px, 0px);
+}
+
+#compose table.end-preview:hover	{
+	background-color: #efefef;
+}
+
+#compose.preview-mode table.end-preview	{
+	opacity: 1; padding-right: 12px; cursor: pointer;
+	-webkit-transform: translate3d(-240px, 0px, 0px);
+	-webkit-transition-property: all; -webkit-transition-delay: 400ms; -webkit-transition-delay: 800ms;
+}
+
+#compose.preview-mode table.end-preview td	{ padding-right: 10px; }
+
+#compose.preview-mode	{ overflow: hidden; }
+
+#compose.preview-mode aside 	{
+	 -webkit-transform: translate3d(-260px, 0px, 0px);
+	 -webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+}
+
+#compose.preview-mode > div 	{
+	 -webkit-transform: translate3d(700px, 0px, 0px);
+	 -webkit-transition-property: all; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+}
+
+
 
 /*
 

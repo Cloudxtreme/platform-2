@@ -63,6 +63,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
+	'validate' : function ()
+	{
+		// Implement Validation code
+	},
+	
 	'checkloaded' : function (response)
 	{
 		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
@@ -168,6 +173,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Remove attachment
 		attachments.splice(index, 1);
+	},
+	
+	'addcampaign' : function ()
+	{
+		
+		
+		
+		//Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
 	},
 	
 	'addvariation' : function(id)

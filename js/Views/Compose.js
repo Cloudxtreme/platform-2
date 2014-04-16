@@ -43,9 +43,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .photo-booth' : 'listentobooth',
 		
 		'blur [data-collapsable=link] input' : 'listentolink',
+		'blur input.campaign-name' : 'listentoaddcampaign',
+		'click .add-campaign' : 'toggleaddcampaign',
 		
-		'click #post' : 'post',
-		'click #save' : 'save'
+		'click .end-preview' : 'endpreview',
+		'click #preview' : 'preview',
+		'click #save' : 'save',
+		'click #post' : 'post'
 	},
 	
 	/*'title' : "Compose message",
@@ -94,22 +98,61 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 				
 		// Draft message
-		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}});
-
+		if(!this.draft)
+		{
+			// The draft message
+			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}});
+			
+			// Listen to validation
+			this.listenTo(this.draft, "invalid", this.invalid);
+		}
 	},
 
 	'render' : function ()
 	{
 		// Collect data
-		var params = {};
-		params.streams = this.streams.models;
-		params.title = this.titles[this.type];
+		var params =
+		{
+			// Aside
+			streams:	this.streams.models,
+			
+			// Post
+			title:		this.titles[this.type],
+			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
+		};
 		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
+		
+		// Add Chosen
+		this.$el.find(".campaign-list").chosen({width: "50%"});
 
 		return this;
+	},
+	
+	'monitor' : function (e)
+	{
+		// Stream
+		var streamid = this.activestream? this.activestream.id: false;
+		var input = {body: {}};
+		
+		// Subject
+		var val = this.$el.find("[data-option=subject] input").val();
+		if(!streamid || (streamid && this.draft.variation(streamid, "subject") != val)) input.subject = val;
+		
+		// Body (will be extended with a shadow body)
+		var val = this.$el.find("[data-option=fullbody] textarea").val();
+		var body = this.draft.variation(streamid, "body");
+		
+		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
+		
+		// Limit counter
+		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
+		
+		// Update draft
+		if (streamid)	this.draft.variation(streamid, input);
+		else 			this.draft.set(input);
 	},
 	
 	'toggleoption' : function (e)
@@ -122,6 +165,18 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Summarize
 		if(collapsable.hasClass("collapsed")) this["summarize" + option]();
 		
+	},
+	
+	'closealloptions' : function ()
+	{
+		// All open collapsables
+		var collapsibles = this.$el.find("[data-collapsable]").not(".collapsed")
+			.addClass("collapsed")
+			.each( function(n, collapsible)
+			{
+				this["summarize" + $(collapsible).data("collapsable")]();
+				
+			}.bind(this));
 	},
 	
 	'togglestreams' : function (e)
@@ -228,36 +283,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		// Toggle options
+		this.closealloptions();
+		
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
 		
 		this.togglelink(options.indexOf("link") >= 0);
 
 	},
-	
-	'monitor' : function (e)
-	{
-		// Stream
-		var streamid = this.activestream? this.activestream.id: false;
-		var input = {body: {}};
 		
-		// Subject
-		var val = this.$el.find("[data-option=subject] input").val();
-		if(!streamid || (streamid && this.draft.variation(streamid, "subject") != val)) input.subject = val;
-		
-		// Body (will be extended with a shadow body)
-		var val = this.$el.find("[data-option=fullbody] textarea").val();
-		var body = this.draft.variation(streamid, "body");
-		
-		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
-		
-		// Limit counter
-		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
-		
-		// Update draft
-		if (streamid)	this.draft.variation(streamid, input);
-		else 			this.draft.set(input);
-	},
-	
 	/**
 	 *	Options: Images
 	**/
@@ -271,7 +304,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		/*if (multiple)	this.$el.find("[data-collapsable=images] input").attr("multiple", "multiple");
 		else			this.$el.find("[data-collapsable=images] input").removeAttr("multiple");*/
 		
-		if(visible && collapsable.hasClass("collapsed")) this.summarizeimages();
+		//if(visible && collapsable.hasClass("collapsed")) this.summarizeimages();
 	},
 	
 	'summarizeimages' : function()
@@ -350,14 +383,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Open options
 		var collapsable = this.$el.find("[data-collapsable=link]")[visible? "removeClass": "addClass"]("hidden");
 		
-		if(visible && collapsable.hasClass("collapsed")) this.summarizelink();
+		//if(visible && collapsable.hasClass("collapsed")) this.summarizelink();
 		
 		return this;
 	},
 	
 	'summarizelink' : function()
 	{
-		// Load thumbnail Summary
+		// Load Summary
 		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
 		
 		this.draft.get("attachments").forEach(function(attachment)
@@ -388,9 +421,43 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizecampaign' : function()
 	{
+		// Campaign value
+		var campaignid = this.$el.find(".campaign-list").val();
+		var summary = this.$el.find("[data-collapsable=campaign] .summary").empty();
 		
+		if(campaignid)
+		{
+			var campaign = Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
+			summary.html("<span>" + campaign.name + "</span>");
+		}
+				
+		return this;
+	},
+	
+	'toggleaddcampaign' : function()
+	{
+		this.$el.find(".chosen-container, .campaign-name").toggleClass("hidden");
 		
 		return this;
+	},
+	
+	'listentoaddcampaign' : function (e)
+	{
+		var result = $(e.currentTarget).val();
+		
+		//this.draft.campaign();
+		
+		
+		/*var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+		
+		if(links.length) links[0].url = result;
+		
+		else this.draft.attach({type: 'link', url: result});
+		
+		*/
+		
+		// Close it
+		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	},
 	
 	
@@ -398,12 +465,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Finalize
 	**/
 	
-	'post' : function()
+	'preview' : function()
 	{
-		console.log(this.draft);
-		this.thankyou();
+		// Animate compose view
+		this.$el.addClass("preview-mode");
 		
-		// this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
+	},
+	
+	'endpreview' : function()
+	{
+		// Animate compose view
+		this.$el.removeClass("preview-mode");
 		
 	},
 	
@@ -412,12 +484,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.draft.save({status: "draft"}, {patch: true, success: this.thankyou.bind(this)});
 	},
 	
+	'post' : function()
+	{		
+		this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
+	},
+	
+	
+	
 	'thankyou' : function()
 	{
 		this.$el.find("div").eq(0).html("<div class='thank-you'><i class='icon-thumbs-up'></i></div>");
 		
 		setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 	},
+	
+	'invalid' : function(model, error)
+	{
+		alert(model.get("title") + " " + error);
+	},
+	
 	
 	/* Deprecated */
 	
