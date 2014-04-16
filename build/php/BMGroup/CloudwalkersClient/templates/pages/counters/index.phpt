@@ -1,284 +1,319 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
-		<script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<head>
+<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
-			$(document).ready (function ()
+$(document).ready (function ()
+{
+	function getSearchParameters() {
+		var prmstr = window.location.search.substr(1);
+		return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+	}
+
+	function transformToAssocArray( prmstr ) {
+		var params = {};
+		var prmarr = prmstr.split("&");
+		for ( var i = 0; i < prmarr.length; i++) {
+			var tmparr = prmarr[i].split("=");
+			params[tmparr[0]] = tmparr[1];
+		}
+		return params;
+	}
+
+	var params = getSearchParameters();
+
+	var streamdom = {};
+	var counters = {};
+	var account = null;
+
+	var counterstomonitor = ['incoming', 'incomingUnread'];
+
+	function updateStreamData (stream)
+	{
+		var okay = true;
+
+		var element = streamdom[stream.id];
+		var streamcounters = counters[stream.id];
+
+		// the various counters
+		$.each (counterstomonitor, function ()
+		{
+			if (typeof (streamcounters[this]) == 'undefined')
 			{
-				var streamdom = {};
-				var counters = {};
-				var account = null;
+				streamcounters[this] = $('<li><span class="name">' + this + ':</span><span class="value"></span> <span class="progress"></span></li>');
+				element.find ('ul').append (streamcounters[this]);
+			}
 
-				var counterstomonitor = ['incoming', 'incomingUnread'];
+			var oldvalue = streamcounters[this].find ('span.value').html ();
+			if (stream.count[this] == null || stream.count[this] < 0)
+			{
+				okay = false;
+			}
 
-				function updateStreamData (stream)
+			streamcounters[this].find ('span.value').html (stream.count[this]);
+
+			if (oldvalue)
+			{
+				var dt = stream.count[this] - oldvalue;
+
+				if (dt >= 0)
 				{
-					var okay = true;
+					dt = '+' + dt;
+				}
+				streamcounters[this].find ('span.progress').html (dt);
+			}
+		});
 
-					var element = streamdom[stream.id];
-					var streamcounters = counters[stream.id];
+		if (okay)
+		{
+			element.addClass ('okay');
+			element.removeClass ('error');
+		}
+		else
+		{
+			element.addClass ('error');
+			element.removeClass ('okay');
+		}
 
-					// the various counters
-					$.each (counterstomonitor, function ()
+		element.effect ('highlight', {}, 1000);
+	}
+
+	function refreshStream (streamid)
+	{
+		//console.log ('Refreshing stream ' + streamid);
+		$.ajax ('/json/streams/' + streamid,
+			{
+				'success' : function (stream)
+				{
+					updateStreamData (stream.stream);
+				}
+			}
+		);
+	}
+
+	function showMessage (message)
+	{
+		var oneliner = '[' + message.stream + '] ';
+
+		if (message.subject)
+		{
+			oneliner += '<strong>' + message.subject + '</strong>: ';
+		}
+
+		oneliner += message.body.plaintext;
+
+		console.log (oneliner);
+		$('#newsticker').html (oneliner);
+	}
+
+	function showMessages (newMessages)
+	{
+		$.ajax ('/json/messages?ids=' + newMessages.join (','), {
+			'success' : function (data)
+			{
+				$.each (data.messages, function ()
+				{
+					showMessage (this);
+				});
+			}
+		});
+	}
+
+	var lastpage = '';
+	function ping ()
+	{
+		$.ajax ('/json/accounts/' + account.id + '/ping?after=' + lastpage, { 'success' : function (data)
+		{
+			lastpage = data.pong.paging.cursors.after;
+
+			if (typeof (data.pong.updates) != 'undefined'
+				&& typeof (data.pong.updates.streams) != 'undefined')
+			{
+				//console.log (data.pong.updates.streams);
+				$.each (data.pong.updates.streams, function ()
+				{
+					refreshStream (this);
+				});
+			}
+
+			var newMessages = [];
+
+			// Also collect all messages
+			if (typeof (data.pong.add) != 'undefined'
+				&& typeof (data.pong.add.streams) != 'undefined')
+			{
+				//console.log (data.pong.updates.streams);
+				$.each (data.pong.add.streams, function ()
+				{
+					var stream = this;
+					$.each (stream.messages, function ()
 					{
-						if (typeof (streamcounters[this]) == 'undefined')
-						{
-							streamcounters[this] = $('<li><span class="name">' + this + ':</span><span class="value"></span> <span class="progress"></span></li>');
-							element.find ('ul').append (streamcounters[this]);
-						}
-
-						var oldvalue = streamcounters[this].find ('span.value').html ();
-						if (stream.count[this] == null || stream.count[this] < 0)
-						{
-							okay = false;
-						}
-
-						streamcounters[this].find ('span.value').html (stream.count[this]);
-
-						if (oldvalue)
-						{
-							var dt = stream.count[this] - oldvalue;
-
-							if (dt >= 0)
-							{
-								dt = '+' + dt;
-							}
-							streamcounters[this].find ('span.progress').html (dt);
-						}
+						newMessages.push (this);
 					});
+				});
+			}
 
-					if (okay)
+			if (newMessages.length > 0)
+			{
+				showMessages (newMessages);
+
+			}
+
+			setTimeout (ping, 1000);
+		}});
+	}
+
+	// Fetch all streams
+	$.ajax ('/json/user/me', {
+		'success' : function (me)
+		{
+			// Take first account, for easyness.
+			account = me.user.accounts[0];
+
+			if (typeof (params.account) != 'undefined')
+			{
+				var found = false;
+				for (var i = 0; i < me.user.accounts.length; i ++)
+				{
+					if (me.user.accounts[i].id == params.account)
 					{
-						element.addClass ('okay');
-						element.removeClass ('error');
+						account = me.user.accounts[i];
+						found = true;
 					}
-					else
+				}
+
+				if (!found)
+				{
+					alert ('Account '+ params.account + ' not found.');
+				}
+			}
+
+			$.ajax ('/json/accounts/' + account.id + '/streams',
+				{
+					'success' : function (streams)
 					{
-						element.addClass ('error');
-						element.removeClass ('okay');
-					}
-
-					element.effect ('highlight', {}, 1000);
-				}
-
-				function refreshStream (streamid)
-				{
-					//console.log ('Refreshing stream ' + streamid);
-					$.ajax ('/json/streams/' + streamid,
+						$.each (streams.streams, function ()
 						{
-							'success' : function (stream)
+							var stream = this;
+
+							var element = $('<div class="stream"></div>');
+							element.append ('<h3>' + this.id + ' ' + this.name.substr (0, 25) + '</h3>');
+							element.append ('<ul class="counters"></ul>');
+							streamdom[this.id] = element;
+							counters[this.id] = {};
+
+							// Click = refresh
+							element.click (function ()
 							{
-								updateStreamData (stream.stream);
-							}
-						}
-					);
-				}
-
-				function showMessage (message)
-				{
-					var oneliner = '[' + message.stream + '] ';
-
-					if (message.subject)
-					{
-						oneliner += '<strong>' + message.subject + '</strong>: ';
-					}
-
-					oneliner += message.body.plaintext;
-
-					console.log (oneliner);
-					$('#newsticker').html (oneliner);
-				}
-
-				function showMessages (newMessages)
-				{
-					$.ajax ('/json/messages?ids=' + newMessages.join (','), {
-						'success' : function (data)
-						{
-							$.each (data.messages, function ()
-							{
-								showMessage (this);
+								//refreshStream (stream.id);
+								$(this).toggleClass ('selected');
 							});
-						}
-					});
-				}
 
-				var lastpage = '';
-				function ping ()
-				{
-					$.ajax ('/json/accounts/' + account.id + '/ping?after=' + lastpage, { 'success' : function (data)
-					{
-						lastpage = data.pong.paging.cursors.after;
-
-						if (typeof (data.pong.updates) != 'undefined'
-							&& typeof (data.pong.updates.streams) != 'undefined')
-						{
-							//console.log (data.pong.updates.streams);
-							$.each (data.pong.updates.streams, function ()
-							{
-								refreshStream (this);
-							});
-						}
-
-						var newMessages = [];
-
-						// Also collect all messages
-						if (typeof (data.pong.add) != 'undefined'
-							&& typeof (data.pong.add.streams) != 'undefined')
-						{
-							//console.log (data.pong.updates.streams);
-							$.each (data.pong.add.streams, function ()
-							{
-								var stream = this;
-								$.each (stream.messages, function ()
-								{
-									newMessages.push (this);
-								});
-							});
-						}
-
-						if (newMessages.length > 0)
-						{
-							showMessages (newMessages);
-
-						}
-
-						setTimeout (ping, 1000);
-					}});
-				}
-
-				// Fetch all streams
-				$.ajax ('/json/user/me', {
-					'success' : function (me)
-					{
-						// Take first account, for easyness.
-						account = me.user.accounts[0];
-
-						$.ajax ('/json/accounts/' + account.id + '/streams',
-						{
-							'success' : function (streams)
-							{
-								$.each (streams.streams, function ()
-								{
-									var stream = this;
-
-									var element = $('<div class="stream"></div>');
-									element.append ('<h3>' + this.id + ' ' + this.name.substr (0, 25) + '</h3>');
-									element.append ('<ul class="counters"></ul>');
-									streamdom[this.id] = element;
-									counters[this.id] = {};
-
-									// Click = refresh
-									element.click (function ()
-									{
-										//refreshStream (stream.id);
-										$(this).toggleClass ('selected');
-									});
-
-									$('#container').append (element);
-									updateStreamData (this);
-								});
-							}
+							$('#container').append (element);
+							updateStreamData (this);
 						});
-
-						ping ();
 					}
 				});
-			});
 
-		</script>
+			ping ();
+		}
+	});
+});
 
-		<style>
+</script>
 
-			*
-			{
-				margin: 0;
-				padding: 0;
-			}
+<style>
 
-			body
-			{
-				background: gray;
-				font-size: 12px;
-				font-family: Verdana;
-			}
+	*
+	{
+		margin: 0;
+		padding: 0;
+	}
 
-			div.stream
-			{
-				width: 250px;
-				float: left;
-				border: 1px solid gray;
-				background: white;
-				margin: 2px;
-				padding: 5px;
-				border: 1px solid black;
-			}
+	body
+	{
+		background: gray;
+		font-size: 12px;
+		font-family: Verdana;
+	}
 
-			div.stream.error
-			{
-				border: 1px solid red;
-				background: indianred;
-				color: white;
-			}
+	div.stream
+	{
+		width: 250px;
+		float: left;
+		border: 1px solid gray;
+		background: white;
+		margin: 2px;
+		padding: 5px;
+		border: 1px solid black;
+	}
 
-			h3
-			{
-				text-align: center;
-				font-size: 100%;
-			}
+	div.stream.error
+	{
+		border: 1px solid red;
+		background: indianred;
+		color: white;
+	}
 
-			ul
-			{
-				list-style: none;
-			}
+	h3
+	{
+		text-align: center;
+		font-size: 100%;
+	}
 
-			li
-			{
-				padding: 2px;
-			}
+	ul
+	{
+		list-style: none;
+	}
 
-			li .name
-			{
-				width: 120px;
-				display: inline-block;
-			}
+	li
+	{
+		padding: 2px;
+	}
 
-			li .value
-			{
-				width: 60px;
-				display: inline-block;
-			}
+	li .name
+	{
+		width: 120px;
+		display: inline-block;
+	}
 
-			div.selected
-			{
-				border-color: blue;
-				background: #66CCFF;
-			}
+	li .value
+	{
+		width: 60px;
+		display: inline-block;
+	}
 
-			#newsticker
-			{
-                background: #eee;
-                border: 1px solid red;
-                margin: 3px;
-                padding: 5px;
-				height: 40px;
-				overflow: hidden;
-			}
-		</style>
+	div.selected
+	{
+		border-color: blue;
+		background: #66CCFF;
+	}
 
-	</head>
+	#newsticker
+	{
+		background: #eee;
+		border: 1px solid red;
+		margin: 3px;
+		padding: 5px;
+		height: 40px;
+		overflow: hidden;
+	}
+</style>
 
-	<body>
+</head>
 
-        <div id="newsticker">
-            &nbsp;
-        </div>
+<body>
 
-		<div id="container">
+<div id="newsticker">
+	&nbsp;
+</div>
 
-		</div>
+<div id="container">
 
-	</body>
+</div>
+
+</body>
 </html>
