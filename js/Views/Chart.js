@@ -43,8 +43,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	{
 		this.parse.collection = collection;
+		//Span container width
 		var width = this.el.clientWidth;
-		this.canvas.height = 100;
+		
 		// Select data & chart type
 		var temp = this.columns[this.filterfunc];
 		var data = this[temp](collection);
@@ -93,7 +94,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		/*var centerX = 200;
       	var centerY = 200
       	var radius = 100;
-      	
+
       	this.canvas.beginPath();
       	this.canvas.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
       	this.canvas.fillStyle = 'green';
@@ -101,7 +102,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
       	this.canvas.lineWidth = 5;
       	this.canvas.strokeStyle = '#003300';
       	this.canvas.stroke();*/
-	
+
 		return [];
 	},
 
