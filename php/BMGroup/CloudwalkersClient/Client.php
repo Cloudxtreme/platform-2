@@ -107,7 +107,7 @@ class BMGroup_CloudwalkersClient_Client
 		{
 			$client = $this->api;
 
-			$client->redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$client->redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 			$client->scope = '';
 
