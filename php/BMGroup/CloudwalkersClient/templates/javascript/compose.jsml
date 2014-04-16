@@ -14,22 +14,14 @@
 		<h3>{{title}}</h3>
 	</div>
 	<div class="modal-body">
-
-		<section class="stream-tabs">
-			<div class="stream-tab active">Default</div>
-		</section>
+		
+		<div class="tabs-container">
+			<section class="stream-tabs">
+				<div class="stream-tab active">Default</div>
+			</section>
+		</div>
 		
 		<section data-type="post">
-			
-			<!--<div class="input-prepend">
-				<span class="add-on"><i class="icon-cloud"></i></span>
-				<input type="text" placeholder="Subject" />
-			</div>
-			
-			<div class="input-prepend">
-				<span class="add-on"><i class="icon-cloud"></i></span>
-				<textarea></textarea>
-			</div>-->
 			
 			<div class="input-symbol" data-option="subject">
 				<input type="text" placeholder="Subject" />
@@ -44,19 +36,52 @@
 		
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
-			<div class="collapsable-content"></div>
-			<div class="summary"></div>
+			<div class="collapsable-content">
+					
+				<div class="photo-booth hidden">
+					<h2>Photo Booth</h2>
+					
+					<video autoplay></video>
+					<canvas style="display:none;" width="640" height="480"></canvas>
+					
+					<div class='capture-button'><i class="icon-camera-retro"></i></div>
+				</div>
+				
+				<input type="file" multiple="multiple" />
+				
+				<div>
+					<span>Pictures</span>
+					<ul class="pictures-container clearfix">
+						<li class="add-file">&plus;</li>
+					</ul>
+				</div>
+				
+				<div class="clearfix">
+					<span>Camera</span>
+					<ul class="snapshots-container clearfix">
+						<li class="add-snapshot">&plus;</li>
+					</ul>
+				</div>
+				
+			</div>
 			
 			<div class="btn-white" data-toggle="images">Images</div>
+			
+			<ul class="summary"></ul>
 			
 		</section>
 		
 		<section data-collapsable="link" class="collapsed clearfix">
 			
-			<div class="collapsable-content"></div>
-			<div class="summary"></div>
-			
 			<div class="btn-white" data-toggle="link">Link</div>
+			
+			<div class="collapsable-content">
+				<div class="input-symbol" data-option="link">
+					<input type="text" placeholder="http://" />
+				</div>
+			</div>
+			
+			<div class="summary" data-toggle="link"></div>
 			
 		</section>
 		
@@ -91,7 +116,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<button class="btn">Save</button>
-		<button class="btn btn-primary">Post</button>
+		<button id="save" class="btn">Save</button>
+		<button id="post" class="btn btn-primary">Post</button>
 	</div>
 </div>

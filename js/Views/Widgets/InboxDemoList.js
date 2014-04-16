@@ -60,6 +60,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'render' : function ()
 	{	
+
 		// Template data
 		var param = {streams: [], networks: []};
 		
@@ -85,45 +86,93 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 		}
 		
 		this.$container = this.$el.find ('ul.list');
+
+		var d = this.demo;
+		this.$el.find ('.scroller').scrollrefresh({
+			callback: function(){
+				d();
+				running(true);
+				setTimeout(function(){
+					this.restart();
+					this.running(false);
+				},1000);
+			},
+			effectheight: 40,
+			scrolltime: 400
+		});
 		
 		// Load messages
 		//this.collection.touch(this.model, this.filterparameters());
-		this.demo = function(){
-			
-			function lazyload(els,index){
-				setTimeout(function(){
-					els.eq(index).addClass('loaded');
-					if(index<els.length){
-						lazyload(els,index+1);
-					}
-				},100);
-			}
-
-			function removeLoad(){
-				$('.list-loading').addClass('done');
-			}
-
-			function isLoaded(){
-				elements = $('.unloaded');
-				console.log(elements);
-				lazyload(elements,0);
-				$('.progress-bar').addClass('loaded');
-				removeLoad();
-			}
-
-			function startLoad(){
-				$('.progress-bar').addClass('loading');
-				setTimeout(function(){
-					isLoaded();
-				},3000);
-			}
-
-			setTimeout(function(){
-				startLoad();
-			},0);
-		}();
+		this.demotype == 'empty' ? this.emptydemo() : this.demo();
 		
 		return this;
+	},
+
+	'demo': function ()
+	{
+
+		function lazyload(els,index){
+			setTimeout(function(){
+				els.eq(index).addClass('loaded');
+				if(index<els.length){
+					lazyload(els,index+1);
+				}
+			},50);
+		}
+
+		function restartIt(){
+			$('.progress-bar').removeClass('loaded').removeClass('loading');
+		}
+
+		function removeLoad(){
+			$('.list-loading').addClass('done');
+			restartIt();
+		}
+
+		function isLoaded(){
+			elements = $('.unloaded');
+			lazyload(elements,0);
+			$('.progress-bar').addClass('loaded');
+			removeLoad();
+		}
+
+		function startLoad(){
+			$('.progress-bar').addClass('loading');
+			$('.list-loading').removeClass('done');
+			setTimeout(function(){
+				//console.log("startload");
+				isLoaded();
+			},3000);
+		}
+
+		setTimeout(function(){
+			startLoad();
+		},1000);
+	},
+
+	'emptydemo' : function ()
+	{
+
+		function noMainContent(){
+			$('.inbox-container').addClass('empty-content');
+		}
+
+		function noContent(){
+			$('.progress-bar').addClass('loaded');
+			$('.list-loading').addClass('empty-list');
+			noMainContent();
+		}
+
+		function startLoad(){
+			$('.progress-bar').addClass('loading');
+			setTimeout(function(){
+				noContent();
+			},3000);
+		}
+
+		setTimeout(function(){
+			startLoad();
+		},0);
 	},
 	
 	'showloading' : function ()
@@ -183,7 +232,7 @@ Cloudwalkers.Views.Widgets.InboxDemoList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.DemoMessage({model: view.model});
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		

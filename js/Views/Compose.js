@@ -35,7 +35,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'blur [data-option] input' : 'monitor',
 		'blur [data-option] textarea' : 'monitor',
-		'keyup [data-option] textarea' : 'monitor'
+		'keyup [data-option] textarea' : 'monitor',
+		
+		'click .add-file' : 'addfile',
+		'click .add-snapshot' : 'addsnapshot',
+		'change [data-collapsable=images] input' : 'listentofiles',
+		'click .photo-booth' : 'listentobooth',
+		
+		'blur [data-collapsable=link] input' : 'listentolink',
+		
+		'click #post' : 'post',
+		'click #save' : 'save'
 	},
 	
 	/*'title' : "Compose message",
@@ -84,7 +94,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 				
 		// Draft message
-		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "body": {}});
+		if(!this.draft) this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}});
 
 	},
 
@@ -107,21 +117,30 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
 		
-		$btn.parent().toggleClass("collapsed");
+		var collapsable = $btn.parent().toggleClass("collapsed");
+		
+		// Summarize
+		if(collapsable.hasClass("collapsed")) this["summarize" + option]();
+		
 	},
 	
 	'togglestreams' : function (e)
 	{
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("streams");
+		
 		var stream = Cloudwalkers.Session.getStream(id);
+		var streamids = this.draft.get("streams");
 		
 		// Switch buttons and tabs
 		if(!$btn.hasClass("active"))
-			
+		{
 			this.$el.find(".stream-tabs").append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
 			
-		else {
+			// Add to draft
+			streamids.push(id);
+			
+		} else {
 			this.$el.find("[data-stream="+ id +"]").remove();
 			
 			// Shift active stream
@@ -135,6 +154,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				// Toggle subcontents
 				this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
 			}
+			
+			// Remove from draft
+			streamids.splice(streamids.indexOf(id), 1);
 		}
 		
 		$btn.toggleClass("inactive active");
@@ -205,13 +227,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.$el.find("[data-option=limit]").html(140 -val.html.length);
 		}
 		
-		// Image options
-		if (options.indexOf("images") >= 0)		this.$el.find("[data-collapsable=images].hidden").removeClass("hidden");
-		else									this.$el.find("[data-collapsable=images]").addClass("hidden");
+		// Toggle options
+		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
 		
-		// Link options
-		if (options.indexOf("link") >= 0)		this.$el.find("[data-collapsable=link].hidden").removeClass("hidden");
-		else									this.$el.find("[data-collapsable=link]").addClass("hidden");
+		this.togglelink(options.indexOf("link") >= 0);
 
 	},
 	
@@ -237,6 +256,167 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update draft
 		if (streamid)	this.draft.variation(streamid, input);
 		else 			this.draft.set(input);
+	},
+	
+	/**
+	 *	Options: Images
+	**/
+	
+	'toggleimages' : function(visible, multiple)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=images]")[visible? "removeClass": "addClass"]("hidden");
+		
+		// Allow multiple
+		/*if (multiple)	this.$el.find("[data-collapsable=images] input").attr("multiple", "multiple");
+		else			this.$el.find("[data-collapsable=images] input").removeAttr("multiple");*/
+		
+		if(visible && collapsable.hasClass("collapsed")) this.summarizeimages();
+	},
+	
+	'summarizeimages' : function()
+	{
+		// Load thumbnail Summary
+		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
+		
+		this.draft.get("attachments").forEach(function(attachment)
+		{
+			if (attachment.type == "image")
+				$("<li></li>").prependTo(summary).css('background-image', "url(" + attachment.data + ")");
+		});
+	},
+	
+	'addfile' : function (e) { $("[data-collapsable=images] input").click() },
+	
+	'listentofiles' : function (e)
+	{
+		// Find and iterate the file
+		var files = e.target.files;
+		var draft = this.draft;
+		
+		for (var i = 0, f; f = files[i]; i++)
+		{
+			// Check type
+			if (!f.type.match('image.*')) continue;
+			
+			var reader = new FileReader();
+			
+			reader.onload = (function(file)
+			{	return function(e)
+				{
+					// Add to view
+					var snapshot = $("<li></li>").prependTo("ul.pictures-container").css('background-image', "url(" + e.target.result + ")");
+					
+					// Add to draft
+					draft.attach({type: 'image', data: e.target.result});
+					
+			}})(f);
+			
+			reader.readAsDataURL(f);
+		}
+	},
+	
+	'addsnapshot' : function (e)
+	{
+		// Show Photo Booth
+		this.$el.find(".photo-booth").removeClass("hidden");
+		
+		if(!this.media)
+			this.media = new MediaClass({video: true});
+		
+		this.media.start();
+	},
+	
+	'listentobooth' : function ()
+	{
+		// Emergency Break
+		if(!this.media) return;
+		
+		var result = this.media.snapshot();
+		var snapshot = $("<li></li>").prependTo("ul.snapshots-container").css('background-image', "url(" + result + ")");
+		
+		this.draft.attach({type: 'image', data: result});
+		
+		// Hide Photo Booth
+		this.$el.find(".photo-booth").addClass("hidden");
+	},
+	
+	/**
+	 *	Options: Link
+	**/
+	
+	'togglelink' : function(visible)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=link]")[visible? "removeClass": "addClass"]("hidden");
+		
+		if(visible && collapsable.hasClass("collapsed")) this.summarizelink();
+		
+		return this;
+	},
+	
+	'summarizelink' : function()
+	{
+		// Load thumbnail Summary
+		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
+		
+		this.draft.get("attachments").forEach(function(attachment)
+		{
+			if (attachment.type == "link" && attachment.url) summary.html("<span>" + attachment.url + "</span>");
+		});
+		
+		return this;
+	},
+	
+	'listentolink' : function (e)
+	{
+		var result = $(e.currentTarget).val();
+		
+		var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+		
+		if(links.length) links[0].url = result;
+		
+		else this.draft.attach({type: 'link', url: result});
+		
+		// Close it
+		this.summarizelink().$el.find("[data-collapsable=link]").addClass("collapsed");
+	},
+	
+	/**
+	 *	Options: Campaign
+	**/
+	
+	'summarizecampaign' : function()
+	{
+		
+		
+		return this;
+	},
+	
+	
+	/**
+	 *	Finalize
+	**/
+	
+	'post' : function()
+	{
+		console.log(this.draft);
+		this.thankyou();
+		
+		// this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
+		
+	},
+	
+	'save' : function()
+	{
+		this.draft.save({status: "draft"}, {patch: true, success: this.thankyou.bind(this)});
+	},
+	
+	'thankyou' : function()
+	{
+		this.$el.find("div").eq(0).html("<div class='thank-you'><i class='icon-thumbs-up'></i></div>");
+		
+		setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 	},
 	
 	/* Deprecated */

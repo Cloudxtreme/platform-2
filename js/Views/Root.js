@@ -368,10 +368,23 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$.gritter.add({title: title, text: message, time: 4000});
 	},
 	
-	'information' : function (title, message)
+	/*'information' : function (title, message)
 	{
 		$("#inner-content .container-fluid").prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
+	},*/
+	
+	'information' : function (title, message, target)
+	{
+		if(!target) target = "#inner-content .container-fluid";
+		
+		$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
 	},
+	
+	'closeInformation' : function (title, message, target)
+	{
+		$("div.alert.alert-info").remove();
+	},
+
 
 	'dialog' : function (message, options, callback)
 	{

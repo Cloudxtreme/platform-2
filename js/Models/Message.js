@@ -20,6 +20,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
+	'url' : function (params)
+    {
+        if(!this.id)
+        	return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+    },
+
 	'parse' : function(response)
 	{	
 		// A new object
@@ -137,6 +148,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(loaded && this.calNode.intro.length >= 72) this.calNode.intro += "...";
 		
 		return this;
+	},
+	
+	'attach' : function (attach, index)
+	{
+		var attachments = this.get("attachments");
+		
+		var response = (index && attachments[index])?	$.extend(attachments[index], attach) :
+														attachments.push(attach);
+			
+		this.set({attachments: attachments});
+		
+		return response;
+	},
+	
+	'unattach' : function (index)
+	{
+		var attachments = this.get("attachments");
+		
+		// Remove attachment
+		attachments.splice(index, 1);
 	},
 	
 	'addvariation' : function(id)
