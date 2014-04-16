@@ -70,7 +70,8 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		// Get most recent stat
 		var stat = this.collection.latest();
 		
-		return { counter: stat.pluck("messages")};
+		//return { counter: stat.pluck("messages")};
+		return { counter: 0};
 	},
 	
 	'parseactivity' : function ()

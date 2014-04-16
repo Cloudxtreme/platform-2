@@ -22,8 +22,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(options) $.extend(this, options);
 
 		this.collection = this.model.statistics;
-		
 		this.listenTo(this.collection, 'ready', this.fill);
+
 	},
 
 	'render' : function ()
@@ -43,7 +43,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	{
 		this.parse.collection = collection;
-		
+		var width = this.el.clientWidth;
+		this.canvas.height = 100;
 		// Select data & chart type
 		var temp = this.columns[this.filterfunc];
 		var data = this[temp](collection);
@@ -54,45 +55,92 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsecontacts : function(collection){
 
-		var data = [];
-		
+		var data = [];		
 		var streams = collection.latest().get("streams");
-		streams.forEach(function(stream){
-			var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
-			var color = collection.networkcolors[network];
-			var counter, added = false;
+		
+		//REMOVE THIS LATER
+		if(streams){
+			streams.forEach(function(stream){
+				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				var color = collection.networkcolors[network];
+				var counter, added = false;
 
-			if(stream["contacts"]){ //Object/int: structure
+				//Object/int: structure
 				if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
 				else if(_.isNumber(stream[key]))	counter = Number(stream["contacts"]);
-			}
 
-			if(_.isNumber(counter)){
-				data.map(function(obj, index) {
-				    if(obj.color == color) {
-				       	obj.value += counter;
-				       	added = true;
-				    }
-				});
-				if(!added) data.push({value : counter, color : color});
-			}			
-		});
+				if(_.isNumber(counter)){
+					data.map(function(obj, index) {
+					    if(obj.color == color) {
+					       	obj.value += counter;
+					       	added = true;
+					    }
+					});
+					if(!added) data.push({value : counter, color : color});
+				}			
+			});
 
-		data = _(data).sortBy(function(ntwk) {
-		    return ntwk.value;
-		});
+			data = _(data).sortBy(function(ntwk) {
+			    return ntwk.value;
+			});
+		}
 		
-		console.log(JSON.stringify(data));
 		return data;
 	},
 
-	parseage : function(collection){},
+	parseage : function(collection){
 
-	parsegender : function(collection){},
+		/*var centerX = 200;
+      	var centerY = 200
+      	var radius = 100;
+      	
+      	this.canvas.beginPath();
+      	this.canvas.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      	this.canvas.fillStyle = 'green';
+      	this.canvas.fill();
+      	this.canvas.lineWidth = 5;
+      	this.canvas.strokeStyle = '#003300';
+      	this.canvas.stroke();*/
+	
+		return [];
+	},
 
-	parseregional : function(collection){},
+	parsegender : function(collection){
 
-	parsebesttime : function(collection){},
+		var data = [];		
+		var genders = {'male': 0, 'female': 0, 'other': 0}
+		var colors = {'male': "#000000", 'female': "#333333", 'other': "#999999"};
+
+		var streams = collection.latest().get("streams");
+
+		//Remove this later
+		if(streams){
+			streams.forEach(function(stream){
+				if(_.isObject(stream["contacts"])){
+					var contact = new Cloudwalkers.Models.Contact(stream["contacts"]);
+					if(males = contact.getMales()){ //Check if there is actual gender data
+						genders.male += males;
+						genders.female += contact.getFemales();
+						genders.other += contact.getOthers();
+					}
+				}
+			});
+			
+			for(var i in genders){
+				data.push({value : genders[i], color : colors[i]});
+			}
+		}
+
+		return data;
+	},
+
+	parseregional : function(collection){
+		return [];
+	},
+
+	parsebesttime : function(collection){
+		return [];
+	},
 	
 	'parse' : {
 		PolarArea : function ()
