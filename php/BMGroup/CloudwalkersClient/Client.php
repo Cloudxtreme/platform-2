@@ -108,7 +108,7 @@ class BMGroup_CloudwalkersClient_Client
 			$client = $this->api;
 
 			$ssl = (!empty($s['HTTPS']) && $s['HTTPS'] == 'on') ? true:false;
-			$client->redirect_uri = ($ssl ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$client->redirect_uri = ($ssl ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 			$client->scope = '';
 
