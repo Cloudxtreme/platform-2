@@ -9,7 +9,7 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-	<div id="main" class="fb withlink">
+	<div id="main" class="fb withlinkurl">
 		<div class="progress-bar">
 			<div class="tip"></div>
 		</div>
@@ -75,12 +75,15 @@
 				<li data-streams="218" class="btn-white inactive twt">
 					<i class="icon-facebook"></i><span>Twitter</span>
 				</li>
-				<br/><br/>
+				<br/>
 				<li data-streams="218" class="btn-white inactive url">
 					<i class="icon-facebook"></i><span>URL layout</span>
 				</li>
 				<li data-streams="218" class="btn-white inactive link">
 					<i class="icon-facebook"></i><span>Link layout</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive linkurl">
+					<i class="icon-facebook"></i><span>Link + URL</span>
 				</li>
 			</ul>
 		</div>
@@ -113,14 +116,20 @@
 	});
 
 	$('li.url').click(function(){
-		$('#main').removeClass("withlink");
+		$('#main').removeClass("withlink").removeClass('withlinkurl');
 		startLoad();
 	});
 
 	$('li.link').click(function(){
-		$('#main').addClass("withlink");
+		$('#main').addClass("withlink").removeClass("withlinkurl");
 		startLoad();
 	});
+
+	$('li.linkurl').click(function(){
+		$('#main').removeClass('withlink').addClass("withlinkurl");
+		startLoad();
+	});
+
 
 	function startLoad(){
 		$('.progress-bar').addClass('loading');

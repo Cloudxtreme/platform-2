@@ -133,7 +133,7 @@ img{
 	border-bottom: thin solid #eee;
 }
 
-.fb .pv-url-content{
+.fb .pv-url-content-text{
 	background-color: #f6f7f8;
 }
 
@@ -287,11 +287,14 @@ img{
 
 /* Link specific styles */
 
-.fb.withlink .pv-fb-link{
+.fb.withlink .pv-fb-link,
+.fb.withlinkurl .pv-fb-link
+{
 	opacity: 1;
 }
 
-.fb.withlink .pv-fb-link.pv-20{
+.fb.withlink .pv-fb-link.pv-20,
+.fb.withlinkurl .pv-fb-link.pv-20{
 	height: 20px;
 }
 
@@ -301,13 +304,11 @@ img{
 }
 
 .twt.withlink .pv-url-content-text{
-	float: none;
 	width: auto;
 
 }
 
 .twt.withlink .pv-url-content > img{
-	float: none;
 	width: auto;
 }
 
@@ -331,6 +332,33 @@ img{
 	float: left;
 	width: 20%;
 	margin-top: 15px;
+}
+
+/* Link + URL specific*/
+
+.fb.withlinkurl .pv-url-content-text,
+.twt.withlinkurl .pv-url-content-text,
+.gp.withlinkurl .pv-url-content-text{
+	display: none;
+}
+
+.fb.withlinkurl .pv-url-content,
+.twt.withlinkurl .pv-url-content,
+.gp.withlinkurl .pv-url-content{
+	margin: 0 -16px;
+}
+
+.twt.withlinkurl .pv-url-content{
+	margin: 0px;
+}
+
+.twt.withlinkurl .pv-url-content > img{
+	width: 100%;
+}
+
+.withlinkurl .pv-gpstripe{
+	height: 0px;
+	opacity: 0;
 }
 
 /* Overrides */
