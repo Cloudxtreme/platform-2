@@ -43,7 +43,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
 			data = [{'value' : 1, 'color' : "#eeeeee"}];
-		} 
+		} else {
+			data = 	{ labels : [], datasets : [] };
+		}
 		return data;
 	},
 	
