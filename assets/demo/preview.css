@@ -361,6 +361,46 @@ img{
 	opacity: 0;
 }
 
+/* Fonts & network specific styles*/
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/roboto/roboto_regular_macroman/Roboto-Regular-webfont.eot');
+    src: url('fonts/roboto/roboto_regular_macroman/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto_regular_macroman/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/roboto/roboto_regular_macroman/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto_regular_macroman/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fb .pv-wrapper{
+	color: #141823;
+}
+
+.fb .pv-wrapper a{
+	color: #3B5998;
+}
+
+.gp .pv-wrapper{
+	font-family: 'robotoregular';
+}
+
+.gp .pv-main-text{
+	font-size: 13px;
+	color: #404040
+}
+
+.gp .pv-url-title{
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.gp .pv-url-text{
+	font-size: 12px;
+	color: #999;
+}
+
 /* Overrides */
 .btn-white{
 	margin-bottom: -1px !important;
