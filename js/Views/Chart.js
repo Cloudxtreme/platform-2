@@ -38,6 +38,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		return this;
 	},
+
+	'emptychartdata' : function (charttype){
+
+		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
+			data = [{'value' : 1, 'color' : "#eeeeee"}];
+		} 
+		return data;
+	},
 	
 	'fill' : function (collection)
 
@@ -55,7 +63,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Select data & chart type
 		var temp = this.columns[this.filterfunc];
 		var data = this[temp](collection);
-		
+
+		//Create empty chart
+		if(data.length == 0){
+			data = this.emptychartdata(this.chart);
+		}
+
 		//var data  = this.parse[this.chart](this.model, this.filterfunc)
 		var chart = new Chart(this.canvas)[this.chart](data);
 	},
