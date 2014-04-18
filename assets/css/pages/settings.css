@@ -1,5 +1,5 @@
 /***
-Profile Page
+Settings
 ***/
 
 /* Profile settings */
@@ -28,23 +28,34 @@ Profile Page
 
 /* Account Settins */
 
-.settings-social .social-icon-colors	{
-	background: #f3f3f3;
-}
+
+
+
+/*
+	Social Connections
+*/
+
+/* networks list */
 
 .settings-social .btn-social	{
-	display: block; padding: 4px 20px; margin: 20px 0 8px; background: white; border-radius: 2px !important; border: 1px solid #dfdfdf; border-bottom-width: 3px;
-	font-size: 1.385em; line-height: 2.5em; color: #666;
+	display: block; padding: 4px 15px; margin: 20px 0 8px; background: white; border-radius: 2px !important; border: 1px solid #dfdfdf; border-bottom-width: 3px;
+	font-size: 16px; line-height: 2.3em; color: #666; font-family: inherit;
 }
+
+.settings-social .btn-social:nth-child(1)	{ margin-top: 0; }
 
 .settings-social .btn-social:hover	{
 	background-color: #f6f6f6 !important; padding-bottom: 6px; border-bottom-width: 1px; 
 }
 
 .settings-social .btn-social i	{
-	float: left; padding-right: 20px; margin-right: 10px; border-right: 1px solid #eee;
-	font-size: 1.167em; line-height: 2.142em;
+	float: left; padding-right: 15px; margin-right: 10px; border-right: 1px solid #eee;
+	font-size: 17.5px; line-height: 2.142em;
 }
+
+
+
+/* social connections */
 
 .settings-social .social-container	{
 	font-size: 1.077em;
@@ -55,9 +66,6 @@ Profile Page
 .settings-social .social-container td.tools i	{
 	font-size: 1.429em; color: #777; padding: 1px 0 0 4px; cursor: pointer;
 }
-
-
-/* Social Connections */
 
 .social-container td[data-service-container] form	{ margin-bottom: 0; }
 

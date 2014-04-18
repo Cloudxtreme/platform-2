@@ -243,6 +243,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var options = this.options[network];
 		var id = stream? stream.id: false;
 		
+		this.network = network;
+		
 		//var input = this.getinput(network, id);
 		
 		// Add network icon
@@ -470,13 +472,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Animate compose view
 		this.$el.addClass("preview-mode");
 		
+		// Create new preview object
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network | 'default', previewtype: 'default'});
+		
+		// Add preview view to Compose
+		this.$el.find('.preview-container').append(this.preview.render().el);
+		
 	},
 	
 	'endpreview' : function()
 	{
+		// Remove preview pane
+		this.preview.remove();
+		
 		// Animate compose view
 		this.$el.removeClass("preview-mode");
-		
 	},
 	
 	'save' : function()

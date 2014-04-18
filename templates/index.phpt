@@ -34,7 +34,7 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/calendar.css" rel="stylesheet" type="text/css" />
-		<link href="<?php echo BASE_URL; ?>assets/css/pages/profile.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/settings.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/reports.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/write.css" rel="stylesheet" type="text/css" />

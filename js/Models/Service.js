@@ -18,7 +18,7 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		// A new object
 		if (typeof response == "number") response = {id: response};
 		
-		else response = response.service;
+		//else response = response.service;
 		
 		return response;
 	}

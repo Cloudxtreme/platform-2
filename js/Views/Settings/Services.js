@@ -4,6 +4,27 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		'click [data-open-service]' : 'openService',
 		'click [data-add-service]' : 'addServiceCall'
 	},
+	
+	'initialize' : function()
+	{
+		// Create Services collection
+		this.services = new Cloudwalkers.Collections.Services();
+		
+		// Get Services options 
+		this.listenTo(this.services, "available:ready", this.appendOptions);
+		this.services.fetchAvailable();
+		
+		// Get active services
+		this.listenTo(this.services, "add", this.appendService);
+		this.listenToOnce(this.services, "add", this.endload);
+		this.services.fetch();
+
+	},
+	
+	'endload' : function ()
+	{
+		this.$el.find(".inner-loading").removeClass("inner-loading");	
+	},
 
 	'render' : function ()
 	{
@@ -13,16 +34,47 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		
 		this.$el.html (Mustache.render (Templates.settings.services, data));
 		
-		// Get Service options
+		/*// Get Service options
 		Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
 		
 		// Get connected Services
 		Cloudwalkers.Net.get ('wizard/service/list', {'account': account.id}, this.appendConnected.bind(this));
-
+		*/
 		return this;
 	},
 	
-	'appendOptions' : function(available) {
+	'appendOptions' : function(services, available) {
+		
+		var $container = this.$el.find(".networks-list");
+		
+		for (n in available)
+		{
+			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
+		}
+	},
+	
+	'appendService' : function(service) {
+		
+		// Prepare data;
+		var data = {stream:[] }
+		
+		console.log(service)
+		
+		this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
+		
+		
+		/*var 
+		
+		console.log($container, available)
+		
+		for (n in available)
+		{
+			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
+		}*/
+	},
+	
+	
+	/*'appendOptions' : function(available) {
 		
 		var $container = this.$el.find("#service-options .portlet-body").removeClass("inner-loading");
 		
@@ -44,7 +96,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		}
 		
 		Cloudwalkers.Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
-	},
+	},*/
 	
 	'addService' : function (id, callback)
 	{

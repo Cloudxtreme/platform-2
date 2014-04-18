@@ -1,4 +1,8 @@
-	<tr>
+<li class="service" data-service="{{id}}">
+	<i class="icon-{{icon}}"></i> {{account}}
+</li>
+
+<!--	<tr>
 		<td><i class="icon-{{icon}}"></i></td>
 		<td>{{name}}</td>
 		<td>
@@ -13,4 +17,4 @@
 		<td colspan="5" data-service-container="{{id}}" style="display: none;">
 
 		</td>
-	</tr>
+	</tr> -->
