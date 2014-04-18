@@ -1,3 +1,14 @@
-<div class="container">
-
+<div class="{{network}} fb">
+	<table id="pv-watermark">
+		<tbody>
+			<tr><td valign="middle" style="">
+				<span></span>
+			</td></tr>
+		</tbody>
+	</table>
+	<div id="pv-main">
+		<div class="progress-bar">
+			<div class="tip"></div>
+		</div>
+	</div>
 </div>

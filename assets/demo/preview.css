@@ -1,16 +1,18 @@
 /*** Default style ***/
 
-div[class^='pv-'], img, #main{
+div[class^='pv-'], img{
 	-webkit-transition: all .15s ease-out;
 }
 
-img{
-	width: 100%;
-}
+#pv-main{ position: relative; overflow: hidden; padding-right: 40px;}
+#pv-watermark{ position: absolute; height: 100%; width: 96%; font-family: FontAwesome; font-size: 80px; color: #ddd; line-height: 2.2em; text-align: center;}
+#pv-watermark span:after{content: "\F0ED";}
+.fb #pv-watermark span:after{content: "\F09A";}
+.gp #pv-watermark span:after{content: "\F0D5";}
+.twt #pv-watermark span:after{content: "\F099";}
+.li #pv-watermark span:after{content: "\F0E1";}
 
-#main{	max-width: 800px; margin: 20px auto; position: relative; overflow: hidden; }
-
-.pv-wrapper{ padding: 25px;	margin: 0px auto; margin-right: 150px; }
+.pv-wrapper{ padding: 15px;	max-width: 600px; margin: 0px auto; opacity: 0;}
 
 .pv-wrapper-wrap{ padding: 20px; border-radius: 4px; border: thin solid #eee; box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.1); background-color: #fff; }
 
@@ -83,6 +85,8 @@ img{
 
 
 /* Progress bar */
+#preview .progress-bar{ top:1px;}
+
 .twt .progress-bar { background-color: #01a9da; }
 .twt .tip {	-webkit-box-shadow: #01a9da 1px 0 4px 1px; }
 
@@ -137,10 +141,10 @@ img{
 }
 
 .fb .pv-title, .fb .pv-url-title{ color:#3B5998; font-weight: bold; }
-.fb .pv-wrapper{ color: #141823; }
-.fb .pv-wrapper a{ color: #3B5998; }
+.fb .pv-main{ color: #141823; }
+.fb .pv-main a{ color: #3B5998; }
 
-.gp .pv-wrapper{ font-family: 'robotoregular'; }
+.gp .pv-main{ font-family: 'robotoregular'; }
 .gp .pv-main-text{ font-size: 13px; color: #404040 }
 .gp .pv-url-title{ font-size: 16px; font-weight: 300; }
 
@@ -149,5 +153,37 @@ img{
 /* Overrides */
 .btn-white{ margin-bottom: -1px !important; }
 
-.progress-bar.loading{ width:130%; -webkit-transition: all .5s ease-out; }
+#compose.preview-mode .preview-container	{
+	position: absolute;
+	margin-top: 0%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	-webkit-transform: translate3d(40px, 0px, 0px);
+	-webkit-transition: background-color .15s ease-out;
+	border-radius: 0px;
+}
+
+#compose.preview-mode .preview-container{
+	background-color: #f5f5f5;
+	border-left: 1px solid #ddd;
+	/* -webkit-border-radius: 0 0 6px 6px; */
+	-moz-border-radius: 0px;
+	/* border-radius: 0 0 6px 6px; */
+	-moz-box-shadow: inset 1px 0px 0 #fff;
+	box-shadow: inset 1px 0px 0 #fff;
+}
+
+#compose.preview-mode .end-preview{
+	border: none;
+}
+
+/* Loading states */
+/* Loading - Show loading bar & network watermark */
+#pv-main.pv-load .progress-bar{ width:110%; opacity: 1; -webkit-transition: all 1.2s ease-out;}
+
+/* Loaded - Hide loading bar & show the actual preview */
+#pv-main.pv-loaded .progress-bar {width: 0%; opacity: 0;}
+#pv-main.pv-loaded .pv-wrapper{ opacity: 1;}
 
