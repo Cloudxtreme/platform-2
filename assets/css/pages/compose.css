@@ -285,7 +285,7 @@ Style corrections and manual overrides
 #compose.preview-mode table.end-preview	{
 	opacity: 1; padding-right: 12px; cursor: pointer;
 	-webkit-transform: translate3d(-240px, 0px, 0px);
-	-webkit-transition-property: all; -webkit-transition-delay: 400ms; -webkit-transition-delay: 800ms;
+	-webkit-transition-property: all; -webkit-transition-delay: 400ms; -webkit-transition-delay: 800ms;  -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 
 #compose.preview-mode table.end-preview td	{ padding-right: 10px; }
@@ -302,6 +302,16 @@ Style corrections and manual overrides
 	 -webkit-transition-property: all; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 
+#compose .preview-container	{
+	width: 0; margin-top: 6%; overflow: hidden; height: 80%; float: left; border-radius: 5px;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+}
+
+#compose.preview-mode .preview-container	{
+	width: 60%;
+	-webkit-transform: translate3d(-80px, 0px, 0px);
+	-webkit-transition-property: all; -webkit-transition-delay: 200ms; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+}
 
 
 /*

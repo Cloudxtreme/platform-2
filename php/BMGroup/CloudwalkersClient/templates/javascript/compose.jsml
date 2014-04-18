@@ -14,6 +14,8 @@
 	</td></tr></tbody>
 </table>
 
+<section class="preview-container"></section>
+
 <div>
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
