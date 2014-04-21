@@ -99,9 +99,10 @@
 			
 			<div class="collapsable-content">
 				<select class="campaign-list">
-				{{#campaigns}}
+					<option value="0" disabled="disabled" selected="selected">Choose one...</option>
+					{{#campaigns}}
 					<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{name}}</option>
-				{{/campaigns}}
+					{{/campaigns}}
 				</select>
 				<input type="text" placeholder="campaign name" class="hidden campaign-name" />
 				<span class="add-campaign">&plus;</span>

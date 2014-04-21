@@ -119,6 +119,17 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 		
 		return false;
+	},
+	
+	'addcampaign' : function (name, callback)
+	{
+		var campaigns = this.get("campaigns");
+		
+		if (campaigns.map(function(c){ return c.name }).indexOf(name) < 0)
+		{
+			campaigns.push({name: name});
+			this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
+		}
 	}
 	
 	/*'monitorlimit' : function(type, current, target)
