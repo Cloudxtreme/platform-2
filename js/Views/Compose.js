@@ -43,6 +43,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .photo-booth' : 'listentobooth',
 		
 		'blur [data-collapsable=link] input' : 'listentolink',
+		'change select.campaign-list' : 'listentocampaign',
 		'blur input.campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
@@ -464,6 +465,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 	
+	'listentocampaign' : function (e)
+	{
+		// Campaign id
+		var result = $(e.currentTarget).val();
+	
+		this.draft.set("campaign", Number(result));
+	},
+	
 	'toggleaddcampaign' : function()
 	{
 		this.$el.find(".chosen-container, .campaign-name").toggleClass("hidden");
@@ -474,20 +483,33 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'listentoaddcampaign' : function (e)
 	{
 		var result = $(e.currentTarget).val();
+		//var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
 		
-		//this.draft.campaign();
-		
-		
-		/*var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
-		
-		if(links.length) links[0].url = result;
-		
-		else this.draft.attach({type: 'link', url: result});
-		
-		*/
+		Cloudwalkers.Session.getAccount().addcampaign(result, function(account)
+		{
+			var campaigns = account.get("campaigns");
+			
+			this.draft.set("campaign", campaigns[campaigns.length -1]);
+			
+			this.reloadcampaigns(campaigns)
+	
+		}.bind(this));
 		
 		// Close it
 		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
+	},
+	
+	'reloadcampaigns' : function(campaigns)
+	{
+		// Clear campaign select
+		this.$el.find("select").empty();
+		
+		// Test
+		campaigns.push({id: 123, name: "Foo Bar"})
+		for(n in campaigns) this.$el.find("select").append($("<option value='"+ campaigns[n].id +"'>"+ campaigns[n].name +"</option>"));
+		
+		$('.my_select_box').trigger('chosen:updated');
+		
 	},
 	
 	
