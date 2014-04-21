@@ -432,3 +432,15 @@ Style corrections and manual overrides
 	#repeat	input[type=number]	{  width: 30px; margin: 0 2px; }
 }
 
+/* embeded demo only -- REMOVE*/
+
+#out{
+	padding: 0 8.82% 12px;
+}
+
+#out img{
+	float: left;
+	max-width: 45%;
+	padding-right: 15px;
+	margin-bottom: 20px;
+}

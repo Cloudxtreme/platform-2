@@ -49,7 +49,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
-		'click #post' : 'post'
+		'click #post' : 'post',
+
+		'keyup #info' : 'showembed'
 	},
 	
 	/*'title' : "Compose message",
@@ -153,6 +155,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update draft
 		if (streamid)	this.draft.variation(streamid, input);
 		else 			this.draft.set(input);
+	},
+
+	'showembed' : function(){
+		
+		tagdata = [];
+		eventdata = [];
+		var scriptruns = [];
+		var text = $('#info').val();
+		text = $('<span>'+text+'</span>').text(); //strip html
+		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		text = text.replace(/(\s|>|^)(mailto:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		
+		$('#out').empty().html(text);
+		
+		$(".oembed").oembed(null,{
+			apikeys: {
+				//etsy : 'd0jq4lmfi5bjbrxq2etulmjr',
+				amazon : 'caterwall-20',
+				//eventbrite: 'SKOFRBQRGNQW5VAS6P',
+			},
+			//maxHeight: 200, maxWidth:300
+		});
 	},
 	
 	'toggleoption' : function (e)
