@@ -36,12 +36,12 @@
 			</div>
 			
 			<div class="input-symbol" data-option="fullbody">
-				<textarea></textarea>
+				<textarea id="info"></textarea>
 				<div class='limit-counter' data-option="limit">140</div>
 			</div>
 			
 		</section>
-		
+		<div id="out"></div>
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
 			<div class="collapsable-content">
@@ -134,7 +134,7 @@
 	</div>
 	<div class="modal-footer">
 		<button id="save" class="btn">Save</button>
-		<button id="preview" class="btn">Preview</button>
+		<button id="previewbtn" class="btn" disabled>Preview</button>
 		<button id="post" class="btn btn-primary">Post</button>
 	</div>
 </div>

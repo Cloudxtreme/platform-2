@@ -2,19 +2,18 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	
 	'id' : "preview",
 	'events' : {},
+	'networkclasses' : {'facebook' : 'fb', 'twitter' : 'twt', 'google-plus' : 'gp', 'linkedin' : 'li'},
 	
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options); 
-		console.log(options);
-		
 	},
 
 	'render' : function ()
 	{
 				
 		// Create container view
-		var view = Mustache.render(Templates.preview, {network: this.network});
+		var view = Mustache.render(Templates.preview, {networkclass: this.networkclasses[this.network]});
 		
 		this.$el.html (view);
 		

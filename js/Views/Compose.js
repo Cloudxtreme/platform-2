@@ -48,9 +48,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .add-campaign' : 'toggleaddcampaign',
 		
 		'click .end-preview' : 'endpreview',
-		'click #preview' : 'preview',
+		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
-		'click #post' : 'post'
+		'click #post' : 'post',
+
+		'keyup #info' : 'showembed'
 	},
 	
 	/*'title' : "Compose message",
@@ -155,6 +157,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (streamid)	this.draft.variation(streamid, input);
 		else 			this.draft.set(input);
 	},
+
+	'showembed' : function(){
+		
+		tagdata = [];
+		eventdata = [];
+		var scriptruns = [];
+		var text = $('#info').val();
+		text = $('<span>'+text+'</span>').text(); //strip html
+		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		text = text.replace(/(\s|>|^)(mailto:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		
+		$('#out').empty().html(text);
+		
+		$(".oembed").oembed(null,{
+			apikeys: {
+				//etsy : 'd0jq4lmfi5bjbrxq2etulmjr',
+				amazon : 'caterwall-20',
+				//eventbrite: 'SKOFRBQRGNQW5VAS6P',
+			},
+			//maxHeight: 200, maxWidth:300
+		});
+	},
 	
 	'toggleoption' : function (e)
 	{
@@ -220,12 +244,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglestream' : function (e)
-	{
+	{	
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("stream");
 		
 		var stream = id? Cloudwalkers.Session.getStream(id): false;
-		
+
 		this.$el.find(".stream-tabs div.active").removeClass('active');
 		
 		$btn.addClass('active');
@@ -245,6 +269,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var id = stream? stream.id: false;
 		
 		this.network = network;
+
+		//Disable button for preview "default" messages
+		var previewbtn = this.$el.find("#previewbtn")[0];
+		previewbtn.disabled = this.network ? false : true;
 		
 		//var input = this.getinput(network, id);
 		
@@ -495,7 +523,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.addClass("preview-mode");
 		
 		// Create new preview object
-		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network | 'default', previewtype: 'default'});
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default'});
 		
 		// Add preview view to Compose
 		this.$el.find('.preview-container').append(this.preview.render().el);
@@ -520,8 +548,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{		
 		this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
 	},
-	
-	
 	
 	'thankyou' : function()
 	{

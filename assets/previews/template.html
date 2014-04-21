@@ -9,9 +9,9 @@
 			</div>
 			<div class="pv-title-wrap">
 				<div class="pv-title">{{title}}</div>
-				<div class="pv-timestamp pv-twt pv-20"><!--/timestamp-->3 minutes ago<!--/timestamp--></div>
+				<div class="pv-timestamp pv-twt pv-20"><!--/timestamp-->{{timestamp}}<!--/timestamp--></div>
 				<div class="clearfix"></div>
-				<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->3 minutes ago<!--/timestamp--></div>
+				<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->{{timestamp}}<!--/timestamp--></div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -20,9 +20,9 @@
 		<div class="pv-content">
 			<div class="pv-main-text">
 				<!--/post text-->
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet ullamcorper purus. Nam sagittis enim ut purus placerat, posuere blandit.
+				{{content}}
 				<!--/post text-->
-				<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->www.cloudwalkers.be<!--/url--></a></div>
+				<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->{{url}}<!--/url--></a></div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="pv-twt pv-20" id="viewsummary"><a href="#">View summary</a></div>
@@ -30,10 +30,10 @@
 				<img src="http://placehold.it/1000x500"/>  
 				<div class="pv-gpstripe pv-gp pv-20"></div>
 				<div class="pv-url-content-text">
-					<div class="pv-url-title"><!--/url title-->Url title<!--/url title--></div>
+					<div class="pv-url-title"><!--/url title-->{{url_title}}<!--/url title--></div>
 					<div class="pv-url-text">
 						<!--/Url preview content-->
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet ullamcorper purus. Nam sagittis enim ut purus placerat, posuere blandit sapien posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						{{url_content}}
 						<!--/Url preview content-->
 					</div>
 					<div class="pv-url pv-twt pv-20"><a href="#"><!--/url-->View on web<!--/url--></a></div>

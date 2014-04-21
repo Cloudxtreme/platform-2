@@ -1,4 +1,4 @@
-<div class="{{network}} fb">
+<div class="{{networkclass}}">
 	<table id="pv-watermark">
 		<tbody>
 			<tr><td valign="middle" style="">
