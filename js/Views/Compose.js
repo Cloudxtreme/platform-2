@@ -47,7 +47,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .add-campaign' : 'toggleaddcampaign',
 		
 		'click .end-preview' : 'endpreview',
-		'click #preview' : 'preview',
+		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
 		'click #post' : 'post'
 	},
@@ -219,12 +219,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglestream' : function (e)
-	{
+	{	
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("stream");
 		
 		var stream = id? Cloudwalkers.Session.getStream(id): false;
-		
+
 		this.$el.find(".stream-tabs div.active").removeClass('active');
 		
 		$btn.addClass('active');
@@ -244,6 +244,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var id = stream? stream.id: false;
 		
 		this.network = network;
+
+		//Disable button for preview "default" messages
+		var previewbtn = this.$el.find("#previewbtn")[0];
+		previewbtn.disabled = this.network ? false : true;
 		
 		//var input = this.getinput(network, id);
 		
@@ -473,7 +477,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.addClass("preview-mode");
 		
 		// Create new preview object
-		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network | 'default', previewtype: 'default'});
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default'});
 		
 		// Add preview view to Compose
 		this.$el.find('.preview-container').append(this.preview.render().el);
@@ -498,8 +502,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{		
 		this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
 	},
-	
-	
 	
 	'thankyou' : function()
 	{
