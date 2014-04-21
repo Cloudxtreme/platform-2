@@ -38,16 +38,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		return this;
 	},
-
-	'emptychartdata' : function (charttype){
-
-		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
-			data = [{'value' : 1, 'color' : "#eeeeee"}];
-		} else {
-			data = 	{ labels : [], datasets : [] };
-		}
-		return data;
-	},
 	
 	'fill' : function (collection)
 
@@ -73,6 +63,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		//var data  = this.parse[this.chart](this.model, this.filterfunc)
 		var chart = new Chart(this.canvas)[this.chart](data);
+		var len = legend(this.$el.find(".chartlegend")[0], data);
 	},
 
 	parsecontacts : function(collection){
@@ -84,6 +75,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(streams){
 			streams.forEach(function(stream){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 				var color = collection.networkcolors[network];
 				var counter, added = false;
 
@@ -98,7 +90,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 					       	added = true;
 					    }
 					});
-					if(!added) data.push({value : counter, color : color});
+					if(!added) data.push({value : counter, color : color, title: title});
 				}			
 			});
 
@@ -111,18 +103,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	parseage : function(collection){
-
-		/*var centerX = 200;
-      	var centerY = 200
-      	var radius = 100;
-
-      	this.canvas.beginPath();
-      	this.canvas.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-      	this.canvas.fillStyle = 'green';
-      	this.canvas.fill();
-      	this.canvas.lineWidth = 5;
-      	this.canvas.strokeStyle = '#003300';
-      	this.canvas.stroke();*/
 
 		return [];
 	},
@@ -149,7 +129,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			});
 			
 			for(var i in genders){
-				data.push({value : genders[i], color : colors[i]});
+				data.push({value : genders[i], color : colors[i], title: i});
 			}
 		}
 
@@ -162,6 +142,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsebesttime : function(collection){
 		return [];
+	},
+
+	'emptychartdata' : function (charttype){
+
+		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
+			data = [{'value' : 1, 'color' : "#eeeeee", 'title' : "No data"}];
+		} else {
+			data = 	{ labels : [], datasets : [{title: "No data"}] };
+		}
+		return data;
 	},
 	
 	'parse' : {
