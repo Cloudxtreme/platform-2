@@ -77,6 +77,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 				var color = collection.networkcolors[network];
+				if(!color) color = "#000"; //Fix this
 				var counter, added = false;
 
 				//Object/int: structure
