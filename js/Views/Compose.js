@@ -153,6 +153,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
 		
+		// Link
+		var val = this.$el.find("[data-option=link] input").val();
+		if(!streamid || (streamid && body && body.html != val)) input.link = val;
+
 		// Limit counter
 		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
 		
@@ -600,7 +604,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.addClass("preview-mode");
 		
 		// Create new preview object
-		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default'});
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default', streamid: this.activestream.id});
 		
 		// Add preview view to Compose
 		this.$el.find('.preview-container').append(this.preview.render().el);

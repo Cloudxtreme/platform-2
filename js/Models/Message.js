@@ -195,12 +195,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{
 		// Get variation object
 		var input = this.get("variations").filter(function(el){ if(el.stream == id) return el; });
-	
+		
 		if (input.length) input = input[0];
 		else if(value || typeof key == 'object') input = this.addvariation(id);
 		
+		//Return full attrributes
+		if(!value && !key) return input;
+
 		// Return value	
-		if (!value && typeof key != 'object') return input[key];
+		if (!value && typeof key != 'object')  return input[key];
 		
 		// Or set value(s)
 		else 
