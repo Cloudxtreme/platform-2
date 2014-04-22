@@ -8,7 +8,7 @@
 				<img src="http://placehold.it/100x100"/>
 			</div>
 			<div class="pv-title-wrap">
-				<div class="pv-title">{{title}}</div>
+				<div class="pv-title">{{subject}}</div>
 				<div class="pv-timestamp pv-twt pv-20"><!--/timestamp-->{{timestamp}}<!--/timestamp--></div>
 				<div class="clearfix"></div>
 				<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->{{timestamp}}<!--/timestamp--></div>
@@ -20,11 +20,12 @@
 		<div class="pv-content">
 			<div class="pv-main-text">
 				<!--/post text-->
-				{{content}}
+				{{body.html}}
 				<!--/post text-->
 				<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->{{url}}<!--/url--></a></div>
 				<div class="clearfix"></div>
 			</div>
+			<div style="display: none;">
 			<div class="pv-twt pv-20" id="viewsummary"><a href="#">View summary</a></div>
 			<div class="pv-url-content">
 				<img src="http://placehold.it/1000x500"/>  
@@ -40,6 +41,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div>
+		</div>
 		</div>
 		<div class="pv-bottom">
 			Sharing widgets go here

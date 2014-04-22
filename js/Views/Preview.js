@@ -11,10 +11,9 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 
 	'render' : function ()
 	{
-				
+		console.log(this.model);
 		// Create container view
 		var view = Mustache.render(Templates.preview, {networkclass: this.networkclasses[this.network]});
-		
 		this.$el.html (view);
 		
 		// Compose preview template name		
