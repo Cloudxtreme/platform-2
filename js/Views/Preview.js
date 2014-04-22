@@ -7,6 +7,9 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options); 
+		//Get correct stream data
+		if(this.streamid) this.draftdata = this.model.variation(this.streamid);
+		else this.draftdata = this.model.attributes;
 	},
 
 	'render' : function ()
@@ -31,7 +34,7 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 		this.fakeload((Math.random()*1.2)+0.4);
 
 		// Render preview (opacity:0)
-		var preview = Mustache.render(preview, this.model.attributes);
+		var preview = Mustache.render(preview, this.draftdata);
 		this.$el.find("#pv-main").append(preview);
 	},
 
