@@ -16,12 +16,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'options' : {
-		false :			["subject","link","images"],
+		false :			["link","images"],
 		'twitter' :		["images"],
-		'facebook' :	["subject","fullbody","link","images"],
-		'linkedin' :	["subject","fullbody","link","images"],
+		'facebook' :	["fullbody","link","images"],
+		'linkedin' :	["fullbody","link","images"],
 		'tumblr' :		["subject","fullbody","link","images"],
-		'google-plus' :	["subject","fullbody","link","images"],
+		'google-plus' :	["fullbody","link","images"],
 		'youtube' :		["subject","fullbody","link","video"],
 		'blog' :		["subject","fullbody","link","images"],
 		'group' :		["images","link"],
@@ -47,6 +47,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'blur input.campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
+		'blur [data-collapsable=schedule] input' : 'monitorschedule',
+		'change [data-collapsable=schedule] select' : 'monitorschedule',
+
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
@@ -104,7 +107,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!this.draft)
 		{
 			// The draft message
-			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}});
+			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
 			
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
@@ -453,7 +456,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'summarizecampaign' : function()
 	{
 		// Campaign value
-		var campaignid = this.$el.find(".campaign-list").val();
+		var campaignid = this.draft.get("campaign");
 		var summary = this.$el.find("[data-collapsable=campaign] .summary").empty();
 		
 		if(campaignid)
@@ -483,7 +486,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'listentoaddcampaign' : function (e)
 	{
 		var result = $(e.currentTarget).val();
-		//var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
 		
 		Cloudwalkers.Session.getAccount().addcampaign(result, function(account)
 		{
@@ -491,28 +493,103 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			this.draft.set("campaign", campaigns[campaigns.length -1]);
 			
-			this.reloadcampaigns(campaigns)
+			// Close it
+			this.reloadcampaigns(campaigns);
+			this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	
 		}.bind(this));
 		
-		// Close it
-		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
+		
 	},
 	
 	'reloadcampaigns' : function(campaigns)
 	{
 		// Clear campaign select
-		this.$el.find("select").empty();
+		var select = this.$el.find(".campaign-list").empty();
 		
-		// Test
-		campaigns.push({id: 123, name: "Foo Bar"})
-		for(n in campaigns) this.$el.find("select").append($("<option value='"+ campaigns[n].id +"'>"+ campaigns[n].name +"</option>"));
+		// Update options
+		for(n in campaigns) select.append($("<option value='"+ campaigns[n].id +"'>"+ campaigns[n].name +"</option>"));
 		
-		$('.my_select_box').trigger('chosen:updated');
+		select.trigger('chosen:updated');
 		
 	},
 	
 	
+	/**
+	 *	Options: Schedule
+	**/
+	
+	'monitorschedule' : function(e)
+	{
+		var field = $(e.currentTarget);
+		var scheduled = this.draft.get("schedule");
+		
+		// Remove Schedule
+		if(field.is("#delay-none"))
+		{
+			scheduled = {};
+			this.draft.set("schedule", scheduled);
+		}
+		
+		// Add selected delay
+		else if(field.is("#delay-select"))
+		{
+			scheduled.date = moment().add('seconds', field.val()).utc();
+			$("#delay-in").attr("checked", "checked");
+		}
+		
+		// Add date delay
+		else if(field.is("#delay-date"))
+		{
+			// First sanity check
+			if(!moment(field.val()).isValid()) console.log("invalid");
+			
+			
+			scheduled.date = moment(field.val()).utc();
+			$("#delay-on").attr("checked", "checked");
+			
+			if($("#delay-time").val())
+			{
+				var time = $("#delay-time").val().split(":");
+				scheduled.date = moment(scheduled.date).add('minutes', Number(time[0])*60 + Number(time[1])).utc();
+			}
+			
+			this.validatefuture(scheduled.date);
+		}
+		
+		// Add time delay
+		else if(field.is("#delay-time") && scheduled.date) console.log(field.val())//scheduled.date = moment(scheduled.date).add('seconds', field.val()).utc();
+		
+		
+		
+		return this;
+	},
+	
+	'validatefuture' : function (date)
+	{
+		console.log(date, moment().utc())
+		
+		return date > moment().utc();
+	},
+	
+	'summarizeschedule' : function ()
+	{
+		
+		return this;
+	},
+
+
+	/**
+	 *	Options: Repeat
+	**/
+	
+	'summarizerepeat' : function()
+	{
+						
+		return this;
+	},
+
+
 	/**
 	 *	Finalize
 	**/

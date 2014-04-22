@@ -107,26 +107,130 @@
 				<input type="text" placeholder="campaign name" class="hidden campaign-name" />
 				<span class="add-campaign">&plus;</span>
 			</div>
+			
 			<div class="summary"></div>
 			
 		</section>
 		
 		<section data-collapsable="schedule" class="collapsed clearfix">
 			
-			<div class="collapsable-content"></div>
-			<div class="summary"></div>
-			
 			<div class="btn-white" data-toggle="schedule">Schedule</div>
+			
+			<div class="collapsable-content some-margin">
+				
+				<div class="schedule-entry">
+					<input id="delay-none" name="delay" type="radio" value="none" checked>
+					<label for="delay-none">Now</label>
+				</div>
+				
+				<div class="schedule-entry clearfix">
+					<input id="delay-in" name="delay" type="radio" value="in">
+					<label for="delay-in">In</label>
+					
+					<select id="delay-select" class="schedule-intend schedule-half">
+						<option selected="selected" value="600">10min</option>
+						<option value="900">15min</option>
+						<option value="1800">30 min</label>
+						<option value="2700">45 min</label>
+						<option value="3600">1 hour</label>
+						<option value="7200">2 hours</label>
+						<option value="10800">3 hours</label>
+						<option value="14400">4 hours</label>
+						<option value="18000">5 hours</label>
+						<option value="21600">6 hours</label>
+						<option value="43200">12 hours</label>
+						<option value="86400">1 day</label>
+						<option value="86400">1 week</label>
+					</select>
+				</div>
+				
+				<div class="schedule-entry clearfix">
+					
+					<input id="delay-on" name="delay" type="radio" value="on">
+					<label for="delay-on">On</label>
+					
+					<div class="input-symbol schedule-intend" data-option="schedule-start-date">
+						<input id="delay-date" type="text" placeholder="start date..." />
+					</div>
+					
+					<div class="pull-right"><input id="besttime" name="besttime" type="checkbox" value="besttime"><label for="besttime">Best time to post</label><em></em></div>
+					
+					<div class="input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
+						<input id="delay-time" type="time" />
+					</div>
+				</div>
+
+			</div>
+			<div class="summary"></div>
 			
 		</section>
 		
 		<section data-collapsable="repeat" class="collapsed clearfix last">
-		
-			<div class="collapsable-content"></div>
-			<div class="summary"></div>
 			
 			<div class="btn-white" data-toggle="repeat">Repeat</div>
 			
+			<div class="collapsable-content some-margin">
+				
+				<div class="schedule-entry inline-all">
+				
+					<label for="repeat-interval">every</label>
+					<div class="input-symbol" data-option="schedule-start-date">
+						<input name="repeat-interval" type="number" value="1" min="1" /> 
+					</div>
+				
+					<select name="every-select-single">
+						<option value="900">hour</option>
+						<option value="1800">day</label>
+						<option value="1800">week</label>
+						<option value="2700">month</label>
+					</select>
+					
+					<select name="every-select" class="hidden">
+						<option value="900">hours</option>
+						<option value="1800">days</label>
+						<option value="1800">weeks</label>
+						<option value="2700">months</label>
+					</select>
+					
+					<label for="every-select-weekday" class="inactive">on</label>
+					<select id="every-select-weekday" name="every-select-weekday" class="inactive">
+						<option value="600">monday</option>
+						<option value="900">tuesday</option>
+						<option value="1800">wednesday</label>
+						<option value="1800">thursday</label>
+						<option value="2700">friday</label>
+						<option value="2700">saturday</label>
+						<option value="2700">sunday</label>
+					</select>
+					
+				</div>
+				
+				<div class="schedule-entry inline-all clearfix">
+					<input id="repeat-amount" name="delay" type="radio">
+					
+					<label for="repeat-amount">Repeat</label>
+					<div class="input-symbol" data-option="schedule-start-date">
+						<input name="repeat-amount" type="number" value="0" min="0" />
+					</div>
+					<label for="repeat-amount">times</label>
+
+				</div>
+				
+				<div class="schedule-entry inline-all clearfix">
+					<input id="repeat-until" name="delay" type="radio">
+					
+					<label for="repeat-until">Until</label>
+					<div class="input-symbol" data-option="schedule-start-date">				
+						<input id="end" type="text" placeholder="end date..." value="{{scheduled.end}}" />
+					</div>
+				</div>
+				
+				
+				
+			</div>
+			
+			<div class="summary"></div>
+
 		</section>
 		
 		

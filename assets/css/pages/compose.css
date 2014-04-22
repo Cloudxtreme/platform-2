@@ -159,9 +159,19 @@ Style corrections and manual overrides
 #compose [data-collapsable].collapsed .collapsable-content,
 #compose [data-collapsable] .summary	{ display: none; }
 
+#compose [data-collapsable] .collapsable-content.some-margin	{
+	margin-left: 120px;
+}
 
-#compose [data-collapsable] .summary	{
-	margin-left: 100px;
+#compose [data-collapsable] .summary	{ margin-left: 100px; }
+
+#compose [data-collapsable] .schedule-intend	{ margin-left: 60px; }
+
+#compose [data-collapsable] .schedule-half 	{ width: 50%; }
+
+#compose [data-collapsable] input[type=radio],
+#compose [data-collapsable] input[type=checkbox]	{
+	float: left; width: auto; border-width: 0px; box-shadow: none; display: inline; margin: -2px 8px 0 0;
 }
 
 /**
@@ -252,6 +262,43 @@ Style corrections and manual overrides
 #compose [data-collapsable=campaign] .campaign-name	{
 	width: 50%; float: left; margin: 0 3px 0 0;
 }
+
+/**
+ *	Collapsable: schedule
+**/
+
+
+
+#compose [data-collapsable=schedule] label	{
+	float: left; display: inline-block;
+}
+
+#compose [data-collapsable=schedule] select	{
+	display: block;
+}
+
+
+
+/*#compose [data-collapsable=schedule] label	{ display: inline-block; }
+
+#compose [data-collapsable=schedule] hr	{ margin: 8px 0; }
+
+#compose [data-collapsable=schedule] select	{ margin: 0 0 2px 14px; }
+
+#compose [data-collapsable=schedule] .input-symbol	{
+	float: left;
+}*/
+
+
+/**
+ *	Collapsable: repeat
+**/
+
+#compose .inline-all  > *	{
+	float: left; margin-right: 8px; max-width: 100px;
+}
+
+
 
 
 /**
