@@ -58,17 +58,18 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 		}
 
 		var newdata = {};
+
+		for(var attr in model) newdata[attr] = model[attr];
 		
-		for(var attr in model){
-			if(variation[attr] && attr != "body") {
+		for(var attr in variation){
+			if(newdata[attr] && attr != "body") {
 				newdata[attr] = variation[attr];
 			}
 			else if(attr == "body" && variation["body"].html)
 			{
 				newdata[attr] = variation[attr];
-				console.log("replaced body");
 			}
-			else newdata[attr] = model[attr];
+			else newdata[attr] = variation[attr];
 		}
 
 		return newdata;
