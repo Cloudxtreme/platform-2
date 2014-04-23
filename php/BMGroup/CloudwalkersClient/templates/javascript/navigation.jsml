@@ -1,6 +1,6 @@
 
 <a class="btn btn-compose">
-	<i class="icon-pencil"></i> Compose
+	<i class="icon-pencil"></i> <span>Compose</span>
 </a>
 
 <ul class="page-sidebar-menu">

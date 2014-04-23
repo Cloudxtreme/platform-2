@@ -57,11 +57,30 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		}
 		return url;
 	},
-
+	
 	'addService' : function (e)
 	{
-		e.preventDefault ();
+		// Service token
+		var token = $(e.target).data ('add-service');
 		
+		this.listenToOnce(this.services, "sync", function(service)
+		{
+			var auth = service.get("authenticateUrl");
+			
+			// Prevent API bug
+			if(!auth) return null;
+			
+			// Go to authentication page
+			window.location = this.processLink (auth);
+
+		});
+		
+		this.services.create({},{wait: true, endpoint: token});
+
+	},
+
+	/*'addService' : function (e)
+	{
 		// Service token
 		var token = $(e.target).data ('add-service');
 		
@@ -79,7 +98,7 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		
 		this.services.create({},{wait: true, endpoint: token});
 
-	},
+	},*/
 	
 	'destroy' : function ()
 	{

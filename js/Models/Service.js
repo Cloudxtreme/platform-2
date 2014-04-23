@@ -1,5 +1,7 @@
 Cloudwalkers.Models.Service = Backbone.Model.extend({
-
+	
+	'typestring' : "services",
+	
 	'initialize' : function ()
 	{
 		
@@ -18,7 +20,8 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		// A new object
 		if (typeof response == "number") response = {id: response};
 		
-		//else response = response.service;
+		// Debug API unlogic
+		else if(response.service) response = response.service;
 		
 		return response;
 	}

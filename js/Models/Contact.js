@@ -1,4 +1,13 @@
 Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
+	
+	
+	
+	
+	
+	
+	
+	/* Deprecated? */
+	
 	'initialize' : function (attributes)
 	{
 		this.gender = this.get("gender");

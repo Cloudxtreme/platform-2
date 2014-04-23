@@ -216,6 +216,9 @@ nav	{
 	position: relative; left: -8px;
 }
 
+#sidebar.collapsed .btn-compose span { display: none; }
+#sidebar.collapsed .btn-compose i { left: -5px; }
+
 /* SHARE */
 
 #share	{

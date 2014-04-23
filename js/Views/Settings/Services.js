@@ -1,8 +1,11 @@
 Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 
 	'events' : {
-		'click [data-open-service]' : 'openService',
-		'click [data-add-service]' : 'addServiceCall'
+		/*'click [data-open-service]' : 'openService',
+		'click [data-add-service]' : 'addServiceCall',*/
+		
+		'click [data-add-service]' : 'addService',
+		'click [data-service]' : 'servicedetail',
 	},
 	
 	'initialize' : function()
@@ -55,24 +58,30 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	
 	'appendService' : function(service) {
 		
-		// Prepare data;
-		var data = {stream:[] }
-		
-		console.log(service)
-		
+		// Add service attributes to list
 		this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
-		
-		
-		/*var 
-		
-		console.log($container, available)
-		
-		for (n in available)
-		{
-			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
-		}*/
 	},
 	
+	'addService' : function (e)
+	{
+		// Service token
+		var token = $(e.target).data ('add-service');
+		
+		this.listenToOnce(this.services, "sync", function(service)
+		{
+			var auth = service.get("authenticateUrl");
+			
+			// Prevent API bug
+			if(!auth) return null;
+			
+			// Go to authentication page
+			window.location = this.processLink (auth);
+
+		});
+		
+		this.services.create({},{wait: true, endpoint: token});
+
+	},	
 	
 	/*'appendOptions' : function(available) {
 		
@@ -98,7 +107,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		Cloudwalkers.Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
 	},*/
 	
-	'addService' : function (id, callback)
+	/*'addService' : function (id, callback)
 	{
 		Cloudwalkers.Net.post 
 		(
@@ -111,9 +120,27 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			},
 			callback
 		);
-	},
+	},*/
 
-	'openService' : function (e)
+	'servicedetail' : function (e)
+	{
+		// Navigate view
+		this.$el.find("#service-connected").addClass("open-detail");
+		
+		// Create service view
+		this.detail = new Cloudwalkers.Views.Settings.Service ({id: $(e.currentTarget).data("service"), parent: this});
+		this.$el.find(".service-detail").html( this.detail.render().el);
+	},
+	
+	'closedetail' : function ()
+	{
+		// Navigate view
+		this.$el.find("#service-connected").removeClass("open-detail");
+		
+		this.detail.remove();
+	},
+	
+	/*'openService' : function (e)
 	{
 		e.preventDefault ();
 
@@ -138,7 +165,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 				self.render ();
 			});
 		}
-	},
+	},*/
 
 	'processLink' : function (url)
 	{
