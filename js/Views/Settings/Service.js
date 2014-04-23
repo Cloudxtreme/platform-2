@@ -63,6 +63,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		Cloudwalkers.RootView.confirm("You are about to delete a service. All statistics information will be lost.", function()
 		{
 			this.service.destroy();
+			this.parent.closedetail();
 			
 		}.bind(this));
 	},
