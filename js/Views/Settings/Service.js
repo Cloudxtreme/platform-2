@@ -5,6 +5,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		'click [data-delete]' : 'deleteServiceClick',
         'click [data-stream-details-id]' : 'streamDetailView',*/
         'click li[data-id]' : 'toggleprofile',
+        'click .delete-detail' : 'delete',
         'click .close-detail' : 'closedetail'
 	},
 	
@@ -28,24 +29,14 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 	
 	'render' : function ()
 	{
-		console.log(this.service)
-		
 		// Clone service data
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
-		
-		
-		
 		
 		// Render view
 		this.$el.html (Mustache.render (Templates.settings.service, data));
 		
 		return this;
-	},
-	
-	'closedetail' : function()
-	{
-		this.parent.closedetail();
 	},
 	
 	'toggleprofile' : function (e)
@@ -64,6 +55,21 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		{
 			Cloudwalkers.RootView.growl ("Social connections", "A successful update, there.");
 		}});
+	},
+	
+	'delete' : function ()
+	{
+		//'confirm' : function (message, callback)
+		Cloudwalkers.RootView.confirm("You are about to delete a service. All statistics information will be lost.", function()
+		{
+			this.service.destroy();
+			
+		}.bind(this));
+	},
+	
+	'closedetail' : function()
+	{
+		this.parent.closedetail();
 	},
 	
 

@@ -1,6 +1,6 @@
 <div class="pull-right {{^listname}}no-list{{/listname}}">
 	<span class="btn-white close-detail">Done</span>
-	<span class="btn-white">Delete</span>
+	<span class="btn-white delete-detail">Delete</span>
 </div>
 
 <div class="service-authenticate {{#listname}}pull-right clearfix{{/listname}}{{^listname}}pull-left{{/listname}}">
