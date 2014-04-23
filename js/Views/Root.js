@@ -416,5 +416,23 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
+	},
+
+	'loadPrepare' : function(object, states){
+
+		states = ['state1', 'state2', 'ready'];
+		var l = states.length;
+
+		for(i in states){
+			this.listenTo(object, states[i], this.loadRender(i,l));
+		}
+
+		//Append progress bar to view (TODO)
+	},
+
+	'loadRender' : function(index, length){
+
+		//Update progress bar width according to state
+		var width = index*100/length;
 	}
 });
