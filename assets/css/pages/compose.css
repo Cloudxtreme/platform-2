@@ -45,7 +45,7 @@ Style corrections and manual overrides
 **/
 
 #compose > div	{
-	margin-left: 260px; border-left: 1px solid #aaa; background-color: #fff;
+	margin-left: 260px; border-left: 1px solid #aaa; background-color: #fff; border-radius: 0px 2px 2px 0px;
 }
 
 #compose .modal-header	{ 

@@ -3,13 +3,17 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	'id' : "preview",
 	'events' : {},
 	'networkclasses' : {'facebook' : 'fb', 'twitter' : 'twt', 'google-plus' : 'gp', 'linkedin' : 'li'},
+	'events' : {
+		'click #viewsummary' : 'togglesummary'
+	},
 	
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options); 
-		this.draftdata = this.model.attributes;
+		///console.log(Cloudwalkers.Session.getStream(this.streamid));
 
-		if(this.streamid) this.draftdata = this.mergedata(this.draftdata, this.model.variation(this.streamid));
+		this.draftdata = this.mergedata(this.model.attributes, this.model.variation(this.streamid));
+		$.extend(this.draftdata, Cloudwalkers.Session.getStream(this.streamid).get("profile"));
 	},
 
 	'render' : function ()
@@ -32,6 +36,12 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	{
 		//Random load times
 		this.fakeload((Math.random()*1.2)+0.4);
+		
+		if(this.model.hasAttachement("link"))	this.$el.find("#network").addClass("link"); 
+		if(img = this.model.hasAttachement("image")){
+			this.draftdata.image = img.data;
+			this.$el.find("#network").addClass("img"); 
+		}
 
 		// Render preview (opacity:0)
 		var preview = Mustache.render(preview, this.draftdata);
@@ -57,21 +67,15 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 			return model;
 		}
 
-		var newdata = {};
+		var dataclone = {};
 
-		for(var attr in model) newdata[attr] = model[attr];
-		
-		for(var attr in variation){
-			if(newdata[attr] && attr != "body") {
-				newdata[attr] = variation[attr];
-			}
-			else if(attr == "body" && variation["body"].html)
-			{
-				newdata[attr] = variation[attr];
-			}
-			else newdata[attr] = variation[attr];
-		}
+		$.extend(dataclone, model);
+		$.extend(dataclone, variation)
 
-		return newdata;
+		return dataclone;
+	},
+
+	'togglesummary' : function(){
+		this.$el.find('.pv-url-content').toggle();
 	}
 });

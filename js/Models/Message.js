@@ -777,6 +777,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return attachments;
 	},
 
+	'hasAttachement' : function(type){
+
+		if (typeof (this.attributes.attachments) != 'undefined')
+		{
+			for (var i = 0; i < this.attributes.attachments.length; i ++)
+			{
+				attachment = this.attributes.attachments[i];
+
+				if (attachment.type == type)	return this.attributes.attachments[i];
+			}
+			return false;
+		}
+	},
+
 	'setRead' : function ()
 	{
 		if (!this.get ('read'))
