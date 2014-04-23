@@ -305,10 +305,8 @@ Style corrections and manual overrides
 **/
 
 #compose .inline-all  > *	{
-	float: left; margin-right: 8px; max-width: 100px;
+	float: left; margin-right: 8px; max-width: 120px;
 }
-
-
 
 
 /**

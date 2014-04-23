@@ -139,7 +139,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
-
+		
 		return this;
 	},
 	
