@@ -9,10 +9,11 @@
 			<div class="portlet-title">
 				<div class="caption"><i class="icon-cloud"></i>Active social connections</div>
 			</div>
-			<div class="portlet-body inner-loading">
-				<ul class="services">
-					
-				</ul>
+			<div class="portlet-body inner-loading clearfix">
+				
+				<ul class="services"></ul>
+				<div class="service-detail"></div>
+			
 			</div>
 		</div>
 		

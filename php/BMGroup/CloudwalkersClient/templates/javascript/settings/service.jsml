@@ -1,4 +1,39 @@
-<form>
+<div class="pull-right {{^listname}}no-list{{/listname}}">
+	<span class="btn-white close-detail">Done</span>
+	<span class="btn-white">Delete</span>
+</div>
+
+<div class="service-authenticate {{#listname}}pull-right clearfix{{/listname}}{{^listname}}pull-left{{/listname}}">
+{{#valid}}
+
+	Connected to {{account}}<br><br>
+	<a href="{{authenticateUrl}}" class="btn-black">Re-authenticate user</a>
+
+{{/valid}}
+{{^valid}}
+
+	{{account}} is not connected<br><br>
+	<a href="{{authenticateUrl}}" class="btn-black">Authenticate user</a>
+
+{{/valid}}
+</div>
+
+{{#listname}}
+
+	<h3>{{listname}}</h3>
+	<small>To add {{network.name}} {{listname}} to your Cloudwalkers account, select them below.</small>
+	
+	<ul class="service-profiles clearfix">
+		{{#profiles}}
+			<li data-id="{{id}}" class="btn-white {{#activated}}active{{/activated}}{{^activated}}inactive{{/activated}}">
+				<div class="service-thumbnail pull-right" style="background-image:url({{avatar}});"></div><i class="icon-{{network.icon}}"></i> {{displayname}}
+			</li>
+		{{/profiles}}
+	</ul>
+
+{{/listname}}
+
+<!--<form>
 
 	<fieldset>
 
@@ -60,4 +95,4 @@
 
 
 
-</form>
+</form>-->

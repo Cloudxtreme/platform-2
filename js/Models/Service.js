@@ -1,5 +1,7 @@
 Cloudwalkers.Models.Service = Backbone.Model.extend({
-
+	
+	'typestring' : "services",
+	
 	'initialize' : function ()
 	{
 		

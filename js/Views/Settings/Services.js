@@ -2,7 +2,9 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 
 	'events' : {
 		'click [data-open-service]' : 'openService',
-		'click [data-add-service]' : 'addServiceCall'
+		'click [data-add-service]' : 'addServiceCall',
+		
+		'click [data-service]' : 'servicedetail',
 	},
 	
 	'initialize' : function()
@@ -55,22 +57,8 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	
 	'appendService' : function(service) {
 		
-		// Prepare data;
-		var data = {stream:[] }
-		
-		console.log(service)
-		
+		// Add service attributes to list
 		this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
-		
-		
-		/*var 
-		
-		console.log($container, available)
-		
-		for (n in available)
-		{
-			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
-		}*/
 	},
 	
 	
@@ -113,7 +101,25 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		);
 	},
 
-	'openService' : function (e)
+	'servicedetail' : function (e)
+	{
+		// Navigate view
+		this.$el.find("#service-connected").addClass("open-detail");
+		
+		// Create service view
+		this.detail = new Cloudwalkers.Views.Settings.Service ({id: $(e.currentTarget).data("service"), parent: this});
+		this.$el.find(".service-detail").html( this.detail.render().el);
+	},
+	
+	'closedetail' : function ()
+	{
+		// Navigate view
+		this.$el.find("#service-connected").removeClass("open-detail");
+		
+		this.detail.remove();
+	},
+	
+	/*'openService' : function (e)
 	{
 		e.preventDefault ();
 
@@ -138,7 +144,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 				self.render ();
 			});
 		}
-	},
+	},*/
 
 	'processLink' : function (url)
 	{

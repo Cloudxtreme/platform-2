@@ -1,14 +1,73 @@
 Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 	'events' : {
-		'submit form' : 'submit',
+		/*'submit form' : 'submit',
 		'click [data-delete]' : 'deleteServiceClick',
-        'click [data-stream-details-id]' : 'streamDetailView'
+        'click [data-stream-details-id]' : 'streamDetailView',*/
+        'click li[data-id]' : 'toggleprofile',
+        'click .close-detail' : 'closedetail'
 	},
+	
+	'listnames' : {
+		'facebook': "Pages",
+		'twitter': false,
+		'linkedin': "Companies",
+		'google-plus': "Pages",
+		'youtube': false
+	}, 
 
 	'service' : null,
-
+	
+	'initialize' : function(options)
+	{
+		if (options) $.extend(this, options);
+		
+		// Set service
+		this.service = this.parent.services.get(this.id);
+	},
+	
 	'render' : function ()
+	{
+		console.log(this.service)
+		
+		// Clone service data
+		var data = _.clone(this.service.attributes);
+		data.listname = this.listnames[data.network.token];
+		
+		
+		
+		
+		// Render view
+		this.$el.html (Mustache.render (Templates.settings.service, data));
+		
+		return this;
+	},
+	
+	'closedetail' : function()
+	{
+		this.parent.closedetail();
+	},
+	
+	'toggleprofile' : function (e)
+	{
+		// Button
+		var entry = $(e.currentTarget).toggleClass("active inactive");
+		
+		// Patch data
+		var profile = new Cloudwalkers.Models.User({id: entry.data("id")});
+		
+		profile.parent = this.service;
+		profile.typestring = "profiles";
+		
+		// Update profile
+		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
+		{
+			Cloudwalkers.RootView.growl ("Social connections", "A successful update, there.");
+		}});
+	},
+	
+
+	/*'render' : function ()
 	{
 		var self = this;
 
@@ -49,7 +108,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		});
 
 		return this;
-	},
+	},*/
 
 	'processSettings': function (settings)
 	{
