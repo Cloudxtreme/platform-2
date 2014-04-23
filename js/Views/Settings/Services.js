@@ -1,9 +1,10 @@
 Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 
 	'events' : {
-		'click [data-open-service]' : 'openService',
-		'click [data-add-service]' : 'addServiceCall',
+		/*'click [data-open-service]' : 'openService',
+		'click [data-add-service]' : 'addServiceCall',*/
 		
+		'click [data-add-service]' : 'addService',
 		'click [data-service]' : 'servicedetail',
 	},
 	
@@ -61,6 +62,26 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
 	},
 	
+	'addService' : function (e)
+	{
+		// Service token
+		var token = $(e.target).data ('add-service');
+		
+		this.listenToOnce(this.services, "sync", function(service)
+		{
+			var auth = service.get("authenticateUrl");
+			
+			// Prevent API bug
+			if(!auth) return null;
+			
+			// Go to authentication page
+			window.location = this.processLink (auth);
+
+		});
+		
+		this.services.create({},{wait: true, endpoint: token});
+
+	},	
 	
 	/*'appendOptions' : function(available) {
 		
@@ -86,7 +107,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		Cloudwalkers.Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
 	},*/
 	
-	'addService' : function (id, callback)
+	/*'addService' : function (id, callback)
 	{
 		Cloudwalkers.Net.post 
 		(
@@ -99,7 +120,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			},
 			callback
 		);
-	},
+	},*/
 
 	'servicedetail' : function (e)
 	{
