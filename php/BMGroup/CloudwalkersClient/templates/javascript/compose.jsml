@@ -44,6 +44,8 @@
 		<div id="out"></div>
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
+			<div class="btn-white" data-toggle="images">Images</div>
+			
 			<div class="collapsable-content">
 					
 				<div class="photo-booth hidden">
@@ -59,23 +61,23 @@
 				
 				<div>
 					<span>Pictures</span>
-					<ul class="pictures-container clearfix">
+					<ul class="pictures-container">
 						<li class="add-file">&plus;</li>
 					</ul>
 				</div>
 				
 				<div class="clearfix">
 					<span>Camera</span>
-					<ul class="snapshots-container clearfix">
+					<ul class="snapshots-container">
 						<li class="add-snapshot">&plus;</li>
 					</ul>
 				</div>
 				
 			</div>
 			
-			<div class="btn-white" data-toggle="images">Images</div>
 			
-			<ul class="summary"></ul>
+			
+			<ul class="summary" data-toggle="images"></ul>
 			
 		</section>
 		
@@ -108,7 +110,7 @@
 				<span class="add-campaign">&plus;</span>
 			</div>
 			
-			<div class="summary"></div>
+			<div class="summary" data-toggle="campaign"></div>
 			
 		</section>
 		
@@ -140,7 +142,7 @@
 						<option value="21600">6 hours</label>
 						<option value="43200">12 hours</label>
 						<option value="86400">1 day</label>
-						<option value="86400">1 week</label>
+						<option value="604800">1 week</label>
 					</select>
 				</div>
 				
@@ -150,10 +152,10 @@
 					<label for="delay-on">On</label>
 					
 					<div class="input-symbol schedule-intend" data-option="schedule-start-date">
-						<input id="delay-date" type="text" placeholder="start date..." />
+						<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
 					</div>
 					
-					<div class="pull-right"><input id="besttime" name="besttime" type="checkbox" value="besttime"><label for="besttime">Best time to post</label><em></em></div>
+					<div class="pull-right"><input id="besttime" name="besttime" type="checkbox"><label for="besttime">Best time to post</label></div>
 					
 					<div class="input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
 						<input id="delay-time" type="time" />
@@ -161,7 +163,7 @@
 				</div>
 
 			</div>
-			<div class="summary"></div>
+			<div class="summary" data-toggle="schedule"></div>
 			
 		</section>
 		
@@ -175,53 +177,55 @@
 				
 					<label for="repeat-interval">every</label>
 					<div class="input-symbol" data-option="schedule-start-date">
-						<input name="repeat-interval" type="number" value="1" min="1" /> 
+						<input id="repeat-interval" type="number" value="1" min="0" /> 
 					</div>
 				
-					<select name="every-select-single">
-						<option value="900">hour</option>
-						<option value="1800">day</label>
-						<option value="1800">week</label>
-						<option value="2700">month</label>
+					<select id="every-select-single" class="hide-if-empty">
+						<option value="1">hour</option>
+						<option value="24">day</label>
+						<option value="168" selected>week</label>
+						<option value="720">month</label>
 					</select>
 					
-					<select name="every-select" class="hidden">
-						<option value="900">hours</option>
-						<option value="1800">days</label>
-						<option value="1800">weeks</label>
-						<option value="2700">months</label>
+					<select id="every-select" class="hidden hide-if-empty">
+						<option value="1">hours</option>
+						<option value="24">days</label>
+						<option value="168" selected>weeks</label>
+						<option value="720">months</label>
 					</select>
 					
-					<label for="every-select-weekday" class="inactive">on</label>
-					<select id="every-select-weekday" name="every-select-weekday" class="inactive">
-						<option value="600">monday</option>
-						<option value="900">tuesday</option>
-						<option value="1800">wednesday</label>
-						<option value="1800">thursday</label>
-						<option value="2700">friday</label>
-						<option value="2700">saturday</label>
-						<option value="2700">sunday</label>
+					<label for="every-select-weekday" class="hide-if-empty">on</label>
+					<select id="every-select-weekday" class="hide-if-empty">
+						<option value=0>select a day...</option>
+						<option value="MONDAY">monday</option>
+						<option value="TUESDAY">tuesday</option>
+						<option value="WEDNESDAY">wednesday</label>
+						<option value="THURSDAY">thursday</label>
+						<option value="FRIDAY">friday</label>
+						<option value="SATURDAY">saturday</label>
+						<option value="SUNDAY">sunday</label>
+						<option value=0>doesn't matter</label>
 					</select>
 					
 				</div>
 				
-				<div class="schedule-entry inline-all clearfix">
-					<input id="repeat-amount" name="delay" type="radio">
+				<div class="schedule-entry inline-all clearfix hide-if-empty">
+					<input id="opt-repeat" name="repeat" type="radio">
 					
 					<label for="repeat-amount">Repeat</label>
 					<div class="input-symbol" data-option="schedule-start-date">
-						<input name="repeat-amount" type="number" value="0" min="0" />
+						<input id="repeat-amount" type="number" value="0" min="0" />
 					</div>
 					<label for="repeat-amount">times</label>
 
 				</div>
 				
-				<div class="schedule-entry inline-all clearfix">
-					<input id="repeat-until" name="delay" type="radio">
+				<div class="schedule-entry inline-all clearfix hide-if-empty">
+					<input id="opt-until" name="repeat" type="radio">
 					
 					<label for="repeat-until">Until</label>
 					<div class="input-symbol" data-option="schedule-start-date">				
-						<input id="end" type="text" placeholder="end date..." value="{{scheduled.end}}" />
+						<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
 					</div>
 				</div>
 				
@@ -229,7 +233,7 @@
 				
 			</div>
 			
-			<div class="summary"></div>
+			<div class="summary" data-toggle="repeat"></div>
 
 		</section>
 		
