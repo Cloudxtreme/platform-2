@@ -41,21 +41,27 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .add-snapshot' : 'addsnapshot',
 		'change [data-collapsable=images] input' : 'listentofiles',
 		'click .photo-booth' : 'listentobooth',
+		'click li.images-thumb' : 'removefile',
 		
 		'blur [data-collapsable=link] input' : 'listentolink',
 		'change select.campaign-list' : 'listentocampaign',
 		'blur input.campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
+		'click [data-collapsable=schedule] input[type=checkbox], [data-collapsable=schedule] input[type=radio]' : 'monitorschedule',
 		'blur [data-collapsable=schedule] input' : 'monitorschedule',
 		'change [data-collapsable=schedule] select' : 'monitorschedule',
+		
+		'click [data-collapsable=repeat] input[type=radio]' : 'monitorrepeat',
+		'blur [data-collapsable=repeat] input' : 'monitorrepeat',
+		'change [data-collapsable=repeat] select' : 'monitorrepeat',
 
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
 		'click #post' : 'post',
 
-		'keyup #info' : 'showembed'
+		/*'keyup #info' : 'showembed'*/
 	},
 	
 	/*'title' : "Compose message",
@@ -153,12 +159,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
 		
+		// Limit counter
+		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
+		
 		// Link
 		var val = this.$el.find("[data-option=link] input").val();
 		if(!streamid || (streamid && body && body.html != val)) input.link = val;
-
-		// Limit counter
-		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
 		
 		// Update draft
 		if (streamid)	this.draft.variation(streamid, input);
@@ -335,6 +341,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'toggleimages' : function(visible, multiple)
 	{
+
 		// Open options
 		var collapsable = this.$el.find("[data-collapsable=images]")[visible? "removeClass": "addClass"]("hidden");
 		
@@ -374,12 +381,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			reader.onload = (function(file)
 			{	return function(e)
-				{
+				{	
 					// Add to view
-					var snapshot = $("<li></li>").prependTo("ul.pictures-container").css('background-image', "url(" + e.target.result + ")");
+					var snapshot = $("<li></li>").prependTo("ul.pictures-container").attr("data-filename", file.name).addClass('images-thumb').css('background-image', "url(" + e.target.result + ")");
 					
 					// Add to draft
-					draft.attach({type: 'image', data: e.target.result});
+					draft.attach({type: 'image', data: e.target.result, name: file.name});
 					
 			}})(f);
 			
@@ -404,12 +411,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!this.media) return;
 		
 		var result = this.media.snapshot();
-		var snapshot = $("<li></li>").prependTo("ul.snapshots-container").css('background-image', "url(" + result + ")");
+		var snapshot = $("<li></li>").prependTo("ul.snapshots-container").attr("data-filename", moment().unix()).addClass('images-thumb').css('background-image', "url(" + result + ")");
 		
-		this.draft.attach({type: 'image', data: result});
+		this.draft.attach({type: 'image', data: result, name: moment().unix()});
 		
 		// Hide Photo Booth
 		this.$el.find(".photo-booth").addClass("hidden");
+	},
+	
+	'removefile' : function (e)
+	{
+		var image = $(e.currentTarget).remove();
+		var attachs = this.draft.get("attachments");
+		
+		console.log(image, image.data("filename"));
+		
+		for (n in attachs)
+			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")) attachs.splice(n,1);
+		
+		
 	},
 	
 	/**
@@ -502,8 +522,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	
 		}.bind(this));
-		
-		
 	},
 	
 	'reloadcampaigns' : function(campaigns)
@@ -533,12 +551,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		{
 			scheduled = {};
 			this.draft.set("schedule", scheduled);
+			
+			this.$el.find("[data-collapsable=schedule] input, [data-collapsable=schedule] select").val("")
 		}
 		
 		// Add selected delay
 		else if(field.is("#delay-select"))
 		{
-			scheduled.date = moment().add('seconds', field.val()).utc();
+			scheduled.date = moment().add('seconds', field.val()).unix();
 			$("#delay-in").attr("checked", "checked");
 		}
 		
@@ -546,39 +566,61 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else if(field.is("#delay-date"))
 		{
 			// First sanity check
-			if(!moment(field.val()).isValid()) console.log("invalid");
+			if(field.val() && !moment(field.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).isValid())
+			{
+				field.val("");
+				return Cloudwalkers.RootView.alert("Please correct your Schedule on date field  (ie. 01-07-2017)");
+			}
 			
 			
-			scheduled.date = moment(field.val()).utc();
+			scheduled.date = moment(field.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix();
 			$("#delay-on").attr("checked", "checked");
 			
 			if($("#delay-time").val())
 			{
 				var time = $("#delay-time").val().split(":");
-				scheduled.date = moment(scheduled.date).add('minutes', Number(time[0])*60 + Number(time[1])).utc();
+				scheduled.date = moment(scheduled.date).add('minutes', Number(time[0])*60 + Number(time[1])).unix();
 			}
 			
-			this.validatefuture(scheduled.date);
+			// Second sanity check
+			if(!this.validatefuture(scheduled.date))
+			{
+				 delete scheduled.date;
+				 return Cloudwalkers.RootView.alert("Please set your Schedule on date in the future");
+			}
 		}
 		
 		// Add time delay
-		else if(field.is("#delay-time") && scheduled.date) console.log(field.val())//scheduled.date = moment(scheduled.date).add('seconds', field.val()).utc();
+		else if(field.is("#delay-time") && scheduled.date)
+		{
+			var time = field.val().split(":");
+			scheduled.date = moment(scheduled.date).add('minutes', Number(time[0])*60 + Number(time[1])).unix();
+		}
 		
-		
+		// Add best time to post
+		else if(field.is("#besttime")) 
+		{
+			scheduled.besttimetopost = field.get(0).checked;
+			$("#delay-time").attr("disabled", field.get(0).checked);
+		}
 		
 		return this;
 	},
 	
-	'validatefuture' : function (date)
-	{
-		console.log(date, moment().utc())
-		
-		return date > moment().utc();
-	},
+	'validatefuture' : function (date) { return date > moment().unix(); },
 	
 	'summarizeschedule' : function ()
 	{
-		
+		// Schedule value
+		var scheduled = this.draft.get("schedule");
+		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty();
+			
+		if(scheduled.date)
+		{
+			var time = scheduled.besttimetopost? "Best time to post": moment.unix(scheduled.date).format("HH:mm");
+			summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
+		}
+				
 		return this;
 	},
 
@@ -587,8 +629,96 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Options: Repeat
 	**/
 	
+	'monitorrepeat' : function(e)
+	{
+		var field = $(e.currentTarget);
+		var scheduled = this.draft.get("schedule");
+		
+		if(!scheduled.repeat && $("#repeat-interval").val()) scheduled.repeat = {interval: 604800};
+		
+		// Remove or alter Repeat
+		if(field.is("#repeat-interval"))
+		{
+			if(field.val() == 0)	this.$el.find("[data-collapsable=repeat] .hide-if-empty").addClass("hidden");
+			else {					this.$el.find("[data-collapsable=repeat] .hide-if-empty").removeClass("hidden");
+				if(field.val() > 1)	this.$el.find("#every-select-single").addClass("hidden");
+				else				this.$el.find("#every-select").addClass("hidden");
+			} 	
+			
+			scheduled.repeat.interval = field.val()? field.val() * $("#every-select-single, #every-select").not(".hidden").val() *3600 : 0;
+		}
+		
+		// Add interval delay (single)
+		else if(field.is("#every-select-single") || field.is("#every-select"))
+		{
+			// Change sister
+			$(field.is("#every-select-single")? "#every-select": "#every-select-single").get(0).selectedIndex =  field.get(0).selectedIndex;
+
+			scheduled.repeat.interval = field.val() * $("#repeat-interval").val() *3600;
+		}
+		
+		// Add repeat amount
+		else if(field.is("#repeat-amount"))
+		{
+			scheduled.repeat.amount = field.val();
+			scheduled.repeat.until = false;
+			
+			$("#repeat-until").val("");
+			$("#opt-repeat").attr("checked", true);
+			$("#opt-until").attr("checked", false);
+		}
+		
+		// Add repeat until
+		else if(field.is("#repeat-until"))
+		{
+			scheduled.repeat.amount = false;
+			scheduled.repeat.until = moment(field.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix();
+			
+			$("#repeat-amount").val(0);
+			$("#opt-repeat").attr("checked", false);
+			$("#opt-until").attr("checked", true);
+		}
+		
+		// Add weekday
+		else if(field.is("#every-select-weekday"))
+		{
+			// Set weekday
+			scheduled.repeat.weekdays = field.val()? [field.val()]: false;
+		}
+		
+		// Check week select
+		$("#every-select-weekday, [for=every-select-weekday]")[scheduled.repeat.interval >= 604800? "removeClass": "addClass"]("hidden");
+				
+		return this;
+	},
+	
 	'summarizerepeat' : function()
 	{
+		// Repeat value
+		var scheduled = this.draft.get("schedule");
+		
+		// Emergency breaks
+		if(!scheduled.repeat) return this;
+		
+		var summary = this.$el.find("[data-collapsable=repeat] .summary").empty();
+		var start = scheduled.date? moment.unix(scheduled.date): moment();
+		
+		// Based on until
+		if (scheduled.repeat.until)
+		{
+			var end = moment.unix(scheduled.repeat.until);
+			var span = end.diff(start)/1000;
+			var times = Math.round(span/scheduled.repeat.interval);
+		}
+		
+		// Based on repeat
+		else if (scheduled.repeat.interval)
+		{
+			var times = scheduled.repeat.amount;
+			var end = start.clone().add('seconds', times * scheduled.repeat.interval);
+		}
+		
+		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
 						
 		return this;
 	},

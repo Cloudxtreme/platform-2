@@ -163,7 +163,23 @@ Style corrections and manual overrides
 	margin-left: 120px;
 }
 
-#compose [data-collapsable] .summary	{ margin-left: 100px; }
+#compose [data-collapsable] .collapsable-content	{
+	margin-left: 108px;
+}
+
+#compose [data-collapsable] .summary	{
+	margin-left: 100px; max-width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+}
+
+#compose [data-collapsable] .summary span	{
+	max-width: 100%; padding: 7px 12px; background: #eee; border-radius: 3px;
+	font-size: 14px; color: #888; text-shadow: 0 1px 0 white; line-height: 2.34em;
+}
+
+#compose .summary .negative	{
+	margin-left: 8px; padding: 2px 6px; background: white; border-radius: 3px;
+	color: #777;
+}
 
 #compose [data-collapsable] .schedule-intend	{ margin-left: 60px; }
 
@@ -186,13 +202,17 @@ Style corrections and manual overrides
 }
 
 #compose [data-collapsable=images] ul	{
-	margin: 0 0 4px 90px; list-style: none;
+	margin: 0 0 4px 90px; height: 42px; list-style: none;
 }
 
 #compose [data-collapsable=images] li	{
 	float: left; width: 40px; height: 38px; margin-left: 4px; border-radius: 3px; background: #aaa center no-repeat; background-size: 125% auto; cursor: pointer;
 	font-size: 38px; color: white; font-weight: 100; text-align: center; line-height: .92em;
 }
+
+#compose [data-collapsable=images] .images-thumb:hover	{ opacity: .6; }
+
+#compose [data-collapsable=images] .images-thumb:hover:after	{ content: "-" }
 
 #compose [data-collapsable=images] .summary li	{
 	width: 34px; height: 32px; border-radius: 2px;
@@ -220,21 +240,9 @@ Style corrections and manual overrides
  *	Collapsable: link
 **/
 
-#compose [data-collapsable=link] .input-symbol	{ margin-left: 104px; }
+/*#compose [data-collapsable=link] .input-symbol	{ margin-left: 104px; }*/
 #compose [data-collapsable=link] .input-symbol input	{ margin-bottom: 0; }
 
-
-
-#compose [data-collapsable=link] .summary,
-#compose [data-collapsable=campaign] .summary	{
-	max-width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
-}
-
-#compose [data-collapsable=link] .summary span,
-#compose [data-collapsable=campaign] .summary span	{
-	max-width: 100%; padding: 7px 12px; background: #eee; border-radius: 3px;
-	font-size: 14px; color: #888; text-shadow: 0 1px 0 white; line-height: 2.34em;
-}
 
 /**
  *	Collapsable: campaign
@@ -276,6 +284,8 @@ Style corrections and manual overrides
 #compose [data-collapsable=schedule] select	{
 	display: block;
 }
+
+
 
 
 
