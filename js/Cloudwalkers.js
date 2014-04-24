@@ -55,43 +55,33 @@ AuthorizationError.prototype.constructor = AuthorizationError;
 
 Backbone.View = Backbone.View.extend({
 
-	'loadtrack' : 0,
+	'hasContainer' : false,
 	
-	/* load functions here */
 	'loadListeners' : function(model, states){
 		var length = states.length;
 
 		for(i in states){
-			this.listenTo(model, states[i], this.loadRender.bind(this,Number(i),length));
+			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
 	},
 
 	'loadRender' : function(index, length){
 
 		var container = this.$container;
-		if(container && this.loadtrack==0){
-			this.loadtrack = 1;
-			//We have the container		
+		
+		if(container && !this.hasContainer){
+			this.hasContainer = true;	
 			container.append(Templates.progressbar);
 		}
 
-		if(length == (index+1)) this.loadFinish();
+		if(length == index) this.$container.find('.progress-bar').addClass('loaded');
 
-		//Update progress bar width according to state
+		// Ugly but needed hack
 		setTimeout(function(){
-			var width = (index+1)*100/length;
-			container.find('.progress-bar').css('width',width+"%");
+			var width = index*100/length;
+			container.find('.progress-bar').css('width',width+'%');
 		},1);
 	},
-
-	'loadFinish' : function(){
-
-		var bar = this.$container.find('.progress-bar').addClass("loaded");
-		setTimeout(function(){
-			bar.addClass("done");
-		},150);
-	}
-	
 });
 
  

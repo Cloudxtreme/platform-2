@@ -1162,12 +1162,8 @@ tbody.messages-container i	{
 
 .progress-bar.loaded{
 	width: 100%;
-	-webkit-transition: width .15s ease-out !important;
-}
-
-.progress-bar.loaded.done{
 	opacity: 0;
-	-webkit-transition: opacity .15s ease-out;
+	-webkit-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 }
 
 .tip{
