@@ -40,6 +40,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
+
+		Cloudwalkers.RootView.loadPrepare(this.collection, ['request', 'sync', 'ready'], this);
+
 	},
 	
 	'toggleall' : function ()
@@ -89,13 +92,14 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
 		
+
 		return this;
 	},
 	
 	'showloading' : function ()
 	{
 		this.$container.addClass("inner-loading");
-
+		
 		$(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
