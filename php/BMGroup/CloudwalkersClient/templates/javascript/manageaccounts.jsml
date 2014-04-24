@@ -1,0 +1,31 @@
+<!-- {{title}} pageview -->
+
+	<div class="row-fluid">
+		<div class="span8 offset3">
+			<h3 class="page-title">{{title}}</h3>
+		</div>
+	</div>
+
+	<div id="widgetcontainer" class="row-fluid social-icon-colors">
+		
+		<div class="span2 column-bordered">
+			<label>Networks</label>
+			
+			{{#networks}}
+			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
+			{{/networks}}
+		</div>
+		
+		<div class="span8 offset1">
+			
+			<input type="text" class="input-rounded input-large" placeholder="Enter profile link ..." />
+			
+			<div class="info-container"></div>
+			
+			<ul class="contacts-list"></ul>
+			
+		</div>
+		
+	</div>
+	
+<!-- end pageview -->

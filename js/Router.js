@@ -14,6 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'timeline/:channel(/:stream)' : 'timeline',
 		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
+		'monitoring/accounts' : 'manageaccounts',
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
@@ -169,6 +170,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
+	},
+	
+	'manageaccounts' : function ()
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel ('inbox');
+		
+		var view = new Cloudwalkers.Views.ManageAccounts ({channel: channel});
+		Cloudwalkers.RootView.setView (view);
 	},
 
 	/**

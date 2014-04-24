@@ -14,6 +14,8 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		// Get Services options 
 		this.listenTo(this.services, "available:ready", this.appendOptions)
 		this.services.fetchAvailable();
+		
+		
 
 	},
 		
@@ -49,11 +51,11 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		
 		if (url.indexOf ('?') > 0)
 		{
-			url = url + '&return=' + encodeURIComponent(window.location);
+			url = url + '&return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
 		}
 		else
 		{
-			url = url + '?return=' + encodeURIComponent(window.location);
+			url = url + '?return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
 		}
 		return url;
 	},
