@@ -63,23 +63,25 @@ Backbone.View = Backbone.View.extend({
 		for(i in states){
 			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
+
+		this.on("rendered", this.addLoader);
+	},
+
+	'addLoader' : function(){
+		this.loader = $(Templates.progressbar).appendTo(this.$container ? this.$container : this.$el);
 	},
 
 	'loadRender' : function(index, length){
 
-		var container = this.$container;
+		if(!this.loader) return null;
 		
-		if(container && !this.hasContainer){
-			this.hasContainer = true;	
-			container.append(Templates.progressbar);
-		}
+		if(length == index) this.loader.addClass('loaded');
 
-		if(length == index) this.$container.find('.progress-bar').addClass('loaded');
-
+		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
 			var width = index*100/length;
-			container.find('.progress-bar').css('width',width+'%');
+			dis.loader.css('width',width+'%');
 		},1);
 	},
 });
