@@ -42,8 +42,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
 		
-		this.collection.on("all", function(a){ console.log(a) });	
-		
 	},
 	
 	'toggleall' : function ()
