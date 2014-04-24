@@ -8,6 +8,19 @@ Style corrections and manual overrides
 
 .hidden	{ display: none; }
 
+/**
+ *	Forms
+**/
+
+.input-rounded	{
+	width: 100%; padding: 0 10px; margin-top: 4px; height: 28px; box-sizing: border-box; border-radius: 20px !important; background: transparent;
+	font-size: 12px;
+}
+
+.input-rounded.input-large	{
+	padding: 6px 12px; height: auto;
+	font-size: 16px;
+}
 
 
 /* White Button */
@@ -960,7 +973,7 @@ tbody.messages-container i	{
 }
 
 #filter_contacts .input-rounded	{
-	width: 100%; padding: 0 10px; margin-top: 4px; height: 28px; box-sizing: border-box; border-radius: 20px !important; background: transparent;
+	padding: 0 10px; height: 28px;
 	font-size: 12px;
 }
 

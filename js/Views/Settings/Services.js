@@ -171,14 +171,16 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	{
 		if (url.indexOf ('?') > 0)
 		{
-			url = url + '&return=' + encodeURIComponent(window.location);
+			url = url + '&return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
 		}
 		else
 		{
-			url = url + '?return=' + encodeURIComponent(window.location);
+			url = url + '?return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
 		}
 		return url;
 	},
+	
+	
 
 	'addServiceCall' : function (e)
 	{
