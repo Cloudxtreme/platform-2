@@ -1,0 +1,2496 @@
+{"account":
+	{"id":3,"statistics":[
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		},
+		{
+			"date":"2014-04-24T00:00:00+02:00",
+			"id":10,
+			"streams":[
+				{
+					"id":586,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":841,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1001,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 5
+			            },
+		              	"bestTimeToPost": {
+			                "0": 1,
+			                "1": 0,
+			                "2": 3,
+			                "3": 0,
+			                "4": 4,
+			                "5": 0,
+			                "6": 1,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 56,
+			                "11": 0,
+			                "12": 234,
+			                "13": 232,
+			                "14": 100,
+			                "15": 133,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 6,
+			                "20": 0,
+			                "21": 0,
+			                "22": 19,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":541,
+					"contacts":15,
+					"messages":399,
+					"notifications":2,
+					"activities":0
+				},
+				{
+					"id":590,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":840,
+					"contacts":15,
+					"messages":33,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":843,
+					"contacts":15,
+					"messages":52,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":588,
+					"contacts":15,
+					"messages":{
+						"total": 1311,
+		              	"types": {
+			                "shares": 31,
+			                "posts": 4,
+			                "dms": 15
+			            },
+		              	"bestTimeToPost": {
+			                "0": 11,
+			                "1": 10,
+			                "2": 13,
+			                "3": 10,
+			                "4": 4,
+			                "5": 1,
+			                "6": 11,
+			                "7": 0,
+			                "8": 6,
+			                "9": 0,
+			                "10": 561,
+			                "11": 0,
+			                "12": 2341,
+			                "13": 232,
+			                "14": 100,
+			                "15": 1331,
+			                "16": 40,
+			                "17": 20,
+			                "18": 10,
+			                "19": 16,
+			                "20": 0,
+			                "21": 0,
+			                "22": 191,
+			                "23": 80
+		              	},
+		              	"impressions": 1
+					},
+					"notifications":0,
+					"activities":1
+				},
+				{
+					"id":842,
+					"contacts":15,
+					"messages":0,
+					"notifications":0,
+					"activities":{
+						"total": 55,
+		              	"types": {
+			                "favourites": 25,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				},
+				{
+					"id":838,
+					"contacts":16,
+					"messages":0,
+					"notifications":0,
+					"activities":0
+				},
+				{
+					"id":296,
+					"contacts":	{
+						"total": 1170,
+						"types": {
+							"Friends":555,
+							"Listed":1,
+							"Followers":1170
+						}
+					},
+					"messages":2081,
+					"notifications": {
+						"total":8,
+						"types": {
+							"Favourites":8
+						}
+					},
+					"activities":0
+				},
+				{
+					"id":264,
+					"contacts": {	
+						"total":199,
+						"types": {
+							"Followers":199,
+							"Friends":305,
+							"Listed":2
+						}
+					},
+					"messages":389,
+					"notifications": {
+						"total":4,
+						"types": {
+							"Favourites":4
+						}
+					},
+					"activities":1
+				},
+				{
+					"id":216,
+					"contacts":{
+						"total":2438,
+						"geo":{
+							"countries":[{
+								"name":"Brazil",
+								"total":1234,
+								"cities":{
+									"Rio de Janeiro, Brazil":55,
+									"Mexico City, Distrito Federal, Mexico":17,
+									"Bras\u00edlia, Distrito Federal, Brazil":10,
+									"Fortaleza, Ceara, Brazil":11,
+									"Guarulhos, S\u00e3o Paulo, Brazil":6,
+									"Curitiba, Parana, Brazil":11,
+									"Osasco, S\u00e3o Paulo, Brazil":7,
+									"Manaus, Amazonas, Brazil":8,
+									"Recife, Pernambuco, Brazil":11,
+									"S\u00e3o Paulo, Brazil":61,
+									"Salvador, Bahia, Brazil":10
+								}
+							},
+							{
+								"name":"Turkey",
+								"total":4321,
+								"cities":{
+									"Malatya, K\u00fctahya, Turkey":7,
+									"Ankara, Turkey":27,
+									"Antalya, Turkey":10,
+									"Gaziantep, Turkey":10,
+									"Lima, Peru":21,"Adana, Turkey":14,
+									"Kayseri, Turkey":11,
+									"Istanbul, Turkey":64,
+									"Izmir, Turkey":17,
+									"Bursa, Bolu, Turkey":7,
+									"Mersin, Icel, Turkey":13,
+									"Kahramanmaras, Kahramanmara?, Turkey":7,
+									"Izmit, Kocaeli, Turkey":6,
+									"Konya, Turkey":7,
+									"Van, Turkey":6
+								}
+							},
+							{
+								"name":"Dummy Country",
+								"total":999,
+								"cities":{
+									"Dummy Town 1":7,
+									"Dummy Town 2":27,
+									"Dummy Town 3":10,
+									"Dummy Town 4":10,
+									"Dummy Town 5":7,
+									"Dummy Town 6":27,
+									"Dummy Town 7":10,
+									"Dummy Town 8":10,
+									"Dummy Town 9":7,
+									"Dummy Town 10":27,
+									"Dummy Town 11":10,
+									"Dummy Town 12":10,
+									"Dummy Town 13":7,
+									"Dummy Town 14":27,
+									"Dummy Town 14":10,
+									"Dummy Town 15":10
+								}
+							}]
+						},
+						"gender":{
+							"male":1587,
+							"female":852,
+							"other":10
+						},
+						"age":{
+							"55-64":12,
+							"18-24":1384,
+							"13-17":407,
+							"25-34":329,
+							"35-44":195,
+							"45-54":79,
+							"65+":33
+						},
+						"professional": {
+			                "functions": [
+			                  {
+			                    "name": "function 1",
+			                    "total": 100
+			                  },
+			                  {
+			                    "name": "function 2",
+			                    "total": 13
+			                  },
+			                  {
+			                    "name": "function 3",
+			                    "total": 1987
+			                  },
+			                  {
+			                    "name": "function 4",
+			                    "total": 743
+			                  }
+			                ],
+			                "industries": [
+			                  {
+			                    "name": "Industy 1",
+			                    "total": 2
+			                  },
+			                  {
+			                    "name": "Industy 2",
+			                    "total": 4
+			                  },
+			                  {
+			                    "name": "Industy 3",
+			                    "total": 1
+			                  }
+			                ],
+			                "senorities": [
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 12
+			                  },
+			                  {
+			                    "name": "senorities 1",
+			                    "total": 5
+			                  }
+			                ],
+			                "companySizes": {
+			                  "1": 1,
+			                  "2-10": 10,
+			                  "11-50": 100,
+			                  "51-200": 1000,
+			                  "201-500": 200,
+			                  "501-1000": 20,
+			                  "1001-5000": 2,
+			                  "5001-10000": 9,
+			                  "10000+": 1
+			                }
+			              }
+					},
+					"messages":51,
+					"notifications":2,
+					"activities":{
+						"total": 155,
+		              	"types": {
+			                "favourites": 125,
+			                "comments": 20,
+			                "shares": 5
+		              	}
+					}
+				}
+			]
+		}
+	]}
+}
