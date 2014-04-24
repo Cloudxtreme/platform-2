@@ -3,7 +3,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'view' : null,
 	'header' : null,
 	'footer' : null,
-	'loadtrack' : 0,
 
 	'initialize' : function ()
 	{
@@ -421,31 +420,5 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
-	},
-
-	'loadPrepare' : function(object, states, caller){
-
-		var l = states.length;
-
-		for(i in states){
-			this.listenTo(object, states[i], this.loadRender.bind(this,Number(i),l,caller));
-		}
-	},
-
-	'loadRender' : function(index, length, caller){
-
-		var container = caller.$container;
-		if(container && this.loadtrack == 0){
-			
-			//We have the container			
-			this.loadtrack = 1;
-			container.append("<div class='progress-bar' style='width:0%;'><div class='tip'></div></div>");
-		}
-
-		//Update progress bar width according to state
-		setTimeout(function(){
-			var width = (index+1)*100/length;
-			container.find('.progress-bar').css('width',width+"%");
-		},1);
 	}
 });
