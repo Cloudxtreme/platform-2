@@ -205,6 +205,13 @@
 					{{/streams}}
 					</ul>
 				</li>
+				
+				<li>
+					<a href="#monitoring/accounts">
+						<i class="icon-plus"></i> 
+						<span class="title">Manage accounts</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 	{{/news}}
