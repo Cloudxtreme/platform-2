@@ -26,7 +26,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'initialize' : function (options, /* Deprecated? */ pageviewoptions)
 	{
-		
 		if(options) $.extend(this, options);
 		
 		// Which model to focus on
@@ -42,7 +41,10 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 
 		Cloudwalkers.RootView.loadPrepare(this.collection, ['request', 'sync', 'ready'], this);
-
+		
+		this.collection.on("all", function(a){ console.log(a) });
+		
+		
 	},
 	
 	'toggleall' : function ()

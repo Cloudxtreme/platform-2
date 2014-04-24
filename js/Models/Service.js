@@ -9,10 +9,9 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'url' : function()
 	{	
+		var param = this.endpoint? "/" + this.endpoint : "";
 		
-		var param = this.endpoint? this.endpoint : "";
-		
-		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + param;
+		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services/' + this.id + param;
 	},
 	
 	'parse' : function(response)

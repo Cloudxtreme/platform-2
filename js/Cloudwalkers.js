@@ -46,6 +46,20 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	Backbone Extensions
  **/
  
+/**
+ *	View functions
+ *
+ *	Document...
+ *
+**/
+
+Backbone.View = Backbone.View.extend({
+	
+	/* load functions here */
+	
+});
+
+ 
  /**
  *	Model functions
  *

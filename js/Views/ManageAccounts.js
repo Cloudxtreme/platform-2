@@ -11,7 +11,7 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		// Which collection to focus on
 		this.collection = this.channel.messages;
 		
-		console.log(Cloudwalkers.Session.getChannel("news"))
+		// console.log(Cloudwalkers.Session.getChannel("news"))
 	},
 	
 	'render' : function()
