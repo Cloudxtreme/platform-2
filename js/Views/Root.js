@@ -40,7 +40,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('#inner-content').html (this.view.render ().el);
 		
 		// Tell your view
-		this.view.trigger("rendered");
+		this.view.$el.trigger("rendered");
 		
 		// Deprecated!
 		if(this.view.finish) this.view.finish();

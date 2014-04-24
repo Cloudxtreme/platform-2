@@ -6,6 +6,7 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'widgets' : [],
 	'widgetviews' : [],
 	'events' : {
+		'rendered' : 'bubblerender',
 		'remove': 'destroy'
 	},
 
@@ -62,6 +63,15 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 			this.destroy();
 			this.widgetviews = [];
 		}
+	},
+	
+	'bubblerender' : function ()
+	{	
+		// Initial trigger was on $el
+		this.trigger("rendered");
+		
+		// Trigger all Widgets
+		$.each(this.widgetviews, function(i, view){ view.trigger("rendered"); });
 	},
 	
 	'destroy' : function ()
