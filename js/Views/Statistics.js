@@ -43,10 +43,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options);
-		
-		// !Test
-		// this.model = Cloudwalkers.Session.getStream(264);
-		
+
 		// Check if collection exists
 		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
 		
@@ -57,6 +54,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'ready', this.hideloading);
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
+		
+		this.listenTo(this.collection, 'ready', function(m){ console.log("ready", m)});
 	},
 	
 	resize : function(){
