@@ -38,11 +38,32 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	{
 		return this.at(this.length-1);
 	},
-
-
+	
+	/* temp function */
+	'parse' : function (response)
+	{
+		if(typeof response == "string") console.log("is string"	)
+		console.log(response)
+		
+		// Solve response json tree problem
+		if (this.parentmodel)
+			response = response[this.parenttype];
+	
+		// Get paging
+		this.setcursor(response.paging);
+		
+		// Ready?
+		if(!response.paging) this.ready();
+		
+		return response[this.typestring];
+	},
+	
+	/* temp function */
 	'url' : function (params)
     {
-        return this.endpoint? "/json_week_ids": "/json_week";
+        console.log(this.endpoint == "statisticids"? "/json_week_ids": "/json_week")
+        
+        return this.endpoint == "statisticids"? "/json_week_ids": "/json_week";
 
     },
 
