@@ -3,6 +3,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'model' : Cloudwalkers.Models.Statistic,
 	'typestring' : "statistics",
 	'modelstring' : "statistic",
+	'parenttype' : "account",
 	'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501"},
 	'colors' : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
 	'processing' : false,
