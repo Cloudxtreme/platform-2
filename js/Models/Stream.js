@@ -71,6 +71,12 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		var users = child.get("from");
 		
 		if (users && users.length) this.users.add(users);	
+	},
+
+	'getbesttime' : function(){
+
+		if(_.isObject(this.get("messages").bestTimeToPost))
+			return this.get("messages").bestTimeToPost;
 	}
 
 });
