@@ -17,7 +17,6 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		this.collection = this.model.statistics;
 
 		this.listenTo(this.collection, 'ready', this.fill);
-		
 	},
 	
 	'render' : function ()
@@ -53,7 +52,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	 **/
 	 
 	'parsecontacts' : function ()
-	{
+	{	
 		// Get most recent stat
 		var stat = this.collection.latest();
 		
@@ -62,7 +61,19 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'parsescore' : function ()
 	{
-		return { counter: 0};
+		// Get most recent stat
+		/*var stat = Cloudwalkers.Session.getStatistics();
+		console.log(stat);
+		stat.forEach(function(day){
+			var cenas = $.grep(day.get("streams"), function(s){
+			 	return s.id == 264; 
+			});
+			console.log(cenas[0].notifications);
+		});*/
+		stat = this.collection.latest();
+		var total = stat.pluck("notifications") + stat.pluck("activities");
+		
+		return 	{counter: total};
 	},
 	
 	'parsesent' : function ()
@@ -70,12 +81,31 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		// Get most recent stat
 		var stat = this.collection.latest();
 		
-		//return { counter: stat.pluck("messages")};
-		return { counter: 0};
+		return { counter: stat.pluck("messages")};
+		//return { counter: 0};
 	},
 	
 	'parseactivity' : function ()
 	{
-		return { counter: 0};
+
+		//$.each(Cloudwalkers.Session.getStreams().models, function(index, model) { console.log(model.id, model.get("token"))});
+
+		// Get most recent stat
+		var id = Cloudwalkers.Session.getStream("coworkers").id;
+		var total = this.activitymsgs(this.collection.latest(),id) - this.activitymsgs(this.collection.first(),id);
+		
+		return {counter: total >= 0 ? total : 0};
+	},
+
+	'activitymsgs' : function(statistic, id){
+
+		var streams = statistic.get("streams");
+
+		var stream = $.grep(streams, function(s){
+		 	return s.id == id; 
+		});
+
+		var messages = _.isNumber(stream[0].messages) ? stream[0].messages : stream[0]["messages"];
+		return messages;
 	}
 });

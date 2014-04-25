@@ -142,7 +142,47 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	parsebesttime : function(collection){
-		return [];
+		
+		var streams, besttime, labels;
+		var data = {datasets:[]};
+		var datasets = {};
+		var dis = this;
+
+		collection.forEach(function(statistic){
+			streams = statistic.get("streams");
+			streams.forEach(function(stream){
+
+				besttime = new Cloudwalkers.Models.Stream(stream).getbesttime();
+					var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
+					var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+					//console.log(stream.id, title);
+				if(besttime){
+					//console.log("hasbesttime");
+					if(!datasets[title]){
+						datasets[title] = {data : _.values(besttime), fillColor: collection.networkcolors[network]};
+					}else{
+						datasets[title] = dis.besttimesum(besttime, datasets[title]);
+					}
+
+					if(!data.labels)	data.labels = _.keys(besttime);
+				}
+			});
+		});
+		
+		for(d in datasets){
+			data.datasets.push(datasets[d]);
+		};
+		console.log(data);
+		return data;
+	},
+
+	besttimesum : function(besttimes, dataset, title){
+
+		for(i in besttimes){
+			dataset.data[i] += besttimes[i];
+		}
+
+		return dataset;
 	},
 
 	'emptychartdata' : function (charttype){

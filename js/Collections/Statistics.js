@@ -38,12 +38,22 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	{
 		return this.at(this.length-1);
 	},
+
+	'first' : function ()
+	{
+		return this.at(0);
+	},
+
+	'place' : function (i)
+	{
+		return this.at(i);
+	},
 	
 	/* temp function */
 	'parse' : function (response)
 	{
 		if(typeof response == "string") console.log("is string"	)
-		console.log(response)
+		//console.log(response)
 		
 		// Solve response json tree problem
 		if (this.parentmodel)

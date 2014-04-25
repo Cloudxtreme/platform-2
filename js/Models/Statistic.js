@@ -12,7 +12,6 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	pluck : function (key, streamid)
 	{ 
 		var response = 0;
-
 		//if(!this.get("streams"))  return response; Commented to throw error
 
 		$.each(this.get("streams"), function(i, stream)
