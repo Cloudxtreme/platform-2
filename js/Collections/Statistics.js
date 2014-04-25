@@ -39,6 +39,12 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	},
 
 
+	'url' : function (params)
+    {
+        return this.endpoint? "/json_week_ids": "/json_week";
+
+    },
+
 	/**
 	 *	Column data
 	 **/
