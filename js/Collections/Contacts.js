@@ -3,6 +3,7 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 	'model' : Cloudwalkers.Models.Contact,
 	'typestring' : "contacts",
 	'modelstring' : "contact",
+	'parenttype' : "account",
 	'comparator' : 'displayname',
 	'processing' : false,
 
@@ -15,12 +16,21 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 		}
 	},
 	
-	'url' : function (params)
+	'url' : function ()
     {
-        return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
-        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");
+		var url = [CONFIG_BASE_URL + "json", "accounts", Cloudwalkers.Session.getAccount ().id ];
+		
+		if(this.endpoint)	url.push(this.typestring, this.endpoint);
+		if(this.following)	url.push(this.modelstring + "ids", this.following);		
+		if(this.parameters)	url.push(this.typestring + "?" + $.param(this.parameters));
+		
+		return url.join("/");
+		/*
+		
+		return this.endpoint?
+			
+			CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
+			CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");*/
     },
     
     'parse' : function (response)
@@ -35,14 +45,31 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 	    
     'sync' : function (method, model, options)
 	{
-		if(method == "read")
-		{
-			this.processing = true;
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
-		}
+		if(method == "read")	this.processing = true;
+		if(options.parameters)	this.parameters = options.parameters;
+		if(!options.following)	this.following = false;
 
 		return Backbone.sync(method, model, options);
 	},
+	
+	'touch' : function(model, params)
+	{
+		// Exception for following
+		if(!model) this.following = "following" + "?" + $.param(params);
+		else {
+		
+			this.parentmodel = model;
+			this.endpoint = this.modelstring + "ids";
+			this.parameters = params;
+		}
+
+		// Check for history (within ping lifetime), temp disabled
+		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		
+		// Hard-wired request (no caching)
+		this.fetch({following: (!model), success: this.touchresponse.bind(this, this.url())});
+	},
+	
 	
 	'updates' : function (ids)
 	{

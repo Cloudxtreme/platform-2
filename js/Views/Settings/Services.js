@@ -76,7 +76,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			
 			// Go to authentication page
 			window.location = this.processLink (auth);
-
+			
 		});
 		
 		this.services.create({},{wait: true, endpoint: token});
@@ -177,6 +177,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		{
 			url = url + '?return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
 		}
+		
 		return url;
 	},
 	

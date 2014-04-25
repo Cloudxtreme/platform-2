@@ -17,9 +17,10 @@
 		</div>
 		
 		<div class="span8 offset1">
-			
-			<input type="text" class="input-rounded input-large" placeholder="Enter profile link ..." />
-			
+			<div class="url-post">
+				<input type="search" class="input-rounded input-large" placeholder="Enter profile link ..." />
+				<span class="icon-search"></span>
+			</div>
 			<div class="info-container"></div>
 			
 			<ul class="contacts-list"></ul>
