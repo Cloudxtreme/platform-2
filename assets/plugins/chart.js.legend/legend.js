@@ -1,4 +1,5 @@
 function legend(parent, data) {
+    console.log(parent);
     parent.className = 'legend';
     var datas = data.hasOwnProperty('datasets') ? data.datasets : data;
 
@@ -6,7 +7,7 @@ function legend(parent, data) {
     while(parent.hasChildNodes()) {
         parent.removeChild(parent.lastChild);
     }
-
+    //console.log(datas);
     datas.forEach(function(d) {
         var title = document.createElement('span');
         title.className = 'title';
