@@ -2491,6 +2491,7 @@
                                 "posts": 41,
                                 "dms": 51
                             },
+                            
                             "bestTimeToPost": {
                                 "0": 12,
                                 "1": 0,
@@ -2627,6 +2628,47 @@
                                 "35-44": 5,
                                 "45-54": 7,
                                 "65+": 3
+                            },"geo": {
+                                "countries": [
+                                    {
+                                        "name": "Brazil",
+                                        "total": 12,
+                                        "cities": {
+                                            "Rio de Janeiro, Brazil": 55,
+                                            "Mexico City, Distrito Federal, Mexico": 17,
+                                            "Brasília, Distrito Federal, Brazil": 10,
+                                            "Fortaleza, Ceara, Brazil": 11,
+                                            "Guarulhos, São Paulo, Brazil": 6,
+                                            "Curitiba, Parana, Brazil": 11,
+                                            "Osasco, São Paulo, Brazil": 7,
+                                            "Manaus, Amazonas, Brazil": 8,
+                                            "Recife, Pernambuco, Brazil": 11,
+                                            "São Paulo, Brazil": 61,
+                                            "Salvador, Bahia, Brazil": 10
+                                        }
+                                    },
+                                    {
+                                        "name": "Dummy Country",
+                                        "total": 2919,
+                                        "cities": {
+                                            "Dummy Town 1": 71,
+                                            "Dummy Town 2": 271,
+                                            "Dummy Town 3": 101,
+                                            "Dummy Town 4": 101,
+                                            "Dummy Town 5": 71,
+                                            "Dummy Town 6": 271,
+                                            "Dummy Town 7": 101,
+                                            "Dummy Town 8": 101,
+                                            "Dummy Town 9": 71,
+                                            "Dummy Town 10": 271,
+                                            "Dummy Town 11": 101,
+                                            "Dummy Town 12": 101,
+                                            "Dummy Town 13": 71,
+                                            "Dummy Town 14": 101,
+                                            "Dummy Town 15": 1011
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "messages": 2081,
@@ -2646,6 +2688,48 @@
                                 "Followers": 199,
                                 "Friends": 305,
                                 "Listed": 2
+                            },
+                            "geo": {
+                                "countries": [
+                                    {
+                                        "name": "Portugal",
+                                        "total": 5000,
+                                        "cities": {
+                                            "Rio de Janeiro, Brazil": 55,
+                                            "Mexico City, Distrito Federal, Mexico": 17,
+                                            "Brasília, Distrito Federal, Brazil": 10,
+                                            "Fortaleza, Ceara, Brazil": 11,
+                                            "Guarulhos, São Paulo, Brazil": 6,
+                                            "Curitiba, Parana, Brazil": 11,
+                                            "Osasco, São Paulo, Brazil": 7,
+                                            "Manaus, Amazonas, Brazil": 8,
+                                            "Recife, Pernambuco, Brazil": 11,
+                                            "São Paulo, Brazil": 61,
+                                            "Salvador, Bahia, Brazil": 10
+                                        }
+                                    },
+                                    {
+                                        "name": "Spain",
+                                        "total": 2000,
+                                        "cities": {
+                                            "Malatya, Kütahya, Turkey": 7,
+                                            "Ankara, Turkey": 27,
+                                            "Antalya, Turkey": 10,
+                                            "Gaziantep, Turkey": 10,
+                                            "Lima, Peru": 21,
+                                            "Adana, Turkey": 14,
+                                            "Kayseri, Turkey": 11,
+                                            "Istanbul, Turkey": 64,
+                                            "Izmir, Turkey": 17,
+                                            "Bursa, Bolu, Turkey": 7,
+                                            "Mersin, Icel, Turkey": 13,
+                                            "Kahramanmaras, Kahramanmara?, Turkey": 7,
+                                            "Izmit, Kocaeli, Turkey": 6,
+                                            "Konya, Turkey": 7,
+                                            "Van, Turkey": 6
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "messages": 389,
@@ -2682,7 +2766,7 @@
                                     },
                                     {
                                         "name": "Turkey",
-                                        "total": 4321,
+                                        "total": 411,
                                         "cities": {
                                             "Malatya, Kütahya, Turkey": 7,
                                             "Ankara, Turkey": 27,

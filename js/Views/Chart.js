@@ -61,9 +61,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data = this.emptychartdata(this.chart);
 		}
 
-		//var data  = this.parse[this.chart](this.model, this.filterfunc)
-		var chart = new Chart(this.canvas)[this.chart](data);
-		var len = legend(this.$el.find(".chartlegend")[0], data);
+		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
+			dis = this;
+			$.each(data.datasets, function(key, value){
+				var partialdata = {labels: data.labels, datasets: value};
+				var chart = new Chart(dis.canvas)[dis.chart](partialdata);
+			});
+		}else{
+			var chart = new Chart(this.canvas)[this.chart](data);
+			var len = legend(this.$el.find(".chartlegend")[0], data);
+		}
 	},
 
 	parsecontacts : function(collection){
@@ -105,40 +112,105 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parseage : function(collection){
 
-		return [];
-	},
-
-	parsegender : function(collection){
-
-		var data = [];		
-		var genders = {'male': 0, 'female': 0, 'other': 0}
-		var colors = {'male': "#000000", 'female': "#333333", 'other': "#999999"};
+		var colors = {'13-17': "#FF0000", '18-24': "#FFD700", '25-34': "#32CD32", '35-44': "#008080", '45-54': "#6495ED", '55-64': "#8A2BE2", '65+': "#CD853F"};
+		var data = [];
 
 		var streams = collection.latest().get("streams");
+		var grouped = this.groupkey(streams, "contacts", "age");
 
-		//Remove this later
-		if(streams){
-			streams.forEach(function(stream){
-				if(_.isObject(stream["contacts"])){
-					var contact = new Cloudwalkers.Models.Contact(stream["contacts"]);
-					if(males = contact.getMales()){ //Check if there is actual gender data
-						genders.male += males;
-						genders.female += contact.getFemales();
-						genders.other += contact.getOthers();
-					}
-				}
-			});
-			
-			for(var i in genders){
-				data.push({value : genders[i], color : colors[i], title: i});
-			}
-		}
+		$.each(grouped, function(key, value){
+			data.push({value: value, title: key, color: colors[key]});
+		});
+
+		data = _(data).sortBy(function(age) {
+			return age.title;
+		});
 
 		return data;
 	},
 
+	'groupkey' : function(collection, parents, key){
+		
+		var group= {};
+		
+		$.each(collection, function(k, v){
+			var object = v[parents][key];
+			if(_.isObject(object)){
+				if(_.isEmpty(group)){
+					group = object;
+				}else{
+					$.each(object, function(key, value){
+						group[key] += value;
+					});
+				}
+			}
+		});
+		return group;
+	},
+
+	parsegender : function(collection){
+
+		var data = [];
+		var colors = {'male': "#b6d1ea", 'female': "#f8c4cf", 'other': "#fceb8d"};
+
+		var streams = collection.latest().get("streams");
+		var grouped = this.groupkey(streams, "contacts", "gender");
+
+		$.each(grouped, function(key, value){
+			data.push({value: value, title: key, color: colors[key]});
+		});
+
+		return data;
+	},
+
+	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
-		return [];
+
+		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];
+		
+		var data = [], grouped = {}, counter = 0;
+		var streams = collection.latest().get("streams");
+
+		var size = 3;
+
+		// Groups & sums by country
+		$.each(streams, function(k, v){
+			if(_.isObject(v["contacts"].geo)){
+				var countries = v["contacts"].geo["countries"];
+				if(_.size(grouped) == 0){
+					$.each(countries, function(key, value){
+						grouped[value.name] = value;
+					});
+				}else{
+					$.each(countries, function(key, value){
+						if(!grouped[value.name])	grouped[value.name] = value;
+						else	grouped[value.name].total += value.total;
+					});
+				}
+			}
+		});
+
+		// Sorts it
+		grouped = _(grouped).sortBy(function(country) {
+			return country.total;
+		});
+
+		if(!size)	size=grouped.length;	// We don't care about grouping
+
+		// Gets n biggest values (or all of them)
+		while(counter < size){
+			var country = grouped.pop();
+			data.push({title: country.name, value: country.total, color: colors[counter]});
+			counter++;
+		}
+
+		if(grouped.length == 0) return data;
+
+		// If we are grouping, calculate the "Others"
+		var total = _.reduce(grouped, function(memo, num){ return memo + num.total;  }, 0);
+		data.push({title: "Others", value: total});
+			
+		return data;
 	},
 
 	parsebesttime : function(collection){
@@ -168,11 +240,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				}
 			});
 		});
-		
+
 		for(d in datasets){
 			data.datasets.push(datasets[d]);
 		};
-		console.log(data);
 		return data;
 	},
 
