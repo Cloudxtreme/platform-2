@@ -47,6 +47,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var total = statl - statf;
 
 		var description = "new contacts"
+		this.settings.network = {icon : "group"};
 
 		return [{content: total, descr : description}];
 	},
@@ -59,6 +60,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var total = statl - statf;
 
 		var description = "new messages"
+		this.settings.network = {icon : "cloud-upload"};
 
 		return [{content: total, descr : description}];
 	},
@@ -71,12 +73,13 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var total = statl - statf;
 
 		var description = "new activities"
+		this.settings.network = {icon : "cloud-download"};
 
 		return [{content: total, descr : description}];
 	},
 
 	'parseviews' : function(){
-		
+
 		// Get most recent stat
 		var statl = this.collection.latest().pluck(["messages","impressions"], false, true);
 		var statf = this.collection.first().pluck(["messages","impressions"], false, true);

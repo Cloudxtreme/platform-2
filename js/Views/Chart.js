@@ -10,11 +10,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		'click' : 'toggle'*/
 	},
 	'columns' :  {
-		"contacts" : "parsecontacts",
-		"age" : "parseage",
-		"gender" : "parsegender",
-		"regional" : "parseregional",
-		"besttime" : "parsebesttime"
+		"contacts" 	: "parsecontacts",
+		"age" 		: "parseage",
+		"gender" 	: "parsegender",
+		"regional" 	: "parseregional",
+		"besttime" 	: "parsebesttime",
+		"cities"	: "parsecities"
 	},
 	
 	'initialize' : function (options)
@@ -120,7 +121,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parseage : function(collection){
 
-		var colors = {'13-17': "#E5DAE0", '18-24': "#CDA1B0", '25-34': "#A35968", '35-44': "#9F0835", '45-54': "#7F7166", '55-64': "#4B3D3D", '65+': "#222222"};
+		var colors = {'13-17': "#2bbedc", '18-24': "#2CA7C0", '25-34': "#2E90A4", '35-44': "#2F7988", '45-54': "#30616B", '55-64': "#324A4F", '65+': "#333333"};
 		var data = [];
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
@@ -158,7 +159,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsegender : function(collection){
 
 		var data = [];
-		var colors = {'male': "#9AC8DF", 'female': "#F14B68", 'other': "#F1C03D"};
+		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': "#F1C03D"};
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
@@ -170,15 +171,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return data;
 	},
 
-	// Size -> Int:: Show the n most important, group the others
-	parseregional : function(collection){
+	filtercountry : function(collection){
 
-		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];
-		
-		var data = [], grouped = {}, counter = 0;
+		var grouped = {};
 		var streams = collection.latest().get("streams");
-
-		var size = 3;
 
 		// Groups & sums by country
 		$.each(streams, function(k, v){
@@ -202,7 +198,22 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return country.total;
 		});
 
-		if(!size)	size=grouped.length;	// We don't care about grouping
+		return grouped;
+	},
+
+
+	// Size -> Int:: Show the n most important, group the others
+	parseregional : function(collection){
+
+		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];		
+		var data = [], counter = 0;
+		var size = 8;
+
+		var grouped = this.filtercountry(collection);
+		
+		// We don't care about grouping
+		if(!size)
+			size=grouped.length;
 
 		// Gets n biggest values (or all of them)
 		while(counter < size){
@@ -211,12 +222,57 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			counter++;
 		}
 
-		if(grouped.length == 0) return data;
+		if(grouped.length == 0) 
+			return data;
 
 		// If we are grouping, calculate the "Others"
-		var total = _.reduce(grouped, function(memo, num){ return memo + num.total;  }, 0);
+		var total = _.reduce(grouped, function(memo, num){
+			return memo + num.total;  
+		}, 0);
 		data.push({title: "Others", value: total, color: "#333333"});
 			
+		return data;
+	},
+
+	parsecities : function(collection){
+
+		var cities = this.filtercountry(collection).pop().cities;
+		var size = 8;
+		
+		$.each(cities, function(key, value){
+			cities[key] = {name: key, value: value};
+		});
+
+		//Sort the cities
+		cities = _(cities).sortBy(function(city) {
+			return city.value;
+		});
+
+		return this.getbiggestdata(cities,size);
+	},
+
+	//Gets sorted data & returns the last N and groups the others
+	getbiggestdata : function(datasets, n){
+
+		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];
+		var counter = 0, data = [];
+
+		while(counter < n){
+			var dataset = datasets.pop();
+			data.push({title: dataset.name, value: dataset.value, color: colors[counter]});
+			counter++;
+		}
+
+		if(datasets.length == 0) 
+			return data;
+
+		// If we are grouping, calculate the "Others"
+		var total = _.reduce(datasets, function(memo, num){
+			return memo + num.value;  
+		}, 0);
+
+		data.push({title: "Others", value: total, color: "#333333"});
+		
 		return data;
 	},
 
@@ -234,9 +290,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				besttime = new Cloudwalkers.Models.Stream(stream).getbesttime();
 					var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 					var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
-					//console.log(stream.id, title);
 				if(besttime){
-					//console.log("hasbesttime");
 					if(!datasets[title]){
 						datasets[title] = {data : _.values(besttime), fillColor: collection.networkcolors[network]};
 					}else{
