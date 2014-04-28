@@ -32,13 +32,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var settings = {};
 		settings.title = this.title;
 
-		if(this.display){
-			settings.main_span = "span8";
-			settings.legend_span = "span4";
-		}else{
-			settings.main_span = "span12";
-			settings.legend_span = "span12";
-		}
+		settings.main_span = "span8";
+		settings.legend_span = "span4";
 
 		this.$el.html (Mustache.render (Templates.chart, settings));
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
