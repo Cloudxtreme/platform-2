@@ -9,16 +9,24 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 		//this.on("outdated", this.fetch)
 	},
 	
-	pluck : function (key, streamid)
+	pluck : function (keys, streamid, hassublevel)
 	{ 
 		var response = 0;
 		//if(!this.get("streams"))  return response; Commented to throw error
 
+		if(hassublevel) {
+			key = keys[0];
+			subkey = keys[1];
+		}else{
+			key = keys;
+			subkey = "total";
+		} 
+
 		$.each(this.get("streams"), function(i, stream)
 		{
 			if(!streamid){ //Object/int: structure
-				if(_.isNumber(stream[key].total))	response+= Number(stream[key].total);
-				else if(_.isNumber(stream[key]))	response+= Number(stream[key]);
+				if(_.isNumber(stream[key][subkey]))	response+= Number(stream[key][subkey]);
+				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 			}
 
 			else if(streamid == stream.id)	response = stream[key];

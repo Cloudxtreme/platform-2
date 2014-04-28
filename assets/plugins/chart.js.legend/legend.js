@@ -1,5 +1,4 @@
 function legend(parent, data) {
-    console.log(parent);
     parent.className = 'legend';
     var datas = data.hasOwnProperty('datasets') ? data.datasets : data;
 

@@ -23,10 +23,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Chart", data: {filterfunc: "age", chart: "Doughnut", title: "By Age"}, span: 3},
 		{widget: "Chart", data: {filterfunc: "gender", chart: "Doughnut", title: "By Gender"}, span: 3},
 		
-		{widget: "Info", data: {title: "Contact Evolution"}, span: 3},
-		{widget: "Info", data: {title: "Post Activity"}, span: 3},
-		{widget: "Info", data: {title: "Activity?"}, span: 3},
-		{widget: "Info", data: {title: "Page Views?"}, span: 3},
+		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
+		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
+		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
+		{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
 		
 		{widget: "Chart", data: {filterfunc: "regional", chart: "PolarArea", title: "Regional Popularity"}, span: 6},
 		{widget: "Legenda", data: {}, span: 3},

@@ -75,8 +75,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		var statf = this.collection.first();
 		
 		var total = statl.pluck("messages") - statf.pluck("messages");
-		return { counter: total};
-		//return { counter: 0};
+		return { counter: total };
 	},
 	
 	'parseactivity' : function ()
