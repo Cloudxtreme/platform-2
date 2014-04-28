@@ -61,15 +61,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'parsescore' : function ()
 	{
-		// Get most recent stat
-		/*var stat = Cloudwalkers.Session.getStatistics();
-		console.log(stat);
-		stat.forEach(function(day){
-			var cenas = $.grep(day.get("streams"), function(s){
-			 	return s.id == 264; 
-			});
-			console.log(cenas[0].notifications);
-		});*/
+	
 		stat = this.collection.latest();
 		var total = stat.pluck("notifications") + stat.pluck("activities");
 		
@@ -79,9 +71,11 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	'parsesent' : function ()
 	{
 		// Get most recent stat
-		var stat = this.collection.latest();
+		var statl = this.collection.latest();
+		var statf = this.collection.first();
 		
-		return { counter: stat.pluck("messages")};
+		var total = statl.pluck("messages") - statf.pluck("messages");
+		return { counter: total};
 		//return { counter: 0};
 	},
 	

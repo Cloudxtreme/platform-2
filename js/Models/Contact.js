@@ -43,6 +43,14 @@ Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
 		}else{
 			return false;
 		}
+	},
+
+	'getAge' : function (){
+		if(this.age){
+			return this.age;
+		}else{
+			return false;
+		}
 	}
 });
 
