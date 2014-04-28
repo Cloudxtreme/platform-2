@@ -31,7 +31,7 @@
 		
 		<section data-type="post">
 			
-			<div class="input-symbol" data-option="subject">
+			<div class="input-symbol hidden" data-option="subject">
 				<input type="text" placeholder="Subject" />
 			</div>
 			

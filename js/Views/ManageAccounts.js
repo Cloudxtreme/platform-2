@@ -4,14 +4,25 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 	'className' : "container-fluid",
 	'title' : 'Manage Accounts',
 	
+	'entries' : [],
+	'events' : {
+		'rendered' : 'bubblerender',
+		'remove': 'destroy',
+		
+		'search .input-large' : 'posturl',
+		'blur .input-large' : 'posturl'
+	},
+	
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
 	
 		// Which collection to focus on
-		this.collection = this.channel.messages;
+		this.collection = new Cloudwalkers.Collections.Contacts([], {});
 		
-		// console.log(Cloudwalkers.Session.getChannel("news"))
+		// Listen to contacts collection
+		//this.listenTo(this.collection, 'seed', this.fill);
+		this.listenTo(this.collection, 'add', this.addcontact);
 	},
 	
 	'render' : function()
@@ -21,34 +32,70 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		
 		// Template
 		this.$el.html (Mustache.render (Templates.manageaccounts, {title: this.title, networks: networks}));
+		this.$container = this.$el.find(".contacts-list");
 		
-		
-		/*// Listen to channels for limit.
-		setTimeout(this.limitlistener, 50);
-		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
-		
-		
-		
-		this.$container = this.$el.find("#widgetcontainer").eq(0);
-
-		// Add edit widget
-		var editor = new Cloudwalkers.Views.Widgets.KeywordsEditor();
-		this.appendWidget(editor, 4);
-		
-		// Add overview widget
-		var list = new Cloudwalkers.Views.Widgets.KeywordsOverview({editor: editor});
-		this.appendWidget(list, 8);
-
-		this.widgets = [editor, list];*/
+		// Load messages
+		this.collection.touch(null, {records: 200});
 		
 		return this;
 	},
 	
-	'limitlistener' : function()
+	'fill' : function (models)
+	{
+		// Clean load or add
+		if(this.incremental) this.incremental = false;
+		else
+		{
+			$.each(this.entries, function(n, entry){ entry.remove()});
+			this.entries = [];
+		}
+		
+		// Add models to view
+		for (n in models)
+		{
+			var view = new Cloudwalkers.Views.ContactView ({model: models[n], parameters:{inboxview: true}});
+			
+			this.entries.push (view);
+			
+			this.$container.append(view.render().el);
+		}
+	},
+	
+	'addcontact' : function (model)
+	{
+		// Create view
+		view = new Cloudwalkers.Views.ContactView ({model: model, parameters:{}});
+			
+		this.entries.push (view);
+		
+		this.$container.prepend(view.render().el);
+
+	},
+	
+	'posturl' : function (e)
+	{
+		var input = $(e.currentTarget);
+		
+		if(!input.val()) return null;
+		
+		// Add contact to list
+		this.collection.create({url: input.val(), following: true}, {wait: true, error: this.postfailure.bind(this, input.val())});
+		
+		// Empty input
+		input.val("");
+		
+	},
+	
+	'postfailure' : function (url)
+	{
+		Cloudwalkers.RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
+	}
+	
+	/*'limitlistener' : function()
 	{
 		var limit = Cloudwalkers.Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
 		
 		Cloudwalkers.Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
-	}
+	}*/
 
 });

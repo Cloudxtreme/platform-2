@@ -175,7 +175,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'manageaccounts' : function ()
 	{
 		// Parameters
-		var channel = Cloudwalkers.Session.getChannel ('inbox');
+		var channel = Cloudwalkers.Session.getChannel ('news');
 		
 		var view = new Cloudwalkers.Views.ManageAccounts ({channel: channel});
 		Cloudwalkers.RootView.setView (view);

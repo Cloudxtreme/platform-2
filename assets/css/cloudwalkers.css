@@ -1406,6 +1406,82 @@ tbody.messages-container i	{
 	font-size:  17.5px;
 }
 
+
+/**
+ * Manage profiles
+ */
+
+#manageaccounts h3	{
+	text-align: center;
+}
+
+.column-bordered	{
+	padding: 10px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; 
+}
+
+.column-bordered label	{
+	color: #777; text-align: center;
+}
+
+.column-bordered .btn-white	{
+	display: block; width: 40%; margin: 10px auto; text-align: center; padding: 12px;
+	font-size: 17.5px;
+}
+
+.url-post	{
+	position: relative; box-sizing: border-box;
+}
+
+.url-post .input-large	{
+	box-sizing: border-box;
+}
+
+.url-post .icon-search	{
+	position: absolute; top: 4px; right: 2px; width: 60px; height: 34px; border-left: 1px solid #ccc;
+	color: #777; font-size: 21px; line-height: 32px; text-align: center;
+}
+
+ul.contacts-list	{
+	margin: 12px 0 0; list-style: none;
+	font-size: 14px;
+}
+
+.contacts-list li {
+	padding: 6px 0; border-top: 1px solid #ddd;
+}
+
+.contacts-list img.avatar {
+	margin: 0 10px 0 0; height: 28px; width: 28px; border-radius: 28px;
+}
+
+.contacts-list .contact-actions	{ padding-top: 4px; }
+
+.contacts-list .contact-network	{ color: #ccc; }
+
+.contacts-list .contact-delete	{ position: relative; top: -2px; }
+
+.contacts-list .contact-link,
+.contacts-list .contact-delete	{
+	padding-left: 4px; color: #666; cursor: pointer;
+}
+
+.contacts-list .contact-link:hover,
+.contacts-list .contact-delete:hover	{ color: #222; }
+
+/*#manageaccounts .input-rounded	{
+	width: 80%; margin: 0; border-radius: 20px 0 0 20px !important;
+}
+
+#manageaccounts .url-post	{
+	width: 20%; padding: 7px 0; margin: 0; background: #222; border-width: 0; border-radius: 0 20px 20px 0; outline: none;
+	font-size: 16px; color: white; 
+}
+
+#manageaccounts .info-container	{ margin: 12px 0; }*/
+
+
+
+
 /**
  * Manage keywords
  */

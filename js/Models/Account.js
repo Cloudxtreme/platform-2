@@ -1,5 +1,7 @@
 Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
+	'typestring' : "accounts",
+	
 	'endpoint' : "",
 	
 	'limits' : {users: 50, networks: 15, keywords: 10},
