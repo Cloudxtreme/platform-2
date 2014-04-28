@@ -1,4 +1,9 @@
 <h3>{{title}}</h3>
-
-<canvas width="400" height="400"></canvas>
-<div class="chartlegend"></div>
+<div class="row-fluid">
+	<div class="{{main_span}} chart-container">
+		<canvas width="400" height="400"></canvas>
+	</div>
+	<div class="{{legend_span}}">
+		<div class="chartlegend"></div>
+	</div>
+</div>

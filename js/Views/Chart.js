@@ -29,8 +29,20 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'render' : function ()
 	{	
 		// Create view
-		this.$el.html (Mustache.render (Templates.chart, {title: this.title}));
+		var settings = {};
+		settings.title = this.title;
+
+		if(this.display){
+			settings.main_span = "span8";
+			settings.legend_span = "span4";
+		}else{
+			settings.main_span = "span12";
+			settings.legend_span = "span12";
+		}
+
+		this.$el.html (Mustache.render (Templates.chart, settings));
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
+		
 		
 		// Select data & chart type
 		//var data  = this.parse[this.chart]();
@@ -43,9 +55,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	{
 		this.parse.collection = collection;
-
+		//console.log(this.$el.find(".chart-container").get(0).clientWidth);
 		//Span container width
-		var width = this.el.clientWidth;
+		var width = this.$el.find(".chart-container").get(0).clientWidth
 		//Resize canvas to the correct size
 		this.canvas.canvas.style.width = width + "px";
 		this.canvas.canvas.style.height = width + "px";
@@ -64,12 +76,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
 			dis = this;
 			$.each(data.datasets, function(key, value){
-				var partialdata = {labels: data.labels, datasets: value};
+				var partialdata = {labels: data.labels, dataset: value};
 				var chart = new Chart(dis.canvas)[dis.chart](partialdata);
 			});
 		}else{
 			var chart = new Chart(this.canvas)[this.chart](data);
-			var len = legend(this.$el.find(".chartlegend")[0], data);
+			var len = legend(this.$el.find(".chartlegend").get(0), data);
 		}
 	},
 
@@ -112,7 +124,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parseage : function(collection){
 
-		var colors = {'13-17': "#FF0000", '18-24': "#FFD700", '25-34': "#32CD32", '35-44': "#008080", '45-54': "#6495ED", '55-64': "#8A2BE2", '65+': "#CD853F"};
+		var colors = {'13-17': "#E5DAE0", '18-24': "#CDA1B0", '25-34': "#A35968", '35-44': "#9F0835", '45-54': "#7F7166", '55-64': "#4B3D3D", '65+': "#222222"};
 		var data = [];
 
 		var streams = collection.latest().get("streams");
@@ -151,7 +163,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsegender : function(collection){
 
 		var data = [];
-		var colors = {'male': "#b6d1ea", 'female': "#f8c4cf", 'other': "#fceb8d"};
+		var colors = {'male': "#9AC8DF", 'female': "#F14B68", 'other': "#F1C03D"};
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
@@ -208,7 +220,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(grouped, function(memo, num){ return memo + num.total;  }, 0);
-		data.push({title: "Others", value: total});
+		data.push({title: "Others", value: total, color: "#333333"});
 			
 		return data;
 	},
