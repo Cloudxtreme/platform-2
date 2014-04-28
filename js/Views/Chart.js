@@ -178,30 +178,30 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var streams = collection.latest().get("streams");
 
 		// Groups & sums by country
-		$.each(streams, function(k, v){
+		$.each(streams, function(k, stream){
 			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
-
-			if(_.isObject(v["contacts"].geo)){
-				var countries = v["contacts"].geo["countries"];
+			var token = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+			console.log(stream.id, token);
+			if(_.isObject(stream["contacts"].geo)){
+				var countries = stream["contacts"].geo["countries"];
 				if(_.size(grouped) == 0){						//is empty, shove the countries inside
 					$.each(countries, function(key, value){
-						var a = [];
-						a[network] = value.total;
 						grouped[value.name] = value;
 						grouped[value.name]["networks"] = [];
-						grouped[value.name]["networks"][network] = value.total;
+						grouped[value.name]["networks"][network] = {total: value.total, token: token};
 					});
 				}else{
 					$.each(countries, function(key, value){		//Is not empty
 						if(!grouped[value.name]){				//Country doesnt exit there, shove it inside
-							var a = [];
-							a[network] = value.total;
 							grouped[value.name] = value;			
 							grouped[value.name]["networks"] = [];
-							grouped[value.name]["networks"].push(a);
-						}else{									//Country already exist
+							grouped[value.name]["networks"][network] = {total: value.total, token: token};
+						}else{					
 							grouped[value.name].total += value.total;
-							grouped[value.name]["networks"][network] += value.total;
+							if(grouped[value.name]["networks"][network])
+								grouped[value.name]["networks"][network].total += value.total;
+							else
+								grouped[value.name]["networks"][network] = {total: value.total, token: token};
 						}	
 					});
 				}
@@ -276,13 +276,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsenetworks : function(collection){
 
+		var data = [];
 		var countries = this.connect.regional;
 		//Networks of the country with most poppularity
-		var networks = countries[0];
-		console.log(networks);
-		$.each(networks, function(key, value){
-			console.log(key, value);
-		});
+		var networks = countries[0].networks;
+		
+		for(i in networks){
+			data.push({value: networks[i].total, title: i, color: collection.networkcolors[networks[i].token]});
+		}
+
+		return data;
 	},
 
 
