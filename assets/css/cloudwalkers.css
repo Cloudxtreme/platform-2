@@ -679,7 +679,7 @@ tbody.messages-container i	{
 .social-icon-colors .icon-blog			{ color: #ff9c00; }
 .social-icon-colors .icon-briefcase		{ color: #4a4a4a; }
 
-.dashboard-stat.cloud-color 	{ background-color: #2bbedc; }
+.dashboard-stat.cloud-color, .dashboard-stat.cloud-upload-color, .dashboard-stat.cloud-download-color, .dashboard-stat.group-color	{ background-color: #2bbedc; }
 
 .social-box-colors .facebook-color	{ border-color: #3B5998 !important; }
 .social-box-colors .facebook-color .portlet-title	{ background-color: #3B5998 !important; }
