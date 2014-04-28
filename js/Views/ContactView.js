@@ -47,7 +47,9 @@ Cloudwalkers.Views.ContactView = Backbone.View.extend({
 	},
 	
 	'unfollow' : function ()
-	{		
+	{	
+		this.model.trigger("unfollow", this.model);	
+		
 		this.model.parent = Cloudwalkers.Session.getAccount();
 		this.model.save({following: false}, {patch: true});
 		this.remove();

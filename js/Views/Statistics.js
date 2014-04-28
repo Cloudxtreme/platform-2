@@ -55,11 +55,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'ready', this.hideloading);
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
-<<<<<<< HEAD
-		this.listenTo(this.collection, 'ready', function(m){ console.log("ready", m8)});
-=======
 		//this.listenTo(this.collection, 'ready', function(m){ console.log("ready", m)});
->>>>>>> 1b0fbf9c263d24fab1089646155b5c775c986f4d
+
 	},
 	
 	resize : function(){

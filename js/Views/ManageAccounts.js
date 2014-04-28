@@ -21,7 +21,8 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		this.collection = new Cloudwalkers.Collections.Contacts([], {});
 		
 		// Listen to contacts collection
-		//this.listenTo(this.collection, 'seed', this.fill);
+		this.listenTo(this.collection, 'seed', this.limited);
+		this.listenTo(this.collection, 'remove', this.limited);
 		this.listenTo(this.collection, 'add', this.addcontact);
 	},
 	
@@ -69,6 +70,12 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		this.entries.push (view);
 		
 		this.$container.prepend(view.render().el);
+		
+		// Loading symbel
+		this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
+		
+		// Limited
+		this.listenTo(model, 'unfollow', function(model){ this.collection.remove(model)});
 
 	},
 	
@@ -81,6 +88,12 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		// Add contact to list
 		this.collection.create({url: input.val(), following: true}, {wait: true, error: this.postfailure.bind(this, input.val())});
 		
+		// Loading symbel
+		this.$el.find(".url-post span").toggleClass("icon-search icon-cloud-upload");
+		
+		// Limit listener
+		this.listenToOnce(this.collection, 'add', this.limited);
+		
 		// Empty input
 		input.val("");
 		
@@ -88,7 +101,15 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 	
 	'postfailure' : function (url)
 	{
+		// Loading symbel
+		this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
+		
 		Cloudwalkers.RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
+	},
+	
+	'limited' : function (collection)
+	{
+		var limited = Cloudwalkers.Session.getAccount().monitorlimit('following', this.collection.models.length+91, $(".url-post, .url-post .input-large"));	
 	}
 	
 	/*'limitlistener' : function()

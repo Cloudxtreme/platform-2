@@ -20,6 +20,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		// Get active services
 		this.listenTo(this.services, "add", this.appendService);
 		this.listenToOnce(this.services, "add", this.endload);
+		this.listenTo(this.services, "ready", this.limited);
 		this.services.fetch();
 
 	},
@@ -64,6 +65,10 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	
 	'addService' : function (e)
 	{
+		// Limit
+		if(this.$el.find(".networks-list.limited").size()) return null;
+		
+		
 		// Service token
 		var token = $(e.target).data ('add-service');
 		
@@ -81,7 +86,13 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		
 		this.services.create({},{wait: true, endpoint: token});
 
-	},	
+	},
+	
+	'limited' : function (collection) 
+	{
+		
+		Cloudwalkers.Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
+	},
 	
 	/*'appendOptions' : function(available) {
 		
@@ -171,11 +182,11 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	{
 		if (url.indexOf ('?') > 0)
 		{
-			url = url + '&return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
+			url = url + '&return=' + encodeURIComponent(window.location.origin + "/#settings/services");
 		}
 		else
 		{
-			url = url + '?return=' + encodeURIComponent(window.location.origin) + "/#settings/services";
+			url = url + '?return=' + encodeURIComponent(window.location.origin + "/#settings/services");
 		}
 		
 		return url;

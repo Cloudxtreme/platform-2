@@ -17,7 +17,11 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 			this.available = response.services.available;
 			this.trigger("available:ready", this, response.services.available);
 
-		} else return response.account.services;
+		} else {
+			
+			this.ready();
+			return response.account.services;
+		}
 	},
 	
 	

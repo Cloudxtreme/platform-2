@@ -1436,7 +1436,7 @@ tbody.messages-container i	{
 	box-sizing: border-box;
 }
 
-.url-post .icon-search	{
+.url-post > span	{
 	position: absolute; top: 4px; right: 2px; width: 60px; height: 34px; border-left: 1px solid #ccc;
 	color: #777; font-size: 21px; line-height: 32px; text-align: center;
 }

@@ -115,9 +115,15 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 				if(typeof target == "string") target = $(target);
 				target.addClass("limited").attr("disabled", true);
 			}
-
 					
 			return true;
+		}
+		
+		// Or remove
+		if($("[disabled].limited").size())
+		{
+			$("[disabled].limited").removeClass("limited").attr("disabled", false);
+			$("[data-dismiss=alert]").click();
 		}
 		
 		return false;
