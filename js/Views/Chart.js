@@ -64,7 +64,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
 			dis = this;
 			$.each(data.datasets, function(key, value){
-				var partialdata = {labels: data.labels, datasets: value};
+				var partialdata = {labels: data.labels, dataset: value};
 				var chart = new Chart(dis.canvas)[dis.chart](partialdata);
 			});
 		}else{
@@ -208,7 +208,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(grouped, function(memo, num){ return memo + num.total;  }, 0);
-		data.push({title: "Others", value: total});
+		data.push({title: "Others", value: total, color: "#333333"});
 			
 		return data;
 	},
