@@ -32,8 +32,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var settings = {};
 		settings.title = this.title;
 
-		settings.main_span = "span8";
-		settings.legend_span = "span4";
+		//Force side by side legend & chart view
+		settings.main_span = "span7";
+		settings.legend_span = "span5";
 
 		this.$el.html (Mustache.render (Templates.chart, settings));
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
@@ -121,7 +122,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var colors = {'13-17': "#E5DAE0", '18-24': "#CDA1B0", '25-34': "#A35968", '35-44': "#9F0835", '45-54': "#7F7166", '55-64': "#4B3D3D", '65+': "#222222"};
 		var data = [];
-
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
 
