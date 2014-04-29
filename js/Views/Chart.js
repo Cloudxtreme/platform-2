@@ -54,6 +54,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'fill' : function (collection)
 
 	{
+		var dis = this;
+
 		this.parse.collection = collection;
 		//console.log(this.$el.find(".chart-container").get(0).clientWidth);
 		//Span container width
@@ -74,10 +76,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}
 
 		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
-			dis = this;
-			$.each(data.datasets, function(key, value){
-				var partialdata = {labels: data.labels, dataset: value};
-				var chart = new Chart(dis.canvas)[dis.chart](partialdata);
+			dis.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
+			$.each(data, function(key, value){
+
+				var max = value.indexOf(Math.max.apply(Math,_.values(value)));
+				var maxval = Math.max.apply(Math,_.values(value));
+				var fill = maxval * 100 / dis.maxvalue;
+				console.log(dis.maxvalue);
+				//console.log(Math.max.apply(Math,_.values(value)));
+				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, {max: max, fill: fill}));
 			});
 		}else{
 			var chart = new Chart(this.canvas)[this.chart](data);
@@ -323,33 +330,49 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsebesttime : function(collection){
 		
-		var streams, besttime, labels;
-		var data = {datasets:[]};
+		var streams, besttime, labels, daily;
+		var data = [];
 		var datasets = {};
 		var dis = this;
+		var maxvalue = 0;
 
 		collection.forEach(function(statistic){
 			streams = statistic.get("streams");
+			daily = [];
 			streams.forEach(function(stream){
-
 				besttime = new Cloudwalkers.Models.Stream(stream).getbesttime();
 					var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 					var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(besttime){
-					if(!datasets[title]){
+					if(daily.length == 0){
+						daily=_.values(besttime);
+					}else{
+						for(i in besttime){
+							daily[i] += besttime[i];
+							if(daily[i]>maxvalue)	maxvalue=daily[i];
+						}
+					}
+					/*if(!datasets[title]){
 						datasets[title] = {data : _.values(besttime), fillColor: collection.networkcolors[network]};
 					}else{
 						datasets[title] = dis.besttimesum(besttime, datasets[title]);
 					}
 
-					if(!data.labels)	data.labels = _.keys(besttime);
+					if(!data.labels)	data.labels = _.keys(besttime);*/
+
 				}
 			});
+			//Add to day
+			data.push(daily);
 		});
+
+		this.maxvalue = maxvalue;
 
 		for(d in datasets){
 			data.datasets.push(datasets[d]);
 		};
+
+	
 		return data;
 	},
 
