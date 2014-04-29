@@ -261,8 +261,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
 		
-		//Replace title
-		this.$el.find("h3").html(countries[0].title);
 		cities = countries[0].cities;
 
 		$.each(cities, function(key, value){
@@ -284,6 +282,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
+
+		//Replace title
+		this.$el.find("h3").html(countries[0].title);
 
 		//Networks of the country with most poppularity
 		var networks = countries[0].networks;
