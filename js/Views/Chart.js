@@ -77,14 +77,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
 			dis.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
+			var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 			$.each(data, function(key, value){
 
 				var max = value.indexOf(Math.max.apply(Math,_.values(value)));
 				var maxval = Math.max.apply(Math,_.values(value));
 				var fill = maxval * 100 / dis.maxvalue;
-				console.log(dis.maxvalue);
+				
 				//console.log(Math.max.apply(Math,_.values(value)));
-				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, {max: max, fill: fill}));
+				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, {max: max, fill: fill, day: days[key]}));
 			});
 		}else{
 			var chart = new Chart(this.canvas)[this.chart](data);
@@ -352,14 +353,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 							if(daily[i]>maxvalue)	maxvalue=daily[i];
 						}
 					}
-					/*if(!datasets[title]){
-						datasets[title] = {data : _.values(besttime), fillColor: collection.networkcolors[network]};
-					}else{
-						datasets[title] = dis.besttimesum(besttime, datasets[title]);
-					}
-
-					if(!data.labels)	data.labels = _.keys(besttime);*/
-
 				}
 			});
 			//Add to day
@@ -371,7 +364,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		for(d in datasets){
 			data.datasets.push(datasets[d]);
 		};
-
 	
 		return data;
 	},
