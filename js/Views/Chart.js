@@ -162,7 +162,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsegender : function(collection){
 
 		var data = [];
-		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': "#F1C03D"};
+		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': "#999999"};
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
