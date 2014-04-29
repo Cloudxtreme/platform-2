@@ -18,6 +18,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"cities"	: "parsecities",
 		"networks"	: "parsenetworks"
 	},
+	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
+	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
 	
 	'initialize' : function (options)
 	{
@@ -31,14 +33,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'render' : function ()
 	{	
 		// Create view
-		var settings = {};
-		settings.title = this.title;
+		this.settings = {};
+		this.settings.title = this.title;
 
 		//Force side by side legend & chart view
-		settings.main_span = "span7";
-		settings.legend_span = "span5";
+		this.settings.main_span = "span7";
+		this.settings.legend_span = "span5";
 
-		this.$el.html (Mustache.render (Templates.chart, settings));
+		this.$el.html (Mustache.render (Templates.chart, this.settings));
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 		
 		
@@ -181,7 +183,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(streams, function(k, stream){
 			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 			var token = Cloudwalkers.Session.getStream(stream.id).get("network").token;
-			console.log(stream.id, token);
+			
 			if(_.isObject(stream["contacts"].geo)){
 				var countries = stream["contacts"].geo["countries"];
 				if(_.size(grouped) == 0){						//is empty, shove the countries inside
@@ -219,7 +221,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
 
-		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];		
 		var data = [], counter = 0;
 		var size = 8;
 
@@ -232,7 +233,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Gets n biggest values (or all of them)
 		while(counter < size){
 			var country = grouped.pop();
-			data.push({title: country.name, value: country.total, cities: country.cities, networks: country.networks, color: colors[counter]});
+			data.push({title: country.name, value: country.total, cities: country.cities, networks: country.networks, color: this.colors[counter]});
 			counter++;
 		}
 
@@ -244,7 +245,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return memo + num.total;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: "#333333"});
+		data.push({title: "Others", value: total, color: "#999999"});
 		
 		//Recycle the country data
 		this.regional = data;
@@ -260,6 +261,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
 		
+		//Replace title
+		this.$el.find("h3").html(countries[0].title);
 		cities = countries[0].cities;
 
 		$.each(cities, function(key, value){
@@ -278,6 +281,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var data = [];
 		var countries = this.connect.regional;
+
+		//In case something goes wrong
+		if(!countries)	countries = parseregional(collection);
+
 		//Networks of the country with most poppularity
 		var networks = countries[0].networks;
 		
@@ -292,12 +299,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	//Gets sorted data & returns the last N and groups the others
 	getbiggestdata : function(datasets, n){
 
-		var colors = ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"];
 		var counter = 0, data = [];
 
 		while(counter < n){
 			var dataset = datasets.pop();
-			data.push({title: dataset.name, value: dataset.value, color: colors[counter]});
+			data.push({title: dataset.name, value: dataset.value, color: this.countrycolors[counter]});
 			counter++;
 		}
 
@@ -309,7 +315,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return memo + num.value;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: "#333333"});
+		data.push({title: "Others", value: total, color: "#999999"});
 		
 		return data;
 	},
