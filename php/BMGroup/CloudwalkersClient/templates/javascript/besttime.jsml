@@ -1,0 +1,7 @@
+	<div class="chart-bar">
+		<div class="bar-wrapper">
+			<div class="bar-fill" style="height:{{fill}}%;"></div>
+			<div class="bar-text">{{max}}h</div>
+			<div class="bar-legend">{{day}}</div>
+		</div>
+	</div>
