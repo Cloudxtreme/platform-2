@@ -9,6 +9,9 @@
 <script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
+<script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+
 
 <!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>

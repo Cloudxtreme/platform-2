@@ -20,6 +20,7 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/cloudwalkers.css" rel="stylesheet" type="text/css" />
+
 		<!-- END GLOBAL MANDATORY STYLES -->
 		<!-- BEGIN PAGE LEVEL STYLES --> 
 		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -37,6 +38,7 @@
 
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/monitoring.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>

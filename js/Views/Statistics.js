@@ -97,7 +97,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
 			this.widgets[n].data.connect == true ? this.connect = view : false;
 			
-			//console.log("widget:", view, this.widgets[n].span)
 			this.views.push(view);
 			this.appendWidget(view, this.widgets[n].span);
 		}
