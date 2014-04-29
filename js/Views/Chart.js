@@ -57,7 +57,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var dis = this;
 
 		this.parse.collection = collection;
-		//console.log(this.$el.find(".chart-container").get(0).clientWidth);
+
 		//Span container width
 		var width = this.$el.find(".chart-container").get(0).clientWidth
 		//Resize canvas to the correct size
@@ -75,17 +75,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data = this.emptychartdata(this.chart);
 		}
 
-		if(this.filterfunc == 'besttime'){ //We are rendering multiple charts
+		if(this.filterfunc == 'besttime'){
 			dis.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
-			var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-			$.each(data, function(key, value){
-
-				var max = value.indexOf(Math.max.apply(Math,_.values(value)));
-				var maxval = Math.max.apply(Math,_.values(value));
-				var fill = maxval * 100 / dis.maxvalue;
-				
-				//console.log(Math.max.apply(Math,_.values(value)));
-				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, {max: max, fill: fill, day: days[key]}));
+			
+			$.each(data, function(key, day){
+				day.fill = day.value*100/data["maxvalue"];			
+				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
 			});
 		}else{
 			var chart = new Chart(this.canvas)[this.chart](data);
@@ -331,50 +326,45 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsebesttime : function(collection){
 		
-		var streams, besttime, labels, daily;
-		var data = [];
-		var datasets = {};
-		var dis = this;
-		var maxvalue = 0;
+		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+		var besttime,
+			data = [],
+			maxvalue = 0,
+		 	dailyvalue = 0,
+		 	fill,
+		 	max;
 
 		collection.forEach(function(statistic){
-			streams = statistic.get("streams");
-			daily = [];
+			var streams = statistic.get("streams");
+			var daily 	= [];
 			streams.forEach(function(stream){
-				besttime = new Cloudwalkers.Models.Stream(stream).getbesttime();
-					var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
-					var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				stream 	= new Cloudwalkers.Models.Stream(stream);
+				besttime = stream.getbesttime();
+
 				if(besttime){
 					if(daily.length == 0){
-						daily=_.values(besttime);
+						daily = _.values(besttime);
 					}else{
 						for(i in besttime){
 							daily[i] += besttime[i];
+
+							//Keep track of the highest week & daily value
 							if(daily[i]>maxvalue)	maxvalue=daily[i];
+							if(daily[i]>dailyvalue)	dailyvalue=daily[i];
 						}
 					}
 				}
 			});
-			//Add to day
-			data.push(daily);
+
+			time = daily.indexOf(Math.max.apply(Math,_.values(daily)));
+			data.push({day: days.shift(), value: dailyvalue, time: time});
+
+			dailyvalue = 0;
 		});
 
-		this.maxvalue = maxvalue;
+		data["maxvalue"] = maxvalue;
 
-		for(d in datasets){
-			data.datasets.push(datasets[d]);
-		};
-	
 		return data;
-	},
-
-	besttimesum : function(besttimes, dataset, title){
-
-		for(i in besttimes){
-			dataset.data[i] += besttimes[i];
-		}
-
-		return dataset;
 	},
 
 	'emptychartdata' : function (charttype){
