@@ -2713,7 +2713,8 @@
                                 "35-44": 5,
                                 "45-54": 7,
                                 "65+": 3
-                            },"geo": {
+                            },
+                            "geo": {
                                 "countries": [
                                     {
                                         "name": "Brazil",
@@ -2755,7 +2756,7 @@
                                     },
                                     {
                                         "name": "Dummy Country 41",
-                                        "total": 5999,
+                                        "total": 4999,
                                         "cities": {
                                             "Dummy Town 1": 27,
                                             "Dummy Town 2": 227,
@@ -2910,6 +2911,27 @@
                                             "Recife, Pernambuco, Brazil": 11,
                                             "São Paulo, Brazil": 61,
                                             "Salvador, Bahia, Brazil": 10
+                                        }
+                                    },
+                                    {
+                                        "name": "Dummy Country 41",
+                                        "total": 399,
+                                        "cities": {
+                                            "Dummy Town 1": 27,
+                                            "Dummy Town 2": 227,
+                                            "Dummy Town 3": 210,
+                                            "Dummy Town 4": 210,
+                                            "Dummy Town 5": 27,
+                                            "Dummy Town 6": 227,
+                                            "Dummy Town 7": 210,
+                                            "Dummy Town 8": 210,
+                                            "Dummy Town 9": 27,
+                                            "Dummy Town 10": 227,
+                                            "Dummy Town 11": 210,
+                                            "Dummy Town 12": 210,
+                                            "Dummy Town 13": 27,
+                                            "Dummy Town 14": 210,
+                                            "Dummy Town 15": 210
                                         }
                                     },
                                     {

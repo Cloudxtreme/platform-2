@@ -15,7 +15,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"gender" 	: "parsegender",
 		"regional" 	: "parseregional",
 		"besttime" 	: "parsebesttime",
-		"cities"	: "parsecities"
+		"cities"	: "parsecities",
+		"networks"	: "parsenetworks"
 	},
 	
 	'initialize' : function (options)
@@ -177,17 +178,31 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var streams = collection.latest().get("streams");
 
 		// Groups & sums by country
-		$.each(streams, function(k, v){
-			if(_.isObject(v["contacts"].geo)){
-				var countries = v["contacts"].geo["countries"];
-				if(_.size(grouped) == 0){
+		$.each(streams, function(k, stream){
+			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
+			var token = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+			console.log(stream.id, token);
+			if(_.isObject(stream["contacts"].geo)){
+				var countries = stream["contacts"].geo["countries"];
+				if(_.size(grouped) == 0){						//is empty, shove the countries inside
 					$.each(countries, function(key, value){
 						grouped[value.name] = value;
+						grouped[value.name]["networks"] = [];
+						grouped[value.name]["networks"][network] = {total: value.total, token: token};
 					});
 				}else{
-					$.each(countries, function(key, value){
-						if(!grouped[value.name])	grouped[value.name] = value;
-						else	grouped[value.name].total += value.total;
+					$.each(countries, function(key, value){		//Is not empty
+						if(!grouped[value.name]){				//Country doesnt exit there, shove it inside
+							grouped[value.name] = value;			
+							grouped[value.name]["networks"] = [];
+							grouped[value.name]["networks"][network] = {total: value.total, token: token};
+						}else{					
+							grouped[value.name].total += value.total;
+							if(grouped[value.name]["networks"][network])
+								grouped[value.name]["networks"][network].total += value.total;
+							else
+								grouped[value.name]["networks"][network] = {total: value.total, token: token};
+						}	
 					});
 				}
 			}
@@ -200,7 +215,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		return grouped;
 	},
-
 
 	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
@@ -218,7 +232,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Gets n biggest values (or all of them)
 		while(counter < size){
 			var country = grouped.pop();
-			data.push({title: country.name, value: country.total, color: colors[counter]});
+			data.push({title: country.name, value: country.total, cities: country.cities, networks: country.networks, color: colors[counter]});
 			counter++;
 		}
 
@@ -229,16 +243,25 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var total = _.reduce(grouped, function(memo, num){
 			return memo + num.total;  
 		}, 0);
+
 		data.push({title: "Others", value: total, color: "#333333"});
-			
+		
+		//Recycle the country data
+		this.regional = data;
+
 		return data;
 	},
 
 	parsecities : function(collection){
 
-		var cities = this.filtercountry(collection).pop().cities;
-		var size = 8;
+		var cities, size = 8;
+		var countries = this.connect.regional;
+
+		//In case something goes wrong
+		if(!countries)	countries = parseregional(collection);
 		
+		cities = countries[0].cities;
+
 		$.each(cities, function(key, value){
 			cities[key] = {name: key, value: value};
 		});
@@ -250,6 +273,21 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		return this.getbiggestdata(cities,size);
 	},
+
+	parsenetworks : function(collection){
+
+		var data = [];
+		var countries = this.connect.regional;
+		//Networks of the country with most poppularity
+		var networks = countries[0].networks;
+		
+		for(i in networks){
+			data.push({value: networks[i].total, title: i, color: collection.networkcolors[networks[i].token]});
+		}
+
+		return data;
+	},
+
 
 	//Gets sorted data & returns the last N and groups the others
 	getbiggestdata : function(datasets, n){

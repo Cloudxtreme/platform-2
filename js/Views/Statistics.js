@@ -28,9 +28,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
 		{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
 		
-		{widget: "Chart", data: {filterfunc: "regional", chart: "PolarArea", title: "Regional Popularity"}, span: 6},
-		{widget: "Chart", data: {filterfunc: "cities", chart: "Doughnut", title: "Cities"}, span: 6},
-		//{widget: "Chart", data: {filterfunc: "countries", chart: "Doughnut", title: "Countries", connect: 'regional'}, span: 12},
+		{widget: "Chart", data: {filterfunc: "regional", chart: "PolarArea", title: "Regional Popularity", connect: true}, span: 6},
+		{widget: "Chart", data: {filterfunc: "cities", chart: "Doughnut", title: "Cities", connect: 'regional'}, span: 3},
+		{widget: "Chart", data: {filterfunc: "networks", chart: "Doughnut", title: "Countries", connect: 'regional'}, span: 3},
 		
 		{widget: "Chart", data: {filterfunc: "besttime", chart: "Line", title: "Best Time to Post"}, span: 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}
@@ -90,10 +90,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		for(n in this.widgets)
 		{
 			this.widgets[n].data.model = this.model;
-			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
+
+			//pass regional data
+			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
-			//this.widgets[n].data.connect == true ? this.connect = view : false;
+			this.widgets[n].data.connect == true ? this.connect = view : false;
 			
 			//console.log("widget:", view, this.widgets[n].span)
 			this.views.push(view);
