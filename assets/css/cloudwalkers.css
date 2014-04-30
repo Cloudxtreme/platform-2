@@ -1185,8 +1185,8 @@ tbody.messages-container i	{
 	position: absolute;	height: 100%; right: 0px; width: 50px; -webkit-box-shadow: #2bbedc 1px 0 4px 1px; -webkit-border-radius: 100%;
 }
 
-ul.list.toload li{ opacity: 0; }
-ul.list.loaded li{ opacity: 1; }
+ul.list.toload li{ opacity: 0; height: 0px; }
+ul.list.loaded li{ opacity: 1; height: auto; }
 ul.list.loaded li{	-webkit-transition: opacity .15s ease-out .5s; }
 ul.list.loaded li:nth-child(2){	-webkit-transition: opacity .15s ease-out .1s; }
 ul.list.loaded li:nth-child(3){	-webkit-transition: opacity .15s ease-out .15s; }

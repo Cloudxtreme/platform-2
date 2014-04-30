@@ -41,7 +41,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 
 		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
-		
 	},
 	
 	'toggleall' : function ()
