@@ -23,10 +23,13 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		this.listenTo(this.services, "ready", this.limited);
 		this.services.fetch();
 
+		this.loadListeners(this.services, ['request', 'sync', 'ready']);
+
 	},
 	
 	'endload' : function ()
 	{
+		//Remove?
 		this.$el.find(".inner-loading").removeClass("inner-loading");	
 	},
 
@@ -44,6 +47,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		// Get connected Services
 		Cloudwalkers.Net.get ('wizard/service/list', {'account': account.id}, this.appendConnected.bind(this));
 		*/
+		this.$container = this.$el.find('.portlet-body');
 		return this;
 	},
 	

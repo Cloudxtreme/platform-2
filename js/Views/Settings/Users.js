@@ -14,10 +14,12 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		this.collection = new Cloudwalkers.Collections.Users();
 		
-		// Listen to model
+		//  en to model
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'sync', this.hideloading);
+		
+		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
 	},
 
 	'render' : function ()
@@ -43,6 +45,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 
 		// Work widgets
 		*/
+		this.$container = this.$el.find('.portlet-body');
 		
 		return this;
 	},
@@ -56,7 +59,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		var $container = this.$el.find(".user-container").eq(-1);
 		
 		for (n in models)
-		{
+		{	
 			var view = new Cloudwalkers.Views.Settings.User ({ 'model' : models[n], view: this });
 			$container.append(view.render().el);
 		}

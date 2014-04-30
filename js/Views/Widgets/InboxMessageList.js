@@ -96,7 +96,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'showloading' : function ()
 	{
-		this.$container.addClass("inner-loading");
+		//this.$container.addClass("inner-loading");
 		
 		$(".inbox").addClass("loading");
 		

@@ -31,6 +31,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
+		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 	},
 
 	'render' : function (params)
@@ -39,6 +40,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
 		
 		this.$container = this.$el.find ('.messages-container');
+		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
 		
 		// Load category message

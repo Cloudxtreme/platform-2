@@ -68,13 +68,14 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'addLoader' : function(){
-		this.container = this.$container ? this.$container : this.$el;
+		this.container = this.$loadercontainer ? this.$loadercontainer : this.$container;
 		this.loader = $(Templates.progressbar).appendTo(this.container);
 	},
 
 	'loadRender' : function(index, length){
-
-		if(!this.loader) return null;
+		
+		//Just to make it moving from the beggining
+		if(!this.loader) index = 1;
 		
 		if(length == index) this.finishLoading();
 
