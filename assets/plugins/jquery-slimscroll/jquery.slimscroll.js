@@ -162,7 +162,7 @@
           overflow: 'hidden',
           width: o.width,
           'max-height': o.height,
-          height: 'auto'
+          height: 'inherit'
         });
 
         // create scrollbar rail
