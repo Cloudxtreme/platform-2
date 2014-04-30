@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 		var cal = new CalHeatMap();
 		var data = this.calculatedata();
-		
+
 		cal.init({
 			
 			domain: "month",
@@ -32,7 +32,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			cellSize: 36,
 			cellPadding: 8,
 			range: 1,
-			legend: data.legend ,
+			legend: data.legend,
 			label : {height: 30},
 			subDomainTextFormat: "%d"
 		});
@@ -57,7 +57,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			if(date == 0)	date = statistic.get("date");
 		}
 
-		return {data: data, legend: this.generaterange(data,6), date: date};
+		return {data: data, legend: this.generaterange(data,5), date: date};
 	},
 
 	'generaterange' : function(data, steps){
@@ -70,7 +70,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		for(var i=1; i <= steps; i++){
 			legend.push(step*i);
 		}
-
+		
 		return legend;
 	},
 
