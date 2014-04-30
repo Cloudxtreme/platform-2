@@ -153,16 +153,14 @@
             position: 'relative',
             overflow: 'hidden',
             width: o.width,
-            height: 'auto',
-            'max-height': o.height
+            height: o.height
           });
 
         // update style for the div
         me.css({
           overflow: 'hidden',
           width: o.width,
-          'min-height' : '0px',
-          'max-height': o.height
+          height: o.height
         });
 
         // create scrollbar rail
