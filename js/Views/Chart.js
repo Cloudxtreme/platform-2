@@ -44,10 +44,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 		
 		
-		// Select data & chart type
-		//var data  = this.parse[this.chart]();
-		//var chart = new Chart(this.canvas)[this.chart](data);
-		
+		// Select data & chart type		
 		return this;
 	},
 	
@@ -55,8 +52,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	{
 		var dis = this;
-
-		this.parse.collection = collection;
 
 		//Span container width
 		var width = this.$el.find(".chart-container").get(0).clientWidth
@@ -165,7 +160,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsegender : function(collection){
 
 		var data = [];
-		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': "#999999"};
+		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': collection.networkcolors["others"]};
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
@@ -236,7 +231,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Gets n biggest values (or all of them)
 		while(counter < size){
 			var country = grouped.pop();
-			data.push({title: country.name, value: country.total, cities: country.cities, networks: country.networks, color: this.colors[counter]});
+			data.push({
+				title: country.name, 
+				value: country.total, 
+				cities: country.cities, 
+				networks: country.networks, 
+				color: this.colors[counter]
+			});
 			counter++;
 		}
 
@@ -248,7 +249,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return memo + num.total;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: "#999999"});
+		data.push({title: "Others", value: total, color: collection.networkcolors["others"]});
 		
 		//Recycle the country data
 		this.regional = data;
@@ -311,15 +312,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			counter++;
 		}
 
-		if(datasets.length == 0) 
-			return data;
+		if(datasets.length == 0)	return data;
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(datasets, function(memo, num){
 			return memo + num.value;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: "#999999"});
+		data.push({title: "Others", value: total, color: this.collection.networkcolors["others"]});
 		
 		return data;
 	},
@@ -375,79 +375,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data = 	{ labels : [], datasets : [{title: "No data"}] };
 		}
 		return data;
-	},
-	
-	'parse' : {
-		PolarArea : function ()
-		{
-			// Placeholder data
-			if(!model)
-				return [{value :50, color: "#ffffff"}, {value :100, color: "#f9f9f9"}];
-			
-			else return this.collection[func]();
-		},
-		
-		Doughnut : function (model, func)
-		{
-			
-			// Placeholder data
-			if(!model)
-				return [{value :50, color: "#f7f7f7"}, {value :50, color: "#fafafa"}];
-			
-			var stat = this.collection.latest();
-			
-			return stat[func]();
-			
-			return [
-				{
-					value: 30,
-					color:"#F7464A"
-				},
-				{
-					value : 50,
-					color : "#E2EAE9"
-				},
-				{
-					value : 100,
-					color : "#D4CCC5"
-				},
-				{
-					value : 40,
-					color : "#949FB1"
-				},
-				{
-					value : 120,
-					color : "#4D5360"
-				}
-			]
-		},
-		
-		Line : function (model)
-		{
-			// Placeholder data
-			if(!model)
-				return {labels : ["",""], datasets : [{fillColor : "rgba(220,220,220, .1)", pointStrokeColor : "#fff", data : [1,100]}]};
-			
-			return {
-				labels : ["January","February","March","April","May","June","July"],
-				datasets : [
-					{
-						fillColor : "rgba(220,220,220,0.5)",
-						strokeColor : "rgba(220,220,220,1)",
-						pointColor : "rgba(220,220,220,1)",
-						pointStrokeColor : "#fff",
-						data : [65,59,90,81,56,55,40]
-					},
-					{
-						fillColor : "rgba(151,187,205,0.5)",
-						strokeColor : "rgba(151,187,205,1)",
-						pointColor : "rgba(151,187,205,1)",
-						pointStrokeColor : "#fff",
-						data : [28,48,40,19,96,27,100]
-					}
-				]
-			}
-		}
 	},
 	
 	'negotiateFunctionalities' : function()

@@ -24,6 +24,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var data = this.calculatedata();
 		
 		cal.init({
+			
 			domain: "month",
 			subDomain: "x_day",
 			data: data.data,
@@ -31,7 +32,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			cellSize: 36,
 			cellPadding: 8,
 			range: 1,
-			legend: data.legend,
+			legend: data.legend ,
 			label : {height: 30},
 			subDomainTextFormat: "%d"
 		});
@@ -63,10 +64,10 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 		var max = _.max(data, function(day){ return day });
 		var min = _.min(data, function(day){ return day });
-		var step = ((max-min)/steps) - steps/2;
+		var step = (max-min)/steps;
 		var legend = [];
 
-		for(var i=1; i < steps; i++){
+		for(var i=1; i <= steps; i++){
 			legend.push(step*i);
 		}
 

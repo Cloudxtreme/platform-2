@@ -46,7 +46,8 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/monitoring.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<link href="assets/demo/preview.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+		<link href="<?php echo BASE_URL; ?>assets/plugins/cal-heatmap-master/cal-heatmap.css" rel="stylesheet" type="text/css" />
+		<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />-->
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
