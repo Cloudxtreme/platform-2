@@ -76,7 +76,7 @@ Backbone.View = Backbone.View.extend({
 		
 		//Just to make it moving from the beggining
 		if(!this.loader) index = 1;
-		
+		if(this.loader && this.loader.hasClass('loaded'))	this.loader.removeClass('loaded');
 		if(length == index) this.finishLoading();
 
 		var dis = this;
@@ -90,6 +90,15 @@ Backbone.View = Backbone.View.extend({
 	'finishLoading' : function(){
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
+		this.restartLoader();
+	},
+
+	'restartLoader' : function(){
+		var dis = this;
+
+		setTimeout(function(){
+			dis.loader.css('width','0%');
+		},500);
 	}
 });
 
