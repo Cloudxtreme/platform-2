@@ -68,14 +68,15 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'addLoader' : function(){
-		this.loader = $(Templates.progressbar).appendTo(this.$container ? this.$container : this.$el);
+		this.container = this.$container ? this.$container : this.$el;
+		this.loader = $(Templates.progressbar).appendTo(this.container);
 	},
 
 	'loadRender' : function(index, length){
 
 		if(!this.loader) return null;
 		
-		if(length == index) this.loader.addClass('loaded');
+		if(length == index) this.finishLoading();
 
 		var dis = this;
 		// Ugly but needed hack
@@ -84,6 +85,11 @@ Backbone.View = Backbone.View.extend({
 			dis.loader.css('width',width+'%');
 		},1);
 	},
+
+	'finishLoading' : function(){
+		this.loader.addClass('loaded');
+		this.container.removeClass('toload').addClass('loaded');
+	}
 });
 
  

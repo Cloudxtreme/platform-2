@@ -1185,6 +1185,18 @@ tbody.messages-container i	{
 	position: absolute;	height: 100%; right: 0px; width: 50px; -webkit-box-shadow: #2bbedc 1px 0 4px 1px; -webkit-border-radius: 100%;
 }
 
+ul.list.toload li{ opacity: 0; }
+ul.list.loaded li{ opacity: 1; }
+ul.list.loaded li{	-webkit-transition: opacity .15s ease-out .5s; }
+ul.list.loaded li:nth-child(2){	-webkit-transition: opacity .15s ease-out .1s; }
+ul.list.loaded li:nth-child(3){	-webkit-transition: opacity .15s ease-out .15s; }
+ul.list.loaded li:nth-child(4){	-webkit-transition: opacity .15s ease-out .2s; }
+ul.list.loaded li:nth-child(5){	-webkit-transition: opacity .15s ease-out .25s; }
+ul.list.loaded li:nth-child(6){	-webkit-transition: opacity .15s ease-out .3s; }
+ul.list.loaded li:nth-child(7){	-webkit-transition: opacity .15s ease-out .35s; }
+ul.list.loaded li:nth-child(8){	-webkit-transition: opacity .15s ease-out .4s; }
+ul.list.loaded li:nth-child(9){	-webkit-transition: opacity .15s ease-out .45s; }
+
 /* Css corresponding to the default settings*/
 .sr-effect-div{
 	position: relative; height: 40px; width:100%; /* Necessary?*/ margin-top: -70px;

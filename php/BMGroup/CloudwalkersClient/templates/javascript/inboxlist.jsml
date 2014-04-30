@@ -40,7 +40,7 @@
 	</div>
 	
 	<div class="clearfix">
-		<ul class="list"></ul>
+		<ul class="list toload"></ul>
 		<input type="button" class="btn load-more" value="load more" />
 	</div>
 </div>
