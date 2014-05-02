@@ -1,0 +1,6 @@
+<div class="input-symbol" data-option="fullbody">
+	<textarea id="info"></textarea>
+	<div class='limit-counter' data-option="limit">140</div>
+</div>
+
+<div id="out"></div>

@@ -44,11 +44,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click li.images-thumb' : 'removefile',
 		
 		'blur [data-collapsable=link] input' : 'listentolink',
+		
 		'change select.campaign-list' : 'listentocampaign',
-		'blur input.campaign-name' : 'listentoaddcampaign',
+		'blur .campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
-		'click [data-collapsable=schedule] input[type=checkbox], [data-collapsable=schedule] input[type=radio]' : 'monitorschedule',
+		'click .schedule-entry' : 'monitorschedule'/*'togglescheduleentry'*/,
+		'click [data-set=on] .btn-white' : 'togglebesttime',
+		
+		/*'click [data-collapsable=schedule] input[type=checkbox], [data-collapsable=schedule] input[type=radio]' : 'monitorschedule',*/
 		'blur [data-collapsable=schedule] input' : 'monitorschedule',
 		'change [data-collapsable=schedule] select' : 'monitorschedule',
 		
@@ -136,6 +140,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
+		
+		// Append Editor
+		var editor = new Cloudwalkers.Views.Editor({draft: this.draft});
+		this.$el.find("[data-type=post]").append(editor.render().el);
 		
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
@@ -263,9 +271,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var stream = id? Cloudwalkers.Session.getStream(id): false;
 
-		this.$el.find(".stream-tabs div.active").removeClass('active');
+		this.$el.find(".stream-tabs div.active").removeClass('active social-icon-colors');
 		
-		$btn.addClass('active');
+		$btn.addClass('active social-icon-colors');
 		
 		// Toggle subcontent
 		this.togglesubcontent(stream);
@@ -305,7 +313,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		} else					this.$el.find("[data-option=subject]").addClass("hidden");
 
-		
 
 		// Full Body
 		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
@@ -498,6 +505,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var result = $(e.currentTarget).val();
 	
 		this.draft.set("campaign", Number(result));
+		
+		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	},
 	
 	'toggleaddcampaign' : function()
@@ -515,7 +524,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		{
 			var campaigns = account.get("campaigns");
 			
-			this.draft.set("campaign", campaigns[campaigns.length -1]);
+			this.draft.set("campaign", campaigns[campaigns.length -1].id);
 			
 			// Close it
 			this.reloadcampaigns(campaigns);
@@ -541,10 +550,154 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Options: Schedule
 	**/
 	
+	/*'togglescheduleentry' : function(e)
+	{
+		var entry = e.currentTarget? $(e.currentTarget): e;
+	
+		if (entry.hasClass("single-toggle"))
+			entry.toggleClass("inactive").find(".icon-circle-blank").toggleClass("icon-ok-circle icon-circle-blank");
+		else
+		{
+			entry.parent().find(".schedule-entry").addClass("inactive").find(".icon-ok-circle").toggleClass("icon-ok-circle icon-circle-blank");
+			entry.removeClass("inactive").find(".icon-circle-blank").toggleClass("icon-ok-circle icon-circle-blank");
+		}
+	},*/
+	
+	'toggleschedentry' : function(selector, pos)
+	{
+		$(selector)[pos? "removeClass": "addClass"]("inactive").find(".icon-ok-circle").toggleClass("icon-ok-circle icon-circle-blank");
+		
+		return this;
+	},
+	
+	
+	
+	'parsemoment' : function(selector)
+	{
+		var field = $(selector);
+		
+		// Prevent empty
+		if(!field.val()) return null;
+		
+		var date = moment(field.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY","DD/MM/YY","DDMMYYYY","YYYYMMDD","MM-DD-YYYY","MM-DD-YY"]);
+		
+		// Validate
+		if(!date.isValid()) return undefined;
+		
+		// Future-check
+		return date.unix() < moment().unix()? undefined: date;
+	},
+
+	
 	'monitorschedule' : function(e)
 	{
+		
 		var field = $(e.currentTarget);
 		var scheduled = this.draft.get("schedule");
+		
+		var set = field.data("set") || field.parents("[data-set]").data("set");
+		
+		
+		// Schedule Now
+		if(set == "now")
+		{
+			// UI
+			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
+			$("[data-set=on] input").val("");
+			$("[data-set=in] select").val(600);
+			
+			// Data
+			this.draft.set("schedule", {});
+		 
+		} else
+		
+		// Schedule In
+		if(set == "in")
+		{
+			// UI
+			this.toggleschedentry("[data-set=now], [data-set=on]").toggleschedentry("[data-set=in]", true);
+			$("[data-set=on] input").val("");
+
+			// Data
+			scheduled.date = moment().add('seconds', $("#delay-select").val()).unix();
+		 
+		} else
+		
+		// Schedule On
+		if(set == "on")
+		{
+			// UI
+			this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
+			$("[data-set=in] select").val(600);
+
+			// Data
+			var date = this.parsemoment("#delay-date");
+			
+			if(date === null) 			return null;
+			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule on date in the future");
+			
+			if ($("#delay-time").val())
+			{
+				var time = $("#delay-time").val().split(":");
+				date.add('minutes', Number(time[0])*60 + Number(time[1]));
+			}
+			
+			scheduled.date = date.unix();	 
+		
+		} else
+		
+		// Repeat every
+		if(set == "every")
+		{
+			// UI
+			var active = !field.hasClass("inactive");
+			
+			if(field.hasClass("single-toggle"))
+			{
+				this.toggleschedentry("[data-set=every]", !active);
+				
+				active = !active;
+				
+				this.toggleschedentry(!active?
+					"[data-set=repeat], [data-set=until]": (Number($("#repeat-amount").val())? "[data-set=repeat]": "[data-set=until]")
+				, active);
+			
+			} else if(!active) this.toggleschedentry("[data-set=every]", true);
+			
+			
+			
+			
+			
+			/*
+			
+			this.toggleschedentry("[data-set=repeat], [data-set=in]").toggleschedentry("[data-set=on]", true);;
+			$("[data-set=in] select").val(600);
+
+			// Data
+			var date = this.parsemoment("#delay-date");
+			
+			if(date === null) 			return null;
+			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule on date in the future");
+			
+			if ($("#delay-time").val())
+			{
+				var time = $("#delay-time").val().split(":");
+				date.add('minutes', Number(time[0])*60 + Number(time[1]));
+			}
+			
+			scheduled.date = date.unix();	*/ 
+		
+		} else
+		
+		
+		
+		
+		
+		
+		
+		return null;
+		
+		
 		
 		// Remove Schedule
 		if(field.is("#delay-none"))
@@ -607,7 +760,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 	
-	'validatefuture' : function (date) { return date > moment().unix(); },
+	'togglebesttime' : function(e)
+	{
+		$(e.currentTarget).toggleClass("inactive");
+		
+		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
+		else											$("#delay-time").attr("disabled", true).val("");
+			
+		this.draft.get("schedule").besttimetopost = !$(e.currentTarget).hasClass("inactive");
+		
+		return this;
+	},
+	
+	/*'validatefuture' : function (date) { return date > moment().unix(); },*/
 	
 	'summarizeschedule' : function ()
 	{
@@ -752,12 +917,27 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'save' : function()
 	{
-		this.draft.save({status: "draft"}, {patch: true, success: this.thankyou.bind(this)});
+		// Prevent empty patch
+		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+
+		// Rui, add loader
+		
+		this.draft.save({status: "draft"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
 	{		
-		this.draft.save({status: "scheduled"}, {patch: true, success: this.thankyou.bind(this)});
+		// Rui, add loader
+		
+		// Prevent empty post
+		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+		
+		// Redirect streamless to draft
+		else if(!this.draft.get("streams").length) this.save();
+		
+		// Or just post
+		else this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		
 	},
 	
 	'thankyou' : function()

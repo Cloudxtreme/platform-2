@@ -35,13 +35,8 @@
 				<input type="text" placeholder="Subject" />
 			</div>
 			
-			<div class="input-symbol" data-option="fullbody">
-				<textarea id="info"></textarea>
-				<div class='limit-counter' data-option="limit">140</div>
-			</div>
-			
 		</section>
-		<div id="out"></div>
+		
 		<section data-collapsable="images" class="collapsed clearfix first">
 			
 			<div class="btn-white" data-toggle="images">Images</div>
@@ -120,16 +115,14 @@
 			
 			<div class="collapsable-content some-margin">
 				
-				<div class="schedule-entry">
-					<input id="delay-none" name="delay" type="radio" value="none" checked>
-					<label for="delay-none">Now</label>
+				<div class="schedule-entry" data-set="now">
+					<label class="icon-ok-circle">Now</label>
 				</div>
 				
-				<div class="schedule-entry clearfix">
-					<input id="delay-in" name="delay" type="radio" value="in">
-					<label for="delay-in">In</label>
+				<div class="schedule-entry inactive clearfix" data-set="in">
+					<label for="delay-select" class="icon-circle-blank">In</label>
 					
-					<select id="delay-select" class="schedule-intend schedule-half">
+					<select id="delay-select">
 						<option selected="selected" value="600">10min</option>
 						<option value="900">15min</option>
 						<option value="1800">30 min</label>
@@ -146,20 +139,18 @@
 					</select>
 				</div>
 				
-				<div class="schedule-entry clearfix">
+				<div class="schedule-entry inactive clearfix" data-set="on">
+					<label for="delay-date" class="icon-circle-blank">On</label>
 					
-					<input id="delay-on" name="delay" type="radio" value="on">
-					<label for="delay-on">On</label>
-					
-					<div class="input-symbol schedule-intend" data-option="schedule-start-date">
+					<div class="input-symbol" data-option="schedule-start-date">
 						<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
 					</div>
-					
-					<div class="pull-right"><input id="besttime" name="besttime" type="checkbox"><label for="besttime">Best time to post</label></div>
 					
 					<div class="input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
 						<input id="delay-time" type="time" />
 					</div>
+					
+					<span class="btn-white inactive">Best time</span>
 				</div>
 
 			</div>
@@ -173,10 +164,10 @@
 			
 			<div class="collapsable-content some-margin">
 				
-				<div class="schedule-entry inline-all">
+				<div class="schedule-entry inactive single-toggle" data-set="every">
 				
-					<label for="repeat-interval">every</label>
-					<div class="input-symbol" data-option="schedule-start-date">
+					<label for="repeat-interval" class="icon-circle-blank">every</label>
+					<div class="input-symbol number-input" data-option="schedule-start-date">
 						<input id="repeat-interval" type="number" value="1" min="0" /> 
 					</div>
 				
@@ -194,7 +185,6 @@
 						<option value="720">months</label>
 					</select>
 					
-					<label for="every-select-weekday" class="hide-if-empty">on</label>
 					<select id="every-select-weekday" class="hide-if-empty">
 						<option value=0>select a day...</option>
 						<option value="MONDAY">monday</option>
@@ -209,21 +199,19 @@
 					
 				</div>
 				
-				<div class="schedule-entry inline-all clearfix hide-if-empty">
-					<input id="opt-repeat" name="repeat" type="radio">
+				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
 					
-					<label for="repeat-amount">Repeat</label>
-					<div class="input-symbol" data-option="schedule-start-date">
+					<label for="repeat-amount" class="icon-circle-blank">Repeat</label>
+					<div class="input-symbol number-input" data-option="schedule-start-date">
 						<input id="repeat-amount" type="number" value="0" min="0" />
 					</div>
 					<label for="repeat-amount">times</label>
 
 				</div>
 				
-				<div class="schedule-entry inline-all clearfix hide-if-empty">
-					<input id="opt-until" name="repeat" type="radio">
+				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
 					
-					<label for="repeat-until">Until</label>
+					<label for="repeat-until" class="icon-circle-blank">Until</label>
 					<div class="input-symbol" data-option="schedule-start-date">				
 						<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
 					</div>

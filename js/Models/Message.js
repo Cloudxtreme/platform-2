@@ -63,9 +63,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	'validate' : function ()
+	'validateCustom' : function (a,b,c)
 	{
-		// Implement Validation code
+		return (this.get("attachments").length || this.get("body").html);
 	},
 	
 	'checkloaded' : function (response)
