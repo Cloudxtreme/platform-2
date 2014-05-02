@@ -8,6 +8,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'id' : "editor",
 	'className' : "clearfix",
+	'hasUrl' : false,
+
 	
 	'events' : {
 		/*'click li[data-streams]' : 'togglestreams',
@@ -15,8 +17,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur [data-option] input' : 'monitor',
 		'blur [data-option] textarea' : 'monitor',
 		'keyup [data-option] textarea' : 'monitor',
-		
-		'keyup #info' : 'showembed'*/
+		*/
+		'keyup #compose-content' : 'showembed'
 	},
 	
 	'initialize' : function (options)
@@ -74,24 +76,45 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'showembed' : function(){
 		
+		dis = this;
 		tagdata = [];
 		eventdata = [];
 		var scriptruns = [];
-		var text = $('#info').val();
-		text = $('<span>'+text+'</span>').text(); //strip html
-		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
-		text = text.replace(/(\s|>|^)(mailto:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		var content = $('#compose-content').html();
+		var url = content.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\//);
 		
-		$('#out').empty().html(text);
-		
-		$(".oembed").oembed(null,{
-			apikeys: {
-				//etsy : 'd0jq4lmfi5bjbrxq2etulmjr',
-				amazon : 'caterwall-20',
-				//eventbrite: 'SKOFRBQRGNQW5VAS6P',
-			},
-			//maxHeight: 200, maxWidth:300
-		});
+		if(url && !this.hasUrl){
+
+			url = url[0];
+
+			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
+	            'url' : url,
+	            'output' : 'jsonp',
+	            'format': "json"
+	        })
+	        .done(function( data ) {
+	            if (data.shortUrl)
+	            {
+	                var newUrl = data.shortUrl;
+	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
+					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'<a href="$2" class="urltag">'+newUrl+'</a>');
+
+					$('#out').empty().html(oembed);
+					$('#compose-content').empty().html(formatedcontent);
+					
+					//Prevents the content to be re-rendered again
+					dis.hasUrl = true;
+					
+					$(".oembed").oembed(null,{
+						apikeys: {
+							amazon : 'caterwall-20',
+						},
+					});	               
+	            }
+	        });
+		}
+
+		if(!url) this.hasUrl = false;
 	},
 	
 		
@@ -156,5 +179,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		this.togglelink(options.indexOf("link") >= 0);
 
-	}
+	},
+
 });

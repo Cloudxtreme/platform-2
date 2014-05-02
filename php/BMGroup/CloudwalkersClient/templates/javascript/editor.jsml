@@ -1,5 +1,5 @@
 <div class="input-symbol" data-option="fullbody">
-	<textarea id="info"></textarea>
+	<section contenteditable="true" id="compose-content"></section>
 	<div class='limit-counter' data-option="limit">140</div>
 </div>
 
