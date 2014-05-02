@@ -49,7 +49,11 @@ AuthorizationError.prototype.constructor = AuthorizationError;
 /**
  *	View functions
  *
- *	Document...
+ *	loadListeners	Loads a list of events to be listened to, links them to the loadRender function
+ *	addLoader		Adds the progress bar dinamically to the container div
+ *	loadRender		Updates the width of the progress bar according to the stage (event)
+ *	finishLoading	Ends the loading animation effect & readies it for the next loading (ie: filters)
+ *	rollBack		Responsible for the rollback effect
  *
 **/
 
@@ -63,7 +67,7 @@ Backbone.View = Backbone.View.extend({
 		for(i in states){
 			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
-
+		//Add the progress-bar dinamicaly
 		this.on("rendered", this.addLoader);
 	},
 
@@ -76,7 +80,7 @@ Backbone.View = Backbone.View.extend({
 		
 		//Just to make it moving from the beggining
 		if(!this.loader) index = 1;
-		if(this.loader && this.loader.hasClass('loaded'))	this.loader.removeClass('loaded');
+		if(this.loader && this.loader.hasClass('loaded'))	this.rollBack();
 		if(length == index) this.finishLoading();
 
 		var dis = this;
@@ -91,6 +95,11 @@ Backbone.View = Backbone.View.extend({
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
 		this.restartLoader();
+	},
+
+	'rollBack' : function(){
+		this.container.removeClass('loaded').addClass('toload');
+		this.loader.removeClass('loaded');
 	},
 
 	'restartLoader' : function(){

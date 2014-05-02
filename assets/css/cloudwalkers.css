@@ -1183,12 +1183,23 @@ tbody.messages-container i	{
 	position: absolute;	height: 100%; right: 0px; width: 50px; -webkit-box-shadow: #2bbedc 1px 0 4px 1px; -webkit-border-radius: 100%;
 }
 
-/* Loading container */
+/* Loading */
 .toload{ min-height: 5px; }
 .toload, .loaded{ position: relative; overflow: hidden; }
-.toload li, .toload tr{ opacity: 0; height: 0px !important; min-height: 0px !important; padding: 0px !important; margin: 0px !important border: none !important;}
-.loaded li, .loaded tr{ opacity: 1; height: auto; }
+.toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important;}
+.loaded li, .loaded tr{ opacity: 1; max-height: 100px; }
 .loaded li, .loaded tr{	-webkit-transition: opacity .15s ease-out .5s; }
+/* Rollback effect */
+.toload li:nth-child(1), .toload tr:nth-child(1){	-webkit-transition: all .15s ease-out .45s; }
+.toload li:nth-child(2), .toload tr:nth-child(2){	-webkit-transition: all .15s ease-out .4s; }
+.toload li:nth-child(3), .toload tr:nth-child(3){	-webkit-transition: all .15s ease-out .35s; }
+.toload li:nth-child(4), .toload tr:nth-child(4){	-webkit-transition: all .15s ease-out .3s; }
+.toload li:nth-child(5), .toload tr:nth-child(5){	-webkit-transition: all .15s ease-out .25s; }
+.toload li:nth-child(6), .toload tr:nth-child(6){	-webkit-transition: all .15s ease-out .2s; }
+.toload li:nth-child(7), .toload tr:nth-child(7){	-webkit-transition: all .15s ease-out .15s; }
+.toload li:nth-child(8), .toload tr:nth-child(8){	-webkit-transition: all .15s ease-out .1s; }
+.toload li:nth-child(9), .toload tr:nth-child(9){	-webkit-transition: all .15s ease-out .5s; }
+/* Loading effect */
 .loaded li:nth-child(1), .loaded tr:nth-child(1){	-webkit-transition: opacity .15s ease-out .1s; }
 .loaded li:nth-child(2), .loaded tr:nth-child(2){	-webkit-transition: opacity .15s ease-out .1s; }
 .loaded li:nth-child(3), .loaded tr:nth-child(3){	-webkit-transition: opacity .15s ease-out .15s; }
