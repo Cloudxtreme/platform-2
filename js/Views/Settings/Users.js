@@ -55,7 +55,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	{	
 		
 		Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
-
+		
 		var $container = this.$el.find(".user-container").eq(-1);
 		
 		for (n in models)
@@ -72,7 +72,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	},
 
 	'addUserContainer' : function (title, collection)
-	{
+	{	
 		var user = Cloudwalkers.Session.getUser ();
 
 		var self = this;

@@ -77,7 +77,6 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'loadRender' : function(index, length){
-		
 		//Just to make it moving from the beggining
 		if(!this.loader) index = 1;
 		if(this.loader && this.loader.hasClass('loaded'))	this.rollBack();
@@ -87,7 +86,7 @@ Backbone.View = Backbone.View.extend({
 		// Ugly but needed hack
 		setTimeout(function(){
 			var width = index*100/length;
-			dis.loader.css('width',width+'%');
+			if(dis.loader)	dis.loader.css('width',width+'%');
 		},1);
 	},
 
