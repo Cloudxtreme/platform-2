@@ -9,6 +9,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'id' : "editor",
 	'className' : "clearfix",
 	'hasUrl' : false,
+	'oldUrl' : "",
+	'urldata' : {},
+	'currentUrl' : null,
+	'maxchars' : 140,
 
 	
 	'events' : {
@@ -18,7 +22,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur [data-option] textarea' : 'monitor',
 		'keyup [data-option] textarea' : 'monitor',
 		*/
-		'keyup #compose-content' : 'showembed'
+		'keyup #compose-content' : 'showembed',
+		'keydown #compose-content' : 'showembed',
+		'click #swaplink' : 'swaplink'
 	},
 	
 	'initialize' : function (options)
@@ -35,8 +41,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'render' : function ()
 	{
-		
-		var data = {};
+		//Max chars are hardcoded?
+		var data = {maxchars : this.maxchars};
 		
 		this.$el.html (Mustache.render (Templates.editor, data));
 		
@@ -77,44 +83,89 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'showembed' : function(){
 		
 		dis = this;
-		tagdata = [];
-		eventdata = [];
-		var scriptruns = [];
-		var content = $('#compose-content').html();
+		//tagdata = [];
+		//eventdata = [];
+		//var scriptruns = [];
+		var content = this.$el.find('#compose-content').html();
 		var url = content.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\//);
 		
 		if(url && !this.hasUrl){
-
-			url = url[0];
-
+			this.oldUrl = url[0];
+			
 			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
-	            'url' : url,
+	            'url' : this.oldUrl,
 	            'output' : 'jsonp',
 	            'format': "json"
 	        })
 	        .done(function( data ) {
 	            if (data.shortUrl)
 	            {
-	                var newUrl = data.shortUrl;
-	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
-					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'<a href="$2" class="urltag">'+newUrl+'</a>');
+	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
+	                dis.currentUrl = dis.urldata.newurl;
 
-					$('#out').empty().html(oembed);
-					$('#compose-content').empty().html(formatedcontent);
+	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
+	                //the URL tag's container
+					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
+					
+					dis.$el.find('#out').empty().html(oembed);
+					dis.$el.find('#compose-content').empty().html(formatedcontent);
+					//the URL tag's content
+					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
+					dis.movecursor(dis.$el.find('#urltag').get(0));
 					
 					//Prevents the content to be re-rendered again
 					dis.hasUrl = true;
 					
-					$(".oembed").oembed(null,{
-						apikeys: {
-							amazon : 'caterwall-20',
-						},
-					});	               
+					dis.$el.find(".oembed").oembed().each(function(){
+						this.def.done(function(){
+							$('#out').addClass('expanded');
+						});
+					});
 	            }
 	        });
 		}
 
-		if(!url) this.hasUrl = false;
+		if(!url){
+			//removes the preview & waits for another URL
+			this.$el.find('#out').empty();
+			this.hasUrl = false;	
+		} 
+
+		this.updatecharcount();
+	},
+
+	//Moves the cursor to the end of the generated shorter url
+	'movecursor' : function (node) {
+	    
+	    if (typeof window.getSelection != "undefined") {
+	        var range = document.createRange();
+	        range.setStartAfter(node);
+	        range.collapse(true);
+	        var selection = window.getSelection();
+	        selection.removeAllRanges();
+	        selection.addRange(range);
+	    }
+	},
+
+	'updatecharcount' : function(e){
+		var container = this.$el.find('#compose-content');	
+		this.$el.find('.limit-counter').empty().html(this.maxchars - container.text().length);
+
+	},
+
+	//Swaps between full url & shortened url
+	'swaplink' : function(){
+
+		var url;
+		
+		if(this.currentUrl == this.urldata.newurl)
+			url = this.urldata.oldurl;
+		else
+			url = this.urldata.newurl
+
+		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
+		this.currentUrl = url;
+		this.movecursor(dis.$el.find('#urltag').get(0));
 	},
 	
 		

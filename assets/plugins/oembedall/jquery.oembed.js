@@ -40,6 +40,9 @@
         if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
         return this.each(function() {
+            
+            this.def = $.Deferred();
+            diss = this;
 
             var container = $(this),
                 resourceURL =  (url && (!url.indexOf('http://') || !url.indexOf('https://'))) ? url : container.attr("href"),
@@ -51,6 +54,7 @@
             else if (!settings.onEmbed){
                 settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
+                    diss.def.resolve();
                 };
             }
 
