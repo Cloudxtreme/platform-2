@@ -1,0 +1,4 @@
+<span contenteditable=false>
+	{{url}}
+	<i class="icon-unlink" id="swaplink"></i>
+</span>
