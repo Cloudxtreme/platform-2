@@ -12,7 +12,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : null,
-	'maxchars' : 100,
+	'maxchars' : 30,
 
 	
 	'events' : {
@@ -82,23 +82,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'showembed' : function(){
 		
 		dis = this;
-		//tagdata = [];
-		//eventdata = [];
-		//var scriptruns = [];
-		var content = this.$el.find('#compose-content').html();
+		
+		this.contentcontainer = this.$el.find('#compose-content');
+		var content = this.contentcontainer.html();
 		var url = content.match(/(\s|>|^)(https?:[^\s<]*)/igm);
-		//console.log(content);
-		//Takes care of the extra chars
-		var charcount = this.updatecharcount();
-		if( charcount < 0){
-			var cursorpos = this.getcursosposition(this.$el.find('#compose-content').get(0)); //Get cursor position
-			this.greyout(charcount);
-			this.setcursosposition(cursorpos);	//Set cursor position after re-writting content
-		}
 
 		if(url && !this.hasUrl){
 			this.oldUrl = url[0];
-			console.log("entrou");
+			
 			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
 	            'url' : this.oldUrl,
 	            'output' : 'jsonp',
@@ -109,13 +100,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	            {
 	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
 	                dis.currentUrl = dis.urldata.newurl;
-					console.log(dis.urldata);
+					
 	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
 	                //the URL tag's container
 					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
 					
 					dis.$el.find('#out').empty().html(oembed);
-					dis.$el.find('#compose-content').empty().html(formatedcontent);
+					dis.contentcontainer.empty().html(formatedcontent);
 					//the URL tag's content
 					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
 					
@@ -125,6 +116,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					dis.$el.find(".oembed").oembed().each(function(){
 						this.def.done(function(){
 							$('#out').addClass('expanded');
+							dis.updatecontainer();
 						});
 					});
 	            }
@@ -136,51 +128,53 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			//removes the preview & waits for another URL
 			this.$el.find('#out').empty();
 			this.hasUrl = false;	
-		} 
+		}
+
+		//Takes care of the extra chars
+		this.updatecontainer();
 
 	},
 
-	'getcursosposition' : function(element){
+	'getcursosposition' : function(e){
 
-	    var caretOffset = 0;
-	    var doc = element.ownerDocument || element.document;
+	    var cursorpos = 0;
+	    var doc = e.ownerDocument || e.document;
 	    var win = doc.defaultView || doc.parentWindow;
 	    var sel;
 	    if (typeof win.getSelection != "undefined") {
 	        var range = win.getSelection().getRangeAt(0);
 	        var preCaretRange = range.cloneRange();
-	        preCaretRange.selectNodeContents(element);
+	        preCaretRange.selectNodeContents(e);
 	        preCaretRange.setEnd(range.endContainer, range.endOffset);
-	        caretOffset = preCaretRange.toString().length;
+	        cursorpos = preCaretRange.toString().length;
 	    } else if ( (sel = doc.selection) && sel.type != "Control") {
 	        var textRange = sel.createRange();
 	        var preCaretTextRange = doc.body.createTextRange();
-	        preCaretTextRange.moveToElementText(element);
+	        preCaretTextRange.moveToElementText(e);
 	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
-	        caretOffset = preCaretTextRange.text.length;
+	        cursorpos = preCaretTextRange.text.length;
 	    }
-    
-		return caretOffset;
+		//console.log("get",caretOffset);
+		return cursorpos;
 	},
 
 	'setcursosposition' : function(cursorpos){
 
-		var el = this.$el.find("#compose-content").get(0);
+		var el = this.contentcontainer.get(0);
 		var nodelength = 0;
 		var currentnode;
 
 		//Map the node sizes
 		$.each(el.childNodes, function(i, node){
 			if(node.length)	nodelength = node.length
+			else if (node.id)	nodelength = node.outerText.length;
 			else if (node.childNodes[0].length) nodelength = node.childNodes[0].length;
 			else return true;
-
-			if(nodelength > cursorpos){
-				console.log("nodelength:",nodelength, cursorpos);
+			
+			if(nodelength >= cursorpos){
 				currentnode = node;
 				return false;
 			}else{
-				console.log("pivot:", cursorpos);
 				cursorpos -= nodelength;
 				return true;
 			}
@@ -188,13 +182,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var range = document.createRange();
 		var sel = window.getSelection();
-
+		
 		if(currentnode)
 			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
 		else
 			return false;
 
-		console.log(el.childNodes);
+		//console.log("set", node, cursorpos);
 		range.setStart(node, cursorpos);
 		range.collapse(true);
 		sel.removeAllRanges();
@@ -202,27 +196,37 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'greyout' : function(extrachars){
-		var extra = this.$el.find('#compose-content').text().slice(extrachars);
-		var notextra = this.$el.find('#compose-content').text().slice(0, this.maxchars);
-		notextra = this.parsecontent(notextra, this.currentUrl);
-		this.$el.find('#compose-content').empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
+		
+		var extra = this.contentcontainer.text().slice(extrachars);
+		var notextra = this.contentcontainer.text().slice(0, this.maxchars);
+		if(this.hasUrl)
+			notextra = this.parsecontent(notextra, this.currentUrl);
+
+		this.contentcontainer.empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
 	},
 
 	'parsecontent' : function(cont, url){
 
 		var content = cont.replace(url,'');
 		content = ('<a href="'+url+'" id="urltag"><span contenteditable=false>'+url+'<i class="icon-unlink" id="swaplink"></i></span></a>'+content);
+
 		return content;
 	},
 
-	'updatecharcount' : function(){
+	'updatecontainer' : function(){
 
-		var container = this.$el.find('#compose-content');
+		var container = this.contentcontainer;
 		var charcount = container.text().length;
 		var total = this.maxchars - charcount;
 		
-		if(total >= 0)
+		if(total >= 0){
 			this.$el.find('.limit-counter').empty().html(total);
+		}else{
+			this.$el.find('.limit-counter').empty().html(0);
+			var cursorpos = this.getcursosposition(this.contentcontainer.get(0)); //Get cursor position
+			this.greyout(total);
+			this.setcursosposition(cursorpos);
+		}
 
 		return total;
 	},

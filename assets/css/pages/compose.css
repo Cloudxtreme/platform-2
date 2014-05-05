@@ -546,7 +546,7 @@ Style corrections and manual overrides
 	border-top: 1px solid #e6e6e6;
 }
 
-#out img{ float: left; max-width: 45%; max-height: 200px; padding-right: 15px; margin-bottom: 20px; }
+#out img{ float: left; max-width: 45%; max-height:180px; padding-right: 15px; margin-bottom: 20px; }
 
 .oembedall-container a, .oembedall-container > span { display: none;}
 
