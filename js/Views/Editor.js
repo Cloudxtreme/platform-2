@@ -87,51 +87,50 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//var scriptruns = [];
 		var content = this.$el.find('#compose-content').html();
 		var url = content.match(/(\s|>|^)(https?:[^\s<]*)/igm);
-		
+		//console.log(content);
 		//Takes care of the extra chars
-		var charcount = this.updatecharcount()
+		var charcount = this.updatecharcount();
 		if( charcount < 0){
 			var cursorpos = this.getcursosposition(this.$el.find('#compose-content').get(0)); //Get cursor position
 			this.greyout(charcount);
 			this.setcursosposition(cursorpos);	//Set cursor position after re-writting content
-
-		}else{
-
-			if(url && !this.hasUrl){
-				this.oldUrl = url[0];
-				console.log(url[0]);
-				$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
-		            'url' : this.oldUrl,
-		            'output' : 'jsonp',
-		            'format': "json"
-		        })
-		        .done(function( data ) {
-		            if (data.shortUrl)
-		            {
-		                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
-		                dis.currentUrl = dis.urldata.newurl;
-						console.log(dis.urldata);
-		                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
-		                //the URL tag's container
-						var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
-						
-						dis.$el.find('#out').empty().html(oembed);
-						dis.$el.find('#compose-content').empty().html(formatedcontent);
-						//the URL tag's content
-						dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
-						
-						//Prevents the content to be re-rendered again
-						dis.hasUrl = true;
-						
-						dis.$el.find(".oembed").oembed().each(function(){
-							this.def.done(function(){
-								$('#out').addClass('expanded');
-							});
-						});
-		            }
-		        });
-			}
 		}
+
+		if(url && !this.hasUrl){
+			this.oldUrl = url[0];
+			console.log("entrou");
+			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
+	            'url' : this.oldUrl,
+	            'output' : 'jsonp',
+	            'format': "json"
+	        })
+	        .done(function( data ) {
+	            if (data.shortUrl)
+	            {
+	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
+	                dis.currentUrl = dis.urldata.newurl;
+					console.log(dis.urldata);
+	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
+	                //the URL tag's container
+					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
+					
+					dis.$el.find('#out').empty().html(oembed);
+					dis.$el.find('#compose-content').empty().html(formatedcontent);
+					//the URL tag's content
+					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
+					
+					//Prevents the content to be re-rendered again
+					dis.hasUrl = true;
+					
+					dis.$el.find(".oembed").oembed().each(function(){
+						this.def.done(function(){
+							$('#out').addClass('expanded');
+						});
+					});
+	            }
+	        });
+		}
+		
 
 		if(!url){
 			//removes the preview & waits for another URL
@@ -143,7 +142,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'getcursosposition' : function(element){
 
-	   var caretOffset = 0;
+	    var caretOffset = 0;
 	    var doc = element.ownerDocument || element.document;
 	    var win = doc.defaultView || doc.parentWindow;
 	    var sel;
@@ -167,17 +166,35 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'setcursosposition' : function(cursorpos){
 
 		var el = this.$el.find("#compose-content").get(0);
-		var child;
+		var nodelength = 0;
+		var currentnode;
 
-		if(cursorpos >= this.maxchars){
-			node = el.childNodes[1].childNodes[0];
-			cursorpos = cursorpos - this.maxchars;
-		}else{
-			node = el.childNodes[0];
-		}
+		//Map the node sizes
+		$.each(el.childNodes, function(i, node){
+			if(node.length)	nodelength = node.length
+			else if (node.childNodes[0].length) nodelength = node.childNodes[0].length;
+			else return true;
+
+			if(nodelength > cursorpos){
+				console.log("nodelength:",nodelength, cursorpos);
+				currentnode = node;
+				return false;
+			}else{
+				console.log("pivot:", cursorpos);
+				cursorpos -= nodelength;
+				return true;
+			}
+		});
 
 		var range = document.createRange();
 		var sel = window.getSelection();
+
+		if(currentnode)
+			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
+		else
+			return false;
+
+		console.log(el.childNodes);
 		range.setStart(node, cursorpos);
 		range.collapse(true);
 		sel.removeAllRanges();
@@ -187,7 +204,15 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'greyout' : function(extrachars){
 		var extra = this.$el.find('#compose-content').text().slice(extrachars);
 		var notextra = this.$el.find('#compose-content').text().slice(0, this.maxchars);
+		notextra = this.parsecontent(notextra, this.currentUrl);
 		this.$el.find('#compose-content').empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
+	},
+
+	'parsecontent' : function(cont, url){
+
+		var content = cont.replace(url,'');
+		content = ('<a href="'+url+'" id="urltag"><span contenteditable=false>'+url+'<i class="icon-unlink" id="swaplink"></i></span></a>'+content);
+		return content;
 	},
 
 	'updatecharcount' : function(){
