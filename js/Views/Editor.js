@@ -12,7 +12,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : null,
-	'maxchars' : 140,
+	'maxchars' : 100,
 
 	
 	'events' : {
@@ -22,8 +22,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur [data-option] textarea' : 'monitor',
 		'keyup [data-option] textarea' : 'monitor',
 		*/
-		'keyup #compose-content' : 'showembed',
 		'keydown #compose-content' : 'showembed',
+		'keyup #compose-content' : 'showembed',
 		'click #swaplink' : 'swaplink'
 	},
 	
@@ -43,7 +43,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	{
 		//Max chars are hardcoded?
 		var data = {maxchars : this.maxchars};
-		
 		this.$el.html (Mustache.render (Templates.editor, data));
 		
 		return this;
@@ -87,42 +86,51 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//eventdata = [];
 		//var scriptruns = [];
 		var content = this.$el.find('#compose-content').html();
-		var url = content.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\//);
+		var url = content.match(/(\s|>|^)(https?:[^\s<]*)/igm);
 		
-		if(url && !this.hasUrl){
-			this.oldUrl = url[0];
-			
-			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
-	            'url' : this.oldUrl,
-	            'output' : 'jsonp',
-	            'format': "json"
-	        })
-	        .done(function( data ) {
-	            if (data.shortUrl)
-	            {
-	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
-	                dis.currentUrl = dis.urldata.newurl;
+		//Takes care of the extra chars
+		var charcount = this.updatecharcount()
+		if( charcount < 0){
+			var cursorpos = this.getcursosposition(this.$el.find('#compose-content').get(0)); //Get cursor position
+			this.greyout(charcount);
+			this.setcursosposition(cursorpos);	//Set cursor position after re-writting content
 
-	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
-	                //the URL tag's container
-					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
-					
-					dis.$el.find('#out').empty().html(oembed);
-					dis.$el.find('#compose-content').empty().html(formatedcontent);
-					//the URL tag's content
-					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
-					dis.movecursor(dis.$el.find('#urltag').get(0));
-					
-					//Prevents the content to be re-rendered again
-					dis.hasUrl = true;
-					
-					dis.$el.find(".oembed").oembed().each(function(){
-						this.def.done(function(){
-							$('#out').addClass('expanded');
+		}else{
+
+			if(url && !this.hasUrl){
+				this.oldUrl = url[0];
+				console.log(url[0]);
+				$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
+		            'url' : this.oldUrl,
+		            'output' : 'jsonp',
+		            'format': "json"
+		        })
+		        .done(function( data ) {
+		            if (data.shortUrl)
+		            {
+		                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
+		                dis.currentUrl = dis.urldata.newurl;
+						console.log(dis.urldata);
+		                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
+		                //the URL tag's container
+						var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
+						
+						dis.$el.find('#out').empty().html(oembed);
+						dis.$el.find('#compose-content').empty().html(formatedcontent);
+						//the URL tag's content
+						dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
+						
+						//Prevents the content to be re-rendered again
+						dis.hasUrl = true;
+						
+						dis.$el.find(".oembed").oembed().each(function(){
+							this.def.done(function(){
+								$('#out').addClass('expanded');
+							});
 						});
-					});
-	            }
-	        });
+		            }
+		        });
+			}
 		}
 
 		if(!url){
@@ -131,26 +139,67 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.hasUrl = false;	
 		} 
 
-		this.updatecharcount();
 	},
 
-	//Moves the cursor to the end of the generated shorter url
-	'movecursor' : function (node) {
-	    
-	    if (typeof window.getSelection != "undefined") {
-	        var range = document.createRange();
-	        range.setStartAfter(node);
-	        range.collapse(true);
-	        var selection = window.getSelection();
-	        selection.removeAllRanges();
-	        selection.addRange(range);
+	'getcursosposition' : function(element){
+
+	   var caretOffset = 0;
+	    var doc = element.ownerDocument || element.document;
+	    var win = doc.defaultView || doc.parentWindow;
+	    var sel;
+	    if (typeof win.getSelection != "undefined") {
+	        var range = win.getSelection().getRangeAt(0);
+	        var preCaretRange = range.cloneRange();
+	        preCaretRange.selectNodeContents(element);
+	        preCaretRange.setEnd(range.endContainer, range.endOffset);
+	        caretOffset = preCaretRange.toString().length;
+	    } else if ( (sel = doc.selection) && sel.type != "Control") {
+	        var textRange = sel.createRange();
+	        var preCaretTextRange = doc.body.createTextRange();
+	        preCaretTextRange.moveToElementText(element);
+	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
+	        caretOffset = preCaretTextRange.text.length;
 	    }
+    
+		return caretOffset;
 	},
 
-	'updatecharcount' : function(e){
-		var container = this.$el.find('#compose-content');	
-		this.$el.find('.limit-counter').empty().html(this.maxchars - container.text().length);
+	'setcursosposition' : function(cursorpos){
 
+		var el = this.$el.find("#compose-content").get(0);
+		var child;
+
+		if(cursorpos >= this.maxchars){
+			node = el.childNodes[1].childNodes[0];
+			cursorpos = cursorpos - this.maxchars;
+		}else{
+			node = el.childNodes[0];
+		}
+
+		var range = document.createRange();
+		var sel = window.getSelection();
+		range.setStart(node, cursorpos);
+		range.collapse(true);
+		sel.removeAllRanges();
+		sel.addRange(range);
+	},
+
+	'greyout' : function(extrachars){
+		var extra = this.$el.find('#compose-content').text().slice(extrachars);
+		var notextra = this.$el.find('#compose-content').text().slice(0, this.maxchars);
+		this.$el.find('#compose-content').empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
+	},
+
+	'updatecharcount' : function(){
+
+		var container = this.$el.find('#compose-content');
+		var charcount = container.text().length;
+		var total = this.maxchars - charcount;
+		
+		if(total >= 0)
+			this.$el.find('.limit-counter').empty().html(total);
+
+		return total;
 	},
 
 	//Swaps between full url & shortened url
