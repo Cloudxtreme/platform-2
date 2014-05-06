@@ -34,8 +34,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click [data-toggle]' : 'toggleoption',
 		
 		'blur [data-option] input' : 'monitor',
-		'blur [data-option] textarea' : 'monitor',
-		'keyup [data-option] textarea' : 'monitor',
+		'blur [data-option] #compose-content' : 'monitor',
+		'keyup [data-option] #compose-content' : 'monitor',
+		/*'blur [data-option] #compose-content' : 'monitor',
+		'keyup [data-option] #compose-content' : 'monitor',*/
 		
 		'click .add-file' : 'addfile',
 		'click .add-snapshot' : 'addsnapshot',
@@ -142,8 +144,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.html (view);
 		
 		// Append Editor
-		var editor = new Cloudwalkers.Views.Editor({draft: this.draft});
-		this.$el.find("[data-type=post]").append(editor.render().el);
+		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
+		this.$el.find("[data-type=post]").append(this.editor.render().el);
 		
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
@@ -162,7 +164,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!streamid || (streamid && this.draft.variation(streamid, "subject") != val)) input.subject = val;
 		
 		// Body (will be extended with a shadow body)
-		var val = this.$el.find("[data-option=fullbody] textarea").val();
+		//var val = this.$el.find("[data-option=fullbody] textarea").val();
+		var val = this.$el.find("[data-option=fullbody] #compose-content").text();
 		var body = this.draft.variation(streamid, "body");
 		
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
@@ -179,7 +182,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else 			this.draft.set(input);
 	},
 
-	'showembed' : function(){
+	/*'showembed' : function(){
 		
 		tagdata = [];
 		eventdata = [];
@@ -199,7 +202,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			},
 			//maxHeight: 200, maxWidth:300
 		});
-	},
+	}, */
 	
 	'toggleoption' : function (e)
 	{
@@ -254,6 +257,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				
 				// Toggle subcontents
 				this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
+
+				// Trigger update (necessary?)
+				this.trigger("update:streams", streamids);
 			}
 			
 			// Remove from draft
@@ -261,9 +267,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		$btn.toggleClass("inactive active");
-		
-		// Trigger update
-		this.trigger("update:streams", streamids);
 			
 	},
 	
@@ -325,7 +328,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var val = network? this.draft.variation(id, "body"): this.draft.get("body");
 		
-		if(network && (!val || !val.html))
+		/*if(network && (!val || !val.html))
 		{
 			this.$el.find("[data-option=fullbody] textarea").val("").attr("placeholder", this.draft.get("body").html);
 			if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
@@ -336,7 +339,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			this.$el.find("[data-option=fullbody] textarea").val(val.html);
 			this.$el.find("[data-option=limit]").html(140 -val.html.length);
-		}
+		}*/
 		
 		// Toggle options
 		this.closealloptions();
@@ -346,7 +349,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.togglelink(options.indexOf("link") >= 0);
 		
 		// Trigger update
-		this.trigger("update:stream", network? this.draft.variation(id): null);
+		this.trigger("update:stream", network && this.draft.variation(id).stream ? this.draft.variation(id) : stream.id);
 
 	},
 		

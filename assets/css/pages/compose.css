@@ -554,4 +554,4 @@ Style corrections and manual overrides
 #urltag i{ margin-left:10px; color:#fff; font-weight: bold;}
 #urltag i:hover{ cursor: pointer; }
 
-#extrachars{ opacity: .3;}
+#extrachars, #composeplaceholder{ opacity: .3;}
