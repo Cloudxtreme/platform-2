@@ -12,7 +12,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : null,
-	'maxchars' : 30,
+	'maxchars' : 50,
 
 	
 	'events' : {
@@ -110,7 +110,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					//the URL tag's content
 					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
 					
-					//Prevents the content to be re-rendered again
 					dis.hasUrl = true;
 					
 					dis.$el.find(".oembed").oembed().each(function(){
@@ -130,7 +129,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.hasUrl = false;	
 		}
 
-		//Takes care of the extra chars
+		//Update the container
 		this.updatecontainer();
 
 	},
@@ -141,13 +140,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	    var doc = e.ownerDocument || e.document;
 	    var win = doc.defaultView || doc.parentWindow;
 	    var sel;
+
 	    if (typeof win.getSelection != "undefined") {
 	        var range = win.getSelection().getRangeAt(0);
 	        var preCaretRange = range.cloneRange();
 	        preCaretRange.selectNodeContents(e);
 	        preCaretRange.setEnd(range.endContainer, range.endOffset);
 	        cursorpos = preCaretRange.toString().length;
-	    } else if ( (sel = doc.selection) && sel.type != "Control") {
+	    }else if((sel = doc.selection) && sel.type != "Control") {
 	        var textRange = sel.createRange();
 	        var preCaretTextRange = doc.body.createTextRange();
 	        preCaretTextRange.moveToElementText(e);
@@ -199,6 +199,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		var extra = this.contentcontainer.text().slice(extrachars);
 		var notextra = this.contentcontainer.text().slice(0, this.maxchars);
+		
 		if(this.hasUrl)
 			notextra = this.parsecontent(notextra, this.currentUrl);
 
@@ -207,8 +208,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'parsecontent' : function(cont, url){
 
-		var content = cont.replace(url,'');
-		content = ('<a href="'+url+'" id="urltag"><span contenteditable=false>'+url+'<i class="icon-unlink" id="swaplink"></i></span></a>'+content);
+		var urltag = ('<a href="'+url+'" id="urltag"><span contenteditable=false>'+url+'<i class="icon-unlink" id="swaplink"></i></span></a>');
+		var content = cont.replace(url, urltag);		
 
 		return content;
 	},
@@ -243,7 +244,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
 		this.currentUrl = url;
-		this.movecursor(dis.$el.find('#urltag').get(0));
 	},
 	
 		
