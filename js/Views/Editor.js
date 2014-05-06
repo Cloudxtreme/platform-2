@@ -248,7 +248,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 		
 	'togglesubcontent' : function (stream)
-	{
+	{	console.log("new togglestreams");
 		this.activestream = stream;
 		
 		// Get the right network
