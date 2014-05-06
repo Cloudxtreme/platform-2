@@ -261,6 +261,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		$btn.toggleClass("inactive active");
+		
+		// Trigger update
+		this.trigger("update:streams", streamids);
 			
 	},
 	
@@ -276,7 +279,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		$btn.addClass('active social-icon-colors');
 		
 		// Toggle subcontent
+		// Trigger update
 		this.togglesubcontent(stream);
+		
 	},
 	
 	'togglesubcontent' : function (stream)
@@ -339,6 +344,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
 		
 		this.togglelink(options.indexOf("link") >= 0);
+		
+		// Trigger update
+		this.trigger("update:stream", network? this.draft.variation(id): null);
 
 	},
 		
