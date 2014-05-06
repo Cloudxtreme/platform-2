@@ -171,7 +171,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
 		
 		// Limit counter
-		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
+		//this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
 		
 		// Link
 		var val = this.$el.find("[data-option=link] input").val();

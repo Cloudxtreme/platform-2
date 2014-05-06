@@ -8,10 +8,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'id' : "editor",
 	'className' : "clearfix",
-	'hasUrl' : false,
 	'oldUrl' : "",
 	'urldata' : {},
-	'currentUrl' : null,
+	'currentUrl' : false,
 	'maxchars' : 50,
 
 	
@@ -71,7 +70,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
 		
 		// Limit counter
-		this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
+		//this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
 		
 		// Link
 		var val = this.$el.find("[data-option=link] input").val();
@@ -89,7 +88,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var content = this.contentcontainer.html();
 		var url = content.match(/(\s|>|^)(https?:[^\s<]*)/igm);
 
-		if(url && !this.hasUrl){
+		if(url && !this.currentUrl){
 			this.oldUrl = url[0];
 			
 			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
@@ -101,7 +100,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	            if (data.shortUrl)
 	            {
 	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
-	                dis.currentUrl = dis.urldata.newurl;
 					
 	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
 	                //the URL tag's container
@@ -112,7 +110,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					//the URL tag's content
 					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
 					
-					dis.hasUrl = true;
+					dis.currentUrl = dis.urldata.newurl;
 					
 					dis.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
 						this.def.done(function(){
@@ -128,7 +126,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(!url){
 			//removes the preview & waits for another URL
 			this.$el.find('#out').empty();
-			this.hasUrl = false;	
+			this.currentUrl = false;	
 		}
 
 		//Update the container
@@ -144,16 +142,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token: false;
 		}
 		
-		if(network && !val)
-		{
+		if(network && !val){	//Default tab
 			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
-			if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
-		
-		}else if(!data){
+		}else if(!data){		//Tab without any specific content
 			this.contentcontainer.empty().html(this.draft.get("body").html);
-		}else{
+			this.updatecontainer();
+		}else{					//Tab with specifi content
 			if(!val) val.html = "";
-			
+
 			this.contentcontainer.empty().html(val);
 			this.updatecontainer();
 		}
@@ -173,6 +169,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        preCaretRange.selectNodeContents(e);
 	        preCaretRange.setEnd(range.endContainer, range.endOffset);
 	        cursorpos = preCaretRange.toString().length;
+
 	    }else if((sel = doc.selection) && sel.type != "Control") {
 	        var textRange = sel.createRange();
 	        var preCaretTextRange = doc.body.createTextRange();
@@ -204,8 +201,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				cursorpos -= nodelength;
 				return true;
 			}
-		});
 
+		});
+		
 		var range = document.createRange();
 		var sel = window.getSelection();
 		
@@ -226,16 +224,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var extra = this.contentcontainer.text().slice(extrachars);
 		var notextra = this.contentcontainer.text().slice(0, this.maxchars);
 		
-		if(this.hasUrl)
-			notextra = this.parsecontent(notextra, this.currentUrl);
+		if(this.currentUrl)
+			notextra = this.parsecontent(notextra);
 
 		this.contentcontainer.empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
 	},
 
-	'parsecontent' : function(cont, url){
+	'parsecontent' : function(cont){
 
-		var urltag = ('<a href="'+url+'" id="urltag"><span contenteditable=false>'+url+'<i class="icon-unlink" id="swaplink"></i></span></a>');
-		var content = cont.replace(url, urltag);		
+		var urltag = '';
+
+		if(this.currentUrl)
+			urltag = ('<a href="'+this.currentUrl+'" id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></a>');
+
+		var content = cont.replace(this.currentUrl, urltag);		
 
 		return content;
 	},
@@ -250,7 +252,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//There is a placeholder in the content
 		if(placeholder.length > 0){
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			this.contentcontainer.empty().html(placeholder.html());
+			this.contentcontainer.empty().html(this.parsecontent(placeholder.html()));
 			this.setcursosposition(cursorpos);
 		}
 
@@ -328,14 +330,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(network && (!val || !val.html))
 		{
 			this.$el.find("[data-option=fullbody] textarea").val("").attr("placeholder", this.draft.get("body").html);
-			if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
+			//if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
 		
 		} else
 		{
 			if(!val.html) val.html = "";
 			
 			this.$el.find("[data-option=fullbody] textarea").val(val.html);
-			this.$el.find("[data-option=limit]").html(140 -val.html.length);
+			//this.$el.find("[data-option=limit]").html(140 -val.html.length);
 		}
 		
 		// Toggle options
