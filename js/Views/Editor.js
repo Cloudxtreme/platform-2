@@ -11,7 +11,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : false,
-	'maxchars' : 50,
+	'maxchars' : 140,
 
 	
 	'events' : {
@@ -24,7 +24,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'keydown #compose-content' : 'showembed',
 		'keyup #compose-content' : 'showembed',
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer'
+		'keydown #composeplaceholder' : 'updatecontainer',
+
+		/* Oembed data types */
+		'click [data-type="title"]' : 'addoetitle',
+		'click [data-type="content"]' : 'addoecontent',
+		'click [data-type="image"]' : 'addoeimg',
 	},
 	
 	'initialize' : function (options)
@@ -284,7 +289,24 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
 		this.currentUrl = url;
 	},
-	
+
+	'addoetitle' : function(e){
+		var text = e.currentTarget.innerText;
+		//add tittle
+	},
+
+	'addoecontent' : function(e){
+		var text = e.currentTarget.innerText;
+		var content = this.contentcontainer.html();
+		content = content+'<br/>'+text;
+
+		this.contentcontainer.html(content);
+		this.updatecontainer();
+	},	
+
+	'addoeimg' : function(e){
+		
+	},	
 		
 	'togglesubcontent' : function (stream)
 	{	console.log("new togglestreams");

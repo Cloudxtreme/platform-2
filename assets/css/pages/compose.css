@@ -555,3 +555,12 @@ Style corrections and manual overrides
 #urltag i:hover{ cursor: pointer; }
 
 #extrachars, #composeplaceholder{ opacity: .3;}
+
+.og-oecontent [data-type="title"]{ position: relative; }
+.og-oecontent [data-type="title"]:after, .og-oecontent [data-type="content"]:after, .og-oecontent [data-type="image"]:after{
+	float: right; margin-right: -30px;
+	font-family: FontAwesome; font-size: 16px; color: #999; text-align: center; opacity: .5;
+	content: "\F067"; -webkit-font-smoothing: antialiased;
+}
+
+
