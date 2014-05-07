@@ -11,7 +11,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : false,
-	'maxchars' : 30,
+	'maxchars' : 140,
 	'restrictedstreams' : ['twitter', 'default'],
 
 	
