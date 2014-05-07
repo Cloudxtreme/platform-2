@@ -556,11 +556,28 @@ Style corrections and manual overrides
 
 #extrachars, #composeplaceholder{ opacity: .3;}
 
-.og-oecontent [data-type="title"]{ position: relative; }
-.og-oecontent [data-type="title"]:after, .og-oecontent [data-type="content"]:after, .og-oecontent [data-type="image"]:after{
-	float: right; margin-right: -30px;
-	font-family: FontAwesome; font-size: 16px; color: #999; text-align: center; opacity: .5;
-	content: "\F067"; -webkit-font-smoothing: antialiased;
+.og-subcontent{
+ 	position: relative;
 }
+
+.og-subcontent[data-type="title"] { font-weight: bold; margin-bottom: 10px; font-size: 16px;}
+
+.og-oecontent .addcontent{
+	position: absolute;
+	height: 100%;
+	right: -40px;
+	top: 0px;
+	width: 20px;
+	font-size: 20px;
+	opacity: .3;
+}
+
+.addcontent i{
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	cursor: pointer;;
+}
+
 
 

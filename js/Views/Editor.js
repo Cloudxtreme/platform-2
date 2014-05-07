@@ -27,9 +27,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'keydown #composeplaceholder' : 'updatecontainer',
 
 		/* Oembed data types */
-		'click [data-type="title"]' : 'addoetitle',
-		'click [data-type="content"]' : 'addoecontent',
-		'click [data-type="image"]' : 'addoeimg',
+		'click [data-type="title"] i' : 'addoetitle',
+		'click [data-type="content"] i' : 'addoecontent',
+		'click [data-type="image"] i' : 'addoeimg',
 	},
 	
 	'initialize' : function (options)
@@ -296,7 +296,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'addoecontent' : function(e){
-		var text = e.currentTarget.innerText;
+		var text = e.currentTarget.parentElement.parentElement.innerText;
 		var content = this.contentcontainer.html();
 		content = content+'<br/>'+text;
 

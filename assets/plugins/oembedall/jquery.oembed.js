@@ -826,17 +826,17 @@
               if(results['og:video:height']) embed.attr('height',results['og:video:height']);
               code.append(embed);
             }else if(results['og:image']) {
-              var img = $('<img data-type="image" src="'+results['og:image']+'">');
+              var img = $('<img class="og-subcontent" data-type="image" src="'+results['og:image']+'">');
               img.css('max-height', settings.maxHeight || 'auto' ).css('max-width', settings.maxWidth || 'auto' );
               if(results['og:image:width']) img.attr('width',results['og:image:width']);
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
               code.append(img);
             }
-            if(results['og:title']) code.append('<b data-type="title">'+results['og:title']+'</b><br/>');
+            if(results['og:title']) code.append('<div class="og-subcontent" data-type="title">'+results['og:title']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
             if(results['og:description'])
-             code.append('<div data-type="content">'+results['og:description']+'</div><br/>');
+             code.append('<div class="og-subcontent" data-type="content">'+results['og:description']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
             else if(results['description'])
-              code.append('<div data-type="content">'+results['description']+'</div><br/>');
+              code.append('<div class="og-subcontent" data-type="content">'+results['description']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
             return code;
           }
         }
