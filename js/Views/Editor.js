@@ -39,7 +39,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Add listeners to
 		dis = this;
-		this.listenTo(this.parent, "update:streams", function(stream){console.log(stream);});
+		//this.listenTo(this.parent, "update:streams", function(stream){console.log(stream);});
 		this.listenTo(this.parent, "update:stream", function(data){dis.togglecontent(data)});
 		// this.listenTo(this.draft, "update:link");
 		
@@ -235,15 +235,17 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.contentcontainer.empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
 	},
 
-	'parsecontent' : function(cont){
+	// Placeholder = false
+	'parsecontent' : function(cont, placeholder){
 
 		var urltag = '';
 
-		if(this.currentUrl)
+		if(this.currentUrl && !placeholder)
 			urltag = ('<a href="'+this.currentUrl+'" id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></a>');
+		if(this.currentUrl && placeholder)
+			urltag = ('<a href="'+this.currentUrl+'" id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></a>');
 
 		var content = cont.replace(this.currentUrl, urltag);		
-
 		return content;
 	},
 
@@ -257,15 +259,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//There is a placeholder in the content
 		if(placeholder.length > 0){
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			this.contentcontainer.empty().html(this.parsecontent(placeholder.html()));
+			this.contentcontainer.empty().html(this.parsecontent(placeholder.html(), true));
 			this.setcursosposition(cursorpos);
 		}
 
 		//There are less chars than the max
 		if(total >= 0){
+			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
+			var newcontent = this.parsecontent(this.contentcontainer.text());
+			this.contentcontainer.empty().html(newcontent);
+			this.setcursosposition(cursorpos);
 			this.$el.find('.limit-counter').empty().html(total);
 		}
-		else	//There are more chars than the max
+		//There are more chars than the max
+		else
 		{ 
 			this.$el.find('.limit-counter').empty().html(0);
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
@@ -309,7 +316,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},	
 		
 	'togglesubcontent' : function (stream)
-	{	console.log("new togglestreams");
+	{	
 		this.activestream = stream;
 		
 		// Get the right network

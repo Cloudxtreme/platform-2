@@ -826,7 +826,7 @@
               if(results['og:video:height']) embed.attr('height',results['og:video:height']);
               code.append(embed);
             }else if(results['og:image']) {
-              var img = $('<img class="og-subcontent" data-type="image" src="'+results['og:image']+'">');
+              var img = $('<div class="og-subcontent" data-type="image"><img src="'+results['og:image']+'"/><div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
               img.css('max-height', settings.maxHeight || 'auto' ).css('max-width', settings.maxWidth || 'auto' );
               if(results['og:image:width']) img.attr('width',results['og:image:width']);
               if(results['og:image:height']) img.attr('height',results['og:image:height']);

@@ -553,6 +553,7 @@ Style corrections and manual overrides
 #urltag{ background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px 5px;}
 #urltag i{ margin-left:10px; color:#fff; font-weight: bold;}
 #urltag i:hover{ cursor: pointer; }
+#urltag.placehold{background-color: #CCC;}
 
 #extrachars, #composeplaceholder{ opacity: .3;}
 
@@ -572,12 +573,12 @@ Style corrections and manual overrides
 	opacity: .3;
 }
 
+.og-subcontent[data-type="image"] .addcontent { left: -40px; }
+.og-subcontent[data-type="image"] .addcontent i { margin-top: 0px; }
 .addcontent i{
 	position: absolute;
 	top: 50%;
 	margin-top: -8px;
 	cursor: pointer;;
 }
-
-
 
