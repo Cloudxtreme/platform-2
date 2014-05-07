@@ -147,7 +147,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
-		// Listen to image adding trigger
+		
+		// Listen to content adition triggers
 		this.listenTo(this.editor, "imageadded", this.addembedimage);
 
 		// Add Chosen
@@ -922,7 +923,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Animate compose view
 		this.$el.addClass("preview-mode");
-		
+		console.log(this.draft);
 		// Create new preview object
 		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default', streamid: this.activestream.id});
 		

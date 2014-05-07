@@ -550,7 +550,7 @@ Style corrections and manual overrides
 
 .oembedall-container a, .oembedall-container > span { display: none;}
 
-#urltag{ background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px 5px;}
+#urltag{ background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px; display: inline-block;}
 #urltag i{ margin-left:10px; color:#fff; font-weight: bold;}
 #urltag i:hover{ cursor: pointer; }
 

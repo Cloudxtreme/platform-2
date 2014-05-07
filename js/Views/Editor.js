@@ -216,8 +216,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
 		else
 			return false;
-
-		//console.log("set", node, cursorpos);
+		console.log(cursorpos);
 		range.setStart(node, cursorpos);
 		range.collapse(true);
 		sel.removeAllRanges();
@@ -241,9 +240,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var urltag = '';
 
 		if(this.currentUrl && !placeholder)
-			urltag = ('<a href="'+this.currentUrl+'" id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></a>');
+			urltag = ('<div id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></div>');
 		if(this.currentUrl && placeholder)
-			urltag = ('<a href="'+this.currentUrl+'" id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></a>');
+			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></div>');
 
 		var content = cont.replace(this.currentUrl, urltag);		
 		return content;
@@ -251,8 +250,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecontainer' : function(){
 
-		var container = this.contentcontainer;
-		var charcount = container.text().length;
+		var charcount = this.contentcontainer.text().length;
 		var total = this.maxchars - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
 
@@ -267,7 +265,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(total >= 0){
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
 			var newcontent = this.parsecontent(this.contentcontainer.text());
-			this.contentcontainer.empty().html(newcontent);
+			this.contentcontainer.html(newcontent);
 			this.setcursosposition(cursorpos);
 			this.$el.find('.limit-counter').empty().html(total);
 		}
@@ -295,6 +293,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
 		this.currentUrl = url;
+		this.updatecontainer();
 	},
 
 	'addoetitle' : function(e){
