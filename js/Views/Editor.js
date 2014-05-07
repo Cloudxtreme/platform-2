@@ -89,12 +89,17 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'showembed' : function(){
 		
 		dis = this;
-		
+
+		// ARE YOU KIDDING ME?!
+		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
+
 		var content = this.contentcontainer.html();
-		var url = content.match(/(\s|>|^)(https?:[^\s<]*)/igm);
+		var url = content.match(url_pattern);
 
 		if(url && !this.currentUrl){
+
 			this.oldUrl = url[0];
+			while(this.oldUrl.indexOf("ht") != 0)	this.oldUrl = this.oldUrl.substr(1);
 			
 			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {
 	            'url' : this.oldUrl,
@@ -103,12 +108,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        })
 	        .done(function( data ) {
 	            if (data.shortUrl)
-	            {
+	            {	
 	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
-					
-	                var oembed = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed"></a></div>');
-	                //the URL tag's container
-					var formatedcontent = content.replace(/(\s|>|^)(https?:[^\s<]*)/igm, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
+
+					var oembed = '<div><a href="'+dis.oldUrl+'" class="oembed"></a></div>';	            
+					var formatedcontent = content.replace(dis.oldUrl, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
 					
 					dis.$el.find('#out').empty().html(oembed);
 					dis.contentcontainer.empty().html(formatedcontent);
@@ -216,7 +220,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
 		else
 			return false;
-		console.log(cursorpos);
+		
 		range.setStart(node, cursorpos);
 		range.collapse(true);
 		sel.removeAllRanges();
@@ -308,6 +312,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.contentcontainer.html(content);
 		this.updatecontainer();
+
+		this.trigger("contentadded");
 	},	
 
 	'addoeimg' : function(e){

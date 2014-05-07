@@ -148,8 +148,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 		
-		// Listen to content adition triggers
+		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addembedimage);
+		this.listenTo(this.editor, "contentadded", this.monitor);
+
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
