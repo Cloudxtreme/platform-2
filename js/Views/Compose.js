@@ -123,6 +123,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
+
 		}
 	},
 
@@ -146,7 +147,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
-		
+		// Listen to image adding trigger
+		this.listenTo(this.editor, "imageadded", this.addembedimage);
+
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
 		
@@ -410,6 +413,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			reader.readAsDataURL(f);
 		}
+	},
+
+	'addembedimage' : function(url){
+
+		var draft = this.draft;
+		this.$el.find('[data-collapsable="images"]').removeClass('collapsed');
+		// Add to view
+		var snapshot = $("<li></li>").prependTo("ul.pictures-container").attr("data-filename", 'image').addClass('images-thumb').css('background-image', "url(" + url + ")");
+					
+		// Add to draft
+		draft.attach({type: 'image', data: url, name: 'image'});
 	},
 	
 	'addsnapshot' : function (e)

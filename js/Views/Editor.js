@@ -312,7 +312,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},	
 
 	'addoeimg' : function(e){
-		
+		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
+		this.trigger("imageadded", imgurl);
 	},	
 		
 	'togglesubcontent' : function (stream)
