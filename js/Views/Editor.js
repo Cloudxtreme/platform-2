@@ -11,7 +11,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : false,
-	'maxchars' : 140,
+	'maxchars' : 30,
+	'restrictedstreams' : ['twitter', 'default'],
 
 	
 	'events' : {
@@ -51,6 +52,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var data = {maxchars : this.maxchars};
 		this.$el.html (Mustache.render (Templates.editor, data));
 		this.contentcontainer = this.$el.find('#compose-content');
+
+		//Inits the network as default
+		this.network = 'default';
 
 		return this;
 	},
@@ -150,6 +154,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var val = data.body ? data.body.html : null;
 			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token: false;
 		}
+
+		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
 		if(network && !val){	//Default tab
 			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
@@ -257,7 +263,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var charcount = this.contentcontainer.text().length;
 		var total = this.maxchars - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
-
+		
 		//There is a placeholder in the content
 		if(placeholder.length > 0){
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
@@ -266,12 +272,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 
 		//There are less chars than the max
-		if(total >= 0){
+		if(total >= 0 || $.inArray(this.network, this.restrictedstreams) < 0)
+		{
+			this.$el.find('.limit-counter').empty().html(total);
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
 			var newcontent = this.parsecontent(this.contentcontainer.text());
 			this.contentcontainer.html(newcontent);
 			this.setcursosposition(cursorpos);
-			this.$el.find('.limit-counter').empty().html(total);
+			
 		}
 		//There are more chars than the max
 		else
