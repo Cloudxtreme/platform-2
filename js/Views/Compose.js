@@ -19,7 +19,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		false :			["link","images"],
 		'twitter' :		["images","link"],
 		'facebook' :	["fullbody","link","images"],
-		'linkedin' :	["fullbody","link","images"],
+		'linkedin' :	["link","images"],
 		'tumblr' :		["subject","fullbody","link","images"],
 		'google-plus' :	["fullbody","link","images"],
 		'youtube' :		["subject","fullbody","link","video"],

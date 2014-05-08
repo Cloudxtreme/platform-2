@@ -11,8 +11,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : false,
-	'maxchars' : 140,
-	'restrictedstreams' : ['twitter', 'default'],
+	'restrictedstreams' : {'twitter' :140, 'linkedin' : 700},
+	//'restrictedstreams' : ['twitter', 'default'],
 
 	
 	'events' : {
@@ -48,8 +48,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'render' : function ()
 	{
-		//Max chars are hardcoded?
-		var data = {maxchars : this.maxchars};
+		// Get smallest char restriction
+		var maxchars = Math.min.apply(Math, _.values(this.restrictedstreams));
+		this.restrictedstreams['default'] = maxchars;
+
+		var data = {maxchars : maxchars};
 		this.$el.html (Mustache.render (Templates.editor, data));
 		this.contentcontainer = this.$el.find('#compose-content');
 
@@ -157,12 +160,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
-		if(network && !val){	//Default tab
+		if(network && !val){	//Tab with the default's text
 			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
+			this.updatecounter(this.restrictedstreams[this.network]);
 		}else if(!data){		//Tab without any specific content
 			this.contentcontainer.empty().html(this.draft.get("body").html);
 			this.updatecontainer();
-		}else{					//Tab with specifi content
+		}else{					//Tab with specific content
 			if(!val) val.html = "";
 
 			this.contentcontainer.empty().html(val);
@@ -233,10 +237,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		sel.addRange(range);
 	},
 
-	'greyout' : function(extrachars){
+	'greyout' : function(extrachars, limit){
 		
 		var extra = this.contentcontainer.text().slice(extrachars);
-		var notextra = this.contentcontainer.text().slice(0, this.maxchars);
+		var notextra = this.contentcontainer.text().slice(0, limit);
 		
 		if(this.currentUrl)
 			notextra = this.parsecontent(notextra);
@@ -259,9 +263,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'updatecontainer' : function(){
-
+		
 		var charcount = this.contentcontainer.text().length;
-		var total = this.maxchars - charcount;
+		var total = this.restrictedstreams[this.network] - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
 		
 		//There is a placeholder in the content
@@ -271,26 +275,30 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.setcursosposition(cursorpos);
 		}
 
-		//There are less chars than the max
-		if(total >= 0 || $.inArray(this.network, this.restrictedstreams) < 0)
+		//It's a restricted network & over char limit
+		if(total && total < 0)
 		{
-			this.$el.find('.limit-counter').empty().html(total);
+			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
+			this.greyout(total, this.restrictedstreams[this.network]);
+			this.setcursosposition(cursorpos);
+			total = 0;
+		}
+		//Just update the content
+		else
+		{ 
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
 			var newcontent = this.parsecontent(this.contentcontainer.text());
 			this.contentcontainer.html(newcontent);
 			this.setcursosposition(cursorpos);
-			
-		}
-		//There are more chars than the max
-		else
-		{ 
-			this.$el.find('.limit-counter').empty().html(0);
-			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			this.greyout(total);
-			this.setcursosposition(cursorpos);
 		}
 
+		this.updatecounter(total);
+
 		return total;
+	},
+
+	'updatecounter' : function(chars){
+		this.$el.find('.limit-counter').empty().html(chars);
 	},
 
 	//Swaps between full url & shortened url
