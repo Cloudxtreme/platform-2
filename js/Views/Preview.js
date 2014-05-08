@@ -43,6 +43,8 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 			this.$el.find("#network").addClass("img"); 
 		}
 
+		//this.draftdata.body.html = this.parseforurls(this.draftdata.body.html);
+
 		// Render preview (opacity:0)
 		var preview = Mustache.render(preview, this.draftdata);
 		this.$el.find("#pv-main").append(preview);
@@ -77,5 +79,24 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 
 	'togglesummary' : function(){
 		this.$el.find('.pv-url-content').toggle();
+	},
+
+	'parseforurls' : function(content){
+		console.log("here");
+		var newcontent;
+		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
+		var urls = content.match(url_pattern);
+		
+		if(!urls)	return content;
+		
+		$.each(urls, function(key, url){
+			
+			while(url.indexOf("ht") != 0)
+				url = url.substr(1);
+
+			newcontent = content.replace(url, '<a href="'+url+'">'+url+'</a>');
+		});
+
+		return newcontent;
 	}
 });

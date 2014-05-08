@@ -106,6 +106,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(url && !this.currentUrl){
 
 			this.oldUrl = url[0];
+			//UGLY hack to make sure the url is right
 			while(this.oldUrl.indexOf("ht") != 0)	this.oldUrl = this.oldUrl.substr(1);
 			
 			$.getJSON( 'http://wlk.rs/api/shorten?callback=?', {

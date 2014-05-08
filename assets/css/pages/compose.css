@@ -349,7 +349,7 @@ Style corrections and manual overrides
 }
 
 #compose.preview-mode	{
-	height: 98%;
+	max-height: 98%;
 	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 

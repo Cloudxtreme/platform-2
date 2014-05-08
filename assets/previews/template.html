@@ -9,7 +9,7 @@
 			</div>
 			<div class="pv-title-wrap">
 				<div class="pv-title">{{displayname}}</div>
-				<div class="pv-timestamp pv-twt pv-20"><!--/timestamp-->Just now<!--/timestamp--></div>
+				<div class="pv-timestamp-twt pv-20"><!--/timestamp-->Just now<!--/timestamp--></div>
 				<div class="clearfix"></div>
 				<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->Just now<!--/timestamp--></div>
 			</div>
@@ -19,9 +19,11 @@
 		<!--Body-->
 		<div class="pv-content">
 			<div class="pv-main-text">
-				<!--/post text-->
-				{{body.html}}
-				<!--/post text-->
+				<div class="pv-text">
+					<!--/post text-->
+					{{body.html}}
+					<!--/post text-->
+				</div>
 				<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->{{link}}<!--/url--></a></div>
 				<div class="clearfix"></div>
 			</div>
@@ -34,7 +36,7 @@
 					<div class="pv-url-title"><!--/url title-->{{subject}}<!--/url title--></div>
 					<div class="pv-url-text">
 						<!--/Url preview content-->
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet, orci et sagittis pellentesque, magna mauris lobortis tellus, nec egestas est sem id nisi.
+						{{body.content}}
 						<!--/Url preview content-->
 					</div>
 					<div class="pv-url pv-twt pv-20"><a href="#"><!--/url-->View on web<!--/url--></a></div>
