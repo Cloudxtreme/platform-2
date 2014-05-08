@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		
 		// Listen to model
 		this.listenTo(this.model.messages, 'seed', this.fill);
-		
+		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 		
 		this.initializeWidget ();
 	},
@@ -31,7 +31,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	{
 		this.$el.html (Mustache.render (Templates.dashboardmessagecontainer, this.options));
 		this.$container = this.$el.find ('.messages-container');
-		
+		this.$loadercontainer = this.$el.find ('.portlet-body');
 		//this.type = (this.type == "news" || this.type == "profiles")? "trending": this.type;
 		
 		//if(!this.options.filters) this.options.filters = {};
