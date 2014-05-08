@@ -162,7 +162,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		if(network && !val){	//Tab with the default's text
 			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
-			this.updatecounter(this.restrictedstreams[this.network]);
+			this.updatecounter(this.restrictedstreams[this.network] - this.contentcontainer.text().length);
 		}else if(!data){		//Tab without any specific content
 			this.contentcontainer.empty().html(this.draft.get("body").html);
 			this.updatecontainer();
@@ -281,7 +281,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
 			this.greyout(total, this.restrictedstreams[this.network]);
 			this.setcursosposition(cursorpos);
-			total = 0;
 		}
 		//Just update the content
 		else
@@ -298,6 +297,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'updatecounter' : function(chars){
+		if(chars < 0)	chars = 0
 		this.$el.find('.limit-counter').empty().html(chars);
 	},
 
