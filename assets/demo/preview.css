@@ -5,7 +5,7 @@ div[class^='pv-'], img{
 }
 
 #preview, #preview > div{
-	position: absolute; height: 100%; width: 100%;
+	position: absolute; height: 100%; width: 100%; overflow-y: scroll;
 }
 
 #preview > div{ display: table;}
@@ -196,6 +196,7 @@ div[class^='pv-'], img{
 	/* border-radius: 0 0 6px 6px; */
 	-moz-box-shadow: inset 1px 0px 0 #fff;
 	box-shadow: inset 1px 0px 0 #fff;
+	overflow: visible;
 }
 
 #compose.preview-mode .end-preview{

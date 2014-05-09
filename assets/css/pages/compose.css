@@ -355,7 +355,7 @@ Style corrections and manual overrides
 }
 
 #compose table.end-preview	{
-	float: left; height: 100%; border-right: 1px solid #eee; opacity: 0;
+	position: absolute; left: 212px; height: 100%; border-right: 1px solid #eee; opacity: 0;
 	font-size: 21px; -webkit-transform: translate3d(-280px, 0px, 0px);
 }
 

@@ -8,13 +8,13 @@
 	</ul>
 </aside>
 
-<table class="end-preview">
-	<tbody><tr><td valign="middle">
-		<i class="icon-chevron-left"></i>
-	</td></tr></tbody>
-</table>
-
-<section class="preview-container"></section>
+<section class="preview-container">
+	<table class="end-preview">
+		<tbody><tr><td valign="middle">
+			<i class="icon-chevron-left"></i>
+		</td></tr></tbody>
+	</table>
+</section>
 
 <div>
 	<div class="modal-header">

@@ -323,6 +323,13 @@
         return normalizedParams;
     }
 
+    //Added for object like contents
+    function parseContent(content){
+      if(_.isObject(content))
+        return content.content;
+      else return content;
+    }
+
     /* Public functions */
     $.fn.oembed.insertCode = function(container, embedMethod, oembedData) {
         if (oembedData === null) return;
@@ -832,15 +839,16 @@
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
               code.append(img);
             }
-            if(results['og:title']) code.append('<div class="og-subcontent" data-type="title">'+results['og:title']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+            if(results['og:title']){               
+              code.append('<div class="og-subcontent" data-type="title">'+parseContent(results['og:title'])+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');}
             if(results['og:description'])
-             code.append('<div class="og-subcontent" data-type="content">'+results['og:description']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+             code.append('<div class="og-subcontent" data-type="content">'+parseContent(results['og:description'])+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
             else if(results['description'])
-              code.append('<div class="og-subcontent" data-type="content">'+results['description']+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+              code.append('<div class="og-subcontent" data-type="content">'+parseContent(results['description'])+'<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
             return code;
           }
         }
-    })
+    }),
 
     ];
 })(jQuery);
