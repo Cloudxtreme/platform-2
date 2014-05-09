@@ -122,10 +122,11 @@ Style corrections and manual overrides
 #compose [data-option=limit].color-notice	{ color: #777; }
 #compose [data-option=limit].color-warning	{ color: #e02222; }
 
+#compose .input-symbol{position: relative;}
 #compose .input-symbol:before	{ 
 	position: absolute; margin: 1px 0 0 1px; width: 24px; background-color: #f6f6f6; border-radius: 2px 0 0 2px; box-shadow: inset 0 3px 0 #eee;
-	font-family: FontAwesome; font-size: 14px; color: white; line-height: 2.2em; text-align: center;
-	content: "\F0C2"; -webkit-font-smoothing: antialiased;
+	font-family: FontAwesome; font-size: 14px; color: white; line-height: 6.2em; text-align: center;
+	content: "\F0C2"; -webkit-font-smoothing: antialiased; height: 98%;
 }
 
 #compose .twitter-theme .input-symbol:before	{ content: "\F099"; background-color: #f0f0f0; color: #777; box-shadow: inset 0 3px 0 #e6e6e6; }
@@ -523,6 +524,7 @@ Style corrections and manual overrides
 	min-height: 92px;
 	max-width: 100%;
 	overflow: auto;
+	padding: 5px 5px 5px 6% !important;
 }
 
 /* embeded */
@@ -551,7 +553,7 @@ Style corrections and manual overrides
 .oembedall-container a, .oembedall-container > span { display: none;}
 
 #urltag{ background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px; display: inline-block;}
-#urltag i{ margin-left:10px; color:#fff; font-weight: bold;}
+#urltag i{ margin-left:10px; color:#fff;}
 #urltag i:hover{ cursor: pointer; }
 
 #extrachars, #composeplaceholder{ opacity: .3;}

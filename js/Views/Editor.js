@@ -255,9 +255,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var urltag = '';
 
 		if(this.currentUrl && !placeholder)
-			urltag = ('<div id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></div>');
+			urltag = ('<div id="urltag"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 		if(this.currentUrl && placeholder)
-			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-unlink" id="swaplink"></i></span></div>');
+			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 
 		var content = cont.replace(this.currentUrl, urltag);		
 		return content;

@@ -925,7 +925,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Animate compose view
 		this.$el.addClass("preview-mode");
-		console.log(this.draft);
+	
 		// Create new preview object
 		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, network: this.network, previewtype: 'default', streamid: this.activestream.id});
 		

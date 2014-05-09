@@ -24,7 +24,7 @@ div[class^='pv-'], img{
 
 .pv-header{	padding-bottom: 6px; border-bottom: thin solid #fff; height: 50px; opacity: 1; }
 
-.pv-avatar{	float: left; width: 50px; height: 50px; margin-right: 10px;	overflow: hidden; }
+.pv-avatar{	float: left; width: 50px; height: 50px; margin-right: 10px;	overflow: hidden; background-color: #CCC;}
 
 .pv-avatar img{ min-width: 100%; }
 
@@ -142,7 +142,7 @@ div[class^='pv-'], img{
 /* Link + URL specific*/
 
 .fb.link.img .pv-url-content-text, .twt.link.img .pv-url-content-text, .gp.link.img .pv-url-content-text{ display: none; }
-.fb.img .pv-url-content, .twt.link.img .pv-url-content, .gp.img .pv-url-content{ margin: 0 -16px; }
+.twt.link.img .pv-url-content, .gp.img .pv-url-content{ margin: 0 -16px; }
 
 .twt.link.img .pv-url-content{ margin: 0px; }
 .twt.link.img .pv-img{ width: 100%; }
