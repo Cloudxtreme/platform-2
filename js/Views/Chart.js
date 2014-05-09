@@ -24,9 +24,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
-
-		this.collection = this.model.statistics;
-		this.listenTo(this.collection, 'ready', this.fill);
+		dis = this;
+		this.collection = this.model.statistics;	
+	
+		this.listenTo(this.collection, 'ready', this.fill());
 
 	},
 
@@ -41,8 +42,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.settings.legend_span = "span5";
 
 		this.$el.html (Mustache.render (Templates.chart, this.settings));
-		this.canvas = this.$el.find("canvas").get(0).getContext("2d");
-		
+		//this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 		
 		// Select data & chart type		
 		return this;
@@ -54,19 +54,60 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var dis = this;
 
 		//Span container width
-		var width = this.$el.find(".chart-container").get(0).clientWidth
+		//var width = this.$el.find(".chart-container").get(0).clientWidth
 		//Resize canvas to the correct size
-		this.canvas.canvas.style.width = width + "px";
+		/*this.canvas.canvas.style.width = width + "px";
 		this.canvas.canvas.style.height = width + "px";
 		this.canvas.canvas.width = width;
 		this.canvas.canvas.height = width;
 
 		// Select data & chart type
 		var temp = this.columns[this.filterfunc];
-		var data = this[temp](collection);
+		//var data = this[temp](collection);
+		var options = {pieHole : 0.5};
+		
+		//Remove the charjs plugins from scriptsh! <---
+
+		/*var data = [
+					{ value: 30, color:"#F7464A", title: asd }, 
+					{ value : 50, color : "#E2EAE9", title: asd }, 
+					{ value : 100, color : "#D4CCC5", title: asd }, 
+					{ value : 40, color : "#949FB1", title: asd }, 
+					{ value : 120, color : "#4D5360", title: asd }
+				];
+		INTO:
+*/
+		
+
+		google.load('visualization', '1.0', {'packages':['corechart']});	
+		google.setOnLoadCallback(setTimeout(function(){
+			console.log("visualization:",google.visualization);
+			logg();
+		},100));
+		
+		function logg(){
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Topping');
+		    data.addColumn('number', 'Slices');
+		    data.addRows([
+		        ['Mushrooms', 3],
+		        ['Onions', 1],
+		        ['Olives', 1], 
+		        ['Zucchini', 1],
+		        ['Pepperoni', 2]
+		    ]);
+
+		    console.log(data);
+		    var options = {pieHole : 0.5};
+
+		    var chart = new this.google.visualization.PieChart(this.$el.find('.chart_container'));
+      		chart.draw(data, options);
+		}
+		
+		
 
 		//Create empty chart
-		if(data.length == 0){
+		/*if(data.length == 0){
 			data = this.emptychartdata(this.chart);
 		}
 
@@ -80,7 +121,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}else{
 			var chart = new Chart(this.canvas)[this.chart](data);
 			var len = legend(this.$el.find(".chartlegend").get(0), data);
-		}
+		}*/
 	},
 
 	parsecontacts : function(collection){
@@ -111,7 +152,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 					if(!added) data.push({value : counter, color : color, title: title});
 				}			
 			});
-
+			
 			data = _(data).sortBy(function(ntwk) {
 			    return ntwk.value;
 			});
