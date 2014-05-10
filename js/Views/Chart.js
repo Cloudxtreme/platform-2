@@ -38,10 +38,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.settings.title = this.title;
 
 		//Force side by side legend & chart view
-		this.settings.main_span = "span7";
-		this.settings.legend_span = "span5";
+		//this.settings.main_span = "span7";
+		//this.settings.legend_span = "span5";
 
 		this.$el.html (Mustache.render (Templates.chart, this.settings));
+		
 		//this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 	
 		return this;
@@ -54,16 +55,21 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 	
 	'fill' : function ()
-
 	{
-		var options = {'title':'How Much Pizza I Ate Last Night',
-					'pieHole':0.4,
-                    'width':400,
-                    'height':300};
-        
-		data = this.view.parsecontacts(data, this.view.collection);
+		//Span container width
+		var width = this.$(".chart-container").get(0).clientWidth;
 
-		var data = google.visualization.arrayToDataTable(data);
+		var options = {
+			'pieHole':0.4,
+			'chartArea': {'width': '100%', 'height': '90%'},
+            'width': width,
+            'height': width * 0.6
+        };
+        
+		fulldata = this.view.parsecontacts(data, this.view.collection);
+		options.colors = fulldata.colors;
+
+		var data = google.visualization.arrayToDataTable(fulldata.data);
 		var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
         chart.draw(data, options);
 
@@ -111,33 +117,43 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsecontacts : function(chartdata, collection){
 		
-		var data = {};		
+		var networks = {};		
 		var streams = collection.latest().get("streams");
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
 		
-		//REMOVE THIS LATER
-		if(streams){
-			streams.forEach(function(stream){
-				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
-				var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
-				var color = collection.networkcolors[network];
-				//if(!color) color = "#000"; //Fix this
-				var counter;
+		streams.forEach(function(stream){
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var counter;
 
-				//Object/int: structure
-				if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
-				else if(_.isNumber(stream["contacts"]))	counter = Number(stream["contacts"]);
+			//Object/int: structure
+			if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
+			else if(_.isNumber(stream["contacts"]))		counter = Number(stream["contacts"]);
 
-				if(_.isNumber(counter) && _.has(data, title))
-					data[title] += counter;
-				else
-					data[title] = counter;
-			});
-		}
+			if(_.isNumber(counter) && _.has(networks, network.gettoken()))
+				networks[network.gettoken()].addcontacts(counter);
+			else
+				networks[network.gettoken()] = network.addcontacts(counter);
+		});
 		
-		data = _.pairs(data);
-		data.unshift(["Network", "Number of contacts"]);
+		networks = _.sortBy(networks, function(network){
+			return network.get("contacts");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.getcontacts()]);
+			fulldata.colors.push(network.getcolor());
+			
+		});
 
-		return data;
+		//Columns (necessary)
+		fulldata.data.unshift(["Network", "Number of contacts"]);
+
+		return fulldata;
 	},
 
 	parseage : function(collection){
