@@ -37,13 +37,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.settings = {};
 		this.settings.title = this.title;
 
-		//Force side by side legend & chart view
-		//this.settings.main_span = "span7";
-		//this.settings.legend_span = "span5";
-
 		this.$el.html (Mustache.render (Templates.chart, this.settings));
-		
-		//this.canvas = this.$el.find("canvas").get(0).getContext("2d");
 	
 		return this;
 	},
@@ -66,56 +60,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
             'height': width * 0.6
         };
         
-		fulldata = this.view.parsecontacts(data, this.view.collection);
+		fulldata = this.view.parsecontacts(this.view.collection);
 		options.colors = fulldata.colors;
 
 		var data = google.visualization.arrayToDataTable(fulldata.data);
 		var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
         chart.draw(data, options);
-
-		//Span container width
-		//var width = this.$el.find(".chart-container").get(0).clientWidth
-		//Resize canvas to the correct size
-		/*this.canvas.canvas.style.width = width + "px";
-		this.canvas.canvas.style.height = width + "px";
-		this.canvas.canvas.width = width;
-		this.canvas.canvas.height = width;
-
-		// Select data & chart type
-		var temp = this.columns[this.filterfunc];
-		//var data = this[temp](collection);
-		var options = {pieHole : 0.5};
-		
-		//Remove the charjs plugins from scriptsh! <---
-
-		/*var data = [
-					{ value: 30, color:"#F7464A", title: asd }, 
-					{ value : 50, color : "#E2EAE9", title: asd }, 
-					{ value : 100, color : "#D4CCC5", title: asd }, 
-					{ value : 40, color : "#949FB1", title: asd }, 
-					{ value : 120, color : "#4D5360", title: asd }
-				];
-		INTO:
-*/
-		//Create empty chart
-		/*if(data.length == 0){
-			data = this.emptychartdata(this.chart);
-		}
-
-		if(this.filterfunc == 'besttime'){
-			dis.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
-			
-			$.each(data, function(key, day){
-				day.fill = day.value*100/data["maxvalue"];			
-				dis.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
-			});
-		}else{
-			var chart = new Chart(this.canvas)[this.chart](data);
-			var len = legend(this.$el.find(".chartlegend").get(0), data);
-		}*/
 	},
 
-	parsecontacts : function(chartdata, collection){
+	parsecontacts : function(collection){
 		
 		var networks = {};		
 		var streams = collection.latest().get("streams");
@@ -126,17 +79,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		};
 		
 		streams.forEach(function(stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
 			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
-			var counter;
+			var numcontacts = stream.getcontacts();
 
-			//Object/int: structure
-			if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
-			else if(_.isNumber(stream["contacts"]))		counter = Number(stream["contacts"]);
-
-			if(_.isNumber(counter) && _.has(networks, network.gettoken()))
-				networks[network.gettoken()].addcontacts(counter);
+			if(_.isNumber(numcontacts) && _.has(networks, network.gettoken()))
+				networks[network.gettoken()].addcontacts(numcontacts);
 			else
-				networks[network.gettoken()] = network.addcontacts(counter);
+				networks[network.gettoken()] = network.addcontacts(numcontacts);
 		});
 		
 		networks = _.sortBy(networks, function(network){
@@ -147,7 +97,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
 			fulldata.colors.push(network.getcolor());
-			
 		});
 
 		//Columns (necessary)
