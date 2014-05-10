@@ -52,27 +52,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		google.load('visualization', '1',  {'callback':this.fill, 'packages':['corechart']});
 
 	},
-
-	'drawVisualization' : function () {
-        console.log("In draw visualization");
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-	    data.addColumn('number', 'Slices');
-	    data.addRows([
-	        ['Mushrooms', 3],
-	        ['Onions', 1],
-	        ['Olives', 1], 
-	        ['Zucchini', 1],
-	        ['Pepperoni', 2]
-	    ]);
-
-      // Set chart options
-      var options = {'title':'How Much Pizza I Ate Last Night',
-                     'width':400,
-                     'height':300};
-        var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
-        chart.draw(data, options);
-    },
 	
 	'fill' : function ()
 
@@ -146,7 +125,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 				//Object/int: structure
 				if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
-				else if(_.isNumber(stream[key]))	counter = Number(stream["contacts"]);
+				else if(_.isNumber(stream["contacts"]))	counter = Number(stream["contacts"]);
 
 				if(_.isNumber(counter) && _.has(data, title))
 					data[title] += counter;
