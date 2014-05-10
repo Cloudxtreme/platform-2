@@ -19,8 +19,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-		{widget: "Chart", data: {filterfunc: "contacts", chart: "Doughnut", title: "Contacts", display: "divided"}, span: 6},
-		{widget: "Chart", data: {filterfunc: "age", chart: "Doughnut", title: "By Age"}, span: 3},
+		{widget: "Chart", data: {filterfunc: "contacts", chart: "Doughnut", title: "Contacts", display: "divided"}, span: 6}
+		/*{widget: "Chart", data: {filterfunc: "age", chart: "Doughnut", title: "By Age"}, span: 3},
 		{widget: "Chart", data: {filterfunc: "gender", chart: "Doughnut", title: "By Gender"}, span: 3},
 		
 		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
@@ -33,7 +33,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Chart", data: {filterfunc: "cities", chart: "Doughnut", title: "Cities", connect: 'regional'}, span: 3},
 		
 		{widget: "Chart", data: {filterfunc: "besttime", chart: "Line", title: "Best Time to Post"}, span: 6},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}
+		//{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}*/
 		
 	],
 	

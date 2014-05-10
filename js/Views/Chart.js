@@ -24,10 +24,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
-		dis = this;
+		view = this;
 		this.collection = this.model.statistics;	
 	
-		this.listenTo(this.collection, 'ready', this.fill());
+		this.listenTo(this.collection, 'ready', this.loadcharts());
 
 	},
 
@@ -43,15 +43,50 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		this.$el.html (Mustache.render (Templates.chart, this.settings));
 		//this.canvas = this.$el.find("canvas").get(0).getContext("2d");
-		
-		// Select data & chart type		
+	
 		return this;
 	},
+
+	'loadcharts' : function(){
 	
-	'fill' : function (collection)
+		google.load('visualization', '1',  {'callback':this.fill, 'packages':['corechart']});
+
+	},
+
+	'drawVisualization' : function () {
+        console.log("In draw visualization");
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+	    data.addColumn('number', 'Slices');
+	    data.addRows([
+	        ['Mushrooms', 3],
+	        ['Onions', 1],
+	        ['Olives', 1], 
+	        ['Zucchini', 1],
+	        ['Pepperoni', 2]
+	    ]);
+
+      // Set chart options
+      var options = {'title':'How Much Pizza I Ate Last Night',
+                     'width':400,
+                     'height':300};
+        var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
+        chart.draw(data, options);
+    },
+	
+	'fill' : function ()
 
 	{
-		var dis = this;
+		var options = {'title':'How Much Pizza I Ate Last Night',
+					'pieHole':0.4,
+                    'width':400,
+                    'height':300};
+        
+		data = this.view.parsecontacts(data, this.view.collection);
+
+		var data = google.visualization.arrayToDataTable(data);
+		var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
+        chart.draw(data, options);
 
 		//Span container width
 		//var width = this.$el.find(".chart-container").get(0).clientWidth
@@ -77,35 +112,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				];
 		INTO:
 */
-		
-
-		google.load('visualization', '1.0', {'packages':['corechart']});	
-		google.setOnLoadCallback(setTimeout(function(){
-			console.log("visualization:",google.visualization);
-			logg();
-		},100));
-		
-		function logg(){
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Topping');
-		    data.addColumn('number', 'Slices');
-		    data.addRows([
-		        ['Mushrooms', 3],
-		        ['Onions', 1],
-		        ['Olives', 1], 
-		        ['Zucchini', 1],
-		        ['Pepperoni', 2]
-		    ]);
-
-		    console.log(data);
-		    var options = {pieHole : 0.5};
-
-		    var chart = new this.google.visualization.PieChart(this.$el.find('.chart_container'));
-      		chart.draw(data, options);
-		}
-		
-		
-
 		//Create empty chart
 		/*if(data.length == 0){
 			data = this.emptychartdata(this.chart);
@@ -124,9 +130,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}*/
 	},
 
-	parsecontacts : function(collection){
-
-		var data = [];		
+	parsecontacts : function(chartdata, collection){
+		
+		var data = {};		
 		var streams = collection.latest().get("streams");
 		
 		//REMOVE THIS LATER
@@ -135,29 +141,23 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				var title = Cloudwalkers.Session.getStream(stream.id).get("network").name;
 				var color = collection.networkcolors[network];
-				if(!color) color = "#000"; //Fix this
-				var counter, added = false;
+				//if(!color) color = "#000"; //Fix this
+				var counter;
 
 				//Object/int: structure
 				if(_.isNumber(stream["contacts"].total))	counter = Number(stream["contacts"].total);
 				else if(_.isNumber(stream[key]))	counter = Number(stream["contacts"]);
 
-				if(_.isNumber(counter)){
-					data.map(function(obj, index) {
-					    if(obj.color == color) {
-					       	obj.value += counter;
-					       	added = true;
-					    }
-					});
-					if(!added) data.push({value : counter, color : color, title: title});
-				}			
-			});
-			
-			data = _(data).sortBy(function(ntwk) {
-			    return ntwk.value;
+				if(_.isNumber(counter) && _.has(data, title))
+					data[title] += counter;
+				else
+					data[title] = counter;
 			});
 		}
 		
+		data = _.pairs(data);
+		data.unshift(["Network", "Number of contacts"]);
+
 		return data;
 	},
 
