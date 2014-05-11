@@ -10,8 +10,8 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options); 
-		///console.log(Cloudwalkers.Session.getStream(this.streamid));
 
+		//Get the draft data
 		this.draftdata = this.mergedata(this.model.attributes, this.model.variation(this.streamid));
 		$.extend(this.draftdata, Cloudwalkers.Session.getStream(this.streamid).get("profile"));
 	},
@@ -20,15 +20,12 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	{	
 		// Create container view
 		var view = Mustache.render(Templates.preview, {networkclass: this.networkclasses[this.network]});
-		this.$el.html (view);
-		
-		// Compose preview template name		
-		// i.e. this.model.get("network").token + this.viewtype
 		var template = "template.html";
+
+		this.$el.html (view);
 		
 		$.get('/assets/previews/' + template, this.fill.bind(this));
 
-		
 		return this;
 	},
 	
@@ -42,8 +39,6 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 			this.draftdata.image = img.data;
 			this.$el.find("#network").addClass("img"); 
 		}
-
-		//this.draftdata.body.html = this.parseforurls(this.draftdata.body.html);
 
 		// Render preview (opacity:0)
 		var preview = Mustache.render(preview, this.draftdata);
@@ -79,10 +74,11 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 
 	'togglesummary' : function(){
 		this.$el.find('.pv-url-content').toggle();
-	},
+	}
 
+	/* Not working yet
 	'parseforurls' : function(content){
-		console.log("here");
+
 		var newcontent;
 		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
 		var urls = content.match(url_pattern);
@@ -98,5 +94,5 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 		});
 
 		return newcontent;
-	}
+	}*/
 });

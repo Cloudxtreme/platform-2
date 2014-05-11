@@ -22,8 +22,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur [data-option] textarea' : 'monitor',
 		'keyup [data-option] textarea' : 'monitor',
 		*/
-		'keydown #compose-content' : 'showembed',
-		'keyup #compose-content' : 'showembed',
+		'keydown #compose-content' : 'filterurl',
+		'keyup #compose-content' : 'filterurl',
 		'click #swaplink' : 'swaplink',
 		'keydown #composeplaceholder' : 'updatecontainer',
 
@@ -32,6 +32,22 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'click [data-type="content"] i' : 'addoecontent',
 		'click [data-type="image"] i' : 'addoeimg',
 	},
+
+
+	/*
+	*
+	* filterurl() 			: Monitors the content for url input & renders it's content
+	* getcursorposition() 	: Gets the cursor position
+	* setcursorposition() 	: Sets the cursor position
+	* greyout() 			: Parses the content to grey out extra characters
+	* parsecontent() 		: Parses the content to refresh the url styes
+	* updatecontainer() 	: Triggers all the text & counters updates
+	* updatecounter() 		: Updates the charcount
+	* swaplink() 			: Swaps link from shortened to normal
+	* togglecontent() 		: Toggles between variations text
+	* addoetitle/content/img : triggers content adition back to the compose view
+	*
+	*/
 	
 	'initialize' : function (options)
 	{
@@ -65,7 +81,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	/*   Code from Compose.js   */
 	
-	'monitor' : function (e)
+	/*'monitor' : function (e)
 	{
 		// Stream
 		var streamid = this.activestream? this.activestream.id: false;
@@ -91,9 +107,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Update draft
 		if (streamid)	this.draft.variation(streamid, input);
 		else 			this.draft.set(input);
-	},
+	},*/
 
-	'showembed' : function(){
+	'filterurl' : function(){
 		
 		dis = this;
 
@@ -151,39 +167,25 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	},
 
-	'togglecontent' : function(data){
-		
-		if(data){
-			var stream = _.isObject(data) ? data.stream : data;
-			var val = data.body ? data.body.html : null;
-			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token: false;
-		}
-
-		this.network = network ? network : 'default'; //Keep track of what network we are viewing
-		
-		if(network && !val){	//Tab with the default's text
-			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
-			this.updatecounter(this.restrictedstreams[this.network] - this.contentcontainer.text().length);
-		}else if(!data){		//Tab without any specific content
-			this.contentcontainer.empty().html(this.draft.get("body").html);
-			this.updatecontainer();
-		}else{					//Tab with specific content
-			if(!val) val.html = "";
-
-			this.contentcontainer.empty().html(val);
-			this.updatecontainer();
-		}
-		
-	},
-
 	'getcursosposition' : function(e){
 
 	    var cursorpos = 0;
 	    var doc = e.ownerDocument || e.document;
 	    var win = doc.defaultView || doc.parentWindow;
 	    var sel;
+	    var html = "";
 
 	    if (typeof win.getSelection != "undefined") {
+
+	        /*var sel = win.getSelection();
+			if (sel.rangeCount) {
+	            var container = document.createElement("div");
+	            //Deal with selection
+	            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+	                sel.getRangeAt(i).deleteContents();
+            	}
+	        }*/
+
 	        var range = win.getSelection().getRangeAt(0);
 	        var preCaretRange = range.cloneRange();
 	        preCaretRange.selectNodeContents(e);
@@ -197,7 +199,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
 	        cursorpos = preCaretTextRange.text.length;
 	    }
-		//console.log("get",caretOffset);
+		//console.log("get",cursorpos);
 		return cursorpos;
 	},
 
@@ -226,7 +228,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		var range = document.createRange();
 		var sel = window.getSelection();
-		
+
 		if(currentnode)
 			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
 		else
@@ -236,62 +238,62 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		range.collapse(true);
 		sel.removeAllRanges();
 		sel.addRange(range);
+
 	},
 
 	'greyout' : function(extrachars, limit){
 		
-		var extra = this.contentcontainer.text().slice(extrachars);
-		var notextra = this.contentcontainer.text().slice(0, limit);
-		
+		var extra = this.contentcontainer.text().slice(extrachars); //console.log("extra", extra);
+		var notextra = this.contentcontainer.text().slice(0, limit); //console.log("not extra", notextra);
+		var content;
+
 		if(this.currentUrl)
 			notextra = this.parsecontent(notextra);
 
-		this.contentcontainer.empty().html(notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>');
+		content = notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>';
+
+
+		return content;
 	},
 
-	// Placeholder = false
+	// Placeholder = false as default
 	'parsecontent' : function(cont, placeholder){
 
 		var urltag = '';
 
 		if(this.currentUrl && !placeholder)
 			urltag = ('<span id="urltag" contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
-		if(this.currentUrl && placeholder)
+		if(this.currentUrl && placeholder) //Unfinished
 			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 
-		var content = cont.replace(this.currentUrl, urltag);		
+		var content = cont.replace(this.currentUrl, urltag);	
+
 		return content;
 	},
 
 	'updatecontainer' : function(){
 		
-		var charcount = this.contentcontainer.text().length;
+		var charcount = this.contentcontainer.text().length; console.log("charcount", charcount);
 		var total = this.restrictedstreams[this.network] - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
+		var content;
+		var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
 		
 		//There is a placeholder in the content
-		if(placeholder.length > 0){
-			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			this.contentcontainer.empty().html(this.parsecontent(placeholder.html(), true));
-			this.setcursosposition(cursorpos);
-		}
+		if(placeholder.length > 0)
+			content = this.parsecontent(placeholder.html(), true);
 
 		//It's a restricted network & over char limit
 		if(total && total < 0)
-		{
-			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			this.greyout(total, this.restrictedstreams[this.network]);
-			this.setcursosposition(cursorpos);
-		}
+			content = this.greyout(total, this.restrictedstreams[this.network]);
+		
 		//Just update the content
 		else
-		{ 
-			var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-			var newcontent = this.parsecontent(this.contentcontainer.text());
-			this.contentcontainer.html(newcontent);
-			this.setcursosposition(cursorpos);
-		}
-
+			content = this.parsecontent(this.contentcontainer.text());
+		
+		//console.log(content);
+		this.contentcontainer.empty().html(content);
+		this.setcursosposition(cursorpos);
 		this.updatecounter(total);
 
 		return total;
@@ -299,6 +301,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecounter' : function(chars){
 		if(chars < 0)	chars = 0
+
 		this.$el.find('.limit-counter').empty().html(chars);
 	},
 
@@ -315,6 +318,31 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
 		this.currentUrl = url;
 		this.updatecontainer();
+	},
+
+	'togglecontent' : function(data){
+		
+		if(data){
+			var stream = _.isObject(data) ? data.stream : data;
+			var val = data.body ? data.body.html : null;
+			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token: false;
+		}
+
+		this.network = network ? network : 'default'; //Keep track of what network we are viewing
+		
+		if(network && !val){	//Tab with the default's text
+			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
+			this.updatecounter(this.restrictedstreams[this.network] - this.contentcontainer.text().length);
+		}else if(!data){		//Tab without any specific content
+			this.contentcontainer.empty().html(this.draft.get("body").html);
+			this.updatecontainer();
+		}else{					//Tab with specific content
+			if(!val) val.html = "";
+
+			this.contentcontainer.empty().html(val);
+			this.updatecontainer();
+		}
+		
 	},
 
 	'addoetitle' : function(e){
@@ -336,8 +364,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'addoeimg' : function(e){
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 		this.trigger("imageadded", imgurl);
-	},	
-		
+	}
+
+	
+	
+	/*	
 	'togglesubcontent' : function (stream)
 	{	
 		this.activestream = stream;
@@ -399,6 +430,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		this.togglelink(options.indexOf("link") >= 0);
 
-	},
+	},*/
 
 });
