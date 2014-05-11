@@ -28,7 +28,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.loadcharts());
-
 	},
 
 	'render' : function ()
@@ -50,9 +49,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 	'fill' : function ()
 	{
-		//Span container width
-		var width = this.$(".chart-container").get(0).clientWidth;
-
+		var dis = this.view;
+		var width = dis.$el.find(".chart-container").get(0).clientWidth;
+		var data, chart, fulldata;
+		var parsefunc = dis.columns[dis.filterfunc];
 		var options = {
 			'pieHole':0.4,
 			'chartArea': {'width': '100%', 'height': '90%'},
@@ -60,11 +60,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
             'height': width * 0.6
         };
         
-		fulldata = this.view.parsecontacts(this.view.collection);
+		fulldata = dis[parsefunc](dis.collection);
 		options.colors = fulldata.colors;
 
-		var data = google.visualization.arrayToDataTable(fulldata.data);
-		var chart = new google.visualization.PieChart(this.$('.chart-container').get(0));
+		data = google.visualization.arrayToDataTable(fulldata.data);
+		chart = new google.visualization.PieChart(dis.$el.find('.chart-container').get(0));
         chart.draw(data, options);
 	},
 
@@ -78,7 +78,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			colors : []
 		};
 		
-		streams.forEach(function(stream){
+		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
 			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 			var numcontacts = stream.getcontacts();
@@ -107,20 +107,27 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parseage : function(collection){
 
-		var colors = {'13-17': "#2bbedc", '18-24': "#2CA7C0", '25-34': "#2E90A4", '35-44': "#2F7988", '45-54': "#30616B", '55-64': "#324A4F", '65+': "#333333"};
+		var colors = ["#2bbedc", "#2CA7C0", "#2E90A4", "#2F7988", "#30616B", "#324A4F", "#333333"];
 		var data = [];
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
+		var fulldata = [];
 
 		$.each(grouped, function(key, value){
-			data.push({value: value, title: key, color: colors[key]});
+			data.push([key, value]);
 		});
 
-		data = _(data).sortBy(function(age) {
+		data = _.sortBy(data, function(age) {
 			return age.title;
 		});
 
-		return data;
+		fulldata.data = data;
+		fulldata.colors = colors;
+
+		//Columns (necessary)
+		fulldata.data.unshift(["Age interval", "Number of contacts"]);
+
+		return fulldata;
 	},
 
 	'groupkey' : function(collection, parents, key){
