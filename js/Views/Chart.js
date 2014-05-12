@@ -59,7 +59,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		options.colors = fulldata.colors;
 
 		data = google.visualization.arrayToDataTable(fulldata.data);
-		chart = new google.visualization.PieChart(this.$el.find('.chart-container').get(0));
+		chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
         chart.draw(data, options);
 	},
 
@@ -218,42 +218,39 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
 
-		var data = [], counter = 0;
-		var size = 8;
-
+		var colors = this.colors;
+		var data = [];
+		var fulldata = [];
+		var size = 8; //hardcoded?
+		var counter = 0;
 		var grouped = this.filtercountry(collection);
-		
-		// We don't care about grouping
-		if(!size)
-			size=grouped.length;
+		fulldata.data = [];
+		fulldata.colors = colors;
+
+		//Recycle the country data
+		this.regional = grouped;
+
+		// We don't care about grouping "others"
+		if(!size)	size=grouped.length;
 
 		// Gets n biggest values (or all of them)
 		while(counter < size){
 			var country = grouped.pop();
-			data.push({
-				title: country.name, 
-				value: country.total, 
-				cities: country.cities, 
-				networks: country.networks, 
-				color: this.colors[counter]
-			});
+			fulldata.data.push([country.name, country.total]);
 			counter++;
 		}
 
-		if(grouped.length == 0) 
-			return data;
+		//Columns
+		fulldata.data.unshift(["Countries", "Number of contacts"]);
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(grouped, function(memo, num){
 			return memo + num.total;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: collection.networkcolors["others"]});
+		fulldata.data.push(["Others", total]);
 		
-		//Recycle the country data
-		this.regional = data;
-
-		return data;
+		return fulldata;
 	},
 
 	parsecities : function(collection){
