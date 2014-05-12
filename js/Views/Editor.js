@@ -22,8 +22,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur [data-option] textarea' : 'monitor',
 		'keyup [data-option] textarea' : 'monitor',
 		*/
-		'keydown #compose-content' : 'filterurl',
-		'keyup #compose-content' : 'filterurl',
+		//'keydown #compose-content' : 'filterurl',
+		//'keyup #compose-content' : 'filterurl',
+		'blur #compose-content' : 'listentochange',
+		'keyup #compose-content' : 'listentochange',
+		'paste #compose-content' : 'listentochange',
+
 		'click #swaplink' : 'swaplink',
 		'keydown #composeplaceholder' : 'updatecontainer',
 
@@ -109,9 +113,19 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		else 			this.draft.set(input);
 	},*/
 
-	'filterurl' : function(){
+	'listentochange' : function(){
+
+		var currentcontent = this.contentcontainer.html();
 		
-		dis = this;
+		if(this.lastcontent && this.lastcontent !== currentcontent){
+			this.filterurl();
+			this.lastcontent = currentcontent;
+		}
+
+		if(!this.lastcontent)	this.lastcontent = currentcontent;
+	},
+
+	'filterurl' : function(){
 
 		// ARE YOU KIDDING ME?!
 		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
@@ -133,26 +147,26 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        .done(function( data ) {
 	            if (data.shortUrl)
 	            {	
-	                dis.urldata = {newurl: data.shortUrl, oldurl: dis.oldUrl};
+	                this.urldata = {newurl: data.shortUrl, oldurl: this.oldUrl};
 
-					var oembed = '<div><a href="'+dis.oldUrl+'" class="oembed"></a></div>';	            
-					var formatedcontent = content.replace(dis.oldUrl, Mustache.render (Templates.composeurltag, {url : dis.urldata.newurl}));
+					var oembed = '<div><a href="'+this.oldUrl+'" class="oembed"></a></div>';	            
+					var formatedcontent = content.replace(this.oldUrl, Mustache.render (Templates.composeurltag, {url : this.urldata.newurl}));
 					
-					dis.$el.find('#out').empty().html(oembed);
-					dis.contentcontainer.empty().html(formatedcontent);
+					this.$el.find('#out').empty().html(oembed);
+					this.contentcontainer.empty().html(formatedcontent);
 					//the URL tag's content
-					dis.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: dis.urldata.newurl}));
+					this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: this.urldata.newurl}));
 					
-					dis.currentUrl = dis.urldata.newurl;
+					this.currentUrl = this.urldata.newurl;
 					
-					dis.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
-						this.def.done(function(){
+					this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
+						this.done(function(){
 							$('#out').addClass('expanded');
-							dis.updatecontainer();
+							this.updatecontainer();
 						});
 					});
 	            }
-	        });
+	        }.bind(this));
 		}
 		
 
@@ -176,15 +190,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	    var html = "";
 
 	    if (typeof win.getSelection != "undefined") {
-
-	        /*var sel = win.getSelection();
-			if (sel.rangeCount) {
-	            var container = document.createElement("div");
-	            //Deal with selection
-	            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-	                sel.getRangeAt(i).deleteContents();
-            	}
-	        }*/
 
 	        var range = win.getSelection().getRangeAt(0);
 	        var preCaretRange = range.cloneRange();
@@ -243,8 +248,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'greyout' : function(extrachars, limit){
 		
-		var extra = this.contentcontainer.text().slice(extrachars); //console.log("extra", extra);
-		var notextra = this.contentcontainer.text().slice(0, limit); //console.log("not extra", notextra);
+		var extra = this.contentcontainer.text().slice(extrachars);
+		var notextra = this.contentcontainer.text().slice(0, limit);
 		var content;
 
 		if(this.currentUrl)
@@ -273,7 +278,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecontainer' : function(){
 		
-		var charcount = this.contentcontainer.text().length; console.log("charcount", charcount);
+		var charcount = this.contentcontainer.text().length;
 		var total = this.restrictedstreams[this.network] - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
 		var content;
@@ -291,7 +296,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		else
 			content = this.parsecontent(this.contentcontainer.text());
 		
-		//console.log(content);
 		this.contentcontainer.empty().html(content);
 		this.setcursosposition(cursorpos);
 		this.updatecounter(total);
