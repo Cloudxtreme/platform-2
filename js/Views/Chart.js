@@ -146,18 +146,30 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsegender : function(collection){
 
+		var colors = ["#2bbedc", "#F14B68", collection.networkcolors["others"]];
 		var data = [];
-		var colors = {'male': "#2bbedc", 'female': "#F14B68", 'other': collection.networkcolors["others"]};
+		var fulldata = [];
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
 
 		$.each(grouped, function(key, value){
-			data.push({value: value, title: key, color: colors[key]});
-		});
+			data.push([this.capitalize(key), value]);
+		}.bind(this));
+		
+		fulldata.data = data;
+		fulldata.colors = colors;
 
-		return data;
+		//Columns (necessary)
+		fulldata.data.unshift(["Gender", "Number of contacts"]);
+
+		return fulldata;
 	},
+
+	'capitalize' : function(string){
+
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	},	
 
 	filtercountry : function(collection){
 
