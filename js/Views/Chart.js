@@ -65,9 +65,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	        options.colors = fulldata.colors;
 
-	        // Because Calendar needs to be a datatable
-	        if(_.isArray(fulldata.data))
-				fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
+			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 
 			chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
 	        chart.draw(fulldata.data, options);
@@ -115,7 +113,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			fulldata.colors.push(network.getcolor());
 		});
 
-		//Columns (necessary)
 		fulldata.data.unshift(["Network", "Number of contacts"]);
 
 		return fulldata;
@@ -139,8 +136,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		fulldata.data = data;
 		fulldata.colors = colors;
-
-		//Columns (necessary)
 		fulldata.data.unshift(["Age interval", "Number of contacts"]);
 
 		return fulldata;
@@ -181,7 +176,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		fulldata.data = data;
 		fulldata.colors = colors;
 
-		//Columns (necessary)
 		fulldata.data.unshift(["Gender", "Number of contacts"]);
 
 		return fulldata;
@@ -249,9 +243,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		fulldata.colors = colors;
 		this.regional = [];
 		
-		//Recycle the country data
-		//if(!this.regional)	this.regional = $.extend({}, grouped);
-		
 		// We don't care about grouping "others"
 		if(!size)	size=grouped.length;
 
@@ -263,7 +254,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			counter++;
 		}
 		
-		//Columns
 		fulldata.data.unshift(["Countries", "Number of contacts"]);
 
 		// If we are grouping, calculate the "Others"
