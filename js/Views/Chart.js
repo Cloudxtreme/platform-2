@@ -54,13 +54,25 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
             'legend':{textStyle:{fontSize:'13'}},
             'tooltip':{textStyle:{fontSize:'13'}}
         };
-        
+
 		fulldata = this[parsefunc](this.collection);
 		options.colors = fulldata.colors;
+
+		if(this.filterfunc == 'besttime')	this.renderbesttime(fulldata);
 
 		data = google.visualization.arrayToDataTable(fulldata.data);
 		chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
         chart.draw(data, options);
+	},
+
+	'renderbesttime' : function(data){
+
+		this.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
+
+		$.each(data, function(key, day){
+			day.fill = day.value*100/data["maxvalue"];
+			this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
+		}.bind(this));
 	},
 
 	parsecontacts : function(collection){
