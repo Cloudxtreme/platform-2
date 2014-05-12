@@ -206,12 +206,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				}
 			}
 		});
-
+	
 		// Sorts it
 		grouped = _(grouped).sortBy(function(country) {
 			return country.total;
 		});
-
+		
 		return grouped;
 	},
 
@@ -226,10 +226,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var grouped = this.filtercountry(collection);
 		fulldata.data = [];
 		fulldata.colors = colors;
-
+		this.regional = [];
+		
 		//Recycle the country data
-		this.regional = grouped;
-
+		//if(!this.regional)	this.regional = $.extend({}, grouped);
+		
 		// We don't care about grouping "others"
 		if(!size)	size=grouped.length;
 
@@ -237,9 +238,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		while(counter < size){
 			var country = grouped.pop();
 			fulldata.data.push([country.name, country.total]);
+			this.regional.push(country);
 			counter++;
 		}
-
+		
 		//Columns
 		fulldata.data.unshift(["Countries", "Number of contacts"]);
 
@@ -255,8 +257,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsecities : function(collection){
 
-		var cities, size = 8;
+		var cities, size = 6;
 		var countries = this.connect.regional;
+		var fulldata;
 
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
@@ -272,52 +275,69 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return city.value;
 		});
 
-		return this.getbiggestdata(cities,size);
+		fulldata = this.getbiggestdata(cities,size);
+		fulldata.data.unshift(["Cities", "Number of contacts"]);
+
+		return fulldata;
 	},
 
 	parsenetworks : function(collection){
 
 		var data = [];
 		var countries = this.connect.regional;
-
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
-
+		
 		//Replace title
-		this.$el.find("h3").html(countries[0].title);
+		this.$el.find("h3").html(countries[0].name);
 
 		//Networks of the country with most poppularity
 		var networks = countries[0].networks;
 		
 		for(i in networks){
-			data.push({value: networks[i].total, title: i, color: collection.networkcolors[networks[i].token]});
+			fulldata.data.push([i, networks[i].total]);
+			fulldata.colors.push(collection.networkcolors[networks[i].token]);
 		}
+		
+		//Columns
+		fulldata.data.unshift(["Network", "Number of contacts"]);
 
-		return data;
+		return fulldata;
 	},
 
 
 	//Gets sorted data & returns the last N and groups the others
 	getbiggestdata : function(datasets, n){
 
-		var counter = 0, data = [];
+		var counter = 0;
+		var fulldata = {
+			data : [],
+			colors : []
+		};
 
 		while(counter < n){
 			var dataset = datasets.pop();
-			data.push({title: dataset.name, value: dataset.value, color: this.countrycolors[counter]});
+			fulldata.data.push([dataset.name, dataset.value]);
+			fulldata.colors.push(this.countrycolors[counter]);
 			counter++;
 		}
 
-		if(datasets.length == 0)	return data;
+		if(datasets.length == 0)	return fulldata;
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(datasets, function(memo, num){
 			return memo + num.value;  
 		}, 0);
 
-		data.push({title: "Others", value: total, color: this.collection.networkcolors["others"]});
+		fulldata.data.push(["Others", total]);
+		fulldata.colors.push(this.collection.networkcolors["others"]);
 		
-		return data;
+		return fulldata;
 	},
 
 	parsebesttime : function(collection){
