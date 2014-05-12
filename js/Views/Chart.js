@@ -16,7 +16,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"regional" 	: "parseregional",
 		"besttime" 	: "parsebesttime",
 		"cities"	: "parsecities",
-		"networks"	: "parsenetworks"
+		"networks"	: "parsenetworks",
+		"activity"	: "parsecalendar"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
@@ -42,27 +43,35 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 	
 	'fill' : function ()
-	{ 		
-		var width = this.$el.find(".chart-container").get(0).clientWidth;
+	{ 	
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
-		var options = {
-			'pieHole':0.4,
-			'chartArea': {'width': '100%', 'height': '90%'},
-            'width': width,
-            'height': width * 0.7,
-            'legend':{textStyle:{fontSize:'13'}},
-            'tooltip':{textStyle:{fontSize:'13'}}
-        };
 
 		fulldata = this[parsefunc](this.collection);
-		options.colors = fulldata.colors;
 
-		if(this.filterfunc == 'besttime')	this.renderbesttime(fulldata);
+		if(this.filterfunc == 'besttime'){
+			this.renderbesttime(fulldata);
+		}else{
 
-		data = google.visualization.arrayToDataTable(fulldata.data);
-		chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
-        chart.draw(data, options);
+			var width = this.$el.find(".chart-container").get(0).clientWidth;
+			var options = {
+				'pieHole':0.4,
+				'chartArea': {'width': '100%', 'height': '90%'},
+	            'width': width,
+	            'height': width * 0.7,
+	            'legend':{textStyle:{fontSize:'13'}},
+	            'tooltip':{textStyle:{fontSize:'13'}}
+	        };
+
+	        options.colors = fulldata.colors;
+
+	        // Because Calendar needs to be a datatable
+	        if(_.isArray(fulldata.data))
+				fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
+
+			chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
+	        chart.draw(fulldata.data, options);
+	    }
 	},
 
 	'renderbesttime' : function(data){
@@ -395,6 +404,36 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return data;
 	},
 
+	/*'parsecalendar' : function(){
+		
+		var statistics = this.collection;	
+		var fulldata = [];
+		var data = [];
+		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
+
+		while(statistics.size() > 0){
+			var statistic = statistics.shift();
+			var messages = statistic.pluck("messages");
+			
+			timestamp = new Date(statistic.get("date"));
+			data.push([timestamp, messages >= msgpivot ? messages - msgpivot : 0]);
+			msgpivot = messages;
+
+			//Get starting statistics date
+			if(date == 0)	date = statistic.get("date");
+		}
+		
+		var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'date', id: 'Date' });
+        dataTable.addColumn({ type: 'number', id: 'Messages' });
+        dataTable.addRows(data);	
+       
+       fulldata.data = dataTable;	
+
+		return fulldata;
+	},
+
+	
 	'emptychartdata' : function (charttype){
 
 		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
@@ -403,7 +442,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data = 	{ labels : [], datasets : [{title: "No data"}] };
 		}
 		return data;
-	},
+	},*/
 	
 	'negotiateFunctionalities' : function()
 	{

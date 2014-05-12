@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	
 	'title' : "Info",
+	'filled' : false,
 	
 	'initialize' : function (options)
 	{
@@ -13,12 +14,14 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		this.$el.html (Mustache.render (Templates.activitycalendar, this.options));
 		return this;
 	},
 
 	'fill' : function(){
+
+		if(this.filled)	return false;
 
 		var cal = new CalHeatMap();
 		var data = this.calculatedata();
@@ -36,6 +39,8 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			label : {height: 30},
 			subDomainTextFormat: "%d"
 		});
+
+		this.filled = true;
 	},
 
 	'calculatedata' : function(){

@@ -34,6 +34,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		{widget: "Chart", data: {filterfunc: "besttime", chart: "Line", title: "Best Time to Post"}, span: 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}
+		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
 		
 	],
 	
@@ -52,11 +53,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'ready', this.hideloading);
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
-		//google.load('visualization', '1',  {'callback':this.render.bind(this), 'packages':['corechart']});
-		 google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
+		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
 		
-		//this.listenTo(this.collection, 'ready', function(m){ console.log("ready", m)});
-
 	},
 	
 	resize : function(){
