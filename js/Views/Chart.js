@@ -56,7 +56,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			var width = this.$el.find(".chart-container").get(0).clientWidth;
 			var options = {
 				'pieHole':0.4,
-				'chartArea': {'width': '100%', 'height': '90%'},
+				'chartArea': {'width': '95%', 'height': '90%'},
 	            'width': width,
 	            'height': width * 0.7,
 	            'legend':{textStyle:{fontSize:'13'}},
