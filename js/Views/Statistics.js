@@ -52,6 +52,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'ready', this.hideloading);
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
+		//google.load('visualization', '1',  {'callback':this.render.bind(this), 'packages':['corechart']});
+		 google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
+		
 		//this.listenTo(this.collection, 'ready', function(m){ console.log("ready", m)});
 
 	},
@@ -71,9 +74,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function()
-	{
+	{	
 		// clean if time toggle
-		this.cleanviews();
+		this.cleanviews(); 
 		
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.statsview, this.timemanager()));
@@ -86,11 +89,21 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if (this.timespan == "custom")
 			this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
 		
-		// Widgets
+		if(this.gloaded)
+			this.fillcharts();
+		else
+			google.setOnLoadCallback(this.fillcharts.bind(this));
+
+		return this;
+	
+	},
+
+	'fillcharts' : function(){
+
 		for(n in this.widgets)
 		{
 			this.widgets[n].data.model = this.model;
-
+			this.widgets[n].data.visualization = google.visualization;
 			//pass regional data
 			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
@@ -100,11 +113,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.views.push(view);
 			this.appendWidget(view, this.widgets[n].span);
 		}
-		
+
 		// Load statistics
 		this.collection.touch(this.model, this.filterparameters());
-		
-		return this;
+
 	},
 	
 	'timemanager' : function ()
@@ -181,5 +193,4 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'finish' : function()
 	{
 	}
-	
 });

@@ -27,7 +27,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		view = this;
 		this.collection = this.model.statistics;	
 	
-		this.listenTo(this.collection, 'ready', this.loadcharts());
+		this.listenTo(this.collection, 'ready', this.fill);
 	},
 
 	'render' : function ()
@@ -40,31 +40,26 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 		return this;
 	},
-
-	'loadcharts' : function(){
-	
-		google.load('visualization', '1',  {'callback':this.fill, 'packages':['corechart']});
-
-	},
 	
 	'fill' : function ()
-	{
-		var dis = this.view;
-		var width = dis.$el.find(".chart-container").get(0).clientWidth;
+	{ 		
+		var width = this.$el.find(".chart-container").get(0).clientWidth;
 		var data, chart, fulldata;
-		var parsefunc = dis.columns[dis.filterfunc];
+		var parsefunc = this.columns[this.filterfunc];
 		var options = {
 			'pieHole':0.4,
 			'chartArea': {'width': '100%', 'height': '90%'},
             'width': width,
-            'height': width * 0.6
+            'height': width * 0.7,
+            'legend':{textStyle:{fontSize:'13'}},
+            'tooltip':{textStyle:{fontSize:'13'}}
         };
         
-		fulldata = dis[parsefunc](dis.collection);
+		fulldata = this[parsefunc](this.collection);
 		options.colors = fulldata.colors;
 
 		data = google.visualization.arrayToDataTable(fulldata.data);
-		chart = new google.visualization.PieChart(dis.$el.find('.chart-container').get(0));
+		chart = new google.visualization.PieChart(this.$el.find('.chart-container').get(0));
         chart.draw(data, options);
 	},
 
