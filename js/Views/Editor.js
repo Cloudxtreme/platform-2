@@ -160,7 +160,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					this.currentUrl = this.urldata.newurl;
 					
 					this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
-						this.done(function(){
+						this.def.done(function(){
 							$('#out').addClass('expanded');
 							this.updatecontainer();
 						});
