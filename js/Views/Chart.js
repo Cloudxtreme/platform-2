@@ -83,20 +83,26 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}.bind(this));
 	},
 
-	parsecontacts : function(collection){
+	parsecontacts : function(collection, statistic, token){
 		
-		var networks = {};		
-		var streams = collection.latest().get("streams");
+		var networks = {};
+		var streams;
 		var colors = [];
 		var fulldata = {
 			data : [], 
 			colors : []
 		};
 		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
 			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 			var numcontacts = stream.getcontacts();
+			
+			if(token && network.gettoken() != token)
+				return true;
 
 			if(_.isNumber(numcontacts) && _.has(networks, network.gettoken()))
 				networks[network.gettoken()].addcontacts(numcontacts);
@@ -114,7 +120,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			fulldata.colors.push(network.getcolor());
 		});
 
-		fulldata.data.unshift(["Network", "Number of contacts"]);
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
 
 		return fulldata;
 	},
@@ -393,6 +400,49 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		data["maxvalue"] = maxvalue;
 
 		return data;
+	},
+
+	'parseevolution' : function(collection){
+
+		var length = this.collection.length;
+		var network = this.network ? this.network : null;
+		var streams;
+		var legend = ["Day of the week"];
+		var data = {};
+		var fulldata = {
+			data : [],
+			colors : []
+		};
+
+		for (var i = 0; i < length; i++){
+			streams = collection.place(i).get("streams");
+			dailyresult = this.parsecontacts(null, streams, network);
+			
+			_.map(dailyresult.data, function(token){
+				if(!data[token[0]])
+					data[token[0]] = [token[1]];
+				else
+					data[token[0]].push(token[1])
+			});
+
+			if(fulldata.colors.length == 0)	fulldata.colors = dailyresult.colors;
+		}
+
+		for(var i=0; i<length; i++){
+			var line = [i];
+			for(d in data){
+				line.push(data[d].shift());
+			}
+			fulldata.data.push(line);
+		}
+
+		for(d in data){
+			legend.push(d);
+		}
+		fulldata.data.unshift(legend);
+		
+		return fulldata;
+
 	},
 
 	/*'parsecalendar' : function(){

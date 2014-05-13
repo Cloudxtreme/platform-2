@@ -10,6 +10,11 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 		'activity' : {data : {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3}
 	},
 
+	'charts' : [
+		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", network: "facebook"}, span: 6},
+		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution"}, span: 6}
+	],
+
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
@@ -35,21 +40,40 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 	'fill' : function()
 	{	
 		var data;
-		var width = this.$el.find(".statistic-container").get(0).clientWidth;
+		var width = this.$el.find("#singlenetwork").get(0).clientWidth;
 		var fulldata = this.parseevolution(this.collection);
+
+        this.fillcharts(fulldata, width);
+        this.fillinfo(this.settings.reports);
+	},
+
+	'fillcharts' : function(fulldata, width)
+	{
+		/*var singlenetwork = this.$el.find('#singlenetwork').get(0);
+		var multiplenetwork = this.$el.find('#multiplenetwork').get(0);
 		var options = {
-			'chartArea': {'width': '90%', 'height': '80%'},
+			'chartArea': {'width': '80%', 'height': '60%'},
             'width': width,
-            'height': width * 0.4,
+            'height': width * 0.5,
         };
 
-        $.extend(options, fulldata.options);
-		data = google.visualization.arrayToDataTable(fulldata.data);
+		$.extend(options, fulldata.options);
+		singledata = google.visualization.arrayToDataTable(fulldata.data.single);
+		multidata = google.visualization.arrayToDataTable(fulldata.data.multi);
 
-		chart = new google.visualization.LineChart(this.$el.find('.statistic-container').get(0));
-        chart.draw(data, options);
+		singlechart = new google.visualization.LineChart(singlenetwork);
+        singlechart.draw(data, options);
 
-        this.fillinfo(this.settings.reports);
+        multichart = new google.visualization.LineChart(multiplenetwork);
+        multichart.draw(data, options);*/
+
+        var charts = this.charts;
+
+        for(n in charts){
+			charts[n].data.model = this.model;
+			view = new Cloudwalkers.Views.Widgets.Chart(this.charts[n].data);
+			this.parent.appendWidget(view, 6);
+		};
 	},
 
 	'fillinfo' : function(reports)
@@ -91,7 +115,7 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 		for (var i = 0; i < length; i++){
 			var streams = collection.place(i).get("streams");
 			$.each(streams, function(index, stream){
-						
+
 				if(stream.id == this.streamid){
 					fulldata.data.push([i, _.isObject(stream.contacts) ? stream.contacts.total : stream.contacts]);
 					return false;
