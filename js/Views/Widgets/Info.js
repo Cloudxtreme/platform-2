@@ -9,7 +9,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	},
 	
 	'initialize' : function (options)
-	{
+	{	
 		if(options) $.extend(this, options);
 
 		this.settings = {

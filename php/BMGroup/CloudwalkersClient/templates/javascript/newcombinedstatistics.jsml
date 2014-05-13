@@ -1,0 +1,54 @@
+<div class="portlet box {{network.icon}}-color">
+	<div class="portlet-title">
+		<div class="caption"><i class="icon-comments"></i>
+			<span class="statistic-title">{{title}}</span>
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn {{network.icon}}-color">
+					<i class="icon-file"></i>
+					Report: <span class="report-value"></span>
+					<i class="icon-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right black-icons">
+					{{#reports}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-report-id="{{uniqueid}}">
+								<i class="icon-file"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/reports}}
+				</ul>
+			</div>
+
+			<div class="btn-group">
+
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn {{network.icon}}-color">
+					<i class="icon-time"></i>
+					Interval: <span class="interval-value">Interval</span>
+					<i class="icon-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right black-icons">
+					{{#intervals}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-interval-id="{{token}}">
+								<i class="icon-time"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/intervals}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="portlet-body">
+		
+		<p class="statistic-description"></p>
+		<div class="statistic-container"></div>
+
+	</div>
+</div>

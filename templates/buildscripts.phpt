@@ -117,6 +117,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/NewCombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CalSummary.js"></script>

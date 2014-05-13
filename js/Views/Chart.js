@@ -17,7 +17,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"besttime" 	: "parsebesttime",
 		"cities"	: "parsecities",
 		"networks"	: "parsenetworks",
-		"activity"	: "parsecalendar"
+		"activity"	: "parsecalendar",
+		"evolution"	: "parseevolution"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],

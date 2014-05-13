@@ -32,9 +32,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Chart", data: {filterfunc: "networks", chart: "PieChart", title: "Countries", connect: 'regional'}, span: 3},
 		{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities", connect: 'regional'}, span: 3},
 		
-		{widget: "Chart", data: {filterfunc: "besttime", chart: "Line", title: "Best Time to Post"}, span: 6},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}
+		{widget: "Chart", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 6},
+		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
 		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", title: "Evolution chart"}, span: 12}
 		
 	],
 	
@@ -101,6 +102,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		for(n in this.widgets)
 		{
 			this.widgets[n].data.model = this.model;
+			this.widgets[n].data.parent = this;
 			this.widgets[n].data.visualization = google.visualization;
 			//pass regional data
 			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
