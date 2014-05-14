@@ -24,6 +24,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"messages"	: "parsemessages",
 		"activities"	: "parseactivities",
 		"impressions"	: "parseimpressions",
+
+		"allreports" : "parseallreports"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
@@ -70,7 +72,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	        };
 
 	       
-	        if(this.filterfunc == "evolution"){
+	        if(this.filterfunc == "evolution" || this.filterfunc == "allreports"){
 	        	options = fulldata.options;
 	        }
  			options.colors = fulldata.colors;
@@ -554,8 +556,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	///////////////////////
 	//Old charts demo stuff
 	'parseevolution' : function(collection, type){
-
-		var func = this.columns[this.type];
+		
+		var func = type ? this.columns[type] : this.columns[this.type];
 		var length = this.collection.length;
 		var network = this.network ? this.network : null;
 		var streams;
@@ -575,7 +577,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	    		'legend': { position: 'bottom'}
 				}
 			};
-
+			
 		for (var i = 0; i < length; i++){
 			streams = collection.place(i).get("streams");
 			dailyresult = this[func](null, streams, network);
@@ -607,7 +609,44 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	},
 
-	
+	'parseallreports' : function(collection){
+
+		var contacts = this.parseevolution(collection, "contacts").data;
+		var messages = this.parseevolution(collection, "messages").data;
+		var activities = this.parseevolution(collection, "activities").data;
+		var impressions = this.parseevolution(collection, "impressions").data;
+		var width = this.$el.find(".chart-container").get(0).clientWidth;
+		var fulldata = {
+			data : [],
+			colors : ["#E27927", "#9E1818", "#68114F", "#783E68", "#896C80"],
+			options : {
+				'chartArea': {'width': '90%', 'height': '90%'},
+		        'width': width,
+		        'height': width * 0.7,
+		        'legend':{textStyle:{fontSize:'13'}},
+		        'tooltip':{textStyle:{fontSize:'13'}},
+		        'curveType': 'function',
+	    		'legend': { position: 'bottom'}
+				}
+		};
+
+		contacts.shift();
+		messages.shift();
+		activities.shift();
+		impressions.shift();
+
+		$.each(contacts, function(index, value){
+			contacts[index].push(messages[index][1]);
+			contacts[index].push(activities[index][1]);
+			contacts[index].push(impressions[index][1]);
+		});
+
+		fulldata.data = contacts;
+
+		fulldata.data.unshift(["Day of the week", "Contacts", "Messages", "Activities", "Impressions"]);
+		
+		return fulldata;
+	},
 
 	/*'parsecalendar' : function(){
 		

@@ -56,7 +56,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"activities"}, span: 12},
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"impressions"}, span: 12}*/
 
-		{widget: "TopComment", data: {title: "Top rated comment"}, span: 12}
+		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook"}, span: 12},
+		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter"}, span: 12},
+		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube"}, span: 12},
+		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobilhe-phone"}, span: 12},
+
+		{widget: "TopComment", data: {title: "Top rated comment"}, span: 12},
+
 	],
 	
 	'initialize' : function(options)
