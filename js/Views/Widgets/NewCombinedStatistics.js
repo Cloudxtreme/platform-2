@@ -13,8 +13,8 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 	},
 	//Chart rendering stuff
 	'charts' : [ //Change network to dynamic <-
-		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", type: "activities", network: true}, span: 6},
-		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution", type: "activities"}, span: 6}
+		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", network: true}, span: 6},
+		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution"}, span: 6}
 	],
 
 	'initialize' : function (options)
@@ -60,7 +60,7 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
         for(n in charts){
 			charts[n].data.model = this.model;
 			if(charts[n].data.network)	charts[n].data.network = this.network;
-
+			charts[n].data.type = this.type;
 			view = new Cloudwalkers.Views.Widgets.Chart(this.charts[n].data);
 			this.parent.appendWidget(view, 6);
 		};

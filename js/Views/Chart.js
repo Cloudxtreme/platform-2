@@ -560,6 +560,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	},
 
+	
+
 	/*'parsecalendar' : function(){
 		
 		var statistics = this.collection;	

@@ -14,7 +14,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #subtract': 'subtractperiod',
 		'click #now': 'changespan',
 		'click #show': 'changecustom',
-		'change .stats-header select': 'changespan'
+		'change .stats-header select': 'changespan',
+		'click .dashboard-stat' : 'updatenetwork'
 	},
 	
 	'widgets' : [
@@ -35,8 +36,21 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Chart", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
 		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook"}, span: 12}
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"contacts"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"messages"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"activities"}, span: 12},
 		
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"contacts"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"messages"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"activities"}, span: 12},
+
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"contacts"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"messages"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"activities"}, span: 12},
+
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"contacts"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"messages"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"activities"}, span: 12}
 	],
 	
 	'initialize' : function(options)
@@ -192,5 +206,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'finish' : function()
 	{
+	},
+
+	'updatenetwork' : function(e){
+		var report = e.currentTarget.dataset.report;
+		console.log(report)
 	}
 });
