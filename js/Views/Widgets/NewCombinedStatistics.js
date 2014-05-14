@@ -4,12 +4,12 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 	'reports' : {
 		'facebook' : ['evolution', 'activity']
 	},
-
+	//Info rendering stuff
 	'funcs' : {
-		'evolution' : {data : {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
-		'activity' : {data : {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3}
+		'evolution' : {data : {title: "Fans Evolution", filterfunc: "contact-evolution"}, span: 3},
+		'activity' : {data : {title: "Activity evolution", filterfunc: "post-activity"}, span: 3}
 	},
-
+	//Chart rendering stuff
 	'charts' : [
 		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", network: "facebook"}, span: 6},
 		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution"}, span: 6}
@@ -39,34 +39,20 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 
 	'fill' : function()
 	{	
+		if(this.filled)	return true;
+
 		var data;
 		var width = this.$el.find("#singlenetwork").get(0).clientWidth;
 		var fulldata = this.parseevolution(this.collection);
 
         this.fillcharts(fulldata, width);
         this.fillinfo(this.settings.reports);
+
+        this.filled = true;	
 	},
 
 	'fillcharts' : function(fulldata, width)
 	{
-		/*var singlenetwork = this.$el.find('#singlenetwork').get(0);
-		var multiplenetwork = this.$el.find('#multiplenetwork').get(0);
-		var options = {
-			'chartArea': {'width': '80%', 'height': '60%'},
-            'width': width,
-            'height': width * 0.5,
-        };
-
-		$.extend(options, fulldata.options);
-		singledata = google.visualization.arrayToDataTable(fulldata.data.single);
-		multidata = google.visualization.arrayToDataTable(fulldata.data.multi);
-
-		singlechart = new google.visualization.LineChart(singlenetwork);
-        singlechart.draw(data, options);
-
-        multichart = new google.visualization.LineChart(multiplenetwork);
-        multichart.draw(data, options);*/
-
         var charts = this.charts;
 
         for(n in charts){

@@ -12,7 +12,6 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	pluck : function (keys, streamid, hassublevel)
 	{ 
 		var response = 0;
-		//if(!this.get("streams"))  return response; Commented to throw error
 
 		if(hassublevel) {
 			key = keys[0];
@@ -29,7 +28,18 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 			}
 
-			else if(streamid == stream.id)	response = stream[key];
+			else if(_.isNumber(streamid) && streamid == stream.id){	response = stream[key];}
+
+			else if(_.isString(streamid)){
+				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				if(network == streamid){
+
+					if(_.isNumber(stream[key][subkey]))	response+= Number(stream[key][subkey]);
+					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
+
+					console.log(network,stream.id, response);
+				}
+			}
 		});
 		
 		return response;

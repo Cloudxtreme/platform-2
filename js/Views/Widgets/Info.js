@@ -42,8 +42,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	'parseevolution' : function(){
 
 		// Get most recent stat
-		var statl = this.collection.latest().pluck("contacts");
-		var statf = this.collection.first().pluck("contacts");
+		var statl = this.collection.latest().pluck("contacts", "mobile-phone");
+		var statf = this.collection.first().pluck("contacts", "mobile-phone");
 		var total = statl - statf;
 
 		var description = "new contacts"
