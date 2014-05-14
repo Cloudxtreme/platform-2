@@ -1827,3 +1827,81 @@ Dashboard stats
 {
   text-align: left;
 }
+
+/* DEMO ONLY*/
+.commentballoon{ 
+	padding: 20px;	
+	width: 100%; 
+	color: #ffffff; 
+	position: relative; 
+	-webkit-box-sizing: border-box; 
+	padding-left: 100px; 
+	margin-bottom: 100px;
+}
+
+.commentballoon h5{	
+	margin-bottom: -5px; 
+}
+
+.commentballoon.facebook-color{	
+	background-color: #3b5998 
+}
+
+.commentballoon .network-icon{ 
+	width: 80px; 
+	background-color: rgba(0,0,0,.12); 
+	position: absolute; 
+	height: 100%; 
+	top: 0px; left: 0px;
+}
+
+.commentballoon table{
+	height: 100%; 
+	font-size: 65px; 
+	text-align: center;
+}
+
+.commentballoon table i{
+	margin-left: 25px;
+}
+
+.commentballoon:before{
+	content: "";
+	position: absolute;
+	bottom: -100px;
+	right: 0;
+	border-width: 0 0 100px 100px;
+	border-style: solid;
+	border-color: transparent #334E85;
+}
+
+.commentballoon:after{
+	content: "";
+	position: absolute;
+	bottom: -100px;
+	right: 60px;
+	border-width: 0 0 100px 40px;
+	border-style: solid;
+	border-color: transparent #fff;
+}
+
+.scoreballoon{
+	position: absolute;
+	top: -33px;
+	right: 50px;
+	height: 70px;
+	width: 70px;
+	border-radius: 40px;
+	text-align: center;
+	color: #AAA;
+	background-color: #333;
+	font-size: 14px;
+	border: 2px solid #fff;
+	-webkit-box-sizing: border-box; 
+	padding: 16px;
+}
+
+.scoreballoon p{
+	font-size: 12px;
+	line-height: 10px;
+}

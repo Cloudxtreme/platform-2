@@ -22,7 +22,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//Demo old charts
 		"evolution"	: "parseevolution",
 		"messages"	: "parsemessages",
-		"activities"	: "parseactivities"
+		"activities"	: "parseactivities",
+		"impressions"	: "parseimpressions",
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
@@ -225,6 +226,52 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
 
+		return fulldata;
+	},
+
+	parseimpressions : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var numimpressions = stream.getimpressions();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(numimpressions) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["impressions"] += numimpressions;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["impressions"] = numimpressions;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("impressions");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.impressions]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+		//console.log(fulldata);
 		return fulldata;
 	},
 

@@ -1,0 +1,20 @@
+<h3>{{title}}</h3>
+
+<div class="commentballoon facebook-color">
+	<h5>14 May 2014</h5>
+	<h3>Benfica wins UEFA cup!</h3>
+	<p>Suspendisse cursus sapien sit amet augue ultrices, hendrerit facilisis est tempor. Nulla eu aliquet orci. In hac habitasse platea dictumst. Aenean rutrum dictum tellus non mollis. Etiam elementum, leo at dignissim tempor, sem tellus sagittis est, eu varius justo quam quis metus.</p>
+
+	<div class="network-icon">
+		<table>
+			<tbody>
+				<tr><td><i class="icon-facebook"></i></td></tr>
+			</tbody>
+		</table>		
+	</div>
+
+	<div class="scoreballoon">
+		<b>856</b>
+		<p>likes</p>
+	</div>
+</div>
