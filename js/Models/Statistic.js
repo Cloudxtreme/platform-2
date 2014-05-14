@@ -20,7 +20,7 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 			key = keys;
 			subkey = "total";
 		} 
-
+		
 		$.each(this.get("streams"), function(i, stream)
 		{
 			if(!streamid){ //Object/int: structure
@@ -30,14 +30,13 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 
 			else if(_.isNumber(streamid) && streamid == stream.id){	response = stream[key];}
 
+			//ONLY FOR OLD CHART DEMO
 			else if(_.isString(streamid)){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
 
 					if(_.isNumber(stream[key][subkey]))	response+= Number(stream[key][subkey]);
 					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
-
-					console.log(network,stream.id, response);
 				}
 			}
 		});

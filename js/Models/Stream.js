@@ -78,6 +78,16 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		return _.isObject(this.get("contacts")) ? this.get("contacts").total : this.get("contacts");
 	},
 
+	'getmessages' : function(){
+
+		return _.isObject(this.get("messages")) ? this.get("messages").total : this.get("messages");
+	},
+
+	'getactivities' : function(){
+
+		return _.isObject(this.get("activities")) ? this.get("activities").total : this.get("activities");
+	},
+
 	'getbesttime' : function(){
 
 		if(_.isObject(this.get("messages").bestTimeToPost))

@@ -5,7 +5,13 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		"contact-evolution" : "parseevolution",
 		"post-activity" : "parsepostactivity",
 		"activity" : "parseactivity",
-		"page-views" : "parseviews"
+		"page-views" : "parseviews",
+
+		"contact-evolution-network" : "parseevolutionnetwork",
+		"post-activity-network" : "parsepostactivitynetwork",
+		"activity-network" : "parseactivitynetwork",
+		"page-views-network" : "parseviewsnetwork"
+
 	},
 	
 	'initialize' : function (options)
@@ -14,9 +20,9 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 		this.settings = {
 			title	: this.title,
-			network : {icon : "cloud"}	
+			network : this.icon ? {icon: this.icon} : {icon : "cloud"}	
 		};
-
+		console.log(this.settings.network);
 		this.collection = this.model.statistics;
 		
 		this.listenTo(this.collection, 'ready', this.fill);
@@ -42,8 +48,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	'parseevolution' : function(){
 
 		// Get most recent stat
-		var statl = this.collection.latest().pluck("contacts", "mobile-phone");
-		var statf = this.collection.first().pluck("contacts", "mobile-phone");
+		var statl = this.collection.latest().pluck("contacts");
+		var statf = this.collection.first().pluck("contacts");
 		var total = statl - statf;
 
 		var description = "new contacts"
@@ -83,6 +89,56 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		// Get most recent stat
 		var statl = this.collection.latest().pluck(["messages","impressions"], false, true);
 		var statf = this.collection.first().pluck(["messages","impressions"], false, true);
+		var total = statl - statf;
+
+		var description = "new impressions"
+
+		return [{content: total, descr : description}];
+	},
+
+	////////////////////////
+	//Demo stuff starts here
+	'parseevolutionnetwork' : function(){
+		
+		// Get most recent stat
+		var statl = this.collection.latest().pluck("contacts", this.network);
+		var statf = this.collection.first().pluck("contacts", this.network);
+		var total = statl - statf;
+
+		var description = this.title;
+
+		return [{content: total, descr : description}];
+	},
+
+	'parsepostactivitynetwork' : function(){
+
+		// Get most recent stat
+		var statl = this.collection.latest().pluck("messages", this.network);
+		var statf = this.collection.first().pluck("messages", this.network);
+		var total = statl - statf;
+
+		var description = "new messages"
+
+		return [{content: total, descr : description}];
+	},
+
+	'parseactivitynetwork' : function(){
+
+		// Get most recent stat
+		var statl = this.collection.latest().pluck("activities", this.network);
+		var statf = this.collection.first().pluck("activities", this.network);
+		var total = statl - statf;
+
+		var description = "new activities"
+
+		return [{content: total, descr : description}];
+	},
+
+	'parseviewsnetwork' : function(){
+
+		// Get most recent stat
+		var statl = this.collection.latest().pluck(["messages","impressions"], this.network, true);
+		var statf = this.collection.first().pluck(["messages","impressions"], this.network, true);
 		var total = statl - statf;
 
 		var description = "new impressions"

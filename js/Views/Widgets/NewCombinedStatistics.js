@@ -2,17 +2,19 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 
 	'streamid': 216,
 	'reports' : {
-		'facebook' : ['evolution', 'activity']
+		'facebook' : ['fans', 'posts', 'activity', 'impressions']
 	},
 	//Info rendering stuff
 	'funcs' : {
-		'evolution' : {data : {title: "Fans Evolution", filterfunc: "contact-evolution"}, span: 3},
-		'activity' : {data : {title: "Activity evolution", filterfunc: "post-activity"}, span: 3}
+		'fans' : {data : {title: "Fans Evolution", filterfunc: "contact-evolution-network"}, span: 3},
+		'posts' : {data : {title: "Posts Evolution", filterfunc: "post-activity-network"}, span: 3},
+		'activity' : {data : {title: "Activity Evolution", filterfunc: "activity-network"}, span: 3},
+		'impressions' : {data : {title: "Impressions evolution", filterfunc: "page-views-network"}, span: 3}
 	},
 	//Chart rendering stuff
-	'charts' : [
-		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", network: "facebook"}, span: 6},
-		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution"}, span: 6}
+	'charts' : [ //Change network to dynamic <-
+		{data : {title: "Single network chart", chart: 'LineChart', filterfunc: "evolution", type: "activities", network: true}, span: 6},
+		{data : {title: "Multiple network chart", chart: 'LineChart', filterfunc: "evolution", type: "activities"}, span: 6}
 	],
 
 	'initialize' : function (options)
@@ -43,20 +45,22 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 
 		var data;
 		var width = this.$el.find("#singlenetwork").get(0).clientWidth;
-		var fulldata = this.parseevolution(this.collection);
-
-        this.fillcharts(fulldata, width);
+		
+		//Render data
+        this.fillcharts();
         this.fillinfo(this.settings.reports);
 
         this.filled = true;	
 	},
 
-	'fillcharts' : function(fulldata, width)
-	{
+	'fillcharts' : function()
+	{	//Fills charts & adds them to DOM
         var charts = this.charts;
 
         for(n in charts){
 			charts[n].data.model = this.model;
+			if(charts[n].data.network)	charts[n].data.network = this.network;
+
 			view = new Cloudwalkers.Views.Widgets.Chart(this.charts[n].data);
 			this.parent.appendWidget(view, 6);
 		};
@@ -69,6 +73,8 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 
 		for(n in reports){
 			this.funcs[reports[n]].data.model = this.model;
+			this.funcs[reports[n]].data.network = this.network;
+			this.funcs[reports[n]].data.icon = this.icon;
 			view = new Cloudwalkers.Views.Widgets.Info(this.funcs[reports[n]].data);
 			this.parent.appendWidget(view, 3);
 		};
@@ -83,36 +89,6 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 		context.network = network;
 		
 		return context;
-	},
-
-	'parseevolution' : function(collection)
-	{
-		var length = collection.length;
-		var fulldata = {
-			data : [],
-			options : {
-				color : ["#2bbedc"],
-				curveType: 'function',
-   				legend: { position: 'bottom' }
-			}
-		};
-
-		//Get the contacts from the collection
-		for (var i = 0; i < length; i++){
-			var streams = collection.place(i).get("streams");
-			$.each(streams, function(index, stream){
-
-				if(stream.id == this.streamid){
-					fulldata.data.push([i, _.isObject(stream.contacts) ? stream.contacts.total : stream.contacts]);
-					return false;
-				}
-			}.bind(this));
-		}
-	
-		fulldata.data.unshift(["Evolution", "Number of fans"]);
-		
-		return fulldata;
-		
 	},
 
 	'negotiateFunctionalities' : function()

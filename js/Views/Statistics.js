@@ -35,7 +35,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "Chart", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
 		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart"}, span: 12}
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook"}, span: 12}
 		
 	],
 	

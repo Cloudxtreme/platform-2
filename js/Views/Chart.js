@@ -18,7 +18,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"cities"	: "parsecities",
 		"networks"	: "parsenetworks",
 		"activity"	: "parsecalendar",
-		"evolution"	: "parseevolution"
+
+		//Demo old charts
+		"evolution"	: "parseevolution",
+		"messages"	: "parsemessages",
+		"activities"	: "parseactivities"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
@@ -64,7 +68,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	            'tooltip':{textStyle:{fontSize:'13'}}
 	        };
 
-	        options.colors = fulldata.colors;
+	       
+	        if(this.filterfunc == "evolution"){
+	        	options = fulldata.options;
+	        }
+ 			options.colors = fulldata.colors;
 
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 
@@ -117,6 +125,100 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//Apply name & colors
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+
+		return fulldata;
+	},
+
+	//Demo onld charts
+	parsemessages : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var nummessages = stream.getmessages();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(nummessages) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["messages"] += nummessages;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["messages"] = nummessages;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("messages");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.messages]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+
+		return fulldata;
+	},
+
+
+	parseactivities : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var numactivities = stream.getactivities();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(numactivities) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["activities"] += numactivities;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["activities"] = numactivities;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("activities");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.activities]);
 			fulldata.colors.push(network.getcolor());
 		});
 
@@ -402,21 +504,34 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return data;
 	},
 
-	'parseevolution' : function(collection){
+	///////////////////////
+	//Old charts demo stuff
+	'parseevolution' : function(collection, type){
 
+		var func = this.columns[this.type];
 		var length = this.collection.length;
 		var network = this.network ? this.network : null;
 		var streams;
 		var legend = ["Day of the week"];
 		var data = {};
+		var width = this.$el.find(".chart-container").get(0).clientWidth;
 		var fulldata = {
 			data : [],
-			colors : []
-		};
+			colors : [],
+			options : {
+				'chartArea': {'width': '90%', 'height': '70%'},
+		        'width': width,
+		        'height': width * 0.7,
+		        'legend':{textStyle:{fontSize:'13'}},
+		        'tooltip':{textStyle:{fontSize:'13'}},
+		        'curveType': 'function',
+	    		'legend': { position: 'bottom'}
+				}
+			};
 
 		for (var i = 0; i < length; i++){
 			streams = collection.place(i).get("streams");
-			dailyresult = this.parsecontacts(null, streams, network);
+			dailyresult = this[func](null, streams, network);
 			
 			_.map(dailyresult.data, function(token){
 				if(!data[token[0]])
