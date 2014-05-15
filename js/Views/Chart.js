@@ -368,24 +368,25 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			
 			if(_.isObject(stream["contacts"].geo)){
 				var countries = stream["contacts"].geo["countries"];
+
 				if(_.size(grouped) == 0){						//is empty, shove the countries inside
-					$.each(countries, function(key, value){
-						grouped[value.name] = value;
-						grouped[value.name]["networks"] = [];
-						grouped[value.name]["networks"][network] = {total: value.total, token: token};
+					$.each(countries, function(key, country){
+						grouped[country.name] = country;
+						grouped[country.name]["networks"] = [];
+						grouped[country.name]["networks"][network] = {total: country.total, token: token};
 					});
 				}else{
-					$.each(countries, function(key, value){		//Is not empty
-						if(!grouped[value.name]){				//Country doesnt exit there, shove it inside
-							grouped[value.name] = value;			
-							grouped[value.name]["networks"] = [];
-							grouped[value.name]["networks"][network] = {total: value.total, token: token};
+					$.each(countries, function(key, country){		//Is not empty
+						if(!grouped[country.name]){				//Country doesnt exit there, shove it inside
+							grouped[country.name] = country;			
+							grouped[country.name]["networks"] = [];
+							grouped[country.name]["networks"][network] = {total: country.total, token: token};
 						}else{					
-							grouped[value.name].total += value.total;
-							if(grouped[value.name]["networks"][network])
-								grouped[value.name]["networks"][network].total += value.total;
+							grouped[country.name].total += country.total;
+							if(grouped[country.name]["networks"][network])
+								grouped[country.name]["networks"][network].total += country.total;
 							else
-								grouped[value.name]["networks"][network] = {total: value.total, token: token};
+								grouped[country.name]["networks"][network] = {total: country.total, token: token};
 						}	
 					});
 				}
@@ -441,21 +442,23 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var cities, size = 6;
 		var countries = this.connect.regional;
 		var fulldata;
+		var cities = {};
 
 		//In case something goes wrong
 		if(!countries)	countries = parseregional(collection);
 		
-		cities = countries[0].cities;
-
-		$.each(cities, function(key, value){
-			cities[key] = {name: key, value: value};
+		countrycities = countries[0].cities;
+		
+		$.each(countrycities, function(index, city){
+			cities[city.name] = {name: city.name, value: city.total};
 		});
-
+		
 		//Sort the cities
 		cities = _(cities).sortBy(function(city) {
+			console.log(city);
 			return city.value;
 		});
-
+		
 		fulldata = this.getbiggestdata(cities,size);
 		fulldata.data.unshift(["Cities", "Number of contacts"]);
 
@@ -662,7 +665,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'parsegeo' : function(collection)
 	{
 		var fulldata = this.parseregional(collection);
-
+		console.log(fulldata.data);
 		return fulldata;
 	},
 

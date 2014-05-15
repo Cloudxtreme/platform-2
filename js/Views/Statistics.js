@@ -202,12 +202,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if(span) this.timespan = span;
 	
 		if (this.timespan == "now") {	this.period = 0; }
-		if (this.timespan == "week") {	this.start = moment().startOf('week');	this.end = moment().endOf('week'); }
-		if (this.timespan == "month") {	this.start = moment().startOf('month');	this.end = moment().endOf('month'); }
-		if (this.timespan == "year") {	this.start = moment().startOf('year');	this.end = moment().endOf('year'); }
+		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
+		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');	this.end = moment().zone(0).endOf('month'); }
+		if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');	this.end = moment().zone(0).endOf('year'); }
 
 		if (this.timespan == "quarter")
-		{
+		{	//Still not updated with .zone(0)
 			var months = (this.period + moment().quarter()) *3;
 			this.start = moment().startOf('year').add('months', months -3);
 			this.end = moment().startOf('year').add('months', months -1).endOf('month');
@@ -227,6 +227,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'updatenetwork' : function(e){
 		var report = e.currentTarget.dataset.report;
-		console.log(report)
+		
 	}
 });
