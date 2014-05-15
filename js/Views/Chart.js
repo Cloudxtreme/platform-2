@@ -25,6 +25,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"activities"	: "parseactivities",
 		"impressions"	: "parseimpressions",
 
+		"geo" : "parsegeo",
+
 		"allreports" : "parseallreports"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
@@ -646,6 +648,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		fulldata.data.unshift(["Day of the week", "Contacts", "Messages", "Activities", "Impressions"]);
 		
 		return fulldata;
+	},
+
+	'parsegeo' : function(collection)
+	{
+		var fulldata = this.parseregional(collection);
+
+		return fulldata;
+
 	},
 
 	/*'parsecalendar' : function(){
