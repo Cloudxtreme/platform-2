@@ -360,7 +360,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var grouped = {};
 		var streams = collection.latest().get("streams");
-
+		
 		// Groups & sums by country
 		$.each(streams, function(k, stream){
 			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
@@ -455,7 +455,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		//Sort the cities
 		cities = _(cities).sortBy(function(city) {
-			console.log(city);
 			return city.value;
 		});
 		
@@ -532,7 +531,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			maxvalue = 0,
 		 	dailyvalue = 0,
 		 	fill,
-		 	max;
+		 	max,
+		 	time;
 
 		collection.forEach(function(statistic){
 			var streams = statistic.get("streams");
@@ -540,14 +540,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			streams.forEach(function(stream){
 				stream 	= new Cloudwalkers.Models.Stream(stream);
 				besttime = stream.getbesttime();
-
+				
 				if(besttime){
 					if(daily.length == 0){
 						daily = _.values(besttime);
 					}else{
-						for(i in besttime){
+						for(i in besttime){							
 							daily[i] += besttime[i];
-
+	
 							//Keep track of the highest week & daily value
 							if(daily[i]>maxvalue)	maxvalue=daily[i];
 							if(daily[i]>dailyvalue)	dailyvalue=daily[i];
@@ -555,7 +555,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 					}
 				}
 			});
-
+			
 			time = daily.indexOf(Math.max.apply(Math,_.values(daily)));
 			data.push({day: days.shift(), value: dailyvalue, time: time});
 
@@ -563,7 +563,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		data["maxvalue"] = maxvalue;
-
+		
 		return data;
 	},
 
@@ -585,10 +585,19 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				'chartArea': {'width': '90%', 'height': '70%'},
 		        'width': width,
 		        'height': width * 0.7,
-		        'legend':{textStyle:{fontSize:'13'}},
+		        'legend':{textStyle:{fontSize:'11'}},
 		        'tooltip':{textStyle:{fontSize:'13'}},
 		        'curveType': 'function',
-	    		'legend': { position: 'bottom'}
+	    		'legend': { position: 'bottom'},
+	    		'hAxis': { ticks: [
+	    			{v:0, f:"Mon"}, 
+	    			{v:1, f:"Tue"},
+	    			{v:2, f:"Wed"},
+	    			{v:3, f:"Thu"},
+	    			{v:4, f:"Fri"},
+	    			{v:5, f:"Sat"},
+	    			{v:6, f:"Sun"}
+	    		] }
 				}
 			};
 			
@@ -618,7 +627,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			legend.push(d);
 		}
 		fulldata.data.unshift(legend);
-		
+		console.log(fulldata.data);
 		return fulldata;
 
 	},
@@ -665,7 +674,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'parsegeo' : function(collection)
 	{
 		var fulldata = this.parseregional(collection);
-		console.log(fulldata.data);
 		return fulldata;
 	},
 
