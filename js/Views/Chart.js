@@ -360,7 +360,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var grouped = {};
 		var streams = collection.latest().get("streams");
-		
+
 		// Groups & sums by country
 		$.each(streams, function(k, stream){
 			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
@@ -627,7 +627,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			legend.push(d);
 		}
 		fulldata.data.unshift(legend);
-		console.log(fulldata.data);
+		
 		return fulldata;
 
 	},
