@@ -73,6 +73,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	            'tooltip':{textStyle:{fontSize:'13'}}
 	        };
 
+	        var geooptions = {
+	        	displayMode: 'markers',
+       			colorAxis: {colors: ['#E27927', '#91828D']} 
+	        }
+
+	        if(this.filterfunc == "geo")
+	        	if(this.type == "dots")
+	        		$.extend(options, geooptions);
+
 	       
 	        if(this.filterfunc == "evolution" || this.filterfunc == "allreports"){
 	        	options = fulldata.options;
@@ -655,7 +664,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var fulldata = this.parseregional(collection);
 
 		return fulldata;
-
 	},
 
 	/*'parsecalendar' : function(){

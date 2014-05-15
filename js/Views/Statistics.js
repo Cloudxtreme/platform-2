@@ -62,6 +62,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobilhe-phone"}, span: 12},
 
 		{widget: "Chart", data: {filterfunc: "geo", chart: "GeoChart", title: "Countries"}, span: 12},
+		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries"}, span: 12},
 
 		{widget: "TopComment", data: {title: "Top rated comment"}, span: 12}
 
