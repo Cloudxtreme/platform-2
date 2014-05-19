@@ -9,7 +9,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		
 		// Child contacts (temp hack, should be channel level only)
 		this.contacts = new Cloudwalkers.Collections.Contacts();
-		
+	
 		// Has reports?
 		if(this.get("statistics"))
 		{
@@ -19,6 +19,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		
 		// Listen to outdates
 		this.on("outdated", this.update);
+
 	},
 	
 	'outdated' : function ()
@@ -74,32 +75,81 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	},
 
 	'getcontacts' : function(){
-
 		return _.isObject(this.get("contacts")) ? this.get("contacts").total : this.get("contacts");
 	},
 
-	'getmessages' : function(){
+	'getnotifications' : function(){
+		return _.isObject(this.get("notifications")) ? this.get("notifications").total : this.get("notifications");
+	},
 
+	'getmessages' : function(){
 		return _.isObject(this.get("messages")) ? this.get("messages").total : this.get("messages");
 	},
 
 	'getactivities' : function(){
-
 		return _.isObject(this.get("activities")) ? this.get("activities").total : this.get("activities");
 	},
 
 	'getimpressions' : function(){
 
-		var messages = _.isObject(this.get("messages")) ? this.get("messages") : null;
-		
+		if(this.impressions)	return this.impressions;
+
+		var messages = _.isObject(this.get("messages")) ? this.get("messages") : null;		
 		if(messages && messages.impressions)	return messages.impressions
 		else									return 0;
 	},
 
-	'getbesttime' : function(){
+	'getfollowers' : function(){
 
+		if(_.isObject(this.get("contacts"))){
+			if(_.isObject(this.get("contacts").types)){
+				return this.get("contacts").types.followers;
+			}else{ 
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	},
+
+	'getfollowing' : function(){
+
+		if(_.isObject(this.get("contacts"))){
+			if(_.isObject(this.get("contacts").types)){
+				return this.get("contacts").types.following;
+			}else{ 
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	},
+
+	'getbesttime' : function(){
 		if(_.isObject(this.get("messages").besttimetopost))
 			return this.get("messages").besttimetopost;
-	}
+	},
 
+	'getnetwork' : function(){
+		return this.get("network");
+	},
+
+
+	// Get/increment attributes dinamically to help in statistics
+
+	'getattribute' : function(attribute){
+		var attr = "get"+attribute;
+		return this[attr]();
+	},
+
+	'incrementattr' : function(attribute, n){
+		var attr = this.get(attribute);
+		
+		if(_.isObject(attr))		attr.total += n;
+		else						attr += n;
+		
+		this.set(attribute, attr);
+
+		return this;
+	},
 });

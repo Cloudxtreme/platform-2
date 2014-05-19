@@ -38,18 +38,19 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"contacts"}, span: 12},
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"messages"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"activities"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"impressions"}, span: 12},
+		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"activities"}, span: 12},
+		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"impressions"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"notifications", renderinfos: true}, span: 12},
 		
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"contacts"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"followers"}, span: 12},
+		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"following"}, span: 12},
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"messages"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"activities"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"impressions"}, span: 12},
+		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"mentions"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"notifications", renderinfos: true}, span: 12},
 
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"contacts"}, span: 12},
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"messages"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"activities"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"impressions"}, span: 12},
+		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"notifications", renderinfos: true}, span: 12},
 
 		/*{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"contacts"}, span: 12},
 		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"messages"}, span: 12},

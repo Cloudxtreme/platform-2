@@ -16,6 +16,9 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 		if(hassublevel) {
 			key = keys[0];
 			subkey = keys[1];
+			if(hassublevel>2){
+				subsubkey = keys[2];
+			}
 		}else{
 			key = keys;
 			subkey = "total";
@@ -30,18 +33,30 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 
 			else if(_.isNumber(streamid) && streamid == stream.id){	response = stream[key];}
 
-			//ONLY FOR OLD CHART DEMO
-			else if(_.isString(streamid)){
+			//ONLY FOR OLD CHART DEMO -- if streamid is a token
+			else if(_.isString(streamid) && (hassublevel <=2 || !hassublevel)){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
 
-					if(_.isNumber(stream[key][subkey]))	response+= Number(stream[key][subkey]);
+					if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
+				}
+			}
+
+			else if(_.isString(streamid) && hassublevel > 2){
+				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				if(network == streamid){
+
+					if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
 				}
 			}
 		});
 		
 		return response;
+	},
+
+	'pluckbynetwork' : function(){
+
 	},
 	
 	all : function (key)

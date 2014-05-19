@@ -37,7 +37,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	},
 	
 	'distantAdd' : function(model)
-	{
+	{	
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
@@ -95,6 +95,10 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 		}
 
 		return list;
+	},
+
+	'parsecontacts' : function(){
+		console.log(this);
 	},
 	
 	/*'seed' : function(ids)

@@ -1,3 +1,4 @@
+<div class="clearfix"></div>
 <h3>{{title}}</h3>
 <h6>{{subtitle}}</h6>
 <div class="row-fluid">

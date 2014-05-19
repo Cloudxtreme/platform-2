@@ -24,6 +24,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"messages"	: "parsemessages",
 		"activities"	: "parseactivities",
 		"impressions"	: "parseimpressions",
+		"notifications"	: "parsenotifications",
+		"followers"	: "parsefollowers",
+		"following"	: "parsefollowing",
 
 		"geo" : "parsegeo",
 
@@ -285,6 +288,144 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
 		//console.log(fulldata);
+		return fulldata;
+	},
+
+	parsenotifications : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var numnotifications = stream.getnotifications();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(numnotifications) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["notifications"] += numnotifications;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["notifications"] = numnotifications;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("notifications");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.notifications]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+		//console.log(fulldata);
+		return fulldata;
+	},
+
+	parsefollowers : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var numfollowers = stream.getfollowers();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(numfollowers) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["followers"] += numfollowers;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["followers"] = numfollowers;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("followers");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.followers]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+		
+		return fulldata;
+	},
+
+	parsefollowing : function(collection, statistic, token){
+		
+		var networks = {};
+		var streams;
+		var colors = [];
+		var fulldata = {
+			data : [], 
+			colors : []
+		};
+		
+		if(!statistic)	streams = collection.latest().get("streams");
+		else			streams = statistic;
+		
+		$.each(streams, function(index, stream){
+			var stream = new Cloudwalkers.Models.Stream(stream);
+			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var numfollowing = stream.getfollowing();
+			
+			if(token && network.gettoken() != token)
+				return true;
+
+			if(_.isNumber(numfollowing) && _.has(networks, network.gettoken())){
+				networks[network.gettoken()]["following"] += numfollowing;
+			}				
+			else{
+				networks[network.gettoken()] = network;
+				networks[network.gettoken()]["following"] = numfollowing;
+			}
+		});
+		
+		networks = _.sortBy(networks, function(network){
+			return network.get("following");
+		});
+		
+		//Apply name & colors
+		$.each(networks, function(index, network){
+			fulldata.data.push([network.gettitle(), network.following]);
+			fulldata.colors.push(network.getcolor());
+		});
+
+		if(!token && !statistic)
+			fulldata.data.unshift(["Network", "Number of contacts"]);
+		
 		return fulldata;
 	},
 
@@ -636,8 +777,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var contacts = this.parseevolution(collection, "contacts").data;
 		var messages = this.parseevolution(collection, "messages").data;
-		var activities = this.parseevolution(collection, "activities").data;
-		var impressions = this.parseevolution(collection, "impressions").data;
+		var notifications = this.parseevolution(collection, "notifications").data;
+		//var impressions = this.parseevolution(collection, "impressions").data;
 		var width = this.$el.find(".chart-container").get(0).clientWidth;
 		var fulldata = {
 			data : [],
@@ -655,18 +796,18 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		contacts.shift();
 		messages.shift();
-		activities.shift();
-		impressions.shift();
+		notifications.shift();
+		//impressions.shift();
 
 		$.each(contacts, function(index, value){
 			contacts[index].push(messages[index][1]);
-			contacts[index].push(activities[index][1]);
-			contacts[index].push(impressions[index][1]);
+			contacts[index].push(notifications[index][1]);
+			//contacts[index].push(impressions[index][1]);
 		});
 
 		fulldata.data = contacts;
 
-		fulldata.data.unshift(["Day of the week", "Contacts", "Messages", "Activities", "Impressions"]);
+		fulldata.data.unshift(["Day of the week", "Contacts", "Messages", "Notifications"]);
 		
 		return fulldata;
 	},
