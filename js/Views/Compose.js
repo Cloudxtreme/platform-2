@@ -133,13 +133,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var params =
 		{
 			// Aside
-			streams:	this.streams.models,
+			streams:	this.getAvailableStreams(),
 			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
 		};
-		
+		console.log(this.getAvailableStreams());
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
@@ -1346,7 +1346,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 
 	
-	/*'getAvailableStreams' : function ()
+	'getAvailableStreams' : function ()
 	{
 		//var streams = Cloudwalkers.Session.getStreams ();
         var channel = Cloudwalkers.Session.getChannel("internal");
@@ -1370,12 +1370,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					}
 				}
 
-				return out;
+				return out.models;
 			}
 		}
 
-		return streams;
-	},*/
+		return streams.models;
+	},
 	
 	
 	'setDraft' : function ()

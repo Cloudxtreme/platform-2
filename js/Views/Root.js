@@ -96,6 +96,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		// Parameters
 		var content = view.render().el;
+		
 		var params = {title: view.title, actions: view.actions};
 		
 		// View
@@ -131,10 +132,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		});
 	},
 	
-	'compose' : function ()
+	'compose' : function (options)
 	{
 		// Create Compose view
-		var view = new Cloudwalkers.Views.Compose({type: "post"});
+		if(options)		options.type = "post";
+		else			var options = {type: "post"};
+		
+		var view = new Cloudwalkers.Views.Compose(options);
 		
 		view.render().$el.modal();
 	},
@@ -175,8 +179,20 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		}
 
 		else
-		{
-			this.popup
+			{
+			this.compose
+				(
+					{
+						'model' : model.clone (),
+						'clone' : clone,
+						'actionparameters' : parameters,
+						'redirect' : false,
+						'type' : "post"
+					}
+				);
+		}
+		/*{
+			this.popup_new
 				(
 					new Cloudwalkers.Views.Write
 					(
@@ -184,11 +200,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 							'model' : model.clone (),
 							'clone' : clone,
 							'actionparameters' : parameters,
-							'redirect' : false
+							'redirect' : false,
+							'type' : "post"
 						}
 					)
 				);
-		}
+		}*/
 	},
 
 	'shareMessage' : function (model)
