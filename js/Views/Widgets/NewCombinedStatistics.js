@@ -93,7 +93,7 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 			view = new Cloudwalkers.Views.Widgets.Info(this.funcs[reports[n]].data);
 			this.parent.appendWidget(view, 3);
 		};
-		this.parent.appendhtml('<div class="clearfix"></div>');
+		this.parent.appendWidget(null, 0);
 	},
 
 	'getstreamcontext' : function(streamid)
