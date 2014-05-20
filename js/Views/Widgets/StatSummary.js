@@ -97,7 +97,11 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		 	return s.id == id; 
 		});
 
-		var messages = _.isNumber(stream[0].messages) ? stream[0].messages : stream[0]["messages"];
+		if(stream.length)
+			var messages = _.isNumber(stream[0].messages) ? stream[0].messages : stream[0]["messages"];
+		else
+			messages = 0
+
 		return messages;
 	}
 });
