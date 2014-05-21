@@ -285,7 +285,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			// Attachments
 			data.sortedattachments = {};
-
+			console.log(this.model);
 			if (this.model.get ('attachments'))
 			{
 				for (var i = 0; i < this.model.get ('attachments').length; i ++)

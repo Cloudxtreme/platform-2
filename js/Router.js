@@ -84,7 +84,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'write' : function ()
 	{
-		var view = new Cloudwalkers.Views.Write ();
+		if(options)		options.type = "post";
+		else			var options = {type: "post"};
+		
+		var view = new Cloudwalkers.Views.Compose(options);
+		//var view = new Cloudwalkers.Views.Write ();
 		Cloudwalkers.RootView.setView (view);
 	},
 	

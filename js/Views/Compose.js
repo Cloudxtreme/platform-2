@@ -145,7 +145,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var content = this.getContent();
 
 		this.$el.html (view);
-		
+		console.log(this.draft);
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
@@ -168,10 +168,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var content = "";
 
 		if(this.model && !this.options.actionparameters)
-			content = this.model.attributes.body.html;
+			content = this.model.get("body").html;
 
 		if(this.options.actionparameters){
-			var username = this.model.attributes.from[0].username;
+			var username = this.model.get("from")[0].username;
 			var content = Mustache.render(this.options.actionparameters[0].value, { 'from' : { 'name' : username }});
 		}
 		

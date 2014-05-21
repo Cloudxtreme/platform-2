@@ -147,12 +147,20 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		e.preventDefault ();
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
-		this.setView (new Cloudwalkers.Views.Write ({ 'redirect' : false }));
+		if(options)		options.type = "post";
+		else			var options = {type: "post"};
+
+		options.redirect = false;
+		
+		var view = new Cloudwalkers.Views.Compose(options);
+		this.setView(view);
+		//this.setView (new Cloudwalkers.Views.Write ({ 'redirect' : false }));
 	},
 
 	'editMessage' : function (model)
 	{
-		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
+		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
+		this.compose({'model' : model.clone(), 'redirect' : false});
 		
 		
 		//this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
@@ -165,7 +173,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		if (action.token == 'edit')
 		{
-			this.popup
+			this.compose({'model' : model.clone(), 'clone' : false, 'redirect' : false});
+			/*this.popup
 			(
 				new Cloudwalkers.Views.Write
 				(
@@ -175,22 +184,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 						'redirect': false
 					}
 				)
-			);
+			);*/
 		}
 
 		else
 			//Switch between old and new module
 			{ 
-			this.compose
-				(
-					{
-						'model' : model.clone (),
-						'clone' : clone,
-						'actionparameters' : parameters,
-						'redirect' : false,
-						'type' : "post"
-					}
-				);
+			this.compose({'model' : model.clone (), 'clone' : clone, 'actionparameters' : parameters, 'redirect' : false, 'type' : "post"});
 		}
 		/*{
 			this.popup_new
@@ -212,7 +212,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'shareMessage' : function (model)
 	{
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true }));
-		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
+		this.compose({'model' : model.clone(), 'clone' : true, 'redirect' : false});
+		//this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
 	},
 
 	
