@@ -50,7 +50,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
 		if(token == 'contacts') Cloudwalkers.Router.Instance.navigate("#coworkers", true);
-		if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
+		if(token == 'post') Cloudwalkers.RootView.compose();
+		//if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
 		//this.model.trigger("action", token);
 	},
 	
