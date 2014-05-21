@@ -881,6 +881,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				}
 			}
 		}
+	},
+
+	'hasattachements' : function(){
+		return this.get("attachments").length > 0;
+	},
+
+	'hasschedule' : function(){
+		return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
+	},
+
+	'hasbody' : function(){
+		return Object.getOwnPropertyNames(this.get("body")).length > 0;
 	}
 });
 

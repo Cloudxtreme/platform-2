@@ -142,15 +142,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
-		var content = this.getContent();
-
+		var draft = this.preparedraft(this.draft);
 		this.$el.html (view);
-		console.log(this.draft);
+		
 		// Append Editor
-		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
+		this.editor = new Cloudwalkers.Views.Editor({draft: draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
-		this.editor.setdefaultcontent(content);
+		//this.editor.setdefaultcontent(content);
 		
 		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addembedimage);
@@ -163,7 +162,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
-	'getContent' : function()
+	'preparedraft' : function(draft)
+	{
+		if(!draft.hasattachements())
+			draft.set("attachments", this.getattachements());
+
+		if(!draft.hasschedule())
+			draft.set("schedule", this.getschedule());
+
+		draft.body = this.getcontent()
+
+		return draft;
+	},
+
+	'getcontent' : function()
 	{
 		var content = "";
 
@@ -176,6 +188,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		return content;
+	},
+
+	'getattachements' : function()
+	{
+
+	},
+
+	'getschedule' : function()
+	{
+
 	},
 	
 	'monitor' : function (e)
