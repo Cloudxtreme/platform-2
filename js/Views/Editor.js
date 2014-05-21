@@ -39,7 +39,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 
 	/*
-	*
+	* listentochange()		: Triggers the whole process when the content is changed	
+	* setdefaultcontent()	: Simple way to add content from outside the view (compose)	
 	* filterurl() 			: Monitors the content for url input & renders it's content
 	* getcursorposition() 	: Gets the cursor position
 	* setcursorposition() 	: Sets the cursor position
@@ -123,6 +124,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 
 		if(!this.lastcontent)	this.lastcontent = currentcontent;
+	},
+
+	'setdefaultcontent' : function(content){
+		this.contentcontainer.html(content);
+		this.listentochange();
 	},
 
 	'filterurl' : function(){

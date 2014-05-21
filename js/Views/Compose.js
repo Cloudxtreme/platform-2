@@ -139,14 +139,18 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
 		};
-		console.log(this.getAvailableStreams());
+		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
+		var content = this.getContent();
+
 		this.$el.html (view);
 		
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
+
+		this.editor.setdefaultcontent(content);
 		
 		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addembedimage);
@@ -157,6 +161,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".campaign-list").chosen({width: "50%"});
 		
 		return this;
+	},
+
+	'getContent' : function()
+	{
+		var content = "";
+
+		if(this.model && !this.options.actionparameters)
+			content = this.model.attributes.body.html;
+
+		if(this.options.actionparameters){
+			var username = this.model.attributes.from[0].username;
+			var content = Mustache.render(this.options.actionparameters[0].value, { 'from' : { 'name' : username }});
+		}
+		
+		return content;
 	},
 	
 	'monitor' : function (e)

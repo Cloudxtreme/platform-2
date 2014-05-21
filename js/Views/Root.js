@@ -180,7 +180,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		else
 			//Switch between old and new module
-			/*{ 
+			{ 
 			this.compose
 				(
 					{
@@ -191,8 +191,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 						'type' : "post"
 					}
 				);
-		}*/
-		{
+		}
+		/*{
 			this.popup_new
 				(
 					new Cloudwalkers.Views.Write
@@ -206,7 +206,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 						}
 					)
 				);
-		}
+		}*/
 	},
 
 	'shareMessage' : function (model)
