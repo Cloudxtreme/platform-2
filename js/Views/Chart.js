@@ -42,6 +42,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
+		
 	},
 
 	'render' : function ()
@@ -333,7 +334,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
-		//console.log(fulldata);
+		
 		return fulldata;
 	},
 
@@ -445,7 +446,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return age.title;
 		});
 
+		if(data.length == 0)
+			return this.emptychartdata();
+
 		fulldata.data = data;
+		
 		fulldata.colors = colors;
 		fulldata.data.unshift(["Age interval", "Number of contacts"]);
 
@@ -484,6 +489,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data.push([this.capitalize(key), value]);
 		}.bind(this));
 		
+		if(data.length == 0)
+			return this.emptychartdata();
+
 		fulldata.data = data;
 		fulldata.colors = colors;
 
@@ -501,7 +509,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var grouped = {};
 		var streams = collection.latest().get("streams");
-
+		
 		// Groups & sums by country
 		$.each(streams, function(k, stream){
 			var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
@@ -544,7 +552,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
-
+		
 		var colors = this.colors;
 		var data = [];
 		var fulldata = [];
@@ -554,9 +562,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		fulldata.data = [];
 		fulldata.colors = colors;
 		this.regional = [];
-		
+
 		// We don't care about grouping "others"
-		if(!size)	size=grouped.length;
+		if(!size || size > grouped.length)	size=grouped.length;
+
+		//There is no country data
+		if(size == 0)
+			return this.emptychartdata();
 
 		// Gets n biggest values (or all of them)
 		while(counter < size){
@@ -565,8 +577,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			this.regional.push(country);
 			counter++;
 		}
-		
-		fulldata.data.unshift(["Countries", "Number of contacts"]);
 
 		// If we are grouping, calculate the "Others"
 		var total = _.reduce(grouped, function(memo, num){
@@ -575,21 +585,24 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		fulldata.data.push(["Others", total]);
 		
+		fulldata.data.unshift(["Countries", "Number of contacts"]);
+		
 		return fulldata;
 	},
 
 	parsecities : function(collection){
 
 		var cities, size = 6;
-		var countries = this.connect.regional;
+		var countries = this.connect.regional ? this.connect.regional : parseregional(collection);;
 		var fulldata;
 		var cities = {};
 
 		//In case something goes wrong
-		if(!countries)	countries = parseregional(collection);
-		
+		if(countries.length == 0)
+			return this.emptychartdata();
+
 		countrycities = countries[0].cities;
-		
+	
 		$.each(countrycities, function(index, city){
 			cities[city.name] = {name: city.name, value: city.total};
 		});
@@ -600,6 +613,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 		
 		fulldata = this.getbiggestdata(cities,size);
+		
+		
 		fulldata.data.unshift(["Cities", "Number of contacts"]);
 
 		return fulldata;
@@ -608,15 +623,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsenetworks : function(collection){
 
 		var data = [];
-		var countries = this.connect.regional;
+		var countries = this.connect.regional ? this.connect.regional : parseregional(collection);
 		var fulldata = {
 			data : [], 
 			colors : []
 		};
 		
-		//In case something goes wrong
-		if(!countries)	countries = parseregional(collection);
-		
+		//There is no country data
+		if(countries.length == 0)
+			return this.emptychartdata();
+
 		//Replace title
 		this.$el.find("h3").html(countries[0].name);
 
@@ -847,16 +863,18 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return fulldata;
 	},
 
-	
-	'emptychartdata' : function (charttype){
+	*/
+	'emptychartdata' : function (){
 
-		if(charttype == 'Doughnut' || charttype == 'Pie' || charttype == "PolarArea"){
-			data = [{'value' : 1, 'color' : "#eeeeee", 'title' : "No data"}];
-		} else {
-			data = 	{ labels : [], datasets : [{title: "No data"}] };
-		}
-		return data;
-	},*/
+		var fulldata = {
+			data : [["No results", 1]],
+			colors : ["#e5e5e5"]
+		};
+
+		fulldata.data.unshift(["Results", "Number"]);
+		
+		return fulldata;
+	},
 	
 	'negotiateFunctionalities' : function()
 	{
