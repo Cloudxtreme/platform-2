@@ -1,5 +1,33 @@
 Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
+	'title' : 'Demo',
+	
+	'initialize' : function (options)
+	{
+
+		if(options) $.extend(this, options);
+
+	},
+	
+	'render' : function()
+	{
+
+		// Build Pageview
+		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
+		
+		// Widgets parent
+		this.$container = this.$el.find("#widgetcontainer").eq(0);
+		
+		this.appendhtml("<h3>Demo</h3>");
+		
+		return this;
+	}	
+});
+
+/*
+// RUI Demo:
+Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
+
 	'title' : 'Inbox',
 	'className' : "container-fluid inbox",
 	
@@ -55,3 +83,4 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 	}
 	
 });
+*/
