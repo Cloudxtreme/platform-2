@@ -48,7 +48,9 @@
 				<input type="text" value="" placeholder="keyword name" id="keyword_manage_name" name="name" class="m-wrap span12" />
 				<br><br>
 				
-				<label>Filters:</label>
+				<labl>Fine-tune</labl>
+				<input type="text" value="" placeholder="Fine-tune formula" id="keyword_manage_formula" name="name" class="m-wrap span12" />
+				<!--<label>Filters:</label>
 				<div class="keyword-edit-filters">
 					<span class=''>
 						<button class="btn span6" data-keyword-filter="filter-include">Include</button>
@@ -85,7 +87,7 @@
 						{{/filteroptions.countries}}
 						</select>
 					</div>
-				</div>
+				</div>-->
 				
 				<button class="btn blue add-keyword">Create</button>
 				<button class="btn blue update-keyword edit-keyword inactive">Update</button>

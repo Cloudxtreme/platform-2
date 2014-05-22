@@ -48,8 +48,6 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var object = {name: $("#category_create_name").val()};
 		
 		this.channel.channels.create(object, {parent: this.channel.id, wait: true});
-		
-		//this.channel.post(object, this.forceChange)
 
 		this.$el.find(".addcategory .icon-cloud-upload").show();
 	},
@@ -65,8 +63,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
-		category.channels.create(this.keywordParameters(), {parent: catid, wait: true});//, this.forceChange);
-		//Cloudwalkers.Session.getAccount().channels.create(object, {parent: this.id, wait: true
+		category.channels.create(this.keywordParameters(), {parent: catid, wait: true});
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
@@ -99,7 +96,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 		
-		this.editing.save(this.keywordParameters());//, {success: this.forceChange});
+		this.editing.save(this.keywordParameters());
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
