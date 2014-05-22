@@ -18,7 +18,7 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		// Widgets parent
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
-		//this.appendhtml("Demo");
+		this.appendhtml("<h3>Demo</h3>");
 		
 		return this;
 	}	
