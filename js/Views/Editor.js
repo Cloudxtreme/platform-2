@@ -77,7 +77,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates.editor, data));
 		this.contentcontainer = this.$el.find('#compose-content');
 
-		this.setdefaultcontent(this.draft.body);
+		if(this.draft.get("body").html != "")
+			this.setdefaultcontent(this.draft.get("body").html);
 
 		//Inits the network as default
 		this.network = 'default';
