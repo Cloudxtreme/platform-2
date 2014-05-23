@@ -8,10 +8,10 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	{
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
-		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'write', redirect: false},
+		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
 		
 		// Hack!
-		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":"@{{from.name}} "}]},
+		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
 		'dm' : {name: "DM", icon: 'comments-alt', token: 'dm', type: 'dialog', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
@@ -66,6 +66,36 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		// Triggered action
 		var action = this.templates[token];
 
+		// Toggle
+		if (action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+		
+		// Confirm modal
+		if (action.type == 'confirm')
+		{
+			this[token] (this.parent);
+			return;
+		}
+		
+		// Call Compose modal
+		else if (action.type == 'edit')	var params = {model: this.parent};
+		else							var params = {reference: this.parent, action: action} 
+		
+		Cloudwalkers.RootView.compose(params);
+
+		return;
+
+	},
+	
+	'delete' : function (model)
+	{
+		model.deleteMessage ();
+	},
+	
+/*	'startaction' : function (token)
+	{
+		// Triggered action
+		var action = this.templates[token];
+
 		// BRAND NEW WAY!
 		if (action.type == 'confirm')
 		{
@@ -92,41 +122,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 
 		return;
 
-		// Activate action
-		/*
-		if (action.type == 'write')
-		{
-			action.model = this.parent;
-			Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write (action));
-		}
-		else if (action.type == 'dialog')
-		{
-			action.model = this.parent; 
-			//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write (action));
-			
-		}
-		else if (action.type == 'confirm')
-		{
-			this[token] (this.parent);
-		}
-		else if (action.type == 'options')
-		{
-			// Create Action
-			var like = this.create(action);
-			
-			// Toggle
-			if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]); 
-			
-			// Notify action (temp)
-			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
-		}
-		*/
-	},
+	},*/
 	
-	'delete' : function (model)
-	{
-		model.deleteMessage ();
-	},
+	
 	
 	'like' : function ()
 	{

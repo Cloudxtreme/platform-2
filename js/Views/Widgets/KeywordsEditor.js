@@ -104,18 +104,20 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	'keywordParameters' : function()
 	{
 		var object = {name: $("#keyword_manage_name").val(), settings: {}};
-
-		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
-		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 		
-		if (object.settings.include && object.settings.include.length)
-			for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
+		if ($("#filter_formula").val()) object.settings.formula = $("#filter_formula").val();
+		
+		//if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
+		//if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
+		
+		//if (object.settings.include && object.settings.include.length)
+		//	for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
 			
-		if (object.settings.exclude && object.settings.exclude.length)
-			for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
+		//if (object.settings.exclude && object.settings.exclude.length)
+		//	for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
 		
-		object.settings.languages = $("#filter_languages").val();
-		object.settings.countries = $("#filter_countries").val();
+		//object.settings.languages = $("#filter_languages").val();
+		//object.settings.countries = $("#filter_countries").val();
 		
 		return object;
 	},

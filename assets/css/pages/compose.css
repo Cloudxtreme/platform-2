@@ -301,6 +301,10 @@ Style corrections and manual overrides
 
 #compose .schedule-entry.inactive label:before	{ color: #ccc; }
 
+#compose .schedule-entry .input-symbol:before	{ 
+	width: 20px; font-size: 12px; line-height: 2.8em; height: 30px;
+}
+
 #compose .schedule-entry select,
 #compose .schedule-entry .btn-white,
 #compose .schedule-entry div.input-symbol	{
