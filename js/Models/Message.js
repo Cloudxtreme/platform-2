@@ -156,8 +156,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 	
 	'attach' : function (attach, index)
-	{
-		var attachments = this.get("attachments");
+	{	
+		var attachments = this.get("attachments") || [];
 		
 		var response = (index && attachments[index])?	$.extend(attachments[index], attach) :
 														attachments.push(attach);
@@ -169,7 +169,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'unattach' : function (index)
 	{
-		var attachments = this.get("attachments");
+		var attachments = this.get("attachments") || [];
 		
 		// Remove attachment
 		attachments.splice(index, 1);
@@ -183,18 +183,38 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		//Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
 	},
 	
-	'addvariation' : function(id)
-	{
+	'addvariation' : function(id, key, value)
+	{	
+		if(!this.get("variations"))
+			this.set("variations", []);
+
 		var variations = this.get("variations");
 		var length = variations.push({stream: id, body: {}});
 		
 		return variations[length-1];
+
+		/*var variations = this.get("variations") || [];
+		var variation = variations.filter(function(el){ if(el.stream == id) return el; });*/
 	},
 	
-	'variation' : function (id, key, value)
-	{
+	'variation' : function (id, key)
+	{	
 		// Get variation object
-		var input = this.get("variations").filter(function(el){ if(el.stream == id) return el; });
+/*
+		var variations = this.get("variations") || []
+		var variation = _.findWhere(variations, {'id': id});
+		var attribute;
+
+		if(variation && variation.key)	attribute = variation.key;
+		else									return;
+
+*/
+
+
+
+
+		var variation = this.get("variations") || [];
+		var input = variation.filter(function(el){ if(el.stream == id) return el; });
 		
 		if (input.length) input = input[0];
 		else if(value || typeof key == 'object') input = this.addvariation(id);
@@ -884,11 +904,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	'hasattachements' : function(){
-		return this.get("attachments").length > 0;
+		if(this.get("attachments"))
+			return this.get("attachments").length > 0;
 	},
 
 	'hasschedule' : function(){
-		return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
+		if(this.get("schedule"))
+			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
 	},
 
 	'hascontent' : function(){

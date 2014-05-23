@@ -67,6 +67,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click #save' : 'save',
 		'click #post' : 'post',
 
+		'remove': 'destroy',
+
 		/*'keyup #info' : 'showembed'*/
 	},
 	
@@ -126,7 +128,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
-		
 	},
 
 	'render' : function ()
@@ -165,8 +166,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'updatedraft' : function(draft)
 	{
-		if(draft.hasattachements())
-			this.updateattachements();
+		this.updatesubcontent();
 
 		if(draft.hasschedule())
 			this.updateschedule();
@@ -202,9 +202,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return body;
 	},
 
-	'updateattachements' : function()
-	{
-		this.summarizeimages();
+	'updatesubcontent' : function(){
+
+		//If there are any stream data (means they were toggled), tooglesubcontent on the first one 		
+		//If there aren't any, it means none was toggled so, no stream togglesubcontent without stream data
+		//How does togglesubcontent work?
+		/*
+			
+		*/
+		//Only do this if we have no streams
+		this.summarizeimages(true);
 		this.summarizelink();
 	},
 
@@ -223,7 +230,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitor' : function (e)
-	{
+	{	
 		// Stream
 		var streamid = this.activestream? this.activestream.id: false;
 		var input = {body: {}};
@@ -235,7 +242,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Body (will be extended with a shadow body)
 		//var val = this.$el.find("[data-option=fullbody] textarea").val();
 		var val = this.$el.find("[data-option=fullbody] #compose-content").text();
-		var body = this.draft.variation(streamid, "body");
+		var body = this.draft.getvariation(streamid, "body");
 		
 		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
 		
@@ -303,7 +310,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var id = $btn.data("streams");
 		
 		var stream = Cloudwalkers.Session.getStream(id);
-		var streamids = this.draft.get("streams");
+		var streamids = this.draft.get("streams") || [];
 		
 		// Switch buttons and tabs
 		if(!$btn.hasClass("active"))
@@ -325,7 +332,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				activediv.addClass('active');
 				
 				// Toggle subcontents
-				this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
+				//this.togglesubcontent(activeid? Cloudwalkers.Session.getStream(activeid): false);
 
 				// Trigger update (necessary?)
 				this.trigger("update:streams", streamids);
@@ -439,7 +446,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//if(visible && collapsable.hasClass("collapsed")) this.summarizeimages();
 	},
 	
-	'summarizeimages' : function()
+	'summarizeimages' : function(hasdefaults)
 	{
 		// Load thumbnail Summary
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
@@ -447,8 +454,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.draft.get("attachments").forEach(function(attachment)
 		{
 			if (attachment.type == "image"){
-				this.addembedimage(attachment.url);
-			}			
+				var image = attachment.data || attachment.url;
+				$("<li></li>").prependTo(summary).css('background-image', "url(" + image + ")");
+
+				if(hasdefaults)
+					this.addembedimage(image, hasdefaults);
+			}
 		}.bind(this));
 
 	},
@@ -475,8 +486,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					var snapshot = $("<li></li>").prependTo("ul.pictures-container").attr("data-filename", file.name).addClass('images-thumb').css('background-image', "url(" + e.target.result + ")");
 					
 					// Add to draft
-					if(!self.hasdefaults)
-						draft.attach({type: 'image', data: e.target.result, name: file.name});
+					//if(!self.hasdefaults)
+					draft.attach({type: 'image', data: e.target.result, name: file.name});
 
 			}})(f);
 			
@@ -484,7 +495,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 	},
 
-	'addembedimage' : function(url){
+	'addembedimage' : function(url, hasdefaults){
 		
 		var draft = this.draft;
 		var picturescontainer = this.$el.find("ul.pictures-container");
@@ -494,7 +505,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var snapshot = $("<li></li>").prependTo(picturescontainer).attr("data-filename", 'image').addClass('images-thumb').css('background-image', "url(" + url + ")");
 		
 		// Add to draft
-		if(!this.hasdefaults)
+		if(!hasdefaults)
 			draft.attach({type: 'image', data: url, name: 'image'});
 		
 	},
@@ -1013,7 +1024,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'save' : function()
 	{
-		console.log(this.draft);
 		// Prevent empty patch
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
@@ -2190,5 +2200,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
             else
                 Cloudwalkers.RootView.alert (data.error.message);
         });
+    },
+
+    'destroy' : function(){
+    	//console.log("THIS IS SO FRUSTRATING!");
     }
 });
