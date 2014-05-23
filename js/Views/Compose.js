@@ -117,17 +117,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.model){
 			this.draft = this.model;
+			this.hasdefaults = true;
 		}// Draft message
 		else if(!this.draft)
 		{
 			// The draft message
 			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
-			this.isdraft = true;
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
-
 		}
-
+		
 	},
 
 	'render' : function ()
@@ -145,7 +144,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
 
-		if(!this.isdraft)
+		if(this.hasdefaults)
 			var draft = this.updatedraft(this.draft);
 		else
 			var draft = this.draft;
@@ -205,16 +204,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'updateattachements' : function()
 	{
-		var attachments = this.model.get("attachments");
-		var groupedattachs;
-
-		groupedattach =_.groupBy(attachments, function(attachment){
-			return attachment.type;
-		});
-
-		this.updateimages(groupedattach);
-
-		return groupedattachs;
+		this.summarizeimages();
+		this.summarizelink();
 	},
 
 	'updateschedule' : function()
@@ -223,23 +214,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return schedule;
 	},
 
-	'updateimages' : function(attachments){
-		
-		if(attachments.image && attachments.image.length > 0){
-			$.each(attachments.image, function(i, image){
-				this.addembedimage(image.url);
-			}.bind(this));
-		}
-	},
-
 	'updatestreams' : function(streams){
 		
 		$.each(streams, function(i, stream){
 			var streambtn = this.$el.find('li[data-streams='+stream.id+']');
 			streambtn.toggleClass("inactive active");
 		}.bind(this));
-
-
 	},
 	
 	'monitor' : function (e)
@@ -466,9 +446,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.draft.get("attachments").forEach(function(attachment)
 		{
-			if (attachment.type == "image")
-				$("<li></li>").prependTo(summary).css('background-image', "url(" + attachment.data + ")");
-		});
+			if (attachment.type == "image"){
+				this.addembedimage(attachment.url);
+			}			
+		}.bind(this));
+
 	},
 	
 	'addfile' : function (e) { $("[data-collapsable=images] input").click() },
@@ -511,7 +493,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var snapshot = $("<li></li>").prependTo(picturescontainer).attr("data-filename", 'image').addClass('images-thumb').css('background-image', "url(" + url + ")");
 		
 		// Add to draft
-		draft.attach({type: 'image', data: url, name: 'image'});
+		if(!this.hasdefaults)
+			draft.attach({type: 'image', data: url, name: 'image'});
 		
 	},
 	
@@ -544,8 +527,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var image = $(e.currentTarget).remove();
 		var attachs = this.draft.get("attachments");
-		
-		console.log(image, image.data("filename"));
 		
 		for (n in attachs)
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")) attachs.splice(n,1);
@@ -1031,6 +1012,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'save' : function()
 	{
+		console.log(this.draft);
 		// Prevent empty patch
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
