@@ -460,7 +460,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Find and iterate the file
 		var files = e.target.files;
 		var draft = this.draft;
-		
+		var self = this;
 		for (var i = 0, f; f = files[i]; i++)
 		{
 			// Check type
@@ -475,8 +475,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					var snapshot = $("<li></li>").prependTo("ul.pictures-container").attr("data-filename", file.name).addClass('images-thumb').css('background-image', "url(" + e.target.result + ")");
 					
 					// Add to draft
-					draft.attach({type: 'image', data: e.target.result, name: file.name});
-					
+					if(!self.hasdefaults)
+						draft.attach({type: 'image', data: e.target.result, name: file.name});
+
 			}})(f);
 			
 			reader.readAsDataURL(f);
