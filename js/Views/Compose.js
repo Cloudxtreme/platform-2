@@ -115,31 +115,27 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 		
-		
-		
-		
-		// Draft message
-		if(!this.draft)
+		if(this.model){
+			this.draft = this.model;
+		}// Draft message
+		else if(!this.draft)
 		{
 			// The draft message
 			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
-			
+			this.isdraft = true;
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
 
 		}
-		
-		// if(we need action data) var actions = new Cloudwalkers.Models.Actions({parent: [this.draft or original message id]})
+
 	},
 
 	'render' : function ()
 	{
 		// Collect data
-		var params =
-		{
+		var params ={
 			// Aside
-			streams:	this.getAvailableStreams(),
-			
+			streams:	this.getAvailableStreams(),			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
@@ -147,19 +143,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
-		var draft = this.preparedraft(this.draft);
 		this.$el.html (view);
+
+		if(!this.isdraft)
+			var draft = this.updatedraft(this.draft);
+		else
+			var draft = this.draft;
 		
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
-		//this.editor.setdefaultcontent(content);
-		
 		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addembedimage);
 		this.listenTo(this.editor, "contentadded", this.monitor);
-
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
@@ -167,41 +164,81 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
-	'preparedraft' : function(draft)
+	'updatedraft' : function(draft)
 	{
-		if(!draft.hasattachements())
-			draft.set("attachments", this.getattachements());
+		if(draft.hasattachements())
+			this.updateattachements();
 
-		if(!draft.hasschedule())
-			draft.set("schedule", this.getschedule());
+		if(draft.hasschedule())
+			this.updateschedule();
 
-		draft.body = this.getcontent()
+		if(draft.get("streams"))
+			this.updatestreams(draft.get("streams"));
+
+		if(draft.hascontent())
+			draft.attributes.body = this.getcontent();
 
 		return draft;
 	},
 
 	'getcontent' : function()
-	{
-		var content = "";
+	{	
+		var body = {
+			html:"",
+			intro: "",
+			plaintext: ""
+		};
 
 		if(this.model && !this.options.actionparameters)
-			content = this.model.get("body").html;
+			body = this.model.get("body");
 
 		if(this.options.actionparameters){
 			var username = this.model.get("from")[0].username;
 			var content = Mustache.render(this.options.actionparameters[0].value, { 'from' : { 'name' : username }});
+			body.html = content;
+			body.plaintext = content;
+			body.intro = content;
 		}
 		
-		return content;
+		return body;
 	},
 
-	'getattachements' : function()
+	'updateattachements' : function()
 	{
+		var attachments = this.model.get("attachments");
+		var groupedattachs;
 
+		groupedattach =_.groupBy(attachments, function(attachment){
+			return attachment.type;
+		});
+
+		this.updateimages(groupedattach);
+
+		return groupedattachs;
 	},
 
-	'getschedule' : function()
+	'updateschedule' : function()
 	{
+		var schedule = {};
+		return schedule;
+	},
+
+	'updateimages' : function(attachments){
+		
+		if(attachments.image && attachments.image.length > 0){
+			$.each(attachments.image, function(i, image){
+				this.addembedimage(image.url);
+			}.bind(this));
+		}
+	},
+
+	'updatestreams' : function(streams){
+		
+		$.each(streams, function(i, stream){
+			var streambtn = this.$el.find('li[data-streams='+stream.id+']');
+			streambtn.toggleClass("inactive active");
+		}.bind(this));
+
 
 	},
 	
@@ -465,14 +502,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	'addembedimage' : function(url){
-
+		
 		var draft = this.draft;
+		var picturescontainer = this.$el.find("ul.pictures-container");
 		this.$el.find('[data-collapsable="images"]').removeClass('collapsed');
+		
 		// Add to view
-		var snapshot = $("<li></li>").prependTo("ul.pictures-container").attr("data-filename", 'image').addClass('images-thumb').css('background-image', "url(" + url + ")");
-					
+		var snapshot = $("<li></li>").prependTo(picturescontainer).attr("data-filename", 'image').addClass('images-thumb').css('background-image', "url(" + url + ")");
+		
 		// Add to draft
 		draft.attach({type: 'image', data: url, name: 'image'});
+		
 	},
 	
 	'addsnapshot' : function (e)
