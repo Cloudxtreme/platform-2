@@ -223,13 +223,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 					attachments.push(value);
 				}else{
 					var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
-					link[0].url = value.url;
+					if(link.length > 0)	link[0].url = value.url;
+					else				attachments.push(value);
 				}
 			}else{
 				variation[key] = value;
 			}	
 		}
-		console.log(this.get("variations"));
 	},
 	
 	'getvariation' : function (stream, key)

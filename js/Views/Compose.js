@@ -61,7 +61,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
-		'click #post' : 'post'
+		'click #post' : 'post',
 
 		'remove': 'destroy',
 
@@ -125,8 +125,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Parameters
 		if(options) $.extend(this, options);
-		
-		console.log(options)
 		
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
@@ -250,7 +248,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
 		var collapsable = $btn.parent().toggleClass("collapsed");
-		console.log("toggle");
 		
 		//if(collapsable.hasClass("collapsed")) this["summarize" + option]();
 	},
@@ -631,7 +628,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var linkinput = this.$el.find("[data-collapsable=link] input");
 		var link;
 
-		if(streamid && this.draft.getvariation(streamid,'link')){
+		if(streamid && this.draft.getvariation(streamid,'link').length > 0){
 			//There is a link in the variation
 			link = this.draft.getvariation(streamid, 'link');
 			link = link[0].url;
