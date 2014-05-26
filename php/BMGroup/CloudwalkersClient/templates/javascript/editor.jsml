@@ -1,5 +1,5 @@
 <div class="input-symbol" data-option="fullbody">
-	<section contenteditable="true" id="compose-content">
+	<section contenteditable="true" id="compose-content" data-option="body">
 	
 	</section>
 	<div class='limit-counter' data-option="limit">{{maxchars}}</div>

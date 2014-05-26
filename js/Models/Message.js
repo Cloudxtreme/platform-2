@@ -2,6 +2,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'typestring' : "messages",
 
+	/*
+	*
+	* setvariation() 	: Update exiting or generate new variation
+	* getvartiation()	: Get some variation data
+	* removevarimg()	: Removes an image from a variation
+	*
+	*/
+
 	'initialize' : function ()
 	{			
 		// Deprecated?
@@ -183,55 +191,57 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		//Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
 	},
 	
-	'addvariation' : function(id, key, value)
+	/*Variation functions*/
+
+	'setvariation' : function(id, key, value)
 	{	
-		if(!this.get("variations"))
-			this.set("variations", []);
+		var variations = this.get("variations") || [];
+		var variation = variations.filter(function(el){ if(el.id == id) return el; });
 
-		var variations = this.get("variations");
-		var length = variations.push({stream: id, body: {}});
-		
-		return variations[length-1];
+		if(variation.length == 0)	//Add new variation
+		{ 	
+			variation = {'id' : id};
 
-		/*var variations = this.get("variations") || [];
-		var variation = variations.filter(function(el){ if(el.stream == id) return el; });*/
+			if(key == 'images')	variation[key] = [value]		
+			else				variation[key] = value;
+
+			variations.push(variation);
+		}
+		else						//Update variation
+		{	
+			if(key == 'images' && !variation[0][key])
+				variation[0][key] = [value]
+			else if(key == 'images' && variation[0][key])
+				variation[0][key].push(value); 
+			else
+				variation[0][key] = value;
+		}
+
 	},
 	
-	'variation' : function (id, key)
+	'getvariation' : function (id, key)
 	{	
 		// Get variation object
-/*
 		var variations = this.get("variations") || []
 		var variation = _.findWhere(variations, {'id': id});
-		var attribute;
-
-		if(variation && variation.key)	attribute = variation.key;
-		else									return;
-
-*/
-
-
-
-
-		var variation = this.get("variations") || [];
-		var input = variation.filter(function(el){ if(el.stream == id) return el; });
 		
-		if (input.length) input = input[0];
-		else if(value || typeof key == 'object') input = this.addvariation(id);
-		
-		//Return full attrributes
-		if(!value && !key) return input;
-
-		// Return value	
-		if (!value && typeof key != 'object')  return input[key];
-		
-		// Or set value(s)
-		else 
-		{
-			if(value) input[key] = value;
-			else if(typeof key == 'object') $.extend(true, input, key);
-		}		
+		if(variation && variation[key])	return variation[key];
+		else if(variation && !key)		return variation;
+		else							return;
 	},
+
+	'removevarimg' : function(id, name){
+
+		var images = this.getvariation(id, 'images');
+		for(n in images){
+			if(images[n].name == name)
+				images.splice(n,1);
+		}
+
+		
+	},
+
+	/* End variation functions */
 	
 	/*'filterData' : function (type, data)
 	{	

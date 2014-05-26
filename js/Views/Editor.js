@@ -39,6 +39,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 
 	/*
+	*
 	* listentochange()		: Triggers the whole process when the content is changed	
 	* setdefaultcontent()	: Simple way to add content from outside the view (compose)	
 	* filterurl() 			: Monitors the content for url input & renders it's content
@@ -138,7 +139,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		// ARE YOU KIDDING ME?!
 		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
-
+		var self = this;
 		var content = this.contentcontainer.html();
 		var url = content.match(url_pattern);
 
@@ -171,7 +172,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
 						this.def.done(function(){
 							$('#out').addClass('expanded');
-							this.updatecontainer();
+							self.updatecontainer();
 						});
 					});
 	            }
@@ -333,25 +334,24 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.updatecontainer();
 	},
 
-	'togglecontent' : function(data){
-		
+	'togglecontent' : function(data)
+	{
 		if(data){
-			var stream = _.isObject(data) ? data.stream : data;
-			var val = data.body ? data.body.html : null;
-			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token: false;
+			var stream = _.isNumber(data) ? data : null;
+			var val = _.isObject(data) ? data.html : null;
+			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token : null;
 		}
 
 		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
-		if(network && !val){	//Tab with the default's text
+		if(network && !val){	//Tab with the default's text 
 			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
 			this.updatecounter(this.restrictedstreams[this.network] - this.contentcontainer.text().length);
-		}else if(!data){		//Tab without any specific content
+		}else if(!data){		//Tab without any specific content (on default tab)
 			this.contentcontainer.empty().html(this.draft.get("body").html);
 			this.updatecontainer();
 		}else{					//Tab with specific content
-			if(!val) val.html = "";
-
+			if(!val) val = "";
 			this.contentcontainer.empty().html(val);
 			this.updatecontainer();
 		}
@@ -376,7 +376,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'addoeimg' : function(e){
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
-		this.trigger("imageadded", imgurl);
+		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
 	}
 
 	
