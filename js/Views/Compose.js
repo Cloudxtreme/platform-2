@@ -141,6 +141,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
+
+
 	},
 
 	'render' : function ()
@@ -325,7 +327,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
+	{ 	console.log(this);
 		this.activestream = stream;
 		
 		// Get the right network
@@ -389,7 +391,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.trigger("update:stream", this.draft.getvariation(id, 'body') || id);
 		this.updatesubject();
 		this.updateimages();
-		//this.summarizelink();
 		this.updatelink();
 	},
 
@@ -628,7 +629,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var linkinput = this.$el.find("[data-collapsable=link] input");
 		var link;
 
-		if(streamid && this.draft.getvariation(streamid,'link').length > 0){
+		if(streamid && this.draft.getvariation(streamid,'link')){
 			//There is a link in the variation
 			link = this.draft.getvariation(streamid, 'link');
 			link = link[0].url;

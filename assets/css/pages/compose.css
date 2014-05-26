@@ -114,7 +114,7 @@ Style corrections and manual overrides
 #compose [data-option=limit]	{
 	float: right; margin-top: 0px;
 	color: #ccc; font-size: 16px;
-	margin: 5px 0px 20px 0px;
+	margin: 5px 0px 5px 0px;
 }
 
 #compose [data-option=limit].hidden	{ float: none; }
@@ -128,6 +128,8 @@ Style corrections and manual overrides
 	font-family: FontAwesome; font-size: 14px; color: white; line-height: 6.2em; text-align: center;
 	content: "\F0C2"; -webkit-font-smoothing: antialiased; height: 98%;
 }
+
+#compose [data-option=subject]:before { line-height: 2.5em; height:30px; }
 
 #compose .twitter-theme .input-symbol:before	{ content: "\F099"; background-color: #f0f0f0; color: #777; box-shadow: inset 0 3px 0 #e6e6e6; }
 #compose .facebook-theme .input-symbol:before	{ content: "\F09A"; background-color: #f0f0f0; color: #777; box-shadow: inset 0 3px 0 #e6e6e6; }
@@ -541,7 +543,7 @@ Style corrections and manual overrides
 	color: #999;
 	text-shadow: 0 1px white;
 	padding: 0px 11%; 
-	margin: 5px -11% 12px;
+	margin: 35px -11% 12px;
 	max-height: 0px;
 	-webkit-transition: all .15s ease-out;
 	overflow: hidden;

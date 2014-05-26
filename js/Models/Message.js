@@ -243,8 +243,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				return variation.attachments.filter(function(el){ if(el.type == key) return el; });		
 		}else if(variation && variation[key]){
 			return variation[key];
-		}else if(variation && !key){
-			return variation;
+		/*}else if(variation && !key){
+			return variation;*/
 		}else{
 			return ;
 		}	
