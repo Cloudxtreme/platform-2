@@ -120,7 +120,7 @@
 				</div>
 				
 				<div class="schedule-entry inactive clearfix" data-set="in">
-					<label for="delay-select" class="icon-circle-blank">In</label>
+					<label class="icon-circle-blank">In</label>
 					
 					<select id="delay-select">
 						<option selected="selected" value="600">10min</option>
@@ -140,7 +140,7 @@
 				</div>
 				
 				<div class="schedule-entry inactive clearfix" data-set="on">
-					<label for="delay-date" class="icon-circle-blank">On</label>
+					<label class="icon-circle-blank">On</label>
 					
 					<div class="input-symbol" data-option="schedule-start-date">
 						<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
@@ -166,19 +166,19 @@
 				
 				<div class="schedule-entry inactive single-toggle" data-set="every">
 				
-					<label for="repeat-interval" class="icon-circle-blank">every</label>
+					<label class="icon-circle-blank">every</label>
 					<div class="input-symbol number-input" data-option="schedule-start-date">
-						<input id="repeat-interval" type="number" value="1" min="0" /> 
+						<input id="repeat-interval" type="number" value="0" min="0" /> 
 					</div>
 				
-					<select id="every-select-single" class="hide-if-empty">
+					<select id="every-select-single" class="hidden hide-if-empty">
 						<option value="1">hour</option>
 						<option value="24">day</label>
 						<option value="168" selected>week</label>
 						<option value="720">month</label>
 					</select>
 					
-					<select id="every-select" class="hidden hide-if-empty">
+					<select id="every-select" class="hide-if-empty">
 						<option value="1">hours</option>
 						<option value="24">days</label>
 						<option value="168" selected>weeks</label>
@@ -201,17 +201,17 @@
 				
 				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
 					
-					<label for="repeat-amount" class="icon-circle-blank">Repeat</label>
+					<label class="icon-circle-blank">Repeat</label>
 					<div class="input-symbol number-input" data-option="schedule-start-date">
 						<input id="repeat-amount" type="number" value="0" min="0" />
 					</div>
-					<label for="repeat-amount">times</label>
+					<label>times</label>
 
 				</div>
 				
 				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
 					
-					<label for="repeat-until" class="icon-circle-blank">Until</label>
+					<label class="icon-circle-blank">Until</label>
 					<div class="input-symbol" data-option="schedule-start-date">				
 						<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
 					</div>
