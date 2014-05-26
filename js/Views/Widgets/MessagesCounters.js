@@ -14,6 +14,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 	
 	'initialize' : function(options)
 	{
+	
 		 if(!options.color) this.options.color = this.color;
 		
 		// The list source is either the streams or subchannels

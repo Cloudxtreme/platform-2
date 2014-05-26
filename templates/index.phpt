@@ -26,10 +26,10 @@
 		<!-- BEGIN PAGE LEVEL STYLES --> 
 		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
-		<!--<link href="<?php echo BASE_URL; ?>assets/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>-->
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" media="screen"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-
+		<link href="<?php echo BASE_URL; ?>assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
+		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css" />
@@ -39,7 +39,6 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/write.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/statistics.css" rel="stylesheet" type="text/css" />
-		<link href="assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 
@@ -47,7 +46,7 @@
 		<link href="assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<link href="assets/demo/preview.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/plugins/cal-heatmap-master/cal-heatmap.css" rel="stylesheet" type="text/css" />
-		<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />-->
+		<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" /> - http://kamisama.github.io/cal-heatmap/v2/ -->
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
