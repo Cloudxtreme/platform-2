@@ -163,7 +163,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return this;
 	},
 	
-	'attach' : function (attach, index)
+	'attach' : function (attach, index, streamid)
 	{	
 		var attachments = this.get("attachments") || [];
 		
@@ -193,46 +193,67 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	/*Variation functions*/
 
-	'setvariation' : function(id, key, value)
+	'setvariation' : function(stream, key, value)
 	{	
 		var variations = this.get("variations") || [];
-		var variation = variations.filter(function(el){ if(el.id == id) return el; });
+		var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
 
 		if(variation.length == 0)	//Add new variation
 		{ 	
-			variation = {'id' : id};
+			variation = {'stream' : stream};
 
-			if(key == 'images')	variation[key] = [value]		
-			else				variation[key] = value;
+			if(key == 'image' || key == 'link'){
+				var attachments = [value];
+				variation['attachments'] = attachments;
+			}else{
+				variation[key] = value;
+			}
 
 			variations.push(variation);
 		}
-		else						//Update variation
+		else					//Update variation
 		{	
-			if(key == 'images' && !variation[0][key])
-				variation[0][key] = [value]
-			else if(key == 'images' && variation[0][key])
-				variation[0][key].push(value); 
-			else
-				variation[0][key] = value;
+			variation = variation[0];
+			if(key == 'image' || key == 'link'){
+				var attachments = variation.attachments || [];
+				if(attachments.length == 0 && key == 'image'){
+					attachments.push(value);
+					variation['attachments'] = attachments;					
+				}else if(key == 'image'){
+					attachments.push(value);
+				}else{
+					var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
+					link[0].url = value.url;
+				}
+			}else{
+				variation[key] = value;
+			}	
 		}
-
+		console.log(this.get("variations"));
 	},
 	
-	'getvariation' : function (id, key)
+	'getvariation' : function (stream, key)
 	{	
 		// Get variation object
 		var variations = this.get("variations") || []
-		var variation = _.findWhere(variations, {'id': id});
+		var variation = _.findWhere(variations, {'stream': stream});
 		
-		if(variation && variation[key])	return variation[key];
-		else if(variation && !key)		return variation;
-		else							return;
+		if(key == 'image' || key == 'link'){
+			if(variation && variation.attachments)
+				return variation.attachments.filter(function(el){ if(el.type == key) return el; });		
+		}else if(variation && variation[key]){
+			return variation[key];
+		}else if(variation && !key){
+			return variation;
+		}else{
+			return ;
+		}	
+		
 	},
 
-	'removevarimg' : function(id, name){
+	'removevarimg' : function(stream, name){
 
-		var images = this.getvariation(id, 'images');
+		var images = this.getvariation(stream, 'image');
 		for(n in images){
 			if(images[n].name == name)
 				images.splice(n,1);

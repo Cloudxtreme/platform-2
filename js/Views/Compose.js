@@ -120,7 +120,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	* updateimages()		: Updates all the images scope & interface according to context (network or default)
 	* removefile()			: Removes a file from the interface & from the scope
 	*
-	* summarizelink()		: Adds a link to the UI
+	* updatelink()			: Adds a link to the UI
 	* listentolink()		: Updates a link in the according variation or default
 	*
 	*/
@@ -161,6 +161,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
+
+		//It it's a twitter reply
+		if(this.options.actionparameters){
+			var username = this.model.get("from")[0].username;
+			var content = Mustache.render(this.options.actionparameters[0].value, {'from' : {'name' : username}});
+			this.draft.set('body', {'html' : content, 'plaintext' : content, 'intro' : content});
+		}
 		
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
@@ -185,7 +192,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var target = $(e.target); 
 		var streamid = this.activestream ? this.activestream.id : false;
 		var content = target.text() || target.val();
-		var object = target.attr("data-option") || "Subject";
+		var object = target.attr("data-option") || "subject";
 
 		if(object == 'body')
 			content = {'html' : content, 'plaintext' : content, 'intro' : content};
@@ -245,6 +252,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
 		var collapsable = $btn.parent().toggleClass("collapsed");
+		console.log("toggle");
 		
 		//if(collapsable.hasClass("collapsed")) this["summarize" + option]();
 	},
@@ -322,7 +330,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
 		this.activestream = stream;
 		
 		// Get the right network
@@ -386,7 +394,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.trigger("update:stream", this.draft.getvariation(id, 'body') || id);
 		this.updatesubject();
 		this.updateimages();
-		this.summarizelink();
+		//this.summarizelink();
+		this.updatelink();
 	},
 
 	'updatesubject' : function()
@@ -395,10 +404,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var subjectinput = this.$el.find("[data-option=subject] > input").empty();
 		var subject;
 		
-		if(streamid && this.draft.getvariation(streamid, 'Subject'))
-			subject = this.draft.getvariation(streamid, 'Subject');
-		else if(this.draft.get("Subject"))
-			subject = this.draft.get("Subject") || "";
+		if(streamid && this.draft.getvariation(streamid, 'subject'))
+			subject = this.draft.getvariation(streamid, 'subject');
+		else if(this.draft.get("subject"))
+			subject = this.draft.get("subject") || "";
 
 		subjectinput.val(subject);
 	},
@@ -439,7 +448,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamid = this.activestream ? this.activestream.id : false;
 
 		if(streamid)
-			this.draft.setvariation(streamid, 'images', image);
+			this.draft.setvariation(streamid, 'image', image);
 		else
 			this.draft.attach(image);
 					
@@ -473,14 +482,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var addbtn = '<li class="add-file">+</li>';
 		var images;
 
-		if(streamid && this.draft.getvariation(streamid,'images')){
+		if(streamid && this.draft.getvariation(streamid,'image')){
 			//There are images in the variation
-			images = this.draft.getvariation(streamid, 'images');
-		}else if(streamid){
+			images = this.draft.getvariation(streamid, 'image');
+		}else if(streamid && this.draft.get("attachments")){
 			//There are no images in the variation, gonna copy them from the attachments
 			images = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
 			$.each(images, function(i, image){
-				this.draft.setvariation(streamid, 'images', {data: image.data, name: image.name});
+				this.draft.setvariation(streamid, 'image', {data: image.data, name: image.name, type: 'image'});
 			}.bind(this));
 		}else if(this.draft.get("attachments")){
 			//This is the default stream
@@ -497,7 +506,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		picturescontainer.append(addbtn);
 	},
-	
+
 	'toggleimages' : function(visible, multiple)
 	{	
 
@@ -540,20 +549,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{	
 		var streamid = this.activestream ? this.activestream.id : false;
 		var image = $(e.currentTarget).remove();
-		var attachs = this.draft.get("attachments");
+		var attachs;
+
+		if(streamid)	attachs = this.draft.getvariation(streamid).attachments;
+		else 			attachs = this.draft.get("attachments");
 		
-		if(streamid){
-			var images = this.draft.getvariation(streamid, 'images');
-			if(images){ 
-				//Remove from the variation
-				this.draft.removevarimg(streamid, image.data("filename"));
-			}	
-		}else{
-			for (n in attachs){
-				//Remove from the draft
-				if(attachs[n].type == 'image' && attachs[n].name == image.data("filename"))		attachs.splice(n,1); 
-			}
-		}
+		for (n in attachs)
+			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename"))		attachs.splice(n,1); 
 
 		//Remove from the summary interface
 		this.$el.find('[data-collapsable=images] .summary [data-filename="'+image.data('filename')+'"]').remove();
@@ -575,7 +577,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	// Update link in the UI
-	'summarizelink' : function()
+	/*'summarizelink' : function()
 	{
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
@@ -584,6 +586,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(streamid && this.draft.getvariation(streamid, 'link')){
 			link = this.draft.getvariation(streamid, 'link');
+		}else if(streamid && !this.draft.getvariation(streamid, 'link') && this.draft.get("attachments")){
+			var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+			link = links[0] ? links[0].url : false;
+
+			if(link)	this.draft.setvariation(streamid, 'link', {type:'link', url:link})
 		}else if(this.draft.get("attachments")){
 			var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
 			link = links[0] ? links[0].url : false;
@@ -599,7 +606,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		return this;
-	},
+	},*/
 	
 	// Update link object
 	'listentolink' : function (e)
@@ -608,14 +615,52 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var link = $(e.currentTarget).val();
 
 		if(streamid){
-			this.draft.setvariation(streamid, 'link', link);
+			this.draft.setvariation(streamid, 'link', {type:'link', url:link});
 		}else{
 			var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
 			if(links.length) links[0].url = link;
 			else this.draft.attach({type: 'link', url: link});
 		}		
 		
-		this.summarizelink().$el.find("[data-collapsable=link]").addClass("collapsed");
+		this.updatelink();
+	},
+
+	// Write link object in the interface
+	'updatelink' : function(){
+
+		var streamid = this.activestream ? this.activestream.id : false;
+		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
+		var linkinput = this.$el.find("[data-collapsable=link] input");
+		var link;
+
+		if(streamid && this.draft.getvariation(streamid,'link')){
+			//There is a link in the variation
+			link = this.draft.getvariation(streamid, 'link');
+			link = link[0].url;
+
+		}else if(streamid && this.draft.get("attachments")){ 
+			//There is no link in the variation, gonna copy it from the attachments
+			links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+			if(links.length > 0){
+				link = links[0] ? links[0].url : false;
+				this.draft.setvariation(streamid, 'link', {type:'link', url:link});
+			}	
+			
+		}else if(this.draft.get("attachments")){
+			//This is the default stream
+			links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+			link = links[0] ? links[0].url : false;
+
+		}else{
+			//No images
+			return;
+		}
+
+		if(link){
+			summary.html("<span>" + link + "</span>");
+			linkinput.val(link);
+		}
+		return this;
 	},
 	
 	/**

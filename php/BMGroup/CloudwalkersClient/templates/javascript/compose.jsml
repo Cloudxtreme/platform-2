@@ -81,7 +81,7 @@
 			<div class="btn-white" data-toggle="link">Link</div>
 			
 			<div class="collapsable-content">
-				<div class="input-symbol" data-option="link">
+				<div class="input-symbol">
 					<input type="text" placeholder="http://" />
 				</div>
 			</div>
