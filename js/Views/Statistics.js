@@ -32,7 +32,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
 		//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 		
-		{widget: "TitleSeparator", data: {title: "New this "}},
+		{widget: "TitleSeparator", data: {title: "New this"}},
 		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
 		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
 		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
@@ -161,6 +161,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.widgets[n].data.visualization = google.visualization;
 			//pass regional data
 			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
+
+			if(this.widgets[n].data.title == "New this")
+				this.widgets[n].data.title = "New this "+this.timespan;
 
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
 			this.widgets[n].data.connect == true ? this.connect = view : false;
