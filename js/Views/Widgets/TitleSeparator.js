@@ -11,7 +11,7 @@ Cloudwalkers.Views.Widgets.TitleSeparator = Backbone.View.extend({
 	'render' : function ()
 	{	
 		this.$el.html (Mustache.render (Templates.titleseparator, this.settings));	
-		console.log(this.$el)	;
+
 		return this;
 	},
 

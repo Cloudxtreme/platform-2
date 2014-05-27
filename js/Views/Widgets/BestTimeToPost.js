@@ -28,7 +28,9 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 	},
 
 	parsebesttime : function(collection){
-		
+		//Hack to prevent double loading
+		if(this.filled)	return true;
+
 		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 		var besttime,
 			data = [],
@@ -67,6 +69,8 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 		});
 
 		data["maxvalue"] = maxvalue;
+
+		this.filled = true;
 		
 		return data;
 	},

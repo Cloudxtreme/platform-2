@@ -26,7 +26,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "CompoundChart", span: 6, data : { template: "2col1row", chartdata: [ 
 			{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}},
 			{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}},
-			{widget: "Chart", data: {filterfunc: "gender", chart: "LineChart", title: "Contacts Evolution"}}
+			{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", title: "Contacts Evolution"}}
 			]}
 		},
 		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
@@ -41,14 +41,14 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
 		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
-		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook"}, span: 4},
+		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
 
 		{widget: "TitleSeparator", data: {title: "Geo Graphics"}},
-		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries"}, span: 9},
-		{widget: "CompoundChart", span: 3, data : { template: "2row", chartdata: [ 
-			{widget: "Chart", data: {filterfunc: "networks", chart: "PieChart", title: "Countries", connect: 'regional'}},
-			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities", connect: 'regional'}}
+		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, span: 8},
+		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
+			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
+			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
 			]}
 		},
 		

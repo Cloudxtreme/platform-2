@@ -20,7 +20,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"activity"	: "parsecalendar",
 
 		//Demo old charts
-		"evolution"	: "parseevolution",
+		"contact-evolution"	: "parsecontactevolution",
+		"message-evolution"	: "parsemessageevolution",
 		"messages"	: "parsemessages",
 		"activities"	: "parseactivities",
 		"impressions"	: "parseimpressions",
@@ -86,12 +87,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	        	if(this.type == "dots")
 	        		$.extend(options, geooptions);
 
-	       
-	        if(this.filterfunc == "evolution" || this.filterfunc == "allreports"){
-	        	options = fulldata.options;
-	        }
- 			options.colors = fulldata.colors;
-
+	       $.extend(options, fulldata.options);
+	        
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 			
 			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
@@ -122,7 +119,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		};
 		
 		if(!statistic)	streams = collection.latest().get("streams");
-		else			streams = statistic;
+		else			streams = statistic.get("streams");
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
@@ -154,7 +151,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return fulldata;
 	},
 
-	//Demo onld charts
+	//Demo old charts
 	parsemessages : function(collection, statistic, token){
 		
 		var networks = {};
@@ -201,6 +198,62 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return fulldata;
 	},
 
+	'parsecontactevolution' : function(collection){
+
+		var statistics = collection.models;
+		var width = this.$el.find('.chart-container').get(0).clientWidth;
+		var fulldata = {
+			data : [],
+			options : {
+				colors : ["#333333"],
+				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+	            width: width,
+	            height: width * 0.3,
+	            curveType: 'function',
+			}
+		};
+
+		$.each(statistics, function(index, statistic){
+			
+			var day = moment(statistic.get("date")).format("DD");
+			var number = statistic.pluck("contacts");
+			fulldata.data.push([day, number]);
+
+		}.bind(this));
+		
+		fulldata.data.unshift(["Day", "Number of contacts"]);
+		
+		return fulldata;
+	},
+
+	'parsemessageevolution' : function(collection){
+
+		var statistics = collection.models;
+		var width = this.$el.find('.chart-container').get(0).clientWidth;
+		var fulldata = {
+			data : [],
+			options : {
+				colors : ["#333333"],
+				chartArea: {'width': '80%', 'height': '70%', 'left' : '40'},
+	            width: width,
+	            height: width * 0.92,
+	           	'legend': { position: 'bottom'},
+	            curveType: 'function',
+			}
+		};
+
+		$.each(statistics, function(index, statistic){
+			
+			var day = moment(statistic.get("date")).format("DD");
+			var number = statistic.pluck("messages");
+			fulldata.data.push([day, number]);
+
+		}.bind(this));
+		
+		fulldata.data.unshift(["Day", "Number of messages"]);
+		
+		return fulldata;
+	},
 
 	parseactivities : function(collection, statistic, token){
 		
@@ -596,7 +649,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsecities : function(collection){
 
 		var cities, size = 6;
-		var countries = this.connect.regional ? this.connect.regional : this.parseregional(collection);;
+		var countries = this.filtercountry(collection);
 		var fulldata;
 		var cities = {};
 
@@ -604,8 +657,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(countries.length == 0)
 			return this.emptychartdata();
 
-		countrycities = countries[0].cities;
-	
+		countrycities = countries[countries.length-1].cities;
+		
 		$.each(countrycities, function(index, city){
 			cities[city.name] = {name: city.name, value: city.total};
 		});
