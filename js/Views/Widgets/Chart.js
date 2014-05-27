@@ -114,7 +114,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var colors = [];
 		var fulldata = {
 			data : [], 
-			colors : []
+			options : {
+				colors : []
+			}
 		};
 		
 		if(!statistic)	streams = collection.latest().get("streams");
@@ -141,7 +143,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//Apply name & colors
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
-			fulldata.colors.push(network.getcolor());
+			fulldata.options.colors.push(network.getcolor());
 		});
 
 		if(!token && !statistic)
@@ -486,12 +488,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	parseage : function(collection){
-		
-		var colors = ["#2bbedc", "#2CA7C0", "#2E90A4", "#2F7988", "#30616B", "#324A4F", "#333333"];
-		var data = [];
+
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
-		var fulldata = [];
+		var data = [];
+		var fulldata = {
+			data : [], 
+			options : {
+				colors : ["#2bbedc", "#2CA7C0", "#2E90A4", "#2F7988", "#30616B", "#324A4F", "#333333"]
+			}
+		};
 
 		$.each(grouped, function(key, value){
 			data.push([key, value]);
@@ -504,9 +510,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(data.length == 0)
 			return this.emptychartdata();
 
-		fulldata.data = data;
-		
-		fulldata.colors = colors;
+		fulldata.data = data;		
 		fulldata.data.unshift(["Age interval", "Number of contacts"]);
 
 		return fulldata;
@@ -533,12 +537,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	parsegender : function(collection){
 
-		var colors = ["#2bbedc", "#F14B68", collection.networkcolors["others"]];
-		var data = [];
-		var fulldata = [];
-
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
+		var data = [];
+		var fulldata = {
+			data : [], 
+			options : {
+				colors : ["#2bbedc", "#F14B68", collection.networkcolors["others"]]
+			}
+		};
 
 		$.each(grouped, function(key, value){
 			data.push([this.capitalize(key), value]);
@@ -548,8 +555,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return this.emptychartdata();
 
 		fulldata.data = data;
-		fulldata.colors = colors;
-
 		fulldata.data.unshift(["Gender", "Number of contacts"]);
 
 		return fulldata;
@@ -609,14 +614,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	// Size -> Int:: Show the n most important, group the others
 	parseregional : function(collection){
 		
-		var colors = this.colors;
 		var data = [];
-		var fulldata = [];
 		var size = 8; //hardcoded?
 		var counter = 0;
 		var grouped = this.filtercountry(collection);
-		fulldata.data = [];
-		fulldata.colors = colors;
+		var fulldata = {
+			data : [], 
+			options : {
+				colors : this.colors
+			}
+		};
 		this.regional = [];
 
 		// We don't care about grouping "others"
@@ -639,8 +646,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return memo + num.total;  
 		}, 0);
 
-		fulldata.data.push(["Others", total]);
-		
+		fulldata.data.push(["Others", total]);		
 		fulldata.data.unshift(["Countries", "Number of contacts"]);
 		
 		return fulldata;
@@ -652,12 +658,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var countries = this.filtercountry(collection);
 		var fulldata;
 		var cities = {};
+		var country;
 
 		//In case something goes wrong
 		if(countries.length == 0)
 			return this.emptychartdata();
 
-		countrycities = countries[countries.length-1].cities;
+		country = countries[countries.length-1];
+		countrycities = country.cities;
 		
 		$.each(countrycities, function(index, city){
 			cities[city.name] = {name: city.name, value: city.total};
@@ -668,10 +676,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return city.value;
 		});
 		
-		fulldata = this.getbiggestdata(cities,size);
-		
-		
+		fulldata = this.getbiggestdata(cities,size);		
 		fulldata.data.unshift(["Cities", "Number of contacts"]);
+
+		//Update the label
+		this.$el.find('h4').text(country.name+' cities');
 
 		return fulldata;
 	},
@@ -713,13 +722,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var counter = 0;
 		var fulldata = {
 			data : [],
-			colors : []
+			options : {
+				colors : []
+			}
 		};
 
 		while(counter < n){
 			var dataset = datasets.pop();
 			fulldata.data.push([dataset.name, dataset.value]);
-			fulldata.colors.push(this.countrycolors[counter]);
+			fulldata.options.colors.push(this.countrycolors[counter]);
 			counter++;
 		}
 
@@ -731,7 +742,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}, 0);
 
 		fulldata.data.push(["Others", total]);
-		fulldata.colors.push(this.collection.networkcolors["others"]);
+		fulldata.options.colors.push(this.collection.networkcolors["others"]);
 		
 		return fulldata;
 	},
