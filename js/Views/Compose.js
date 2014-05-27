@@ -142,7 +142,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
 
-		console.log(this.draft);
+		this.loadListeners(this.draft, ['request', 'sync']);
+		
 	},
 
 	'render' : function ()
@@ -177,10 +178,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
+		
+		//this.$container = this.$el.find ('.modal-footer');
+		this.$loadercontainer = this.$el.find ('.modal-footer');
 
 		//Update the content with default/variation/draft data
 		this.togglesubcontent();
-		
+		this.trigger("rendered");
 		return this;
 	},
 	
@@ -1156,13 +1160,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
 		// Rui, add loader
-		console.log(this.draft);
+		// It's added Koen
+
+		//Clone without global attachments)
+		//var draft = this.parsedraft();
 		this.draft.save({status: "draft"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
 	{		
 		// Rui, add loader
+		// It's added Koen
 		
 		// Prevent empty post
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
@@ -1177,7 +1185,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'thankyou' : function()
 	{
-		this.$el.find("div").eq(0).html("<div class='thank-you'><i class='icon-thumbs-up'></i></div>");
+		setTimeout(function(){ 
+			this.$el.find("div").eq(0).html("<div class='thank-you'><i class='icon-thumbs-up'></i></div>"); 
+			this.hidethankyou();
+		}.bind(this), 400);
+	},
+
+	'hidethankyou' : function(){
 		
 		setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 	},
@@ -1185,6 +1199,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'invalid' : function(model, error)
 	{
 		alert(model.get("title") + " " + error);
+	},
+
+	'parsedraft' : function(){
+
+		var draft = this.draft.clone();
+		var attachments = draft.set("attachments", []);
+
+		return draft;
+
 	},
 	
 	
