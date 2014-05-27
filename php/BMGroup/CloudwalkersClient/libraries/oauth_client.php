@@ -588,6 +588,16 @@ class oauth_client_class
 	var $oauth_user_agent = 'PHP-OAuth-API (http://www.phpclasses.org/oauth-api $Revision: 1.46 $)';
 	var $session_started = false;
 
+	function debug() {
+		if (defined('DEBUG') && $this->debug !== DEBUG) $this->debug = DEBUG;
+		return $this->debug;
+	}
+	
+	function log_debug() {
+		if (defined('DEBUG_LOG') && $this->log_debug !== DEBUG_LOG) $this->log_debug = DEBUG_LOG;
+		return $this->log_debug;
+	}
+	
 	Function SetError($error)
 	{
 		$this->error = $error;
@@ -606,7 +616,9 @@ class oauth_client_class
 
 	Function OutputDebug($message)
 	{
-		if($this->debug)
+		if(!$this->debug()) return;
+	
+		if($this->debug())
 		{
 			$message = $this->debug_prefix.$message;
 			$this->debug_output .= $message."\n";;
