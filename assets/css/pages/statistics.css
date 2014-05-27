@@ -1,4 +1,12 @@
-/* Chartjs legends*/
+/* Charts styling*/
+
+.title-separator{
+    height: 4px;
+    background-color: #3D3D3D;
+    width: 100%;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
 
 #fork {
     position: absolute;
@@ -93,4 +101,5 @@
 .q3{background-color: #2E90A4 !important; fill: #2E90A4 !important; }
 .q4{background-color: #2F7988 !important; fill: #2F7988 !important; }
 .q5{background-color: #30616B !important; fill: #30616B !important; }
+
 

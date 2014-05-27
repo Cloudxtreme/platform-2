@@ -89,7 +89,7 @@
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
-<script type="text/javascript" src="/js/Views/Chart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Chart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Legenda.js"></script>
@@ -118,7 +118,10 @@
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NewCombinedStatistics.js"></script>
-<script type="text/javascript" src="/js/Views/Widgets/TopComment.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CompoundChart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TrendingMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/BestTimeToPost.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TitleSeparator.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NetworkStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>

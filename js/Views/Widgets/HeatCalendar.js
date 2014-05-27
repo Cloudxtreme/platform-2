@@ -45,10 +45,10 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 	'calculatedata' : function(){
 		
-		var statistics = this.collection;	
+		var statistics = $.extend(true, {}, this.collection);
 		var data = {};
 		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
-
+		
 		while(statistics.size() > 0){
 			var statistic = statistics.shift();
 			var messages = statistic.pluck("messages");
@@ -61,6 +61,8 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			//Get starting statistics date
 			if(date == 0)	date = statistic.get("date");
 		}
+
+		
 
 		return {data: data, legend: this.generaterange(data,5), date: date};
 	},

@@ -50,9 +50,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Create view
 		this.settings = {};
 		this.settings.title = this.title;
-
+		
 		this.$el.html (Mustache.render (Templates.chart, this.settings));
-	
 		return this;
 	},
 	
@@ -60,14 +59,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{ 	
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
+		var chartcontainer = '.chart-container';
 
 		fulldata = this[parsefunc](this.collection);
 
 		if(this.filterfunc == 'besttime'){
 			this.renderbesttime(fulldata);
 		}else{
-
-			var width = this.$el.find(".chart-container").get(0).clientWidth;
+			
+			var width = this.$el.find(chartcontainer).get(0).clientWidth;
 			var options = {
 				'pieHole':0.4,
 				'chartArea': {'width': '95%', 'height': '90%'},
@@ -93,8 +93,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
  			options.colors = fulldata.colors;
 
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
-
-			chart = new google.visualization[this.chart](this.$el.find('.chart-container').get(0));
+			
+			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
 	        chart.draw(fulldata.data, options);
 	    }
 	},
@@ -107,6 +107,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			day.fill = day.value*100/data["maxvalue"];
 			this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
 		}.bind(this));
+
+
 	},
 
 	parsecontacts : function(collection, statistic, token){
@@ -508,6 +510,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	filtercountry : function(collection){
 
 		var grouped = {};
+		
 		var streams = collection.latest().get("streams");
 		
 		// Groups & sums by country
@@ -593,7 +596,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsecities : function(collection){
 
 		var cities, size = 6;
-		var countries = this.connect.regional ? this.connect.regional : parseregional(collection);;
+		var countries = this.connect.regional ? this.connect.regional : this.parseregional(collection);;
 		var fulldata;
 		var cities = {};
 
@@ -623,7 +626,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsenetworks : function(collection){
 
 		var data = [];
-		var countries = this.connect.regional ? this.connect.regional : parseregional(collection);
+		var countries = this.connect.regional ? this.connect.regional : this.parseregional(collection);
 		var fulldata = {
 			data : [], 
 			colors : []

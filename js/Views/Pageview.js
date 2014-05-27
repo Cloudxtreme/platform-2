@@ -34,14 +34,14 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		}
 	},
 	
-	'appendWidget' : function(widget, span) {
+	'appendWidget' : function(widget, span, padding) {
 		
 		if(!this.span || span == 0)
 		{
 			this.$container.append(Templates.row);
 		}
 				
-		this.span = (span + this.span < 12)? span + this.span: 0;
+		this.span = (span + this.span < 12)? span + this.span : 0;
 		
 		if(widget){
 			this.$container.children().last().append( widget.render().el );

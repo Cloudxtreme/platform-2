@@ -1156,7 +1156,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
 		// Rui, add loader
-		
+		console.log(this.draft);
 		this.draft.save({status: "draft"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	

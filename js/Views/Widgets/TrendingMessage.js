@@ -1,4 +1,4 @@
-Cloudwalkers.Views.Widgets.TopComment = Backbone.View.extend({
+Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'initialize' : function (options)
 	{
@@ -13,7 +13,7 @@ Cloudwalkers.Views.Widgets.TopComment = Backbone.View.extend({
 
 	'render' : function ()
 	{	
-		this.$el.html (Mustache.render (Templates.topcomment, this.settings));		
+		this.$el.html (Mustache.render (Templates.trendingmsg, this.settings));		
 		return this;
 	},
 

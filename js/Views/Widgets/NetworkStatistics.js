@@ -14,7 +14,7 @@ Cloudwalkers.Views.Widgets.NetworkStatistics = Backbone.View.extend({
 		this.settings = {};
 		this.settings.title = this.title;
 
-		this.$el.html ('<div></div>');
+		this.$el.html ('<div id="netstat"></div>');
 		
 		return this;
 	},
@@ -28,8 +28,9 @@ Cloudwalkers.Views.Widgets.NetworkStatistics = Backbone.View.extend({
 		data = {chart: 'LineChart', filterfunc: "allreports", network: this.network, title: title};
 		data.model = this.model;
 
-		view = new Cloudwalkers.Views.Widgets.Chart(data);
-		this.parent.appendWidget(view, 12);
+		view = new Cloudwalkers.Views.Widgets.Chart(data).render().el;
+		this.$el.find('#netstat').append(view);
+		//this.parent.appendWidget(view, 12);
 
         this.filled = true;	
 	},
