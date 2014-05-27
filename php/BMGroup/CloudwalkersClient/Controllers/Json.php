@@ -5,7 +5,7 @@ class BMGroup_CloudwalkersClient_Controllers_Json
 	public function dispatch (Neuron_Page $page)
 	{
 		$data = $this->getData ();
-		header ('Content-type: application/json');
+		header ('Content-type: application/json', true);
 		echo json_encode ($data);
 	}
 
