@@ -43,7 +43,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
-		
 	},
 
 	'render' : function ()
@@ -229,6 +228,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'parsemessageevolution' : function(collection){
 
 		var statistics = collection.models;
+
 		var width = this.$el.find('.chart-container').get(0).clientWidth;
 		var fulldata = {
 			data : [],
@@ -486,7 +486,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	parseage : function(collection){
-
+		
 		var colors = ["#2bbedc", "#2CA7C0", "#2E90A4", "#2F7988", "#30616B", "#324A4F", "#333333"];
 		var data = [];
 		var streams = collection.latest().get("streams");
