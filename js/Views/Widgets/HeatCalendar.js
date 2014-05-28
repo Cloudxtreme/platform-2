@@ -27,7 +27,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var data = this.calculatedata();
 
 		cal.init({
-			
+			itemSelector: this.$el.find('#cal-heatmap').get(0),
 			domain: "month",
 			subDomain: "x_day",
 			data: data.data,

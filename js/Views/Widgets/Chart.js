@@ -28,10 +28,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		"notifications"	: "parsenotifications",
 		"followers"	: "parsefollowers",
 		"following"	: "parsefollowing",
+		"follow"	: "parsefollow",
+
+		"contact-evolution-network"	: "parsecontactevolutionnetwork",
+		"message-evolution-network"	: "parsemessageevolutionnetwork",
 
 		"geo" : "parsegeo",
 
-		"allreports" : "parseallreports"
+		"allreports" : "parseallreports",
+
+		"nodata" : "emptychartdata"
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
@@ -227,6 +233,36 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		return fulldata;
 	},
 
+	'parsecontactevolutionnetwork' : function(collection){
+
+		var statistics = collection.models;
+		var network = this.network;
+
+		var width = this.$el.find('.chart-container').get(0).clientWidth;
+		var fulldata = {
+			data : [],
+			options : {
+				colors : ["#333333"],
+				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+	            width: width,
+	            height: width * 0.3,
+	            curveType: 'function',
+			}
+		};
+
+		$.each(statistics, function(index, statistic){
+			
+			var day = moment(statistic.get("date")).format("DD");
+			var number = statistic.pluck("contacts", network);
+			fulldata.data.push([day, number]);
+
+		}.bind(this));
+		
+		fulldata.data.unshift(["Day", "Number of contacts"]);
+		
+		return fulldata;
+	},
+
 	'parsemessageevolution' : function(collection){
 
 		var statistics = collection.models;
@@ -248,6 +284,37 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			
 			var day = moment(statistic.get("date")).format("DD");
 			var number = statistic.pluck("messages");
+			fulldata.data.push([day, number]);
+
+		}.bind(this));
+		
+		fulldata.data.unshift(["Day", "Number of messages"]);
+		
+		return fulldata;
+	},
+
+	'parsemessageevolutionnetwork' : function(collection){
+
+		var statistics = collection.models;
+		var network = this.network;
+
+		var width = this.$el.find('.chart-container').get(0).clientWidth;
+		var fulldata = {
+			data : [],
+			options : {
+				colors : ["#333333"],
+				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+	            width: width,
+	            height: width * 0.65,
+	            'legend': { position: 'bottom'},
+	            curveType: 'function',
+			}
+		};
+
+		$.each(statistics, function(index, statistic){
+			
+			var day = moment(statistic.get("date")).format("DD");
+			var number = statistic.pluck("messages", network);
 			fulldata.data.push([day, number]);
 
 		}.bind(this));
@@ -485,6 +552,24 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			fulldata.data.unshift(["Network", "Number of contacts"]);
 		
 		return fulldata;
+	},
+
+	'parsefollow' : function(collection){
+
+		var statistic = collection.latest();
+		var followers = statistic.pluck(["contacts","types","followers"], this.network,3);
+		var following = statistic.pluck(["contacts","types","following"], this.network,3);
+		var fulldata = {
+			data : [[ 'Followers', followers],['Following', following]], 
+			options : {
+				colors : ["#2bbedc", "#324A4F"]
+			}
+		};
+
+		fulldata.data.unshift(["Follow state", "Number of contacts"]);
+		
+		return fulldata;
+
 	},
 
 	parseage : function(collection){
@@ -935,7 +1020,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var fulldata = {
 			data : [["No results", 1]],
-			colors : ["#e5e5e5"]
+			options : {
+				colors : ["#e5e5e5"]
+			}
 		};
 
 		fulldata.data.unshift(["Results", "Number"]);

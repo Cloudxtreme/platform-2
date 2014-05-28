@@ -16,6 +16,9 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		"following" : "parsefollowing",
 		"mentions" : "parsementions",
 		"retweets" : "parseretweets",
+		"shares"	: "parseshares",
+		"posts"	: "parseposts",
+		"dms"	: "parsedms",
 
 	},
 
@@ -199,6 +202,17 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		return [{content: total, descr : description}];
 	},
 
+	'parsefollowers' : function(){
+
+		var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3);
+		var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3);
+		var total = statl - statf;
+
+		var description = this.title;
+
+		return [{content: total, descr : description}];
+	},
+
 	//TWITTER SPECIFIC
 	'parsefollowers' : function(){
 
@@ -270,14 +284,37 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 	'parseshares' : function(){
 
-		var statl = this.collection.latest().pluck(["notifications","types","shares"], this.network,3);
-		var statf = this.collection.first().pluck(["notifications","types","shares"], this.network,3);
+		var statl = this.collection.latest().pluck(["messages","types","shares"], this.network,3);
+		var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
 		var total = statl - statf;
 
 		var description = this.title;
 
 		return [{content: total, descr : description}];
 	},
+
+	'parseposts' : function(){
+
+		var statl = this.collection.latest().pluck(["messages","types","posts"], this.network,3);
+		var statf = this.collection.first().pluck(["messages","types","posts"], this.network,3);
+		var total = statl - statf;
+
+		var description = this.title;
+
+		return [{content: total, descr : description}];
+	},
+
+	'parsedms' : function(){
+
+		var statl = this.collection.latest().pluck(["messages","types","dms"], this.network,3);
+		var statf = this.collection.first().pluck(["messages","types","dms"], this.network,3);
+		var total = statl - statf;
+
+		var description = this.title;
+
+		return [{content: total, descr : description}];
+	},
+
 
 
 

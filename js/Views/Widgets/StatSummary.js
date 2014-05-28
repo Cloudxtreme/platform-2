@@ -6,6 +6,11 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		"contacts" : {"title": "Total contacts", "func": "parsecontacts"},
 		"score-trending" : {"title": "Popularity score", "func": "parsescore"},
 		"outgoing" : {"title": "Messages sent", "func": "parsesent"},
+		"coworkers" : {"title": "Co-workers activity", "func": "parseactivity"},
+
+		"contacts-network" : {"title": "Total contacts", "func": "parsecontactsnetwork"},
+		"score-trending-network" : {"title": "Popularity score", "func": "parsescorenetwork"},
+		"outgoing-network" : {"title": "Messages sent", "func": "parsesentnetwork"},
 		"coworkers" : {"title": "Co-workers activity", "func": "parseactivity"}
 	},
 	
@@ -41,7 +46,6 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.find("[data-type]").each(function(i, el){
 			
 			var func = $(el).data("type");
-			
 			$(el).find(".stats-summary-counter").html(this[func]().counter);
 			
 		}.bind(this));
@@ -103,5 +107,38 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 			messages = 0
 
 		return messages;
+	},
+
+
+	// *** Network specific plucks ***
+
+	'parsecontactsnetwork' : function ()
+	{	
+		// Get most recent stat
+		var stat = this.collection.latest();
+		return { counter: stat.pluck("contacts", this.network)};
+	},
+	
+	'parsescorenetwork' : function ()
+	{
+	
+		stat = this.collection.latest();
+		var total = stat.pluck("notifications", this.network) + stat.pluck("activities", this.network);
+		
+		return 	{counter: total};
+	},
+	
+	'parsesentnetwork' : function ()
+	{
+		// Get most recent stat
+		var statl = this.collection.latest();
+		var statf = this.collection.first();
+		
+		var total = statl.pluck("messages", this.network) - statf.pluck("messages", this.network);
+		return { counter: total };
 	}
+
+
+	
+
 });

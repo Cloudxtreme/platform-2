@@ -26,30 +26,44 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 		
 		$.each(this.get("streams"), function(i, stream)
 		{
-			if(!streamid){ //Object/int: structure
+			//Filter just by key (contacts, messages, etc)
+			if(!streamid){
 				if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 			}
+			//Filter by key and stream id
+			else if(_.isNumber(streamid) && streamid == stream.id){
+				if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
+				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
+			}
+			//Filter by key and stream token
+			/*else if(_.isString(streamid)){
+				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				if(network == streamid){
+					if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
+					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
+				}
+			}*/
 
-			else if(_.isNumber(streamid) && streamid == stream.id){	response = stream[key];}
-
-			//ONLY FOR OLD CHART DEMO -- if streamid is a token
+			//ONLY FOR OLD CHART DEMO -- && if streamid is a token -- messy stuff
+			
 			else if(_.isString(streamid) && (hassublevel <=2 || !hassublevel)){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
-
 					if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 				}
 			}
 
 			else if(_.isString(streamid) && hassublevel > 2){
+
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
 
 					if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
 				}
 			}
+			
 		});
 		
 		return response;
