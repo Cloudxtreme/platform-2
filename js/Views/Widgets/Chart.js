@@ -120,13 +120,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var colors = [];
 		var fulldata = {
 			data : [], 
-			options : {
-				colors : []
-			}
+			colors : []
 		};
 		
 		if(!statistic)	streams = collection.latest().get("streams");
-		else			streams = statistic.get("streams");
+		else			streams = statistic;
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
@@ -149,7 +147,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		//Apply name & colors
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
-			fulldata.options.colors.push(network.getcolor());
+			fulldata.colors.push(network.getcolor());
 		});
 
 		if(!token && !statistic)
@@ -207,30 +205,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	'parsecontactevolution' : function(collection){
 
-		var statistics = collection.models;
-		var width = this.$el.find('.chart-container').get(0).clientWidth;
-		var fulldata = {
-			data : [],
-			options : {
-				colors : ["#333333"],
-				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
-	            width: width,
-	            height: width * 0.3,
-	            curveType: 'function',
-			}
-		};
-
-		$.each(statistics, function(index, statistic){
-			
-			var day = moment(statistic.get("date")).format("DD");
-			var number = statistic.pluck("contacts");
-			fulldata.data.push([day, number]);
-
-		}.bind(this));
-		
-		fulldata.data.unshift(["Day", "Number of contacts"]);
-		
-		return fulldata;
+		return this.parseevolution(collection, "contacts");
 	},
 
 	'parsecontactevolutionnetwork' : function(collection){
@@ -891,9 +866,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data : [],
 			colors : [],
 			options : {
-				'chartArea': {'width': '90%', 'height': '70%'},
-		        'width': width,
-		        'height': width * 0.7,
+				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+	            width: width,
+	            height: width * 0.3,
 		        'legend':{textStyle:{fontSize:'11'}},
 		        'tooltip':{textStyle:{fontSize:'13'}},
 		        'curveType': 'function',
@@ -909,6 +884,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	    		] }
 				}
 			};
+
 			
 		for (var i = 0; i < length; i++){
 			streams = collection.place(i).get("streams");
