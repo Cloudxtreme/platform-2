@@ -206,8 +206,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'editstreams' : function (model)
 	{
-		this.actionstreams = [];
-		
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0]
 		
 		for(n in action.streams)
