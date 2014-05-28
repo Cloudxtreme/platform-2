@@ -14,7 +14,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #subtract': 'subtractperiod',
 		'click #now': 'changespan',
 		'click #show': 'changecustom',
-		'change .stats-header select': 'changespan',
+		'change .stats-header select.networks': 'changestream',
+		'change .stats-header select.time': 'changespan',
 		'click .dashboard-stat' : 'updatenetwork'
 	},
 
@@ -171,10 +172,22 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'render' : function()
 	{	
 		// clean if time toggle
-		this.cleanviews(); 
+		this.cleanviews();
+		
+		var params = this.timemanager();
+		params.streams = [];
+		
+		// Select streams
+		this.model.streams.each (function(stream)
+		{
+			if(stream.get(this.check)) params.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
+
+		}.bind(this));
+		
+		console.log(params)
 		
 		// Build Pageview
-		this.$el.html (Mustache.render (Templates.statsview, this.timemanager()));
+		this.$el.html (Mustache.render (Templates.statsview, params));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Chosen
