@@ -198,7 +198,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		for(n in this.widgets)
 		{	
 			//MAKE THIS DYNAMIC
-			this.network = "youtube";
+			this.network = "twitter";
 
 			if(_.isString(this.widgets[n].data))
 				this.widgets[n].data = this.networkspecific[this.widgets[n].data][this.network];
