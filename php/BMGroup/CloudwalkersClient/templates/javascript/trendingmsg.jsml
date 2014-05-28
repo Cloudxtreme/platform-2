@@ -1,20 +1,30 @@
-<h3>{{title}}</h3>
+<h4>{{title}}</h4>
 
-<div class="commentballoon facebook-color">
-	<h5>14 May 2014</h5>
-	<h3>Benfica wins UEFA cup!</h3>
-	<p>Suspendisse cursus sapien sit amet augue ultrices, hendrerit facilisis est tempor. Nulla eu aliquet orci. In hac habitasse platea dictumst. Aenean rutrum dictum tellus non mollis. Etiam elementum, leo at dignissim tempor, sem tellus sagittis est, eu varius justo quam quis metus.</p>
+<div class="commentballoon {{icon}}-color">
+	
+	{{#statistics}}
+	<div class="scoreballoon">
+		<b>{{value}}</b>
+		<p>{{name}}</p>
+	</div>
+	{{/statistics}}
+
+	<h6>{{date}}</h6>
+	<h4>{{from}}</h4>
+	{{body}}
+
+	{{#links}}
+		<br />
+		<div class="attachment-link">
+			<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+		</div>
+	{{/links}}
 
 	<div class="network-icon">
 		<table>
 			<tbody>
-				<tr><td><i class="icon-facebook"></i></td></tr>
+				<tr><td><i class="icon-{{icon}}"></i></td></tr>
 			</tbody>
 		</table>		
-	</div>
-
-	<div class="scoreballoon">
-		<b>856</b>
-		<p>likes</p>
 	</div>
 </div>

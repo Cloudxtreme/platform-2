@@ -159,6 +159,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.widgets[n].data.model = this.model;
 			this.widgets[n].data.parent = this;
 			this.widgets[n].data.visualization = google.visualization;
+			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
 			//pass regional data
 			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
