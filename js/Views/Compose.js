@@ -129,7 +129,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 		
-		if(this.model){
+		if(this.action && this.action.token == "share") {
+			this.draft = this.reference.clone();
+		}else if(this.model){
 			this.draft = this.model;
 			this.setDraft();
 			
@@ -151,7 +153,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Collect data
 		var params ={
 			// Aside
-			streams:	this.getAvailableStreams(),			
+			streams:	this.streams.models,			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
