@@ -194,7 +194,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	/*Variation functions*/
 
 	'setvariation' : function(stream, key, value)
-	{	
+	{	console.log(stream, key, value);
 		var variations = this.get("variations") || [];
 		var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
 
@@ -221,10 +221,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 					variation['attachments'] = attachments;					
 				}else if(key == 'image'){
 					attachments.push(value);
-				}else{
+				}else{ 
 					var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
 					if(link.length > 0)	link[0].url = value.url;
-					else				attachments.push(value);
+					else				variation.attachments = [value];
 				}
 			}else{
 				variation[key] = value;
