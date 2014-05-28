@@ -1864,12 +1864,9 @@ Dashboard stats
 
 .commentballoon table{
 	height: 100%; 
+	width: 100%;
 	font-size: 65px; 
 	text-align: center;
-}
-
-.commentballoon table i{
-	margin-left: 25px;
 }
 
 .commentballoon:before{
