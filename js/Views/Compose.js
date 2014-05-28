@@ -10,6 +10,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'className' : "modal hide fade clearfix",
 	'type' : "post",
 	'network' : "default",
+	'actionstreams': [],
 	
 	'titles' : {
 		'post' : "Write Post"
@@ -166,7 +167,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Collect data
 		var params ={
 			// Aside
-			streams:	this.streams.models,			
+			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
@@ -205,8 +206,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'editstreams' : function (model)
 	{
-	
-		console.log(model.attributes)	
+		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0]
+		
+		for(n in action.streams)
+			this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		
+		this.render();
 	},
 	
 	'monitor' : function (e)
