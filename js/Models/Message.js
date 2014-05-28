@@ -224,7 +224,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				}else{ 
 					var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
 					if(link.length > 0)	link[0].url = value.url;
-					else				variation.attachments = [value];
+					else if(attachments.length != 0)	variation.attachments.push(value);
+					else								variation.attachments = [value];
 				}
 			}else{
 				variation[key] = value;

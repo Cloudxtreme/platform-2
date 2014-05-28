@@ -1185,8 +1185,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// It's added Koen
 
 		//Clone without global attachments)
-		var draft = this.parsedraft();
-		draft.save({status: "draft"}, {patch: draft.id? true: false, success: this.thankyou.bind(this)});
+		//var draft = this.parsedraft();
+		this.draft.save({status: "draft"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
