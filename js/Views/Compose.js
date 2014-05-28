@@ -131,12 +131,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.action && this.action.token == "share") {
 			this.draft = this.reference.clone();
-		}else if(this.model){
+		
+		} else if(this.action && this.reference) {
+		
+			// Get action dynamics
+			this.action = new Cloudwalkers.Models.Action({parent: this.reference, token: this.action.token});
+			
+			this.listenTo(this.action, "change", this.editstreams)
+			this.action.fetch();
+
+		
+					
+		} else if(this.model){
 			this.draft = this.model;
 			this.setDraft();
 			
-		}// Draft message
-		else if(!this.draft)
+		}
+		
+		// Draft message
+		if(!this.draft)
 		{
 			// The draft message
 			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
@@ -188,6 +201,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.togglesubcontent();
 		this.trigger("rendered");
 		return this;
+	},
+	
+	'editstreams' : function (model)
+	{
+	
+		console.log(model.attributes)	
 	},
 	
 	'monitor' : function (e)
