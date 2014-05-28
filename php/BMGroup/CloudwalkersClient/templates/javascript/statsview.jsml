@@ -22,7 +22,7 @@
 			<select class="networks">
 				<option value="0">All networks</option>
 				{{#streams}}
-				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network}} {{name}}</option>
+				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network.token}} {{customname}}</option>
 				{{/streams}}
 			</select>
 

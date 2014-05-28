@@ -98,31 +98,5 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		
 		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
 		
-	},
-	
-
-	'render' : function()
-	{	
-		// clean if time toggle
-		this.cleanviews(); 
-		
-		// Build Pageview
-		this.$el.html (Mustache.render (Templates.statsview, this.timemanager()));
-		this.$container = this.$el.find("#widgetcontainer").eq(0);
-		
-		// Chosen
-		this.$el.find("select").chosen({width: "200px", disable_search_threshold: 10, inherit_select_classes: true});
-		
-		// Date picker
-		if (this.timespan == "custom")
-			this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
-		
-		if(this.gloaded)
-			this.fillcharts();
-		else
-			google.setOnLoadCallback(this.fillcharts.bind(this));
-
-		return this;
-	
 	}
 });

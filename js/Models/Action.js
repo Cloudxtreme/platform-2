@@ -2,10 +2,13 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 	
 	'typestring' : "actions",
 	
-	'initialize' : function(data, init)
+	'initialize' : function(options, init)
 	{
+		if(options) $.extend(this, options);
+		
 		// Get parent
-		this.parent = init.collection.parent;
+		if (init)
+			this.parent = init.collection.parent;
 	},
 	
 	'url' : function()

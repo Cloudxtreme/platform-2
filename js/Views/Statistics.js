@@ -178,13 +178,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		params.streams = [];
 		
 		// Select streams
-		this.model.streams.each (function(stream)
+		params.streams = this.model.streams.where({ 'statistics': 1 }).map(function(stream)
 		{
-			if(stream.get(this.check)) params.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
-
-		}.bind(this));
-		
-		console.log(params)
+			return stream.attributes;
+		});
 		
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.statsview, params));
@@ -270,6 +267,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.period -= 1;
 		this.render();
 	},
+	
+	'changestream' : function()
+	{
+		Cloudwalkers.Router.Instance.navigate("#statistics/" + this.$el.find("select.networks").val(), {trigger: true}) 
+
+	},
+	
 	
 	'changespan' : function()
 	{
