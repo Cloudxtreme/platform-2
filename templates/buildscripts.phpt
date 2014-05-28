@@ -77,6 +77,7 @@
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
 <script type="text/javascript" src="/js/Views/Statistics.js"></script>
+<script type="text/javascript" src="/js/Views/StatStream.js"></script>
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 <script type="text/javascript" src="/js/Views/Firsttime.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkdashboard.js"></script>

@@ -18,7 +18,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
-		'reports' : 'statistics',
+		'statistics' : 'statistics',
+		'statistics/:streamid' : 'statistics',
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
 		'work' : 'coworkdashboard',
@@ -224,7 +225,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
 								Cloudwalkers.Session.getAccount();
 		
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Statistics({model: model}));
+		Cloudwalkers.RootView.setView ( streamid?
+			new Cloudwalkers.Views.Statistics({model: model}):
+			new Cloudwalkers.Views.StatStream({model: model})
+		);
 		
 		/*var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
 
