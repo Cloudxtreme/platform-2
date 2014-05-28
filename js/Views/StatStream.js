@@ -81,6 +81,9 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 	'initialize' : function(options)
 	{
 		if (options) $.extend(this, options);
+		
+		// Test
+		console.log("the streamid:", this.streamid)
 
 		// Check if collection exists
 		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();

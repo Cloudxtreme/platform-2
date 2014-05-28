@@ -221,24 +221,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'statistics' : function (streamid)
 	{
-		
-		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
-								Cloudwalkers.Session.getAccount();
+		/*var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
+								Cloudwalkers.Session.getAccount();*/
+								
+		var model = Cloudwalkers.Session.getAccount();
 		
 		Cloudwalkers.RootView.setView ( streamid?
-			new Cloudwalkers.Views.Statistics({model: model}):
-			new Cloudwalkers.Views.StatStream({model: model})
+			new Cloudwalkers.Views.StatStream({model: model, streamid: streamid}):
+			new Cloudwalkers.Views.Statistics({model: model})
 		);
-		
-		/*var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
-
-		if (streamid)
-		{
-			view.subnavclass = 'reports_' + streamid;
-		}
-
-		Cloudwalkers.RootView.setView (view);*/
-		
 	},
 
 	
