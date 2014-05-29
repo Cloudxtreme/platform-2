@@ -160,6 +160,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			// Get action dynamics
 			this.action.parent = this.reference;
+			this.actionstreams = [];
 			this.actionview = true;
 			
 			this.listenTo(this.action, "change", this.editstreams)
@@ -191,7 +192,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Collect data
 		var params ={
 			// Aside
-			streams:	this.actionview? []: this.streams.models,			
+			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
@@ -233,16 +234,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'editstreams' : function (model)
 	{
-		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0]
-
+		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
+		
 		this.actionstreams = [];
 		for(n in action.streams){
 			if(Cloudwalkers.Session.getStream(action.streams[n]))
 				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
 		}
-		
+
 		this.render();
-		this.blockwidgets(this.action.parent.actions.blocked[this.action.token]);
+		//this.blockwidgets(this.action.parent.actions.blocked[this.action.token]);
 	},
 
 	'blockwidgets' : function(blocked){
