@@ -117,7 +117,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			
 			// Monitoring
 			var monitoring = account.channels.findWhere({type: "monitoring"});
-			data.monitoring = {channelid: monitoring.id, channels: monitoring.channels.models, name: monitoring.get("name")};
+			data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
 		}
 		
 		// Scheduled
