@@ -298,13 +298,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// All open collapsables
 		var collapsibles = this.$el.find("[data-collapsable]")
 			.not(".collapsed")
-			.addClass("collapsed");
-
-			/*.each( function(n, collapsible)
-			{
+			.addClass("collapsed")
+			.each( function(n, collapsible)
+			{	console.log($(collapsible).data("collapsable"));
 				this["summarize" + $(collapsible).data("collapsable")]();
 				
-			}.bind(this));*/
+			}.bind(this));
 	},
 	
 	'togglestreams' : function (e)
@@ -430,7 +429,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.trigger("update:stream", this.draft.getvariation(id, 'body') || id);
 		this.updatesubject();
 		this.updateimages();
-		this.updatelink();
+		this.summarizelink();
 	},
 
 	'updatesubject' : function()
@@ -487,12 +486,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else
 			this.draft.attach(image);
 					
-		this.summarizeimage(image);
+		this.summarizeimages(image);
 		this.listimage(image);
 	},
 
 	//Add to summary
-	'summarizeimage' : function(image)
+	'summarizeimages' : function(image)
 	{
 		var url = image.data || image.url;
 		var summary = this.$el.find("[data-collapsable=images] .summary");
@@ -541,7 +540,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(streamid && this.draft.getvariation(streamid,'image')){
 			var imgs = this.draft.getvariation(streamid, 'image');
 			$.each(imgs, function(i, image){
-				this.summarizeimage(image);
+				this.summarizeimages(image);
 				this.listimage(image);
 			}.bind(this));
 		}
@@ -550,7 +549,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.draft.get("attachments")){
 			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
 			$.each(imgs, function(i, image){
-				this.summarizeimage(image);
+				this.summarizeimages(image);
 				this.listimage(image);
 			}.bind(this));
 		}
@@ -679,11 +678,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			else this.draft.attach({type: 'link', url: link});
 		}		
 		
-		this.updatelink();
+		this.summarizelink();
 	},
 
 	// Write link object in the interface
-	'updatelink' : function(){
+	'summarizelink' : function(){
 
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
