@@ -139,8 +139,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Select streams
 		params.streams = this.model.streams.where({ 'statistics': 1 }).map(function(stream)
 		{
+			stream.attributes.selected = (stream.id == this.streamid);
 			return stream.attributes;
-		});
+		}.bind(this));
 		
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.statsview, params));
@@ -235,7 +236,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'changestream' : function()
 	{
-		Cloudwalkers.Router.Instance.navigate("#statistics/" + this.$el.find("select.networks").val(), {trigger: true}) 
+		
+		var streamid = Number(this.$el.find("select.networks").val());
+		
+		Cloudwalkers.Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
 
 	},
 	
