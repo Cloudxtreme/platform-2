@@ -4,9 +4,9 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 	'networkspecific' : {
 		'typeA' : { 
 			'facebook' : {filterfunc: "age", chart: "PieChart", title: "By Age"},
-			'twitter' : {filterfunc: "follow", chart: "PieChart", title: "By Followers"},
-			'linkedin' : {filterfunc: "follow", chart: "PieChart", title: "By Followers"},
-			'youtube' : {filterfunc: "follow", chart: "PieChart", title: "By Followers"}
+			'twitter' : {filterfunc: "follow", chart: "PieChart", title: "By Type"},
+			'linkedin' : {filterfunc: "follow", chart: "PieChart", title: "By Type"},
+			'youtube' : {filterfunc: "follow", chart: "PieChart", title: "By Type"}
 		},
 		'typeB' : { 
 			'facebook' : {filterfunc: "gender", chart: "PieChart", title: "By gender"},
@@ -17,41 +17,9 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 	},
 	
 	'widgets' : [
-		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-
-		{widget: "TitleSeparator", data: {title: "Contacts info"}},
-		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: "Contacts", display: "divided"}, span: 6},
-		{widget: "CompoundChart", span: 6, data : { template: "2col1row", chartdata: [ 
-			{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}},
-			{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}},
-			{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", title: "Contacts Evolution"}}
-			]}
-		},
-		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
-		//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
-		
-		{widget: "TitleSeparator", data: {title: "New this"}},
-		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
-		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
-		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
-		{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
-
-		{widget: "TitleSeparator", data: {title: "Messages info"}},
-		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
-		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
-		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
-
-		{widget: "TitleSeparator", data: {title: "Geo Graphics"}},
-		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, span: 8},
-		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
-			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
-			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
-			]}
-		},
 
 		// ** Network context widgets **
-		{widget: "StatSummary", data: {columnviews: ["contacts-network", "score-trending-network", "outgoing-network", "coworkers"]}, span: 12},
+		{widget: "StatSummary", data: {columnviews: ["contacts-network", "score-trending-network", "outgoing-network", "besttime"]}, span: 12},
 
 		{widget: "TitleSeparator", data: {title: "Contacts info"}},
 		{widget: "Chart", data: {filterfunc: "contact-evolution-network", chart: "LineChart", title: "Contacts Evolution"}, span : 6},
@@ -59,22 +27,22 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		{widget: "Chart", data: 'typeB', span : 3},
 
 		{widget: "TitleSeparator", data: {title: "Network info"}},
-		{widget: "Info", data: {title: "Impressions", filterfunc: "page-views-network"}, span: 3},
-		{widget: "Info", data: {title: "Shares", filterfunc: "shares"}, span: 3},
-		{widget: "Info", data: {title: "Posts", filterfunc: "posts"}, span: 3},
-		{widget: "Info", data: {title: "Direct messages", filterfunc: "dms"}, span: 3},
+		{widget: "Info", data: {title: "New impressions", filterfunc: "page-views-network"}, span: 3},
+		{widget: "Info", data: {title: "New shares", filterfunc: "shares"}, span: 3},
+		{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 3},
+		{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 3},
 
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
 		{widget: "Chart", data: {filterfunc: "message-evolution-network", chart: "LineChart", title: "Messages Evolution"}, span : 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
 
-		{widget: "TitleSeparator", data: {title: "Geo Graphics"}},
-		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, span: 8},
+		{widget: "TitleSeparator", data: {title: "Geo Graphics"}, networks : ['facebook']},
+		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, networks : ['facebook'], span: 8},
 		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
 			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
 			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
-			]}
+			]}, networks : ['facebook']
 		},
 	],
 	
@@ -83,7 +51,8 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		if (options) $.extend(this, options);
 		
 		// Test
-		console.log("the streamid:", this.streamid)
+		//console.log("the streamid:", this.streamid)
+		this.streamid = Number(this.streamid);
 
 		// Check if collection exists
 		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
@@ -99,4 +68,6 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
 		
 	}
+
+
 });

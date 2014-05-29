@@ -25,6 +25,18 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'plusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'plusone', type: 'options', toggle: 'unplusone'},
 		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'options', toggle: 'plusone'}
 	},
+
+	'blocked' : {
+		'comment' : ['campaign'],
+		'reply' : ['campaign'],
+		'dm' : ['campaign'],
+		'retweet' : ['campaign'],
+		'like' : ['campaign', 'repeat'],
+		'unlike' : ['campaign'],
+		'unfavorite' : ['campaign'],
+		'plusone' : ['campaign'],
+		'unplusone' : ['campaign'],
+	},	
 	
 	'initialize' : function(models, options)
 	{

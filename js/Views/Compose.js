@@ -140,13 +140,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			this.listenTo(this.action, "change", this.editstreams)
 			this.action.fetch();
-
 		
 					
 		} else if(this.model){
 			this.draft = this.model;
-			this.setDraft();
-			
+			this.setDraft();			
 		}
 		
 		// Draft message
@@ -207,11 +205,22 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'editstreams' : function (model)
 	{
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0]
-		
-		for(n in action.streams)
-			this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+
+		this.actionstreams = [];
+		for(n in action.streams){
+			if(Cloudwalkers.Session.getStream(action.streams[n]))
+				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		}
 		
 		this.render();
+		this.blockwidgets(this.action.parent.actions.blocked[this.action.token]);
+	},
+
+	'blockwidgets' : function(blocked){
+		
+		for(n in blocked)
+			this.$el.find('[data-collapsable="'+blocked[n]+'"]').addClass('hidden');		
+		
 	},
 	
 	'monitor' : function (e)
@@ -357,7 +366,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	console.log(this.draft.get("attachments"), this.draft.get("variations"));
+	{ 	
 		this.activestream = stream;
 		
 		// Get the right network
@@ -2403,5 +2412,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
     'destroy' : function(){
     	//console.log("THIS IS SO FRUSTRATING!");
+    	
     }
 });

@@ -60,6 +60,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		this.listenTo(this.collection, 'ready', this.fill);
 		this.listenTo(this.collection, 'change', this.render);
 
+		if(this.network)
+			this.settings.network.icon = Cloudwalkers.Session.getStream(this.network).get("network").token;
 	},
 
 	'render' : function ()
@@ -314,9 +316,6 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 		return [{content: total, descr : description}];
 	},
-
-
-
 
 
 	'negotiateFunctionalities' : function()

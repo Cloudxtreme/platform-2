@@ -1935,7 +1935,7 @@ Dashboard stats
 	font-size: 14px;
 	border: 2px solid #fff;
 	-webkit-box-sizing: border-box; 
-	padding: 16px;
+	padding-top: 12px;
 }
 
 .scoreballoon p{

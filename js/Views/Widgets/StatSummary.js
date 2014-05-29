@@ -11,7 +11,9 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		"contacts-network" : {"title": "Total contacts", "func": "parsecontactsnetwork"},
 		"score-trending-network" : {"title": "Popularity score", "func": "parsescorenetwork"},
 		"outgoing-network" : {"title": "Messages sent", "func": "parsesentnetwork"},
-		"coworkers" : {"title": "Co-workers activity", "func": "parseactivity"}
+		"coworkers" : {"title": "Co-workers activity", "func": "parseactivity"},
+
+		"besttime" : {"title": "Best time to post", "func": "parsebesttime"}
 	},
 	
 	'initialize' : function(options)
@@ -136,6 +138,42 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		var total = statl.pluck("messages", this.network) - statf.pluck("messages", this.network);
 		return { counter: total };
+	},
+
+	'parsebesttime' : function(){
+
+		var besttimes = this.collection.parsebesttime();
+
+	    if (besttimes.length == 0)
+	        return null;
+	    
+	    var modeMap = {},
+	        maxEl = besttimes[0].time,
+	        maxCount = 1;
+
+	    for(var i = 0; i < besttimes.length; i++)
+	    {	
+	        var el = besttimes[i].time;
+	        if(el < 0)	continue;
+
+	        if (modeMap[el] == null)
+	            modeMap[el] = 1;
+	        else
+	            modeMap[el]++;
+
+	        if (modeMap[el] > maxCount)
+	        {
+	            maxEl = el;
+	            maxCount = modeMap[el];
+	        }
+	        else if (modeMap[el] == maxCount)
+	        {
+	            maxEl += '&' + el;
+	            maxCount = modeMap[el];
+	        }
+	    }
+	    
+	    return {counter : maxEl+"h" };
 	}
 
 

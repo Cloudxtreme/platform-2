@@ -165,6 +165,64 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		var list = [];
 
 		return { counter: list};
-	}
+	},
+
+	parsebesttime : function(){
+
+		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+		var besttime,
+			data = [],
+			maxvalue = 0,
+		 	dailyvalue = 0,
+		 	fill,
+		 	max,
+		 	time;
+
+		var statistics = this.models;
+
+		//Always the last 7 results
+		if(this.length > 7)
+			statistics = statistics.splice(7, statistics.length-1);
+
+		$.each(days, function(index, day){
+			var statistic = statistics[index];
+			var daily 	= [];
+
+			if(statistic){
+				var streams = statistic.get("streams");
+				streams.forEach(function(stream){
+					stream 	= new Cloudwalkers.Models.Stream(stream);
+					besttime = stream.getbesttime();
+					
+					if(besttime){
+						if(daily.length == 0){
+							daily = _.values(besttime);
+						}else{
+							for(i in besttime){							
+								daily[i] += besttime[i];
+		
+								//Keep track of the highest week & daily value
+								if(daily[i]>maxvalue)	maxvalue=daily[i];
+								if(daily[i]>dailyvalue)	dailyvalue=daily[i];
+							}
+						}
+					}
+				});
+			}
+			
+			if(daily.length > 0)
+				time = daily.indexOf(Math.max.apply(Math,_.values(daily)));
+			else
+				time = -1;
+
+			data.push({day: days.shift(), value: dailyvalue, time: time});
+
+			dailyvalue = 0;
+		});
+
+		data["maxvalue"] = maxvalue;
+		
+		return data;
+	},
 	
 });

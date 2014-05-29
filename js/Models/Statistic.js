@@ -25,28 +25,24 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 		} 
 		
 		$.each(this.get("streams"), function(i, stream)
-		{
-			//Filter just by key (contacts, messages, etc)
+		{	
+			// No stream, global sum
 			if(!streamid){
 				if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 			}
-			//Filter by key and stream id
-			else if(_.isNumber(streamid) && streamid == stream.id){
+
+			// Has stream
+			else if(_.isNumber(streamid) && streamid == stream.id && (hassublevel <=2 || !hassublevel)){
 				if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 				else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
 			}
-			//Filter by key and stream token
-			/*else if(_.isString(streamid)){
-				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
-				if(network == streamid){
-					if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
-					else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
-				}
-			}*/
 
-			//ONLY FOR OLD CHART DEMO -- && if streamid is a token -- messy stuff
-			
+			else if(_.isNumber(streamid) && streamid == stream.id && hassublevel > 2){
+				if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
+			}
+
+			// Has network token
 			else if(_.isString(streamid) && (hassublevel <=2 || !hassublevel)){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
@@ -56,22 +52,21 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 			}
 
 			else if(_.isString(streamid) && hassublevel > 2){
-
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
-
 					if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
 				}
 			}
-			
 		});
 		
 		return response;
 	},
 
 	'pluckbynetwork' : function(){
-
+		//to be made
 	},
+
+
 	
 	all : function (key)
 	{
