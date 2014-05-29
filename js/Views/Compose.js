@@ -50,7 +50,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'blur .campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
-		'click .schedule-entry label' : 'monitorschedulelabel',
+		'click .schedule-entry label' : 'monitorschedule'/*'monitorschedulelabel'*/,
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 		
 		'blur [data-collapsable=schedule] input' : 'monitorschedule',
@@ -192,6 +192,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
+		
+		// Add Datepicker
+		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -859,10 +862,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'monitorschedule' : function(e)
 	{
 		
-		console.log(e.currentTarget)
-		
-		/*
-		
 		var field = $(e.currentTarget);
 		var scheduled = this.draft.get("schedule");
 		
@@ -984,7 +983,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			else if(field.id == "#every-select") $("#every-select-single").val($("#every-select").val());
 		}
 		
-		return this;*/
+		return this;
 		/*
 		
 		
