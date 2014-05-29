@@ -134,7 +134,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft = this.reference.clone();
 		
 		} else if(this.action && this.reference) {
-		
+			
 			// Get action dynamics
 			this.action = new Cloudwalkers.Models.Action({parent: this.reference, token: this.action.token});
 			
