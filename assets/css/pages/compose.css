@@ -74,7 +74,8 @@ Style corrections and manual overrides
 	width: auto; height: 32px; padding: 0; background-color: #efefef;  overflow-x: visible; white-space: nowrap; border-radius: 2px; border: solid #ddd; border-width: 0 1px 1px 1px;
 }*/
 
-#compose section.stream-tabs	{
+#compose section.stream-tabs,
+#compose section.action-tabs	{
 	width: auto; height: 32px; padding: 0; margin: 0 8.82% 30px; background-color: #efefef; border-radius: 2px; border: 1px solid #ddd; overflow-x: visible; overflow-y: hidden; white-space: nowrap;
 }
 
@@ -147,6 +148,13 @@ Style corrections and manual overrides
 #compose .group-theme .input-symbol:before	{ content: "\F0C0"; background-color: #f0f0f0; color: #777; box-shadow: inset 0 3px 0 #e6e6e6; }
 #compose .mobile-phone-theme .input-symbol:before	{ content: "\F10B"; background-color: #f0f0f0; color: #777; box-shadow: inset 0 3px 0 #e6e6e6; }
 
+/**
+ *	Icon
+**/
+#compose [data-type=icon]	{
+	text-align: center; position: relative; top: -10px; 
+	font-size: 5em;
+}
 
 /**
  *	Collapseble options

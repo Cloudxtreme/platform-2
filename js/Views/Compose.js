@@ -27,16 +27,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'options' : {
-		false :			["editor","link","images","campaign","schedule"],
-		'twitter' :		["editor","images","link","campaign","schedule"],
-		'facebook' :	["editor","fullbody","link","images","campaign","schedule"],
-		'linkedin' :	["editor","link","images","campaign","schedule"],
-		'tumblr' :		["subject","editor","fullbody","link","images","campaign","schedule"],
-		'google-plus' :	["editor","fullbody","link","images","campaign","schedule"],
-		'youtube' :		["subject","editor","fullbody","link","video","campaign","schedule"],
-		'blog' :		["subject","editor","fullbody","link","images","campaign","schedule"],
-		'group' :		["editor","images","link","campaign","schedule"],
-		'mobile-phone':	["editor","schedule"],
+		false :			["editor","link","images","campaign","schedule","repeat"],
+		'twitter' :		["editor","images","link","campaign","schedule","repeat"],
+		'facebook' :	["editor","fullbody","link","images","campaign","schedule","repeat"],
+		'linkedin' :	["editor","link","images","campaign","schedule","repeat"],
+		'tumblr' :		["subject","editor","fullbody","link","images","campaign","schedule","repeat"],
+		'google-plus' :	["editor","fullbody","link","images","campaign","schedule","repeat"],
+		'youtube' :		["subject","editor","fullbody","link","video","campaign","schedule","repeat"],
+		'blog' :		["subject","editor","fullbody","link","images","campaign","schedule","repeat"],
+		'group' :		["editor","images","link","campaign","schedule","repeat"],
+		'mobile-phone':	["editor","schedule","repeat"],
 		
 		// Actions
 		'comment' : ["editor"],
@@ -46,6 +46,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'like' : ["icon"],
 		'favorite' : ["icon"],
 		'plusone' : ["icon"]
+	},
+	
+	'icons' : {
+		'retweet' : 'retweet', 'like' : 'thumbs-up', 'favorite' : 'star', 'plusone' : 'plus-square'
 	},
 	
 	'events' : {
@@ -82,6 +86,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
 		'click #post' : 'post',
+		'click #action, [data-type=icon] > i' : 'postaction',
 
 		'remove': 'destroy',
 
@@ -152,12 +157,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Proccess actions
 		if(this.action) this.type = this.action.get("token");
 		
-		if(this.action && this.type == "share") {
+		if(this.action && this.type == "share")
+		{
 			this.draft = this.reference.clone();
-			this.type = "share";
 		
-		} else if(this.action && this.reference) {
-			
+		} else if(this.action && this.reference)
+		{
 			// Get action dynamics
 			this.action.parent = this.reference;
 			this.actionstreams = [];
@@ -191,17 +196,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Collect data
 		var params ={
-			// Aside
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
-			// Post
 			title:		this.titles[this.type],
-			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")
+			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
+			actionview: this.actionview? this.type: false
 		};
 		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
+		
+		// If action
+		if(this.actionview)
+		{
+			
+		}
 
+		/// Is this a Hack?
 		//It it's a twitter reply
 		if(this.options.actionparameters){
 			var username = this.model.get("from")[0].username;
@@ -237,21 +248,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 		
 		this.actionstreams = [];
-		for(n in action.streams){
-			if(Cloudwalkers.Session.getStream(action.streams[n]))
-				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
-		}
-
+		for(n in action.streams) this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		
+		// Render streamlist and activate first stream
 		this.render();
+		this.$el.find("aside li").eq(0).click();
+		
 		//this.blockwidgets(this.action.parent.actions.blocked[this.action.token]);
 	},
 
-	'blockwidgets' : function(blocked){
+	/*'blockwidgets' : function(blocked){
 		
 		for(n in blocked)
 			this.$el.find('[data-collapsable="'+blocked[n]+'"]').addClass('hidden');		
 		
-	},
+	},*/
 	
 	'monitor' : function (e)
 	{	
@@ -338,6 +349,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'togglestreams' : function (e)
 	{
+		var $tabs = this.$el.find(".tabs-container > section");
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("streams");
 
@@ -347,7 +359,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Switch buttons and tabs
 		if(!$btn.hasClass("active"))
 		{
-			this.$el.find(".stream-tabs").append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
+			$tabs.append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
 			
 			// Add to draft
 			streamids.push(id);
@@ -356,7 +368,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.$el.find("[data-stream="+ id +"]").remove();
 			
 			// Shift active stream
-			if(!this.$el.find(".stream-tabs div.active").size())
+			if(!$tabs.find("div.active").size())
 			{
 				var activediv = this.$el.find(".stream-tabs div").eq(0);
 				var activeid = activediv.data('stream');
@@ -398,40 +410,46 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{ 	
 		this.activestream = stream;
 		
-		// Get the right network
-		var network = stream? stream.get("network").token: false;
-		var icon = stream? stream.get('network').icon: 'default';
-		var options = this.options[network];
-		var id = stream? stream.id: false;
+		if(this.actionview)
+		{
+			var options = this.options[this.type];
+			var network = false;
+		
+		} else {
+			
+			// Get the right network
+			var network = stream? stream.get("network").token: false;
+			var icon = stream? stream.get('network').icon: 'default';
+			var options = this.options[network];
+			var id = stream? stream.id: false;	
+		}
 		
 		this.network = network;
 
-		//Disable button for preview "default" messages
-		var previewbtn = this.$el.find("#previewbtn")[0];
-		previewbtn.disabled = this.network ? false : true;
-		
+		// Enable/disable preview
+		this.$el.find("#previewbtn").attr("disabled", this.network? false: true);
 		//var input = this.getinput(network, id);
 		
-		// Add network icon
+		// Add network icon (fields)
 		this.$el.find(".modal-body").get(0).className = "modal-body";
 		this.$el.find(".modal-body").addClass(icon + "-theme");
-		
+
 		// Subject
-		if (options.indexOf("subject") >= 0)
-		{
-			this.$el.find("[data-option=subject].hidden").removeClass("hidden");
-			
-			/*var val = network?	this.draft.variation(id, "subject"): this.draft.get("subject");
-			
-			if(network && !val)	this.$el.find("[data-option=subject] input").val("").attr("placeholder", this.draft.get("subject"));
-			else 				this.$el.find("[data-option=subject] input").val(val);*/
+		if (options.indexOf("subject") >= 0)	this.$el.find("[data-option=subject].hidden").removeClass("hidden");
+		else									this.$el.find("[data-option=subject]").addClass("hidden");
+
+		// Editor
+		if (options.indexOf("editor") >= 0)		this.$el.find("#editor.hidden").removeClass("hidden");
+		else									this.$el.find("#editor").addClass("hidden");
 		
-		} else					this.$el.find("[data-option=subject]").addClass("hidden");
-
-
 		// Full Body
 		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
 		else									this.$el.find("[data-option=limit].hidden").removeClass("hidden");
+		
+		// Icon
+		if (options.indexOf("icon") >= 0)		this.$el.find("[data-type=icon]").removeClass("hidden").find("i").get(0).className = "icon-" + this.icons[this.type];
+		else									this.$el.find("[data-type=icon]").addClass("hidden");
+		
 		
 		//var val = network? this.draft.getvariation(id, "body"): this.draft.get("body");
 		
@@ -450,10 +468,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Toggle options
 		this.closealloptions();
-
+		
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
 		
 		this.togglelink(options.indexOf("link") >= 0);
+		
+		this.togglecampaign(options.indexOf("campaign") >= 0);
+		
+		this.toggleschedule(options.indexOf("schedule") >= 0);
+		
+		this.togglerepeat(options.indexOf("repeat") >= 0);
 		
 		// Update content, images and links
 		this.trigger("update:stream", this.draft.getvariation(id, 'body') || id);
@@ -753,6 +777,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Options: Campaign
 	**/
 	
+	'togglecampaign' : function(visible)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=campaign]")[visible? "removeClass": "addClass"]("hidden");
+		
+		return this;
+	},
+	
 	'summarizecampaign' : function()
 	{
 		// Campaign value
@@ -818,6 +850,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	/**
 	 *	Options: Schedule
 	**/
+	
+	'toggleschedule' : function(visible)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=schedule]")[visible? "removeClass": "addClass"]("hidden");
+		
+		return this;
+	},
 	
 	/*'togglescheduleentry' : function(e)
 	{
@@ -1108,6 +1148,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Options: Repeat
 	**/
 	
+	'togglerepeat' : function(visible)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=repeat]")[visible? "removeClass": "addClass"]("hidden");
+		
+		return this;
+	},
+	
 	'monitorrepeat' : function(e)
 	{
 		
@@ -1251,9 +1299,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'post' : function()
 	{		
-		// Rui, add loader
-		// It's added Koen
-		
 		// Prevent empty post
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 		
@@ -1262,6 +1307,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		
+	},
+	
+	'postaction' : function()
+	{		
+		var streamids = [];
+		
+		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
+		
+		// Check stream selection
+		if (!streamids.length)
+			return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
+		
+		// Check text if required
+		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
+			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));
+		
+		// Create & Save
+		var postaction = this.reference.actions.create({streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
 		
 	},
 	

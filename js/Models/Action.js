@@ -15,9 +15,10 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 	{	
 		var url = [CONFIG_BASE_URL + "json"];
 		
-		if(this.parent)			url.push(this.parent.typestring, this.parent.id);
-		if(this.typestring)		url.push(this.typestring);		
-		if(this.id)				url.push(this.id);
+		if(this.parent)				url.push(this.parent.typestring, this.parent.id);
+		if(this.typestring)			url.push(this.typestring);		
+		if(this.id)					url.push(this.id);
+		if(this.get("actiontype"))	url.push(this.get("actiontype"));
 		
 		return url.join("/");
 	},
