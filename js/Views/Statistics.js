@@ -96,7 +96,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	],
 	
 	'initialize' : function(options)
-	{
+	{	
 		if (options) $.extend(this, options);
 
 		// Check if collection exists
@@ -108,9 +108,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'ready', this.hideloading);
-		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
-		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
+		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
 		
 	},
 	
@@ -153,11 +152,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Date picker
 		if (this.timespan == "custom")
 			this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
-		
-		if(this.gloaded)
+
+		if(google.visualization)
 			this.fillcharts();
-		else
-			google.setOnLoadCallback(this.fillcharts.bind(this));
+
 
 		return this;
 	

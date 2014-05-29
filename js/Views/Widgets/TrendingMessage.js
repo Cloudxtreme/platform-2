@@ -14,7 +14,6 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		}else{
 			this.model = Cloudwalkers.Session.getStream(this.network);
 			this.listenTo(this.model, 'sync', this.fill);
-			this.message = this.model.get("messages") ? this.model.get("messages")[0] : false;
 		}
 
 		this.gettoptrending();
@@ -28,11 +27,15 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 	},
 
 	'fill' : function(){
-		
+
+		this.message = this.model.get("messages") ? this.model.get("messages")[0] : false;
+
 		//No results
-		if(!this.message)
+		if(!this.message || this.message.length == 0){
+			this.$el.find('.commentballoon h4').html("No data");
 			return;
-		
+		}
+			
 		var message = this.message;
 		var links = message.attachments? message.attachments.filter(function(el){ if(el.type == "link") return el; }) : null;
 		var images = message.attachments? message.attachments.filter(function(el){ if(el.type == "image") return el; }) : null;

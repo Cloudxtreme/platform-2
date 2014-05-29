@@ -1838,7 +1838,7 @@ Dashboard stats
 	-webkit-box-sizing: border-box; 
 	padding-left: 100px; 
 	margin-bottom: 100px;
-	background-color: #2bbedc 
+	background-color: #e5e5e5; 
 }
 
 .commentballoon h5{	
@@ -1877,7 +1877,7 @@ Dashboard stats
 	right: 0;
 	border-width: 0 0 100px 100px;
 	border-style: solid;
-	border-color: transparent #25A6C1;
+	border-color: transparent #C9C9C9;
 }
 
 .commentballoon.facebook-color:before{	border-color: transparent #334E85 }
