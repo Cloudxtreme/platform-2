@@ -19,14 +19,14 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
-		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'options', toggle: 'like'},
+		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
 		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite'},
-		'unfavorite' : {name: "Unfavorite", icon: 'star-empty', token: 'unfavorite', type: 'options', toggle: 'favorite'},
+		'unfavorite' : {name: "Unfavorite", icon: 'star-empty', token: 'unfavorite', type: 'growl', toggle: 'favorite', actiontype: 'favorite'},
 		'plusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'plusone', type: 'options', toggle: 'unplusone'},
-		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'options', toggle: 'plusone'}
+		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'growl', toggle: 'plusone', actiontype: 'plusone'}
 	},
 
-	'blocked' : {
+	/*'blocked' : {
 		'comment' : ['campaign'],
 		'reply' : ['campaign'],
 		'dm' : ['campaign'],
@@ -37,7 +37,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'unfavorite' : ['campaign'],
 		'plusone' : ['campaign'],
 		'unplusone' : ['campaign'],
-	},	
+	},*/
 	
 	'initialize' : function(models, options)
 	{
@@ -89,9 +89,20 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 			return;
 		}
 		
+		// Show growl
+		else if (action.type == 'growl')
+		{
+			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
+			
+			action.id = 1;
+			action.parent = this.parent;
+			
+			return new Cloudwalkers.Models.Action(action).destroy();
+		}
+		
 		// Call Compose modal
 		else if (action.type == 'edit')	var params = {model: this.parent};
-		else							var params = {reference: this.parent, action: this.create(action)} 
+		else							var params = {reference: this.parent, action: new Cloudwalkers.Models.Action(action)} 
 		
 		Cloudwalkers.RootView.compose(params);
 
