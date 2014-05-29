@@ -11,22 +11,41 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'type' : "post",
 	'network' : "default",
 	'actionstreams': [],
+	'actionview': false,
 	
 	'titles' : {
-		'post' : "Write Post"
+		'post' :	"Write Post",
+		'edit' :	"Edit Post",
+		'share' :	"Share message",
+		'comment' :	"Write Comment",
+		'reply' :	"Write Reply",
+		'dm' :		"Write Message",
+		'retweet' :	"Retweet",
+		'like' :	"Like",
+		'favourite': "Favourite",
+		'plusone':	"Plus one",
 	},
 	
 	'options' : {
-		false :			["link","images"],
-		'twitter' :		["images","link"],
-		'facebook' :	["fullbody","link","images"],
-		'linkedin' :	["link","images"],
-		'tumblr' :		["subject","fullbody","link","images"],
-		'google-plus' :	["fullbody","link","images"],
-		'youtube' :		["subject","fullbody","link","video"],
-		'blog' :		["subject","fullbody","link","images"],
-		'group' :		["images","link"],
-		'mobile-phone':	[]
+		false :			["editor","link","images","campaign","schedule"],
+		'twitter' :		["editor","images","link","campaign","schedule"],
+		'facebook' :	["editor","fullbody","link","images","campaign","schedule"],
+		'linkedin' :	["editor","link","images","campaign","schedule"],
+		'tumblr' :		["subject","editor","fullbody","link","images","campaign","schedule"],
+		'google-plus' :	["editor","fullbody","link","images","campaign","schedule"],
+		'youtube' :		["subject","editor","fullbody","link","video","campaign","schedule"],
+		'blog' :		["subject","editor","fullbody","link","images","campaign","schedule"],
+		'group' :		["editor","images","link","campaign","schedule"],
+		'mobile-phone':	["editor","schedule"],
+		
+		// Actions
+		'comment' : ["editor"],
+		'reply' : ["editor"],
+		'dm' : ["editor"],
+		'retweet' : ["icon"],
+		'like' : ["icon"],
+		'favorite' : ["icon"],
+		'plusone' : ["icon"]
 	},
 	
 	'events' : {
@@ -130,19 +149,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 		
-		if(this.action && this.action.token == "share") {
+		// Proccess actions
+		if(this.action) this.type = this.action.get("token");
+		
+		if(this.action && this.type == "share") {
 			this.draft = this.reference.clone();
+			this.type = "share";
 		
 		} else if(this.action && this.reference) {
 			
 			// Get action dynamics
-			this.action = new Cloudwalkers.Models.Action({parent: this.reference, token: this.action.token});
+			this.action.parent = this.reference;
+			this.actionview = true;
 			
 			this.listenTo(this.action, "change", this.editstreams)
 			this.action.fetch();
-		
 					
-		} else if(this.model){
+		} else if(this.model)
+		{
+			this.type = "edit";
 			this.draft = this.model;
 			this.setDraft();			
 		}
@@ -162,10 +187,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'render' : function ()
 	{
+
 		// Collect data
 		var params ={
 			// Aside
-			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
+			streams:	this.actionview? []: this.streams.models,			
 			// Post
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns")

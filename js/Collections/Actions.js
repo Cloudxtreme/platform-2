@@ -33,6 +33,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'retweet' : ['campaign'],
 		'like' : ['campaign', 'repeat'],
 		'unlike' : ['campaign'],
+		'favorite' : ['campaign'],
 		'unfavorite' : ['campaign'],
 		'plusone' : ['campaign'],
 		'unplusone' : ['campaign'],
@@ -90,7 +91,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		
 		// Call Compose modal
 		else if (action.type == 'edit')	var params = {model: this.parent};
-		else							var params = {reference: this.parent, action: action} 
+		else							var params = {reference: this.parent, action: this.create(action)} 
 		
 		Cloudwalkers.RootView.compose(params);
 

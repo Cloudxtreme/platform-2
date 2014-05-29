@@ -85,7 +85,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule", "variations"]
 		
 		$.each(values, function(n, value){ filtered[value] = response[value]});
 		
