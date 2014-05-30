@@ -63,7 +63,7 @@ Backbone.View = Backbone.View.extend({
 	
 	'loadListeners' : function(model, states){
 		var length = states.length;
-		
+
 		for(i in states){
 			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
@@ -86,12 +86,11 @@ Backbone.View = Backbone.View.extend({
 		if(length == index){
 			this.finishLoading();
 		} 
-		
+		console.log(index,length);
 		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
 			var width = index*100/length;
-			//console.log("loadingstate", dis.loadingstate, "width",width);
 
 			if(!dis.loadingstate || dis.loadingstate <= width){
 				dis.loadingstate = width;
@@ -100,15 +99,16 @@ Backbone.View = Backbone.View.extend({
 				dis.restart();
 			}		
 		},1);
-
-
 	},
 
 	'restart' : function(){
 		this.loadingstate = 0;
 		this.loader.remove();
-		this.container.removeClass('loaded').addClass('toload');
 		this.addLoader();
+		this.container.removeClass('loaded');
+		
+		if(this.container.hasClass('tabbed'))
+			this.container.addClass('toload');
 	},
 
 	'finishLoading' : function(){

@@ -41,11 +41,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 
 		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
+		console.log(this.collection);
 	},
 	
 	'toggleall' : function ()
 	{
-		
 		this.filternetworks(null, true);
 		this.togglestreams(true);
 	},
