@@ -484,6 +484,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.updatesubject();
 		this.updateimages();
 		this.summarizelink();
+		console.log(this.draft);
 	},
 
 	'updatesubject' : function()
@@ -1284,7 +1285,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.removeClass("preview-mode");
 	},
 	
-	'save' : function()
+	'save' : function(status)
 	{
 		// Prevent empty patch
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
@@ -1292,9 +1293,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Rui, add loader
 		// It's added Koen
 
+		if(!status)	status = "draft";
+
 		//Clone without global attachments)
 		//var draft = this.parsedraft();
-		this.draft.save({status: "draft"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		this.draft.save({status: status}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
@@ -1303,7 +1306,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 		
 		// Redirect streamless to draft
-		else if(!this.draft.get("streams").length) this.save();
+		else if(!this.draft.get("streams").length) this.save("scheduled");
 		
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
