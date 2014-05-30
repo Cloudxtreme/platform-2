@@ -1188,6 +1188,7 @@ tbody.messages-container i	{
 .toload, .loaded{ position: relative; overflow: hidden; }
 ul.toload, .toload ul{max-height: 5px !important; -webkit-transition: all .9s ease-out .1s; }
 ul.loaded, .loaded ul{max-height: 9999px !important;}
+ul.loaded{ min-height: 5px;}
 .toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
 /*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/
 .loaded li, .loaded tr{	-webkit-transition: opacity .15s ease-out .5s; }

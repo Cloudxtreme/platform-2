@@ -63,7 +63,7 @@ Backbone.View = Backbone.View.extend({
 	
 	'loadListeners' : function(model, states){
 		var length = states.length;
-
+		
 		for(i in states){
 			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
@@ -77,24 +77,30 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'loadRender' : function(index, length){
+
 		//Just to make it moving from the beggining
 		if(!this.loader) return;
 
 		if(this.loader && this.loader.hasClass('loaded'))	this.restart();
 		if(this.loader && this.loader.hasClass('loading') && index == 1)	this.restart();
+		if(length == index){
+			this.finishLoading();
+		} 
 		
 		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
 			var width = index*100/length;
-			
-			if(!dis.loadingstate || dis.loadingstate<= width){
+			//console.log("loadingstate", dis.loadingstate, "width",width);
+
+			if(!dis.loadingstate || dis.loadingstate <= width){
 				dis.loadingstate = width;
 				if(dis.loader)	dis.loader.css('width',width+'%');
-			}			
+			}else{
+				dis.restart();
+			}		
 		},1);
 
-		if(length == index) this.finishLoading();
 
 	},
 
@@ -106,9 +112,10 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'finishLoading' : function(){
+		this.loader.css('width','100%');
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
-		this.restartLoader();
+		//this.restartLoader();
 	},
 
 	'rollBack' : function(){

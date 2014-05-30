@@ -21,7 +21,11 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 			Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd);	
 
 		// Check if it's empty only after sync
-		this.on('sync', function(){this.isempty;});
+		this.on('sync', function(){
+			setTimeout(function(){
+				this.isempty();
+			}.bind(this),1);
+		});
 	},
 	
 	'destroy' : function ()
@@ -30,9 +34,9 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		this.reset();
 	},
 
-	'isempty' : function(){
-		if(this.length == 0)
+	'isempty' : function(){		
+		if(this.length == 0){
 			this.trigger('ready');
-
+		}
 	}
 });
