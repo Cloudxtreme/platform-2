@@ -54,7 +54,10 @@ class BMGroup_CloudwalkersClient_FrontController
 		}
 
 		http_response_code (404);
-		echo '<p>Controller not found: ' . $module . '</p>';
+
+		$page = new Neuron_Core_Template ();
+		echo $page->parse ('404.phpt');
+
 		exit;
 
 		//return new BMGroup_CloudwalkersClient_Controllers_Home ();
