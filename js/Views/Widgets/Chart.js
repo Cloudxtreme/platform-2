@@ -49,6 +49,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
+
 	},
 
 	'render' : function ()
@@ -557,6 +558,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
+		var total = 0;
 		var data = [];
 		var fulldata = {
 			data : [], 
@@ -567,13 +569,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(grouped, function(key, value){
 			data.push([key, value]);
+			total += value;
 		});
 
 		data = _.sortBy(data, function(age) {
 			return age.title;
 		});
 
-		if(data.length == 0)
+		if(data.length ==  || total == 0)
 			return this.emptychartdata();
 
 		fulldata.data = data;		
@@ -584,11 +587,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	'groupkey' : function(collection, parents, key){
 		
-		var group= {};
+		var group = {};
 		
 		$.each(collection, function(index, statistic){
 			if((this.network && statistic.id == this.network) || !this.network){
-				
 				var object = statistic[parents][key];
 				if(_.isObject(object)){
 					if(_.isEmpty(group)){
@@ -608,6 +610,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "gender");
+		var total = 0;
 		var data = [];
 		var fulldata = {
 			data : [], 
@@ -618,9 +621,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(grouped, function(key, value){
 			data.push([this.capitalize(key), value]);
+			total += value;
 		}.bind(this));
 		
-		if(data.length == 0)
+		if(data.length ==  || total == 0)
 			return this.emptychartdata();
 
 		fulldata.data = data;

@@ -32,6 +32,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
+		this.model.messages.on("all", function(a){console.log(a);});
 	},
 
 	'render' : function (params)

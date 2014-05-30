@@ -39,7 +39,8 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 			}
 
 			else if(_.isNumber(streamid) && streamid == stream.id && hassublevel > 2){
-				if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
+				if(_.isObject(stream[key]) && _.isObject(stream[key][subkey]))
+					if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
 			}
 
 			// Has network token
@@ -54,7 +55,8 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 			else if(_.isString(streamid) && hassublevel > 2){
 				var network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 				if(network == streamid){
-					if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
+					if(_.isObject(stream[key]) && _.isObject(stream[key][subkey]))
+						if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
 				}
 			}
 		});

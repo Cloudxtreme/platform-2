@@ -19,7 +19,9 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 	},
 
 	'fill' : function(){
-		
+		if(this.filled)
+			return;
+
 		var fulldata = this.collection.parsebesttime();
 		
 		$.each(fulldata, function(key, day){
@@ -27,6 +29,8 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 			day.time = day.time >= 0 ? day.time+"h" : "";
 			this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
 		}.bind(this));
+
+		this.filled = true;
 	},
 
 	'negotiateFunctionalities' : function()
