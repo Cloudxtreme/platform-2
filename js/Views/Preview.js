@@ -12,7 +12,7 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 		if (options) $.extend(this, options); 
 
 		//Get the draft data
-		this.draftdata = this.mergedata(this.model.attributes, this.model.variation(this.streamid));
+		this.draftdata = this.mergedata(this.model.attributes, this.model.getvariation(this.streamid));
 		$.extend(this.draftdata, Cloudwalkers.Session.getStream(this.streamid).get("profile"));
 	},
 
