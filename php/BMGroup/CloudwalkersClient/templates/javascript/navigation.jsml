@@ -183,27 +183,30 @@
 					<a href="#timeline/{{channelid}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
-						<span class="arrow"></span>
+						<!--<span class="arrow"></span>-->
 					</a>
+					<!--
 					<ul class="sub-menu">
 						{{#streams}}
 							<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 						{{/streams}}
 					</ul>
+					-->
 				</li>
 
 				<li class="trending">
 					<a href="#trending/{{channelid}}">
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
-						<span class="arrow"></span>
+						<!--<span class="arrow"></span>-->
 					</a>
-			
+					<!--
 					<ul class="sub-menu">
 					{{#streams}}
 						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
 					</ul>
+					-->
 				</li>
 				
 				<li>
