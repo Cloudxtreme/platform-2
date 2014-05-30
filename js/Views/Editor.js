@@ -121,7 +121,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'listentochange' : function(){
 
 		var currentcontent = this.contentcontainer.html();
-		
+
 		if(this.lastcontent && this.lastcontent !== currentcontent){
 			this.filterurl();
 			this.lastcontent = currentcontent;
@@ -142,7 +142,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var self = this;
 		var content = this.contentcontainer.html();
 		var url = content.match(url_pattern);
-
+		console.log(url)
 		if(url && !this.currentUrl){
 
 			this.oldUrl = url[0];
@@ -163,7 +163,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					var formatedcontent = content.replace(this.oldUrl, Mustache.render (Templates.composeurltag, {url : this.urldata.newurl}));
 					
 					this.$el.find('#out').empty().html(oembed);
-					this.contentcontainer.empty().html(formatedcontent);
+					this.updatecontainer(formatedcontent);
 					//the URL tag's content
 					this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: this.urldata.newurl}));
 					
@@ -192,7 +192,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'getcursosposition' : function(e){
-
+		
 	    var cursorpos = 0;
 	    var doc = e.ownerDocument || e.document;
 	    var win = doc.defaultView || doc.parentWindow;
@@ -214,7 +214,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
 	        cursorpos = preCaretTextRange.text.length;
 	    }
-		//console.log("get",cursorpos);
+		console.log("getpos",cursorpos);
 		return cursorpos;
 	},
 
@@ -286,14 +286,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return content;
 	},
 
-	'updatecontainer' : function(){
+	'updatecontainer' : function(forcecontent){
 		
 		var charcount = this.contentcontainer.text().length;
 		var total = this.restrictedstreams[this.network] - charcount;
 		var placeholder = this.contentcontainer.find('#composeplaceholder');
 		var content;
 		var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
-		
+
 		//There is a placeholder in the content
 		if(placeholder.length > 0)
 			content = this.parsecontent(placeholder.html(), true);
@@ -306,6 +306,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		else
 			content = this.parsecontent(this.contentcontainer.text());
 		
+		if(forcecontent){
+			content = forcecontent;
+			cursorpos += 23;
+		}
+
 		this.contentcontainer.empty().html(content);
 		this.setcursosposition(cursorpos);
 		this.updatecounter(total);
