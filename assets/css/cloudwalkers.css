@@ -1013,7 +1013,7 @@ tbody.messages-container i	{
 #filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
 
 #inboxlist .list li, #inboxlist .list-loading	{
-	min-height: 40px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
+	min-height: 66px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
 	font-weight: 300;
 }
 

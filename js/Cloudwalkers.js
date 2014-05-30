@@ -77,7 +77,6 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'loadRender' : function(index, length){
-
 		//Just to make it moving from the beggining
 		if(!this.loader) return;
 
@@ -86,7 +85,7 @@ Backbone.View = Backbone.View.extend({
 		if(length == index){
 			this.finishLoading();
 		} 
-		console.log(index,length);
+		
 		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
@@ -105,30 +104,13 @@ Backbone.View = Backbone.View.extend({
 		this.loadingstate = 0;
 		this.loader.remove();
 		this.addLoader();
-		this.container.removeClass('loaded');
-		
-		if(this.container.hasClass('tabbed'))
-			this.container.addClass('toload');
+		this.container.removeClass('loaded').addClass('toload');
 	},
 
 	'finishLoading' : function(){
 		this.loader.css('width','100%');
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
-		//this.restartLoader();
-	},
-
-	'rollBack' : function(){
-		this.container.removeClass('loaded').addClass('toload');
-		this.loader.removeClass('loaded');
-	},
-
-	'restartLoader' : function(){
-		var dis = this;
-		
-		setTimeout(function(){
-			dis.loader.css('width','0%');
-		},500);
 	}
 });
 

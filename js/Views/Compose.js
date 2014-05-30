@@ -269,7 +269,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Subject or textarea
 		var target = $(e.target); 
 		var streamid = this.activestream ? this.activestream.id : false;
-		var content = target.text() || target.val();
+		var content = target.html() || target.val();
 		var object = target.attr("data-option") || "subject";
 
 		if(object == 'body')
@@ -484,7 +484,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.updatesubject();
 		this.updateimages();
 		this.summarizelink();
-		console.log(this.draft);
+		
 	},
 
 	'updatesubject' : function()
@@ -972,7 +972,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var date = this.parsemoment("#delay-date");
 			
 			if(date === null) 			return null;
-			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule on date in the future");
+			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 			
 			if ($("#delay-time").val())
 			{

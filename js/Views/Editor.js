@@ -142,7 +142,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var self = this;
 		var content = this.contentcontainer.html();
 		var url = content.match(url_pattern);
-		console.log(url)
+		
 		if(url && !this.currentUrl){
 
 			this.oldUrl = url[0];
@@ -219,7 +219,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'setcursosposition' : function(cursorpos){
-
+		console.log(cursorpos)
 		var el = this.contentcontainer.get(0);
 		var nodelength = 0;
 		var currentnode;
@@ -250,6 +250,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			return false;
 		
 		range.setStart(node, cursorpos);
+		console.log(node)
 		range.collapse(true);
 		sel.removeAllRanges();
 		sel.addRange(range);
@@ -273,16 +274,23 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	// Placeholder = false as default
 	'parsecontent' : function(cont, placeholder){
-
+		console.log(cont)
 		var urltag = '';
+		var size = cont.length;
+		
+
+		content = cont.replace("<!-- composeurltag.jsml -->",'');
+		content = content.replace("<!-- /composeurltag.jsml -->",'');
+		content = content.replace("<!-- composeurl.jsml -->",'');
+		content = content.replace("<!-- /composeurl.jsml -->",'');
 
 		if(this.currentUrl && !placeholder)
 			urltag = ('<span id="urltag" contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
 		if(this.currentUrl && placeholder) //Unfinished
 			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 
-		var content = cont.replace(this.currentUrl, urltag);	
-
+		//var content = cont.replace(this.currentUrl, urltag);
+		console.log(content);
 		return content;
 	},
 
@@ -304,7 +312,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		//Just update the content
 		else
-			content = this.parsecontent(this.contentcontainer.text());
+			content = this.parsecontent(this.contentcontainer.html());
 		
 		if(forcecontent){
 			content = forcecontent;
