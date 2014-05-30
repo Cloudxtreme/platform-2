@@ -576,7 +576,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return age.title;
 		});
 
-		if(data.length ==  || total == 0)
+		if(data.length == 0 || total == 0)
 			return this.emptychartdata();
 
 		fulldata.data = data;		
@@ -624,7 +624,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			total += value;
 		}.bind(this));
 		
-		if(data.length ==  || total == 0)
+		if(data.length == 0 || total == 0)
 			return this.emptychartdata();
 
 		fulldata.data = data;

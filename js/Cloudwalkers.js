@@ -78,16 +78,31 @@ Backbone.View = Backbone.View.extend({
 
 	'loadRender' : function(index, length){
 		//Just to make it moving from the beggining
-		if(!this.loader) index = 1;
-		if(this.loader && this.loader.hasClass('loaded'))	this.rollBack();
-		if(length == index) this.finishLoading();
+		if(!this.loader) return;
 
+		if(this.loader && this.loader.hasClass('loaded'))	this.restart();
+		if(this.loader && this.loader.hasClass('loading') && index == 1)	this.restart();
+		
 		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
 			var width = index*100/length;
-			if(dis.loader)	dis.loader.css('width',width+'%');
+			
+			if(!dis.loadingstate || dis.loadingstate<= width){
+				dis.loadingstate = width;
+				if(dis.loader)	dis.loader.css('width',width+'%');
+			}			
 		},1);
+
+		if(length == index) this.finishLoading();
+
+	},
+
+	'restart' : function(){
+		this.loadingstate = 0;
+		this.loader.remove();
+		this.container.removeClass('loaded').addClass('toload');
+		this.addLoader();
 	},
 
 	'finishLoading' : function(){
@@ -103,7 +118,7 @@ Backbone.View = Backbone.View.extend({
 
 	'restartLoader' : function(){
 		var dis = this;
-
+		
 		setTimeout(function(){
 			dis.loader.css('width','0%');
 		},500);
