@@ -70,7 +70,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	{
 		e.stopPropagation();
 
-		var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
+		var id = Number($(e.target).closest('[data-keyword]').data('keyword'));
 		
 		this.editor.fillKeyword(id, e);
 	},

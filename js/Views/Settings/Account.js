@@ -29,6 +29,8 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount();
 		var campaign = account.campaigns.get( $(e.target).attr ('data-delete-campaign-id'));
 		
+		console.log($(e.target).attr ('data-delete-campaign-id'))
+		
 		campaign.destroy({success: function()
 		{
 			this.closest('li').remove();

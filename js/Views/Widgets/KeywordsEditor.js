@@ -63,7 +63,12 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
-		category.channels.create(this.keywordParameters(), {parent: catid, wait: true});
+		category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
+			
+			Cloudwalkers.RootView.information ("Not saved", "Your formula is a bit fuzzy", this.$el.find(".manage-keyword"));
+			this.$el.find(".managekeyword .icon-cloud-upload").hide();
+			
+		}.bind(this)});
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
@@ -82,11 +87,13 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
 		$('#keyword_manage_name').val(keyword.get("name"));
-		$('#filter_include').val(filters.include? filters.include.join(", "): "");
-		$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
+		$('#filter_formula').val(filters.formula? filters.formula: "");
 		
-		for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
-		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
+		//$('#filter_include').val(filters.include? filters.include.join(", "): "");
+		//$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
+		
+		//for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
+		//for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
 		
 		// Update chosen
 		this.$el.find("select").trigger('chosen:updated');

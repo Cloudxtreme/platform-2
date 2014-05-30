@@ -43,7 +43,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'reply' : ["editor"],
 		'dm' : ["editor"],
 		'retweet' : ["icon"],
-		'like' : ["icon"],
+		'like' : ["icon","schedule"],
 		'favorite' : ["icon"],
 		'plusone' : ["icon"]
 	},
