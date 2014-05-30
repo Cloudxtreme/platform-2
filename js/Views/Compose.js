@@ -76,7 +76,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .schedule-entry label' : 'monitorschedule'/*'monitorschedulelabel'*/,
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 		
-		'blur [data-collapsable=schedule] input' : 'monitorschedule',
+		'blur [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		'change [data-collapsable=schedule] select' : 'monitorschedule',
 		
 		'blur [data-collapsable=repeat] input' : 'monitorschede',
@@ -232,7 +232,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".campaign-list").chosen({width: "50%"});
 		
 		// Add Datepicker
-		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
+		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy',})
+			.on('changeDate', function(e){
+				this.monitorschedule(false, $("#delay-date"));
+			}.bind(this));
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -407,7 +410,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	console.log(this.draft.get("schedule"));
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -881,8 +884,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 	
-	
-	
 	'parsemoment' : function(selector)
 	{
 		var field = $(selector);
@@ -926,15 +927,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else if(set == "until")	this.toggleschedentry("[data-set=repeat]").toggleschedentry("[data-set=every], [data-set=until]", true); 
 	},
 	
-	'monitorschedule' : function(e)
+	'monitorschedule' : function(e, element)
 	{
-		
-		var field = $(e.currentTarget);
+		var field = element || $(e.currentTarget);
 		var scheduled = this.draft.get("schedule");
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
-		
 		
 		// Schedule Now
 		if(set == "now")
@@ -963,7 +962,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Schedule On
 		if(set == "on")
-		{
+		{	
 			// UI
 			this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
 			$("[data-set=in] select").val(600);
@@ -971,8 +970,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			var date = this.parsemoment("#delay-date");
 			
-			if(date === null) 			return null;
-			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+			if(date === null){
+				return null;
+			}else if(date === undefined) {
+				this.picker.datepicker('hide');
+				this.picker.val("");
+				return Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+			}
 			
 			if ($("#delay-time").val())
 			{
