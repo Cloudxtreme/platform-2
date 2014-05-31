@@ -18,7 +18,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 		}
 		
 		// Listen to outdates
-		this.on("outdated", this.update);
+		//this.on("outdated", this.update);
 
 	},
 	

@@ -180,7 +180,6 @@ Backbone.Model = Backbone.Model.extend({
  *	more			get some more (cursor based)
  *	ready			touch is completed, including fresh models data.
  **/
- 
 
 Backbone.Collection = Backbone.Collection.extend({
 
@@ -240,7 +239,7 @@ Backbone.Collection = Backbone.Collection.extend({
 				
 				// Trigger active models
 				model.outdated = true;
-				model.trigger("outdated", model);
+				model.trigger("outdated");
 			}
 		}
 	},

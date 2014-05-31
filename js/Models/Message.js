@@ -14,6 +14,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{			
 		// Deprecated?
 		//this.on ('change', this.afterChange);
+		
+		// Ping
+		//this.on('outdated', this.fetch);
 
 		if (typeof (this.attributes.parent) != 'undefined')
 		{

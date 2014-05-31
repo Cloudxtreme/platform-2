@@ -181,7 +181,7 @@ Cloudwalkers.Session =
 	
 	'ping' : function ()
 	{
-		this.user.account.ping.request();
+		this.user.account.ping.forceping();
 	},
 	
 	/**

@@ -21,6 +21,9 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		this.on("change:updates", this.updateModels, this);
 		this.on("change:add", this.addModels, this);
 		this.on("change:remove", this.removeModels, this);
+		
+		// Function triggers (shortcuts)
+		this.listenTo(Cloudwalkers.Session, 'ping', this.forceping);
 	},
 	
 	/**
@@ -28,6 +31,11 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	 *
 	 *
 	**/
+	
+	'ping' : function()
+	{
+		this.fetch({success: this.schedule.bind(this), error: this.toing.bind(this)});	
+	},
 	
 	'setCursor' : function(dynamic, changed)
 	{
@@ -110,11 +118,16 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	
 	'schedule' : function()
 	{
-		this.timeout = setTimeout( function()
-		{
-			this.fetch({success: this.schedule.bind(this), error: this.toing.bind(this)});
-			
-		}.bind(this), this.timer());
+		this.timeout = setTimeout( this.ping.bind(this), this.timer());
+	},
+	
+	'forceping' : function ()
+	{
+		// Prevent double ping
+		clearTimeout(this.timeout);
+		this.schedule();
+		
+		this.ping();
 	},
 	
 	'timer' : function()
