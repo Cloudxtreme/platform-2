@@ -25,7 +25,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	
 	'events' : {
 		'click .notification-toggle' : 'toggleNotifications',
-		'click .btn-compose' : 'compose'
+		'click .btn-compose, .action-compose' : 'compose'
 	},
 
 	'initialize' : function ()

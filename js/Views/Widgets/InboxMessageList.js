@@ -42,6 +42,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Loader
 		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
 	},
 	
 	'toggleall' : function ()
@@ -63,6 +66,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{	
 		// Template data
 		var param = {streams: [], networks: []};
+		
+		
 		
 		// Select streams
 		this.model.streams.each (function(stream)
@@ -89,12 +94,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
-
-		// Watch outdated
-		this.updateable(this.model, "h3.page-title");
-		
-		// Test trigger
-		setTimeout(function(){ this.model.trigger("outdated") }.bind(this), 6000);
 		
 		return this;
 	},

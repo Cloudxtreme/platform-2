@@ -39,7 +39,7 @@
 					</a>
 				</li>
 				<li>
-					<a data-header-action="post">
+					<a class="action-compose">
 						<i class="icon-pencil"></i> 
 						<span class="title">Post message</span>
 					</a>

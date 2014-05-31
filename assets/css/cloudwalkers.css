@@ -1231,7 +1231,7 @@ ul.loaded{ min-height: 5px;}
 }
 
 counter	{
-	position: relative; left: 4px; top: -8px; padding: 1px 7px; background-color: #27c9ea; border-radius: 50%;
+	position: relative; left: 4px; top: -8px; padding: 1px 7px; background-color: #27c9ea; border-radius: 50%; cursor: pointer;
 	color: white; font-size: 12px; line-height: 1em;
 	-webkit-animation: counterpop .5s; animation: counterpop .5s;
 }

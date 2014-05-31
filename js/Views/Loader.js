@@ -81,15 +81,13 @@ Backbone.View = Backbone.View.extend({
 		this.listenTo(model? model: this.model, "outdated", this.showupdate);
 	},
 	
-	'showupdate' : function ()
+	'showupdate' : function (model)
 	{
 		// Create Counter
 		if(!this.$counter)
 			this.$counter = $("<counter></counter>").appendTo(this.$countertarget).on('click', this.render);
 			
 		$(this.$loadercontainer ? this.$loadercontainer : this.$container).addClass("outdated");
-		
-		
 		
 		this.$counter.html(++this.counter);
 	},
