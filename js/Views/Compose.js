@@ -162,7 +162,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft = this.reference.clone();
 		
 		} else if(this.action && this.reference)
-		{
+		{	
 			// Get action dynamics
 			this.action.parent = this.reference;
 			this.actionstreams = [];
@@ -187,8 +187,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
 
-		this.loadListeners(this.draft, ['request', 'sync']);
+		//Twitter reply
+		//This is a hack indeed...What better way to make this?
+		if(this.action.token == 'reply' && this.reference.get("networktoken") == 'twitter'){
+			var parameters = this.action.parameters[0];
+			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
+		}
 		
+		this.loadListeners(this.draft, ['request', 'sync']);
 	},
 
 	'render' : function ()
@@ -210,14 +216,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.actionview)
 		{
 			
-		}
-
-		/// Is this a Hack?
-		//It it's a twitter reply
-		if(this.options.actionparameters){
-			var username = this.model.get("from")[0].username;
-			var content = Mustache.render(this.options.actionparameters[0].value, {'from' : {'name' : username}});
-			this.draft.set('body', {'html' : content});
 		}
 		
 		// Append Editor
