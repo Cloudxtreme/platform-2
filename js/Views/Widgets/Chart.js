@@ -79,7 +79,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
 		var chartcontainer = '.chart-container';
-
+		
 		fulldata = this[parsefunc](this.collection);
 
 		if(this.filterfunc == 'besttime'){
@@ -567,7 +567,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	parseage : function(collection){
-
+		
 		var streams = collection.latest().get("streams");
 		var grouped = this.groupkey(streams, "contacts", "age");
 		var total = 0;
