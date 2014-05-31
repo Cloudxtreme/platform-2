@@ -20,6 +20,8 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 	'render' : function ()
 	{	
 		this.$el.html (Mustache.render (Templates.trendingmsg, this.settings));
+		this.hideloading();
+
 		return this;
 	},
 
@@ -30,9 +32,10 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		//No results
 		if(!this.message || this.message.length == 0){
 			this.$el.find('.commentballoon h4').html("No data");
+			this.hideloading();
 			return;
 		}
-			
+				
 		var message = this.message;
 		var links = message.attachments? message.attachments.filter(function(el){ if(el.type == "link") return el; }) : null;
 		var images = message.attachments? message.attachments.filter(function(el){ if(el.type == "image") return el; }) : null;
@@ -85,6 +88,16 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		this.model.fetch({endpoint: "messages", parameters : filters});
 
 		return;
+	},
+
+	'showloading' : function ()
+	{
+		this.$el.find(".icon-cloud-download").show();
+	},
+	
+	'hideloading' : function ()
+	{
+		$(".inner-loading").removeClass('inner-loading');
 	},
 
 	'negotiateFunctionalities' : function()

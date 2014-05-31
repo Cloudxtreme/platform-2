@@ -1,6 +1,6 @@
 <h4>{{title}}</h4>
 
-<div class="commentballoon {{icon}}-color">
+<div class="commentballoon {{icon}}-color inner-loading">
 	
 	{{#statistics}}
 	<div class="scoreballoon">

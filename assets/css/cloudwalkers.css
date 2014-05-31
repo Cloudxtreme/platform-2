@@ -1923,6 +1923,23 @@ Dashboard stats
 	text-decoration: none;
 }
 
+.commentballoon.inner-loading:after{
+	-webkit-animation: none;
+}
+
+.commentballoon.inner-loading .network-icon:before{
+	margin-left: 28%;
+	font-family: FontAwesome;
+	font-size: 35px;
+	color: #fff;
+	line-height: 1.8em;
+	content: "\F0ED";
+	-webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+}
+
 .scoreballoon{
 	float: right;
 	position: relative;
