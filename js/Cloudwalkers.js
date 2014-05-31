@@ -46,18 +46,7 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	Backbone Extensions
  **/
  
-/**
- *	View functions
- *
- *	loadListeners	Loads a list of events to be listened to, links them to the loadRender function
- *	addLoader		Adds the progress bar dinamically to the container div
- *	loadRender		Updates the width of the progress bar according to the stage (event)
- *	finishLoading	Ends the loading animation effect & readies it for the next loading (ie: filters)
- *	rollBack		Responsible for the rollback effect
- *
-**/
-
-Backbone.View = Backbone.View.extend({
+/*Backbone.View = Backbone.View.extend({
 
 	'hasContainer' : false,
 	
@@ -112,7 +101,7 @@ Backbone.View = Backbone.View.extend({
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
 	}
-});
+});*/
 
  
  /**

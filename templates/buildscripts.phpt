@@ -47,6 +47,7 @@
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 
 <!-- Views -->
+<script type="text/javascript" src="/js/Views/Loader.js"></script>
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
@@ -140,7 +141,7 @@
 <!-- Deprecated views -->
 <script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DemoMessage.js"></script>
-<script type="text/javascript" src="/js/Views/Loading.js"></script>
+<!--<script type="text/javascript" src="/js/Views/Loading.js"></script>-->
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
 <script type="text/javascript" src="/js/Views/ActionParameters.js"></script>
