@@ -41,6 +41,18 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 	'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
 	'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
+	'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
+
+	'networktokens' : {
+		'Facebook':'#3B5998', 
+		'Twitter':'#01a9da', 
+		'LinkedIn':'#1783BC', 
+		'GooglePlus':'#DD4C39', 
+		'YouTube':'#CC181E', 
+		'Internal':'#E2EAE9', 
+		'Others':'#E5E5E5',
+		'CoworkerWall':"#CCCCCC"
+	},
 	
 	'initialize' : function (options)
 	{
@@ -153,7 +165,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		fulldata.options.colors = fulldata.colors;
-
+		
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
 
@@ -878,7 +890,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var width = this.$el.find(".chart-container").get(0).clientWidth;
 		var fulldata = {
 			data : [],
-			colors : [],
 			options : {
 				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
 	            width: width,
@@ -887,33 +898,23 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		        'tooltip':{textStyle:{fontSize:'13'}},
 		        'curveType': 'function',
 	    		'legend': { position: 'bottom'},
-	    		/*'hAxis': { ticks: [
-	    			{v:0, f:"Mon"}, 
-	    			{v:1, f:"Tue"},
-	    			{v:2, f:"Wed"},
-	    			{v:3, f:"Thu"},
-	    			{v:4, f:"Fri"},
-	    			{v:5, f:"Sat"},
-	    			{v:6, f:"Sun"}
-	    		] }*/
+	    		colors : []
 				}
 			};
 
-			
 		for (var i = 0; i < length; i++){
 			streams = collection.place(i).get("streams");
 			dailyresult = this[func](null, streams, network);
-			
+
 			_.map(dailyresult.data, function(token){
+
 				if(!data[token[0]])
-					data[token[0]] = [token[1]];
-				else
-					data[token[0]].push(token[1])
+					data[token[0]] = [];
+				
+				data[token[0]][i] = token[1];
 			});
-
-			if(fulldata.colors.length == 0)	fulldata.colors = dailyresult.colors;
 		}
-
+			
 		for(var i=0; i<length; i++){
 			var line = [i];
 			for(d in data){
@@ -924,12 +925,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		for(d in data){
 			legend.push(d);
+			fulldata.options.colors.push(this.networktokens[d]);
 		}
+
 		fulldata.data.unshift(legend);
-		fulldata.options.colors = fulldata.colors;
 		
 		return fulldata;
-
+		
 	},
 
 	'parseallreports' : function(collection){
