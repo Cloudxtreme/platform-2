@@ -92,43 +92,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		/*'keyup #info' : 'showembed'*/
 	},
-	
-	/*'title' : "Compose message",
-	'tagName' : 'form',
-	'className' : 'write',
-	'typestring' : "messages",
-	
-	'sendnow' : false,
-	'files' : [],
-	'options' : [],
-	
-	'formoptions' : {
-		'facebook' : ["url", "images", "fulltext"],
-		'twitter' : ["url", "images"],
-		'google-plus' : ["url", "images", "fulltext"],
-		'linkedin' : ["url", "images", "fulltext", "subject"],
-		'mobile-phone' : [],
-		'blog' : ["url", "images", "fulltext", "subject"],
-		'group' : ["url", "images"],
-	},
-	
-	'events' : 
-	{
-		'click li[data-stream-id]' : 'togglestream',
-		'keyup [name=body].limited' : 'countchars',
-		
-		'submit form' : 'submit',
-		'keyup textarea[name=message]' : 'updateCounter',
-		'keyup input[name=title]' : 'updateCounter',
-		'click #schedule-btn-toggle' : 'toggleSchedule',
-		'click button[value=draft]' : 'setDraft',
-		'click [name=delay]' : 'setWithinDate',
-		'change select[name=schedule_day],select[name=schedule_month],select[name=schedule_year],select[name=schedule_time]' : 'resetWithin',
-		'click #button-response[value=send]' : 'sendNow',
-        'click .btnShortenURL' : 'shortenUrl',
-        'change select[name=campaign]' : 'selectCampaign',
-        'click [name=add-campaign]' : 'addCampaign',
-	},*/
 
 	/*
 	*
@@ -205,15 +168,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);
-		
-		// If action
-		if(this.actionview)
-		{
-			
-		}
+
+		console.log(this.options.actionparameters)
 
 		/// Is this a Hack?
-		//It it's a twitter reply
+		// If it's a twitter reply
 		if(this.options.actionparameters){
 			var username = this.model.get("from")[0].username;
 			var content = Mustache.render(this.options.actionparameters[0].value, {'from' : {'name' : username}});
@@ -449,22 +408,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Icon
 		if (options.indexOf("icon") >= 0)		this.$el.find("[data-type=icon]").removeClass("hidden").find("i").get(0).className = "icon-" + this.icons[this.type];
 		else									this.$el.find("[data-type=icon]").addClass("hidden");
-		
-		
-		//var val = network? this.draft.getvariation(id, "body"): this.draft.get("body");
-		
-		/*if(network && (!val || !val.html))
-		{
-			this.$el.find("[data-option=fullbody] textarea").val("").attr("placeholder", this.draft.get("body").html);
-			if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
-		
-		} else
-		{
-			if(!val.html) val.html = "";
-			
-			this.$el.find("[data-option=fullbody] textarea").val(val.html);
-			this.$el.find("[data-option=limit]").html(140 -val.html.length);
-		}*/
 		
 		// Toggle options
 		this.closealloptions();

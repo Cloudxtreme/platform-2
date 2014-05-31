@@ -32,7 +32,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	{
 		// Interact with Session triggers
 		Cloudwalkers.Session.on ('change:accounts', this.renderHeader, this);
-		//Cloudwalkers.Session.on ('account:change change:accounts change:channels change:streams', this.render, this);
 		
 		// Listen to channel changes
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
@@ -50,16 +49,12 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
 		if(token == 'contacts') Cloudwalkers.Router.Instance.navigate("#coworkers", true);
-		if(token == 'post') Cloudwalkers.RootView.compose();
-		//if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
-		//this.model.trigger("action", token);
 	},
 	
 	'fit' : function ()
 	{
 		$('#header').html (this.renderHeader().header);
 		$('#sidebar').html (this.render().el);
-		//this.render();
 
 		$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction);
 	},
@@ -72,14 +67,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			this.development = true;
 			$('#header').html (this.renderHeader().header);
 		}
-		
-		// Check for version.
-		/*if(!Cloudwalkers.Session.get("version"))
-			Cloudwalkers.Session.updateSetting("version", response.platform.version)
-				
-		else if(Cloudwalkers.Session.get("version") != response.platform.version)
-			Cloudwalkers.Session.home();*/
-		
 	},
 	
 	'renderHeader' : function ()
@@ -112,17 +99,12 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		if(data.level)
 		{
 			// News
-			var news = account.channels.findWhere({type: "news"});
-			data.news = {channelid: news.id, streams: news.streams.models, name: news.get("name")};
+			data.news = account.channels.findWhere({type: "news"}).id;
 			
 			// Monitoring
 			var monitoring = account.channels.findWhere({type: "monitoring"});
 			data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
 		}
-		
-		// Scheduled
-		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
-		data.scheduled.streams = account.streams.where({outgoing: 1});
 		
 		// Inbox
 		data.inbox = true;
@@ -131,15 +113,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		var profiles = account.channels.findWhere({type: "profiles"});
 		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
 		
-		
-		
-		// Reports
-		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
-		{
-			return stream.attributes;
-		});
-		
-
 		this.$el.html (Mustache.render(Templates.navigation, data));
 		
 		this.handleSidebarMenu();

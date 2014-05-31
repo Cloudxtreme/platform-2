@@ -14,52 +14,6 @@
 		</a>
 	</li>
 
-	<!-- Message Board
-	<li class="write">
-		<a href="#write">
-			<i class="icon-share-sign"></i> 
-			<span class="title">Message board</span>
-			<span class="selected"></span>
-		</a>
-		<ul class="sub-menu">
-			<li>
-				<a href="#write">
-					<i class="icon-share-alt"></i> 
-					<span class="title">Compose message</span>
-				</a>
-			</li>
-			
-			<li class="drafts">
-				<a href="#drafts">
-					<i class="icon-edit"></i> 
-					<span class="title">Drafts</span>
-				</a>
-			</li>
-			
-			<li class="schedule">
-				<a href="#schedule">
-					<i class="icon-time"></i> 
-					<span class="title">Scheduled</span>
-					<span class="arrow"></span>
-				</a>
-		
-				<ul class="sub-menu">
-					{{#scheduled}}
-						{{#streams}}
-						<li>
-							<a href="#schedule/{{channelid}}/{{id}}">
-								<i class="icon-{{attributes.network.icon}}"></i>
-								{{attributes.customname}}
-							</a>
-						</li>
-						{{/streams}}
-					{{/scheduled}}
-				</ul>
-			</li>
-			
-		</ul>
-	</li> -->
-
 	{{#level}}
 	<!-- Inbox -->
 	{{#inbox}}
@@ -116,14 +70,14 @@
 	{{/inbox}}
 	{{/level}}
 	
-		<!-- Co-workers cloud -->
-		<li>
-			<a href="#coworkers">
-				<i class="icon-group"></i> 
-				<span class="title">Co-workers wall</span>
-				<span class="selected"></span>
-			</a>
-		</li>
+	<!-- Co-workers cloud -->
+	<li>
+		<a href="#coworkers">
+			<i class="icon-group"></i> 
+			<span class="title">Co-workers wall</span>
+			<span class="selected"></span>
+		</a>
+	</li>
 
 	<!-- Company Accounts -->
 	{{#profiles}}
@@ -171,7 +125,7 @@
 	<!-- Profiles we follow -->
 	{{#news}}
 		<li>
-			<a href="#timeline/{{channelid}}">
+			<a href="#timeline/{{news}}">
 				<i class="icon-globe"></i> 
 				<span class="title">Accounts we follow</span>
 				<span class="arrow"></span>
@@ -180,33 +134,17 @@
 
 			<ul class="sub-menu">				
 				<li>
-					<a href="#timeline/{{channelid}}">
+					<a href="#timeline/{{news}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
-						<!--<span class="arrow"></span>-->
 					</a>
-					<!--
-					<ul class="sub-menu">
-						{{#streams}}
-							<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-						{{/streams}}
-					</ul>
-					-->
 				</li>
 
 				<li class="trending">
-					<a href="#trending/{{channelid}}">
+					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
-						<!--<span class="arrow"></span>-->
 					</a>
-					<!--
-					<ul class="sub-menu">
-					{{#streams}}
-						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}
-					</ul>
-					-->
 				</li>
 				
 				<li>

@@ -138,6 +138,17 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 			campaigns.push({name: name});
 			this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
 		}
+	},
+	
+	'removecampaign' : function (id, callback)
+	{
+		var campaigns = this.get("campaigns");
+		
+		campaigns.forEach (
+			function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
+		);
+	
+		this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
 	}
 	
 	/*'monitorlimit' : function(type, current, target)

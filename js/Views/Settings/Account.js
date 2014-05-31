@@ -26,16 +26,12 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	
 	'deleteCampaign' : function (e)
 	{
-		var account = Cloudwalkers.Session.getAccount();
-		var campaign = account.campaigns.get( $(e.target).data ('delete-campaign-id'));
+		//var account = Cloudwalkers.Session.getAccount();
+		var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 		
-		console.log(account.campaigns)
+		Cloudwalkers.Session.getAccount().removecampaign(campaignid);
 		
-		campaign.destroy({success: function()
-		{
-			this.closest('li').remove();
-			
-		}.bind($(e.target))});
+		$(e.target).closest('li').remove();
 	},
 
 	/* on it's way to be deprecated */
