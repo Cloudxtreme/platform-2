@@ -142,7 +142,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var self = this;
 		var content = this.contentcontainer.html();
 		var url = content.match(url_pattern);
-		console.log(url)
+
 		if(url && !this.currentUrl){
 
 			this.oldUrl = url[0];
@@ -163,7 +163,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 					var formatedcontent = content.replace(this.oldUrl, Mustache.render (Templates.composeurltag, {url : this.urldata.newurl}));
 					
 					this.$el.find('#out').empty().html(oembed);
+
 					this.updatecontainer(formatedcontent);
+
 					//the URL tag's content
 					this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: this.urldata.newurl}));
 					
@@ -214,12 +216,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
 	        cursorpos = preCaretTextRange.text.length;
 	    }
-		console.log("getpos",cursorpos);
+		//console.log("getpos",cursorpos);
 		return cursorpos;
 	},
 
 	'setcursosposition' : function(cursorpos){
-
+		//console.log("setpos:", cursorpos);
 		var el = this.contentcontainer.get(0);
 		var nodelength = 0;
 		var currentnode;
@@ -275,7 +277,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'parsecontent' : function(cont, placeholder){
 
 		var urltag = '';
-
+		//console.log(this.currentUrl);
 		if(this.currentUrl && !placeholder)
 			urltag = ('<span id="urltag" contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
 		if(this.currentUrl && placeholder) //Unfinished
@@ -308,7 +310,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		if(forcecontent){
 			content = forcecontent;
-			cursorpos += 23;
+			var l = this.urldata.oldurl.length;
+			var postpos = cursorpos - l;
+			cursorpos = postpos + this.urldata.newurl.length +2;
 		}
 
 		this.contentcontainer.empty().html(content);
