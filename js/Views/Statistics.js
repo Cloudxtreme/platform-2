@@ -244,7 +244,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'changespan' : function()
 	{
-		this.period = 0;
+		var timespan = this.$el.find("select.time").val();
+		this.timespan = timespan;
 		this.render();
 	},
 	
@@ -259,8 +260,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'filterparameters' : function() {
  
 		// Get time span
-		var span = this.$el.find('.stats-header select').val();
-		if(span) this.timespan = span;
+		//var span = this.$el.find('.stats-header select').val();
+		//if(span) this.timespan = span;
 	
 		if (this.timespan == "now") {	this.period = 0; }
 		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }

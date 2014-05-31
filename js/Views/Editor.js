@@ -35,6 +35,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'click [data-type="title"] i' : 'addoetitle',
 		'click [data-type="content"] i' : 'addoecontent',
 		'click [data-type="image"] i' : 'addoeimg',
+
+		'keydown #compose-content' : 'wasenter'
 	},
 
 
@@ -122,7 +124,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var currentcontent = this.contentcontainer.html();
 
-		if(this.lastcontent && this.lastcontent !== currentcontent){
+		if(this.lastcontent){
 			this.filterurl();
 			this.lastcontent = currentcontent;
 		}
@@ -214,12 +216,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
 	        cursorpos = preCaretTextRange.text.length;
 	    }
-		console.log("getpos",cursorpos);
 		return cursorpos;
 	},
 
 	'setcursosposition' : function(cursorpos){
-		console.log(cursorpos)
 		var el = this.contentcontainer.get(0);
 		var nodelength = 0;
 		var currentnode;
@@ -250,7 +250,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			return false;
 		
 		range.setStart(node, cursorpos);
-		console.log(node)
+		
 		range.collapse(true);
 		sel.removeAllRanges();
 		sel.addRange(range);
@@ -274,9 +274,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	// Placeholder = false as default
 	'parsecontent' : function(cont, placeholder){
-		console.log(cont)
+
 		var urltag = '';
-		var size = cont.length;
+		var hackchar = '\u200B\u200B'
 		
 
 		content = cont.replace("<!-- composeurltag.jsml -->",'');
@@ -289,10 +289,22 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(this.currentUrl && placeholder) //Unfinished
 			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 
+		if(this.enter){
+			String.prototype.insert = function (index, string) {
+			  	if (index > 0)
+			    	return this.substring(0, index+1) + string + this.substring(index, this.length);
+			  	else
+			    	return string + this;
+			}.bind(this);
+
+			content.insert(this.enter, "hackchar");
+		}
+
 		//var content = cont.replace(this.currentUrl, urltag);
-		console.log(content);
 		return content;
 	},
+
+
 
 	'updatecontainer' : function(forcecontent){
 		
@@ -390,7 +402,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'addoeimg' : function(e){
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
-	}
+	},
+
+	'wasenter' : function(e){
+		if (e.keyCode == 13){
+			this.enter = this.getcursosposition(this.contentcontainer.get(0));
+		}
+			
+		else
+			this.enter = false;
+	},
 
 	
 	
