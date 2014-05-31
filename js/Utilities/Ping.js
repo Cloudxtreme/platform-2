@@ -23,6 +23,12 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		this.on("change:remove", this.removeModels, this);
 	},
 	
+	/**
+	 * 
+	 *
+	 *
+	**/
+	
 	'setCursor' : function(dynamic, changed)
 	{
 		if(!dynamic)
