@@ -7,10 +7,14 @@
  *	finishLoading	Ends the loading animation effect & readies it for the next loading (ie: filters)
  *	rollBack		Responsible for the rollback effect
  *
+ *	Update functions
+ *	
+ *	updateable		Listens to outdated and shows update state
+ *
 **/
 
 Backbone.View = Backbone.View.extend({
-
+	
 	'loadListeners' : function(model, states){
 		var length = states.length;
 
@@ -61,5 +65,44 @@ Backbone.View = Backbone.View.extend({
 		this.loader.css('width','100%');
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
+	},
+	
+	/**
+	 *	Update
+	**/
+	
+	'counter' : 0,
+	
+	'updateable' : function (model, countertarget)
+	{	
+		// where to place the counter
+		this.$countertarget = countertarget? countertarget: this.$container;
+	
+		this.listenTo(model? model: this.model, "outdated", this.showupdate);
+	},
+	
+	'showupdate' : function ()
+	{
+		// Create Counter
+		if(!this.$counter)
+			this.$counter = $("<counter></counter>").appendTo(this.$countertarget).on('click', this.render);
+			
+		$(this.$loadercontainer ? this.$loadercontainer : this.$container).addClass("outdated");
+		
+		
+		
+		this.$counter.html(++this.counter);
+	},
+	
+	'clearupdate' : function ()
+	{
+		this.$el.find(".outdated").removeClass("outdated");
+		this.resetupdate();
+	},
+	
+	'resetupdate' : function ()
+	{
+		this.counter = 0;
+		this.$counter.remove();
 	}
 });
