@@ -30,7 +30,10 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		// Listen to model messages and users
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
-		//this.listenTo(this.model.messages, 'sync', this.hideloading);
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
+		
 	},
 
 	'render' : function (params)

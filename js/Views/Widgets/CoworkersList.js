@@ -22,6 +22,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
 	},
 
 	'render' : function (params)
