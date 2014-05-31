@@ -37,7 +37,7 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		{widget: "Chart", data: {filterfunc: "message-evolution-network", chart: "LineChart", title: "Messages Evolution"}, span : 6},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
 
-		{widget: "TitleSeparator", data: {title: "Geo Graphics"}, networks : ['facebook']},
+		//{widget: "TitleSeparator", data: {title: "Geo Graphics"}, networks : ['facebook']},
 		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, networks : ['facebook'], span: 8},
 		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
 			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
@@ -51,7 +51,7 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		if (options) $.extend(this, options);
 		
 		// Test
-		//console.log("the streamid:", this.streamid)
+		//console.log("the streamid was:", this.streamid)
 		this.streamid = Number(this.streamid);
 
 		// Check if collection exists

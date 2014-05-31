@@ -61,7 +61,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
-
+		//console.log(this.collection);
 	},
 
 	'render' : function ()
@@ -81,7 +81,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var chartcontainer = '.chart-container';
 		
 		fulldata = this[parsefunc](this.collection);
-
+		
 		if(this.filterfunc == 'besttime'){
 			this.renderbesttime(fulldata);
 		}else{
@@ -601,7 +601,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		var group = {};
 		
-		$.each(collection, function(index, statistic){
+		$.each(collection, function(index, statistic){ 
 			if((this.network && statistic.id == this.network) || !this.network){
 				var object = statistic[parents][key];
 				if(_.isObject(object)){
@@ -651,7 +651,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},	
 
 	filtercountry : function(collection, streamid){
-
+		
 		var grouped = {};
 		var streams = collection.latest().get("streams");
 		
@@ -688,7 +688,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				}
 			}
 		});
-	
+		
 		// Sorts it
 		grouped = _(grouped).sortBy(function(country) {
 			return country.total;
@@ -698,12 +698,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	},
 
 	// Size -> Int:: Show the n most important, group the others
-	parseregional : function(collection){
+	parseregional : function(collection, streamid){
 		
+		var networkid = streamid || this.network;
 		var data = [];
 		var size = 8; //hardcoded?
 		var counter = 0;
-		var grouped = this.filtercountry(collection);
+		var grouped = this.filtercountry(collection, networkid);
 		var fulldata = {
 			data : [], 
 			options : {
@@ -741,7 +742,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsecities : function(collection){
 
 		var cities, size = 6;
-		var countries = this.filtercountry(collection);
+		var countries = this.filtercountry(collection, this.network);
 		var fulldata;
 		var cities = {};
 		var country;

@@ -33,7 +33,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
 		//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 		
-		{widget: "TitleSeparator", data: {title: "New this"}},
+		/*{widget: "TitleSeparator", data: {title: "New this"}},
 		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
 		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
 		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
@@ -165,9 +165,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		for(n in this.widgets)
 		{	
-			//MAKE THIS DYNAMIC
 			var streamid = this.streamid || false;
-
+			
 			if(streamid){
 				var token = Cloudwalkers.Session.getStream(streamid).get("network").token;
 				// Network specific charts
@@ -176,7 +175,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 			if(_.isString(this.widgets[n].data))
 				this.widgets[n].data = this.networkspecific[this.widgets[n].data][token];
-			
+
 			this.widgets[n].data.network = streamid;
 			this.widgets[n].data.model = this.model;
 			this.widgets[n].data.parent = this;
@@ -184,13 +183,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
 
 			//pass regional data
-			_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
+			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
 			if(this.widgets[n].data.title == "New this")
 				this.widgets[n].data.title = "New this "+this.timespan;
-
+			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
-			this.widgets[n].data.connect == true ? this.connect = view : false;
+			//this.widgets[n].data.connect == true ? this.connect = view : false;
 			
 			this.views.push(view);
 			this.appendWidget(view, this.widgets[n].span);
