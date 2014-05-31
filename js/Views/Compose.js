@@ -369,7 +369,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	console.log(this.draft);
+	{ 	
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -1281,7 +1281,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Create & Save
 		var postaction = this.reference.actions.create({streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
-		
+		this.loadListeners(postaction, ['request:action', 'sync']);
+		postaction.trigger("request:action");
 	},
 	
 	'thankyou' : function()
