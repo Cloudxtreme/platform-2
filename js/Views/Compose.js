@@ -735,7 +735,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			if(links.length) links[0].url = link;
 			else this.draft.attach({type: 'link', url: link});
 		}		
-		
+
 		this.summarizelink();
 	},
 
@@ -928,7 +928,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitorschedule' : function(e, element)
-	{
+	{	
 		var field = element || $(e.currentTarget);
 		var scheduled = this.draft.get("schedule");
 		
