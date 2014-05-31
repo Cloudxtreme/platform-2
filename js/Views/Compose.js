@@ -79,8 +79,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'blur [data-collapsable=schedule] input' : 'monitorschedule',
 		'change [data-collapsable=schedule] select' : 'monitorschedule',
 		
-		'blur [data-collapsable=repeat] input' : 'monitorschede',
-		'change [data-collapsable=repeat] select' : 'monitorschedule',
+		'blur [data-collapsable=schedule] #delay-time' : 'monitorschedule',
+		'change [data-collapsable=schedule] select' : 'monitorschedule',
 
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
@@ -189,6 +189,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Add Datepicker
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
+
+		// Add Datepicker
+		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy',})
+			.on('changeDate', function(e){
+				this.monitorschedule(false, $("#delay-date"));
+			}.bind(this));
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -297,7 +303,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			.not(".collapsed")
 			.addClass("collapsed")
 			.each( function(n, collapsible)
-			{	console.log($(collapsible).data("collapsable"));
+			{
 				this["summarize" + $(collapsible).data("collapsable")]();
 				
 			}.bind(this));
@@ -363,7 +369,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	console.log(this.draft);
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -866,10 +872,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else if(set == "until")	this.toggleschedentry("[data-set=repeat]").toggleschedentry("[data-set=every], [data-set=until]", true); 
 	},
 	
-	'monitorschedule' : function(e)
+	'monitorschedule' : function(e, element)
 	{
 		
-		var field = $(e.currentTarget);
+		var field = element || $(e.currentTarget);
 		var scheduled = this.draft.get("schedule");
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
@@ -911,8 +917,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			var date = this.parsemoment("#delay-date");
 			
-			if(date === null) 			return null;
-			else if(date === undefined) return Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+			if(date === null){
+				return null;
+			}else if(date === undefined) {
+				this.picker.datepicker('hide');
+				this.picker.val("");
+				return Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+			}
 			
 			if ($("#delay-time").val())
 			{
@@ -1230,13 +1241,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Prevent empty patch
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
-		// Rui, add loader
-		// It's added Koen
+		//Disables footer action
+		this.disablefooter();
 
-		if(!status)	status = "draft";
+		if(!status || !_.isString(status))	status = "draft";
 
-		//Clone without global attachments)
-		//var draft = this.parsedraft();
 		this.draft.save({status: status}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
@@ -1244,9 +1253,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{		
 		// Prevent empty post
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
-		
+
+		//Disables footer action
+		this.disablefooter();
+
 		// Redirect streamless to draft
-		else if(!this.draft.get("streams").length) this.save("scheduled");
+		if(!this.draft.get("streams").length) this.save("scheduled");
 		
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
@@ -1278,6 +1290,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.$el.find("div").eq(0).html("<div class='thank-you'><i class='icon-thumbs-up'></i></div>"); 
 			this.hidethankyou();
 		}.bind(this), 400);
+	},
+
+	'disablefooter' : function(){
+		this.$el.find(".modal-footer .btn")
+			.each(function(n, button){
+				$(button).attr("disabled", true);
+			});
 	},
 
 	'hidethankyou' : function(){
