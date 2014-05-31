@@ -175,6 +175,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 						this.def.done(function(){
 							$('#out').addClass('expanded');
 							self.updatecontainer();
+							self.trigger('contentadded');
+
 						});
 					});
 	            }
@@ -275,7 +277,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	// Placeholder = false as default
 	'parsecontent' : function(cont, placeholder){
-
+		
 		var urltag = '';
 		//console.log(this.currentUrl);
 		if(this.currentUrl && !placeholder)

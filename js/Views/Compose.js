@@ -58,7 +58,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click [data-toggle]' : 'toggleoption',
 		
 		'keyup [data-option] input' : 'monitor',
-		//'blur [data-option] #compose-content' : 'monitor',
+		'change [data-option] #compose-content' : 'monitor',
 		'keyup [data-option] #compose-content' : 'monitor',
 		
 		'click .add-file' : 'addfile',
@@ -228,10 +228,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'monitor' : function (e)
 	{	
-		//Subject or textarea
-		var target = $(e.target); 
+		if(!e)
+			var target = this.$el.find('#compose-content');
+		else
+			var target = $(e.target); 
+		
 		var streamid = this.activestream ? this.activestream.id : false;
-		var content = target.html() || target.val();
+		var content = target.text() || target.val();
 		var object = target.attr("data-option") || "subject";
 
 		if(object == 'body')

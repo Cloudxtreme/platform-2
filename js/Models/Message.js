@@ -197,7 +197,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	/*Variation functions*/
 
 	'setvariation' : function(stream, key, value)
-	{	console.log(stream, key, value);
+	{	
 		var variations = this.get("variations") || [];
 		var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
 
