@@ -48,6 +48,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'plusone' : ["icon"]
 	},
 	
+	'monitorschedulep' : function() {
+		console.log("It wwoooooorks!!")
+	},
+	
 	'icons' : {
 		'retweet' : 'retweet', 'like' : 'thumbs-up', 'favorite' : 'star', 'plusone' : 'plus-square'
 	},
@@ -81,6 +85,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'blur [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		'change [data-collapsable=schedule] select' : 'monitorschedule',
+		'changeDate input' : 'monitorschedule',
 
 		'click .end-preview' : 'endpreview',
 		'click #previewbtn' : 'preview',
@@ -190,11 +195,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Add Datepicker
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
 
-		// Add Datepicker
-		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy',})
-			.on('changeDate', function(e){
-				this.monitorschedule(false, $("#delay-date"));
-			}.bind(this));
+		// Add Datepicker and Timepicker
+		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
+		this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');

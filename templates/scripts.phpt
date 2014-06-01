@@ -46,6 +46,7 @@
 <script src="/assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script> 
 <script src="/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 

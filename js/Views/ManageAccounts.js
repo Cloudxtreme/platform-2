@@ -10,11 +10,15 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		'remove': 'destroy',
 		
 		'search .input-large' : 'posturl',
-		'blur .input-large' : 'posturl'
+		'blur .input-large' : 'posturl',
+		
+		'click *[data-network]' : 'filter',
+		'click .toggleall.active' : 'toggleall'
 	},
 	
 	'initialize' : function (options)
 	{
+		
 		if(options) $.extend(this, options);
 	
 		// Which collection to focus on
@@ -109,14 +113,52 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 	
 	'limited' : function (collection)
 	{
-		var limited = Cloudwalkers.Session.getAccount().monitorlimit('following', this.collection.models.length+91, $(".url-post, .url-post .input-large"));	
-	}
+		var limited = Cloudwalkers.Session.getAccount().monitorlimit('following', this.collection.models.length, $(".url-post, .url-post .input-large"));	
+	},
 	
-	/*'limitlistener' : function()
+	/** 
+	 *	Filter
+	**/
+	
+	'filter' : function (e, all)
 	{
-		var limit = Cloudwalkers.Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
 		
-		Cloudwalkers.Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
-	}*/
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("network") == $(e.currentTarget).data("network");
+
+		this.togglefilters(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var network = all? null: this.button.data("network");
+		
+		if(all) this.button = false;
+
+		// Fetch filtered messages
+		if(!all) this.$el.find(".contacts-list li").not("." + network).addClass("hidden");
+		
+		this.$el.find(".contacts-list li." + (network? network : "hidden")).removeClass("hidden");
+		
+		
+		return this;
+	},
+	
+	'togglefilters' : function(all)
+	{
+		// Toggle streams
+		this.$el.find('div[data-network]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		
+		// Toggle select button
+		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+	},
+	
+	'toggleall' : function ()
+	{
+		
+		this.filter(true);
+		this.togglefilters(true);
+	},
 
 });

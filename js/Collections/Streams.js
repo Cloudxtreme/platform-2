@@ -137,7 +137,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 			var network = (stream.attributes)? stream.get("network") : stream.network;
 			
 			if(!networks[network.token])
-				networks[network.token] = {ids: [], icon: network.icon};
+				networks[network.token] = {ids: [], icon: network.icon, token: network.token};
 				
 			networks[network.token].ids.push(stream.id);
 		});

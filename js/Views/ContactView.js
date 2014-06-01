@@ -39,6 +39,9 @@ Cloudwalkers.Views.ContactView = Backbone.View.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
+		if (this.model.get("objectType"))
+			this.$el.addClass(this.parameters.network.token);
+		
 		//if(this.$el.find("[data-date]")) this.time();
 		
 		//if(this.checkunread && this.model.get("objectType")) this.checkUnread();

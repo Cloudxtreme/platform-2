@@ -4,6 +4,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'endpoint' : "",
 	
+	// Gets updated when account activates
 	'limits' : {users: 50, networks: 15, keywords: 10},
 	
 	'initialize' : function ()
@@ -108,7 +109,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		{
 			$('.alert-info').remove();
 				
-			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
+			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.");
 		
 			if(target)
 			{

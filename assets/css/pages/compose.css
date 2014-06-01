@@ -292,6 +292,9 @@ Style corrections and manual overrides
  *	Collapsable: schedule
 **/
 
+/* Timepicker hack */
+.bootstrap-timepicker-widget.dropdown-menu.open	{ z-index: 19999; }
+
 #compose .schedule-entry	{
 	padding: 4px 8px; margin-bottom: 6px; max-width: 100%; height: 42px; border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer; box-sizing: border-box;
 	font-size: 14px; color: #4a4a4a; white-space: nowrap; text-overflow: ellipsis;

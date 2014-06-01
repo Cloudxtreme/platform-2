@@ -12,8 +12,13 @@
 			<label>Networks</label>
 			
 			{{#networks}}
-			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
+			<div class="btn-white active" data-network="{{token}}"><i class="icon-{{icon}}"></i></div>
 			{{/networks}}
+			
+			<center>
+				<br>
+				<span class="toggleall inactive">show all</span>
+			</center>
 		</div>
 		
 		<div class="span8 offset1">
