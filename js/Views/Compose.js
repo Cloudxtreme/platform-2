@@ -7,7 +7,7 @@
 Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'id' : "compose",
-	'className' : "modal hide fade clearfix",
+	'className' : "modal hide",
 	'type' : "post",
 	'network' : "default",
 	'actionstreams': [],

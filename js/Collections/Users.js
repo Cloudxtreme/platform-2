@@ -3,6 +3,7 @@
 	'model' : Cloudwalkers.Models.User,
 	'typestring' : "users",
 	'modelstring' : "user",
+	'parenttype' : "account",
 	'processing' : false,
 
 	

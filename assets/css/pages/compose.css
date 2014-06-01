@@ -201,11 +201,14 @@ Style corrections and manual overrides
 	color: #777;
 }
 
+#compose [data-collapsable] .input-symbol input	{
+	padding-left: 24px;
+}
 
-#compose [data-collapsable] input[type=radio],
+/*#compose [data-collapsable] input[type=radio],
 #compose [data-collapsable] input[type=checkbox]	{
 	float: left; width: auto; border-width: 0px; box-shadow: none; display: inline; margin: -2px 8px 0 0;
-}
+}*/
 
 /**
  *	Collapsable: images

@@ -177,7 +177,7 @@
 				
 					<label class="icon-circle-blank">every</label>
 					<div class="input-symbol number-input" data-option="schedule-start-date">
-						<input id="repeat-interval" type="number" value="0" min="0" /> 
+						<input id="repeat-interval" type="text" value="0" /> 
 					</div>
 				
 					<select id="every-select-single" class="hidden hide-if-empty">
@@ -212,7 +212,7 @@
 					
 					<label class="icon-circle-blank">Repeat</label>
 					<div class="input-symbol number-input" data-option="schedule-start-date">
-						<input id="repeat-amount" type="number" value="0" min="0" />
+						<input id="repeat-amount" type="text" value="0" />
 					</div>
 					<label>times</label>
 
