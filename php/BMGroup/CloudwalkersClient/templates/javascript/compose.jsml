@@ -180,21 +180,14 @@
 						<input id="repeat-interval" type="text" value="0" /> 
 					</div>
 				
-					<select id="every-select-single" class="hidden hide-if-empty">
-						<option value="1">hour</option>
-						<option value="24">day</label>
-						<option value="168" selected>week</label>
-						<option value="720">month</label>
+					<select id="every-select">
+						<option value="1" data-single="hour" data-multiple="hours">hours</option>
+						<option value="24" data-single="day" data-multiple="days">days</label>
+						<option value="168" selected data-single="week" data-multiple="weeks">weeks</label>
+						<option value="720" data-single="month" data-multiple="months">months</label>
 					</select>
 					
-					<select id="every-select" class="hide-if-empty">
-						<option value="1">hours</option>
-						<option value="24">days</label>
-						<option value="168" selected>weeks</label>
-						<option value="720">months</label>
-					</select>
-					
-					<select id="every-select-weekday" class="hide-if-empty">
+					<select id="every-select-weekday">
 						<option value=0>select a day...</option>
 						<option value="MONDAY">monday</option>
 						<option value="TUESDAY">tuesday</option>
