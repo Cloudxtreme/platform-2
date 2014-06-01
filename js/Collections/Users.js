@@ -1,4 +1,4 @@
-Cloudwalkers.Collections.Users = Backbone.Collection.extend({
+ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.User,
 	'typestring' : "users",
@@ -24,27 +24,29 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 			response = response[this.parenttype];
 	
 		// Get paging
-		this.setcursor(response.paging);
+		if(response) this.setcursor(response.paging);
 		
 		// Ready?
 		if(!response.paging) this.ready();
 		
 		return response[this.typestring];
 	},
-
 	
-	/*'url' : function()
+	'url' : function()
 	{
 		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
 	},
 	
-	'url' : function (params)
-    {
-        return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
-        	CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");
-    },*/
+	'sync' : function (method, model, options)
+	{
+		if(method == "read")
+		{
+			this.processing = true;
+			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+		}
+
+		return Backbone.sync(method, model, options);
+	},
 	
 	/*'parse' : function (response)
 	{
@@ -71,17 +73,6 @@ Cloudwalkers.Collections.Users = Backbone.Collection.extend({
 
 			}.bind(this));
 		
-		return Backbone.sync(method, model, options);
-	},*/
-	
-	/*'sync' : function (method, model, options)
-	{
-		if(method == "read")
-		{
-			this.processing = true;
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
-		}
-
 		return Backbone.sync(method, model, options);
 	},*/
 	

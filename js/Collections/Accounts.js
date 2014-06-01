@@ -18,9 +18,8 @@ Cloudwalkers.Collections.Accounts = Backbone.Collection.extend({
 				// Store with outdated parameter
 				Store.set(this.typestring, {id: ids[n], outdated: true});
 				
-				// Trigger active models
-				model.outdated = true;
-				model.trigger("outdated");
+				// Hard relaod data
+				model.fetch();
 			}
 		}
 	},

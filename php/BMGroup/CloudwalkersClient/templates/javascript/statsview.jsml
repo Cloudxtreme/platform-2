@@ -17,7 +17,10 @@
 		<div class="pull-right">
 			
 			{{#period}}<a class="btn" id="now">now</a>{{/period}}
+			
+			<!--
 			<a class="btn"><i class="icon-print"></i></a>
+			-->
 			
 			<select class="networks">
 				<option value="0">All networks</option>

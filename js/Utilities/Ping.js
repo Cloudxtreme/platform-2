@@ -68,6 +68,8 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	 **/
 	 'updateModels' : function(ping, updates)
 	 {
+	 	console.log("Ping:", updates);
+	 		
 		// Accounts
 		if (updates.accounts) Cloudwalkers.Session.getAccounts().updates(updates.accounts);
 		

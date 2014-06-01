@@ -20,8 +20,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount ();
 		var name = this.$el.find ('[name=name]').val ();
 		
-		account.set ('name', name);
-		account.save ( function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); });
+		account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
 	},
 	
 	'deleteCampaign' : function (e)

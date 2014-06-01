@@ -9,6 +9,9 @@ Settings
 
 .avatar-big	{ background-size: 100% auto !important; }
 
+.settings-profile input[type=file]	{ display: none; } 
+
+
 /* Manage users */
 .profile .settings-users .user-container td	{ padding: 12px 4px 4px; }
 
