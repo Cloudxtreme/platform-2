@@ -63,12 +63,12 @@ Settings
 #service-connected	{ overflow: hidden; }
 
 #service-connected .portlet-body	{
-	width: 200%; box-sizing: border-box; -webkit-transform: translate3d(0px, 0px, 0px);
+	width: 200%; box-sizing: border-box; -webkit-transform: translate3d(0px, 0px, 0);
 	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 
 #service-connected.open-detail .portlet-body	{
-	-webkit-transform: translate3d(-50%, 0px, 0px);
+	-webkit-transform: translate3d(-50%, 0px, 0);
 	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 
@@ -78,7 +78,7 @@ Settings
 
 #service-connected .service-detail	{
 	float: left; width: 50%; padding: 0 10px 10px 20px; background: white; box-sizing: border-box;
-	-webkit-font-smoothing: subpixel-antialiased; -webkit-perspective: 1000;
+	-webkit-font-smoothing: antialiased; -webkit-perspective: 1000; backface-visibility: hidden;
 }
 
 #service-connected .service-detail h3	{

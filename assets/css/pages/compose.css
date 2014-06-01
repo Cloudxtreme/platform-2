@@ -19,7 +19,7 @@ Style corrections and manual overrides
 **/
 
 #compose aside	{
-	float: left; width: 260px; padding: 12px 0 24px;
+	float: left; width: 260px; padding: 12px 0 24px; opacity: 1;
 }
 
 #compose aside ul	{
@@ -34,10 +34,32 @@ Style corrections and manual overrides
 	padding: 6px 20px; margin: 0; border-width: 0 0 1px 0;
 }
 
-#compose .thank-you	{
+/**
+ *	Thank You
+**/
+
+#compose.thank-you aside	{
+	opacity: 0; -webkit-filter: blur(5px); filter: blur(5px);
+	-webkit-transition: all .5s linear;
+}
+
+#compose.thank-you > div,
+#compose.thank-you .modal-body	{ border-color: white !important; }
+
+#compose.thank-you .modal-body:after	{
+	display: block; padding: 80px 0; margin: 0 auto;  
+	content: "\F087"; font-family: FontAwesome; font-size: 128px; color: #aaa; text-align: center;
+}
+
+#compose.thank-you .modal-body > *,
+#compose.thank-you .modal-footer	{ display: none; }
+
+
+
+/*#compose .thank-you	{
 	margin: 120px auto;
 	text-align: center; font-size: 140px; color: #333;
-}
+}*/
 
 
 /**
@@ -65,14 +87,6 @@ Style corrections and manual overrides
 /**
  *	Stream tabs
 **/
-
-/*#compose div.tabs-container	{
-	margin: 0 8.82% 18px; padding-bottom: 12px; overflow-x: scroll; overflow-y: hidden; border-radius: 2px; border: solid #ddd; border-width: 1px 0 0 0;
-}
-
-#compose section.stream-tabs	{
-	width: auto; height: 32px; padding: 0; background-color: #efefef;  overflow-x: visible; white-space: nowrap; border-radius: 2px; border: solid #ddd; border-width: 0 1px 1px 1px;
-}*/
 
 #compose section.stream-tabs,
 #compose section.action-tabs	{
@@ -205,11 +219,6 @@ Style corrections and manual overrides
 	padding-left: 24px;
 }
 
-/*#compose [data-collapsable] input[type=radio],
-#compose [data-collapsable] input[type=checkbox]	{
-	float: left; width: auto; border-width: 0px; box-shadow: none; display: inline; margin: -2px 8px 0 0;
-}*/
-
 /**
  *	Collapsable: images
 **/
@@ -260,7 +269,6 @@ Style corrections and manual overrides
  *	Collapsable: link
 **/
 
-/*#compose [data-collapsable=link] .input-symbol	{ margin-left: 104px; }*/
 #compose [data-collapsable=link] .input-symbol input	{ margin-bottom: 0; }
 
 
@@ -334,18 +342,6 @@ Style corrections and manual overrides
 #compose .schedule-entry .btn-white	{ line-height: 22px; }
 #compose .schedule-entry div.input-symbol input	{ margin-bottom: 0; background-color: white; }
 
-
-/*#compose [data-collapsable=schedule] label	{ display: inline-block; }
-
-#compose [data-collapsable=schedule] hr	{ margin: 8px 0; }
-
-#compose [data-collapsable=schedule] select	{ margin: 0 0 2px 14px; }
-
-#compose [data-collapsable=schedule] .input-symbol	{
-	float: left;
-}*/
-
-
 /**
  *	Collapsable: repeat
 **/
@@ -414,124 +410,7 @@ Style corrections and manual overrides
 	-webkit-transition-property: all; -webkit-transition-delay: 200ms; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
 }
 
-
-/*
-
-	DEPRECATED
-
-*/
-
-/* Modal */
-
-.modal.modal-popup	{
-	width: 75%; margin-left: -37.5%; margin-bottom: 50px;
-}
-
-.modal.modal-popup .accordion	{
-	padding: 0 .4%; clear: both;
-}
-
-.modal-popup .modal-footer	{
-	clear: both; text-align: left; 
-}
-
-.modal-popup .btn.blue	{ background-color: #2bbedc; }
-
-.modal-popup .btn.blue:hover	{ background-color: #4a4a4a !important; }
-
-/* Write */
-
-.write h3	{ line-height: 1em; margin-bottom: 20px; }
-
-.write label	{
-	font-size: 14px; color: #666;
-}
-
-.write textarea	{
-	width: 100%; min-height: 120px; box-sizing: border-box; border-radius: 2px; border-color: #ddd;
-	font-size: 16px; color: #222;
-}
-
-.write #counter	{
-	display: inline; background-color: #e6e6e6; border-radius: 5px; padding: 5px 8px;
-	color: white; font-size: 18px; line-height: 1.5em;
-}
-
-.write-extras	{
-	width: 65%; margin-bottom: 2px;
-}
-
-.write-extras .accordion-body	{
-	padding-left: 10px; margin-bottom: 5px; border-left: 1px solid #eee;
-}
-
-.write hr	{ clear: both; margin: 20px 0 10px; }
-
-.write-streams	{
-	list-style: none; margin-left: 0;
-}
-
-.write-streams li.btn-white	{
-	float: left; width: 19.2%; padding: 6px 10px; margin: 0 .4% 5px; border-radius: 2px; box-sizing: border-box;
-	font-size: 14px; 
-}
-
-.write input[name="subject"]	{
-	width: 100%; height: 28px; box-sizing: border-box;
-}
-
-.modal.modal-popup .write a[data-toggle].btn.blue.disabled	{
-	color: #aaa !important; background-color: #eee !important;
-}
-
-#schedule	{
-	position: relative; top: 12px; padding: 0 20px; margin: 12px 0; background: #f6f6f6; border-radius: 4px; box-sizing: border-box;
-}
-
-#schedule .border-right	{ border-right: 1px solid white; }
-
-#schedule > div > div	{ margin-bottom: 10px; }
-
-#schedule label	{
-	display: inline; padding: 0 10px; line-height: 1em;
-}
-
-#repeat	label.inactive, #repeat select.inactive {
-	opacity: .25;
-}
-
-#schedule input		{ margin: 0; }
-#schedule select	{ margin: 0 0 0 7px; }
-#schedule input[type=radio]	{ margin: -4px 0 0; }
-#schedule input[type=time]	{ width: 75px; }
-#schedule input[type=checkbox]	{ margin: -2px 0 0 58px; }
-#schedule label[for=besttime]	{ line-height: 2.4em; }
-
-#repeat	input[type=number]	{
-	margin: 0 4px; width: 35px;
-}
-
-#repeat	input[type=text]	{
-	margin: -3px 4px 0;
-}
-
-#repeat	select {
-	margin: 0 2px; width: 90px;
-}
-
-#repeat	label { padding: 0; }
-
-@media (max-width: 1240px)	{
-	.modal.modal-popup	{ width: 90%; margin-left: -45%; }
-	#repeat	select { width: 80px; }
-	#schedule #start	{ width: 120px;  }
-	#schedule input[type=time]	{ width: 70px; }
-}
-
-@media (max-width: 920px)	{
-	#repeat	select { width: 60px; margin: 0; }
-	#repeat	input[type=number]	{  width: 30px; margin: 0 2px; }
-}
+/* Some Rui stuff */
 
 .input-symbol section[contenteditable=true] {
 	width: 100%;
