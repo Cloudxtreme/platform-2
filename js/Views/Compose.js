@@ -702,9 +702,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'monitorschedule' : function(e, element)
 	{
-		
+		// Various data
 		var field = element || $(e.currentTarget);
-		var scheduled = this.draft.get("schedule");
+		
+		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		var scheduled = variated? variated: this.draft.get("schedule");
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
@@ -713,7 +715,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule Now
 		if(set == "now")
 		{
-			// UI
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
 			$("[data-set=on] input").val("");
 			$("[data-set=in] select").val(600);
@@ -726,7 +727,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule In
 		if(set == "in")
 		{
-			// UI
 			this.toggleschedentry("[data-set=now], [data-set=on]").toggleschedentry("[data-set=in]", true);
 			$("[data-set=on] input").val("");
 
@@ -735,7 +735,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule On
 		if(set == "on")
 		{
-			// UI
 			this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
 			$("[data-set=in] select").val(600);
 
@@ -751,7 +750,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Repeat every
 		if(set == "every")
 		{
-			// UI
 			var active = field.data("set")? !entry.hasClass("inactive"): false;
 			
 			this.toggleschedentry("[data-set=every]", !active);
@@ -801,7 +799,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'parsescheduled' : function()
 	{
-		var scheduled = this.draft.get("schedule");
+		// Schedule data
+		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		var scheduled = variated? variated: this.draft.get("schedule");
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
