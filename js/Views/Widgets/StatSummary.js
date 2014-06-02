@@ -168,7 +168,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	        }
 	        else if (modeMap[el] == maxCount)
 	        {
-	            maxEl += '&' + el;
+	            maxEl = el;
 	            maxCount = modeMap[el];
 	        }
 	    }
