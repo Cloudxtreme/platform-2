@@ -944,13 +944,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'preview' : function()
 	{
 		// Animate compose view
-		this.$el.addClass("preview-mode");
+		this.$el.addClass("switch-mode");
 		
 		// Create new preview object
 		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, previewtype: 'default', streamid: this.activestream.id});
 		
 		// Add preview view to Compose
-		this.$el.find('.preview-container').append(this.preview.render().el);
+		this.$el.find('.switch-container').append(this.preview.render().el);
 		
 	},
 	
@@ -960,7 +960,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.preview.remove();
 		
 		// Animate compose view
-		this.$el.removeClass("preview-mode");
+		this.$el.removeClass("switch-mode");
 	},
 	
 	'save' : function(status)
@@ -1017,8 +1017,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'thankyou' : function()
 	{
-		this.$el.addClass("thank-you");
-		setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
+		var thanks = Mustache.render(Templates.thankyou);
+
+		// Animate compose view
+		this.$el.addClass("switch-mode").addClass('thanks');
+
+		// Add preview view to Compose
+		this.$el.find('.switch-container').append(thanks);
+
+		//this.$el.addClass("thank-you");
+		//setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 	},
 
 	'disablefooter' : function()
