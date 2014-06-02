@@ -126,7 +126,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		{
 			this.type = "edit";
 			this.draft = this.model;
-			this.setDraft();			
+			//this.setDraft();			
 		}
 		
 		// Draft message
@@ -146,7 +146,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
-		
+	
 	},
 
 	'render' : function ()
@@ -186,6 +186,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$loadercontainer = this.$el.find ('.modal-footer');
 
 		//Update the content with default/variation/draft data
+		this.defaultstreams();
 		this.togglesubcontent();
 		this.trigger("rendered");
 		return this;
@@ -246,6 +247,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				
 			}.bind(this));
 	},
+
+	'defaultstreams' : function()
+	{
+		var variations = this.draft.get("variations");
+		
+		$.each(variations, function(i, variation){
+			this.$el.find("li[data-streams="+variation.stream+"]").click();
+		}.bind(this));
+	},
 	
 	'togglestreams' : function (e)
 	{
@@ -304,7 +314,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -429,6 +439,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	//Add to summary
 	'summarizeimages' : function(image)
 	{
+		if(!image)
+			return;
+
 		var url = image.data || image.url;
 		var summary = this.$el.find("[data-collapsable=images] .summary");
 
