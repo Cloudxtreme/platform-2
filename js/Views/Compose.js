@@ -468,21 +468,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var addbtn = '<li class="add-file">+</li>';
 		var images = [];
 
-		//Add variation images
+		//Add all variation images
 		if(streamid && this.draft.getvariation(streamid,'image')){
 			var imgs = this.draft.getvariation(streamid, 'image');
+			
 			$.each(imgs, function(i, image){
 				this.summarizeimages(image);
 				this.listimage(image);
 			}.bind(this));
 		}
 
-		//Add default images
+		//Add default images that aren't in this stream's exclude list
 		if(this.draft.get("attachments")){
 			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
 			$.each(imgs, function(i, image){
+
+				//The image should be excluded
+				if(streamid && this.draft.checkexclude(streamid, image))
+					return true; //Continue
+				
 				this.summarizeimages(image);
 				this.listimage(image);
+
 			}.bind(this));
 		}
 
@@ -524,13 +531,22 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{	
 		var streamid = this.activestream ? this.activestream.id : false;
 		var image = $(e.currentTarget).remove();
-		var attachs;
-
-		if(streamid)	attachs = this.draft.getvariation(streamid).attachments;
-		else 			attachs = this.draft.get("attachments");
+		var attachs = this.draft.get("attachments") || [];
+		var attachindex;
 		
-		for (n in attachs)
-			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename"))		attachs.splice(n,1); 
+		//Is it in the default attachments?
+		for (n in attachs){
+			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
+				attachindex = n;
+				break;
+			}
+		}
+		
+		if(!streamid)
+			attachs.splice(attachindex,1);
+		else
+			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+
 
 		//Remove from the summary interface
 		this.$el.find('[data-collapsable=images] .summary [data-filename="'+image.data('filename')+'"]').remove();

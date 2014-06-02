@@ -255,16 +255,53 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 	},
 
-	'removevarimg' : function(stream, name){
+	'removevarimg' : function(streamid, image){
+		//If image is an object it means it's meant to exclude
 
-		var images = this.getvariation(stream, 'image');
-		for(n in images){
-			if(images[n].name == name)
-				images.splice(n,1);
+		var variation = this.getvariation(streamid);
+		var attachments = variation.attachments;
+
+		if(_.isObject(image)){	// It's a default iamge
+			this.addexclude(streamid, image)			
+		}else{					// It's a variation image
+			for(n in attachments){
+				if(attachments[n].type == 'image' && attachments[n].name == image) 
+					attachments.splice(n,1);
+			}
+		}
+	},
+
+	'addexclude' : function(streamid, image){
+	
+		var variation = this.getvariation(streamid);
+		var excludes = variation.excludes;
+
+		if(variation.excludes)
+			variation.excludes.push(image);
+		else
+			variation.excludes = [image];
+	},
+
+	'checkexclude' : function(streamid, image){
+
+		var variation = this.getvariation(streamid);
+		var excludes;
+
+		if(!variation)	return false;
+		else			excludes = variation.excludes;
+
+		if(excludes){
+			for(n in excludes){
+				if(excludes[n].name == image.name)
+					return true;
+			}
 		}
 
-		
+		//There are no excludes
+		return false;
+
 	},
+			
 
 	/* End variation functions */
 	
