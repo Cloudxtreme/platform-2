@@ -11,9 +11,11 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	{
 		if (options) $.extend(this, options); 
 
-		//Get the draft data
-		this.draftdata = this.mergedata(this.model.attributes, this.model.getvariation(this.streamid));
-		$.extend(this.draftdata, Cloudwalkers.Session.getStream(this.streamid).get("profile"));
+		//Get the preview data
+		$.extend(this.model.attributes, this.model.getvariation(this.streamid));
+		this.model.attributes.profile = Cloudwalkers.Session.getStream(this.streamid).get("profile");
+
+		this.network = Cloudwalkers.Session.getStream(this.streamid).get("network").token;
 	},
 
 	'render' : function ()
@@ -31,17 +33,21 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	
 	'fill' : function (preview)
 	{
+		this.previewdata = {
+			body : this.model.get('body') || ""
+		};
+
 		//Random load times
 		this.fakeload((Math.random()*1.2)+0.4);
 		
 		if(this.model.hasAttachement("link"))	this.$el.find("#network").addClass("link"); 
 		if(img = this.model.hasAttachement("image")){
-			this.draftdata.image = img.data;
+			this.previewdata.image = img.data || img.url;
 			this.$el.find("#network").addClass("img"); 
 		}
-
+		
 		// Render preview (opacity:0)
-		var preview = Mustache.render(preview, this.draftdata);
+		var preview = Mustache.render(preview, this.previewdata);
 		this.$el.find("#pv-main").append(preview);
 	},
 
