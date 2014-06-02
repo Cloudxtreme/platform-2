@@ -21,6 +21,10 @@ Backbone.View = Backbone.View.extend({
 		for(i in states){
 			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 		}
+
+		// All listen to the empty state
+		this.listenTo(model, 'ready:empty', this.emptylist.bind(this));
+
 		//Add the progress-bar dinamicaly
 		this.on("rendered", this.addLoader);
 	},
@@ -34,6 +38,7 @@ Backbone.View = Backbone.View.extend({
 		//Just to make it moving from the beggining
 		if(!this.loader) return;
 
+		if(this.container.hasClass('empty-list'))	this.container.removeClass('empty-list');
 		if(this.loader && this.loader.hasClass('loaded'))	this.restart();
 		if(this.loader && this.loader.hasClass('loading') && index == 1)	this.restart();
 		if(length == index){
@@ -65,6 +70,13 @@ Backbone.View = Backbone.View.extend({
 		this.loader.css('width','100%');
 		this.loader.addClass('loaded');
 		this.container.removeClass('toload').addClass('loaded');
+	},
+
+	'emptylist' : function(){
+		console.log("empty")
+		this.loadRender(99,99);
+		this.container.addClass('empty-list');
+		
 	},
 	
 	/**

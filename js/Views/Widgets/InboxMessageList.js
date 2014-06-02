@@ -42,6 +42,10 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Loader
 		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
+
+		//Empty & not empty
+		this.listenTo(this.collection, 'ready:empty', this.isempty);
+		this.listenTo(this.collection, 'request', this.unsetempty);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -435,5 +439,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+
+	'isempty' : function(){		
+		$(".inbox-container").empty().addClass('empty-content');
+	},
+
+	'unsetempty' : function(){
+		$(".inbox-container").removeClass('empty-content');
 	}
 });

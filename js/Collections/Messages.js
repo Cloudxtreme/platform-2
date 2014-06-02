@@ -36,7 +36,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 
 	'isempty' : function(){		
 		if(this.length == 0){
-			this.trigger('ready');
+			this.trigger('ready:empty');
 		}
 	}
 });

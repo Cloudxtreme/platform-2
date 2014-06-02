@@ -41,7 +41,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
-		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
+		//{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
 		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
 
@@ -52,47 +52,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
 			]}
 		}
-
-		/*{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Regional Popularity", connect: true}, span: 6},
-		{widget: "Chart", data: {filterfunc: "networks", chart: "PieChart", title: "Countries", connect: 'regional'}, span: 3},
-		{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities", connect: 'regional'}, span: 3},
-		
-		{widget: "Chart", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 6},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
-		//{widget: "Chart", data: {filterfunc: "activity", chart: "Calendar", title: "Activity Calendar"}, span: 6}
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"contacts"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"messages"}, span: 12},
-		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"activities"}, span: 12},
-		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"impressions"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook", type:"notifications", renderinfos: true}, span: 12},
-		
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"followers"}, span: 12},
-		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"following"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"messages"}, span: 12},
-		//{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"mentions"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter", type:"notifications", renderinfos: true}, span: 12},
-
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"contacts"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"messages"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube", type:"notifications", renderinfos: true}, span: 12},
-
-		/*{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"contacts"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"messages"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"activities"}, span: 12},
-		{widget: "NewCombinedStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobile-phone", type:"impressions"}, span: 12},
-
-		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"facebook", icon: "facebook"}, span: 12},
-		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"twitter", icon: "twitter"}, span: 12},
-		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"youtube", icon: "youtube"}, span: 12},
-		{widget: "NetworkStatistics", data: {chart: "LineChart", network:"mobile-phone", icon: "mobilhe-phone"}, span: 12},
-
-		{widget: "Chart", data: {filterfunc: "geo", chart: "GeoChart", title: "Countries"}, span: 12},
-		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries"}, span: 12},
-
-		{widget: "TopComment", data: {title: "Top rated comment"}, span: 12}*/
-
-
-
 	],
 	
 	'initialize' : function(options)
@@ -156,7 +115,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if(google.visualization)
 			this.fillcharts();
 
-
+		console.log(this.collection)
 		return this;
 	
 	},
