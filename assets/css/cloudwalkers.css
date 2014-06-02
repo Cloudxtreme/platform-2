@@ -1143,11 +1143,11 @@ tbody.messages-container i	{
 
 .inbox-container:before{
 	font-family: FontAwesome; font-size: 0px; color: #ddd; content: "\F042"; -webkit-font-smoothing: antialiased; position: relative; top: 50%;
-	-webkit-transition: font .15s ease-out;
 }
 
 .inbox-container.empty-content:before{
 	font-size: 140px;
+	-webkit-transition: font .15s ease-out;
 }
 
 .header-loading.done{
