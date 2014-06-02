@@ -189,6 +189,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.defaultstreams();
 		this.togglesubcontent();
 		this.trigger("rendered");
+		
 		return this;
 	},
 	
@@ -294,7 +295,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		$btn.toggleClass("inactive active");
-			
+
+		// Is the scrolbar visible?
+		if(this.isscrolling())
+			this.$el.find('.stream-tabs').addClass('scrolling');
+		else
+			this.$el.find('.stream-tabs').removeClass('scrolling');			
 	},
 	
 	'togglestream' : function (e)
@@ -1023,6 +1029,38 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'invalid' : function(model, error)
 	{
 		Cloudwalkers.RootView.alert(model.get("title") + " " + error);
+	},
+
+	/*
+	In case we need to figure out the height of the scrollbar
+	It seams all are 17px
+
+	'scrollbarwidth' : function(){
+
+		var outer = document.createElement("div");
+	    outer.style.visibility = "hidden";
+	    outer.style.width = "100px";
+	    document.body.appendChild(outer);
+	    
+	    var widthNoScroll = outer.offsetWidth;
+	    // force scrollbars
+	    outer.style.overflow = "scroll";
+	    
+	    // add innerdiv
+	    var inner = document.createElement("div");
+	    inner.style.width = "100%";
+	    outer.appendChild(inner);        
+	    
+	    var widthWithScroll = inner.offsetWidth;
+	    
+	    // remove divs
+	    outer.parentNode.removeChild(outer);
+	    
+	    return widthNoScroll - widthWithScroll;
+	},*/
+
+	'isscrolling' : function(){		
+		return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
 	}
 
 });
