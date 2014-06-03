@@ -24,7 +24,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'events' : {
 		
-		/*// Triggers
+		// Triggers
 		'update:content' : 'render',
 		'update:limit' : 'renderlimit',
 		'append:content' : 'append',
@@ -35,7 +35,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer',*/
+		'keydown #composeplaceholder' : 'updatecontainer',
 
 		/* Oembed data types */
 		//'click [data-type="title"] i' : 'addoetitle',
@@ -48,19 +48,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'xurlbasic' : /http|[w]{3}/g,
 	'xshortens' : /http|[w]{3}/g,
 	
-	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,
-	/*/(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img,*/
-	
+	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
 	
 	'initialize' : function (options)
 	{
 		// Parameters
 		if(options) $.extend(this, options);
-		
-		// Add listeners to
-		//dis = this;
-		//this.listenTo(this.parent, "update:streams", function(stream){console.log(stream);});
-		//this.listenTo(this.parent, "update:stream", function(data){dis.togglecontent(data)});
 		
 		// URL Shortener
 		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl)
@@ -78,7 +71,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$contenteditable = this.$el.find('#compose-content').eq(0);
 		this.contenteditable  = this.$contenteditable.get(0);
 		
-		this.medium = new Medium({
+		/*this.medium = new Medium({
 			element: this.contenteditable,
 			debug: true,
 			modifier: 'auto',
@@ -96,15 +89,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			}
 		});
 		
-		//this.medium.utils.addEvent(this.medium.settings.element, 'change', function(e){ console.log("medium is changed", e) });
+		// Test
+		this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));*/
 		
-		this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));
-		//utils.listenTo("change", function(e){ console.log("medium changed", e) });
 		
-		/*// Add content
+		// Add content
 		this.$contenteditable.html(this.content);
 		if(this.content) this.listentochange();
-		*/
+		
 		return this;
 	},
 	
