@@ -1019,12 +1019,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
-		// Animate compose view
-		this.$el.addClass("switch-mode").addClass('thanks');
+		setTimeout(function()
+		{
+			// Animate compose view
+			this.$el.addClass("switch-mode").addClass('thanks');
 
-		// Add preview view to Compose
-		this.$el.find('.switch-container').append(thanks);
+			// Add preview view to Compose
+			this.$el.find('.switch-container').append(thanks);
 
+		}.bind(this),400)
+
+		//Old thankyou logic
 		//this.$el.addClass("thank-you");
 		//setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 	},
