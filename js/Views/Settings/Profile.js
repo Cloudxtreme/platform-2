@@ -127,9 +127,9 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		{
 			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
 		
-		}, error: function()
-		{
-			Cloudwalkers.RootView.growl('Oops', "That's not correct.");
+		}, error: function(model, response, options)
+		{	var response = response.responseJSON.error.message;
+			Cloudwalkers.RootView.growl('Oops', response);
 		}});
 	},
 	
