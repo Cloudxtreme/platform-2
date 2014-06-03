@@ -5,7 +5,7 @@
 
 		</div>
 	</div>
-	<div class="portlet-body social-icon-colors toload">
+	<div class="portlet-body social-icon-colors toload {{scrollable}}">
 
 		<div class="scroller" data-height="360px" data-always-visible="1" data-rail-visible1="1">
 			<ul class="messages-container"></ul>
