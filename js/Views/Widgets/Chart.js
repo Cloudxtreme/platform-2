@@ -164,6 +164,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			fulldata.colors.push(network.getcolor());
 		});
 
+		if(fulldata.data.length == 0)
+			return this.emptychartdata();
+
 		fulldata.options.colors = fulldata.colors;
 		
 		if(!token && !statistic)
@@ -653,6 +656,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	filtercountry : function(collection, streamid){
 		
 		var grouped = {};
+		//console.log(collection.latest())
 		var streams = collection.latest().get("streams");
 		
 		// Groups & sums by country

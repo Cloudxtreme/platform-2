@@ -41,7 +41,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
-		//{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
+		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
 		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
 		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
 
@@ -67,6 +67,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'ready', this.hideloading);
+		//this.listenTo(this.collection, 'ready', this.fillcharts);
+		//this.collection.on('all', function(a){console.log(a)})
 		
 		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
 		
@@ -87,7 +89,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function()
-	{	
+	{	//console.log(this.collection)
 		// clean if time toggle
 		this.cleanviews();
 		
@@ -112,16 +114,19 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if (this.timespan == "custom")
 			this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
 
+		if(this.period == 0)
+			this.$el.find('#add').attr("disabled", true);
+
 		if(google.visualization)
 			this.fillcharts();
 
-		console.log(this.collection)
+		
 		return this;
 	
 	},
 
-	'fillcharts' : function(){
-
+	'fillcharts' : function()
+	{
 		for(n in this.widgets)
 		{	
 			var streamid = this.streamid || false;
@@ -156,7 +161,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		// Load statistics
 		this.collection.touch(this.model, this.filterparameters());
-
+		console.log(this.collection)
 	},
 	
 	'timemanager' : function ()
@@ -180,6 +185,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'addperiod' : function ()
 	{
+		if(this.period >= 0)	return;
+
 		this.period += 1;
 		this.render();
 	},
