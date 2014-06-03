@@ -25,7 +25,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'events' : {
 		
 		// Triggers
-		'update:content' : 'render',
+		/*'update:content' : 'render',
 		'update:limit' : 'renderlimit',
 		'append:content' : 'append',
 		
@@ -35,14 +35,19 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer',
+		'keydown #composeplaceholder' : 'updatecontainer',*/
 
 		/* Oembed data types */
 		//'click [data-type="title"] i' : 'addoetitle',
 		//'click [data-type="content"] i' : 'addoecontent',
 		//'click [data-type="image"] i' : 'addoeimg',
+
+		'mousedown #compose-content': 'editableClick'
 	},
 	
+	editableClick: etch.editableInit,
+
+
 	// regex magic
 	'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
 	'xurlbasic' : /http|[w]{3}/g,
@@ -60,6 +65,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 	},
 
+	'render' : function(){
+		// Do the render
+		this.$el.html (Mustache.render (Templates.editor, {limit: this.limit}));
+
+		return this;
+	},
+
+
+	/*
+
 	'render' : function (content)
 	{
 		// Data basics
@@ -71,7 +86,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$contenteditable = this.$el.find('#compose-content').eq(0);
 		this.contenteditable  = this.$contenteditable.get(0);
 		
-		/*this.medium = new Medium({
+		this.medium = new Medium({
 			element: this.contenteditable,
 			debug: true,
 			modifier: 'auto',
@@ -90,7 +105,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		});
 		
 		// Test
-		this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));*/
+		//this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));
 		
 		
 		// Add content
@@ -99,6 +114,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		return this;
 	},
+	*/
 	
 	'append' : function (content)
 	{
@@ -194,6 +210,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$contenteditable.html(this.content);
 		this.cursorpos(this.pos);
 		
+		// 	Back to compose
 		this.trigger('change:content', this.content);
 	},
 	

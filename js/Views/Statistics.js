@@ -89,7 +89,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function()
-	{	//console.log(this.collection)
+	{	console.log(this.collection)
 		// clean if time toggle
 		this.cleanviews();
 		
@@ -156,7 +156,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			//this.widgets[n].data.connect == true ? this.connect = view : false;
 			
 			this.views.push(view);
+
 			this.appendWidget(view, this.widgets[n].span);
+			console.log("appended view:", view);
 		}
 
 		// Load statistics

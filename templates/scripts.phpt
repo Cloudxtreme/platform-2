@@ -55,6 +55,7 @@
 <script src="/assets/plugins/chart.js/Chart.min.js"></script>
 <script src="/assets/plugins/chart.js.legend/legend.js"></script>
 <script src="/assets/plugins/media.js"></script>
+<script src="/assets/plugins/etch/etch.js"></script>
 
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
