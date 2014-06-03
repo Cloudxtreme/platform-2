@@ -11,49 +11,46 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'oldUrl' : "",
 	'urldata' : {},
 	'currentUrl' : false,
+	
+	'urlprocessing' : false,
+	'limit' : null,
+	'content' : '',
+	'pos' : 0,
+	
+	
+	// Should be outside Editor, should be in compose
 	'restrictedstreams' : {'twitter' :140, 'linkedin' : 700},
 	//'restrictedstreams' : ['twitter', 'default'],
-
 	
 	'events' : {
-		/*'click li[data-streams]' : 'togglestreams',
 		
-		'blur [data-option] input' : 'monitor',
-		'blur [data-option] textarea' : 'monitor',
-		'keyup [data-option] textarea' : 'monitor',
-		*/
-		//'keydown #compose-content' : 'filterurl',
-		//'keyup #compose-content' : 'filterurl',
-		'blur #compose-content' : 'listentochange',
+		/*// Triggers
+		'update:content' : 'render',
+		'update:limit' : 'renderlimit',
+		'append:content' : 'append',
+		
+		// Listen to $contenteditable
 		'keyup #compose-content' : 'listentochange',
 		'paste #compose-content' : 'listentochange',
+		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer',
+		'keydown #composeplaceholder' : 'updatecontainer',*/
 
 		/* Oembed data types */
-		'click [data-type="title"] i' : 'addoetitle',
-		'click [data-type="content"] i' : 'addoecontent',
-		'click [data-type="image"] i' : 'addoeimg',
+		//'click [data-type="title"] i' : 'addoetitle',
+		//'click [data-type="content"] i' : 'addoecontent',
+		//'click [data-type="image"] i' : 'addoeimg',
 	},
-
-
-	/*
-	*
-	* listentochange()		: Triggers the whole process when the content is changed	
-	* setdefaultcontent()	: Simple way to add content from outside the view (compose)	
-	* filterurl() 			: Monitors the content for url input & renders it's content
-	* getcursorposition() 	: Gets the cursor position
-	* setcursorposition() 	: Sets the cursor position
-	* greyout() 			: Parses the content to grey out extra characters
-	* parsecontent() 		: Parses the content to refresh the url styes
-	* updatecontainer() 	: Triggers all the text & counters updates
-	* updatecounter() 		: Updates the charcount
-	* swaplink() 			: Swaps link from shortened to normal
-	* togglecontent() 		: Toggles between variations text
-	* addoetitle/content/img : triggers content adition back to the compose view
-	*
-	*/
+	
+	// regex magic
+	'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
+	'xurlbasic' : /http|[w]{3}/g,
+	'xshortens' : /http|[w]{3}/g,
+	
+	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,
+	/*/(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img,*/
+	
 	
 	'initialize' : function (options)
 	{
@@ -61,215 +58,247 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(options) $.extend(this, options);
 		
 		// Add listeners to
-		dis = this;
+		//dis = this;
 		//this.listenTo(this.parent, "update:streams", function(stream){console.log(stream);});
-		this.listenTo(this.parent, "update:stream", function(data){dis.togglecontent(data)});
-		// this.listenTo(this.draft, "update:link");
+		//this.listenTo(this.parent, "update:stream", function(data){dis.togglecontent(data)});
+		
+		// URL Shortener
+		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl)
 		
 	},
 
-	'render' : function ()
+	'render' : function (content)
 	{
-		// Get smallest char restriction
-		var maxchars = Math.min.apply(Math, _.values(this.restrictedstreams));
-		this.restrictedstreams['default'] = maxchars;
-
-		var data = {maxchars : maxchars};
-		this.$el.html (Mustache.render (Templates.editor, data));
-		this.contentcontainer = this.$el.find('#compose-content');
-
-		if(this.draft.get("body").html != "")
-			this.setdefaultcontent(this.draft.get("body").html);
-
-		//Inits the network as default
-		this.network = 'default';
-
+		// Data basics
+		if(content !== undefined) this.content = content;
+		
+		// Do the render
+		this.$el.html (Mustache.render (Templates.editor, {limit: this.limit}));
+		
+		this.$contenteditable = this.$el.find('#compose-content').eq(0);
+		this.contenteditable  = this.$contenteditable.get(0);
+		
+		this.medium = new Medium({
+			element: this.contenteditable,
+			debug: true,
+			modifier: 'auto',
+			autoHR: false,
+			mode: 'rich',
+			modifiers: { 86: 'paste' },
+			tags: {
+				paragraph: 'p',
+				innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
+			},
+			cssClasses: {
+				editor: 'Medium',
+				pasteHook: 'Medium-paste-hook',
+				placeholder: 'Medium-placeholder'
+			}
+		});
+		
+		//this.medium.utils.addEvent(this.medium.settings.element, 'change', function(e){ console.log("medium is changed", e) });
+		
+		this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));
+		//utils.listenTo("change", function(e){ console.log("medium changed", e) });
+		
+		/*// Add content
+		this.$contenteditable.html(this.content);
+		if(this.content) this.listentochange();
+		*/
 		return this;
 	},
 	
-	
-	/*   Code from Compose.js   */
-	
-	/*'monitor' : function (e)
+	'append' : function (content)
 	{
-		// Stream
-		var streamid = this.activestream? this.activestream.id: false;
-		var input = {body: {}};
+		if(!content) return;
 		
-		// Subject
-		var val = this.$el.find("[data-option=subject] input").val();
-		if(!streamid || (streamid && this.draft.variation(streamid, "subject") != val)) input.subject = val;
-		
-		// Body (will be extended with a shadow body)
-		var val = this.$el.find("[data-option=fullbody] textarea").val();
-		var body = this.draft.variation(streamid, "body");
-		
-		if(!streamid || (streamid && body && body.html != val)) input.body.html = val;
-		
-		// Limit counter
-		//this.$el.find("[data-option=limit]").html(140 -val.length).removeClass("color-notice color-warning").addClass(val.length < 130? "": (val.length < 140? "color-notice": "color-warning"));
-		
-		// Link
-		var val = this.$el.find("[data-option=link] input").val();
-		if(!streamid || (streamid && body && body.html != val)) input.link = val;
-		
-		// Update draft
-		if (streamid)	this.draft.variation(streamid, input);
-		else 			this.draft.set(input);
-	},*/
-
-	'listentochange' : function(){
-
-		var currentcontent = this.contentcontainer.html();
-
-		if(this.lastcontent && this.lastcontent !== currentcontent){
-			this.filterurl();
-			this.lastcontent = currentcontent;
-		}
-
-		if(!this.lastcontent)	this.lastcontent = currentcontent;
-	},
-
-	'setdefaultcontent' : function(content){
-		this.contentcontainer.html(content);
+		// Append content
+		this.$contenteditable.append(content);
 		this.listentochange();
 	},
+	
+	'renderlimit' : function (limit)
+	{
+		if(typeof limit != "undefined") this.limit = limit;
+	},
+	
+	'listentochange' : function(e) {
 
-	'filterurl' : function(){
-
-		// ARE YOU KIDDING ME?!
-		var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
-		var self = this;
-		var content = this.contentcontainer.html();
-		var url = content.match(url_pattern);
-
-		if(url && !this.currentUrl){
-
-			this.oldUrl = url[0];
-			//UGLY hack to make sure the url is right
-			while(this.oldUrl.indexOf("ht") != 0)	this.oldUrl = this.oldUrl.substr(1);
+		var content = this.$contenteditable.html();
+		
+		if(this.content !== content)
+		{
+			this.pos = this.cursorpos();
 			
-			$.getJSON( 'http://devapi.cloudwalkers.be/urlshortener/shorten?', {
-	            'url' : this.oldUrl,
-	            'output' : 'jsonp',
-	            'format': "json"
-	        })
-	        .done(function( data ) {
-	            if (data.shortUrl)
-	            {	
-	                this.urldata = {newurl: data.shortUrl, oldurl: this.oldUrl};
-
-					var oembed = '<div><a href="'+this.oldUrl+'" class="oembed"></a></div>';	            
-					var formatedcontent = content.replace(this.oldUrl, Mustache.render (Templates.composeurltag, {url : this.urldata.newurl}));
-					
-					this.$el.find('#out').empty().html(oembed);
-
-					this.updatecontainer(formatedcontent);
-
-					//the URL tag's content
-					this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: this.urldata.newurl}));
-					
-					this.currentUrl = this.urldata.newurl;
-					
-					this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
-						this.def.done(function(){
-							$('#out').addClass('expanded');
-							self.updatecontainer();
-							self.trigger('contentadded');
-
-						});
-					});
-	            }
-	        }.bind(this));
+			// Do the screen
+			this.content = this.screen(content, e? e.keyCode: null);
+			
+			// Update
+			this.$contenteditable.html(this.content);
+			this.cursorpos(this.pos);
+			
+			this.trigger('change:content', this.content);
+		}
+	},
+	
+	/**
+	 *	Screen
+	 *
+	 *	Test all filter options against content
+	**/
+	
+	'screen' : function (content, keyCode)
+	{
+		// empty string
+		if(!content.replace(this.xtrimmable, ""))
+		{
+			this.trigger("charcount", 0);
+			return "";
 		}
 		
-
-		if(!url){
-			//removes the preview & waits for another URL
-			this.$el.find('#out').empty();
-			this.currentUrl = false;	
+		
+		// Filter url
+		if(content.match(this.xurlbasic))	content = this.filterurl(content);
+		
+		// Filter limit
+		if(this.limit)						content = this.filterlimit(content);
+		
+		// Filter enter
+		// Is this needed for debug? If it is, check keyCode
+		
+		return content;
+	},
+	
+	/* URL functions */
+	
+	'filterurl' : function(content){
+		
+		// Match url
+		var url = content.match(this.xurlpattern);
+		
+		// Trim & request shortened
+		if (url && !this.urlprocessing)
+		{
+			this.urlprocessing = true;
+		
+			url.forEach( function(str) { 
+				Cloudwalkers.Session.UrlShortener.fetch({q: str.trim(), error: this.releaseurlprocessing});
+			});
 		}
 
-		//Update the container
-		this.updatecontainer();
-
+		return content;
 	},
-
-	'getcursosposition' : function(e){
+	
+	'parseurl' : function (model)
+	{
+		// URL still there?
+		if (this.content.indexOf(model.longurl) < 0) return;
 		
-	    var cursorpos = 0;
-	    var doc = e.ownerDocument || e.document;
-	    var win = doc.defaultView || doc.parentWindow;
-	    var sel;
-	    var html = "";
-
-	    if (typeof win.getSelection != "undefined") {
-
-	        var range = win.getSelection().getRangeAt(0);
-	        var preCaretRange = range.cloneRange();
-	        preCaretRange.selectNodeContents(e);
-	        preCaretRange.setEnd(range.endContainer, range.endOffset);
-	        cursorpos = preCaretRange.toString().length;
-
-	    }else if((sel = doc.selection) && sel.type != "Control") {
-	        var textRange = sel.createRange();
-	        var preCaretTextRange = doc.body.createTextRange();
-	        preCaretTextRange.moveToElementText(e);
-	        preCaretTextRange.setEndPoint("EndToEnd", textRange);
-	        cursorpos = preCaretTextRange.text.length;
-	    }
-		//console.log("getpos",cursorpos);
-		return cursorpos;
+		this.urlprocessing = false;
+		this.pos = this.cursorpos();
+		
+		// Replace url whith short tag
+		this.content = this.content.replace(model.longurl, "<short data-url='" + model.longurl + "'>" + model.get("shortUrl") + "</short>");
+		this.$contenteditable.html(this.content);
+		this.cursorpos(this.pos);
+		
+		this.trigger('change:content', this.content);
 	},
-
-	'setcursosposition' : function(cursorpos){
-		//console.log("setpos:", cursorpos);
-		var el = this.contentcontainer.get(0);
-		var nodelength = 0;
-		var currentnode;
-
-		//Map the node sizes
-		$.each(el.childNodes, function(i, node){
-			if(node.length)	nodelength = node.length
-			else if (node.id)	nodelength = node.outerText.length;
-			else if (node.childNodes[0].length) nodelength = node.childNodes[0].length;
-			else return true;
-			
-			if(nodelength >= cursorpos){
-				currentnode = node;
-				return false;
-			}else{
-				cursorpos -= nodelength;
-				return true;
+	
+	'releaseurlprocessing' : function (){ this.urlprocessing = false; },
+	
+	'toggleurl' : function ()
+	{
+		//
+	},
+	
+	'breakurl' : function ()
+	{
+		//
+	},
+	
+	/* Limit functions */
+	
+	
+	/* Cursor functions */
+	
+	'cursorpos' : function (pos)
+	{
+		// Basics
+		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
+		var win = document.defaultView || document.parentWindow;
+		var sel, range, preCaretRange, nodelength, currentnode;
+		
+		// Get cursor position
+		if (pos === undefined)
+		{
+			pos = 0;
+	
+		    if (win.getSelection !== undefined)
+		    {
+				range = win.getSelection().getRangeAt(0);
+				preCaretRange = range.cloneRange();
+				preCaretRange.selectNodeContents(this.contenteditable);
+				preCaretRange.setEnd(range.endContainer, range.endOffset);
+				
+				pos = preCaretRange.toString().length;
+				
+			}else if((sel = doc.selection) && sel.type != "Control")
+			{
+				range = sel.createRange();
+				preCaretRange = document.body.createTextRange();
+				preCaretRange.moveToElementText(this.contenteditable);
+				preCaretRange.setEndPoint("EndToEnd", range);
+				pos = preCaretRange.text.length;
 			}
-
-		});
+		}
 		
-		var range = document.createRange();
-		var sel = window.getSelection();
+		// Set cursor position
+		else {
+	
+			//Map the node sizes
+			this.$contenteditable.children().get().forEach( function(node)
+			{
+				if (!(nodelength = node.length))
+					nodelength = (node.id)? node.outerText.length: node.childNodes[0].length;
 
-		if(currentnode)
-			var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
-		else
-			return false;
+				if (nodelength >= pos) { currentnode = node; return false; }
+				else return pos -= nodelength;
+			});
+			
+			range = document.createRange();
+			sel = win.getSelection();
+	
+			if (currentnode) var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
+			else return false;
+			
+			range.setStart(node, pos);
+			range.collapse(true);
+			sel.removeAllRanges();
+			sel.addRange(range);
+		}
 		
-		range.setStart(node, cursorpos);
-		range.collapse(true);
-		sel.removeAllRanges();
-		sel.addRange(range);
-
+		return pos;
 	},
+	
+	
+	 
+	
+	/** OLD **/
+
+	
+	
 
 	'greyout' : function(extrachars, limit){
 		
-		var extra = this.contentcontainer.text().slice(extrachars);
-		var notextra = this.contentcontainer.text().slice(0, limit);
+		var extra = this.$contenteditable.text().slice(extrachars);
+		var notextra = this.$contenteditable.text().slice(0, limit);
 		var content;
 
 		if(this.currentUrl)
 			notextra = this.parsecontent(notextra);
 
-		content = notextra+'<span id="extrachars" contenteditable="true">'+extra+'</span>';
+		content = notextra+'<span id="extrachars" $contenteditable="true">'+extra+'</span>';
 
 
 		return content;
@@ -281,9 +310,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var urltag = '';
 		//console.log(this.currentUrl);
 		if(this.currentUrl && !placeholder)
-			urltag = ('<span id="urltag" contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
+			urltag = ('<span id="urltag" $contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
 		if(this.currentUrl && placeholder) //Unfinished
-			urltag = ('<div id="urltag placehold"><span contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
+			urltag = ('<div id="urltag placehold"><span $contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
 
 		var content = cont.replace(this.currentUrl, urltag);	
 
@@ -292,11 +321,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecontainer' : function(forcecontent){
 		
-		var charcount = this.contentcontainer.text().length;
+		var charcount = this.$contenteditable.text().length;
 		var total = this.restrictedstreams[this.network] - charcount;
-		var placeholder = this.contentcontainer.find('#composeplaceholder');
+		var placeholder = this.$contenteditable.find('#composeplaceholder');
 		var content;
-		var cursorpos = this.getcursosposition(this.contentcontainer.get(0));
+		var cursorpos = this.getcursosposition(this.$contenteditable.get(0));
 
 		//There is a placeholder in the content
 		if(placeholder.length > 0)
@@ -308,7 +337,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		//Just update the content
 		else
-			content = this.parsecontent(this.contentcontainer.text());
+			content = this.parsecontent(this.$contenteditable.text());
 		
 		if(forcecontent){
 			content = forcecontent;
@@ -317,7 +346,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			cursorpos = postpos + this.urldata.newurl.length +2;
 		}
 
-		this.contentcontainer.empty().html(content);
+		this.$contenteditable.empty().html(content);
 		this.setcursosposition(cursorpos);
 		this.updatecounter(total);
 
@@ -356,14 +385,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
 		if(network && !val){	//Tab with the default's text 
-			this.contentcontainer.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.draft.get("body").html}));
-			this.updatecounter(this.restrictedstreams[this.network] - this.contentcontainer.text().length);
+			this.$contenteditable.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.content}));
+			this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
 		}else if(!data){		//Tab without any specific content (on default tab)
-			this.contentcontainer.empty().html(this.draft.get("body").html);
+			this.$contenteditable.empty().html(this.content);
 			this.updatecontainer();
 		}else{					//Tab with specific content
 			if(!val) val = "";
-			this.contentcontainer.empty().html(val);
+			this.$contenteditable.empty().html(val);
 			this.updatecontainer();
 		}
 		
@@ -376,10 +405,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'addoecontent' : function(e){
 		var text = e.currentTarget.parentElement.parentElement.innerText;
-		var content = this.contentcontainer.html();
+		var content = this.$contenteditable.html();
 		content = content+'<br/>'+text;
 
-		this.contentcontainer.html(content);
+		this.$contenteditable.html(content);
 		this.updatecontainer();
 
 		this.trigger("contentadded");
@@ -390,70 +419,5 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
 	}
 
-	
-	
-	/*	
-	'togglesubcontent' : function (stream)
-	{	
-		this.activestream = stream;
-		
-		// Get the right network
-		var network = stream? stream.get("network").token: false;
-		var icon = stream? stream.get('network').icon: 'default';
-		var options = this.options[network];
-		var id = stream? stream.id: false;
-		
-		this.network = network;
-
-		//Disable button for preview "default" messages
-		var previewbtn = this.$el.find("#previewbtn")[0];
-		previewbtn.disabled = this.network ? false : true;
-		
-		//var input = this.getinput(network, id);
-		
-		// Add network icon
-		this.$el.find(".modal-body").get(0).className = "modal-body";
-		this.$el.find(".modal-body").addClass(icon + "-theme");
-		
-		// Subject
-		if (options.indexOf("subject") >= 0)
-		{
-			this.$el.find("[data-option=subject].hidden").removeClass("hidden");
-			
-			var val = network?	this.draft.variation(id, "subject"): this.draft.get("subject");
-			
-			if(network && !val)	this.$el.find("[data-option=subject] input").val("").attr("placeholder", this.draft.get("subject"));
-			else 				this.$el.find("[data-option=subject] input").val(val);
-		
-		} else					this.$el.find("[data-option=subject]").addClass("hidden");
-
-
-		// Full Body
-		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
-		else									this.$el.find("[data-option=limit].hidden").removeClass("hidden");
-		
-		var val = network? this.draft.variation(id, "body"): this.draft.get("body");
-		
-		if(network && (!val || !val.html))
-		{
-			this.$el.find("[data-option=fullbody] textarea").val("").attr("placeholder", this.draft.get("body").html);
-			//if (this.draft.get("body").html) this.$el.find("[data-option=limit]").html(140 -this.draft.get("body").html.length);
-		
-		} else
-		{
-			if(!val.html) val.html = "";
-			
-			this.$el.find("[data-option=fullbody] textarea").val(val.html);
-			//this.$el.find("[data-option=limit]").html(140 -val.html.length);
-		}
-		
-		// Toggle options
-		this.closealloptions();
-		
-		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
-		
-		this.togglelink(options.indexOf("link") >= 0);
-
-	},*/
 
 });
