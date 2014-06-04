@@ -16,6 +16,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'limit' : null,
 	'content' : '',
 	'pos' : 0,
+
+	'posmap' : [],
+	'teststring' : '<div style="color: #CCCCCC">this shitis working<div>paragraph 1</div><div>paragr</div><div>aph2</div><div>paragraph</div></div>',
 	
 	
 	// Should be outside Editor, should be in compose
@@ -25,7 +28,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'events' : {
 		
 		// Triggers
-		/*'update:content' : 'render',
+		'update:content' : 'render',
 		'update:limit' : 'renderlimit',
 		'append:content' : 'append',
 		
@@ -35,7 +38,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer',*/
+		'keydown #composeplaceholder' : 'updatecontainer',
 
 		/* Oembed data types */
 		//'click [data-type="title"] i' : 'addoetitle',
@@ -65,9 +68,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 	},
 
-	'render' : function(){
+	'render' : function(content){
+
+		// Data basics
+		if(content !== undefined) this.content = content;
+
 		// Do the render
 		this.$el.html (Mustache.render (Templates.editor, {limit: this.limit}));
+
+		this.$contenteditable = this.$el.find('#compose-content').eq(0);
+		this.contenteditable  = this.$contenteditable.get(0);
+
+		// Add content
+		this.$contenteditable.html(this.teststring);
+		if(this.content) this.listentochange();
 
 		return this;
 	},
@@ -140,11 +154,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			
 			// Do the screen
 			this.content = this.screen(content, e? e.keyCode: null);
-			
+			//console.log("screen output: ", content);
 			// Update
 			this.$contenteditable.html(this.content);
 			this.cursorpos(this.pos);
-			
+
 			this.trigger('change:content', this.content);
 		}
 	},
@@ -157,6 +171,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'screen' : function (content, keyCode)
 	{
+		//console.log("screen input: ",content);
 		// empty string
 		if(!content.replace(this.xtrimmable, ""))
 		{
@@ -164,6 +179,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			return "";
 		}
 		
+		// Return key was pressed
+		if (keyCode == 13)					content = this.filterreturn(content);
 		
 		// Filter url
 		if(content.match(this.xurlbasic))	content = this.filterurl(content);
@@ -177,6 +194,22 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return content;
 	},
 	
+	'filterreturn' : function(content){
+
+		var pos = this.pos;
+		var hackchar = '\u200B\u200B'
+
+		String.prototype.insert = function (index, string) {
+		  	if (index > 0)
+	    		return this.substring(0, index+1) + string + this.substring(index, this.length);
+		  	else
+		    	return string + this;
+		}.bind(this);
+
+		return content.insert(pos, "hackchar");
+
+	},
+
 	/* URL functions */
 	
 	'filterurl' : function(content){
@@ -208,7 +241,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Replace url whith short tag
 		this.content = this.content.replace(model.longurl, "<short data-url='" + model.longurl + "'>" + model.get("shortUrl") + "</short>");
 		this.$contenteditable.html(this.content);
-		this.cursorpos(this.pos);
+		//this.cursorpos(this.pos);
 		
 		// 	Back to compose
 		this.trigger('change:content', this.content);
@@ -232,7 +265,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	/* Cursor functions */
 	
 	'cursorpos' : function (pos)
-	{
+	{	
 		// Basics
 		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
 		var win = document.defaultView || document.parentWindow;
@@ -260,16 +293,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				preCaretRange.setEndPoint("EndToEnd", range);
 				pos = preCaretRange.text.length;
 			}
+			console.log(pos);
 		}
 		
 		// Set cursor position
 		else {
-	
+			
 			//Map the node sizes
-			this.$contenteditable.children().get().forEach( function(node)
-			{
-				if (!(nodelength = node.length))
-					nodelength = (node.id)? node.outerText.length: node.childNodes[0].length;
+			$.each(this.$contenteditable[0].childNodes, function(i, node)
+			{	console.log(node);
+				if (!(nodelength = node.length)){
+					if(node.id)	nodelength = node.outerText.length;
+					else if(node.childNodes[0])	nodelength = node.childNodes[0].length;
+					else nodelength = 0; //Firefox throws error on node.childNodes[0], lets assume its just markup
+				}
 
 				if (nodelength >= pos) { currentnode = node; return false; }
 				else return pos -= nodelength;
@@ -286,7 +323,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			sel.removeAllRanges();
 			sel.addRange(range);
 		}
-		
+		console.log(pos);
 		return pos;
 	},
 	
