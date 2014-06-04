@@ -80,7 +80,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.contenteditable  = this.$contenteditable.get(0);
 
 		// Add content
-		this.$contenteditable.html(this.teststring);
+		this.$contenteditable.html(this.content);
 		if(this.content) this.listentochange();
 
 		return this;
