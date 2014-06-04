@@ -10,7 +10,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'className' : "clearfix",
 	'oldUrl' : "",
 	'urldata' : {},
-	'currentUrl' : false,
+	'currenturl' : false,
 	
 	'urlprocessing' : false,
 	'limit' : null,
@@ -18,7 +18,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'pos' : 0,
 
 	'posmap' : [],
-	'teststring' : '<div id="start"></div>',
+	'teststring' : '',
 	
 	
 	// Should be outside Editor, should be in compose
@@ -81,7 +81,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.contenteditable  = this.$contenteditable.get(0);
 
 		// Add content
-		this.$contenteditable.html(this.teststring);
+		this.$contenteditable.html(this.content);
 		if(this.content) this.listentochange();
 
 		return this;
@@ -153,7 +153,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var content = this.$contenteditable.html();
 		
-		if(this.content !== content)
+		if(this.content !== content && !this.currenturl)
 		{
 			//this.pos = this.cursorpos();
 			
@@ -175,49 +175,66 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
 		var win = document.defaultView || document.parentWindow;
-		var sel, range, childnodes, index, node;
+		var sel, 
+			range, 
+			childnodes, 
+			index, 
+			node,
+			nodetext, 
+			startoffset,
+			endoffset;
 		
 		//Select
 		sel = win.getSelection();
 		range = document.createRange();
-		range.setStartAfter($('#start').get(0));
-		range.setEndBefore($('#end').get(0));
+		range.selectNodeContents(this.$contenteditable.get(0));
 
 		//Fetch the url
 		childnodes = range.startContainer.childNodes;
-		index = this.parsenodes(childnodes);		
+		index = this.parsenodes(childnodes);
+
+		//Found url?
+		if(!this.currenturl)	return;
+
 		node = range.startContainer.childNodes[index];
+		nodetext = node.wholeText ? node.wholeText : node.innerHTML;
+		nodetext = nodetext.replace(/&nbsp;/gi,'');
+		
+		startoffset = nodetext.indexOf(this.currenturl);
+		endoffset = startoffset + this.currenturl.length;
 
 		//Editable content
 		this.contenteditable.designMode = "on";
-		
-		range.selectNodeContents(node);
+	
+		//range.selectNodeContents(node);
+		range.setStart(node, startoffset);
+		range.setEnd(node, endoffset);
 		sel.removeAllRanges();
         sel.addRange(range);
        	
        	//Magic
-		document.execCommand('formatBlock', false, '<h1>');
+		//document.execCommand('formatBlock', false, '<h1>');
 		
 		//!Editable content
 		this.contenteditable.designMode = "off";
 
- 		sel.collapse(node,0);
+ 		//sel.collapse(node,0);
 	},
 
 	'parsenodes' : function(childnodes)
 	{
-		var targetnode;
+		var targetnode = null;
 		var url;
 
 		$.each(childnodes, function(i, node){
-			
+			console.log(node)
 			var text = node.wholeText? node.wholeText : node.innerHTML;		
 
 			if(text)	url = text.match(this.xurlpattern);
-			if(url){	targetnode = i; return true; }
+			if(url){	targetnode = i; this.currenturl = url[0]; return true; }
 
 		}.bind(this));
-		
+
 		return targetnode;
 	},
 	
