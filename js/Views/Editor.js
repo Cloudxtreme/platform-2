@@ -18,7 +18,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'pos' : 0,
 
 	'posmap' : [],
-	'teststring' : '<div style="color: #CCCCCC">this shitis working<div>paragraph 1</div><div>paragr</div><div>aph2</div><div>paragraph</div></div>',
+	'teststring' : 'asdasdasd<div id="start"></div>this shit is working<div>asd http://www.google.com </div><div>paragr</div><div>aph2</div><div>paragraph</div><div id="end"></div>asdasd',
 	
 	
 	// Should be outside Editor, should be in compose
@@ -56,7 +56,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'xurlbasic' : /http|[w]{3}/g,
 	'xshortens' : /http|[w]{3}/g,
 	
-	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
+	//'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
+	'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
 	{
@@ -80,10 +81,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.contenteditable  = this.$contenteditable.get(0);
 
 		// Add content
-		this.$contenteditable.html(this.content);
+		this.$contenteditable.html(this.teststring);
 		if(this.content) this.listentochange();
 
 		return this;
+	},
+
+	'setrange' : function(){
+
 	},
 
 
@@ -150,17 +155,71 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		if(this.content !== content)
 		{
-			this.pos = this.cursorpos();
+			//this.pos = this.cursorpos();
 			
 			// Do the screen
-			this.content = this.screen(content, e? e.keyCode: null);
+			//this.content = this.screen(content, e? e.keyCode: null);
 			//console.log("screen output: ", content);
 			// Update
-			this.$contenteditable.html(this.content);
-			this.cursorpos(this.pos);
+			//this.$contenteditable.html(this.content);
+			//this.cursorpos(this.pos);
 
-			this.trigger('change:content', this.content);
+			this.testingscreen(content, e? e.keyCode: nul);
+
+			//this.trigger('change:content', this.content);
 		}
+	},
+
+
+	'testingscreen' : function(content, keyCode){
+
+		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
+		var win = document.defaultView || document.parentWindow;
+		var sel, range, childnodes, index, node;
+		
+		//Select
+		sel = win.getSelection();
+		range = document.createRange();
+		range.setStartAfter($('#start').get(0));
+		range.setEndBefore($('#end').get(0));
+
+		//Fetch the url
+		childnodes = range.startContainer.childNodes;
+
+		index = this.parsenodes(childnodes);		
+		node = range.startContainer.childNodes[index];
+
+		//Editable content
+		this.contenteditable.designMode = "on";
+		
+		range.selectNodeContents(node);
+		sel.removeAllRanges();
+        sel.addRange(range);
+       	
+       	//Magic
+		document.execCommand('formatBlock', false, '<h1>');
+		
+		//!Editable content
+		this.contenteditable.designMode = "off";
+
+ 		sel.collapse(node,0);
+	},
+
+	'parsenodes' : function(childnodes)
+	{
+		var targetnode;
+		var url;
+
+		$.each(childnodes, function(i, node){
+			
+			var text = node.wholeText? node.wholeText : node.innerHTML;		
+
+			if(text)	url = text.match(this.xurlpattern);
+			if(url){	targetnode = i; return true; }
+
+		}.bind(this));
+		
+		return targetnode;
 	},
 	
 	/**
@@ -169,7 +228,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	 *	Test all filter options against content
 	**/
 	
-	'screen' : function (content, keyCode)
+	/*'screen' : function (content, keyCode)
 	{
 		//console.log("screen input: ",content);
 		// empty string
@@ -192,7 +251,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Is this needed for debug? If it is, check keyCode
 		
 		return content;
-	},
+	},*/
 	
 	'filterreturn' : function(content){
 
@@ -293,7 +352,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				preCaretRange.setEndPoint("EndToEnd", range);
 				pos = preCaretRange.text.length;
 			}
-			console.log(pos);
+			console.log("get",pos);
 		}
 		
 		// Set cursor position
@@ -301,7 +360,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			
 			//Map the node sizes
 			$.each(this.$contenteditable[0].childNodes, function(i, node)
-			{	console.log(node);
+			{	
 				if (!(nodelength = node.length)){
 					if(node.id)	nodelength = node.outerText.length;
 					else if(node.childNodes[0])	nodelength = node.childNodes[0].length;
@@ -323,7 +382,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			sel.removeAllRanges();
 			sel.addRange(range);
 		}
-		console.log(pos);
+		console.log("set",pos);
 		return pos;
 	},
 	
