@@ -18,7 +18,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'pos' : 0,
 
 	'posmap' : [],
-	'teststring' : 'asdasdasd<div id="start"></div>this shit is working<div>asd http://www.google.com </div><div>paragr</div><div>aph2</div><div>paragraph</div><div id="end"></div>asdasd',
+	'teststring' : '<div id="start"></div>',
 	
 	
 	// Should be outside Editor, should be in compose
@@ -185,7 +185,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		//Fetch the url
 		childnodes = range.startContainer.childNodes;
-
 		index = this.parsenodes(childnodes);		
 		node = range.startContainer.childNodes[index];
 
