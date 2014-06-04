@@ -486,6 +486,10 @@ Style corrections and manual overrides
 	padding: 5px 5px 5px 6% !important;
 }
 
+#compose-content h1{
+	background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px; display: inline-block; font-size: 14px; line-height: 20px;}
+}
+
 /* embeded */
 
 #out{ 
