@@ -45,10 +45,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//'click [data-type="content"] i' : 'addoecontent',
 		//'click [data-type="image"] i' : 'addoeimg',
 
-		'mousedown #compose-content': 'editableClick'
+		'mouseup #compose-content': 'savepos'
 	},
 	
-	editableClick: etch.editableInit,
+	//editableClick: etch.editableInit,
 
 
 	// regex magic
@@ -60,7 +60,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
-	{
+	{	
 		// Parameters
 		if(options) $.extend(this, options);
 		
@@ -85,6 +85,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(this.content) this.listentochange();
 
 		return this;
+	},
+
+	'savepos' : function(e){
+		var tagname = e.target.tagName;
+
+		if(tagname != 'I' && tagname !='SHORT')
+			this.pos = this.cursorpos();
 	},
 
 	'setrange' : function(){
@@ -152,9 +159,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'listentochange' : function(e) {
 
 		var content = this.$contenteditable.html();
-		
+		this.pos = this.cursorpos(); 
 		if(this.content !== content && !this.currenturl)
-		{
+		{	
 			//this.pos = this.cursorpos();
 			
 			// Do the screen
@@ -236,7 +243,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var endurltext = document.createTextNode(' \u200B\u200B');
 		range.collapse(false);
 		range.insertNode(endurltext);
-		$('#compose-content > a').after(endurltext);
+		this.$contenteditable.find('a').after(endurltext);
 		range.setStartAfter(endurltext);	
 		
 		sel.removeAllRanges();
@@ -250,7 +257,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//Block the url from being edited
 		this.$contenteditable.find('a').attr('contenteditable', false);
 
-		//Position cursor after url
+		//Shorten
+		this.filterurl(this.currenturl);
+
+		//Link to unshorten
 
 
 	},
@@ -337,8 +347,17 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		return content;
 	},
+
+	'parseurl' : function(model){
+		//console.log(model.longurl, model.get("shortUrl"));
+		var urltag = "<short contenteditable='false' data-url='"+ model.longurl +"'>"+ model.get('shortUrl') +"<i class='icon-link' id='swaplink'></i></short>";
+		this.currenturl = model.longurl;
+		this.shorturl = model.get('shortUrl');
+		
+		this.$contenteditable.find('a').replaceWith(urltag);
+	},
 	
-	'parseurl' : function (model)
+	/*'parseurl' : function (model)
 	{
 		// URL still there?
 		if (this.content.indexOf(model.longurl) < 0) return;
@@ -353,7 +372,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// 	Back to compose
 		this.trigger('change:content', this.content);
-	},
+	},*/
 	
 	'releaseurlprocessing' : function (){ this.urlprocessing = false; },
 	
@@ -401,7 +420,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				preCaretRange.setEndPoint("EndToEnd", range);
 				pos = preCaretRange.text.length;
 			}
-			console.log("get",pos);
+			//console.log("get",pos);
 		}
 		
 		// Set cursor position
@@ -431,7 +450,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			range.collapse(true);
 			sel.removeAllRanges();
 			sel.addRange(range);
-			console.log("set",pos);
+			//console.log("set",pos);
 		}
 		
 		return pos;
@@ -477,7 +496,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecontainer' : function(forcecontent){
 		
-		var charcount = this.$contenteditable.text().length;
+		console.log(forcecontent)
+
+		/*var charcount = this.$contenteditable.text().length;
 		var total = this.restrictedstreams[this.network] - charcount;
 		var placeholder = this.$contenteditable.find('#composeplaceholder');
 		var content;
@@ -506,7 +527,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.setcursosposition(cursorpos);
 		this.updatecounter(total);
 
-		return total;
+		return total;*/
 	},
 
 	'updatecounter' : function(chars){
@@ -518,6 +539,36 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	//Swaps between full url & shortened url
 	'swaplink' : function(){
 
+		var urltag = this.$contenteditable.find('short').data('url');
+		// This is what panic makes you do
+		var isshorten = urltag.replace(/\s/g, '') == this.currenturl.replace(/\s/g, '');
+		var fullurl = "<short contenteditable='false' data-url='"+ this.shorturl +"'>"+ this.currenturl +"<i class='icon-link' id='swaplink'></i></short>";
+		var shortenedurl = "<short contenteditable='false' data-url='"+ this.currenturl +"'>"+ this.shorturl +"<i class='icon-link' id='swaplink'></i></short>";
+		var sizebefore = this.$contenteditable.text().length;
+
+		if(isshorten)
+			this.$contenteditable.find('short').replaceWith(fullurl);
+		else
+			this.$contenteditable.find('short').replaceWith(shortenedurl);
+
+		var sizeafter = this.$contenteditable.text().length;
+		var sizespan = sizeafter - sizebefore;
+		var linkpos;
+
+		//Set cursor position
+		if(isshorten)
+			linkpos = this.$contenteditable.text().indexOf(this.currenturl);
+		else
+			linkpos = this.$contenteditable.text().indexOf(this.shorturl);
+
+		if(this.pos >= linkpos)
+			this.cursorpos(this.pos + sizespan)
+		else
+			this.cursorpos(this.pos)
+
+		this.pos = this.cursorpos();
+
+		/*
 		var url;
 		
 		if(this.currentUrl == this.urldata.newurl)
@@ -527,7 +578,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.$el.find('#urltag').empty().html(Mustache.render (Templates.composeurl, {url: url}));
 		this.currentUrl = url;
-		this.updatecontainer();
+		this.updatecontainer();*/
 	},
 
 	'togglecontent' : function(data)
