@@ -19,6 +19,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'posmap' : [],
 	'teststring' : '',
+	'limit' : 140,
 	
 	
 	// Should be outside Editor, should be in compose
@@ -46,6 +47,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//'click [data-type="image"] i' : 'addoeimg',
 
 		'mouseup #compose-content': 'savepos'
+
 	},
 	
 	//editableClick: etch.editableInit,
@@ -65,7 +67,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(options) $.extend(this, options);
 		
 		// URL Shortener
-		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl)
+		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl);
+		this.listenTo(this.parent, "update:stream", function(data){this.togglecontent(data, true)}.bind(this));
 		
 	},
 
@@ -74,9 +77,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Data basics
 		if(content !== undefined) this.content = content;
 
-		// Do the render
-		this.$el.html (Mustache.render (Templates.editor, {limit: this.limit}));
+		var maxchars = Math.min.apply(Math, _.values(this.restrictedstreams));
+		this.restrictedstreams['default'] = maxchars;
 
+		// Do the render
+		this.$el.html (Mustache.render (Templates.editor, {limit: maxchars}));
+		this.limit = maxchars;
+		
 		this.$contenteditable = this.$el.find('#compose-content').eq(0);
 		this.contenteditable  = this.$contenteditable.get(0);
 
@@ -170,18 +177,29 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			// Update
 			//this.$contenteditable.html(this.content);
 			//this.cursorpos(this.pos);
+			var extrachars = this.limit - this.$contenteditable.text().length;
 
 			if(this.listentourl(content))
 				this.processurl();
 				//this.cursorpos(this.pos);
 			
-				
+			if(extrachars < 0){
+				this.greyout(extrachars, this.limit);
+			}				
 
+			this.updatecounter(extrachars);
 			
 			//this.cursorpos(this.pos);
 			
-			//this.trigger('change:content', this.content);
+			
 		}
+
+		if(this.isdefault){
+			this.$contenteditable.removeClass("withdefault");
+			this.isdefault = false;
+		}
+
+		this.trigger('change:content', this.content);
 	},
 
 
@@ -270,6 +288,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var targetnode = null;
 
 		$.each(childnodes, function(i, node){
+			
 			var url = false;
 			var text = node.wholeText? node.wholeText : node.innerHTML;		
 
@@ -357,6 +376,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.shorturl = model.get('shortUrl');
 
 		this.$contenteditable.find('a').replaceWith(urltag);
+		this.trigger('change:content', this.content);
 
 		var oembed = '<div><a href="'+this.currenturl+'" class="oembed"></a></div>';	            
 
@@ -544,7 +564,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'updatecounter' : function(chars){
 		if(chars < 0)	chars = 0
-
+			
 		this.$el.find('.limit-counter').empty().html(chars);
 	},
 
@@ -552,7 +572,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'swaplink' : function(){
 
 		var urltag = this.$contenteditable.find('short').data('url');
-		// This is what panic makes you do
+		// This is what panic makes me do
 		var isshorten = urltag.replace(/\s/g, '') == this.currenturl.replace(/\s/g, '');
 		var fullurl = "<short contenteditable='false' data-url='"+ this.shorturl +"'>"+ this.currenturl +"<i class='icon-link' id='swaplink'></i></short>";
 		var shortenedurl = "<short contenteditable='false' data-url='"+ this.currenturl +"'>"+ this.shorturl +"<i class='icon-link' id='swaplink'></i></short>";
@@ -579,6 +599,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.cursorpos(this.pos)
 
 		this.pos = this.cursorpos();
+		this.trigger('change:content', this.content);
 
 		/*
 		var url;
@@ -593,8 +614,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.updatecontainer();*/
 	},
 
-	'togglecontent' : function(data)
-	{
+	'togglecontent' : function(data, setdefault)
+	{	
 		if(data){
 			var stream = _.isNumber(data) ? data : null;
 			var val = _.isObject(data) ? data.html : null;
@@ -604,16 +625,42 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
 		if(network && !val){	//Tab with the default's text 
-			this.$contenteditable.empty().html(Mustache.render(Templates.composeplaceholder, {content: this.content}));
-			this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
+			this.$contenteditable.empty().html(this.draft.get("body").html);
+			this.$contenteditable.addClass("withdefault");
+			this.isdefault = true;
 		}else if(!data){		//Tab without any specific content (on default tab)
-			this.$contenteditable.empty().html(this.content);
-			this.updatecontainer();
+			this.$contenteditable.empty().html(this.draft.get("body").html);
+			this.$contenteditable.removeClass("withdefault");
 		}else{					//Tab with specific content
 			if(!val) val = "";
 			this.$contenteditable.empty().html(val);
-			this.updatecontainer();
+			this.$contenteditable.removeClass("withdefault");
 		}
+		this.limit = this.restrictedstreams[this.network];
+		this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
+	},
+
+	'settextdefault' : function(){
+
+		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
+		var win = document.defaultView || document.parentWindow;
+		var sel, range, preCaretRange, nodelength, currentnode;
+		
+		sel = win.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(this.$contenteditable.get(0));
+
+		sel.removeAllRanges();
+        sel.addRange(range);
+
+        this.contenteditable.designMode = "on";
+       	
+		document.execCommand('foreColor', false, '#CCCCCC');
+		
+		this.contenteditable.designMode = "off";
+		sel.collapse(this.$contenteditable.get(0),0);		
+		range.collapse(false);
+
 		
 	},
 

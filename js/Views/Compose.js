@@ -170,7 +170,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addimage);
-		this.listenTo(this.editor, "contentadded", this.monitor);
+		this.listenTo(this.editor, "change:content", this.monitor);
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
@@ -213,11 +213,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var target = $(e.target); 
 		
 		var streamid = this.activestream ? this.activestream.id : false;
-		var content = target.text() || target.val();
+		var content = target.html() || target.val();
+		var plaincontent = target.text();
 		var object = target.attr("data-option") || "subject";
 
 		if(object == 'body')
-			content = {'html' : content};
+			content = {'html' : content, 'plaintext' : plaincontent};
 		
 		//if there is already a variation insert the text into it, otherwise add it
 		if(streamid)	this.draft.setvariation(streamid, object, content);
@@ -320,7 +321,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"))
+	{ 	//console.log(this.draft.get("body"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
