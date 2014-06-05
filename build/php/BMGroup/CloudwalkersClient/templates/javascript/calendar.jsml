@@ -12,11 +12,11 @@
 		</span>
 		{{/customActive}}
 			
-		<h3 class="stats-header-timeview"><strong>{{periodstring}}{{span}}: </strong>{{timeview}}</h3>
+		<h3 class="stats-header-timeview"><i class="icon-cloud-download"></i></h3>
 		
 		<div class="pull-right">
 			
-			{{#period}}<a class="btn" id="now">now</a>{{/period}}
+			<a class="btn" id="now" class="hidden">now</a>
 			<a class="btn"><i class="icon-print"></i></a>
 			<select>
 				<optgroup label="Time spans">
@@ -27,17 +27,11 @@
 			</select>
 
 		</div>
-		
-		{{#customActive}}
-		<div class="header-custom">
-			<input id="start" type="text" value="{{startstring}}" />
-			<input id="end" type="text" value="{{endstring}}" />
-			<a class="btn" id="show">show</a>
-		</div>
-		{{/customActive}}
 	</div>
+	
+	<div id="widgetcontainer" class="row-fluid"></div>
 
-	<div id="widgetcontainer" class="row-fluid">
+	<div id="calcontainer" class="row-fluid">
 		
 		<div id="calendar" class="has-no-toolbar"></div>
 		

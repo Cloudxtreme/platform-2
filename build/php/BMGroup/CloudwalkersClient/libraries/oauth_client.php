@@ -618,10 +618,10 @@ class oauth_client_class
 	{
 		if(!$this->debug()) return;
 	
-		if($this->debug() && $this->log_debug())
+		if($this->debug())
 		{
 			$message = $this->debug_prefix.$message;
-			$this->debug_output .= $message."\n";
+			$this->debug_output .= $message."\n";;
 			error_log($message);
 		}
 		return(true);
@@ -1031,6 +1031,9 @@ class oauth_client_class
 						break;
 					default:
 						if(!IsSet($object))
+
+							var_dump ($data);
+
 							return($this->SetError('it was not returned a valid JSON definition of the '.$options['Resource'].' values'));
 						$response = $object;
 						break;

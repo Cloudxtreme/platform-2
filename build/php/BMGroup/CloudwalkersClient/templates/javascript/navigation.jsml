@@ -1,3 +1,8 @@
+
+<a class="btn btn-compose">
+	<i class="icon-pencil"></i> <span>Compose</span>
+</a>
+
 <ul class="page-sidebar-menu">
 	
 	<!-- Dashboard -->
@@ -166,7 +171,7 @@
 	<!-- Profiles we follow -->
 	{{#news}}
 		<li>
-			<a href="#timeline/{{channelid}}">
+			<a href="#timeline/{{news}}">
 				<i class="icon-globe"></i> 
 				<span class="title">Accounts we follow</span>
 				<span class="arrow"></span>
@@ -175,30 +180,24 @@
 
 			<ul class="sub-menu">				
 				<li>
-					<a href="#timeline/{{channelid}}">
+					<a href="#timeline/{{news}}">
 						<i class="icon-globe"></i> 
 						<span class="title">Media</span>
-						<span class="arrow"></span>
 					</a>
-					<ul class="sub-menu">
-						{{#streams}}
-							<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-						{{/streams}}
-					</ul>
 				</li>
 
 				<li class="trending">
-					<a href="#trending/{{channelid}}">
+					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
 						<span class="title">Trending posts</span>
-						<span class="arrow"></span>
 					</a>
-			
-					<ul class="sub-menu">
-					{{#streams}}
-						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}
-					</ul>
+				</li>
+				
+				<li>
+					<a href="#monitoring/accounts">
+						<i class="icon-plus"></i> 
+						<span class="title">Manage accounts</span>
+					</a>
 				</li>
 			</ul>
 		</li>

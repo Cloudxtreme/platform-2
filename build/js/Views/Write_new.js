@@ -2,7 +2,7 @@
  *	Write
  *	probably the most important view.
  *
- */
+**/
 
 Cloudwalkers.Views.Write = Backbone.View.extend({
 

@@ -153,14 +153,16 @@
             position: 'relative',
             overflow: 'hidden',
             width: o.width,
-            height: o.height
+            height: 'inherit',
+            'max-height': o.height
           });
 
         // update style for the div
         me.css({
           overflow: 'hidden',
           width: o.width,
-          height: o.height
+          'max-height': o.height,
+          height: 'inherit'
         });
 
         // create scrollbar rail

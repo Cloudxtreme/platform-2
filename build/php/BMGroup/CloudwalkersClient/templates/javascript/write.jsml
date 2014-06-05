@@ -59,6 +59,9 @@
 													<div class='add-data {{^sortedattachments.link}}inactive{{/sortedattachments.link}}' data-toggle-id="url">
 														<label class="control-label">URL</label>
 														<input type="text" name="url" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
+
+														<label class="control-label">URL 2 (Thijs added this ugly thing for testing only)</label>
+														<input type="text" name="url2" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
 													</div>
 
 													<div class='add-data {{^sortedattachments.image}}inactive{{/sortedattachments.image}}' data-toggle-id="picture">

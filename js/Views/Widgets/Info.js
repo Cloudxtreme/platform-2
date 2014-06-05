@@ -18,7 +18,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		"retweets" : "parseretweets",
 		"shares"	: "parseshares",
 		"posts"	: "parseposts",
-		"dms"	: "parsedms",
+		"dms"	: "parsedms"
 
 	},
 

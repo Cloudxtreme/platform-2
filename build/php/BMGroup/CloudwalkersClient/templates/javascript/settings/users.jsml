@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		
-		<div class="collapse-closed invite-user">
+		<div class="collapse-open invite-user">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
 					<div class="caption"><i class="icon-envelope-alt"></i>Invite new user</div>
@@ -31,7 +31,7 @@
 						
 						<label for="invite-email">Email</label>
 						<input type="text" name="invite-email" />
-						
+						<br/><br/>
 						<input type="submit" class="btn green" value="Invite user" />
 						
 						<!--Great spot for pending invitations...-->
@@ -48,7 +48,7 @@
 			<div class="portlet-title">
 				<div class="caption"><i class="icon-group"></i>Userlist</div>
 			</div>
-			<div class="portlet-body">
+			<div class="portlet-body toload">
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
