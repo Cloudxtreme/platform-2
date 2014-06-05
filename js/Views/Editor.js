@@ -236,7 +236,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var endurltext = document.createTextNode(' \u200B\u200B');
 		range.collapse(false);
 		range.insertNode(endurltext);
-		range.setStartAfter(node);	
+		$('#compose-content > a').after(endurltext);
+		range.setStartAfter(endurltext);	
 		
 		sel.removeAllRanges();
         sel.addRange(range);
