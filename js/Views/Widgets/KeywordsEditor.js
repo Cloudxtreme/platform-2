@@ -89,11 +89,14 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		$('#keyword_manage_name').val(keyword.get("name"));
 		$('#filter_formula').val(filters.formula? filters.formula: "");
 		
-		//$('#filter_include').val(filters.include? filters.include.join(", "): "");
-		//$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
 		
-		//for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
-		//for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
+		// Deprecated
+		$('#filter_include').val(filters.include? filters.include.join(", "): "");
+		$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
+		
+		for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
+		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
+		// End deprecated
 		
 		// Update chosen
 		this.$el.find("select").trigger('chosen:updated');
@@ -114,17 +117,19 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		if ($("#filter_formula").val()) object.settings.formula = $("#filter_formula").val();
 		
-		//if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
-		//if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
+		// Deprecated
+		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
+		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 		
-		//if (object.settings.include && object.settings.include.length)
-		//	for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
+		if (object.settings.include && object.settings.include.length)
+			for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
 			
-		//if (object.settings.exclude && object.settings.exclude.length)
-		//	for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
+		if (object.settings.exclude && object.settings.exclude.length)
+			for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
 		
-		//object.settings.languages = $("#filter_languages").val();
-		//object.settings.countries = $("#filter_countries").val();
+		object.settings.languages = $("#filter_languages").val();
+		object.settings.countries = $("#filter_countries").val();
+		// End Deprecated
 		
 		return object;
 	},
