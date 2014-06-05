@@ -56,8 +56,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'xurlbasic' : /http|[w]{3}/g,
 	'xshortens' : /http|[w]{3}/g,
 	
-	//'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
-	'xurlpattern' : /(https?:\/\/[^\s]+)/g,
+	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
+	//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
 	{
