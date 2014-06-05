@@ -3,7 +3,8 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'model' : Cloudwalkers.Models.Statistic,
 	'typestring' : "statistics",
 	'modelstring' : "statistic",
-	'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501"},
+	'parenttype' : "account",
+	'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
 	'colors' : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
 	'processing' : false,
 	'parameters' : {},
@@ -35,8 +36,43 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	
 	'latest' : function ()
 	{
-		return this.models.slice(-1)[0];
+		return this.at(this.length-1);
 	},
+
+	'first' : function ()
+	{
+		return this.at(0);
+	},
+
+	'place' : function (i)
+	{
+		return this.at(i);
+	},
+	
+	/* temp function */
+	'parse' : function (response)
+	{
+		if(typeof response == "string") console.log("is string"	)
+		//console.log(response)
+		
+		// Solve response json tree problem
+		if (this.parentmodel)
+			response = response[this.parenttype];
+	
+		// Get paging
+		this.setcursor(response.paging);
+		
+		// Ready?
+		if(!response.paging) this.ready();
+		
+		return response[this.typestring];
+	},
+	
+	/* temp function */
+	/*'url' : function (params)
+    {
+       return this.endpoint == "statisticids"? "/json_week_ids": "/json_week";
+    },*/
 
 
 	/**
@@ -46,8 +82,6 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'contacts' : function (single)
 	{
 		var stat = this.latest();
-		
-		console.log("streams", stat)
 		
 		var list = [];
 		
@@ -131,6 +165,64 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		var list = [];
 
 		return { counter: list};
-	}
+	},
+
+	parsebesttime : function(){
+
+		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+		var besttime,
+			data = [],
+			maxvalue = 0,
+		 	dailyvalue = 0,
+		 	fill,
+		 	max,
+		 	time;
+
+		var statistics = this.models;
+
+		//Always the last 7 results
+		if(this.length > 7)
+			statistics = statistics.splice(7, statistics.length-1);
+
+		$.each(days, function(index, day){
+			var statistic = statistics[index];
+			var daily 	= [];
+
+			if(statistic){
+				var streams = statistic.get("streams");
+				streams.forEach(function(stream){
+					stream 	= new Cloudwalkers.Models.Stream(stream);
+					besttime = stream.getbesttime();
+					
+					if(besttime){
+						if(daily.length == 0){
+							daily = _.values(besttime);
+						}else{
+							for(i in besttime){							
+								daily[i] += besttime[i];
+		
+								//Keep track of the highest week & daily value
+								if(daily[i]>maxvalue)	maxvalue=daily[i];
+								if(daily[i]>dailyvalue)	dailyvalue=daily[i];
+							}
+						}
+					}
+				});
+			}
+			
+			if(daily.length > 0)
+				time = daily.indexOf(Math.max.apply(Math,_.values(daily)));
+			else
+				time = -1;
+
+			data.push({day: days.shift(), value: dailyvalue, time: time});
+
+			dailyvalue = 0;
+		});
+
+		data["maxvalue"] = maxvalue;
+		
+		return data;
+	},
 	
 });

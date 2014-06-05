@@ -2,10 +2,21 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'typestring' : "messages",
 
+	/*
+	*
+	* setvariation() 	: Update exiting or generate new variation
+	* getvartiation()	: Get some variation data
+	* removevarimg()	: Removes an image from a variation
+	*
+	*/
+
 	'initialize' : function ()
 	{			
 		// Deprecated?
 		//this.on ('change', this.afterChange);
+		
+		// Ping
+		//this.on('outdated', this.fetch);
 
 		if (typeof (this.attributes.parent) != 'undefined')
 		{
@@ -20,6 +31,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
+	'url' : function (params)
+    {
+        if(!this.id)
+        	return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        
+        return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+    },
+
 	'parse' : function(response)
 	{	
 		// A new object
@@ -52,6 +74,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
+	'validateCustom' : function (a,b,c)
+	{
+		return (this.get("attachments").length || this.get("body").html);
+	},
+	
 	'checkloaded' : function (response)
 	{
 		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
@@ -61,7 +88,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule", "variations"]
 		
 		$.each(values, function(n, value){ filtered[value] = response[value]});
 		
@@ -138,6 +165,145 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		return this;
 	},
+	
+	'attach' : function (attach, index, streamid)
+	{	
+		var attachments = this.get("attachments") || [];
+		
+		var response = (index && attachments[index])?	$.extend(attachments[index], attach) :
+														attachments.push(attach);
+			
+		this.set({attachments: attachments});
+		
+		return response;
+	},
+	
+	'unattach' : function (index)
+	{
+		var attachments = this.get("attachments") || [];
+		
+		// Remove attachment
+		attachments.splice(index, 1);
+	},
+	
+	'addcampaign' : function ()
+	{
+		
+		
+		
+		//Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
+	},
+	
+	/*Variation functions*/
+
+	'setvariation' : function(stream, key, value)
+	{	
+		var variations = this.get("variations") || [];
+		var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
+
+		if(variation.length == 0)	//Add new variation
+		{ 	
+			variation = {'stream' : stream};
+
+			if(key == 'image' || key == 'link'){
+				var attachments = [value];
+				variation['attachments'] = attachments;
+			}else{
+				variation[key] = value;
+			}
+
+			variations.push(variation);
+		}
+		else					//Update variation
+		{	
+			variation = variation[0];
+			if(key == 'image' || key == 'link'){
+				var attachments = variation.attachments || [];
+				if(attachments.length == 0 && key == 'image'){
+					attachments.push(value);
+					variation['attachments'] = attachments;					
+				}else if(key == 'image'){
+					attachments.push(value);
+				}else{ 
+					var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
+					if(link.length > 0)	link[0].url = value.url;
+					else if(attachments.length != 0)	variation.attachments.push(value);
+					else								variation.attachments = [value];
+				}
+			}else{
+				variation[key] = value;
+			}	
+		}
+	},
+	
+	'getvariation' : function (stream, key)
+	{	
+		// Get variation object
+		var variations = this.get("variations") || []
+		var variation = _.findWhere(variations, {'stream': stream});
+		
+		if(key == 'image' || key == 'link'){
+			if(variation && variation.attachments)
+				return variation.attachments.filter(function(el){ if(el.type == key) return el; });		
+		}else if(variation && variation[key]){
+			return variation[key];
+		}else if(variation && !key){
+			return variation;
+		}else{
+			return ;
+		}	
+		
+	},
+
+	'removevarimg' : function(streamid, image){
+		//If image is an object it means it's meant to exclude
+
+		var variation = this.getvariation(streamid);
+		var attachments = variation.attachments;
+
+		if(_.isObject(image)){	// It's a default iamge
+			this.addexclude(streamid, image)			
+		}else{					// It's a variation image
+			for(n in attachments){
+				if(attachments[n].type == 'image' && attachments[n].name == image) 
+					attachments.splice(n,1);
+			}
+		}
+	},
+
+	'addexclude' : function(streamid, image){
+	
+		var variation = this.getvariation(streamid);
+		var excludes = variation.excludes;
+
+		if(variation.excludes)
+			variation.excludes.push(image);
+		else
+			variation.excludes = [image];
+	},
+
+	'checkexclude' : function(streamid, image){
+
+		var variation = this.getvariation(streamid);
+		var excludes;
+
+		if(!variation)	return false;
+		else			excludes = variation.excludes;
+
+		if(excludes){
+			for(n in excludes){
+				if(excludes[n].name == image.name)
+					return true;
+			}
+		}
+
+		//There are no excludes
+		return false;
+
+	},
+			
+
+	/* End variation functions */
 	
 	/*'filterData' : function (type, data)
 	{	
@@ -432,7 +598,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             }
                             */
                             
-                            self.trigger ("destroy", self, self.collection);
+                           self.trigger("destroy", {wait: true})
+                           // self.trigger ("destroy", self, self.collection);
                             
                             // Hack
 							window.location.reload();
@@ -702,6 +869,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return attachments;
 	},
 
+	'hasAttachement' : function(type){
+
+		if (typeof (this.attributes.attachments) != 'undefined')
+		{
+			for (var i = 0; i < this.attributes.attachments.length; i ++)
+			{
+				attachment = this.attributes.attachments[i];
+				
+				if (attachment.type == type)	return this.attributes.attachments[i];
+			}
+			return false;
+		}
+	},
+
 	'setRead' : function ()
 	{
 		if (!this.get ('read'))
@@ -792,6 +973,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				}
 			}
 		}
+	},
+
+	'hasattachements' : function(){
+		if(this.get("attachments"))
+			return this.get("attachments").length > 0;
+	},
+
+	'hasschedule' : function(){
+		if(this.get("schedule"))
+			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
+	},
+
+	'hascontent' : function(){
+		return Object.getOwnPropertyNames(this.get("body")).length > 0;
 	}
 });
 

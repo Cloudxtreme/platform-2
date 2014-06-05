@@ -19,6 +19,9 @@ var Cloudwalkers = {
 		{
 			// Root view
 			Cloudwalkers.RootView = new Cloudwalkers.Views.Root();
+			
+			// Url Shortener
+			Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 			// And then rout the router.
 			Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();
@@ -46,6 +49,64 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	Backbone Extensions
  **/
  
+/*Backbone.View = Backbone.View.extend({
+
+	'hasContainer' : false,
+	
+	'loadListeners' : function(model, states){
+		var length = states.length;
+
+		for(i in states){
+			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
+		}
+		//Add the progress-bar dinamicaly
+		this.on("rendered", this.addLoader);
+	},
+
+	'addLoader' : function(){
+		this.container = this.$loadercontainer ? this.$loadercontainer : this.$container;
+		this.loader = $(Templates.progressbar).appendTo(this.container);
+	},
+
+	'loadRender' : function(index, length){
+		//Just to make it moving from the beggining
+		if(!this.loader) return;
+
+		if(this.loader && this.loader.hasClass('loaded'))	this.restart();
+		if(this.loader && this.loader.hasClass('loading') && index == 1)	this.restart();
+		if(length == index){
+			this.finishLoading();
+		} 
+		
+		var dis = this;
+		// Ugly but needed hack
+		setTimeout(function(){
+			var width = index*100/length;
+
+			if(!dis.loadingstate || dis.loadingstate <= width){
+				dis.loadingstate = width;
+				if(dis.loader)	dis.loader.css('width',width+'%');
+			}else{
+				dis.restart();
+			}		
+		},1);
+	},
+
+	'restart' : function(){
+		this.loadingstate = 0;
+		this.loader.remove();
+		this.addLoader();
+		this.container.removeClass('loaded').addClass('toload');
+	},
+
+	'finishLoading' : function(){
+		this.loader.css('width','100%');
+		this.loader.addClass('loaded');
+		this.container.removeClass('toload').addClass('loaded');
+	}
+});*/
+
+ 
  /**
  *	Model functions
  *
@@ -54,7 +115,6 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	sync			handle fetch requests and prevent trigger-happy update requests
  *	stamp			add timestamp to model and store
  **/
- 
 
 Backbone.Model = Backbone.Model.extend({
 	
@@ -112,7 +172,6 @@ Backbone.Model = Backbone.Model.extend({
  *	more			get some more (cursor based)
  *	ready			touch is completed, including fresh models data.
  **/
- 
 
 Backbone.Collection = Backbone.Collection.extend({
 
@@ -172,7 +231,7 @@ Backbone.Collection = Backbone.Collection.extend({
 				
 				// Trigger active models
 				model.outdated = true;
-				model.trigger("outdated", model);
+				model.trigger("outdated");
 			}
 		}
 	},
@@ -193,8 +252,11 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
 		
-		// Check for history (within ping lifetime)
-		Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		// Check for history (within ping lifetime), temp disabled
+		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+		
+		// Hard-wired request (no caching)
+		this.fetch({success: this.touchresponse.bind(this, this.url())});
 	},
 	
 	'touchlocal' : function(touch)
@@ -220,6 +282,9 @@ Backbone.Collection = Backbone.Collection.extend({
 		// Seed ids to collection
 		this.seed(ids);
 	},
+	
+	/**
+	 *	Caching seed
 	
 	'seed' : function(ids)
 	{
@@ -260,9 +325,52 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.trigger("seed", list);
 		
 		//Trigger cached, partial or empty load
-		/*if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
-		else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
-		else if (!ids.length)							this.trigger("cached:empty", this, list);*/
+		//if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
+		//else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
+		//else if (!ids.length)							this.trigger("cached:empty", this, list);
+
+		return list;
+	},*/
+	
+	/**
+		Temp: non-caching seed
+	**/
+	'seed' : function(ids)
+	{
+		// Ignore empty id lists
+		if(!ids) ids = [];
+
+		var list = [];
+		var fresh = _.compact( ids.map(function(id)
+		{
+			// In current Collection
+			var model = this.get(id);
+			
+			// Or in Session collection
+			if(!model)
+				model = Cloudwalkers.Session.user.account[this.typestring].get (id);
+			
+			// Or create new
+			if(!model) model = this.create({id: id});
+			else this.add(model);
+				
+			list.push(model);
+			
+			return id;
+		
+		}, this));
+				
+		// Get list based on ids
+		if(fresh.length)
+		{
+			this.endpoint = this.parentmodel? this.typestring: null;
+			this.parameters = {ids: fresh.join(",")};
+			
+			this.fetch({remove: false});
+		}
+		
+		// Trigger listening models
+		this.trigger("seed", list);
 
 		return list;
 	},

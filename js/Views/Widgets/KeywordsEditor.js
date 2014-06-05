@@ -48,8 +48,6 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var object = {name: $("#category_create_name").val()};
 		
 		this.channel.channels.create(object, {parent: this.channel.id, wait: true});
-		
-		//this.channel.post(object, this.forceChange)
 
 		this.$el.find(".addcategory .icon-cloud-upload").show();
 	},
@@ -65,8 +63,12 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
-		category.channels.create(this.keywordParameters(), {parent: catid, wait: true});//, this.forceChange);
-		//Cloudwalkers.Session.getAccount().channels.create(object, {parent: this.id, wait: true
+		category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
+			
+			Cloudwalkers.RootView.information ("Not saved", "Your formula is a bit fuzzy", this.$el.find(".manage-keyword"));
+			this.$el.find(".managekeyword .icon-cloud-upload").hide();
+			
+		}.bind(this)});
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
@@ -85,11 +87,16 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
 		$('#keyword_manage_name').val(keyword.get("name"));
+		$('#filter_formula').val(filters.formula? filters.formula: "");
+		
+		
+		// Deprecated
 		$('#filter_include').val(filters.include? filters.include.join(", "): "");
 		$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
 		
 		for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
 		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");
+		// End deprecated
 		
 		// Update chosen
 		this.$el.find("select").trigger('chosen:updated');
@@ -99,7 +106,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 		
-		this.editing.save(this.keywordParameters());//, {success: this.forceChange});
+		this.editing.save(this.keywordParameters());
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
@@ -107,7 +114,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	'keywordParameters' : function()
 	{
 		var object = {name: $("#keyword_manage_name").val(), settings: {}};
-
+		
+		if ($("#filter_formula").val()) object.settings.formula = $("#filter_formula").val();
+		
+		// Deprecated
 		if($("#filter_include").val()) object.settings.include = $("#filter_include").val().split(",");
 		if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 		
@@ -119,6 +129,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		object.settings.languages = $("#filter_languages").val();
 		object.settings.countries = $("#filter_countries").val();
+		// End Deprecated
 		
 		return object;
 	},

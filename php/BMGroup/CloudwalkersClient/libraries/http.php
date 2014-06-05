@@ -140,6 +140,16 @@ class http_class
 		return($name ? str_replace("=", "%25", $value) : str_replace(";", "%3B", $value));
 	}
 
+	function debug() {
+		if (defined('DEBUG') && $this->debug !== DEBUG) $this->debug = DEBUG;
+		return $this->debug;
+	}
+	
+	function log_debug() {
+		if (defined('DEBUG_LOG') && $this->log_debug !== DEBUG_LOG) $this->log_debug = DEBUG_LOG;
+		return $this->log_debug;
+	}
+	
 	Function SetError($error, $error_code = HTTP_CLIENT_ERROR_UNSPECIFIED_ERROR)
 	{
 		$this->error_code = $error_code;
@@ -176,7 +186,9 @@ class http_class
 
 	Function OutputDebug($message)
 	{
-		if($this->log_debug)
+		if(!$this->debug()) return;
+	
+		if($this->log_debug())
 			error_log($message);
 		else
 		{

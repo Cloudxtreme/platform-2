@@ -6,6 +6,7 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 	'widgets' : [],
 	'widgetviews' : [],
 	'events' : {
+		'rendered' : 'bubblerender',
 		'remove': 'destroy'
 	},
 
@@ -33,21 +34,25 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		}
 	},
 	
-	'appendWidget' : function(widget, span) {
+	'appendWidget' : function(widget, span, padding) {
 		
-		if(!this.span)
+		if(!this.span || span == 0)
 		{
 			this.$container.append(Templates.row);
 		}
 				
-		this.span = (span + this.span < 12)? span + this.span: 0;
+		this.span = (span + this.span < 12)? span + this.span : 0;
 		
-		this.$container.children().last().append( widget.render().el );
+		if(widget){
+			this.$container.children().last().append( widget.render().el );
 		
-		this.widgetviews.push(widget);
+			this.widgetviews.push(widget);
 		
-		widget.$el.addClass("span" + span);
-		widget.negotiateFunctionalities();
+			widget.$el.addClass("span" + span);
+			
+			if (widget.negotiateFunctionalities)
+				widget.negotiateFunctionalities();
+		}
 	},
 	
 	'appendhtml' : function(html)
@@ -62,6 +67,15 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 			this.destroy();
 			this.widgetviews = [];
 		}
+	},
+	
+	'bubblerender' : function ()
+	{	
+		// Initial trigger was on $el
+		this.trigger("rendered");
+		
+		// Trigger all Widgets
+		$.each(this.widgetviews, function(i, view){ view.trigger("rendered"); });
 	},
 	
 	'destroy' : function ()

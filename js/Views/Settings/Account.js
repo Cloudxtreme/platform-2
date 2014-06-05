@@ -20,20 +20,17 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount ();
 		var name = this.$el.find ('[name=name]').val ();
 		
-		account.set ('name', name);
-		account.save ( function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); });
+		account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
 	},
 	
 	'deleteCampaign' : function (e)
 	{
-		var account = Cloudwalkers.Session.getAccount();
-		var campaign = account.campaigns.get( $(e.target).attr ('data-delete-campaign-id'));
+		//var account = Cloudwalkers.Session.getAccount();
+		var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 		
-		campaign.destroy({success: function()
-		{
-			this.closest('li').remove();
-			
-		}.bind($(e.target))});
+		Cloudwalkers.Session.getAccount().removecampaign(campaignid);
+		
+		$(e.target).closest('li').remove();
 	},
 
 	/* on it's way to be deprecated */

@@ -19,11 +19,24 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 		// Put "add" listener to global messages collection
 		if( Cloudwalkers.Session.user.account)
 			Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd);	
+
+		// Check if it's empty only after sync
+		this.on('sync', function(){
+			setTimeout(function(){
+				this.isempty();
+			}.bind(this),1);
+		});
 	},
 	
 	'destroy' : function ()
 	{
 		console.log("collection destroyed")
 		this.reset();
+	},
+
+	'isempty' : function(){		
+		if(this.length == 0){
+			this.trigger('ready:empty');
+		}
 	}
 });

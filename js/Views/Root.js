@@ -33,9 +33,16 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'render' : function ()
 	{
+		// Emergency break
+		if(!this.view) return null;
 		
+		// Do some rendering
 		$('#inner-content').html (this.view.render ().el);
 		
+		// Tell your view
+		this.view.$el.trigger("rendered");
+		
+		// Deprecated!
 		if(this.view.finish) this.view.finish();
 		
 		this.navigation.handleSidebarMenu();
@@ -89,6 +96,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		// Parameters
 		var content = view.render().el;
+		
 		var params = {title: view.title, actions: view.actions};
 		
 		// View
@@ -123,17 +131,36 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			self.trigger ('content:change');
 		});
 	},
+	
+	'compose' : function (options)
+	{
+		// Create Compose view
+		if(options)		options.type = "post";
+		else			var options = {type: "post"};
+		
+		var view = new Cloudwalkers.Views.Compose(options);
+		
+		view.render().$el.modal();
+	},
 
 	'writeMessage' : function (e)
 	{
 		e.preventDefault ();
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
-		this.setView (new Cloudwalkers.Views.Write ({ 'redirect' : false }));
+		if(options)		options.type = "post";
+		else			var options = {type: "post"};
+
+		options.redirect = false;
+		
+		var view = new Cloudwalkers.Views.Compose(options);
+		this.setView(view);
+		//this.setView (new Cloudwalkers.Views.Write ({ 'redirect' : false }));
 	},
 
 	'editMessage' : function (model)
 	{
-		Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
+		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'redirect' : false }));
+		this.compose({'model' : model.clone(), 'redirect' : false});
 		
 		
 		//this.setView (new Cloudwalkers.Views.Write ({ 'model' : model.clone () }));
@@ -146,7 +173,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		if (action.token == 'edit')
 		{
-			this.popup
+			this.compose({'model' : model.clone(), 'clone' : false, 'redirect' : false});
+			/*this.popup
 			(
 				new Cloudwalkers.Views.Write
 				(
@@ -156,12 +184,16 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 						'redirect': false
 					}
 				)
-			);
+			);*/
 		}
 
 		else
-		{
-			this.popup
+			//Switch between old and new module
+			{ 
+			this.compose({'model' : model.clone (), 'clone' : clone, 'actionparameters' : parameters, 'redirect' : false, 'type' : "post"});
+		}
+		/*{
+			this.popup_new
 				(
 					new Cloudwalkers.Views.Write
 					(
@@ -169,17 +201,19 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 							'model' : model.clone (),
 							'clone' : clone,
 							'actionparameters' : parameters,
-							'redirect' : false
+							'redirect' : false,
+							'type' : "post"
 						}
 					)
 				);
-		}
+		}*/
 	},
 
 	'shareMessage' : function (model)
 	{
 		//Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true }));
-		this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
+		this.compose({'model' : model.clone(), 'clone' : true, 'redirect' : false});
+		//this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
 	},
 
 	
@@ -357,10 +391,23 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$.gritter.add({title: title, text: message, time: 4000});
 	},
 	
-	'information' : function (title, message)
+	/*'information' : function (title, message)
 	{
 		$("#inner-content .container-fluid").prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
+	},*/
+	
+	'information' : function (title, message, target)
+	{
+		if(!target) target = "#inner-content .container-fluid";
+		
+		$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
 	},
+	
+	'closeInformation' : function (title, message, target)
+	{
+		$("div.alert.alert-info").remove();
+	},
+
 
 	'dialog' : function (message, options, callback)
 	{

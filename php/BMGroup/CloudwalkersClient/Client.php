@@ -53,8 +53,8 @@ class BMGroup_CloudwalkersClient_Client
 		$this->api->client_id = $key;
 		$this->api->client_secret = $secret;
 
-		$this->api->debug = 1;
-		$this->api->debug_http = 1;
+		$this->api->debug = 0;
+		$this->api->debug_http = 0;
 
 		$this->api->oauth_version = '1.0a';
 		$this->api->request_token_url = $server . 'oauth1/requesttoken';
@@ -107,7 +107,8 @@ class BMGroup_CloudwalkersClient_Client
 		{
 			$client = $this->api;
 
-			$client->redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$ssl = (!empty($s['HTTPS']) && $s['HTTPS'] == 'on') ? true:false;
+			$client->redirect_uri = ($ssl ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 			$client->scope = '';
 
@@ -271,6 +272,11 @@ class BMGroup_CloudwalkersClient_Client
 			echo '</pre>';
 			echo '<h2>Received</h2>';
 			print_r ($data);
+			echo '<h2>Error</h2>';
+			print_r ($this->api->error);
+			echo '<h2>Debug</h2>';
+			print_r ($this->api->debug_output);
+
 			exit;
 		}
 
@@ -286,6 +292,11 @@ class BMGroup_CloudwalkersClient_Client
 			echo '</pre>';
 			echo '<h2>Received</h2>';
 			echo $data;
+			echo '<h2>Error</h2>';
+			print_r ($this->api->error);
+			echo '<h2>Debug</h2>';
+			print_r ($this->api->debug_output);
+
 			exit;	
 		}
 

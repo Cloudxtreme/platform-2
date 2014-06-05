@@ -2,11 +2,16 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Calendar',
 	'className' : "container-fluid calendar",
+	'viewtype' : 'month',
+	'views' : [],
+	
+	'parameters' : {records: 999},
 	'events' : {
 		'remove': 'destroy',
 		'change select' : 'toggleView',
 		'click #subtract' : 'prev',
-		'click #add' : 'next'
+		'click #add' : 'next',
+		'click #now' : 'now',
 	},
 	
 	'initialize' : function ()
@@ -27,6 +32,8 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// to-do: this.listenTo(this.drafts, 'sync', this.render);
 		// to-do: this.listenTo(this.drafts.messages, 'seed', this.filldrafts);
 		// to-do: this.listenTo(this.drafts.messages, 'request', this.showloading);
+		
+		//this.model.messages.on("all", function(call){ console.log(call); })
 	},
 	
 	'render' : function()
@@ -34,42 +41,76 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.calendar, {'monthActive': true}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
+		// Add filter widget
+		var filter = new Cloudwalkers.Views.Widgets.CalendarFilters ({model: this.model, calview: this});
+		this.appendWidget(filter, 3);
+		
+		
+		// Statistics
+		var view = new Cloudwalkers.Views.Widgets.CalSummary ({calview: this});
+		
+		this.views.push(view);
+		this.appendWidget(view, 9);
+		
 		// Chosen
 		this.$el.find("select").chosen({width: "200px", disable_search_threshold: 10, inherit_select_classes: true});
 		
 		// Init FullCalendar
 		setTimeout( this.initCalendar.bind(this), 10);
-
-		// Add filter widget
-		/*var filter = new Cloudwalkers.Views.Widgets.ScheduledFilters ({model: this.model});
-		this.appendWidget(filter, 4);
-		
-		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.ScheduledList ({model: this.model});
-		this.appendWidget(list, 8);
-		
-		filter.list = list;*/
 		
 		return this;
 	},
 	
 	'populate' : function (from, to, timezone, callback)
 	{
+		// Limit to month
+		from = from.startOf('month').add(1, 'month');
+		to = to.endOf('month').subtract(1, 'month');
+		
+		// Display
+		this.datedisplay(from, to);
+		
 		// Touch Channel
-		//this.listenToOnce(this.model.messages, 'seed', this.fill.bind(this, callback));
-		
 		this.listenToOnce(this.model.messages, 'ready', this.fill.bind(this, callback));
+		this.listenToOnce(this.model.messages, 'cached', this.fill.bind(this, callback));
 		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
-		//this.listenTo(this.model.messages, 'cached:partial', this.fill.bind(this, callback));
-	
-		this.listenToOnce(this.model.messages, 'ready', function(){ console.log("triggered Ready"); });
-
-		this.model.messages.touch(this.model, {records: 999, since: from.unix(), until: to.unix()});
+		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
+		//var params = {records: 999, since: from.unix(), until: to.unix()};
+		//if($('#calendar').fullCalendar('getView').streams) params.streams = $('#calendar').fullCalendar('getView').streams
 		
+		// console.log("ready to populate", this.parameters)
+		
+		this.model.messages.touch(this.model, this.parameters);
+		
+	},
+	
+	'datedisplay' : function (from, to)
+	{
+		var now = moment();
+		
+		// The now button
+		if(from.isAfter(now) || to.isBefore(now))	this.$el.find("#now").removeClass("hidden");
+		else										this.$el.find("#now").addClass("hidden");
+		
+		// View type
+		var viewtype = this.viewtype == "agendaWeek"? "week": "month";
+		
+		// Current
+		var diff = from.diff(now, viewtype + "s");
+		var current = !diff? "this ": (diff > -2 && diff < 0? "last ": ( diff < 2 && diff > 0? "next " : ""));
+		
+		// Time span, ie: 16 - 22 Mar 2014
+		var startformat = (from.date() > 24)? (from.month() == 11? "DD MMM YYYY":"DD MMM"): "DD";
+		var span = from.format(startformat) + " - " + to.format("DD MMM YYYY");
+		
+		// The title
+		this.$el.find("h3.stats-header-timeview").html("<strong>" + current + viewtype + ": </strong>" + span);
 	},
 	
 	'fill' : function (callback, collection)
 	{
+		
+		// console.log("filling networks");
 		
 		var nodes = [];
 		
@@ -93,33 +134,42 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		
 		for (n in list)
 		{
-			this.addDraft("Draft message ("+ list[n].id +")"); //list[n].get("title")? list[n].get("title"): list[n].get("body").plaintext);
+			this.addDraft("Draft message ("+ list[n].id +")");
 		}
-
-		
-		// Hide loading
-		//this.hideloading();
 	},
 	
 	'toggleView' : function (e)
 	{	
+		// Store view span
+		this.viewtype = $(e.currentTarget).val();
+		
+		// Catch list view
+		if(this.viewtype == "list") this.initList();
+		
+		else $('#calendar').removeClass("hidden");
+		
 		// Toggle Calendar
-		$('#calendar').fullCalendar ('changeView', $(e.currentTarget).val());
+		$('#calendar').fullCalendar ('changeView', this.viewtype);
 	},
 	
-	'prev' : function () { $('#calendar').fullCalendar('prev'); },
+	'prev' : function () {
+		$('#calendar').fullCalendar('prev');
+	},
 	
-	'next' : function () { $('#calendar').fullCalendar('next'); },
+	'next' : function () {
+		$('#calendar').fullCalendar('next');
+	},
+	
+	'now' : function () {
+		$('#calendar').fullCalendar('today');
+	},
 	
 	/**
 	 *	Fullcalendar plugin
 	 *	http://arshaw.com/fullcalendar/docs2/
 	**/
-	
 	'initCalendar' : function () {
 	
-		
-		
 		$('#calendar').fullCalendar({ //re-initialize the calendar
 			header: false,
 			slotMinutes: 30,
@@ -127,14 +177,13 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			droppable: false, // this allows things to be dropped onto the calendar !!!
 			allDayDefault: false,
 			allDaySlot: false,
+			firstDay: 1,
 			axisFormat: 'H:mm',
 			defaultTimedEventDuration: '00:30:00',
 			slotEventOverlap: false,
 			events: this.populate.bind(this),
-			 
 			eventRender: function(event, element)
 			{	
-
 				// Prevent empty renders (rendered is hack)
 				if(!event.icon) return false;
 				
@@ -152,7 +201,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				event.rendered = true;
 
 			}
-			
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped
 			
@@ -173,11 +221,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				$(this).remove();
 			},*/
 		});
-		
-		// Load Collections
-		// to-do: this.drafts.messages.touch(this.drafts);
-		
-	
 	},
 	
 	'addDraft' : function (title)
@@ -207,47 +250,3 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	}
 	
 });
-
-/*[{
-	title: 'Twitter post',                        
-	start: new Date(y, m, 1),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Facebook message',
-	start: new Date(y, m, d - 5),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Linkedin message',
-	start: new Date(y, m, d - 3, 16, 0),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Tumblr post',
-	start: new Date(y, m, d + 4, 16, 0),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Google+ message',
-	start: new Date(y, m, d, 10, 30),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Youtube movie',
-	start: new Date(y, m, d, 12, 0),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Blog Post',
-	start: new Date(y, m, d + 1, 19, 0),
-	className: 'facebook-color',
-	allDay: false,
-}, {
-	title: 'Co-worker message',
-	start: new Date(y, m, 28),
-	className: 'facebook-color',
-	url: 'http://google.com/',
-	allDay: false,
-}
-]*/

@@ -7,7 +7,15 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'url' : function ()
 	{
-		return CONFIG_BASE_URL + 'json/user/' + this.id;
+		if(this.parent)
+        	return CONFIG_BASE_URL + 'json/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
+        
+        else return CONFIG_BASE_URL + 'json/user/' + this.id;
+        
+       /* return this.endpoint?
+        
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;*/
 	},
 	
 	'parse' : function(response)

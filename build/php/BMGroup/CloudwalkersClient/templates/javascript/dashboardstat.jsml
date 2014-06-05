@@ -1,5 +1,6 @@
-<div class="dashboard-stat {{network.icon}}-color">
+<div class="dashboard-stat {{network.icon}}-color" data-network="{{network.icon}}" data-report="{{filterfunc}}">
 	<div class="visual">
+	{{icon}}
 		<i class="icon-{{network.icon}}"></i>
 	</div>
 

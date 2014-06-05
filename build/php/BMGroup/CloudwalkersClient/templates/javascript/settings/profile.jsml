@@ -10,17 +10,22 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-
+					
+					<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
+					<input type="file" />
+					
+					<input id="add-file" class="btn btn-block btn-info" type="button" value="Select" />
+					<input id="upload-file" class="btn btn-block black" type="button" value="Upload" />
+					
+					<!--
 					<form action="javascript:void(0);" class="edit-user-avatar" method="post" enctype="multipart/form-data">
-						
 						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
-						
 						<center>
 							<input type="file" name="select file" id="file"><br><br>
 							<button type="file" class="btn black">Upload Profile Picture</button>
 						</center>
-						
 					</form>
+					-->
 				</div>
 			</div>
 		</div>

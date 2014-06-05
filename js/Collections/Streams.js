@@ -37,7 +37,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	},
 	
 	'distantAdd' : function(model)
-	{
+	{	
 		if(!this.get(model.id)) this.add(model);	
 	},
 	
@@ -96,6 +96,10 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 
 		return list;
 	},
+
+	'parsecontacts' : function(){
+		console.log(this);
+	},
 	
 	/*'seed' : function(ids)
 	{
@@ -133,7 +137,7 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 			var network = (stream.attributes)? stream.get("network") : stream.network;
 			
 			if(!networks[network.token])
-				networks[network.token] = {ids: [], icon: network.icon};
+				networks[network.token] = {ids: [], icon: network.icon, token: network.token};
 				
 			networks[network.token].ids.push(stream.id);
 		});

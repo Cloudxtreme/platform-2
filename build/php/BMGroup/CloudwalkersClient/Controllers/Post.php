@@ -41,6 +41,7 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		$message = Neuron_Core_Tools::getInput ('_POST', 'message', 'varchar');
 		$subject = Neuron_Core_Tools::getInput ('_POST', 'title', 'varchar');
 		$url = Neuron_Core_Tools::getInput ('_POST', 'url', 'varchar');
+		$url2 = Neuron_Core_Tools::getInput ('_POST', 'url2', 'varchar');
 
 		$tags = Neuron_Core_Tools::getInput ('_POST', 'tags', 'varchar');
 
@@ -75,6 +76,11 @@ class BMGroup_CloudwalkersClient_Controllers_Post
 		if ($url)
 		{
 			$attachments[] = array ('url' => $url, 'type' => 'link');
+		}
+
+		if ($url2)
+		{
+			$attachments[] = array ('url' => $url2, 'type' => 'link');
 		}
 
 		if (isset ($_POST['files']))

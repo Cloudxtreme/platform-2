@@ -26,7 +26,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'initialize' : function (options, /* Deprecated? */ pageviewoptions)
 	{
-		
 		if(options) $.extend(this, options);
 		
 		// Which model to focus on
@@ -40,11 +39,20 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
+		
+		// Loader
+		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
+
+		//Empty & not empty
+		this.listenTo(this.collection, 'ready:empty', this.isempty);
+		this.listenTo(this.collection, 'request', this.unsetempty);
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
 	},
 	
 	'toggleall' : function ()
 	{
-		
 		this.filternetworks(null, true);
 		this.togglestreams(true);
 	},
@@ -62,6 +70,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{	
 		// Template data
 		var param = {streams: [], networks: []};
+		
+		
 		
 		// Select streams
 		this.model.streams.each (function(stream)
@@ -94,8 +104,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'showloading' : function ()
 	{
-		this.$container.addClass("inner-loading");
-
+		//this.$container.addClass("inner-loading");
+		
 		$(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
@@ -429,5 +439,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+
+	'isempty' : function(){		
+		$(".inbox-container").empty().addClass('empty-content');
+	},
+
+	'unsetempty' : function(){
+		$(".inbox-container").removeClass('empty-content');
 	}
 });

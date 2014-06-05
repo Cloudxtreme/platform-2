@@ -1,5 +1,25 @@
 Cloudwalkers.Models.Notification = Cloudwalkers.Models.Message.extend({
 	
+	'initialize' : function ()
+	{			
+		if (typeof (this.attributes.parent) != 'undefined')
+		{
+			this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
+			this.get ('parentmodel').trigger ('change');
+		}
+		
+		// Actions
+		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		
+		// Listen to destroy
+		// Reload parent message for message counter
+		this.once("destroy", function()
+		{
+			this.get("parentmodel").fetch();
+			
+		})
+	},
+	
 	'parse' : function(response)
 	{	
 		// A new object

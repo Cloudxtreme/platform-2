@@ -1,5 +1,7 @@
 Cloudwalkers.Models.Service = Backbone.Model.extend({
-
+	
+	'typestring' : "services",
+	
 	'initialize' : function ()
 	{
 		
@@ -7,10 +9,14 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'url' : function()
 	{	
+		var url = [CONFIG_BASE_URL + "json"];
 		
-		var param = this.endpoint? this.endpoint : "";
+		if(this.parentpoint)	url.push("accounts", Cloudwalkers.Session.getAccount ().id);
+		if(this.typestring)		url.push(this.typestring);		
+		if(this.id)				url.push(this.id);
+		if(this.endpoint)		url.push(this.endpoint);
 		
-		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + param;
+		return url.join("/");
 	},
 	
 	'parse' : function(response)
@@ -18,8 +24,19 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		// A new object
 		if (typeof response == "number") response = {id: response};
 		
-		else response = response.service;
+		// Debug API unlogic
+		else if(response.service) response = response.service;
 		
 		return response;
+	},
+	
+	 'sync' : function (method, model, options)
+	{
+		this.endpoint = (options.endpoint)? options.endpoint: false;
+		
+		this.parentpoint = method != "delete";
+		
+		return Backbone.sync(method, model, options);
 	}
+	
 });

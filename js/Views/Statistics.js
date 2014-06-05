@@ -14,39 +14,50 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #subtract': 'subtractperiod',
 		'click #now': 'changespan',
 		'click #show': 'changecustom',
-		'change .stats-header select': 'changespan'
+		'change .stats-header select.networks': 'changestream',
+		'change .stats-header select.time': 'changespan',
+		'click .dashboard-stat' : 'updatenetwork'
 	},
 	
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
-		{widget: "Chart", data: {filterfunc: "contacts", chart: "PolarArea", title: "Contacts"}, span: 6},
-		{widget: "Chart", data: {filterfunc: "age", chart: "Doughnut", title: "By Age"}, span: 3},
-		{widget: "Chart", data: {filterfunc: "gender", chart: "Doughnut", title: "By Gender"}, span: 3},
+
+		{widget: "TitleSeparator", data: {title: "Contacts info"}},
+		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: "Contacts", display: "divided"}, span: 6},
+		{widget: "CompoundChart", span: 6, data : { template: "2col1row", chartdata: [ 
+			{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}},
+			{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}},
+			{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", title: "Contacts Evolution"}}
+			]}
+		},
+		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
+		//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 		
-		{widget: "Info", data: {title: "Contact Evolution"}, span: 3},
-		{widget: "Info", data: {title: "Post Activity"}, span: 3},
-		{widget: "Info", data: {title: "Activity?"}, span: 3},
-		{widget: "Info", data: {title: "Page Views?"}, span: 3},
-		
-		{widget: "Chart", data: {filterfunc: "regional", chart: "PolarArea", title: "Regional Popularity"}, span: 6},
-		{widget: "Legenda", data: {}, span: 3},
-		{widget: "Combo", data: { widgets: [
-			{widget: "Chart", data: {filterfunc: "countries", chart: "Doughnut", title: "Countries"}, span: 12},
-			{widget: "Chart", data: {filterfunc: "cities", chart: "Doughnut", title: "Cities"}, span: 12}
-		]}, span: 3},
-		
-		{widget: "Chart", data: {filterfunc: "besttime", chart: "Line", title: "Best Time to Post"}, span: 6},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6}
-		
+		{widget: "TitleSeparator", data: {title: "New this"}},
+		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
+		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
+		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
+		{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
+
+		{widget: "TitleSeparator", data: {title: "Messages info"}},
+		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
+		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
+		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
+		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
+
+		{widget: "TitleSeparator", data: {title: "Geo Graphics"}},
+		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, span: 8},
+		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
+			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
+			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
+			]}
+		}
 	],
 	
 	'initialize' : function(options)
-	{
+	{	
 		if (options) $.extend(this, options);
-		
-		// !Test
-		// this.model = Cloudwalkers.Session.getStream(264);
-		
+
 		// Check if collection exists
 		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
 		
@@ -56,8 +67,17 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'ready', this.hideloading);
+		//this.listenTo(this.collection, 'ready', this.fillcharts);
+		//this.collection.on('all', function(a){console.log(a)})
+		
+		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
+		
 	},
 	
+	resize : function(){
+		//this.render();
+	},
+
 	'showloading' : function ()
 	{
 		this.$el.addClass("loading");
@@ -69,12 +89,22 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function()
-	{
+	{	console.log(this.collection)
 		// clean if time toggle
 		this.cleanviews();
 		
+		var params = this.timemanager();
+		params.streams = [];
+		
+		// Select streams
+		params.streams = this.model.streams.where({ 'statistics': 1 }).map(function(stream)
+		{
+			stream.attributes.selected = (stream.id == this.streamid);
+			return stream.attributes;
+		}.bind(this));
+		
 		// Build Pageview
-		this.$el.html (Mustache.render (Templates.statsview, this.timemanager()));
+		this.$el.html (Mustache.render (Templates.statsview, params));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Chosen
@@ -83,23 +113,57 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Date picker
 		if (this.timespan == "custom")
 			this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
+
+		if(this.period == 0)
+			this.$el.find('#add').attr("disabled", true);
+
+		if(google.visualization)
+			this.fillcharts();
+
 		
-		// Widgets
+		return this;
+	
+	},
+
+	'fillcharts' : function()
+	{
 		for(n in this.widgets)
-		{
+		{	
+			var streamid = this.streamid || false;
+			
+			if(streamid){
+				var token = Cloudwalkers.Session.getStream(streamid).get("network").token;
+				// Network specific charts
+				if(this.widgets[n].networks && this.widgets[n].networks != token)	continue;
+			}
+
+			if(_.isString(this.widgets[n].data))
+				this.widgets[n].data = this.networkspecific[this.widgets[n].data][token];
+
+			this.widgets[n].data.network = streamid;
 			this.widgets[n].data.model = this.model;
+			this.widgets[n].data.parent = this;
+			this.widgets[n].data.visualization = google.visualization;
+			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
+
+			//pass regional data
+			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
+
+			if(this.widgets[n].data.title == "New this")
+				this.widgets[n].data.title = "New this "+this.timespan;
 			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
+			//this.widgets[n].data.connect == true ? this.connect = view : false;
 			
-			//console.log("widget:", view, this.widgets[n].span)
 			this.views.push(view);
+
 			this.appendWidget(view, this.widgets[n].span);
+			console.log("appended view:", view);
 		}
-		
+
 		// Load statistics
 		this.collection.touch(this.model, this.filterparameters());
-
-		return this;
+		console.log(this.collection)
 	},
 	
 	'timemanager' : function ()
@@ -123,6 +187,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'addperiod' : function ()
 	{
+		if(this.period >= 0)	return;
+
 		this.period += 1;
 		this.render();
 	},
@@ -133,9 +199,20 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.render();
 	},
 	
+	'changestream' : function()
+	{
+		
+		var streamid = Number(this.$el.find("select.networks").val());
+		
+		Cloudwalkers.Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
+
+	},
+	
+	
 	'changespan' : function()
 	{
-		this.period = 0;
+		var timespan = this.$el.find("select.time").val();
+		this.timespan = timespan;
 		this.render();
 	},
 	
@@ -150,16 +227,16 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'filterparameters' : function() {
  
 		// Get time span
-		var span = this.$el.find('.stats-header select').val();
-		if(span) this.timespan = span;
+		//var span = this.$el.find('.stats-header select').val();
+		//if(span) this.timespan = span;
 	
 		if (this.timespan == "now") {	this.period = 0; }
-		if (this.timespan == "week") {	this.start = moment().startOf('week');	this.end = moment().endOf('week'); }
-		if (this.timespan == "month") {	this.start = moment().startOf('month');	this.end = moment().endOf('month'); }
-		if (this.timespan == "year") {	this.start = moment().startOf('year');	this.end = moment().endOf('year'); }
+		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
+		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');	this.end = moment().zone(0).endOf('month'); }
+		if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');	this.end = moment().zone(0).endOf('year'); }
 
 		if (this.timespan == "quarter")
-		{
+		{	//Still not updated with .zone(0)
 			var months = (this.period + moment().quarter()) *3;
 			this.start = moment().startOf('year').add('months', months -3);
 			this.end = moment().startOf('year').add('months', months -1).endOf('month');
@@ -175,6 +252,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'finish' : function()
 	{
+	},
+
+	'updatenetwork' : function(e){
+		var report = e.currentTarget.dataset.report;
+		
 	}
-	
 });

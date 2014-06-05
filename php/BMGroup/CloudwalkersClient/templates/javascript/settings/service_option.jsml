@@ -1,6 +1,6 @@
 	<!-- Network option -->
-	<a class='btn btn-lg btn-social' href="javascript:void(0);" data-add-service="{{token}}">
+	<span class='btn btn-lg btn-social' data-add-service="{{token}}">
 		<i class='icon-{{icon}}'></i>Add {{name}}
-	</a>
+	</span>
 	<small>{{info}}</small>
 	<!-- End Network option -->

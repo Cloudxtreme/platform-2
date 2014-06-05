@@ -1,7 +1,10 @@
 Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
+	'typestring' : "accounts",
+	
 	'endpoint' : "",
 	
+	// Gets updated when account activates
 	'limits' : {users: 50, networks: 15, keywords: 10},
 	
 	'initialize' : function ()
@@ -106,19 +109,47 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		{
 			$('.alert-info').remove();
 				
-			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
+			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.");
 		
 			if(target)
 			{
 				if(typeof target == "string") target = $(target);
 				target.addClass("limited").attr("disabled", true);
 			}
-
 					
 			return true;
 		}
 		
+		// Or remove
+		if($("[disabled].limited").size())
+		{
+			$("[disabled].limited").removeClass("limited").attr("disabled", false);
+			$("[data-dismiss=alert]").click();
+		}
+		
 		return false;
+	},
+	
+	'addcampaign' : function (name, callback)
+	{
+		var campaigns = this.get("campaigns");
+		
+		if (campaigns.map(function(c){ return c.name }).indexOf(name) < 0)
+		{
+			campaigns.push({name: name});
+			this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
+		}
+	},
+	
+	'removecampaign' : function (id, callback)
+	{
+		var campaigns = this.get("campaigns");
+		
+		campaigns.forEach (
+			function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
+		);
+	
+		this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
 	}
 	
 	/*'monitorlimit' : function(type, current, target)

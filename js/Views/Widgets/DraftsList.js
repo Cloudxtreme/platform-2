@@ -30,16 +30,22 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		// Listen to model messages and users
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
-		//this.listenTo(this.model.messages, 'sync', this.hideloading);
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
+
 	},
 
 	'render' : function (params)
-	{	
+	{
 		// Get template
 		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
 		
 		this.$container = this.$el.find ('.messages-container');
+		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
+
+		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);

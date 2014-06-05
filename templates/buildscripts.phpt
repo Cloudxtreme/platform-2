@@ -5,6 +5,7 @@
 
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/Ping.js"></script>
+<script type="text/javascript" src="/js/Utilities/UrlShortener.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
 <script type="text/javascript" src="/js/Utilities/IDBStorage.js"></script>
 <script type="text/javascript" src="/js/Utilities/IDBstores.js"></script>
@@ -29,6 +30,7 @@
 <script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
+<script type="text/javascript" src="/js/Models/Network.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -46,11 +48,16 @@
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 
 <!-- Views -->
+<script type="text/javascript" src="/js/Views/Loader.js"></script>
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
+<script type="text/javascript" src="/js/Views/Compose.js"></script>
+<script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/Message.js"></script>
+<script type="text/javascript" src="/js/Views/ContactView.js"></script>
+<script type="text/javascript" src="/js/Views/Editor.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 
 <!-- Deprecated Views -->
@@ -60,16 +67,19 @@
 <script type="text/javascript" src="/js/Views/Dashboard.js"></script>
 <script type="text/javascript" src="/js/Views/MessageBoard.js"></script>
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
+<script type="text/javascript" src="/js/Views/Demo.js"></script>
 <script type="text/javascript" src="/js/Views/Drafts.js"></script>
 <script type="text/javascript" src="/js/Views/Scheduled.js"></script>
 <script type="text/javascript" src="/js/Views/Calendar.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkers.js"></script>
 <script type="text/javascript" src="/js/Views/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Trending.js"></script>
+<script type="text/javascript" src="/js/Views/ManageAccounts.js"></script>
 <script type="text/javascript" src="/js/Views/KeywordMonitoring.js"></script>
 <script type="text/javascript" src="/js/Views/ManageKeywords.js"></script>
 <script type="text/javascript" src="/js/Views/Reports.js"></script>
 <script type="text/javascript" src="/js/Views/Statistics.js"></script>
+<script type="text/javascript" src="/js/Views/StatStream.js"></script>
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 <script type="text/javascript" src="/js/Views/Firsttime.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkdashboard.js"></script>
@@ -82,7 +92,7 @@
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
-<script type="text/javascript" src="/js/Views/Chart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Chart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Legenda.js"></script>
@@ -110,8 +120,16 @@
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessagesCounters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CombinedStatistics.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/NewCombinedStatistics.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CompoundChart.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TrendingMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/BestTimeToPost.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TitleSeparator.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/NetworkStatistics.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Report.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CalSummary.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CalendarFilters.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Numberstat.js"></script>
@@ -122,7 +140,8 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
 
 <!-- Deprecated views -->
-<script type="text/javascript" src="/js/Views/Loading.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DemoMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Error.js"></script>
 <script type="text/javascript" src="/js/Views/OriginalMessage.js"></script>
 <script type="text/javascript" src="/js/Views/ActionParameters.js"></script>

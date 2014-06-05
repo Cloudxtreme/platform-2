@@ -69,6 +69,7 @@ for (var i = 0; i < paths.length; i ++)
 
 // Compress into one huge js file
 new compressor.minify({
+	language: 'ECMASCRIPT5',
 	type: 'gcc',
 	fileIn: jsfilesout,
 	fileOut: CONFIG_BUILDPATH + '/js/cloudwalkers.min.js',

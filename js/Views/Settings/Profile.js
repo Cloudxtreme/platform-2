@@ -4,8 +4,10 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		'click .add-user' : 'addUser',
 		'submit .edit-user-profile' : 'editUserProfile',
 		'submit .edit-user-password' : 'editUserPassword',
-		'submit .edit-user-avatar' : 'editUserAvatar',
-		'click .invite-user' : 'addUser'
+		/*'submit .edit-user-avatar' : 'editUserAvatar',*/ 
+		'click #add-file' : 'addfile',
+		'change input[type=file]' : 'listentofile',
+		'click #upload-file' : 'uploadfile'
 	},
 
 	'class' : 'section',
@@ -40,7 +42,52 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		}});
 	},
 	
-	'editUserAvatar' : function () {
+	/**
+	 *	Profile: avatar
+	**/
+
+	'addfile' : function (e) { $(".settings-profile input[type=file]").click(); },
+	
+	'listentofile' : function (e)
+	{	
+		var self = this;
+		var files = e.target.files;
+		
+		for (var i = 0, f; f = files[i]; i++)
+		{
+			// Check type
+			if (!f.type.match('image.*')) 
+				return Cloudwalkers.RootView.information ("Wrong file", "You need a valid image.", this.$el.find(".settings-profile .portlet-body"));
+
+			var reader = new FileReader();
+			
+			reader.onload = (function(file)
+			{	return function(e){	self.addimage(e.target.result)}})(f);
+			
+			reader.readAsDataURL(f);
+		}
+	},
+	
+	'addimage' : function(base64data){
+		
+		this.base64data = base64data;
+		this.$el.find("div.avatar-big").css('background-image', "url(" + base64data + ")");
+	},
+	
+	'uploadfile' : function(){
+		
+		if (!this.base64data)
+			Cloudwalkers.RootView.information ("No image", "Select an image file first.", this.$el.find(".settings-profile .portlet-body"));
+
+		else Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
+			{
+				Cloudwalkers.RootView.growl('User Profile', "You have a new profile picture.");
+			}});
+	},
+
+	
+	
+	/*'editUserAvatar' : function () {
 		
 		var files = $("form.edit-user-avatar input[type=file]").get(0).files;
 		
@@ -61,7 +108,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			
 			FR.readAsDataURL( files[0] );
 		}
-	},
+	},*/
 	
 	'editUserPassword' : function () {
 		
@@ -80,9 +127,9 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		{
 			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
 		
-		}, error: function()
-		{
-			Cloudwalkers.RootView.growl('Oops', "That's not correct.");
+		}, error: function(model, response, options)
+		{	var response = response.responseJSON.error.message;
+			Cloudwalkers.RootView.growl('Oops', response);
 		}});
 	},
 	

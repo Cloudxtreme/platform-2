@@ -2,6 +2,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
 		
+		'demo(/:demotype)' : 'demo',
+		
 		'write' : 'write',
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
@@ -12,10 +14,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 		'timeline/:channel(/:stream)' : 'timeline',
 		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
+		'monitoring/accounts' : 'manageaccounts',
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
-		'reports' : 'statistics',
+		'statistics' : 'statistics',
+		'statistics/:streamid' : 'statistics',
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
 		'work' : 'coworkdashboard',
@@ -25,6 +29,22 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	},
 
 	'initialize' : function (){},
+	
+	/**
+	 *	Demo
+	 **/
+	 
+	 'demo' : function (demotype)
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel ('inbox');
+		
+		var type = "messages";
+		
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Demo({channel: channel, type: type, demotype: demotype}));
+	},
+
 	
 	/**
 	 *	Dashboard
@@ -65,8 +85,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'write' : function ()
 	{
-		var view = new Cloudwalkers.Views.Write ();
-		Cloudwalkers.RootView.setView (view);
+		//var view = new Cloudwalkers.Views.Write ();
+		Cloudwalkers.RootView.compose();
 	},
 	
 	'share' : function ()
@@ -82,6 +102,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
 	},
+	
 	
 	/**
 	 *	Inbox
@@ -151,6 +172,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
 	},
+	
+	'manageaccounts' : function ()
+	{
+		// Parameters
+		var channel = Cloudwalkers.Session.getChannel ('news');
+		
+		var view = new Cloudwalkers.Views.ManageAccounts ({channel: channel});
+		Cloudwalkers.RootView.setView (view);
+	},
 
 	/**
 	 *	Monitoring
@@ -191,21 +221,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'statistics' : function (streamid)
 	{
+		/*var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
+								Cloudwalkers.Session.getAccount();*/
+								
+		var model = Cloudwalkers.Session.getAccount();
 		
-		var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
-								Cloudwalkers.Session.getAccount();
-		
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Statistics({model: model}));
-		
-		/*var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (streamid) });
-
-		if (streamid)
-		{
-			view.subnavclass = 'reports_' + streamid;
-		}
-
-		Cloudwalkers.RootView.setView (view);*/
-		
+		Cloudwalkers.RootView.setView ( streamid?
+			new Cloudwalkers.Views.StatStream({model: model, streamid: streamid}):
+			new Cloudwalkers.Views.Statistics({model: model})
+		);
 	},
 
 	

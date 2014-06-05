@@ -138,7 +138,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				this.actionparameters[this.options.actionparameters[i].token] = this.options.actionparameters[i];
 			}
 		}
-
+		
 		var self = this;
 
 		var data = {};
@@ -285,7 +285,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 			// Attachments
 			data.sortedattachments = {};
-
+			console.log(this.model);
 			if (this.model.get ('attachments'))
 			{
 				for (var i = 0; i < this.model.get ('attachments').length; i ++)
@@ -423,6 +423,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 
 		self.files.push (file.url);
 
+		if (self.files.length > 0)
+		{
+			//$('.fileupload').hide ();
+		}
+
 		a.click (function ()
 		{
 			for (var i = 0; i < self.files.length; i ++)
@@ -432,6 +437,11 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 					self.files.splice (i, 1);
 					break;
 				}
+			}
+
+			if (self.files.length == 0)
+			{
+				$('.fileupload').show ();
 			}
 
 			p.remove ();
