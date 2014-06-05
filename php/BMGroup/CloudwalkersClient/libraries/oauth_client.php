@@ -1032,7 +1032,7 @@ class oauth_client_class
 					default:
 						if(!IsSet($object))
 
-							var_dump ($data);
+							//var_dump ($data);
 
 							return($this->SetError('it was not returned a valid JSON definition of the '.$options['Resource'].' values'));
 						$response = $object;
