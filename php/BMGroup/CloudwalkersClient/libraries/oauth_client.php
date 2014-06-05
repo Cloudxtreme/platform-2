@@ -1031,6 +1031,9 @@ class oauth_client_class
 						break;
 					default:
 						if(!IsSet($object))
+
+							var_dump ($data);
+
 							return($this->SetError('it was not returned a valid JSON definition of the '.$options['Resource'].' values'));
 						$response = $object;
 						break;
