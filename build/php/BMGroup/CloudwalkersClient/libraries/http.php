@@ -187,7 +187,7 @@ class http_class
 	Function OutputDebug($message)
 	{
 		if(!$this->debug()) return;
-		
+	
 		if($this->log_debug())
 			error_log($message);
 		else

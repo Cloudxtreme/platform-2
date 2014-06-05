@@ -8,6 +8,23 @@
 
 			$(document).ready (function ()
 			{
+				function getSearchParameters() {
+					var prmstr = window.location.search.substr(1);
+					return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+				}
+
+				function transformToAssocArray( prmstr ) {
+					var params = {};
+					var prmarr = prmstr.split("&");
+					for ( var i = 0; i < prmarr.length; i++) {
+						var tmparr = prmarr[i].split("=");
+						params[tmparr[0]] = tmparr[1];
+					}
+					return params;
+				}
+
+				var params = getSearchParameters();
+
 				var streamdom = {};
 				var counters = {};
 				var account = null;
@@ -155,6 +172,24 @@
 					{
 						// Take first account, for easyness.
 						account = me.user.accounts[0];
+
+						if (typeof (params.account) != 'undefined')
+						{
+							var found = false;
+							for (var i = 0; i < me.user.accounts.length; i ++)
+							{
+								if (me.user.accounts[i].id == params.account)
+								{
+									account = me.user.accounts[i];
+									found = true;
+								}
+							}
+
+							if (!found)
+							{
+								alert ('Account '+ params.account + ' not found.');
+							}
+						}
 
 						$.ajax ('/json/accounts/' + account.id + '/streams',
 						{

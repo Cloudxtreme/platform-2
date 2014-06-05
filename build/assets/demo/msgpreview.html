@@ -1,0 +1,140 @@
+<!DOCTYPE html
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/cloudwalkers.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap-responsive.css">
+	<link rel="stylesheet" type="text/css" href="preview.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+	<div id="main" class="fb">
+		<div class="progress-bar">
+			<div class="tip"></div>
+		</div>
+		<div class="pv-wrapper">
+			<div class="clearfix"></div>
+			<div class="pv-wrapper-wrap">
+				<!--Header-->
+				<div class="pv-header">
+					<div class="pv-avatar">
+						<img src="http://placehold.it/100x100"/>
+					</div>
+					<div class="pv-title-wrap">
+						<div class="pv-title"><!--#title-->Title<!--/title--></div>
+						<div class="pv-timestamp pv-twt pv-20"><!--/timestamp-->3 minutes ago<!--/timestamp--></div>
+						<div class="clearfix"></div>
+						<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->3 minutes ago<!--/timestamp--></div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<!--Body-->
+				<div class="pv-content">
+					<div class="pv-main-text">
+						<!--/post text-->
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet ullamcorper purus. Nam sagittis enim ut purus placerat, posuere blandit.
+						<!--/post text-->
+						<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->www.cloudwalkers.be<!--/url--></a></div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="pv-twt pv-20" id="viewsummary"><a href="#">View summary</a></div>
+					<div class="pv-url-content">
+						<img src="http://placehold.it/1000x500"/>  
+						<div class="pv-gpstripe pv-gp pv-20"></div>
+						<div class="pv-url-content-text">
+							<div class="pv-url-title"><!--/url title-->Url title<!--/url title--></div>
+							<div class="pv-url-text">
+								<!--/Url preview content-->
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet ullamcorper purus. Nam sagittis enim ut purus placerat, posuere blandit sapien posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								<!--/Url preview content-->
+							</div>
+							<div class="pv-url pv-twt pv-20"><a href="#"><!--/url-->View on web<!--/url--></a></div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="pv-bottom">
+					Sharing widgets go here
+				</div>
+			</div>
+		</div>
+		<div class="pv-buttons toload">
+			<h3>Networks</h3>
+			<ul class="compose-streams social-icon-colors" style="margin: -1px;">
+				<li data-streams="218" class="btn-white inactive fb">
+					<i class="icon-facebook"></i><span>Facebook</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive gp">
+					<i class="icon-facebook"></i><span>Google plus</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive li">
+					<i class="icon-facebook"></i><span>Linked in</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive twt">
+					<i class="icon-facebook"></i><span>Twitter</span>
+				</li>
+				<br/>
+				<li data-streams="218" class="btn-white inactive url">
+					<i class="icon-facebook"></i><span>URL layout</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive link">
+					<i class="icon-facebook"></i><span>Link layout</span>
+				</li>
+				<li data-streams="218" class="btn-white inactive linkurl">
+					<i class="icon-facebook"></i><span>Link + URL</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		startLoad();
+	});
+
+	$('li.fb').click(function(){
+		$('#main').removeClass("gp").removeClass('li').removeClass('twt').addClass("fb");
+		startLoad();
+	});
+
+	$('li.gp').click(function(){
+		$('#main').removeClass("fb").removeClass('li').removeClass('twt').addClass("gp");
+		startLoad();
+	});
+
+	$('li.li').click(function(){
+		$('#main').removeClass("fb").removeClass('gp').removeClass('twt').addClass("li");
+		startLoad();
+	});
+
+	$('li.twt').click(function(){
+		$('#main').removeClass("gp").removeClass('li').removeClass('fb').addClass("twt");
+		startLoad();
+	});
+
+	$('li.url').click(function(){
+		$('#main').removeClass("withlink").removeClass('withlinkimg');
+		startLoad();
+	});
+
+	$('li.link').click(function(){
+		$('#main').addClass("withlink").removeClass("withlinkimg");
+		startLoad();
+	});
+
+	$('li.linkurl').click(function(){
+		$('#main').removeClass('withlink').addClass("withlinkimg");
+		startLoad();
+	});
+
+
+	function startLoad(){
+		$('.progress-bar').addClass('loading');
+		$('.pv-buttons').removeClass('toload');
+	}
+
+</script>
+</html>

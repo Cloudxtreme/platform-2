@@ -1,6 +1,6 @@
 <?php
 
-define ('VERSION', '1.0.2.0-RC2');
+define ('VERSION', '1.0.5.0');
 
 error_reporting (-1);
 ini_set ('display_errors', 1);
@@ -26,9 +26,6 @@ if (!defined ('OAUTH_SERVER'))
 {
 	define ('OAUTH_SERVER', 'http://api.cloudwalkers.be/');
 }
-
-error_reporting (-1);
-ini_set ('display_errors', 1);
 
 if (!defined ('BASE_URL'))
 {

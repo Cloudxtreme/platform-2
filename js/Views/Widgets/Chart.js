@@ -240,7 +240,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
 	            width: width,
 	            height: width * 0.3,
-	            curveType: 'function',
+	            curveType: 'function'
 			}
 		};
 
@@ -270,7 +270,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	            width: width,
 	            height: width * 0.92,
 	           	'legend': { position: 'bottom'},
-	            curveType: 'function',
+	            curveType: 'function'
 			}
 		};
 
@@ -301,7 +301,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	            width: width,
 	            height: width * 0.65,
 	            'legend': { position: 'bottom'},
-	            curveType: 'function',
+	            curveType: 'function'
 			}
 		};
 

@@ -23,7 +23,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'retweet' :	"Retweet",
 		'like' :	"Like",
 		'favourite': "Favourite",
-		'plusone':	"Plus one",
+		'plusone':	"Plus one"
 	},
 	
 	'options' : {
