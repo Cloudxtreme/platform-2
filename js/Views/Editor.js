@@ -351,10 +351,22 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'parseurl' : function(model){
 		//console.log(model.longurl, model.get("shortUrl"));
 		var urltag = "<short contenteditable='false' data-url='"+ model.longurl +"'>"+ model.get('shortUrl') +"<i class='icon-link' id='swaplink'></i></short>";
+		var self = this;
+
 		this.currenturl = model.longurl;
 		this.shorturl = model.get('shortUrl');
-		
+
 		this.$contenteditable.find('a').replaceWith(urltag);
+
+		var oembed = '<div><a href="'+this.currenturl+'" class="oembed"></a></div>';	            
+
+		this.$el.find('#out').empty().html(oembed);
+
+		this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
+			this.def.done(function(){
+				self.$el.find('#out').addClass('expanded');
+			});
+		});
 	},
 	
 	/*'parseurl' : function (model)
