@@ -49,7 +49,9 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 			this.widgetviews.push(widget);
 		
 			widget.$el.addClass("span" + span);
-			widget.negotiateFunctionalities();
+			
+			if (widget.negotiateFunctionalities)
+				widget.negotiateFunctionalities();
 		}
 	},
 	

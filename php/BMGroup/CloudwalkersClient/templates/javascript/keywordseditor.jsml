@@ -49,8 +49,9 @@
 				<br><br>
 				
 				<labl>Fine-tune</labl>
-				<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />
-				<!--<label>Filters:</label>
+				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />-->
+				<!--deprecated-->
+				<label>Filters:</label>
 				<div class="keyword-edit-filters">
 					<span class=''>
 						<button class="btn span6" data-keyword-filter="filter-include">Include</button>
@@ -87,7 +88,8 @@
 						{{/filteroptions.countries}}
 						</select>
 					</div>
-				</div>-->
+				</div>
+				<!--end deprecated-->
 				
 				<button class="btn blue add-keyword">Create</button>
 				<button class="btn blue update-keyword edit-keyword inactive">Update</button>
@@ -98,6 +100,7 @@
 		</div>
 	</div>
 	
+	<!--
 	<div class="well">
 		
 		<style type="text/css">
@@ -137,6 +140,7 @@
 				<span class="brackets">(</span><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">or</span>
 				<br>&nbsp;<span class="field">message</span> <span class="op">contains</span> "bmgroup"<span class="brackets">)</span> <span class="op">and</span> <span class="field">country</span> <span class="op">=</span> "be"
 			</li>
-	</ul>
-	</div>
+		</ul>
+	</div>-->
+	
 	<!-- end Manage keyword -->

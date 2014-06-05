@@ -19,6 +19,9 @@ var Cloudwalkers = {
 		{
 			// Root view
 			Cloudwalkers.RootView = new Cloudwalkers.Views.Root();
+			
+			// Url Shortener
+			Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 			// And then rout the router.
 			Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();

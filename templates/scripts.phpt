@@ -51,9 +51,12 @@
 <script src="/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 
 <!-- HTML5 PLUGINS -->
+<script src="/assets/plugins/Medium.js/medium.js"></script>
 <script src="/assets/plugins/chart.js/Chart.min.js"></script>
 <script src="/assets/plugins/chart.js.legend/legend.js"></script>
 <script src="/assets/plugins/media.js"></script>
+<script src="/assets/plugins/etch/etch.js"></script>
+<script src="/assets/plugins/rangy-core.js"></script>
 
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>

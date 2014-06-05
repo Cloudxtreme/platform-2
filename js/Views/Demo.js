@@ -1,3 +1,36 @@
+
+
+Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
+
+	'title' : 'Demo',
+	
+	'initialize' : function (options)
+	{
+
+		if(options) $.extend(this, options);
+
+	},
+	
+	'render' : function()
+	{
+		// Build Pageview
+		this.$el.html (Mustache.render (Templates.pageview, {title: this.title}));
+		this.$container = this.$el.find("#widgetcontainer").eq(0);
+		
+		// Append Editor
+		this.editor = new Cloudwalkers.Views.Editor({content: null, parent: this});
+		this.appendWidget(this.editor, 4);
+
+		// Listen to editor triggers
+		//this.listenTo(this.editor, "imageadded", this.addimage);
+		//this.listenTo(this.editor, "contentadded", this.monitor);
+		
+		return this;
+	}	
+});
+
+
+/*
 Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Demo',
@@ -23,8 +56,7 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	}	
 });
-
-
+*/
 
 /*
 // RUI Demo:

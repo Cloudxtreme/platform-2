@@ -5,6 +5,7 @@
 
 <!-- Utilities -->
 <script type="text/javascript" src="/js/Utilities/Ping.js"></script>
+<script type="text/javascript" src="/js/Utilities/UrlShortener.js"></script>
 <script type="text/javascript" src="/js/Utilities/localStorage.js"></script>
 <script type="text/javascript" src="/js/Utilities/IDBStorage.js"></script>
 <script type="text/javascript" src="/js/Utilities/IDBstores.js"></script>
