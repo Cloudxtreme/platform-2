@@ -19,7 +19,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'posmap' : [],
 	'teststring' : '',
-	'limit' : 140,
+	'limit' : 14,
 	
 	
 	// Should be outside Editor, should be in compose
@@ -34,7 +34,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'append:content' : 'append',
 		
 		// Listen to $contenteditable
-		'keyup #compose-content' : 'listentochange',
+		'keydown #compose-content' : 'listentochange',
 		'paste #compose-content' : 'listentochange',
 		'blur #compose-content' : 'endchange',
 
@@ -108,7 +108,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'listentochange' : function(e) {
 
-		var content = this.$contenteditable.html();
+		var content = this.$contenteditable.text();
 		this.pos = this.cursorpos(); 
 		if(this.content !== content && !this.currenturl)
 		{	
@@ -120,22 +120,21 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			// Update
 			//this.$contenteditable.html(this.content);
 			//this.cursorpos(this.pos);
-			var extrachars = this.limit - this.$contenteditable.text().length;
 
 			if(this.listentourl(content))
 				this.processurl();
-				//this.cursorpos(this.pos);
-			
-			if(extrachars < 0){
-				this.greyout(extrachars, this.limit);
-			}				
-
-			this.updatecounter(extrachars);
-			
-			//this.cursorpos(this.pos);
-			
-			
+				//this.cursorpos(this.pos);			
 		}
+
+		var extrachars = this.limit - this.$contenteditable.text().length;			
+			
+		if(extrachars < 0)
+			this.greyout(extrachars, this.limit);		
+
+		this.updatecounter(extrachars);
+		
+		//this.cursorpos(this.pos);
+		this.content = this.$contenteditable.text();
 
 		if(this.isdefault){
 			this.$contenteditable.removeClass("withdefault");
@@ -311,8 +310,81 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'greyout' : function(extrachars, limit){
+
+		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
+		var win = document.defaultView || document.parentWindow;
+		var sel, range, currrange;
+
+	/*	sel = win.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(this.$contenteditable.get(0));
+
+		if(!this.$contenteditable.find('em').length)
+			this.$contenteditable.append('<em></em>');
+
+		//var here = this.cursorpos();
+		//this.getnode(this.$contenteditable.find('em').get(0), null, '#text');
+
+		//Get extra chars
+		//this.getnode(this.$contenteditable.get(0), 14);
+		var enddata = this.cursorpos(14, true);
+		range.setStart(enddata.node, enddata.offset);
+		range.setEnd(enddata.node, enddata.offset+1);
+
+		sel.removeAllRanges();
+        sel.addRange(range);
+
+		//Empty em
+		if(!this.nextnode)
+
+		cl
+*/
+		//last characters selection method
+
+		//Are we adding or removing text?
+		var add = false;
+		if(this.content.length < this.$contenteditable.text().length)	add = true;
 		
-		var extra = this.$contenteditable.text().slice(extrachars);
+		var here = this.cursorpos();
+
+		sel = win.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(this.$contenteditable.get(0));
+
+		var endnode = range.endContainer.childNodes[range.endContainer.childNodes.length-1];
+		var enddata = this.cursorpos(this.limit, true);
+
+		range.setStart(enddata.node, enddata.offset);
+		range.setEndAfter(endnode);
+
+		//console.log(enddata, endnode, range);
+
+		sel.removeAllRanges();
+        sel.addRange(range);
+
+        this.contenteditable.designMode = "on";
+        
+        document.execCommand('removeFormat', false, null);
+        document.execCommand('backColor', false, "#fcc");
+        
+        this.contenteditable.designMode = "off";
+
+        sel.collapse(this.$contenteditable.get(0), 0);
+        //console.log("position:",here)
+        this.mergechars();
+        this.cursorpos(here);
+
+		//var lastnode = range.startContainer.childNodes[range.startContainer.childNodes.length-1];
+		//var newNode = document.createElement("div");
+
+		//range.insertNode(newNode);
+		/*if(!this.$contenteditable.find('em').length)
+			this.$contenteditable.append('<em></em>')
+
+		var em = this.$contenteditable.find('em');
+		em.empty().html("asd");*/
+		
+		/*var extra = this.$contenteditable.text().slice(extrachars);
 		var notextra = this.$contenteditable.text().slice(0, limit);
 		var content;
 
@@ -322,7 +394,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		content = notextra+'<span id="extrachars" $contenteditable="true">'+extra+'</span>';
 
 
-		return content;
+		return content;*/
+	},
+
+	'mergechars' : function(){
+
+		$.each(this.$contenteditable.find('span'), function(n, span)
+		{	
+			$(span).html($(span).text());
+
+		}.bind(this));
 	},
 
 	'parseurl' : function(model){
@@ -350,7 +431,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	/* Cursor functions */
 	
-	'cursorpos' : function (pos)
+	'cursorpos' : function (pos, getoffset)
 	{	
 		// Basics
 		var document = this.contenteditable.ownerDocument || this.contenteditable.document;
@@ -386,33 +467,90 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		else {	
 			
 			//Map the node sizes
-			$.each(this.$contenteditable[0].childNodes, function(i, node)
+			/*$.each(this.$contenteditable[0].childNodes, function(i, node)
 			{	
-				if (!(nodelength = node.length)){
-
-					if(node.id)	nodelength = node.outerText.length;
-					else if(node.childNodes[0])	nodelength = node.childNodes[0].length;
-					else nodelength = 0; //Firefox throws error on node.childNodes[0], lets assume its just markup
-				}
-
-				if (nodelength >= pos) { currentnode = node; return false; }
+				/*if (!(nodelength = node.length)){
+					if(node.id)	nodelength = node.textContent.length;
+					//else if(node.childNodes[0])	nodelength = node.childNodes[0].length;
+					//else nodelength = 0; //Firefox throws error on node.childNodes[0], lets assume its just empty markup
+				}*/
+/*
+				nodelength = node.textContent.length;
+				
+				if (nodelength >= pos) {currentnode = node; return false; }
 				else return pos -= nodelength;
 			});
 			
 			range = document.createRange();
 			sel = win.getSelection();
 			
-			if (currentnode) var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;
-			else return false;
+			if (currentnode){
+				if(currentnode.nodeName == 'SPAN'){
+					$.each(currentnode.childNodes, function(n, innernode){
+						var innernodelength = innernode.textContent.length;
+						if (innernodelength >= pos) {currentnode = innernode; return false; }
+						else return pos -= innernodelength;
+					});					
+					var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;	
+				}else{
+					var node = currentnode.childNodes[0] ? currentnode.childNodes[0] : currentnode;	
+				}
+				console.log(node)
+			} 
+			else return false;*/
+			this.getnode(this.$contenteditable[0], pos);
+
+			var nodedata = this.currentnode;
+			//console.log(this.currentnode)
+
+			if(getoffset)
+				return {node: nodedata.node, offset : nodedata.offset}
 			
-			range.setStart(node, pos);
+			range = document.createRange();
+			sel = win.getSelection();
+
+			range.setStart(nodedata.node, nodedata.offset);
 			range.collapse(true);
 			sel.removeAllRanges();
 			sel.addRange(range);
-			//console.log("set",pos);
+			//console.log("set",pos);*/
 		}
 		
 		return pos;
+	},
+
+	//Get node where the cursor is in the tree
+	'getnode' : function(parentnode, pos, type){
+
+		$.each(parentnode.childNodes, function(n, node)
+		{	
+			if(type){
+				var nodetype = node.nodeName;
+				if (nodetype == type) {
+					if(node.childNodes.length)
+						this.getnode(node, null, type);
+					else{
+						this.nextnode = node;
+						return false;
+					}					
+				}
+			}else{
+				var nodelength = node.textContent.length;
+				if (nodelength >= pos) {
+					console.log(node, nodelength, pos)
+					if(node.childNodes.length){
+						this.getnode(node, pos);
+						return false;
+					}
+					else{
+						this.currentnode = {node : node, offset : pos};
+						return false;
+					}					
+				}
+				else return pos -= nodelength;
+			}
+
+		}.bind(this));
 	},
 
 	'updatecounter' : function(chars){

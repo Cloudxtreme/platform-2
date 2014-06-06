@@ -499,6 +499,8 @@ Style corrections and manual overrides
 #compose-content.withdefault short, #compose-content.withdefault a{
 	background-color: #BBB; color: #999;
 }
+
+#compose-content em{ color: #CCCCCC;}
 /* embeded */
 
 #out{ 
