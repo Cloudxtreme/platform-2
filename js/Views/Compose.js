@@ -146,7 +146,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
-		console.log(this.draft)
+		
 	},
 
 	'render' : function ()
