@@ -19,7 +19,14 @@ Backbone.View = Backbone.View.extend({
 		var length = states.length;
 
 		for(i in states){
-			this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
+			if(_.isArray(states[i])){
+				for(n in states[i]){
+					console.log("listen", states[i][n], i, length)
+					this.listenTo(model, states[i][n], this.loadRender.bind(this, Number(i)+1, length));					
+				}
+			}else{
+				this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
+			}
 		}
 
 		// All listen to the empty state

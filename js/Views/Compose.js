@@ -1072,9 +1072,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	    
 	    return widthNoScroll - widthWithScroll;
 	},*/
-
+	
 	'isscrolling' : function(){		
-		return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
+		
+		if(this.$el.find('.stream-tabs').length)
+			return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
+		else if(this.$el.find('.action-tabs').length)
+			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
 	}
 
 });
