@@ -111,8 +111,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(response.attachments)
 		{			
 			// Media
-			filtered.media = response.attachments[response.attachments.length -1];
-			filtered.media = (filtered.media.type == "image")? "picture" : filtered.media.type;
+			if(response.attachments.length)
+			{
+				filtered.media = response.attachments[response.attachments.length -1];
+				filtered.media = (filtered.media.type == "image")? "picture" : filtered.media.type;
+			}
 			
 			// Attachments
 			filtered.attached = {};
