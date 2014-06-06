@@ -43,7 +43,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 
 		//this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 		
