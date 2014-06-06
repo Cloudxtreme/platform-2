@@ -492,6 +492,13 @@ Style corrections and manual overrides
 
 #compose-content short > i{ margin-left:10px; color:#fff; cursor: pointer;}
 
+#compose-content.withdefault {
+	color: #CCCCCC !important;
+}
+
+#compose-content.withdefault short, #compose-content.withdefault a{
+	background-color: #BBB; color: #999;
+}
 /* embeded */
 
 #out{ 
