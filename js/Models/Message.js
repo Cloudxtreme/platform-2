@@ -76,7 +76,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'validateCustom' : function ()
 	{
-		if(this.get("attachments"))
+		
+		if(this.get("attachments") && this.get("attachments").length)
 			return this.get("attachments").length;
 		else
 			return this.get("body").html
