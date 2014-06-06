@@ -146,7 +146,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
-	
+		console.log(this.draft)
 	},
 
 	'render' : function ()
@@ -253,7 +253,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'defaultstreams' : function()
 	{
 		var variations = this.draft.get("variations");
-		
+		if(!variations)	return;
 		$.each(variations, function(i, variation){
 			this.$el.find("li[data-streams="+variation.stream+"]").click();
 		}.bind(this));
@@ -1027,7 +1027,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 			// Add preview view to Compose
 			this.$el.find('.switch-container').append(thanks);
-
+			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 		}.bind(this),400)
 
 		//Old thankyou logic
