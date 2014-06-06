@@ -44,7 +44,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
