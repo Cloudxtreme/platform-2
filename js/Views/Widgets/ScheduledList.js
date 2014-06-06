@@ -40,7 +40,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	{	
 		// Get template
 		this.$el.html (Mustache.render (Templates.scheduledlist, {title: this.title }));
-		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
+		//this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
