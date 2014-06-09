@@ -179,8 +179,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
 
 		// Add Datepicker and Timepicker
-		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
-		this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
+		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
+		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -321,7 +321,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("body"), this.draft.get("variations"))
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -365,6 +365,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else									this.$el.find("[data-type=icon]").addClass("hidden");
 		
 		// Toggle options
+		this.updateschedule();
+
 		this.closealloptions();
 		
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
@@ -382,7 +384,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.updatesubject();
 		this.updateimages();
 		this.summarizelink();
-		
+		this.summarizeschedule();
 	},
 
 	'updatesubject' : function()
@@ -740,6 +742,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Various data
 		var field = element || $(e.currentTarget);
+
+		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
+			this.draft.setvariation(this.activestream.id, "schedule", {});
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
@@ -777,7 +782,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			if (this.parsemoment("#delay-date") === undefined)
 			{
-				this.picker.datepicker('hide').val("");
+				this.datepicker.datepicker('hide').val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 			}
 		
@@ -834,8 +839,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{
-		// Schedule data
+	{	
+		// Schedule data		
+		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
+			this.draft.setvariation(this.activestream.id, "schedule", {});
+
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
@@ -853,6 +861,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));
 			
 			scheduled.date = date.unix();
+			
 		} 
 		
 		// Repeat
@@ -904,10 +913,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				
 		return this;
 	},
+
+	'updateschedule' : function(){
+		
+		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		var scheduled = variated? variated: this.draft.get("schedule");
+
+		if(scheduled.date){
+			this.datepicker.datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
+			this.timepicker.timepicker('update', moment.unix(scheduled.date).format("HH:mm"));	
+		}
+				
+
+	},
 	
 	'summarizerepeat' : function()
 	{
-				
+			
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
