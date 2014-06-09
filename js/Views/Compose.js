@@ -321,7 +321,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"))
+	{ 	console.log(this.draft.get("schedule"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -843,7 +843,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule data		
 		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});
-
+		console.log("time", $("#delay-time").val())
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
@@ -857,11 +857,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else if (select.filter("#delay-date").val())
 		{
 			var date = this.parsemoment("#delay-date");
-			if (select.filter("#delay-date").val())	var time = $("#delay-date").val().split(":");
+			
+			if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));
 			
-			scheduled.date = date.unix();
-			
+			scheduled.date = date.unix();			
 		} 
 		
 		// Repeat
@@ -879,7 +879,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			scheduled.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
 			scheduled.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
 		}
-		
+		console.log(scheduled)
 		return scheduled;
 	},
 	
@@ -918,10 +918,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
-
-		if(scheduled.date){
+		
+		if(scheduled.date){	
 			this.datepicker.datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
-			this.timepicker.timepicker('update', moment.unix(scheduled.date).format("HH:mm"));	
+			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
 		}
 				
 
