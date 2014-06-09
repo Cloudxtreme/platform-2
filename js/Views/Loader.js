@@ -21,7 +21,6 @@ Backbone.View = Backbone.View.extend({
 		for(i in states){
 			if(_.isArray(states[i])){
 				for(n in states[i]){
-					console.log("listen", states[i][n], i, length)
 					this.listenTo(model, states[i][n], this.loadRender.bind(this, Number(i)+1, length));					
 				}
 			}else{

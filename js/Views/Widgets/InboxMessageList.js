@@ -41,7 +41,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
 		
 		// Loader
-		this.loadListeners(this.collection, ['request', 'sync', 'ready']);
+		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']]);
 
 		//Empty & not empty
 		this.listenTo(this.collection, 'ready:empty', this.isempty);
