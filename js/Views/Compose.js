@@ -176,7 +176,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".campaign-list").chosen({width: "50%"});
 		
 		// Add Datepicker
-		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
+		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
 
 		// Add Datepicker and Timepicker
 		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
