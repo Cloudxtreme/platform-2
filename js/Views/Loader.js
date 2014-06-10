@@ -79,7 +79,7 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'emptylist' : function(){
-		//console.log("empty")
+		console.log("empty")
 		this.loadRender(99,99);
 		this.container.addClass('empty-list');
 		
