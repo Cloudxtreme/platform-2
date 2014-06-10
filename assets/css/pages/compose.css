@@ -184,41 +184,7 @@ Style corrections and manual overrides
  *	Collapseble options
 **/
 
-#compose section[data-type=options] .buttons .btn-white	{
-	display: block; float: left; width: 18%; margin: 0 1.25% 10px; height: 32px; box-sizing: border-box;
-	text-align: center;
-}
-
-#compose section[data-type=options] .buttons .btn-white:first-child	{ margin-left: 0; }
-
-#compose section[data-type=options] .buttons .btn-white:last-child	{ margin-right:0; }
-
-
-#compose section[data-type=options] {
-	
-}
-
-#compose article[data-collapsable]	{
-	float: left; width: 15%; margin: 0 3% 10px; 
-}
-
-#compose article[data-collapsable] *	{ display: none; }
-
-
-
-
-#compose article[data-collapsable].expanded	{
-	float: none; width: 100%; margin: 12px 0; border-bottom: 1px solid #e6e6e6; *zoom:1; 
-}
-
-#compose article[data-collapsable].expanded:before,
-#compose article[data-collapsable].expanded:after	{
-	display:table; line-height:0; content:"";
-}
-#compose article[data-collapsable].expanded:after	{ clear:both; }
-
-
-/*#compose section[data-collapsable]	{
+#compose section[data-collapsable]	{
 	margin-bottom: 12px; border-bottom: 1px solid #e6e6e6;
 }
 
@@ -261,7 +227,7 @@ Style corrections and manual overrides
 
 #compose [data-collapsable] .input-symbol input	{
 	padding-left: 24px;
-}*/
+}
 
 /**
  *	Collapsable: images
@@ -590,4 +556,3 @@ Style corrections and manual overrides
 	margin-top: -8px;
 	cursor: pointer;;
 }
-
