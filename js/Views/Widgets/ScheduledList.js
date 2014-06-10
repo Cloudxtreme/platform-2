@@ -32,6 +32,9 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'ready', this.showmore);
+
+		// Load listeners
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -43,8 +46,6 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		// Get template
 		this.$el.html (Mustache.render (Templates.scheduledlist, {title: this.title }));
 		
-		// Load listeners
-		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']]);
 		//this.model.messages.on('all', function(a){console.log(a)})
 
 		this.$container = this.$el.find ('.messages-container');
