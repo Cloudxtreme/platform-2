@@ -1170,7 +1170,7 @@ tbody.messages-container i	{
 
 .progress-bar{
 	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1; top: 0px; left: 0px;
-	-webkit-transition: width 1000ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+	-webkit-transition: width 1000ms cubic-bezier(0.785, 0.135, 0.150, 0.860); -moz-transition: width 1000ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
 .progress-bar.loaded{
@@ -1178,6 +1178,7 @@ tbody.messages-container i	{
 	width: 100%;
 	opacity: 0;
 	-webkit-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
+	-moz-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 }
 
 .tip{
@@ -1186,36 +1187,36 @@ tbody.messages-container i	{
 
 .toload{ min-height: 5px; }
 .toload, .loaded{ position: relative; overflow: hidden; }
-ul.toload, .toload ul{max-height: 5px !important; -webkit-transition: all .9s ease-out .1s; }
+ul.toload, .toload ul{max-height: 5px !important; -webkit-transition: all .9s ease-out .1s; -moz-transition: all .9s ease-out .1s;}
 ul.loaded, .loaded ul{max-height: 9999px !important;}
 ul.loaded{ min-height: 5px;}
 .toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
 /*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/
-.loaded li, .loaded tr{	-webkit-transition: opacity .15s ease-out .5s;}
+.loaded li, .loaded tr{	-webkit-transition: opacity .15s ease-out .5s; -moz-transition: opacity .15s ease-out .5s;}
 /* Rollback effect */
-.toload li:nth-child(1), .toload tr:nth-child(1){	-webkit-transition: all .15s ease-out .45s; }
-.toload li:nth-child(2), .toload tr:nth-child(2){	-webkit-transition: all .15s ease-out .4s; }
-.toload li:nth-child(3), .toload tr:nth-child(3){	-webkit-transition: all .15s ease-out .35s; }
-.toload li:nth-child(4), .toload tr:nth-child(4){	-webkit-transition: all .15s ease-out .3s; }
-.toload li:nth-child(5), .toload tr:nth-child(5){	-webkit-transition: all .15s ease-out .25s; }
-.toload li:nth-child(6), .toload tr:nth-child(6){	-webkit-transition: all .15s ease-out .2s; }
-.toload li:nth-child(7), .toload tr:nth-child(7){	-webkit-transition: all .15s ease-out .15s; }
-.toload li:nth-child(8), .toload tr:nth-child(8){	-webkit-transition: all .15s ease-out .1s; }
-.toload li:nth-child(9), .toload tr:nth-child(9){	-webkit-transition: all .15s ease-out .5s; }
+.toload li:nth-child(1), .toload tr:nth-child(1){	-webkit-transition: all .15s ease-out .45s; -moz-transition: all .15s ease-out .45s;}
+.toload li:nth-child(2), .toload tr:nth-child(2){	-webkit-transition: all .15s ease-out .4s; 	-moz-transition: all .15s ease-out .4s; }
+.toload li:nth-child(3), .toload tr:nth-child(3){	-webkit-transition: all .15s ease-out .35s; -moz-transition: all .15s ease-out .35s;}
+.toload li:nth-child(4), .toload tr:nth-child(4){	-webkit-transition: all .15s ease-out .3s;  -moz-transition: all .15s ease-out .3s;}
+.toload li:nth-child(5), .toload tr:nth-child(5){	-webkit-transition: all .15s ease-out .25s; -moz-transition: all .15s ease-out .25s;}
+.toload li:nth-child(6), .toload tr:nth-child(6){	-webkit-transition: all .15s ease-out .2s;  -moz-transition: all .15s ease-out .2s;}
+.toload li:nth-child(7), .toload tr:nth-child(7){	-webkit-transition: all .15s ease-out .15s; -moz-transition: all .15s ease-out .15s;}
+.toload li:nth-child(8), .toload tr:nth-child(8){	-webkit-transition: all .15s ease-out .1s;  -moz-transition: all .15s ease-out .1s;}
+.toload li:nth-child(9), .toload tr:nth-child(9){	-webkit-transition: all .15s ease-out .5s;  -moz-transition: all .15s ease-out .5s;}
 /* Loader effect */
-.loaded li:nth-child(1), .loaded tr:nth-child(1){	-webkit-transition: opacity .15s ease-out .1s; }
-.loaded li:nth-child(2), .loaded tr:nth-child(2){	-webkit-transition: opacity .15s ease-out .1s; }
-.loaded li:nth-child(3), .loaded tr:nth-child(3){	-webkit-transition: opacity .15s ease-out .15s; }
-.loaded li:nth-child(4), .loaded tr:nth-child(4){	-webkit-transition: opacity .15s ease-out .2s; }
-.loaded li:nth-child(5), .loaded tr:nth-child(5){	-webkit-transition: opacity .15s ease-out .25s; }
-.loaded li:nth-child(6), .loaded tr:nth-child(6){	-webkit-transition: opacity .15s ease-out .3s; }
-.loaded li:nth-child(7), .loaded tr:nth-child(7){	-webkit-transition: opacity .15s ease-out .35s; }
-.loaded li:nth-child(8), .loaded tr:nth-child(8){	-webkit-transition: opacity .15s ease-out .4s; }
-.loaded li:nth-child(9), .loaded tr:nth-child(9){	-webkit-transition: opacity .15s ease-out .45s; }
+.loaded li:nth-child(1), .loaded tr:nth-child(1){	-webkit-transition: opacity .15s ease-out .1s; 	-moz-transition: opacity .15s ease-out .1s;}
+.loaded li:nth-child(2), .loaded tr:nth-child(2){	-webkit-transition: opacity .15s ease-out .1s; 	-moz-transition: opacity .15s ease-out .1s;}
+.loaded li:nth-child(3), .loaded tr:nth-child(3){	-webkit-transition: opacity .15s ease-out .15s; -moz-transition: opacity .15s ease-out .15s;}
+.loaded li:nth-child(4), .loaded tr:nth-child(4){	-webkit-transition: opacity .15s ease-out .2s; 	-moz-transition: opacity .15s ease-out .2s;}
+.loaded li:nth-child(5), .loaded tr:nth-child(5){	-webkit-transition: opacity .15s ease-out .25s; -moz-transition: opacity .15s ease-out .25s;}
+.loaded li:nth-child(6), .loaded tr:nth-child(6){	-webkit-transition: opacity .15s ease-out .3s; 	-moz-transition: opacity .15s ease-out .3s;}
+.loaded li:nth-child(7), .loaded tr:nth-child(7){	-webkit-transition: opacity .15s ease-out .35s; -moz-transition: opacity .15s ease-out .35s;}
+.loaded li:nth-child(8), .loaded tr:nth-child(8){	-webkit-transition: opacity .15s ease-out .4s; 	-moz-transition: opacity .15s ease-out .4s;}
+.loaded li:nth-child(9), .loaded tr:nth-child(9){	-webkit-transition: opacity .15s ease-out .45s; -moz-transition: opacity .15s ease-out .45s;}
 
 /* Empty list */
-.empty-list{-webkit-transition: all .25s ease-out heigh: 5px;}
-.empty-list.loaded{ max-height: 60px !important; height: 60px; background-color: #eee !important; -webkit-transition: all .15s ease-out}
+.empty-list{-webkit-transition: all .25s ease-out heigh: 5px; -moz-transition: all .25s ease-out heigh: 5px;}
+.empty-list.loaded{ max-height: 60px !important; height: 60px; background-color: #eee !important; -moz-transition: all .15s ease-out; -webkit-transition: all .15s ease-out}
 
 .empty-list:before{ 
 	font-family: FontAwesome; font-size: 21px; color: #3d3d3d; content: "\F042"; color: #ddd; 

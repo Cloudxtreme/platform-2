@@ -15,16 +15,19 @@
 
 Backbone.View = Backbone.View.extend({
 	
-	'loadListeners' : function(model, states){
+	'loadListeners' : function(model, states, once){
 		var length = states.length;
+		var listentype = 'listenTo';
+
+		if(once)	listentype = 'listenToOnce'
 
 		for(i in states){
 			if(_.isArray(states[i])){
 				for(n in states[i]){
-					this.listenTo(model, states[i][n], this.loadRender.bind(this, Number(i)+1, length));					
+					this[listentype](model, states[i][n], this.loadRender.bind(this, Number(i)+1, length));					
 				}
 			}else{
-				this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
+				this[listentype](model, states[i], this.loadRender.bind(this, Number(i)+1, length));
 			}
 		}
 
@@ -79,7 +82,7 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'emptylist' : function(){
-		console.log("empty")
+		
 		this.loadRender(99,99);
 		this.container.addClass('empty-list');
 		

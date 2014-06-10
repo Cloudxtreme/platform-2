@@ -33,6 +33,18 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
 		
+		//Load all listeners
+		this.loadmylisteners();
+		
+		// Watch outdated
+		this.updateable(this.model, "h3.page-title");
+	},
+
+	'loadmylisteners' : function(recycle){
+
+		if(recycle)
+			this.stopListening(this.collection);
+
 		// Listen to model
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
@@ -41,16 +53,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
-		
-		// Loader
-		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']]);
 
 		//Empty & not empty
 		this.listenTo(this.collection, 'ready:empty', this.isempty);
 		this.listenTo(this.collection, 'request', this.unsetempty);
-		
-		// Watch outdated
-		this.updateable(this.model, "h3.page-title");
+
+		//listenToOnce
+		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 	},
 	
 	'toggleall' : function ()
@@ -297,6 +306,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filternetworks' : function (e, all)
 	{
+		this.loadmylisteners(true);	
 		
 		// Check button state
 		if(!all)
@@ -322,12 +332,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Fetch filtered messages
 		this.collection.touch(this.model, this.filterparameters());
-		
+
 		return this;
 	},
 	
 	'filterstreams' : function (e, all)
 	{
+		this.loadmylisteners(true);
 		
 		// Check button state
 		if(!all)
