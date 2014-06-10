@@ -98,6 +98,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(model.attributes.date)		delete model.attributes.date;
 		if(model.attributes.stream)		delete model.attributes.stream;
 		if(model.attributes.streams)	delete model.attributes.streams;
+		
+		// A clone shouldn't have an id
+		if(model.id)
+		{
+			delete model.id; delete model.attributes.id;
+		}
 	
 		return model;	
 	},
