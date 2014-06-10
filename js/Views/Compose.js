@@ -341,7 +341,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"))
+	{ 	//console.log(this.draft)
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -671,8 +671,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Campaign id
 		var result = $(e.currentTarget).val();
-	
-		this.draft.set("campaign", Number(result));
+
+		if(result == 0)	this.removecampaign();
+		else			this.draft.set("campaign", Number(result));		
 		
 		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	},
@@ -711,6 +712,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		select.trigger('chosen:updated');
 		
+	},
+
+	'removecampaign' : function(){
+
+		if(this.draft.get("campaign"))
+			delete this.draft.attributes.campaign;
 	},
 	
 	
