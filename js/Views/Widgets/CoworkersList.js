@@ -22,7 +22,6 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'ready', this.showmore);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
-		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -36,6 +35,8 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
+
+		this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
