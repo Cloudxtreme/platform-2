@@ -320,7 +320,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"))
+	{ 	console.log(this.draft.get("schedule"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -842,7 +842,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule data		
 		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});
-		
+		console.log("time", $("#delay-time").val())
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
@@ -877,17 +877,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			scheduled.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
 			scheduled.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
-
-			//Create temporary object to store variation settings
-			var repsettings = {};
-
-			repsettings.interval = $("#repeat-interval").val() || null;
-			repsettings.every = $("#every-select").val() || null;
-			repsettings.everyweek = $("#every-select-weekday").val() || null;
-
-			scheduled.repeat.settings = repsettings;
 		}
-		
+		console.log(scheduled)
 		return scheduled;
 	},
 	
@@ -921,6 +912,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				
 		return this;
 	},
+
+	'updateschedule' : function(){
+		
+		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		var scheduled = variated? variated: this.draft.get("schedule");
+		
+		if(scheduled.date){	
+			this.datepicker.datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
+			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
+		}
+				
+
+	},
 	
 	'summarizerepeat' : function()
 	{
@@ -953,31 +957,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 						
 		return this;
 	},
-
-	'updateschedule' : function(){
-		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
-		
-		//Update schedule time & date values on the UI 
-		if(scheduled.date){	
-			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
-			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
-		}
-
-		if(scheduled.repeat){
-			if(scheduled.repeat.until)
-				$(this.datepicker.get(1)).datepicker('update', moment.unix(scheduled.repeat.until).format("DD/MM/YYYY"));	
-
-			var repsettings = scheduled.repeat.settings || {};
-
-			if(repsettings.interval)	$("#repeat-interval").val(repsettings.interval);
-			if(repsettings.every)		$("#every-select").val(repsettings.every);
-			if(repsettings.everyweek)	$("#every-select-weekday").val(repsettings.everyweek);
-			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
-		}
-	},
 	
+
 	/**
 	 *	Finalize
 	**/
