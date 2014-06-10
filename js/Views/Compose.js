@@ -110,7 +110,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.action && this.type == "share")
 		{
-			this.draft = this.reference.clone();
+			// Clone, but filter out unwanted data.
+			this.draft = this.reference.cloneSanitized();
 		
 		} else if(this.action && this.reference)
 		{
@@ -126,7 +127,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		{
 			this.type = "edit";
 			this.draft = this.model;
-			//this.setDraft();			
+			
+			// Get Draft variations
+			this.draft.fetch({endpoint: "original", success: this.original.bind(this)});
 		}
 		
 		// Draft message
@@ -147,6 +150,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
 		
+	},
+	
+	'original' : function ()
+	{
+		// Convert dates to unix
+		if (this.draft.get("schedule"))	this.draft.get("schedule").date = moment(this.draft.get("schedule").date).unix();
+
+		
+		// Render for editor
+		this.render();
 	},
 
 	'render' : function ()
@@ -259,6 +272,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}.bind(this));
 	},
 	
+	'addstreamtab' : function (stream)
+	{
+		this.$el.find(".tabs-container > section")
+		
+		.append('<div class="stream-tab" data-stream="'+ stream.id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
+	},
+	
 	'togglestreams' : function (e)
 	{
 		var $tabs = this.$el.find(".tabs-container > section");
@@ -271,7 +291,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Switch buttons and tabs
 		if(!$btn.hasClass("active"))
 		{
-			$tabs.append('<div class="stream-tab" data-stream="'+ id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
+			this.addstreamtab(stream);
 			
 			// Add to draft
 			streamids.push(id);
@@ -911,7 +931,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty();
 		
-		if(scheduled.date)
+		if(scheduled && scheduled.date)
 		{
 			var time = scheduled.besttimetopost? "Best time to post": moment.unix(scheduled.date).format("HH:mm");
 			summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
@@ -930,7 +950,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var scheduled = this.parsescheduled();
 		
 		// Emergency breaks
-		if(!scheduled.repeat) return this;
+		if(!scheduled || !scheduled.repeat) return this;
 		
 		var summary = this.$el.find("[data-collapsable=repeat] .summary").empty();
 		var start = scheduled.date? moment.unix(scheduled.date): moment();
@@ -961,12 +981,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
 		//Update schedule time & date values on the UI 
-		if(scheduled.date){	
+		if(scheduled && scheduled.date){	
 			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
 			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
 		}
 
-		if(scheduled.repeat){
+		if(scheduled && scheduled.repeat){
 			if(scheduled.repeat.until)
 				$(this.datepicker.get(1)).datepicker('update', moment.unix(scheduled.repeat.until).format("DD/MM/YYYY"));	
 
@@ -1014,8 +1034,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.disablefooter();
 
 		if(!status || !_.isString(status))	status = "draft";
+		
+		// this.draft.sanitize();
 
-		this.draft.save({status: status}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		this.draft.save(this.draft.id? {variations: this.draft.get("variations"), update: true}: {status: status}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
@@ -1030,7 +1052,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!this.draft.get("streams").length) this.save("scheduled");
 		
 		// Or just post
-		else this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		else this.draft.save(this.draft.id? {variations: this.draft.get("variations"), status: "scheduled", update: true}: {status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 		
 	},
 	

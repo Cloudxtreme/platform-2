@@ -45,7 +45,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		// Load listeners
 		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']]);
-		this.model.messages.on('all', function(a){console.log(a)})
+		//this.model.messages.on('all', function(a){console.log(a)})
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');

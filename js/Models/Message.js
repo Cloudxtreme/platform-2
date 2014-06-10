@@ -80,8 +80,26 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(this.get("attachments") && this.get("attachments").length)
 			return this.get("attachments").length;
 		else
-			return this.get("body").html
+			return this.get("body").plaintext
 		
+	},
+	
+	'sanitize' : function ()
+	{
+		// Remove body HTML
+		if(this.attributes.body.html)  delete this.attributes.body.html;
+		
+	},
+	
+	'cloneSanitized' : function ()
+	{
+		var model = this.clone();
+		
+		if(model.attributes.date)		delete model.attributes.date;
+		if(model.attributes.stream)		delete model.attributes.stream;
+		if(model.attributes.streams)	delete model.attributes.streams;
+	
+		return model;	
 	},
 	
 	'checkloaded' : function (response)
@@ -95,7 +113,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var filtered = {};
 		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule", "variations"]
 		
-		$.each(values, function(n, value){ filtered[value] = response[value]});
+		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
 
 		// Stream		
@@ -201,6 +219,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		//Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
 	},
+	
+	/*'getOriginal' : function ()
+	{
+		
+	},*/
 	
 	/*Variation functions*/
 
