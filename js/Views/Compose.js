@@ -176,11 +176,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".campaign-list").chosen({width: "50%"});
 		
 		// Add Datepicker
-		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy'});
+		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
 
 		// Add Datepicker and Timepicker
-		this.picker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
-		this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
+		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
+		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -321,7 +321,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("body"), this.draft.get("variations"))
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"))
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -365,6 +365,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else									this.$el.find("[data-type=icon]").addClass("hidden");
 		
 		// Toggle options
+		this.updateschedule();
+
 		this.closealloptions();
 		
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
@@ -382,7 +384,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.updatesubject();
 		this.updateimages();
 		this.summarizelink();
-		
+		this.summarizeschedule();
 	},
 
 	'updatesubject' : function()
@@ -740,6 +742,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Various data
 		var field = element || $(e.currentTarget);
+
+		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
+			this.draft.setvariation(this.activestream.id, "schedule", {});
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
@@ -777,7 +782,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			if (this.parsemoment("#delay-date") === undefined)
 			{
-				this.picker.datepicker('hide').val("");
+				this.datepicker.datepicker('hide').val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 			}
 		
@@ -834,8 +839,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{
-		// Schedule data
+	{	
+		// Schedule data		
+		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
+			this.draft.setvariation(this.activestream.id, "schedule", {});
+		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
@@ -849,10 +857,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else if (select.filter("#delay-date").val())
 		{
 			var date = this.parsemoment("#delay-date");
-			if (select.filter("#delay-date").val())	var time = $("#delay-date").val().split(":");
+			
+			if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));
 			
-			scheduled.date = date.unix();
+			scheduled.date = date.unix();			
 		} 
 		
 		// Repeat
@@ -869,6 +878,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			scheduled.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
 			scheduled.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
+
+			//Create temporary object to store variation settings
+			var repsettings = {};
+
+			repsettings.interval = $("#repeat-interval").val() || null;
+			repsettings.every = $("#every-select").val() || null;
+			repsettings.everyweek = $("#every-select-weekday").val() || null;
+
+			scheduled.repeat.settings = repsettings;
 		}
 		
 		return scheduled;
@@ -907,7 +925,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
-				
+			
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
@@ -936,8 +954,31 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 						
 		return this;
 	},
-	
 
+	'updateschedule' : function(){
+		
+		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		var scheduled = variated? variated: this.draft.get("schedule");
+		
+		//Update schedule time & date values on the UI 
+		if(scheduled.date){	
+			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
+			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
+		}
+
+		if(scheduled.repeat){
+			if(scheduled.repeat.until)
+				$(this.datepicker.get(1)).datepicker('update', moment.unix(scheduled.repeat.until).format("DD/MM/YYYY"));	
+
+			var repsettings = scheduled.repeat.settings || {};
+
+			if(repsettings.interval)	$("#repeat-interval").val(repsettings.interval);
+			if(repsettings.every)		$("#every-select").val(repsettings.every);
+			if(repsettings.everyweek)	$("#every-select-weekday").val(repsettings.everyweek);
+			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
+		}
+	},
+	
 	/**
 	 *	Finalize
 	**/
@@ -1072,9 +1113,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	    
 	    return widthNoScroll - widthWithScroll;
 	},*/
-
+	
 	'isscrolling' : function(){		
-		return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
+		
+		if(this.$el.find('.stream-tabs').length)
+			return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
+		else if(this.$el.find('.action-tabs').length)
+			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
 	}
 
 });

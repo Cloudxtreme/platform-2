@@ -1,114 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6974561f-ac4f-4504-b5ea-05f74a9c3601" name="Default" comment="Rebuild.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/.gitignore" afterPath="$PROJECT_DIR$/build/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/data-tables/DT_bootstrap.css" afterPath="$PROJECT_DIR$/build/assets/plugins/data-tables/DT_bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/data-tables/DT_bootstrap.js" afterPath="$PROJECT_DIR$/build/assets/plugins/data-tables/DT_bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-editable/LICENSE-MIT" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-editable/LICENSE-MIT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/clockface/LICENSE-MIT" afterPath="$PROJECT_DIR$/build/assets/plugins/clockface/LICENSE-MIT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/flot/Makefile" afterPath="$PROJECT_DIR$/build/assets/plugins/flot/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/agenda-views.html" afterPath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/agenda-views.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.el.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.el.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/css/bootstrap-editable.css" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/css/bootstrap-editable.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/js/bootstrap-editable.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/js/bootstrap-editable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/js/bootstrap-editable.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-fileupload/bootstrap-editable-1.4.4/bootstrap-editable/js/bootstrap-editable.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.hr-HR.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.hr-HR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.pl-PL.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/locales/bootstrap-wysihtml5.pl-PL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/calendar.js" afterPath="$PROJECT_DIR$/build/assets/scripts/calendar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/charts.js" afterPath="$PROJECT_DIR$/build/assets/scripts/charts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/cloudwalkers.min.js" afterPath="$PROJECT_DIR$/build/js/cloudwalkers.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/coming-soon.js" afterPath="$PROJECT_DIR$/build/assets/scripts/coming-soon.js" />
+    <list default="true" id="6974561f-ac4f-4504-b5ea-05f74a9c3601" name="Default" comment="Rebuild">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/pages/compose.css" afterPath="$PROJECT_DIR$/build/assets/css/pages/compose.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/contact-us.js" afterPath="$PROJECT_DIR$/build/assets/scripts/contact-us.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/php/config/config.php" afterPath="$PROJECT_DIR$/build/php/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/config/config.php" afterPath="$PROJECT_DIR$/php/config/config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/php/BMGroup/CloudwalkersClient/templates/javascript/coworkerslist.jsml" afterPath="$PROJECT_DIR$/build/php/BMGroup/CloudwalkersClient/templates/javascript/coworkerslist.jsml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jcrop/crop-demo.php" afterPath="$PROJECT_DIR$/build/assets/plugins/jcrop/crop-demo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/default.html" afterPath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/gmaps/examples/elevation_locations.html" afterPath="$PROJECT_DIR$/build/assets/plugins/gmaps/examples/elevation_locations.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/gmaps/examples/elevation_routes.html" afterPath="$PROJECT_DIR$/build/assets/plugins/gmaps/examples/elevation_routes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/external-dragging.html" afterPath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/external-dragging.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-components.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-components.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-editable.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-editable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-fileupload.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-fileupload.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-image-crop.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-image-crop.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-samples.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-samples.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/form-wizard.js" afterPath="$PROJECT_DIR$/build/assets/scripts/form-wizard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/gallery.js" afterPath="$PROJECT_DIR$/build/assets/scripts/gallery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/glyphicons/images/glyphicons-white.svg" afterPath="$PROJECT_DIR$/build/assets/plugins/glyphicons/images/glyphicons-white.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/glyphicons/images/glyphicons.svg" afterPath="$PROJECT_DIR$/build/assets/plugins/glyphicons/images/glyphicons.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/images/glyphicons_halflings-white.svg" afterPath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/images/glyphicons_halflings-white.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/images/glyphicons_halflings.svg" afterPath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/images/glyphicons_halflings.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/pages/image-crop.css" afterPath="$PROJECT_DIR$/build/assets/css/pages/image-crop.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/inbox.js" afterPath="$PROJECT_DIR$/build/assets/scripts/inbox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/gritter/index.html" afterPath="$PROJECT_DIR$/build/assets/plugins/gritter/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/index.js" afterPath="$PROJECT_DIR$/build/assets/scripts/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-datetimepicker/sample/jquery/jquery-1.8.3.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-datetimepicker/sample/jquery/jquery-1.8.3.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery-migrate-1.2.1.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery-migrate-1.2.1.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.1.10.2-min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.1.10.2-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.blockui.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.blockui.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.bootpag.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.bootpag.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.cookie.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.cookie.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ar.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-bs.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-bs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-da.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-da.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-de.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-de.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-el.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-el.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-es.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-es.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-et.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-et.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-fa.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-fa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-gu.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-gu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-he.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-he.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-hr.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-hr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-hu.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-hu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-id.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-id.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-lv.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-lv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ml.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ml.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-my.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-my.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-nb.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-nb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-nl.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-nl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-pl.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-pl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ro.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ro.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ru.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-ru.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-sq.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-sq.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-sv.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-sv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-tr.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-tr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-uk.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-uk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-vi.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown-vi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/countdown/plugin/jquery.countdown.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/flot/jquery.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/flot/jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.mockjax.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.mockjax.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery-nestable/jquery.nestable.css" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery-nestable/jquery.nestable.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.sparkline.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.sparkline.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/lock.js" afterPath="$PROJECT_DIR$/build/assets/scripts/lock.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/login.js" afterPath="$PROJECT_DIR$/build/assets/scripts/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/maps-google.js" afterPath="$PROJECT_DIR$/build/assets/scripts/maps-google.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/maps-vector.js" afterPath="$PROJECT_DIR$/build/assets/scripts/maps-vector.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/scripts/modernizr.js" afterPath="$PROJECT_DIR$/build/assets/plugins/glyphicons_halflings/scripts/modernizr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/moment.min.js" afterPath="$PROJECT_DIR$/build/assets/plugins/moment.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery-multi-select/css/multi-select-metro.css" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery-multi-select/css/multi-select-metro.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery-multi-select/css/multi-select.css" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery-multi-select/css/multi-select.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/portlet-draggable.js" afterPath="$PROJECT_DIR$/build/assets/scripts/portlet-draggable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/jquery.pwstrength.bootstrap/src/pwstrength.js" afterPath="$PROJECT_DIR$/build/assets/plugins/jquery.pwstrength.bootstrap/src/pwstrength.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/php/BMGroup/CloudwalkersClient/templates/javascript/scheduledlist.jsml" afterPath="$PROJECT_DIR$/build/php/BMGroup/CloudwalkersClient/templates/javascript/scheduledlist.jsml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/search.js" afterPath="$PROJECT_DIR$/build/assets/scripts/search.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/selectable.html" afterPath="$PROJECT_DIR$/build/assets/plugins/fullcalendar/v1/demos/selectable.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/style-metro.css" afterPath="$PROJECT_DIR$/build/assets/css/style-metro.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/style-non-responsive.css" afterPath="$PROJECT_DIR$/build/assets/css/style-non-responsive.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/style-responsive.css" afterPath="$PROJECT_DIR$/build/assets/css/style-responsive.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/table-advanced.js" afterPath="$PROJECT_DIR$/build/assets/scripts/table-advanced.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/table-editable.js" afterPath="$PROJECT_DIR$/build/assets/scripts/table-editable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/table-managed.js" afterPath="$PROJECT_DIR$/build/assets/scripts/table-managed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/css/pages/tasks.css" afterPath="$PROJECT_DIR$/build/assets/css/pages/tasks.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/tasks.js" afterPath="$PROJECT_DIR$/build/assets/scripts/tasks.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/previews/template.html" afterPath="$PROJECT_DIR$/build/assets/previews/template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/ui-jqueryui.js" afterPath="$PROJECT_DIR$/build/assets/scripts/ui-jqueryui.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/ui-modals.js" afterPath="$PROJECT_DIR$/build/assets/scripts/ui-modals.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/ui-nestable.js" afterPath="$PROJECT_DIR$/build/assets/scripts/ui-nestable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/scripts/ui-sliders.js" afterPath="$PROJECT_DIR$/build/assets/scripts/ui-sliders.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" afterPath="$PROJECT_DIR$/build/assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" />
     </list>
     <ignored path="cloudwalkers-website.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -152,23 +50,34 @@
       <file leaf-file-name="oauth_client.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="3.3333333" vertical-offset="19116" max-vertical-offset="33606">
-              <folding>
-                <marker date="1401798999452" expanded="true" signature="59706:60816" placeholder="..." />
-                <marker date="1401798999452" expanded="true" signature="59713:59756" placeholder="..." />
-                <marker date="1401798999452" expanded="true" signature="59763:60808" placeholder="..." />
-                <marker date="1401798999452" expanded="true" signature="59852:60031" placeholder="..." />
-                <marker date="1401798999452" expanded="true" signature="60099:60271" placeholder="..." />
-                <marker date="1401798999452" expanded="true" signature="60333:60648" placeholder="..." />
-              </folding>
+            <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="0.0" vertical-offset="19116" max-vertical-offset="33696">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Home.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Home.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Controllers/Home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="9" selection-start="460" selection-end="460" vertical-scroll-proportion="0.61621624" vertical-offset="0" max-vertical-offset="1044">
+            <state line="8" column="9" selection-start="224" selection-end="224" vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="1044">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/php/config/db.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="288">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/php/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="1" selection-start="379" selection-end="379" vertical-scroll-proportion="0.45169386" vertical-offset="0" max-vertical-offset="1224">
               <folding />
             </state>
           </provider>
@@ -202,15 +111,16 @@
         <option value="$PROJECT_DIR$/templates/404.phpt" />
         <option value="$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Client.php" />
         <option value="$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php" />
+        <option value="$PROJECT_DIR$/php/config/config.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="188" />
-    <option name="y" value="95" />
-    <option name="width" value="1682" />
-    <option name="height" value="963" />
+    <option name="x" value="2057" />
+    <option name="y" value="27" />
+    <option name="width" value="1670" />
+    <option name="height" value="969" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -238,6 +148,92 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="php">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="php">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="config">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="php">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="BMGroup/CloudwalkersClient">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="php">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="BMGroup/CloudwalkersClient">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Controllers">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -360,20 +356,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="cloudwalkers-website">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -433,21 +415,25 @@
       <created>1401452007104</created>
       <updated>1401452007104</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Rebuild">
+      <created>1402303725287</created>
+      <updated>1402303725287</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="188" y="95" width="1682" height="963" extended-state="0" />
+    <frame x="2057" y="27" width="1670" height="969" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23008323" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23280098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31690928" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31690142" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -475,7 +461,8 @@
     </option>
     <MESSAGE value="Super high priority work.&#10;CLOUD-103 #resolve" />
     <MESSAGE value="Rebuild." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rebuild." />
+    <MESSAGE value="Rebuild" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rebuild" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -497,15 +484,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="0.0" vertical-offset="19116" max-vertical-offset="33696">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Controllers/Home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="9" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1044">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/http.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1993" column="13" selection-start="64199" selection-end="64199" vertical-scroll-proportion="0.0" vertical-offset="35874" max-vertical-offset="37944">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Controllers/Json.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="35" selection-start="1341" selection-end="1344" vertical-scroll-proportion="0.0" vertical-offset="972" max-vertical-offset="1152">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="267" column="66" selection-start="5710" selection-end="5710" vertical-scroll-proportion="0.0" vertical-offset="4554" max-vertical-offset="6228">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="0.0" vertical-offset="19116" max-vertical-offset="33606">
-          <folding>
-            <marker date="1401798999452" expanded="true" signature="59706:60816" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59713:59756" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59763:60808" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59852:60031" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60099:60271" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60333:60648" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -533,14 +548,7 @@
     <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1034" column="45" selection-start="32811" selection-end="32811" vertical-scroll-proportion="0.0" vertical-offset="18612" max-vertical-offset="33606">
-          <folding>
-            <marker date="1401798999452" expanded="true" signature="59706:60816" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59713:59756" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59763:60808" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59852:60031" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60099:60271" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60333:60648" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -568,14 +576,7 @@
     <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="66" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="33552">
-          <folding>
-            <marker date="1401798999452" expanded="true" signature="59706:60816" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59713:59756" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59763:60808" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59852:60031" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60099:60271" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60333:60648" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -628,18 +629,6 @@
         <state line="4" column="57" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="216" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1278" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/config/db.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="288">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/php/config/db-local.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="0" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="216" />
@@ -683,21 +672,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/libraries/oauth_client.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="3.3333333" vertical-offset="19116" max-vertical-offset="33606">
-          <folding>
-            <marker date="1401798999452" expanded="true" signature="59706:60816" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59713:59756" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59763:60808" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="59852:60031" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60099:60271" placeholder="..." />
-            <marker date="1401798999452" expanded="true" signature="60333:60648" placeholder="..." />
-          </folding>
+        <state line="1062" column="9" selection-start="33702" selection-end="33702" vertical-scroll-proportion="0.0" vertical-offset="19116" max-vertical-offset="33696">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/php/BMGroup/CloudwalkersClient/Controllers/Home.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="9" selection-start="460" selection-end="460" vertical-scroll-proportion="0.61621624" vertical-offset="0" max-vertical-offset="1044">
+        <state line="8" column="9" selection-start="224" selection-end="224" vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="1044">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/config/db.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="1" selection-start="379" selection-end="379" vertical-scroll-proportion="0.45169386" vertical-offset="0" max-vertical-offset="1224">
           <folding />
         </state>
       </provider>

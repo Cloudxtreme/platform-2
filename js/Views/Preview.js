@@ -23,7 +23,7 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 		// Create container view
 		var view = Mustache.render(Templates.preview, {networkclass: this.networkclasses[this.network]});
 		var template = "template.html";
-
+		
 		this.$el.html (view);
 		
 		$.get('/assets/previews/' + template, this.fill.bind(this));
@@ -34,7 +34,8 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 	'fill' : function (preview)
 	{
 		this.previewdata = {
-			body : this.model.get('body') || ""
+			body : this.model.get('body') || "",
+			profile : this.model.get('profile')
 		};
 
 		//Random load times
@@ -45,7 +46,7 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 			this.previewdata.image = img.data || img.url;
 			this.$el.find("#network").addClass("img"); 
 		}
-		
+		console.log(this.previewdata)
 		// Render preview (opacity:0)
 		var preview = Mustache.render(preview, this.previewdata);
 		this.$el.find("#pv-main").append(preview);

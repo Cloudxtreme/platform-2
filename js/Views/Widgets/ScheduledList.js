@@ -40,11 +40,14 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	{	
 		// Get template
 		this.$el.html (Mustache.render (Templates.scheduledlist, {title: this.title }));
-		//this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
+		
+		// Load listeners
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']]);
+		this.model.messages.on('all', function(a){console.log(a)})
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
-		//this.$el.find(".load-more").hide();
+		this.$el.find(".load-more").hide();
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
