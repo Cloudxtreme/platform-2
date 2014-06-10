@@ -30,6 +30,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		// Listen to model messages and users
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
+		this.listenTo(this.model.messages, 'ready', this.showmore);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -65,6 +66,13 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.$container.removeClass("inner-loading");
 		
 		if (this.model.messages.cursor)
+			//this.$el.find(".load-more").show();
+			this.hasmore = true;
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
 			this.$el.find(".load-more").show();
 	},
 	

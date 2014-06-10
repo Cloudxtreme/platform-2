@@ -28,8 +28,10 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		if (!this.model.messages) this.model.messages = new Cloudwalkers.Collections.Messages();
 		
 		// Listen to model messages and users
+
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
+		this.listenTo(this.model.messages, 'ready', this.showmore);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -67,6 +69,13 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container.removeClass("inner-loading");
 		
 		if (this.model.messages.cursor)
+			//this.$el.find(".load-more").show();
+			this.hasmore = true;
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
 			this.$el.find(".load-more").show();
 	},
 	

@@ -1,3 +1,4 @@
+
 Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.extend({
 
 	// To-do: if url streamid is given, load network-related only.
@@ -36,6 +37,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'sync', this.hideloading);
+		this.listenTo(this.collection, 'ready', this.showmore);
 
 		// Listen to contacts collection
 		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
@@ -114,11 +116,18 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'hideloading' : function (collection, response)
 	{
 		if(collection.cursor && response.channel[this.collectionstring].length)
-			this.$el.find(".load-more").show();
+			//this.$el.find(".load-more").show();
+			this.hasmore = true;
 
 		$(".inbox").removeClass("loading");
 		
 		this.$container.removeClass("inner-loading");
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
+			this.$el.find(".load-more").show();
 	},
 	
 	'hidemore' : function()

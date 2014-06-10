@@ -20,6 +20,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.listenTo(this.category.messages, 'seed', this.fill);
 		this.listenTo(this.category.messages, 'request', this.showloading);
 		this.listenTo(this.category.messages, 'sync', this.hideloading);
+		this.listenTo(this.category.messages, 'ready', this.showmore);
 				
 		// Load category messages
 		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
@@ -55,9 +56,16 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.find(".icon-cloud-download").hide();
 		
 		if (this.category.messages.cursor)
-			this.$el.find(".load-more").show();
+			//this.$el.find(".load-more").show();
+			this.hasmore = true;
 		
 		this.$container.removeClass("inner-loading");
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
+			this.$el.find(".load-more").show();
 	},
 	
 	'fill' : function (list)

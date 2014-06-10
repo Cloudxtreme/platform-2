@@ -20,6 +20,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		// Listen to model messages and users
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
+		this.listenTo(this.model.messages, 'ready', this.showmore);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
 		
@@ -54,6 +55,13 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container.removeClass("inner-loading");
 		
 		if (this.model.messages.cursor)
+			//this.$el.find(".load-more").show();
+			this.hasmore = true;
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
 			this.$el.find(".load-more").show();
 	},
 	
