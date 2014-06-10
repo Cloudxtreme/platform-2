@@ -229,10 +229,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{	
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
-		var collapsable = $btn.parent().toggleClass("collapsed");
+		var collapsable = $btn.parent().toggleClass("expanded");
 		
 		// Summarize
-		if(collapsable.hasClass("collapsed") && this["summarize" + option])
+		if(!collapsable.hasClass("expanded") && this["summarize" + option])
 		
 			this["summarize" + option]();
 	},
@@ -240,9 +240,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'closealloptions' : function ()
 	{
 		// All open collapsables
-		var collapsibles = this.$el.find("[data-collapsable]")
-			.not(".collapsed")
-			.addClass("collapsed")
+		var collapsibles = this.$el.find("[data-collapsable].expanded")
+			.removeClass("expanded")
 			.each( function(n, collapsible)
 			{
 				this["summarize" + $(collapsible).data("collapsable")]();
@@ -847,7 +846,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
 		
-		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
+		var select = this.$el.find("article[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
 		
 		// Schedule
