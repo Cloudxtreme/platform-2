@@ -46,8 +46,8 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		//this.$el.find(".load-more").hide();
 		
-		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']]);
-		
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
+		this.model.messages.on('all', function(a){console.log(a)})
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
 		
