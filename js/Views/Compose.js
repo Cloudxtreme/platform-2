@@ -1036,8 +1036,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!status || !_.isString(status))	status = "draft";
 		
 		// this.draft.sanitize();
-
-		this.draft.save(this.draft.id? {variations: this.draft.get("variations"), update: true}: {status: status}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		
+		if(this.draft.id)	this.draft.save({variations: this.draft.get("variations"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
@@ -1051,8 +1052,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Redirect streamless to draft
 		if(!this.draft.get("streams").length) this.save("scheduled");
 		
+		// Update a Patch
+		else if(this.draft.id) this.draft.save({variations: this.draft.get("variations"), status: "scheduled", update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		
 		// Or just post
-		else this.draft.save(this.draft.id? {variations: this.draft.get("variations"), status: "scheduled", update: true}: {status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
+		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this)});
+		
+		
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 		
 	},
