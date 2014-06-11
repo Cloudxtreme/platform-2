@@ -454,6 +454,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			}})(f);
 			
 			reader.readAsDataURL(f);
+			//Upload only one image
+			break;
 		}	
 	},
 	// Add to the variation or the default
@@ -467,6 +469,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					
 		this.summarizeimages(image);
 		this.listimage(image);
+
+		//Allow only one image
+		this.$el.find('li.add-file').remove();
 	},
 
 	//Add to summary
@@ -526,7 +531,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			}.bind(this));
 		}
 
-		picturescontainer.append(addbtn);
+		//Prevent more than one image
+		if(picturescontainer.find('li.images-thumb').length == 0)
+			picturescontainer.append(addbtn);
+
 	},
 
 	'toggleimages' : function(visible, multiple)
@@ -566,6 +574,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var image = $(e.currentTarget).remove();
 		var attachs = this.draft.get("attachments") || [];
 		var attachindex;
+		var addbtn = '<li class="add-file">+</li>';
 		
 		//Is it in the default attachments?
 		for (n in attachs){
@@ -583,6 +592,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		//Remove from the summary interface
 		this.$el.find('[data-collapsable=images] .summary [data-filename="'+image.data('filename')+'"]').remove();
+
+		//Re-add the add button
+		if(this.$el.find('ul.pictures-container li.images-thumb').length == 0)
+			this.$el.find("ul.pictures-container").append(addbtn);
 	},
 	
 	/**
