@@ -471,7 +471,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.listimage(image);
 
 		//Allow only one image
-		this.$el.find('li.add-file').remove();
+		this.disableimages();
 	},
 
 	//Add to summary
@@ -503,7 +503,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
 		var picturescontainer = this.$el.find("ul.pictures-container").empty();
-		var addbtn = '<li class="add-file">+</li>';
+		var picturescontainer = this.$el.find("ul.snapshots-container").empty();
 		var images = [];
 
 		//Add all variation images
@@ -533,7 +533,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		//Prevent more than one image
 		if(picturescontainer.find('li.images-thumb').length == 0)
-			picturescontainer.append(addbtn);
+			this.enableimages();			
 
 	},
 
@@ -562,6 +562,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var result = this.media.snapshot();
 		var snapshot = $("<li></li>").prependTo("ul.snapshots-container").attr("data-filename", moment().unix()).addClass('images-thumb').css('background-image', "url(" + result + ")");
 		
+		//Remove add button
+		this.disableimages();
+
 		this.draft.attach({type: 'image', data: result, name: moment().unix()});
 		
 		// Hide Photo Booth
@@ -574,7 +577,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var image = $(e.currentTarget).remove();
 		var attachs = this.draft.get("attachments") || [];
 		var attachindex;
-		var addbtn = '<li class="add-file">+</li>';
+		
 		
 		//Is it in the default attachments?
 		for (n in attachs){
@@ -595,7 +598,22 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		//Re-add the add button
 		if(this.$el.find('ul.pictures-container li.images-thumb').length == 0)
-			this.$el.find("ul.pictures-container").append(addbtn);
+			this.enableimages();
+	},
+
+	'enableimages' : function(){
+
+		var addbtn = '<li class="add-file">+</li>';
+		var addsnap = '<li class="add-snapshot">+</li>';
+
+		this.$el.find("ul.pictures-container").append(addbtn);
+		this.$el.find("ul.snapshots-container").append(addsnap);
+	},
+
+	'disableimages' : function(){
+
+		this.$el.find('li.add-file').remove();
+		this.$el.find('li.add-snapshot').remove();
 	},
 	
 	/**
