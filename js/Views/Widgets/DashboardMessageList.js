@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		
 		// Listen to model
 		this.listenTo(this.model.messages, 'seed', this.fill);
-		this.loadListeners(this.model.messages, ['request', 'sync', 'ready']);
+		this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 		
 		this.initializeWidget ();
 	},

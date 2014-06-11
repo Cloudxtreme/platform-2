@@ -19,7 +19,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'sync', this.hideloading);
 		
-		this.loadListeners(this.collection, ['request', 'sync']);
+		this.loadListeners(this.collection, ['request', 'sync'], true);
 	},
 
 	'render' : function ()
