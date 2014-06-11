@@ -25,6 +25,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'favourite': "Favourite",
 		'plusone':	"Plus one"
 	},
+
+	'limitations' : {
+
+	},
 	
 	'options' : {
 		false :			["editor","link","images","campaign","schedule","repeat"],
@@ -141,7 +145,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
 
-		this.loadListeners(this.draft, ['request', 'sync']);
+		this.loadListeners(this.draft, ['request', 'sync'], true);
 
 		//Twitter reply
 		//This is a hack indeed...What better way to make this?
@@ -1033,7 +1037,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'save' : function(status)
-	{
+	{	
 		// Prevent empty patch
 		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
@@ -1051,7 +1055,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'post' : function()
 	{		
 		// Prevent empty post
-		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
+		if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
 
 		//Disables footer action
 		this.disablefooter();
@@ -1156,6 +1161,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
 		else if(this.$el.find('.action-tabs').length)
 			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
+	},
+
+	'checklimitations' : function(type, attributes){
+
+		if(type == 'link'){
+
+		}
 	}
 
 });

@@ -16,6 +16,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'limit' : null,
 	'content' : '',
 	'pos' : 0,
+	'hasbeenwarned' : false,	//Has the limit char notice popped up alredy?
 
 	'posmap' : [],	
 	
@@ -116,8 +117,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(!this.currenturl && this.listentourl(content))
 				this.processurl();
 
-			if(extrachars <= 0)
-				this.greyout(extrachars, this.limit);		
+			if(extrachars <= 0){
+				this.greyout(extrachars, this.limit);
+				
+				if(!this.hasbeenwarned)	this.limitwarning();       			
+			}
+					
 		}
 
 		this.updatecounter(extrachars);	
@@ -499,7 +504,19 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 	
 
+	'limitwarning' : function(){
 
+		//Check here what type of warning to make
+
+		var warnings = {
+			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
+			'default' : "You have reached the limit number of characters for twitter. Any extra characters will be removed from the post."
+		}
+
+		Cloudwalkers.RootView.alert(warnings.default); 
+
+		this.hasbeenwarned = true;
+	},
 
 
 
