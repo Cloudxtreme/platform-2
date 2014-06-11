@@ -32,7 +32,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'append:content' : 'append',
 		
 		// Listen to $contenteditable
-		'keydown #compose-content' : 'listentochange',
+		'keyup #compose-content' : 'listentochange',
 		'paste #compose-content' : 'listentochange',
 		'blur #compose-content' : 'endchange',
 
@@ -40,9 +40,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'keydown #composeplaceholder' : 'updatecontainer',
 
 		/* Oembed data types */
-		//'click [data-type="title"] i' : 'addoetitle',
-		//'click [data-type="content"] i' : 'addoecontent',
-		//'click [data-type="image"] i' : 'addoeimg',
+		'click [data-type="title"] i' : 'addoetitle',
+		'click [data-type="content"] .addcontent' : 'addoecontent',
+		'click [data-type="image"] i' : 'addoeimg',
 
 		'mouseup #compose-content': 'savepos'
 
@@ -56,7 +56,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'xurlbasic' : /http|[w]{3}/g,
 	'xshortens' : /http|[w]{3}/g,
 	
-	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/gi,	
+	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,	
 	//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
@@ -104,14 +104,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.pos = this.cursorpos();
 	},
 	
-	'listentochange' : function(e) {
+	'listentochange' : function(reload) {
 
 		var content = this.$contenteditable.text();
 		var extrachars = this.limit - this.$contenteditable.text().length;;
-
+		//console.log("limit:", this.limit)
 		this.pos = this.cursorpos(); 
 
-		if(this.content !== content)
+		if(this.content !== content || reload)
 		{	
 			//Check for URL
 			if(!this.currenturl && this.listentourl(content))
@@ -120,7 +120,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(extrachars <= 0){
 				this.greyout(extrachars, this.limit);
 				
-				if(!this.hasbeenwarned)	this.limitwarning();       			
+				//if(!this.hasbeenwarned)	this.limitwarning();       			
 			}
 					
 		}
@@ -214,7 +214,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(url){	targetnode = i; this.currenturl = url[0]; return true; }
 
 		}.bind(this));
-
+		
 		return targetnode;
 	},
 
@@ -276,6 +276,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var sel = this.win.getSelection();
 		var range = this.document.createRange();
+
+		if(!this.$contenteditable.find('span').length)	return;
 
 		range.selectNodeContents(this.$contenteditable.find('span').get(0));
 		sel.removeAllRanges();
@@ -416,6 +418,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(chars >= 20) limit.removeClass().addClass('limit-counter');
 		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
 		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
+
+		if(!chars)	limit.hide();
 			
 		limit.empty().html(chars);
 	},
@@ -477,8 +481,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.$contenteditable.empty().html(val);
 			this.$contenteditable.removeClass("withdefault");
 		}
+
 		this.limit = this.restrictedstreams[this.network];
+		//console.log("network", this.network);
 		this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
+		//this.removegrey();
+		//this.listentochange(true);
 	},
 
 	'settextdefault' : function(){
@@ -518,14 +526,25 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.hasbeenwarned = true;
 	},
 
+	'addoetitle' : function(e){
+		var text = e.currentTarget.innerText;
+		//add tittle
+	},
 
+	'addoecontent' : function(e)
+	{	
+		var text = e.currentTarget.parentElement.textContent;
+		var content = this.$contenteditable.html();
+		content = content+'<br/>'+text;
 
+		this.$contenteditable.html(content);
+		this.trigger("change:content");
+	},	
 
-
-
-
-
-
+	'addoeimg' : function(e){
+		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
+		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
+	}
 
 
 
@@ -672,27 +691,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		return total;
 	},*/
-
-	'addoetitle' : function(e){
-		var text = e.currentTarget.innerText;
-		//add tittle
-	},
-
-	'addoecontent' : function(e){
-		var text = e.currentTarget.parentElement.parentElement.innerText;
-		var content = this.$contenteditable.html();
-		content = content+'<br/>'+text;
-
-		this.$contenteditable.html(content);
-		this.updatecontainer();
-
-		this.trigger("contentadded");
-	},	
-
-	'addoeimg' : function(e){
-		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
-		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
-	}
 
 
 });
