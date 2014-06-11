@@ -44,6 +44,9 @@ Backbone.View = Backbone.View.extend({
 	},
 
 	'loadRender' : function(index, length){
+
+		console.log(index, length)
+
 		//Just to make it moving from the beggining
 		if(!this.loader) return;
 

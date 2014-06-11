@@ -23,7 +23,9 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		this.listenTo(this.services, "ready", this.limited);
 		this.services.fetch();
 
-		this.loadListeners(this.services, ['request', 'sync', 'ready']);
+		this.services.on('all', function(a){console.log(a)})
+
+		this.loadListeners(this.services, ['available:ready', 'sync', 'ready'], true);
 
 	},
 	

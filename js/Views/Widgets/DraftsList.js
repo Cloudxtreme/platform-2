@@ -27,18 +27,15 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		// Add collection
 		if (!this.model.messages) this.model.messages = new Cloudwalkers.Collections.Messages();
 		
-		// Listen to model messages and users
-		this.listenTo(this.model.messages, 'seed', this.fill);
-		this.listenTo(this.model.messages, 'request', this.showloading);
-		this.listenTo(this.model.messages, 'ready', this.showmore);
-		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
 
 	},
 
 	'render' : function (params)
-	{
+	{ 
+		this.loadmylisteners(true);
+
 		// Get template
 		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
 		
@@ -46,12 +43,23 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		//this.$el.find(".load-more").hide();
 		
-		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
-		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
 		
 		return this;
+	},
+
+	'loadmylisteners' : function(recycle){
+
+		if(recycle)
+			this.stopListening(this.model.messages);
+
+		// Listen to model messages and users
+		this.listenTo(this.model.messages, 'seed', this.fill);
+		this.listenTo(this.model.messages, 'request', this.showloading);
+		this.listenTo(this.model.messages, 'ready', this.showmore);
+
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 	},
 	
 	'showloading' : function ()

@@ -15,16 +15,11 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 
 		// Clear the category (prevent non-change view failure)
 		this.category.set({messages: []});
-		
-		// Listen to category
-		this.listenTo(this.category.messages, 'seed', this.fill);
-		this.listenTo(this.category.messages, 'request', this.showloading);
-		this.listenTo(this.category.messages, 'sync', this.hideloading);
-		this.listenTo(this.category.messages, 'ready', this.showmore);
+
+		this.loadmylisteners();
 				
 		// Load category messages
 		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
-		this.loadListeners(this.category.messages, ['request', 'sync', 'ready']);
 		
 		// Watch outdated
 		this.updateable(this.category, "h3.page-title");
@@ -33,8 +28,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'render' : function ()
 	{
 		// Get template
-		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));
-		
+		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));		
+
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
@@ -43,6 +38,17 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.category.messages.touch(this.category, this.parameters);
 		
 		return this;
+	},
+
+	'loadmylisteners' : function(){
+
+		// Listen to category
+		this.listenTo(this.category.messages, 'seed', this.fill);
+		this.listenTo(this.category.messages, 'request', this.showloading);
+		this.listenTo(this.category.messages, 'sync', this.hideloading);
+		this.listenTo(this.category.messages, 'ready', this.showmore);
+
+		this.loadListeners(this.category.messages, ['request', 'sync', 'ready'], true);
 	},
 	
 	'showloading' : function ()
