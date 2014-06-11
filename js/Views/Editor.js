@@ -37,7 +37,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
-		'keydown #composeplaceholder' : 'updatecontainer',
 
 		/* Oembed data types */
 		'click [data-type="title"] i' : 'addoetitle',
@@ -104,7 +103,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.pos = this.cursorpos();
 	},
 	
-	'listentochange' : function(reload) {
+	'listentochange' : function(e, reload) {
 
 		var content = this.$contenteditable.text();
 		var extrachars = this.limit - this.$contenteditable.text().length;;
@@ -129,12 +128,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.content = this.$contenteditable.text();
 
 		//Default text styling
-		if(this.isdefault){
+		if(this.isdefault && !reload){
 			this.$contenteditable.removeClass("withdefault");
 			this.isdefault = false;
 		}
 
 		this.trigger('change:content', this.content);
+
+		if(reload)	this.clearselections();
 	},
 
 
@@ -272,7 +273,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	},
 
-	'removegrey' : function(){
+	'removegrey' : function(collapse){
 
 		var sel = this.win.getSelection();
 		var range = this.document.createRange();
@@ -288,6 +289,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
         document.execCommand('removeFormat', false, null);
         
         this.contenteditable.designMode = "off";
+
+        //sel.collapse(this.$contenteditable.find('span').get(0),1);
 	},
 
 	'mergechars' : function(){
@@ -418,8 +421,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(chars >= 20) limit.removeClass().addClass('limit-counter');
 		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
 		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
-
-		if(!chars)	limit.hide();
 			
 		limit.empty().html(chars);
 	},
@@ -462,18 +463,18 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'togglecontent' : function(data, setdefault)
 	{	
 		if(data){
-			var stream = _.isNumber(data) ? data : null;
-			var val = _.isObject(data) ? data.html : null;
+			var stream = _.isNumber(data.id) ? data.id : null;
+			var val = _.isObject(data.data) ? data.data.html : null;
 			var network = stream? Cloudwalkers.Session.getStream(stream).get("network").token : null;
 		}
-
+		
 		this.network = network ? network : 'default'; //Keep track of what network we are viewing
 		
 		if(network && !val){	//Tab with the default's text 
 			this.$contenteditable.empty().html(this.draft.get("body").html);
 			this.$contenteditable.addClass("withdefault");
 			this.isdefault = true;
-		}else if(!data){		//Tab without any specific content (on default tab)
+		}else if(!stream){		//Tab without any specific content (on default tab)
 			this.$contenteditable.empty().html(this.draft.get("body").html);
 			this.$contenteditable.removeClass("withdefault");
 		}else{					//Tab with specific content
@@ -483,34 +484,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 
 		this.limit = this.restrictedstreams[this.network];
-		//console.log("network", this.network);
-		this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
-		//this.removegrey();
-		//this.listentochange(true);
+		
+		//this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
+		this.removegrey(true);
+		this.listentochange(null, true);
 	},
-
-	'settextdefault' : function(){
-
-		var sel, range, preCaretRange, nodelength, currentnode;
-		
-		sel = this.win.getSelection();
-		range = this.document.createRange();
-		range.selectNodeContents(this.$contenteditable.get(0));
-
-		sel.removeAllRanges();
-        sel.addRange(range);
-
-        this.contenteditable.designMode = "on";
-       	
-		document.execCommand('foreColor', false, '#CCCCCC');
-		
-		this.contenteditable.designMode = "off";
-		sel.collapse(this.$contenteditable.get(0),0);		
-		range.collapse(false);
-
-		
-	},
-	
 
 	'limitwarning' : function(){
 
@@ -544,7 +522,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'addoeimg' : function(e){
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
-	}
+	},
+
+	'clearselections' : function()
+	{
+		if (window.getSelection) {
+		  	if (window.getSelection().empty) {  // Chrome
+		    	window.getSelection().empty();
+		  	} else if (window.getSelection().removeAllRanges) {  // Firefox
+		    	window.getSelection().removeAllRanges();
+		  	}
+		} else if (document.selection) {  // IE?
+		  	document.selection.empty();
+		}
+	},
 
 
 

@@ -404,7 +404,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.togglerepeat(options.indexOf("repeat") >= 0);
 		
 		// Update content, images and links
-		this.trigger("update:stream", this.draft.getvariation(id, 'body') || id);
+		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
 		this.updatesubject();
 		this.updateimages();
 		this.summarizelink();
