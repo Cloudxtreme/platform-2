@@ -387,7 +387,11 @@
       <created>1402485111174</created>
       <updated>1402485111174</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Version increase.">
+      <created>1402485151894</created>
+      <updated>1402485151894</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
