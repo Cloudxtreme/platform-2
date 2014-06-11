@@ -22,6 +22,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'ready', this.showmore);
 		//this.listenTo(this.model.messages, 'sync', this.hideloading);
+
+		//Show all reloads te listeners
+		this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
@@ -29,6 +32,8 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'render' : function (params)
 	{	
+		this.loadmylisteners();
+		
 		// Get template
 		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
 		
@@ -42,6 +47,11 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.model.messages.touch(this.model, params? params: this.parameters);
 		
 		return this;
+	},
+
+	'loadmylisteners' : function(){
+		
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 	},
 	
 	'showloading' : function ()

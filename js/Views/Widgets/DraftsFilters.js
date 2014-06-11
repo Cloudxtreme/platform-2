@@ -22,6 +22,7 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 		// Listen to contacts collection
 		//this.listenTo(this.model.users, 'add', this.fill);
 		this.listenTo(this.model.users, 'add', this.comparesuggestions);
+		
     },
 
 	'render' : function ()
@@ -54,6 +55,9 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		this.showsuggestions(this.model.users.models);
 		
+		//triggers the list to re-listen to events
+		this.model.messages.trigger('update:content');
+
 		// Load category message
 		this.model.messages.touch(this.model, {records: 20});
 	},

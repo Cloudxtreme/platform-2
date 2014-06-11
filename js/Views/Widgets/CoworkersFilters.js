@@ -53,6 +53,10 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	'toggleall' : function ()
 	{
 		this.showsuggestions(this.model.users.models);
+
+		//triggers the list to re-listen to events
+		this.model.messages.trigger('update:content');
+
 		
 		// Load category message
 		this.model.messages.touch(this.model, {records: 20});
