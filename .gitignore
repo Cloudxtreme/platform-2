@@ -2,4 +2,4 @@ php/config/db-local.php
 /.settings
 /.buildpath
 /.project
-.idea/workspace.xml
+/.idea/workspace.xml
