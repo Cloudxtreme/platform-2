@@ -78,8 +78,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .add-campaign' : 'toggleaddcampaign',
 		
 		'click .schedule-entry' : 'monitorschedule',
-		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input' : 'monitorschedule',
+		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input'  : 'monitorschedule',
 		'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+		'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		'changeDate input' : 'monitorschedule',
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 
@@ -357,6 +358,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'togglesubcontent' : function (stream)
 	{ 	//console.log(this.draft)
+		
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -819,7 +821,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitorschedule' : function(e, element)
-	{
+	{	
 		// Various data
 		var field = element || $(e.currentTarget);
 
