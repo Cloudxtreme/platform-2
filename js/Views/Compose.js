@@ -806,20 +806,26 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
-	'parsemoment' : function(selector)
+	'parsemoment' : function(selectordate, selectortime)
 	{
-		var field = $(selector);
+		var seldate = $(selectordate);
+		var seltime = $(selectortime);
 		
 		// Prevent empty
-		if(!field.val()) return null;
+		if(!seldate.val() || !seltime.val()) return null;
 		
-		var date = moment(field.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY","DD/MM/YY","DDMMYYYY","YYYYMMDD","MM-DD-YYYY","MM-DD-YY"]);
-		
+		var date = moment(seldate.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY","DD/MM/YY","DDMMYYYY","YYYYMMDD","MM-DD-YYYY","MM-DD-YY"]);
+		var time = seltime.val().split(":");
+		var newdate = _.clone(date);
+
+		if (time.length > 1) 
+			newdate.add('minutes', Number(time[0])*60 + Number(time[1]));
+
 		// Validate
-		if(!date.isValid()) return undefined;
+		if(!newdate.isValid()) return undefined;
 		
 		// Future-check
-		return date.unix() < moment().unix()? undefined: date;
+		return newdate.unix() < moment().unix()? undefined: newdate;
 	},
 	
 	'monitorschedule' : function(e, element)
@@ -864,7 +870,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("[data-set=in] select").val(600);
 
 			// Data
-			if (this.parsemoment("#delay-date") === undefined)
+			if (this.parsemoment("#delay-date", "#delay-time") === undefined)
 			{
 				this.datepicker.datepicker('hide').val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
@@ -937,10 +943,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		else if (select.filter("#delay-date").val())
 		{
-			var date = this.parsemoment("#delay-date");
+			var date = this.parsemoment("#delay-date", "#delay-time");
 			
-			if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
-			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));
+			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
+			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
 			scheduled.date = date.unix();			
 		} 
