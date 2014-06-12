@@ -173,6 +173,10 @@
 			
 			<div class="collapsable-content some-margin">
 				
+				<div class="schedule-entry" data-set="now">
+					<label class="icon-ok-circle">No repeat</label>
+				</div>
+				
 				<div class="schedule-entry inactive single-toggle" data-set="every">
 				
 					<label class="icon-circle-blank">every</label>
