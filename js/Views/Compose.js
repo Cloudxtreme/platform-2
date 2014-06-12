@@ -108,6 +108,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
+
 		
 		// Proccess actions
 		if(this.action) this.type = this.action.get("token");
@@ -157,13 +158,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'original' : function ()
-	{
+	{	
+		var variations;
+
 		// Convert dates to unix
 		if (this.draft.get("schedule"))	this.draft.get("schedule").date = moment(this.draft.get("schedule").date).unix();
+		if (variations = this.draft.get("variations"))
+		{
+			$.each(variations, function(i, variation)
+			{
+				if(variation.schedule)
+					variation.schedule.date = moment(variation.schedule.date).unix();
+			})
+		}
 
-		
 		// Render for editor
 		this.render();
+
 	},
 
 	'render' : function ()
@@ -405,9 +416,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Update content, images and links
 		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
+
 		this.updatesubject();
+
 		this.updateimages();
+
 		this.summarizelink();
+
 		this.summarizeschedule();
 	},
 
@@ -708,7 +723,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var result = $(e.currentTarget).val();
 
 		if(result == 0)	this.removecampaign();
-		else			this.draft.set("campaign", Number(result));		
+		else			{this.draft.set("campaign", Number(result)); this.trigger('update:campaign', Number(result)); }
 		
 		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	},
@@ -729,6 +744,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var campaigns = account.get("campaigns");
 			
 			this.draft.set("campaign", campaigns[campaigns.length -1].id);
+			this.trigger('update:campaign', campaigns[campaigns.length -1].id);
 			
 			// Close it
 			this.reloadcampaigns(campaigns);
@@ -751,8 +767,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'removecampaign' : function(){
 
-		if(this.draft.get("campaign"))
+		if(this.draft.get("campaign")){
 			delete this.draft.attributes.campaign;
+			this.trigger('update:campaign', null);
+		}
 	},
 	
 	
@@ -900,8 +918,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'parsescheduled' : function()
 	{	
 		// Schedule data		
-		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
-			this.draft.setvariation(this.activestream.id, "schedule", {});
+		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
+			this.draft.setvariation(this.activestream.id, "schedule", {});*/
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
@@ -964,11 +982,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'summarizeschedule' : function ()
-	{
+	{	
 		// Collect the data
 		var scheduled = this.parsescheduled();
-		
-		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty();
+
+		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty()
 		
 		if(scheduled && scheduled.date)
 		{
