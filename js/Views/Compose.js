@@ -244,7 +244,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamid = this.activestream ? this.activestream.id : false;
 		var content = target.html() || target.val();
 		var plaincontent = target.text();
-		var object = target.attr("data-option") || "subject";
+		var object = target.attr("data-option");
 
 		if(object == 'body')
 			content = {'html' : content, 'plaintext' : plaincontent};
@@ -357,7 +357,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft)
+	{ 	
 		
 		this.activestream = stream;
 		
