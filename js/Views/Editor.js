@@ -40,7 +40,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'click #swaplink' : 'swaplink',
 
 		/* Oembed data types */
-		'click [data-type="title"] i' : 'addoetitle',
+		'click [data-type="title"] .addcontent' : 'addoecontent',
 		'click [data-type="content"] .addcontent' : 'addoecontent',
 		'click [data-type="image"] i' : 'addoeimg',
 
@@ -232,12 +232,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var campaignid = this.draft.get("campaign");
 		var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
 		var campaign = campaigns.filter(function(el){ if(el.id == campaignid) return el; })
+
+		var campaignname = campaign.length ? campaign[0].name : null
 		
 		// Trim & request shortened
 		if (urls && !this.urlprocessing){
 			this.urlprocessing = true;
 			this.urls = urls;
-			this.shortenurls(urls, campaign[0].name);
+			this.shortenurls(urls, campaignname);
 		}
 
 		return content;
@@ -543,7 +545,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var text = e.currentTarget.parentElement.textContent;
 		var content = this.$contenteditable.html();
 		content = content+'<br/>'+text;
-
+		
 		this.$contenteditable.html(content);
 		this.trigger("change:content");
 	},	
