@@ -22,7 +22,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'posmap' : [],	
 	
 	// Should be outside Editor, should be in compose
-	'restrictedstreams' : {'twitter' :14, 'linkedin' : 700},
+	'restrictedstreams' : {'twitter' :140, 'linkedin' : 700},
 	//'restrictedstreams' : ['twitter', 'default'],
 	
 	'events' : {
