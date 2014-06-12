@@ -22,7 +22,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'posmap' : [],	
 	
 	// Should be outside Editor, should be in compose
-	'restrictedstreams' : {'twitter' :140, 'linkedin' : 700},
+	'restrictedstreams' : {'twitter' :14, 'linkedin' : 700},
 	//'restrictedstreams' : ['twitter', 'default'],
 	
 	'events' : {
@@ -68,6 +68,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl);
 		this.listenTo(this.parent, "update:stream", function(data){this.togglecontent(data, true)}.bind(this));
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
+
+		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
+			this.isfirefox = true;
 		
 	},
 
@@ -226,14 +229,15 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Match url
 		var urls = content.match(this.xurlpattern);
-		var campaign = this.draft.get('campaign');
-		
+		var campaignid = this.draft.get("campaign");
+		var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
+		var campaign = campaigns.filter(function(el){ if(el.id == campaignid) return el; })
 		
 		// Trim & request shortened
 		if (urls && !this.urlprocessing){
 			this.urlprocessing = true;
 			this.urls = urls;
-			this.shortenurls(urls, campaign);
+			this.shortenurls(urls, campaign[0].name);
 		}
 
 		return content;
@@ -555,7 +559,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		  	if (window.getSelection().empty) {  // Chrome
 		    	window.getSelection().empty();
 		  	} else if (window.getSelection().removeAllRanges) {  // Firefox
-		    	window.getSelection().removeAllRanges();
+		  		//window.getSelection().removeAllRanges();
 		  	}
 		} else if (document.selection) {  // IE?
 		  	document.selection.empty();

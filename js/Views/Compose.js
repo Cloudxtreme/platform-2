@@ -723,9 +723,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Campaign id
 		var result = $(e.currentTarget).val();
+		var campaignname = $(".chosen-single > span").get(0).textContent;
 
 		if(result == 0)	this.removecampaign();
-		else			{this.draft.set("campaign", Number(result)); this.trigger('update:campaign', Number(result)); }
+		else			{this.draft.set("campaign", Number(result)); this.trigger('update:campaign',campaignname); }
 		
 		this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
 	},
@@ -740,13 +741,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'listentoaddcampaign' : function (e)
 	{
 		var result = $(e.currentTarget).val();
+		var campaignname = $(".chosen-single > span").get(0).textContent;
 		
 		Cloudwalkers.Session.getAccount().addcampaign(result, function(account)
 		{
 			var campaigns = account.get("campaigns");
 			
 			this.draft.set("campaign", campaigns[campaigns.length -1].id);
-			this.trigger('update:campaign', campaigns[campaigns.length -1].id);
+			this.trigger('update:campaign', campaigns[campaigns.length -1].name);
 			
 			// Close it
 			this.reloadcampaigns(campaigns);

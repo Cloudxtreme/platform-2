@@ -18,10 +18,10 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 		this.listenTo(Cloudwalkers.Session, 'ping', this.forceping);*/
 	},
 	
-	'url' : function()
+	/*'url' : function()
 	{	
 		return 'http://devapi.cloudwalkers.be/urlshortener/shorten?' + $.param (this.parameters);
-	},
+	},*/
 	
 	'parse' : function(response) {
 		
@@ -39,12 +39,16 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 
-	/*'url' : function()
+	'url' : function()
 	{	
 		var url = [CONFIG_BASE_URL + "json/accounts"];
+		var account = Cloudwalkers.Session.getAccount();
+
+		if(account){
+			url.push(account.id)
+			url.push('urlshortener/shorten?')
+		}
 		
-		if(this.parent)				url.push(this.parent.typestring, this.parent.id);
-		
-		return url.join("/");
-	}*/
+		return url.join("/") + $.param (this.parameters);
+	}
 });
