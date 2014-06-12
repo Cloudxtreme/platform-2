@@ -850,31 +850,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		} else
 		
+		// No repeat
+		if(set == "onlyonce")
+		{
+			this.toggleschedentry("[data-set=onlyonce]", true).toggleschedentry("[data-set=repeat], [data-set=until], [data-set=every]", false);
+			
+			// Data
+			$("#repeat-interval, #repeat-amount").val(0);
+			$("#repeat-until").val("");
+						
+		} else
+		
 		// Repeat every
 		if(set == "every")
 		{
-			var active = field.data("set")? !entry.hasClass("inactive"): false;
-			
-			this.toggleschedentry("[data-set=every]", !active);
-			
-			this.toggleschedentry(active?
-				"[data-set=repeat], [data-set=until]": (Number($("#repeat-amount").val())? "[data-set=repeat]": "[data-set=until]")
-			, !active);
-			
-			// Data
-			$("#repeat-interval").val(active? 0: (Number($("#repeat-interval").val())? $("#repeat-interval").val(): 1));
-			if(active)
-			{
-				$("#repeat-amount").val(0);
-				$("#repeat-until").val("");
-			}
+			this.toggleschedentry("[data-set=every]", true).toggleschedentry("[data-set=onlyonce]", false);
 			
 		} else
 		
 		// Repeat repeat
 		if(set == "repeat")
 		{
-			this.toggleschedentry("[data-set=every], [data-set=repeat]", true).toggleschedentry("[data-set=until]", false);
+			this.toggleschedentry("[data-set=every], [data-set=repeat]", true).toggleschedentry("[data-set=onlyonce], [data-set=until]", false);
 			
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
@@ -886,7 +883,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Repeat until
 		if(set == "until")
 		{
-			this.toggleschedentry("[data-set=every], [data-set=until]", true).toggleschedentry("[data-set=repeat]", false);
+			this.toggleschedentry("[data-set=every], [data-set=until]", true).toggleschedentry("[data-set=onlyonce], [data-set=repeat]", false);
 			
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
