@@ -85,7 +85,7 @@
 			
 		</section>
 		
-		<section data-collapsable="link" class="collapsed clearfix">
+		<!--<section data-collapsable="link" class="collapsed clearfix">
 			
 			<div class="btn-white" data-toggle="link">Link</div>
 			
@@ -97,7 +97,7 @@
 			
 			<div class="summary" data-toggle="link"></div>
 			
-		</section>
+		</section>-->
 		
 		<section data-collapsable="campaign" class="collapsed clearfix">
 			
@@ -172,6 +172,10 @@
 			<div class="btn-white" data-toggle="repeat">Repeat</div>
 			
 			<div class="collapsable-content some-margin">
+				
+				<div class="schedule-entry" data-set="onlyonce">
+					<label class="icon-ok-circle">No repeat</label>
+				</div>
 				
 				<div class="schedule-entry inactive single-toggle" data-set="every">
 				

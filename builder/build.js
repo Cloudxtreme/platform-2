@@ -93,6 +93,17 @@ new compressor.minify({
 				console.log(err);
 			} else {
 				console.log("The file was saved!");
+
+                console.log ("---");
+                console.log ("Increasing version number");
+                var versionfile = CONFIG_SOURCEPATH + '/php/config/version';
+                var version = fs.readFileSync (versionfile, { 'encoding' : 'utf8' });
+                console.log ("- Current version: " + version);
+                version = version.split ('.');
+                version[version.length - 1] = parseInt (version[version.length - 1]) + 1;
+                version = version.join ('.');
+                console.log ('- Next version: ' + version);
+                fs.writeFileSync (versionfile, version);
 			}
 		});
 
