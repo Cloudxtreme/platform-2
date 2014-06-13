@@ -132,7 +132,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		} else if(this.model)
 		{
 			this.type = "edit";
-			this.draft = this.model;
+			this.draft = this.model.clone();
 			
 			// Get Draft variations
 			this.draft.fetch({endpoint: "original", success: this.original.bind(this)});
@@ -1168,7 +1168,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Add preview view to Compose
 			this.$el.find('.switch-container').append(thanks);
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
-		}.bind(this),400)
+		}.bind(this),400);
+		
+		// Update edited messages
+		if(this.type == "edit") this.model.fetch();
 
 		//Old thankyou logic
 		//this.$el.addClass("thank-you");
