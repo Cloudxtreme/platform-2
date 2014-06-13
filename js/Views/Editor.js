@@ -263,7 +263,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'parseurl' : function(model)
 	{
 		
-		var urltag = "<short contenteditable='false' data-url='"+ model.longurl +"'>"+ model.get('shortUrl') +"<i class='icon-link' id='swaplink'></i></short>";
+		var urltag = " <short contenteditable='false' data-url='"+ model.longurl +"'>"+ model.get('shortUrl') +"<i class='icon-link' id='swaplink'></i></short>";
 		var self = this;
 
 		this.currenturl = model.longurl;
