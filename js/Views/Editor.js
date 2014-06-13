@@ -158,13 +158,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		range.selectNodeContents(this.$contenteditable.get(0));
 
 		//Search for an url
-		index = this.parsenodes(range.startContainer.childNodes);
+		node = this.parsenodes(range.startContainer.childNodes);
 
 		//Found url?
 		if(!this.currenturl)	return;
 
 		//Get the node with the URL
-		node = range.startContainer.childNodes[index];
+		//node = range.startContainer.childNodes[index];
 		nodetext = node.textContent.replace(/&nbsp;/gi,'');
 
 		//URL offset inside node
@@ -214,10 +214,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		$.each(childnodes, function(i, node){
 			
 			var url = false;
-			var text = node.wholeText? node.wholeText : node.innerHTML;		
+			var text = node.textContent;		
 
 			if(text)	url = text.match(this.xurlpattern);
-			if(url){	targetnode = i; this.currenturl = url[0]; return true; }
+
+			//Found a url
+			if(url){
+				if(node.nodeType == 3)
+					targetnode = node;
+				else
+					targetnode = this.getnode(node, null, 3);
+
+				this.currenturl = url[0];
+				return true; 
+			}
 
 		}.bind(this));
 		
@@ -412,18 +422,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return pos;
 	},
 
-	//Get node where the cursor is in the tree
+	//Finds a node with a cursor position or type
 	'getnode' : function(parentnode, pos, type){
+		
+		var foundnode;
 
 		$.each(parentnode.childNodes, function(n, node)
 		{	
 			if(type){
-				var nodetype = node.nodeName;
+				var nodetype = node.nodeType;
 				if (nodetype == type) {
 					if(node.childNodes.length)
-						this.getnode(node, null, type);
+						foundnode = this.getnode(node, null, type);
 					else{
-						this.nextnode = node;
+						foundnode = node;
 						return false;
 					}					
 				}
@@ -444,6 +456,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			}
 
 		}.bind(this));
+
+		return foundnode;
 	},
 
 	'updatecounter' : function(chars){
