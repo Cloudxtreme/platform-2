@@ -552,7 +552,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'addoeimg' : function(e){
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
-		this.trigger("imageadded", {type: 'image', data: imgurl, name: imgurl});
+		this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
 	},
 
 	'clearselections' : function()
