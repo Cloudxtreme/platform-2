@@ -84,12 +84,21 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 	},
 	
-	'sanitize' : function ()
+	'sanitizepost' : function ()
 	{
 		// Remove body HTML
 		if(this.attributes.body.html)  delete this.attributes.body.html;
 		
-	},
+		// Variations sanitize
+		if(this.attributes.variations) this.attributes.variations.forEach(function(varn)
+		{
+			if(varn.body && varn.body.html) delete varn.body.html;
+		});
+		
+		this.attributes.update =  true;
+	}, 
+	
+	
 	
 	'cloneSanitized' : function ()
 	{
