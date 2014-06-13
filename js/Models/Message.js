@@ -94,8 +94,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			if(varn.body && varn.body.html) delete varn.body.html;
 		});
-		
-		this.attributes.update =  true;
 	}, 
 	
 	
