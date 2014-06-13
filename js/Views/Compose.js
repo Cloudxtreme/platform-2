@@ -173,7 +173,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					variation.schedule.date = moment(variation.schedule.date).unix();
 			})
 		}
-
+		console.log("original");
 		this.state = 'loaded';
 		// Render for editor
 		this.render();
