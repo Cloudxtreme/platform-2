@@ -132,6 +132,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		} else if(this.model)
 		{
 			this.type = "edit";
+			this.state = 'loading';
 			this.draft = this.model.clone();
 			
 			// Get Draft variations
@@ -172,7 +173,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					variation.schedule.date = moment(variation.schedule.date).unix();
 			})
 		}
-
+		
+		this.state = 'loaded';
 		// Render for editor
 		this.render();
 
@@ -186,12 +188,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			actionview: this.actionview? this.type: false
+			actionview: this.actionview? this.type: false,
 		};
-		
+
+		//Only add loading state when editing
+		if(this.type == "edit")	params.type = this.type;
+
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
-		this.$el.html (view);
+		this.$el.html (view);		
 		
 		// Append Editor
 		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
@@ -213,6 +218,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
+
+		//Remove loading state with nice transition
+		if(this.state == 'loaded')	this.$el.find('.modal-body').addClass('loaded');
 
 		//Update the content with default/variation/draft data
 		this.defaultstreams();
@@ -382,8 +390,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//var input = this.getinput(network, id);
 		
 		// Add network icon (fields)
-		this.$el.find(".modal-body").get(0).className = "modal-body";
-		this.$el.find(".modal-body").addClass(icon + "-theme");
+		if(!this.$el.find(".modal-body").hasClass('loading')){
+			this.$el.find(".modal-body").get(0).className = "modal-body";
+			this.$el.find(".modal-body").addClass(icon + "-theme");
+		}
+		
 
 		// Subject
 		if (options.indexOf("subject") >= 0)	this.$el.find("[data-option=subject].hidden").removeClass("hidden");

@@ -92,6 +92,40 @@ Style corrections and manual overrides
 	padding: 5px 8.82% 12px; 
 }
 
+/**
+ *  Original loading state
+**/
+
+
+
+#compose .modal-body.loading > section,
+#compose .modal-body.loading > div{
+	opacity: 0;
+}
+
+#compose .modal-body.loaded > section,
+#compose .modal-body.loaded > div{
+	opacity: 1;
+	-webkit-transition: opacity .15s ease-out;
+	-moz-transition: opacity .15s ease-out;
+	transition: opacity .15s ease-out;
+}
+
+#compose .modal-body.loading:after {
+	position: absolute;
+	top: 17%;
+	width: 100%;
+	text-align: center;
+	font-family: FontAwesome; font-size: 100px; color: #ccc; line-height: 2.4em; 
+	content: "\F0ED"; -webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#compose .modal-body.loaded:after{
+	display: none;
+}
 
 /**
  *	Stream tabs
