@@ -94,6 +94,12 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 	},
 	
+	'offline' : function ()
+	{
+		// If Me exists local, use when offline.
+		if (Store.exists("me")) this.trigger("change");
+	},
+	
 	'getCurrentAccount' : function()
 	{
 		// Get current account view

@@ -17,7 +17,7 @@ Cloudwalkers.Session =
 		this.user = new Cloudwalkers.Models.Me();
 
 		this.user.once("activated", callback);
-		this.user.fetch();
+		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
 	'refresh' : function ()

@@ -15,6 +15,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'urlprocessing' : false,
 	'limit' : null,
 	'content' : '',
+	'charlength' : 0,
 	'pos' : 0,
 	'hasbeenwarned' : false,	//Has the limit char notice popped up alredy?
 	'urls' : [],
@@ -31,6 +32,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		'update:content' : 'render',
 		'update:limit' : 'renderlimit',
 		'append:content' : 'append',
+		
 		
 		// Listen to $contenteditable
 		'keyup #compose-content' : 'listentochange',
@@ -54,9 +56,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	// regex magic
 	'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
 	'xurlbasic' : /http|[w]{3}/g,
-	'xshortens' : /http|[w]{3}/g,
+	'xurlbasic' : /(^>)(http|[w]{3})/g,
 	
 	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,	
+	'xurlendpattern' : /((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g,	
 	//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
@@ -68,7 +71,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl);
 		this.listenTo(this.parent, "update:stream", function(data){this.togglecontent(data, true)}.bind(this));
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
-
+		
+		// Chars limit
+		this.on("change:charlength", this.greyout);
+		
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
 			this.isfirefox = true;
 		
@@ -111,25 +117,29 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'listentochange' : function(e, reload) {
 
 		var content = this.$contenteditable.text();
-		var extrachars = this.limit - this.$contenteditable.text().length;;
-		//console.log("limit:", this.limit)
+		
+
 		this.pos = this.cursorpos(); 
 
 		if(this.content !== content || reload)
 		{	
-			//Check for URL
+			// Check for URL
 			if(!this.currenturl && this.listentourl(content))
 				this.processurl();
 
-			if(extrachars <= 0){
-				this.greyout(extrachars, this.limit, e);
+			
+			// Check for charlimit
+			if (this.charlength != this.$contenteditable.text().length)
+			{
 				
-				//if(!this.hasbeenwarned)	this.limitwarning();       			
+				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length);
+				
+				/*var extrachars = this.limit - this.$contenteditable.text().length;
+				if(extrachars <= 0) this.greyout(extrachars, this.limit );*/
 			}
-					
 		}
 
-		this.updatecounter(extrachars);	
+		
 		this.content = this.$contenteditable.text();
 
 		//Default text styling
@@ -143,6 +153,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(reload)	this.clearselections();
 	},
 
+	'endchange' : function (e)
+	{
+		if (this.$contenteditable.html().match(this.xurlendpattern))
+			this.$contenteditable.append(" \u200B\u200B");
+		
+		this.listentochange(e, true);
+	},
 
 	'listentourl' : function(content, keyCode){
 
@@ -159,7 +176,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		//Search for an url
 		node = this.parsenodes(range.startContainer.childNodes);
-
+		
 		//Found url?
 		if(!this.currenturl)	return;
 
@@ -217,8 +234,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var text = node.textContent;		
 
 			if(text)	url = text.match(this.xurlpattern);
+			
+			// Resolve url at end of string
+			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
 
-			//Found a url
+			// Found a url
 			if(url){
 				if(node.nodeType == 3)
 					targetnode = node;
@@ -236,7 +256,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	/* URL functions */	
 	'filterurl' : function(content){
-		
+
 		// Match url
 		var urls = content.match(this.xurlpattern);
 		var campaignid = this.draft.get("campaign");
@@ -264,7 +284,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		urls.forEach( function(str) { 
 
 			options.q 	= str.trim();							
-			options.campaign = campaign; 
+			options.campaign = campaign;
 
 			Cloudwalkers.Session.UrlShortener.fetch(options);
 		});
@@ -280,6 +300,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.shorturl = model.get('shortUrl');
 
 		this.$contenteditable.find('a').replaceWith(urltag);
+		
+		
 		this.trigger('change:content', this.content);
 
 		var oembed = '<div><a href="'+this.currenturl+'" class="oembed"></a></div>';	            
@@ -292,6 +314,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			});
 		});
 	},
+	
+	'releaseurlprocessing' : function (){ this.urlprocessing = false; },
 
 	'campaignupdated' : function(campaign)
 	{
@@ -301,7 +325,18 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.shortenurls(urls, campaign)
 	},
 
-	'greyout' : function(extrachars, limit, e){
+	'greyout' : function(charlen){
+		
+		// The char limit
+		var extrachars = this.limit - charlen;
+		
+		// Counter
+		this.updatecounter(extrachars);
+		
+		// Ignore if positive
+		if(extrachars > 0) return;
+		
+		//if(!this.hasbeenwarned)	this.limitwarning();  
 
 		var sel = this.win.getSelection();
 		var range = this.document.createRange();
@@ -541,7 +576,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		var warnings = {
 			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
-			'default' : "You have reached the limit number of characters for twitter. Any extra characters will be removed from the post."
+			'default' : "You have reached the limit number of characters. Exceeding text will not be shown."
 		}
 
 		Cloudwalkers.RootView.alert(warnings.default); 
