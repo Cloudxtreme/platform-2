@@ -164,7 +164,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var variations;
 
 		// Convert dates to unix
-		if (this.draft.get("schedule"))	this.draft.get("schedule").date = moment(this.draft.get("schedule").date).unix();
+		if (this.draft.get("schedule") && this.draft.get("schedule").date)	this.draft.get("schedule").date = moment(this.draft.get("schedule").date).unix();
 		if (variations = this.draft.get("variations"))
 		{
 			$.each(variations, function(i, variation)
@@ -173,7 +173,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					variation.schedule.date = moment(variation.schedule.date).unix();
 			})
 		}
-		
+
 		this.state = 'loaded';
 		// Render for editor
 		this.render();
@@ -337,6 +337,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			// Remove from draft
 			streamids.splice(streamids.indexOf(id), 1);
+
+			//Remove variations
+			this.draft.removevariation(id);
 		}
 		
 		$btn.toggleClass("inactive active");
@@ -365,8 +368,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
-		
+	{ 	//console.log(this.draft.get("variations"));
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -1134,7 +1136,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!this.draft.get("streams").length) this.save("scheduled");
 		
 		// Update a Patch
-		else if(this.draft.id) this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		else if(this.draft.id){
+			//console.log("right before the save:", this.draft.get('variations'));
+			this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
+		} 
 		
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this)});
