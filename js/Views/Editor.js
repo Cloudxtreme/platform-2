@@ -36,7 +36,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Listen to $contenteditable
 		'keyup #compose-content' : 'listentochange',
-		'paste #compose-content' : 'listentochange',
+		'paste #compose-content' : 'listentopaste',
 		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
@@ -104,6 +104,18 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(this.content) this.listentochange();
 
 		return this;
+	},
+
+	'listentopaste' : function(e){
+
+		e.preventDefault();
+		
+		if(e.originalEvent || e.originalEvent.clipboardData){
+			var text = e.originalEvent.clipboardData.getData("text/plain");
+			document.execCommand("insertHTML", false, text);
+		}   
+
+	    this.listentochange();
 	},
 	
 	/* Editor Listener */
