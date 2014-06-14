@@ -128,16 +128,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(!this.currenturl && this.listentourl(content))
 				this.processurl();
 
-			
 			// Check for charlimit
 			if (this.charlength != this.$contenteditable.text().length)
-			{
-				
 				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length);
 				
 				/*var extrachars = this.limit - this.$contenteditable.text().length;
 				if(extrachars <= 0) this.greyout(extrachars, this.limit );*/
-			}
 		}
 
 		

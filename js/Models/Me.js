@@ -44,7 +44,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		if( method == "read")
 			Store.get("me", null, function(data)
 			{
-				if(data) this.set(data);
+				//if(data) this.set(data);
 
 			}.bind(this));
 
