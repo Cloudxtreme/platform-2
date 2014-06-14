@@ -55,8 +55,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	// regex magic
 	'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
-	'xurlbasic' : /http|[w]{3}/g,
 	'xurlbasic' : /(^>)(http|[w]{3})/g,
+	//'xurlbasic' : /http|[w]{3}/g,
 	
 	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
 	'xurlendpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
@@ -105,15 +105,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		return this;
 	},
-
-	//Save position on click
-	'savepos' : function(e){
-		var tagname = e.target.tagName;
-
-		if(tagname != 'I' && tagname !='SHORT')
-			this.pos = this.cursorpos();
-	},
 	
+	/* Editor Listener */
+
 	'listentochange' : function(e, reload) {
 
 		var content = this.$contenteditable.text();
@@ -127,19 +121,15 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(!this.currenturl && this.listentourl(content))
 				this.processurl();
 
-			
 			// Check for charlimit
 			if (this.charlength != this.$contenteditable.text().length)
-			{
-				
 				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length);
 				
 				/*var extrachars = this.limit - this.$contenteditable.text().length;
 				if(extrachars <= 0) this.greyout(extrachars, this.limit );*/
-			}
 		}
-
 		
+		// Content
 		this.content = this.$contenteditable.text();
 
 		//Default text styling
@@ -152,7 +142,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		if(reload)	this.clearselections();
 	},
-
+	
 	'endchange' : function (e)
 	{
 		if (this.$contenteditable.html().match(this.xurlendpattern))
@@ -160,7 +150,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		this.listentochange(e, true);
 	},
-
+	
+	/* URL Listener */
+	
 	'listentourl' : function(content, keyCode){
 
 		var sel = this.win.getSelection(); 
@@ -222,39 +214,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//Shorten
 		this.filterurl(this.currenturl);
 	},
-
-	//Search for an URL in all the available nodes
-	'parsenodes' : function(childnodes)
-	{
-		var targetnode = null;
-
-		$.each(childnodes, function(i, node){
-			
-			var url = false;
-			var text = node.textContent;		
-
-			if(text)	url = text.match(this.xurlpattern);
-			
-			// Resolve url at end of string
-			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
-
-			// Found a url
-			if(url){
-				if(node.nodeType == 3)
-					targetnode = node;
-				else
-					targetnode = this.getnode(node, null, 3);
-
-				this.currenturl = url[0];
-				return true; 
-			}
-
-		}.bind(this));
-		
-		return targetnode;
-	},
-
-	/* URL functions */	
+	
 	'filterurl' : function(content){
 
 		// Match url
@@ -316,6 +276,42 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 	
 	'releaseurlprocessing' : function (){ this.urlprocessing = false; },
+	
+	//Swaps between full url & shortened url
+	'swaplink' : function(){
+
+		var urltag = this.$contenteditable.find('short').data('url');
+		// This is what panic makes me do
+		var isshorten = urltag.replace(/\s/g, '') == this.currenturl.replace(/\s/g, '');
+		var fullurl = "<short contenteditable='false' data-url='"+ this.shorturl +"'>"+ this.currenturl +"<i class='icon-link' id='swaplink'></i></short>";
+		var shortenedurl = "<short contenteditable='false' data-url='"+ this.currenturl +"'>"+ this.shorturl +"<i class='icon-link' id='swaplink'></i></short>";
+		var sizebefore = this.$contenteditable.text().length;
+
+		if(isshorten)
+			this.$contenteditable.find('short').replaceWith(fullurl);
+		else
+			this.$contenteditable.find('short').replaceWith(shortenedurl);
+
+		var sizeafter = this.$contenteditable.text().length;
+		var sizespan = sizeafter - sizebefore;
+		var linkpos;
+
+		//Set cursor position
+		if(isshorten)
+			linkpos = this.$contenteditable.text().indexOf(this.currenturl);
+		else
+			linkpos = this.$contenteditable.text().indexOf(this.shorturl);
+
+		if(this.pos >= linkpos)
+			this.cursorpos(this.pos + sizespan)
+		else
+			this.cursorpos(this.pos)
+
+		this.pos = this.cursorpos();
+		this.trigger('change:content', this.content);
+
+	},
+
 
 	'campaignupdated' : function(campaign)
 	{
@@ -324,6 +320,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(urls.length)
 			this.shortenurls(urls, campaign)
 	},
+
+	/* Charlimit functions */	
 
 	'greyout' : function(charlen){
 		
@@ -400,8 +398,71 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}.bind(this));
 	},
 	
+
+	'updatecounter' : function(chars){
+		var limit = this.$el.find('.limit-counter');
+		
+		if(chars >= 20) limit.removeClass().addClass('limit-counter');
+		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
+		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
+			
+		limit.empty().html(chars);
+	},
 	
-	/* Cursor functions */
+	'limitwarning' : function(){
+
+		//Check here what type of warning to make
+
+		var warnings = {
+			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
+			'default' : "You have reached the limit number of characters. Exceeding text will not be shown."
+		}
+
+		Cloudwalkers.RootView.alert(warnings.default); 
+
+		this.hasbeenwarned = true;
+	},
+	
+	/* Cursor and tags */
+	
+	//Save position on click
+	'savepos' : function(e){
+		var tagname = e.target.tagName;
+
+		if(tagname != 'I' && tagname !='SHORT')
+			this.pos = this.cursorpos();
+	},
+
+	//Search for an URL in all the available nodes
+	'parsenodes' : function(childnodes)
+	{
+		var targetnode = null;
+
+		$.each(childnodes, function(i, node){
+			
+			var url = false;
+			var text = node.textContent;		
+
+			if(text)	url = text.match(this.xurlpattern);
+			
+			// Resolve url at end of string
+			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
+
+			// Found a url
+			if(url){
+				if(node.nodeType == 3)
+					targetnode = node;
+				else
+					targetnode = this.getnode(node, null, 3);
+
+				this.currenturl = url[0];
+				return true; 
+			}
+
+		}.bind(this));
+		
+		return targetnode;
+	},
 	
 	'cursorpos' : function (pos, getoffset)
 	{	
@@ -495,51 +556,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return foundnode;
 	},
 
-	'updatecounter' : function(chars){
-		var limit = this.$el.find('.limit-counter');
-		
-		if(chars >= 20) limit.removeClass().addClass('limit-counter');
-		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
-		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
-			
-		limit.empty().html(chars);
-	},
-
-	//Swaps between full url & shortened url
-	'swaplink' : function(){
-
-		var urltag = this.$contenteditable.find('short').data('url');
-		// This is what panic makes me do
-		var isshorten = urltag.replace(/\s/g, '') == this.currenturl.replace(/\s/g, '');
-		var fullurl = "<short contenteditable='false' data-url='"+ this.shorturl +"'>"+ this.currenturl +"<i class='icon-link' id='swaplink'></i></short>";
-		var shortenedurl = "<short contenteditable='false' data-url='"+ this.currenturl +"'>"+ this.shorturl +"<i class='icon-link' id='swaplink'></i></short>";
-		var sizebefore = this.$contenteditable.text().length;
-
-		if(isshorten)
-			this.$contenteditable.find('short').replaceWith(fullurl);
-		else
-			this.$contenteditable.find('short').replaceWith(shortenedurl);
-
-		var sizeafter = this.$contenteditable.text().length;
-		var sizespan = sizeafter - sizebefore;
-		var linkpos;
-
-		//Set cursor position
-		if(isshorten)
-			linkpos = this.$contenteditable.text().indexOf(this.currenturl);
-		else
-			linkpos = this.$contenteditable.text().indexOf(this.shorturl);
-
-		if(this.pos >= linkpos)
-			this.cursorpos(this.pos + sizespan)
-		else
-			this.cursorpos(this.pos)
-
-		this.pos = this.cursorpos();
-		this.trigger('change:content', this.content);
-
-	},
-
+	
 	'togglecontent' : function(data, setdefault)
 	{	
 		if(data){
@@ -570,19 +587,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.listentochange(null, true);
 	},
 
-	'limitwarning' : function(){
-
-		//Check here what type of warning to make
-
-		var warnings = {
-			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
-			'default' : "You have reached the limit number of characters. Exceeding text will not be shown."
-		}
-
-		Cloudwalkers.RootView.alert(warnings.default); 
-
-		this.hasbeenwarned = true;
-	},
+	
 
 	'addoetitle' : function(e){
 		var text = e.currentTarget.innerText;
