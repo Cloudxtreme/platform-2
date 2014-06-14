@@ -29,8 +29,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		}
 		
 		/* Write hould be reference to user id */
-		Store.write("me", [response.user]);
-		Store.set("users", response.user);
+		// Store.write("me", [response.user]);
+		// Store.set("users", response.user);
 		
 		return response.user;
 	},
@@ -44,7 +44,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		if( method == "read")
 			Store.get("me", null, function(data)
 			{
-				//if(data) this.set(data);
+				if(data) this.set(data);
 
 			}.bind(this));
 
@@ -57,7 +57,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// Store accounts
 		$.each(me.accounts, function(n, account)
 		{
-			Store.set("accounts", account);
+			// Store.set("accounts", account);
 			
 		}.bind(this));
 		
