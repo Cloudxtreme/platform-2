@@ -339,7 +339,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streamids.splice(streamids.indexOf(id), 1);
 
 			//Remove variations
-			this.draft.removevariation(id);
+			//this.draft.removevariation(id);
 		}
 		
 		$btn.toggleClass("inactive active");
@@ -912,16 +912,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Repeat repeat
 		if(set == "repeat")
 		{
-			console.log("in repeat")
-			
 			this.toggleschedentry("[data-set=every], [data-set=repeat]", true).toggleschedentry("[data-set=onlyonce], [data-set=until]", false);
 			
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
 			if(!Number($("#repeat-amount").val()))   $("#repeat-amount").val(1);
 			$("#repeat-until").val("");
-			
-			console.log("end in repeat")
 						
 		} else
 		
