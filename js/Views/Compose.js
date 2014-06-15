@@ -912,12 +912,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Repeat repeat
 		if(set == "repeat")
 		{
+			console.log("in repeat")
+			
 			this.toggleschedentry("[data-set=every], [data-set=repeat]", true).toggleschedentry("[data-set=onlyonce], [data-set=until]", false);
 			
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
 			if(!Number($("#repeat-amount").val()))   $("#repeat-amount").val(1);
 			$("#repeat-until").val("");
+			
+			console.log("end in repeat")
 						
 		} else
 		
@@ -1072,12 +1076,27 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 			var repsettings = scheduled.repeat.settings || {};
 
-			if(repsettings.interval)	$("#repeat-interval").val(repsettings.interval);
-			if(repsettings.every)		$("#every-select").val(repsettings.every);
-			if(repsettings.everyweek)	$("#every-select-weekday").val(repsettings.everyweek);
-			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
+			if (scheduled.repeat.interval)
+				this.toggleschedentry("[data-set=onlyonce]", false).toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
 
+			// Reverse engineer interval
+			[720,168,24,1].some(function(itv) {
+				
+				var sum = scheduled.repeat.interval /itv /3600;
+
+				if(Math.round(sum) == sum)
+				{
+					$("#repeat-interval").val(sum);
+					$("#every-select").val(itv);
+					
+					return true;
+				}
+			});
+
+			if (scheduled.repeat.weekdays && scheduled.repeat.weekdays.length)
+				$("#every-select-weekday").val(scheduled.repeat.weekdays[0]);
 			
+			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
 		}
 	},
 	
