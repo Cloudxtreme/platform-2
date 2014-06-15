@@ -289,11 +289,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'defaultstreams' : function()
 	{
-		var variations = this.draft.get("variations");
+		var streams = this.draft.get("streams");
+		
+		if(streams) streams.forEach(function (el)
+		{
+			this.$el.find("li[data-streams=" + (el.id? el.id : el) + "]").click();
+		
+		}.bind(this));
+		
+		/*var variations = this.draft.get("variations");
 		if(!variations)	return;
 		$.each(variations, function(i, variation){
 			this.$el.find("li[data-streams="+variation.stream+"]").click();
-		}.bind(this));
+		}.bind(this));*/
 	},
 	
 	'addstreamtab' : function (stream)
@@ -318,7 +326,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.addstreamtab(stream);
 			
 			// Add to draft
-			streamids.push(id);
+			if(streamids.indexOf(id) < 0) streamids.push(id);
 			
 		} else {
 			this.$el.find("[data-stream="+ id +"]").remove();
@@ -339,7 +347,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streamids.splice(streamids.indexOf(id), 1);
 
 			//Remove variations
-			this.draft.removevariation(id);
+			//this.draft.removevariation(id);
 		}
 		
 		$btn.toggleClass("inactive active");
@@ -912,16 +920,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Repeat repeat
 		if(set == "repeat")
 		{
-			console.log("in repeat")
-			
 			this.toggleschedentry("[data-set=every], [data-set=repeat]", true).toggleschedentry("[data-set=onlyonce], [data-set=until]", false);
 			
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
 			if(!Number($("#repeat-amount").val()))   $("#repeat-amount").val(1);
 			$("#repeat-until").val("");
-			
-			console.log("end in repeat")
 						
 		} else
 		
@@ -965,7 +969,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
-			scheduled.date = date.unix();			
+			if(date) scheduled.date = date.unix();			
 		} 
 		
 		// Repeat

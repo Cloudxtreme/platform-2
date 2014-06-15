@@ -30,7 +30,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		/* Write hould be reference to user id */
 		Store.write("me", [response.user]);
-		Store.set("users", response.user);
+		//Store.set("users", response.user);
 		
 		return response.user;
 	},
