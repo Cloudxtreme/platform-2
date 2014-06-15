@@ -318,7 +318,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.addstreamtab(stream);
 			
 			// Add to draft
-			streamids.push(id);
+			if(streamids.indexOf(id) < 0) streamids.push(id);
 			
 		} else {
 			this.$el.find("[data-stream="+ id +"]").remove();
@@ -961,7 +961,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
-			scheduled.date = date.unix();			
+			if(date) scheduled.date = date.unix();			
 		} 
 		
 		// Repeat
