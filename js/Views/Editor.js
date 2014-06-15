@@ -55,7 +55,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	// regex magic
 	'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
-	'xurlbasic' : /(^>)(http|[w]{3})/g,
+	// needs improvement
+	'xurlbasic' : /http|[w]{3}/g,
 	//'xurlbasic' : /http|[w]{3}/g,
 	
 	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
@@ -106,6 +107,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return this;
 	},
 
+	
+	/* Editor Listener */
+	
 	'listentopaste' : function(e){
 
 		e.preventDefault();
@@ -117,20 +121,18 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	    this.listentochange();
 	},
-	
-	/* Editor Listener */
 
 	'listentochange' : function(e, reload) {
 
-		var content = this.$contenteditable.text();
-		
-
-		this.pos = this.cursorpos(); 
-
-		if(this.content !== content || reload)
+		// Did anything change?
+		if(this.content !== this.$contenteditable.text() || reload)
 		{	
+			this.pos = this.cursorpos();
+			
 			// Check for URL
-			if(!this.currenturl && this.listentourl(content))
+			//if(!this.urlprocessing && this.$contenteditable.text().match(this.xurlbasic))
+			//	this.filterurl();
+			if(!this.currenturl && this.listentourl(this.$contenteditable.text()))
 				this.processurl();
 
 			// Check for charlimit
@@ -162,8 +164,86 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		this.listentochange(e, true);
 	},
-	
+
+
+
 	/* URL Listener */
+	
+	/*'filterurl' : function(content){
+		
+		var sel = this.win.getSelection(); 
+		var	range = this.document.createRange();
+		var	index, node, nodetext, startoffset, endoffset;
+		
+		//Contenteditable scope
+		range.selectNodeContents(this.$contenteditable.get(0));
+
+		//Search for an url
+		nodes = this.parseurlnodes(range.startContainer.childNodes);
+		
+		
+		
+		//Found url?
+		if(!nodes || !nodes.length)	return;
+
+		nodes.forEach(function(node) {
+			
+			//Get the node with the URL
+			nodetext = node.textContent.replace(/&nbsp;/gi,'');
+			
+			if(nodetext && nodetext.length)
+			{	
+				//URL offset inside node
+				endoffset = nodetext.length;
+				
+				//Apply range
+				range.setStart(node, 0);
+				range.setEnd(node, endoffset);
+				sel.removeAllRanges();
+				sel.addRange(range);
+				
+				//Apply Magic
+				this.contenteditable.designMode = "on";       	
+				
+				document.execCommand('createLink', false, this.currenturl);		
+				
+				this.contenteditable.designMode = "off";
+				
+				//Cursor placement change (move to function)
+				var endurltext = document.createTextNode(' \u200B\u200B');
+				range.insertNode(endurltext);
+				
+				this.$contenteditable.find('a').after(endurltext);
+				range.setStartAfter(endurltext);	
+				
+				sel.removeAllRanges();
+				sel.addRange(range);
+			}
+
+		}.bind(this));
+
+ 		return true;
+	},
+	
+	//Search for an URL in all the available nodes
+	'parseurlnodes' : function(childnodes)
+	{
+		var targetnodes = [];
+		console.log(childnodes)
+		$.each(childnodes, function(i, node){		
+
+			// Found a url
+			if(node.textContent && node.textContent.match(this.xurlpattern))
+			{
+				//var node = node.textContent.match(this.xurlpattern);
+				targetnodes.push((node.nodeType == 3)? node: this.getnode(node, null, 3));
+			}		
+		}.bind(this));
+		
+		
+		return targetnodes;
+	},*/
+
 	
 	'listentourl' : function(content, keyCode){
 
@@ -216,6 +296,36 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
         sel.addRange(range);
 
  		return true;
+	},
+	
+	'parsenodes' : function(childnodes)
+	{
+		var targetnode = null;
+
+		$.each(childnodes, function(i, node){
+			
+			var url = false;
+			var text = node.textContent;		
+
+			if(text)	url = text.match(this.xurlpattern);
+			
+			// Resolve url at end of string
+			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
+
+			// Found a url
+			if(url){
+				if(node.nodeType == 3)
+					targetnode = node;
+				else
+					targetnode = this.getnode(node, null, 3);
+
+				this.currenturl = url[0];
+				return true; 
+			}
+
+		}.bind(this));
+		
+		return targetnode;
 	},
 
 	'processurl' : function(){
@@ -324,7 +434,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	},
 
-
 	'campaignupdated' : function(campaign)
 	{
 		var urls = this.urls;
@@ -332,6 +441,41 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(urls.length)
 			this.shortenurls(urls, campaign)
 	},
+	
+	'addoetitle' : function(e){
+		var text = e.currentTarget.innerText;
+		//add tittle
+	},
+
+	'addoecontent' : function(e)
+	{	
+		var text = e.currentTarget.parentElement.textContent;
+		var content = this.$contenteditable.html();
+		content = content+'<br/>'+text;
+		
+		this.$contenteditable.html(content);
+		this.trigger("change:content");
+	},	
+
+	'addoeimg' : function(e){
+		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
+		this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
+	},
+
+	'clearselections' : function()
+	{
+		if (window.getSelection) {
+		  	if (window.getSelection().empty) {  // Chrome
+		    	window.getSelection().empty();
+		  	} else if (window.getSelection().removeAllRanges) {  // Firefox
+		  		//window.getSelection().removeAllRanges();
+		  	}
+		} else if (document.selection) {  // IE?
+		  	document.selection.empty();
+		}
+	},
+
+
 
 	/* Charlimit functions */	
 
@@ -364,15 +508,17 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		endnode = range.endContainer.childNodes[range.endContainer.childNodes.length-1];
 		enddata = this.cursorpos(this.limit, true);
 
-		range.setStart(enddata.node, enddata.offset);
-		range.setEndAfter(endnode);
-		sel.removeAllRanges();
-        sel.addRange(range);
+		if(enddata.node){
+			range.setStart(enddata.node, enddata.offset);
+			range.setEndAfter(endnode);
+			sel.removeAllRanges();
+	        sel.addRange(range);
+	    }
 
         //Apply the styling
         this.contenteditable.designMode = "on";
         
-        document.execCommand('backColor', false, "#fcc");
+        document.execCommand('backColor', false, this.limit? "#fcc": "#fff");
         
         this.contenteditable.designMode = "off";
 
@@ -444,37 +590,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(tagname != 'I' && tagname !='SHORT')
 			this.pos = this.cursorpos();
 	},
-
-	//Search for an URL in all the available nodes
-	'parsenodes' : function(childnodes)
-	{
-		var targetnode = null;
-
-		$.each(childnodes, function(i, node){
-			
-			var url = false;
-			var text = node.textContent;		
-
-			if(text)	url = text.match(this.xurlpattern);
-			
-			// Resolve url at end of string
-			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
-
-			// Found a url
-			if(url){
-				if(node.nodeType == 3)
-					targetnode = node;
-				else
-					targetnode = this.getnode(node, null, 3);
-
-				this.currenturl = url[0];
-				return true; 
-			}
-
-		}.bind(this));
-		
-		return targetnode;
-	},
 	
 	'cursorpos' : function (pos, getoffset)
 	{	
@@ -534,7 +649,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'getnode' : function(parentnode, pos, type){
 		
 		var foundnode;
-
 		$.each(parentnode.childNodes, function(n, node)
 		{	
 			if(type){
@@ -601,38 +715,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	
 
-	'addoetitle' : function(e){
-		var text = e.currentTarget.innerText;
-		//add tittle
-	},
-
-	'addoecontent' : function(e)
-	{	
-		var text = e.currentTarget.parentElement.textContent;
-		var content = this.$contenteditable.html();
-		content = content+'<br/>'+text;
-		
-		this.$contenteditable.html(content);
-		this.trigger("change:content");
-	},	
-
-	'addoeimg' : function(e){
-		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
-		this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
-	},
-
-	'clearselections' : function()
-	{
-		if (window.getSelection) {
-		  	if (window.getSelection().empty) {  // Chrome
-		    	window.getSelection().empty();
-		  	} else if (window.getSelection().removeAllRanges) {  // Firefox
-		  		//window.getSelection().removeAllRanges();
-		  	}
-		} else if (document.selection) {  // IE?
-		  	document.selection.empty();
-		}
-	},
+	
 
 
 	/** NEW OLD **/
