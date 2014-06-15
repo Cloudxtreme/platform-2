@@ -18,7 +18,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'charlength' : 0,
 	'pos' : 0,
 	'hasbeenwarned' : false,	//Has the limit char notice popped up alredy?
-	'urls' : [],
+	'urls' : {},
 
 	'posmap' : [],	
 	
@@ -37,7 +37,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Listen to $contenteditable
 		'keyup #compose-content' : 'listentochange',
 		'paste #compose-content' : 'listentopaste',
-		'blur #compose-content' : 'endchange',
+		//'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
 
@@ -69,7 +69,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if(options) $.extend(this, options);
 		
 		// URL Shortener
-		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.parseurl);
+		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.shortenurl);
 		this.listenTo(this.parent, "update:stream", function(data){this.togglecontent(data, true)}.bind(this));
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
 		
@@ -124,6 +124,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	'listentochange' : function(e, reload) {
 
+		var newurls;
+
 		// Did anything change?
 		if(this.content !== this.$contenteditable.text() || reload)
 		{	
@@ -132,8 +134,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			// Check for URL
 			//if(!this.urlprocessing && this.$contenteditable.text().match(this.xurlbasic))
 			//	this.filterurl();
-			if(!this.currenturl && this.listentourl(this.$contenteditable.text()))
-				this.processurl();
+			if(newurls = this.listentourl(this.$contenteditable.text()))
+				this.processurls(newurls);
 
 			// Check for charlimit
 			if (this.charlength != this.$contenteditable.text().length)
@@ -152,7 +154,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.isdefault = false;
 		}
 
-		this.trigger('change:content', this.content);
+		this.trigger('change:content');
 
 		if(reload)	this.clearselections();
 	},
@@ -250,7 +252,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var sel = this.win.getSelection(); 
 		var	range = this.document.createRange();
 		var	index;
-		var	node;
+		var	urlnodes;
 		var	nodetext;
 		var	startoffset;
 		var	endoffset;
@@ -259,134 +261,198 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		range.selectNodeContents(this.$contenteditable.get(0));
 
 		//Search for an url
-		node = this.parsenodes(range.startContainer.childNodes);
+		urlnodes = this.parsenodes(range.startContainer.childNodes);
 		
-		//Found url?
-		if(!this.currenturl)	return;
+		//Found unprocessed urls?
+		if(!urlnodes.length)	return;
 
-		//Get the node with the URL
-		//node = range.startContainer.childNodes[index];
-		nodetext = node.textContent.replace(/&nbsp;/gi,'');
+		$.each(urlnodes, function(n, urlnode)
+		{
+			//Get the node with the URL
+			//node = range.startContainer.childNodes[index];
+			nodetext = urlnode.node.textContent.replace(/&nbsp;/gi,'');
+			urlnode.url = urlnode.url.trim();
+			
+			//URL offset inside node
+			startoffset = nodetext.indexOf(urlnode.url);
+			endoffset = startoffset + urlnode.url.length;
+			
+			//Apply range
+			range.setStart(urlnode.node, startoffset);
+			range.setEnd(urlnode.node, endoffset);
+			sel.removeAllRanges();
+	        sel.addRange(range);
+			
+			//Apply Magic
+			this.contenteditable.designMode = "on";       	
+			
+			document.execCommand('createLink', false, urlnode.url);		
 
-		//URL offset inside node
-		startoffset = nodetext.indexOf(this.currenturl);
-		endoffset = startoffset + this.currenturl.length;
+			this.contenteditable.designMode = "off";
+			
+			//Cursor placement change (move to function)
+			var endurltext = document.createTextNode(' \u200B\u200B');
+			//var endurltext = document.createTextNode(' \u200B\u200B');
+			range.insertNode(endurltext);
 
-		//Apply range
-		range.setStart(node, startoffset);
-		range.setEnd(node, endoffset);
-		sel.removeAllRanges();
-        sel.addRange(range);
+			this.$contenteditable.find('a').after(endurltext);
+			range.setStartAfter(endurltext);	
+			
+			sel.removeAllRanges();
+	        sel.addRange(range);
+
+	      	//The tag creation changes the dom
+	        if(urlnodes[n+1])
+	        	urlnodes[n+1].node = urlnode.node.nextSibling;
+
+		}.bind(this));
 		
-		//Apply Magic
-		this.contenteditable.designMode = "on";       	
-		
-		document.execCommand('createLink', false, this.currenturl);		
 
-		this.contenteditable.designMode = "off";
-		
-		//Cursor placement change (move to function)
-		var endurltext = document.createTextNode(' \u200B\u200B');
-		range.insertNode(endurltext);
-
-		this.$contenteditable.find('a').after(endurltext);
-		range.setStartAfter(endurltext);	
-		
-		sel.removeAllRanges();
-        sel.addRange(range);
-
- 		return true;
+ 		return _.pluck(urlnodes, 'url');
 	},
 	
 	'parsenodes' : function(childnodes)
 	{
-		var targetnode = null;
-
+		var urlnodes = [];
+		var urlnode;
+		//Each line/node -> saves from processing lines without urls
 		$.each(childnodes, function(i, node){
 			
-			var url = false;
+			var urls = false;
 			var text = node.textContent;		
 
-			if(text)	url = text.match(this.xurlpattern);
+			if(text)	urls = text.match(this.xurlpattern);
 			
 			// Resolve url at end of string
 			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
 
-			// Found a url
-			if(url){
-				if(node.nodeType == 3)
-					targetnode = node;
-				else
-					targetnode = this.getnode(node, null, 3);
+			// Found url(s)
+			if(urls && urls.length){
 
-				this.currenturl = url[0];
+				//Get the urls's nodes
+				$.each(urls, function(u, url){
+					if(node.nodeType == 3)
+						urlnodes.push({node: node, url: url})
+					else{ 
+						urlnode = this.getnode(node, null, url);
+						if(urlnode && url)
+							urlnodes.push({node: urlnode, url: url})
+					}
+				}.bind(this))		
+				
 				return true; 
 			}
 
 		}.bind(this));
 		
-		return targetnode;
+		//Nodes with urls to process
+		return urlnodes;
 	},
 
-	'processurl' : function(){
+	//Finds a node with a cursor position or url
+	'getnode' : function(parentnode, pos, url){
+		
+		var foundnode;
+		
+		$.each(parentnode.childNodes, function(n, node)
+		{	
+			if(url){
+				if (node.nodeType == 3) {
+					if(node.childNodes.length)
+						foundnode = this.getnode(node, null, type);
+					else if(node.textContent.indexOf(url.trim()) > -1){
+						foundnode = node;
+						return false;
+					}			
+				}
+			}else{
+				var nodelength = node.textContent.length;
+				if (nodelength >= pos) {
+					
+					if(node.childNodes.length){
+						this.getnode(node, pos);
+						return false;
+					}
+					else{
+						this.currentnode = {node : node, offset : pos};
+						return false;
+					}					
+				}
+				else return pos -= nodelength;
+			}
+
+		}.bind(this));
+
+		return foundnode;
+	},
+
+	'processurls' : function(newurls){
 
 		//Block the url from being edited
 		this.$contenteditable.find('a').attr('contenteditable', false);
 
-		//Shorten
-		this.filterurl(this.currenturl);
-	},
-	
-	'filterurl' : function(content){
+		if(!this.campaign)
+		{
+			var campaignid = this.draft.get("campaign");
+			var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
+			var campaign = campaigns.filter(function(el){ if(el.id == campaignid) return el; })
 
-		// Match url
-		var urls = content.match(this.xurlpattern);
-		var campaignid = this.draft.get("campaign");
-		var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
-		var campaign = campaigns.filter(function(el){ if(el.id == campaignid) return el; })
-
-		var campaignname = campaign.length ? campaign[0].name : null
-		
-		// Trim & request shortened
-		if (urls && !this.urlprocessing){
-			this.urlprocessing = true;
-			this.urls = urls;
-			this.shortenurls(urls, campaignname);
+			this.campaign = campaign.length ? campaign[0].name : null
 		}
 
-		return content;
+		// Trim & request shortened
+		if (newurls && !this.urlprocessing){
+			this.urlprocessing = true;
+
+			/*$.each(newurls, function(u, url){
+				if(!this.urls.url)	this.urls.url = "";
+			}.bind(this));*/
+
+			this.parseurls(newurls, this.campaign);
+		}
 	},
 
-	'shortenurls' : function(urls, campaign)
+	//Update : Are we updating campaings?
+	'parseurls' : function(urls, campaign, update)
 	{
 		var options = {
 			error : this.releaseurlprocessing
 		};
 
-		urls.forEach( function(str) { 
+		urls.forEach( function(url) { 
+			
+			//Only make calls for new urls
+			if(!update && this.urls[url]){
+				this.shortenurl(this.urls[url]);
+				return;
+			}
 
-			options.q 	= str.trim();							
+			options.q 	= url;							
 			options.campaign = campaign;
 
 			Cloudwalkers.Session.UrlShortener.fetch(options);
-		});
+		}.bind(this));
 	},
 
-	'parseurl' : function(model)
-	{
-		
-		var urltag = " <short contenteditable='false' data-url='"+ model.longurl +"'>"+ model.get('shortUrl') +"<i class='icon-link' id='swaplink'></i></short>";
+	'shortenurl' : function(model)
+	{	
+		this.releaseurlprocessing();
+
 		var self = this;
+		var	longurl = model.get('url');
+		var	shorturl = model.get('shortUrl');
+		var	url = shorturl;
 
-		this.currenturl = model.longurl;
-		this.shorturl = model.get('shortUrl');
-
-		this.$contenteditable.find('a').replaceWith(urltag);
+		//Save the url
+		if(!this.urls[longurl])	this.urls[longurl] = model.clone();
 		
-		
-		this.trigger('change:content', this.content);
+		var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='icon-link' id='swaplink'></i></short>";
 
-		var oembed = '<div><a href="'+this.currenturl+'" class="oembed"></a></div>';	            
+		this.$contenteditable.find("a[href='"+ longurl +"']").replaceWith(urltag);
+		
+		this.trigger('change:content');
+
+		var oembed = '<div><a href="'+ longurl +'" class="oembed"></a></div>';	            
 
 		this.$el.find('#out').empty().html(oembed);
 
@@ -395,43 +461,40 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				self.$el.find('#out').addClass('expanded');
 			});
 		});
+		
 	},
 	
 	'releaseurlprocessing' : function (){ this.urlprocessing = false; },
 	
 	//Swaps between full url & shortened url
-	'swaplink' : function(){
-
-		var urltag = this.$contenteditable.find('short').data('url');
-		// This is what panic makes me do
-		var isshorten = urltag.replace(/\s/g, '') == this.currenturl.replace(/\s/g, '');
-		var fullurl = "<short contenteditable='false' data-url='"+ this.shorturl +"'>"+ this.currenturl +"<i class='icon-link' id='swaplink'></i></short>";
-		var shortenedurl = "<short contenteditable='false' data-url='"+ this.currenturl +"'>"+ this.shorturl +"<i class='icon-link' id='swaplink'></i></short>";
+	'swaplink' : function(e)
+	{
+		var tag = $(e.currentTarget).get(0).parentElement;
 		var sizebefore = this.$contenteditable.text().length;
 
-		if(isshorten)
-			this.$contenteditable.find('short').replaceWith(fullurl);
-		else
-			this.$contenteditable.find('short').replaceWith(shortenedurl);
+		var longurl = $(tag).data('long');
+		var shorturl = $(tag).data('short');
+		var content = $(tag).get(0).textContent.trim();
+		var newurl = shorturl == content ? longurl : shorturl;
+
+		var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
+			
+		$(tag).replaceWith(urltag);
 
 		var sizeafter = this.$contenteditable.text().length;
 		var sizespan = sizeafter - sizebefore;
 		var linkpos;
 
 		//Set cursor position
-		if(isshorten)
-			linkpos = this.$contenteditable.text().indexOf(this.currenturl);
-		else
-			linkpos = this.$contenteditable.text().indexOf(this.shorturl);
+		if(shorturl == content)		linkpos = this.$contenteditable.text().indexOf(longurl);
+		else						linkpos = this.$contenteditable.text().indexOf(shorturl);
 
-		if(this.pos >= linkpos)
-			this.cursorpos(this.pos + sizespan)
-		else
-			this.cursorpos(this.pos)
+		if(this.pos >= linkpos)		this.cursorpos(this.pos + sizespan)
+		else						this.cursorpos(this.pos)
 
 		this.pos = this.cursorpos();
-		this.trigger('change:content', this.content);
 
+		this.trigger('change:content');
 	},
 
 	'campaignupdated' : function(campaign)
@@ -439,7 +502,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var urls = this.urls;
 
 		if(urls.length)
-			this.shortenurls(urls, campaign)
+			this.parseurls(urls, campaign, true)
 	},
 	
 	'addoetitle' : function(e){
@@ -643,43 +706,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 		
 		return pos;
-	},
-
-	//Finds a node with a cursor position or type
-	'getnode' : function(parentnode, pos, type){
-		
-		var foundnode;
-		$.each(parentnode.childNodes, function(n, node)
-		{	
-			if(type){
-				var nodetype = node.nodeType;
-				if (nodetype == type) {
-					if(node.childNodes.length)
-						foundnode = this.getnode(node, null, type);
-					else{
-						foundnode = node;
-						return false;
-					}					
-				}
-			}else{
-				var nodelength = node.textContent.length;
-				if (nodelength >= pos) {
-					//console.log(node, nodelength, pos)
-					if(node.childNodes.length){
-						this.getnode(node, pos);
-						return false;
-					}
-					else{
-						this.currentnode = {node : node, offset : pos};
-						return false;
-					}					
-				}
-				else return pos -= nodelength;
-			}
-
-		}.bind(this));
-
-		return foundnode;
 	},
 
 	
