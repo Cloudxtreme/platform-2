@@ -289,11 +289,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'defaultstreams' : function()
 	{
-		var variations = this.draft.get("variations");
+		var streams = this.draft.get("streams");
+		
+		if(streams) streams.forEach(function (el)
+		{
+			this.$el.find("li[data-streams=" + (el.id? el.id : el) + "]").click();
+		
+		}.bind(this));
+		
+		/*var variations = this.draft.get("variations");
 		if(!variations)	return;
 		$.each(variations, function(i, variation){
 			this.$el.find("li[data-streams="+variation.stream+"]").click();
-		}.bind(this));
+		}.bind(this));*/
 	},
 	
 	'addstreamtab' : function (stream)
