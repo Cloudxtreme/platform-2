@@ -532,7 +532,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	//Adds images to the UI
-	'updateimages' : function()
+	'updateimages' : function ()
 	{	
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
@@ -800,13 +800,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
-
+		
 		// Schedule Now
 		if(set == "now")
 		{
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] input").val("");
+			$("[data-set=on] input").val("").attr("disabled", false);
 			$("[data-set=in] select").val(600);
+			$("[data-set=in] .btn-white").addClass("inactive");
 			
 			// Data
 			this.draft.set("schedule", {repeat: scheduled.repeat || {}});
@@ -876,8 +877,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("#repeat-amount").val(0);	
 		}
 		
-		console.log(set)
-		
 		// Collect the data
 		this.parsescheduled();
 		e.stopPropagation();
@@ -893,9 +892,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
-		
-		//if(this.activestream)
-		//console.log(this.activestream.id, this.draft.getvariation(this.activestream.id, "schedule"))
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
