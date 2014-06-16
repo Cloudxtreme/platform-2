@@ -37,7 +37,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Listen to $contenteditable
 		'keyup #compose-content' : 'listentochange',
 		'paste #compose-content' : 'listentopaste',
-		//'blur #compose-content' : 'endchange',
+		'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
 
@@ -60,7 +60,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	//'xurlbasic' : /http|[w]{3}/g,
 	
 	'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
-	'xurlendpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
+	'xurlendpattern' : /(^|\s|\r|\n)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g,
 	//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 	
 	'initialize' : function (options)
@@ -162,9 +162,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'endchange' : function (e)
 	{
 		if (this.$contenteditable.html().match(this.xurlendpattern))
-			this.$contenteditable.append(" \u200B\u200B");
-		
-		this.listentochange(e, true);
+		{
+			var newurls;
+			if(newurls = this.listentourl(this.$contenteditable.text(), true))
+				this.processurls(newurls);
+		}
 	},
 
 
@@ -247,7 +249,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},*/
 
 	
-	'listentourl' : function(content, keyCode){
+	'listentourl' : function(content, forceEnd){
 
 		var sel = this.win.getSelection(); 
 		var	range = this.document.createRange();
@@ -261,7 +263,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		range.selectNodeContents(this.$contenteditable.get(0));
 
 		//Search for an url
-		urlnodes = this.parsenodes(range.startContainer.childNodes);
+		urlnodes = this.parsenodes(range.startContainer.childNodes, forceEnd);
 		
 		//Found unprocessed urls?
 		if(!urlnodes.length)	return;
@@ -276,6 +278,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			//URL offset inside node
 			startoffset = nodetext.indexOf(urlnode.url);
 			endoffset = startoffset + urlnode.url.length;
+			if(startoffset < 0) startoffset = 0;
 			
 			//Apply range
 			range.setStart(urlnode.node, startoffset);
@@ -291,7 +294,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.contenteditable.designMode = "off";
 			
 			//Cursor placement change (move to function)
-			var endurltext = document.createTextNode(' \u200B\u200B');
+			var endurltext = document.createTextNode('\u200B');
 			//var endurltext = document.createTextNode(' \u200B\u200B');
 			range.insertNode(endurltext);
 
@@ -311,7 +314,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
  		return _.pluck(urlnodes, 'url');
 	},
 	
-	'parsenodes' : function(childnodes)
+	'parsenodes' : function(childnodes, forceEnd)
 	{
 		var urlnodes = [];
 		var urlnode;
@@ -321,10 +324,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			var urls = false;
 			var text = node.textContent;		
 
-			if(text)	urls = text.match(this.xurlpattern);
+			if(text)	urls = text.match(forceEnd? this.xurlendpattern: this.xurlpattern);
 			
 			// Resolve url at end of string
-			if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
+			//if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
 
 			// Found url(s)
 			if(urls && urls.length){
@@ -446,7 +449,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//Save the url
 		if(!this.urls[longurl])	this.urls[longurl] = model.clone();
 		
-		var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='icon-link' id='swaplink'></i></short>";
+		var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='icon-link' id='swaplink'></i></short>";
 
 		this.$contenteditable.find("a[href='"+ longurl +"']").replaceWith(urltag);
 		
@@ -477,7 +480,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var content = $(tag).get(0).textContent.trim();
 		var newurl = shorturl == content ? longurl : shorturl;
 
-		var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
+		var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
 			
 		$(tag).replaceWith(urltag);
 

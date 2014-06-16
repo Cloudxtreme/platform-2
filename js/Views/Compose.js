@@ -80,7 +80,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click .schedule-entry' : 'monitorschedule',
 		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input'  : 'monitorschedule',
 		'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
-		//'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
+		'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		'changeDate input' : 'monitorschedule',
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 
@@ -428,8 +428,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.toggleimages(options.indexOf("images") >= 0, options.indexOf("multiple") >= 0);
 		
-		this.togglelink(options.indexOf("link") >= 0);
-		
 		this.togglecampaign(options.indexOf("campaign") >= 0);
 		
 		this.toggleschedule(options.indexOf("schedule") >= 0);
@@ -442,8 +440,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.updatesubject();
 
 		this.updateimages();
-
-		this.summarizelink();
 
 		this.summarizeschedule();
 	},
@@ -653,65 +649,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find('li.add-snapshot').remove();
 	},
 	
-	/**
-	 *	Options: Link
-	**/
-	
-	'togglelink' : function(visible)
-	{
-		// Open options
-		var collapsable = this.$el.find("[data-collapsable=link]")[visible? "removeClass": "addClass"]("hidden");
-		
-		return this;
-	},
-	
-	// Update link object
-	'listentolink' : function (e)
-	{	
-		var streamid = this.activestream ? this.activestream.id : false;
-		var link = $(e.currentTarget).val();
 
-		if(streamid){ 
-			this.draft.setvariation(streamid, 'link', {type:'link', url:link});
-		}else{
-			var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
-			if(links.length) links[0].url = link;
-			else this.draft.attach({type: 'link', url: link});
-		}		
-		
-		this.summarizelink();
-	},
-
-	// Write link object in the interface
-	'summarizelink' : function(){
-
-		var streamid = this.activestream ? this.activestream.id : false;
-		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
-		var linkinput = this.$el.find("[data-collapsable=link] input");
-		var link;
-
-		if(streamid && this.draft.getvariation(streamid,'link') && this.draft.getvariation(streamid,'link').length > 0){
-			//There is a link in the variation
-			link = this.draft.getvariation(streamid, 'link');
-			link = link[0].url;
-
-		} else if(this.draft.get("attachments"))
-		{
-			//This is the default stream
-			links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
-			link = links[0] ? links[0].url : false;
-
-		} else return;
-		
-		if(link)
-		{
-			summary.html("<span>" + link + "</span>");
-			linkinput.val(link);
-		}
-		
-		return this;
-	},
-	
 	/**
 	 *	Options: Campaign
 	**/
@@ -861,8 +799,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
-		
-		
+
 		// Schedule Now
 		if(set == "now")
 		{
@@ -938,6 +875,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("#repeat-amount").val(0);	
 		}
 		
+		console.log(set)
+		
 		// Collect the data
 		this.parsescheduled();
 		e.stopPropagation();
@@ -953,6 +892,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
+		
+		//if(this.activestream)
+		//console.log(this.activestream.id, this.draft.getvariation(this.activestream.id, "schedule"))
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
@@ -1013,6 +955,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizeschedule' : function ()
 	{	
+
 		// Collect the data
 		var scheduled = this.parsescheduled();
 
@@ -1272,3 +1215,67 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	}
 
 });
+
+
+	/**
+	 *	Options: Link
+	**
+	
+	//this.togglelink(options.indexOf("link") >= 0);
+	//this.summarizelink();
+	
+	'togglelink' : function(visible)
+	{
+		// Open options
+		var collapsable = this.$el.find("[data-collapsable=link]")[visible? "removeClass": "addClass"]("hidden");
+		
+		return this;
+	},
+	
+	// Update link object
+	'listentolink' : function (e)
+	{	
+		var streamid = this.activestream ? this.activestream.id : false;
+		var link = $(e.currentTarget).val();
+
+		if(streamid){ 
+			this.draft.setvariation(streamid, 'link', {type:'link', url:link});
+		}else{
+			var links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+			if(links.length) links[0].url = link;
+			else this.draft.attach({type: 'link', url: link});
+		}		
+		
+		this.summarizelink();
+	},
+
+	// Write link object in the interface
+	'summarizelink' : function(){
+
+		var streamid = this.activestream ? this.activestream.id : false;
+		var summary = this.$el.find("[data-collapsable=link] .summary").empty();
+		var linkinput = this.$el.find("[data-collapsable=link] input");
+		var link;
+
+		if(streamid && this.draft.getvariation(streamid,'link') && this.draft.getvariation(streamid,'link').length > 0){
+			//There is a link in the variation
+			link = this.draft.getvariation(streamid, 'link');
+			link = link[0].url;
+
+		} else if(this.draft.get("attachments"))
+		{
+			//This is the default stream
+			links = this.draft.get("attachments").filter(function(el){ if(el.type == "link") return el; });
+			link = links[0] ? links[0].url : false;
+
+		} else return;
+		
+		if(link)
+		{
+			summary.html("<span>" + link + "</span>");
+			linkinput.val(link);
+		}
+		
+		return this;
+	},
+*/
