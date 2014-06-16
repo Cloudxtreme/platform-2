@@ -182,7 +182,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'render' : function ()
 	{
-
 		// Collect data
 		var params ={
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
