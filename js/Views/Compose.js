@@ -80,9 +80,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'click .schedule-entry' : 'monitorschedule',
 		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input'  : 'monitorschedule',
-		'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
-		'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
-		'changeDate input' : 'monitorschedule',
+		//'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+		//'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
+		//'changeDate input' : 'monitorschedule',
+		//'change #delay-select, [data-collapsable=repeat] select' : 'monitorschedule',
+		'click [data-collapsable=schedule] input, [data-collapsable=repeat] input, [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 
 		'click .end-preview' : 'endpreview',
@@ -215,6 +218,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Add Datepicker and Timepicker
 		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
 		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
+
+		//Timechange triggers the draft update
+		this.timepicker.on('show.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
+		this.timepicker.on('hide.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -372,11 +379,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Toggle subcontent
 		// Trigger update
+		
+
+		this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
+			//$("[data-set=on] input").val("");
 		this.togglesubcontent(stream);
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -807,7 +818,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(set == "now")
 		{
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] input").val("").attr("disabled", false);
+			$("[data-set=on] #delay-date").val("").attr("disabled", false);
 			$("[data-set=in] select").val(600);
 			$("[data-set=in] .btn-white").addClass("inactive");
 			
@@ -893,7 +904,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{	
+	{	;
 		// Schedule data		
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
@@ -1014,11 +1025,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
-		
+
 		//Update schedule time & date values on the UI 
 		if(scheduled && scheduled.date){	
 			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
 			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
+		}else if(scheduled && scheduled.now){
+
+			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
+			$("[data-set=on] #delay-date").val("").attr("disabled", false);
+			$("[data-set=in] select").val(600);
+			$("[data-set=in] .btn-white").addClass("inactive");
+			
+			// Data
+			schedule = {repeat: schedule.repeat, now: true};
 		}
 
 		if(scheduled && scheduled.repeat){
