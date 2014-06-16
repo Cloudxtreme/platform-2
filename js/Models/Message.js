@@ -300,6 +300,24 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}	
 		
 	},
+	
+	'original' : function (stream, key, input)
+	{
+		// Variation or self
+		var variations = this.get("variations").filter(function(vr){ return stream && vr.stream == stream.id });
+		var variation = (stream)? (variations.length? variations[0]: {id: stream.id}) : this.attributes; 
+		
+		// Set
+		if (input !== undefined)
+		{
+			variation[key] = input;
+			if(stream && !variations.length) this.get("variations").push(variation);
+		}
+		
+		// Get
+		return variation[key];
+	},
+	
 
 	'removevarimg' : function(streamid, image){
 		//If image is an object it means it's meant to exclude
