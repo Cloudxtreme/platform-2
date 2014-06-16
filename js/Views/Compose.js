@@ -88,6 +88,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'click #previewbtn' : 'preview',
 		'click #save' : 'save',
 		'click #post' : 'post',
+		
 		'click #action, [data-type=icon] > i' : 'postaction'
 	},
 
