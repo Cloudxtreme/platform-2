@@ -140,7 +140,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		var view = new Cloudwalkers.Views.Compose(options);
 		
-		view.render().$el.modal();
+		view.render().$el.modal({backdrop: 'static'});
 	},
 
 	'writeMessage' : function (e)

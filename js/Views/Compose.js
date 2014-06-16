@@ -898,8 +898,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
 		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
+		if(!(scheduled = this.draft.original(this.activestream, "schedule")))
+			 scheduled = {repeat:{}};
+		
+		//var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		//var scheduled = variated? variated: this.draft.get("schedule");
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
@@ -1012,28 +1015,32 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'updateschedule' : function(){
 		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = {repeat:{}};
+
+		
+		//var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		//var scheduled = variated? variated: this.draft.get("schedule");
 		
 		//Update schedule time & date values on the UI 
-		if(scheduled && scheduled.date){	
-			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
-			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
+		if(schedule && schedule.date){	
+			$(this.datepicker.get(0)).datepicker('update', moment.unix(schedule.date).format("DD/MM/YYYY"));	
+			this.timepicker.timepicker('setTime', moment.unix(schedule.date).format("HH:mm"));	
 		}
 
-		if(scheduled && scheduled.repeat){
-			if(scheduled.repeat.until)
-				$(this.datepicker.get(1)).datepicker('update', moment.unix(scheduled.repeat.until).format("DD/MM/YYYY"));	
+		if(schedule && schedule.repeat){
+			if(schedule.repeat.until)
+				$(this.datepicker.get(1)).datepicker('update', moment.unix(schedule.repeat.until).format("DD/MM/YYYY"));	
 
-			var repsettings = scheduled.repeat.settings || {};
+			//var repsettings = schedule.repeat.settings || {};
 
-			if (scheduled.repeat.interval)
-				this.toggleschedentry("[data-set=onlyonce]", false).toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			if (schedule.repeat.interval)
+				this.toggleschedentry("[data-set=onlyonce]", false).toggleschedentry("[data-set=every], " + (schedule.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
 
 			// Reverse engineer interval
 			[720,168,24,1].some(function(itv) {
 				
-				var sum = scheduled.repeat.interval /itv /3600;
+				var sum = schedule.repeat.interval /itv /3600;
 
 				if(Math.round(sum) == sum)
 				{
@@ -1044,10 +1051,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				}
 			});
 
-			if (scheduled.repeat.weekdays && scheduled.repeat.weekdays.length)
-				$("#every-select-weekday").val(scheduled.repeat.weekdays[0]);
+			if (schedule.repeat.weekdays && schedule.repeat.weekdays.length)
+				$("#every-select-weekday").val(schedule.repeat.weekdays[0]);
 			
-			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
+			if(schedule.repeat.amount)	$("#repeat-amount").val(schedule.repeat.amount);
 		}
 	},
 	
