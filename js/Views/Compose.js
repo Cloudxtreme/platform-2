@@ -875,8 +875,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("#repeat-amount").val(0);	
 		}
 		
-		console.log(set)
-		
 		// Collect the data
 		this.parsescheduled();
 		e.stopPropagation();
@@ -892,9 +890,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
-		
-		//if(this.activestream)
-		//console.log(this.activestream.id, this.draft.getvariation(this.activestream.id, "schedule"))
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
