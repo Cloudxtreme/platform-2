@@ -80,10 +80,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'click .schedule-entry' : 'monitorschedule',
 		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input'  : 'monitorschedule',
+		
 		//'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
 		//'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		//'changeDate input' : 'monitorschedule',
 		//'change #delay-select, [data-collapsable=repeat] select' : 'monitorschedule',
+		'change [data-collapsable=repeat] select' : 'monitorschedule',
 		'click [data-collapsable=schedule] input, [data-collapsable=repeat] input, [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
 
 		'click [data-set=on] .btn-white' : 'togglebesttime',
@@ -799,7 +801,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitorschedule' : function(e, element)
-	{	
+	{	//console.log("monitorschedule");
 		// Various data
 		var field = element || $(e.currentTarget);
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
@@ -904,7 +906,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{	;
+	{	//console.log('parsescheduled');
 		// Schedule data		
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
@@ -991,7 +993,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
-			
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
@@ -1047,8 +1048,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 			var repsettings = scheduled.repeat.settings || {};
 
-			if (scheduled.repeat.interval)
-				this.toggleschedentry("[data-set=onlyonce]", false).toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			if (scheduled.repeat.interval){
+				this.toggleschedentry("[data-set=onlyonce], " + (scheduled.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
+				this.toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			}
 
 			// Reverse engineer interval
 			[720,168,24,1].some(function(itv) {
