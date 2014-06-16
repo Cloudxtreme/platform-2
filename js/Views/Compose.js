@@ -531,7 +531,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	//Adds images to the UI
-	'updateimages' : function()
+	'updateimages' : function ()
 	{	
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
@@ -799,13 +799,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
-
+		
 		// Schedule Now
 		if(set == "now")
 		{
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] input").val("");
+			$("[data-set=on] input").val("").attr("disabled", false);
 			$("[data-set=in] select").val(600);
+			$("[data-set=in] .btn-white").addClass("inactive");
 			
 			// Data
 			this.draft.set("schedule", {repeat: scheduled.repeat || {}});
