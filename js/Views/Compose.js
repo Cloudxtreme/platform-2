@@ -791,15 +791,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{	
 		// Various data
 		var field = element || $(e.currentTarget);
-
-		if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
-			this.draft.setvariation(this.activestream.id, "schedule", {});
-		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
-		
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
 		var set = entry.data("set");
+		
+		// Get variation/default info
+		var variable;
+		
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = {repeat:{}};
+			 
+		// clear now default
+		if(schedule.now) delete schedule.now;
 		
 		// Schedule Now
 		if(set == "now")
@@ -810,7 +812,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("[data-set=in] .btn-white").addClass("inactive");
 			
 			// Data
-			this.draft.set("schedule", {repeat: scheduled.repeat || {}});
+			schedule = {repeat: schedule.repeat, now: true};
 		 
 		} else
 		
@@ -845,6 +847,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			$("#repeat-interval, #repeat-amount").val(0);
 			$("#repeat-until").val("");
+			
+			// Data
+			delete schedule.repeat;
 						
 		} else
 		
@@ -877,6 +882,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("#repeat-amount").val(0);	
 		}
 		
+		// Set the data
+		this.draft.original(this.activestream, "schedule", schedule);
+		
 		// Collect the data
 		this.parsescheduled();
 		e.stopPropagation();
@@ -889,8 +897,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule data		
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
-			
-		console.log("parse");
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
