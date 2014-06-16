@@ -161,11 +161,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'endchange' : function (e)
 	{
-<<<<<<< HEAD
-		if (this.$contenteditable.text().match(this.xurlendpattern))
-=======
+
 		if (this.$contenteditable.html().match(this.xurlendpattern))
->>>>>>> master
 		{
 			var newurls;
 			if(newurls = this.listentourl(this.$contenteditable.text(), true))
@@ -332,11 +329,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(text)	urls = text.match(forceEnd? this.xurlendpattern: this.xurlpattern);
 			
 			// Resolve url at end of string
-<<<<<<< HEAD
-			///if(childnodes.length == i+1) url = text.match();
-=======
 			//if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
->>>>>>> master
+
 
 			// Found url(s)
 			if(urls && urls.length){
