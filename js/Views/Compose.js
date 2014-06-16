@@ -889,6 +889,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Schedule data		
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
+			
+		console.log("parse");
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
