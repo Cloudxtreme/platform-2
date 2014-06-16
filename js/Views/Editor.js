@@ -67,10 +67,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	{	
 		// Parameters
 		if(options) $.extend(this, options);
-		
+
 		// URL Shortener
 		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.shortenurl);
-		this.listenTo(this.parent, "update:stream", function(data){this.togglecontent(data, true)}.bind(this));
+		this.listenTo(this.parent, "update:stream", function(data){ this.togglecontent(data, true) }.bind(this));
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
 		
 		// Chars limit
@@ -82,7 +82,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 
 	'render' : function(content){
-
+		
 		// Data basics
 		if(content !== undefined) this.content = content;
 
@@ -154,7 +154,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.isdefault = false;
 		}
 
-		this.trigger('change:content');
+		this.trigger('change:content', this.content);
 
 		if(reload)	this.clearselections();
 	},
@@ -711,6 +711,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'togglecontent' : function(data, setdefault)
 	{	
+		
+		
 		if(data){
 			var stream = _.isNumber(data.id) ? data.id : null;
 			var val = _.isObject(data.data) ? data.data.html : null;

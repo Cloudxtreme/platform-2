@@ -198,7 +198,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.html (view);		
 		
 		// Append Editor
-		this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
+		if(!this.editor) this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
 		// Listen to editor triggers
@@ -435,7 +435,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.toggleschedule(options.indexOf("schedule") >= 0);
 		
 		this.togglerepeat(options.indexOf("repeat") >= 0);
-		
+
 		// Update content, images and links
 		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
 
