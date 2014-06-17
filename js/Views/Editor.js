@@ -556,6 +556,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Ignore if positive
 		if(extrachars > 0) return;
 		
+		// Temp Hack;
+		return;
+		
 		//if(!this.hasbeenwarned)	this.limitwarning();  
 
 		var sel = this.win.getSelection();
