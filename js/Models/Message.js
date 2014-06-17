@@ -92,7 +92,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// Variations sanitize
 		if(this.attributes.variations) this.attributes.variations.forEach(function(varn)
 		{
-			if(varn.body && varn.body.html) delete varn.body.html;
+			if(varn.body)
+			{
+				if(!varn.body.plaintext) delete varn.body;
+				else if(varn.body.html) delete varn.body.html;
+				console.log("running varn:", varn);
+			}
 		});
 	}, 
 	
