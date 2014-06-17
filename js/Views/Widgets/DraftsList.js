@@ -31,12 +31,13 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'ready', this.showmore);
+		this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
 		//Show all reloads te listeners
 		this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 		
 		// Watch outdated
-		this.updateable(this.model, "h3.page-title");
+		// this.updateable(this.model, "h3.page-title");
 		
 	},
 
