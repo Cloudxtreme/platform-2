@@ -808,7 +808,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var set = entry.data("set");
 		
 		// Get variation/default info
-		var variable;
+		var schedule;
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
@@ -906,16 +906,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{	//console.log('parsescheduled');
-		// Schedule data		
-		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
-			this.draft.setvariation(this.activestream.id, "schedule", {});*/
-		
-		//var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		//var scheduled = variated? variated: this.draft.get("schedule");
+	{	
+		// Get variation/default info
+		var schedule;
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
-			 schedule = {repeat:{}};	
+			 schedule = {repeat:{}};
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
@@ -964,12 +960,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'togglebesttime' : function(e)
 	{
+		var schedule;
+		
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = {repeat:{}};
+		
+		
 		$(e.currentTarget).toggleClass("inactive");
 		
 		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
 		else											$("#delay-time").attr("disabled", true).val("");
 			
-		this.draft.get("schedule").besttimetopost = !$(e.currentTarget).hasClass("inactive");
+		schedule.besttimetopost = !$(e.currentTarget).hasClass("inactive");
+		
+		// Set the data
+		this.draft.original(this.activestream, "schedule", schedule);
 		
 		return this;
 	},
@@ -1115,7 +1120,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.draft.sanitizepost();
 		
-		if(this.draft.id)	this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		if(this.draft.id)	this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
 		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	
