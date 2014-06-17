@@ -392,7 +392,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'togglesubcontent' : function (stream)
 	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
 		this.activestream = stream;
-		
+	
 		if(this.actionview)
 		{
 			var options = this.options[this.type];
@@ -802,7 +802,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitorschedule' : function(e, element)
-	{	//console.log("monitorschedule");
+	{	
 		// Various data
 		var field = element || $(e.currentTarget);
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
