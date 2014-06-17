@@ -363,7 +363,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		$.each(parentnode.childNodes, function(n, node)
 		{	
 			if(url){
-				console.log(node.nodeType);
 				if (node.nodeType == 3) {
 					if(node.childNodes.length){
 						console.log(node.nodeType);
