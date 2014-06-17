@@ -1191,6 +1191,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Update edited messages
 		if(this.type == "edit") this.model.fetch();
+		if(this.type == "post") Cloudwalkers.RootView.trigger("added:message", this.draft);
 
 		//Old thankyou logic
 		//this.$el.addClass("thank-you");
