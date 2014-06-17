@@ -79,9 +79,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'validateCustom' : function (type)
 	{
 		//Check for any content	
-		if(this.hascontent)				return "Not saved, you need a bit of content.";
+		if(!this.hascontent())			return "You need a bit of content.";
 		if(this.limit)					return "One or more networks exceed the character limit.";
-		if(this.get("streams").length)	return "Not posted, please select a network first.";
+		if(!this.get("streams").length)	return "Please select a network first.";
 	},
 
 	'hascontent' : function()

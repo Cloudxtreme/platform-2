@@ -1125,7 +1125,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'save' : function(status)
 	{	
 		// Prevent empty patch
-		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+
+		var error;
+
+		if(error = this.draft.validateCustom())
+			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
 
 		//Disables footer action
 		this.disablefooter();
@@ -1141,12 +1146,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'post' : function()
 	{		
 		// Prevent empty post
-		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
-		if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
-		/*var error;
+		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
+		//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
+		var error;
 
-		if(error = this.draft.validateCustom())*/
-
+		if(error = this.draft.validateCustom())
+			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
 
 		//Disables footer action
 		this.disablefooter();
@@ -1173,16 +1178,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'postaction' : function()
 	{		
 		var streamids = [];
+		var error;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
 		// Check stream selection
-		if (!streamids.length)
+		/*if (!streamids.length)
 			return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
 		
 		// Check text if required
 		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
-			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));
+			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));*/
+
+		if(error = this.draft.validateCustom())
+			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
 		
 		//Disables footer action
 		this.disablefooter();
