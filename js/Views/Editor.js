@@ -267,9 +267,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		//Found unprocessed urls?
 		if(!urlnodes.length)	return;
-
+		
 		$.each(urlnodes, function(n, urlnode)
-		{
+		{	
 			//Get the node with the URL
 			//node = range.startContainer.childNodes[index];
 			nodetext = urlnode.node.textContent.replace(/&nbsp;/gi,'');
@@ -322,10 +322,13 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		$.each(childnodes, function(i, node){
 			
 			var urls = false;
-			var text = node.textContent;		
+			var text = node.textContent;	
+
+			if(forceEnd && node.nodeType != 3)
+				return true;	
 
 			if(text)	urls = text.match(forceEnd? this.xurlendpattern: this.xurlpattern);
-			
+		
 			// Resolve url at end of string
 			//if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
 
@@ -336,7 +339,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				$.each(urls, function(u, url){
 					if(node.nodeType == 3)
 						urlnodes.push({node: node, url: url})
-					else{ 
+					else{
 						urlnode = this.getnode(node, null, url);
 						if(urlnode && url)
 							urlnodes.push({node: urlnode, url: url})
@@ -360,10 +363,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		$.each(parentnode.childNodes, function(n, node)
 		{	
 			if(url){
+				console.log(node.nodeType);
 				if (node.nodeType == 3) {
-					if(node.childNodes.length)
+					if(node.childNodes.length){
+						console.log(node.nodeType);
 						foundnode = this.getnode(node, null, type);
-					else if(node.textContent.indexOf(url.trim()) > -1){
+					}else if(node.textContent.indexOf(url.trim()) > -1){
 						foundnode = node;
 						return false;
 					}			
