@@ -139,9 +139,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				this.processurls(newurls);
 
 			// Check for charlimit
-			if (this.charlength != this.$contenteditable.text().length){
-				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length, this.limit - this.charlength);
-			}
+			if (this.charlength != this.$contenteditable.text().length)
+				this.trigger("change:charlength");
 		}
 		
 		// Content
@@ -284,7 +283,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(url){
 				if (node.nodeType == 3) {
 					if(node.childNodes.length){
-						console.log(node.nodeType);
 						foundnode = this.getnode(node, null, type);
 					}else if(node.textContent.indexOf(url.trim()) > -1){
 						foundnode = node;
@@ -389,7 +387,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		});
 
 		//Update counter
-		this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length, this.limit - this.charlength);
+		this.trigger("change:charlength");
 		
 	},
 	
@@ -406,7 +404,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var content = $(tag).get(0).textContent.trim();
 		var newurl = shorturl == content ? longurl : shorturl;
 
-		var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
+		var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
 			
 		$(tag).replaceWith(urltag);
 
@@ -422,8 +420,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		else						this.cursorpos(this.pos)
 
 		this.pos = this.cursorpos();
-
+		
 		this.trigger('change:content');
+		this.trigger('change:charlength');
 	},
 
 	'campaignupdated' : function(campaign)
@@ -467,9 +466,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 	},
 
-	'monitorlimit' : function(charlen, extrachars)
+	'monitorlimit' : function()
 	{	
-		// Counter
+		//Update charlength
+		this.charlength = this.$contenteditable.text().length;
+
+		//We don't need any further processing
+		if(!this.limit)	return;
+
+		// Update counter
+		var extrachars = this.limit - this.charlength;
 		this.updatecounter(extrachars);
 
 		// Ignore if positive
