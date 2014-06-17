@@ -1141,7 +1141,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update a Patch
 		else if(this.draft.id){
 			//console.log("right before the save:", this.draft.get('variations'));
-			this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
+			this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
 		} 
 		
 		// Or just post
