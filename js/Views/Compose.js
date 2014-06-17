@@ -80,9 +80,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		'click .schedule-entry' : 'monitorschedule',
 		'blur [data-collapsable=schedule] input, [data-collapsable=repeat] input'  : 'monitorschedule',
-		'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
-		'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
-		'changeDate input' : 'monitorschedule',
+		
+		//'change [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+		//'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
+		//'changeDate input' : 'monitorschedule',
+		//'change #delay-select, [data-collapsable=repeat] select' : 'monitorschedule',
+		'change [data-collapsable=repeat] select' : 'monitorschedule',
+		'click [data-collapsable=schedule] input, [data-collapsable=repeat] input, [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 
 		'click .end-preview' : 'endpreview',
@@ -216,6 +221,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Add Datepicker and Timepicker
 		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
 		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
+
+		//Timechange triggers the draft update
+		this.timepicker.on('show.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
+		this.timepicker.on('hide.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
 		
 		//this.$container = this.$el.find ('.modal-footer');
 		this.$loadercontainer = this.$el.find ('.modal-footer');
@@ -373,11 +382,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Toggle subcontent
 		// Trigger update
+		
+
+		this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
+			//$("[data-set=on] input").val("");
 		this.togglesubcontent(stream);
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -789,7 +802,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'monitorschedule' : function(e, element)
-	{	
+	{	//console.log("monitorschedule");
 		// Various data
 		var field = element || $(e.currentTarget);
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
@@ -808,7 +821,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(set == "now")
 		{
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] input").val("").attr("disabled", false);
+			$("[data-set=on] #delay-date").val("").attr("disabled", false);
 			$("[data-set=in] select").val(600);
 			$("[data-set=in] .btn-white").addClass("inactive");
 			
@@ -894,20 +907,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'parsescheduled' : function()
-	{	
+	{	//console.log('parsescheduled');
 		// Schedule data		
 		/*if(this.activestream && !this.draft.getvariation(this.activestream.id, "schedule"))
 			this.draft.setvariation(this.activestream.id, "schedule", {});*/
 		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
+		//var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
+		//var scheduled = variated? variated: this.draft.get("schedule");
+		
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = {repeat:{}};	
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
 		
 		// Schedule
 		if (select.filter("#delay-select").val())
-			scheduled.date = moment().add('seconds', $("#delay-select").val()).unix();
+			schedule.date = moment().add('seconds', $("#delay-select").val()).unix();
 		
 		else if (select.filter("#delay-date").val())
 		{
@@ -916,23 +932,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
-			if(date) scheduled.date = date.unix();			
+			if(date) schedule.date = date.unix();			
 		} 
 		
 		// Repeat
 		if (select.filter("#repeat-interval").val())
 		{
-			if (!scheduled.repeat) scheduled.repeat = {interval: 604800};
-			scheduled.repeat.interval = $("#repeat-interval").val()? $("#repeat-interval").val() *$("#every-select").val() *3600 : 0;
-			if($("#every-select-weekday").val()) scheduled.repeat.weekdays = [$("#every-select-weekday").val()];
+			if (!schedule.repeat) schedule.repeat = {interval: 604800};
+			schedule.repeat.interval = $("#repeat-interval").val()? $("#repeat-interval").val() *$("#every-select").val() *3600 : 0;
+			if($("#every-select-weekday").val()) schedule.repeat.weekdays = [$("#every-select-weekday").val()];
 			
 			// Some altering
 			// To-do : single/multiple description
 			// $("#every-select option").each(function(){ this.html(this.data( $("#repeat-interval").val() == 1? "single": "multiple")) });
-			 $("#every-select-weekday").attr("disabled", scheduled.repeat.interval < 604800);
+			 $("#every-select-weekday").attr("disabled", schedule.repeat.interval < 604800);
 			
-			scheduled.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
-			scheduled.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
+			schedule.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
+			schedule.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
 
 			//Create temporary object to store variation settings
 			var repsettings = {};
@@ -941,10 +957,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			repsettings.every = $("#every-select").val() || null;
 			repsettings.everyweek = $("#every-select-weekday").val() || null;
 
-			scheduled.repeat.settings = repsettings;
+			schedule.repeat.settings = repsettings;
 		}
 		
-		return scheduled;
+		return schedule;
 	},
 	
 	'togglebesttime' : function(e)
@@ -981,7 +997,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
-			
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
@@ -1015,11 +1030,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
 		var scheduled = variated? variated: this.draft.get("schedule");
-		
+
 		//Update schedule time & date values on the UI 
 		if(scheduled && scheduled.date){	
 			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
 			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
+		}else if(scheduled && scheduled.now){
+
+			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
+			$("[data-set=on] #delay-date").val("").attr("disabled", false);
+			$("[data-set=in] select").val(600);
+			$("[data-set=in] .btn-white").addClass("inactive");
+			
+			// Data
+			schedule = {repeat: schedule.repeat, now: true};
 		}
 
 		if(scheduled && scheduled.repeat){
@@ -1028,8 +1052,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 			var repsettings = scheduled.repeat.settings || {};
 
-			if (scheduled.repeat.interval)
-				this.toggleschedentry("[data-set=onlyonce]", false).toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			if (scheduled.repeat.interval){
+				this.toggleschedentry("[data-set=onlyonce], " + (scheduled.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
+				this.toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			}
 
 			// Reverse engineer interval
 			[720,168,24,1].some(function(itv) {

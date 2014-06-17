@@ -140,7 +140,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		var view = new Cloudwalkers.Views.Compose(options);
 		
-		view.render().$el.modal();
+		view.render().$el.modal({backdrop: 'static'});
 	},
 
 	'writeMessage' : function (e)
@@ -174,17 +174,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		if (action.token == 'edit')
 		{
 			this.compose({'model' : model.clone(), 'clone' : false, 'redirect' : false});
-			/*this.popup
-			(
-				new Cloudwalkers.Views.Write
-				(
-					{
-						'model' : model.clone (),
-						'clone' : false,
-						'redirect': false
-					}
-				)
-			);*/
+
 		}
 
 		else
@@ -192,21 +182,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			{ 
 			this.compose({'model' : model.clone (), 'clone' : clone, 'actionparameters' : parameters, 'redirect' : false, 'type' : "post"});
 		}
-		/*{
-			this.popup_new
-				(
-					new Cloudwalkers.Views.Write
-					(
-						{
-							'model' : model.clone (),
-							'clone' : clone,
-							'actionparameters' : parameters,
-							'redirect' : false,
-							'type' : "post"
-						}
-					)
-				);
-		}*/
+
 	},
 
 	'shareMessage' : function (model)
@@ -216,132 +192,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		//this.popup (new Cloudwalkers.Views.Write ({ 'model' : model.clone (), 'clone' : true, 'redirect' : false }));
 	},
 
-	
-
-	/*'setAccount' : function (account)
-	{
-		function navAddAccount (a)
-		{
-			$('<li class="account-selector"><a href="javascript:void(0);"><i class="icon-star"></i> ' + a.get ('name') + '</a></li>')
-				.prependTo ($('.dropdown.user ul'))
-				.addClass (account.get ('id') == a.get ('id') ? 'active' : null)
-				.find ('a').click (function ()
-				{
-					Cloudwalkers.Session.setAccount (a);
-					Cloudwalkers.Router.Instance.navigate ('dashboard/' + a.get ('id'), { 'trigger' : true });
-				}
-			);
-		}
-
-		function setUnreadCount (newnumber)
-		{
-			if (newnumber > 0)
-			{
-				$('.unread-messages-count').html (newnumber).show ();
-			}
-			else
-			{
-				$('.unread-messages-count').html (0).hide ();	
-			}
-		}
-
-		// New messages
-		Cloudwalkers.Session.getUser ().on ('change:unread', function (newnumber)
-		{
-			setUnreadCount (newnumber);
-		});
-
-		// Set accounts
-		var accounts = Cloudwalkers.Session.getUser ().getAccounts ();
-
-		$('.dropdown.user li.account-selector').remove ();
-		$('.dropdown.user ul').prepend ('<li class="account-selector divider"></li>');
-		for (var i = accounts.length - 1; i >= 0; i --)
-		{
-			navAddAccount (accounts[i]);
-		}
-
-		setUnreadCount (Cloudwalkers.Session.getUser ().countUnreadMessages ());
-
-		// Set user
-		$('.dropdown.user img.avatar').attr ('src', Cloudwalkers.Session.getUser ().get ('avatar'));
-		$('.dropdown.user .username').html (Cloudwalkers.Session.getUser ().get ('displayname'));
-
-		this.renderNavigation ();
-	},*/
-
-	/*'renderNavigation' : function ()
-	{
-		var account = Cloudwalkers.Session.getAccount ();
-		
-		// Redo navigation
-		var data = {};
-		data.level = Number(account.attributes.currentuser.level);
-		
-		var channels = account.channels ();
-		var sortedchannels = {};
-
-		data.channels = [];
-		for (var i = 0; i < channels.length; i ++)
-		{
-			var obj = channels[i];
-			obj.channelid = channels[i].id;
-
-			obj.icon = this.translateMenuIcon (channels[i]);
-
-			data.channels.push (obj);
-
-			// Sort on type
-			if (typeof (sortedchannels[obj.type]) == 'undefined')
-			{
-				sortedchannels[obj.type] = [];	
-			}
-			sortedchannels[obj.type].push (obj);
-		}
-		data.sortedchannels = sortedchannels;
-
-		data.statisticchannels = [];
-		jQuery.each (account.statisticchannels (), function (i, v)
-		{
-			data.statisticchannels.push (v.attributes);
-		});
-
-		data.scheduledstreams = [];
-		jQuery.each (account.streams ( { 'outgoing' : true } ), function (i, v)
-		{
-			data.scheduledstreams.push (v.attributes);
-		});
-		
-		// Remove all empty second level channels
-		if (typeof (data.sortedchannels.monitoring) != 'undefined')
-		{
-			for (var i = 0; i < data.sortedchannels.monitoring.length; i ++)
-			{
-				var toremove = [];
-				for (var j = 0; j < data.sortedchannels.monitoring[i].channels.length; j ++)
-				{
-					if (data.sortedchannels.monitoring[i].channels[j].channels.length == 0)
-					{
-						//data.sortedchannels.monitoring[i].channels.splice (i, 1);
-						toremove.push (data.sortedchannels.monitoring[i].channels[j]);
-					}
-				}
-
-				for (var k = 0; k < toremove.length; k ++)
-				{
-					data.sortedchannels.monitoring[i].channels.splice 
-					(
-						data.sortedchannels.monitoring[i].channels.indexOf (toremove[k]), 
-						1
-					);
-				}
-			}
-		}
-
-		$('.navigation-container').html (Mustache.render(Templates.navigation, data))
-		
-		//this.handleSidebarMenu();
-	},*/
 
 	'confirm' : function (message, callback)
 	{
