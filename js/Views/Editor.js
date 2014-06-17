@@ -17,7 +17,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'content' : '',
 	'charlength' : 0,
 	'pos' : 0,
-	'hasbeenwarned' : false,	//Has the limit char notice popped up alredy?
 	'urls' : {},
 
 	'posmap' : [],	
@@ -238,7 +237,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var urlnode;
 		//Each line/node -> saves from processing lines without urls
 		$.each(childnodes, function(i, node){
-			
+
 			var urls = false;
 			var text = node.textContent;	
 
@@ -327,10 +326,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Trim & request shortened
 		if (newurls && !this.urlprocessing){
 			this.urlprocessing = true;
-
-			/*$.each(newurls, function(u, url){
-				if(!this.urls.url)	this.urls.url = "";
-			}.bind(this));*/
 
 			this.parseurls(newurls, this.campaign);
 		}
@@ -479,14 +474,17 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.updatecounter(extrachars);
 
 		// Ignore if positive
-		//if(extrachars < 0) this.greyout(charlen);
+		if(extrachars < 0){
+			this.trigger('limit:set', true);
+			//this.greyout(charlen);	
+		}else
+			this.trigger('limit:set', false);
+		
 	},
 
 	/* Charlimit functions */	
 
-	'greyout' : function(charlen){
-		
-		//if(!this.hasbeenwarned)	this.limitwarning();  
+	'greyout' : function(charlen){ 
 
 		var sel = this.win.getSelection();
 		var range = this.document.createRange();
@@ -560,20 +558,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			$(span).html($(span).text());
 
 		}.bind(this));
-	},
-	
-	'limitwarning' : function(){
-
-		//Check here what type of warning to make
-
-		var warnings = {
-			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
-			'default' : "You have reached the limit number of characters. Exceeding text will not be shown."
-		}
-
-		Cloudwalkers.RootView.alert(warnings.default); 
-
-		this.hasbeenwarned = true;
 	},
 	
 	/* Cursor and tags */
@@ -671,156 +655,5 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
 		this.removegrey(true);
 		this.listentochange(null, true);
-	},
-
-	
-
-	
-
-
-	/** NEW OLD **/
-
-		/*
-
-	'render' : function (content)
-	{
-		// Data basics
-		if(content !== undefined) this.content = content;
-		
-		// Do the render
-		this.$el.html (Mustache.render (Templates.editor, {limit: this.limit}));
-		
-		this.$contenteditable = this.$el.find('#compose-content').eq(0);
-		this.contenteditable  = this.$contenteditable.get(0);
-		
-		this.medium = new Medium({
-			element: this.contenteditable,
-			debug: true,
-			modifier: 'auto',
-			autoHR: false,
-			mode: 'rich',
-			modifiers: { 86: 'paste' },
-			tags: {
-				paragraph: 'p',
-				innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
-			},
-			cssClasses: {
-				editor: 'Medium',
-				pasteHook: 'Medium-paste-hook',
-				placeholder: 'Medium-placeholder'
-			}
-		});
-		
-		// Test
-		//this.medium.utils.addEvent(this.medium.settings.element, 'keyup', this.listentochange.bind(this));
-		
-		
-		// Add content
-		this.$contenteditable.html(this.content);
-		if(this.content) this.listentochange();
-		
-		return this;
-	},
-	*/
-	
-	/*'append' : function (content)
-	{
-		if(!content) return;
-		
-		// Append content
-		this.$contenteditable.append(content);
-		this.listentochange();
-	},
-	
-	'renderlimit' : function (limit)
-	{
-		if(typeof limit != "undefined") this.limit = limit;
-	},*/
-	 
-
-	/*'parseurl' : function (model)
-	{
-		// URL still there?
-		if (this.content.indexOf(model.longurl) < 0) return;
-		
-		this.urlprocessing = false;
-		this.pos = this.cursorpos();
-		
-		// Replace url whith short tag
-		this.content = this.content.replace(model.longurl, "<short data-url='" + model.longurl + "'>" + model.get("shortUrl") + "</short>");
-		this.$contenteditable.html(this.content);
-		//this.cursorpos(this.pos);
-		
-		// 	Back to compose
-		this.trigger('change:content', this.content);
-	},*/
-	
-	/*'releaseurlprocessing' : function (){ this.urlprocessing = false; },
-	
-	'toggleurl' : function ()
-	{
-		//
-	},
-	
-	'breakurl' : function ()
-	{
-		//
-	},*/
-	
-	/* Limit functions */
-	
-	/** OLD **/
-
-	// Placeholder = false as default
-	/*'parsecontent' : function(cont, placeholder){
-		
-		var urltag = '';
-		//console.log(this.currentUrl);
-		if(this.currentUrl && !placeholder)
-			urltag = ('<span id="urltag" $contenteditable="true">'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span>');
-		if(this.currentUrl && placeholder) //Unfinished
-			urltag = ('<div id="urltag placehold"><span $contenteditable=false>'+this.currentUrl+'<i class="icon-link" id="swaplink"></i></span></div>');
-
-		var content = cont.replace(this.currentUrl, urltag);	
-
-		return content;
-	},*/
-
-	/*'updatecontainer' : function(forcecontent){
-		
-		console.log(forcecontent)
-
-		/*var charcount = this.$contenteditable.text().length;
-		var total = this.restrictedstreams[this.network] - charcount;
-		var placeholder = this.$contenteditable.find('#composeplaceholder');
-		var content;
-		var cursorpos = this.getcursosposition(this.$contenteditable.get(0));
-
-		//There is a placeholder in the content
-		if(placeholder.length > 0)
-			content = this.parsecontent(placeholder.html(), true);
-
-		//It's a restricted network & over char limit
-		if(total && total < 0)
-			content = this.greyout(total, this.restrictedstreams[this.network]);
-		
-		//Just update the content
-		else
-			content = this.parsecontent(this.$contenteditable.text());
-		
-		if(forcecontent){
-			content = forcecontent;
-			var l = this.urldata.oldurl.length;
-			var postpos = cursorpos - l;
-			cursorpos = postpos + this.urldata.newurl.length +2;
-		}
-
-		this.$contenteditable.empty().html(content);
-		this.setcursosposition(cursorpos);
-		this.updatecounter(total);
-
-		return total;
-	},*/
-
-
+	}
 });

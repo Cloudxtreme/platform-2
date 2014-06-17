@@ -73,16 +73,46 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		return Backbone.sync(method, model, options);
 	},
-	
-	'validateCustom' : function ()
+
+	/* Validations */
+	// Type : save/post
+	'validateCustom' : function (type)
 	{
-		
-		if(this.get("attachments") && this.get("attachments").length)
-			return this.get("attachments").length;
-		else
-			return this.get("body").plaintext
-		
+		//Check for any content	
+		if(this.hascontent)				return "Not saved, you need a bit of content.";
+		if(this.limit)					return "One or more networks exceed the character limit.";
+		if(this.get("streams").length)	return "Not posted, please select a network first.";
 	},
+
+	'hascontent' : function()
+	{
+		var result;
+
+		// Default
+		if(this.get("attachments") && this.get("attachments").length)	return this.get("attachments").length;
+		if(this.get("body").plaintext)									return this.get("body").plaintext.length;
+
+		// Variations
+		if(this.get("variations") && this.get("variations").length){
+			$.each(this.get("variations"), function(n, variation)
+			{
+				if(variation.attachments && variation.attachments.length){
+					result = variation.attachments.length;
+					return false;
+				}
+
+				if(variation.body && variation.body.plaintext){
+					result = variation.body.plaintext.length
+					return false;
+				}
+
+			}.bind(this));
+
+			return result;
+		}
+	},
+
+	/* !Validations */
 	
 	'sanitizepost' : function ()
 	{
@@ -1054,9 +1084,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
 	},
 
-	'hascontent' : function(){
+	/*'hascontent' : function(){
 		return Object.getOwnPropertyNames(this.get("body")).length > 0;
-	}
+	}*/
 });
 
 
