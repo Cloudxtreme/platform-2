@@ -74,7 +74,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
 		
 		// Chars limit
-		this.on("change:charlength", this.greyout);
+		this.on("change:charlength", this.monitorlimit);
+		//this.on("change:charlength", this.greyout);
 		
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
 			this.isfirefox = true;
@@ -138,11 +139,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				this.processurls(newurls);
 
 			// Check for charlimit
-			if (this.charlength != this.$contenteditable.text().length)
-				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length);
-				
-				/*var extrachars = this.limit - this.$contenteditable.text().length;
-				if(extrachars <= 0) this.greyout(extrachars, this.limit );*/
+			if (this.charlength != this.$contenteditable.text().length){
+				this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length, this.limit - this.charlength);
+			}
 		}
 		
 		// Content
@@ -168,86 +167,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				this.processurls(newurls);
 		}
 	},
-
-
-
-	/* URL Listener */
-	
-	/*'filterurl' : function(content){
-		
-		var sel = this.win.getSelection(); 
-		var	range = this.document.createRange();
-		var	index, node, nodetext, startoffset, endoffset;
-		
-		//Contenteditable scope
-		range.selectNodeContents(this.$contenteditable.get(0));
-
-		//Search for an url
-		nodes = this.parseurlnodes(range.startContainer.childNodes);
-		
-		
-		
-		//Found url?
-		if(!nodes || !nodes.length)	return;
-
-		nodes.forEach(function(node) {
-			
-			//Get the node with the URL
-			nodetext = node.textContent.replace(/&nbsp;/gi,'');
-			
-			if(nodetext && nodetext.length)
-			{	
-				//URL offset inside node
-				endoffset = nodetext.length;
-				
-				//Apply range
-				range.setStart(node, 0);
-				range.setEnd(node, endoffset);
-				sel.removeAllRanges();
-				sel.addRange(range);
-				
-				//Apply Magic
-				this.contenteditable.designMode = "on";       	
-				
-				document.execCommand('createLink', false, this.currenturl);		
-				
-				this.contenteditable.designMode = "off";
-				
-				//Cursor placement change (move to function)
-				var endurltext = document.createTextNode(' \u200B\u200B');
-				range.insertNode(endurltext);
-				
-				this.$contenteditable.find('a').after(endurltext);
-				range.setStartAfter(endurltext);	
-				
-				sel.removeAllRanges();
-				sel.addRange(range);
-			}
-
-		}.bind(this));
-
- 		return true;
-	},
-	
-	//Search for an URL in all the available nodes
-	'parseurlnodes' : function(childnodes)
-	{
-		var targetnodes = [];
-		console.log(childnodes)
-		$.each(childnodes, function(i, node){		
-
-			// Found a url
-			if(node.textContent && node.textContent.match(this.xurlpattern))
-			{
-				//var node = node.textContent.match(this.xurlpattern);
-				targetnodes.push((node.nodeType == 3)? node: this.getnode(node, null, 3));
-			}		
-		}.bind(this));
-		
-		
-		return targetnodes;
-	},*/
-
 	
 	'listentourl' : function(content, forceEnd){
 
@@ -468,6 +387,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				self.$el.find('#out').addClass('expanded');
 			});
 		});
+
+		//Update counter
+		this.trigger("change:charlength", this.charlength = this.$contenteditable.text().length, this.limit - this.charlength);
 		
 	},
 	
@@ -545,23 +467,18 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}
 	},
 
+	'monitorlimit' : function(charlen, extrachars)
+	{	
+		// Counter
+		this.updatecounter(extrachars);
 
+		// Ignore if positive
+		//if(extrachars < 0) this.greyout(charlen);
+	},
 
 	/* Charlimit functions */	
 
 	'greyout' : function(charlen){
-		
-		// The char limit
-		var extrachars = this.limit - charlen;
-		
-		// Counter
-		this.updatecounter(extrachars);
-		
-		// Ignore if positive
-		if(extrachars > 0) return;
-		
-		// Temp Hack;
-		return;
 		
 		//if(!this.hasbeenwarned)	this.limitwarning();  
 
@@ -600,6 +517,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 	},
 
+	'updatecounter' : function(chars){
+		var limit = this.$el.find('.limit-counter');
+		
+		if(chars >= 20) limit.removeClass().addClass('limit-counter');
+		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
+		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
+			
+		limit.empty().html(chars);
+	},
+
 	'removegrey' : function(collapse){
 
 		var sel = this.win.getSelection();
@@ -627,17 +554,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			$(span).html($(span).text());
 
 		}.bind(this));
-	},
-	
-
-	'updatecounter' : function(chars){
-		var limit = this.$el.find('.limit-counter');
-		
-		if(chars >= 20) limit.removeClass().addClass('limit-counter');
-		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
-		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
-			
-		limit.empty().html(chars);
 	},
 	
 	'limitwarning' : function(){
