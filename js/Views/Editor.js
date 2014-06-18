@@ -474,12 +474,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.updatecounter(extrachars);
 
 		// Ignore if positive
-		if(extrachars < 0){
-			this.trigger('limit:set', true);
+		//if(extrachars < 0)
 			//this.greyout(charlen);	
-		}else
-			this.trigger('limit:set', false);
-		
+				
 	},
 
 	/* Charlimit functions */	
