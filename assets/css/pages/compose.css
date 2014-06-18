@@ -528,6 +528,8 @@ Style corrections and manual overrides
 
 #compose-content short > i{ margin-left:10px; color:#fff; cursor: pointer;}
 
+#compose-content short.red { background-color: #fcc; color : #e02222;}
+
 #compose-content.withdefault {
 	color: #CCCCCC !important;
 }

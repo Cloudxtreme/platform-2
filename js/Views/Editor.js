@@ -357,6 +357,20 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		}.bind(this));
 	},
 
+	'isurl' : function(u)
+	{	
+		result = false;
+
+		$.each(this.urls, function(i, url){
+			if(url.get("shortUrl") == u.textContent || i == u.textContent){
+				result = true;
+				return false;
+			}	
+		});
+
+		return result;
+	},
+
 	'shortenurl' : function(model)
 	{	
 		this.releaseurlprocessing();
@@ -479,7 +493,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		// Ignore if positive
 		//if(extrachars < 0)
-			//this.greyout(charlen);	
+		//	this.greyout(extrachars);	
 				
 	},
 
@@ -492,6 +506,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var here = this.cursorpos();
 		var endnode;
 		var enddata;
+		var insidelinks = 0;
 
 		//Are we deleting text?
 		if(this.content.length >= this.$contenteditable.text().length)	
@@ -501,11 +516,21 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		range.selectNodeContents(this.$contenteditable.get(0));
 
 		endnode = range.endContainer.childNodes[range.endContainer.childNodes.length-1];
+
 		enddata = this.cursorpos(this.limit, true);
 
 		if(enddata.node){
 			range.setStart(enddata.node, enddata.offset);
 			range.setEndAfter(endnode);
+
+			// Is there a link inside the range?
+			if(insidelinks = range.toString().match(this.xurlendpattern))
+				insidelinks = insidelinks.length;
+
+			//Range starts inside a link
+			if(this.isurl(enddata.node))
+				insidelinks += 1;
+				
 			sel.removeAllRanges();
 	        sel.addRange(range);
 	    }
@@ -516,6 +541,19 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
         document.execCommand('backColor', false, this.limit? "#fcc": "#fff");
         
         this.contenteditable.designMode = "off";
+
+        
+        var links = this.$contenteditable.find('short');
+
+        links.removeClass("red");
+
+        if(insidelinks){
+
+        	while(insidelinks > 0){
+        		$(links[links.length - insidelinks]).addClass("red");
+        		insidelinks --;
+        	}
+        }
 
         this.mergechars();
         this.cursorpos(here);
