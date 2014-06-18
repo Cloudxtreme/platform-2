@@ -905,7 +905,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			}
 					
 
-			var repsettings = schedule.repeat.settings || {};
+			//var repsettings = schedule.repeat.settings || {};
 
 			/*if (schedule.repeat.interval){
 				this.toggleschedentry("[data-set=onlyonce], " + (schedule.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
@@ -1098,13 +1098,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			schedule.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
 
 			//Create temporary object to store variation settings
-			var repsettings = {};
+			/*var repsettings = {};
 
 			repsettings.interval = $("#repeat-interval").val() || null;
 			repsettings.every = $("#every-select").val() || null;
 			repsettings.everyweek = $("#every-select-weekday").val() || null;
 
-			schedule.repeat.settings = repsettings;
+			schedule.repeat.settings = repsettings;*/
 		}
 		
 		return schedule;
