@@ -1195,7 +1195,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  
 		if(error = this.draft.validateCustom())
  			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
- 		return;
+ 		
 		//Disables footer action
 		this.disablefooter();
 		
