@@ -386,6 +386,8 @@ Style corrections and manual overrides
 #compose .schedule-entry .btn-white	{ line-height: 22px; }
 #compose .schedule-entry div.input-symbol input	{ margin-bottom: 0; background-color: white; }
 
+#compose .schedule-entry div.input-symbol input:disabled { opacity: .5; }
+
 /**
  *	Collapsable: repeat
 **/

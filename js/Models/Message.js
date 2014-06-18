@@ -1,6 +1,7 @@
 Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'typestring' : "messages",
+	'limits' : {'twitter' :140, 'linkedin' : 700},
 
 	/*
 	*
@@ -73,16 +74,78 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		return Backbone.sync(method, model, options);
 	},
-	
-	'validateCustom' : function ()
-	{
-		
-		if(this.get("attachments") && this.get("attachments").length)
-			return this.get("attachments").length;
-		else
-			return this.get("body").plaintext
-		
+
+	/* Validations */
+	// Type : save/post
+	'validateCustom' : function (type)
+	{	
+		//Check for any content	
+		if(!this.hascontent())			return "You need a bit of content.";
+		if(!this.checkcontent())		return "One or more networks exceed the character limit.";
+		if(!this.get("streams").length)	return "Please select a network first.";
 	},
+
+	'hascontent' : function()
+	{
+		var result;
+
+		// Default
+		if(this.get("attachments") && this.get("attachments").length)	return this.get("attachments").length;
+		if(this.get("body").plaintext)									return this.get("body").plaintext.length;
+
+		// Variations
+		if(this.get("variations") && this.get("variations").length){
+			$.each(this.get("variations"), function(n, variation)
+			{
+				if(variation.attachments && variation.attachments.length){
+					result = variation.attachments.length;
+					return false;
+				}
+
+				if(variation.body && variation.body.plaintext){
+					result = variation.body.plaintext.length
+					return false;
+				}
+
+			}.bind(this));
+
+			return result;
+		}
+	},
+
+	'checkcontent' : function()
+	{					
+		//Hardcoded smallest limit. Get it dinamically
+		var smallestlimit = 140;
+		var result = 1;
+									
+		if(this.get("body").plaintext){
+			if(smallestlimit - this.get("body").plaintext.length < 0)
+				return false;
+		}			
+
+		// Variations
+		if(this.get("variations") && this.get("variations").length){
+			$.each(this.get("variations"), function(n, variation)
+			{	
+				var network = Cloudwalkers.Session.getStream(variation.stream).get("network");
+				var limit = network.limitations['max-length']? network.limitations['max-length'].limit : null;
+				
+				if(!limit)	return true;
+				
+				if(variation.body && variation.body.plaintext){
+					result = limit - variation.body.plaintext.length;
+					if(result < 0)	return false;
+					else			return true;
+				}
+
+			}.bind(this));			
+		}
+
+		return result > 0;
+	},
+
+	/* !Validations */
 	
 	'sanitizepost' : function ()
 	{
@@ -90,15 +153,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(this.attributes.body.html)  delete this.attributes.body.html;
 		
 		// Variations sanitize
-		if(this.attributes.variations) this.attributes.variations.forEach(function(varn)
+		if(this.attributes.variations) this.attributes.variations.forEach(function(varn, n)
 		{
+			// Clean body
 			if(varn.body)
 			{
 				if(!varn.body.plaintext) delete varn.body;
 				else if(varn.body.html) delete varn.body.html;
-				console.log("running varn:", varn);
 			}
-		});
+			
+			// Clean zombie variations
+			if (this.attributes.streams.indexOf(varn.stream) < 0)
+				this.attributes.variations.splice(n, 1);
+			
+		}.bind(this));
 	}, 
 	
 	
@@ -323,6 +391,19 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return variation[key];
 	},
 	
+	'removevariation' : function(streamid)
+	{
+		var variations = this.get("variations");
+		if(!variations)	return;
+
+		$.each(variations, function(n, variation)
+		{
+			if(variation.stream == streamid){
+				variations.splice(n,1);
+				return false;
+			}
+		});
+	},
 
 	'removevarimg' : function(streamid, image){
 		//If image is an object it means it's meant to exclude
@@ -1054,9 +1135,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
 	},
 
-	'hascontent' : function(){
+	/*'hascontent' : function(){
 		return Object.getOwnPropertyNames(this.get("body")).length > 0;
-	}
+	}*/
 });
 
 
