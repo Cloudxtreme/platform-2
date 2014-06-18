@@ -141,6 +141,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.type = "edit";
 			this.state = 'loading';
 			this.draft = this.model.clone();
+
+			this.initstream = this.draft.get("streams")[0].id;
 			
 			// Get Draft variations
 			this.draft.fetch({endpoint: "original", success: this.original.bind(this)});
@@ -184,6 +186,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.state = 'loaded';
 		// Render for editor
 		this.render();
+		
+		// Render selected tab
+		this.$el.find("[data-stream=" + this.initstream + "]").click();
 
 	},
 

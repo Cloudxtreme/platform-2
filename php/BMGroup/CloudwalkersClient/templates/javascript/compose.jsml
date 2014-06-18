@@ -179,7 +179,7 @@
 				
 				<div class="schedule-entry inactive single-toggle" data-set="every">
 				
-					<label class="icon-circle-blank">every</label>
+					<label class="icon-circle-blank">Every</label>
 					<div class="input-symbol number-input" data-option="schedule-start-date">
 						<input id="repeat-interval" type="text" value="0" /> 
 					</div>
