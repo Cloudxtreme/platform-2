@@ -12,7 +12,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'network' : "default",
 	'actionstreams': [],
 	'actionview': false,
-	'minutestep': 5,
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -216,7 +215,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Listen to editor triggers
 		this.listenTo(this.editor, "imageadded", this.addimage);
 		this.listenTo(this.editor, "change:content", this.monitor);
-		this.listenTo(this.editor, "limit:set", this.setlimit);
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
@@ -226,7 +224,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Datepicker and Timepicker
 		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
-		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:this.minutestep, showMeridian: false});
+		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
 
 		//Timechange triggers the draft update
 		this.timepicker.on('show.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
@@ -244,14 +242,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.trigger("rendered");
 		
 		return this;
-	},
-
-	'restarttime' : function()
-	{	
-		var minutes = this.minutestep * Math.ceil(moment().minute() / this.minutestep);
-		var hours = moment().hour();
-		
-		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
 	},
 	
 	'editstreams' : function (model)
@@ -404,7 +394,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft);
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
@@ -797,10 +787,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var seldate = $(selectordate);
 		var seltime = $(selectortime);
-	
-		if(!seltime.val())
-			this.restarttime();
-
+		
 		// Prevent empty
 		if(!seldate.val() || !seltime.val()) return null;
 		
@@ -939,7 +926,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			schedule.date = moment().add('seconds', $("#delay-select").val()).unix();
 		
 		else if (select.filter("#delay-date").val())
-		{	
+		{
 			var date = this.parsemoment("#delay-date", "#delay-time");
 			
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
@@ -958,7 +945,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Some altering
 			// To-do : single/multiple description
 			// $("#every-select option").each(function(){ this.html(this.data( $("#repeat-interval").val() == 1? "single": "multiple")) });
-			 $("#every-select-weekday").attr("disabled", schedule.repeat.interval < 604800);
+			 $("#every-select-weekday").attr("disabled", $("#every-select").val() < 168);
 			
 			schedule.repeat.amount = Number(select.filter("#repeat-amount").val())? Number($("#repeat-amount").val()): false;
 			schedule.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
@@ -987,8 +974,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		$(e.currentTarget).toggleClass("inactive");
 		
 		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
-		else											$("#delay-time").attr("disabled", true);
-		//else											$("#delay-time").attr("disabled", true).val("");
+		else											$("#delay-time").attr("disabled", true).val("");
 			
 		schedule.besttimetopost = !$(e.currentTarget).hasClass("inactive");
 		
@@ -1130,12 +1116,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'save' : function(status)
 	{	
 		// Prevent empty patch
-		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
-
-		var error;
-
-		if(error = this.draft.validateCustom())
-			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
+		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
 		//Disables footer action
 		this.disablefooter();
@@ -1151,12 +1132,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'post' : function()
 	{		
 		// Prevent empty post
-		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
-		//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
-		var error;
-
-		if(error = this.draft.validateCustom())
-			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+		if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
+		if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
 
 		//Disables footer action
 		this.disablefooter();
@@ -1183,20 +1160,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'postaction' : function()
 	{		
 		var streamids = [];
-		var error;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
 		// Check stream selection
-		/*if (!streamids.length)
+		if (!streamids.length)
 			return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
 		
 		// Check text if required
 		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
-			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));*/
-
-		if(error = this.draft.validateCustom())
-			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1237,11 +1210,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		Cloudwalkers.RootView.alert(model.get("title") + " " + error);
 	},
 
-	'setlimit' : function(value)
-	{
-		this.draft.limit = value;
-	},
-
 	/*
 	In case we need to figure out the height of the scrollbar
 	It seams all are 17px
@@ -1278,29 +1246,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
 	},
 
-	/*'limitwarning' : function(){
-
-		//Check here what type of warning to make
-
-		var warnings = {
-			//'twitter' : "You have reached the limit of characters for twitter. Any extra characters will be removed from the post.",
-			'default' : "You have reached the limit number of characters for one or more networks."
-		}
-
-		Cloudwalkers.RootView.alert(warnings.default); 
-
-		this.hasbeenwarned = true;
-	},
-
-	//Finish this
 	'checklimitations' : function(type, attributes){
 
 		if(type == 'link'){
 
 		}
-	},*/
-
-	
+	}
 
 });
 
