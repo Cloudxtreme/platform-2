@@ -12,6 +12,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'network' : "default",
 	'actionstreams': [],
 	'actionview': false,
+	'minutestep': 5,
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -225,7 +226,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Datepicker and Timepicker
 		this.datepicker = this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', orientation: "auto"});
-		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
+		this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:this.minutestep, showMeridian: false});
+		//this.timepicker = this.$el.find('#delay-time').timepicker({template: 'dropdown', minuteStep:5, showMeridian: false});
 
 		//Timechange triggers the draft update
 		this.timepicker.on('show.timepicker', function (e) { this.monitorschedule(e);}.bind(this));
@@ -247,6 +249,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
+
+	'restarttime' : function()
+ 	{	
+ 		var minutes = this.minutestep * Math.ceil(moment().minute() / this.minutestep);
+ 		var hours = moment().hour();
+ 		
+ 		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
+ 	},
 	
 	'editstreams' : function (model)
 	{
@@ -791,6 +801,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var seldate = $(selectordate);
 		var seltime = $(selectortime);
+
+		if(!seltime.val())
+ 			this.restarttime();
 		
 		// Prevent empty
 		if(!seldate.val() || !seltime.val()) return null;
@@ -1015,7 +1028,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		$(e.currentTarget).toggleClass("inactive");
 		
 		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
-		else											$("#delay-time").attr("disabled", true).val("");
+		else											$("#delay-time").attr("disabled", true);
+		//else											$("#delay-time").attr("disabled", true).val("");
 			
 		schedule.besttimetopost = !$(e.currentTarget).hasClass("inactive");
 		
