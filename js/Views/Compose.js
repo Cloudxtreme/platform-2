@@ -408,7 +408,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft, this.draft.get("variations"));
+	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
 		this.activestream = stream;
 		
 		if(this.actionview)
@@ -854,6 +854,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			$(this.datepicker.get(0)).datepicker('update', moment.unix(schedule.date).format("DD/MM/YYYY"));	
 			this.timepicker.timepicker('setTime', moment.unix(schedule.date).format("HH:mm"));	
+
+			if(schedule.besttimetopost){
+				
+				var element = this.$el.find("[data-set=on] .btn-white");
+		
+				if (element.hasClass("inactive"))	element.toggleClass("inactive");
+				
+				$("#delay-time").attr("disabled", true);			
+				
+			}
 		}
 
 		if(schedule && schedule.repeat)
@@ -895,7 +905,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			}
 					
 
-			var repsettings = schedule.repeat.settings || {};
+			//var repsettings = schedule.repeat.settings || {};
 
 			/*if (schedule.repeat.interval){
 				this.toggleschedentry("[data-set=onlyonce], " + (schedule.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
@@ -1018,12 +1028,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 		
 	'togglebesttime' : function(e)
-	{
+	{	
 		var schedule;
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
-		
 		
 		$(e.currentTarget).toggleClass("inactive");
 		
@@ -1049,7 +1058,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
-			 
+			
 		if (!schedule.settings) schedule.settings = {};
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
@@ -1069,7 +1078,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
-			if(date) schedule.date = date.unix();			
+			if(date) schedule.date = date.unix();				
+			if(select.filter("#delay-time").is('[disabled=disabled]'))	schedule.besttimetopost = true;	
 		} 
 		
 		// Repeat
@@ -1088,13 +1098,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			schedule.repeat.until =  select.filter("#repeat-until").val()? moment($("#repeat-until").val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY"]).unix(): false;			
 
 			//Create temporary object to store variation settings
-			var repsettings = {};
+			/*var repsettings = {};
 
 			repsettings.interval = $("#repeat-interval").val() || null;
 			repsettings.every = $("#every-select").val() || null;
 			repsettings.everyweek = $("#every-select-weekday").val() || null;
 
-			schedule.repeat.settings = repsettings;
+			schedule.repeat.settings = repsettings;*/
 		}
 		
 		return schedule;
@@ -1105,7 +1115,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Collect the data
 		var scheduled = this.parsescheduled();
-
+		
 		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty()
 		
 		if(scheduled && scheduled.date)
@@ -1147,7 +1157,22 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
-						
+		else if(scheduled.repeat.interval)
+		{
+			var sum, intv;
+			
+			[720,168,24,1].some(function(itv) {
+					
+				sum = scheduled.repeat.interval /itv /3600;
+				intv = itv;
+				if(Math.round(sum) == sum) return true;
+			});	
+			
+			var weekdays = {1: 'hours', 24: 'days', 168: 'weeks', 720: 'months'};
+		
+			summary.html("<span>Endless repeat every " + sum + " " + weekdays[intv]);
+		
+		}				
 		return this;
 	},
 

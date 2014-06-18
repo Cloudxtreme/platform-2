@@ -116,10 +116,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		if(e.originalEvent || e.originalEvent.clipboardData){
 			var text = e.originalEvent.clipboardData.getData("text/plain");
+
 			document.execCommand("insertHTML", false, text);
 		}   
 
-	    this.listentochange();
+	    this.listentochange(e);
 	},
 
 	'listentochange' : function(e, reload) {
@@ -134,7 +135,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			// Check for URL
 			//if(!this.urlprocessing && this.$contenteditable.text().match(this.xurlbasic))
 			//	this.filterurl();
-			if(newurls = this.listentourl(this.$contenteditable.text()))
+			if(newurls = this.listentourl(e, this.$contenteditable.text()))
 				this.processurls(newurls);
 
 			// Check for charlimit
@@ -162,12 +163,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		if (this.$contenteditable.html().match(this.xurlendpattern))
 		{
 			var newurls;
-			if(newurls = this.listentourl(this.$contenteditable.text(), true))
+			if(newurls = this.listentourl(null, this.$contenteditable.text(), true))
 				this.processurls(newurls);
 		}
 	},
 	
-	'listentourl' : function(content, forceEnd){
+	'listentourl' : function(e, content, forceEnd){
 
 		var sel = this.win.getSelection(); 
 		var	range = this.document.createRange();
@@ -177,6 +178,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var	startoffset;
 		var	endoffset;
 		
+		if(e && e.type == 'keyup' && e.keyCode != 32)	return;
+		if(e && e.type == 'paste')						forceEnd = true;
+
 		//Contenteditable scope
 		range.selectNodeContents(this.$contenteditable.get(0));
 
@@ -234,7 +238,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},
 	
 	'parsenodes' : function(childnodes, forceEnd)
-	{
+	{	
 		var urlnodes = [];
 		var urlnode;
 		//Each line/node -> saves from processing lines without urls
