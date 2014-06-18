@@ -829,7 +829,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		$("#every-select-weekday").val(0).attr("disabled", false);
 		
 		// Update schedule time & date values on the UI 
-		if(schedule && schedule.date && schedule.settings.delayselect)
+		if(schedule && schedule.date && schedule.settings && schedule.settings.delayselect)
 		{	
 			this.toggleschedentry("[data-set=now]").toggleschedentry("[data-set=in]", true);
 			$("#delay-select").val(schedule.settings.delayselect);
@@ -837,48 +837,57 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		else if(schedule && schedule.date)
 		{	
+			this.toggleschedentry("[data-set=now]").toggleschedentry("[data-set=on]", true);
+			
 			$(this.datepicker.get(0)).datepicker('update', moment.unix(schedule.date).format("DD/MM/YYYY"));	
 			this.timepicker.timepicker('setTime', moment.unix(schedule.date).format("HH:mm"));	
-		}
-		
-		else if(schedule && schedule.now)
-		{
-			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=in] select").val(600);
-			$("#delay-date, #delay-time").val("").attr("disabled", false);
-			$("[data-set=in] .btn-white").addClass("inactive");
 		}
 
 		if(schedule && schedule.repeat)
 		{
+			// Reverse engineer interval
+			if(schedule.repeat.interval)
+			{
+				this.toggleschedentry("[data-set=onlyonce]").toggleschedentry("[data-set=every]", true);
+				
+				[720,168,24,1].some(function(itv) {
+					
+					var sum = schedule.repeat.interval /itv /3600;
+	
+					if(Math.round(sum) == sum)
+					{
+						$("#repeat-interval").val(sum);
+						$("#every-select").val(itv);
+						
+						return true;
+					}
+				});
+			}
+			
+			if (schedule.repeat.weekdays && schedule.repeat.weekdays.length)
+				$("#every-select-weekday").val(schedule.repeat.weekdays[0]);
+			
+			
+			if(schedule.repeat.amount)
+			{
+				this.toggleschedentry("[data-set=onlyonce]").toggleschedentry("[data-set=repeat]", true);
+				$("#repeat-amount").val(schedule.repeat.amount);
+			}
+			
 			if(schedule.repeat.until)
-				$(this.datepicker.get(1)).datepicker('update', moment.unix(schedule.repeat.until).format("DD/MM/YYYY"));	
+			{
+				this.toggleschedentry("[data-set=now]").toggleschedentry("[data-set=until]", true);
+				
+				$(this.datepicker.get(1)).datepicker('update', moment.unix(schedule.repeat.until).format("DD/MM/YYYY"));
+			}
+					
 
 			var repsettings = schedule.repeat.settings || {};
 
-			if (schedule.repeat.interval){
+			/*if (schedule.repeat.interval){
 				this.toggleschedentry("[data-set=onlyonce], " + (schedule.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
 				this.toggleschedentry("[data-set=every], " + (schedule.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
-			}
-
-			// Reverse engineer interval
-			[720,168,24,1].some(function(itv) {
-				
-				var sum = schedule.repeat.interval /itv /3600;
-
-				if(Math.round(sum) == sum)
-				{
-					$("#repeat-interval").val(sum);
-					$("#every-select").val(itv);
-					
-					return true;
-				}
-			});
-
-			if (schedule.repeat.weekdays && schedule.repeat.weekdays.length)
-				$("#every-select-weekday").val(scheduled.repeat.weekdays[0]);
-			
-			if(schedule.repeat.amount)	$("#repeat-amount").val(schedule.repeat.amount);
+			}*/
 		}
 	},
 	
@@ -904,7 +913,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(set == "now")
 		{
 			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] #delay-date").val("").attr("disabled", false);
+			$("[data-set=on] input").val("").attr("disabled", false);
 			$("[data-set=in] select").val(600);
 			$("[data-set=in] .btn-white").addClass("inactive");
 			
@@ -917,7 +926,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(set == "in")
 		{
 			this.toggleschedentry("[data-set=now], [data-set=on]").toggleschedentry("[data-set=in]", true);
-			$("[data-set=on] input").val("");
+			$("[data-set=on] input").val("").attr("disabled", false);
+			$("[data-set=in] .btn-white").addClass("inactive");
 
 		} else
 		
@@ -935,7 +945,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			}
 			
 			// Force clean "in"
-			if(schedule.settings &&  schedule.settings.delayselect) delete schedule.settings.delayselect;
+			if(schedule.settings && schedule.settings.delayselect) delete schedule.settings.delayselect;
 		
 		} else
 		
@@ -946,6 +956,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			
 			// Data
 			$("#repeat-interval, #repeat-amount").val(0);
+			$("#every-select").val(600);
+			$("#every-select-weekday").val(0).attr("disabled", false);
 			$("#repeat-until").val("");
 			
 			// Data
