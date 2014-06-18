@@ -118,7 +118,7 @@
 			
 		</section>
 		
-		<section data-collapsable="schedule" class="collapsed clearfix">
+		<section data-collapsable="schedule" class="schedule-group collapsed clearfix">
 			
 			<div class="btn-white" data-toggle="schedule">Schedule</div>
 			
@@ -167,7 +167,7 @@
 			
 		</section>
 		
-		<section data-collapsable="repeat" class="collapsed clearfix last">
+		<section data-collapsable="repeat" class="schedule-group collapsed clearfix last">
 			
 			<div class="btn-white" data-toggle="repeat">Repeat</div>
 			

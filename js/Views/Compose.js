@@ -85,8 +85,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//'change [data-collapsable=schedule] #delay-time' : 'monitorschedule',
 		//'changeDate input' : 'monitorschedule',
 		//'change #delay-select, [data-collapsable=repeat] select' : 'monitorschedule',
-		'change [data-collapsable=repeat] select' : 'monitorschedule',
-		'click [data-collapsable=schedule] input, [data-collapsable=repeat] input, [data-collapsable=schedule] select, [data-collapsable=repeat] select' : 'monitorschedule',
+		'change .schedule-group select' : 'monitorschedule',
+		'click .schedule-group input' : 'monitorschedule',
 
 		'click [data-set=on] .btn-white' : 'togglebesttime',
 
@@ -141,7 +141,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.state = 'loading';
 			this.draft = this.model.clone();
 
-			this.initstream = this.draft.get("streams")[0].id;
+			if (this.draft.get("streams").length)
+				this.initstream = this.draft.get("streams")[0].id;
 			
 			// Get Draft variations
 			this.draft.fetch({endpoint: "original", success: this.original.bind(this)});
@@ -237,9 +238,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.state == 'loaded')	this.$el.find('.modal-body').addClass('loaded');
 
 		//Update the content with default/variation/draft data
-		this.defaultstreams();
-		this.togglesubcontent();
-		this.trigger("rendered");
+		if(this.draft.get("variations") !== undefined)
+		{
+			this.defaultstreams();
+			this.togglesubcontent();
+			this.trigger("rendered");
+		}
 		
 		return this;
 	},
@@ -805,6 +809,81 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return newdate.unix() < moment().unix()? undefined: newdate;
 	},
 	
+	/* Called on stream toggle */
+	
+	'updateschedule' : function(){
+		
+		var schedule;
+		
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = this.draft.original(null, "schedule");
+			
+		// Clean all
+		this.toggleschedentry(".schedule-group [data-set]", false).toggleschedentry("[data-set=now], [data-set=onlyonce]", true);
+		
+		$("#delay-date, #delay-time, #repeat-interval, #repeat-amount, #repeat-until").val("").attr("disabled", false);
+		$("#repeat-interval, #repeat-amount").val(0)
+		$("[data-set=in] .btn-white").addClass("inactive");
+		$("#delay-select").val(600);
+		$("#every-select").val(168);
+		$("#every-select-weekday").val(0).attr("disabled", false);
+		
+		// Update schedule time & date values on the UI 
+		if(schedule && schedule.date && schedule.settings.delayselect)
+		{	
+			this.toggleschedentry("[data-set=now]").toggleschedentry("[data-set=in]", true);
+			$("#delay-select").val(schedule.settings.delayselect);
+		}
+		
+		else if(schedule && schedule.date)
+		{	
+			$(this.datepicker.get(0)).datepicker('update', moment.unix(schedule.date).format("DD/MM/YYYY"));	
+			this.timepicker.timepicker('setTime', moment.unix(schedule.date).format("HH:mm"));	
+		}
+		
+		else if(schedule && schedule.now)
+		{
+			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
+			$("[data-set=in] select").val(600);
+			$("#delay-date, #delay-time").val("").attr("disabled", false);
+			$("[data-set=in] .btn-white").addClass("inactive");
+		}
+
+		if(schedule && schedule.repeat)
+		{
+			if(schedule.repeat.until)
+				$(this.datepicker.get(1)).datepicker('update', moment.unix(schedule.repeat.until).format("DD/MM/YYYY"));	
+
+			var repsettings = schedule.repeat.settings || {};
+
+			if (schedule.repeat.interval){
+				this.toggleschedentry("[data-set=onlyonce], " + (schedule.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
+				this.toggleschedentry("[data-set=every], " + (schedule.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
+			}
+
+			// Reverse engineer interval
+			[720,168,24,1].some(function(itv) {
+				
+				var sum = schedule.repeat.interval /itv /3600;
+
+				if(Math.round(sum) == sum)
+				{
+					$("#repeat-interval").val(sum);
+					$("#every-select").val(itv);
+					
+					return true;
+				}
+			});
+
+			if (schedule.repeat.weekdays && schedule.repeat.weekdays.length)
+				$("#every-select-weekday").val(scheduled.repeat.weekdays[0]);
+			
+			if(schedule.repeat.amount)	$("#repeat-amount").val(schedule.repeat.amount);
+		}
+	},
+	
+	/* Called on input update */
+	
 	'monitorschedule' : function(e, element)
 	{	
 		// Various data
@@ -854,6 +933,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				this.datepicker.datepicker('hide').val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 			}
+			
+			// Force clean "in"
+			if(schedule.settings &&  schedule.settings.delayselect) delete schedule.settings.delayselect;
 		
 		} else
 		
@@ -909,21 +991,50 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
-	
-	'parsescheduled' : function()
-	{	
-		// Get variation/default info
+		
+	'togglebesttime' : function(e)
+	{
 		var schedule;
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
 		
+		
+		$(e.currentTarget).toggleClass("inactive");
+		
+		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
+		else											$("#delay-time").attr("disabled", true).val("");
+			
+		schedule.besttimetopost = !$(e.currentTarget).hasClass("inactive");
+		
+		// Set the data
+		this.draft.original(this.activestream, "schedule", schedule);
+		
+		return this;
+	},
+	
+	/* Parse schedule values */
+	
+	'parsescheduled' : function()
+	{
+		
+		// Get variation/default info
+		var schedule;
+		
+		if(!(schedule = this.draft.original(this.activestream, "schedule")))
+			 schedule = {repeat:{}};
+			 
+		if (!schedule.settings) schedule.settings = {};
+		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
 			.find("#delay-select, #delay-date, #delay-time, #repeat-interval, #every-select, #every-select-weekday, #repeat-amount, #repeat-until");
 		
-		// Schedule
+		// Schedule In
 		if (select.filter("#delay-select").val())
-			schedule.date = moment().add('seconds', $("#delay-select").val()).unix();
+		{
+			schedule.settings.delayselect = $("#delay-select").val();
+			schedule.date = moment().add('seconds', schedule.settings.delayselect).unix();
+		}
 		
 		else if (select.filter("#delay-date").val())
 		{
@@ -961,27 +1072,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		return schedule;
-	},
-	
-	'togglebesttime' : function(e)
-	{
-		var schedule;
-		
-		if(!(schedule = this.draft.original(this.activestream, "schedule")))
-			 schedule = {repeat:{}};
-		
-		
-		$(e.currentTarget).toggleClass("inactive");
-		
-		if ($(e.currentTarget).hasClass("inactive"))	$("#delay-time").attr("disabled", false);
-		else											$("#delay-time").attr("disabled", true).val("");
-			
-		schedule.besttimetopost = !$(e.currentTarget).hasClass("inactive");
-		
-		// Set the data
-		this.draft.original(this.activestream, "schedule", schedule);
-		
-		return this;
 	},
 	
 	'summarizeschedule' : function ()
@@ -1035,57 +1125,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
-	'updateschedule' : function(){
-		
-		var variated = this.activestream? this.draft.getvariation(this.activestream.id, "schedule"): false;
-		var scheduled = variated? variated: this.draft.get("schedule");
-
-		//Update schedule time & date values on the UI 
-		if(scheduled && scheduled.date){	
-			$(this.datepicker.get(0)).datepicker('update', moment.unix(scheduled.date).format("DD/MM/YYYY"));	
-			this.timepicker.timepicker('setTime', moment.unix(scheduled.date).format("HH:mm"));	
-		}else if(scheduled && scheduled.now){
-
-			this.toggleschedentry("[data-set=in], [data-set=on]").toggleschedentry("[data-set=now]", true);
-			$("[data-set=on] #delay-date").val("").attr("disabled", false);
-			$("[data-set=in] select").val(600);
-			$("[data-set=in] .btn-white").addClass("inactive");
-			
-			// Data
-			schedule = {repeat: schedule.repeat, now: true};
-		}
-
-		if(scheduled && scheduled.repeat){
-			if(scheduled.repeat.until)
-				$(this.datepicker.get(1)).datepicker('update', moment.unix(scheduled.repeat.until).format("DD/MM/YYYY"));	
-
-			var repsettings = scheduled.repeat.settings || {};
-
-			if (scheduled.repeat.interval){
-				this.toggleschedentry("[data-set=onlyonce], " + (scheduled.repeat.amount? "[data-set=until]": "[data-set=repeat]"), false);
-				this.toggleschedentry("[data-set=every], " + (scheduled.repeat.amount? "[data-set=repeat]": "[data-set=until]"), true);
-			}
-
-			// Reverse engineer interval
-			[720,168,24,1].some(function(itv) {
-				
-				var sum = scheduled.repeat.interval /itv /3600;
-
-				if(Math.round(sum) == sum)
-				{
-					$("#repeat-interval").val(sum);
-					$("#every-select").val(itv);
-					
-					return true;
-				}
-			});
-
-			if (scheduled.repeat.weekdays && scheduled.repeat.weekdays.length)
-				$("#every-select-weekday").val(scheduled.repeat.weekdays[0]);
-			
-			if(scheduled.repeat.amount)	$("#repeat-amount").val(scheduled.repeat.amount);
-		}
-	},
 	
 	/**
 	 *	Finalize
