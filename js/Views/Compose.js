@@ -1157,7 +1157,22 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
-						
+		else if(scheduled.repeat.interval)
+		{
+			var sum, intv;
+			
+			[720,168,24,1].some(function(itv) {
+					
+				sum = scheduled.repeat.interval /itv /3600;
+				intv = itv;
+				if(Math.round(sum) == sum) return true;
+			});	
+			
+			var weekdays = {1: 'hours', 24: 'days', 168: 'weeks', 720: 'months'};
+		
+			summary.html("<span>Endless repeat every " + sum + " " + weekdays[intv]);
+		
+		}				
 		return this;
 	},
 
