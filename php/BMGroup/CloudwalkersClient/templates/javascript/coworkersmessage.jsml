@@ -1,4 +1,4 @@
-
+	<!-- {{id}} -->
 	<div class='pull-right'>
 		<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
 		{{#actions.length}}
