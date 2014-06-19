@@ -34,9 +34,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		
 		// Listen to $contenteditable
-		'keyup #compose-content' : 'listentochange',
-		'paste #compose-content' : 'listentopaste',
-		'blur #compose-content' : 'endchange',
+		//'keyup #compose-content' : 'listentochange',
+		//'paste #compose-content' : 'listentopaste',
+		//'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
 
@@ -74,6 +74,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Chars limit
 		this.on("change:charlength", this.monitorlimit);
+		this.on("change:editor", this.listentochange);
+		this.on("paste:content", this.listentopaste);
+		this.on("blur:content", this.endchange);
 		//this.on("change:charlength", this.greyout);
 		
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
@@ -126,7 +129,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'listentochange' : function(e, reload) {
 
 		var newurls;
-
+		
 		// Did anything change?
 		if(this.content !== this.$contenteditable.text() || reload)
 		{	
@@ -145,14 +148,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Content
 		this.content = this.$contenteditable.text();
-
+		
 		//Default text styling
 		if(this.isdefault && !reload){
 			this.$contenteditable.removeClass("withdefault");
 			this.isdefault = false;
 		}
 
-		this.trigger('change:content', this.content);
+		//this.trigger('change:content', this.content);
 
 		if(reload)	this.clearselections();
 	},
@@ -462,6 +465,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},	
 
 	'addoeimg' : function(e){
+
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 		this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
 	},

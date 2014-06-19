@@ -76,13 +76,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	/* Validations */
-	// Type : save/post
-	'validateCustom' : function (type)
+	// Checkblock : what validations to block
+	'validateCustom' : function (checkblock)
 	{	
 		//Check for any content	
-		if(!this.hascontent())			return "You need a bit of content.";
-		if(!this.checkcontent())		return "One or more networks exceed the character limit.";
-		if(!this.get("streams").length)	return "Please select a network first.";
+		if(!this.hascontent() && checkblock != 'content')	return "You need a bit of content.";
+		if(!this.checkcontent())							return "One or more networks exceed the character limit.";
+		if(!this.get("streams").length)						return "Please select a network first.";
 	},
 
 	'hascontent' : function()
