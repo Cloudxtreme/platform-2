@@ -66,6 +66,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'keyup [data-option] input' : 'monitor',
 		'change [data-option] #compose-content' : 'monitor',
 		'keyup [data-option] #compose-content' : 'monitor',
+		'paste [data-option] #compose-content' : 'triggerpaste',
+		'blur [data-option] #compose-content' : 'triggerblur',
 		
 		'click .add-file' : 'addfile',
 		'click .add-snapshot' : 'addsnapshot',
@@ -116,7 +118,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Available Streams
 		this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
-
 		
 		// Proccess actions
 		if(this.action) this.type = this.action.get("token");
@@ -125,7 +126,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		{
 			// Clone, but filter out unwanted data.
 			this.draft = this.reference.cloneSanitized();
-		
+			this.draft.attributes.variations = [];
+			
 		} else if(this.action && this.reference)
 		{
 			// Get action dynamics
@@ -240,7 +242,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.state == 'loaded')	this.$el.find('.modal-body').addClass('loaded');
 
 		//Update the content with default/variation/draft data
-		if(this.draft.get("variations") !== undefined)
+		if(this.draft.get("variations") !== undefined || this.type == 'share')
 		{
 			this.defaultstreams();
 			this.togglesubcontent();
@@ -276,6 +278,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var target = this.$el.find('#compose-content');
 		else
 			var target = $(e.target); 
+
+		this.editor.trigger('change:editor', e);
 		
 		var streamid = this.activestream ? this.activestream.id : false;
 		var content = target.html() || target.val();
@@ -1260,19 +1264,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'postaction' : function()
 	{		
 		var streamids = [];
+		var checkblock = 'content';
 		var error;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
 		// Check stream selection
-		/*if (!streamids.length)
-			return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
+		//if (!streamids.length)
+		//	return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
 		
 		// Check text if required
 		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
-			return Cloudwalkers.RootView.information ("Not saved", "Provide some text first", this.$el.find(".modal-footer"));*/
+			checkblock = false;
 
-		if(error = this.draft.validateCustom())
+		if(error = this.draft.validateCustom(checkblock))
  			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
 		
 		//Disables footer action
@@ -1365,8 +1370,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(type == 'link'){
 
 		}
-	}
+	},
 
+	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },
+	'triggerblur' : function() { this.editor.trigger('blur:content'); },
 });
 
 

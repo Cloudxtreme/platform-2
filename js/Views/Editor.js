@@ -34,9 +34,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		
 		// Listen to $contenteditable
-		'keyup #compose-content' : 'listentochange',
-		'paste #compose-content' : 'listentopaste',
-		'blur #compose-content' : 'endchange',
+		//'keyup #compose-content' : 'listentochange',
+		//'paste #compose-content' : 'listentopaste',
+		//'blur #compose-content' : 'endchange',
 
 		'click #swaplink' : 'swaplink',
 
@@ -74,6 +74,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Chars limit
 		this.on("change:charlength", this.monitorlimit);
+		this.on("change:editor", this.listentochange);
+		this.on("paste:content", this.listentopaste);
+		this.on("blur:content", this.endchange);
 		//this.on("change:charlength", this.greyout);
 		
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
@@ -123,10 +126,27 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	    this.listentochange(e);
 	},
 
+	//Testing hack
+	'applystyle' : function(){
+
+		var sel = this.win.getSelection();
+		console.log(sel);
+ 		//Apply the styling
+        this.contenteditable.designMode = "on";
+        
+        document.execCommand('backColor', false, this.limit? "#fcc": "#fff");
+        
+        this.contenteditable.designMode = "off";
+	},
+
 	'listentochange' : function(e, reload) {
 
 		var newurls;
-
+		//Testing hack
+		/*if(e && e.keyCode == 17){
+			this.greyout(null, e)
+		}*/
+		
 		// Did anything change?
 		if(this.content !== this.$contenteditable.text() || reload)
 		{	
@@ -145,14 +165,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 		// Content
 		this.content = this.$contenteditable.text();
-
+		
 		//Default text styling
 		if(this.isdefault && !reload){
 			this.$contenteditable.removeClass("withdefault");
 			this.isdefault = false;
 		}
 
-		this.trigger('change:content', this.content);
+		//this.trigger('change:content', this.content);
 
 		if(reload)	this.clearselections();
 	},
@@ -451,6 +471,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	},	
 
 	'addoeimg' : function(e){
+
 		var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 		this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
 	},
@@ -482,19 +503,21 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		// Ignore if positive
 		//if(extrachars < 0)
-			//this.greyout(charlen);	
+		//	this.greyout(extrachars);	
 				
 	},
 
 	/* Charlimit functions */	
 
-	'greyout' : function(charlen){ 
+	'greyout' : function(charlen, e){ 
 
 		var sel = this.win.getSelection();
 		var range = this.document.createRange();
 		var here = this.cursorpos();
 		var endnode;
 		var enddata;
+		var insidelinks = 0;
+		var links = this.$contenteditable.find('short');
 
 		//Are we deleting text?
 		if(this.content.length >= this.$contenteditable.text().length)	
@@ -503,14 +526,34 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//Select the extrachars
 		range.selectNodeContents(this.$contenteditable.get(0));
 
-		endnode = range.endContainer.childNodes[range.endContainer.childNodes.length-1];
+		endnode = this.cursorpos(this.$contenteditable.text().length, true);
 		enddata = this.cursorpos(this.limit, true);
 
 		if(enddata.node){
 			range.setStart(enddata.node, enddata.offset);
-			range.setEndAfter(endnode);
+			range.setEnd(endnode.node, endnode.offset);
+			
 			sel.removeAllRanges();
 	        sel.addRange(range);
+			// Is there a link inside the range?
+			//if(insidelinks = range.toString().match(this.xurlendpattern))
+			//	insidelinks = insidelinks.length;
+
+			$.each(links, function(l, link){
+				if(sel.containsNode(link))
+					insidelinks ++;
+			});
+
+			links.removeClass("red");
+
+			//Range starts inside a link
+			if(this.isurl(enddata.node)){
+				//console.log("isurl", $(enddata.node.parentNode));
+				$(enddata.node.parentNode).addClass("red");
+				insidelinks ++;
+			}
+
+			//console.log("-----------------------");
 	    }
 
         //Apply the styling
@@ -520,10 +563,40 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
         
         this.contenteditable.designMode = "off";
 
+        
+        
+        if(insidelinks){
+
+        	while(insidelinks > 0){
+        		$(links[links.length - insidelinks]).addClass("red");
+        		insidelinks --;
+        	}
+        }
+        this.cursorpos(this.$contenteditable.text().length)
         this.mergechars();
         this.cursorpos(here);
 
 	},
+
+	'isurl' : function(u)
+	{	
+		result = false;
+
+		$.each(this.urls, function(i, url){
+			if(url.get("shortUrl") == u.textContent || i == u.textContent){
+				result = true;
+				return false;
+			}	
+		});
+
+		return result;
+	},
+
+	/*'lastnode' : function()
+	{
+		var sel = this.win.getSelection();
+		var range = this.document.createRange();
+	},*/
 
 	'updatecounter' : function(chars){
 		var limit = this.$el.find('.limit-counter');
@@ -542,7 +615,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		if(!this.$contenteditable.find('span').length)	return;
 
-		range.selectNodeContents(this.$contenteditable.find('span').get(0));
+		range.selectNodeContents(this.$contenteditable.get(0));
 		sel.removeAllRanges();
     	sel.addRange(range);
 
@@ -611,7 +684,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.getnode(this.$contenteditable[0], pos);
 
 			var nodedata = this.currentnode;
-
+			
 			if(getoffset)
 				return {node: nodedata.node, offset : nodedata.offset}
 			
