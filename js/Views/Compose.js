@@ -49,7 +49,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'reply' : ["editor"],
 		'dm' : ["editor"],
 		'retweet' : ["icon"],
-		'like' : ["icon","schedule"],
+		'like' : ["icon"],
 		'favorite' : ["icon"],
 		'plusone' : ["icon"]
 	},
@@ -1303,8 +1303,18 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 		}.bind(this),400);
 		
-		// Update edited messages
-		if(this.type == "edit") this.model.fetch();
+		// After sales service 
+		if(this.type == "edit")
+		{
+			var varn;
+			/*if(varn = this.draft.get("variations")) varn.forEach(function(el)
+			{
+				if(el.id) console.log(el.id, el, Cloudwalkers.Session.getStream(el.id));
+			});
+			
+			else */ this.model.fetch();	
+		}
+		
 		if(this.type == "post") Cloudwalkers.RootView.trigger("added:message", this.draft);
 		
 	},
