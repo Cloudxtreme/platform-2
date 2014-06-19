@@ -279,7 +279,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		else
 			var target = $(e.target); 
 
-		this.editor.trigger('change:editor');
+		this.editor.trigger('change:editor', e);
 		
 		var streamid = this.activestream ? this.activestream.id : false;
 		var content = target.html() || target.val();
