@@ -66,13 +66,13 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	
 	'showloading' : function ()
 	{ 
-		this.$el.find(".icon-cloud-download").show();
+		//this.$el.find(".icon-cloud-download").show();
 		this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
 	{	
-		this.$el.find(".icon-cloud-download").hide();
+		//this.$el.find(".icon-cloud-download").hide();
 		this.$container.removeClass("inner-loading");
 		
 		//if (this.model.messages.cursor)

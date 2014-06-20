@@ -922,7 +922,7 @@ tbody.messages-container i	{
 }
 
 
-
+/* Progress bar replaced
 .inbox.loading h3.page-title:after	{
 	float: right; width: 10%; height: 21px; display: block;
 	text-align: right; font-family: FontAwesome; font-size: 21px; color: #ddd; line-height: 2.4em; 
@@ -930,7 +930,7 @@ tbody.messages-container i	{
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
-}
+}*/
 
 #inboxlist {
 	background: white; border-right: 2px solid #dfdfdf; box-shadow: 0 0 1px rgba(0,0,0,.1)
