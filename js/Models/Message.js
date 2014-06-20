@@ -119,10 +119,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var smallestlimit = 140;
 		var result = 1;
 									
-		if(this.get("body").plaintext){
+		/*if(this.get("body").plaintext){
 			if(smallestlimit - this.get("body").plaintext.length < 0)
 				return false;
-		}			
+		}*/			
 
 		// Variations
 		if(this.get("variations") && this.get("variations").length){
