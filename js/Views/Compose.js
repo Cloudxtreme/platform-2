@@ -33,15 +33,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'options' : {
-		false :			["editor","link","images","campaign","schedule","repeat"],
-		'twitter' :		["editor","images","link","campaign","schedule","repeat"],
-		'facebook' :	["editor","fullbody","link","images","campaign","schedule","repeat"],
-		'linkedin' :	["editor","link","images","campaign","schedule","repeat"],
-		'tumblr' :		["subject","editor","fullbody","link","images","campaign","schedule","repeat"],
-		'google-plus' :	["editor","fullbody","link","images","campaign","schedule","repeat"],
-		'youtube' :		["subject","editor","fullbody","link","video","campaign","schedule","repeat"],
-		'blog' :		["subject","editor","fullbody","link","images","campaign","schedule","repeat"],
-		'group' :		["editor","images","link","campaign","schedule","repeat"],
+		false :			["editor","images","campaign","schedule","repeat"],
+		'twitter' :		["editor","images","campaign","schedule","repeat"],
+		'facebook' :	["editor","fullbody","images","campaign","schedule","repeat"],
+		'linkedin' :	["editor","fullbody","images","campaign","schedule","repeat"],
+		'tumblr' :		["subject","editor","fullbody","images","campaign","schedule","repeat"],
+		'google-plus' :	["editor","fullbody","images","campaign","schedule","repeat"],
+		'youtube' :		["subject","editor","fullbody","video","campaign","schedule","repeat"],
+		'blog' :		["subject","editor","fullbody","images","campaign","schedule","repeat"],
+		'group' :		["editor","images","campaign","schedule","repeat"],
 		'mobile-phone':	["editor","schedule","repeat"],
 		
 		// Actions
