@@ -118,26 +118,39 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		//Hardcoded smallest limit. Get it dinamically
 		var smallestlimit = 140;
 		var result = 1;
+		var variation;
 									
-		if(this.get("body").plaintext){
+		/*if(this.get("body").plaintext){
 			if(smallestlimit - this.get("body").plaintext.length < 0)
 				return false;
-		}			
+		}*/			
 
 		// Variations
-		if(this.get("variations") && this.get("variations").length){
-			$.each(this.get("variations"), function(n, variation)
+		if(this.get("streams") && this.get("streams").length){
+			$.each(this.get("streams"), function(n, stream)
 			{	
-				var network = Cloudwalkers.Session.getStream(variation.stream).get("network");
+				var network = Cloudwalkers.Session.getStream(stream).get("network");
 				var limit = network.limitations['max-length']? network.limitations['max-length'].limit : null;
 				
 				if(!limit)	return true;
 				
-				if(variation.body && variation.body.plaintext){
-					result = limit - variation.body.plaintext.length;
-					if(result < 0)	return false;
-					else			return true;
+				//Find the variation with that id, if not, use the default's limit
+				if(variation = this.getvariation(stream)){
+					if(variation.body && variation.body.plaintext){
+
+						result = limit - variation.body.plaintext.length;
+						if(result < 0)	return false;
+						else			return true;
+					}
+				}else{
+					if(this.get("body") && this.get("body").plaintext){
+						result = limit - this.get("body").plaintext.length;
+						if(result < 0)
+							return false;
+					}
 				}
+
+				
 
 			}.bind(this));			
 		}

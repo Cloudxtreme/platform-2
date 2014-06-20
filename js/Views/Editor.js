@@ -130,7 +130,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'applystyle' : function(){
 
 		var sel = this.win.getSelection();
-		console.log(sel);
+		
  		//Apply the styling
         this.contenteditable.designMode = "on";
         
@@ -139,13 +139,19 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
         this.contenteditable.designMode = "off";
 	},
 
+	'applyselection' : function(e){
+		this.greyout(this.limit - this.$contenteditable.text().length, e);
+
+	},
+
 	'listentochange' : function(e, reload) {
 
 		var newurls;
+
 		//Testing hack
-		/*if(e && e.keyCode == 17){
-			this.greyout(null, e)
-		}*/
+		//if(e && e.keyCode == 17)	this.applyselection(e);
+		//if(e && e.keyCode == 18)	this.applystyle();
+		
 		
 		// Did anything change?
 		if(this.content !== this.$contenteditable.text() || reload)
@@ -528,21 +534,14 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		endnode = this.cursorpos(this.$contenteditable.text().length, true);
 		enddata = this.cursorpos(this.limit, true);
-
+		
 		if(enddata.node){
-			range.setStart(enddata.node, enddata.offset);
-			range.setEnd(endnode.node, endnode.offset);
-			
-			sel.removeAllRanges();
-	        sel.addRange(range);
+						
 			// Is there a link inside the range?
 			//if(insidelinks = range.toString().match(this.xurlendpattern))
 			//	insidelinks = insidelinks.length;
 
-			$.each(links, function(l, link){
-				if(sel.containsNode(link))
-					insidelinks ++;
-			});
+			if(e) return;
 
 			links.removeClass("red");
 
@@ -550,8 +549,21 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			if(this.isurl(enddata.node)){
 				//console.log("isurl", $(enddata.node.parentNode));
 				$(enddata.node.parentNode).addClass("red");
+				enddata.node = enddata.node.parentNode.nextSibling;
+				enddata.offset = 0;
 				insidelinks ++;
 			}
+
+			range.setStart(enddata.node, enddata.offset);
+			range.setEnd(endnode.node, endnode.offset);
+
+			sel.removeAllRanges();
+	        sel.addRange(range);
+
+			$.each(links, function(l, link){
+				if(sel.containsNode(link))
+					insidelinks ++;
+			});
 
 			//console.log("-----------------------");
 	    }

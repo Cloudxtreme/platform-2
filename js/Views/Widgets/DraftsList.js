@@ -31,6 +31,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.listenTo(this.model.messages, 'seed', this.fill);
 		this.listenTo(this.model.messages, 'request', this.showloading);
 		this.listenTo(this.model.messages, 'ready', this.showmore);
+		this.listenTo(this.model.messages, 'destroy', this.showmore);
 		this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
 		//Show all reloads te listeners
@@ -64,29 +65,29 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	},
 	
 	'showloading' : function ()
-	{
+	{ 
 		this.$el.find(".icon-cloud-download").show();
 		this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
-	{
+	{	
 		this.$el.find(".icon-cloud-download").hide();
 		this.$container.removeClass("inner-loading");
 		
-		if (this.model.messages.cursor)
+		//if (this.model.messages.cursor)
 			//this.$el.find(".load-more").show();
-			this.hasmore = true;
+			//this.hasmore = true;
 	},
 
 	'showmore' : function(){
 
-		if(this.hasmore)
+		if(this.model.messages.cursor)
 			this.$el.find(".load-more").show();
 	},
 	
 	'fill' : function (list)
-	{		
+	{	
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
