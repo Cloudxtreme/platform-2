@@ -212,6 +212,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var view = Mustache.render(Templates.compose, params);
 		this.$el.html (view);		
 		
+		if(this.state == 'loading')	this.disablefooter();
+
 		// Append Editor
 		if(!this.editor) this.editor = new Cloudwalkers.Views.Editor({draft: this.draft, parent: this});
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
@@ -412,7 +414,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("schedule"), this.draft.get("variations"));
+	{ 	//console.log(this.draft, this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
@@ -1320,7 +1322,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	'disablefooter' : function()
-	{
+	{	
 		this.$el.find(".modal-footer .btn").attr("disabled", true);
 	},
 	
