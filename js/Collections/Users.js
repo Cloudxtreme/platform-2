@@ -43,7 +43,7 @@
 		if(method == "read")
 		{
 			this.processing = true;
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+			this.parameters = this.parameters? "?" + $.param(this.parameters): "";
 		}
 
 		return Backbone.sync(method, model, options);

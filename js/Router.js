@@ -1,9 +1,16 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
+		'' : 'dashboard',
+		'dashboard/:accountid' : 'changeaccount',
 		
 		'demo(/:demotype)' : 'demo',
 		
+		'inbox/drafts' : 'ib-drafts',
+		'inbox/sent' : 'ib-sent',
+		'inbox/scheduled' : 'ib-scheduled',
+		'inbox/trash' : 'ib-trash',
+
 		'write' : 'write',
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
@@ -23,9 +30,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'settings(/:sub)' : 'settings',
 		'firsttime' : 'firsttime',
 		'work' : 'coworkdashboard',
-		'dashboard/:accountid' : 'changeaccount',
+		
 		'home' : 'home',
-		'*path' : 'dashboard'
+		'*path' : '404'
 	},
 
 	'initialize' : function (){},
@@ -107,6 +114,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	/**
 	 *	Inbox
 	 **/
+	 
+	 'ib-drafts' : function()
+	 {
+		// Visualisation
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.IB({channeltype: 'draft', filter: 'editors', title: "Drafts"}));
+	 },
 	 
 	 'inbox' : function (type, streamid)
 	{
