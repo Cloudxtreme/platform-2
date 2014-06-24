@@ -1,7 +1,6 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
-		'' : 'dashboard',
 		'dashboard/:accountid' : 'changeaccount',
 		
 		'demo(/:demotype)' : 'demo',
@@ -32,7 +31,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'work' : 'coworkdashboard',
 		
 		'home' : 'home',
-		'*path' : '404'
+		'*path' : 'dashboard'
 	},
 
 	'initialize' : function (){},
