@@ -185,6 +185,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'endchange' : function (e)
 	{
+
 		if (this.$contenteditable.html().match(this.xurlendpattern))
 		{
 			var newurls;
@@ -224,6 +225,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			
 			//URL offset inside node
 			startoffset = nodetext.indexOf(urlnode.url);
+			
 			endoffset = startoffset + urlnode.url.length;
 			if(startoffset < 0) startoffset = 0;
 			
@@ -232,7 +234,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			range.setEnd(urlnode.node, endoffset);
 			sel.removeAllRanges();
 	        sel.addRange(range);
-			
+
 			//Apply Magic
 			this.contenteditable.designMode = "on";       	
 			
@@ -278,6 +280,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		
 			// Resolve url at end of string
 			//if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
+
 
 			// Found url(s)
 			if(urls && urls.length){
