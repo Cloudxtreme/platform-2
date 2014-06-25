@@ -1,0 +1,13 @@
+
+<aside class="nodata">
+	<h3>{{username}}</h3>
+	<img class="avatar" src="http://placehold.it/100x100">
+</aside>
+
+<div id="inboxlist">
+
+	<div class="modal-body">
+		<ul class="list loaded tabbed"></ul>
+	</div>
+		
+</div>

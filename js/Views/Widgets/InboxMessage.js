@@ -159,6 +159,12 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Mark stream
 		Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
 	},
+
+	/*'viewcontact' : function(e)
+	{
+		// e.currentTarget = contactid
+		Cloudwalkers.RootView.viewContact();
+	},*/
 	
 	'destroy' : function()
 	{

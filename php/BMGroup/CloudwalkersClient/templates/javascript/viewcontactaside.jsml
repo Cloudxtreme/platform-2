@@ -1,0 +1,5 @@
+
+<!-- User data -->
+
+<h3>{{username}}</h3>
+<img class="avatar" src="{{avatar}}">
