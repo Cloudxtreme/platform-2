@@ -104,7 +104,7 @@
 							var p = this.getCenter();
 							
 							$.ajax({
-								url: '/1/geo/countries'+ str_qs,
+								url: '/1/geo/countries/coords'+ str_qs,
 								type: 'POST',
 								data: "country="+ qs['c']
 									+"&lat=" + p.lat()
