@@ -46,7 +46,7 @@ Cloudwalkers.Views.Preview = Backbone.View.extend({
 			this.previewdata.image = img.data || img.url;
 			this.$el.find("#network").addClass("img"); 
 		}
-		console.log(this.previewdata)
+		
 		// Render preview (opacity:0)
 		var preview = Mustache.render(preview, this.previewdata);
 		this.$el.find("#pv-main").append(preview);
