@@ -598,7 +598,8 @@ Style corrections and manual overrides
 
 /* DEMO viewContact */ 
 #compose.viewcontact{
-	height: 700px;
+	height: 600px;
+	max-height: 90%;
 }
 
 .viewcontact .modal-body{
@@ -607,14 +608,25 @@ Style corrections and manual overrides
 
 .viewcontact #inboxlist{
 	overflow: scroll;
+	max-height: 100%;
+	background-color: #efefef;
 }
 
 .viewcontact aside{
 	text-align: center;
 }
 
+.viewcontact aside h3{
+	position: relative;
+	bottom: 0px;
+	opacity: 1;
+	-webkit-transition: all .25s ease-out;
+}
+
 .viewcontact aside.nodata h3{
+	bottom: 10px;
 	opacity: 0;
+	min-height: 32px;
 }
 
 .viewcontact aside .avatar{
@@ -623,6 +635,14 @@ Style corrections and manual overrides
 	height: 170px;
 	background-color: #ddd;
 	border-radius: 50% !important;
+}
+
+.viewcontact #contactfilter{
+	text-align: left;
+}
+
+.viewcontact #contactfilter .btn-white{
+	padding: 12px 20px;
 }
 
 /* DEMO viewContact end */ 

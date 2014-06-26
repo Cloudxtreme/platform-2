@@ -21,6 +21,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'ready', this.updatecontactinfo);
 
+		//listenToOnce
+		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 	},
 
 	'render' : function()
@@ -30,6 +32,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.$el.html (view);
 
 		this.$container = this.$el.find ('ul.list');
+		this.$loadercontainer = this.$el.find ('ul.list');
+
+		this.trigger("rendered");
 
 		// make the fetch
 		this.collection.touch(this.model, this.filterparams());
@@ -65,9 +70,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			contactinfo = this.collection.first().get('from')[0];
 
 		if(contactinfo){
-			console.log(contactinfo)
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
-			this.$el.find('aside').removeClass('nodata');
+
+			setTimeout(function(){
+				this.$el.find('aside').removeClass('nodata');
+			}.bind(this), 1)
 		}
 	},
 

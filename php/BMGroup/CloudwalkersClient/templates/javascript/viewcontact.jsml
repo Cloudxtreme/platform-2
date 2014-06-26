@@ -2,12 +2,17 @@
 <aside class="nodata">
 	<h3>{{username}}</h3>
 	<img class="avatar" src="http://placehold.it/100x100">
+	<br><br><br>
+	<ul id="contactfilter">
+		<li class="btn-white active"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+		<li class="btn-white inactive"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+	</ul>
 </aside>
 
 <div id="inboxlist">
 
 	<div class="modal-body">
-		<ul class="list loaded tabbed"></ul>
+		<ul class="list toload tabbed"></ul>
 	</div>
 		
 </div>
