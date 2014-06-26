@@ -53,7 +53,10 @@
 			
 			if (qs['c']) str_qs = '?c=' + qs['c'];
 			
-            $.ajax ('http://cloudwalkers-engine.local/1/geo/countries' + str_qs, {
+            
+			//$.ajax ('http://cloudwalkers-engine.local/1/geo/countries' + str_qs, {
+			
+            $.ajax ('https://devapi.cloudwalkers.be/1/geo/countries' + str_qs, {
                'success' : function (data)
                {
                   var countries = data.countries;
