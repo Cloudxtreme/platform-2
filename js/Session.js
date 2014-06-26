@@ -192,7 +192,14 @@ Cloudwalkers.Session =
 	{
 		return (id)? this.user.accounts.get(id):  this.user.account;
 	},
-	
+
+	/* getDefaultLang */
+	'getDefaultLang' : function (id)
+	{
+		return (id)? this.user.accounts.get(id):  this.user.attributes.locale;
+	},
+	/* end getDefaultLang */
+
 	'getAccounts' : function (id)
 	{
 		return this.user.accounts;
