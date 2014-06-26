@@ -28,7 +28,7 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		Cloudwalkers.RootView.viewContact();
 		
 		return this;
-	}	
+	}
 });
 
 

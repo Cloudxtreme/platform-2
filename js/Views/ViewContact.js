@@ -5,6 +5,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'entries' : [],
 	'contactid' : 1583880,	//temp
 
+	'events' : {
+		'click .end-preview td i' : 'backtolist'
+	},
+
 	'initialize' : function(options)
 	{	
 		// Parameters
@@ -51,7 +55,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			var view = new Cloudwalkers.Views.Entry ({model: messages[n], template: 'smallentry', checkunread: true, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
-			this.listenTo(view, "toggle", this.toggle);
+			this.listenTo(view, "toggle", this.loadmessage);
 			
 			this.$container.append(view.render().el);
 
@@ -78,6 +82,35 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
 	},
 
+	'loadmessage' : function(view)
+	{	
+		$('.viewcontact').addClass('onmessage');
+
+		if (this.inboxmessage) this.inboxmessage.remove();
+		
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+
+		this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
+		
+		$(".inbox-container").html(this.inboxmessage.render().el);
+		
+		// Load related messages
+		this.inboxmessage.showrelated(); //(view.model);
+		
+		this.$el.find(".list .active").removeClass("active");
+		view.$el.addClass("active");
+	},
+
+	'backtolist' : function()
+	{
+		$('.viewcontact').removeClass('onmessage');
+	},
+
+	'toggle' : function()
+	{
+		//Toggle between endpoints here
+	},
+	
 	// Implement after working endpoints
 	/*'lastmessages' : function()
 	{
