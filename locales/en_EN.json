@@ -1,0 +1,11 @@
+{
+	'inbox': 'Dashboard',
+	'inbox': 'Inbox',
+	'keywords': 'Keywords',
+	'schedule': 'Schedule',
+	'co-workers_wall': 'Co-workers wall',
+	'trending_company_posts': 'Trending Company Posts',
+	'trending_accounts_we_follow': 'Trending Accounts we follow',
+	'scheduled_messages': 'Scheduled messages',
+	'scheduled_message': 'Scheduled message'
+}
