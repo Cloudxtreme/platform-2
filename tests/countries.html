@@ -21,6 +21,17 @@
 
         // First, create an object containing LatLng and population for each city.
 
+		var qs = (function(a) {
+			if (a == "") return {};
+			var b = {};
+			for (var i = 0; i < a.length; ++i)
+			{
+				var p=a[i].split('=');
+				if (p.length != 2) continue;
+				b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+			}
+			return b;
+		})(window.location.search.substr(1).split('&'));
 
         function initialize ()
         {
@@ -33,12 +44,32 @@
 
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+			/*
+			google.maps.event.addListener(drawingManager,'circlecomplete', function(circle){
+				
+				radius = circle.getRadius();
+				
+				document.getElementById("radio").innerHTML=radius;
+				
+				redondo=circle;
+
+				//observe radius_changed
+				google.maps.event.addListener(redondo,'radius_changed',function(){
+					alert(this.getRadius());
+				})
+			});
+			*/
+			
             function getRandomColor(countryid) {
                var values = [ '#FF0000', '#FFFF00', '#808000', '#00FF00', '#008000', '#00FFFF', '#008080', '#0000FF', '#000080', '#FF00FF', '#800080' ];
                return values[countryid % values.length];
             }
 
-            $.ajax ('https://devapi.cloudwalkers.be/1/geo/countries', {
+			var str_qs = '';
+			
+			if (qs['c']) str_qs = '?c=' + qs['c'];
+			
+            $.ajax ('http://cloudwalkers-engine.local/1/geo/countries' + str_qs, {
                'success' : function (data)
                {
                   var countries = data.countries;
@@ -64,6 +95,31 @@
 
                        // Add the circle for this city to the map.
                        cityCircle = new google.maps.Circle(populationOptions);
+					   
+					   cityCircle.center_changed = function(){
+							
+							//alert('r:'+ this.getRadius() +'p:'+(this.getCenter()).lat());
+							
+							var rad = this.getRadius();
+							var p = this.getCenter();
+							
+							$.ajax({
+								url: '/1/geo/countries'+ str_qs,
+								type: 'POST',
+								data: "country="+ qs['c']
+									+"&lat=" + p.lat()
+									+"&lng=" + p.lng()
+									+"&radius=" + rad
+								,success: function(data) {
+									alert('New position sent: '+ p + ' Radius: '+ rad +' meters.');
+								}
+								,error: function(data) {
+									alert('Failed to send position sent: '+ p + ' Radius: '+ rad +' meters.');
+								}
+							});
+					   }
+					   
+					   if (str_qs != '') cityCircle.setEditable(true);
                    }
                }
             });
