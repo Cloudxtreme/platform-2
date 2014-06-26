@@ -24,6 +24,8 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		// Listen to editor triggers
 		//this.listenTo(this.editor, "imageadded", this.addimage);
 		//this.listenTo(this.editor, "contentadded", this.monitor);
+
+		Cloudwalkers.RootView.viewContact();
 		
 		return this;
 	}	

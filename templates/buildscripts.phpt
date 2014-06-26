@@ -31,6 +31,7 @@
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
 <script type="text/javascript" src="/js/Models/Network.js"></script>
+<script type="text/javascript" src="/js/Models/Polyglot.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -57,6 +58,7 @@
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/Message.js"></script>
 <script type="text/javascript" src="/js/Views/ContactView.js"></script>
+<script type="text/javascript" src="/js/Views/ViewContact.js"></script>
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 

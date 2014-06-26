@@ -1,0 +1,11 @@
+
+<!-- User data -->
+
+<h3>{{username}}</h3>
+<img class="avatar" src="{{avatar}}">
+
+<br><br><br>
+<ul id="contactfilter">
+	<li class="btn-white active"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+	<li class="btn-white inactive"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+</ul>
