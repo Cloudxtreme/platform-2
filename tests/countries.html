@@ -44,22 +44,6 @@
 
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-			/*
-			google.maps.event.addListener(drawingManager,'circlecomplete', function(circle){
-				
-				radius = circle.getRadius();
-				
-				document.getElementById("radio").innerHTML=radius;
-				
-				redondo=circle;
-
-				//observe radius_changed
-				google.maps.event.addListener(redondo,'radius_changed',function(){
-					alert(this.getRadius());
-				})
-			});
-			*/
-			
             function getRandomColor(countryid) {
                var values = [ '#FF0000', '#FFFF00', '#808000', '#00FF00', '#008000', '#00FFFF', '#008080', '#0000FF', '#000080', '#FF00FF', '#800080' ];
                return values[countryid % values.length];
@@ -96,6 +80,7 @@
                        // Add the circle for this city to the map.
                        cityCircle = new google.maps.Circle(populationOptions);
 					   
+					   // When we edit the midpoint or the radius, send it
 					   cityCircle.center_changed = function(){
 							
 							//alert('r:'+ this.getRadius() +'p:'+(this.getCenter()).lat());
@@ -104,20 +89,22 @@
 							var p = this.getCenter();
 							
 							$.ajax({
-								url: '/1/geo/countries/coords'+ str_qs,
+								url: 'http://cloudwalkers-engine.local/1/geo/coords'+ str_qs,
 								type: 'POST',
 								data: "country="+ qs['c']
 									+"&lat=" + p.lat()
 									+"&lng=" + p.lng()
 									+"&radius=" + rad
 								,success: function(data) {
-									alert('New position sent: '+ p + ' Radius: '+ rad +' meters.');
+									//alert('New position sent: '+ p + ' Radius: '+ rad +' meters.');
 								}
 								,error: function(data) {
-									alert('Failed to send position sent: '+ p + ' Radius: '+ rad +' meters.');
+									//alert('Failed to send position sent: '+ p + ' Radius: '+ rad +' meters.');
 								}
 							});
 					   }
+					   
+						cityCircle.radius_changed = cityCircle.center_changed;
 					   
 					   if (str_qs != '') cityCircle.setEditable(true);
                    }
