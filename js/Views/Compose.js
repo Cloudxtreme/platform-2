@@ -1209,7 +1209,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.addClass("switch-mode");
 		
 		// Create new preview object
-		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, previewtype: 'default', streamid: this.activestream.id});
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft.clone(), previewtype: 'default', streamid: this.activestream.id});
 		
 		// Add preview view to Compose
 		this.$el.find('.switch-container').append(this.preview.render().el);
