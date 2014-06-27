@@ -80,9 +80,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'validateCustom' : function (checkblock)
 	{	
 		//Check for any content	
-		if(!this.hascontent() && checkblock != 'content')	return "You need a bit of content.";
-		if(!this.checkcontent())							return "One or more networks exceed the character limit.";
-		if(!this.get("streams").length)						return "Please select a network first.";
+		if(!this.hascontent() && checkblock != 'content')			return "You need a bit of content.";
+		if(!this.checkcontent())									return "One or more networks exceed the character limit.";
+		if(!this.get("streams").length && checkblock != 'streams')	return "Please select a network first.";
 	},
 
 	'hascontent' : function()
@@ -263,7 +263,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		return filtered;
 	},
-	
+	//Temp hack for viewcontact endpoint
+	'generateintro' : function()
+	{
+		if(this.get("body") && !this.get("body").intro)
+			this.attributes.body.intro = this.get("body").plaintext.substr(0, 72);
+
+	},
+
 	'filterActions' : function ()
 	{	
 		if(!this.get("actiontokens")) return [];

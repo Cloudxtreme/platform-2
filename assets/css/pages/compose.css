@@ -603,17 +603,55 @@ Style corrections and manual overrides
 }
 
 .viewcontact .modal-body{
-	width: 100%;
+	width: 200%;
+	height: 100%;
+	position: relative;
+	right: 0%;
+	z-index: 1;
+	-webkit-transition: all .15s ease-out;
+	overflow: hidden;
+}
+
+.viewcontact .messagelist{
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+
+.viewcontact .inbox-container{
+	float: left;
+	width: 50%;
+	padding: 0px 20px 20px 55px;
+	box-sizing: border-box;
+	position: relative;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.viewcontact.onmessage .inbox-container .progress-bar{
+	margin-top: 0px;
+}
+
+.viewcontact .inbox-container > div, .viewcontact .inbox-container > ul{
+	margin-top: 10px;
 }
 
 .viewcontact #inboxlist{
-	overflow: scroll;
-	max-height: 100%;
+	position: relative;
 	background-color: #efefef;
+	height: 100%;
+	overflow: hidden;
 }
 
-.viewcontact aside{
+#compose.viewcontact aside{
+	position: relative;
+	z-index: 10;
 	text-align: center;
+	height: 100%;
+	padding: 0px;
+	background-color: #eee;
+	box-sizing: border-box;
 }
 
 .viewcontact aside h3{
@@ -629,12 +667,32 @@ Style corrections and manual overrides
 	min-height: 32px;
 }
 
-.viewcontact aside .avatar{
+.viewcontact aside .contactavatar{
+	margin: 0 auto;
+	overflow: hidden;
 	margin-top: 20px;
 	width: 170px;
 	height: 170px;
 	background-color: #ddd;
 	border-radius: 50% !important;
+}
+
+.viewcontact aside .contactavatar img{
+	-webkit-transition: all .15s ease-out;
+	width: 100%;
+	height: 100%;
+	
+}
+
+.viewcontact aside.nodata .contactavatar img{
+	width: 100%;
+	height: 100%;
+	
+}
+
+.viewcontact aside .contactupper {
+	padding: 10px 0px 40px;
+	background-color: #fff;
 }
 
 .viewcontact #contactfilter{
@@ -643,6 +701,64 @@ Style corrections and manual overrides
 
 .viewcontact #contactfilter .btn-white{
 	padding: 12px 20px;
+}
+
+.viewcontact #contactfilter .btn-white.active {
+	background-color: #fff;
+}
+
+.viewcontact #contactfilter .btn-white.active i{
+	margin-top: 4px;
+}
+
+.viewcontact ul.list{
+	cursor: pointer;
+}
+
+.viewcontact ul.list li:hover .arrow{
+	color: #999;
+}
+
+.viewcontact.onmessage .modal-body{
+	right:100%;
+}
+
+.viewcontact #inboxlist .end-preview{
+	left: -40px;
+	width: 27px;
+	opacity: 0;
+	-webkit-transform: none;
+	-webkit-transition: left .25s ease-out .5s;
+	color: #ccc;
+}
+
+.viewcontact #inboxlist .end-preview:hover{
+	color: #999;
+}
+
+.viewcontact.onmessage #inboxlist .end-preview{
+	left: 0px;
+	width: 27px;
+	opacity: 1;
+	z-index: 20;
+}
+
+.viewcontact #inboxlist .end-preview td i{
+	background-color: #fff;
+	padding: 20px;
+	cursor: pointer;
+}
+
+.viewcontact #inboxlist .end-preview td i:before{
+	left: -9px;
+	position: relative;
+}
+
+.viewcontact .pull-right .arrow{
+	font-size: 16px;
+	margin-top: 10px;
+	margin-left: 8px;
+	color: #ddd;
 }
 
 /* DEMO viewContact end */ 

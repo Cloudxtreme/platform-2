@@ -35,8 +35,7 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 	'translateTitle' : function(translatedata)
 	{	
 		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
-	}	
-});
+	}	});
 
 
 /*

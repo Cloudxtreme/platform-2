@@ -51,7 +51,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	{	
 		// Show loading
 		this.loading(true);
-	
+		
 		// Create & append related container
 		this.$related = $('<ul></ul>');
 		this.$prelated = $('<ul></ul>');
@@ -65,9 +65,11 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Listen to collection
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
-			
+		this.listenTo(this.model.related, 'all', this.sendtriggers)	
+
 		// Load messages
 		this.model.related.touch(this.model, {records: 20, markasread: true});
+		
 	},
 	
 	'fillrelated' : function(models)
@@ -101,9 +103,13 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			
 			this[models[n].append? "$related": "$prelated"].append(view.render().el);
 		}
-		
+
 		// Hide loading
 		this.loading(false);
+	},
+
+	'sendtriggers' : function(trigger){
+		this.trigger(trigger);
 	},
 	
 	'addNotifications' : function()

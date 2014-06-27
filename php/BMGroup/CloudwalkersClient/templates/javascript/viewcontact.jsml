@@ -1,18 +1,33 @@
 
 <aside class="nodata">
-	<h3>{{username}}</h3>
-	<img class="avatar" src="http://placehold.it/100x100">
-	<br><br><br>
+
+	<div class="contactupper">
+		<h3>{{username}}</h3>
+		<div class="contactavatar">
+			<img class="avatar" src="{{avatar}}">
+		</div>		
+	</div>	
+
 	<ul id="contactfilter">
-		<li class="btn-white active"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
-		<li class="btn-white inactive"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+		<li class="btn-white active" data-type="conversations"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+		<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+
 	</ul>
+
 </aside>
 
 <div id="inboxlist">
-
+	<table class="end-preview">
+		<tbody><tr><td valign="middle">
+			<i class="icon-chevron-left"></i>
+		</td></tr></tbody>
+	</table>
 	<div class="modal-body">
-		<ul class="list toload tabbed"></ul>
+		<div class="messagelist">
+			<ul class="list toload tabbed"></ul>
+		</div>
+
+		<div class="inbox-container"></div>
 	</div>
 		
 </div>
