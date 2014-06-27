@@ -715,6 +715,10 @@ Style corrections and manual overrides
 	cursor: pointer;
 }
 
+.viewcontact ul.list li:hover .arrow{
+	color: #999;
+}
+
 .viewcontact.onmessage .modal-body{
 	right:100%;
 }
@@ -725,6 +729,11 @@ Style corrections and manual overrides
 	opacity: 0;
 	-webkit-transform: none;
 	-webkit-transition: left .25s ease-out .5s;
+	color: #ccc;
+}
+
+.viewcontact #inboxlist .end-preview:hover{
+	color: #999;
 }
 
 .viewcontact.onmessage #inboxlist .end-preview{
@@ -743,6 +752,13 @@ Style corrections and manual overrides
 .viewcontact #inboxlist .end-preview td i:before{
 	left: -9px;
 	position: relative;
+}
+
+.viewcontact .pull-right .arrow{
+	font-size: 16px;
+	margin-top: 10px;
+	margin-left: 8px;
+	color: #ddd;
 }
 
 /* DEMO viewContact end */ 
