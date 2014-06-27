@@ -195,8 +195,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'loadmessage' : function(view)
 	{	
-		if(this.type && this.type == 'messages')
-			return;
+		//if(this.type && this.type == 'messages')
+		//	return;
 
 		$('.viewcontact').addClass('onmessage');
 
@@ -207,8 +207,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
 
-		this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
-		//this.inboxmessage.on('all', function(a){console.log(a)})
+		if(this.type && this.type != 'messages')
+			this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		

@@ -267,7 +267,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'generateintro' : function()
 	{
 		if(this.get("body") && !this.get("body").intro)
-			this.attributes.body.intro = this.get("body").plaintext.substr(0, 72) + "...";
+			this.attributes.body.intro = this.get("body").plaintext.substr(0, 72);
 
 	},
 
