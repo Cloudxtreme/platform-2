@@ -263,7 +263,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		return filtered;
 	},
-	
+	//Temp hack for viewcontact endpoint
+	'generateintro' : function()
+	{
+		if(this.get("body") && !this.get("body").intro)
+			this.attributes.body.intro = this.get("body").plaintext.substr(0, 72) + "...";
+
+	},
+
 	'filterActions' : function ()
 	{	
 		if(!this.get("actiontokens")) return [];

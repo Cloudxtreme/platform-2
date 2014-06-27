@@ -623,6 +623,11 @@ Style corrections and manual overrides
 	width: 50%;
 	padding: 0px 20px 20px 55px;
 	box-sizing: border-box;
+	position: relative;
+}
+
+.viewcontact.onmessage .inbox-container .progress-bar{
+	margin-top: 0px;
 }
 
 .viewcontact .inbox-container > div, .viewcontact .inbox-container > ul{

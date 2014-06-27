@@ -9,8 +9,9 @@
 	</div>	
 
 	<ul id="contactfilter">
-		<li class="btn-white active"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
-		<li class="btn-white inactive"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+		<li class="btn-white active" data-type="conversations"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+		<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+
 	</ul>
 
 </aside>
