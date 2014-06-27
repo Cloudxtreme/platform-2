@@ -34,8 +34,13 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	{	
 		this.loadmylisteners();
 		
+		var data = {};
+		//Mustache translations
+		data.title = this.title;
+		data.translate_load_more = this.translateString("load_more");
+
 		// Get template
-		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
+		this.$el.html (Mustache.render (Templates.coworkerslist, data));
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -177,5 +182,10 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

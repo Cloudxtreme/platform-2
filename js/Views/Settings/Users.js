@@ -26,6 +26,16 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	{
 		var account = Cloudwalkers.Session.getAccount();
 		var data = {};
+
+		//Mustache translations
+		data.translate_edit_user = this.translateString("edit_user");
+		data.translate_select_user = this.translateString("select_user");
+		data.translate_invite_new_user = this.translateString("invite_new_user");
+		data.translate_email = this.translateString("email");
+		data.translate_invite_user = this.translateString("invite_user");
+		data.translate_userlist = this.translateString("userlist");
+		data.translate_name = this.translateString("name");
+		data.translate_type = this.translateString("type");
 		
 		this.$el.html (Mustache.render (Templates.settings.users, data));
 		
@@ -146,6 +156,11 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	'fail' : function ()
 	{
 		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 });

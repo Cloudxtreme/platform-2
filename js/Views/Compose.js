@@ -169,6 +169,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
+		// Translate Titles
+		this.translateTitles();
 		
 	},
 	
@@ -195,6 +197,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 
 		this.state = 'loaded';
+
 		// Render for editor
 		this.render();
 		
@@ -215,6 +218,47 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
+
+		//Mustache translations
+		params.translate_networks = this.translateString("networks");
+		params.translate_default = this.translateString("default");
+		params.translate_subject = this.translateString("subject");
+		params.translate_images = this.translateString("images");
+		params.translate_photo_booth = this.translateString("photo_booth");
+		params.translate_pictures = this.translateString("pictures");
+		params.translate_camera = this.translateString("camera");
+		params.translate_campaign = this.translateString("campaign");
+		params.translate_no_campaign = this.translateString("no_campaign");
+		params.translate_schedule = this.translateString("schedule");
+		params.translate_now = this.translateString("now");
+		params.translate_in = this.translateString("in");
+		params.translate_min = this.translateString("mins");
+		params.translate_hour = this.translateString("hour");
+		params.translate_hours = this.translateString("hours");
+		params.translate_day = this.translateString("day");
+		params.translate_week = this.translateString("week");
+		params.translate_on = this.translateString("on");
+		params.translate_best_time = this.translateString("best_time");
+		params.translate_repeat = this.translateString("repeat");
+		params.translate_no_repeat = this.translateString("no_repeat");
+		params.translate_every = this.translateString("every");
+		params.translate_days = this.translateString("days");
+		params.translate_weeks = this.translateString("weeks");
+		params.translate_months = this.translateString("months");
+		params.translate_select_a_day = this.translateString("select_a_day");
+		params.translate_monday = this.translateString("monday");
+		params.translate_tuesday = this.translateString("tuesday");
+		params.translate_wednesday = this.translateString("wednesday");
+		params.translate_thursday = this.translateString("thursday");
+		params.translate_friday = this.translateString("friday");
+		params.translate_saturday = this.translateString("saturday");
+		params.translate_sunday = this.translateString("sunday");
+		params.translate_doesnt_matter = this.translateString("doesnt_matter");
+		params.translate_times = this.translateString("times");
+		params.translate_until = this.translateString("until");
+		params.translate_save = this.translateString("save");
+		params.translate_preview = this.translateString("preview");
+		params.translate_post = this.translateString("post");
 
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
@@ -1132,6 +1176,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizeschedule' : function ()
 	{	
+		// Translations
+		this.translate_best_time_to_post = this.translateString("best_time_to_post");
 
 		// Collect the data
 		var scheduled = this.parsescheduled();
@@ -1139,7 +1185,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(scheduled && scheduled.date)
 		{
-			var time = scheduled.besttimetopost? "Best time to post": moment.unix(scheduled.date).format("HH:mm");
+			var time = scheduled.besttimetopost? this.translate_best_time_to_post: moment.unix(scheduled.date).format("HH:mm");
 			summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
 		}
 		
@@ -1151,6 +1197,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
+		// Translations
+		this.translate_times = this.translateString("times");
+		this.translate_until = this.translateString("until");
+		this.translate_endless_repeat_every = this.translateString("endless_repeat_every");
+		this.translate_hours = this.translateString("hours");
+		this.translate_days = this.translateString("days");
+		this.translate_weeks = this.translateString("weeks");
+		this.translate_months = this.translateString("months");
+
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
@@ -1177,8 +1232,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var times = scheduled.repeat.amount;
 			var end = start.clone().add('seconds', times * scheduled.repeat.interval);
 		}
-		
-		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
+
+		if(times) summary.html("<span>" + times + " " + this.translate_times + " " + (end? "<em class='negative'>" + this.translate_until + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
 		else if(scheduled.repeat.interval)
 		{
 			var sum, intv;
@@ -1190,9 +1245,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				if(Math.round(sum) == sum) return true;
 			});	
 			
-			var weekdays = {1: 'hours', 24: 'days', 168: 'weeks', 720: 'months'};
-		
-			summary.html("<span>Endless repeat every " + sum + " " + weekdays[intv]);
+			var weekdays = {1: this.translate_hours, 24: this.translate_days, 168: this.translate_weeks, 720: this.translate_months};
+			
+			
+			summary.html("<span>" + this.translate_endless_repeat_every + " " + sum + " " + weekdays[intv]);
 		
 		}				
 		return this;
@@ -1392,6 +1448,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },
 	'triggerblur' : function() { this.editor.trigger('blur:content'); },
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateTitles' : function(translatedata)
+	{
+		
+		for(k in this.titles)
+		{
+            this.titles[k] = this.translateString(this.titles[k]);
+		}
+	}
 });
 
 

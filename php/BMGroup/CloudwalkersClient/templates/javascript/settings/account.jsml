@@ -5,7 +5,7 @@
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
-					<div class="caption"><i class="icon-bar-chart"></i>Campaigns</div>
+					<div class="caption"><i class="icon-bar-chart"></i>{{translate_campaigns}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -29,22 +29,22 @@
 			</div>
 		</div>
 		
-		<div class="alert alert-info">Account plan: <strong>{{plan.name}}</strong></div>
+		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
 	
 	</div>
 
 	<div class="span8">
 		<div style="height: auto;">
 			
-			<h3>Account</h3>
+			<h3>{{translate_account}}</h3>
 			
 			<form action="javascript:void(0);" class="edit-account">
-				<label class="control-label">Name</label>
-				<input name="name" type="text" placeholder="Company name" class="m-wrap span8" value="{{name}}" />
+				<label class="control-label">{{translate_name}}</label>
+				<input name="name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
 
 				<div class="submit-btn">
-					<button type="submit" class="btn green edit-account">Save Changes</button>
-					<button type="reset" class="btn">Cancel</button>
+					<button type="submit" class="btn green edit-account">{{translate_save_changes}}</button>
+					<button type="reset" class="btn">{{translate_cancel}}</button>
 				</div>
 			</form>
 		</div>

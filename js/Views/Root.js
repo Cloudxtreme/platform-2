@@ -21,10 +21,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		
 		this.resize();
 		
-		//set lang for moment
-		this.setLang();
-
-
 		//$(window).on("resize", this.resize);
 
 		//Cloudwalkers.Session.on("change:first", this.rebuild, this);
@@ -302,25 +298,5 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
-	},
-
-	/* setLang - get default language */
-	'setLang' : function()
-	{
-		var lang = Cloudwalkers.Session.getDefaultLang();
-		moment.lang(lang);
-
-		this.polyglot = new Polyglot();
-		//window.polyglot = new Polyglot();
-
-		this.polyglot.extend({
-			"hello": "Olá",
-			"goodbye": "Adeus"
-		});
-
-		//'locales/' + lang + '.json'
-		
-		//Cloudwalkers.RootView.polyglot
-
 	}
 });

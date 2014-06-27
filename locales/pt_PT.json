@@ -1,11 +1,13 @@
 {
-	'inbox': 'Painel',
-	'inbox': 'Entrada',
-	'keywords': 'Palavras chave',
-	'schedule': 'Horário',
-	'co-workers_wall': 'Wall de colaboradores',
-	'trending_company_posts': 'Posts da empresa, em alta',
-	'trending_accounts_we_follow': 'Contas que seguimos, em alta',
-	'scheduled_messages': 'Mensagens programadas',
-	'scheduled_message': 'Mensagem programada'
+	"translation": {
+		"dashboard": "Painel",
+		"inbox": "Entrada",
+		"keywords": "Palavras chave",
+		"schedule": "Horário",
+		"co-workers_wall": "Wall de colaboradores",
+		"trending_company_posts": "Posts da empresa, em alta",
+		"trending_accounts_we_follow": "Contas que seguimos, em alta",
+		"scheduled_messages": "Mensagens programadas",
+		"scheduled_message": "Mensagem programada"
+	}
 }

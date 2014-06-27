@@ -27,8 +27,13 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 
 	'render' : function ()
 	{
+		var data = {};
+		//Mustache translations
+		data.name = this.category.get("name");
+		data.translate_load_more = this.translateString("load_more");
+
 		// Get template
-		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));		
+		this.$el.html (Mustache.render (Templates.monitorlist, data));		
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -165,5 +170,10 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

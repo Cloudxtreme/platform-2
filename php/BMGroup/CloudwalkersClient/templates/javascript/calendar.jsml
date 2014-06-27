@@ -16,13 +16,13 @@
 		
 		<div class="pull-right">
 			
-			<a class="btn" id="now" class="hidden">now</a>
+			<a class="btn" id="now" class="hidden">{{translate_now}}</a>
 			<a class="btn"><i class="icon-print"></i></a>
 			<select>
 				<optgroup label="Time spans">
-					<option value="agendaWeek" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
-					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
-					<!--<option value="list" {{#listActive}}selected="true"{{/listActive}}>List view</option>-->
+					<option value="agendaWeek" {{#weekActive}}selected="true"{{/weekActive}}>{{translate_week}}</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{translate_month}}</option>
+					<!--<option value="list" {{#listActive}}selected="true"{{/listActive}}>{{translate_list_view}}</option>-->
 				</optgroup>
 			</select>
 

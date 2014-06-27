@@ -39,6 +39,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		// Watch outdated
 		// this.updateable(this.model, "h3.page-title");
+
+		// Translation for Title
+		this.translateTitle("draft_messages");
 		
 	},
 
@@ -47,7 +50,13 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.loadmylisteners();
 
 		// Get template
-		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
+		var data = {reports: []};
+		//Mustache translations
+		data.title = this.title;
+		data.translate_load_more = this.translateString("load_more");
+
+		// View
+		this.$el.html (Mustache.render (Templates.coworkerslist, data));
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -187,6 +196,16 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });
 

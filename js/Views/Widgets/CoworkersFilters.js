@@ -26,8 +26,16 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
+		var data = {};
+		//Mustache translations
+		data.translate_coworkers = this.translateString("co-workers");
+		data.translate_search_coworkers = this.translateString("search_co-workers");
+		data.translate_suggestions = this.translateString("suggestions");
+		data.translate_show_all = this.translateString("show_all");
+		data.translate_manage_users = this.translateString("manage_users");
+
 		// View
-		this.$el.html (Mustache.render (Templates.coworkersfilters));
+		this.$el.html (Mustache.render (Templates.coworkersfilters, data));
 		
 		this.$container = this.$el.find("#users-list").eq(0);
 		
@@ -197,5 +205,10 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		this.list.render({users: view.model.id, records: 20});
 		/*
 		this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

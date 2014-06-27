@@ -16,7 +16,10 @@ Cloudwalkers.Session =
 	{
 		this.user = new Cloudwalkers.Models.Me();
 
-		this.user.once("activated", callback);
+		/* getLang and then callback */
+		this.user.once("activated", function () { this.setLang(); }.bind(this));
+		this.listenTo(this,"translation:done",  callback );
+
 		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
@@ -193,12 +196,7 @@ Cloudwalkers.Session =
 		return (id)? this.user.accounts.get(id):  this.user.account;
 	},
 
-	/* getDefaultLang */
-	'getDefaultLang' : function (id)
-	{
-		return (id)? this.user.accounts.get(id):  this.user.attributes.locale;
-	},
-	/* end getDefaultLang */
+	
 
 	'getAccounts' : function (id)
 	{
@@ -372,6 +370,25 @@ Cloudwalkers.Session =
 	'getComments' : function ()
 	{
 		return this.user.account.comments;
+	},
+
+	/* setLang - get default language */
+	'setLang' : function(callback)
+	{
+		var lang = this.user.attributes.locale;
+		var extendLang;
+
+		moment.lang(lang);
+		
+		extendLang = new Cloudwalkers.Models.Polyglot();
+		extendLang.fetch({
+			success: function (){
+				this.translationLang = extendLang.get("translation");
+				this.polyglot = new Polyglot({phrases: this.translationLang});
+				this.trigger("translation:done");
+			}.bind(this)
+		});
+
 	}
 }
 

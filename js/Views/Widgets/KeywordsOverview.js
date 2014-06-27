@@ -27,8 +27,13 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'render' : function ()
 	{	
 		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
+
+		var data = {categories: categories};
+		//Mustache translations
+		data.translate_categories_overview = this.translateString("categories_overview");
+		data.translate_change_name = this.translateString("change_name");
 		
-		this.$el.html (Mustache.render (Templates.keywordsoverview, {categories: categories}));
+		this.$el.html (Mustache.render (Templates.keywordsoverview, data));
 		
 		return this;
 	},
@@ -84,6 +89,11 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		Cloudwalkers.Session.getChannel(id).destroy();
 		
 		$(e.target).parent().remove();
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 	/*

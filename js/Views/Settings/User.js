@@ -17,6 +17,12 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		this.parameters = {};
 		
 		this.listenTo(this.model, 'change', this.render);
+
+		// Translate String
+		translate_you_are_about_to_remove = this.translateString("you_are_about_to_remove");
+		translate_sure = this.translateString("sure");
+		translate_manage_users = this.translateString("manage_users");
+		translate_thats_an_ex_user = this.translateString("thats_an_ex_user");
 	},
 
 	'render' : function ()
@@ -43,16 +49,21 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		var self = this;
 		var tr = $(e.currentTarget).parents("tr");
 		
-		Cloudwalkers.RootView.confirm ("You are about to remove " + this.model.get('firstname') + ". Sure?", function(){
+		Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 			
 			tr.remove();
 			
 			var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + self.model.get('id');
 			Cloudwalkers.Net.remove (url, {}, function(){
 			
-				Cloudwalkers.RootView.growl('Manage Users', "That's an ex-user.");
+				Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 			});
 		});
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

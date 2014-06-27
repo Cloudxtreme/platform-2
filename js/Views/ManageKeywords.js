@@ -9,7 +9,9 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 		setTimeout(this.limitlistener, 50);
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
 		
-		
+		// Translation for Title
+		this.translateTitle("manage_keywords");
+
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
@@ -23,6 +25,7 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 
 		
 		this.widgets = [editor, list];
+
 		
 		return this;
 	},
@@ -32,6 +35,11 @@ Cloudwalkers.Views.ManageKeywords = Cloudwalkers.Views.Pageview.extend({
 		var limit = Cloudwalkers.Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
 		
 		Cloudwalkers.Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 });

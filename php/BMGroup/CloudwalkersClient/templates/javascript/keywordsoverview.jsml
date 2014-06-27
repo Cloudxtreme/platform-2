@@ -1,7 +1,7 @@
 <div class="portlet box blue keywordsoverview">
 	<div class="portlet-title line">
 		<div class="caption">
-			<i class="icon-tasks"></i> Categories overview
+			<i class="icon-tasks"></i> {{translate_categories_overview}}
 		</div>
 	</div>
 
@@ -16,10 +16,10 @@
 				</div>
 				
 				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
-				<span class="category-edit border-left" style='display: none;'>
+				<span class="category-edit border-left" style='display: block;'>
 					<form>
 						<input type="text" value="{{name}}" name="name" />
-						<button class="btn blue edit-toggler" type="submit">Change name</button>
+						<button class="btn blue edit-toggler" type="submit">{{translate_change_name}}</button>
 					</form>
 				</span>
 				

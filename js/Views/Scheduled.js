@@ -16,6 +16,9 @@ Cloudwalkers.Views.Scheduled = Cloudwalkers.Views.Pageview.extend({
 		// Listen for changes
 		//this.listenTo(this.model, 'outdated', this.model.fetch);
 		this.listenTo(this.model, 'sync', this.render);
+
+		// Translation for Title
+		this.translateTitle("scheduled");
 	},
 	
 	'render' : function()
@@ -34,6 +37,11 @@ Cloudwalkers.Views.Scheduled = Cloudwalkers.Views.Pageview.extend({
 		filter.list = list;
 		
 		return this;
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

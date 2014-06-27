@@ -7,7 +7,12 @@ Cloudwalkers.Models.Polyglot = Backbone.Model.extend({
 
 	'url' : function()
 	{
-		return "jsonfilehere";
+		return CONFIG_BASE_URL + 'locales/' + Cloudwalkers.Session.user.attributes.locale + '.json';
+	},
+
+	'parse' : function(data)
+	{
+		return data;
 	}
 
 });

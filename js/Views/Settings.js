@@ -17,20 +17,29 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 	'render' : function ()
 	{
 
+		// Translations
+		var data = {};
+		data.translate_manage_users = this.translateString("manage_users");
+		data.translate_social_connections = this.translateString("social_connections");
+		data.translate_account_settings = this.translateString("account_settings");
+
+
 		// Build tabs
 		if(this.level)
 			
 			this.tabs = [
-				{url: '#settings/users', name: "Manage users"},
-				{url: '#settings/services', name: "Social connections"},
-				{url: '#settings/account', name: "Account settings"}
+				{url: '#settings/users', name: data.translate_manage_users},
+				{url: '#settings/services', name: data.translate_social_connections},
+				{url: '#settings/account', name: data.translate_account_settings}
 			];
 		
 		else this.tabs = [];
 		
 		this.tabs.push ({url: '#settings/profile', name: "Profile settings"});
 		
-		
+		// Translation for Title
+		this.translateTitle("settings");
+
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.tabview, {title : this.title, tabs: this.tabs}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -61,6 +70,17 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(widget, 12);
 
 		return this;
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

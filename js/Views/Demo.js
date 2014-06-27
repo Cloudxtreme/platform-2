@@ -9,6 +9,9 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
 		if(options) $.extend(this, options);
 
+		// Translation for Title
+		this.translateTitle("demo");
+
 	},
 	
 	'render' : function()
@@ -28,6 +31,10 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		Cloudwalkers.RootView.viewContact();
 		
 		return this;
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}	
 });
 
