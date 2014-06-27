@@ -609,6 +609,7 @@ Style corrections and manual overrides
 	right: 0%;
 	z-index: 1;
 	-webkit-transition: all .15s ease-out;
+	overflow: hidden;
 }
 
 .viewcontact .messagelist{
@@ -624,6 +625,8 @@ Style corrections and manual overrides
 	padding: 0px 20px 20px 55px;
 	box-sizing: border-box;
 	position: relative;
+	height: 100%;
+	overflow-y: scroll;
 }
 
 .viewcontact.onmessage .inbox-container .progress-bar{
