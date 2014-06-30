@@ -32,6 +32,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 		// Data
 		var data = {filteroptions: filters, categories: this.channel.channels.models};
+
+		//Mustache Translate Render
+		data.title = this.title;
+		this.mustacheTranslateRender(data);
 		
 		this.$el.html (Mustache.render (Templates.keywordseditor, data));
 		
@@ -141,5 +145,45 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var filter = $(e.target).attr("data-keyword-filter");
 		
 		this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"add_category",
+			"name",
+			"create",
+			"add_keyword",
+			"category",
+			"select_category",
+			"fine-tune",
+			"filters",
+			"include",
+			"exclude",
+			"languages",
+			"countries",
+			"use_comma_separated_words",
+			"language",
+			"country",
+			"select_from_list",
+			"all_languages",
+			"global",
+			"update",
+			"cancel"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

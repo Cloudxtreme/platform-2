@@ -28,6 +28,9 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'seed', this.limited);
 		this.listenTo(this.collection, 'remove', this.limited);
 		this.listenTo(this.collection, 'add', this.addcontact);
+
+		// Translation for Title
+		this.translateTitle("manage_accounts");
 	},
 	
 	'render' : function()
@@ -35,8 +38,14 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		// Select Networks
 		var networks = this.channel.streams.filterNetworks(null, true);
 		
+		var data = {networks: networks};
+		
+		//Mustache Translate Render
+		data.title = this.title;
+		this.mustacheTranslateRender(data);
+
 		// Template
-		this.$el.html (Mustache.render (Templates.manageaccounts, {title: this.title, networks: networks}));
+		this.$el.html (Mustache.render (Templates.manageaccounts, data));
 		this.$container = this.$el.find(".contacts-list");
 		
 		// Load messages
@@ -160,5 +169,32 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		this.filter(true);
 		this.togglefilters(true);
 	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"show_all",
+			"enter_profile_link"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	}
 
 });

@@ -32,6 +32,9 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Clone service data
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 		
 		// Render view
 		this.$el.html (Mustache.render (Templates.settings.service, data));
@@ -390,5 +393,38 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
         var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
         Cloudwalkers.RootView.popup (view);
-    }
+    },
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"done",
+			"delete",
+			"connected_to",
+			"reauthenticate_user",
+			"to_add",
+			"is_not_connected",
+			"authenticate_user",
+			"save"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	}
 });

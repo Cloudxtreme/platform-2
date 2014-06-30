@@ -89,6 +89,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.user = Cloudwalkers.Session.user.attributes;
 		data.accounts =  [];
 		data.level = Cloudwalkers.Session.getUser().level;
+
+		//Mustache Translate Header
+		this.mustacheTranslateRenderHeader(data);
 		
 		Cloudwalkers.Session.user.accounts.each(function(model)
 		{
@@ -108,6 +111,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		data.level = Cloudwalkers.Session.getUser().level;
 		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
 		// Administrator
 		if(data.level)
 		{
@@ -191,6 +197,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		for(n in this.views)
 		{
+
 			views[this.views[n].name] = {streams: []};
 			
 			// children on same level
@@ -199,8 +206,69 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		return views;
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRenderHeader' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"clean",
+			"profile_settings",
+			"log_out"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"compose",
+			"dashboard",
+			"message_board",
+			"compose_message",
+			"drafts",
+			"scheduled",
+			"inbox",
+			"messages",
+			"notifications",
+			"post_message",
+			"calendar",
+			"co-workers_wall",
+			"company_accounts",
+			"media",
+			"trending_posts",
+			"accounts_we_follow",
+			"keyword_monitoring",
+			"manage_accounts",
+			"manage_keywords",
+			"reports",
+			"settings",
+			"manage_users",
+			"social_connections",
+			"account_settings",
+			"profile_settings"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
-	
 	// Add unread count logic for inbox icon
 	/*
 		// New messages

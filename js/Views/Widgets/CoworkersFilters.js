@@ -26,8 +26,13 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
+		var data = {};
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
 		// View
-		this.$el.html (Mustache.render (Templates.coworkersfilters));
+		this.$el.html (Mustache.render (Templates.coworkersfilters, data));
 		
 		this.$container = this.$el.find("#users-list").eq(0);
 		
@@ -197,5 +202,29 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		this.list.render({users: view.model.id, records: 20});
 		/*
 		this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"co-workers",
+			"search_co-workers",
+			"suggestions",
+			"show_all",
+			"manage_users"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

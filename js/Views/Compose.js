@@ -169,6 +169,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
+		// Translate Titles
+		this.translateTitles();
 		
 	},
 	
@@ -198,6 +200,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 
 		this.state = 'loaded';
+
 		// Render for editor
 		this.render();
 		
@@ -218,6 +221,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
 
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
@@ -1174,6 +1180,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizeschedule' : function ()
 	{	
+		// Translations
+		this.translate_best_time_to_post = this.translateString("best_time_to_post");
 
 		// Collect the data
 		var scheduled = this.parsescheduled();
@@ -1181,7 +1189,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(scheduled && scheduled.date)
 		{
-			var time = scheduled.besttimetopost? "Best time to post": moment.unix(scheduled.date).format("HH:mm");
+			var time = scheduled.besttimetopost? this.translate_best_time_to_post: moment.unix(scheduled.date).format("HH:mm");
 			summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
 		}
 		
@@ -1193,6 +1201,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
+
+		//Mustache Translate Summarize Repeat
+		this.mustacheTranslateSummarizeRepeat(this);
+
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
@@ -1219,8 +1231,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var times = scheduled.repeat.amount;
 			var end = start.clone().add('seconds', times * scheduled.repeat.interval);
 		}
-		
-		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
+
+		if(times) summary.html("<span>" + times + " " + this.translate_times + " " + (end? "<em class='negative'>" + this.translate_until + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
 		else if(scheduled.repeat.interval)
 		{
 			var sum, intv;
@@ -1232,9 +1244,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				if(Math.round(sum) == sum) return true;
 			});	
 			
-			var weekdays = {1: 'hours', 24: 'days', 168: 'weeks', 720: 'months'};
-		
-			summary.html("<span>Endless repeat every " + sum + " " + weekdays[intv]);
+			var weekdays = {1: this.translate_hours, 24: this.translate_days, 168: this.translate_weeks, 720: this.translate_months};
+			
+			
+			summary.html("<span>" + this.translate_endless_repeat_every + " " + sum + " " + weekdays[intv]);
 		
 		}				
 		return this;
@@ -1434,6 +1447,96 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },
 	'triggerblur' : function() { this.editor.trigger('blur:content'); },
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateTitles' : function(translatedata)
+	{
+		
+		for(k in this.titles)
+		{
+            this.titles[k] = this.translateString(this.titles[k]);
+		}
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"default",
+			"subject",
+			"images",
+			"photo_booth",
+			"pictures",
+			"camera",
+			"campaign",
+			"no_campaign",
+			"schedule",
+			"now",
+			"in",
+			"mins",
+			"hour",
+			"hours",
+			"day",
+			"week",
+			"on",
+			"best_time",
+			"repeat",
+			"no_repeat",
+			"every",
+			"days",
+			"weeks",
+			"months",
+			"select_a_day",
+			"monday",
+			"tuesday",
+			"wednesday",
+			"thursday",
+			"friday",
+			"saturday",
+			"sunday",
+			"doesnt_matter",
+			"times",
+			"until",
+			"save",
+			"preview",
+			"post"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	
+	'mustacheTranslateSummarizeRepeat' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"times",
+			"until",
+			"endless_repeat_every",
+			"hours",
+			"days",
+			"weeks",
+			"months"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	}
 });
 
 

@@ -9,6 +9,9 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		
 		var data = Cloudwalkers.Session.getAccount().attributes;
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 		
 		this.$el.html (Mustache.render (Templates.settings.account, data));
 
@@ -38,6 +41,33 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		
 		// Check collapse option
 		this.$el.find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"campaigns",
+			"account_plan",
+			"account",
+			"name",
+			"save_changes",
+			"cancel",
+			"company_name"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });

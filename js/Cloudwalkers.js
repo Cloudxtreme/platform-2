@@ -26,6 +26,7 @@ var Cloudwalkers = {
 			// And then rout the router.
 			Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();
 			Backbone.history.start();
+
 		});
 	}
 };

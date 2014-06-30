@@ -13,6 +13,9 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
 		if(options) $.extend(this, options);
 
+		// Translation for Title
+		this.translateTitle("demo");
+
 	},
 	
 	'render' : function()
@@ -51,9 +54,13 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 	'createnote' : function()
 	{
 		Cloudwalkers.RootView.writeNote();
+	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });
-
 
 /*
 Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({

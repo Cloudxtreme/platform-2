@@ -9,7 +9,7 @@
 	<div class="portlet-body social-icon-colors toload">
 		<div class="scroller">
 			<ul class="messages-container"></ul>
-			<input type="button" class="btn load-more" value="load more" />
+			<input type="button" class="btn load-more" value="{{translate_load_more}}" />
 		</div>
 	</div>
 </div>
