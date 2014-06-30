@@ -17,12 +17,10 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 	'render' : function ()
 	{
 
-		// Translations
 		var data = {};
-		data.translate_manage_users = this.translateString("manage_users");
-		data.translate_social_connections = this.translateString("social_connections");
-		data.translate_account_settings = this.translateString("account_settings");
 
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 
 		// Build tabs
 		if(this.level)
@@ -81,6 +79,24 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"manage_users",
+			"social_connections",
+			"account_settings"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 	
 });

@@ -51,9 +51,10 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 
 		// Get template
 		var data = {reports: []};
-		//Mustache translations
+
+		//Mustache Translate Render
 		data.title = this.title;
-		data.translate_load_more = this.translateString("load_more");
+		this.mustacheTranslateRender(data);
 
 		// View
 		this.$el.html (Mustache.render (Templates.coworkerslist, data));
@@ -206,6 +207,21 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"load_more"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
 

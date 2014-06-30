@@ -10,14 +10,8 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		
 		var data = Cloudwalkers.Session.getAccount().attributes;
 
-		//Mustache translations
-		data.translate_campaigns = this.translateString("campaigns");
-		data.translate_account_plan = this.translateString("account_plan");
-		data.translate_account = this.translateString("account");
-		data.translate_name = this.translateString("name");
-		data.translate_save_changes = this.translateString("save_changes");
-		data.translate_cancel = this.translateString("cancel");
-		data.translate_company_name = this.translateString("company_name");
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 		
 		this.$el.html (Mustache.render (Templates.settings.account, data));
 
@@ -52,6 +46,28 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"campaigns",
+			"account_plan",
+			"account",
+			"name",
+			"save_changes",
+			"cancel",
+			"company_name"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });

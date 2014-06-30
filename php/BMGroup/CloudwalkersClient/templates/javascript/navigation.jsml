@@ -120,7 +120,7 @@
 		<li>
 			<a href="#coworkers">
 				<i class="icon-group"></i> 
-				<span class="title">{{translate_coworkers_wall}}</span>
+				<span class="title">{{translate_co-workers_wall}}</span>
 				<span class="selected"></span>
 			</a>
 		</li>

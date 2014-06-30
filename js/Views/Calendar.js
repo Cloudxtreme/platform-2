@@ -43,12 +43,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	{
 
 		var data = { 'monthActive': true };
-		//Mustache translations
-
-		data.translate_week = this.translateString("week");
-		data.translate_month = this.translateString("month");
-		data.translate_list_view = this.translateString("list_view");
-		data.translate_now = this.translateString("now");
+		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 
 		this.$el.html (Mustache.render (Templates.calendar, data));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -271,6 +268,25 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"week",
+			"month",
+			"list_view",
+			"now"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 	
 });

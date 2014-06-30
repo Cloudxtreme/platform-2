@@ -48,12 +48,10 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	'render' : function (params)
 	{	
 		var data = {};
-		//Mustache translations
+
+		//Mustache Translate Render
 		data.title = this.title;
-		data.translate_start_date = this.translateString("start_date");
-		data.translate_networks = this.translateString("networks");
-		data.translate_message = this.translateString("message");
-		data.translate_actions = this.translateString("actions");
+		this.mustacheTranslateRender(data);
 
 		// Get template
 		this.$el.html (Mustache.render (Templates.scheduledlist, data));
@@ -201,6 +199,24 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"start_date",
+			"networks",
+			"message",
+			"actions"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
 

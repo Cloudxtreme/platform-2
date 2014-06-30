@@ -27,9 +27,8 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 		for(n in this.streams)
 			params.streams.push({id: this.streams[n].id, icon: this.streams[n].network.icon, name: this.streams[n].name, network: this.streams[n].network}); 
 		
-		//Mustache translations
-		params.translate_company_accounts = this.translateString("company_accounts");
-		params.translate_select_all = this.translateString("select_all");
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
 
 		// View
 		this.$el.html (Mustache.render (Templates.scheduledfilters, params));
@@ -118,5 +117,21 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"company_accounts",
+			"select_all"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

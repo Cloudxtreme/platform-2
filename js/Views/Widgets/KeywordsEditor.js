@@ -33,27 +33,9 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		// Data
 		var data = {filteroptions: filters, categories: this.channel.channels.models};
 
-		//Mustache translations
-		data.translate_add_category = this.translateString("add_category");
-		data.translate_name = this.translateString("name")
-		data.translate_create = this.translateString("create");
-		data.translate_add_keyword = this.translateString("add_keyword");
-		data.translate_category = this.translateString("category");
-		data.translate_select_category = this.translateString("select_category");
-		data.translate_finetune = this.translateString("fine-tune");
-		data.translate_filters = this.translateString("filters");
-		data.translate_include = this.translateString("include");
-		data.translate_exclude = this.translateString("exclude");
-		data.translate_languages = this.translateString("languages");
-		data.translate_countries = this.translateString("countries");
-		data.translate_use_comma_separated_words = this.translateString("use_comma_separated_words");
-		data.translate_language = this.translateString("language");
-		data.translate_country = this.translateString("country");
-		data.translate_select_from_list = this.translateString("select_from_list");
-		data.translate_all_languages = this.translateString("all_languages");
-		data.translate_global = this.translateString("global");
-		data.translate_update = this.translateString("update");
-		data.translate_cancel = this.translateString("cancel");
+		//Mustache Translate Render
+		data.title = this.title;
+		this.mustacheTranslateRender(data);
 		
 		this.$el.html (Mustache.render (Templates.keywordseditor, data));
 		
@@ -168,5 +150,40 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"add_category",
+			"name",
+			"create",
+			"add_keyword",
+			"category",
+			"select_category",
+			"fine-tune",
+			"filters",
+			"include",
+			"exclude",
+			"languages",
+			"countries",
+			"use_comma_separated_words",
+			"language",
+			"country",
+			"select_from_list",
+			"all_languages",
+			"global",
+			"update",
+			"cancel"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

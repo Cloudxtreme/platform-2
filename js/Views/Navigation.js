@@ -90,10 +90,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.accounts =  [];
 		data.level = Cloudwalkers.Session.getUser().level;
 
-		//Mustache translations
-		data.translate_clean = this.translateString("clean");
-		data.translate_profile_settings = this.translateString("profile_settings");
-		data.translate_log_out = this.translateString("log_out");
+		//Mustache Translate Header
+		this.mustacheTranslateRenderHeader(data);
 		
 		Cloudwalkers.Session.user.accounts.each(function(model)
 		{
@@ -113,32 +111,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		data.level = Cloudwalkers.Session.getUser().level;
 		
-		//Mustache translations
-		data.translate_compose = this.translateString("compose");
-		data.translate_dashboard = this.translateString("dashboard");
-		data.translate_message_board = this.translateString("message_board");
-		data.translate_compose_message = this.translateString("compose_message");
-		data.translate_drafts = this.translateString("drafts");
-		data.translate_scheduled = this.translateString("scheduled");
-		data.translate_inbox = this.translateString("inbox");
-		data.translate_messages = this.translateString("messages");
-		data.translate_notifications = this.translateString("notifications");
-		data.translate_post_message = this.translateString("post_message");
-		data.translate_calendar = this.translateString("calendar");
-		data.translate_coworkers_wall = this.translateString("co-workers_wall");
-		data.translate_company_accounts = this.translateString("company_accounts");
-		data.translate_media = this.translateString("media");
-		data.translate_trending_posts = this.translateString("trending_posts");
-		data.translate_accounts_we_follow = this.translateString("accounts_we_follow");
-		data.translate_keyword_monitoring = this.translateString("keyword_monitoring");
-		data.translate_manage_accounts = this.translateString("manage_accounts");
-		data.translate_manage_keywords = this.translateString("manage_keywords");
-		data.translate_reports = this.translateString("reports");
-		data.translate_settings = this.translateString("settings");
-		data.translate_manage_users = this.translateString("manage_users");
-		data.translate_social_connections = this.translateString("social_connections");
-		data.translate_account_settings = this.translateString("account_settings");
-		data.translate_profile_settings = this.translateString("profile_settings");
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 
 		// Administrator
 		if(data.level)
@@ -238,8 +212,63 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRenderHeader' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"clean",
+			"profile_settings",
+			"log_out"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"compose",
+			"dashboard",
+			"message_board",
+			"compose_message",
+			"drafts",
+			"scheduled",
+			"inbox",
+			"messages",
+			"notifications",
+			"post_message",
+			"calendar",
+			"co-workers_wall",
+			"company_accounts",
+			"media",
+			"trending_posts",
+			"accounts_we_follow",
+			"keyword_monitoring",
+			"manage_accounts",
+			"manage_keywords",
+			"reports",
+			"settings",
+			"manage_users",
+			"social_connections",
+			"account_settings",
+			"profile_settings"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
-	
 	// Add unread count logic for inbox icon
 	/*
 		// New messages

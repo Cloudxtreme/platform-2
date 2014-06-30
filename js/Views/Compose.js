@@ -222,46 +222,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
 
-		//Mustache translations
-		params.translate_networks = this.translateString("networks");
-		params.translate_default = this.translateString("default");
-		params.translate_subject = this.translateString("subject");
-		params.translate_images = this.translateString("images");
-		params.translate_photo_booth = this.translateString("photo_booth");
-		params.translate_pictures = this.translateString("pictures");
-		params.translate_camera = this.translateString("camera");
-		params.translate_campaign = this.translateString("campaign");
-		params.translate_no_campaign = this.translateString("no_campaign");
-		params.translate_schedule = this.translateString("schedule");
-		params.translate_now = this.translateString("now");
-		params.translate_in = this.translateString("in");
-		params.translate_min = this.translateString("mins");
-		params.translate_hour = this.translateString("hour");
-		params.translate_hours = this.translateString("hours");
-		params.translate_day = this.translateString("day");
-		params.translate_week = this.translateString("week");
-		params.translate_on = this.translateString("on");
-		params.translate_best_time = this.translateString("best_time");
-		params.translate_repeat = this.translateString("repeat");
-		params.translate_no_repeat = this.translateString("no_repeat");
-		params.translate_every = this.translateString("every");
-		params.translate_days = this.translateString("days");
-		params.translate_weeks = this.translateString("weeks");
-		params.translate_months = this.translateString("months");
-		params.translate_select_a_day = this.translateString("select_a_day");
-		params.translate_monday = this.translateString("monday");
-		params.translate_tuesday = this.translateString("tuesday");
-		params.translate_wednesday = this.translateString("wednesday");
-		params.translate_thursday = this.translateString("thursday");
-		params.translate_friday = this.translateString("friday");
-		params.translate_saturday = this.translateString("saturday");
-		params.translate_sunday = this.translateString("sunday");
-		params.translate_doesnt_matter = this.translateString("doesnt_matter");
-		params.translate_times = this.translateString("times");
-		params.translate_until = this.translateString("until");
-		params.translate_save = this.translateString("save");
-		params.translate_preview = this.translateString("preview");
-		params.translate_post = this.translateString("post");
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
 
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
@@ -1239,14 +1201,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
-		// Translations
-		this.translate_times = this.translateString("times");
-		this.translate_until = this.translateString("until");
-		this.translate_endless_repeat_every = this.translateString("endless_repeat_every");
-		this.translate_hours = this.translateString("hours");
-		this.translate_days = this.translateString("days");
-		this.translate_weeks = this.translateString("weeks");
-		this.translate_months = this.translateString("months");
+
+		//Mustache Translate Summarize Repeat
+		this.mustacheTranslateSummarizeRepeat(this);
 
 		// Collect the data
 		var scheduled = this.parsescheduled();
@@ -1502,6 +1459,82 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		for(k in this.titles)
 		{
             this.titles[k] = this.translateString(this.titles[k]);
+		}
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"default",
+			"subject",
+			"images",
+			"photo_booth",
+			"pictures",
+			"camera",
+			"campaign",
+			"no_campaign",
+			"schedule",
+			"now",
+			"in",
+			"mins",
+			"hour",
+			"hours",
+			"day",
+			"week",
+			"on",
+			"best_time",
+			"repeat",
+			"no_repeat",
+			"every",
+			"days",
+			"weeks",
+			"months",
+			"select_a_day",
+			"monday",
+			"tuesday",
+			"wednesday",
+			"thursday",
+			"friday",
+			"saturday",
+			"sunday",
+			"doesnt_matter",
+			"times",
+			"until",
+			"save",
+			"preview",
+			"post"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	
+	'mustacheTranslateSummarizeRepeat' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"times",
+			"until",
+			"endless_repeat_every",
+			"hours",
+			"days",
+			"weeks",
+			"months"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
 });

@@ -39,12 +39,10 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		var networks = this.channel.streams.filterNetworks(null, true);
 		
 		var data = {networks: networks};
-		//Mustache translations
+		
+		//Mustache Translate Render
 		data.title = this.title;
-		data.translate_networks = this.translateString("networks");
-		data.translate_show_all = this.translateString("show_all");
-		data.translate_enter_profile_link = this.translateString("enter_profile_link");
-
+		this.mustacheTranslateRender(data);
 
 		// Template
 		this.$el.html (Mustache.render (Templates.manageaccounts, data));
@@ -180,6 +178,23 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"show_all",
+			"enter_profile_link"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });

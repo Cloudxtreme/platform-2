@@ -33,15 +33,8 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
 
-		//Mustache translations
-		data.translate_done = this.translateString("done");
-		data.translate_delete = this.translateString("delete");
-		data.translate_connected_to = this.translateString("connected_to");
-		data.translate_reauthenticate_user = this.translateString("reauthenticate_user");
-		data.translate_to_add = this.translateString("to_add");
-		data.translate_is_not_connected = this.translateString("is_not_connected");
-		data.translate_authenticate_user = this.translateString("authenticate_user");
-		data.translate_save = this.translateString("save");
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 		
 		// Render view
 		this.$el.html (Mustache.render (Templates.settings.service, data));
@@ -410,5 +403,28 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"done",
+			"delete",
+			"connected_to",
+			"reauthenticate_user",
+			"to_add",
+			"is_not_connected",
+			"authenticate_user",
+			"save"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
