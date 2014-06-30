@@ -8,11 +8,17 @@
 		</div>
 	</div>	
 	
-	<ul id="contactfilter">
-		<li class="btn-white active" data-type="conversations"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
-		<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
-	</ul>
-	<div class="contactactions">
-		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add note</div>
+	<div class="contactbottom">
+		<div id="contactfilter">
+			<ul>
+				<li class="btn-white active" data-type="conversations"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+			</ul>
+		</div>
+		
 	</div>
+	<div class="contactactions">
+			<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add note</div>
+		</div>
+	<div id="notecontainer"></div>
 

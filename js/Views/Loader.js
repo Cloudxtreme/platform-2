@@ -40,6 +40,7 @@ Backbone.View = Backbone.View.extend({
 
 	'addLoader' : function(){
 		this.container = this.$loadercontainer ? this.$loadercontainer : this.$container;
+		console.log(this.container);
 		this.loader = $(Templates.progressbar).appendTo(this.container);
 	},
 

@@ -782,14 +782,25 @@ Style corrections and manual overrides
 	width: 700px !important;
 }
 
-.viewcontact aside .contactactions #notefield{
+.viewcontact aside #notecontainer{
 	max-height: 0px;
 	overflow: hidden;
-	-webkit-transition: all .35s ease-out .15s;
+	-webkit-transition: all .35s ease-out 0s;
 }	
 
-.viewcontact.writenote aside .contactactions #notefield{
-	max-height: 200px !important;
+.viewcontact.writenote aside #notecontainer{
+	-webkit-transition: all .35s ease-out .15s;
+	max-height: 300px !important;
+}
+
+.viewcontact aside #notecontainer .modal-body{
+	width: 100%;
+	padding: 0px 20px;
+	box-sizing: border-box;
+}
+
+.viewcontact aside #notecontainer .modal-header{
+	display: none;
 }
 
 .viewcontact aside .contactactions textarea{
@@ -815,7 +826,6 @@ Style corrections and manual overrides
 
 #compose.note .modal-header,
 #compose.note .modal-footer{
-	border: none;
 	margin-left: 0px;
 	padding-right: 0px;
 }

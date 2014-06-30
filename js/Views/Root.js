@@ -154,10 +154,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'writeNote' : function(contact)
 	{	
-		if(!contact)	contact = 0;
-		var options = {contact : contact};
+		var options = {
+			'id' : "compose",
+			'className' : "modal hide note",
+			'template' : 'note'
+		}
 
-		var view = new Cloudwalkers.Views.Note(options);
+		var view = new Cloudwalkers.Views.ComposeNote(options);
 		view.render().$el.modal();
 	},
 

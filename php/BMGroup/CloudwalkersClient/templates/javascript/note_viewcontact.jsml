@@ -1,4 +1,14 @@
-<div id="notefield">
-	<textarea class="hideable" rows="10"></textarea>
-	<button id="post" class="btn btn-primary">Save</button>
-</div>
+<section>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Write note</h3>
+	</div>
+	
+	<div class="modal-body">
+		<textarea id="note-content"></textarea>
+	</div>
+
+	<div class="modal-footer toload">
+		<button id="post" class="btn btn-primary">Save</button>
+	</div>
+</section>

@@ -7,7 +7,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'events' : {
 		'click .end-preview td i' : 'backtolist',
-		'click #contactfilter > li' : 'loadmessages',
+		'click #contactfilter li' : 'loadmessages',
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post'
 	},
@@ -21,8 +21,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if(!this.model)
 		   this.model = new Cloudwalkers.Models.Contact({id:this.contactid});
-
-
 
 		this.loadmylisteners();
 		
@@ -183,11 +181,29 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		this.hascontactinfo = true;
 
-		//Add Note
-		var note = new Cloudwalkers.Views.Note({id:'', className:'', template:'note_viewcontact'});
-		console.log(note.el);
+		this.initializenote();
+	},
 
-		this.$el.find('.contactactions').append(note.render().el);
+	'initializenote' : function()
+	{
+		var options = {
+			template : 'note_viewcontact',
+			model : this.model
+		};
+
+		// Add the Note
+		var composenote = new Cloudwalkers.Views.ComposeNote(options);
+		this.$el.find('#notecontainer').append(composenote.render().el);
+
+		// Note has been saved, revert UI
+		this.listenTo(composenote.note, 'sync', this.doneposting);
+	},
+
+	'doneposting' : function()
+	{
+		setTimeout(function(){
+			this.togglecontactnote()
+		}.bind(this),200);
 	},
 
 	'loadmessages' : function(e)
@@ -241,10 +257,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if($('.viewcontact').hasClass('writenote')){
 			$('.viewcontact').removeClass('writenote');
 			 setTimeout(function(){
-			 	$('#contactfilter').slideDown('fast');
+			 	$('.contactbottom').slideDown('fast');
 			}, 100)
 		}else{			 
-			$('#contactfilter').slideUp('fast');
+			$('.contactbottom').slideUp('fast');
 			setTimeout(function(){
 				$('.viewcontact').addClass('writenote');
 			}, 100)			
