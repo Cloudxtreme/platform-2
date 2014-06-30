@@ -16,7 +16,7 @@
 				</div>
 				
 				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
-				<span class="category-edit border-left" style='display: block;'>
+				<span class="category-edit border-left" style='display: none;'>
 					<form>
 						<input type="text" value="{{name}}" name="name" />
 						<button class="btn blue edit-toggler" type="submit">{{translate_change_name}}</button>
