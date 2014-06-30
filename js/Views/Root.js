@@ -156,6 +156,15 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		view.render().$el.modal();
 	},
 
+	'writeNote' : function(contact)
+	{	
+		if(!contact)	contact = 0;
+		var options = {contact : contact};
+
+		var view = new Cloudwalkers.Views.Note(options);
+		view.render().$el.modal();
+	},
+
 	'writeMessage' : function (e)
 	{
 		e.preventDefault ();

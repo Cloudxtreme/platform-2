@@ -166,7 +166,7 @@ Style corrections and manual overrides
 #compose textarea:focus	{ border-color: #2bbedc; }
 
 #compose input[type=text]	{ height: 32px; background: transparent; }
-#compose textarea	{ min-height: 92px; max-width: 100%; overflow: auto; }
+#compose textarea	{ min-height: 92px; max-width: 100%; }
 
 #compose *::-webkit-input-placeholder { color: #999; }
 
@@ -652,6 +652,7 @@ Style corrections and manual overrides
 	padding: 0px;
 	background-color: #eee;
 	box-sizing: border-box;
+	-webkit-transition: all .25s ease-out;
 }
 
 .viewcontact aside h3{
@@ -761,4 +762,66 @@ Style corrections and manual overrides
 	color: #ddd;
 }
 
+.viewcontact .contactactions{
+	margin-top: 10px;
+	padding: 20px;
+}
+
+.viewcontact .contactactions .btn-white{
+	background-color: #fff;
+}
+
+.viewcontact .contactactions i{
+	padding-right: 10px;
+
+}
+
+/* on note */
+
+.viewcontact.writenote aside{
+	width: 700px !important;
+}
+
+.viewcontact aside .contactactions #notefield{
+	max-height: 0px;
+	overflow: hidden;
+	-webkit-transition: all .35s ease-out .15s;
+}	
+
+.viewcontact.writenote aside .contactactions #notefield{
+	max-height: 200px !important;
+}
+
+.viewcontact aside .contactactions textarea{
+	/*height: inherit !important;
+	min-height: inherit !important;*/
+	margin-top: 20px !important;
+	min-height: 140px !important;
+}
+
+.viewcontact #notefield #post{
+	float: right;
+}
+
 /* DEMO viewContact end */ 
+
+/* DEMO Note */ 
+
+#compose.note{
+	max-width: 600px;
+	margin-left: -300px;
+	padding: 0px 20px;
+}
+
+#compose.note .modal-header,
+#compose.note .modal-footer{
+	border: none;
+	margin-left: 0px;
+	padding-right: 0px;
+}
+
+#compose.note textarea{
+	padding: 8px;
+}
+	
+/* DEMO Note end*/ 

@@ -3,6 +3,10 @@
 Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : 'Demo',
+	'events' : {
+		'click #viewcontact' : 'viewcontact',
+		'click #createnote' : 'createnote'
+	},
 	
 	'initialize' : function (options)
 	{
@@ -18,16 +22,35 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Append Editor
-		this.editor = new Cloudwalkers.Views.Editor({content: null, parent: this});
-		this.appendWidget(this.editor, 4);
+		//this.editor = new Cloudwalkers.Views.Editor({content: null, parent: this});
+		//this.appendWidget(this.editor, 4);
+
+		var viewcontact = $("<button>", {id: "viewcontact", class: "btn", text: "View contact"}); 
+		this.$container.append(viewcontact);
+
+		this.$container.append('<br><br>');
+
+		var createnote = $("<button>", {id: "createnote", class: "btn", text: "Create Note"}); 
+		this.$container.append(createnote);
+		
 
 		// Listen to editor triggers
 		//this.listenTo(this.editor, "imageadded", this.addimage);
 		//this.listenTo(this.editor, "contentadded", this.monitor);
 
-		Cloudwalkers.RootView.viewContact();
+		//
 		
 		return this;
+	},
+
+	'viewcontact' : function()
+	{
+		Cloudwalkers.RootView.viewContact();
+	},
+
+	'createnote' : function()
+	{
+		Cloudwalkers.RootView.writeNote();
 	}
 });
 

@@ -79,8 +79,12 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.on("blur:content", this.endchange);
 		//this.on("change:charlength", this.greyout);
 		
+
+		//Temp hack for browser check - Chrome as default
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
 			this.isfirefox = true;
+		else if(!navigator.userAgent.match(/(chrome(?=\/))\/?\s*(\d+)/i))
+			this.isexplorer = true;
 		
 	},
 

@@ -1,0 +1,4 @@
+<div id="notefield">
+	<textarea class="hideable" rows="10"></textarea>
+	<button id="post" class="btn btn-primary">Save</button>
+</div>

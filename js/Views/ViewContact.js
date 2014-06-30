@@ -7,7 +7,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'events' : {
 		'click .end-preview td i' : 'backtolist',
-		'click #contactfilter > li' : 'loadmessages'
+		'click #contactfilter > li' : 'loadmessages',
+		'click [data-action=write-note]' : 'togglecontactnote',
+		'click #post' : 'post'
 	},
 
 	'initialize' : function(options)
@@ -180,6 +182,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
 
 		this.hascontactinfo = true;
+
+		//Add Note
+		var note = new Cloudwalkers.Views.Note({id:'', className:'', template:'note_viewcontact'});
+		console.log(note.el);
+
+		this.$el.find('.contactactions').append(note.render().el);
 	},
 
 	'loadmessages' : function(e)
@@ -228,6 +236,21 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.$loadercontainer = $('ul.list');
 	},
 
+	'togglecontactnote' : function()
+	{
+		if($('.viewcontact').hasClass('writenote')){
+			$('.viewcontact').removeClass('writenote');
+			 setTimeout(function(){
+			 	$('#contactfilter').slideDown('fast');
+			}, 100)
+		}else{			 
+			$('#contactfilter').slideUp('fast');
+			setTimeout(function(){
+				$('.viewcontact').addClass('writenote');
+			}, 100)			
+		}
+	},
+
 	'toggle' : function()
 	{
 		//Toggle between endpoints here
@@ -251,5 +274,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		var param = {records: 20, contacts: this.contactid};
 		return param;
+	},
+
+	'post' : function()
+	{
+		//Get the note text
+		//Model.save
 	}
 });
