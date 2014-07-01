@@ -1,6 +1,6 @@
 Cloudwalkers.Views.Navigation = Backbone.View.extend({
 
-	'views' : [
+	/*'views' : [
 		{name: 'dashboard', title: "Dashboard", icon: "dashboard", authorized: 0},
 		{name: 'inbox', title: "Inbox", icon: "inbox", authorized: 0, children: [
 			{name: 'messages', title: "Messages", icon: "envelope", authorized: 0},
@@ -21,7 +21,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			{name: 'settings', title: "Account Settings", icon: "briefcase", url: "#settings/account", authorized: 0},
 			{name: 'profile', title: "Profile settings", icon: "user", authorized: 0}
 		]}
-	],
+	],*/
 	
 	'events' : {
 		'click .notification-toggle' : 'toggleNotifications',
