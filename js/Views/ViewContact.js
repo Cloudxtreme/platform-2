@@ -186,13 +186,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'initializenote' : function()
 	{
-		var options = {
-			template : 'note_viewcontact',
-			model : this.model
-		};
-
 		// Add the Note
-		var composenote = new Cloudwalkers.Views.ComposeNote(options);
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
+		
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI

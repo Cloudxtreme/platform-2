@@ -12,6 +12,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 		var url = [CONFIG_BASE_URL + "json"];
 
 		if(this.id)										url.push(this.typestring, this.id);
+		else if(!this.parent)							url.push(this.typestring);
 		else if(this.parent.typestring == 'messages')	url.push(this.parent.typestring, this.parent.id, this.typestring);
 		else if(this.parent.typestring == 'contacts'){
 			

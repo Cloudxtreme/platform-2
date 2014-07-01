@@ -156,8 +156,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{	
 		var options = {
 			'id' : "compose",
-			'className' : "modal hide note",
-			'template' : 'note'
+			'className' : "modal hide note"
 		}
 
 		var view = new Cloudwalkers.Views.ComposeNote(options);

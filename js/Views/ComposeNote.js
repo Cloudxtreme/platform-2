@@ -1,5 +1,7 @@
 Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
+	'template' : 'note', // Can be overriden
+
 	'events' : {
 		'click #post' : 'post'
 	},
@@ -39,6 +41,22 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		this.note.set("text", notetext);
 
 		this.note.save();
-	}
+	},
+
+	'thankyou' : function()
+	{
+		var thanks = Mustache.render(Templates.thankyou);
+
+		setTimeout(function()
+		{
+			// Animate compose view
+			this.$el.addClass("switch-mode").addClass('thanks');
+
+			// Add preview view to Compose
+			this.$el.find('.switch-container').append(thanks);
+			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
+		}.bind(this),400);
+				
+	},
 
 });

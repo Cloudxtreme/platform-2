@@ -821,17 +821,24 @@ Style corrections and manual overrides
 #compose.note{
 	max-width: 600px;
 	margin-left: -300px;
-	padding: 0px 20px;
 }
 
 #compose.note .modal-header,
 #compose.note .modal-footer{
 	margin-left: 0px;
-	padding-right: 0px;
+	padding: 15px;
+}
+
+#compose.note .modal-body{
+	padding: 0px 20px 15px;
 }
 
 #compose.note textarea{
 	padding: 8px;
+}
+
+#compose #note-content{
+	min-height: 157px; /* Temporary */
 }
 	
 /* DEMO Note end*/ 
