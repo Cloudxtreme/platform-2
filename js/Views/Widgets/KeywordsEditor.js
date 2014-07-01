@@ -160,6 +160,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"name",
 			"create",
 			"add_keyword",
+			"keyword_name",
 			"category",
 			"select_category",
 			"fine-tune",

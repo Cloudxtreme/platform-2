@@ -45,7 +45,7 @@
 				</select>
 				
 				<label for="keyword_manage_name">{{translate_name}}:</label>
-				<input type="text" value="" placeholder="keyword name" id="keyword_manage_name" name="name" class="m-wrap span12" />
+				<input type="text" value="" placeholder="{{translate_keyword_name}}" id="keyword_manage_name" name="name" class="m-wrap span12" />
 				<br><br>
 				
 				<labl>{{translate_finetune}}</labl>

@@ -14,7 +14,7 @@
 		</div>
 	
 		<div class="filter-group">
-			<label>Filters</label> 
+			<label>{{translate_filters}}</label> 
 			<div class="btn-white toggle-contacts" data-toggle="contacts">{{translate_contacts}}</div>
 		</div>
 	
