@@ -53,12 +53,12 @@
 				{{/accounts}}
 					<li class="account-selector divider"></li>
 				{{#dev}}
-					<li><a href="#home"><i class="icon-fire-extinguisher "></i> Clean</a></li>
+					<li><a href="#home"><i class="icon-fire-extinguisher "></i> {{translate_clean}}</a></li>
 					<li class="account-selector divider"></li>
 				{{/dev}}
-					<li><a href="#settings/profile"><i class="icon-cog"></i> Profile settings</a></li>
+					<li><a href="#settings/profile"><i class="icon-cog"></i> {{translate_profile_settings}}</a></li>
 					<li class="divider"></li>
-					<li><a href="/logout" onclick="Cloudwalkers.Session.reset();"><i class="icon-off"></i> Log Out</a></li>
+					<li><a href="/logout" onclick="Cloudwalkers.Session.reset();"><i class="icon-off"></i> {{translate_log_out}}</a></li>
 				</ul>
 			</li>
 

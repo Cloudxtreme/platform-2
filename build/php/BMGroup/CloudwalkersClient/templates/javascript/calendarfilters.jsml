@@ -1,13 +1,13 @@
 	<div class="cal-filter">
 	
 		<div class="filter-group social-icon-colors">
-			<label>Networks</label>
+			<label>{{translate_networks}}</label>
 			
 			{{#networks}}
 			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
 			{{/networks}}
 			
-			<div class="btn-white toggle-streams" data-toggle="streams">more...</div>
+			<div class="btn-white toggle-streams" data-toggle="streams">{{translate_more}}</div>
 		</div>
 	
 	</div>
@@ -17,5 +17,5 @@
 			<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
 		{{/streams}}
 		</ul>
-		<li class="toggleall inactive">select all</li>
+		<li class="toggleall inactive">{{translate_select_all}}</li>
 	</div>

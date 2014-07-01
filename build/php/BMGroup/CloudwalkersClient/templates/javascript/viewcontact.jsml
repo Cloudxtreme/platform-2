@@ -1,0 +1,42 @@
+
+<aside class="nodata">
+
+	<div class="contactupper">
+		<h3>{{username}}</h3>
+		<div class="contactavatar">
+			<img class="avatar" src="{{avatar}}">
+		</div>		
+	</div>	
+
+	<div class="contactbottom">
+		<div id="contactfilter">
+			<ul>
+				<li class="btn-white active" data-type="conversations"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white inactive" data-type="notes"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="contactactions">
+		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add note</div>
+	</div>
+	<div id="notecontainer"></div>
+
+</aside>
+
+<div id="inboxlist">
+	<table class="end-preview">
+		<tbody><tr><td valign="middle">
+			<i class="icon-chevron-left"></i>
+		</td></tr></tbody>
+	</table>
+	<div class="modal-body">
+		<div class="messagelist">
+			<ul class="list toload tabbed"></ul>
+		</div>
+
+		<div class="inbox-container"></div>
+	</div>
+		
+</div>
