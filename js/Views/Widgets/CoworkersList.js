@@ -28,6 +28,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
+
+		// Translation for Title
+		this.translateTitle("co-workers_messages");
 	},
 
 	'render' : function (params)
@@ -184,6 +187,11 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
 	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
@@ -193,7 +201,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		// Translate array
 		this.original  = [
-			"load_more"
+			"load_more",
+			"co-workers",
+			"search_co-workers"
 		];
 
 		this.translated = [];
