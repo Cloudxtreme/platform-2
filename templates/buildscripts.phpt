@@ -23,6 +23,7 @@
 <script type="text/javascript" src="/js/Models/Campaign.js"></script>
 <script type="text/javascript" src="/js/Models/User.js"></script>
 <script type="text/javascript" src="/js/Models/Contact.js"></script>
+<script type="text/javascript" src="/js/Models/Note.js"></script>
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
@@ -31,6 +32,7 @@
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
 <script type="text/javascript" src="/js/Models/Network.js"></script>
+<script type="text/javascript" src="/js/Models/Polyglot.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -38,6 +40,7 @@
 <script type="text/javascript" src="/js/Collections/Campaigns.js"></script>
 <script type="text/javascript" src="/js/Collections/Users.js"></script>
 <script type="text/javascript" src="/js/Collections/Contacts.js"></script>
+<script type="text/javascript" src="/js/Collections/Notes.js"></script>
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
@@ -52,11 +55,13 @@
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
+<script type="text/javascript" src="/js/Views/ComposeNote.js"></script>
 <script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/Message.js"></script>
 <script type="text/javascript" src="/js/Views/ContactView.js"></script>
+<script type="text/javascript" src="/js/Views/ViewContact.js"></script>
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 

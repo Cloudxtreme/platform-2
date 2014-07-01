@@ -1,0 +1,121 @@
+<h3>Keyword demo</h3>
+<div id="demokeywords" class="portlet box blue managekeyword" style="width: 500px;">
+	<div class="portlet-title line add-keyword">
+		<div class="caption"><i class="icon-tag"></i>Add keyword</div>
+		<div class="tools">
+			<i class="icon-cloud-upload" style="display: none;"></i>
+		</div>
+	</div>
+	
+	<div class="portlet-body manage-keyword">
+		<form data-keyword="true">
+			
+			<label for="keyword_manage_category">Category:</label>
+			<select id="keyword_manage_category" style="display: none;">
+				<option value="0">select category...</option>
+					<option value="298">Brazil</option>
+					<option value="299">Brazil</option>
+					<option value="268">França</option>
+					<option value="282">JILL WATCHES</option>
+					<option value="278">Kenovich</option>
+					<option value="264">Portugal</option>
+					<option value="266">Spain</option>
+			</select><div class="chosen-container chosen-container-single" style="width: 100%;" title="" id="keyword_manage_category_chosen"><a class="chosen-single" tabindex="-1"><span>select category...</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off"></div><ul class="chosen-results"></ul></div></div>
+			
+			<label for="keyword_manage_name">Name:</label>
+			<input type="text" value="" placeholder="keyword name" id="keyword_manage_name" name="name" class="m-wrap span12">
+			<br><br>
+			
+			<label>Filters:</label>
+			<div class="input-symbol" data-option="fullbody">
+				<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
+					<span class="demo_bubble demo_contains">message contains
+						<span class="demo_bubble_text">cloudwalkers</span>
+					</span>
+					<span  id="demo_and" class="demo_drop demo_bubble demo_and">
+						<span class="sel_value">and</span>
+						<i class="icon-sort-down"></i>
+						<span class="demo_options">
+							<ul>
+								<li>and</li>
+								<li>or</li>
+							</ul>
+						</span>
+					</span>
+					<span class="demo_bubble demo_contains">country is
+						<span id="demo_country"class="demo_drop demo_bubble_text">
+							<span class="sel_value">fr</span>
+							<i class="icon-sort-down"></i>
+							<span class="demo_options">
+								<ul>
+									<li>en</li>
+									<li>nl</li>
+									<li>fr</li>
+									<li>pt</li>
+								</ul>
+							</span>
+						</span>
+					</span>
+					<span  id="demo_or" class="demo_drop demo_bubble demo_or">
+						<span class="sel_value">or</span>
+						<i class="icon-sort-down"></i>
+						<span class="demo_options">
+							<ul>
+								<li>or</li>
+								<li>and</li>
+							</ul>
+						</span>
+					</span>
+					<span id="demo_plus" class="demo_bubble">+
+						<span class="demo_options">
+							<ul>
+								<li>message contains</li>
+								<li class="demo_doesntcontain">message doesn't contain</li>
+								<li>country is</li>
+								<li>language is</li>
+							</ul>
+						</span>
+					</span>
+				</section>
+			</div>
+			<br><br>
+
+			<button class="btn blue add-keyword">Create</button>
+			<button class="btn blue update-keyword edit-keyword inactive">Update</button>
+			
+			<button class="btn cancel-edit-keyword edit-keyword inactive">Cancel</button>
+			
+		</form>
+	</div>
+</div>
+<script>
+	$('html').mouseup(function(e) {
+		e.stopPropagation();
+		var el_id = "";
+		if(!e.target.id){
+			el_id = e.target.parentElement.id
+		} else {
+			el_id = e.target.id;
+		}
+		if((el_id == "demo_or") || (el_id == "demo_plus") || (el_id == "demo_country") || (el_id == "demo_and")){
+			var ref = el_id;
+			$(".demo_options").hide('fast');
+			$("#" + ref + " .demo_options").toggle('fast');
+		} else {
+			if($(".demo_options:visible").length != 0){
+				$(".demo_options").hide('fast');
+			};
+		}
+	});
+	$(".demo_drop").mouseenter(function() {
+		var ref = this.id;
+		$("#" + ref + " i").css("display","block");
+		$("#" + ref + " .sel_value").css("display","none");
+		var ref_width = $("#" + ref + " .sel_value").width();
+		$("#" + ref + " i").css("width",ref_width)
+	}).mouseleave(function() {
+		var ref = this.id;
+		$("#" + ref + " i").css("display","none");
+		$("#" + ref + " .sel_value").css("display","block");
+	});
+</script>

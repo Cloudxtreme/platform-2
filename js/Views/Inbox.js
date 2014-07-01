@@ -113,8 +113,12 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 	'render' : function()
 	{
 
+		// Translated Title
+		this.translate_title = this.translateString(this.options.type);
+
 		// Create pageview
-		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.options.type}));
+
+		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.translate_title}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Dedect childtype
@@ -122,7 +126,7 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		
 		// Add list widget
 		var list = this.options.type == "messages"?
-		
+			
 			new Cloudwalkers.Views.Widgets.InboxMessageList(this.options):
 			new Cloudwalkers.Views.Widgets.InboxNotificationList(this.options);
 		
@@ -150,6 +154,12 @@ Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
 		$message.parent().slimScroll({height: "inherit"});
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

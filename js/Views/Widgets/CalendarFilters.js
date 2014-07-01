@@ -33,6 +33,9 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 		// Select networks
 		params.networks = this.model.streams.filterNetworks(params.streams, true);
 		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
+
 		// View
 		this.$el.html (Mustache.render (Templates.calendarfilters, params));
 		
@@ -208,5 +211,29 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 			alwaysVisible: false,
 			railVisible: false
 		});
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"more",
+			"select_all"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

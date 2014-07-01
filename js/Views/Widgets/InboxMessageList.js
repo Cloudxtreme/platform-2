@@ -94,6 +94,15 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
 		
+		//Mustache translations
+		param.translate_networks = this.translateString("networks");
+		param.translate_more = this.translateString("more");
+		param.translate_contacts = this.translateString("contacts");
+		param.translate_search_contacts = this.translateString("search_contacts");
+		param.translate_suggestions = this.translateString("suggestions");
+		param.translate_select_all = this.translateString("select_all");
+		param.translate_load_more = this.translateString("load_more");
+
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
@@ -467,5 +476,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 	'unsetempty' : function(){
 		$(".inbox-container").removeClass('empty-content');
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

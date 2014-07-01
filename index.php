@@ -18,3 +18,5 @@ $frontcontroller->addController (new BMGroup_CloudwalkersClient_FrontController 
 $frontcontroller->setPage (new BMGroup_CloudwalkersClient_Page ());
 
 $frontcontroller->dispatch ();
+
+// Change!

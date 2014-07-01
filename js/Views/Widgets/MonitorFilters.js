@@ -51,6 +51,13 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		data.name = this.category.get("name");
 		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 		
+		//Mustache translations
+		data.translate_filters = this.translateString("filters");
+		data.translate_select_all = this.translateString("select_all");
+		data.translate_building_your_data = this.translateString("building_your_data");
+		data.translate_this_will_take_a_minute_or_so = this.translateString("this_will_take_a_minute_or_so");
+		data.translate_keywords = this.translateString("keywords");
+		data.translate_manage_keywords = this.translateString("manage_keywords");
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
 		
@@ -197,6 +204,11 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 		
 		return this;*/
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 });

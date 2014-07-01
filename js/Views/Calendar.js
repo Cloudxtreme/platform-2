@@ -22,6 +22,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 		// Emergency break
 		if (!this.model) return Cloudwalkers.Session.home();
+
+		// Translation for Title
+		this.translateTitle("calendar");
 		
 		// Listen for changes
 		//this.listenTo(this.model, 'outdated', this.model.fetch);
@@ -38,7 +41,13 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function()
 	{
-		this.$el.html (Mustache.render (Templates.calendar, {'monthActive': true}));
+
+		var data = { 'monthActive': true };
+		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
+		this.$el.html (Mustache.render (Templates.calendar, data));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Add filter widget
@@ -247,6 +256,37 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			revert: true, // will cause the event to go back to its
 			revertDuration: 0 //  original position after the drag
 		});
+	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"week",
+			"month",
+			"list_view",
+			"now"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 	
 });
