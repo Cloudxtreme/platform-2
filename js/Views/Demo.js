@@ -35,7 +35,10 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 
 		var createnote = $("<button>", {id: "createnote", class: "btn", text: "Create Note"}); 
 		this.$container.append(createnote);
-		
+
+		// Marco's keyword demo
+		var keywordtemplate = Mustache.render(Templates.demos.demokeyword);
+		this.$container.append(keywordtemplate);
 
 		// Listen to editor triggers
 		//this.listenTo(this.editor, "imageadded", this.addimage);
