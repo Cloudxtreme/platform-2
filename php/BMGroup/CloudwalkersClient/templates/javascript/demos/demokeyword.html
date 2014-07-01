@@ -29,19 +29,43 @@
 			<label>Filters:</label>
 			<div class="input-symbol" data-option="fullbody">
 				<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
-					<span class="demo_bubble demo_contains">message contains <span class="demo_bubble_text">cloudwalkers</span></span>
-					<span class="demo_bubble demo_and">and</span>
-					<span class="demo_bubble demo_contains">country is <span id="demo_country"class="demo_bubble_text">
-						fr
+					<span class="demo_bubble demo_contains">message contains
+						<span class="demo_bubble_text">cloudwalkers</span>
+					</span>
+					<span  id="demo_and" class="demo_drop demo_bubble demo_and">
+						<span class="sel_value">and</span>
+						<i class="icon-sort-down"></i>
 						<span class="demo_options">
 							<ul>
-								<li>en</li>
-								<li>nl</li>
-								<li>fr</li>
-								<li>pt</li>
+								<li>and</li>
+								<li>or</li>
 							</ul>
-						</span></span></span>
-					<span class="demo_bubble demo_or">or</span>
+						</span>
+					</span>
+					<span class="demo_bubble demo_contains">country is
+						<span id="demo_country"class="demo_drop demo_bubble_text">
+							<span class="sel_value">fr</span>
+							<i class="icon-sort-down"></i>
+							<span class="demo_options">
+								<ul>
+									<li>en</li>
+									<li>nl</li>
+									<li>fr</li>
+									<li>pt</li>
+								</ul>
+							</span>
+						</span>
+					</span>
+					<span  id="demo_or" class="demo_drop demo_bubble demo_or">
+						<span class="sel_value">or</span>
+						<i class="icon-sort-down"></i>
+						<span class="demo_options">
+							<ul>
+								<li>or</li>
+								<li>and</li>
+							</ul>
+						</span>
+					</span>
 					<span id="demo_plus" class="demo_bubble">+
 						<span class="demo_options">
 							<ul>
@@ -65,21 +89,33 @@
 	</div>
 </div>
 <script>
-	$('html').click(function(e) {
+	$('html').mouseup(function(e) {
 		e.stopPropagation();
-		if(e.target.id == "demo_plus"){
-			$("#demo_plus .demo_options").slideToggle('fast');
+		var el_id = "";
+		if(!e.target.id){
+			el_id = e.target.parentElement.id
 		} else {
-			if($("#demo_plus .demo_options:visible").length != 0){
-				$("#demo_plus .demo_options").slideToggle('fast');
+			el_id = e.target.id;
+		}
+		if((el_id == "demo_or") || (el_id == "demo_plus") || (el_id == "demo_country") || (el_id == "demo_and")){
+			var ref = el_id;
+			$(".demo_options").hide('fast');
+			$("#" + ref + " .demo_options").toggle('fast');
+		} else {
+			if($(".demo_options:visible").length != 0){
+				$(".demo_options").hide('fast');
 			};
 		}
-		if(e.target.id == "demo_country"){
-			$("#demo_country .demo_options").slideToggle('fast');
-		} else {
-			if($("#demo_country .demo_options:visible").length != 0){
-				$("#demo_country .demo_options").slideToggle('fast');
-			};
-		}
+	});
+	$(".demo_drop").mouseenter(function() {
+		var ref = this.id;
+		$("#" + ref + " i").css("display","block");
+		$("#" + ref + " .sel_value").css("display","none");
+		var ref_width = $("#" + ref + " .sel_value").width();
+		$("#" + ref + " i").css("width",ref_width)
+	}).mouseleave(function() {
+		var ref = this.id;
+		$("#" + ref + " i").css("display","none");
+		$("#" + ref + " .sel_value").css("display","block");
 	});
 </script>
