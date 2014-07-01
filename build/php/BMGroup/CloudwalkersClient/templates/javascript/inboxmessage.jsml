@@ -10,6 +10,7 @@
 		<img class="avatar" alt="" src="{{avatar}}">
 		<div>
 			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
 			<br /><em>on {{networkdescription}}</em>
 		</div>
 		{{/from}}
