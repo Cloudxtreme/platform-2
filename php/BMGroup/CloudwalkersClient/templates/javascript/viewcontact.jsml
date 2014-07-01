@@ -17,9 +17,9 @@
 			</ul>
 		</div>
 	</div>
-	
+
 	<div class="contactactions">
-		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add note</div>
+		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add contact note</div>
 	</div>
 	<div id="notecontainer"></div>
 

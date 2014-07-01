@@ -27,8 +27,13 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
 		$.extend(params, this.model.attributes, {actions: this.model.filterActions()})
 		
+		// Meant only for the viewcontact messages demo
+		if(this.notes)	params.notes = true;
+
 		// Visualize
 		this.$el.html (Mustache.render (Templates.inboxmessage, params));
+
+		if(this.notes)	this.loadnoteui();
 		
 		this.time();
 		
@@ -97,7 +102,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Add models to view
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'full'});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'full', parameters: {notes: this.notes}});
 			
 			this.related.push (view);
 			

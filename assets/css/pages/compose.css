@@ -793,10 +793,16 @@ Style corrections and manual overrides
 	max-height: 300px !important;
 }
 
-.viewcontact aside #notecontainer .modal-body{
+.viewcontact aside #notecontainer .modal-body,
+.viewcontact #note-content .modal-body{
 	width: 100%;
+	position: inherit;
 	padding: 0px 20px;
 	box-sizing: border-box;
+}
+
+.viewcontact #note-content section{
+	padding: inherit;
 }
 
 .viewcontact aside #notecontainer .modal-header{
@@ -812,6 +818,19 @@ Style corrections and manual overrides
 
 .viewcontact #notefield #post{
 	float: right;
+}
+
+.viewcontact .message-notes{
+	border-top: 1px solid #ddd;
+	display: none;
+}
+
+.viewcontact .message-notes h5{
+	text-align: center;
+}
+
+.viewcontact .message-notes #note-content .modal-header button{
+	display: none;
 }
 
 /* DEMO viewContact end */ 
@@ -839,6 +858,11 @@ Style corrections and manual overrides
 
 #compose #note-content{
 	min-height: 157px; /* Temporary */
+}
+
+#contact.note.thanks{
+	max-width: 450px;
+	margin-left: -225px;
 }
 	
 /* DEMO Note end*/ 

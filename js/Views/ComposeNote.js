@@ -40,7 +40,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		var notetext = this.$el.find('#note-content').val();
 		this.note.set("text", notetext);
 
-		this.note.save();
+		this.note.save(null, {success: this.thanks? this.thankyou.bind(this): null});
 	},
 
 	'thankyou' : function()
@@ -50,13 +50,12 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		setTimeout(function()
 		{
 			// Animate compose view
-			this.$el.addClass("switch-mode").addClass('thanks');
+			this.$el.addClass('thanks');
 
 			// Add preview view to Compose
-			this.$el.find('.switch-container').append(thanks);
+			this.$el.find('section').html(thanks);
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
-		}.bind(this),400);
-				
+		}.bind(this),200);				
 	},
 
 });

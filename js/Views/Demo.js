@@ -50,13 +50,14 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'viewcontact' : function()
-	{
+	{	
 		Cloudwalkers.RootView.viewContact();
 	},
 
 	'createnote' : function()
-	{
-		Cloudwalkers.RootView.writeNote();
+	{	
+		var account = Cloudwalkers.Session.getAccount();
+		Cloudwalkers.RootView.writeNote(account);
 	},
 
 	'translateTitle' : function(translatedata)

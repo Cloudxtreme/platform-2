@@ -74,7 +74,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		{	
 			message = messages[n];
 			message.attributes.arrow = 'arrow';
-			view = new Cloudwalkers.Views.Entry ({model: message, template: 'smallentry', checkunread: true, parameters:{inboxview: true}});
+			view = new Cloudwalkers.Views.Entry ({model: message, template: 'smallentry', checkunread: true, parameters:{inboxview: true, notes: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.loadmessage);
@@ -84,6 +84,14 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			// Filter contacts
 			//this.model.seedcontacts(models[n]);
 		}	
+	},
+
+	'seed' : function(collection, response)
+	{
+		this.collection.models = response.contact.messages;
+		this.collection.length = this.collection.models.length;
+
+		this.collection.trigger('seed', this.collection.models);		
 	},
 
 	'begintouch' : function(type)
@@ -109,12 +117,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.collection.fetch({success: this.seed.bind(this)});
 	},
 
-	'seed' : function(collection, response)
+	'getnotes' : function()
 	{
-		this.collection.models = response.contact.messages;
-		this.collection.length = this.collection.models.length;
 
-		this.collection.trigger('seed', this.collection.models);		
 	},
 
 	'parse' : function (response)
@@ -139,8 +144,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	},
 
 	'touch' : function()
-	{
+	{	
 		this.model.urlparams = ['conversationids'];
+		this.model.parameters = false;
 		this.collection.url = this.model.url();
 
 		this.collection.fetch({success: this.touchresponse.bind(this)});
@@ -188,7 +194,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		// Add the Note
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
-		
+
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
@@ -204,6 +210,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'loadmessages' : function(e)
 	{
+		this.backtolist();
+
 		var type = $(e.currentTarget).attr("data-type");
 
 		if($(e.currentTarget).hasClass('inactive')){
@@ -226,7 +234,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model, notes: true});
 
 		if(this.type && this.type != 'messages')
 			this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
@@ -234,7 +242,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		this.inboxmessage.showrelated(); //(view.model);
+		if(this.type && this.type != 'messages')
+			this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");

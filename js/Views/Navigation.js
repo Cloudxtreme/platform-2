@@ -308,5 +308,4 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 	*/
-
 });

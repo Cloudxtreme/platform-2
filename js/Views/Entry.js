@@ -37,6 +37,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
+		if(this.parameters.notes)	this.loadnoteui();
+		
 		if(this.$el.find("[data-date]")) this.time();
 		
 		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
@@ -49,7 +51,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Action token
 		var token = $(element.currentTarget).data ('action');
 		
-		this.model.trigger("action", token);
+		if(token == 'note')
+			this.$el.find('.message-notes').slideToggle('fast');
+		else
+			this.model.trigger("action", token);
 	},
 	
 	'toggleaction' : function (token, newaction)
@@ -129,6 +134,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 		// Add youtube to view
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
+	},
+
+	'loadnoteui' : function()
+	{	
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
+		this.$el.find('#note-content').append(composenote.render().el);
 	},
 	
 	/*'action' : function (element)
