@@ -112,6 +112,8 @@
 <script type="text/javascript" src="/js/Views/Widgets/KeywordsEditor.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/KeywordsOverview.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedView.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxFilter.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>

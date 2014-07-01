@@ -2,7 +2,7 @@
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-group icon-large"></i>{{title}}</div>
 		<div class="tools">
-			<i class="icon-cloud-download"></i>
+		<!--	<i class="icon-cloud-download"></i> -->
 		</div>
 	</div>
 
