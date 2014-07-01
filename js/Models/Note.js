@@ -13,7 +13,9 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 		if(this.id)										url.push(this.typestring, this.id);
 		else if(!this.parent)							url.push(this.typestring);
+		//Account
 		else if(this.parent.typestring != 'contacts')	url.push(this.parent.typestring, this.parent.id, this.typestring);
+		//Contacts
 		else if(this.parent.typestring == 'contacts'){
 			
 			url.push('accounts/' + Cloudwalkers.Session.getAccount().id + '/contacts');

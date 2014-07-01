@@ -182,7 +182,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'url' : function(a)
-	{
+	{	
 		// Get parent model
 		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 		
@@ -197,11 +197,14 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{
+	{	
+		if(this.parentmodel && !this.parenttype)
+			this.parenttype = this.parentmodel.get("objectType");
+
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];
-	
+		
 		// Get paging
 		this.setcursor(response.paging);
 		
@@ -247,7 +250,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'touch' : function(model, params)
-	{
+	{	
 		// Work data
 		this.parentmodel = model;
 		this.endpoint = this.modelstring + "ids";
@@ -273,7 +276,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'touchresponse' : function(url, collection, response)
-	{
+	{	
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
 		
@@ -340,7 +343,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	{
 		// Ignore empty id lists
 		if(!ids) ids = [];
-
+	
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
@@ -387,7 +390,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'ready' : function()
-	{
+	{	
 		setTimeout(function(collection){ collection.trigger("ready", collection); }, 1, this);
 	}
 });

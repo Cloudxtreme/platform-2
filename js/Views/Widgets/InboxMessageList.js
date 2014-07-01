@@ -12,6 +12,10 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		contacts : {string:"", list:[]},
 		streams : []
 	},
+	'templates' : {
+		'messages' : 'smallentry',
+		'notes' : 'smallentrynote'
+	},
 	
 	'events' : {
 		'remove' : 'destroy',
@@ -30,7 +34,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(options) $.extend(this, options);
 		
 		// Which model to focus on
-		this.model = this.options.channel;
+		if(!this.model)	this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
 		
 		//Load all listeners
@@ -82,8 +86,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Template data
 		var param = {streams: [], networks: []};
 		
-		
-		
 		// Select streams
 		this.model.streams.each (function(stream)
 		{
@@ -93,6 +95,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
+		param.note = this.listtype? true: false;
 		
 		//Mustache translations
 		param.translate_networks = this.translateString("networks");
@@ -154,7 +157,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'fill' : function (models)
-	{
+	{	
+		var template = this.templates[this.collectionstring];		
+
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -165,8 +170,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Add models to view
 		for (n in models)
-		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry'/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
+		{	
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -174,7 +179,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			this.$container.append(view.render().el);
 			
 			// Filter contacts
-			this.model.seedcontacts(models[n]);
+			if(this.model.seedcontacts)
+				this.model.seedcontacts(models[n]);
 		}
 		
 		// Toggle first message
@@ -183,15 +189,18 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'toggle' : function(view)
-	{
-		if (this.inboxmessage) this.inboxmessage.remove();
+	{	
+		var options = {model: view.model};
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		if (this.inboxmessage) this.inboxmessage.remove();		
+		if (this.collectionstring == 'notes')	options.template = 'note';
+
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage(options);
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		this.inboxmessage.showrelated(); //(view.model);
+		//this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
@@ -431,6 +440,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Memory cloth
 		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
 		
+		if(!settings)	return;
 		if(!settings.streams) settings.streams = [];
 		
 		// And store

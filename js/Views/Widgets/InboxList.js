@@ -29,7 +29,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	{
 		if(options) $.extend(this, options);
 		
-		this.collection = this.model.messages;
+		this.collection = this.model[this.collectionstring];
 		
 		// Listeners
 		this.listenTo(this.collection, 'seed', this.fill);

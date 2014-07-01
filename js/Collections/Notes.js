@@ -1,4 +1,4 @@
-Cloudwalkers.Collections.Note = Backbone.Collection.extend({
+Cloudwalkers.Collections.Notes = Backbone.Collection.extend({
 	
 	'model' : Cloudwalkers.Models.Note,
 	'typestring' : "notes",
@@ -40,8 +40,10 @@ Cloudwalkers.Collections.Note = Backbone.Collection.extend({
 	{
 		var url = [CONFIG_BASE_URL + "json"];
 
-		if(this.id)										url.push(this.typestring, this.id);
-		else if(this.parent.typestring == 'messages')	url.push(this.parent.typestring, this.parent.id, this.typestring);
+		if(this.id)											url.push(this.typestring, this.id);
+		else if(!this.parentmodel)							url.push(this.typestring);
+		//Accounts
+		else if(this.parentmodel.typestring != 'contacts')	url.push(this.parentmodel.typestring, this.parentmodel.id, this.endpoint);
 		else if(this.parent.typestring == 'contacts'){
 			
 			url.push('accounts/' + Cloudwalkers.Session.getAccount().id + '/contacts');
@@ -50,7 +52,7 @@ Cloudwalkers.Collections.Note = Backbone.Collection.extend({
 		}
 
 		url = url.join("/");
-
+		
 		return this.parameters? url + "?" + $.param(this.parameters) : url;
 	}
 });

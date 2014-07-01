@@ -3,6 +3,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	
 	'tagName' : 'div',
 	'className' : "message social-box-colors",
+	'template' : 'inboxmessage',
 	'related' : [],
 	'messageview' : [],
 	'notifications' : [],
@@ -25,14 +26,17 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Parameters
 		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
-		$.extend(params, this.model.attributes, {actions: this.model.filterActions()})
+		$.extend(params, this.model.attributes)
+
+		if(this.model.filterActions)
+			$.extend(params, {actions: this.model.filterActions()});
 		
 		// Meant only for the viewcontact messages demo
 		if(this.notes)	params.notes = true;
 
 		// Visualize
-		this.$el.html (Mustache.render (Templates.inboxmessage, params));
-
+		this.$el.html (Mustache.render (Templates[this.template], params));
+		
 		if(this.notes)	this.loadnoteui();
 		
 		this.time();

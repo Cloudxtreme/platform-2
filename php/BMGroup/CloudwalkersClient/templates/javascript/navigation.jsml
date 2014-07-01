@@ -102,7 +102,13 @@
 						<span class="title">{{translate_scheduled}}</span>
 					</a>
 				</li>
-
+				<!--<li class="notes">
+					<a href="#notes">
+						<i class="icon-edit"></i> 
+						<span class="title">Notes</span>
+					</a>
+				</li>
+				-->
 				<!--
 				<li class="calendar">
 					<a href="#calendar">

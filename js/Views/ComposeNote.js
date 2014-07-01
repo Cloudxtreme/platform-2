@@ -1,6 +1,6 @@
 Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
-	'template' : 'note', // Can be overriden
+	'template' : 'composenote', // Can be overriden
 
 	'events' : {
 		'click #post' : 'post'
