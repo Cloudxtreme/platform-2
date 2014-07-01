@@ -51,6 +51,10 @@
 		<link href="assets/demo/preview.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/plugins/cal-heatmap-master/cal-heatmap.css" rel="stylesheet" type="text/css" />
 		<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" /> - http://kamisama.github.io/cal-heatmap/v2/ -->
+
+		<!-- This is the demos CSS-->
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/demos.css" rel="stylesheet" type="text/css"/>
+		
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
