@@ -1,14 +1,30 @@
-<section>
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>Write note</h3>
-	</div>
-	
-	<div class="modal-body">
-		<textarea id="note-content"></textarea>
-	</div>
+<div class="message-header default-color" data-id="{{id}}">
+	<div class="inherit">
+		{{#user}}
+		<div class="pull-right">
+			<span class="date">{{date}}</span>
+		</div>
+		
+		
+		<img class="avatar" alt="" src="{{avatar}}">
+		<div>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
+			<br /><em>{{email}} </em>
+		</div>
+		{{/user}}
 
-	<div class="modal-footer toload">
-		<button id="post" class="btn btn-primary">Save</button>
 	</div>
-</section>
+</div>
+
+<div class="message-body">
+	
+	{{{text}}}
+	
+</div>
+
+{{#notes}}
+<div class="message-notes">
+	<div id="note-content"></div>
+</div>
+{{/notes}}

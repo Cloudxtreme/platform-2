@@ -74,6 +74,7 @@
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
 <script type="text/javascript" src="/js/Views/Demo.js"></script>
 <script type="text/javascript" src="/js/Views/Drafts.js"></script>
+<script type="text/javascript" src="/js/Views/Notes.js"></script>
 <script type="text/javascript" src="/js/Views/Scheduled.js"></script>
 <script type="text/javascript" src="/js/Views/Calendar.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkers.js"></script>
