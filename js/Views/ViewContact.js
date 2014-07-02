@@ -29,8 +29,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'loadmylisteners' : function(recycle)
 	{	
 		//Restart collection parameters
-		this.collection = new Cloudwalkers.Collections.Messages();
-		//this.collection.on('all', function(a){console.log(a)})
+		if(this.type == 'note'){
+			this.collection = new Cloudwalkers.Collections.Notes();
+			this.collection.parenttype = 'contact';
+		}	
+		else
+			this.collection = new Cloudwalkers.Collections.Messages();
 
 		if(recycle)
 			this.stopListening(this.collection);
@@ -64,7 +68,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{	
 		var message;
 		var view;
-
+		var template = this.type == 'note'? 'smallentrynote': 'smallentry';
+		
 		//Clear entries
 		$.each(this.entries, function(n, entry){ entry.remove()});
 			this.entries = [];
@@ -74,7 +79,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		{	
 			message = messages[n];
 			message.attributes.arrow = 'arrow';
-			view = new Cloudwalkers.Views.Entry ({model: message, template: 'smallentry', checkunread: true, parameters:{inboxview: true, notes: true}});
+			view = new Cloudwalkers.Views.Entry ({model: message, template: template, checkunread: true, parameters:{inboxview: true, notes: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.loadmessage);
@@ -98,13 +103,14 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		//Clean previous list, if any
 
-		if(!type)	type = 'conversations';
-		else		this.loadmylisteners(true);
+		if(!type)	type = 'conversation';
 
 		this.type = type;
 
+		this.loadmylisteners(true);
+
 		if(type == 'messages')				this.getmessages();
-		else if(type == 'conversations')	this.touch();
+		else								this.touch(type);
 	},
 
 	'getmessages' : function()
@@ -143,20 +149,20 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		return response[this.typestring];
 	},
 
-	'touch' : function()
+	'touch' : function(type)
 	{	
-		this.model.urlparams = ['conversationids'];
+		this.model.urlparams = [type+'ids'];
 		this.model.parameters = false;
 		this.collection.url = this.model.url();
-
+		
 		this.collection.fetch({success: this.touchresponse.bind(this)});
 	},
 
 	'touchresponse' : function(collection, response)
 	{	
-		var ids = response['contact']['messages'];
+		var ids = response['contact'][this.collection.typestring];
 
-		this.model.urlparams = ['conversations'];
+		this.model.urlparams = [this.type+'s'];
 		this.model.parameters = {ids: ids.join(",")};
 		this.collection.url = this.model.url();
 
@@ -217,15 +223,15 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if($(e.currentTarget).hasClass('inactive')){
 			this.$el.find('#contactfilter .active').removeClass('active').addClass('inactive');
 			$(e.currentTarget).removeClass('inactive').addClass('active');
-
+			
 			this.begintouch(type);
 		}		
 	},
 
 	'loadmessage' : function(view)
 	{	
-		//if(this.type && this.type == 'messages')
-		//	return;
+		var options = {model: view.model, notes: true};
+		if (this.type == 'note')	options.template = 'note';		
 
 		$('.viewcontact').addClass('onmessage');
 
@@ -234,7 +240,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model, notes: true});
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage(options);
 
 		if(this.type && this.type != 'messages')
 			this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
@@ -242,7 +248,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		if(this.type && this.type != 'messages')
+		if(this.type && this.type == 'conversation')
 			this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
