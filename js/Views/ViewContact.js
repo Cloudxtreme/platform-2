@@ -31,7 +31,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		//Restart collection parameters
 		if(this.type == 'note'){
 			this.collection = new Cloudwalkers.Collections.Notes();
-			this.collection.parenttype = 'contact';
+			this.collection.parentmodel = 'contact';	//Hack
+			this.collection.parenttype = 'contact';		//Hack
 		}	
 		else
 			this.collection = new Cloudwalkers.Collections.Messages();
