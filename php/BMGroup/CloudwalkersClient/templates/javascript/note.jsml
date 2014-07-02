@@ -3,7 +3,6 @@
 		{{#user}}
 		<div class="pull-right">
 			<span class="date">{{date}}</span>
-			<i class="icon-edit"></i>
 		</div>
 		
 		
