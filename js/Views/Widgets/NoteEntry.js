@@ -54,7 +54,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 	'editnote' : function()
 	{	
 		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model})
-		this.$el.html(composenote.render().el);
+		this.$el.find('.note-body').html(composenote.render().el);
 	}
 
 });

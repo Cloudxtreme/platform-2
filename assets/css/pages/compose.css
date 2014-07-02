@@ -794,18 +794,37 @@ Style corrections and manual overrides
 }
 
 .viewcontact aside #notecontainer .modal-body,
-.viewcontact .note-content .modal-body{
+.viewcontact .note-content .modal-body,
+.viewcontact .note-list .modal-body{
 	width: 100%;
 	position: inherit;
 	padding: 0px 20px !important;
 	box-sizing: border-box;
 }
 
-.viewcontact .note-content section{
+.message-body.note-content{
+	padding: 0px;
+	margin: 20px 0px;
+}
+
+.message-body.note-content textarea{
+	width: 100%;
+	box-sizing: border-box;
+}
+
+
+.viewcontact .note-list .modal-body{
+	padding: 0px !important;
+}
+
+.viewcontact .note-content section,
+.viewcontact .note-list section{
 	padding: inherit !important;
 }
 
-.viewcontact aside #notecontainer .modal-header{
+.viewcontact aside #notecontainer .modal-header,
+.viewcontact .note-list .modal-header,
+.message-body.note-content .modal-header{
 	display: none;
 }
 
@@ -854,6 +873,10 @@ Style corrections and manual overrides
 	width: 100%;
 	left: 0px;
 	top: 10px;
+}
+
+.message-notes ul.note-list li section{
+
 }
 
 .message-notes ul li .note-body{

@@ -32,11 +32,6 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'action' : function(token)
 	{
-		
-	},
-
-	'destroy' : function()
-	{
-
+		if(token == 'delete')	this.destroy();
 	}
 });

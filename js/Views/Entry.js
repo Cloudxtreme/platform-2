@@ -54,9 +54,17 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(token == 'note-content' || token == 'note-list'){
 			this.togglenoteaction(token);
+		}else if(token == 'edit'){
+			this.editnote();
 		}
 		else
 			this.model.trigger("action", token);
+	},
+
+	'editnote' : function()
+	{	
+		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model})
+		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
 	},
 
 	'togglenoteaction' : function(token)
