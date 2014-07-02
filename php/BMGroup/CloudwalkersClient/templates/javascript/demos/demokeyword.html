@@ -29,50 +29,14 @@
 			<label>Filters:</label>
 			<div class="input-symbol" data-option="fullbody">
 				<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
-					<span class="demo_bubble demo_contains">message contains
-						<span class="demo_bubble_text">cloudwalkers</span>
-					</span>
-					<span  id="demo_and" class="demo_drop demo_bubble demo_and">
-						<span class="sel_value">and</span>
-						<i class="icon-sort-down"></i>
+					<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
+						<span class="demo_hit_me">+</spam>
 						<span class="demo_options">
 							<ul>
-								<li>and</li>
-								<li>or</li>
-							</ul>
-						</span>
-					</span>
-					<span class="demo_bubble demo_contains">country is
-						<span id="demo_country"class="demo_drop demo_bubble_text">
-							<span class="sel_value">fr</span>
-							<i class="icon-sort-down"></i>
-							<span class="demo_options">
-								<ul>
-									<li>en</li>
-									<li>nl</li>
-									<li>fr</li>
-									<li>pt</li>
-								</ul>
-							</span>
-						</span>
-					</span>
-					<span  id="demo_or" class="demo_drop demo_bubble demo_or">
-						<span class="sel_value">or</span>
-						<i class="icon-sort-down"></i>
-						<span class="demo_options">
-							<ul>
-								<li>or</li>
-								<li>and</li>
-							</ul>
-						</span>
-					</span>
-					<span id="demo_plus" class="demo_bubble">+
-						<span class="demo_options">
-							<ul>
-								<li>message contains</li>
-								<li class="demo_doesntcontain">message doesn't contain</li>
-								<li>country is</li>
-								<li>language is</li>
+								<li class="add_message_contains" data-value="message contains">message contains</li>
+								<li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">message doesn't contain</li>
+								<li class="add_country_is" data-value="county =">country is</li>
+								<li class="add_language_is" data-value="language =">language is</li>
 							</ul>
 						</span>
 					</span>
@@ -91,32 +55,136 @@
 <script>
 	$('html').mouseup(function(e) {
 		e.stopPropagation();
-		var el_id = "";
-		if(!e.target.id){
-			el_id = e.target.parentElement.id
-		} else {
-			el_id = e.target.id;
+
+		// Search for demo_bubble. Get ID and 2nd class which defines type
+		var el_ref = $(e.target).closest(".demo_bubble");
+		var el_ref_id = el_ref.attr('id');
+		if(el_ref.attr('class')){
+			var el_ref_type = el_ref.attr('class').split(' ');
+   			el_ref_type =  el_ref_type[1];
 		}
-		if((el_id == "demo_or") || (el_id == "demo_plus") || (el_id == "demo_country") || (el_id == "demo_and")){
-			var ref = el_id;
-			$(".demo_options").hide('fast');
-			$("#" + ref + " .demo_options").toggle('fast');
+		var el_ref_class = e.target.classList;
+   		var el_ref_hit =  el_ref_class[0];
+   		var el_ref_hit_3 =  el_ref_class[2];
+   		var el_parent_ref = e.target.parentElement.classList;
+   		el_parent_ref = el_parent_ref[0];
+
+   		//console.log("id:" + el_ref_id + "ref:" + el_parent_ref + " type:" + el_ref_type + " and hit:" + el_ref_hit);
+
+		if((el_ref_type == "demo_contains") || (el_ref_type == "demo_drop") || (el_ref_type == "demo_plus")){
+			if((el_parent_ref == "demo_options") || (el_ref_hit == "demo_options")){
+				return false;
+			} else if($("#" + el_ref_id + " .demo_options").is(":visible")){
+				// Close popups
+				if(!$(e.target).is("input")){
+					$(".demo_options").hide('fast');
+				}
+			} else {
+				// Close popups and Show one
+				if((el_ref_hit == "demo_hit_me") || (el_ref_hit == "text") || (el_ref_hit_3 == "demo_hit_me")){
+					$(".demo_options").hide('fast');
+					$("#" + el_ref_id + " .demo_options").toggle('fast');
+				}
+			}		
 		} else {
 			if($(".demo_options:visible").length != 0){
 				$(".demo_options").hide('fast');
 			};
 		}
+		// Change 
+		if(el_ref_type == "demo_contains"){
+			if(el_ref_hit != "btn"){
+				if($("#" + el_ref_id + " .demo_options").is(":visible")){
+					var text = $("#" + el_ref_id + " .text").html();
+					$("#" + el_ref_id + " .demo_options input").val(text);
+				}				
+			} else {
+				if($(e.target).attr("data-option") == "save"){
+					// Set text
+					var text = $("#" + el_ref_id + " .demo_options input").val();
+					$("#" + el_ref_id + " .text ").html(text);
+					// Close popups
+					$(".demo_options").hide('fast');
+					//$("#" + el_ref_id + " .demo_options").toggle('fast')
+				} else if($(e.target).attr("data-option") == "cancel"){
+					// Close popups
+					$(".demo_options").hide('fast');
+				} else {
+					console.log($(e.target).attr("data-value"));
+				}
+			}	
+		}
+		// Change option and color if needed
+		if(el_ref_class == "demo_change_val"){
+			var text = $(e.target).attr("data-value");
+			if((text == "and") || (text == "or")){
+				if($("#" + el_ref_id).hasClass("demo_and")){
+					$("#" + el_ref_id).removeClass("demo_and");
+				}
+				if($("#" + el_ref_id).hasClass("demo_or")){
+					$("#" + el_ref_id).removeClass("demo_or");
+				}
+				$("#" + el_ref_id).addClass("demo_" + text);
+			}
+			$("#" + el_ref_id + " .sel_value ").html(text);
+		}
+		// Add message contains
+		if(el_ref_hit == "add_message_contains"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message contains<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><span class="demo_remove_filter"></span></span>');
+			$("#keyword_filter").append(bot_plus_small);
+			$(".demo_options").hide('fast');
+		}
+		// Add message does not contain
+		if(el_ref_hit == "add_message_no_contains"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message does not contain<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span></span>');
+			$("#keyword_filter").append(bot_plus_small);
+			$(".demo_options").hide('fast');
+		}
+		// Add country is
+		if(el_ref_hit == "add_country_is"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">country is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span></span>');
+			$("#keyword_filter").append(bot_plus_small);
+			$(".demo_options").hide('fast');
+		}
+		// Add language is
+		if(el_ref_hit == "add_language_is"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">language is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span></span>');
+			$("#keyword_filter").append(bot_plus_small);
+			$(".demo_options").hide('fast');
+		}
+		// Add and
+		if(el_ref_hit == "add_and"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_and"><span class="sel_value">and</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and">and</li><li class="demo_change_val" data-value="or">or</li></ul></span></span>');
+			$("#keyword_filter").append(bot_plus_large);
+			$(".demo_options").hide('fast');
+		}
+		// Add or
+		if(el_ref_hit == "add_or"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or"><span class="sel_value">or</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or">or</li><li class="demo_change_val" data-value="and">and</li></ul></span></span>');
+			$("#keyword_filter").append(bot_plus_large);
+			$(".demo_options").hide('fast');
+		}
+
 	});
-	/*$(".demo_drop").mouseenter(function() {
-		var ref = this.id;
-		$("#" + ref + " i").css("display","block");
-		$("#" + ref + " .sel_value").css("display","none");
-		var ref_width = $("#" + ref + " .sel_value").width();
-		$("#" + ref + " i").css("width",ref_width)
-	}).mouseleave(function() {
-		var ref = this.id;
-		$("#" + ref + " i").css("display","none");
-		$("#" + ref + " .sel_value").css("display","block");
-	});
-*/
+	// Random number for IDs
+	function getRandomInt(min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	// Large plus button
+	var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains" data-value="message contains">message contains</li><li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">message does not contain</li><li class="add_country_is" data-value="county =">country is</li><li class="add_language_is" data-value="language =">language is</li></ul></span></span>';
+	// Small plus button
+	var bot_plus_small = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and" data-value="and">and</li><li class="add_or" data-value="or">or</li></ul></span></span>';
+
 </script>
