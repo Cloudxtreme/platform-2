@@ -123,6 +123,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>

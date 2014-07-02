@@ -5,10 +5,12 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	'initialize' : function(options)
 	{
 		if(options) $.extend(this, options);
+
+		this.on('action', this.action);
 	},
 
 	'url' : function()
-	{
+	{	
 		var url = [CONFIG_BASE_URL + "json"];
 
 		if(this.id)										url.push(this.typestring, this.id);
@@ -26,5 +28,15 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 		url = url.join("/");
 
 		return this.parameters? url + "?" + $.param(this.parameters) : url;
+	},
+
+	'action' : function(token)
+	{
+		
+	},
+
+	'destroy' : function()
+	{
+
 	}
 });

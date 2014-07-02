@@ -124,11 +124,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.collection.fetch({success: this.seed.bind(this)});
 	},
 
-	'getnotes' : function()
-	{
-
-	},
-
 	'parse' : function (response)
 	{	
 		// Solve response json tree problem

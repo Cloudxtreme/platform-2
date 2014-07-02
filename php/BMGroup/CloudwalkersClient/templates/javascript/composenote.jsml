@@ -5,7 +5,7 @@
 	</div>
 	
 	<div class="modal-body">
-		<textarea id="note-content"></textarea>
+		<textarea>{{text}}</textarea>
 	</div>
 
 	<div class="modal-footer toload">

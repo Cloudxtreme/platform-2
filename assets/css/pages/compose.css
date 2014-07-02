@@ -794,15 +794,15 @@ Style corrections and manual overrides
 }
 
 .viewcontact aside #notecontainer .modal-body,
-.viewcontact #note-content .modal-body{
+.viewcontact .note-content .modal-body{
 	width: 100%;
 	position: inherit;
-	padding: 0px 20px;
+	padding: 0px 20px !important;
 	box-sizing: border-box;
 }
 
-.viewcontact #note-content section{
-	padding: inherit;
+.viewcontact .note-content section{
+	padding: inherit !important;
 }
 
 .viewcontact aside #notecontainer .modal-header{
@@ -829,8 +829,44 @@ Style corrections and manual overrides
 	text-align: center;
 }
 
-.viewcontact .message-notes #note-content .modal-header button{
+.viewcontact .message-notes .note-content .modal-header button{
 	display: none;
+}
+
+.message-notes ul.note-list,
+.message-notes .note-content{
+	display: none;
+}
+
+.message-notes ul.note-list{
+	padding: 10px;
+}
+
+.message-notes ul.note-list li{
+	margin-bottom: 5px;
+	position: relative;
+	cursor: pointer;
+}
+
+.message-notes ul.note-list li:after{
+	position: absolute; 
+	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
+	width: 100%;
+	left: 0px;
+	top: 10px;
+}
+
+.message-notes ul li .note-body{
+	display: none;
+	margin-top: 20px;
+}
+
+.message-notes ul li .message-actions{
+	padding: 5px 0px;
+}
+
+.message-notes ul li .message-actions .notification-action{
+	z-index: 99;
 }
 
 /* DEMO viewContact end */ 
@@ -856,9 +892,9 @@ Style corrections and manual overrides
 	padding: 8px;
 }
 
-#compose #note-content{
-	min-height: 157px; /* Temporary */
-}
+/*#compose .note-content{
+	min-height: 157px; 
+}*/
 
 #contact.note.thanks{
 	max-width: 450px;
