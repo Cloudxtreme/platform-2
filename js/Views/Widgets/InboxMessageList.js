@@ -14,7 +14,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	'templates' : {
 		'messages' : 'smallentry',
-		'notes' : 'smallentrynote'
+		'notes' : 'smallentrynote',
+		'notifications' : 'smallentry'
 	},
 	
 	'events' : {
@@ -161,7 +162,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			$.each(this.entries, function(n, entry){ entry.remove()});
 			this.entries = [];
 		}
-		
+		console.log(template)
 		// Add models to view
 		for (n in models)
 		{	
