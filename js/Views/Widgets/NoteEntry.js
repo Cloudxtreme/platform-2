@@ -15,7 +15,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		this.parameters = {};
 		if(options) $.extend(this, options);
 
-		this.listenTo(this.model, 'change', this.render);
+		this.listenToOnce(this.model, 'change', this.render);
 		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
@@ -59,6 +59,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
 
 		this.listenTo(composenote, 'edit:cancel', this.canceledit);
+		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.note-body').html(composenote.render().el);
 	},
@@ -66,6 +67,13 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 	'canceledit' : function()
 	{	
 		this.$el.find('.note-body').html(this.model.get("text"));
+	},
+
+	'saved' : function()
+	{
+		setTimeout(function(){
+			this.canceledit();
+		}.bind(this),200)
 	},
 
 	'remove' : function ()

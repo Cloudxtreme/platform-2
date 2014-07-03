@@ -17,7 +17,6 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
 		if(this.model)
 			this.note.parent = this.model;
-
 	},
 
 	'render' : function()
@@ -35,7 +34,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		if(!this.$loadercontainer)
 			this.$loadercontainer = this.$el.find ('.modal-footer');
 
-		this.loadListeners(this.note, ['request', 'sync'], true);
+		this.loadListeners(this.note, ['request', 'sync']);
 
 		this.trigger("rendered");
 
@@ -46,7 +45,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	{	
 		var notetext = this.$el.find('textarea').val();
 
-		this.note.save({'text': notetext}, {patch: this.note.id? true: false, success: this.thanks? this.thankyou.bind(this): null});
+		this.note.save({'text': notetext}, {patch: this.note.id? true: false, success: this.thanks? this.thankyou.bind(this): this.trigger.bind(this,'save:success')});
 	},
 
 	'cancel' : function()

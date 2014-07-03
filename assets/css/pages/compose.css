@@ -864,6 +864,9 @@ Style corrections and manual overrides
 .message-notes ul.note-list li{
 	margin-bottom: 5px;
 	position: relative;
+}
+
+.message-notes ul.note-list li .note-header{
 	cursor: pointer;
 }
 

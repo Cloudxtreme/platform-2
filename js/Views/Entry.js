@@ -20,7 +20,13 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.parameters = {};
 		
 		if(options) $.extend(this, options);
+
+		this.loadmylisteners();
 		
+	},
+
+	'loadmylisteners' : function()
+	{
 		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
 		this.listenTo(this.model, 'destroy', this.remove);
@@ -66,14 +72,28 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{	
 		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
 
+		//Prevent auto re-render on save
+		this.stopListening(this.model);
+
 		this.listenTo(composenote, 'edit:cancel', this.canceledit);
+		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
 	},
 
 	'canceledit' : function()
 	{	
+		this.loadmylisteners();
+
 		this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
+	},
+
+	'saved' : function()
+	{
+		setTimeout(function(){
+			this.canceledit();
+			this.loadmylisteners();
+		}.bind(this),200)
 	},
 
 	'togglenoteaction' : function(token)
