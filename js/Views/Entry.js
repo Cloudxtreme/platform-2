@@ -59,12 +59,21 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}
 		else
 			this.model.trigger("action", token);
+
 	},
 
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model})
+		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+
+		this.listenTo(composenote, 'edit:cancel', this.canceledit);
+
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+	},
+
+	'canceledit' : function()
+	{	
+		this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
 	},
 
 	'togglenoteaction' : function(token)
@@ -193,25 +202,39 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
 		var notes = new Cloudwalkers.Collections.Notes();
 
+		this.composenote = composenote;
 		notes.parentmodel = this.model;
+
 		//change this to "on expand"
-		this.listenTo(notes,'seed', this.fillnote);
+		this.listenTo(notes,'seed', this.fillnotes);
+		this.listenTo(composenote.note, 'sync', this.noteadded);
 
 		notes.touch(this.model);
 
 		this.$el.find('.note-content').append(composenote.render().el);
+
 	},
 
 	//Notes list
-	'fillnote' : function(notes)
+	'fillnotes' : function(notes)
 	{	
 		for(n in notes)
 		{	
-			notes[n].date = moment(notes[n].date).format("DD MMM YYYY");
-
-			var note = new Cloudwalkers.Views.Widgets.NoteEntry({model: notes[n], template: 'messagenote'});
-			this.$el.find('.note-list').append(note.render().el);
+			this.addnote(notes[n]);
 		}
+	},
+
+	'addnote' : function(newnote)
+	{
+		var note = new Cloudwalkers.Views.Widgets.NoteEntry({model: newnote, template: 'messagenote'});
+		this.$el.find('.note-list').append(note.render().el);
+	},
+
+	'noteadded' : function(note)
+	{	
+		this.addnote(note);
+		this.togglenoteaction('note-list');
+		this.composenote.clean();
 	},
 	
 	/*'action' : function (element)

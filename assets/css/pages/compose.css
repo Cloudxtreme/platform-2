@@ -867,16 +867,14 @@ Style corrections and manual overrides
 	cursor: pointer;
 }
 
-.message-notes ul.note-list li:after{
+.message-notes ul.note-list li .note-header:after{
 	position: absolute; 
 	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
 	width: 100%;
 	left: 0px;
-	top: 10px;
-}
-
-.message-notes ul.note-list li section{
-
+	top: 2px;
+	height: 30px;
+	padding-top: 10px;
 }
 
 .message-notes ul li .note-body{

@@ -9,6 +9,11 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 		this.on('action', this.action);
 	},
 
+	'parse' : function (response) 
+	{	
+		return response.note? response.note : response;
+	},
+
 	'url' : function()
 	{	
 		var url = [CONFIG_BASE_URL + "json"];
@@ -32,6 +37,9 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'action' : function(token)
 	{
-		if(token == 'delete')	this.destroy();
+		if(token == 'delete'){
+			this.trigger('delete');
+			this.destroy();
+		}
 	}
 });

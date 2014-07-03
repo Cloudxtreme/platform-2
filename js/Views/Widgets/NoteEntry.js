@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		'mouseover' : 'toggleactions',
 		'mouseout' : 'toggleactions',
 		'click *[data-notification-action]' : 'action',
-		'click' : 'togglenote',
+		'click .note-header' : 'togglenote',
 	},
 
 	'initialize' : function(options)
@@ -16,6 +16,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		if(options) $.extend(this, options);
 
 		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
 	'render' : function ()
@@ -27,7 +28,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 	},
 
 	'togglenote' : function()
-	{
+	{	
 		this.$el.find('.note-body').slideToggle('fast');
 	},
 
@@ -41,20 +42,39 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 
 	'action' : function(e)
 	{	
-		e.preventDefault();
+		e.stopPropagation();
 
 		// Action token
 		var token = $(e.currentTarget).data ('notification-action');		
 		this.model.trigger("action", token);
 
-		if(token == 'edit')
+		if(token == 'edit'){
+			if(!this.$el.find('.note-body').is(':visible'))	this.togglenote();
 			this.editnote();
+		}
 	},
 
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model})
+		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+
+		this.listenTo(composenote, 'edit:cancel', this.canceledit);
+
 		this.$el.find('.note-body').html(composenote.render().el);
-	}
+	},
+
+	'canceledit' : function()
+	{	
+		this.$el.find('.note-body').html(this.model.get("text"));
+	},
+
+	'remove' : function ()
+    {	
+		this.$el.slideUp(300);
+
+		setTimeout(function(){
+			this.remove()
+		}.bind(this),300);
+    }
 
 });

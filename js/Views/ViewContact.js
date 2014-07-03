@@ -207,6 +207,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		setTimeout(function(){
 			this.togglecontactnote()
+			this.$el.find('#notecontainer textarea').val('');
 		}.bind(this),200);
 	},
 
@@ -245,10 +246,13 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		// Load related messages
 		if(this.type && this.type == 'conversation')
-			this.inboxmessage.showrelated(); //(view.model);
+			this.inboxmessage.showrelated(); 
+		else if(this.type && this.type == 'note')
+			this.listenTo(this.inboxmessage.model, 'delete', this.backtolist);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
+
 	},
 
 	'backtolist' : function()
