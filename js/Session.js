@@ -285,7 +285,16 @@ Cloudwalkers.Session =
 	{
 		return this.user.account.users;
 	},
-	
+
+	/**
+	 *	Permissions shortcut
+	 *  Checks for permission or returns the authorized list
+	 **/
+
+	'isAuthorized' : function(action)	
+	{
+		return (action)? this.user.isauthorized(action): this.user.authorized;
+	},
 	
 	/**
 	 *	Contacts shortcut functions

@@ -60,7 +60,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(token == 'note-content' || token == 'note-list'){
 			this.togglenoteaction(token);
-		}else if(token == 'edit'){
+		}else if(token == 'note-edit'){
 			this.editnote();
 		}
 		else
