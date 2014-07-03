@@ -83,8 +83,9 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.account = this.getCurrentAccount();
 			this.account.activate();
 			
-			// Set current user level
+			// Set current user level & permissions
 			this.level = Number(this.account.get("currentuser").level);
+			this.authorized = this.account.get("currentuser").authorized;
 			
 			// Call callback
 			this.trigger("activated");
@@ -92,6 +93,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 		}.bind(this));
 		
+	},
+
+	'isauthorized' : function(action)
+	{
+		return _.contains(this.authorized, action);
 	},
 	
 	'offline' : function ()

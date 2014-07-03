@@ -250,6 +250,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		else if(this.type && this.type == 'note')
 			this.listenTo(this.inboxmessage.model, 'delete', this.backtolist);
 		
+		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
 
@@ -278,34 +279,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
 	},
 
-	'toggle' : function()
-	{
-		//Toggle between endpoints here
-	},
-
-	// Implement after working endpoints
-	/*'lastmessages' : function()
-	{
-		this.model.urlparams = ['messages'];
-		this.model.fetch();
-	},
-
-	'lastconversations' : function()
-	{
-		this.model.urlparams = ['conversations'];
-		this.model.fetch();
-	},*/
-
 	'filterparams' : function()
 	{	//Hardcoded test data
 		
 		var param = {records: 20, contacts: this.contactid};
 		return param;
-	},
-
-	'post' : function()
-	{
-		//Get the note text
-		//Model.save
 	}
 });
