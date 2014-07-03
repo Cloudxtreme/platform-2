@@ -132,7 +132,7 @@
 		if(el_ref_hit == "add_message_contains"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message contains<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><span class="demo_remove_filter"></span></span>');
+			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message contains<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_small);
 			$(".demo_options").hide('fast');
 		}
@@ -140,7 +140,7 @@
 		if(el_ref_hit == "add_message_no_contains"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message does not contain<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span></span>');
+			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message does not contain<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_small);
 			$(".demo_options").hide('fast');
 		}
@@ -148,7 +148,7 @@
 		if(el_ref_hit == "add_country_is"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">country is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span></span>');
+			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">country is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_small);
 			$(".demo_options").hide('fast');
 		}
@@ -156,7 +156,7 @@
 		if(el_ref_hit == "add_language_is"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">language is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span></span>');
+			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">language is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_small);
 			$(".demo_options").hide('fast');
 		}
@@ -164,7 +164,7 @@
 		if(el_ref_hit == "add_and"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_and"><span class="sel_value">and</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and">and</li><li class="demo_change_val" data-value="or">or</li></ul></span></span>');
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_and"><span class="sel_value">and</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and">and</li><li class="demo_change_val" data-value="or">or</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_large);
 			$(".demo_options").hide('fast');
 		}
@@ -172,9 +172,25 @@
 		if(el_ref_hit == "add_or"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
-			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or"><span class="sel_value">or</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or">or</li><li class="demo_change_val" data-value="and">and</li></ul></span></span>');
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or"><span class="sel_value">or</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or">or</li><li class="demo_change_val" data-value="and">and</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 			$("#keyword_filter").append(bot_plus_large);
 			$(".demo_options").hide('fast');
+		}
+		// Remove filter
+		if(el_ref_hit == "demo_remove_filter"){
+			if($("#" + el_ref_id ).next().attr('id') != "demo_plus"){
+				$("#" + el_ref_id ).next().remove();
+			} else if((!$("#" + el_ref_id ).prev().attr('id')) || ($("#" + el_ref_id ).prev().hasClass('demo_drop')) ) {
+				$("#keyword_filter #demo_plus").remove();
+				$("#keyword_filter").append(bot_plus_large);
+				console.log($("#" + el_ref_id ).prev().attr('id') + " add big");
+			} else {
+				$("#keyword_filter #demo_plus").remove();
+				$("#keyword_filter").append(bot_plus_small);
+				console.log($("#" + el_ref_id ).prev().attr('id') + " add small");
+			}
+			$("#" + el_ref_id ).remove();
+
 		}
 
 	});
