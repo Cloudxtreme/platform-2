@@ -1297,12 +1297,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.draft.sanitizepost();
 		
-		if(this.draft.id)	this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		if(this.draft.id)	this.draft.save({
+			body: this.draft.get("body"), 
+			attachments: this.draft.get("attachments"), 
+			variations: this.draft.get("variations"), 
+			streams: this.draft.get("streams"), 
+			schedule: this.draft.get("schedule"), 
+			update: true
+		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+			
 		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
-	{		
+	{	
 		// Prevent empty post
 		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
 		//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
@@ -1323,7 +1331,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update a Patch
 		else if(this.draft.id){
 			//console.log("right before the save:", this.draft.get('variations'));
-			this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
+			this.draft.save({
+				body: this.draft.get("body"), 
+				attachments : this.draft.get("attachments"),
+				variations: this.draft.get("variations"), 
+				streams: this.draft.get("streams"), 
+				status: "scheduled", 
+				schedule: this.draft.get("schedule"), 
+				update: true
+			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
 		} 
 		
 		// Or just post
