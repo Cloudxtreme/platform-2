@@ -1,0 +1,19 @@
+<div class="note-header">
+	{{#user}}
+		<img class="avatar" alt="" src="{{avatar}}" />
+		<strong>{{displayname}} </strong>
+	{{/user}}
+
+	<div class="message-actions pull-right hidden">
+		<div class="notification-action" data-notification-action="delete"><i class="icon-remove"></i></div>
+		<div class="notification-action" data-notification-action="edit"><i class="icon-pencil"></i></div>
+	</div>
+
+	{{#date}}
+		<div class="comment-info pull-right">{{date}}</div>
+	{{/date}}
+</div>
+
+<div class="note-body">{{{text}}}</div>
+
+

@@ -23,8 +23,8 @@
 	
 </div>
 
-{{#notes}}
-<div class="message-notes">
-	<div id="note-content"></div>
+<div class="message-actions">
+	<div class="btn-white" data-action="edit"><i class="icon-edit"></i></div>
+	<div class="btn-white" data-action="delete"><i class="icon-remove"></i></div>
 </div>
-{{/notes}}
+

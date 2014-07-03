@@ -1337,7 +1337,7 @@ counter	{
 	position: relative; top: -5px; display: inline;
 }
 
-.inbox-container .message-comments	{
+.inbox-container .message-comments{
 	padding: 10px; border-top: 1px solid #ddd;
 }
 
@@ -1345,36 +1345,49 @@ counter	{
 	position: relative; width: 12px; height: 12px; top: 6px; left: 20px; background: #d9edf7; -webkit-transform: rotate(45deg);
 }
 
-.inbox-container .message-comments ul	{
+.inbox-container .message-comments ul,
+.inbox-container .message-notes ul li	{
 	margin-left: 0; background: #d9edf7;
 }
 
-.inbox-container .message-comments i.icon-cloud-download	{
+.inbox-container .message-notes ul li:last-child{
+	margin-bottom: 0px !important;
+}
+
+.inbox-container .message-comments i.icon-cloud-download,
+.inbox-container .message-notes i.icon-cloud-download	{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite;
 }
 
-.inbox-container .message-comments li	{ padding: 10px; }
+.inbox-container .message-comments li,
+.inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even),
+.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
 
-.inbox-container .message-comments li.active	{
+.inbox-container .message-comments li.active,
+.inbox-container .message-notes li.active	{
 	background:#b1e2ec; border: solid white; border-width: 1px 0;
 }
 
-.inbox-container .message-comments li:first-child.active	{
+.inbox-container .message-comments li:first-child.active,
+.inbox-container .message-notes li:first-child.active	{
 	background: none; border-top-width: 0;
 }
 
-.inbox-container .message-comments img.avatar {
+.inbox-container .message-comments img.avatar,
+.inbox-container .message-notes img.avatar {
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
-.inbox-container .message-comments img {
+.inbox-container .message-comments img,
+.inbox-container .message-notes img {
 	max-height: 22px; 
 }
 
-.inbox-container .message-comments p { display: inline; }
+.inbox-container .message-comments p,
+.inbox-container .message-notes p { display: inline; }
 
 .inbox-container .comment-info {
 	color: #aac1cd; font-size: 12px;

@@ -3,7 +3,8 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	'template' : 'composenote', // Can be overriden
 
 	'events' : {
-		'click #post' : 'post'
+		'click #post' : 'post',
+		'click #cancel' : 'cancel'
 	},
 
 	'initialize' : function(options)
@@ -12,7 +13,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		if(options) $.extend(this, options);
 
 		// Empty note
-		this.note = new Cloudwalkers.Models.Note();
+		if(!this.note)	this.note = new Cloudwalkers.Models.Note();
 
 		if(this.model)
 			this.note.parent = this.model;
@@ -21,7 +22,13 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
 	'render' : function()
 	{	
-		var view = Mustache.render(Templates[this.template]);
+		// Add default text
+		var params = {};
+		var view;
+
+		if(this.note.get("text"))	params.text = this.note.get("text");
+
+		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
 
 		// Inject custom loadercontainer
@@ -36,15 +43,20 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	},
 
 	'post' : function()
-	{			
-		var notetext = this.$el.find('#note-content').val();
-		this.note.set("text", notetext);
+	{	
+		var notetext = this.$el.find('textarea').val();
 
-		this.note.save(null, {success: this.thanks? this.thankyou.bind(this): null});
+		this.note.save({'text': notetext}, {patch: this.note.id? true: false, success: this.thanks? this.thankyou.bind(this): null});
+	},
+
+	'cancel' : function()
+	{	
+		this.trigger('edit:cancel');
+		this.remove();
 	},
 
 	'thankyou' : function()
-	{
+	{	
 		var thanks = Mustache.render(Templates.thankyou);
 
 		setTimeout(function()
@@ -55,7 +67,14 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 			// Add preview view to Compose
 			this.$el.find('section').html(thanks);
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
-		}.bind(this),200);				
+		}.bind(this),200);	
+
+		this.trigger("done")			
 	},
+
+	'clean' : function()
+	{
+		this.$el.find('textarea').val('');
+	}
 
 });

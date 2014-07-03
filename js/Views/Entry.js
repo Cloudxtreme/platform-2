@@ -37,6 +37,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
+		// Add notes interface to the message
 		if(this.parameters.notes)	this.loadnoteui();
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -51,10 +52,68 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Action token
 		var token = $(element.currentTarget).data ('action');
 		
-		if(token == 'note')
-			this.$el.find('.message-notes').slideToggle('fast');
+		if(token == 'note-content' || token == 'note-list'){
+			this.togglenoteaction(token);
+		}else if(token == 'edit'){
+			this.editnote();
+		}
 		else
 			this.model.trigger("action", token);
+
+	},
+
+	'editnote' : function()
+	{	
+		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+
+		this.listenTo(composenote, 'edit:cancel', this.canceledit);
+
+		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+	},
+
+	'canceledit' : function()
+	{	
+		this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
+	},
+
+	'togglenoteaction' : function(token)
+	{
+		var other = token == 'note-list'? 'note-content': 'note-list';
+		var container = this.$el.find('.message-notes');
+		var element = this.$el.find('.'+token);
+
+		var clicked = this.$el.find('[data-action='+token+']');
+		var otherbutton = this.$el.find('[data-action='+other+']');
+
+		other = this.$el.find('.'+other);
+		
+		if(!container.is(':visible') && !clicked.hasClass('inactive'))
+		{	
+			this.$el.find('.message-notes').slideDown();
+			element.slideDown();
+			clicked.addClass('inactive');
+		}
+		else if(container.is(':visible') && !clicked.hasClass('inactive'))
+		{	
+			other.slideUp('fast');
+			otherbutton.removeClass('inactive');
+			element.slideDown();
+			clicked.addClass('inactive');
+		}
+		else if(container.is(':visible') && clicked.hasClass('inactive'))
+		{
+			this.$el.find('.message-notes').slideUp();
+			clicked.removeClass('inactive');
+			other.slideUp();
+			element.slideUp();
+		}
+
+		//!toggled && !visible -> set visible
+		//!toggled && visible -> swap
+		//toggled && visible -> set invisible
+		//toggled && !visible -> impossible!
+
+				
 	},
 	
 	'toggleaction' : function (token, newaction)
@@ -136,10 +195,46 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 
+	//Note textarea
 	'loadnoteui' : function()
 	{	
+
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
-		this.$el.find('#note-content').append(composenote.render().el);
+		var notes = new Cloudwalkers.Collections.Notes();
+
+		this.composenote = composenote;
+		notes.parentmodel = this.model;
+
+		//change this to "on expand"
+		this.listenTo(notes,'seed', this.fillnotes);
+		this.listenTo(composenote.note, 'sync', this.noteadded);
+
+		notes.touch(this.model);
+
+		this.$el.find('.note-content').append(composenote.render().el);
+
+	},
+
+	//Notes list
+	'fillnotes' : function(notes)
+	{	
+		for(n in notes)
+		{	
+			this.addnote(notes[n]);
+		}
+	},
+
+	'addnote' : function(newnote)
+	{
+		var note = new Cloudwalkers.Views.Widgets.NoteEntry({model: newnote, template: 'messagenote'});
+		this.$el.find('.note-list').append(note.render().el);
+	},
+
+	'noteadded' : function(note)
+	{	
+		this.addnote(note);
+		this.togglenoteaction('note-list');
+		this.composenote.clean();
 	},
 	
 	/*'action' : function (element)

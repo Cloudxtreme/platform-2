@@ -206,7 +206,8 @@ Backbone.Collection = Backbone.Collection.extend({
 			response = response[this.parenttype];
 		
 		// Get paging
-		this.setcursor(response.paging);
+		if(response)
+			this.setcursor(response.paging);
 		
 		// Ready?
 		if(!response.paging) this.ready();
@@ -282,7 +283,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Store results based on url
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
-	
+		
 		// Seed ids to collection
 		this.seed(ids);
 	},
@@ -375,7 +376,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Trigger listening models
 		this.trigger("seed", list);
-
+		
 		return list;
 	},
 	
