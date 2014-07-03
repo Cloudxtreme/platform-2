@@ -33,6 +33,8 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		data.user = this.model.attributes;
 		data.user.role = this.model.getRole ();
 		
+		Cloudwalkers.RootView.censuretemplate(data);
+		
 		self.$el.html (Mustache.render (Templates.settings.user, data));
 
 		return this;

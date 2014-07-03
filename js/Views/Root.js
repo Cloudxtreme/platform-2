@@ -324,7 +324,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				"CAMPAIGN_DELETE", 
 				"SERVICE_CONNECT", 
 				"SERVICE_DELETE", 
-				//"USER_INVITE", 
+				"USER_INVITE", 
 				"USER_CREATE", 
 				"USER_DELETE", 
 				"ACCOUNT_SETTINGS", 

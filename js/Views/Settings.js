@@ -37,7 +37,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		
 		// Translation for Title
 		this.translateTitle("settings");
-
+		
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.tabview, {title : this.title, tabs: this.tabs}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
