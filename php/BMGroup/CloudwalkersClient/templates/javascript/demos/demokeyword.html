@@ -37,6 +37,7 @@
 								<li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">message doesn't contain</li>
 								<li class="add_country_is" data-value="county =">country is</li>
 								<li class="add_language_is" data-value="language =">language is</li>
+								<li class="add_group" data-value="(">group</li>
 							</ul>
 						</span>
 					</span>
@@ -133,61 +134,91 @@
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message contains<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_small);
-			$(".demo_options").hide('fast');
+			addPlus("small",rand_id);
 		}
 		// Add message does not contain
 		if(el_ref_hit == "add_message_no_contains"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains">message does not contain<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">insert text</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">save</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">cancel</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_small);
-			$(".demo_options").hide('fast');
+			addPlus("small",rand_id);
 		}
 		// Add country is
 		if(el_ref_hit == "add_country_is"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">country is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_small);
-			$(".demo_options").hide('fast');
+			addPlus("small",rand_id);
 		}
 		// Add language is
 		if(el_ref_hit == "add_language_is"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains">language is<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_small);
-			$(".demo_options").hide('fast');
+			addPlus("small",rand_id);
 		}
 		// Add and
 		if(el_ref_hit == "add_and"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_and"><span class="sel_value">and</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and">and</li><li class="demo_change_val" data-value="or">or</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_large);
-			$(".demo_options").hide('fast');
+			addPlus("large",rand_id);
 		}
 		// Add or
 		if(el_ref_hit == "add_or"){
 			var rand_id = "filter_" + getRandomInt(1,999);
 			$("#keyword_filter #demo_plus").remove();
 			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or"><span class="sel_value">or</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or">or</li><li class="demo_change_val" data-value="and">and</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
-			$("#keyword_filter").append(bot_plus_large);
+			addPlus("large",rand_id);
+		}
+		if(el_ref_hit == "add_group"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_group"><span class="sel_value">group</span><i class="demo_remove_filter icon-remove"></i></span>');
+
+			addPlus("large",rand_id);
+			$(".demo_options").hide('fast');
+		}
+		if(el_ref_hit == "add_end_group"){
+			var rand_id = "filter_" + getRandomInt(1,999);
+			$("#keyword_filter #demo_plus").remove();
+			$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group"><span class="sel_value">end group</span><i class="demo_remove_filter icon-remove"></i></span>');
+			addPlus("small",rand_id);
 			$(".demo_options").hide('fast');
 		}
 		// Remove filter
 		if(el_ref_hit == "demo_remove_filter"){
-			if($("#" + el_ref_id ).next().attr('id') != "demo_plus"){
+
+			if($("#" + el_ref_id).hasClass("demo_group")){
+				$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
+				$("#" + el_ref_id).nextUntil(".demo_end_group").remove();
+				$("#keyword_filter #demo_plus").remove();
+				addPlus("large");
+			}
+
+			if($("#" + el_ref_id ).prev().hasClass("demo_group")) {
+				$("#keyword_filter #demo_plus").remove();
+				addPlus("large");
+			} else if($("#" + el_ref_id ).next().attr('id') != "demo_plus"){
+				if($("#" + el_ref_id ).prev().hasClass('demo_drop')){
+					$("#keyword_filter #demo_plus").remove();
+					if($("#" + el_ref_id ).next().next().hasClass('demo_drop')){
+						$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
+					}
+					addPlus("large");
+				} else if(($("#" + el_ref_id ).prev().prev().hasClass('demo_group')) && ($("#" + el_ref_id ).next().next().hasClass('demo_end_group'))){
+					$("#" + el_ref_id).nextAll(".demo_end_group").remove();
+				} else {
+					$("#keyword_filter #demo_plus").remove();
+					addPlus("small",el_ref_id);
+				}
 				$("#" + el_ref_id ).next().remove();
 			} else if((!$("#" + el_ref_id ).prev().attr('id')) || ($("#" + el_ref_id ).prev().hasClass('demo_drop')) ) {
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append(bot_plus_large);
-				console.log($("#" + el_ref_id ).prev().attr('id') + " add big");
+				addPlus("large");
 			} else {
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append(bot_plus_small);
-				console.log($("#" + el_ref_id ).prev().attr('id') + " add small");
+				addPlus("small",el_ref_id);
 			}
 			$("#" + el_ref_id ).remove();
 
@@ -198,9 +229,28 @@
 	function getRandomInt(min, max) {
 	    return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
+	function addPlus (size,id){
+
+		var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
+
+		if((open_groups > 0) && (size == "small")){
+			if ($("#" + id ).prev().prev().hasClass("demo_group")) {
+				$("#keyword_filter").append(eval("bot_plus_" + size));
+			} else if(!$("#" + id ).prev().hasClass("demo_group")) {
+				$("#keyword_filter").append(eval("bot_plus_" + size + "_end_group"));
+			} else {
+				$("#keyword_filter").append(eval("bot_plus_" + size));
+			}
+		} else {
+			$("#keyword_filter").append(eval("bot_plus_" + size));
+		}
+		$(".demo_options").hide('fast');
+	}
 	// Large plus button
-	var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains" data-value="message contains">message contains</li><li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">message does not contain</li><li class="add_country_is" data-value="county =">country is</li><li class="add_language_is" data-value="language =">language is</li></ul></span></span>';
+	var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains" data-value="message contains">message contains</li><li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">message does not contain</li><li class="add_country_is" data-value="county =">country is</li><li class="add_language_is" data-value="language =">language is</li><li class="add_group" data-value="(">group</li></ul></span></span>';
 	// Small plus button
 	var bot_plus_small = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and" data-value="and">and</li><li class="add_or" data-value="or">or</li></ul></span></span>';
+	// Small plus button with end group
+	var bot_plus_small_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and" data-value="and">and</li><li class="add_or" data-value="or">or</li><li class="add_end_group" data-value=")">end group</li></ul></span></span>';
 
 </script>
