@@ -51,6 +51,11 @@
 	color: #333;
 	padding: 2px 10px;
 }
+#demokeywords .demo_group, #demokeywords .demo_end_group {
+	background-color: #ccc;
+	color: #333;
+	padding: 2px 10px;
+}
 #demokeywords .demo_options {
 	display: none;
 	position: absolute;
