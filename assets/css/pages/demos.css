@@ -114,6 +114,6 @@
 #demokeywords .demo_remove_filter:hover{
 	opacity: 1;
 }
-#demokeywords .demo_drop .demo_remove_filter{
+#demokeywords .demo_drop .demo_remove_filter, #demokeywords .demo_group .demo_remove_filter, #demokeywords .demo_end_group .demo_remove_filter{
 	margin: -22px -6px;
 }

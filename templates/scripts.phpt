@@ -69,6 +69,7 @@
 
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
+<script src="/assets/plugins/keyword_filter.js" type="text/javascript"></script>
 
 <!-- Templates -->
 <script type="text/javascript" src="/templates/templates.js"></script>
