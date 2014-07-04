@@ -79,7 +79,6 @@
    			var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
 		    var result = "";
 
-		    console.log(open_groups);
    			// detect groups left open
    			// if the filter has enough size
    			if($("#keyword_filter").children().length > 3){
@@ -132,6 +131,18 @@
    				valid_formula = false;
    			}
    			
+   			// check if there are and/or before end 
+   			$("#keyword_filter").children().each(function()
+	    	{
+	    		if(($("#"+this.id).hasClass("demo_end_group")) && ($("#"+this.id).prev().hasClass("demo_drop")))
+	    		{
+	    			$("#"+this.id).prev().remove();
+	    		}
+	    	});
+   			//if($("#keyword_filter").children().nextAll(".demo_end_group").prev().hasClass("demo_drop"))
+   			//	$("#keyword_filter").children().nextAll(".demo_end_group").prev().remove();
+
+
    			if($("#keyword_filter").children().length > 3){
    				if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
    					$('#keyword_filter').children().eq(-2).remove();
@@ -159,7 +170,7 @@
 				    	if($("#" + $(this).attr('id') + " .sel_value").text() != "")
 				    	{
 				    		if((filter_data == "(") || (filter_data == ")")){
-								value_to_insert = filter_data;
+								value_to_insert = filter_data + " ";
 				    		} else {
 				    			value_to_insert = filter_data + $("#" + $(this).attr('id') + " .sel_value").text() + " ";
 				    		}
@@ -297,12 +308,12 @@
 				$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
 				$("#" + el_ref_id).nextUntil(".demo_end_group").remove();
 				$("#keyword_filter #demo_plus").remove();
-				addPlus("large");
+				plus_size = "large";
 			}
 			if($("#" + el_ref_id ).prev().hasClass("demo_group"))
 			{
 				$("#keyword_filter #demo_plus").remove();
-				addPlus("large");
+				plus_size = "large";
 			} else if($("#" + el_ref_id ).next().attr('id') != "demo_plus")
 			{
 				if($("#" + el_ref_id ).prev().hasClass('demo_drop'))
@@ -311,24 +322,25 @@
 					if($("#" + el_ref_id ).next().next().hasClass('demo_drop')){
 						$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
 					}
-					addPlus("large");
+					plus_size = "large";
 				} else if(($("#" + el_ref_id ).prev().prev().hasClass('demo_group')) && ($("#" + el_ref_id ).next().next().hasClass('demo_end_group')))
 				{
 					$("#" + el_ref_id).nextAll(".demo_end_group").remove();
 				} else {
 					$("#keyword_filter #demo_plus").remove();
-					addPlus("small",el_ref_id);
+					plus_size = "small";
 				}
 				$("#" + el_ref_id ).next().remove();
 			} else if((!$("#" + el_ref_id ).prev().attr('id')) || ($("#" + el_ref_id ).prev().hasClass('demo_drop')) )
 			{
 				$("#keyword_filter #demo_plus").remove();
-				addPlus("large");
+				plus_size = "large";
 			} else {
 				$("#keyword_filter #demo_plus").remove();
-				addPlus("small",el_ref_id);
+				plus_size = "small";
 			}
 			$("#" + el_ref_id ).remove();
+			addPlus(plus_size);
 		}
 	});
 	// Random number for IDs
@@ -338,6 +350,7 @@
 	// Add Plus
 	function addPlus (size,id){
 		var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
+		/* Old validation
 		if((open_groups > 0) && (size == "small")){
 			if ($("#" + id ).prev().prev().hasClass("demo_group")) {
 				$("#keyword_filter").append(eval("bot_plus_" + size));
@@ -346,6 +359,11 @@
 			} else {
 				$("#keyword_filter").append(eval("bot_plus_" + size));
 			}
+		} else {
+			$("#keyword_filter").append(eval("bot_plus_" + size));
+		}*/
+		if(open_groups > 0){				
+			$("#keyword_filter").append(eval("bot_plus_" + size + "_end_group"));
 		} else {
 			$("#keyword_filter").append(eval("bot_plus_" + size));
 		}
@@ -363,6 +381,8 @@
 
 	// Large plus button
 	var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">message contains</li><li class="add_message_no_contains" class="demo_doesntcontain">message does not contain</li><li class="add_country_is">country is</li><li class="add_language_is">language is</li><li class="add_group">group</li></ul></span></span>';
+	// Large plus button with end group
+	var bot_plus_large_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">message contains</li><li class="add_message_no_contains" class="demo_doesntcontain">message does not contain</li><li class="add_country_is">country is</li><li class="add_language_is">language is</li><li class="add_group">group</li><li class="add_end_group">end group</li></ul></span></span>';
 	// Small plus button
 	var bot_plus_small = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">and</li><li class="add_or">or</li></ul></span></span>';
 	// Small plus button with end group
