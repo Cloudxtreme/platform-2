@@ -135,16 +135,16 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Profiles
 		var profiles = account.channels.findWhere({type: "profiles"});
 		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
-		
-		
-		
+			
 		// Reports
 		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
 		{
 			return stream.attributes;
 		});
 		
-
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
 		this.$el.html (Mustache.render(Templates.navigation, data));
 		
 		this.handleSidebarMenu();

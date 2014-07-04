@@ -11,8 +11,12 @@
 			<li data-category="{{id}}">
 				
 				<div class="pull-right">
-					<i class="icon-edit-sign icon-2x  edit-toggler"></i>
-					<i class="icon-remove icon-2x delete-category"></i>
+					{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+						<i class="icon-edit-sign icon-2x  edit-toggler"></i>
+					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					{{#authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
+						<i class="icon-remove icon-2x delete-category"></i>
+					{{/authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
 				</div>
 				
 				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
@@ -30,7 +34,9 @@
 						<li data-keyword="{{id}}">
 							<i class="icon-tag icon-muted"></i>
 							{{attributes.name}}
-							<i class="icon-remove pull-right delete-keyword"></i>
+							{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+								<i class="icon-remove pull-right delete-keyword"></i>
+							{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 						</li>
 					{{/keywords}}
 				</ul>
