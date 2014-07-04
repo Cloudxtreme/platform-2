@@ -1,0 +1,116 @@
+#keywordsfilter .demo_bubble{
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #31708f;
+	padding: 0px 10px;
+	border-radius: 20px;
+	text-decoration: none !important;
+	margin: 0px 5px 4px 0px;
+	display: inline-block;
+	font-size: 14px;
+	line-height: 20px;
+}
+#keywordsfilter #demo_plus{
+	padding: 2px 10px;
+}
+#keywordsfilter #demo_plus:hover{
+	background-color: #31708f;
+	border-color: #bce8f1;
+	color: #d9edf7;
+}
+#keywordsfilter section#keyword_filter{
+	padding: 4px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#keywordsfilter .demo_contains {
+	padding-right: 0px;
+}
+#keywordsfilter .demo_bubble_text {
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 2px 10px;
+	border: 1px #d9edf7 solid;
+	display: inline-block;
+	margin-left: 5px;
+}
+#keywordsfilter .demo_and {
+	background-color: #dff2dc;
+	color: #333;
+	padding: 2px 10px;
+}
+#keywordsfilter .demo_or {
+	background-color: #f5f2da;
+	color: #333;
+	padding: 2px 10px;
+}
+#keywordsfilter .demo_group, #keywordsfilter .demo_end_group {
+	background-color: #ccc;
+	color: #333;
+	padding: 2px 10px;
+}
+#keywordsfilter .demo_options {
+	display: none;
+	position: absolute;
+	border-radius: 10px;
+	padding: 2px 0;
+	margin: -3px 0 0 0;
+	background-color: #fff;
+	border: 1px #d9edf7 solid;
+	color: #31708f;
+}
+#keywordsfilter .demo_options li{
+	padding: 0 5px;
+	min-width: 20px
+}
+#keywordsfilter .demo_options li:hover{
+	background-color: #eee;
+}
+#keywordsfilter .demo_doesntcontain {
+	color: #e02222;
+}
+#keywordsfilter #demo_plus .demo_options{
+	margin: -23px 0 0 18px;
+}
+#keywordsfilter .demo_bubble i{
+	padding: 3px 0px;
+}
+#keywordsfilter .demo_bubble i:hover:before{
+	background-color: #B4CDDA;
+	color: #31708f;
+	border-radius: 10px;
+	padding: 2px 5px;
+	margin-right: -6px;
+}
+#keywordsfilter .demo_bubble i:before{
+	background-color: #fff;
+	color: #31708f;
+	border-radius: 10px;
+	padding: 2px 5px;
+	margin-right: -6px;
+}
+#keywordsfilter .demo_options input{
+	margin: 10px;
+}
+#keywordsfilter .sel_value {
+	margin-right: 5px;
+}
+#keywordsfilter .demo_remove_filter{
+	border-radius: 10px;
+	background-color: #31708f;
+	color: #fff;
+	display: block;
+	position: absolute;
+	margin: -25px -6px;
+	opacity: 0;
+}
+#keywordsfilter .demo_remove_filter:hover{
+	opacity: 1;
+}
+#keywordsfilter .demo_drop .demo_remove_filter, #keywordsfilter .demo_group .demo_remove_filter, #keywordsfilter .demo_end_group .demo_remove_filter{
+	margin: -22px -6px;
+}
