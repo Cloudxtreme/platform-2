@@ -11,6 +11,8 @@
 	<span class="label label-success">{{user.role}}</span>
 </td>
 <td>
-	<i class="icon-remove pull-right" data-delete-user-id="{{user.id}}"></i>
+	{{#authorized.USER_DELETE}}
+		<i class="icon-remove pull-right" data-delete-user-id="{{user.id}}"></i>
+	{{/authorized.USER_DELETE}}
 	<i class="icon-edit-sign pull-right" data-edit-user-id="{{user.id}}"></i>
 </td>

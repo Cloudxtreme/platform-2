@@ -432,7 +432,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft, this.draft.get("variations"));
+	{ 	console.log(this.draft, this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
@@ -612,7 +612,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$.each(imgs, function(i, image){
 
 				//The image should be excluded
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 				
 				this.summarizeimages(image);
@@ -672,7 +672,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = n;
+				attachindex = parseInt(n);
 				break;
 			}
 		}
@@ -680,7 +680,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!streamid)
 			attachs.splice(attachindex,1);
 		else
-			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
 
 
 		//Remove from the summary interface
@@ -1305,7 +1305,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			schedule: this.draft.get("schedule"), 
 			update: true
 		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
-			
+
 		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	

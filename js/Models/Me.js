@@ -85,7 +85,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			
 			// Set current user level & permissions
 			this.level = Number(this.account.get("currentuser").level);
+
+			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
+			this.censuretokens = this.censure(this.authorized);
 			
 			// Call callback
 			this.trigger("activated");
@@ -98,6 +101,17 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'isauthorized' : function(action)
 	{
 		return _.contains(this.authorized, action);
+	},
+
+	'censure' : function(permissions)
+	{	
+		var censures = {};
+
+		for(n in permissions){
+			censures[permissions[n]] = true;
+		}
+
+		return censures;
 	},
 	
 	'offline' : function ()
