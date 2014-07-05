@@ -11,7 +11,16 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'parse' : function (response) 
 	{	
-		return response.note? response.note : response;
+		response = response.note? response.note : response;
+		
+		if(response.date)
+		{
+			response.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
+			response.dateonly = moment(response.date).format("DD MMM YYYY");
+			response.time = moment(response.date).format("HH:mm");
+		}
+
+		return response;
 	},
 
 	'url' : function()
@@ -38,8 +47,29 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	'action' : function(token)
 	{
 		if(token == 'delete'){
-			this.trigger('delete');
-			this.destroy();
+			this.deletenote();
 		}
+	},
+
+	'deletenote' : function()
+	{
+		var self = this;
+
+		Cloudwalkers.RootView.confirm 
+		(
+			'Are you sure you want to remove this note?', 
+			function () 
+			{
+                self.destroy ({success:function(){
+	                    
+	                // Hack
+					self.trigger ("destroy");
+					//self.destroy();
+					//window.location.reload();
+	                    
+                }});
+
+			}
+		);
 	}
 });

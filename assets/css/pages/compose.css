@@ -862,8 +862,13 @@ Style corrections and manual overrides
 }
 
 .message-notes ul.note-list li{
+	-webkit-transition: background 1s ease-out;
 	margin-bottom: 5px;
 	position: relative;
+}
+
+.message-notes ul.note-list li.new{
+	background: #2bbedc;
 }
 
 .message-notes ul.note-list li .note-header{
@@ -880,13 +885,18 @@ Style corrections and manual overrides
 	padding-top: 10px;
 }
 
+.message-notes ul.note-list li .modal-footer{
+	margin: 10px -11px -11px -11px;
+}
+
 .message-notes ul li .note-body{
 	display: none;
 	margin-top: 20px;
 }
 
 .message-notes ul li .message-actions{
-	padding: 5px 0px;
+	padding: 4px 0px;
+	height: 10px;
 }
 
 .message-notes ul li .message-actions .notification-action{

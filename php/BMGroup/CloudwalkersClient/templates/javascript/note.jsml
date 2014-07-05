@@ -2,7 +2,7 @@
 	<div class="inherit">
 		{{#user}}
 		<div class="pull-right">
-			<span class="date">{{date}}</span>
+			<span class="date">{{fulldate}}</span>
 		</div>
 		
 		
