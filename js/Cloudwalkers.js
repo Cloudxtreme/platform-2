@@ -200,7 +200,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	{	
 		if(this.parentmodel && !this.parenttype)
 			this.parenttype = this.parentmodel.get("objectType");
-
+		
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];

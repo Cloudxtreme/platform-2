@@ -2,10 +2,18 @@
 	<!-- User data -->
 
 	<div class="contactupper">
-		<h3>{{username}}</h3>
+		<div class="contact-header {{network.token}}-color">
+			<a href="{{url}}" target="_blank">
+				<h3>{{displayname}}</h3>
+				<div class="network-icon">
+					<i class="icon-{{network.token}}"></i>
+				</div>
+			</a>
+		</div>
 		<div class="contactavatar">
 			<img class="avatar" src="{{avatar}}">
 		</div>
+		
 	</div>	
 	
 	<div class="contactbottom">
