@@ -1,13 +1,15 @@
 (function($){
 	
 	this.init = function(options){
-		this.translations = {}
+		this.translations = {};
+
 		if(options){ //Apply custom options
 			$.extend(this.translations, options);
 		}
 
 		$('html').mouseup(function(e) {
 			e.stopPropagation();
+
 			// Search for demo_bubble. Get ID and 2nd class which defines type
 			var el_ref = $(e.target).closest(".demo_bubble");
 			var el_ref_id = el_ref.attr('id');
@@ -134,7 +136,7 @@
 					});
 					// send the result
 					removeWarning();
-			    	console.log(result);
+			    	options.success(result);
 			    }
 			}
 			if((el_ref_type == "demo_contains") || (el_ref_type == "demo_drop") || (el_ref_type == "demo_plus")){
@@ -218,15 +220,17 @@
 			if(el_ref_hit == "add_country_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose country</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
+				fillcountries();
 			}
 			// Add language is
 			if(el_ref_hit == "add_language_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose language</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
+				filllanguages();
 			}
 			// Add and
 			if(el_ref_hit == "add_and"){
@@ -302,6 +306,26 @@
 			}
 		}.bind(this));
 	
+		function fillcountries()
+		{	
+			//<li class="demo_change_val" data-value="en">en</li>
+			for(n in options.countries)
+			{
+				var li = '<li class="demo_change_val" data-value="'+options.countries[n].token+'">'+options.countries[n].name+'</li>'
+				$("#keyword_filter #countries ul").append(li);
+			}
+		}
+
+		function filllanguages()
+		{	
+			//<li class="demo_change_val" data-value="en">en</li>
+			for(n in options.languages)
+			{
+				var li = '<li class="demo_change_val" data-value="'+options.languages[n].token+'">'+options.languages[n].name+'</li>'
+				$("#keyword_filter #languages ul").append(li);
+			}
+		}
+
 		// Random number for IDs
 		function getRandomInt(min, max) {
 		    return Math.floor(Math.random() * (max - min + 1)) + min;

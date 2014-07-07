@@ -36,7 +36,26 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		//Mustache Translate Render
 		data.title = this.title;
 		this.mustacheTranslateRender(data);
-		
+
+		this.$el.find ('#keywordseditor').keywordfilterscript({
+			update : this.translateString('update'),
+			cancel: this.translateString('cancel'),
+			message_contains: this.translateString('message_contains'),
+			message_doesnt_contain: this.translateString('message_doesnt_contain'),
+			country_is: this.translateString('country_is'),
+			language_is: this.translateString('language_is'),
+			group: this.translateString('group'),
+			end_group: this.translateString('end_group'),
+			and: this.translateString('and'),
+			or: this.translateString('or'),
+			save: this.translateString('save'),
+			insert_text: this.translateString('insert_text'),
+			countries: filters.countries,
+			languages: filters.languages,
+			
+			success: function(formula) {this.formula = formula}.bind(this)
+		});
+
 		this.$el.html (Mustache.render (Templates.keywordseditor, data));
 		
 		// Chosen
@@ -67,7 +86,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
-		category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
+		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
+		category.channels.create(this.keywordFormula(), {parent: catid, wait: true, error: function(){
 			
 			Cloudwalkers.RootView.information ("Not saved", "Your formula is a bit fuzzy", this.$el.find(".manage-keyword"));
 			this.$el.find(".managekeyword .icon-cloud-upload").hide();
@@ -113,6 +133,15 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		this.editing.save(this.keywordParameters());
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
+	},
+
+	'keywordFormula' : function()
+	{	
+		var object = {name: $("#keyword_manage_name").val(), settings: {}};
+
+		object.settings.formula = this.formula;
+
+		return object;
 	},
 	
 	'keywordParameters' : function()
@@ -176,7 +205,15 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"all_languages",
 			"global",
 			"update",
-			"cancel"
+			"cancel",
+			"message_contains",
+			"message_doesnt_contain",
+			"country_is",
+			"language_is",
+			"group",
+			"end_group",
+			"save",
+			"insert_text"
 		];
 
 		this.translated = [];
