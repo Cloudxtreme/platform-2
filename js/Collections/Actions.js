@@ -9,6 +9,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
+		'note' : {name: "Note", icon: 'edit', token: 'note', type: 'note'},
 		
 		// Hack!
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
@@ -99,6 +100,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 			
 			return new Cloudwalkers.Models.Action(action).destroy();
 		}
+		
+		// Show note
+		else if (action.type == 'note')	Cloudwalkers.RootView.writeNote(this.parent);		
 		
 		// Call Compose modal
 		else if (action.type == 'edit')	var params = {model: this.parent};
