@@ -37,8 +37,12 @@ Cloudwalkers.Views.Demo = Cloudwalkers.Views.Pageview.extend({
 		this.$container.append(createnote);
 
 		// Marco's keyword demo
-		var keywordtemplate = Mustache.render(Templates.demos.demokeyword);
-		this.$container.append(keywordtemplate);
+		/*var keywordtemplate = Mustache.render(Templates.demos.demokeyword);
+		this.$container.append(keywordtemplate);*/
+
+		// Marco's message tags demo
+		var messagetagstemplate = Mustache.render(Templates.demos.demomessagetags);
+		this.$container.append(messagetagstemplate);
 
 		// Listen to editor triggers
 		//this.listenTo(this.editor, "imageadded", this.addimage);

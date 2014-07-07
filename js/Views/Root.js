@@ -10,7 +10,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		// // this.bind ('view:change', this.render, this);
 
-		this.navigation = new Cloudwalkers.Views.Navigation ();
+		this.navigation = new Cloudwalkers.Views.Navigation (this);
 		this.navigation.fit();
 		
 		//this.share = new Cloudwalkers.Views.Share ();
@@ -312,4 +312,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		$('a.image-popup-viewer').fancybox ();
 	}
+
+	
 });

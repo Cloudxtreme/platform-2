@@ -62,8 +62,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.togglenoteaction(token);
 		}else if(token == 'note-edit'){
 			this.editnote();
-		}
-		else
+		}else if(token == 'viewcontact'){
+			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null
+
+			if(contact)
+				Cloudwalkers.RootView.viewContact({model: contact});
+		}else
 			this.model.trigger("action", token);
 
 	},
@@ -127,13 +131,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			other.slideUp();
 			element.slideUp();
 		}
+		
+		if(token == 'note-list' && !this.loadednotes)
+			this.fetchnotes();
 
-		//!toggled && !visible -> set visible
-		//!toggled && visible -> swap
-		//toggled && visible -> set invisible
-		//toggled && !visible -> impossible!
-
-				
 	},
 	
 	'toggleaction' : function (token, newaction)
@@ -215,44 +216,59 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 
-	//Note textarea
+	//Note textarea & default nodelist state
 	'loadnoteui' : function()
 	{	
-
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
-		var notes = new Cloudwalkers.Collections.Notes();
-
 		this.composenote = composenote;
-		notes.parentmodel = this.model;
 
-		//change this to "on expand"
-		this.listenTo(notes,'seed', this.fillnotes);
 		this.listenTo(composenote.note, 'sync', this.noteadded);
-
-		notes.touch(this.model);
 
 		this.$el.find('.note-content').append(composenote.render().el);
 
+		//Load default note
+		this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
+	},
+
+	'fetchnotes' : function()
+	{	
+		var notes = new Cloudwalkers.Collections.Notes();		
+		notes.parentmodel = this.model;
+		notes.parenttype = 'message';
+		
+		this.listenTo(notes,'seed', this.fillnotes);
+
+		notes.touch(this.model);
+
+		this.loadednotes = true;
 	},
 
 	//Notes list
 	'fillnotes' : function(notes)
 	{	
+		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
+		else				this.$el.find('.note-list').empty();
+
 		for(n in notes)
 		{	
 			this.addnote(notes[n]);
 		}
 	},
 
-	'addnote' : function(newnote)
-	{
-		var note = new Cloudwalkers.Views.Widgets.NoteEntry({model: newnote, template: 'messagenote'});
+	'addnote' : function(newnote, isnew)
+	{	
+		var options = {model: newnote, template: 'messagenote'}
+		var note;
+
+		if(isnew)	options.isnew = true;
+
+		note = new Cloudwalkers.Views.Widgets.NoteEntry(options);
 		this.$el.find('.note-list').append(note.render().el);
 	},
 
 	'noteadded' : function(note)
 	{	
-		this.addnote(note);
+		this.addnote(note, true);
 		this.togglenoteaction('note-list');
 		this.composenote.clean();
 	},

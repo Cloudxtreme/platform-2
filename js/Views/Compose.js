@@ -47,11 +47,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Actions
 		'comment' : ["editor"],
-		'reply' : ["editor"],
-		'dm' : ["editor"],
+		'reply' : 	["editor"],
+		'dm' : 		["editor"],
 		'retweet' : ["icon"],
-		'like' : ["icon"],
-		'favorite' : ["icon"],
+		'like' : 	["icon"],
+		'favorite' :["icon"],
 		'plusone' : ["icon"]
 	},
 	
@@ -169,8 +169,39 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
+		
+		this.censurecompose();
+
 		// Translate Titles
 		this.translateTitles();
+
+		
+	},
+
+	'censurecompose' : function()
+	{
+		// Block on global level
+		var blocklist = [];
+
+		var globalcheck = {
+			'MESSAGE_OUT_ATTACHMENTS' 	: ['images'],
+			'MESSAGE_OUT_SCHEDULE'		: ['schedule'],
+			'MESSAGE_OUT_REPEAT'		: ['repeat'],
+			'CAMPAIGN_CREATE'			: ['campaign']
+		}
+
+		// Create block functionality array
+		$.each(globalcheck, function(permission, features)
+		{	
+			if(!Cloudwalkers.Session.isAuthorized(permission))
+				blocklist = _.union(blocklist, features);			
+		})
+		
+		// Apply blockage
+		$.each(this.options, function(token, features)
+		{	
+			this.options[token] = _.difference(features, blocklist);
+		}.bind(this))
 		
 	},
 	
@@ -225,6 +256,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
 
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(params);
+		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 
@@ -612,7 +646,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$.each(imgs, function(i, image){
 
 				//The image should be excluded
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 				
 				this.summarizeimages(image);
@@ -672,7 +706,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = n;
+				attachindex = parseInt(n);
 				break;
 			}
 		}
@@ -680,7 +714,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!streamid)
 			attachs.splice(attachindex,1);
 		else
-			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
 
 
 		//Remove from the summary interface
@@ -1305,7 +1339,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			schedule: this.draft.get("schedule"), 
 			update: true
 		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
-			
+
 		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	

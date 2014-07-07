@@ -1,0 +1,191 @@
+<h3>Tags demo for user with access to editing</h3>
+<div class="span8 inbox-container" style="max-width: 1025px; margin-left:0px;">
+	<div class="message social-box-colors">
+		<div class="message-header twitter-color" data-id="1010182227">
+			<div class="inherit">
+				<div class="pull-right">
+					<span class="date">30 Jun 2014 22:28</span>
+					<i class="icon-twitter"></i>
+				</div>
+				
+				
+				<img class="avatar" alt="" src="http://pbs.twimg.com/profile_images/378800000408558249/3e2afacd8bd29594e1b15d9783f6f1e7_normal.jpeg">
+				<div>
+					<a href="https://www.twitter.com/WillowRaven" target="_blank">WillowRaven</a>
+					<!--<div data-contact=>WillowRaven</div>-->
+					<br><em>on kenborteel Mentions</em>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="message-body">
+			
+			Thanks 4 the follow, <a href="http://www.twitter.com/tallguyruns" target="_blank">@tallguyruns</a> <a href="http://www.twitter.com/kenborteel" target="_blank">@kenborteel</a>. What are you working on right now? ~ <a target="_BLANK" href="http://t.co/iFCF858seC">t.co/iFCF858seC</a>
+			
+		</div>
+
+		<div class="message-actions">
+			<div class="btn-white" data-action="favorite"><i class="icon-star"></i></div>
+			<div class="btn-white" data-action="reply"><i class="icon-comments-alt"></i></div>
+			<div class="btn-white" data-action="retweet"><i class="icon-retweet"></i></div>
+			<div class="btn-white" data-action="share"><i class="icon-share-alt"></i></div>
+			<div class="btn-white pull-right" data-action="teste 1"><i class="icon-list"></i></div>
+			<div class="btn-white pull-right" data-action="teste 2"><i class="icon-edit"></i></div>
+			<div class="btn-white pull-right inactive" data-action="teste 2"><i class="icon-tags"></i></div>
+		</div>
+		<div class="message-notes">
+			<div class="message-tags">
+				<ul id="tag-cloud">
+					<li class="tag-cloud enabled tag-cloud-info">tagY</li>
+					<li class="tag-cloud enabled tag-cloud-info">tagX</li>
+					<li class="tag-cloud enabled tag-cloud-info">another tag</li>
+					<li class="tag-cloud enabled tag-cloud-info">one more tag</li>
+					<li class="tag-cloud enabled tag-cloud-info">last tag</li>
+				</ul>
+				<div id="tag-info" class="input-append">
+					<input type="text">
+					<button class="btn-white" type="button">Add <i class="icon-tags"></i></button>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript">
+	/* =========================================================
+ * bootstrap-tag-cloud.js 
+ * http://www.collectivepush.com/plugins/bootstrap/
+ * =========================================================
+ * Copyright 2012 Collective Push
+ *
+ *Permission is hereby granted, free of charge, to any person obtaining a copy
+ *of this software and associated documentation files (the "Software"), to deal
+ *in the Software without restriction, including without limitation the rights
+ *to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *copies of the Software, and to permit persons to whom the Software is
+ *furnished to do so, subject to the following conditions:
+
+ *The above copyright notice and this permission notice shall be included in
+ *all copies or substantial portions of the Software.
+
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *THE SOFTWARE.
+ * ========================================================= */
+
+// Add listener for tag removals
+$(document).on('click','.tag-cloud.enabled', function removeTag(){ $(this).remove(); });
+
+
+// Find out which containers we have on this document and setup proper bindings
+$(document).ready(function() {
+
+	if ( $("#tag").length > 0 ) { addTagBindings('#tag'); }
+
+	if ( $("#tag-info").length > 0 ) { addTagBindings('#tag-info');	}
+
+	if ( $("#tag-success").length > 0 ) { addTagBindings('#tag-success'); }
+
+	if ( $("#tag-warning").length > 0 ) { addTagBindings('#tag-warning'); }
+
+	if ( $("#tag-danger").length > 0 ) { addTagBindings('#tag-danger');	}
+	
+	if ( $("#tag-inverse").length > 0 ) { addTagBindings('#tag-inverse');	}				
+
+});
+
+
+// Dynamically apply bindings based on the type of tag cloud that was
+// detected on the page that includes this .js module
+function addTagBindings(id) {
+
+		$(id + ' > button').click(function(){ addTag(id); });
+
+		$(id + ' > input').keyup(function (e) {  if (e.keyCode == 13) { addTag(id); }  });	
+
+}
+
+
+// Dynamically adjust append code based on what type of tagClass
+// need to be applied when the tag element is added to the dom
+function addTag(id) {
+	
+	var Tag = $(id + ' > input').val();
+	
+	var tagClass = '';
+
+	// Setup our class based on what type of container we have everything inside 
+	if (id == '#tag-info') { tagClass = 'tag-cloud enabled tag-cloud-info'; }
+
+	// If there is no value in the input field then don't do anything
+	if (Tag != '') {
+
+		// Append tag with proper styling into the tag cloud 
+		$('<li class="'+tagClass+'">'+Tag+'</li>').appendTo("#tag-cloud");
+
+		// Clear input back to nothing
+		$(id + ' > input').val('');		
+
+	}	
+
+}
+</script>
+
+
+<h3 style="float: left; margin-top: 50px;">Tags demo for user with NO access to editing</h3>
+<div class="span8 inbox-container" style="max-width: 1025px; margin-left:0px;">
+	<div class="message social-box-colors">
+		<div class="message-header twitter-color" data-id="1010182227">
+			<div class="inherit">
+				<div class="pull-right">
+					<span class="date">30 Jun 2014 22:28</span>
+					<i class="icon-twitter"></i>
+				</div>
+				
+				
+				<img class="avatar" alt="" src="http://pbs.twimg.com/profile_images/378800000408558249/3e2afacd8bd29594e1b15d9783f6f1e7_normal.jpeg">
+				<div>
+					<a href="https://www.twitter.com/WillowRaven" target="_blank">WillowRaven</a>
+					<!--<div data-contact=>WillowRaven</div>-->
+					<br><em>on kenborteel Mentions</em>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="message-body">
+			
+			Thanks 4 the follow, <a href="http://www.twitter.com/tallguyruns" target="_blank">@tallguyruns</a> <a href="http://www.twitter.com/kenborteel" target="_blank">@kenborteel</a>. What are you working on right now? ~ <a target="_BLANK" href="http://t.co/iFCF858seC">t.co/iFCF858seC</a>
+			
+		</div>
+
+		<div class="message-actions">
+			<div class="btn-white" data-action="favorite"><i class="icon-star"></i></div>
+			<div class="btn-white" data-action="reply"><i class="icon-comments-alt"></i></div>
+			<div class="btn-white" data-action="retweet"><i class="icon-retweet"></i></div>
+			<div class="btn-white" data-action="share"><i class="icon-share-alt"></i></div>
+			<div class="btn-white pull-right" data-action="teste 1"><i class="icon-list"></i></div>
+			<div class="btn-white pull-right" data-action="teste 2"><i class="icon-edit"></i></div>
+			<div class="btn-white pull-right inactive" data-action="teste 2"><i class="icon-tags"></i></div>
+		</div>
+		<div class="message-notes">
+			<div class="message-tags">
+				<ul id="tag-cloud">
+					<li class="tag-cloud tag-cloud-info">tagY</li>
+					<li class="tag-cloud tag-cloud-info">tagX</li>
+					<li class="tag-cloud tag-cloud-info">another tag</li>
+					<li class="tag-cloud tag-cloud-info">one more tag</li>
+					<li class="tag-cloud tag-cloud-info">last tag</li>
+				</ul>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		
+	</div>
+</div>

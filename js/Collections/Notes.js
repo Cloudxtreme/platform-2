@@ -17,11 +17,11 @@ Cloudwalkers.Collections.Notes = Backbone.Collection.extend({
 		if(options) $.extend(this, options);
 
 		// Check if it's empty only after sync
-		/*this.on('sync', function(){
+		this.on('sync', function(){
 			setTimeout(function(){
 				this.isempty();
 			}.bind(this),1);
-		});*/
+		});
 	},
 	
 	'destroy' : function ()

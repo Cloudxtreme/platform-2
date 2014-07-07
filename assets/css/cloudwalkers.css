@@ -485,6 +485,12 @@ tbody.messages-container i	{
 	font-size: 18px; float: left; padding: 2px 4px 0 0;
 }
 
+.viewcontact i{ cursor: pointer; }
+
+.portlet .messages-container .viewcontact i	{
+	font-size: 14px; float: none; margin-left: 5px; color: #ccc;
+}
+
 .portlet .messages-container p	{ margin: 0px; }
 
 .dashboardwidget .messages-container li	{ cursor: pointer; }
@@ -1303,6 +1309,10 @@ counter	{
 
 .inbox-container .message-header i {
 	opacity: .5; font-size: 21px; float: right; 
+}
+
+.inbox-container .message-header .viewcontact i	{
+	font-size: 14px; float: none; margin-left: 5px;
 }
 
 .inbox-container .message-body	{

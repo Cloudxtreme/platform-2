@@ -17,9 +17,14 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		// Parameters
 		if(options) $.extend(this, options);
 
-		this.model = Cloudwalkers.Session.getContact(this.contactid)
+		//this.model = Cloudwalkers.Session.getContact(this.contactid)
 
-		if(!this.model)
+		this.contact = options.contact? options.contact.model: null;
+		
+		if(this.contact)
+			this.model = new Cloudwalkers.Models.Contact(this.contact);
+
+		if(!this.model && this.contactid)
 		   this.model = new Cloudwalkers.Models.Contact({id:this.contactid});
 
 		this.loadmylisteners();
@@ -41,7 +46,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.stopListening(this.collection);
 
 		this.listenTo(this.collection, 'seed', this.fill);
-		this.listenTo(this.collection, 'ready', this.updatecontactinfo);
+		//this.listenTo(this.collection, 'ready', this.updatecontactinfo);
 		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 	},
 
@@ -55,6 +60,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.$loadercontainer = this.$el.find ('ul.list');
 
 		this.trigger("rendered");
+
+		this.updatecontactinfo();
+		this.initializenote();
 
 		// make the fetch
 		//this.collection.touch(this.model, this.filterparams());
@@ -171,25 +179,18 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'updatecontactinfo' : function()
 	{
-		if(this.hascontactinfo)	return;
-
-		var contactinfo;
-		var asidehtml;
-		
-		if(this.collection.first() && this.collection.first().get('from'))
-			contactinfo = this.collection.first().get('from')[0];
+		var contactinfo = this.model.attributes;
 
 		if(contactinfo){
+			
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
 
 			setTimeout(function(){
 				this.$el.find('aside').removeClass('nodata');
 			}.bind(this), 1)
+
+			this.hascontactinfo = true;
 		}
-
-		this.hascontactinfo = true;
-
-		this.initializenote();
 	},
 
 	'initializenote' : function()
@@ -227,7 +228,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'loadmessage' : function(view)
 	{	
-		var options = {model: view.model, notes: true};
+		var options = {model: view.model, notes: view.model.id? true: false};
 		if (this.type == 'note')	options.template = 'note';		
 
 		$('.viewcontact').addClass('onmessage');
@@ -248,7 +249,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(this.type && this.type == 'conversation')
 			this.inboxmessage.showrelated(); 
 		else if(this.type && this.type == 'note')
-			this.listenTo(this.inboxmessage.model, 'delete', this.backtolist);
+			this.listenTo(this.inboxmessage.model, 'destroy', this.backtolist);
 		
 		
 		this.$el.find(".list .active").removeClass("active");

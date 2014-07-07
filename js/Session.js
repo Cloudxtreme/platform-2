@@ -172,6 +172,26 @@ Cloudwalkers.Session =
 			});
 
 	},
+
+	/**
+	 *	Role permissions
+	 *  Checks for permission or returns the authorized list
+	 **/
+
+	'isAuthorized' : function(actions)	
+	{
+		return (actions)? this.user.isauthorized(actions): this.user.authorized;
+	},
+
+	/* 	Generate permission tokens for templates */
+	'censuretemplate' : function(data)
+	{
+		if(!data)	data = {};
+
+		var authorized = this.getUser().censuretokens;		
+
+		data.authorized = authorized;
+	},
 	
 	/**
 	 *	Ping shortcut function
@@ -284,16 +304,6 @@ Cloudwalkers.Session =
 	'getUsers' : function ()
 	{
 		return this.user.account.users;
-	},
-
-	/**
-	 *	Permissions shortcut
-	 *  Checks for permission or returns the authorized list
-	 **/
-
-	'isAuthorized' : function(action)	
-	{
-		return (action)? this.user.isauthorized(action): this.user.authorized;
 	},
 	
 	/**

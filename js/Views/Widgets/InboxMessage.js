@@ -23,7 +23,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// add optional notifications
 		if(this.options.notification)
 			var commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
-		
+
 		// Parameters
 		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
 		$.extend(params, this.model.attributes)

@@ -12,7 +12,10 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
-		
+
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+	
 		this.$el.html (Mustache.render (Templates.settings.account, data));
 
 		return this;
@@ -42,6 +45,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		// Check collapse option
 		this.$el.find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String

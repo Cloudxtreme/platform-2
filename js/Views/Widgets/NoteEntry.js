@@ -24,7 +24,18 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		this.model.attributes.date = moment(this.model.attributes.date).format("DD MMM YYYY");
 		this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));
 
+		if(this.isnew)	this.makenew();
+
 		return this;
+	},
+
+	'makenew' : function()
+	{
+		this.$el.addClass('new');
+
+		setTimeout(function(){
+			this.$el.removeClass('new');
+		}.bind(this), 2000)
 	},
 
 	'togglenote' : function()
@@ -50,7 +61,9 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 
 		if(token == 'edit'){
 			if(!this.$el.find('.note-body').is(':visible'))	this.togglenote();
-			this.editnote();
+
+			if(this.isediting)	this.canceledit();
+			else				this.editnote();
 		}
 	},
 
@@ -62,11 +75,15 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.note-body').html(composenote.render().el);
+
+		this.isediting = true;
 	},
 
 	'canceledit' : function()
 	{	
 		this.$el.find('.note-body').html(this.model.get("text"));
+
+		this.isediting = false;
 	},
 
 	'saved' : function()
