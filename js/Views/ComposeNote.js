@@ -51,7 +51,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	'cancel' : function()
 	{	
 		this.trigger('edit:cancel');
-		this.remove();
+		if(!this.persistent)		this.remove();
 	},
 
 	'thankyou' : function()

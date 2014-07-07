@@ -33,8 +33,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
-		
+	{	
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
@@ -83,13 +82,23 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+
+		// Anything to hide
+		this.$el.find('.toggle-note-actions').toggle();
 	},
 
-	'canceledit' : function()
+	'canceledit' : function(collapse)
 	{	
 		this.loadmylisteners();
 
-		this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
+		if(collapse)
+			this.togglenoteaction('note-content');
+		else{
+			this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
+			
+			// Anything to show
+			this.$el.find('.toggle-note-actions').toggle();
+		}
 	},
 
 	'saved' : function()
@@ -219,10 +228,11 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Note textarea & default nodelist state
 	'loadnoteui' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
 		this.composenote = composenote;
 
 		this.listenTo(composenote.note, 'sync', this.noteadded);
+		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
 		this.$el.find('.note-content').append(composenote.render().el);
 

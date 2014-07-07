@@ -112,7 +112,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		//Clean previous list, if any
 
-		if(!type)	type = 'conversation';
+		if(!type)	type = 'messages';
 
 		this.type = type;
 
@@ -141,9 +141,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(response[this.typestring]){
 			
 			for (n in response[this.typestring]){
+
 				response[this.typestring][n] = new Cloudwalkers.Models.Message(response[this.typestring][n])
 				response[this.typestring][n].generateintro();
-				response[this.typestring][n].set("read",1); //Force read UI
+				response[this.typestring][n].set("read",1); //Force read UI					
 			}	
 		}
 
@@ -196,20 +197,23 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'initializenote' : function()
 	{
 		// Add the Note
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model});
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
 
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
-		this.listenTo(composenote.note, 'sync', this.doneposting);
+		this.listenTo(composenote.note, 'sync', this.doneposting.bind(this,200));
+		this.listenTo(composenote, 'edit:cancel', this.doneposting);
 	},
 
-	'doneposting' : function()
-	{
+	'doneposting' : function(delay)
+	{	
+		if(!delay)	delay = 0;
+
 		setTimeout(function(){
 			this.togglecontactnote()
 			this.$el.find('#notecontainer textarea').val('');
-		}.bind(this),200);
+		}.bind(this),delay);
 	},
 
 	'loadmessages' : function(e)
