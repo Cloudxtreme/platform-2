@@ -93,7 +93,7 @@
 		    		}
 		    	});
 
-					if($("#keyword_filter").children().length > 3){
+					if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
 						if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
 							$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
@@ -125,11 +125,13 @@
 									value_to_insert = filter_data + " ";
 					    		} else if((filter_data == "and ") || (filter_data == "or ")){
 					    			value_to_insert = filter_data + " ";
+					    		} else if((filter_data == "language = ") || (filter_data == "country = ")){
+					    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id')).attr("data-value") + "' ";
 					    		} else {
-					    			value_to_insert = filter_data + $("#" + $(this).attr('id') + " .sel_value").text() + " ";
+					    			value_to_insert = filter_data + "'" + $("#" + $(this).attr('id') + " .sel_value").text() + "' ";
 					    		}
 					    	} else {
-					    		value_to_insert = filter_data + $("#" + $(this).attr('id') + " .text").text() + " ";
+					    		value_to_insert = filter_data + "'" +  $("#" + $(this).attr('id') + " .text").text() + "' ";
 					    	}
 					    	result += value_to_insert;	
 			    		}
@@ -185,6 +187,7 @@
 			// Change option and color if needed
 			if(el_ref_class == "demo_change_val"){
 				var text = $(e.target).attr("data-value");
+				var option = $("#" + el_ref_id).attr("data-option");
 				if((text == "and") || (text == "or")){
 					if($("#" + el_ref_id).hasClass("demo_and")){
 						$("#" + el_ref_id).removeClass("demo_and");
@@ -193,6 +196,9 @@
 						$("#" + el_ref_id).removeClass("demo_or");
 					}
 					$("#" + el_ref_id).addClass("demo_" + text);
+				} else if((option == "language = ") || (option == "country = ")){
+					$("#" + el_ref_id).attr("data-value",datavalue+" ");
+					//Continue language vs ln
 				}
 
 				if($("#" + el_ref_id).hasClass("demo_drop")){
@@ -201,6 +207,8 @@
 					$("#" + el_ref_id).attr("data-value",datavalue+" ");
 				}
 				$("#" + el_ref_id + " .sel_value ").html(text);
+
+				console.log(option);
 			}
 			// Add message contains
 			if(el_ref_hit == "add_message_contains"){
@@ -228,7 +236,7 @@
 			if(el_ref_hit == "add_language_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose language</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose language</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				filllanguages();
 			}
