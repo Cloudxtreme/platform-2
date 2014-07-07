@@ -185,9 +185,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			setTimeout(function(){
 				this.$el.find('aside').removeClass('nodata');
 			}.bind(this), 1)
-		}
 
-		this.hascontactinfo = true;
+			this.hascontactinfo = true;
+		}
 
 		this.initializenote();
 	},
@@ -248,7 +248,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(this.type && this.type == 'conversation')
 			this.inboxmessage.showrelated(); 
 		else if(this.type && this.type == 'note')
-			this.listenTo(this.inboxmessage.model, 'delete', this.backtolist);
+			this.listenTo(this.inboxmessage.model, 'destroy', this.backtolist);
 		
 		
 		this.$el.find(".list .active").removeClass("active");

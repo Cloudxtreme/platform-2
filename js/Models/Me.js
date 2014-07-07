@@ -86,6 +86,53 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			// Set current user level & permissions
 			this.level = Number(this.account.get("currentuser").level);
 
+			/*this.authorized = [
+				"CAMPAIGN_CREATE", 
+				"CAMPAIGN_DELETE", 
+				"SERVICE_CONNECT", 
+				"SERVICE_DELETE", 
+				"USER_INVITE", 
+				"USER_CREATE", 
+				"USER_DELETE", 
+				"ACCOUNT_SETTINGS", 
+				"USER_GRANT", 
+				"GROUP_MANAGE", 
+				"DASHBOARD_VIEW", 
+				"MESSAGE_SEND_COWORKERS", 
+				"MESSAGE_SEND_INTERNAL", 
+				"MESSAGE_SEND_EXTERNAL", 
+				"MESSAGE_OUT_ATTACHMENTS", 
+				"MESSAGE_OUT_ATTACHMENTS_INTERNAL", 
+				"MESSAGE_OUT_ATTACHMENTS_EXTERNAL", 
+				"MESSAGE_OUT_ATTACHMENTS_COWORKERS", 
+				"MESSAGE_OUT_SCHEDULE", 
+				"MESSAGE_OUT_REPEAT", 
+				"MESSAGE_OUT_EDIT", 
+				"MESSAGE_OUT_EDIT_OWN", 
+				"MESSAGE_DRAFT", 
+				"MESSAGE_READ", 
+				"MESSAGE_ACTIONS", 
+				"MESSAGE_READ_INBOX", 
+				"MESSAGE_READ_INBOX_MESSAGES", 
+				"MESSAGE_READ_INBOX_NOTIFICATIONS", 
+				"MESSAGE_READ_DRAFTS", 
+				"MESSAGE_READ_SCHEDULE", 
+				"MESSAGE_READ_SENT", 
+				"MESSAGE_READ_FAILED", 
+				"MESSAGE_READ_COWORKER", 
+				"MESSAGE_READ_COMPANY", 
+				"MESSAGE_ACTIONS_COMPANY", 
+				"MESSAGE_READ_THIRDPARTY", 
+				"MESSAGE_ACTIONS_THIRDPARTY", 
+				"MESSAGE_READ_MONITORING", 
+				"MESSAGE_ACTIONS_MONITORING", 
+				"CHANNEL_MANAGE_ADD_MONITORING", 
+				"CHANNEL_MANAGE_EDIT_MONITORING", 
+				"CHANNEL_MANAGE_DELETE_MONITORING", 
+				"STATISTICS_VIEW"
+				];*/
+			
+
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
 			this.censuretokens = this.censure(this.authorized);
@@ -98,9 +145,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 	},
 
-	'isauthorized' : function(action)
-	{
-		return _.contains(this.authorized, action);
+	// Can perform ANY of the actions?
+	'isauthorized' : function(actions)
+	{	
+		if(!_.isArray(actions))		return _.contains(this.authorized, actions);
+		else 						return _.intersection(this.authorized, actions).length != 0;
 	},
 
 	'censure' : function(permissions)

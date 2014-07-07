@@ -107,6 +107,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'coworkers' : function ()
 	{
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COWORKER')) return this.home();
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
 	},
 	
@@ -127,24 +128,29 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
 		
 		if (!channel) return this.home();
-		if (!type) type = "messages";
-		
+		if (!type) type = "messages";		
+		if (!Cloudwalkers.Session.isAuthorized(['MESSAGE_READ_INBOX', 'MESSAGE_READ_INBOX_'+ type.toUpperCase()])) return this.home();
+
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
 	},
 	
 	'drafts' : function ()
-	{
+	{	
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_DRAFT')) return this.home();
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
 	},
 
 	'notes' : function ()
-	{
+	{	
+		//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_NOTES')) return this.home();
+
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Notes());
 	},
 	
 	'scheduled' : function ()
-	{
+	{	
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE')) return this.home();
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Scheduled());
 	},
 	
@@ -159,6 +165,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'timeline' : function (channelid, streamid)
 	{
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')) return this.home();
+
 		// Get model from url
 		var model = streamid?
 			Cloudwalkers.Session.getStream(Number(streamid)) :
@@ -174,6 +182,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'trending' : function (channelid, streamid)
 	{
+
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY')) return this.home();
+
 		// Get model from url
 		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
 		var model = streamid? Cloudwalkers.Session.getStream(Number(streamid)): channel;
@@ -205,6 +216,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 	'monitoring' : function (id, catid, messageid)
 	{
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_MONITORING')) return this.home();
+
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(Number(catid))}));	
 	},
 	
@@ -220,7 +233,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 
 	'reports' : function (streamid)
-	{
+	{	
+		if (!Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW')) return this.home();
 		
 		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
 
@@ -241,7 +255,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		/*var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
 								Cloudwalkers.Session.getAccount();*/
-								
+		
+		if (!Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW')) return this.home();
+
 		var model = Cloudwalkers.Session.getAccount();
 		
 		Cloudwalkers.RootView.setView ( streamid?

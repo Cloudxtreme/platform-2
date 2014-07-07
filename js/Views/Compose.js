@@ -47,11 +47,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Actions
 		'comment' : ["editor"],
-		'reply' : ["editor"],
-		'dm' : ["editor"],
+		'reply' : 	["editor"],
+		'dm' : 		["editor"],
 		'retweet' : ["icon"],
-		'like' : ["icon"],
-		'favorite' : ["icon"],
+		'like' : 	["icon"],
+		'favorite' :["icon"],
 		'plusone' : ["icon"]
 	},
 	
@@ -169,8 +169,39 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var parameters = this.action.parameters[0];
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
+		
+		this.censurecompose();
+
 		// Translate Titles
 		this.translateTitles();
+
+		
+	},
+
+	'censurecompose' : function()
+	{
+		// Block on global level
+		var blocklist = [];
+
+		var globalcheck = {
+			'MESSAGE_OUT_ATTACHMENTS' 	: ['images'],
+			'MESSAGE_OUT_SCHEDULE'		: ['schedule'],
+			'MESSAGE_OUT_REPEAT'		: ['repeat'],
+			'CAMPAIGN_CREATE'			: ['campaign']
+		}
+
+		// Create block functionality array
+		$.each(globalcheck, function(permission, features)
+		{	
+			if(!Cloudwalkers.Session.isAuthorized(permission))
+				blocklist = _.union(blocklist, features);			
+		})
+		
+		// Apply blockage
+		$.each(this.options, function(token, features)
+		{	
+			this.options[token] = _.difference(features, blocklist);
+		}.bind(this))
 		
 	},
 	
@@ -225,6 +256,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
 
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(params);
+		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
 
@@ -432,7 +466,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	console.log(this.draft, this.draft.get("variations"));
+	{ 	//console.log(this.draft, this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)

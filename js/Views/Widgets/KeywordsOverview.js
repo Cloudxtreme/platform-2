@@ -33,6 +33,9 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
 		
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
 		this.$el.html (Mustache.render (Templates.keywordsoverview, data));
 		
 		return this;
