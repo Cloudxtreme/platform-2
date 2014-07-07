@@ -62,8 +62,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.togglenoteaction(token);
 		}else if(token == 'note-edit'){
 			this.editnote();
-		}
-		else
+		}else if(token == 'viewcontact'){
+			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null
+
+			if(contact)
+				Cloudwalkers.RootView.viewContact({model: contact});
+		}else
 			this.model.trigger("action", token);
 
 	},
@@ -230,7 +234,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{	
 		var notes = new Cloudwalkers.Collections.Notes();		
 		notes.parentmodel = this.model;
-
+		notes.parenttype = 'message';
+		
 		this.listenTo(notes,'seed', this.fillnotes);
 
 		notes.touch(this.model);
