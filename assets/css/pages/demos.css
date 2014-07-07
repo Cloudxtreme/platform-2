@@ -133,6 +133,12 @@
 	margin-left: 0;
 	margin-top: 5px;
 	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .message-tags{
 	display: inline-block !important;
@@ -174,35 +180,6 @@
     text-shadow: 0 1px 0 #FFFFFF;
 	top: 1px;
 }
-
-
-	/* Colors */
-
-.tag-cloud.tag-cloud-info {
-    color: #4a4a4a;
-	background: none !important;
-	font-weight: normal;
-	text-shadow: none;
-	border: 1px solid #ddd;
-	box-shadow: 0 1px #eee;
-	padding: 3px 10px 2px 10px !important;
-	-webkit-border-radius: 0px;
-	   -moz-border-radius: 0px;
-	        border-radius: 0px;
-	margin-left: 3px !important;
-}
-.tag-cloud.tag-cloud-success {
-    background-color: #468847;
-}
-.tag-cloud.tag-cloud-warning {
-    background-color: #F89406;
-}
-.tag-cloud.tag-cloud-danger {
-    background-color: #B94A48;
-}
-.tag-cloud.tag-cloud-inverse {
-    background-color: #333333;
-}
 #tag-info {
 	float: right;
 }
@@ -223,4 +200,46 @@
 	margin-top: -6px;
 	margin-left: 5px;
 }
+
+/* Colors */
+
+.tag-cloud.tag-cloud-info {
+    color: #4a4a4a;
+	background: none !important;
+	font-weight: normal;
+	text-shadow: none;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px #eee;
+	padding: 3px 10px 2px 10px !important;
+	-webkit-border-radius: 0px;
+	   -moz-border-radius: 0px;
+	        border-radius: 0px;
+	margin-left: 3px !important;
+}
+
+/* Alternative Remove before Submit */
+/*
+.tag-cloud.tag-cloud-info {
+	color: #4a4a4a;
+	font-weight: normal;
+	text-shadow: none;
+	background: rgba(217,237,247,0.5) !important;
+	padding: 0px 5px 0px 5px !important;
+	-webkit-border-radius: 0px;
+	   -moz-border-radius: 0px;
+			border-radius: 0px;
+	margin: 0px 3px 3px 0px !important
+}
+#tag-info input{
+	margin-top: -3px;
+	padding: 0;
+}
+#tag-info button {
+	background-color: #fff;
+	margin: -7px 1px;
+	padding: 0 3px;
+	border: none;
+	box-shadow: none;
+}
+*/
 /* Demo Message Tags End*/

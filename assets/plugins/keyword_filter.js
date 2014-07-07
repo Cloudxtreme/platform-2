@@ -1,13 +1,15 @@
 (function($){
 	
 	this.init = function(options){
-		this.translations = {}
+		this.translations = {};
+
 		if(options){ //Apply custom options
 			$.extend(this.translations, options);
 		}
 
 		$('html').mouseup(function(e) {
 			e.stopPropagation();
+
 			// Search for demo_bubble. Get ID and 2nd class which defines type
 			var el_ref = $(e.target).closest(".demo_bubble");
 			var el_ref_id = el_ref.attr('id');
@@ -91,7 +93,7 @@
 		    		}
 		    	});
 
-					if($("#keyword_filter").children().length > 3){
+					if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
 						if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
 							$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
@@ -123,18 +125,20 @@
 									value_to_insert = filter_data + " ";
 					    		} else if((filter_data == "and ") || (filter_data == "or ")){
 					    			value_to_insert = filter_data + " ";
+					    		} else if((filter_data == "language = ") || (filter_data == "country = ")){
+					    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id')).attr("data-value") + "' ";
 					    		} else {
-					    			value_to_insert = filter_data + $("#" + $(this).attr('id') + " .sel_value").text() + " ";
+					    			value_to_insert = filter_data + "'" + $("#" + $(this).attr('id') + " .sel_value").text() + "' ";
 					    		}
 					    	} else {
-					    		value_to_insert = filter_data + $("#" + $(this).attr('id') + " .text").text() + " ";
+					    		value_to_insert = filter_data + "'" +  $("#" + $(this).attr('id') + " .text").text() + "' ";
 					    	}
 					    	result += value_to_insert;	
 			    		}
 					});
 					// send the result
 					removeWarning();
-			    	console.log(result);
+			    	options.success(result);
 			    }
 			}
 			if((el_ref_type == "demo_contains") || (el_ref_type == "demo_drop") || (el_ref_type == "demo_plus")){
@@ -183,6 +187,7 @@
 			// Change option and color if needed
 			if(el_ref_class == "demo_change_val"){
 				var text = $(e.target).attr("data-value");
+				var option = $("#" + el_ref_id).attr("data-option");
 				if((text == "and") || (text == "or")){
 					if($("#" + el_ref_id).hasClass("demo_and")){
 						$("#" + el_ref_id).removeClass("demo_and");
@@ -191,6 +196,9 @@
 						$("#" + el_ref_id).removeClass("demo_or");
 					}
 					$("#" + el_ref_id).addClass("demo_" + text);
+				} else if((option == "language = ") || (option == "country = ")){
+					$("#" + el_ref_id).attr("data-value",datavalue+" ");
+					//Continue language vs ln
 				}
 
 				if($("#" + el_ref_id).hasClass("demo_drop")){
@@ -199,6 +207,8 @@
 					$("#" + el_ref_id).attr("data-value",datavalue+" ");
 				}
 				$("#" + el_ref_id + " .sel_value ").html(text);
+
+				console.log(option);
 			}
 			// Add message contains
 			if(el_ref_hit == "add_message_contains"){
@@ -218,15 +228,17 @@
 			if(el_ref_hit == "add_country_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose country</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
+				fillcountries();
 			}
 			// Add language is
 			if(el_ref_hit == "add_language_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">en</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="en">en</li><li class="demo_change_val" data-value="nl">nl</li><li class="demo_change_val" data-value="fr">fr</li><li class="demo_change_val" data-value="pt">pt</li></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">Choose language</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
+				filllanguages();
 			}
 			// Add and
 			if(el_ref_hit == "add_and"){
@@ -302,6 +314,26 @@
 			}
 		}.bind(this));
 	
+		function fillcountries()
+		{	
+			//<li class="demo_change_val" data-value="en">en</li>
+			for(n in options.countries)
+			{
+				var li = '<li class="demo_change_val" data-value="'+options.countries[n].token+'">'+options.countries[n].name+'</li>'
+				$("#keyword_filter #countries ul").append(li);
+			}
+		}
+
+		function filllanguages()
+		{	
+			//<li class="demo_change_val" data-value="en">en</li>
+			for(n in options.languages)
+			{
+				var li = '<li class="demo_change_val" data-value="'+options.languages[n].token+'">'+options.languages[n].name+'</li>'
+				$("#keyword_filter #languages ul").append(li);
+			}
+		}
+
 		// Random number for IDs
 		function getRandomInt(min, max) {
 		    return Math.floor(Math.random() * (max - min + 1)) + min;

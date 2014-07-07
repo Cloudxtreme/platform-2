@@ -114,3 +114,9 @@
 #keywordsfilter .demo_drop .demo_remove_filter, #keywordsfilter .demo_group .demo_remove_filter, #keywordsfilter .demo_end_group .demo_remove_filter{
 	margin: -22px -6px;
 }
+
+/* Country list */
+#keywordsfilter #countries{
+	max-height: 150px;
+	overflow-y: scroll;
+}
