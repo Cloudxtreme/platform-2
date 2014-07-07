@@ -33,7 +33,6 @@
 			
 			{{#from}}
 				<a href="{{url}}" class="timeline-user" title="{{icon}} {{displayname}}" target="_blank">{{displayname}}</a>
-				<a class="viewcontact" data-action="viewcontact"><i class="icon-user"></i></a>
 				<br />
 			{{/from}}
 			
