@@ -50,7 +50,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated");
 			
 			// Hack
-			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 		}});
 	},
 	
