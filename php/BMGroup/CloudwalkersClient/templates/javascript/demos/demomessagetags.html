@@ -32,13 +32,14 @@
 			<div class="btn-white" data-action="share"><i class="icon-share-alt"></i></div>
 			<div class="btn-white pull-right" data-action="teste 1"><i class="icon-list"></i></div>
 			<div class="btn-white pull-right" data-action="teste 2"><i class="icon-edit"></i></div>
-			<div class="btn-white pull-right inactive" data-action="teste 2"><i class="icon-tags"></i></div>
+			<div class="btn-white pull-right inactive" data-action="tags"><i class="icon-tags"></i></div>
 		</div>
 		<div class="message-notes">
 			<div class="message-tags">
-				<ul id="tag-cloud"><li class="tag-cloud enabled tag-cloud-info">tagY</li><li class="tag-cloud enabled tag-cloud-info">tagX</li><li class="tag-cloud enabled tag-cloud-info">another tag</li><li class="tag-cloud enabled tag-cloud-info">one more tag</li><li class="tag-cloud enabled tag-cloud-info">last tag</li></ul>
+				<div class="btn-white pull-right edit" data-action="edit_tags"><i class="icon-pencil"></i></div>
+				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li></ul>
 				<div id="tag-info" class="input-append">
-					<input type="text">
+					<input id="tags" type="text" autocomplete="off">
 					<button class="btn-white" type="button">Add <i class="icon-tags"></i></button>
 				</div>
 			</div>
@@ -74,7 +75,7 @@
  * ========================================================= */
 
 // Add listener for tag removals
-$(document).on('click','.tag-cloud.enabled', function removeTag(){ $(this).remove(); });
+$(document).on('click','.message-notes .enabled .tag-cloud', function removeTag(){ $(this).remove(); });
 
 
 // Find out which containers we have on this document and setup proper bindings
@@ -115,7 +116,7 @@ function addTag(id) {
 	var tagClass = '';
 
 	// Setup our class based on what type of container we have everything inside 
-	if (id == '#tag-info') { tagClass = 'tag-cloud enabled tag-cloud-info'; }
+	if (id == '#tag-info') { tagClass = 'tag-cloud tag-cloud-info'; }
 
 	// If there is no value in the input field then don't do anything
 	if (Tag != '') {
@@ -129,6 +130,33 @@ function addTag(id) {
 	}	
 
 }
+
+$(function() {
+    var availableTags = [
+		"tag 1",
+		"tag 2",
+		"tag 3",
+		"tag 4",
+		"tag 5",
+		"tag 6",
+		"tag 7",
+		"anothertag",
+		"new tag",
+		"the right tag",
+		"the wrong tag"
+    ];
+    $( "#tags" ).autocomplete({
+		source: availableTags,
+		delay: 500
+    });
+});
+
+function tagsToggleEdit(){
+	$(".message-tags").toggleClass("enabled");
+	$(".message-tags .edit").toggleClass("inactive");
+}
+$(document).on('click','.message-tags .btn-white', tagsToggleEdit);
+
 </script>
 
 
