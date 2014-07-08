@@ -68,7 +68,8 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
 		}.bind(this),200);	
 
-		this.trigger("done")			
+		// Trigger to update #notes view
+		Cloudwalkers.RootView.trigger("added:note", this.note);			
 	},
 
 	'clean' : function()

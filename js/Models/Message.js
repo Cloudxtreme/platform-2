@@ -27,7 +27,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
-		
+
 		// Children
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
@@ -76,16 +76,22 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	/* Validations */
-	// Checkblock : what validations to block
-	'validateCustom' : function (checkblock)
+	'validateCustom' : function (ignorelist)
 	{	
-		//Check for any content	
-		if(!this.hascontent() && checkblock != 'content')			return "You need a bit of content.";
-		if(!this.validatecontent())									return "One or more networks exceed the character limit.";
-		if(!this.get("streams").length && checkblock != 'streams')	return "Please select a network first.";
-		
 		var error;
-		if(error = this.validateschedules())							return error;
+
+		//Check for any content	
+		if(!this.hascontent() && $.inArray('content', ignorelist) < 0)
+			return "You need a bit of content.";
+
+		if(!this.validatecontent())	
+			return "One or more networks exceed the character limit.";
+
+		if(!this.get("streams").length && $.inArray('streams', ignorelist) < 0)
+			return "Please select a network first.";
+	
+		if((error = this.validateschedules()) && $.inArray('schedule', ignorelist) < 0)
+			return error;
 	},
 
 	'validateschedules' : function()
@@ -94,9 +100,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		//Check in default
 		error = this.validateschedule(this.get("schedule"));
-
+		
 		if(error)	return error;
-
+		
 		//Check in variations
 		$.each(this.get("variations"), function(n, variation)
 		{
@@ -476,6 +482,54 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'removevarimg' : function(streamid, image){
 		//If image is an object it means it's meant to exclude
 
+		var variation = this.getvariation(streamid);
+		var attachments = variation? variation.attachments : [];
+
+		if(_.isObject(image)){	// It's a default iamge
+			this.addexclude(streamid, image)			
+		}else{					// It's a variation image
+			for(n in attachments){
+				if(attachments[n].type == 'image' && attachments[n].name == image) 
+					attachments.splice(n,1);
+			}
+		}
+	},
+
+	'addexclude' : function(streamid, image){
+
+		var variation = this.getvariation(streamid) || this.setvariation(streamid);;
+		var excludes = variation.excludes;
+
+		if(variation.excludes)
+			variation.excludes.push(image);
+		else
+			variation.excludes = [image];
+	},
+
+	'checkexclude' : function(streamid, image){
+
+		var variation = this.getvariation(streamid);
+		var excludes;
+
+		if(!variation)	return false;
+		else			excludes = variation.excludes;
+
+		if(excludes){
+			for(n in excludes){
+				if(excludes[n].name == image.name)
+					return true;
+			}
+		}
+
+		//There are no excludes
+		return false;
+
+	},
+
+	// Temporary implementation
+	/*'removevarimg' : function(streamid, image){
+		//If image is an object it means it's meant to exclude
+
 		var variation = this.getvariation(streamid)
 		var attachments = variation? variation.attachments : [];
 
@@ -520,7 +574,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		//There are no excludes
 		return false;
 
-	},
+	},*/
 			
 
 	/* End variation functions */

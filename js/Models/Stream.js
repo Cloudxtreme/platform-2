@@ -152,4 +152,11 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 
 		return this;
 	},
+
+	'getlimitations' : function(limitation)
+	{
+		var network = this.get('network');
+
+		return network? network.limitations: null;
+	}
 });
