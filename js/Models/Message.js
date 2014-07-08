@@ -81,6 +81,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		//Check for any content	
 		if(!this.hascontent() && checkblock != 'content')			return "You need a bit of content.";
+
 		if(!this.validatecontent())									return "One or more networks exceed the character limit.";
 		if(!this.get("streams").length && checkblock != 'streams')	return "Please select a network first.";
 		
@@ -127,7 +128,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return "One or more streams have the repeat date set to the past."
 
 		return false;
-		
 	},
 
 	'hascontent' : function()

@@ -88,7 +88,10 @@ new compressor.minify({
 		// Replace the script tags
 		fs.unlinkSync (CONFIG_BUILDPATH + '/templates/buildscripts.phpt');
 
-		fs.writeFile(CONFIG_BUILDPATH + '/templates/buildscripts.phpt', '<script type="text/javascript" src="<?php echo BASE_URL; ?>js/cloudwalkers.min.js"></script>', function(err) {
+		var versionfile = CONFIG_SOURCEPATH + '/php/config/version';
+		var version = fs.readFileSync (versionfile, { 'encoding' : 'utf8' });
+
+		fs.writeFile(CONFIG_BUILDPATH + '/templates/buildscripts.phpt', '<script type="text/javascript" src="<?php echo BASE_URL; ?>js/cloudwalkers.min.js?v=' + version +  '"></script>', function(err) {
 			if(err) {
 				console.log(err);
 			} else {
@@ -96,8 +99,6 @@ new compressor.minify({
 
                 console.log ("---");
                 console.log ("Increasing version number");
-                var versionfile = CONFIG_SOURCEPATH + '/php/config/version';
-                var version = fs.readFileSync (versionfile, { 'encoding' : 'utf8' });
                 console.log ("- Current version: " + version);
                 version = version.split ('.');
                 version[version.length - 1] = parseInt (version[version.length - 1]) + 1;
