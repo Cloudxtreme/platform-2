@@ -3,13 +3,13 @@
 
 		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-group icon-large"></i>{{translate_coworkers}}</div>
+				<div class="caption"><i class="icon-group icon-large"></i>{{translate_co-workers}}</div>
 			</div>
 			<div class="portlet-body">
 
 				<div id="filter_contacts" class="clearfix">
 
-					<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="{{translate_search_coworkers}}" />
+					<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="{{translate_search_co-workers}}" />
 					
 					<label class="hidden">{{translate_suggestions}}</label>
 					<ul class="contacts-suggestions"></ul>
