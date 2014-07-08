@@ -17,10 +17,11 @@
 							<li>
 								<i class="yellow icon-bullseye"></i>
 								<span class="campaign-name">{{name}}</span>
-								
+								{{#authorized.CAMPAIGN_DELETE}}
 								<span class="pull-right">
 									<i class="icon-remove" data-delete-campaign-id="{{id}}"></i>
 								</span>
+								{{/authorized.CAMPAIGN_DELETE}}
 							</li>
 						{{/campaigns}}
 						

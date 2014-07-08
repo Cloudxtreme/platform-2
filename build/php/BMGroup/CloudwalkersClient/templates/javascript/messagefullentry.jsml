@@ -46,7 +46,9 @@
 	{{^iconview}}
 		<img class="avatar" alt="" src="{{avatar}}">
 	{{/iconview}}
-		<strong><a href="{{url}}" target="_blank">{{displayname}}</a></strong>
+		<strong>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
+		</strong>
 	{{/from}}
 	
 	<div class='content'>

@@ -16,7 +16,7 @@
 				</form>
 			</div>
 		</div>
-		
+		{{#authorized.USER_INVITE}}
 		<div class="collapse-open invite-user">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
@@ -39,6 +39,7 @@
 				</div>
 			</div>
 		</div>
+		{{/authorized.USER_INVITE}}
 	</div>
 	
 	

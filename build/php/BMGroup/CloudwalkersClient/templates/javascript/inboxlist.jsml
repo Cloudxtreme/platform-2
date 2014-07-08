@@ -1,4 +1,6 @@
 <div class="scroller clearfix">
+	
+	{{^note}}
 	<div class="inbox-filter">
 	
 		<div class="filter-group social-icon-colors pull-right">
@@ -12,11 +14,12 @@
 		</div>
 	
 		<div class="filter-group">
-			<label>Filters</label> 
+			<label>{{translate_filters}}</label> 
 			<div class="btn-white toggle-contacts" data-toggle="contacts">{{translate_contacts}}</div>
 		</div>
 	
 	</div>
+	{{/note}}
 	
 	<div id="filter_contacts" class="hidden clearfix">
 		

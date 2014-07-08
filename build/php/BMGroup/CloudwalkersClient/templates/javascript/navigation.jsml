@@ -72,37 +72,70 @@
 			</a>
 
 			<ul class="sub-menu">
+
+				{{#authorized.MESSAGE_READ_INBOX}}
 				<li>
 					<a href="#inbox/messages">
 						<i class="icon-envelope"></i> 
 						<span class="title">{{translate_messages}}</span>
 					</a>
 				</li>
+			
 				<li>
 					<a href="#inbox/notifications">
 						<i class="icon-globe"></i> 
 						<span class="title">{{translate_notifications}}</span>
 					</a>
 				</li>
+				{{/authorized.MESSAGE_READ_INBOX}}
+				{{^authorized.MESSAGE_READ_INBOX}}
+					{{#authorized.MESSAGE_READ_INBOX_MESSAGES}}
+					<li>
+						<a href="#inbox/messages">
+							<i class="icon-envelope"></i> 
+							<span class="title">{{translate_messages}}</span>
+						</a>
+					</li>
+					{{/authorized.MESSAGE_READ_INBOX_MESSAGES}}
+					{{#authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
+					<li>
+						<a href="#inbox/notifications">
+							<i class="icon-globe"></i> 
+							<span class="title">{{translate_notifications}}</span>
+						</a>
+					</li>
+					{{/authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
+				{{/authorized.MESSAGE_READ_INBOX}}
+
 				<li>
 					<a data-header-action="post">
 						<i class="icon-pencil"></i> 
 						<span class="title">{{translate_post_message}}</span>
 					</a>
 				</li>
+				{{#authorized.MESSAGE_READ_DRAFTS}}
 				<li class="drafts">
 					<a href="#drafts">
 						<i class="icon-edit"></i> 
 						<span class="title">{{translate_drafts}}</span>
 					</a>
 				</li>
+				{{/authorized.MESSAGE_READ_DRAFTS}}
+				{{#authorized.MESSAGE_READ_SCHEDULE}}
 				<li class="schedule">
 					<a href="#scheduled">
 						<i class="icon-time"></i> 
 						<span class="title">{{translate_scheduled}}</span>
 					</a>
 				</li>
-
+				{{/authorized.MESSAGE_READ_SCHEDULE}}
+				<!--<li class="notes">
+					<a href="#notes">
+						<i class="icon-edit"></i> 
+						<span class="title">Notes</span>
+					</a>
+				</li>
+				-->
 				<!--
 				<li class="calendar">
 					<a href="#calendar">
@@ -117,6 +150,7 @@
 	{{/level}}
 	
 		<!-- Co-workers cloud -->
+		{{#authorized.MESSAGE_READ_COWORKER}}
 		<li>
 			<a href="#coworkers">
 				<i class="icon-group"></i> 
@@ -124,9 +158,11 @@
 				<span class="selected"></span>
 			</a>
 		</li>
+		{{/authorized.MESSAGE_READ_COWORKER}}
 
 	<!-- Company Accounts -->
 	{{#profiles}}
+		{{#authorized.MESSAGE_READ_COMPANY}}
 		<li>
 			<a href="#timeline/{{channelid}}">
 				<i class="icon-briefcase"></i> 
@@ -165,11 +201,13 @@
 				</li>
 			</ul>
 		</li>
+		{{/authorized.MESSAGE_READ_COMPANY}}
 	{{/profiles}}
 	
 	{{#level}}
 	<!-- Profiles we follow -->
 	{{#news}}
+		{{#authorized.MESSAGE_READ_THIRDPARTY}}
 		<li>
 			<a href="#timeline/{{news}}">
 				<i class="icon-globe"></i> 
@@ -201,10 +239,12 @@
 				</li>
 			</ul>
 		</li>
+		{{/authorized.MESSAGE_READ_THIRDPARTY}}
 	{{/news}}
 
 	<!-- Keyword Monitoring -->
 	{{#monitoring}}
+		{{#authorized.MESSAGE_READ_MONITORING}}
 		<li>
 			<a href="#monitoring/{{channelid}}/{{channels.0.id}}">
 				<i class="icon-tags"></i> 
@@ -234,9 +274,11 @@
 				</li>
 			</ul>
 		</li>
+		{{/authorized.MESSAGE_READ_MONITORING}}
 	{{/monitoring}}
 
 	<!-- Reports -->
+	{{#authorized.STATISTICS_VIEW}}
 	<li>
 		<a href="#reports/{{reports.0.id}}">
 			<i class="icon-bar-chart"></i> 
@@ -251,7 +293,7 @@
 			{{/reports}}
 		</ul>
 	</li>
-	
+	{{/authorized.STATISTICS_VIEW}}
 	<!-- User Settings -->
 	<li class="settings">
 		<a href="#settings/users">
