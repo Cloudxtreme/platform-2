@@ -283,9 +283,9 @@ Style corrections and manual overrides
 	font-size: 35px; color: white; font-weight: 100; text-align: center; line-height: .92em;
 }
 
-#compose [data-collapsable=images] .images-thumb:hover	{ opacity: .6; }
+#compose [data-collapsable=images] .images-thumb:hover	{ background-size: 0%; }
 
-#compose [data-collapsable=images] .images-thumb:hover:after	{ content: "-" }
+#compose [data-collapsable=images] .images-thumb:hover:after	{ content: "_"; position: relative; bottom: 17px; }
 
 #compose [data-collapsable=images] .summary li	{
 	width: 34px; height: 32px; border-radius: 2px;
