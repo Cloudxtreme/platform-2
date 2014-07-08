@@ -152,8 +152,9 @@ $(function() {
 });
 
 function tagsToggleEdit(){
-	$(".message-tags").toggleClass("enabled");
-	$(".message-tags .edit").toggleClass("inactive");
+	console.log(this);
+	$(this).closest(".message-tags").toggleClass("enabled");
+	$(this).closest(".message-tags .edit").toggleClass("inactive");
 }
 $(document).on('click','.message-tags .btn-white', tagsToggleEdit);
 
