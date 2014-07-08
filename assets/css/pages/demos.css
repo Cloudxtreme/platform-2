@@ -12,7 +12,7 @@
 	text-decoration: none !important;
 	margin: 0px 5px 4px 0px;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 14px !important;
 	line-height: 20px;
 }
 #demokeywords #demo_plus{
@@ -143,12 +143,29 @@
 .message-tags{
 	display: inline-block !important;
 	float: right;
-	max-width: 100%;
-	margin-right: 17px;
-    text-align: right;
+	width: 70%;
+	text-align: right;
+	margin-top: -11px;
+	margin-right: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .message-tags * {
 	font-size: 12px !important;
+}
+.message-tags .btn-white{
+	margin-top: 7px;
+	line-height: 18px;
+	margin-left: 3px;
+}
+div.btn-white.pull-right {
+	margin-top: 12px;
+	margin-bottom: -3px !important;
+	margin-left: 2px;
 }
 .tag-cloud {
     background: #999999;
@@ -166,10 +183,10 @@
     vertical-align: baseline;
     cursor: default;
 }
-.tag-cloud.enabled {
+.message-tags.enabled .tag-cloud {
 	cursor: pointer;
 }
-.tag-cloud.enabled:after {
+.message-tags.enabled .tag-cloud:after {
     color: #000000;
     content: " ×";
     font-size: 20px;
@@ -182,6 +199,7 @@
 }
 #tag-info {
 	float: right;
+	display: none;
 }
 #tag-info button{
 	background-color: #fff;
@@ -189,6 +207,12 @@
 }
 #tag-info input{
 	margin-top: -3px;
+	border-radius: 0px;
+	padding: 3px;
+	width: 150px;
+}
+.message-tags.enabled #tag-info {
+	display: block;
 }
 .inbox-container .message-actions div{
 	vertical-align: top;
@@ -196,16 +220,18 @@
 .message-notes{
 	border-top: 1px solid #ddd;
 }
-.message-actions .pull-right{
-	margin-top: -6px;
-	margin-left: 5px;
+.info-tags{
+	cursor: default;
 }
-
+.info-tags:hover{
+	color: #4a4a4a;
+}
 /* Colors */
 
 .tag-cloud.tag-cloud-info {
-    color: #4a4a4a;
-	background: none !important;
+	color: #999;
+	background: #eee !important;
+	box-shadow: inset 0 1px #e0e0e0;
 	font-weight: normal;
 	text-shadow: none;
 	border: 1px solid #ddd;
@@ -216,30 +242,32 @@
 	        border-radius: 0px;
 	margin-left: 3px !important;
 }
-
-/* Alternative Remove before Submit */
-/*
-.tag-cloud.tag-cloud-info {
+.tag-cloud.tag-cloud-info:hover {
 	color: #4a4a4a;
-	font-weight: normal;
-	text-shadow: none;
-	background: rgba(217,237,247,0.5) !important;
-	padding: 0px 5px 0px 5px !important;
-	-webkit-border-radius: 0px;
-	   -moz-border-radius: 0px;
-			border-radius: 0px;
-	margin: 0px 3px 3px 0px !important
+	background: none !important;
+	box-shadow: none;
+	cursor: pointer;
 }
-#tag-info input{
-	margin-top: -3px;
-	padding: 0;
-}
-#tag-info button {
-	background-color: #fff;
-	margin: -7px 1px;
-	padding: 0 3px;
-	border: none;
+.message-tags.enabled .tag-cloud {
+	color: #4a4a4a;
+	background: none !important;
 	box-shadow: none;
 }
-*/
+.ui-autocomplete, .ui-autocomplete-input{
+	border-radius: 0px;
+	background: #fff;
+	font-size: 12px;
+	font-family: 'Open Sans', sans-serif;
+}
+.ui-autocomplete .ui-state-focus
+{
+    color:#000;
+    background:rgba(217,237,247,0.7);
+    outline-color: transparent !important;
+    box-shadow: none;
+    display:block;
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+.ui-autocomplete *:focus {outline:none;}
 /* Demo Message Tags End*/

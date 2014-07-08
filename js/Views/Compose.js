@@ -1,4 +1,3 @@
-	
 /**
  *	Compose
  *	probably the most important view.

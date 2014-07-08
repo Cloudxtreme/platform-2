@@ -133,7 +133,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return "One or more streams have the repeat date set to the past."
 
 		return false;
-		
 	},
 
 	'hascontent' : function()
