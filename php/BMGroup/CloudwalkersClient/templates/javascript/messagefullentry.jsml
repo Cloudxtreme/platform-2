@@ -48,7 +48,6 @@
 	{{/iconview}}
 		<strong>
 			<a href="{{url}}" target="_blank">{{displayname}}</a>
-			<a class="viewcontact" data-action="viewcontact"><i class="icon-user"></i></a>
 		</strong>
 	{{/from}}
 	

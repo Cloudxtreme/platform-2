@@ -20,8 +20,8 @@
 	<div class="contactbottom">
 		<div id="contactfilter">
 			<ul>
-				<li class="btn-white active" data-type="conversation"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
-				<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white active" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white inactive" data-type="conversation"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
 				<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
 			</ul>
 		</div>		

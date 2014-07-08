@@ -53,8 +53,6 @@
 				{{/accounts}}
 					<li class="account-selector divider"></li>
 				{{#dev}}
-					<li><a data-header-action="writenote"><i class="icon-edit "></i> Write note</a></li>
-					<li class="account-selector divider"></li>
 					<li><a href="#home"><i class="icon-fire-extinguisher "></i> {{translate_clean}}</a></li>
 					<li class="account-selector divider"></li>
 				{{/dev}}

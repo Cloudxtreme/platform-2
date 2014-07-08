@@ -16,7 +16,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		// Manage loading
 		this.loading(!this.model.get("objectType"));
 		
@@ -33,7 +33,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Meant only for the viewcontact messages demo
 		if(this.notes)	params.notes = true;
-
+		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
