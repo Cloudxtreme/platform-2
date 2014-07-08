@@ -143,9 +143,16 @@
 .message-tags{
 	display: inline-block !important;
 	float: right;
-	width: 98%;
-	margin-right: 2%;
+	width: 70%;
 	text-align: right;
+	margin-top: -11px;
+	margin-right: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .message-tags * {
 	font-size: 12px !important;
@@ -154,6 +161,11 @@
 	margin-top: 7px;
 	line-height: 18px;
 	margin-left: 3px;
+}
+div.btn-white.pull-right {
+	margin-top: 12px;
+	margin-bottom: -3px !important;
+	margin-left: 2px;
 }
 .tag-cloud {
     background: #999999;
@@ -171,10 +183,10 @@
     vertical-align: baseline;
     cursor: default;
 }
-.message-notes .enabled .tag-cloud {
+.message-tags.enabled .tag-cloud {
 	cursor: pointer;
 }
-.message-notes .enabled .tag-cloud:after {
+.message-tags.enabled .tag-cloud:after {
     color: #000000;
     content: " ×";
     font-size: 20px;
@@ -199,7 +211,7 @@
 	padding: 3px;
 	width: 150px;
 }
-.message-notes .enabled #tag-info {
+.message-tags.enabled #tag-info {
 	display: block;
 }
 .inbox-container .message-actions div{
@@ -208,11 +220,12 @@
 .message-notes{
 	border-top: 1px solid #ddd;
 }
-.message-actions .pull-right{
-	margin-top: -6px;
-	margin-left: 5px;
+.info-tags{
+	cursor: default;
 }
-
+.info-tags:hover{
+	color: #4a4a4a;
+}
 /* Colors */
 
 .tag-cloud.tag-cloud-info {
@@ -235,7 +248,7 @@
 	box-shadow: none;
 	cursor: pointer;
 }
-.message-notes .enabled .tag-cloud {
+.message-tags.enabled .tag-cloud {
 	color: #4a4a4a;
 	background: none !important;
 	box-shadow: none;

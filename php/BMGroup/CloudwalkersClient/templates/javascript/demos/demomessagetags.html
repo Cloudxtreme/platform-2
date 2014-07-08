@@ -30,12 +30,10 @@
 			<div class="btn-white" data-action="reply"><i class="icon-comments-alt"></i></div>
 			<div class="btn-white" data-action="retweet"><i class="icon-retweet"></i></div>
 			<div class="btn-white" data-action="share"><i class="icon-share-alt"></i></div>
-			<div class="btn-white pull-right" data-action="teste 1"><i class="icon-list"></i></div>
-			<div class="btn-white pull-right" data-action="teste 2"><i class="icon-edit"></i></div>
-			<div class="btn-white pull-right inactive" data-action="tags"><i class="icon-tags"></i></div>
-		</div>
-		<div class="message-notes">
-			<div class="message-tags">
+			<div class="btn-white" data-action="note-content"><i class="icon-edit"></i></div>
+			<div class="btn-white" data-action="note-list"><i class="icon-list"></i></div>
+			<div class="message-tags pull-right">
+				<div class="btn-white pull-right info-tags"><i class="icon-tags"></i></div>
 				<div class="btn-white pull-right edit" data-action="edit_tags"><i class="icon-pencil"></i></div>
 				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li></ul>
 				<div id="tag-info" class="input-append">
@@ -43,9 +41,8 @@
 					<button class="btn-white" type="button">Add <i class="icon-tags"></i></button>
 				</div>
 			</div>
-			<div style="clear:both"></div>
 		</div>
-		
+		<div style="clear:both"></div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -75,7 +72,7 @@
  * ========================================================= */
 
 // Add listener for tag removals
-$(document).on('click','.message-notes .enabled .tag-cloud', function removeTag(){ $(this).remove(); });
+$(document).on('click','.message-tags.enabled .tag-cloud', function removeTag(){ $(this).remove(); });
 
 
 // Find out which containers we have on this document and setup proper bindings
@@ -152,11 +149,10 @@ $(function() {
 });
 
 function tagsToggleEdit(){
-	console.log(this);
 	$(this).closest(".message-tags").toggleClass("enabled");
 	$(this).closest(".message-tags .edit").toggleClass("inactive");
 }
-$(document).on('click','.message-tags .btn-white', tagsToggleEdit);
+$(document).on('click','.message-tags .edit', tagsToggleEdit);
 
 </script>
 
@@ -193,15 +189,16 @@ $(document).on('click','.message-tags .btn-white', tagsToggleEdit);
 			<div class="btn-white" data-action="reply"><i class="icon-comments-alt"></i></div>
 			<div class="btn-white" data-action="retweet"><i class="icon-retweet"></i></div>
 			<div class="btn-white" data-action="share"><i class="icon-share-alt"></i></div>
-			<div class="btn-white pull-right" data-action="teste 1"><i class="icon-list"></i></div>
-			<div class="btn-white pull-right" data-action="teste 2"><i class="icon-edit"></i></div>
-			<div class="btn-white pull-right inactive" data-action="teste 2"><i class="icon-tags"></i></div>
-		</div>
-		<div class="message-notes">
-			<div class="message-tags">
-				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li></ul>
+			<div class="btn-white" data-action="note-content"><i class="icon-edit"></i></div>
+			<div class="btn-white" data-action="note-list"><i class="icon-list"></i></div>
+			<div class="message-tags pull-right">
+				<div class="btn-white pull-right info-tags"><i class="icon-tags"></i></div>
+				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li></ul>
 			</div>
-			<div style="clear:both"></div>
+		</div>
+		<div style="clear:both"></div>
+		<div class="message-notes">
+			
 		</div>
 		
 	</div>
