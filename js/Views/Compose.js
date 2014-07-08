@@ -890,8 +890,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var newdate = this.parsemoment(seldate, seltime);
 
 		// Validate
-		if(newdate && newdate.unix() > moment().unix()) 	return newdate;
-		else												return undefined;
+		//if(newdate && newdate.unix() > moment().unix()) 	return newdate;
+		//else												return undefined;
+
+		return newdate;
 		
 	},	
 
@@ -907,8 +909,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!newdate)	return undefined;
 
 		// Is there a schedule?
-		if(this.$el.find('#delay-date').val())	return newdate.unix() < this.parsescheduledate("#delay-date", "#delay-time").unix() ? undefined: newdate;
-		else 									return newdate.unix() < moment().unix()? undefined: newdate;
+		//if(this.$el.find('#delay-date').val())	return newdate.unix() < this.parsescheduledate("#delay-date", "#delay-time").unix() ? undefined: newdate;
+		//else 									return newdate.unix() < moment().unix()? undefined: newdate;
 
 	},
 	
@@ -1049,13 +1051,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
 			$("[data-set=in] select").val(600);
 
+			this.parsescheduledate("#delay-date", "#delay-time");
 			// Data
-			if (this.parsescheduledate("#delay-date", "#delay-time") === undefined)
+			/*if (this.parsescheduledate("#delay-date", "#delay-time") === undefined)
 			{
 				this.datepicker.datepicker('hide');
 				this.$el.find("#delay-date").val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
-			}
+			}*/
 			
 			// Force clean "in"
 			if(schedule.settings && schedule.settings.delayselect) delete schedule.settings.delayselect;
@@ -1107,12 +1110,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			$("#repeat-amount").val(0);	
 
 			// Data
-			if (this.parserepeatdate("#repeat-until") === undefined)
+			/*if (this.parserepeatdate("#repeat-until") === undefined)
 			{	
 				this.datepicker.datepicker('hide');
 				this.$el.find("#repeat-until").val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
-			}
+			}*/
 		}
 		
 		// Set the data
@@ -1323,7 +1326,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  
  		if(error = this.draft.validateCustom('streams'))
  			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
-
+		
 		//Disables footer action
 		this.disablefooter();
 

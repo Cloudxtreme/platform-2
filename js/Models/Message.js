@@ -81,8 +81,53 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		//Check for any content	
 		if(!this.hascontent() && checkblock != 'content')			return "You need a bit of content.";
-		if(!this.checkcontent())									return "One or more networks exceed the character limit.";
+		if(!this.validatecontent())									return "One or more networks exceed the character limit.";
 		if(!this.get("streams").length && checkblock != 'streams')	return "Please select a network first.";
+		
+		var error;
+		if(error = this.validateschedules())							return error;
+	},
+
+	'validateschedules' : function()
+	{
+		var error;
+
+		//Check in default
+		error = this.validateschedule(this.get("schedule"));
+
+		if(error)	return error;
+
+		//Check in variations
+		$.each(this.get("variations"), function(n, variation)
+		{
+			error = this.validateschedule(variation.schedule);
+			
+			if(error)	return false;	//Found error
+			else		return true;	
+
+		}.bind(this));
+		
+		return error;
+	},
+
+	'validateschedule' : function(schedule)
+	{	
+		if(!schedule)	return false;
+
+		var scheduledate = schedule.date || null;
+		var repeatuntil = schedule.repeat? schedule.repeat.until: null;
+
+		if(scheduledate && scheduledate < moment().unix())
+			return "One or more streams are scheduled into the past."
+
+		if(scheduledate && repeatuntil && repeatuntil < scheduledate)
+			return "One or more streams have the repeat date happening before the scheduled date."
+
+		if(!scheduledate && repeatuntil && repeatuntil < moment().unix())
+			return "One or more streams have the repeat date set to the past."
+
+		return false;
+		
 	},
 
 	'hascontent' : function()
@@ -113,7 +158,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'checkcontent' : function()
+	'validatecontent' : function()
 	{					
 		//Hardcoded smallest limit. Get it dinamically
 		var smallestlimit = 140;
