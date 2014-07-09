@@ -59,6 +59,8 @@
 					<li><a href="#home"><i class="icon-fire-extinguisher "></i> {{translate_clean}}</a></li>
 					<li class="account-selector divider"></li>
 				{{/dev}}
+					<li><a href="https://cloudwalkers.zendesk.com/hc/nl/requests/new" target="_blank"><i class="icon-stethoscope"></i> {{translate_support}}</a></li>
+					<li class="divider"></li>
 					<li><a href="#settings/profile"><i class="icon-cog"></i> {{translate_profile_settings}}</a></li>
 					<li class="divider"></li>
 					<li><a href="/logout" onclick="Cloudwalkers.Session.reset();"><i class="icon-off"></i> {{translate_log_out}}</a></li>
