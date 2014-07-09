@@ -32,7 +32,9 @@
 			{{/attached.video}}
 			
 			{{#from}}
-				<a href="{{url}}" class="timeline-user" title="{{icon}} {{displayname}}" target="_blank">{{displayname}}</a>
+				<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>
+				<!-- CONTACTS_ROLE -->
+				
 				<br />
 			{{/from}}
 			

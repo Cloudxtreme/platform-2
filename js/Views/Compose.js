@@ -346,6 +346,47 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(streamid)	this.draft.setvariation(streamid, object, content);
 		else 			this.draft.set(object, content);
 	},
+
+	'updatelimitations' : function(streamid, update)
+	{	
+		if(!streamid){
+			this.editor.trigger('update:limit', 0);
+			return;
+		}
+
+		var stream = Cloudwalkers.Session.getStream(streamid);
+		var limitations = stream.getlimitations();
+		var numimages = 0;
+		
+		//Add all variation images
+		if(streamid && this.draft.getvariation(streamid,'image')){
+			var imgs = this.draft.getvariation(streamid, 'image');
+			
+			$.each(imgs, function(i, image){
+				numimages += this.draft.getvariation(streamid, 'image').length;
+			}.bind(this));
+		}
+		// Temporary: prevent multiple adds
+		// Add defaults (if ther wasn't any variation image already added)
+		else if(this.draft.get("attachments")){
+			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
+			$.each(imgs, function(i, image){
+
+				//The image should be excluded
+				//if(streamid && this.draft.checkexclude(streamid, i))
+				if(streamid && this.draft.checkexclude(streamid, image))
+					return true; //Continue
+
+				numimages ++;
+
+			}.bind(this));
+		}
+
+		if(numimages && limitations['picture-url-length'])
+			this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
+		else
+			this.editor.trigger('update:limit', 0, update);
+	},
 	
 	'toggleoption' : function (e)
 	{	
@@ -524,14 +565,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.togglerepeat(options.indexOf("repeat") >= 0);
 
-		// Update content, images and links
-		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
-
 		this.updatesubject();
 
 		this.updateimages();
 
 		this.summarizeschedule();
+
+		this.updatelimitations(stream? stream.id: null)
+
+		// Update content, images and links
+		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
 	},
 
 	'updatesubject' : function()
@@ -562,6 +605,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var files = e.target.files;
 		var draft = this.draft;
 		var self = this;
+
 		for (var i = 0, f; f = files[i]; i++)
 		{
 			// Check type
@@ -573,6 +617,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			{	return function(e)
 				{	
 					self.addimage({type: 'image', data: e.target.result, name: file.name});
+					self.updatelimitations(streamid, true);
+					self.editor.trigger("change:charlength");
 
 			}})(f);
 			
@@ -626,7 +672,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
 		var picturescontainer = this.$el.find("ul.pictures-container").empty();
-		var picturescontainer = this.$el.find("ul.snapshots-container").empty();
+		var snapscontainer = this.$el.find("ul.snapshots-container").empty();
 		var images = [];
 
 		//Add all variation images
@@ -638,16 +684,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				this.listimage(image);
 			}.bind(this));
 		}
-
-		//Add default images that aren't in this stream's exclude list
-		if(this.draft.get("attachments")){
+		// Temporary: prevent multiple adds
+		// Add defaults (if ther wasn't any variation image already added)
+		else if(this.draft.get("attachments")){
 			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
 			$.each(imgs, function(i, image){
 
 				//The image should be excluded
-				if(streamid && this.draft.checkexclude(streamid, i))
+				//if(streamid && this.draft.checkexclude(streamid, i))
+				if(streamid && this.draft.checkexclude(streamid, image))
 					return true; //Continue
-				
+
 				this.summarizeimages(image);
 				this.listimage(image);
 
@@ -705,15 +752,18 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = parseInt(n);
+				attachindex = n;
 				break;
 			}
 		}
 		
 		if(!streamid)
 			attachs.splice(attachindex,1);
-		else
-			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
+		else{
+			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+			this.updatelimitations(streamid, true);
+			this.editor.trigger("change:charlength");
+		}
 
 
 		//Remove from the summary interface
@@ -1323,7 +1373,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		var error;
  
- 		if(error = this.draft.validateCustom('streams'))
+ 		if(error = this.draft.validateCustom(['streams', 'schedule']))
  			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
 		
 		//Disables footer action
@@ -1342,7 +1392,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			update: true
 		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
 
-		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
+		else this.draft.save({status: status}, {success: this.thankyou.bind(this)});
 	},
 	
 	'post' : function()
@@ -1355,7 +1405,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  
 		if(error = this.draft.validateCustom())
  			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
- 		
+
 		//Disables footer action
 		this.disablefooter();
 		
@@ -1402,7 +1452,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
 			checkblock = false;
 
-		if(error = this.draft.validateCustom(checkblock))
+		if(error = this.draft.validateCustom([checkblock]))
  			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
 		
 		//Disables footer action
@@ -1488,13 +1538,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			return this.$el.find('.stream-tabs')[0].scrollWidth > this.$el.find('.stream-tabs').width();
 		else if(this.$el.find('.action-tabs').length)
 			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
-	},
-
-	'checklimitations' : function(type, attributes){
-
-		if(type == 'link'){
-
-		}
 	},
 
 	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },

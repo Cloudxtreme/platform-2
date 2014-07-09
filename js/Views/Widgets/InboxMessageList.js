@@ -63,6 +63,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		this.listenTo(this.collection, 'ready:empty', this.isempty);
 		this.listenTo(this.collection, 'request', this.unsetempty);
 
+		//if(this.listtype == 'notes')
+		this.listenTo(Cloudwalkers.RootView, 'added:note', function(){ this.collection.touch(this.model, this.filterparameters()); }.bind(this));
+
 		//listenToOnce
 		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 	},

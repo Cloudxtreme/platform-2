@@ -53,8 +53,12 @@
 						</div>
 					</form>
 				</div>
+				
 			</div>
 		</div>
+		
+		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role}}</strong></div>
+		
 	</div>
 		
 	<div class="span8">
@@ -69,7 +73,15 @@
 						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" />
 						<label class="control-label">Last Name</label>
 						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" />
-
+						<label class="control-label">Mobile phone</label>
+						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" />
+						<label class="control-label">Language</label>
+						<select name="locale">
+							{{#langs}}
+							<option value="{{id}}">{{name}}</option>
+							{{/langs}}
+						</select>
+						
 						<!--
 						<label class="control-label">Mobile Number</label>
 						<input type="text" placeholder="+1 646 580 DEMO (6284)" class="m-wrap span8" />

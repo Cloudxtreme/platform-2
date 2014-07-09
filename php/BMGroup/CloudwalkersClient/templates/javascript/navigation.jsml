@@ -129,13 +129,13 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
-				<!--<li class="notes">
+				<li class="notes">
 					<a href="#notes">
 						<i class="icon-edit"></i> 
 						<span class="title">Notes</span>
 					</a>
 				</li>
-				-->
+				
 				<!--
 				<li class="calendar">
 					<a href="#calendar">

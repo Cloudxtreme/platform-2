@@ -495,6 +495,81 @@ tbody.messages-container i	{
 
 .dashboardwidget .messages-container li	{ cursor: pointer; }
 
+/* Notes */
+.message-notes{
+	border-top: 1px solid #ddd;
+	display: none;
+}
+
+.message-notes .note-content .modal-header{
+	text-align: center;
+	border-bottom: none;
+}
+
+.message-notes .note-content .modal-header button{
+	display: none;
+}
+
+.message-notes .note-content .modal-body textarea{
+	width: 100%;
+	box-sizing: border-box;
+	height: 100px;
+}
+
+.message-notes ul.note-list,
+.message-notes .note-content{
+	display: none;
+}
+
+.message-notes ul.note-list{
+	padding: 10px;
+	margin-left: 0px;
+}
+
+.message-notes ul.note-list li{
+	-webkit-transition: background 1s ease-out;
+	margin-bottom: 5px;
+	position: relative;
+	list-style: none;
+
+}
+
+.message-notes ul.note-list li.new{
+	background: #2bbedc;
+}
+
+.message-notes ul.note-list li .note-header{
+	cursor: pointer;
+}
+
+.message-notes ul.note-list li .note-header:after{
+	position: absolute; 
+	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
+	width: 100%;
+	left: 0px;
+	top: 2px;
+	height: 30px;
+	padding-top: 10px;
+}
+
+.message-notes ul.note-list li .modal-footer{
+	margin: 10px -11px -11px -11px;
+}
+
+.message-notes ul li .note-body{
+	display: none;
+	margin-top: 20px;
+}
+
+.message-notes ul li .message-actions{
+	padding: 4px 0px;
+	height: 10px;
+}
+
+.message-notes ul li .message-actions .notification-action{
+	z-index: 99;
+}
+
 /*
 .portlet.box .message-view li	{ min-height: 20px; }
 .portlet.box .message-view li.clear	{

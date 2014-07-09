@@ -1,4 +1,4 @@
-	<!-- Add Category -->
+<!-- Add Category -->
 	<div class="portlet box grey addcategory">
 		<div class="portlet-title line">
 			<div class="caption"><i class="icon-plus"></i>{{translate_add_category}}</div>
@@ -9,15 +9,15 @@
 		<div class="portlet-body">
 			<form data-add-category="1">
 				<label for="category_create_name">{{translate_name}}:</label>
-				
+
 				<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
 				<button class="btn blue span4 pull-right" type="submit">{{translate_create}}</button>
-				
+
 			</form>
 		</div>
 	</div>
 	<!-- end Add Category -->
-	
+
 	<!-- Manage keyword -->
 	<div class="portlet box blue managekeyword">
 		<div class="portlet-title line add-keyword">
@@ -32,10 +32,10 @@
 				<i class="icon-cloud-upload" style="display: none;"></i>
 			</div>
 		</div>
-		
+
 		<div class="portlet-body manage-keyword">
 			<form data-keyword="true">
-				
+
 				<label for="keyword_manage_category">{{translate_category}}:</label>
 				<select id="keyword_manage_category">
 					<option value="0">{{translate_select_category}}</option>
@@ -43,11 +43,11 @@
 						<option value="{{id}}">{{attributes.name}}</option>
 					{{/categories}}
 				</select>
-				
+
 				<label for="keyword_manage_name">{{translate_name}}:</label>
-				<input type="text" value="" placeholder="keyword name" id="keyword_manage_name" name="name" class="m-wrap span12" />
+				<input type="text" value="" placeholder="{{translate_keyword_name}}" id="keyword_manage_name" name="name" class="m-wrap span12" />
 				<br><br>
-				
+
 				<labl>{{translate_finetune}}</labl>
 				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />-->
 				<!--deprecated-->
@@ -63,7 +63,7 @@
 						<button class="btn span6" data-keyword-filter="filter-countries">{{translate_countries}}</button>
 					</span>
 					<br><br><br>
-					
+
 					<div class="keyword-filter inactive" data-keyword-filter="filter-include">
 						<label for="filter_include"><i class='icon-filter'></i> {{translate_include}} <small> {{translate_use_comma_separated_words}}</small></label>
 						<input type="text" value="" id="filter_include" name="name" class="m-wrap span12" /> 
@@ -90,19 +90,19 @@
 					</div>
 				</div>
 				<!--end deprecated-->
-				
+
 				<button class="btn blue add-keyword">{{translate_create}}</button>
 				<button class="btn blue update-keyword edit-keyword inactive">{{translate_update}}</button>
-				
+
 				<button class="btn cancel-edit-keyword edit-keyword inactive">{{translate_cancel}}</button>
-				
+
 			</form>
 		</div>
 	</div>
-	
+
 	<!--
 	<div class="well">
-		
+
 		<style type="text/css">
 			.op{color:#ffa500;font-variant:small-caps}
 			.field{color:green;font-variant:small-caps}
@@ -110,7 +110,7 @@
 			.quickhelp{list-style: none; margin-left: 0;}
 			.quickhelp li{padding: 5px 0;}
 		</style>
-		
+
 		<h4>Quick help</h4>
 		Define the keyword formula in human readable text:
 
@@ -142,5 +142,5 @@
 			</li>
 		</ul>
 	</div>-->
-	
+
 	<!-- end Manage keyword -->

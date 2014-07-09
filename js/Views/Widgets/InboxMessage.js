@@ -37,7 +37,10 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
-		if(this.notes)	this.loadnoteui();
+		// Add notes interface to the message
+		// <!-- NOTES_ROLE -->
+		//if(this.parameters.notes)
+		this.loadnoteui();
 		
 		this.time();
 		

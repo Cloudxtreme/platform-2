@@ -16,6 +16,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'limit' : null,
 	'content' : '',
 	'charlength' : 0,
+	'contentlimitation' : 0,
 	'pos' : 0,
 	'urls' : {},
 
@@ -77,6 +78,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.on("change:editor", this.listentochange);
 		this.on("paste:content", this.listentopaste);
 		this.on("blur:content", this.endchange);
+
+		this.on('update:limit', this.updatelimit)
 		//this.on("change:charlength", this.greyout);
 		
 
@@ -169,8 +172,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				this.processurls(newurls);
 
 			// Check for charlimit
-			if (this.charlength != this.$contenteditable.text().length)
-				this.trigger("change:charlength");
+			//if (this.charlength != this.$contenteditable.text().length)
+			//	this.trigger("change:charlength");
 		}
 		
 		// Content
@@ -182,7 +185,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.isdefault = false;
 		}
 
-		//this.trigger('change:content', this.content);
+		this.trigger("change:charlength");
 
 		if(reload)	this.clearselections();
 	},
@@ -506,7 +509,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		//We don't need any further processing
 		if(!this.limit)	return;
-
+		
 		// Update counter
 		var extrachars = this.limit - this.charlength;
 		this.updatecounter(extrachars);
@@ -516,6 +519,24 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		//	this.greyout(extrachars);	
 				
 	},
+
+	'updatecounter' : function(chars){
+		var limit = this.$el.find('.limit-counter');
+		
+		if(chars >= 20) limit.removeClass().addClass('limit-counter');
+		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
+		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
+			
+		limit.empty().html(chars);
+	},
+
+	'updatelimit' : function(extrachars, update)
+	{	
+		this.contentlimitation = extrachars;
+
+		if(update)
+			this.limit = this.restrictedstreams[this.network]? this.restrictedstreams[this.network] - this.contentlimitation: null;	
+	},	
 
 	/* Charlimit functions */	
 
@@ -614,16 +635,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		var range = this.document.createRange();
 	},*/
 
-	'updatecounter' : function(chars){
-		var limit = this.$el.find('.limit-counter');
-		
-		if(chars >= 20) limit.removeClass().addClass('limit-counter');
-		if(chars < 20)	limit.removeClass().addClass('limit-counter').addClass('color-notice');
-		if(chars < 0)	limit.removeClass().addClass('limit-counter').addClass('color-warning');
-			
-		limit.empty().html(chars);
-	},
-
 	'removegrey' : function(collapse){
 
 		var sel = this.win.getSelection();
@@ -720,8 +731,6 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'togglecontent' : function(data, setdefault)
 	{	
-		
-		
 		if(data){
 			var stream = _.isNumber(data.id) ? data.id : null;
 			var val = _.isObject(data.data) ? data.data.html : null;
@@ -743,7 +752,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 			this.$contenteditable.removeClass("withdefault");
 		}
 
-		this.limit = this.restrictedstreams[this.network];
+		this.limit = this.restrictedstreams[this.network]? this.restrictedstreams[this.network] - this.contentlimitation: null;
 		
 		//this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
 		this.removegrey(true);
