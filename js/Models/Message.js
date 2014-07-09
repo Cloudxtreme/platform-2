@@ -484,7 +484,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var variation = this.getvariation(streamid);
 		var attachments = variation? variation.attachments : [];
 
-		if(_.isObject(image)){	// It's a default iamge
+		if(_.isNumber(image)){	// It's a default iamge
 			this.addexclude(streamid, image)			
 		}else{					// It's a variation image
 			for(n in attachments){
@@ -494,18 +494,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'addexclude' : function(streamid, image){
+	'addexclude' : function(streamid, index){
 
 		var variation = this.getvariation(streamid) || this.setvariation(streamid);;
 		var excludes = variation.excludes;
 
 		if(variation.excludes)
-			variation.excludes.push(image);
+			variation.excludes.push(index);
 		else
-			variation.excludes = [image];
+			variation.excludes = [index];
 	},
 
-	'checkexclude' : function(streamid, image){
+	'checkexclude' : function(streamid, index){
 
 		var variation = this.getvariation(streamid);
 		var excludes;
@@ -515,7 +515,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		if(excludes){
 			for(n in excludes){
-				if(excludes[n].name == image.name)
+				if(excludes[n] == index)
 					return true;
 			}
 		}
