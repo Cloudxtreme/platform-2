@@ -42,9 +42,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
-		// Add notes interface to the message
-		if(this.parameters.notes)	this.loadnoteui();
-		
 		if(this.$el.find("[data-date]")) this.time();
 		
 		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
