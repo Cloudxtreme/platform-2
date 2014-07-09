@@ -226,6 +226,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Translate array
 		this.original  = [
 			"clean",
+			"support",
 			"profile_settings",
 			"log_out"
 		];
