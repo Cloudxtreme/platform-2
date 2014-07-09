@@ -500,9 +500,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var excludes = variation.excludes;
 
 		if(variation.excludes)
-			variation.excludes.push(index);
+			variation.excludes.attachments.push(index);
 		else
-			variation.excludes = [index];
+			variation.excludes = {attachments : [index]};
 	},
 
 	'checkexclude' : function(streamid, index){
@@ -514,8 +514,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		else			excludes = variation.excludes;
 
 		if(excludes){
-			for(n in excludes){
-				if(excludes[n] == index)
+			for(n in excludes.attachments){
+				if(excludes.attachments[n] == index)
 					return true;
 			}
 		}

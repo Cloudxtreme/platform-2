@@ -772,7 +772,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				$.each(this.draft.get("variations"), function(n, variation)
 				{
 					if(variation.excludes)
-						variation.excludes = _.difference(variation.excludes, [attachindex])
+						variation.excludes.attachments = _.difference(variation.excludes.attachments, [attachindex])
 				});				
 			}
 		}
