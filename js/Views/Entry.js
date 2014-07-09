@@ -59,10 +59,13 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}else if(token == 'note-edit'){
 			this.editnote();
 		}else if(token == 'viewcontact'){
-			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null
 
-			if(contact)
-				Cloudwalkers.RootView.viewContact({model: contact});
+			//We are inside viewcontact modal
+			if(this.parent)	return;
+
+			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
+			if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
+			
 		}else
 			this.model.trigger("action", token);
 
