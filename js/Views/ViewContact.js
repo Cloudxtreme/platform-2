@@ -153,6 +153,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 				response[this.typestring][n].set("icon", this.contactinfo.network? this.contactinfo.network.icon: null);
 				response[this.typestring][n].set("networkdescription", this.contactinfo.network? this.contactinfo.network.name: null);
+				response[this.typestring][n].set("networktoken", this.contactinfo.network? this.contactinfo.network.token: null);
 			}	
 		}
 
