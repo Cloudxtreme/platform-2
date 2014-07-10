@@ -215,6 +215,20 @@ Style corrections and manual overrides
 }
 
 /**
+ *	Canned
+**/
+#compose [data-type=canned] input{
+	width: inherit;
+	height: inherit;
+	border: none;
+	box-shadow: none;
+}
+
+#compose [data-type=canned] .alert{
+	padding-left: 35px !important;
+}
+
+/**
  *	Collapseble options
 **/
 

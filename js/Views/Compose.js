@@ -45,9 +45,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'mobile-phone':	["editor","schedule","repeat"],
 		
 		// Actions
-		'comment' : ["editor"],
-		'reply' : 	["editor"],
-		'dm' : 		["editor"],
+		'comment' : ["editor", "canned"],
+		'reply' : 	["editor", "canned"],
+		'dm' : 		["editor", "canned"],
 		'retweet' : ["icon"],
 		'like' : 	["icon"],
 		'favorite' :["icon"],
@@ -129,7 +129,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft.attributes.variations = [];
 			
 		} else if(this.action && this.reference)
-		{
+		{	
 			// Get action dynamics
 			this.action.parent = this.reference;
 			this.actionstreams = [];
@@ -254,6 +254,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			actionview: this.actionview? this.type: false,
 		};
 
+
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
 
@@ -280,6 +281,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
+		this.$el.find(".canned-list").chosen({width: "100%"});
 		
 		// Add Datepicker
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
@@ -549,6 +551,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Editor
 		if (options.indexOf("editor") >= 0)		this.$el.find("#editor.hidden").removeClass("hidden");
 		else									this.$el.find("#editor").addClass("hidden");
+
+		// Icon
+		if (options.indexOf("canned") >= 0)		this.$el.find("[data-type=canned]").removeClass("hidden");
+		else									this.$el.find("[data-type=canned]").addClass("hidden");
 		
 		// Full Body
 		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
@@ -1458,6 +1464,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamids = [];
 		var checkblock = 'content';
 		var error;
+		var params;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
@@ -1474,9 +1481,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		//Disables footer action
 		this.disablefooter();
-		
+
+		// Canned respose
+		if(this.$el.find("[data-type=canned] input").is(':checked'))
+			params = {canned: 1}
+
 		// Create & Save
-		var postaction = this.reference.actions.create({streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
+		var postaction = this.reference.actions.create({parameters: params? params: null, streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},

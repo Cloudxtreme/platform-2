@@ -41,6 +41,24 @@
 			</div>
 			
 		</section>
+
+		<section data-type="canned">
+
+			<div class="collapsable-content">
+				<select class="canned-list">
+					<option value="0">Select a macro response</option>
+					{{#canned}}
+						<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+					{{/canned}}
+				</select>
+			</div>
+
+			<div class="alert alert-info">
+				<label class="checkbox">
+		      		<input type="checkbox">Save this response as a macro.
+		    	</label>
+			</div>	
+		</section>
 		
 		<section data-type="icon">
 			<i  data-action="{{actionview}}" class="icon-cloud"></i>			
