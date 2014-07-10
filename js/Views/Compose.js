@@ -226,6 +226,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				if(variation.schedule && variation.schedule.repeat && variation.schedule.repeat.until)
 					variation.schedule.repeat.until = moment(variation.schedule.repeat.until).unix();
+
+				//Hack to force only one image
+				if(variation.attachments && variation.attachments.length)
+					variation.attachments = [variation.attachments.pop()]
+				
 			})
 		}
 
@@ -374,7 +379,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				//The image should be excluded
 				//if(streamid && this.draft.checkexclude(streamid, i))
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 
 				numimages ++;
@@ -383,7 +388,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 
 		if(numimages && limitations['picture-url-length'])
-			this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
+			this.editor.trigger('update:limit', limitations['picture-url-length'].limit, update); //Hack for only 1 image max
+			//this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
 		else
 			this.editor.trigger('update:limit', 0, update);
 	},
@@ -506,7 +512,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft, this.draft.get("variations"));
+	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
@@ -676,7 +682,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var images = [];
 
 		//Add all variation images
-		if(streamid && this.draft.getvariation(streamid,'image')){
+		if(streamid && this.draft.getvariation(streamid,'image') && this.draft.getvariation(streamid,'image').length){
 			var imgs = this.draft.getvariation(streamid, 'image');
 			
 			$.each(imgs, function(i, image){
@@ -692,7 +698,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				//The image should be excluded
 				//if(streamid && this.draft.checkexclude(streamid, i))
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 
 				this.summarizeimages(image);
@@ -752,15 +758,26 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = n;
+				attachindex = parseInt(n);
 				break;
 			}
 		}
 		
-		if(!streamid)
+		if(!streamid){
 			attachs.splice(attachindex,1);
+
+			//Remove this entry from all variations's exclude list
+			if(this.draft.get("variations"))
+			{
+				$.each(this.draft.get("variations"), function(n, variation)
+				{
+					if(variation.excludes)
+						variation.excludes.attachments = _.difference(variation.excludes.attachments, [attachindex])
+				});				
+			}
+		}
 		else{
-			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
 			this.updatelimitations(streamid, true);
 			this.editor.trigger("change:charlength");
 		}
@@ -1696,4 +1713,4 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
-*/
+*/	
