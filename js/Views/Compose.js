@@ -1482,12 +1482,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.type == "edit")
 		{
 			var varn;
-			/*if(varn = this.draft.get("variations")) varn.forEach(function(el)
+			
+			if(varn = this.draft.get("variations")) varn.forEach(function(el)
 			{
-				if(el.id) console.log(el.id, el, Cloudwalkers.Session.getStream(el.id));
+				if(el.id) 
+				{
+					Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
+				}
 			});
 			
-			else */ this.model.fetch();	
+			else this.model.fetch();	
 		}
 		
 		if(this.type == "post") Cloudwalkers.RootView.trigger("added:message", this.draft);
