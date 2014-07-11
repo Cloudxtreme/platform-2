@@ -1,7 +1,28 @@
 <div class="tab-pane row-fluid settings-account active">
 
-	<div class="span4">
-	
+	<div class="span8">
+
+		<div style="height: auto;">
+			
+			<h3>{{translate_account}}</h3>
+			
+			<form action="javascript:void(0);">
+				<label class="control-label">{{translate_name}}</label>
+				<input data-attribute="account-name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
+
+				<div class="submit-btn">
+					<button type="submit" data-action="editaccount" class="btn green edit-account">{{translate_save_changes}}</button>
+					<button type="reset" data-action="reseetaccount" class="btn">{{translate_cancel}}</button>
+				</div>
+			</form>
+		</div>
+
+		<br><br>
+
+		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
+
+		<br><br>
+
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
@@ -29,25 +50,39 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
-	
+
+		<br><br>
+
+
+		<form action="javascript:void(0);"">
+			<label class="control-label">Twitter: New follower response</label>
+			<textarea name="name" placeholder="{{translate_company_name}}" class="m-wrap" value="{{name}}" id="twitterfollow"></textarea>
+
+			<div class="submit-btn">
+				<button type="submit" data-action="savetwitterfollow" class="btn green edit-account">{{translate_save_changes}}</button>
+				<button type="reset" data-action="resettwitterfollow" class="btn">{{translate_cancel}}</button>
+			</div>
+		</form>
+
+		<br><br>
+
+		<form action="javascript:void(0);">
+			<label class="control-label">DM: Out of office response</label>
+			<textarea name="name" placeholder="{{translate_company_name}}" class="m-wrap" value="{{name}}" id="dmout"></textarea>
+
+			<div class="submit-btn">
+				<button type="submit" data-action="savedmout" class="btn green edit-account">{{translate_save_changes}}</button>
+				<button type="reset" data-action="resetdmout" class="btn">{{translate_cancel}}</button>
+			</div>
+		</form>
+
 	</div>
 
-	<div class="span8">
-		<div style="height: auto;">
-			
-			<h3>{{translate_account}}</h3>
-			
-			<form action="javascript:void(0);" class="edit-account">
-				<label class="control-label">{{translate_name}}</label>
-				<input name="name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
-
-				<div class="submit-btn">
-					<button type="submit" class="btn green edit-account">{{translate_save_changes}}</button>
-					<button type="reset" class="btn">{{translate_cancel}}</button>
-				</div>
-			</form>
-		</div>
+	<div class="span4">
+		<ul>
+			<li><a href="#">Basic</a></li>
+			<li><a href="#">Manage Campaigns</a></li>
+			<li><a href="#">Manage Auto responders</a></li>
+		</ul>
 	</div>
 </div>

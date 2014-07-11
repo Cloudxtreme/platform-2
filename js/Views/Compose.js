@@ -45,9 +45,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'mobile-phone':	["editor","schedule","repeat"],
 		
 		// Actions
-		'comment' : ["editor"],
-		'reply' : 	["editor"],
-		'dm' : 		["editor"],
+		'comment' : ["editor", "canned"],
+		'reply' : 	["editor", "canned"],
+		'dm' : 		["editor", "canned"],
 		'retweet' : ["icon"],
 		'like' : 	["icon"],
 		'favorite' :["icon"],
@@ -129,7 +129,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft.attributes.variations = [];
 			
 		} else if(this.action && this.reference)
-		{
+		{	
 			// Get action dynamics
 			this.action.parent = this.reference;
 			this.actionstreams = [];
@@ -226,6 +226,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				if(variation.schedule && variation.schedule.repeat && variation.schedule.repeat.until)
 					variation.schedule.repeat.until = moment(variation.schedule.repeat.until).unix();
+
+				//Hack to force only one image
+				if(variation.attachments && variation.attachments.length)
+					variation.attachments = [variation.attachments.pop()]
+				
 			})
 		}
 
@@ -248,6 +253,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
 			actionview: this.actionview? this.type: false,
 		};
+
 
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
@@ -275,6 +281,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
+		this.$el.find(".canned-list").chosen({width: "100%"});
 		
 		// Add Datepicker
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
@@ -374,7 +381,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				//The image should be excluded
 				//if(streamid && this.draft.checkexclude(streamid, i))
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 
 				numimages ++;
@@ -383,7 +390,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 
 		if(numimages && limitations['picture-url-length'])
-			this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
+			this.editor.trigger('update:limit', limitations['picture-url-length'].limit, update); //Hack for only 1 image max
+			//this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
 		else
 			this.editor.trigger('update:limit', 0, update);
 	},
@@ -506,7 +514,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft, this.draft.get("variations"));
+	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
@@ -543,6 +551,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Editor
 		if (options.indexOf("editor") >= 0)		this.$el.find("#editor.hidden").removeClass("hidden");
 		else									this.$el.find("#editor").addClass("hidden");
+
+		// Icon
+		if (options.indexOf("canned") >= 0)		this.$el.find("[data-type=canned]").removeClass("hidden");
+		else									this.$el.find("[data-type=canned]").addClass("hidden");
 		
 		// Full Body
 		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
@@ -676,7 +688,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var images = [];
 
 		//Add all variation images
-		if(streamid && this.draft.getvariation(streamid,'image')){
+		if(streamid && this.draft.getvariation(streamid,'image') && this.draft.getvariation(streamid,'image').length){
 			var imgs = this.draft.getvariation(streamid, 'image');
 			
 			$.each(imgs, function(i, image){
@@ -692,7 +704,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 				//The image should be excluded
 				//if(streamid && this.draft.checkexclude(streamid, i))
-				if(streamid && this.draft.checkexclude(streamid, image))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
 
 				this.summarizeimages(image);
@@ -752,15 +764,26 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = n;
+				attachindex = parseInt(n);
 				break;
 			}
 		}
 		
-		if(!streamid)
+		if(!streamid){
 			attachs.splice(attachindex,1);
+
+			//Remove this entry from all variations's exclude list
+			if(this.draft.get("variations"))
+			{
+				$.each(this.draft.get("variations"), function(n, variation)
+				{
+					if(variation.excludes)
+						variation.excludes.attachments = _.difference(variation.excludes.attachments, [attachindex])
+				});				
+			}
+		}
 		else{
-			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
 			this.updatelimitations(streamid, true);
 			this.editor.trigger("change:charlength");
 		}
@@ -1441,6 +1464,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamids = [];
 		var checkblock = 'content';
 		var error;
+		var params;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
@@ -1457,9 +1481,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		//Disables footer action
 		this.disablefooter();
-		
+
+		// Canned respose
+		if(this.$el.find("[data-type=canned] input").is(':checked'))
+			params = {canned: 1}
+
 		// Create & Save
-		var postaction = this.reference.actions.create({streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
+		var postaction = this.reference.actions.create({parameters: params? params: null, streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
@@ -1696,4 +1724,4 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
-*/
+*/	

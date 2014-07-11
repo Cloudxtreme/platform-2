@@ -127,7 +127,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{
 		//this.$container.addClass("inner-loading");
 		
-		$(".inbox").addClass("loading");
+		this.$el.find(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
 	},
@@ -138,7 +138,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			//this.$el.find(".load-more").show();
 			this.hasmore = true;
 
-		$(".inbox").removeClass("loading");
+		this.$el.find(".inbox").removeClass("loading");
 		
 		this.$container.removeClass("inner-loading");
 	},
@@ -211,19 +211,19 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		var toggle = button.data("toggle");
 		var selected = button.hasClass("selected");
 		
-		$("[data-toggle].selected").removeClass("selected");
-		$("[id^=filter_]").addClass("hidden");
+		this.$el.find("[data-toggle].selected").removeClass("selected");
+		this.$el.find("[id^=filter_]").addClass("hidden");
 		
 		if(!selected)
 		{
 			button.addClass("selected");
-			$("#filter_" + toggle).removeClass("hidden");
+			this.$el.find("#filter_" + toggle).removeClass("hidden");
 		}
 	},
 	
 	'comparesuggestions' : function (iscontact)
 	{
-		var string = $("#filter_contacts input").val();
+		var string = this.$el.find("#filter_contacts input").val();
 		
 		if(!string) return this.hidesuggestions();
 		else string = string.toLowerCase();
@@ -421,7 +421,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = {records: 20, group: 1};
+		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
@@ -479,11 +479,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'isempty' : function(){		
-		$(".inbox-container").empty().addClass('empty-content');
+		this.$el.find(".inbox-container").empty().addClass('empty-content');
 	},
 
 	'unsetempty' : function(){
-		$(".inbox-container").removeClass('empty-content');
+		this.$el.find(".inbox-container").removeClass('empty-content');
 	},
 
 	'translateString' : function(translatedata)

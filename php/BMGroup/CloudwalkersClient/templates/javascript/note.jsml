@@ -8,7 +8,7 @@
 		
 		<img class="avatar" alt="" src="{{avatar}}">
 		<div>
-			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<a>{{displayname}}</a>
 			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
 			<br /><em>{{email}} </em>
 		</div>
@@ -21,10 +21,5 @@
 	
 	{{{text}}}
 	
-</div>
-
-<div class="message-actions toggle-note-actions">
-	<div class="btn-white" data-action="note-edit"><i class="icon-edit"></i></div>
-	<div class="btn-white" data-action="delete"><i class="icon-remove"></i></div>
 </div>
 

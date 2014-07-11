@@ -3,7 +3,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'id' : "compose",
 	'className' : "modal hide viewcontact",
 	'entries' : [],
-	'contactid' : 1583880,	//temp
+	//'contactid' : 1583880,	//temp
 
 	'events' : {
 		'click .end-preview td i' : 'backtolist',
@@ -93,7 +93,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		{	
 			message = messages[n];
 			message.attributes.arrow = 'arrow';
-			view = new Cloudwalkers.Views.Entry ({model: message, template: template, checkunread: true, parameters:{inboxview: true, notes: true}});
+			view = new Cloudwalkers.Views.Entry ({model: message, template: template, checkunread: true, parameters:{inboxview: true, parent: this}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.loadmessage);
@@ -132,6 +132,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.model.urlparams = ['messages'];
 		this.collection.url = this.model.url();
 		this.collection.parenttype = 'contact';
+		this.collection.contactinfo = this.contactinfo;
 		this.collection.parse = this.parse;
 
 		this.collection.fetch({success: this.seed.bind(this)});
@@ -149,7 +150,15 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 				response[this.typestring][n] = new Cloudwalkers.Models.Message(response[this.typestring][n])
 				response[this.typestring][n].generateintro();
-				response[this.typestring][n].set("read",1); //Force read UI					
+				response[this.typestring][n].set("read",1); //Force read UI	
+
+				response[this.typestring][n].set("fulldate", 
+					moment(response[this.typestring][n].get("date")).format("DD MMM YYYY HH:mm")
+				);
+
+				response[this.typestring][n].set("icon", this.contactinfo.network? this.contactinfo.network.icon: null);
+				response[this.typestring][n].set("networkdescription", this.contactinfo.network? this.contactinfo.network.name: null);
+				response[this.typestring][n].set("networktoken", this.contactinfo.network? this.contactinfo.network.token: null);
 			}	
 		}
 
@@ -198,6 +207,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			}.bind(this), 1)
 
 			this.hascontactinfo = true;
+			this.contactinfo = contactinfo;
 		}
 	},
 
@@ -239,13 +249,13 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'loadmessage' : function(view)
 	{	
-		var options = {model: view.model, notes: view.model.id? true: false};
+		var options = {model: view.model, notes: view.model.id? true: false, parent: this};
 		if (this.type == 'note')	options.template = 'note';		
 
 		$('.viewcontact').addClass('onmessage');
 
 		//Update loader placing
-		this.$loadercontainer = $('.inbox-container')
+		this.$loadercontainer = this.$el.find('.inbox-container')
 
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
@@ -254,7 +264,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(this.type && this.type != 'messages')
 			this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
 		
-		$(".inbox-container").html(this.inboxmessage.render().el);
+		this.$el.find(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
 		if(this.type && this.type == 'conversation')
@@ -269,11 +279,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	},
 
 	'backtolist' : function()
-	{
+	{	
 		$('.viewcontact').removeClass('onmessage');
 
 		//Update loader placing
-		this.$loadercontainer = $('ul.list');
+		this.$loadercontainer = this.$el.find('ul.list');
 	},
 
 	'togglecontactnote' : function()
@@ -281,10 +291,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if($('.viewcontact').hasClass('writenote')){
 			$('.viewcontact').removeClass('writenote');
 			 setTimeout(function(){
-			 	$('.contactbottom').slideDown('fast');
-			}, 100)
+			 	this.$el.find('.contactbottom').slideDown('fast');
+			}.bind(this), 100)
 		}else{			 
-			$('.contactbottom').slideUp('fast');
+			this.$el.find('.contactbottom').slideUp('fast');
 			setTimeout(function(){
 				$('.viewcontact').addClass('writenote');
 			}, 100)			
@@ -297,6 +307,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		var param = {records: 20, contacts: this.contactid};
 		return param;
 	},
+
 	'action' : function (element)
 	{
 		// Action token
@@ -380,5 +391,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
+
+	},
+	'updatecontact' : function()
+	{
+
+
 	}
 });

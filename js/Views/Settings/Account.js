@@ -1,14 +1,22 @@
 Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
-		'submit .edit-account' : 'editAccount',
-		'click i[data-delete-campaign-id]' : 'deleteCampaign'
+		'click *[data-action]' : 'action',
+		'click i[data-delete-campaign-id]' : 'deletecampaign'
+	},
+
+	'initialize' : function()
+	{
+		this.streams = Cloudwalkers.Session.getStreams();
+		this.streams = this.streams.filterNetworks();
+		
+		this.triggermodel = {};
 	},
 
 	'render' : function ()
-	{
-		
+	{		
 		var data = Cloudwalkers.Session.getAccount().attributes;
+		this.account = Cloudwalkers.Session.getAccount ();
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -20,16 +28,46 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 		return this;
 	},
-	
-	'editAccount' : function (e)
+
+	'action' : function(e)
 	{
-		var account = Cloudwalkers.Session.getAccount ();
-		var name = this.$el.find ('[name=name]').val ();
-		
-		account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
+		// Action token
+		var token = $(e.currentTarget).data ('action');
+
+		this[token](e);
 	},
 	
-	'deleteCampaign' : function (e)
+	'editaccount' : function (e)
+	{
+		var name = this.$el.find ('[data-attribute=account-name]').val ();
+		
+		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
+	},
+
+	'savetwitterfollow' : function (e)
+	{
+		this.triggermodel.event = "CONTACT-NEW";
+		this.triggermodel.actions = [{action: "REPLY", message: this.$el.find('#twitterfollow').val()}]
+		this.triggermodel.streams = this.streams['twitter']? this.streams['twitter'].ids: null;
+
+		var trigger = new Cloudwalkers.Models.Trigger(this.triggermodel);
+		trigger.parent = this.account;
+
+		trigger.save();
+	},
+
+	'savedmout' : function (e)
+	{
+		this.triggermodel.event = "MESSAGE-RECEIVED";
+		this.triggermodel.actions = [{action: "REPLY", message: this.$el.find('#dmout').val()}]
+
+		var trigger = new Cloudwalkers.Models.Trigger(this.triggermodel);
+		trigger.parent = this.account;
+
+		trigger.save();
+	},
+	
+	'deletecampaign' : function (e)
 	{
 		//var account = Cloudwalkers.Session.getAccount();
 		var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));

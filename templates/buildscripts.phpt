@@ -34,6 +34,7 @@
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
 <script type="text/javascript" src="/js/Models/Network.js"></script>
 <script type="text/javascript" src="/js/Models/Polyglot.js"></script>
+<script type="text/javascript" src="/js/Models/Trigger.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
