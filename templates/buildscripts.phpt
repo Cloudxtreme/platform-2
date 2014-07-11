@@ -27,6 +27,7 @@
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
+<script type="text/javascript" src="/js/Models/CannedResponse.js"></script>
 <script type="text/javascript" src="/js/Models/Notification.js"></script>
 <script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
@@ -45,11 +46,13 @@
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
+<script type="text/javascript" src="/js/Collections/CannedResponses.js"></script>
 <script type="text/javascript" src="/js/Collections/Related.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
+<script type="text/javascript" src="/js/Collections/Triggers.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Loader.js"></script>
@@ -163,4 +166,5 @@
 <script type="text/javascript" src="/js/Views/Settings/UserDetails.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>

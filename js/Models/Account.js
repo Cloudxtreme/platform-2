@@ -27,6 +27,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		// Prep global Messages collection
 		this.messages = new Cloudwalkers.Collections.Messages();
 
+		// Prep global Canned Responses collection
+		this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
+
 		// Prep global Notes collection
 		this.notes = new Cloudwalkers.Collections.Notes();
 
@@ -90,6 +93,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		
 		// Load Messages
 		Store.filter("messages", null, function(list){ this.messages.add(list); }.bind(this));
+
+		// Load Canned Responses
+		Store.filter("cannedresponses", null, function(list){ this.cannedresponses.add(list); }.bind(this));
 		
 		// Load Statistics
 		Store.filter("statistics", null, function(list){ this.statistics.add(list); }.bind(this));

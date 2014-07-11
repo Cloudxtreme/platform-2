@@ -78,6 +78,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'blur [data-collapsable=link] input' : 'listentolink',
 		
 		'change select.campaign-list' : 'listentocampaign',
+		'change select.canned-list' : 'listentocanned',
 		'blur .campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
@@ -153,7 +154,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Draft message
 		if(!this.draft)
-		{
+		{	
 			// The draft message
 			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
 			// Listen to validation
@@ -172,9 +173,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.censurecompose();
 
 		// Translate Titles
-		this.translateTitles();
-
-		
+		this.translateTitles();	
 	},
 
 	'censurecompose' : function()
@@ -245,16 +244,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		// Collect data
 		var params ={
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
+			canned: 	this.fetchcanned(),
 			actionview: this.actionview? this.type: false,
 		};
-
-
+		
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
 
@@ -1362,6 +1361,45 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
+	/**
+	 *	Canned
+	**/
+
+	'fetchcanned' : function()
+	{		
+		if(!this.options[this.type].indexOf('canned')) 			return null;
+		if(Cloudwalkers.Session.getCannedResponses().touched)	return Cloudwalkers.Session.getCannedResponses().models;
+		
+		// Fetch once
+		var canned = new Cloudwalkers.Collections.CannedResponses();
+		canned.fetch();
+		Cloudwalkers.Session.getCannedResponses().touched = true;
+
+		this.listenTo(canned, 'sync', this.rendercanned);
+	},
+
+	'rendercanned' : function(canned)
+	{	
+		this.$el.find("[data-type=canned] .collapsable-content").html(Mustache.render(Templates.cannedresponsesdrop, {canned: canned.models}));
+		this.$el.find(".canned-list").chosen({width: "100%"});
+	},
+	
+	'listentocanned' : function (e)
+	{
+		// Message id
+		var result = $(e.currentTarget).val();
+		var cannedtext = $(".chosen-single > span").get(0).textContent;
+
+		if(result != 0){
+			var canned = Cloudwalkers.Session.getCannedResponses();
+			var response = canned.models.filter(function(el){ if(el.id == result) return el; });
+			var responsehtml = response[0]? response[0].get("body").html: null;
+
+			if(responsehtml)
+				this.trigger("replace:content", responsehtml)
+		}
+	},
+
 	
 	/**
 	 *	Finalize
@@ -1487,12 +1525,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			params = {canned: 1}
 
 		// Create & Save
-		var postaction = this.reference.actions.create({parameters: params? params: null, streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
+		var postaction = this.reference.actions.create({
+			parameters: params? params: null, 
+			streams: streamids, 
+			message: this.draft.get("body").html, 
+			actiontype: this.type
+			}, 
+			{success: this.thankyou.bind(this, params.canned)}
+		);
+
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function()
+	'thankyou' : function(canned, model)
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1518,7 +1564,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			else */ this.model.fetch();	
 		}
 		
-		if(this.type == "post") Cloudwalkers.RootView.trigger("added:message", this.draft);
+		if(this.type == "post")
+			Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+		// A canned response was posted
+		if(canned)
+			console.log(this.draft)
 		
 	},
 

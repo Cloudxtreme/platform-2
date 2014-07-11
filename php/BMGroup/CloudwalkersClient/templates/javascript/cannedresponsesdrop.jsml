@@ -1,0 +1,7 @@
+
+	<select class="canned-list">
+		<option value="0">Select a macro response</option>
+		{{#canned}}
+			<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{attributes.body.plaintext}}</option>
+		{{/canned}}
+	</select>

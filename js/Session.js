@@ -339,6 +339,22 @@ Cloudwalkers.Session =
 	{
 		return this.user.account.messages;
 	},
+
+	/**
+	 *	Messages shortcut functions
+	 **/
+	
+	'getCannedResponse' : function (id)
+	{
+		return this.user.account.cannedresponses.get(id);
+	},
+	
+
+	'getCannedResponses' : function ()
+	{
+		return this.user.account.cannedresponses;
+	},
+	
 	
 	/**
 	 *	Notifications shortcut functions

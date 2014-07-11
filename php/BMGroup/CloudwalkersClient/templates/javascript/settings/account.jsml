@@ -17,12 +17,11 @@
 			</form>
 		</div>
 
-		<br><br>
-
 		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
 
-		<br><br>
+		<div class="separator"></div>
 
+		<h3>Campaigns</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
@@ -51,38 +50,48 @@
 			</div>
 		</div>
 
-		<br><br>
+		<div class="separator"></div>
 
+		<h3>Triggers</h3>
+		<div id="triggerlist">
+			<form action="javascript:void(0);"">
+				<label class="control-label">Twitter: New follower response</label>
+				<textarea name="name" placeholder="Loading..." class="m-wrap" value="{{name}}" id="twitterfollow"></textarea>
 
-		<form action="javascript:void(0);"">
-			<label class="control-label">Twitter: New follower response</label>
-			<textarea name="name" placeholder="{{translate_company_name}}" class="m-wrap" value="{{name}}" id="twitterfollow"></textarea>
+				<div class="submit-btn">
+					<button type="submit" data-action="savetwitterfollow" class="btn green edit-account">{{translate_save_changes}}</button>
+					<button type="reset" data-action="resettwitterfollow" class="btn">Reset</button>
+				</div>
+			</form>
 
-			<div class="submit-btn">
-				<button type="submit" data-action="savetwitterfollow" class="btn green edit-account">{{translate_save_changes}}</button>
-				<button type="reset" data-action="resettwitterfollow" class="btn">{{translate_cancel}}</button>
-			</div>
-		</form>
+			<br><br>
 
-		<br><br>
+			<form action="javascript:void(0);">
+				<label class="control-label">DM: Out of office response</label>
+				<textarea name="name" placeholder="Loading..." class="m-wrap" value="{{name}}" id="dmout"></textarea>
 
-		<form action="javascript:void(0);">
-			<label class="control-label">DM: Out of office response</label>
-			<textarea name="name" placeholder="{{translate_company_name}}" class="m-wrap" value="{{name}}" id="dmout"></textarea>
-
-			<div class="submit-btn">
-				<button type="submit" data-action="savedmout" class="btn green edit-account">{{translate_save_changes}}</button>
-				<button type="reset" data-action="resetdmout" class="btn">{{translate_cancel}}</button>
-			</div>
-		</form>
-
+				<div class="submit-btn">
+					<button type="submit" data-action="savedmout" class="btn green edit-account">{{translate_save_changes}}</button>
+					<button type="reset" data-action="resetdmout" class="btn">Reset</button>
+				</div>
+			</form>
+		</div>
 	</div>
 
 	<div class="span4">
-		<ul>
-			<li><a href="#">Basic</a></li>
-			<li><a href="#">Manage Campaigns</a></li>
-			<li><a href="#">Manage Auto responders</a></li>
-		</ul>
+
+		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
+			<div class="portlet-title line">
+				<div class="caption">Menu</div>
+			</div>
+			<div class="portlet-body">
+				<ul>
+					<li><a href="#">Basic</a></li>
+					<li><a href="#">Manage Campaigns</a></li>
+					<li><a href="#">Manage Auto responders</a></li>
+				</ul>
+			</div>
+		</div>
+		
 	</div>
 </div>

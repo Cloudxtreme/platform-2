@@ -72,6 +72,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.shortenurl);
 		this.listenTo(this.parent, "update:stream", function(data){ this.togglecontent(data, true) }.bind(this));
 		this.listenTo(this.parent, "update:campaign", this.campaignupdated);
+		this.listenTo(this.parent, "replace:content", this.replacecontent);
 		
 		// Chars limit
 		this.on("change:charlength", this.monitorlimit);
@@ -728,6 +729,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		return pos;
 	},
 
+	'replacecontent' : function(content)
+	{
+		this.$contenteditable.empty().html(content);
+		this.trigger("change:content");
+	},
 	
 	'togglecontent' : function(data, setdefault)
 	{	
