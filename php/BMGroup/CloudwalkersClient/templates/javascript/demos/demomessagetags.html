@@ -33,10 +33,9 @@
 			<div class="btn-white" data-action="note-content"><i class="icon-edit"></i></div>
 			<div class="btn-white" data-action="note-list"><i class="icon-list"></i></div>
 			<div class="message-tags pull-right">
-				<div class="btn-white pull-right info-tags"><i class="icon-tags"></i></div>
-				<div class="btn-white pull-right edit" data-action="edit_tags"><i class="icon-pencil"></i></div>
-				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li></ul>
-				<div id="tag-info" class="input-append">
+				<div class="btn-white pull-right edit" data-action="icon_tags"><i class="icon-tag"></i></div>
+				<ul class="tag-list"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li></ul>
+				<div class="tag-input-append">
 					<input id="tags" type="text" autocomplete="off">
 					<button class="btn-white" type="button">Add <i class="icon-tags"></i></button>
 				</div>
@@ -78,17 +77,9 @@ $(document).on('click','.message-tags.enabled .tag-cloud', function removeTag(){
 // Find out which containers we have on this document and setup proper bindings
 $(document).ready(function() {
 
-	if ( $("#tag").length > 0 ) { addTagBindings('#tag'); }
-
 	if ( $("#tag-info").length > 0 ) { addTagBindings('#tag-info');	}
 
-	if ( $("#tag-success").length > 0 ) { addTagBindings('#tag-success'); }
-
-	if ( $("#tag-warning").length > 0 ) { addTagBindings('#tag-warning'); }
-
-	if ( $("#tag-danger").length > 0 ) { addTagBindings('#tag-danger');	}
-	
-	if ( $("#tag-inverse").length > 0 ) { addTagBindings('#tag-inverse');	}				
+	if ( $(".tag-input-append").length > 0 ) { addTagBindings('.tag-input-append'); }				
 
 });
 
@@ -113,13 +104,13 @@ function addTag(id) {
 	var tagClass = '';
 
 	// Setup our class based on what type of container we have everything inside 
-	if (id == '#tag-info') { tagClass = 'tag-cloud tag-cloud-info'; }
+	if (id == '.tag-input-append') { tagClass = 'tag-cloud tag-cloud-info'; }
 
 	// If there is no value in the input field then don't do anything
 	if (Tag != '') {
 
 		// Append tag with proper styling into the tag cloud 
-		$('<li class="'+tagClass+'">'+Tag+'</li>').appendTo("#tag-cloud");
+		$('<li class="'+tagClass+'">'+Tag+'</li>').appendTo(".tag-list");
 
 		// Clear input back to nothing
 		$(id + ' > input').val('');		
@@ -192,7 +183,6 @@ $(document).on('click','.message-tags .edit', tagsToggleEdit);
 			<div class="btn-white" data-action="note-content"><i class="icon-edit"></i></div>
 			<div class="btn-white" data-action="note-list"><i class="icon-list"></i></div>
 			<div class="message-tags pull-right">
-				<div class="btn-white pull-right info-tags"><i class="icon-tags"></i></div>
 				<ul id="tag-cloud"><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li><li class="tag-cloud tag-cloud-info">one more tag</li><li class="tag-cloud tag-cloud-info">last tag</li><li class="tag-cloud tag-cloud-info">tagY</li><li class="tag-cloud tag-cloud-info">tagX</li><li class="tag-cloud tag-cloud-info">another tag</li></ul>
 			</div>
 		</div>

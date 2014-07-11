@@ -24,6 +24,7 @@
 <script type="text/javascript" src="/js/Models/User.js"></script>
 <script type="text/javascript" src="/js/Models/Contact.js"></script>
 <script type="text/javascript" src="/js/Models/Note.js"></script>
+<script type="text/javascript" src="/js/Models/Tag.js"></script>
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
@@ -43,6 +44,7 @@
 <script type="text/javascript" src="/js/Collections/Users.js"></script>
 <script type="text/javascript" src="/js/Collections/Contacts.js"></script>
 <script type="text/javascript" src="/js/Collections/Notes.js"></script>
+<script type="text/javascript" src="/js/Collections/Tags.js"></script>
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
@@ -128,6 +130,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>

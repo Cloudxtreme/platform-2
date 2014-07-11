@@ -130,8 +130,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"CHANNEL_MANAGE_EDIT_MONITORING", 
 				"CHANNEL_MANAGE_DELETE_MONITORING", 
 				"STATISTICS_VIEW"
-				];*/
-			
+				];
+			*/
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;

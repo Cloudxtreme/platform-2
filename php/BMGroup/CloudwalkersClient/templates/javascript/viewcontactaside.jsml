@@ -31,4 +31,18 @@
 		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add contact note</div>
 	</div>
 	<div id="notecontainer"></div>
-
+	<!-- TAGS -->
+	<div class="message-tags pull-right">
+		{{#tags}}
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
+		{{/tags}}
+		<ul class="tag-list"></ul>
+		{{#tags}}
+			<div class="tag-input-append">
+				<input id="tags" type="text" autocomplete="off">
+				<button class="btn-white" type="button" data-action="tag-add">{{translate_add}} <i class="icon-tag"></i></button>
+			</div>
+		{{/tags}}
+	</div>
+	<!-- END TAGS -->
+<div style="clear:both"></div>

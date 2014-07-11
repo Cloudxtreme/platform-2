@@ -256,7 +256,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.parentmodel = model;
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
-		
+
 		// Check for history (within ping lifetime), temp disabled
 		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
 		
@@ -280,7 +280,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	{	
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
-		
+
 		// Store results based on url
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 		
@@ -373,7 +373,6 @@ Backbone.Collection = Backbone.Collection.extend({
 			
 			this.fetch({remove: false});
 		}
-		
 		// Trigger listening models
 		this.trigger("seed", list);
 		

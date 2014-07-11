@@ -10,6 +10,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
 		'note' : {name: "Note", icon: 'edit', token: 'note', type: 'note'},
+		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
@@ -81,6 +82,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var action = this.templates[token];
 
 		// Toggle
+		console.log(token);
 		if (action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 		
 		// Confirm modal
