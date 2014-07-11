@@ -34,13 +34,28 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Meant only for the viewcontact messages demo
 		if(this.notes)	params.notes = true;
 		
+		// If not Notification load Tags
+		if(!this.options.notification){
+			// View Tags
+			params.tags = true;
+		}
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
+
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
 		// Add notes interface to the message
 		// <!-- NOTES_ROLE -->
 		//if(this.parameters.notes)
-		this.loadnoteui();
+		if(this.model.get("objectType")){
+			this.loadnoteui();
+			
+			if(params.tags){
+				this.loadtagui();	
+			}
+		}
 		
 		this.time();
 		
@@ -189,6 +204,28 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		$.each(this.modelview, function(n, entry){ entry.remove()});
 		$.each(this.notifications, function(n, entry){ entry.remove()});
 		$.each(this.related, function(n, entry){ entry.remove()});
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"add",
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
+
 	
 });

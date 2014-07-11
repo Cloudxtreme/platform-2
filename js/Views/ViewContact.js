@@ -9,7 +9,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click .end-preview td i' : 'backtolist',
 		'click #contactfilter li' : 'loadmessages',
 		'click [data-action=write-note]' : 'togglecontactnote',
-		'click #post' : 'post'
+		'click #post' : 'post',
+		'click *[data-action]' : 'action'
 	},
 
 	'initialize' : function(options)
@@ -52,6 +53,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'render' : function()
 	{	
+		//Mustache Translate Render
+		
 		// Create view
 		var view = Mustache.render(Templates.viewcontact, this.contactinfo);
 		this.$el.html (view);
@@ -69,6 +72,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		//this.getmessages();
 		this.begintouch();
+
+		this.loadtagui();
 
 		return this;	
 	},
@@ -184,6 +189,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if(contactinfo){
 			
+			// View Tags
+			contactinfo.tags = true;
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
 
 			setTimeout(function(){
@@ -289,5 +296,89 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		var param = {records: 20, contacts: this.contactid};
 		return param;
+	},
+	'action' : function (element)
+	{
+		// Action token
+		var token = $(element.currentTarget).data ('action');
+		
+		if(token == 'tag-showedit'){
+			this.showtagedit();
+		}else if(token == 'tag-add'){
+			var tag = $(element.currentTarget).siblings( "input" ).val();
+			if(tag) {
+				this.submittag(tag);
+				$(element.currentTarget).siblings( "input" ).val('');
+			}
+		}else
+			this.model.trigger("action", token);
+	},
+	/* Tags */
+	'loadtagui' : function()
+	{
+		this.fetchtags();
+	},
+	'showtagedit' : function()
+	{	
+		this.$el.find('.message-tags').toggleClass("enabled");
+		this.$el.find('.message-tags .edit').toggleClass("inactive");
+	},
+	'fetchtags' : function()
+	{	
+		var tags = new Cloudwalkers.Collections.Tags();	
+		tags.parentmodel = this.model;
+		tags.parenttype = 'contact';
+		this.listenTo(tags,"seed", this.rendertag);
+
+		tags.touch(this.model);
+		this.loadedtags = true;
+	},
+	'rendertag' : function(tags){
+		if(!tags.length)	this.$el.find('.tag-list').html('No tags found');
+		else				this.$el.find('.tag-list').empty();
+		this.$el.find('.tag-list').empty();
+		for(n in tags)
+		{
+			this.addtag(tags[n]);
+		}
+	},
+	'submittag' : function(newtag)
+	{	
+		// Update Tags - POST
+		this.tag = new Cloudwalkers.Models.Tag();
+
+		if(this.model)
+			this.tag.parent = this.model;
+
+		this.tag.save({'name': newtag}, {success: this.addtag.bind(this)});
+	},
+	'addtag' : function(newtag)
+	{
+		var options = {model: newtag, parent: this.model, template: 'messagetag'}
+		var tag;
+
+		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
+		this.$el.find('.tag-list').append(tag.render().el);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"add",
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

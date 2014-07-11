@@ -45,7 +45,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(this.$el.find("[data-date]")) this.time();
 		
 		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
-		
+
 		return this;
 	},
 	
@@ -58,6 +58,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.togglenoteaction(token);
 		}else if(token == 'note-edit'){
 			this.editnote();
+		}else if(token == 'tag-showedit'){
+			this.showtagedit();
+		}else if(token == 'tag-add'){
+			var tag = $(element.currentTarget).siblings( "input" ).val();
+			if(tag) {
+				this.submittag(tag);
+				$(element.currentTarget).siblings( "input" ).val('');
+			}
 		}else if(token == 'viewcontact'){
 			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null
 
@@ -65,7 +73,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 				Cloudwalkers.RootView.viewContact({model: contact});
 		}else
 			this.model.trigger("action", token);
-
 	},
 
 	'editnote' : function()
@@ -82,6 +89,11 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
+	},
+	'showtagedit' : function()
+	{	
+		this.$el.find('.message-tags').toggleClass("enabled");
+		this.$el.find('.message-tags .edit').toggleClass("inactive");
 	},
 
 	'canceledit' : function(collapse)
@@ -242,7 +254,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var notes = new Cloudwalkers.Collections.Notes();		
 		notes.parentmodel = this.model;
 		notes.parenttype = 'message';
-		
 		this.listenTo(notes,'seed', this.fillnotes);
 
 		notes.touch(this.model);
@@ -278,6 +289,52 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.addnote(note, true);
 		this.togglenoteaction('note-list');
 		this.composenote.clean();
+	},
+
+	/* Tags */
+	'loadtagui' : function()
+	{
+		this.fetchtags();
+	},
+
+	'fetchtags' : function()
+	{	
+		var tags = new Cloudwalkers.Collections.Tags();	
+		tags.parentmodel = this.model;
+		tags.parenttype = 'message';
+		this.listenTo(tags,"seed", this.rendertag);
+
+		tags.touch(this.model);
+		this.loadedtags = true;
+	},
+	'rendertag' : function(tags){
+
+				
+		if(!tags.length)	this.$el.find('.tag-list').html('No tags found');
+		else				this.$el.find('.tag-list').empty();
+		this.$el.find('.tag-list').empty();
+		for(n in tags)
+		{
+			this.addtag(tags[n]);
+		}
+	},
+	'submittag' : function(newtag)
+	{	
+		// Update Tags - POST
+		this.tag = new Cloudwalkers.Models.Tag();
+
+		if(this.model)
+			this.tag.parent = this.model;
+
+		this.tag.save({'name': newtag}, {success: this.addtag.bind(this)});
+	},
+	'addtag' : function(newtag)
+	{
+		var options = {model: newtag, parent: this.model, template: 'messagetag'}
+		var tag;
+
+		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
+		this.$el.find('.tag-list').append(tag.render().el);
 	},
 	
 	/*'action' : function (element)

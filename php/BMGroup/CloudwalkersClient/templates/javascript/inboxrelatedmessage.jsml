@@ -36,8 +36,23 @@
 	<!-- NOTES_ROLE -->
 	<div class="btn-white pull-right" data-action="note-list" style="margin-top: -6px; margin-left: 5px;"><i class="icon-list"></i></div>
 	<div class="btn-white pull-right" data-action="note-content" style="margin-top: -6px"><i class="icon-edit"></i></div>
-
+	
+	<!-- TAGS -->
+	<div class="message-tags pull-right">
+		{{#tags}}
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tag"></i></div>
+		{{/tags}}
+		<ul class="tag-list"></ul>
+		{{#tags}}
+			<div class="tag-input-append">
+				<input id="tags" type="text" autocomplete="off">
+				<button class="btn-white" type="button">Add <i class="icon-tags"></i></button>
+			</div>
+		{{/tags}}
+	</div>
+	<!-- END TAGS -->
 </div>
+<div style="clear:both"></div>
 
 <!-- NOTES_ROLE -->
 <div class="message-notes">
