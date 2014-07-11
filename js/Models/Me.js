@@ -86,7 +86,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			// Set current user level & permissions
 			this.level = Number(this.account.get("currentuser").level);
 
-			this.authorized = [
+			/*this.authorized = [
 				"CAMPAIGN_CREATE", 
 				"CAMPAIGN_DELETE", 
 				"SERVICE_CONNECT", 
@@ -131,10 +131,10 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"CHANNEL_MANAGE_DELETE_MONITORING", 
 				"STATISTICS_VIEW"
 				];
-			
+			*/
 
 			// Role permissions
-			/*this.authorized = this.account.get("currentuser").authorized;*/
+			this.authorized = this.account.get("currentuser").authorized;
 			this.censuretokens = this.censure(this.authorized);
 			
 			// Call callback
