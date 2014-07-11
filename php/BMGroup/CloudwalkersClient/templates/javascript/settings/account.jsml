@@ -53,29 +53,7 @@
 		<div class="separator"></div>
 
 		<h3>Triggers</h3>
-		<div id="triggerlist">
-			<form action="javascript:void(0);"">
-				<label class="control-label">Twitter: New follower response</label>
-				<textarea name="name" placeholder="Loading..." class="m-wrap" value="{{name}}" id="twitterfollow"></textarea>
-
-				<div class="submit-btn">
-					<button type="submit" data-action="savetwitterfollow" class="btn green edit-account">{{translate_save_changes}}</button>
-					<button type="reset" data-action="resettwitterfollow" class="btn">Reset</button>
-				</div>
-			</form>
-
-			<br><br>
-
-			<form action="javascript:void(0);">
-				<label class="control-label">DM: Out of office response</label>
-				<textarea name="name" placeholder="Loading..." class="m-wrap" value="{{name}}" id="dmout"></textarea>
-
-				<div class="submit-btn">
-					<button type="submit" data-action="savedmout" class="btn green edit-account">{{translate_save_changes}}</button>
-					<button type="reset" data-action="resetdmout" class="btn">Reset</button>
-				</div>
-			</form>
-		</div>
+		<div id="triggerlist"></div>
 	</div>
 
 	<div class="span4">

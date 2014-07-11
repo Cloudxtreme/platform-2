@@ -1,7 +1,6 @@
 Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
-		'click *[data-action]' : 'action',
 		'click i[data-delete-campaign-id]' : 'deletecampaign'
 	},
 
@@ -33,11 +32,11 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.$el.find("#menu").affix()
 	
 		// Render manually both trigger's views
-		/*this.twitterview = new Cloudwalkers.Views.Settings.Trigger();
-		this.dmview = new Cloudwalkers.Views.Settings.Trigger();
+		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
+		this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
-		this.$el.find("#triggerlist").append(twitterview.render().el)
-		this.$el.find("#triggerlist").append(dmview.render().el)*/
+		this.$el.find("#triggerlist").append(this.twitterview.render().el);
+		this.$el.find("#triggerlist").append(this.dmview.render().el);
 
 		this.triggers.parent = this.account;
 		this.triggers.fetch();
@@ -50,21 +49,12 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		//Hack time!
 		var twitterfollow = models.filter(function(el){ if(el.get("event") == 'CONTACT-NEW') return el;})
 		var dmout = models.filter(function(el){ if(el.get("event") == 'MESSAGE-RECEIVED') return el;})
-
-		if(twitterfollow.length){
-			twitterfollow = new Cloudwalkers.Models.Trigger(twitterfollow[0].attributes);
-			this.$el.find("#twitterfollow").val(twitterfollow.getmessage());
-		}else{
-			this.$el.find("#twitterfollow").val("");
-		}
-
-		if(dmout.length){
-			dmout = new Cloudwalkers.Models.Trigger(dmout[0].attributes);
-			this.$el.find("#dmout").val(dmout.getmessage());
-		}else{
-			this.$el.find("#dmout").val("");
-		}
-
+		
+		twitterfollow = new Cloudwalkers.Models.Trigger(twitterfollow[0].attributes);
+		this.twitterview.updatetrigger(twitterfollow);
+		
+		dmout = new Cloudwalkers.Models.Trigger(dmout[0].attributes);
+		this.dmview.updatetrigger(dmout);
 	},
 
 	'action' : function(e)
@@ -80,39 +70,6 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
 		
 		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
-	},
-
-	'savetwitterfollow' : function (e)
-	{
-		this.triggermodel.event = "CONTACT-NEW";
-		this.triggermodel.actions = [{action: "REPLY", message: this.$el.find('#twitterfollow').val()}]
-		this.triggermodel.streams = this.streams['twitter']? this.streams['twitter'].ids: null;
-
-		var trigger = new Cloudwalkers.Models.Trigger(this.triggermodel);
-		trigger.parent = this.account;
-
-		trigger.save();
-	},
-
-	'resettwitterfollow' : function()
-	{
-		this.$el.find('#twitterfollow').val("");
-	},
-
-	'savedmout' : function (e)
-	{
-		this.triggermodel.event = "MESSAGE-RECEIVED";
-		this.triggermodel.actions = [{action: "REPLY", message: this.$el.find('#dmout').val()}]
-
-		var trigger = new Cloudwalkers.Models.Trigger(this.triggermodel);
-		trigger.parent = this.account;
-
-		trigger.save();
-	},
-
-	'resetdmout' : function()
-	{
-		this.$el.find('#dmout').val("");
 	},
 	
 	'deletecampaign' : function (e)
