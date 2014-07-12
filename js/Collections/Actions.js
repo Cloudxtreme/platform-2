@@ -82,7 +82,6 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var action = this.templates[token];
 
 		// Toggle
-		console.log(token);
 		if (action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 		
 		// Confirm modal

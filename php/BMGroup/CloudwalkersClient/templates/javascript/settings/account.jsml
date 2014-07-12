@@ -4,7 +4,7 @@
 
 		<div style="height: auto;">
 			
-			<h3>{{translate_account}}</h3>
+			<h3 name="basic">{{translate_account}}</h3>
 			
 			<form action="javascript:void(0);">
 				<label class="control-label">{{translate_name}}</label>
@@ -21,7 +21,7 @@
 
 		<div class="separator"></div>
 
-		<h3>Campaigns</h3>
+		<h3 name="campaigns">Campaigns</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
@@ -52,7 +52,7 @@
 
 		<div class="separator"></div>
 
-		<h3>Triggers</h3>
+		<h3 name="triggers">Triggers</h3>
 		<div id="triggerlist"></div>
 	</div>
 
@@ -64,9 +64,9 @@
 			</div>
 			<div class="portlet-body">
 				<ul>
-					<li><a href="#">Basic</a></li>
-					<li><a href="#">Manage Campaigns</a></li>
-					<li><a href="#">Manage Auto responders</a></li>
+					<li><a data-hash="basic">Basic</a></li>
+					<li><a data-hash="campaigns">Manage Campaigns</a></li>
+					<li><a data-hash="triggers">Manage Auto responders</a></li>
 				</ul>
 			</div>
 		</div>

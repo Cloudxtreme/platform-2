@@ -217,6 +217,10 @@ Style corrections and manual overrides
 /**
  *	Canned
 **/
+#compose [data-type=canned]{
+	position: relative;
+}
+
 #compose [data-type=canned] input{
 	width: inherit;
 	height: inherit;
@@ -226,6 +230,21 @@ Style corrections and manual overrides
 
 #compose [data-type=canned] .alert{
 	padding-left: 35px !important;
+}
+
+#compose [data-type=canned] .collapsable-content.loading:before{
+	position: absolute;
+	font-family: FontAwesome;
+	font-size: 20px;
+	color: #ddd;
+	line-height: 1.8;
+	content: "\F0ED";
+	-webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+	top: 0px;
+	left: 28px;
 }
 
 /**

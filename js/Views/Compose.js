@@ -250,7 +250,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			canned: 	this.fetchcanned(),
+			canned: 	this.type? this.fetchcanned(): null,
 			actionview: this.actionview? this.type: false,
 		};
 		
@@ -1367,21 +1367,27 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 	'fetchcanned' : function()
 	{		
-		if(!this.options[this.type].indexOf('canned')) 			return null;
-		if(Cloudwalkers.Session.getCannedResponses().touched)	return Cloudwalkers.Session.getCannedResponses().models;
+		if(this.options[this.type] && !this.options[this.type].indexOf('canned'))
+			return null;
+
+		if(Cloudwalkers.Session.getCannedResponses().touched)
+			return Cloudwalkers.Session.getCannedResponses().models;
 		
 		// Fetch once
 		var canned = new Cloudwalkers.Collections.CannedResponses();
 		canned.fetch();
-		Cloudwalkers.Session.getCannedResponses().touched = true;
 
 		this.listenTo(canned, 'sync', this.rendercanned);
 	},
 
 	'rendercanned' : function(canned)
 	{	
+		Cloudwalkers.Session.getCannedResponses().touched = true;
+
 		this.$el.find("[data-type=canned] .collapsable-content").html(Mustache.render(Templates.cannedresponsesdrop, {canned: canned.models}));
 		this.$el.find(".canned-list").chosen({width: "100%"});
+		this.$el.find(".canned-list").chosen({no_results_text: "Oops, nothing found!"}); 
+		this.$el.find("[data-type=canned] .collapsable-content").removeClass('loading');
 	},
 	
 	'listentocanned' : function (e)
@@ -1531,7 +1537,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			message: this.draft.get("body").html, 
 			actiontype: this.type
 			}, 
-			{success: this.thankyou.bind(this, params.canned)}
+			{success: this.thankyou.bind(this, params? params.canned: null)}
 		);
 
 		this.loadListeners(postaction, ['request:action', 'sync']);
@@ -1567,10 +1573,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
 
-		// A canned response was posted
+		// Add the message to the global canned list
 		if(canned)
-			console.log(this.draft)
-		
+			Cloudwalkers.Session.getCannedResponses().distantAdd(this.draft);
 	},
 
 	'disablefooter' : function()

@@ -232,8 +232,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}.bind(this));
 	}, 
 	
-	
-	
 	'cloneSanitized' : function ()
 	{
 		var model = this.clone();

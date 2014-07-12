@@ -1,7 +1,8 @@
 Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
-		'click i[data-delete-campaign-id]' : 'deletecampaign'
+		'click i[data-delete-campaign-id]' : 'deletecampaign',
+		'click #menu a' : 'scroll'
 	},
 
 	'initialize' : function()
@@ -80,6 +81,17 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		Cloudwalkers.Session.getAccount().removecampaign(campaignid);
 		
 		$(e.target).closest('li').remove();
+	},
+
+	'scroll' : function(e)
+	{	
+		var hash = $(e.currentTarget).data('hash');		
+		var position = this.$el.find('h3[name='+hash+']').offset().top;
+		position = position - this.$el.find('h3[name='+hash+']').outerHeight();
+		
+		$('html, body').animate({scrollTop:position}, 'fast');
+
+		return false;
 	},
 
 	/* on it's way to be deprecated */

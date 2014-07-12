@@ -44,18 +44,18 @@
 
 		<section data-type="canned">
 
-			<div class="collapsable-content">
+			<div class="collapsable-content {{^canned}}loading{{/canned}}">
 				<select class="canned-list">
-					<option value="0">Select a macro response</option>
+					<option></option>
 					{{#canned}}
-						<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{attributes.body.plaintext}}</option>
+						<option value="{{id}}">{{attributes.body.plaintext}}</option>
 					{{/canned}}
 				</select>
 			</div>
 
 			<div class="alert alert-info">
 				<label class="checkbox">
-		      		<input type="checkbox">Save this response as a macro.
+		      		<input type="checkbox">Save this as a response template.
 		    	</label>
 			</div>	
 		</section>
