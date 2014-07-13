@@ -22,15 +22,25 @@
 			<ul>
 				<li class="btn-white active" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
 				<li class="btn-white inactive" data-type="conversation"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
-				<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+				{{#authorized.ACCOUNT_NOTES_MANAGE}}
+					<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+				{{/authorized.ACCOUNT_NOTES_MANAGE}}
+				{{^authorized.ACCOUNT_NOTES_MANAGE}}
+					{{#authorized.ACCOUNT_NOTES_VIEW}}
+						<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+					{{/authorized.ACCOUNT_NOTES_VIEW}}
+				{{/authorized.ACCOUNT_NOTES_MANAGE}}
 			</ul>
 		</div>		
 	</div>
 	
+	{{#authorized.ACCOUNT_NOTES_MANAGE}}
 	<div class="contactactions">
 		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add contact note</div>
 	</div>
 	<div id="notecontainer"></div>
+	{{/authorized.ACCOUNT_NOTES_MANAGE}}
+
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
 		{{#tags}}

@@ -143,7 +143,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'notes' : function ()
 	{	
-		//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_NOTES')) return this.home();
+		if (!Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')) return this.home();
 
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Notes());
 	},

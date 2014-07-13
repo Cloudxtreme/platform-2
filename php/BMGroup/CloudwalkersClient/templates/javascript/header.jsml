@@ -52,9 +52,11 @@
 					</li>
 				{{/accounts}}
 					<li class="account-selector divider"></li>
-					<!-- NOTES_ROLE -->
-					<li><a data-header-action="writenote"><i class="icon-edit "></i> Write note</a></li>
-					<li class="account-selector divider"></li>
+					{{#authorized.ACCOUNT_NOTES_MANAGE}}
+						<!-- NOTES_ROLE -->
+						<li><a data-header-action="writenote"><i class="icon-edit "></i> Write note</a></li>
+						<li class="account-selector divider"></li>
+					{{/authorized.ACCOUNT_NOTES_MANAGE}}
 				{{#dev}}
 					<li><a href="#home"><i class="icon-fire-extinguisher "></i> {{translate_clean}}</a></li>
 					<li class="account-selector divider"></li>

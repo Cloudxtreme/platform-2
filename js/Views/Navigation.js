@@ -100,6 +100,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Cloudwalkers.Session.get("currentAccount"))})
 		});
 		
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
 		this.header = Mustache.render (Templates.header, data);
 
 		return this;

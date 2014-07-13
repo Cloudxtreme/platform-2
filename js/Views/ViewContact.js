@@ -54,6 +54,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'render' : function()
 	{	
 		//Mustache Translate Render
+
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(this.contactinfo);
 		
 		// Create view
 		var view = Mustache.render(Templates.viewcontact, this.contactinfo);
@@ -65,7 +68,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.trigger("rendered");
 
 		this.updatecontactinfo();
-		this.initializenote();
+
+		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_MANAGE'))
+			this.initializenote();
 
 		// make the fetch
 		//this.collection.touch(this.model, this.filterparams());
@@ -198,6 +203,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if(contactinfo){
 			
+			// Apply role permissions to template data
+			Cloudwalkers.Session.censuretemplate(contactinfo);
+
 			// View Tags
 			contactinfo.tags = true;
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
