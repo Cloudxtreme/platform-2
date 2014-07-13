@@ -7,7 +7,6 @@
 Cloudwalkers.Views.Editor = Backbone.View.extend({
 	
 	'id' : "editor",
-	'className' : "clearfix",
 	'oldUrl' : "",
 	'urldata' : {},
 	'currenturl' : false,

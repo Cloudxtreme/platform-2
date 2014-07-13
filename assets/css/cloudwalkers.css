@@ -1539,6 +1539,10 @@ counter	{
  	width: 300px;
  }
 
+ #menu li a{
+ 	cursor: pointer;
+ }
+
  .trigger{
  	position: relative;
  }
