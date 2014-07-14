@@ -11,7 +11,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		'click [data-notifications]' : 'loadNotifications',
 		'click [data-youtube]' : 'loadYoutube',
 		'click *[data-action]' : 'action',
-		'click' : 'toggle'
+		'click' : 'toggle',
 	},
 	
 	'initialize' : function (options)
@@ -338,6 +338,16 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
 		this.$el.find('.tag-list').append(tag.render().el);
+	},
+	'entertag' : function(e)
+	{
+		if ( e.which === 13 ) {
+			var tag = $(e.target).val();
+			if(tag) {
+				this.submittag(tag);
+				$(e.target).val('');
+			}
+	    }
 	},
 	
 	/*'action' : function (element)

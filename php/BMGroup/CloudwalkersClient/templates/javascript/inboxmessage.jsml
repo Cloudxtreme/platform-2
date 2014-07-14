@@ -52,16 +52,20 @@
 	{{/authorized.ACCOUNT_NOTES_MANAGE}}
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
-		{{#tags}}
+		{{#authorized.ACCOUNT_TAGS_MANAGE}}
 			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
-		{{/tags}}
-		<ul class="tag-list"></ul>
-		{{#tags}}
+			<ul class="tag-list"></ul>
 			<div class="tag-input-append">
 				<input id="tags" type="text" autocomplete="off">
 				<button class="btn-white" type="button" data-action="tag-add">{{translate_add}} <i class="icon-tag"></i></button>
 			</div>
-		{{/tags}}
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+		{{^authorized.ACCOUNT_TAGS_MANAGE}}
+			{{#authorized.ACCOUNT_TAGS_VIEW}}
+				<div class="btn-white pull-right edit"><i class="icon-tags"></i></div>
+				<ul class="tag-list"></ul>
+			{{/authorized.ACCOUNT_TAGS_VIEW}}
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 	</div>
 	<!-- END TAGS -->
 </div>

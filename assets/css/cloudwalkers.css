@@ -1057,18 +1057,18 @@ tbody.messages-container i	{
 
 .inbox-filter i { color: #a6b0cc; }
 
-#filter_contacts, #filter_streams	{ 
+#filter_contacts, #filter_streams, #filter_tags	{ 
 	padding: 10px 10px 6px; border-bottom: 1px solid #bbb; box-shadow: 0 -1px #eee;  
 }
 
-#filter_contacts .input-rounded	{
+#filter_contacts .input-rounded, #filter_tags .input-rounded	{
 	padding: 0 10px; height: 28px;
 	font-size: 12px;
 }
 
-#filter_contacts .loading-contacts	{ width: 0; }
+#filter_contacts .loading-contacts, #filter_tags .loading-tags { width: 0; }
 
-#filter_contacts .loading-contacts:after	{ 
+#filter_contacts .loading-contacts:after, #filter_tags .loading-tags:after { 
 	position: relative; left: -24px; 
 	font-family: FontAwesome; font-size: 14px; color: #ccc; line-height: 2.5em; 
 	content: "\F0ED"; -webkit-font-smoothing: antialiased;
@@ -1077,29 +1077,29 @@ tbody.messages-container i	{
 	-webkit-animation-iteration-count: infinite;
 }
 
-#filter_contacts label	{
+#filter_contacts label, #filter_tags label	{
 	font-size: 12px; color: #aaa;
 }
 
-#filter_contacts li img.avatar {
+#filter_contacts li img.avatar, #filter_tags li img.avatar {
 	margin: 0 8px 4px 0; width: 16px; height: 16px;  background-color: #eee; border-radius: 50% !important; 
 }
 
-#filter_contacts li { padding: 2px 10px; }
+#filter_contacts li, #filter_tags li { padding: 2px 10px; }
 
-#filter_contacts li [data-close-contact]	{
+#filter_contacts li [data-close-contact], #filter_tags li [data-close-tag]	{
 	margin: 8px 2px 0;
 }
 
-#filter_contacts .contacts-placeholder li	{ margin-bottom: 5px; line-height: 2em; }
+#filter_contacts .contacts-placeholder li, #filter_tags .tags-placeholder li	{ margin-bottom: 5px; line-height: 2em; }
 
-#filter_contacts .contacts-suggestions li:nth-child(odd)	{ background-color: #fcfcfc; }
+#filter_contacts .contacts-suggestions li:nth-child(odd), #filter_tags .tags-suggestions li:nth-child(odd)	{ background-color: #fcfcfc; }
 
-#filter_contacts .contacts-suggestions li:hover { background-color: #fafafa; }
+#filter_contacts .contacts-suggestions li:hover, #filter_tags .tags-suggestions li:hover { background-color: #fafafa; }
 
-#filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
+#filter_contacts .contacts-suggestions img.avatar{ opacity: .4; }
 
-#filter_contacts .contacts-suggestions i{ opacity: .4; }
+#filter_contacts .contacts-suggestions i, #filter_tags .tags-suggestions i{ opacity: .4; }
 
 #inboxlist .list li, #inboxlist .list-loading	{
 	min-height: 66px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
@@ -1396,7 +1396,7 @@ counter	{
 }
 
 .inbox-container .attachment-image	{
-	padding: 2px; border: 1px solid #eee; margin: -2px 0 0 10px; max-width: 33%; max-height: inherit; 
+	padding: 2px; border: 1px solid #eee; margin: -2px 0 0 10px; max-width: 33%; max-height: inherit; margin-bottom: 20px;
 }
 
 .inbox-container .attachment-link	{

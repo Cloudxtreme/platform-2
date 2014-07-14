@@ -12,7 +12,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 	{
 		'remove' : 'destroy',
 		'click *[data-youtube]' : 'loadYoutube',
-		'click *[data-action]' : 'action'
+		'click *[data-action]' : 'action',
+		'keyup #tags' : 'entertag'
 	},
 
 	'render' : function ()
@@ -55,9 +56,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		if(this.model.get("objectType")){
 			if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW'))	this.loadnoteui();
 			
-			if(params.tags){
-				this.loadtagui();	
-			}
+			if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
 		}
 		
 		this.time();
@@ -228,7 +227,5 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
-	}
-
-	
+	}	
 });

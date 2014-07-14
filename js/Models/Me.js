@@ -131,7 +131,9 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"CHANNEL_MANAGE_DELETE_MONITORING", 
 				"STATISTICS_VIEW",
 				"ACCOUNT_NOTES_VIEW",
-				"ACCOUNT_NOTES_MANAGE"
+				"ACCOUNT_NOTES_MANAGE",
+				"ACCOUNT_TAGS_VIEW",
+				"ACCOUNT_TAGS_MANAGE",
 				];*/
 			
 

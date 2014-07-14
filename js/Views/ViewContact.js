@@ -10,7 +10,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click #contactfilter li' : 'loadmessages',
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post',
-		'click *[data-action]' : 'action'
+		'click *[data-action]' : 'action',
+		'keyup #tags' : 'entertag'
 	},
 
 	'initialize' : function(options)
@@ -57,7 +58,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(this.contactinfo);
-		
+
 		// Create view
 		var view = Mustache.render(Templates.viewcontact, this.contactinfo);
 		this.$el.html (view);
@@ -72,13 +73,16 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_MANAGE'))
 			this.initializenote();
 
+		if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) | (Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE')))
+			this.loadtagui();
+
 		// make the fetch
 		//this.collection.touch(this.model, this.filterparams());
 		
 		//this.getmessages();
 		this.begintouch();
 
-		this.loadtagui();
+		
 
 		return this;	
 	},
@@ -378,6 +382,16 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
 		this.$el.find('.tag-list').append(tag.render().el);
+	},
+	'entertag' : function(e)
+	{
+		if ( e.which === 13 ) {
+			var tag = $(e.target).val();
+			if(tag) {
+				this.submittag(tag);
+				$(e.target).val('');
+			}
+	    }
 	},
 	'translateString' : function(translatedata)
 	{	

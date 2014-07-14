@@ -24,6 +24,9 @@ Cloudwalkers.Views.Widgets.TagEntry = Cloudwalkers.Views.Entry.extend({
 
 	'render' : function ()
 	{	
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(this.model.attributes);
+		
 		if(this.model.attributes.name){
 			this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));	
 		}
