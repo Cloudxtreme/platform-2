@@ -270,7 +270,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
 		// Listen to editor triggers
-		this.listenTo(this.editor, "imageadded", this.addimage);
+		this.listenTo(this.editor, "imageadded", this.listentourlfiles);
 		this.listenTo(this.editor, "change:content", this.monitor);
 
 		// Add Chosen
@@ -627,6 +627,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			break;
 		}	
 	},
+
+	'listentourlfiles' : function(image)
+	{	
+		var streamid = this.activestream ? this.activestream.id : false;
+		var numimages = 0;
+		
+		if(streamid && this.draft.getvariation(streamid,'image'))
+			numimages += this.draft.getvariation(streamid, 'image').length;
+		
+		if(this.draft.get("attachments")){
+			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
+			numimages += imgs.length
+		}
+		
+		if(!numimages)	this.addimage(image);
+	},
+
 	// Add to the variation or the default
 	'addimage' : function(image){
 		var streamid = this.activestream ? this.activestream.id : false;
