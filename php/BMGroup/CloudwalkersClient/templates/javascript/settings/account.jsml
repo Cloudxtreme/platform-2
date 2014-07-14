@@ -54,6 +54,12 @@
 
 		<h3 name="triggers">Triggers</h3>
 		<div id="triggerlist"></div>
+
+		<div class="separator"></div>
+
+		<h3 name="canned">Message templates</h3>
+		<div id="cannedlist"></div>
+
 	</div>
 
 	<div class="span4">
@@ -67,6 +73,7 @@
 					<li><a data-hash="basic">Basic</a></li>
 					<li><a data-hash="campaigns">Manage Campaigns</a></li>
 					<li><a data-hash="triggers">Manage Auto responders</a></li>
+					<li><a data-hash="canned">Message Templates</a></li>
 				</ul>
 			</div>
 		</div>

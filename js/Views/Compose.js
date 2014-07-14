@@ -1536,7 +1536,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Canned respose
 		if(this.$el.find("[data-type=canned] input").is(':checked'))
 
-			Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}});
+			Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}, status: "CANNED"});
 
 		// Create & Save
 		var postaction = this.reference.actions.create({

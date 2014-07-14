@@ -10,7 +10,6 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 		$.extend(this, options);
 
 		if(!this.model)	this.model = new Cloudwalkers.Models.Trigger();
-		console.log(this)
 	},
 
 	'render' : function()

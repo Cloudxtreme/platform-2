@@ -21,7 +21,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	'render' : function ()
 	{		
 		var data = Cloudwalkers.Session.getAccount().attributes;
-
+		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
 
@@ -31,6 +31,10 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates.settings.account, data));
 
 		this.$el.find("#menu").affix()
+
+		//Canned responses list
+		var cannedlist = new Cloudwalkers.Views.Settings.CannedList();
+		this.$el.find("#cannedlist").append(cannedlist.render().el);
 	
 		// Render manually both trigger's views
 		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
