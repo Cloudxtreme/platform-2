@@ -445,7 +445,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglestreams' : function (e)
-	{	
+	{
 		var $tabs = this.$el.find(".tabs-container > section");
 		var $btn = $(e.currentTarget);
 		var id = $btn.data("streams");
@@ -486,15 +486,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		$btn.toggleClass("inactive active");
 
 		// Is the scrolbar visible?
-		if(this.isscrolling()){
+		if(this.isscrolling())
 			this.$el.find('.stream-tabs').addClass('scrolling');
-			this.$el.find('.action-tabs').addClass('scrolling');
-		}
-		else{
+		else
 			this.$el.find('.stream-tabs').removeClass('scrolling');			
-			this.$el.find('.action-tabs').removeClass('scrolling');			
-		}
-
 	},
 	
 	'togglestream' : function (e)
@@ -518,7 +513,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft);
+	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)

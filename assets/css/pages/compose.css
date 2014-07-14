@@ -588,7 +588,7 @@ Style corrections and manual overrides
 	color: #999;
 	text-shadow: 0 1px white;
 	padding: 0px 11%; 
-	margin: 35px -11% 12px;
+	margin: 35px -10.5% 12px;
 	max-height: 0px;
 	-webkit-transition: all .15s ease-out;
 	overflow: hidden;
