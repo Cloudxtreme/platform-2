@@ -109,7 +109,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"MESSAGE_OUT_REPEAT", 
 				"MESSAGE_OUT_EDIT", 
 				"MESSAGE_OUT_EDIT_OWN", 
-				"MESSAGE_DRAFT", 
+				"MESSAGE_READ_DRAFTS", 
 				"MESSAGE_READ", 
 				"MESSAGE_ACTIONS", 
 				"MESSAGE_READ_INBOX", 
