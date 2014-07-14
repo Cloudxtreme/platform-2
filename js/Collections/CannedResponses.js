@@ -13,7 +13,18 @@ Cloudwalkers.Collections.CannedResponses = Backbone.Collection.extend({
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
+		var url = CONFIG_BASE_URL + 'json/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
+		return this.parameters? url + "?" + $.param (this.parameters): url;
+	},
+	
+	'sync' : function (method, model, options)
+	{
+		this.parameters = options.parameters;
+
+		// Hack
+		if(method == "update") return false;
+		
+		return Backbone.sync(method, model, options);
 	},
 	
 	'parse' : function (response)

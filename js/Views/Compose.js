@@ -250,7 +250,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			canned: 	this.type? this.fetchcanned(): null,
+			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 		
@@ -309,6 +309,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		return this;
+	},
+	
+	'option' : function (token)
+	{
+		var options = this.options[this.type];
+		
+		return options.indexOf(token) >= 0; 
 	},
 
 	'restarttime' : function()
@@ -1365,7 +1372,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Canned
 	**/
 
-	'fetchcanned' : function()
+	/*'fetchcanned' : function()
 	{		
 		if(this.options[this.type] && !this.options[this.type].indexOf('canned'))
 			return null;
@@ -1388,7 +1395,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".canned-list").chosen({width: "100%"});
 		this.$el.find(".canned-list").chosen({no_results_text: "Oops, nothing found!"}); 
 		this.$el.find("[data-type=canned] .collapsable-content").removeClass('loading');
-	},
+	},*/
 	
 	'listentocanned' : function (e)
 	{
@@ -1528,7 +1535,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Canned respose
 		if(this.$el.find("[data-type=canned] input").is(':checked'))
-			params = {canned: 1}
+
+			Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}});
 
 		// Create & Save
 		var postaction = this.reference.actions.create({
@@ -1537,14 +1545,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			message: this.draft.get("body").html, 
 			actiontype: this.type
 			}, 
-			{success: this.thankyou.bind(this, params? params.canned: null)}
+			{success: this.thankyou.bind(this, null)}
 		);
 
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function(canned, model)
+	'thankyou' : function()
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1572,10 +1580,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
-
-		// Add the message to the global canned list
-		if(canned)
-			Cloudwalkers.Session.getCannedResponses().distantAdd(this.draft);
 	},
 
 	'disablefooter' : function()
