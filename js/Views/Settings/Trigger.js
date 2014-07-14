@@ -10,7 +10,7 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 		$.extend(this, options);
 
 		if(!this.model)	this.model = new Cloudwalkers.Models.Trigger();
-		
+		console.log(this)
 	},
 
 	'render' : function()
@@ -41,7 +41,14 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 	'save' : function()
 	{	
 		this.model.setaction('REPLY', {message: this.$el.find('textarea').val()});
-		this.model.save({actions: this.model.get("actions")}, {success: function(){console.log("Success")}})
+
+		//Patch if it's an edit
+		this.model.save({
+			event: this.model.get('event'),
+			//condition: this.model.get('condition') || null,
+			actions: this.model.get("actions")
+			//streams: this.
+		}, {patch: this.model.id? true: false, success: function(){console.log("Success")}})
 	},
 
 	'reset' : function()

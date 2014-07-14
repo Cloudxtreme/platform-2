@@ -155,7 +155,8 @@ Style corrections and manual overrides
 	color: #333;
 }
 
-#compose section.stream-tabs.scrolling { height: 49px; }
+#compose section.stream-tabs.scrolling,
+#compose section.action-tabs.scrolling { height: 49px; }
 
 /**
  *	Form elements
