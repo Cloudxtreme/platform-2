@@ -754,6 +754,11 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 
 		this.limit = this.restrictedstreams[this.network]? this.restrictedstreams[this.network] - this.contentlimitation: null;
 		
+		$.each(this.$contenteditable.find('a'), function(i, anchor){
+			anchor.innerText = anchor.innerText.trim();
+			$(anchor).attr('contenteditable', 'false').after("&nbsp;");
+		});
+
 		//this.updatecounter(this.restrictedstreams[this.network] - this.$contenteditable.text().length);
 		this.removegrey(true);
 		this.listentochange(null, true);
