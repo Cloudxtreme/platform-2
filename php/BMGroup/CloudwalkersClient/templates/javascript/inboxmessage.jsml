@@ -62,7 +62,6 @@
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 		{{^authorized.ACCOUNT_TAGS_MANAGE}}
 			{{#authorized.ACCOUNT_TAGS_VIEW}}
-				<div class="btn-white pull-right edit"><i class="icon-tags"></i></div>
 				<ul class="tag-list"></ul>
 			{{/authorized.ACCOUNT_TAGS_VIEW}}
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
