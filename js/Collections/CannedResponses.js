@@ -36,5 +36,19 @@ Cloudwalkers.Collections.CannedResponses = Backbone.Collection.extend({
 	{
 		if(action == "delete")
 			Store.remove("campaigns", {id: model.id});
-	}
+	},
+
+	'removecanned' : function(id)
+	{
+		var cannedresponse;
+
+		$.each(this.models, function(n, canned){
+			if(canned.id == id){
+				cannedresponse = this.models.splice(n,1)
+				return false;
+			}
+		}.bind(this))
+
+		if(cannedresponse)	return cannedresponse;
+	} 
 });
