@@ -198,7 +198,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
 		// Load related messages
-		//this.inboxmessage.showrelated(); //(view.model);
+		this.inboxmessage.showrelated(); //(view.model);
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
