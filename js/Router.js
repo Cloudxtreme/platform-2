@@ -137,7 +137,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'drafts' : function ()
 	{	
-		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_DRAFT')) return this.home();
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_DRAFTS')) return this.home();
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
 	},
 
