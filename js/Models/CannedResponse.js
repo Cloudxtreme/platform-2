@@ -1,6 +1,6 @@
 Cloudwalkers.Models.CannedResponse = Backbone.Model.extend({
 
-	'endpoint' : 'messages',
+	'typestring' : 'messages',
 
 	'initialize' : function ()
 	{
@@ -11,8 +11,8 @@ Cloudwalkers.Models.CannedResponse = Backbone.Model.extend({
 	{	
 		var url = [CONFIG_BASE_URL + 'json'];
 		
-		if(this.id)			url.push(this.endpoint + '/' + this.id)
-		else if(!this.id)	url.push('accounts/' + Cloudwalkers.Session.getAccount ().id + this.endpoint)
+		if(this.id)			url.push(this.typestring + '/' + this.id)
+		else if(!this.id)	url.push('accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring)
 		
 		return url.join("/");
 	},
