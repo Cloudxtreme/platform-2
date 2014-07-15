@@ -315,7 +315,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		var options = this.options[this.type];
 		
-		return options.indexOf(token) >= 0; 
+		return options? options.indexOf(token) >= 0: false; 
 	},
 
 	'restarttime' : function()
