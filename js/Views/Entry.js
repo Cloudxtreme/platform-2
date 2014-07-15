@@ -33,7 +33,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{	
+	{
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
