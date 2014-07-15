@@ -1,36 +1,36 @@
-<ul class="timeline social-box-colors messages-container" id='pages'>
-	
-	<li class="timeline-blue timeline-loading">
-		<div class="timeline-time"></div>
-		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
-		<div class="timeline-body more inner-loading">
-			Loading
-		</div>
-	</li>
-	
-	<li class="timeline-grey load-more">
-		<div class="timeline-time">
-			<span class="date"></span>
-			<span class="time"></span>
-		</div>
-		<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
-		<div class="timeline-body more">
-			<strong>View more</strong>
-		</div>
-	</li>
-	
-	<li class="timeline-grey no-content">
-		<div class="timeline-time">
-			<span class="date"></span>
-			<span class="time"></span>
-		</div>
-		<div class="timeline-icon"><i class="icon-adjust"></i></div>
-		<div class="timeline-body more">
-			<strong>No messages</strong>
-		</div>
-	</li>
-
-</ul>
+<div class="timeline-bg"></div>
+	<ul class="timeline social-box-colors messages-container" id='pages'>
+		
+		<!--<li class="timeline-blue timeline-loading">
+			<div class="timeline-time"></div>
+			<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
+			<div class="timeline-body more inner-loading">
+				Loading
+			</div>
+		</li>-->
+		
+		<li class="timeline-grey load-more">
+			<div class="timeline-time">
+				<span class="date"></span>
+				<span class="time"></span>
+			</div>
+			<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
+			<div class="timeline-body more">
+				<strong>View more</strong>
+			</div>
+		</li>
+		
+		<li class="timeline-grey no-content">
+			<div class="timeline-time">
+				<span class="date"></span>
+				<span class="time"></span>
+			</div>
+			<div class="timeline-icon"><i class="icon-adjust"></i></div>
+			<div class="timeline-body more">
+				<strong>No messages</strong>
+			</div>
+		</li>
+	</ul>
 
 
 

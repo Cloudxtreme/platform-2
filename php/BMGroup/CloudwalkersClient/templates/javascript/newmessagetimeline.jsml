@@ -1,0 +1,32 @@
+<li class="timeline-entry">
+	<div class="timeline-time">
+		<span class="date">{{dateonly}}</span>
+		
+			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+		
+	</div>
+
+	<!--<div class="timeline-icon"><i class="icon-{{#icon}}{{icon}}{{/icon}}{{^icon}}cloud-download{{/icon}}"></i></div>-->
+
+	<div class="timeline-icon">{{#from}}<img src="{{avatar}}"/>{{/from}}</div>
+
+	<div class="timeline-body">
+	<!--
+		<div class="timeline-avatar">
+			{{#from}}
+				<img src="{{avatar}}"/>
+			{{/from}}
+		</div>
+	-->
+		<div class="timeline-entry-content">
+			{{#from}}
+				<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></a>
+				<!-- CONTACTS_ROLE -->
+				
+				<br />
+			{{/from}}
+			{{{body.html}}}
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</li>
