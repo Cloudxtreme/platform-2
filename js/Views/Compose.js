@@ -13,6 +13,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'actionstreams': [],
 	'actionview': false,
 	'minutestep': 5,
+	'maxfilesize' : 3000000,
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -625,10 +626,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var self = this;
 
 		for (var i = 0, f; f = files[i]; i++)
-		{
+		{	
 			// Check type
-			if (!f.type.match('image.*')) continue;
-			
+			if (!f.type.match(/^image\/(gif|jpg|jpeg|png)$/i))
+			{
+				this.showerror('Upload failed: ', 'only .jpg .jpeg .png and .gif extensions supported');
+				continue;
+			} 
+			if (f.size > this.maxfilesize)
+			{	
+				this.showerror('Upload failed: ', 'image size exceeds 3mb');
+				continue;
+			}
+
 			var reader = new FileReader();
 			
 			reader.onload = (function(file)
@@ -1465,7 +1475,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
  		if(error = this.draft.validateCustom(['streams', 'schedule']))
- 			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not saved: ", error);
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1495,7 +1505,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
 		if(error = this.draft.validateCustom())
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not posted: ", error);
 
 		//Disables footer action
 		this.disablefooter();
@@ -1545,7 +1555,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			checkblock = false;
 
 		if(error = this.draft.validateCustom([checkblock]))
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not posted: ", error);
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1601,6 +1611,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+	},
+
+	'showerror' : function(title, error)
+	{
+		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 	},
 
 	'disablefooter' : function()
