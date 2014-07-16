@@ -51,6 +51,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
 
+		this.resize(Cloudwalkers.RootView.height());
+
 		return this;
 	},
 		
@@ -96,6 +98,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'resize' : function(height)
+	{	
+		this.$el.css('min-height', height);
 	}
 
 });

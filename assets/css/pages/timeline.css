@@ -2,7 +2,7 @@
 Style corrections and manual overrides
 ***/
 
-#timeline { position: relative;	padding-left: 0px; overflow: hidden;}
+#timeline { position: relative;	padding-left: 0px; overflow: hidden; min-height: 100%;}
 
 /* Timeline Loading */
 
@@ -17,9 +17,13 @@ Style corrections and manual overrides
 	top: 15px; border-right-color: #aaa;
 }
 
+#timeline .timeline .timeline-loading{
+	top: 60px;
+}
+
 #timeline.loading .timeline-body, .load-more .timeline-body.more	{ min-height: 20px; }
 
-#timeline .timeline-bg{	position: absolute; height: 100%; width: 100%; left: 0px; margin-left: 33%;	border: 1px solid #e6e6e6; background: #eee; margin-right: -20px; }
+#timeline .timeline-bg{	position: absolute; min-height: 100%; width: 100%; left: 0px; margin-left: 33%;	border: 1px solid #e6e6e6; background: #eee; margin-right: -20px; }
 
 /* Timeline loaded */
 
