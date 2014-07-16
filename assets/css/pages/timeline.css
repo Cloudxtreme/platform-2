@@ -18,7 +18,7 @@ Style corrections and manual overrides
 }
 
 #timeline .timeline .timeline-loading{
-	top: 60px;
+	top: 35px;
 }
 
 #timeline.loading .timeline-body, .load-more .timeline-body.more	{ min-height: 20px; }
@@ -425,6 +425,24 @@ Timeline UI Base
 	-webkit-border-radius: 30px !important;
 	   -moz-border-radius: 30px !important;
 			border-radius: 30px !important;
+	font-size: 33px;
+	line-height: 53px;
+	z-index: 10;
+}
+
+.timeline-icon.entry-loading:before{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	font-family: FontAwesome; font-size: 14px; color: #fff; line-height: 2.4em; 
+	content: "\F0ED"; -webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+	font-size: 33px;
+	left: 1px;
+	top: -10px;
 }
 
 .timeline > li .timeline-icon .timeline-avatar {

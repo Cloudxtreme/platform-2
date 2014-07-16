@@ -3,7 +3,7 @@
 		
 		<li class="timeline-blue timeline-loading">
 			<div class="timeline-time"></div>
-			<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
+			<div class="timeline-icon entry-loading"></div>
 			<div class="timeline-body more inner-loading">
 				Loading
 			</div>

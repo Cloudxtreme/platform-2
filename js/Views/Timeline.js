@@ -32,7 +32,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'hideloading': function()
 	{
 		this.$el.removeClass("loading");
-		//this.$el.find(".timeline-loading").hide();
+		this.$el.find(".timeline-loading").hide();
 	},
 	
 	'render' : function ()
