@@ -30,6 +30,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
 		this.listenTo(this.model, 'destroy', this.remove);
+
 	},
 
 	'render' : function ()
@@ -237,7 +238,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$container.html (Mustache.render (Templates.youtube, {url: url}));
 	},
 
-	//Note textarea & default nodelist state
+	//Note textarea
 	'loadnoteui' : function()
 	{	
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
@@ -246,10 +247,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote.note, 'sync', this.noteadded);
 		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
-		this.$el.find('.note-content').append(composenote.render().el);
-
-		//Load default note
-		this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
+		this.$el.find('.note-content').append(composenote.render().el);		
 	},
 
 	'fetchnotes' : function()
@@ -276,22 +274,28 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}
 	},
 
-	'addnote' : function(newnote, isnew)
+	'addnote' : function(newnote)
 	{	
 		var options = {model: newnote, template: 'messagenote'}
 		var note;
 
-		if(isnew)	options.isnew = true;
+		if(this.newnote)	options.isnew = true;
 
 		note = new Cloudwalkers.Views.Widgets.NoteEntry(options);
 		this.$el.find('.note-list').append(note.render().el);
+
+		this.newnote = false;
 	},
 
 	'noteadded' : function(note)
 	{	
-		this.addnote(note, true);
+		//this.addnote(note, true);
 		this.togglenoteaction('note-list');
-		this.composenote.clean();
+		this.newnote = true;
+		this.fetchnotes();
+
+		this.composenote.remove();
+		this.loadnoteui();
 	},
 
 	/* Tags */

@@ -73,16 +73,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_MANAGE'))
 			this.initializenote();
 
-		if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) | (Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE')))
+		if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || (Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE')))
 			this.loadtagui();
 
-		// make the fetch
-		//this.collection.touch(this.model, this.filterparams());
-		
-		//this.getmessages();
 		this.begintouch();
-
-		
 
 		return this;	
 	},
@@ -108,9 +102,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.listenTo(view, "toggle", this.loadmessage);
 			
 			this.$container.append(view.render().el);
-
-			// Filter contacts
-			//this.model.seedcontacts(models[n]);
 		}	
 	},
 
@@ -227,7 +218,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		// Add the Note
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
-
+		this.composenote = composenote;
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
@@ -241,7 +232,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		setTimeout(function(){
 			this.togglecontactnote()
-			this.$el.find('#notecontainer textarea').val('');
+			this.composenote.remove();
+			this.initializenote();
+
+			if(this.type == 'note')	this.touch('note');
+			
 		}.bind(this),delay);
 	},
 
