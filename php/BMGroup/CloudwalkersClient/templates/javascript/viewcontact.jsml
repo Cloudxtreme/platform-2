@@ -35,6 +35,10 @@
 </aside>
 
 <div id="inboxlist">
+	<div class="closewrapper">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	</div>
+	
 	<table class="end-preview">
 		<tbody><tr><td valign="middle">
 			<i class="icon-chevron-left"></i>

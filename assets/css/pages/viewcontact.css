@@ -8,6 +8,30 @@ img.viewdetails{
 	height: 620px;
 }
 
+#compose.viewcontact #inboxlist{
+	border-right: none;
+}
+
+#compose.viewcontact #inboxlist .list li{
+	padding: 8px 20px 10px;
+}
+
+#compose.viewcontact #inboxlist .closewrapper{
+	position: absolute;
+	right: -30px;
+	height: 60px;
+	width: 60px;
+	background: #fff;
+	z-index: 10;
+	top: -30px;
+	box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+}
+
+#compose.viewcontact #inboxlist .closewrapper .close{
+	margin-top: 42px;
+	margin-right: 40px;
+}
+
 .viewcontact .modal-body{
 	width: 200%;
 	height: 100%;
