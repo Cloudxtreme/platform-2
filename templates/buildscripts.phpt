@@ -170,4 +170,5 @@
 <script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/CannedList.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>

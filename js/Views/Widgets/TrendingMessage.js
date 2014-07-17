@@ -46,7 +46,7 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		this.settings.icon = message.from[0].network.icon || "";
 		this.settings.date = message.dateonly || "";
 		//Just one image
-		if(images)
+		if(images.length)
 			this.settings.image = images[0].url || "";
 		
 		this.settings.links = links || [];

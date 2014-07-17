@@ -13,6 +13,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'actionstreams': [],
 	'actionview': false,
 	'minutestep': 5,
+	'maxfilesize' : 3000000,
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -250,7 +251,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			canned: 	this.type? this.fetchcanned(): null,
+			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 		
@@ -275,7 +276,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
 		// Listen to editor triggers
-		this.listenTo(this.editor, "imageadded", this.addimage);
+		this.listenTo(this.editor, "imageadded", this.listentourlfiles);
 		this.listenTo(this.editor, "change:content", this.monitor);
 
 		// Add Chosen
@@ -309,6 +310,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}
 		
 		return this;
+	},
+	
+	'option' : function (token)
+	{
+		var options = this.options[this.type];
+		
+		return options? options.indexOf(token) >= 0: false; 
 	},
 
 	'restarttime' : function()
@@ -618,10 +626,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var self = this;
 
 		for (var i = 0, f; f = files[i]; i++)
-		{
+		{	
 			// Check type
-			if (!f.type.match('image.*')) continue;
-			
+			if (!f.type.match(/^image\/(gif|jpg|jpeg|png)$/i))
+			{
+				this.showerror('Upload failed: ', 'only .jpg .jpeg .png and .gif extensions supported');
+				continue;
+			} 
+			if (f.size > this.maxfilesize)
+			{	
+				this.showerror('Upload failed: ', 'image size exceeds 3mb');
+				continue;
+			}
+
 			var reader = new FileReader();
 			
 			reader.onload = (function(file)
@@ -638,6 +655,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			break;
 		}	
 	},
+
+	'listentourlfiles' : function(image)
+	{	
+		var streamid = this.activestream ? this.activestream.id : false;
+		var numimages = 0;
+		
+		if(streamid && this.draft.getvariation(streamid,'image'))
+			numimages += this.draft.getvariation(streamid, 'image').length;
+		
+		if(this.draft.get("attachments")){
+			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
+			numimages += imgs.length
+		}
+		
+		if(!numimages)	this.addimage(image);
+	},
+
 	// Add to the variation or the default
 	'addimage' : function(image){
 		var streamid = this.activestream ? this.activestream.id : false;
@@ -1365,7 +1399,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	 *	Canned
 	**/
 
-	'fetchcanned' : function()
+	/*'fetchcanned' : function()
 	{		
 		if(this.options[this.type] && !this.options[this.type].indexOf('canned'))
 			return null;
@@ -1388,7 +1422,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find(".canned-list").chosen({width: "100%"});
 		this.$el.find(".canned-list").chosen({no_results_text: "Oops, nothing found!"}); 
 		this.$el.find("[data-type=canned] .collapsable-content").removeClass('loading');
-	},
+	},*/
 	
 	'listentocanned' : function (e)
 	{
@@ -1441,7 +1475,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
  		if(error = this.draft.validateCustom(['streams', 'schedule']))
- 			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not saved: ", error);
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1471,7 +1505,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
 		if(error = this.draft.validateCustom())
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not posted: ", error);
 
 		//Disables footer action
 		this.disablefooter();
@@ -1521,14 +1555,15 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			checkblock = false;
 
 		if(error = this.draft.validateCustom([checkblock]))
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+ 			return this.showerror("Not posted: ", error);
 		
 		//Disables footer action
 		this.disablefooter();
 
 		// Canned respose
 		if(this.$el.find("[data-type=canned] input").is(':checked'))
-			params = {canned: 1}
+
+			Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}, status: "CANNED"});
 
 		// Create & Save
 		var postaction = this.reference.actions.create({
@@ -1537,14 +1572,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			message: this.draft.get("body").html, 
 			actiontype: this.type
 			}, 
-			{success: this.thankyou.bind(this, params? params.canned: null)}
+			{success: this.thankyou.bind(this, null)}
 		);
 
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function(canned, model)
+	'thankyou' : function()
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1562,20 +1597,25 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(this.type == "edit")
 		{
 			var varn;
-			/*if(varn = this.draft.get("variations")) varn.forEach(function(el)
+			
+			if(varn = this.draft.get("variations")) varn.forEach(function(el)
 			{
-				if(el.id) console.log(el.id, el, Cloudwalkers.Session.getStream(el.id));
+				if(el.id) 
+				{
+					Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
+				}
 			});
 			
-			else */ this.model.fetch();	
+			else this.model.fetch();	
 		}
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+	},
 
-		// Add the message to the global canned list
-		if(canned)
-			Cloudwalkers.Session.getCannedResponses().distantAdd(this.draft);
+	'showerror' : function(title, error)
+	{
+		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 	},
 
 	'disablefooter' : function()

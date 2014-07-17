@@ -249,26 +249,22 @@
 				<div class="summary" data-toggle="repeat"></div>
 
 			</section>
-			
-			
 
-		</div>
-		
-		<div class="modal-footer toload">
-			{{#actionview}}
-			<button id="action" class="btn btn-primary" data-action="{{actionview}}">{{actionview}}</button>
-			{{/actionview}}
-			{{^actionview}}
-
-			{{#authorized.MESSAGE_DRAFT}}
-				<button id="save" class="btn">{{translate_save}}</button>
-			{{/authorized.MESSAGE_DRAFT}}
-
-			<button id="previewbtn" class="btn" disabled>{{translate_preview}}</button>
-			<button id="post" class="btn btn-primary">{{translate_post}}</button>
-			{{/actionview}}
-		</div>
 	</div>
-	<div class="clearfix"></div>
+	
+	<div class="modal-footer toload">
+		{{#actionview}}
+		<button id="action" class="btn btn-primary" data-action="{{actionview}}">{{actionview}}</button>
+		{{/actionview}}
+		{{^actionview}}
+
+		<button id="save" class="btn">{{translate_save}}</button>
+
+		<button id="previewbtn" class="btn" disabled>{{translate_preview}}</button>
+		<button id="post" class="btn btn-primary">{{translate_post}}</button>
+		{{/actionview}}
+	</div>
+
 	
 </div>
+<div class="clearfix"></div>

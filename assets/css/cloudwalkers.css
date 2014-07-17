@@ -405,6 +405,8 @@ nav	{
 
 .collapse-closed .portlet-body	{ max-height: 0 !important; padding: 0 10px !important; }
 .collapse-open .portlet-body		{ max-height: 400px !important; padding: 10px !important; }
+#cannedlist .collapse-open .portlet-body		{ max-height: inherit !important;}
+
 
 /* Added the class scrollable to distinguish the ones that need this padding or not */
 .collapse-closed .portlet-body.scrollable	{ padding: 0 2px 0 12px !important; }
