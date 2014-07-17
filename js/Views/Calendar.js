@@ -5,7 +5,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'viewtype' : 'month',
 	'views' : [],
 	
-	'parameters' : {records: 999},
+	'parameters' : {records: 300},
 	'events' : {
 		'remove': 'destroy',
 		'change select' : 'toggleView',
