@@ -107,7 +107,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'coworkers' : function ()
 	{
-		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COWORKER')) return this.home();
+		if (!Cloudwalkers.Session.isAuthorized('_CW_COWORKERS_VIEW')) return this.home();
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
 	},
 	

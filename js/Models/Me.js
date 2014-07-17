@@ -135,10 +135,20 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"ACCOUNT_TAGS_VIEW",
 				"ACCOUNT_TAGS_MANAGE",
 				];*/
+
+				/*this.authorized = [
+				"ACCOUNT_SETTINGS", 
+				"DASHBOARD_VIEW", 
+				"MESSAGE_SEND_COWORKERS", 
+				"MESSAGE_OUT_ATTACHMENTS", 
+				"MESSAGE_OUT_EDIT_OWN", 
+				"MESSAGE_READ_COMPANY",
+				];*/
 			
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
+			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);
 			
 			// Call callback
@@ -165,6 +175,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		}
 
 		return censures;
+	},
+
+	'parseauthorized' : function()
+	{
+		if(this.isauthorized(['MESSAGE_OUT_EDIT_OWN', 'MESSAGE_ACTIONS']), this.authorized.push('_CW_COWORKERS_VIEW'));
 	},
 	
 	'offline' : function ()
