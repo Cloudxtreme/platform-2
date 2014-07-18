@@ -179,6 +179,7 @@
 		"deleted": "Apagado",
 		"streams": "Streams",
 		"keyword_monitoring_category": "Keyword Monitoring Category",
-		"you_are_about_to_remove_group": "You are about to remove group "
+		"you_are_about_to_remove_group": "You are about to remove group ",
+		"add_user": "Add User"
 	}
 }

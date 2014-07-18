@@ -1,6 +1,6 @@
- Cloudwalkers.Collections.UserGroups = Backbone.Collection.extend({
+ Cloudwalkers.Collections.Groups = Backbone.Collection.extend({
 
-	'model' : Cloudwalkers.Models.UserGroup,
+	'model' : Cloudwalkers.Models.Group,
 	'typestring' : "groups",
 	'modelstring' : "group",
 	'parenttype' : "account",
@@ -11,7 +11,6 @@
 	{
 		// Override type strings if required
 		if(options) $.extend(this, options);
-		console.log(this.id)	
 		
 	},
 	

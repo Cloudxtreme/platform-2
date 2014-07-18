@@ -1,4 +1,4 @@
-Cloudwalkers.Views.Settings.Group = Backbone.View.extend({
+Cloudwalkers.Views.Settings.GroupItem = Backbone.View.extend({
 
 	'tagName' : 'tr',
 

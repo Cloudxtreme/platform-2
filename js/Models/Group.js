@@ -1,4 +1,4 @@
-Cloudwalkers.Models.UserGroup = Backbone.Model.extend({
+Cloudwalkers.Models.Group = Backbone.Model.extend({
 	
 	
 	'initialize' : function ()

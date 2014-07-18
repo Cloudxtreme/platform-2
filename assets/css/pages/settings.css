@@ -542,3 +542,6 @@ cursor: pointer;
 .group-container .group-name.active{
   font-weight: bold;
 }
+.portlet-body{
+  overflow: auto;
+}

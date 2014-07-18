@@ -11,7 +11,7 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 	'initialize' : function ()
 	{
 		
-		this.collection = new Cloudwalkers.Collections.UserGroups();
+		this.collection = new Cloudwalkers.Collections.Groups();
 		
 		// listen to model
 		
@@ -20,6 +20,7 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 		this.listenTo(this.collection, 'sync', this.hideloading);
 		
 		this.loadListeners(this.collection, ['request', 'sync'], true);
+
 	},
 	
 	'render' : function ()
@@ -35,11 +36,8 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 		
 		this.$el.html (Mustache.render (Templates.settings.manageusergroups, data));
 		
-		//account.users.hook({success: this.fill.bind(this), error: this.fail});
 		
-		this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
-		
-		// Load users
+		// Load groups
 		this.collection.touch();
 	
 		this.$container = this.$el.find('.toload');
@@ -57,7 +55,7 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 		
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Settings.Group ({ 'model' : models[n] });
+			var view = new Cloudwalkers.Views.Settings.GroupItem ({ 'model' : models[n] });
 			$container.append(view.render().el);
 		}
 
@@ -82,36 +80,27 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 	},
 
 	'fetchDetails' : function(e)
-	{
-
-		console.log("fetchDetails");
+	{	
 
 		$('.group-container > *').removeClass("active");
 		$(e.currentTarget).closest('tr').addClass("active");
 
 		var groupid = $(e.currentTarget).data("edit-group-id");
+		var group = new Cloudwalkers.Models.Group({id: groupid});
 
-		//fetch
+		group.fetch({ success: this.fillDetails.bind(this) });
 
 	},
 
 	'fillDetails' : function(group){
 
-		console.log("fillDetails");
-
 		var options = {model: group, template: 'manageusergroups_details'}
-		var group_details;
+		var group_details = new Cloudwalkers.Views.Settings.GroupDetails(options);
+		var details_container = this.$el.find('.group-details-container')
 
-		group_details = new Cloudwalkers.Views.Settings.GroupDetails(options);
-		this.$el.find('.group-details-container').append(group_details.render().el);
+		details_container.empty();
+		details_container.append(group_details.render().el);
 
-	},
-
-	/* on it's way to be deprecated */
-	'negotiateFunctionalities' : function(el)
-	{
-		// Check collapse option
-		$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	},
 	
 	'fail' : function ()
@@ -131,10 +120,7 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 			"user_groups",
 			"create_new_group",
 			"name",
-			"add",
-			"user_list",
-			"streams",
-			"keyword_monitoring_category"
+			"add"
 		];
 
 		this.translated = [];
