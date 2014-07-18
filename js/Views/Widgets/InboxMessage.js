@@ -46,12 +46,12 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(params);
-
+		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
 		// Add notes interface to the message
-		// <!-- NOTES_ROLE -->
+		
 		//if(this.parameters.notes)
 		if(this.model.get("objectType")){
 			if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
@@ -60,7 +60,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 				this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
 				
 				//Load note composer
-			}	this.loadnoteui();
+				this.loadnoteui();
+			}	
 			
 			if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
 		}

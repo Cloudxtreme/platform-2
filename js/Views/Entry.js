@@ -40,12 +40,24 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
 		
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(this.parameters);
+
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
 		
 		if(this.checkunread && this.model.get("objectType")) this.checkUnread();
+
+		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+
+			//Load default note
+			this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
+				
+			//Load note composer
+			this.loadnoteui();
+		}	
 
 		return this;
 	},
