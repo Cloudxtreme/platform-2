@@ -171,6 +171,14 @@
 		"Favourite": "Favourite",
 		"Plus one": "Plus one",
 		"Compose": "Compose",
-		"support": "Support"
+		"support": "Support",
+		"manage_user_groups": "Manage User Groups",
+		"user_groups": "User Groups",
+		"create_new_group": "Create New Group",
+		"user_list": "User List",
+		"deleted": "Apagado",
+		"streams": "Streams",
+		"keyword_monitoring_category": "Keyword Monitoring Category",
+		"you_are_about_to_remove_group": "You are about to remove group "
 	}
 }

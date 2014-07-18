@@ -520,3 +520,25 @@ table.inner-service .white-box input[type=text]	{
   font-size:12px;
   margin-top:2px !important;
 }
+.profile .settings-users .group-container td i {
+font-size: 20px;
+color: #777;
+padding: 1px 0 0 4px;
+cursor: pointer;
+}
+.group-details-container div .portlet{
+    background-color: #DDD;
+}
+.group-container .group-name{
+  cursor: pointer;
+  padding-right: 20px;
+}
+.profile .table-hover .group-container tr:hover td, 
+.profile .table-hover .group-container tr:hover th,
+.profile .table-hover .group-container tr.active td,
+.profile .table-hover .group-container tr.active th {
+  background:#eee;
+}
+.group-container .group-name.active{
+  font-weight: bold;
+}

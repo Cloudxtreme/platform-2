@@ -170,7 +170,8 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 			"invite_user",
 			"userlist",
 			"name",
-			"type"
+			"type",
+			"manage_user_groups"
 		];
 
 		this.translated = [];

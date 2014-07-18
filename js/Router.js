@@ -296,6 +296,14 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkdashboard());
 	},
 	
+	/**
+	 * Manage User Groups
+	 **/
+	
+	'manageusergroups' : function ()
+	{	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.ManageUserGroups ());
+	},
 
 	'home' : function ()
 	{
