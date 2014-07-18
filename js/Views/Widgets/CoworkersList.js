@@ -25,7 +25,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		//Show all reloads te listeners
 		this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
-		
+
+		this.listenTo(Cloudwalkers.RootView, 'added:message', this.messageadded);
+
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
 
@@ -152,6 +154,15 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
+
+	'messageadded' : function(draft)
+	{
+		var coworkersstream = Cloudwalkers.Session.getStream('coworkers').id;
+		var streams = draft.get("streams");
+		
+		if(streams && streams.indexOf(coworkersstream) >= 0)
+			this.model.messages.touch(this.model);
+	},
 	
 	/*'more' : function ()
 	{
@@ -187,16 +198,19 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
 	},
+
 	'translateTitle' : function(translatedata)
 	{	
 		// Translate Title
 		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
 	},
+
 	'mustacheTranslateRender' : function(translatelocation)
 	{
 		// Translate array
