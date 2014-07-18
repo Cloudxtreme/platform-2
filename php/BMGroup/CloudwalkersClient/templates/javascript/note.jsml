@@ -23,3 +23,6 @@
 	
 </div>
 
+<div class="message-actions">
+	<div class="btn-white" data-action="delete" style="margin-top: -6px;"><i class="icon-remove"></i></div>
+</div>
