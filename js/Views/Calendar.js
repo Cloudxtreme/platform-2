@@ -17,7 +17,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function ()
 	{
 		// Select streams
-		this.model = Cloudwalkers.Session.getChannel("profiles"); // Cloudwalkers.Session.getStream("scheduled");
+		this.model = Cloudwalkers.Session.getChannel("profiles");
+		this.scheduled = Cloudwalkers.Session.getStream("scheduled");
+		
+
 		// to-do: this.drafts = Cloudwalkers.Session.getStream("draft");
 
 		// Emergency break
@@ -37,6 +40,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// to-do: this.listenTo(this.drafts.messages, 'request', this.showloading);
 		
 		//this.model.messages.on("all", function(call){ console.log(call); })
+
 	},
 	
 	'render' : function()
@@ -66,7 +70,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		
 		// Init FullCalendar
 		setTimeout( this.initCalendar.bind(this), 10);
-		
 		return this;
 	},
 	
@@ -82,15 +85,31 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// Touch Channel
 		this.listenToOnce(this.model.messages, 'ready', this.fill.bind(this, callback));
 		this.listenToOnce(this.model.messages, 'cached', this.fill.bind(this, callback));
+
 		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
-		//var params = {records: 999, since: from.unix(), until: to.unix()};
-		//if($('#calendar').fullCalendar('getView').streams) params.streams = $('#calendar').fullCalendar('getView').streams
 		
-		// console.log("ready to populate", this.parameters)
+		this.model.messages.touch(this.model, this.parameters);		
+	},
+
+	'populate_scheduled' : function (from, to, timezone, callback)
+	{
+		// Limit to month
+		from = from.startOf('month').add(1, 'month');
+		to = to.endOf('month').subtract(1, 'month');
 		
-		this.model.messages.touch(this.model, this.parameters);
+		// Display
+		this.datedisplay(from, to);
 		
+		// Touch Channel
+		this.listenToOnce(this.scheduled.messages, 'ready', this.fill.bind(this, callback));
+		this.listenToOnce(this.scheduled.messages, 'ready:empty', this.fill.bind(this, callback));
+		this.listenToOnce(this.scheduled.messages, 'cached', this.fill.bind(this, callback));
+
+		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
+		$.extend(this.parameters, {since: from.unix(), until: to.unix()})		
+		
+		this.scheduled.messages.touch(this.scheduled, this.parameters);	
 	},
 	
 	'datedisplay' : function (from, to)
@@ -118,22 +137,24 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'fill' : function (callback, collection)
 	{
-		
 		// console.log("filling networks");
-		
 		var nodes = [];
+
+		if(!collection)	return callback(nodes);
 		
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
 		}
-	
+
 		callback(nodes);
 	},
+
 	
 	'updatenode' : function (model, date)
 	{
 		$('#calendar').fullCalendar( 'updateEvent', model.filterCalReadable().calNode)
+		$('#calendar').fullCalendar( 'updateEvent', scheduled.filterCalReadable().calNode)
 	},
 	
 	'filldrafts' : function (list)
@@ -178,7 +199,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	 *	http://arshaw.com/fullcalendar/docs2/
 	**/
 	'initCalendar' : function () {
-	
 		$('#calendar').fullCalendar({ //re-initialize the calendar
 			header: false,
 			slotMinutes: 30,
@@ -190,7 +210,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			axisFormat: 'H:mm',
 			defaultTimedEventDuration: '00:30:00',
 			slotEventOverlap: false,
-			events: this.populate.bind(this),
+			eventSources: [
+		        this.populate.bind(this),
+		        this.populate_scheduled.bind(this),
+		    ],
 			eventRender: function(event, element)
 			{	
 				// Prevent empty renders (rendered is hack)

@@ -334,7 +334,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(!this.calNode) this.calNode = {id: this.id};
 		
 		// Calendar node elements
-		this.calNode.start = loaded? $.fullCalendar.moment(this.get("date")): $.fullCalendar.moment(); /*new Date(this.get("date")): new Date()*/
+		
+		if(this.get("schedule")){
+			this.calNode.start = loaded? $.fullCalendar.moment(this.get("scheduledate")): $.fullCalendar.moment();
+		} else {
+			this.calNode.start = loaded? $.fullCalendar.moment(this.get("date")): $.fullCalendar.moment(); /*new Date(this.get("date")): new Date()*/
+		}
+		
 		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0, media? 12: 16): "...";
 		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden';
 		this.calNode.networkdescription = loaded? this.get("networkdescription"): null;
@@ -344,7 +350,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Prettify intro
 		if(loaded && this.calNode.intro.length >= 72) this.calNode.intro += "...";
-		
 		return this;
 	},
 	
