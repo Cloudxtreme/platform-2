@@ -61,7 +61,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
-		//console.log(this.collection);
 	},
 
 	'render' : function ()
@@ -76,6 +75,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 	'fill' : function ()
 	{ 	
+		if(!this.collection.latest() || !this.collection.latest().get('streams'))	return;
+
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
 		var chartcontainer = '.chart-container';
