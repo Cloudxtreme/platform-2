@@ -12,7 +12,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'remove': 'destroy',
 		'click #add': 'addperiod',
 		'click #subtract': 'subtractperiod',
-		'click #now': 'changespan',
+		'click #now': 'now',
 		'click #show': 'changecustom',
 		'change .stats-header select.networks': 'changestream',
 		'change .stats-header select.time': 'changespan',
@@ -184,6 +184,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.$el.removeClass("loading");
 		this.$el.find('.period-buttons .btn').attr("disabled", false);
 	},
+
+	'now' : function()
+	{
+		this.cleancollection();
+		this.period = 0;
+		this.render();
+	},
 	
 	'addperiod' : function (e)
 	{	
@@ -220,6 +227,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		var timespan = this.$el.find("select.time").val();
 		this.timespan = timespan;
+
 		this.render();
 	},
 	
