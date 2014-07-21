@@ -75,6 +75,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'populate' : function (from, to, timezone, callback)
 	{
+		// Show loader
+		this.loader("on");
+		
 		// Limit to month
 		from = from.startOf('month').add(1, 'month');
 		to = to.endOf('month').subtract(1, 'month');
@@ -83,12 +86,13 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Touch Channel
-		this.listenToOnce(this.model.messages, 'ready', this.fill.bind(this, callback));
-		this.listenToOnce(this.model.messages, 'cached', this.fill.bind(this, callback));
+		this.listenTo(this.model.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.model.messages, 'ready',  function(){this.loader("off")});
+		this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 
 		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
-		
+
 		this.model.messages.touch(this.model, this.parameters);		
 	},
 
@@ -102,10 +106,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Touch Channel
-		this.listenToOnce(this.scheduled.messages, 'ready', this.fill.bind(this, callback));
-		this.listenToOnce(this.scheduled.messages, 'ready:empty', this.fill.bind(this, callback));
-		this.listenToOnce(this.scheduled.messages, 'cached', this.fill.bind(this, callback));
-
+		this.listenTo(this.scheduled.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.scheduled.messages, 'ready:empty', this.fill.bind(this, callback));
+		this.listenTo(this.scheduled.messages, 'cached', this.fill.bind(this, callback));
 		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 		$.extend(this.parameters, {since: from.unix(), until: to.unix()})		
 		
@@ -281,6 +284,16 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		});
 	},
 
+	'loader' : function(a){
+		if(a == "on"){
+			this.$el.find('#calcontainer').css('display','none');
+			this.$el.find('.container-loading').css('display','block');
+		} else {
+			this.$el.find('.container-loading').css('display','none');
+			this.$el.find('#calcontainer').css('display','block');
+		}
+	},
+
 	'translateTitle' : function(translatedata)
 	{	
 		// Translate Title
@@ -311,5 +324,5 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
-	
+
 });

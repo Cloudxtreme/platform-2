@@ -545,3 +545,17 @@ cursor: pointer;
 .portlet-body{
   overflow: auto;
 }
+.alluser-list{
+  display: none;
+}
+.group-details-container .portlet-body {
+  overflow: visible;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.group-details-container .add-group-user{
+  width: 100%;
+}

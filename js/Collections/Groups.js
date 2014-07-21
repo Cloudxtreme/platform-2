@@ -16,23 +16,39 @@
 	
 	'parse' : function (response)
 	{
-		return response.account.groups;
+		//console.log(response)
+		if(this.modelstring == 'user'){
+			return response.group.users;
+		} else {
+			return response.account.groups;
+		}
 	},
 	
 	'url' : function()
 	{
 		var url = [CONFIG_BASE_URL + "json"];
+		
+		
 
-		url.push('accounts/' + Cloudwalkers.Session.getAccount().id);
+		if(this.modelstring == 'user'){
+			
+			url.push(this.parenttype + '/' + this.parentmodel.groupid);
 
-		if(this.length)
-			url.push('groups');
+			/*this.endpoint = this.parentmodel.modelstring;
+			this.modelstring = this.parentmodel.modelstring;
+			url.push(this.typestring + '/' + this.parentmodel.groupid);*/
 
+		} else {
+			url.push(this.parenttype + '/' + Cloudwalkers.Session.getAccount().id);
+
+			if(this.typestring)
+				url.push(this.typestring);
+		}
 		if(this.endpoint)
 			url.push(this.endpoint);
 
 		if(this.parameters)
-			url.push(this.parameters);
+			url.push(this.parameters);		
 
 		url = url.join("/");
 

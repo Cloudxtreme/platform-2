@@ -177,3 +177,4 @@
 <script type="text/javascript" src="/js/Views/Settings/ManageUserGroups.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/GroupItem.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/GroupDetails.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/UserDropdown.js"></script>

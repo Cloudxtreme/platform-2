@@ -5,23 +5,24 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 	'events' : 
 	{
 		'submit .add-group-user' : 'addUser',
-		'click [data-delete-group-user-id]' : 'deleteUser'
+		'click [data-delete-group-user-id]' : 'deleteUser',
+		'change select.alluser-list' : 'listentouserdropdown'
 	},
 	
 	'initialize' : function ()
 	{
-		this.users = new Cloudwalkers.Collections.Groups();
+		// Collect all Account Users
+		this.users = new Cloudwalkers.Collections.Users();
+		this.listenTo(this.users, 'seed', this.fillUsersDropdown);
 
-		this.listenTo(this.users, 'seed', this.fillUsers);
-		this.listenTo(this.users, 'request', this.showloading);
-		this.listenTo(this.users, 'sync', this.hideloading);
-		
-		this.loadListeners(this.users, ['request', 'sync'], true);
+		this.groups = new Cloudwalkers.Collections.Groups({modelstring:'user', parenttype:'group', typestring: 'users'});
+		this.listenTo(this.groups, 'seed', this.fillGroups);
+
+		var selecteduser = "";
 	},
 
 	'render' : function ()
-	{
-		
+	{	
 		var data = {};
 		
 		data = this.model.attributes;
@@ -35,15 +36,15 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates.settings.manageusergroups_details, data));
 
 		// Load group users
-		this.users.touch({user: "user"});
+		this.users.touch({});
 
-		this.$el.find(".canned-list").chosen({width: "100%"});
+		this.groups.touch({groupid: this.model.id});
 
 		return this;
-
 	},
 
-	'fillUsers' : function (models)
+	// Get Group Users
+	'fillGroups' : function (models)
 	{	
 		var $container = this.$el.find(".group-user-container").eq(-1);
 		
@@ -58,7 +59,39 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 
 	},
 
+	/* Get Account Users Dropdown */
+	'fillUsersDropdown' : function (models)
+	{	
+		var $container = this.$el.find(".alluser-list").eq(-1);
+		
+		for (n in models)
+		{	
+			var view = new Cloudwalkers.Views.Settings.UserDropdown ({ 'model' : models[n] });
+			$container.append(view.render().el);
+		}
 
+		this.$el.find(".alluser-list").chosen({width: "100%"});
+	},
+
+	'listentouserdropdown' : function (e)
+	{
+		// Message id
+		selecteduser = $(e.currentTarget).val();
+	},
+
+	'addUser' : function (){
+		var data = {id: selecteduser}
+		var url = 'groups/' + this.model.id + '/users';
+
+		Cloudwalkers.Net.post (url, {}, data, function(resp){
+			if(resp.error){
+				Cloudwalkers.RootView.growl('Oops', "Something went wrong.");
+			} else {
+				Cloudwalkers.RootView.growl('Group Management', "User added.");
+				this.groups.touch(null, {all: 1});
+			}
+		}.bind(this));
+	},
 
 	'translateString' : function(translatedata)
 	{	

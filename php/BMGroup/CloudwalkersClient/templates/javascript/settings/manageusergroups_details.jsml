@@ -28,18 +28,13 @@
 							<div class="caption">{{translate_add_user}}</div>
 						</div>
 						<div class="portlet-body">
-							<form action="javascript:void(0);" class="edit-managed-user">
+							<form action="javascript:void(0);" class="add-group-user">
 								<ul>
 									<li>
 										<section data-type="canned">
 											<div class="collapsable-content {{^canned}}loading{{/canned}}">
-												<select class="canned-list">
-													<option></option>
-													
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-													
+												<select class="alluser-list">
+													<option></option>													
 												</select>
 											</div>
 										</section>
