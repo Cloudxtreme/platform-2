@@ -15,9 +15,9 @@
 						<li>
 							<label for="level">Clearance level</label>
 							<select id="level" name="level">
-								{{#levels}}
-									<option value="{{level}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
-								{{/levels}}
+								{{#roles}}
+									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+								{{/roles}}
 							</select>
 						</li>
 
