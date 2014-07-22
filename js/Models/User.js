@@ -1,4 +1,6 @@
 Cloudwalkers.Models.User = Backbone.Model.extend({
+
+	'typestring' : 'users',
 	
 	'initialize' : function ()
 	{

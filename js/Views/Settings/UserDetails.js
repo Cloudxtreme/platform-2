@@ -43,19 +43,21 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	},
 
 	'submit' : function (e)
-	{
-		
+	{		
 		var data = {rolegroup: $("#level").val()};
-		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.model.get('id');
-		
-		Cloudwalkers.Net.put (url, {}, data, function()
-		{
-			Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");
-			
-			// Load users
-			this.view.collection.fetch({records: 100});
-		
-		}.bind(this));
 
+		this.model.parent = Cloudwalkers.Session.getAccount();
+
+		this.model.save(data, {
+			patch: true, 
+			success: this.sucess
+		});
+
+	},
+
+	'success' : function()
+	{
+		Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");
+		
 	}
 });
