@@ -46,7 +46,7 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 		this.$el.html (Mustache.render (Templates.settings.manageusergroups_details, data));
 
 		// Load all users
-		this.users.touch({});
+		this.users.touch(Cloudwalkers.Session.getAccount(), {records: 100});
 		// Load group users
 		this.groupusers.touch({groupid: this.model.id});
 
