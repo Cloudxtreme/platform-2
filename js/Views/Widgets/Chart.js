@@ -85,6 +85,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		if(this.filterfunc == 'besttime'){
 			this.renderbesttime(fulldata);
+			
 		}else{
 			
 			var width = this.$el.find(chartcontainer).get(0).clientWidth;

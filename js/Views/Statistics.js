@@ -143,7 +143,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			//this.widgets[n].data.connect == true ? this.connect = view : false;
 			
 			this.views.push(view);
-
+			
 			this.appendWidget(view, this.widgets[n].span);
 			
 		}
