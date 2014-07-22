@@ -297,10 +297,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		if(a){ this.loaderswitch.a = a; }
 		if(b){ this.loaderswitch.b = b; }
 
-		//console.log(this.loaderswitch.a, this.loaderswitch.b);
 		if(a == "on"){
 			this.$el.find('#calcontainer').css('display','none');
 			this.$el.find('.container-loading').css('display','block');
+			this.$el.find('.stats-summary-counter').html('--');
 		} else if((this.loaderswitch.a == "off") && (this.loaderswitch.b == "off")) {
 			this.$el.find('.container-loading').css('display','none');
 			this.$el.find('#calcontainer').css('display','block');
