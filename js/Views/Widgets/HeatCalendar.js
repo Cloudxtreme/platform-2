@@ -60,11 +60,9 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 			//Get starting statistics date
 			if(date == 0)	date = statistic.get("date");
-		}
+		}		
 
-		
-
-		return {data: data, legend: this.generaterange(data,5), date: date};
+		return {data: data, legend: this.generaterange(data,4), date: date};
 	},
 
 	'generaterange' : function(data, steps){
