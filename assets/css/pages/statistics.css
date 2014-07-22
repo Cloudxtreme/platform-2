@@ -83,6 +83,8 @@
 
 #cal-heatmap{
     padding: 35px 0px;
+    overflow: hidden;
+    width: 400px;
 }
 
 .graph-label{
