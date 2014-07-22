@@ -172,7 +172,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
-
+		
 		return fulldata;
 	},
 
@@ -247,7 +247,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("contacts", network);
 			fulldata.data.push([day, number]);
 
@@ -277,7 +277,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("messages");
 			fulldata.data.push([day, number]);
 
@@ -308,7 +308,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("messages", network);
 			fulldata.data.push([day, number]);
 
@@ -897,13 +897,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var fulldata = {
 			data : [],
 			options : {
-				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+				chartArea: {'width': '70%', 'height': '60%', 'left' : '40', 'top' : '50'},
 	            width: width,
-	            height: width * 0.3,
-		        'legend':{textStyle:{fontSize:'11'}},
+	            height: width * 0.4,
+		        'legend':{textStyle:{fontSize:'11'}, position: 'top'},
 		        'tooltip':{textStyle:{fontSize:'13'}},
 		        'curveType': 'function',
-	    		'legend': { position: 'bottom'},
 	    		colors : []
 				}
 			};
@@ -922,10 +921,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}
 			
 		for(var i=0; i<length; i++){
-			var line = [i];
+
+			var line = [moment(collection.place(i).get("date")).format("D MMM")];
+			
 			for(d in data){
 				line.push(data[d].shift());
 			}
+
 			fulldata.data.push(line);
 		}
 
