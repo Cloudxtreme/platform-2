@@ -4,7 +4,8 @@ Cloudwalkers.Views.Settings.GroupItem = Backbone.View.extend({
 
 	'events' : 
 	{
-		'click [data-delete-group-id]' : 'deleteGroup'
+		'click [data-delete-group-id]' : 'deleteGroup',
+		'click [data-delete-group-user-id]' : 'deleteGroupUser'
 	},
 	
 	'initialize' : function (options)
@@ -24,11 +25,20 @@ Cloudwalkers.Views.Settings.GroupItem = Backbone.View.extend({
 
 	'render' : function ()
 	{
+
 		var self = this;
 		var data = {};
 		
 		data.group = this.model.attributes;
-		//data.user.role = this.model.getRole ();
+		
+		data.type = this.type;
+		data.id = data.group.id;
+
+		if(data.type == "group-user"){
+			data.name = data.group.displayname;
+		} else {
+			data.name = data.group.name;
+		}
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(data);
@@ -54,6 +64,22 @@ Cloudwalkers.Views.Settings.GroupItem = Backbone.View.extend({
 			});
 		});
 	},
+	'deleteGroupUser' : function (e)
+	{
+		var self = this;
+		var tr = $(e.currentTarget).parents("tr");
+		
+		Cloudwalkers.RootView.confirm (translations.translate_you_are_about_to_remove_user + this.model.get('name') + translations.translate_from_this_group + translations.translate_sure, function(){
+			
+			tr.remove();
+			
+			var url = 'groups/' + self.model.collection.parentmodel.groupid + '/users/' + self.model.get('id');
+			Cloudwalkers.Net.remove (url, {}, function(){
+			
+				Cloudwalkers.RootView.growl(translations.translate_manage_users, translations.translate_deleted);
+			});
+		});
+	},
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
@@ -67,7 +93,9 @@ Cloudwalkers.Views.Settings.GroupItem = Backbone.View.extend({
 			"you_are_about_to_remove_group",
 			"sure",
 			"manage_user_groups",
-			"deleted"
+			"deleted",
+			"you_are_about_to_remove_user",
+			"from_this_group"
 		];
 
 		this.translated = [];

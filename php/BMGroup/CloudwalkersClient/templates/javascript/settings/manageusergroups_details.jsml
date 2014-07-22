@@ -17,7 +17,7 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody class="group-user-container">
+								<tbody class="group-users-container">
 								</tbody>
 							</table>
 						</div>
@@ -33,7 +33,7 @@
 									<li>
 										<section data-type="canned">
 											<div class="collapsable-content {{^canned}}loading{{/canned}}">
-												<select class="alluser-list">
+												<select class="all-user-list">
 													<option></option>													
 												</select>
 											</div>
@@ -42,9 +42,7 @@
 									</li>
 								</ul>
 							</form>
-
 						</div>
-
 					</div>
 				</div>
 
@@ -55,19 +53,79 @@
 							<div class="caption">{{translate_streams}}</div>
 						</div>
 						<div class="portlet-body">
-							
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>{{translate_name}}</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody class="group-streams-container">
+								</tbody>
+							</table>
 						</div>
 
+					</div>
+					<div class="portlet box white">
+						<div class="portlet-title">
+							<div class="caption">{{translate_add_stream}}</div>
+						</div>
+						<div class="portlet-body" style="display:none">
+							<form action="javascript:void(0);" class="add-group-stream">
+								<ul>
+									<li>
+										<section data-type="canned">
+											<div class="collapsable-content {{^canned}}loading{{/canned}}">
+												<select class="all-stream-list">
+													<option></option>													
+												</select>
+											</div>
+										</section>
+										<button type="submit" class="btn black">{{translate_add}}</button>
+									</li>
+								</ul>
+							</form>
+						</div>
 					</div>
 
 					<div class="portlet box white">
 						<div class="portlet-title">
 							<div class="caption">{{translate_keyword_monitoring_category}}</div>
 						</div>
-						<div class="portlet-body toload">
-							
+						<div class="portlet-body">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>{{translate_name}}</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody class="group-keywords-container">
+								</tbody>
+							</table>
 						</div>
 
+					</div>
+					<div class="portlet box white">
+						<div class="portlet-title">
+							<div class="caption">{{translate_add_keyword_monitoring_category}}</div>
+						</div>
+						<div class="portlet-body" style="display:none">
+							<form action="javascript:void(0);" class="add-group-stream">
+								<ul>
+									<li>
+										<section data-type="canned">
+											<div class="collapsable-content {{^canned}}loading{{/canned}}">
+												<select class="all-stream-list">
+													<option></option>													
+												</select>
+											</div>
+										</section>
+										<button type="submit" class="btn black">{{translate_add}}</button>
+									</li>
+								</ul>
+							</form>
+						</div>
 					</div>
 					
 				</div>

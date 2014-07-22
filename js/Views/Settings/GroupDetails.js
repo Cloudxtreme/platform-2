@@ -5,18 +5,28 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 	'events' : 
 	{
 		'submit .add-group-user' : 'addUser',
-		'click [data-delete-group-user-id]' : 'deleteUser',
-		'change select.alluser-list' : 'listentouserdropdown'
+		'change select.all-user-list' : 'listentouserdropdown'
 	},
 	
 	'initialize' : function ()
 	{
 		// Collect all Account Users
-		this.users = new Cloudwalkers.Collections.Users();
+		this.users = new Cloudwalkers.Collections.Users({modelstring:'user'});
 		this.listenTo(this.users, 'seed', this.fillUsersDropdown);
 
-		this.groups = new Cloudwalkers.Collections.Groups({modelstring:'user', parenttype:'group', typestring: 'users'});
-		this.listenTo(this.groups, 'seed', this.fillGroups);
+		// Collect Group Users
+		this.groupusers = new Cloudwalkers.Collections.Groups({modelstring:'user', parenttype:'group', typestring: 'users'});
+		this.listenTo(this.groupusers, 'seed', this.fillGroupItems);
+
+
+		// Collect all Account Streams
+		//this.streams = new Cloudwalkers.Collections.Streams({modelstring:'stream'});
+		//this.listenTo(this.streams, 'seed', this.fillUsersDropdown);
+
+		// Collect Group Streams
+		//this.groupusers = new Cloudwalkers.Collections.Groups({modelstring:'user', parenttype:'group', typestring: 'users'});
+		//this.listenTo(this.groupusers, 'seed', this.fillGroupItems);
+
 
 		var selecteduser = "";
 	},
@@ -35,60 +45,71 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 		
 		this.$el.html (Mustache.render (Templates.settings.manageusergroups_details, data));
 
-		// Load group users
+		// Load all users
 		this.users.touch({});
+		// Load group users
+		this.groupusers.touch({groupid: this.model.id});
 
-		this.groups.touch({groupid: this.model.id});
+		// Load all streams
+		//this.streams.touch({});
 
 		return this;
 	},
 
 	// Get Group Users
-	'fillGroups' : function (models)
+	'fillGroupItems' : function (models)
 	{	
-		var $container = this.$el.find(".group-user-container").eq(-1);
+		var $container = this.$el.find("." + models[0].collection.parenttype + "-" + models[0].collection.typestring + "-container").eq(-1);
 		
 		/* Clean and Populate */
 		$container.empty();
 		
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Settings.GroupItem ({ 'model' : models[n] });
+			var view = new Cloudwalkers.Views.Settings.GroupItem ({ 'model' : models[n] , 'type' : models[0].collection.parenttype + '-' + models[0].collection.modelstring});
 			$container.append(view.render().el);
 		}
 
 	},
 
-	/* Get Account Users Dropdown */
+	// Get Account Users Dropdown
 	'fillUsersDropdown' : function (models)
 	{	
-		var $container = this.$el.find(".alluser-list").eq(-1);
-		
+		var $container = this.$el.find(".all-" + models[0].collection.modelstring + "-list").eq(-1);
+
 		for (n in models)
 		{	
 			var view = new Cloudwalkers.Views.Settings.UserDropdown ({ 'model' : models[n] });
 			$container.append(view.render().el);
 		}
 
-		this.$el.find(".alluser-list").chosen({width: "100%"});
+		this.$el.find(".all-" + models[0].collection.modelstring + "-list").chosen({width: "100%"});
 	},
 
 	'listentouserdropdown' : function (e)
 	{
 		// Message id
-		selecteduser = $(e.currentTarget).val();
+		selecteduser = {
+			id: $(e.currentTarget).val(),
+			name: $(e.currentTarget).get(0).textContent
+		}
 	},
 
 	'addUser' : function (){
-		var data = {id: selecteduser}
+
 		var url = 'groups/' + this.model.id + '/users';
 
-		Cloudwalkers.Net.post (url, {}, data, function(resp){
+		Cloudwalkers.Net.post (url, {}, selecteduser, function(resp){
 			if(resp.error){
-				Cloudwalkers.RootView.growl('Oops', "Something went wrong.");
+				Cloudwalkers.RootView.growl('Oops', this.translateString("something_went_wrong"));
 			} else {
-				Cloudwalkers.RootView.growl('Group Management', "User added.");
-				this.groups.touch(null, {all: 1});
+				Cloudwalkers.RootView.growl(this.translateString("group_management"), this.translateString("user_added"));
+				this.groupusers.touch({groupid: this.model.id});
+				
+				// Clear Dropdown selection
+				$('option').prop('selected', false);
+				$('.portlet-body form *').trigger('chosen:updated');
+
 			}
 		}.bind(this));
 	},
@@ -110,7 +131,9 @@ Cloudwalkers.Views.Settings.GroupDetails = Backbone.View.extend({
 			"user_list",
 			"streams",
 			"keyword_monitoring_category",
-			"add"
+			"add",
+			"add_stream",
+			"add_keyword_monitoring_category"
 		];
 
 		this.translated = [];

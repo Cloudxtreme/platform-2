@@ -520,7 +520,7 @@ table.inner-service .white-box input[type=text]	{
   font-size:12px;
   margin-top:2px !important;
 }
-.profile .settings-users .group-container td i {
+.profile .settings-users .group-container td i, .profile .settings-users .group-users-container td i{
 font-size: 20px;
 color: #777;
 padding: 1px 0 0 4px;
@@ -545,7 +545,7 @@ cursor: pointer;
 .portlet-body{
   overflow: auto;
 }
-.alluser-list{
+.all-user-list{
   display: none;
 }
 .group-details-container .portlet-body {

@@ -18,6 +18,8 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 		this.listenTo(this.collection, 'seed', this.fillGroups);
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'sync', this.hideloading);
+
+
 		
 		this.loadListeners(this.collection, ['request', 'sync'], true);
 
@@ -55,24 +57,28 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 		
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Settings.GroupItem ({ 'model' : models[n] });
-			$container.append(view.render().el);
+			var view = new Cloudwalkers.Views.Settings.GroupItem ({'model' : models[n] , 'type' : 'group'});
+			$container.append(view.render().el);			
 		}
+		this.$el.find(".group-container tr:first-child td:first-child").click();
 
 	},
 
 	'createGroup' : function ()
 	{
-		
-		var data = {name: $('input[name=group-name]').val()}
+		if($.trim($("input[name=group-name]").val()).length < 1) {
+			Cloudwalkers.RootView.growl('Oops', this.translateString("something_went_wrong"));
+			return this;
+		}
 
+		var data = {name: $('input[name=group-name]').val()}
 		var url = 'accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/groups';
 		
 		Cloudwalkers.Net.post (url, {}, data, function(resp){
 			if(resp.error){
-				Cloudwalkers.RootView.growl('Oops', "Something went wrong.");
+				Cloudwalkers.RootView.growl('Oops', this.translateString("something_went_wrong"));
 			} else {
-				Cloudwalkers.RootView.growl('Group Management', "Group created.");
+				Cloudwalkers.RootView.growl(this.translateString("group_management"), this.translateString("group_created"));
 				$('input[name=group-name]').val('');
 				this.collection.touch(null, {all: 1});
 			}
@@ -81,7 +87,6 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 
 	'fetchDetails' : function(e)
 	{	
-
 		$('.group-container > *').removeClass("active");
 		$(e.currentTarget).closest('tr').addClass("active");
 

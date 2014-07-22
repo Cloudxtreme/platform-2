@@ -34,7 +34,7 @@
 						
 						<label for="group-name">{{translate_name}}</label>
 						<input type="text" name="group-name" />
-						<input type="submit" class="btn green" value="{{translate_add}}" />
+						<input type="submit" class="btn black" value="{{translate_add}}" />
 
 					</form>
 				</div>

@@ -180,6 +180,14 @@
 		"streams": "Streams",
 		"keyword_monitoring_category": "Keyword Monitoring Category",
 		"you_are_about_to_remove_group": "Está preste a eliminar o grupo ",
-		"add_user": "Adicionar Utilizador"
+		"add_user": "Adicionar Utilizador",
+		"you_are_about_to_remove_user": "Está preste a eliminar o utilizador ",
+		"from_this_group": " deste grupo",
+		"add_stream": "Adicionar Stream",
+		"group_management": "Gestão de Grupos",
+		"user_added": "Utilizador adicionado",
+		"something_went_wrong": "Algo correu mal",
+		"group_created": "Grupo criado",
+		"add_keyword_monitoring_category": "Adicionar Keyword Monitoring Category"
 	}
 }
