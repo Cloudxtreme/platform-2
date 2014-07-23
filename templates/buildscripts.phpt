@@ -36,6 +36,7 @@
 <script type="text/javascript" src="/js/Models/Network.js"></script>
 <script type="text/javascript" src="/js/Models/Polyglot.js"></script>
 <script type="text/javascript" src="/js/Models/Trigger.js"></script>
+<script type="text/javascript" src="/js/Models/Group.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -55,6 +56,7 @@
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 <script type="text/javascript" src="/js/Collections/Triggers.js"></script>
+<script type="text/javascript" src="/js/Collections/Groups.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Loader.js"></script>
@@ -172,3 +174,7 @@
 <script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/CannedList.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/ManageUserGroups.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupItem.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupDetails.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/UserDropdown.js"></script>

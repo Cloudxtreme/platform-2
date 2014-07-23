@@ -115,6 +115,10 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		var data = {reports: []};
 		
 		data.level = Cloudwalkers.Session.getUser().level;
+
+		// Manage User Groups Roles
+		if ((Cloudwalkers.Session.isAuthorized('USER_GRANT')) | (Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')))
+			data.manage_user_groups = true;
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -270,7 +274,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			"manage_users",
 			"social_connections",
 			"account_settings",
-			"profile_settings"
+			"profile_settings",
+			"manage_user_groups"
 		];
 
 		this.translated = [];

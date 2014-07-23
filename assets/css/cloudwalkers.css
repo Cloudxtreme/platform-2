@@ -2144,3 +2144,19 @@ Dashboard stats
 	line-height: 10px;
 }
 
+.manage-user-groups{
+	padding: 10px;
+	background: #ccc;
+	color: #000;
+	display: block;
+	text-align: center;
+	font-size: 16px;
+}
+.manage-user-groups:hover{
+	color: #000;
+	background-color: #bbb;
+	text-decoration: none;
+}
+.manage-user-groups i{
+	margin-right: 5px;
+}

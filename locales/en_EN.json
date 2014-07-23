@@ -93,7 +93,7 @@
 		"profile_type": "Profile type",
 		"type": "Type",
 		"you_are_about_to_remove": "You are about to remove ",
-		"sure": ". Sure?",
+		"sure": ". Are you sure?",
 		"thats_an_ex_user": "That's an ex-user.",
 		"active_social_connections": "Active social connections",
 		"done": "Done",
@@ -171,6 +171,23 @@
 		"Favourite": "Favourite",
 		"Plus one": "Plus one",
 		"Compose": "Compose",
-		"support": "Support"
+		"support": "Support",
+		"manage_user_groups": "Manage User Groups",
+		"user_groups": "User Groups",
+		"create_new_group": "Create New Group",
+		"user_list": "User List",
+		"deleted": "Deleted",
+		"streams": "Streams",
+		"keyword_monitoring_category": "Keyword Monitoring Category",
+		"you_are_about_to_remove_group": "You are about to remove group ",
+		"add_user": "Add User",
+		"you_are_about_to_remove_user": "You are about to remove user ",
+		"from_this_group": " from this group",
+		"add_stream": "Add Stream",
+		"group_management": "Group management",
+		"user_added": "User added",
+		"something_went_wrong": "Something went wrong",
+		"group_created": "Group created",
+		"add_keyword_monitoring_category": "Add Keyword Monitoring Category"
 	}
 }

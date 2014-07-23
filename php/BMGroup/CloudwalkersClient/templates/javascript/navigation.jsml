@@ -308,6 +308,9 @@
 			<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{translate_social_connections}}</span></a></li>
 			<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{translate_account_settings}}</span></a></li>
 			<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
+			{{#manage_user_groups}}
+				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>
+			{{/manage_user_groups}}
 		</ul>
 	</li>
 	{{/level}}
