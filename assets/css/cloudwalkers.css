@@ -2160,3 +2160,10 @@ Dashboard stats
 .manage-user-groups i{
 	margin-right: 5px;
 }
+
+/* Lightbox override */
+.lightboxOverlay{
+	background-color: #333 !important;
+	opacity: 0.7 !important;
+}
+/* Lightbox override */

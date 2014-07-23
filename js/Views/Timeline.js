@@ -38,7 +38,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{
-
 		// Network filters
 		var params = {} // {networks: this.model.streams.filterNetworks(null, true)};
 		

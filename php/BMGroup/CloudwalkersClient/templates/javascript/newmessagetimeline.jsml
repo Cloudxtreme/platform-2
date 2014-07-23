@@ -1,6 +1,15 @@
 <div class="timeline-entry {{networktoken}}-entry" data-message-id="{{id}}">
 	<div class="timeline-info">
 
+		<!--<div class="user-name">{{#from}}{{displayname}}{{/from}}</div>-->
+		<table id="timeline-username">
+		<tbody>
+			<tr>
+				<td>{{#from}}{{displayname}}{{/from}}</td>
+			</tr>
+		</tbody>
+		</table>
+
 		<div class="timeline-time">
 			<span class="date">{{dateonly}}</span>
 			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
@@ -58,8 +67,8 @@
 
 			{{#attached.image}}
 			<!--<span class="muted">Media:</span>-->
-				<div class="media-sphere media-clip"><i class="icon-paperclip"></i></div>
-				<div class="media-sphere" style="background-image: url({{url}});"></div>
+				<div class="media-clip"><i class="icon-paperclip"></i></div>
+				<a href="{{url}}" class="media-sphere" data-lightbox="image-1" style="background-image: url({{url}});"></a>
 			{{/attached.image}}
 			
 			{{#attached.video}}
