@@ -143,16 +143,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			if(this.widgets[n].data.title == "Top rated comment"){
 				if(this.timespan == 'quarter')		this.widgets[n].span = 8;
 				else if(this.timespan == 'year')	this.widgets[n].span = 8;
-			}
-
-			if(this.widgets[n].data.title == "Best Time to Post"){
-				if(this.timespan == 'quarter')		this.widgets[n].span = 4;
-				else if(this.timespan == 'year')	this.widgets[n].span = 4;
+				else								this.widgets[n].span = 12;
 			}
 
 			if(this.widgets[n].data.title == "Messages Evolution"){
-				if(this.timespan == 'quarter')	this.widgets[n].span = 6;
-				if(this.timespan == 'year')	this.widgets[n].span = 12;
+				if(this.timespan == 'quarter')		this.widgets[n].span = 6;
+				else if(this.timespan == 'year')	this.widgets[n].span = 12;
+				else								this.widgets[n].span = 4;
 			}
 
 			if(this.widgets[n].data.title == "Activity Calendar"){
@@ -161,6 +158,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 					this.widgets[n].span = 12;
 					this.widgets[n].data.bigdata = true;
 				}
+				else{
+					this.widgets[n].span = 4;
+					this.widgets[n].data.bigdata = false;
+				}							
 			}
 			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
