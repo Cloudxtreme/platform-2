@@ -2,6 +2,10 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	
 	'title' : "Info",
 	'filled' : false,
+	'nummonths' : {
+		'quarter' : 3,
+		'year' : 12
+	},
 	
 	'initialize' : function (options)
 	{
@@ -23,33 +27,66 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 		if(this.filled)	return false;
 
+		var resizesettings;
 		var cal = new CalHeatMap();
 		var data = this.calculatedata();
-		
-		cal.init({
-			itemSelector: "#cal-heatmap",
-			//itemSelector: this.$el.find('#cal-heatmap').get(0),
+		var settings = {
+			itemSelector: this.$el.find('#cal-heatmap').get(0),
 			domain: "month",
 			subDomain: "x_day",
 			data: data.data,
 			start: Date.parse(data.date),
-			cellSize: 40,
+			cellSize: 36,
 			cellPadding: 8,
 			range: 1,
 			legend: data.legend,
 			label : {height: 30},
-			subDomainTextFormat: "%d",
-			nextSelector: "#cal-heatmap",
-			previousSelector: "#domainDynamicDimension-previous"
+			subDomainTextFormat: "%d"
+		};
+
+		if(this.span == 'quarter' || this.span == 'year'){
+			resizesettings = this.calculatesizes(this.nummonths[this.span]);
+
+			if(this.nummonths[this.span] == 12)	delete settings.subDomainTextFormat;
+			
+			$.extend(settings, resizesettings);
+		}
+		
+		cal.init(settings);
+
+		//Year view
+		/*
+		cal.init({
+			cellSize: 25,
+			cellPadding: 6,
+			rowLimit: 4,
+			domainGutter: 15,
+			range: 2,
 		});
+		*/
 
 		this.filled = true;
+
+	},
+
+	'calculatesizes' : function(nummonths)
+	{
+		var containerwidth = this.$el.find('#cal-heatmap').get(0).clientWidth;
+		var monthwidth = (containerwidth - 40)/nummonths;
+
+		var settings = {
+			subDomain : "day",
+			cellSize : monthwidth * 0.15,
+			cellPadding : (monthwidth * 0.15) / 3,
+			range : nummonths
+		}
+
+		return settings;
 	},
 
 	'calculatedata' : function(){
 		
 		var statistics = $.extend(true, {}, this.collection);
-
 		var data = {};
 		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
 		

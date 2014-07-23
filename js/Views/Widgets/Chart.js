@@ -139,7 +139,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			options : {}
 		};
 		
-		if(!statistic)	streams = collection.latest().get("streams");
+		if(!statistic)	streams = this.collection.latest().get("streams");
 		else			streams = statistic;
 		
 		$.each(streams, function(index, stream){
@@ -268,11 +268,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data : [],
 			options : {
 				colors : ["#333333"],
-				chartArea: {'width': '80%', 'height': '70%', 'left' : '40'},
+				chartArea: {'width': '90%', 'height': '70%', 'left' : '40'},
 	            width: width,
-	            height: width * 0.92,
-	           	'legend': { position: 'bottom'},
-	            curveType: 'function'
+	            height: width > 350? 350: width * 0.92,
+	           	'legend': { position: 'bottom', textStyle: {fontSize: '13'}},
+	            curveType: 'function',
+	            hAxis: {textStyle: {fontSize: '10'}}
 			}
 		};
 
@@ -902,7 +903,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	            width: width,
 	            height: width * 0.4,
 		        'legend':{textStyle:{fontSize:'11'}, position: 'top'},
-		        'tooltip':{textStyle:{fontSize:'13'}},
 		        'curveType': 'function',
 	    		colors : []
 				}

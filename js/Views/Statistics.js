@@ -132,12 +132,36 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.widgets[n].data.parent = this;
 			this.widgets[n].data.visualization = google.visualization;
 			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
+			this.widgets[n].data.span = this.timespan;
 
 			//pass regional data
 			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
 			if(this.widgets[n].data.title == "New this")
 				this.widgets[n].data.title = "New this "+this.timespan;
+
+			if(this.widgets[n].data.title == "Top rated comment"){
+				if(this.timespan == 'quarter')		this.widgets[n].span = 8;
+				else if(this.timespan == 'year')	this.widgets[n].span = 8;
+			}
+
+			if(this.widgets[n].data.title == "Best Time to Post"){
+				if(this.timespan == 'quarter')		this.widgets[n].span = 4;
+				else if(this.timespan == 'year')	this.widgets[n].span = 4;
+			}
+
+			if(this.widgets[n].data.title == "Messages Evolution"){
+				if(this.timespan == 'quarter')	this.widgets[n].span = 6;
+				if(this.timespan == 'year')	this.widgets[n].span = 12;
+			}
+
+			if(this.widgets[n].data.title == "Activity Calendar"){
+				if(this.timespan == 'quarter')	this.widgets[n].span = 6;
+				else if(this.timespan == 'year'){
+					this.widgets[n].span = 12;
+					this.widgets[n].data.bigdata = true;
+				}
+			}
 			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
 			//this.widgets[n].data.connect == true ? this.connect = view : false;
