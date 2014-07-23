@@ -48,6 +48,14 @@ Style corrections and manual overrides
 
 .timeline .active.open .sub-menu a i	{ color: #ddd; }
 
+.timeline .message-actions{
+	margin-top: 20px;
+}
+
+.timeline .message-actions .btn-white{
+	margin-right: 5px;
+}
+
 .timeline .actions.dropdown	{
 	margin: 15px 0px; cursor: pointer;
 	overflow: visible;
@@ -460,7 +468,7 @@ Timeline UI Base
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
 	font-size: 33px;
-	left: 1px;
+	left: -1px;
 	top: -15px;
 }
 

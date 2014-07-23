@@ -6,7 +6,8 @@
 			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
 		</div>
 
-		<div class="social-info">
+		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
+		<!--<div class="social-info">
 			{{#statistics}}
 				<div class="info-widget">
 					<div class="info-widget-icon"><i class="icon-{{icon}}"></i></div>
@@ -19,7 +20,7 @@
 					<div class="info-widget-text">{{children_count}} comments</div>
 				</div>
 			{{/canHaveChildren}}
-		</div>
+		</div>-->
 
 	</div>
 
@@ -68,16 +69,16 @@
 			<div class="clearfix"></div>
 		</div>	
 
-		<span class="actions dropdown btn-white pull-left"> 
-			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
-			<ul class="dropdown-menu">
-				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
-				{{/actions}}
-			</ul>
-		</span>	
-
-		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>		
+		<div class="message-actions">
+			{{#actionstats}}
+				<div class="btn-white" data-action="{{token}}">
+					<i class="icon-{{action.icon}}"></i>
+					{{#action.value}}
+						<span>{{action.value}}</span>
+					{{/action.value}}
+				</div>
+			{{/actionstats}}
+		</div>		
 
 		<div class="clearfix"></div>
 	</div>
