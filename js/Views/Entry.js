@@ -46,7 +46,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(this.template == 'newmessagetimeline')
 			this.formatactions(this.parameters);
-		console.log(this.parameters)
+		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
