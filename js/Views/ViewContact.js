@@ -50,6 +50,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.listenTo(this.collection, 'seed', this.fill);
 		//this.listenTo(this.collection, 'ready', this.updatecontactinfo);
 		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
+		
 	},
 
 	'render' : function()
@@ -163,7 +164,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
 
 		// Ready?
-		if(!response.paging) this.ready();
+		this.ready();
 
 		return response[this.typestring];
 	},
