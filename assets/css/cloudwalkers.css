@@ -513,11 +513,13 @@ tbody.messages-container i	{
 	border-bottom: none;
 }
 
-.message-notes .note-content .modal-header button{
+.message-notes .note-content .modal-header button,
+.message .note-content .modal-header button{
 	display: none;
 }
 
 .message-notes .note-content .modal-body textarea,
+.message .note-content .modal-body textarea
 .message-notes .note-list .modal-body textarea{
 	width: 100%;
 	box-sizing: border-box;
@@ -583,6 +585,17 @@ tbody.messages-container i	{
 
 .message-notes ul li .message-actions .notification-action{
 	z-index: 99;
+}
+
+.message-body.note-content{
+	padding: 0px 0px 18px !important;
+}
+
+.message-body.note-content textarea{
+	min-height: 92px;
+	max-width: 100%;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 /*

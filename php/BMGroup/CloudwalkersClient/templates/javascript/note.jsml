@@ -23,6 +23,9 @@
 	
 </div>
 
-<div class="message-actions">
-	<div class="btn-white" data-action="delete" style="margin-top: -6px;"><i class="icon-remove"></i></div>
-</div>
+{{#authorized.ACCOUNT_NOTES_MANAGE}}
+	<div class="message-actions">
+		<div class="btn-white" data-action="note-edit" style="margin-top: -6px;"><i class="icon-pencil"></i></div>
+		<div class="btn-white" data-action="delete" style="margin-top: -6px;"><i class="icon-remove"></i></div>
+	</div>
+{{/authorized.ACCOUNT_NOTES_MANAGE}}
