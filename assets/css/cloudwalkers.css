@@ -504,6 +504,10 @@ tbody.messages-container i	{
 	display: none;
 }
 
+.message-notes .note-list .modal-header{
+	display: none;
+}
+
 .message-notes .note-content .modal-header{
 	text-align: center;
 	border-bottom: none;
@@ -513,10 +517,12 @@ tbody.messages-container i	{
 	display: none;
 }
 
-.message-notes .note-content .modal-body textarea{
+.message-notes .note-content .modal-body textarea,
+.message-notes .note-list .modal-body textarea{
 	width: 100%;
 	box-sizing: border-box;
 	height: 100px;
+	padding: 8px !important;
 }
 
 .message-notes ul.note-list,
@@ -562,6 +568,12 @@ tbody.messages-container i	{
 .message-notes ul li .note-body{
 	display: none;
 	margin-top: 20px;
+}
+
+.message-notes ul li .note-body textarea{
+	min-height: 92px;
+	max-width: 100%;
+	padding: 8px !important;
 }
 
 .message-notes ul li .message-actions{

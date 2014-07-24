@@ -313,9 +313,7 @@ img.viewdetails{
 	padding: inherit !important;
 }
 
-.viewcontact aside #notecontainer .modal-header,
-.viewcontact .note-list .modal-header,
-.message-body.note-content .modal-header{
+.viewcontact aside #notecontainer .modal-header{
 	display: none;
 }
 
@@ -347,8 +345,8 @@ img.viewdetails{
 	padding: 0px 20px 15px;
 }
 
-#composet.note textarea{
-	padding: 8px;
+#compose.note .modal-body textarea{
+	padding: 8px !important;
 }
 
 /*#compose .note-content{
