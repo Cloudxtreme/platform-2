@@ -37,19 +37,15 @@
 		{{/image}}
 	{{/attached}}
 	
-	
-	
 	{{#from}}
 	{{#iconview}}
 		<i class="icon-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
-		<img class="avatar" alt="" src="{{avatar}}">
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
 	{{/iconview}}
 		<strong>
-			<a href="{{url}}" target="_blank">{{displayname}}</a>
-			<!-- CONTACTS_ROLE -->
-			<a class="viewcontact" data-action="viewcontact"><i class="icon-user"></i></a>
+			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
 		</strong>
 	{{/from}}
 	
