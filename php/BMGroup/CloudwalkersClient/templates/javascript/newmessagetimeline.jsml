@@ -68,7 +68,7 @@
 			{{#attached.image}}
 			<!--<span class="muted">Media:</span>-->
 				<div class="media-clip"><i class="icon-paperclip"></i></div>
-				<a href="{{url}}" class="media-sphere" data-lightbox="image-1" style="background-image: url({{url}});"></a>
+				<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
 			{{/attached.image}}
 			
 			{{#attached.video}}
