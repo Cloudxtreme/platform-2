@@ -95,7 +95,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				this.entries = [];
 		}
 
-		if(!messages.length) this.$el.find('.messagelist').addClass('empty-content')
+		if(!messages.length) 	this.$el.find('.messagelist').addClass('empty-content')
+		else					this.$el.find('.messagelist').removeClass('empty-content')
 
 		var message;
 		var view;
