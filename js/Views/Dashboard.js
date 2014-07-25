@@ -23,7 +23,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			template.startWidgets(['widget_4', 'widget_15', 'widget_16']);
 			break;
 
-			case 'Co-worker':
+			case 'Webcare':
 			template.startWidgets(['widget_9', 'widget_10', 'widget_11', 'widget_12', 'widget_14']);
 			break;
 
