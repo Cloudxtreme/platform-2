@@ -2160,6 +2160,7 @@ Dashboard stats
 .manage-user-groups i{
 	margin-right: 5px;
 }
+
 .row-fluid .span12 {
 	margin-left: 0px;
 }
@@ -2182,3 +2183,11 @@ Dashboard stats
 .webcare .more{
 	font-size: 13px;
 }
+
+/* Lightbox override */
+.lightboxOverlay{
+	background-color: #333 !important;
+	opacity: 0.7 !important;
+}
+/* Lightbox override */
+
