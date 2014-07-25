@@ -19,9 +19,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		switch(Cloudwalkers.Session.user.getRole())
 		{
 
-			/*case 'Co-worker':			
+			case 'Co-worker':			
 			template.startWidgets(['widget_4', 'widget_15', 'widget_16']);
-			break;*/
+			break;
 
 			case 'Co-worker':
 			template.startWidgets(['widget_9', 'widget_10', 'widget_11', 'widget_12', 'widget_14']);
