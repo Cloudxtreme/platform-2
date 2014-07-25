@@ -11,7 +11,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post',
 		'click *[data-action]' : 'action',
-		'keyup #tags' : 'entertag'
+		'keyup #tags' : 'entertag',
+		'click .load-more' : 'more'
 	},
 
 	'initialize' : function(options)
@@ -47,7 +48,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(recycle)
 			this.stopListening(this.collection);
 
+		this.listenTo(this.collection, 'request', this.hidemore)
 		this.listenTo(this.collection, 'seed', this.fill);
+		this.listenTo(this.collection, 'sync', this.paginate);
+		this.listenTo(this.collection, 'ready', this.showmore);
+
 		//this.listenTo(this.collection, 'ready', this.updatecontactinfo);
 		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 		
@@ -84,13 +89,15 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'fill' : function(messages)
 	{	
+		if(this.refreshview){
+			//Clear entries
+			$.each(this.entries, function(n, entry){ entry.remove()});
+				this.entries = [];
+		}
+
 		var message;
 		var view;
 		var template = this.type == 'note'? 'smallentrynote': 'smallentry';
-		
-		//Clear entries
-		$.each(this.entries, function(n, entry){ entry.remove()});
-			this.entries = [];
 
 		// Add models to view
 		for (n in messages)
@@ -104,6 +111,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			
 			this.$container.append(view.render().el);
 		}	
+
+		this.refreshview = false;
 	},
 
 	'seed' : function(collection, response)
@@ -116,13 +125,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'begintouch' : function(type)
 	{
-		//Clean previous list, if any
-
 		if(!type)	type = 'messages';
 
 		this.type = type;
 
 		this.loadmylisteners(true);
+		this.refreshview = true;
 
 		if(type == 'messages')				this.getmessages();
 		else								this.touch(type);
@@ -169,10 +177,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		return response[this.typestring];
 	},
 
-	'touch' : function(type)
+	'touch' : function(type, params)
 	{	
+		this.collection.parentmodel = this.model;
 		this.model.urlparams = [type+'ids'];
-		this.model.parameters = false;
+		this.model.parameters = params || false;
 		this.collection.url = this.model.url();
 		
 		this.collection.fetch({success: this.touchresponse.bind(this)});
@@ -236,7 +245,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.composenote.remove();
 			this.initializenote();
 
-			if(this.type == 'note')	this.touch('note');
+			if(this.type == 'note'){
+				this.refreshview = true;
+				this.touch('note');
+			}
 			
 		}.bind(this),delay);
 	},
@@ -332,16 +344,19 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}else
 			this.model.trigger("action", token);
 	},
+
 	/* Tags */
 	'loadtagui' : function()
 	{
 		this.fetchtags();
 	},
+
 	'showtagedit' : function()
 	{	
 		this.$el.find('.message-tags').toggleClass("enabled");
 		this.$el.find('.message-tags .edit').toggleClass("inactive");
 	},
+
 	'fetchtags' : function()
 	{	
 		var tags = new Cloudwalkers.Collections.Tags();	
@@ -352,6 +367,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		tags.touch(this.model);
 		this.loadedtags = true;
 	},
+
 	'rendertag' : function(tags){
 		if(!tags.length)	this.$el.find('.tag-list').html('No tags found');
 		else				this.$el.find('.tag-list').empty();
@@ -361,6 +377,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.addtag(tags[n]);
 		}
 	},
+
 	'submittag' : function(newtag)
 	{	
 		// Update Tags - POST
@@ -371,6 +388,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		this.tag.save({'name': newtag}, {success: this.addtag.bind(this)});
 	},
+
 	'addtag' : function(newtag)
 	{
 		var options = {model: newtag, parent: this.model, template: 'messagetag'}
@@ -379,6 +397,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
 		this.$el.find('.tag-list').append(tag.render().el);
 	},
+
 	'entertag' : function(e)
 	{
 		if ( e.which === 13 ) {
@@ -389,6 +408,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			}
 	    }
 	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
@@ -411,9 +431,33 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
 
 	},
-	'updatecontact' : function()
+
+	'paginate' : function(collection, response)
+	{	
+		if(collection.cursor && response.contact[collection.endpoint].length)
+			this.hasmore = true;
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
+			this.$el.find(".load-more").show();
+	},
+	
+	'hidemore' : function()
 	{
+		this.$el.find(".load-more").hide();
+	},
 
+	'more' : function ()
+	{
+		this.incremental = true;
+		
+		if(!this.collection.cursor) return false;
 
+		var parameters = {after: this.collection.cursor};
+		this.touch(this.type, parameters);
+		
+		if(!this.hasmore) this.$el.find(".load-more").hide();
 	}
 });

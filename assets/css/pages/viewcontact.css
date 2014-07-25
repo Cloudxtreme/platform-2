@@ -357,5 +357,12 @@ img.viewdetails{
 	max-width: 450px;
 	margin-left: -225px;
 }
+
+.viewcontact .messagelist .load-more{
+	padding: 8px !important;
+	border-radius: 0px !important;
+	border-right: 0px !important;
+	border-left: 0px !important;
+}
 	
 /* DEMO Note end*/ 
