@@ -1253,17 +1253,26 @@ tbody.messages-container i	{
 	background-color: #eee !important;
 }
 
-.inbox-container.empty-content{
+.inbox-container.empty-content,
+.messagelist.empty-content{
 	height: 90%; text-align: center;
 }
 
-.inbox-container:before{
-	font-family: FontAwesome; font-size: 0px; color: #ddd; content: "\F042"; -webkit-font-smoothing: antialiased; position: relative; top: 50%;
+.inbox-container:before,
+.messagelist:before{
+	font-family: FontAwesome; font-size: 0px; color: #ddd; content: "\F042"; -webkit-font-smoothing: antialiased; position: absolute; top: 50%;
 }
 
-.inbox-container.empty-content:before{
+.inbox-container.empty-content:before,
+.messagelist.empty-content:before{
 	font-size: 140px;
 	-webkit-transition: font .15s ease-out;
+	width: 100%;
+	left: 0px;
+}
+
+.messagelist.empty-content:before{
+	width: 50%;
 }
 
 .header-loading.done{
@@ -1336,6 +1345,10 @@ ul.loaded{ min-height: 5px;}
 .empty-list:before{ 
 	font-family: FontAwesome; font-size: 21px; color: #3d3d3d; content: "\F042"; color: #ddd; 
 	position: relative; top: 12px; left: 6px;
+}
+
+.messagelist.empty-content .empty-list:before{ 
+	content: '';
 }
 
 /* Update */

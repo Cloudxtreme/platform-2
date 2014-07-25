@@ -95,6 +95,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				this.entries = [];
 		}
 
+		if(!messages.length) this.$el.find('.messagelist').addClass('empty-content')
+
 		var message;
 		var view;
 		var template = this.type == 'note'? 'smallentrynote': 'smallentry';
