@@ -188,6 +188,14 @@
 		"user_added": "User added",
 		"something_went_wrong": "Something went wrong",
 		"group_created": "Group created",
-		"add_keyword_monitoring_category": "Add Keyword Monitoring Category"
+		"add_keyword_monitoring_category": "Add Keyword Monitoring Category",
+		"top_post_on_company_page": "Top Post on Company Page",
+		"latest_company_post": "Latest Company Post",
+		"open_messages_assigned_to_me": "Open messages assigned to me",
+		"open_messages_assigned_to_my_groups": "Open messages assigned to my groups",
+		"messages_handled_this_week_by_me": "Messages handled this week by me",
+		"messages_handled_this_week_by_my_groups": "Messages handled this week by my groups",
+		"quick_note": "Quick Note",
+		"quick_draft": "Quick Draft"
 	}
 }

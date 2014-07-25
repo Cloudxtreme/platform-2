@@ -80,7 +80,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({note: this.model});
 
 		//Prevent auto re-render on save
 		this.stopListening(this.model);
@@ -240,10 +240,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Note textarea & default nodelist state
 	'loadnoteui' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
 		this.composenote = composenote;
 
-		this.listenTo(composenote.note, 'sync', this.noteadded);
+		this.listenTo(composenote.model, 'sync', this.noteadded);
 		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
 		this.$el.find('.note-content').append(composenote.render().el);

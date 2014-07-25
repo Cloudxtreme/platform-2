@@ -2160,3 +2160,25 @@ Dashboard stats
 .manage-user-groups i{
 	margin-right: 5px;
 }
+.row-fluid .span12 {
+	margin-left: 0px;
+}
+.messages-container .note{
+	width: 100% !important;
+	margin-left: 0px !important;
+}
+.messages-container .note .modal-header{
+	display: none;
+}
+.messages-container .note .modal-body textarea{
+	min-height: 160px !important;
+}
+.messages-container .thanks{
+	height: 180px !important;
+}
+.messages-container .thanks-wrapper:before{
+	font-size: 150px !important;
+}
+.webcare .more{
+	font-size: 13px;
+}

@@ -226,12 +226,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'initializenote' : function()
 	{
 		// Add the Note
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
-
+		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
+		this.composenote = composenote;
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
-		this.listenTo(composenote.note, 'sync', this.doneposting.bind(this,200));
+		this.listenTo(composenote.model, 'sync', this.doneposting.bind(this,200));
 		this.listenTo(composenote, 'edit:cancel', this.doneposting);
 	},
 
