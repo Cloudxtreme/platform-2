@@ -1156,7 +1156,7 @@ tbody.messages-container i	{
 #inboxlist .list li.unread:nth-child(odd) { line-height: 24px; background: #d9edf7; }
 #inboxlist .list li.unread .dot { display: block; }
 #inboxlist .list li.unread .media i { display: none; }
-#inboxlist .list li.unread .media 	{ background: none; }
+#inboxlist .list li.unread .media 	{ background: none; height: 0px;}
 #inboxlist .list li.unread .date	{ color: #005580; font-weight: bold; }
 
 
