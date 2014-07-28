@@ -120,15 +120,15 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.mustacheTranslateRender(data);
 
 		// Administrator
-		if(data.level)
-		{
+		//if(data.level)
+		//{
 			// News
 			data.news = account.channels.findWhere({type: "news"}).id;
 			
 			// Monitoring
 			var monitoring = account.channels.findWhere({type: "monitoring"});
 			data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
-		}
+		//}
 		
 		// Scheduled
 		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};

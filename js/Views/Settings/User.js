@@ -31,7 +31,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		var data = {};
 		
 		data.user = this.model.attributes;
-		data.user.role = this.model.getRole();
+		data.user.role = this.model.getRole().name;
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(data);

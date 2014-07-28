@@ -84,7 +84,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.account.activate();
 			
 			// Set current user level & permissions
-			this.level = Number(this.account.get("currentuser").level);
+			this.set('level', Number(this.account.get("currentuser").level));
+			this.set('rolegroup', Number(this.account.get("currentuser").rolegroup));
 
 			/*this.authorized = [
 				"CAMPAIGN_CREATE", 
