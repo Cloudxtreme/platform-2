@@ -14,9 +14,10 @@
 					<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
 					<input type="file" />
 					
-					<input id="add-file" class="btn btn-block btn-info" type="button" value="Select" />
-					<input id="upload-file" class="btn btn-block black" type="button" value="Upload" />
-					
+					{{#authorized.ACCOUNT_SETTINGS}}
+						<input id="add-file" class="btn btn-block btn-info" type="button" value="Select" />
+						<input id="upload-file" class="btn btn-block black" type="button" value="Upload" />
+					{{/authorized.ACCOUNT_SETTINGS}}
 					<!--
 					<form action="javascript:void(0);" class="edit-user-avatar" method="post" enctype="multipart/form-data">
 						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
@@ -30,6 +31,7 @@
 			</div>
 		</div>
 		
+		{{#authorized.ACCOUNT_SETTINGS}}
 		<div class="collapse-closed">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
@@ -56,6 +58,7 @@
 				
 			</div>
 		</div>
+		{{/authorized.ACCOUNT_SETTINGS}}
 		
 		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role}}</strong></div>
 		
@@ -70,13 +73,20 @@
 					
 					<form action="javascript:void(0);" class="edit-user-profile">
 						<label class="control-label">First Name</label>
-						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" />
+						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
+
 						<label class="control-label">Last Name</label>
-						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" />
+						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
+
 						<label class="control-label">Mobile phone</label>
-						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" />
+						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
+
+
 						<label class="control-label">Language</label>
-						<select name="locale">
+						<select name="locale" {{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}>
 							{{#langs}}
 							<option value="{{id}}">{{name}}</option>
 							{{/langs}}
@@ -94,10 +104,12 @@
 						<label class="control-label">Website Url</label>
 						<input type="text" placeholder="http://www.mywebsite.com" class="m-wrap span8" />
 						-->
+						{{#authorized.ACCOUNT_SETTINGS}}
 						<div class="submit-btn">
 							<button type="submit" class="btn green">Save Changes</button>
 							<button type="reset" class="btn">Cancel</button>
 						</div>
+						{{/authorized.ACCOUNT_SETTINGS}}
 					</form>
 				</div>
 			</div>
