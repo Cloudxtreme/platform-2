@@ -12,7 +12,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'remove': 'destroy',
 		'click #add': 'addperiod',
 		'click #subtract': 'subtractperiod',
-		'click #now': 'changespan',
+		'click #now': 'now',
 		'click #show': 'changecustom',
 		'change .stats-header select.networks': 'changestream',
 		'change .stats-header select.time': 'changespan',
@@ -66,30 +66,15 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
-		this.listenTo(this.collection, 'ready', this.hideloading);
-		//this.listenTo(this.collection, 'ready', this.fillcharts);
-		//this.collection.on('all', function(a){console.log(a)})
+
+		this.cleancollection();
 		
 		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
 		
 	},
 	
-	resize : function(){
-		//this.render();
-	},
-
-	'showloading' : function ()
-	{
-		this.$el.addClass("loading");
-	},
-	
-	'hideloading' : function (collection, response)
-	{
-		this.$el.removeClass("loading");
-	},
-	
 	'render' : function()
-	{	console.log(this.collection)
+	{	
 		// clean if time toggle
 		this.cleanviews();
 		
@@ -117,8 +102,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if(this.period == 0)
 			this.$el.find('#add').attr("disabled", true);
 
-		if(google.visualization)
-			this.fillcharts();
+		// Load statistics
+		this.collection.touch(this.model, this.filterparameters());
 
 		
 		return this;
@@ -126,7 +111,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'fillcharts' : function()
-	{
+	{	
+		this.listenToOnce(this.collection, 'ready', this.hideloading);
+		
 		for(n in this.widgets)
 		{	
 			var streamid = this.streamid || false;
@@ -145,25 +132,47 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			this.widgets[n].data.parent = this;
 			this.widgets[n].data.visualization = google.visualization;
 			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
+			this.widgets[n].data.span = this.timespan;
 
 			//pass regional data
 			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
 
 			if(this.widgets[n].data.title == "New this")
 				this.widgets[n].data.title = "New this "+this.timespan;
+
+			if(this.widgets[n].data.title == "Top rated comment"){
+				if(this.timespan == 'quarter')		this.widgets[n].span = 8;
+				else if(this.timespan == 'year')	this.widgets[n].span = 8;
+				else								this.widgets[n].span = 12;
+			}
+
+			if(this.widgets[n].data.title == "Messages Evolution"){
+				if(this.timespan == 'quarter')		this.widgets[n].span = 6;
+				else if(this.timespan == 'year')	this.widgets[n].span = 12;
+				else								this.widgets[n].span = 4;
+			}
+
+			if(this.widgets[n].data.title == "Activity Calendar"){
+				if(this.timespan == 'quarter')	this.widgets[n].span = 6;
+				else if(this.timespan == 'year'){
+					this.widgets[n].span = 12;
+					this.widgets[n].data.bigdata = true;
+				}
+				else{
+					this.widgets[n].span = 4;
+					this.widgets[n].data.bigdata = false;
+				}							
+			}
 			
 			var view = new Cloudwalkers.Views.Widgets[this.widgets[n].widget] (this.widgets[n].data);
 			//this.widgets[n].data.connect == true ? this.connect = view : false;
 			
 			this.views.push(view);
-
+			
 			this.appendWidget(view, this.widgets[n].span);
-			console.log("appended view:", view);
+			
 		}
 
-		// Load statistics
-		this.collection.touch(this.model, this.filterparameters());
-		console.log(this.collection)
 	},
 	
 	'timemanager' : function ()
@@ -184,40 +193,73 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		return params;
 	},
-	
-	'addperiod' : function ()
-	{
-		if(this.period >= 0)	return;
 
+	resize : function(){
+		//this.render();
+	},
+
+	'showloading' : function ()
+	{
+		this.$el.addClass("loading");
+		this.$el.find('.period-buttons .btn').attr("disabled", true);
+	},
+	
+	'hideloading' : function (collection, response)
+	{	
+		this.$el.removeClass("loading");
+		this.$el.find('.period-buttons .btn').attr("disabled", false);
+	},
+
+	'now' : function()
+	{
+		this.cleancollection();
+		this.period = 0;
+		this.render();
+	},
+	
+	'addperiod' : function (e)
+	{	
+		var state = $(e.target).attr('disabled');
+
+		if(this.period >= 0 || state == 'disabled')	return;
+
+		this.cleancollection();
 		this.period += 1;
 		this.render();
 	},
 	
-	'subtractperiod' : function()
+	'subtractperiod' : function(e)
 	{
+		var state = $(e.target).attr('disabled');
+
+		if(state == 'disabled')	return;
+
+		this.cleancollection();
 		this.period -= 1;
 		this.render();
 	},
 	
 	'changestream' : function()
-	{
-		
+	{	
 		var streamid = Number(this.$el.find("select.networks").val());
 		
 		Cloudwalkers.Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
-
 	},
-	
 	
 	'changespan' : function()
 	{
+		this.cleancollection();
+
 		var timespan = this.$el.find("select.time").val();
 		this.timespan = timespan;
+
 		this.render();
 	},
 	
 	'changecustom' : function()
 	{
+		this.cleancollection();
+
 		this.start = moment(this.$el.find('#start').val(), "DD-MM-YYYY");
 		this.end = moment(this.$el.find('#end').val(), "DD-MM-YYYY");
 		
@@ -257,5 +299,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'updatenetwork' : function(e){
 		var report = e.currentTarget.dataset.report;
 		
+	},
+
+	'cleancollection' : function()
+	{
+		this.listenToOnce(this.collection, 'sync', this.fillcharts);
+		this.collection.reset();
 	}
 });

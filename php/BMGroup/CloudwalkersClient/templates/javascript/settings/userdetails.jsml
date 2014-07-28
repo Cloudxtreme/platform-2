@@ -1,4 +1,4 @@
-<div class="lightbox">
+<div>
 	<div class="title">
 		<div class="holder">
 			<div class="frame">
@@ -6,7 +6,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-box" style="width: 400px;">
+	<div class="form-box">
 		<div class="box-holder">
 			<div class="box-frame">
 				
@@ -15,9 +15,9 @@
 						<li>
 							<label for="level">Clearance level</label>
 							<select id="level" name="level">
-								{{#levels}}
-									<option value="{{level}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
-								{{/levels}}
+								{{#roles}}
+									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+								{{/roles}}
 							</select>
 						</li>
 

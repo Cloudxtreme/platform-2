@@ -130,7 +130,9 @@
 						{{/campaigns}}
 					</select>
 					<input type="text" placeholder="campaign name" class="hidden campaign-name" />
-					<span class="add-campaign">&plus;</span>
+					{{#authorized.CAMPAIGN_CREATE}}
+						<span class="add-campaign">&plus;</span>
+					{{/authorized.CAMPAIGN_CREATE}}
 				</div>
 				
 				<div class="summary" data-toggle="campaign"></div>

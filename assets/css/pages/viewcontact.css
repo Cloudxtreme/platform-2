@@ -8,6 +8,30 @@ img.viewdetails{
 	height: 620px;
 }
 
+#compose.viewcontact #inboxlist{
+	border-right: none;
+}
+
+#compose.viewcontact #inboxlist .list li{
+	padding: 8px 20px 10px;
+}
+
+#compose.viewcontact #inboxlist .closewrapper{
+	position: absolute;
+	right: -30px;
+	height: 60px;
+	width: 60px;
+	background: #fff;
+	z-index: 10;
+	top: -30px;
+	box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
+}
+
+#compose.viewcontact #inboxlist .closewrapper .close{
+	margin-top: 42px;
+	margin-right: 40px;
+}
+
 .viewcontact .modal-body{
 	width: 200%;
 	height: 100%;
@@ -289,9 +313,7 @@ img.viewdetails{
 	padding: inherit !important;
 }
 
-.viewcontact aside #notecontainer .modal-header,
-.viewcontact .note-list .modal-header,
-.message-body.note-content .modal-header{
+.viewcontact aside #notecontainer .modal-header{
 	display: none;
 }
 
@@ -323,8 +345,8 @@ img.viewdetails{
 	padding: 0px 20px 15px;
 }
 
-#composet.note textarea{
-	padding: 8px;
+#compose.note .modal-body textarea{
+	padding: 8px !important;
 }
 
 /*#compose .note-content{
@@ -334,6 +356,13 @@ img.viewdetails{
 #compose.note.thanks, #compose.note.thanks{
 	max-width: 450px;
 	margin-left: -225px;
+}
+
+.viewcontact .messagelist .load-more{
+	padding: 8px !important;
+	border-radius: 0px !important;
+	border-right: 0px !important;
+	border-left: 0px !important;
 }
 	
 /* DEMO Note end*/ 

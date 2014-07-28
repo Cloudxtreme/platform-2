@@ -8,6 +8,10 @@
     margin-bottom: 30px;
 }
 
+.titleseparator{
+    margin-top: 25px;
+}
+
 #fork {
     position: absolute;
     top: 0;
@@ -34,7 +38,7 @@
     width: 100%;
     position: relative;
     height: 250px;
-    padding: 30px 30px 0px 0px;
+    padding: 30px 0px 0px 0px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     margin-bottom: 50px;
@@ -70,7 +74,7 @@
     position: absolute;
     bottom: -30px;
     text-align: center;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .bar-text{
@@ -81,8 +85,20 @@
     color: #ffffff;
 }
 
+.navigate-buttons{
+    float: right;
+}
+
 #cal-heatmap{
-    padding: 35px 0px;
+    margin-top: 50px;    
+}
+
+.bigdata{
+    margin-top: 25px;
+}
+
+.bigdata #cal-heatmap{
+    margin-top: 20px;
 }
 
 .graph-label{

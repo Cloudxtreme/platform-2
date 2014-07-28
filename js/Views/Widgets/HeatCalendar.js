@@ -2,6 +2,10 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	
 	'title' : "Info",
 	'filled' : false,
+	'nummonths' : {
+		'quarter' : 3,
+		'year' : 12
+	},
 	
 	'initialize' : function (options)
 	{
@@ -23,10 +27,10 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 		if(this.filled)	return false;
 
+		var resizesettings;
 		var cal = new CalHeatMap();
 		var data = this.calculatedata();
-
-		cal.init({
+		var settings = {
 			itemSelector: this.$el.find('#cal-heatmap').get(0),
 			domain: "month",
 			subDomain: "x_day",
@@ -38,9 +42,46 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 			legend: data.legend,
 			label : {height: 30},
 			subDomainTextFormat: "%d"
+		};
+
+		if(this.span == 'quarter' || this.span == 'year'){
+			resizesettings = this.calculatesizes(this.nummonths[this.span]);
+
+			if(this.nummonths[this.span] == 12)	delete settings.subDomainTextFormat;
+			
+			$.extend(settings, resizesettings);
+		}
+		
+		cal.init(settings);
+
+		//Year view
+		/*
+		cal.init({
+			cellSize: 25,
+			cellPadding: 6,
+			rowLimit: 4,
+			domainGutter: 15,
+			range: 2,
 		});
+		*/
 
 		this.filled = true;
+
+	},
+
+	'calculatesizes' : function(nummonths)
+	{
+		var containerwidth = this.$el.find('#cal-heatmap').get(0).clientWidth;
+		var monthwidth = (containerwidth - 40)/nummonths;
+
+		var settings = {
+			subDomain : "day",
+			cellSize : monthwidth * 0.15,
+			cellPadding : (monthwidth * 0.15) / 3,
+			range : nummonths
+		}
+
+		return settings;
 	},
 
 	'calculatedata' : function(){
@@ -60,11 +101,9 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 
 			//Get starting statistics date
 			if(date == 0)	date = statistic.get("date");
-		}
+		}		
 
-		
-
-		return {data: data, legend: this.generaterange(data,5), date: date};
+		return {data: data, legend: this.generaterange(data,4), date: date};
 	},
 
 	'generaterange' : function(data, steps){

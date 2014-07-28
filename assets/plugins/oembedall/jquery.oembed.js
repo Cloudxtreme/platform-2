@@ -54,7 +54,6 @@
             else if (!settings.onEmbed){
                 settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
-                    diss.def.resolve();
                 };
             }
 
@@ -170,10 +169,11 @@
     }
 
     function embedCode(container, externalUrl, embedProvider) {
-      if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
+      /*if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
         var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
         success(oembedData, externalUrl, container);
-      }else if (embedProvider.yql) {
+      }else if (embedProvider.yql) {*/
+      if (embedProvider.yql) {
         var from = embedProvider.yql.from || 'htmlstring';
 		var url = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var query = 'SELECT * FROM ' 
@@ -191,6 +191,7 @@
             callback: "?"
           },
           success: function(data) {
+            diss.def.resolve(data);
             var result;
             if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta|//title|//link'){
                 var meta={};

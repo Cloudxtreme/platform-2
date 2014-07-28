@@ -15,8 +15,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'getTemplate' : function()
 	{
 		var template = new Cloudwalkers.Collections.Widgets();
-
-		switch(Cloudwalkers.Session.user.getRole())
+		var role = Cloudwalkers.Session.user.getRole();
+		
+		if(role)	role = role.template? role.template.name: null;
+		
+		switch(role)
 		{
 
 			case 'Co-worker':			
@@ -36,7 +39,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			this.addDynamicReports(template);
 			break;
 
-			case 'Administrator':
+			case 'Conversation manager':
 			template.startWidgets(['widget_1', 'widget_2', 'widget_3', 'widget_4', 'widget_8', 'widget_5', 'widget_6']);
 			this.addDynamicReports(template);
 			break;

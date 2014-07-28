@@ -60,7 +60,7 @@
 		</ul>
 	</li> -->
 
-	{{#level}}
+	
 	<!-- Inbox -->
 	{{#inbox}}
 		<li>
@@ -148,10 +148,10 @@
 			</ul>
 		</li>
 	{{/inbox}}
-	{{/level}}
+	
 	
 		<!-- Co-workers cloud -->
-		{{#authorized.MESSAGE_READ_COWORKER}}
+		{{#authorized._CW_COWORKERS_VIEW}}
 		<li>
 			<a href="#coworkers">
 				<i class="icon-group"></i> 
@@ -159,7 +159,7 @@
 				<span class="selected"></span>
 			</a>
 		</li>
-		{{/authorized.MESSAGE_READ_COWORKER}}
+		{{/authorized._CW_COWORKERS_VIEW}}
 
 	<!-- Company Accounts -->
 	{{#profiles}}
@@ -205,7 +205,7 @@
 		{{/authorized.MESSAGE_READ_COMPANY}}
 	{{/profiles}}
 	
-	{{#level}}
+	
 	<!-- Profiles we follow -->
 	{{#news}}
 		{{#authorized.MESSAGE_READ_THIRDPARTY}}
@@ -313,14 +313,13 @@
 			{{/manage_user_groups}}
 		</ul>
 	</li>
-	{{/level}}
-	{{^level}}
-	<li class="settings">
+	
+	<!--<li class="settings">
 		<a href="#settings/profile">
 		<i class="icon-user"></i> 
 		<span class="title">{{translate_profile_settings}}</span>
 		<span class="selected"></span>
 		</a>
-	</li>
-	{{/level}}
+	</li>-->
+	
 </ul>

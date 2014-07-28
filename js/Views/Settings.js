@@ -23,7 +23,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		this.mustacheTranslateRender(data);
 
 		// Build tabs
-		if(this.level)
+		//if(this.level)  KOEN: NEED MORE INFO ON THIS
 			
 			this.tabs = [
 				{url: '#settings/users', name: data.translate_manage_users},
@@ -31,7 +31,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 				{url: '#settings/account', name: data.translate_account_settings}
 			];
 		
-		else this.tabs = [];
+		//else this.tabs = [];
 		
 		
 		this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});
