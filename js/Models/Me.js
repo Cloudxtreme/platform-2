@@ -93,34 +93,22 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"SERVICE_CONNECT", 
 				"SERVICE_DELETE", 
 				"USER_INVITE", 
-				"USER_CREATE", 
 				"USER_DELETE", 
 				"ACCOUNT_SETTINGS", 
-				"USER_GRANT", 
 				"GROUP_MANAGE", 
 				"DASHBOARD_VIEW", 
 				"MESSAGE_SEND_COWORKERS", 
 				"MESSAGE_SEND_INTERNAL", 
 				"MESSAGE_SEND_EXTERNAL", 
 				"MESSAGE_OUT_ATTACHMENTS", 
-				"MESSAGE_OUT_ATTACHMENTS_INTERNAL", 
-				"MESSAGE_OUT_ATTACHMENTS_EXTERNAL", 
-				"MESSAGE_OUT_ATTACHMENTS_COWORKERS", 
 				"MESSAGE_OUT_SCHEDULE", 
 				"MESSAGE_OUT_REPEAT", 
-				"MESSAGE_OUT_EDIT", 
 				"MESSAGE_OUT_EDIT_OWN", 
-				"MESSAGE_READ_DRAFTS", 
-				"MESSAGE_READ", 
 				"MESSAGE_ACTIONS", 
-				"MESSAGE_READ_INBOX", 
 				"MESSAGE_READ_INBOX_MESSAGES", 
 				"MESSAGE_READ_INBOX_NOTIFICATIONS", 
 				"MESSAGE_READ_DRAFTS", 
 				"MESSAGE_READ_SCHEDULE", 
-				"MESSAGE_READ_SENT", 
-				"MESSAGE_READ_FAILED", 
-				"MESSAGE_READ_COWORKER", 
 				"MESSAGE_READ_COMPANY", 
 				"MESSAGE_ACTIONS_COMPANY", 
 				"MESSAGE_READ_THIRDPARTY", 
@@ -130,16 +118,17 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"CHANNEL_MANAGE_ADD_MONITORING", 
 				"CHANNEL_MANAGE_EDIT_MONITORING", 
 				"CHANNEL_MANAGE_DELETE_MONITORING", 
-				"STATISTICS_VIEW",
-				"ACCOUNT_NOTES_VIEW",
-				"ACCOUNT_NOTES_MANAGE",
-				"ACCOUNT_TAGS_VIEW",
-				"ACCOUNT_TAGS_MANAGE",
-				];*/
+				"STATISTICS_VIEW", 
+				"ACCOUNT_NOTES_VIEW", 
+				"ACCOUNT_NOTES_MANAGE", 
+				"ACCOUNT_TAGS_VIEW", 
+				"ACCOUNT_TAGS_MANAGE"
+			]*/
 			
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
+			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);
 			
 			// Call callback
@@ -166,6 +155,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		}
 
 		return censures;
+	},
+
+	'parseauthorized' : function()
+	{
+		if(this.isauthorized(['MESSAGE_OUT_EDIT_OWN', 'MESSAGE_ACTIONS'])) this.authorized.push('_CW_COWORKERS_VIEW');
 	},
 	
 	'offline' : function ()

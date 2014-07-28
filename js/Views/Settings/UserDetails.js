@@ -14,22 +14,27 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	{
 		var self = this;
 		var data = {};
+		//left dropdown & default checked
+		//var level = Number(this.model.get("level"));
+		//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
 
-		var level = Number(this.model.get("level"));
-		var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
+		var role = this.model.get('rolegroup')
+		var roles = Cloudwalkers.Session.getAccount().get('roles');
 		
-		levels[(level)? 1:0].checked = true;
+		//levels[(level)? 1:0].checked = true;
 
 		data.user = this.model.attributes;
 		data.title = data.user.name;
-
-		data.levels = [];
-		for (var i = 0; i < levels.length; i ++)
+		
+		// add levels to dropdown
+		//data.levels = [];
+		data.roles = [];
+		for (var i = 0; i < roles.length; i ++)
 		{
-			var tmp = levels[i];
-			tmp.checked = this.model.get ('level') == levels[i].level;
+			var tmp = roles[i];
+			tmp.checked = this.model.get ('rolegroup') == roles[i].id;
 
-			data.levels.push (tmp);
+			data.roles.push (tmp);
 		}
 
 		self.$el.html (Mustache.render (Templates.settings.userdetails, data));
@@ -38,19 +43,21 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	},
 
 	'submit' : function (e)
-	{
-		
-		var data = {level: $("#level").val()};
-		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.model.get('id');
-		
-		Cloudwalkers.Net.put (url, {}, data, function()
-		{
-			Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");
-			
-			// Load users
-			this.view.collection.fetch({records: 100});
-		
-		}.bind(this));
+	{		
+		var data = {rolegroup: $("#level").val()};
 
+		this.model.parent = Cloudwalkers.Session.getAccount();
+
+		this.model.save(data, {
+			patch: true, 
+			success: this.sucess
+		});
+
+	},
+
+	'success' : function()
+	{
+		Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");
+		
 	}
 });

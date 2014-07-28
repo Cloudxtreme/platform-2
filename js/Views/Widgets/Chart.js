@@ -61,7 +61,6 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		this.collection = this.model.statistics;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
-		//console.log(this.collection);
 	},
 
 	'render' : function ()
@@ -76,6 +75,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 	'fill' : function ()
 	{ 	
+		if(!this.collection.latest() || !this.collection.latest().get('streams'))	return;
+
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
 		var chartcontainer = '.chart-container';
@@ -84,6 +85,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		if(this.filterfunc == 'besttime'){
 			this.renderbesttime(fulldata);
+			
 		}else{
 			
 			var width = this.$el.find(chartcontainer).get(0).clientWidth;
@@ -137,7 +139,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			options : {}
 		};
 		
-		if(!statistic)	streams = collection.latest().get("streams");
+		if(!statistic)	streams = this.collection.latest().get("streams");
 		else			streams = statistic;
 		
 		$.each(streams, function(index, stream){
@@ -171,7 +173,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		if(!token && !statistic)
 			fulldata.data.unshift(["Network", "Number of contacts"]);
-
+		
 		return fulldata;
 	},
 
@@ -246,7 +248,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("contacts", network);
 			fulldata.data.push([day, number]);
 
@@ -266,17 +268,18 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data : [],
 			options : {
 				colors : ["#333333"],
-				chartArea: {'width': '80%', 'height': '70%', 'left' : '40'},
+				chartArea: {'width': '90%', 'height': '70%', 'left' : '40'},
 	            width: width,
-	            height: width * 0.92,
-	           	'legend': { position: 'bottom'},
-	            curveType: 'function'
+	            height: width > 350? 350: width * 0.92,
+	           	'legend': { position: 'bottom', textStyle: {fontSize: '13'}},
+	            curveType: 'function',
+	            hAxis: {textStyle: {fontSize: '10'}}
 			}
 		};
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("messages");
 			fulldata.data.push([day, number]);
 
@@ -307,7 +310,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		$.each(statistics, function(index, statistic){
 			
-			var day = moment(statistic.get("date")).format("DD");
+			var day = moment(statistic.get("date")).format("D MMM");
 			var number = statistic.pluck("messages", network);
 			fulldata.data.push([day, number]);
 
@@ -896,13 +899,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		var fulldata = {
 			data : [],
 			options : {
-				chartArea: {'width': '70%', 'height': '70%', 'left' : '40'},
+				chartArea: {'width': '70%', 'height': '60%', 'left' : '40', 'top' : '50'},
 	            width: width,
-	            height: width * 0.3,
-		        'legend':{textStyle:{fontSize:'11'}},
-		        'tooltip':{textStyle:{fontSize:'13'}},
+	            height: width * 0.4,
+		        'legend':{textStyle:{fontSize:'11'}, position: 'top'},
 		        'curveType': 'function',
-	    		'legend': { position: 'bottom'},
 	    		colors : []
 				}
 			};
@@ -921,10 +922,13 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}
 			
 		for(var i=0; i<length; i++){
-			var line = [i];
+
+			var line = [moment(collection.place(i).get("date")).format("D MMM")];
+			
 			for(d in data){
 				line.push(data[d].shift());
 			}
+
 			fulldata.data.push(line);
 		}
 

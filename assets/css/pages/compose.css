@@ -588,7 +588,7 @@ Style corrections and manual overrides
 	color: #999;
 	text-shadow: 0 1px white;
 	padding: 0px 11%; 
-	margin: 35px -10.5% 12px;
+	margin: 0px -10.5% 12px;
 	max-height: 0px;
 	-webkit-transition: all .15s ease-out;
 	overflow: hidden;
@@ -600,6 +600,16 @@ Style corrections and manual overrides
 }
 
 #out img{ float: left; max-width: 45%; max-height:180px; padding-right: 15px; margin-bottom: 20px; }
+
+#out-loading{
+	position: relative;
+	box-sizing: border-box;
+	padding: 0px 11%; 
+	margin: 35px -10.5% 0px;
+	overflow: hidden;
+	height: 5px;
+	top: 2px;
+}
 
 .oembedall-container a, .oembedall-container > span { display: none;}
 

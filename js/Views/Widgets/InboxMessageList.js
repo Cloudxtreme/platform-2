@@ -133,7 +133,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'hideloading' : function (collection, response)
-	{
+	{	
 		if(collection.cursor && response.channel[this.collectionstring].length)
 			//this.$el.find(".load-more").show();
 			this.hasmore = true;
@@ -479,11 +479,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'isempty' : function(){		
-		this.$el.find(".inbox-container").empty().addClass('empty-content');
+		$(".inbox-container").empty().addClass('empty-content');
 	},
 
 	'unsetempty' : function(){
-		this.$el.find(".inbox-container").removeClass('empty-content');
+		$(".inbox-container").removeClass('empty-content');
 	},
 
 	'translateString' : function(translatedata)

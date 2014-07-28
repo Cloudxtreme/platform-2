@@ -79,9 +79,10 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.on("paste:content", this.listentopaste);
 		this.on("blur:content", this.endchange);
 
+		this.loadListeners(this, ['request:og', 'ready:og']);
+
 		this.on('update:limit', this.updatelimit)
 		//this.on("change:charlength", this.greyout);
-		
 
 		//Temp hack for browser check - Chrome as default
 		if(navigator.userAgent.match(/(firefox(?=\/))\/?\s*(\d+)/i))
@@ -113,6 +114,9 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		// Add content
 		this.$contenteditable.html(this.content);
 		if(this.content) this.listentochange();
+
+		this.$loadercontainer = this.$el.find ('#out-loading');
+		this.trigger("rendered");
 
 		return this;
 	},
@@ -397,6 +401,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	{	
 		this.releaseurlprocessing();
 
+		var properties = ['description', 'og:description', 'og:image', 'og:video', 'og:title'];
+
 		var self = this;
 		var	longurl = model.get('url');
 		var	shorturl = model.get('shortUrl');
@@ -416,9 +422,29 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 		this.$el.find('#out').empty().html(oembed);
 
 		this.$el.find(".oembed").oembed(null, null, this.embed).each(function(){
-			this.def.done(function(){
-				self.$el.find('#out').addClass('expanded');
+
+			self.$el.find('#out').removeClass('expanded');
+			self.trigger('request:og');
+			
+			this.def.done(function(data){
+				
+				self.trigger('ready:og');
+
+				var query = data? data.query: null;
+				var results = query? query.results: null;
+				var metadata = results? results.meta: null;
+
+				if(metadata && metadata.length)
+				{	
+					$.each(metadata, function(n, property){
+						if(property.name && properties.indexOf(property.name) >= 0)
+							self.$el.find('#out').addClass('expanded');
+					})
+				}
+					
 			});
+
+
 		});
 
 		//Update counter

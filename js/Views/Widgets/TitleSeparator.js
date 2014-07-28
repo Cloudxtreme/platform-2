@@ -1,5 +1,7 @@
 Cloudwalkers.Views.Widgets.TitleSeparator = Backbone.View.extend({
 
+	'className' : 'titleseparator',
+
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);

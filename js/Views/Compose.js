@@ -14,6 +14,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'actionview': false,
 	'minutestep': 5,
 	'maxfilesize' : 3000000,
+	'besttimes' : {},
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -141,7 +142,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.action.fetch();
 					
 		} else if(this.model)
-		{
+		{				
 			this.type = "edit";
 			this.state = 'loading';
 			this.draft = this.model.clone();
@@ -175,6 +176,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		// Translate Titles
 		this.translateTitles();	
+
 	},
 
 	'censurecompose' : function()
@@ -186,7 +188,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			'MESSAGE_OUT_ATTACHMENTS' 	: ['images'],
 			'MESSAGE_OUT_SCHEDULE'		: ['schedule'],
 			'MESSAGE_OUT_REPEAT'		: ['repeat'],
-			'CAMPAIGN_CREATE'			: ['campaign']
+			//'CAMPAIGN_CREATE'			: ['campaign']
 		}
 
 		// Create block functionality array
@@ -254,6 +256,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
+
 		
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
@@ -313,7 +316,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'option' : function (token)
-	{
+	{	
 		var options = this.options[this.type];
 		
 		return options? options.indexOf(token) >= 0: false; 
@@ -521,14 +524,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft.get("attachments"), this.draft.get("variations"));
+	{ 	//console.log(this.streams, this.draft.get("variations"));
 		this.activestream = stream;
 	
 		if(this.actionview)
 		{
 			var options = this.options[this.type];
 			var network = false;
-		
+			
 		} else {
 			
 			// Get the right network
@@ -1250,8 +1253,29 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Set the data
 		this.draft.original(this.activestream, "schedule", schedule);
+
+		// Fetch
+		/*if(this.activestream && !this.hasbesttime()){
+			var stream = Cloudwalkers.Session.getStream(this.activestream.id);
+
+			this.listenToOnce(stream, 'sync', this.setbesttime);
+			stream.fetch({endpoint: "besttimetopost"});
+		}*/
 		
 		return this;
+	},
+
+	'setbesttime' : function(besttimes)
+	{
+		//console.log(besttimes)
+	},
+
+	'hasbesttime' : function()
+	{	
+		var streamid = this.activestream? this.activestream.id: false;
+		var stream = streamid ? this.streams.models.filter(function(el){  return el.id == streamid}): false;
+		
+		return stream.length? stream[0].get("bestTimeToPost"): false;
 	},
 	
 	/* Parse schedule values */

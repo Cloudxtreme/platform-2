@@ -5,4 +5,5 @@
 
 </div>
 
+<div id="out-loading" class="clearfix"></div>
 <div id="out" class="clearfix"></div>

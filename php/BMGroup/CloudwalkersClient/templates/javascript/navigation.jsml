@@ -151,7 +151,7 @@
 	{{/level}}
 	
 		<!-- Co-workers cloud -->
-		{{#authorized.MESSAGE_READ_COWORKER}}
+		{{#authorized._CW_COWORKERS_VIEW}}
 		<li>
 			<a href="#coworkers">
 				<i class="icon-group"></i> 
@@ -159,7 +159,7 @@
 				<span class="selected"></span>
 			</a>
 		</li>
-		{{/authorized.MESSAGE_READ_COWORKER}}
+		{{/authorized._CW_COWORKERS_VIEW}}
 
 	<!-- Company Accounts -->
 	{{#profiles}}
