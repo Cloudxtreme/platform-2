@@ -162,7 +162,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
 
-		this.loadListeners(this.draft, ['request', 'sync'], true);
+		this.loadmylisteners();
 
 		//Twitter reply
 		//This is a hack indeed...What better way to make this?
@@ -176,6 +176,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Translate Titles
 		this.translateTitles();	
 
+	},
+
+	'loadmylisteners' : function()
+	{
+		this.loadListeners(this.draft, ['request', 'sync'], true);
 	},
 
 	'censurecompose' : function()
@@ -1505,9 +1510,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams: this.draft.get("streams"), 
 			schedule: this.draft.get("schedule"), 
 			update: true
-		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save')});
+		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
 
-		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save')});
+		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
 	},
 	
 	'post' : function()
@@ -1540,11 +1545,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				status: "scheduled", 
 				schedule: this.draft.get("schedule"), 
 				update: true
-			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'post')});			
+			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});			
 		} 
 		
 		// Or just post
-		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post')});
+		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});
 		
 		
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
@@ -1586,7 +1591,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			message: this.draft.get("body").html, 
 			actiontype: this.type
 			}, 
-			{success: this.thankyou.bind(this, null)}
+			{success: this.thankyou.bind(this, null), error: this.oops.bind(this, 'saveaction')}
 		);
 
 		this.loadListeners(postaction, ['request:action', 'sync']);
@@ -1628,6 +1633,18 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+	},
+
+	'oops' : function(action, status)
+	{
+		Cloudwalkers.RootView.confirm 
+			(
+				'An error ocurred while posting your message. Do you want to retry?',
+				function () { 
+					this.loadmylisteners();
+					action == 'save'? this.save(status): this.post(); }.bind(this),
+				function () { this.$el.modal('hide'); }.bind(this)
+			);
 	},
 
 	'disablefooter' : function()
