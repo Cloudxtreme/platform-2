@@ -126,7 +126,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			
 
 			// Role permissions
-			//this.authorized = this.account.get("currentuser").authorized;
+			this.authorized = this.account.get("currentuser").authorized;
 			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);
 			
