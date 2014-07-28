@@ -41,7 +41,7 @@ Cloudwalkers.Models.Group = Backbone.Model.extend({
 			
 		} else {
 			
-			data.role = this.getRole();
+			data.role = this.getRole().name;
 		}
 
 		return data;
