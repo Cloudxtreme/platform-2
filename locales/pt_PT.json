@@ -178,7 +178,7 @@
 		"user_list": "Lista de Utilizadores",
 		"deleted": "Apagado",
 		"streams": "Streams",
-		"keyword_monitoring_category": "Keyword Monitoring Category",
+		"keyword_monitoring_category": "Categoria de Monitorização de Palavras Chave",
 		"you_are_about_to_remove_group": "Está preste a eliminar o grupo ",
 		"add_user": "Adicionar Utilizador",
 		"you_are_about_to_remove_user": "Está preste a eliminar o utilizador ",
@@ -188,14 +188,16 @@
 		"user_added": "Utilizador adicionado",
 		"something_went_wrong": "Algo correu mal",
 		"group_created": "Grupo criado",
-		"add_keyword_monitoring_category": "Adicionar Keyword Monitoring Category",
-		"top_post_on_company_page": "Top post on company page",
-		"latest_company_post": "Latest Company Post",
+		"add_keyword_monitoring_category": "Adicionar Categoria de Monitorização de Palavras Chave",
+		"top_post_on_company_page": "Melhor tópico da empresa",
+		"latest_company_post": "Tópico mais recente da empresa",
 		"open_messages_assigned_to_me": "Mensagens abertas atribuidas a mim",
 		"open_messages_assigned_to_my_groups": "Mensagens abertas atribuidas aos meus grupos",
 		"messages_handled_this_week_by_me": "Mensagens tratadas esta semana por mim",
 		"messages_handled_this_week_by_my_groups": "Mensagens tratadas esta semana pelos meus grupos",
-		"quick_note": "Quick Note",
-		"quick_draft": "Quick Draft"
+		"quick_note": "Nota Rápida",
+		"quick_draft": "Rascunho Rápido",
+		"write_note": "Escrever Nota",
+		"links": "links"
 	}
 }

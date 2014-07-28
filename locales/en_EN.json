@@ -196,6 +196,8 @@
 		"messages_handled_this_week_by_me": "Messages handled this week by me",
 		"messages_handled_this_week_by_my_groups": "Messages handled this week by my groups",
 		"quick_note": "Quick Note",
-		"quick_draft": "Quick Draft"
+		"quick_draft": "Quick Draft",
+		"write_note": "Write Note",
+		"links": "links"
 	}
 }

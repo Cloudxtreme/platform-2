@@ -2,43 +2,35 @@ Cloudwalkers.Views.Widgets.DashboardWebcare = Cloudwalkers.Views.Widgets.Widget.
 
 	'template' : 'reportwebcare',
 	'typestring' : 'accounts',
-	'initialize' : function()
-	{
 
-		this.stream = this.options.stream;
+	'initialize' : function(options)
+	{
 		this.messages = new Cloudwalkers.Collections.Messages()
+		this.messages.models = this.options.model
+		this.listenTo(this.messages, 'seed', this.fill);
 	},
 
 	'render' : function ()
 	{
-		console.log(this.messages)
-		// Preset template
-		this.$el.html (Mustache.render (Templates[this.template], this.options));
-		//this.$el.find(".dashboard-stat").addClass("portlet-loading");		
-		
-		this.assigned = '1'
 
-		//this.messages.touch(this.messages, { assigned: this.assigned } );
+		console.log(this.messages)
+
+		this.messages.parenttype = 'accounts';
+		this.messages.id = Cloudwalkers.Session.getAccount().id;
+
+		// Preset template
+		this.$el.html (Mustache.render (Templates[this.template], this.options));	
+
+		this.loadListeners(this.messages, ['request', 'sync', 'ready'], true);
+
+		this.messages.touch(this.messages, { assigned: this.options.subject } );
 
 		return this;
 	},
 	
 	'fill' : function ()
 	{	
-		var report = this.stream.reports.findWhere({token: this.options.type});
-		
-		if(!report) return null;
-		
-		var data = {
-			dashboard: this.options.dashboard,
-			streamid: this.stream.id,
-			network: this.stream.get("network"),
-			details: report.getDetails()
-		}
-		
-		this.$el.html (Mustache.render (Templates[this.template], data));
-		
-		this.trigger ('content:change');
+		console.log("ok")
 
 	},
 	

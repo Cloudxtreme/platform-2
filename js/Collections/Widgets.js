@@ -15,10 +15,10 @@ Cloudwalkers.Collections.Widgets = Backbone.Collection.extend({
 		'widget_8' : { widget: "drafts", type: "draft", size: 4, color: "blue", icon: "edit", open: true, since: 1, link: "#drafts", scrollable: 'scrollable', translation:{ 'title': 'drafts'} },
 
 		// Webcare
-		'widget_9' : { widget: "webcarecounter", type:'open_me', size: 3, translation:{ 'title': 'open_messages_assigned_to_me'} },
-		'widget_10' : { widget: "webcarecounter", type:'open_mygroups', size: 3, translation:{ 'title': 'open_messages_assigned_to_my_groups'} },
-		'widget_11' : { widget: "webcarecounter", type:'handled_me', size: 3, translation:{ 'title': 'messages_handled_this_week_by_me'} },
-		'widget_12' : { widget: "webcarecounter", type:'handled_mygroups', size: 3, translation:{ 'title': 'messages_handled_this_week_by_my_groups'} },
+		'widget_9' : { widget: "webcarecounter", type:'open_me', size: 3, subject: 'assigneduser', status: 'open', translation:{ 'title': 'open_messages_assigned_to_me'} },
+		'widget_10' : { widget: "webcarecounter", type:'open_mygroups', size: 3, subject: 'assigned', status: 'open', translation:{ 'title': 'open_messages_assigned_to_my_groups'} },
+		'widget_11' : { widget: "webcarecounter", type:'handled_me', size: 3, subject: 'assigneduser', status: 'closed', translation:{ 'title': 'messages_handled_this_week_by_me'} },
+		'widget_12' : { widget: "webcarecounter", type:'handled_mygroups', size: 3, subject: 'assigned', status: 'closed', translation:{ 'title': 'messages_handled_this_week_by_my_groups'} },
 
 		// Write
 		'widget_13' : { widget: "write", type: "draft", size: 4, color: "blue", icon: "edit", open: true, since: 1, link: "#drafts", scrollable: 'scrollable', translation:{ 'title': 'quick_draft'} },

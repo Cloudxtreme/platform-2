@@ -38,7 +38,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		
 
 		// Manage User Groups Roles
-		if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) | (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
+		if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
 			this.tabs.push ({url: '#settings/manageusergroups', name: data.translate_manage_user_groups});
 		
 		// Translation for Title

@@ -232,6 +232,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
+			"write_note",
 			"clean",
 			"support",
 			"profile_settings",
