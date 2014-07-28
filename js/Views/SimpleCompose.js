@@ -28,6 +28,9 @@ Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
 
 		if(this.model.get("text"))	params.text = this.model.get("text");
 
+		//Mustache Translate Header
+		this.mustacheTranslateRender(params);
+
 		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
 
@@ -106,6 +109,30 @@ Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
 	'clean' : function()
 	{
 		this.$el.find('textarea').val('');
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"write_note",
+			"save",
+			"cancel"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });
