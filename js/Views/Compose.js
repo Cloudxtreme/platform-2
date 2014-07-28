@@ -1505,9 +1505,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams: this.draft.get("streams"), 
 			schedule: this.draft.get("schedule"), 
 			update: true
-		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
+		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save')});
 
-		else this.draft.save({status: status}, {success: this.thankyou.bind(this)});
+		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save')});
 	},
 	
 	'post' : function()
@@ -1540,11 +1540,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				status: "scheduled", 
 				schedule: this.draft.get("schedule"), 
 				update: true
-			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
+			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'post')});			
 		} 
 		
 		// Or just post
-		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this)});
+		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post')});
 		
 		
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
@@ -1593,7 +1593,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function()
+	'thankyou' : function(action)
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1609,18 +1609,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// After sales service 
 		if(this.type == "edit")
-		{
-			var varn;
+		{	
+			var varn = this.draft.get("variations");
 			
-			if(varn = this.draft.get("variations")) varn.forEach(function(el)
-			{
+			if(varn && varn.length) varn.forEach(function(el)
+			{ 
 				if(el.id) 
-				{
+				{	
+					if(action && action == 'post')
+						Cloudwalkers.RootView.trigger("added:message", this.draft);
+
 					Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
 				}
-			});
+			}.bind(this));
 			
-			else this.model.fetch();	
+			else this.model.fetch()	
 		}
 		
 		if(this.type == "post")
