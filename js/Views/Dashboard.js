@@ -207,9 +207,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addDashboardWebcare' : function (widgetdata)
 	{
-		
-		widgetdata.model = Cloudwalkers.Session.getStream(widgetdata.type);
-		
+			
 		return new Cloudwalkers.Views.Widgets.DashboardWebcare (widgetdata);
 
 	},

@@ -1,37 +1,35 @@
-Cloudwalkers.Views.Widgets.DashboardWebcare = Cloudwalkers.Views.Widgets.Widget.extend ({
-
-	'template' : 'reportwebcare',
-	'typestring' : 'accounts',
+Cloudwalkers.Views.Widgets.DashboardWebcare = Backbone.Collection.extend ({
 
 	'initialize' : function(options)
 	{
-		this.messages = new Cloudwalkers.Collections.Messages()
-		this.messages.models = this.options.model
-		this.listenTo(this.messages, 'seed', this.fill);
+		if(options) $.extend(this, options);
+
 	},
 
-	'render' : function ()
-	{
+	'render' : function(){
 
-		console.log(this.messages)
-
-		this.messages.parenttype = 'accounts';
-		this.messages.id = Cloudwalkers.Session.getAccount().id;
-
-		// Preset template
-		this.$el.html (Mustache.render (Templates[this.template], this.options));	
-
-		this.loadListeners(this.messages, ['request', 'sync', 'ready'], true);
-
-		this.messages.touch(this.messages, { assigned: this.options.subject } );
+		console.log(this.$el)
+		this.webcareTouch();
 
 		return this;
 	},
-	
-	'fill' : function ()
-	{	
-		console.log("ok")
 
+	'webcareTouch' : function(){
+
+		var params = "?";
+		if(this.assigned)		params += "assigned=" + this.assigned + "&";
+		if(this.assigneduser)	params += "assigneduser=" + this.assigneduser + "&";
+		if(this.status)			params += "status=" + this.status;
+
+		this.model = new Cloudwalkers.Models.Message();
+		this.typestring = 'accounts';
+		this.model.parameters = params;
+
+		this.model.fetch({endpoint: 'messageids', success: this.webcareCount() });
+	},
+
+	'webcareCount' : function(reponse){
+		console.log(response)
 	},
 	
 	'fail' : function ()
