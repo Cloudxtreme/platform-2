@@ -314,12 +314,16 @@
 		</ul>
 	</li>
 	
-	<!--<li class="settings">
+
+	<!--
+	<li class="settings">
+
 		<a href="#settings/profile">
 		<i class="icon-user"></i> 
 		<span class="title">{{translate_profile_settings}}</span>
 		<span class="selected"></span>
 		</a>
+
 	</li>-->
 	
 </ul>

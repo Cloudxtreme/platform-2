@@ -178,7 +178,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var news = account.channels.findWhere({type: "news"}).id;
 		var profiles = account.channels.findWhere({type: "profiles"}).id;
 
-		if (id == profiles && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')) 		return this.checkauth("#timeline/"+id);
+		if (id == profiles && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY'))   	return this.checkauth("#timeline/"+id);
 		else if (id == news && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))   return this.checkauth("#timeline/"+id);
 
 		// Visualisation
