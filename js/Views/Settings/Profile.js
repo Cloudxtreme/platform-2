@@ -50,11 +50,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 		{
-			Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated");
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack
 			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
-		}});
+		}.bind(this)});
 	},
 	
 	/**
@@ -72,7 +72,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		{
 			// Check type
 			if (!f.type.match('image.*')) 
-				return Cloudwalkers.RootView.information ("Wrong file", "You need a valid image.", this.$el.find(".settings-profile .portlet-body"));
+				return Cloudwalkers.RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
 
 			var reader = new FileReader();
 			
@@ -92,11 +92,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 	'uploadfile' : function(){
 		
 		if (!this.base64data)
-			Cloudwalkers.RootView.information ("No image", "Select an image file first.", this.$el.find(".settings-profile .portlet-body"));
+			Cloudwalkers.RootView.information (this.translateString("no_image"), this.translateString("select_an_image_file_first"), this.$el.find(".settings-profile .portlet-body"));
 
 		else Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 			{
-				Cloudwalkers.RootView.growl('User Profile', "You have a new profile picture.");
+				Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
 			}});
 	},
 
@@ -132,7 +132,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		if (newpassword != this.$el.find ('[name=pass2]').val())
 		{
-			Cloudwalkers.RootView.growl('Oops', "Please re-type your new password.");
+			Cloudwalkers.RootView.growl('Oops', this.translateString("please_retype_your_new_password"));
 			return null;
 		}
 		
@@ -140,7 +140,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 		{
-			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
 		
 		}, error: function(model, response, options)
 		{	var response = response.responseJSON.error.message;
@@ -165,7 +165,24 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"profile_type"
+			"profile_type",
+			"profile_picture",
+			"select",
+			"upload",
+			"upload_profile_picture",
+			"change_password",
+			"current_password",
+			"new_password",
+			"retype_new_password",
+			"cancel",
+			"your_profile",
+			"first_name",
+			"last_name",
+			"mobile_phone",
+			"language",
+			"save_changes",
+			"cancel",
+			"no_image"
 		];
 
 		this.translated = [];

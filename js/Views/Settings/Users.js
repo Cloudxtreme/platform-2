@@ -129,8 +129,8 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		Cloudwalkers.Net.post (url, {}, data, function(resp){ 
 		
-			if(resp.error)	Cloudwalkers.RootView.growl('Oops', "There's something fishy about that e-mail address.");
-			else			Cloudwalkers.RootView.growl('User Management', "Invitation on it's way.");
+			if(resp.error)	Cloudwalkers.RootView.growl('Oops', this.translateString("theres_something_fishy_about_that_email_address"));
+			else			Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
 		});
 
 	},

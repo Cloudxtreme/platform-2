@@ -214,6 +214,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			// Apply role permissions to template data
 			Cloudwalkers.Session.censuretemplate(contactinfo);
 
+			//Mustache Translate Render
+			this.mustacheTranslateRender(contactinfo);
+
 			// View Tags
 			contactinfo.tags = true;
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
@@ -464,5 +467,30 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.touch(this.type, parameters);
 		
 		if(!this.hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"latest_messages",
+			"latest_conversations",
+			"contact_notes",
+			"add_contact_note"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
