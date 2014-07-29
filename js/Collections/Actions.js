@@ -9,7 +9,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
-		'note' : {name: "Note", icon: 'edit', token: 'note', type: 'note'},
+		'note_view' : {name: "View notes", icon: 'edit', token: 'note-content', type: 'note'},
+		'note_manage' : {name: "Create note", icon: 'list', token: 'note-list', type: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
@@ -65,7 +66,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	},
 	
 	'rendertokens' : function (tokens)
-	{
+	{	
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 		
