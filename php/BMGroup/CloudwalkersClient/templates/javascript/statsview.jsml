@@ -7,8 +7,8 @@
 		
 		{{^customActive}}
 		<span class="period-buttons btn-group">
-			<a class="btn" id="subtract"><i class="icon-caret-left"></i></a>
-			<a class="btn" id="add"><i class="icon-caret-right"></i></a>
+			<a class="btn" id="subtract" disabled="disabled"><i class="icon-caret-left"></i></a>
+			<a class="btn" id="add" disabled="disabled"><i class="icon-caret-right"></i></a>
 		</span>
 		{{/customActive}}
 			
@@ -22,14 +22,14 @@
 			<a class="btn"><i class="icon-print"></i></a>
 			-->
 			
-			<select class="networks">
+			<select class="networks" disabled="disabled">
 				<option value="0">All networks</option>
 				{{#streams}}
 				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network.token}} {{customname}}</option>
 				{{/streams}}
 			</select>
 
-			<select class="time">
+			<select class="time" disabled="disabled">
 				<optgroup label="Time spans">
 					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
 					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
