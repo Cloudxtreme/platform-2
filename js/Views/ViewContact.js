@@ -10,7 +10,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click #contactfilter li' : 'loadmessages',
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post',
-		'click *[data-action]' : 'action',
+		'click aside *[data-action]' : 'action',
 		'keyup #tags' : 'entertag',
 		'click .load-more' : 'more'
 	},
@@ -358,8 +358,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'showtagedit' : function()
 	{	
-		this.$el.find('.message-tags').toggleClass("enabled");
-		this.$el.find('.message-tags .edit').toggleClass("inactive");
+		this.$el.find('aside .message-tags').toggleClass("enabled");
+		this.$el.find('aside .message-tags .edit').toggleClass("inactive");
 	},
 
 	'fetchtags' : function()
@@ -400,7 +400,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		var tag;
 
 		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
-		this.$el.find('.tag-list').append(tag.render().el);
+		this.$el.find('aside .tag-list').append(tag.render().el);
 	},
 
 	'entertag' : function(e)

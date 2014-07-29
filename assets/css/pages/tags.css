@@ -166,3 +166,18 @@ div.btn-white.pull-right {
 	padding: 4px 12px 4px 11px;
 	margin: -1px 0 0 0;
 }
+
+#compose .inbox-container .message-tags{
+	width: 80%;
+	margin-right: 0;
+	margin-top: -7px;
+}
+#compose .inbox-container div.btn-white.pull-right{
+	margin-top: 7px
+}
+#compose .inbox-container .tag-input-append{
+	margin-top: 5px;
+}
+#compose .inbox-container button{
+	margin-top: -1px;
+}
