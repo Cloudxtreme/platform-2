@@ -1,4 +1,4 @@
-Cloudwalkers.Views.Widgets.DashboardWebcare = Backbone.Collection.extend ({
+Cloudwalkers.Views.Widgets.DashboardWebcare = Backbone.View.extend ({
 
 	'initialize' : function(options)
 	{
@@ -6,10 +6,15 @@ Cloudwalkers.Views.Widgets.DashboardWebcare = Backbone.Collection.extend ({
 
 	},
 
-	'render' : function(){
+	'render' : function(){	
 
-		console.log(this.$el)
 		this.webcareTouch();
+
+		this.$el.html (Mustache.render (Templates.reportwebcare, this));
+
+		this.$container = this.$el.find('.number');
+
+		this.$container.html("--")
 
 		return this;
 	},
@@ -25,11 +30,15 @@ Cloudwalkers.Views.Widgets.DashboardWebcare = Backbone.Collection.extend ({
 		this.typestring = 'accounts';
 		this.model.parameters = params;
 
-		this.model.fetch({endpoint: 'messageids', success: this.webcareCount() });
+		this.model.fetch({endpoint: 'messageids', success: this.webcareCount.bind(this) });
+
 	},
 
-	'webcareCount' : function(reponse){
-		console.log(response)
+	'webcareCount' : function(model, response){
+		
+		this.count = response.account.messages.length;
+		this.$container.html(this.count)
+		
 	},
 	
 	'fail' : function ()

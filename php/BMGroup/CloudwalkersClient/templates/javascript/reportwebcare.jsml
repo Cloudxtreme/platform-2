@@ -2,7 +2,7 @@
 
 	<div class="details">
 		<div class="number">
-			{{details.count}}
+			{{count}}
 		</div>
 	</div>
 

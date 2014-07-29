@@ -26,7 +26,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			template.startWidgets(['widget_4', 'widget_15', 'widget_16']);
 			break;
 
-			case 'Webcare':
+			case 'Conversation manager':
 			template.startWidgets(['widget_9', 'widget_10', 'widget_11', 'widget_12', 'widget_14']);
 			break;
 
@@ -39,11 +39,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			this.addDynamicReports(template);
 			break;
 
-			case 'Conversation manager':
+			/*case 'Conversation manager':
 			template.startWidgets(['widget_1', 'widget_2', 'widget_3', 'widget_4', 'widget_8', 'widget_5', 'widget_6']);
 			this.addDynamicReports(template);
 			break;
-
+*/
 		}
 		return template;
 	},
