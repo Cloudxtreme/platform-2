@@ -192,7 +192,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			'MESSAGE_OUT_ATTACHMENTS' 	: ['images'],
 			'MESSAGE_OUT_SCHEDULE'		: ['schedule'],
 			'MESSAGE_OUT_REPEAT'		: ['repeat'],
-			//'CAMPAIGN_CREATE'			: ['campaign']
+			'CAMPAIGN_CREATE'			: ['campaign']
 		}
 
 		// Create block functionality array

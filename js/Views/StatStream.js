@@ -66,6 +66,8 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		this.listenToOnce(this.collection, 'sync', this.fillcharts);
 		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
+		this.cleancollection();
+
 		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
 		
 	}
