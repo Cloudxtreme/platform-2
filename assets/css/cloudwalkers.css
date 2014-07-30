@@ -2183,3 +2183,18 @@ Dashboard stats
 	line-height: 10px;
 }
 
+.loading .loadingafter:after{
+	position: relative;
+	font-family: FontAwesome;
+	font-size: 24px;
+	color: #eee;
+	line-height: 1em;
+	content: "\F0ED";
+	-webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+	top: 5px;
+	left: 5px;
+}
+

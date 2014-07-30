@@ -108,6 +108,7 @@
 						<div class="submit-btn">
 							<button type="submit" class="btn green">Save Changes</button>
 							<button type="reset" class="btn">Cancel</button>
+							<span class="loadingafter"></span>
 						</div>
 						{{/authorized.ACCOUNT_SETTINGS}}
 					</form>
