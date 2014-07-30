@@ -77,8 +77,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container.removeClass("inner-loading");
 		
 		if (this.model.messages.cursor)
-			//this.$el.find(".load-more").show();
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
 	'showmore' : function(){
