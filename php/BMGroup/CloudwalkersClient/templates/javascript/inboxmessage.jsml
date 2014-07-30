@@ -11,7 +11,7 @@
 		<div>
 			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
 			<!-- CONTACTS_ROLE -->
-			<br /><em>on {{networkdescription}}</em>
+			<br /><em>{{translate_on}} {{networkdescription}}</em>
 		</div>
 		{{/from}}
 

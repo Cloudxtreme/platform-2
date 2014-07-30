@@ -116,7 +116,7 @@
 				<li class="notes">
 					<a href="#notes">
 						<i class="icon-edit"></i> 
-						<span class="title">Notes</span>
+						<span class="title">{{translate_notes}}</span>
 					</a>
 				</li>
 				{{/authorized.ACCOUNT_NOTES_VIEW}}

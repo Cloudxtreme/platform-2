@@ -11,7 +11,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post',
 		'click aside *[data-action]' : 'action',
-		'keyup #tags' : 'entertag',
+		'keyup aside #tags' : 'entertag',
 		'click .load-more' : 'more'
 	},
 

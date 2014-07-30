@@ -502,7 +502,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			"search_contacts",
 			"suggestions",
 			"select_all",
-			"load_more"
+			"load_more",
+			"on"
 		];
 
 		this.translated = [];
