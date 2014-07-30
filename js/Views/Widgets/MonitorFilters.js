@@ -110,6 +110,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		if(streams) this.list.parameters.streams = streams.join(",");
 		else delete this.list.parameters.streams;
 
+		this.category.messages.trigger('change:filter');
 		this.category.messages.touch(this.category, this.list.parameters);
 
 		return this;
@@ -167,6 +168,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		if(channel) this.list.parameters.channels = channel;
 		else delete this.list.parameters.channels;
 
+		this.category.messages.trigger('change:filter');
 		this.category.messages.touch(this.category, this.list.parameters);
 
 		return this;

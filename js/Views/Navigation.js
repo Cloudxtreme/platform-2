@@ -126,30 +126,42 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		// Administrator
 		//if(data.level)
 		//{
-			// News
-			data.news = account.channels.findWhere({type: "news"}).id;
 			
-			// Monitoring
+		// News
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY')){
+			data.news = account.channels.findWhere({type: "news"});
+			if(data.news) data.news = account.channels.findWhere({type: "news"}).id;
+		}
+			
+		// Monitoring
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_MONITORING')){
 			var monitoring = account.channels.findWhere({type: "monitoring"});
-			data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
+			if(monitoring)	data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
+		}			
 		//}
 		
 		// Scheduled
-		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
-		data.scheduled.streams = account.streams.where({outgoing: 1});
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE')){
+			data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
+			data.scheduled.streams = account.streams.where({outgoing: 1});
+		}
 		
 		// Inbox
 		data.inbox = true;
 		
 		// Profiles
-		var profiles = account.channels.findWhere({type: "profiles"});
-		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')){
+			var profiles = account.channels.findWhere({type: "profiles"});
+			data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
+		}
 			
 		// Reports
-		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
-		{
-			return stream.attributes;
-		});
+		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW')){
+			data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
+			{
+				return stream.attributes;
+			});
+		}
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(data);

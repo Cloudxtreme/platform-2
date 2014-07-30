@@ -15,9 +15,9 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		this.collection = new Cloudwalkers.Collections.Users();
 		
 		//  en to model
-		this.listenTo(this.collection, 'seed', this.fill);
-		this.listenTo(this.collection, 'request', this.showloading);
-		this.listenTo(this.collection, 'sync', this.hideloading);
+		this.listenToOnce(this.collection, 'sync', this.fill);
+		this.listenToOnce(this.collection, 'request', this.showloading);
+		this.listenToOnce(this.collection, 'sync', this.hideloading);
 		
 		this.loadListeners(this.collection, ['request', 'sync'], true);
 	},
@@ -40,7 +40,9 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
 		
 		// Load users
-		this.collection.touch(Cloudwalkers.Session.getAccount(), {records: 100});
+		this.collection.parameters = {records: 100}
+		this.collection.parentmodel = account;
+		this.collection.fetch();
 		
 		/*
 		var administrators = new Cloudwalkers.Collections.Users ([], {});
@@ -57,8 +59,9 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	},
 	
 	
-	'fill' : function (models)
+	'fill' : function (collection)
 	{	
+		models = collection.models;
 		Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
 		
 		var $container = this.$el.find(".user-container").eq(-1);

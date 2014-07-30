@@ -60,7 +60,7 @@
 		</div>
 		{{/authorized.ACCOUNT_SETTINGS}}
 		
-		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role}}</strong></div>
+		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role.name}}</strong></div>
 		
 	</div>
 		

@@ -73,39 +73,22 @@
 
 			<ul class="sub-menu">
 
-				{{#authorized.MESSAGE_READ_INBOX}}
+				{{#authorized.MESSAGE_READ_INBOX_MESSAGES}}
 				<li>
 					<a href="#inbox/messages">
 						<i class="icon-envelope"></i> 
 						<span class="title">{{translate_messages}}</span>
 					</a>
 				</li>
-			
+				{{/authorized.MESSAGE_READ_INBOX_MESSAGES}}
+				{{#authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
 				<li>
 					<a href="#inbox/notifications">
 						<i class="icon-globe"></i> 
 						<span class="title">{{translate_notifications}}</span>
 					</a>
 				</li>
-				{{/authorized.MESSAGE_READ_INBOX}}
-				{{^authorized.MESSAGE_READ_INBOX}}
-					{{#authorized.MESSAGE_READ_INBOX_MESSAGES}}
-					<li>
-						<a href="#inbox/messages">
-							<i class="icon-envelope"></i> 
-							<span class="title">{{translate_messages}}</span>
-						</a>
-					</li>
-					{{/authorized.MESSAGE_READ_INBOX_MESSAGES}}
-					{{#authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
-					<li>
-						<a href="#inbox/notifications">
-							<i class="icon-globe"></i> 
-							<span class="title">{{translate_notifications}}</span>
-						</a>
-					</li>
-					{{/authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
-				{{/authorized.MESSAGE_READ_INBOX}}
+				{{/authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
 
 				<li>
 					<a data-header-action="post">
@@ -297,16 +280,22 @@
 	{{/authorized.STATISTICS_VIEW}}
 	<!-- User Settings -->
 	<li class="settings">
-		<a href="#settings/users">
+		<a href="#settings/profile">
 			<i class="icon-cogs"></i> 
 			<span class="title">{{translate_settings}}</span>
 			<span class="arrow"></span>
 			<span class="selected"></span>
 		</a>
 		<ul class="sub-menu">
-			<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">{{translate_manage_users}}</span></a></li>
-			<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{translate_social_connections}}</span></a></li>
-			<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{translate_account_settings}}</span></a></li>
+			{{#authorized.USER_INVITE}}
+				<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">{{translate_manage_users}}</span></a></li>
+			{{/authorized.USER_INVITE}}
+			{{#authorized.SERVICE_CONNECT}}
+				<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{translate_social_connections}}</span></a></li>
+			{{/authorized.SERVICE_CONNECT}}
+			{{#authorized.ACCOUNT_SETTINGS}}
+				<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{translate_account_settings}}</span></a></li>
+			{{/authorized.ACCOUNT_SETTINGS}}
 			<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 			{{#manage_user_groups}}
 				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>

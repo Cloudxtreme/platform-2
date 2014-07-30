@@ -18,20 +18,22 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 	{
 
 		var data = {};
+		this.tabs = []
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
 
 		// Build tabs
-		//if(this.level)  KOEN: NEED MORE INFO ON THIS
-			
-			this.tabs = [
-				{url: '#settings/users', name: data.translate_manage_users},
-				{url: '#settings/services', name: data.translate_social_connections},
-				{url: '#settings/account', name: data.translate_account_settings}
-			];
+		//if(this.level)
 		
-		//else this.tabs = [];
+		if (Cloudwalkers.Session.isAuthorized('USER_INVITE'))			
+			this.tabs.push({url: '#settings/users', name: data.translate_manage_users});
+
+		if (Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT'))
+			this.tabs.push({url: '#settings/services', name: data.translate_social_connections});
+		
+		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_SETTINGS'))
+			this.tabs.push({url: '#settings/account', name: data.translate_account_settings});
 		
 		
 		this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});

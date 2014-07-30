@@ -15,7 +15,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 
 		// Clear the category (prevent non-change view failure)
 		this.category.set({messages: []});
-
+		this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
 		this.loadmylisteners();
 				
 		// Load category messages
@@ -45,7 +45,12 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		return this;
 	},
 
-	'loadmylisteners' : function(){
+	'loadmylisteners' : function(recycle)
+	{
+		if(recycle){
+			this.stopListening(this.category.messages);
+			this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+		}
 
 		// Listen to category
 		this.listenTo(this.category.messages, 'seed', this.fill);

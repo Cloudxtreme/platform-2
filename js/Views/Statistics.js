@@ -66,7 +66,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
-
+		
 		this.cleancollection();
 		
 		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
@@ -74,10 +74,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function()
-	{	
-		// clean if time toggle
-		this.cleanviews();
-		
+	{			
 		var params = this.timemanager();
 		params.streams = [];
 		
@@ -112,13 +109,15 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'fillcharts' : function()
 	{	
-		this.listenToOnce(this.collection, 'ready', this.hideloading);
-		
+		// clean if time toggle
+		this.cleanviews();
+
 		for(n in this.widgets)
 		{	
 			var streamid = this.streamid || false;
 			
 			if(streamid){
+
 				var token = Cloudwalkers.Session.getStream(streamid).get("network").token;
 				// Network specific charts
 				if(this.widgets[n].networks && this.widgets[n].networks != token)	continue;
@@ -302,8 +301,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'cleancollection' : function()
-	{
-		this.listenToOnce(this.collection, 'sync', this.fillcharts);
+	{	
+		this.listenTo(this.collection, 'sync', this.fillcharts);
 		this.collection.reset();
 	}
 });
