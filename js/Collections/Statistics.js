@@ -35,7 +35,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	
 	
 	'latest' : function ()
-	{
+	{	
 		return this.at(this.length-1);
 	},
 
@@ -188,7 +188,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 			var statistic = statistics[index];
 			var daily 	= [];
 
-			if(statistic){
+			if(statistic && statistic.get("streams")){
 				var streams = statistic.get("streams");
 				streams.forEach(function(stream){
 					stream 	= new Cloudwalkers.Models.Stream(stream);
