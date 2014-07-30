@@ -41,6 +41,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Network filters
 		var params = {} // {networks: this.model.streams.filterNetworks(null, true)};
 		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
+		
 		// Pageview
 		this.$el.html (Mustache.render (Templates.timeline, params));
 		
@@ -103,7 +106,30 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'resize' : function(height)
 	{	
 		this.$el.css('min-height', height);
-	}
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"loading",
+			"view_more",
+			"no_messages"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
 
 });
 

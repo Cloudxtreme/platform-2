@@ -238,6 +238,10 @@
 		"latest_messages": "Latest Messages",
 		"latest_conversations": "Latest Conversations",
 		"contact_notes": "Contact Notes",
-		"add_contact_note": "Add contact note"
+		"add_contact_note": "Add contact note",
+		"notes": "Notes",
+		"loading": "Loading",
+		"view_more": "View more",
+		"no_messages": "No messages"
 	}
 }

@@ -45,7 +45,7 @@
 			{{/authorized.ACCOUNT_NOTES_VIEW}}
 		{{/authorized.ACCOUNT_NOTES_MANAGE}}
 	</div>
-	<!-- TAGS -->
+	<!--
 	<div class="message-tags pull-right">
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
 			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
@@ -61,7 +61,7 @@
 			{{/authorized.ACCOUNT_TAGS_VIEW}}
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 	</div>
-	<!-- END TAGS -->
+	 -->
 </div>
 <div style="clear:both"></div>
 
