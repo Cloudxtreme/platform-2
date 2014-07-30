@@ -66,9 +66,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			return this.navigate("#firsttime", true);
 			
 		// Check administrator level
-		if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
+		//if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
 			 
-			return this.navigate("#work", true);
+			//return this.navigate("#work", true);
 		
 		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
@@ -137,6 +137,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
+
+		if(!channel)	return this.home();
 		
 		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		

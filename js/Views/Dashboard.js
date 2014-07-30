@@ -83,7 +83,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					break;
 			}
 			
-			this.appendWidget(widget, Number(widgets[i].size));
+			if(widget)
+				this.appendWidget(widget, Number(widgets[i].size));
 		}
 		
 		return this;
@@ -91,9 +92,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'addMessagesCounters' : function (widgetdata)
 	{
-		
 		var channel = Cloudwalkers.Session.getChannel(widgetdata.type);
-		
+		if(!channel)	return;
+
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
 		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
@@ -116,6 +117,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		//var channel = Cloudwalkers.Session.getChannel("internal");
 
 		widgetdata.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
+		
+		if(!widgetdata.model)	return;
+
 		widgetdata.link = "#coworkers";
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
@@ -129,6 +133,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			sort: "engagement",
 			since: Math.round(Date.now()/3600000) *3600 - 86400 *widgetdata.since
 		};
+
+		if(!widgetdata.model)	return;
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
