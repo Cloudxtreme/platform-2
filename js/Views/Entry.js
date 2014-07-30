@@ -311,7 +311,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Notes list
 	'fillnotes' : function(notes)
 	{	
-		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
+		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 		else				this.$el.find('.note-list').empty();
 
 		for(n in notes)
@@ -363,7 +363,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'rendertag' : function(tags){
 
 				
-		if(!tags.length)	this.$el.find('.tag-list').html('No tags found');
+		if(!tags.length)	this.$el.find('.tag-list').html(this.translateString("no_tags_found"));
 		else				this.$el.find('.tag-list').empty();
 		this.$el.find('.tag-list').empty();
 		for(n in tags)
@@ -491,6 +491,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		//this.model.notifications.trigger("destroy");
 		
 		window.clearTimeout(this.tm);
-    }
+    },
+
+    'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	}
 
 });

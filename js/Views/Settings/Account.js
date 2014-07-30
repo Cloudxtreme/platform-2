@@ -37,8 +37,8 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.$el.find("#cannedlist").append(cannedlist.render().el);
 	
 		// Render manually both trigger's views
-		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
-		this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
+		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: this.translateString("twitter_new_follower_response")});
+		this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: this.translateString("dm_out_of_office_response")});
 
 		this.$el.find("#triggerlist").append(this.twitterview.render().el);
 		this.$el.find("#triggerlist").append(this.dmview.render().el);
@@ -74,7 +74,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
 		
-		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
+		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated")); }});
 	},
 	
 	'deletecampaign' : function (e)
@@ -121,7 +121,14 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 			"name",
 			"save_changes",
 			"cancel",
-			"company_name"
+			"company_name",
+			"menu",
+			"campaigns",
+			"basic",
+			"manage_campaigns",
+			"manage_auto_responders",
+			"message_templates",
+			"triggers"
 		];
 
 		this.translated = [];

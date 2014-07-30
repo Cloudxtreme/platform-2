@@ -10,7 +10,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		'click #contactfilter li' : 'loadmessages',
 		'click [data-action=write-note]' : 'togglecontactnote',
 		'click #post' : 'post',
-		'click *[data-action]' : 'action',
+		'click aside *[data-action]' : 'action',
 		'keyup #tags' : 'entertag',
 		'click .load-more' : 'more'
 	},
@@ -214,6 +214,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			// Apply role permissions to template data
 			Cloudwalkers.Session.censuretemplate(contactinfo);
 
+			//Mustache Translate Render
+			this.mustacheTranslateRender(contactinfo);
+
 			// View Tags
 			contactinfo.tags = true;
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
@@ -358,8 +361,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'showtagedit' : function()
 	{	
-		this.$el.find('.message-tags').toggleClass("enabled");
-		this.$el.find('.message-tags .edit').toggleClass("inactive");
+		this.$el.find('aside .message-tags').toggleClass("enabled");
+		this.$el.find('aside .message-tags .edit').toggleClass("inactive");
 	},
 
 	'fetchtags' : function()
@@ -400,7 +403,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		var tag;
 
 		tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
-		this.$el.find('.tag-list').append(tag.render().el);
+		this.$el.find('aside .tag-list').append(tag.render().el);
 	},
 
 	'entertag' : function(e)
@@ -464,5 +467,30 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.touch(this.type, parameters);
 		
 		if(!this.hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"latest_messages",
+			"latest_conversations",
+			"contact_notes",
+			"add_contact_note"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
