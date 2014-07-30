@@ -72,6 +72,11 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 
 		return data;
 	},
+
+	'getcoworker' : function(roles)
+	{
+		
+	},
 	
 	'getRole' : function ()
 	{	

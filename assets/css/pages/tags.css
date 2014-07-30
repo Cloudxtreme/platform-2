@@ -2,6 +2,7 @@
 	width: 100%;
 	margin-left: 0;
 	margin-top: 5px;
+	margin-bottom: 0px;
 	cursor: default;
 	min-height: 32px;
 	-webkit-touch-callout: none;
@@ -11,13 +12,21 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+.actions-left{
+	float: left;
+    min-width: 50px;
+}
+
+.inbox-container .message-actions .actions-left div {
+	top: 5px !important;
+	vertical-align: top;
+	display: inline-block;
+}
+
 .message-tags{
-	display: inline-block !important;
-	float: right;
-	width: 70%;
+	overflow: hidden;
 	text-align: right;
-	margin-top: -11px;
-	margin-right: 0;
+	float: none;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -69,6 +78,8 @@ div.btn-white.pull-right {
 	top: 1px;
 }
 .tag-input-append {
+	margin-top: 10px;
+	margin-bottom: -8px;
 	float: right;
 	display: none !important;
 }
@@ -85,8 +96,12 @@ div.btn-white.pull-right {
 .message-tags.enabled .tag-input-append {
 	display: block !important;
 }
+.inbox-container .message-actions i:before{
+	cursor: pointer;
+}
 .inbox-container .message-actions div{
 	vertical-align: top;
+	z-index: 2;
 }
 .message-notes{
 	border-top: 1px solid #ddd;
@@ -165,4 +180,30 @@ div.btn-white.pull-right {
 #compose aside .message-tags button.btn-white{
 	padding: 4px 12px 4px 11px;
 	margin: -1px 0 0 0;
+}
+
+#compose .inbox-container .message-tags{
+	width: 80%;
+	margin-right: 0;
+	margin-top: -7px;
+}
+#compose .inbox-container div.btn-white.pull-right{
+	margin-top: 7px
+}
+#compose .inbox-container .tag-input-append{
+	margin-top: 5px;
+}
+#compose .inbox-container button{
+	margin-top: -1px;
+}
+#compose .inbox-container .message-actions .actions-left div{
+	top: 0px !important;
+}
+.related-messages .btn-white{
+	padding-left: 9px;
+	padding-right: 8px;
+}
+
+.related-messages .actions-left{
+ 	margin-bottom: 14px;
 }

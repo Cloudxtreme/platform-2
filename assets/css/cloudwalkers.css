@@ -34,7 +34,7 @@ Style corrections and manual overrides
 .btn-white i	{ color: inherit; }
 
 div.btn-white	{
-	position: relative; display: inline; 
+	position: relative; display: inline-block; 
 }
 
 li.btn-white	{
