@@ -169,7 +169,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
 			fulldata.colors.push(network.getcolor());
-		});
+		});		
 
 		if(fulldata.data.length == 0)
 			return this.emptychartdata();

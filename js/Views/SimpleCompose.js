@@ -34,6 +34,9 @@ Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
 		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
 
+		if(this.model.get("text"))	//we are editing
+			this.$el.find('h3').remove();
+
 		// Inject custom loadercontainer
 		if(!this.$loadercontainer)
 			this.$loadercontainer = this.$el.find ('.modal-footer');

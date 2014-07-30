@@ -98,7 +98,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	'activitymsgs' : function(statistic, id){
 
 		var streams = statistic.get("streams");
-
+		
 		var stream = $.grep(streams, function(s){
 		 	return s.id == id; 
 		});
@@ -142,7 +142,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 
 	'parsebesttime' : function(){
 
-		var besttimes = this.collection.parsebesttime();
+		var besttimes = this.collection.clone().parsebesttime();
 
 	    if (besttimes.length == 0)
 	        return null;

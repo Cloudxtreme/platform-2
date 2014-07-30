@@ -109,6 +109,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'fillcharts' : function()
 	{	
+		if(this.collection.latest() && this.collection.latest().get("streams"))
+			this.hideloading();
+		else
+			this.listenToOnce(this.collection, 'sync', this.hideloading);
+
 		// clean if time toggle
 		this.cleanviews();
 
@@ -198,22 +203,26 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'showloading' : function ()
-	{
+	{	
 		this.$el.addClass("loading");
-		this.$el.find('.period-buttons .btn').attr("disabled", true);
 	},
 	
 	'hideloading' : function (collection, response)
 	{	
 		this.$el.removeClass("loading");
 		this.$el.find('.period-buttons .btn').attr("disabled", false);
+
+		this.$el.find('select').prop('disabled', false).trigger("chosen:updated");
+
+		this.listenToOnce(this, 'change:period', this.render);
 	},
 
 	'now' : function()
 	{
 		this.cleancollection();
 		this.period = 0;
-		this.render();
+		
+		this.trigger('change:period');
 	},
 	
 	'addperiod' : function (e)
@@ -221,10 +230,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var state = $(e.target).attr('disabled');
 
 		if(this.period >= 0 || state == 'disabled')	return;
-
+		
 		this.cleancollection();
 		this.period += 1;
-		this.render();
+		
+		this.trigger('change:period');
 	},
 	
 	'subtractperiod' : function(e)
@@ -232,10 +242,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var state = $(e.target).attr('disabled');
 
 		if(state == 'disabled')	return;
-
+		
 		this.cleancollection();
 		this.period -= 1;
-		this.render();
+		
+		this.trigger('change:period');
 	},
 	
 	'changestream' : function()
@@ -252,7 +263,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var timespan = this.$el.find("select.time").val();
 		this.timespan = timespan;
 
-		this.render();
+		this.trigger('change:period');
 	},
 	
 	'changecustom' : function()
@@ -262,7 +273,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.start = moment(this.$el.find('#start').val(), "DD-MM-YYYY");
 		this.end = moment(this.$el.find('#end').val(), "DD-MM-YYYY");
 		
-		this.render();
+		this.trigger('change:period');
 	},
 	
 	'filterparameters' : function() {
@@ -302,7 +313,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'cleancollection' : function()
 	{	
-		this.listenTo(this.collection, 'sync', this.fillcharts);
+		this.listenToOnce(this.collection, 'sync', this.fillcharts);
 		this.collection.reset();
 	}
 });

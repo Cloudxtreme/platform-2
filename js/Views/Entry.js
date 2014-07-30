@@ -126,7 +126,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.SimpleCompose({note: this.model});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({model: this.model});
 
 		//Prevent auto re-render on save
 		this.stopListening(this.model);
