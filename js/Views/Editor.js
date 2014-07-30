@@ -438,7 +438,8 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				{	
 					$.each(metadata, function(n, property){
 						if(property.name && properties.indexOf(property.name) >= 0)
-							self.$el.find('#out').addClass('expanded');
+							if(property.content)
+								self.$el.find('#out').addClass('expanded');
 					})
 				}
 					
