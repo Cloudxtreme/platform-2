@@ -1,4 +1,132 @@
 <!-- Add Category -->
+<div class="portlet box grey addcategory">
+	<div class="portlet-title line">
+		<div class="caption"><i class="icon-plus"></i>{{translate_add_category}}</div>
+		<div class="tools">
+			<i class="icon-cloud-upload" style="display: none;"></i>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<form data-add-category="1">
+			<label for="category_create_name">{{translate_name}}:</label>
+			
+			<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
+			<button class="btn blue span4 pull-right" type="submit">{{translate_create}}</button>
+			
+		</form>
+	</div>
+</div>
+<!-- end Add Category -->
+
+<!-- Manage keyword -->
+<div id="keywordsfilter" class="portlet box blue managekeyword">
+	<div class="portlet-title line add-keyword">
+		<div class="caption"><i class="icon-tag"></i>{{translate_add_keyword}}</div>
+		<div class="tools">
+			<i class="icon-cloud-upload" style="display: none;"></i>
+		</div>
+	</div>
+	<div class="portlet-title line edit-keyword inactive">
+		<div class="caption"><i class="icon-tag"></i>{{translate_manage_keyword}}</div>
+		<div class="tools">
+			<i class="icon-cloud-upload" style="display: none;"></i>
+		</div>
+	</div>
+	
+	<div class="portlet-body manage-keyword">
+		<form data-keyword="true">
+			
+			<label for="keyword_manage_category">{{translate_category}}:</label>
+			<select id="keyword_manage_category">
+				<option value="0">{{translate_select_category}}</option>
+				{{#categories}}
+					<option value="{{id}}">{{attributes.name}}</option>
+				{{/categories}}
+			</select>
+			
+			<label for="keyword_manage_name">{{translate_name}}:</label>
+			<input type="text" value="" placeholder="{{translate_keyword_name}}" id="keyword_manage_name" name="name" class="m-wrap span12" />
+			<br><br>
+			
+			<labl>{{translate_finetune}}</labl>
+			<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />-->
+			<!--deprecated-->
+			<label>{{translate_filters}}:</label>
+			<div class="input-symbol" data-option="fullbody">
+				<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
+					<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
+						<span class="demo_hit_me">+</spam>
+						<span class="demo_options">
+							<ul>
+								<li class="add_message_contains" data-value="message contains">{{translate_message_contains}}</li>
+								<li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">{{translate_message_doesnt_contain}}</li>
+								<li class="add_country_is" data-value="county =">{{translate_country_is}}</li>
+								<li class="add_language_is" data-value="language =">{{translate_language_is}}</li>
+								<li class="add_group" data-value="(">{{translate_group}}</li>
+							</ul>
+						</span>
+					</span>
+				</section>
+			</div>
+			<br><br>
+
+			<button class="btn blue add-keyword" onclick="return false;" data-option="submit">{{translate_create}}</button>
+			<button class="btn blue update-keyword edit-keyword inactive">{{translate_update}}</button>
+			
+			<button class="btn cancel-edit-keyword edit-keyword inactive">{{translate_cancel}}</button>
+			
+		</form>
+		<div id="keyword_warning"></div>
+	</div>
+</div>
+
+<!--
+{{#test}}
+<div class="well">
+	
+	<style type="text/css">
+		.op{color:#ffa500;font-variant:small-caps}
+		.field{color:green;font-variant:small-caps}
+		.brackets{color:#000;font-variant:small-caps}
+		.quickhelp{list-style: none; margin-left: 0;}
+		.quickhelp li{padding: 5px 0;}
+	</style>
+	
+	<h4>Quick help</h4>
+	Define the keyword formula in human readable text:
+
+	<ul class='quickhelp'>
+		<li>
+			<strong><span class="field">message</span> <span class="op">contains</span></strong> "cloudwalkers"
+		</li>
+		<li>
+			<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">and</span></strong>
+			<br><span class="field">message</span> <span class="op">contains</span> "social media"
+		</li>
+		<li>
+			<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span>
+			<br><span class="field">message</span> <strong><span class="op">not</span> <span class="op">contains</span></strong> "shoes"
+		</li>
+		<li>
+			<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">or</span></strong>
+			<br><span class="field">message</span> contains "bmgroup"
+		</li>
+		<li>
+			<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">language</span> <span class="op">=</span></strong> "nl"
+		</li>
+		<li>
+			<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">country</span> <span class="op">=</span></strong> "be"
+		</li>
+		<li>
+			<span class="brackets">(</span><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">or</span>
+			<br>&nbsp;<span class="field">message</span> <span class="op">contains</span> "bmgroup"<span class="brackets">)</span> <span class="op">and</span> <span class="field">country</span> <span class="op">=</span> "be"
+		</li>
+	</ul>
+</div>-->
+
+<!-- end Manage keyword -->
+<!--
+<!-- Add Category -->
 	<div class="portlet box grey addcategory">
 		<div class="portlet-title line">
 			<div class="caption"><i class="icon-plus"></i>{{translate_add_category}}</div>
@@ -144,3 +272,5 @@
 	</div>-->
 
 	<!-- end Manage keyword -->
+	-->
+	{{/test}}
