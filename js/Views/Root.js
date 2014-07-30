@@ -215,7 +215,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	},
 
 
-	'confirm' : function (message, callback)
+	'confirm' : function (message, callback, cancelcallback)
 	{
 		var data = {};
 
@@ -237,6 +237,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		{
 			callback ();
 			modal.modal ('hide');
+		});
+
+		element.find ('[data-dismiss=modal]').click (function ()
+		{
+			if(cancelcallback)	cancelcallback ();
 		});
 	},
 

@@ -126,12 +126,27 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	 'inbox' : function (type, streamid)
 	{
+		var types = {
+			'MESSAGE_READ_INBOX_NOTIFICATIONS' : '#messages/notifications',
+			'MESSAGE_READ_INBOX_SCHEDULE' : '#scheduled',
+			'MESSAGE_READ_DRAFTS' : '#drafts',
+			'ACCOUNT_NOTES_VIEW' : '#notes'
+			}
+
+		var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
+
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
 		
-		if (!channel) return this.home();
+		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		
-		if (!Cloudwalkers.Session.isAuthorized(['MESSAGE_READ_INBOX', 'MESSAGE_READ_INBOX_'+ type.toUpperCase()]))  return this.checkauth("#inbox/"+type);
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
+		{
+			if(Cloudwalkers.Session.getUser().authorized && available.length)
+				return this.navigate(types[available[0]], {trigger: true});
+			else 
+				return this.checkauth("#inbox/"+type);
+		}  
 
 		// Visualisation
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
@@ -175,10 +190,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var id = streamid? streamid: channelid;
 
 		var account = Cloudwalkers.Session.getAccount ();
-		var news = account.channels.findWhere({type: "news"}).id;
-		var profiles = account.channels.findWhere({type: "profiles"}).id;
+		var news = account.channels.findWhere({type: "news"})? account.channels.findWhere({type: "news"}).id: null;
+		var profiles = account.channels.findWhere({type: "profiles"})? account.channels.findWhere({type: "profiles"}).id: null;
 
-		if (id == profiles && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')) 		return this.checkauth("#timeline/"+id);
+		if (id == profiles && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY'))   	return this.checkauth("#timeline/"+id);
 		else if (id == news && !Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))   return this.checkauth("#timeline/"+id);
 
 		// Visualisation
@@ -286,7 +301,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'settings' : function (endpoint)
 	{
-		
+		if (!Cloudwalkers.Session.isAuthorized('USER_INVITE') && endpoint == 'users')			return this.checkauth("#settings/"+endpoint);
+		if (!Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT') && endpoint == 'services')	return this.checkauth("#settings/"+endpoint);
+		if (!Cloudwalkers.Session.isAuthorized('ACCOUNT_SETTINGS') && endpoint == 'account')	return this.checkauth("#settings/"+endpoint);
+
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);
 	},

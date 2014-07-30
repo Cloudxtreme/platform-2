@@ -9,7 +9,6 @@
 		<div class="header-icon" data-header-action="contacts">
 			<i class="icon-group"></i>
 		</div>
-		
 		<div class="header-icon" data-header-action="messages">
 			<i class="icon-envelope"></i>
 		</div>
@@ -19,6 +18,7 @@
 			<i class="icon-globe"></i>
 		</div>
 		-->
+		
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 			<img src="/assets/img/menu-toggler.png" alt="" />

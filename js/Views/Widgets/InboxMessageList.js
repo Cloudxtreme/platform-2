@@ -134,7 +134,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'hideloading' : function (collection, response)
 	{	
-		if(collection.cursor && response.channel[this.collectionstring].length)
+		if(collection.cursor && response[collection.parenttype][this.collectionstring].length)
 			//this.$el.find(".load-more").show();
 			this.hasmore = true;
 
@@ -502,8 +502,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			"search_contacts",
 			"suggestions",
 			"select_all",
-			"load_more",
-			"on"
+			"load_more"
 		];
 
 		this.translated = [];

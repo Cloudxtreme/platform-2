@@ -76,7 +76,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'fill' : function ()
 	{ 	
 		if(!this.collection.latest() || !this.collection.latest().get('streams'))	return;
-
+		
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
 		var chartcontainer = '.chart-container';
@@ -114,6 +114,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
 	        chart.draw(fulldata.data, options);
 	    }
+	},
+
+	'removeloading' : function()
+	{
+		this.$el.find('.loading').removeClass('loading');
 	},
 
 	'renderbesttime' : function(data){
@@ -164,7 +169,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
 			fulldata.colors.push(network.getcolor());
-		});
+		});		
 
 		if(fulldata.data.length == 0)
 			return this.emptychartdata();

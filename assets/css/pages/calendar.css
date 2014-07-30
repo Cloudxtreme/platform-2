@@ -17,7 +17,7 @@ Style corrections and manual overrides
 }
 
 #calendarfilters .filter-group .btn-white	{
-	border-right: 1px solid #ddd !important;
+	line-height: 2.5em; border-right: 1px solid #ddd !important;
 }
 
 #calendarfilters #filter_streams	{

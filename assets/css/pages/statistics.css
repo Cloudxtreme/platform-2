@@ -1,3 +1,24 @@
+
+#statistics .statistic-wrapper.loading{
+    text-align: center;
+}
+
+#statistics .statistic-wrapper.loading h4{
+    color: #aaa;
+    text-align: left;
+}
+
+#statistics .statistic-wrapper.loading{
+    background: #fcfcfc;
+    border: 2px dashed #eee;
+    min-height: 219px;
+}
+
+#statistics .compoundchart .statistic-wrapper.loading{
+    min-height: 100px;
+    margin-bottom: 15px;
+}
+
 /* Charts styling*/
 
 .title-separator{

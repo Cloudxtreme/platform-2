@@ -34,8 +34,9 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
-		{widget: "Chart", data: {filterfunc: "message-evolution-network", chart: "LineChart", title: "Messages Evolution"}, span : 6},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 6},
+		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
+		{widget: "Chart", data: {filterfunc: "message-evolution-network", chart: "LineChart", title: "Messages Evolution"}, span : 4},
+		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
 
 		//{widget: "TitleSeparator", data: {title: "Geo Graphics"}, networks : ['facebook']},
 		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, networks : ['facebook'], span: 8},
@@ -62,10 +63,12 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
-		this.listenTo(this.collection, 'ready', this.hideloading);
-		this.listenToOnce(this.collection, 'sync', this.fillcharts);
-		this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
+		//this.listenTo(this.collection, 'ready', this.hideloading);
+		//this.listenToOnce(this.collection, 'sync', this.fillcharts);
+		//this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 		
+		this.cleancollection();
+
 		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
 		
 	}

@@ -38,7 +38,6 @@ Cloudwalkers.Views.Drafts = Cloudwalkers.Views.Pageview.extend({
 		
 		return this;
 	},
-	
 	'translateTitle' : function(translatedata)
 	{	
 		// Translate Title
