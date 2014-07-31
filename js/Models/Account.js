@@ -28,7 +28,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.messages = new Cloudwalkers.Collections.Messages();
 
 		// Prep global Canned Responses collection
-		this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
+		//this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
 
 		// Prep global Notes collection
 		this.notes = new Cloudwalkers.Collections.Notes();
