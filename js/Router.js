@@ -109,7 +109,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'coworkers' : function ()
 	{
 		if (!Cloudwalkers.Session.isAuthorized('_CW_COWORKERS_VIEW')) return this.checkauth("#coworkers");
-
+		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
 	},
 	
@@ -138,7 +138,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
 
-		if(!channel)	return this.home();
+		if (!channel)	return this.home();
 		
 		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		

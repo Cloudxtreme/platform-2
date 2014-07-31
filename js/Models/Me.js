@@ -160,6 +160,12 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'parseauthorized' : function()
 	{
 		if(this.isauthorized(['MESSAGE_OUT_EDIT_OWN', 'MESSAGE_ACTIONS'])) this.authorized.push('_CW_COWORKERS_VIEW');
+		if(this.isauthorized([
+			'MESSAGE_READ_INBOX_MESSAGES',
+			'MESSAGE_READ_INBOX_NOTIFICATIONS', 
+			'MESSAGE_READ_SCHEDULE', 
+			'ACCOUNT_NOTES_VIEW'
+		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
 	'offline' : function ()

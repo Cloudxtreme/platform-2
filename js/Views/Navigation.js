@@ -143,7 +143,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		// Inbox
-		data.inbox = true;
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE')){
+			data.inbox = true;
+		}
 		
 		// Profiles
 		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')){

@@ -8,7 +8,7 @@ Cloudwalkers.Views.Coworkers = Cloudwalkers.Views.Pageview.extend({
 		// Select draft stream (should be integrated)
 		//var channel = Cloudwalkers.Session.getChannel("internal");
 		
-		this.model = this.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
+		this.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
 
 		// Emergency break
 		if (!this.model) return Cloudwalkers.Session.home();
