@@ -65,10 +65,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			 
 			return this.navigate("#firsttime", true);
 			
-		// Check administrator level
-		//if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
-			 
-			//return this.navigate("#work", true);
+		// Coworker level
+		if (!Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW'))			 
+			return this.navigate("#work", true);
 		
 		
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
@@ -109,7 +108,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'coworkers' : function ()
 	{
 		if (!Cloudwalkers.Session.isAuthorized('_CW_COWORKERS_VIEW')) return this.checkauth("#coworkers");
-		
+
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
 	},
 	

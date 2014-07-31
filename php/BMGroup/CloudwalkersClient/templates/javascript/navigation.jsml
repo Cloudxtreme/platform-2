@@ -169,7 +169,7 @@
 					{{/streams}}
 					</ul>
 				</li>
-
+				{{#authorized.MESSAGE_READ_THIRDPARTY}}
 				<li class="trending">
 					<a href="#trending/{{channelid}}">
 						<i class="icon-thumbs-up"></i> 
@@ -183,6 +183,7 @@
 					{{/streams}}
 					</ul>
 				</li>
+				{{/authorized.MESSAGE_READ_THIRDPARTY}}
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_COMPANY}}

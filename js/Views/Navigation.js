@@ -143,7 +143,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		// Inbox
-		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE')){
+		if (Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW')){
 			data.inbox = true;
 		}
 		
