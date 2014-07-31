@@ -5,8 +5,10 @@
 			<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
 		</div>
 		
-		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
-		<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">-->
+		<!--<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>-->
+		<img class="avatar" alt="" src="{{avatar}}">
+		<a href="{{url}}" target="_blank">{{displayname}}</a>
 		{{/from}}
 	</div>
 </div>
@@ -36,6 +38,7 @@
 		{{/actions}}
 	</div>
 	<!-- TAGS -->
+	<!--
 	<div class="message-tags pull-right">
 		{{#tags}}
 			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tag"></i></div>
@@ -48,6 +51,8 @@
 			</div>
 		{{/tags}}
 	</div>
+
+	-->
 	<!-- END TAGS -->
 </div>
 <div style="clear:both"></div>

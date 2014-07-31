@@ -42,7 +42,7 @@
 				</div>
 				
 			</section>
-
+			<!--
 			<section data-type="canned">
 
 				<div class="collapsable-content {{^canned}}loading{{/canned}}">
@@ -60,7 +60,7 @@
 			    	</label>
 				</div>	
 			</section>
-			
+			-->
 			<section data-type="icon">
 				<i  data-action="{{actionview}}" class="icon-cloud"></i>			
 			</section>
