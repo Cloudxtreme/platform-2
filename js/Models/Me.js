@@ -134,9 +134,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.removerole('ACCOUNT_NOTES_VIEW');
 
 			this.parseauthorized();
-			this.censuretokens = this.censure(this.authorized);
-			
-			
+			this.censuretokens = this.censure(this.authorized);			
 
 			// Call callback
 			this.trigger("activated");
@@ -179,6 +177,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			'MESSAGE_READ_INBOX_MESSAGES',
 			'MESSAGE_READ_INBOX_NOTIFICATIONS', 
 			'MESSAGE_READ_SCHEDULE', 
+			'MESSAGE_READ_DRAFTS', 
 			'ACCOUNT_NOTES_VIEW'
 		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
