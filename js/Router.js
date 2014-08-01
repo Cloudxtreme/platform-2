@@ -303,7 +303,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		if (!Cloudwalkers.Session.isAuthorized('USER_INVITE') && endpoint == 'users')			return this.checkauth("#settings/"+endpoint);
 		if (!Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT') && endpoint == 'services')	return this.checkauth("#settings/"+endpoint);
-		if (!Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETES') && endpoint == 'account')	return this.checkauth("#settings/"+endpoint);
+		if (!Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE') && endpoint == 'account')	return this.checkauth("#settings/"+endpoint);
 
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);
