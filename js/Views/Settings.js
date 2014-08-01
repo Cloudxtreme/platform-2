@@ -32,7 +32,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		if (Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT'))
 			this.tabs.push({url: '#settings/services', name: data.translate_social_connections});
 		
-		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_SETTINGS'))
+		if (Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE'))
 			this.tabs.push({url: '#settings/account', name: data.translate_account_settings});
 		
 		this.tabs.push ({url: '#settings/profile', name: "Profile settings"});

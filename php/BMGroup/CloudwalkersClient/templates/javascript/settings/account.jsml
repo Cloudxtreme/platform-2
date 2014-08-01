@@ -73,7 +73,7 @@
 				<ul>
 					<li><a data-hash="basic">Basic</a></li>
 					<li><a data-hash="campaigns">Manage Campaigns</a></li>
-					<li><a data-hash="triggers">Manage Auto responders</a></li>
+					<!--<li><a data-hash="triggers">Manage Auto responders</a></li>-->
 					<!--<li><a data-hash="canned">Message Templates</a></li>-->
 				</ul>
 			</div>
