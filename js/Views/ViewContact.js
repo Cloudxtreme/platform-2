@@ -214,9 +214,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			// Apply role permissions to template data
 			Cloudwalkers.Session.censuretemplate(contactinfo);
 
-			//Mustache Translate Render
-			this.mustacheTranslateRender(contactinfo);
-
 			// View Tags
 			contactinfo.tags = true;
 			this.$el.find('aside').html(Mustache.render(Templates.viewcontactaside, contactinfo));
@@ -233,14 +230,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'initializenote' : function()
 	{
 		// Add the Note
-
-		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
-
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
 		this.composenote = composenote;
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
-		this.listenTo(composenote.model, 'sync', this.doneposting.bind(this,200));
+		this.listenTo(composenote.note, 'sync', this.doneposting.bind(this,200));
 		this.listenTo(composenote, 'edit:cancel', this.doneposting);
 	},
 
@@ -469,30 +464,5 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.touch(this.type, parameters);
 		
 		if(!this.hasmore) this.$el.find(".load-more").hide();
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"latest_messages",
-			"latest_conversations",
-			"contact_notes",
-			"add_contact_note"
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
 	}
 });

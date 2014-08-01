@@ -60,7 +60,7 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 	'success' : function()
 	{	
-		Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");	
+		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 		this.model.trigger("change:clearance")	;
 	},
 
@@ -72,5 +72,11 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	'enablesave' : function()
 	{	
 		this.$el.find('.edit-managed-user .btn').attr("disabled", false);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

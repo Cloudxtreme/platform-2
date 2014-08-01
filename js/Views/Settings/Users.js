@@ -153,7 +153,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	
 	'fail' : function ()
 	{
-		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
+		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
 	},
 	'translateString' : function(translatedata)
 	{	

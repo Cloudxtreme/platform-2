@@ -4,7 +4,7 @@ Cloudwalkers.Session =
 	[
 		{"id": "en_EN", "name": "International English"},
 		{"id": "nl_NL", "name": "Dutch"},
-		{"id": "pt_PT", "name": "Portuguese"}
+		{"id": "pt_PT", "name": "Portugese"}
 	],
 	
 	'user' : null,
