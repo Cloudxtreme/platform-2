@@ -1,4 +1,4 @@
-<div>
+<div class="lightbox">
 	<div class="title">
 		<div class="holder">
 			<div class="frame">
@@ -6,7 +6,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-box">
+	<div class="form-box" style="width: 400px;">
 		<div class="box-holder">
 			<div class="box-frame">
 				

@@ -222,7 +222,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 
 		var id = streamid? streamid: channelid;
-
 		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))	return this.checkauth("#timeline/"+id);
 
 		// Visualisation

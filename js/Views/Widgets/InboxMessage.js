@@ -225,7 +225,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Translate array
 		this.original  = [
 			"add",
-			"on"
+			"on",
+			"commented"
 		];
 
 		this.translated = [];

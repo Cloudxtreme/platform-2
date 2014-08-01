@@ -9,6 +9,8 @@
 		<div class="header-icon" data-header-action="contacts">
 			<i class="icon-group"></i>
 		</div>
+		
+		
 		<div class="header-icon" data-header-action="messages">
 			<i class="icon-envelope"></i>
 		</div>

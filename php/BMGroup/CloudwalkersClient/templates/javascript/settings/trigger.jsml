@@ -4,11 +4,9 @@
 		<textarea name="name" class="m-wrap inner-loading" value="{{name}}" disable="true">{{message}}</textarea>
 
 		<div class="submit-btn">
-
 			<button type="submit" data-action="save" class="btn green edit-account">Save changes</button>
 			<button type="reset" data-action="reset" class="btn">Reset</button>
 			<span class="loadingafter"></span>
-
 		</div>
 	</form>
 </div>

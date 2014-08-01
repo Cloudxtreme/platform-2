@@ -32,13 +32,11 @@
 </div>
 
 <div class="message-actions">
-
 	<div class="actions-left">
 		{{#actions}}
 			<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
 		{{/actions}}
 	</div>
-	
 	<!-- TAGS -->
 	<!--
 	<div class="message-tags pull-right">
@@ -56,9 +54,9 @@
 			{{/authorized.ACCOUNT_TAGS_VIEW}}
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 	</div>
+
 	-->
 	<!-- END TAGS -->
-
 </div>
 <div style="clear:both"></div>
 

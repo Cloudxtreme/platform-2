@@ -23,8 +23,7 @@
 		</a>
 		<ul class="sub-menu">
 			<li>
-				<
-				a href="#write">
+				<a href="#write">
 					<i class="icon-share-alt"></i> 
 					<span class="title">{{translate_compose_message}}</span>
 				</a>
@@ -305,16 +304,14 @@
 		</ul>
 	</li>
 	
-
 	<!--
 	<li class="settings">
-
 		<a href="#settings/profile">
 		<i class="icon-user"></i> 
 		<span class="title">{{translate_profile_settings}}</span>
 		<span class="selected"></span>
 		</a>
-
-	</li>-->
+	</li>
+	-->
 	
 </ul>

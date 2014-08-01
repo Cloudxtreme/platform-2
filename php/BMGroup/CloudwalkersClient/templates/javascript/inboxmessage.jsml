@@ -13,9 +13,7 @@
 		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
 		<div>
 			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
-
-			<br /><em>on {{networkdescription}}</em>
-
+			<br /><em>{{translate_on}} {{networkdescription}}</em>
 		</div>
 		-->
 		{{/from}}
@@ -42,13 +40,12 @@
 </div>
 
 <div class="message-actions">
-
 	<div class="actions-left">
 		{{#actions}}
 			<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
 		{{/actions}}
 	</div>
-
+	
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
@@ -84,7 +81,7 @@
 	
 		<ul>
 			<li>
-				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> commented {{timeago}}
+				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{translate_commented}} {{timeago}}
 			</li>
 		</ul>
 	</div>
