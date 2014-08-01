@@ -296,10 +296,12 @@
 			{{#authorized.SERVICE_CONNECT}}
 				<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{translate_social_connections}}</span></a></li>
 			{{/authorized.SERVICE_CONNECT}}
-			{{#authorized.ACCOUNT_SETTINGS}}
+			{{#authorized.CAMPAIGN_DELETE}}
 				<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{translate_account_settings}}</span></a></li>
+			{{/authorized.CAMPAIGN_DELETE}}
+			{{#authorized.ACCOUNT_SETTINGS}}
+				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
-			<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 		</ul>
 	</li>
 	
