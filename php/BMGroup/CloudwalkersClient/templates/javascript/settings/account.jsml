@@ -22,7 +22,7 @@
 
 		<div class="separator"></div>
 
-		<h3 name="campaigns">{{translate_campaigns}}</h3>
+		<h3 name="campaigns">Campaigns</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
@@ -53,12 +53,12 @@
 		<!--
 		<div class="separator"></div>
 
-		<h3 name="triggers">{{translate_triggers}}</h3>
+		<h3 name="triggers">Triggers</h3>
 		<div id="triggerlist"></div>
 
 		<div class="separator"></div>
 
-		<h3 name="canned">{{translate_message_templates}}</h3>
+		<h3 name="canned">Message templates</h3>
 		<div id="cannedlist"></div>
 		-->
 	</div>
@@ -67,7 +67,7 @@
 
 		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
 			<div class="portlet-title line">
-				<div class="caption">{{translate_menu}}</div>
+				<div class="caption">Menu</div>
 			</div>
 			<div class="portlet-body">
 				<ul>

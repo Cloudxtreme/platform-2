@@ -56,7 +56,7 @@
 
 				<div class="alert alert-info">
 					<label class="checkbox">
-			      		<input type="checkbox">Save this as a response template.
+			      		<input type="checkbox">{{translate_save_this_as_a_response_template}}
 			    	</label>
 				</div>	
 			</section>
