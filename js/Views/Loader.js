@@ -60,7 +60,7 @@ Backbone.View = Backbone.View.extend({
 		var dis = this;
 		// Ugly but needed hack
 		setTimeout(function(){
-			var width = index*100/length;
+			var width = index*105/length;
 
 			if(!dis.loadingstate || dis.loadingstate <= width){
 				dis.loadingstate = width;

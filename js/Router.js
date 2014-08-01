@@ -14,7 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
-		'notes' : 'notes',
+		//'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
@@ -65,9 +65,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			 
 			return this.navigate("#firsttime", true);
 			
-		// Check administrator level
-		if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
-			 
+		// Coworker level
+		if (!Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW'))			 
 			return this.navigate("#work", true);
 		
 		
@@ -137,6 +136,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
+
+		if (!channel)	return this.home();
 		
 		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		
@@ -303,7 +304,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		if (!Cloudwalkers.Session.isAuthorized('USER_INVITE') && endpoint == 'users')			return this.checkauth("#settings/"+endpoint);
 		if (!Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT') && endpoint == 'services')	return this.checkauth("#settings/"+endpoint);
-		if (!Cloudwalkers.Session.isAuthorized('ACCOUNT_SETTINGS') && endpoint == 'account')	return this.checkauth("#settings/"+endpoint);
+		if (!Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE') && endpoint == 'account')	return this.checkauth("#settings/"+endpoint);
 
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
 		Cloudwalkers.RootView.setView (view);

@@ -119,13 +119,16 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'render' : function ()
 	{
+		var widgets = this.widgets;
+
 		// Pageview
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
-		// Report widgets (dynamic)
-		var widgets = this.getTemplate().models;
 
+		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
+			widgets = widgets.concat(this.addDynamicReports());
+		
 		// Append widgets
 		for(i in widgets)
 		{
@@ -180,7 +183,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					break;
 			}
 			
-			this.appendWidget(widget, Number(widgets[i].attributes.size));
+			if(widget)
+				this.appendWidget(widget, Number(widgets[i].size));
+
 		}
 
 		this.model.statistics.touch(this.model, this.filterparameters());
@@ -195,9 +200,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addMessagesCounters' : function (widgetdata)
 	{
-		
 		var channel = Cloudwalkers.Session.getChannel(widgetdata.type);
-		
+		if(!channel)	return;
+
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
 		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
@@ -217,8 +222,13 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'addDashboardDrafts' : function (widgetdata)
 	{
+		//var channel = Cloudwalkers.Session.getChannel("internal");
+
+		widgetdata.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
 		
-		widgetdata.model = Cloudwalkers.Session.getStream(widgetdata.type);
+		if(!widgetdata.model)	return;
+
+		widgetdata.link = "#coworkers";
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
@@ -234,13 +244,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 
-	'addDashboardAccountsWeFollow' : function (widgetdata)
-	{
-		widgetdata.trending = false;
-		widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
-		widgetdata.filters = {
-			since: Math.round(Date.now()/3600000) *3600 - 86400 *widgetdata.since
-		};
+		if(!widgetdata.model)	return;
+
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
 	},
 

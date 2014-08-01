@@ -258,7 +258,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
+			//canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 

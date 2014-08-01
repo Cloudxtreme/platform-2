@@ -128,9 +128,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
+			this.removerole('ACCOUNT_TAGS_MANAGE');
+			this.removerole('ACCOUNT_TAGS_VIEW');
+			this.removerole('ACCOUNT_NOTES_MANAGE');
+			this.removerole('ACCOUNT_NOTES_VIEW');
+
 			this.parseauthorized();
-			this.censuretokens = this.censure(this.authorized);
-			
+			this.censuretokens = this.censure(this.authorized);			
+
 			// Call callback
 			this.trigger("activated");
 			//setTimeout(this.trigger, 100, 'activated');
@@ -144,6 +149,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{	
 		if(!_.isArray(actions))		return _.contains(this.authorized, actions);
 		else 						return _.intersection(this.authorized, actions).length != 0;
+	},
+
+	'removerole' : function(role)
+	{	
+		var index = this.authorized.indexOf(role);
+
+		if(index >= 0)
+			this.authorized.splice(index-1, index+1)
 	},
 
 	'censure' : function(permissions)
@@ -160,6 +173,13 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'parseauthorized' : function()
 	{
 		if(this.isauthorized(['MESSAGE_OUT_EDIT_OWN', 'MESSAGE_ACTIONS'])) this.authorized.push('_CW_COWORKERS_VIEW');
+		if(this.isauthorized([
+			'MESSAGE_READ_INBOX_MESSAGES',
+			'MESSAGE_READ_INBOX_NOTIFICATIONS', 
+			'MESSAGE_READ_SCHEDULE', 
+			'MESSAGE_READ_DRAFTS', 
+			'ACCOUNT_NOTES_VIEW'
+		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
 	'offline' : function ()

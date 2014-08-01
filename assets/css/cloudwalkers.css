@@ -1293,7 +1293,7 @@ tbody.messages-container i	{
 /* Loading progress bar */ 
 
 .progress-bar{
-	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1; top: 0px; left: 0px;
+	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1; top: 0px; left: -5px;
 	-webkit-transition: width 1000ms cubic-bezier(0.785, 0.135, 0.150, 0.860); -moz-transition: width 1000ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
@@ -1457,7 +1457,7 @@ counter	{
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.inbox-container .message-actions	{ clear: both; padding: 5px 18px; }
+.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 40px;}
 
 .inbox-container .message-actions div	{
 	position: relative; top: -5px; display: inline;
@@ -2183,50 +2183,24 @@ Dashboard stats
 	line-height: 10px;
 }
 
-.manage-user-groups{
-	padding: 10px;
-	background: #ccc;
-	color: #000;
-	display: block;
-	text-align: center;
-	font-size: 16px;
-}
-.manage-user-groups:hover{
-	color: #000;
-	background-color: #bbb;
-	text-decoration: none;
-}
-.manage-user-groups i{
-	margin-right: 5px;
+.loading .loadingafter:after{
+	position: relative;
+	font-family: FontAwesome;
+	font-size: 24px;
+	color: #eee;
+	line-height: 1em;
+	content: "\F0ED";
+	-webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+	top: 5px;
+	left: 5px;
 }
 
-.row-fluid .span12 {
-	margin-left: 0px;
+/* RC1 COMMENTING STYLES */
+/* big no-no */
+[data-action="note-content"],
+[data-action="note-list"]{
+	display: none !important;
 }
-.messages-container .note{
-	width: 100% !important;
-	margin-left: 0px !important;
-}
-.messages-container .note .modal-header{
-	display: none;
-}
-.messages-container .note .modal-body textarea{
-	min-height: 160px !important;
-}
-.messages-container .thanks{
-	height: 180px !important;
-}
-.messages-container .thanks-wrapper:before{
-	font-size: 150px !important;
-}
-.webcare .more{
-	font-size: 13px;
-}
-
-/* Lightbox override */
-.lightboxOverlay{
-	background-color: #333 !important;
-	opacity: 0.7 !important;
-}
-/* Lightbox override */
-

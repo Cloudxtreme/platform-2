@@ -69,8 +69,9 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	'hideloading' : function (collection, response)
 	{
 		if(collection.cursor && response.channel[this.collectionstring].length)
-			//this.$el.find(".load-more").show();
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 
 		$(".inbox").removeClass("loading");
 		
