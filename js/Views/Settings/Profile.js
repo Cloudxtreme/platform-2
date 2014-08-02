@@ -47,9 +47,6 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		var name = this.$el.find ('[name=name]').val ();
 		var mobile = this.$el.find ('[name=mobile]').val (); 
 		var locale = this.$el.find ('[name=locale]').val (); 
-
-		this.$el.find('.edit-user-profile .btn').attr('disabled', true);
-		this.$el.find('.edit-user-profile').addClass('loading');
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 		{
@@ -57,14 +54,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			
 			// Hack
 			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
-
-		}, 
-		error: function(){
-			Cloudwalkers.RootView.growl('User Profile', "There was an error updating your settings.");
-
-			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
-		}});
+		}.bind(this)});
 	},
 	
 	/**

@@ -95,7 +95,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		// Show growl
 		else if (action.type == 'growl')
 		{
-			Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
 			
 			action.id = 1;
 			action.parent = this.parent;
@@ -159,11 +159,5 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'like' : function ()
 	{
 		
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

@@ -42,7 +42,7 @@
 				</div>
 				
 			</section>
-			<!--
+
 			<section data-type="canned">
 
 				<div class="collapsable-content {{^canned}}loading{{/canned}}">
@@ -56,11 +56,11 @@
 
 				<div class="alert alert-info">
 					<label class="checkbox">
-			      		<input type="checkbox">{{translate_save_this_as_a_response_template}}
+			      		<input type="checkbox">Save this as a response template.
 			    	</label>
 				</div>	
 			</section>
-			-->
+			
 			<section data-type="icon">
 				<i  data-action="{{actionview}}" class="icon-cloud"></i>			
 			</section>
