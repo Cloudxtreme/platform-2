@@ -444,8 +444,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{	
 		if(collection.cursor && response.contact[collection.endpoint].length)
 			this.hasmore = true;
-		else
-			this.hasmore = false;
 	},
 
 	'showmore' : function(){

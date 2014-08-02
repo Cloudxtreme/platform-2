@@ -108,7 +108,16 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	        		$.extend(options, geooptions);
 
 	       $.extend(options, fulldata.options);
-	        
+	
+	        _.map(fulldata.data, function(group){
+
+	        	if(group[0] == "Female")
+	        		group[0] = this.translateString('female')
+
+	        	if(group[0] == "Male")
+	        		group[0] = this.translateString('male')
+	        	
+	        }.bind(this))
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 			
 			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
@@ -177,7 +186,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		fulldata.options.colors = fulldata.colors;
 		
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -224,7 +233,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 
 		return fulldata;
 	},
@@ -259,7 +268,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		}.bind(this));
 		
-		fulldata.data.unshift(["Day", "Number of contacts"]);
+		fulldata.data.unshift(["Day", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -290,7 +299,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		}.bind(this));
 		
-		fulldata.data.unshift(["Day", "Number of messages"]);
+		fulldata.data.unshift(["Day", this.translateString('number_of_messages')]);
 		
 		return fulldata;
 	},
@@ -321,7 +330,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 		}.bind(this));
 		
-		fulldata.data.unshift(["Day", "Number of messages"]);
+		fulldata.data.unshift(["Day", this.translateString('number_of_messages')]);
 		
 		return fulldata;
 	},
@@ -367,7 +376,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 
 		return fulldata;
 	},
@@ -413,7 +422,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 		//console.log(fulldata);
 		return fulldata;
 	},
@@ -459,7 +468,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -505,7 +514,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -551,7 +560,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 
 		if(!token && !statistic)
-			fulldata.data.unshift(["Network", "Number of contacts"]);
+			fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -571,7 +580,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		if(following + followers <= 0)
 			return this.emptychartdata();
 
-		fulldata.data.unshift(["Follow state", "Number of contacts"]);
+		fulldata.data.unshift(["Follow state", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 
@@ -603,7 +612,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return this.emptychartdata();
 
 		fulldata.data = data;		
-		fulldata.data.unshift(["Age interval", "Number of contacts"]);
+		fulldata.data.unshift(["Age interval", this.translateString('number_of_contacts')]);
 
 		return fulldata;
 	},
@@ -651,7 +660,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			return this.emptychartdata();
 
 		fulldata.data = data;
-		fulldata.data.unshift(["Gender", "Number of contacts"]);
+		fulldata.data.unshift(["Gender", this.translateString('number_of_contacts')]);
 
 		return fulldata;
 	},
@@ -746,7 +755,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}, 0);
 
 		fulldata.data.push(["Others", total]);		
-		fulldata.data.unshift(["Countries", "Number of contacts"]);
+		fulldata.data.unshift(["Countries", this.translateString('number_of_contacts')]);
 		
 		return fulldata;
 	},
@@ -776,10 +785,10 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		});
 		
 		fulldata = this.getbiggestdata(cities,size);		
-		fulldata.data.unshift(["Cities", "Number of contacts"]);
+		fulldata.data.unshift(["Cities", this.translateString('number_of_contacts')]);
 
 		//Update the label
-		this.$el.find('h4').text(country.name+' cities');
+		this.$el.find('h4').text(country.name+', '+this.translateString('cities'));
 
 		return fulldata;
 	},
@@ -809,7 +818,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		}
 		
 		//Columns
-		fulldata.data.unshift(["Network", "Number of contacts"]);
+		fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
 
 		return fulldata;
 	},
@@ -1041,7 +1050,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{
 		
 		
-	}
-	
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	}	
 
 });

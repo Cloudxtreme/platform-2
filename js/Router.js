@@ -14,7 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
-		//'notes' : 'notes',
+		'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
@@ -222,7 +222,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		}
 
 		var id = streamid? streamid: channelid;
-
 		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))	return this.checkauth("#timeline/"+id);
 
 		// Visualisation

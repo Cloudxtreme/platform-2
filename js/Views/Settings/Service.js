@@ -56,13 +56,14 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Update profile
 		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 		{
-			Cloudwalkers.RootView.growl ("Social connections", "A successful update, there.");
+			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+
 		}});
 	},
 	
 	'delete' : function ()
 	{
-		Cloudwalkers.RootView.confirm("You are about to delete a service. All statistics information will be lost.", function()
+		Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 		{
 			// View
 			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
@@ -374,7 +375,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 		Cloudwalkers.RootView.confirm 
 		(
-			'Are you sure you want to remove this service? All statistics will be lost.', 
+			this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
 			function ()
 			{
 				self.deleteService (self.service.id, function ()

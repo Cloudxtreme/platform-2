@@ -37,7 +37,6 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		//this.$el.find("#cannedlist").append(cannedlist.render().el);
 	
 		// Render manually both trigger's views
-		
 		//this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
 		//this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
