@@ -5,7 +5,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'viewtype' : 'month',
 	'views' : [],
 	
-	'parameters' : {records: 999},
+	'parameters' : {records: 300},
 	'events' : {
 		'remove': 'destroy',
 		'change select' : 'toggleView',
@@ -17,7 +17,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function ()
 	{
 		// Select streams
-		this.model = Cloudwalkers.Session.getChannel("profiles"); // Cloudwalkers.Session.getStream("scheduled");
+		this.model = Cloudwalkers.Session.getChannel("profiles");
+		this.scheduled = Cloudwalkers.Session.getStream("scheduled");
+		
+
 		// to-do: this.drafts = Cloudwalkers.Session.getStream("draft");
 
 		// Emergency break
@@ -37,6 +40,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// to-do: this.listenTo(this.drafts.messages, 'request', this.showloading);
 		
 		//this.model.messages.on("all", function(call){ console.log(call); })
+
 	},
 	
 	'render' : function()
@@ -66,11 +70,37 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		
 		// Init FullCalendar
 		setTimeout( this.initCalendar.bind(this), 10);
-		
+
+		// Reset Loader counter
+		this.loaderswitch = [];
 		return this;
 	},
 	
 	'populate' : function (from, to, timezone, callback)
+	{
+				
+		// Limit to month
+		from = from.startOf('month').add(1, 'month');
+		to = to.endOf('month').subtract(1, 'month');
+		
+		// Display
+		this.datedisplay(from, to);
+		
+		// Touch Channel
+		this.listenTo(this.model.messages, 'request',  function(){this.loader('on','')});
+		this.listenTo(this.model.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.model.messages, 'ready:empty', this.fill.bind(this, callback));
+		this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
+
+		this.listenTo(this.model.messages, 'ready',  function(){this.loader('off','')});
+		this.listenTo(this.model.messages, 'ready:empty',  function(){this.loader('off','')});
+
+		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
+
+		this.model.messages.touch(this.model, this.parameters);		
+	},
+
+	'populate_scheduled' : function (from, to, timezone, callback)
 	{
 		// Limit to month
 		from = from.startOf('month').add(1, 'month');
@@ -80,17 +110,17 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Touch Channel
-		this.listenToOnce(this.model.messages, 'ready', this.fill.bind(this, callback));
-		this.listenToOnce(this.model.messages, 'cached', this.fill.bind(this, callback));
-		//this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
-		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
-		//var params = {records: 999, since: from.unix(), until: to.unix()};
-		//if($('#calendar').fullCalendar('getView').streams) params.streams = $('#calendar').fullCalendar('getView').streams
+		this.listenTo(this.scheduled.messages, 'request',  function(){this.loader('','on')});
+		this.listenTo(this.scheduled.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.scheduled.messages, 'ready:empty', this.fill.bind(this, callback));
+		this.listenTo(this.scheduled.messages, 'cached', this.fill.bind(this, callback));
+
+		this.listenTo(this.scheduled.messages, 'ready',  function(){this.loader('','off')});
+		this.listenTo(this.scheduled.messages, 'ready:empty',  function(){this.loader('','off')});
+
+		$.extend(this.parameters, {since: from.unix(), until: to.unix()})		
 		
-		// console.log("ready to populate", this.parameters)
-		
-		this.model.messages.touch(this.model, this.parameters);
-		
+		this.scheduled.messages.touch(this.scheduled, this.parameters);	
 	},
 	
 	'datedisplay' : function (from, to)
@@ -118,22 +148,24 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'fill' : function (callback, collection)
 	{
-		
 		// console.log("filling networks");
-		
 		var nodes = [];
+
+		if(!collection)	return callback(nodes);
 		
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
 		}
-	
+
 		callback(nodes);
 	},
+
 	
 	'updatenode' : function (model, date)
 	{
 		$('#calendar').fullCalendar( 'updateEvent', model.filterCalReadable().calNode)
+		$('#calendar').fullCalendar( 'updateEvent', scheduled.filterCalReadable().calNode)
 	},
 	
 	'filldrafts' : function (list)
@@ -178,7 +210,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	 *	http://arshaw.com/fullcalendar/docs2/
 	**/
 	'initCalendar' : function () {
-	
 		$('#calendar').fullCalendar({ //re-initialize the calendar
 			header: false,
 			slotMinutes: 30,
@@ -190,7 +221,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			axisFormat: 'H:mm',
 			defaultTimedEventDuration: '00:30:00',
 			slotEventOverlap: false,
-			events: this.populate.bind(this),
+			eventSources: [
+		        this.populate.bind(this),
+		        this.populate_scheduled.bind(this),
+		    ],
 			eventRender: function(event, element)
 			{	
 				// Prevent empty renders (rendered is hack)
@@ -258,6 +292,21 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		});
 	},
 
+	'loader' : function(a,b){
+		
+		if(a){ this.loaderswitch.a = a; }
+		if(b){ this.loaderswitch.b = b; }
+
+		if(a == "on"){
+			this.$el.find('#calcontainer').css('display','none');
+			this.$el.find('.container-loading').css('display','block');
+			this.$el.find('.stats-summary-counter').html('--');
+		} else if((this.loaderswitch.a == "off") && (this.loaderswitch.b == "off")) {
+			this.$el.find('.container-loading').css('display','none');
+			this.$el.find('#calcontainer').css('display','block');
+		}
+	},
+
 	'translateTitle' : function(translatedata)
 	{	
 		// Translate Title
@@ -288,5 +337,5 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
-	
+
 });

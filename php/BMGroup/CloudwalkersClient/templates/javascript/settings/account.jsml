@@ -22,7 +22,7 @@
 
 		<div class="separator"></div>
 
-		<h3 name="campaigns">Campaigns</h3>
+		<h3 name="campaigns">{{translate_campaigns}}</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
@@ -53,12 +53,12 @@
 		<!--
 		<div class="separator"></div>
 
-		<h3 name="triggers">Triggers</h3>
+		<h3 name="triggers">{{translate_triggers}}</h3>
 		<div id="triggerlist"></div>
 
 		<div class="separator"></div>
 
-		<h3 name="canned">Message templates</h3>
+		<h3 name="canned">{{translate_message_templates}}</h3>
 		<div id="cannedlist"></div>
 		-->
 	</div>
@@ -67,14 +67,14 @@
 
 		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
 			<div class="portlet-title line">
-				<div class="caption">Menu</div>
+				<div class="caption">{{translate_menu}}</div>
 			</div>
 			<div class="portlet-body">
 				<ul>
-					<li><a data-hash="basic">Basic</a></li>
-					<li><a data-hash="campaigns">Manage Campaigns</a></li>
-					<!--<li><a data-hash="triggers">Manage Auto responders</a></li>-->
-					<!--<li><a data-hash="canned">Message Templates</a></li>-->
+					<li><a data-hash="basic">{{translate_basic}}</a></li>
+					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
+					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>-->
+					<!--<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
 				</ul>
 			</div>
 		</div>
