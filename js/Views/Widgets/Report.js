@@ -39,6 +39,6 @@ Cloudwalkers.Views.Widgets.Report = Cloudwalkers.Views.Widgets.Widget.extend ({
 	
 	'fail' : function ()
 	{
-		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
+		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
 	}
 });

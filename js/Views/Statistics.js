@@ -22,34 +22,34 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
-		{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
-		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", translation:{ 'title': 'contacts'}, display: "divided"}, span: 6},
+		{widget: "TitleSeparator", data: {title: "Contacts info"}},
+		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: "Contacts", display: "divided"}, span: 6},
 		{widget: "CompoundChart", span: 6, data : { template: "2col1row", chartdata: [ 
-			{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", translation:{ 'title': 'by_age'}}},
-			{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", translation:{ 'title': 'by_gender'}}},
-			{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", translation:{ 'title': 'contacts_evolution'}}}
+			{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}},
+			{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}},
+			{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", title: "Contacts Evolution"}}
 			]}
 		},
 		//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
 		//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 		
-		{widget: "TitleSeparator", data: {translation:{ 'title': 'new_this'}}},
-		{widget: "Info", data: {translation:{ 'title': 'contact_evolution'}, filterfunc: "contact-evolution"}, span: 3},
-		{widget: "Info", data: {translation:{ 'title': 'post_activity'}, filterfunc: "post-activity"}, span: 3},
+		{widget: "TitleSeparator", data: {title: "New this"}},
+		{widget: "Info", data: {title: "Contact Evolution", filterfunc: "contact-evolution"}, span: 3},
+		{widget: "Info", data: {title: "Post Activity", filterfunc: "post-activity"}, span: 3},
 		{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
 		{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
 
-		{widget: "TitleSeparator", data: {translation:{ 'title': 'messages_info'}}},
-		{widget: "TrendingMessage", data: {translation:{ 'title': 'top_rated_comment'}}, span: 12},
-		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", translation:{ 'title': 'best_time_to_post'}}, span: 4},
-		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", translation:{ 'title': 'messages_evolution'}}, span: 4},
-		{widget: "HeatCalendar", data: {filterfunc: "activity", translation:{ 'title': 'activity_calendar'}}, span: 4},
+		{widget: "TitleSeparator", data: {title: "Messages info"}},
+		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
+		{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: 4},
+		{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: "Messages Evolution"}, span: 4},
+		{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: 4},
 
-		{widget: "TitleSeparator", data: {translation:{ 'title': 'geo_graphics'}}},
-		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", translation:{ 'title': 'countries'}, connect : true}, span: 8},
+		{widget: "TitleSeparator", data: {title: "Geo Graphics"}},
+		{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: "Countries", connect : true}, span: 8},
 		{widget: "CompoundChart", span: 4, data : { template: "2row", chartdata: [ 
-			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", translation:{ 'title': 'countries'}}, connect: 'regional'},
-			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", translation:{ 'title': 'cities'}}}
+			{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: "Countries"}, connect: 'regional'},
+			{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: "Cities"}}
 			]}
 		}
 	],
@@ -84,9 +84,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			stream.attributes.selected = (stream.id == this.streamid);
 			return stream.attributes;
 		}.bind(this));
-
-		//Mustache Translate Render
-		this.mustacheTranslateRender(params);
 		
 		// Build Pageview
 		this.$el.html (Mustache.render (Templates.statsview, params));
@@ -122,15 +119,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		for(n in this.widgets)
 		{	
-			if(this.widgets[n].data.translation){
-				this.translateWidgets(this.widgets[n].data);
-			} else if(this.widgets[n].data.chartdata){
-				for(i in this.widgets[n].data.chartdata){
-					this.translateWidgets(this.widgets[n].data.chartdata[i].data)
-				}
-			}
-				
-
 			var streamid = this.streamid || false;
 			
 			if(streamid){
@@ -152,38 +140,24 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 			//pass regional data
 			//_.isString(this.widgets[n].data.connect) ? this.widgets[n].data.connect = this.connect : false;
-			translate = {}
 
-			
-			translate.new_this = this.translateString("new_this");
-			translate.top_rated_comment = this.translateString("top_rated_comment");
-			translate.messages_evolution = this.translateString("messages_evolution");
-			translate.activity_calendar = this.translateString("activity_calendar");
+			if(this.widgets[n].data.title == "New this")
+				this.widgets[n].data.title = "New this "+this.timespan;
 
-			if(this.timespan == 'week'){
-				translate.new_this_n = this.translateString("new_this");
-			}else{
-				translate.new_this_n = this.translateString("new_this_m");
-			}
-
-			if(this.widgets[n].data.title == translate.new_this)
-				this.widgets[n].data.title = translate.new_this_n+" "+this.translateString(this.timespan);
-			
-
-			if(this.widgets[n].data.title == translate.top_rated_comment){
+			if(this.widgets[n].data.title == "Top rated comment"){
 				if(this.timespan == 'quarter')		this.widgets[n].span = 8;
 				else if(this.timespan == 'year')	this.widgets[n].span = 8;
 				else								this.widgets[n].span = 12;
 			}
 
-			if(this.widgets[n].data.title == translate.messages_evolution){
+			if(this.widgets[n].data.title == "Messages Evolution"){
 				if(this.timespan == 'quarter')		this.widgets[n].span = 6;
 				else if(this.timespan == 'year')	this.widgets[n].span = 12;
 				else								this.widgets[n].span = 4;
 			}
 
-			if(this.widgets[n].data.title == translate.activity_calendar){
-				if(this.timespan == translate.this)	quarter.widgets[n].span = 6;
+			if(this.widgets[n].data.title == "Activity Calendar"){
+				if(this.timespan == 'quarter')	this.widgets[n].span = 6;
 				else if(this.timespan == 'year'){
 					this.widgets[n].span = 12;
 					this.widgets[n].data.bigdata = true;
@@ -221,13 +195,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		params.startstring = moment.unix(params.since).format("DD-MM-YYYY");
 		params.endstring = moment.unix(params.until).format("DD-MM-YYYY");
 		
-		// Language Hack (invert word order)
-		if(Cloudwalkers.Session.user.attributes.locale == "pt_PT"){
-			params.fullperiod = this.translateString(params.span) + " " + this.translateString(params.periodstring);
-		} else {
-			params.fullperiod = this.translateString(params.periodstring) + " " + this.translateString(params.span);
-		}
-
 		return params;
 	},
 
@@ -314,6 +281,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Get time span
 		//var span = this.$el.find('.stats-header select').val();
 		//if(span) this.timespan = span;
+	
 		if (this.timespan == "now") {	this.period = 0; }
 		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
 		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');	this.end = moment().zone(0).endOf('month'); }
@@ -347,45 +315,5 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	{	
 		this.listenToOnce(this.collection, 'sync', this.fillcharts);
 		this.collection.reset();
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'translateWidgets' : function(translatedata)
-	{	
-		// Translate Widgets
-		if(translatedata.translation)
-			for(k in translatedata.translation)
-			{
-				translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
-			}
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"week",
-			"month",
-			"quarter",
-			"year",
-			"custom",
-			"time_spans",
-			"all_networks",
-			"now",
-			"show"
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
 	}
 });

@@ -28,7 +28,7 @@ Cloudwalkers.Models.CannedResponse = Backbone.Model.extend({
 
 		Cloudwalkers.RootView.confirm 
 		(
-			this.translateString('are_you_sure_you_want_to_remove_this_template'), 
+			'Are you sure you want to remove this template?', 
 			function () 
 			{
                 self.destroy ({success:function(){
@@ -42,12 +42,6 @@ Cloudwalkers.Models.CannedResponse = Backbone.Model.extend({
 
 			}
 		);
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 
