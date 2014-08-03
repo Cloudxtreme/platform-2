@@ -845,16 +845,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			Cloudwalkers.RootView.dialog 
 			(
-				this.translateString('are_you_sure_you_want_to_remove_this_message'), 
+				'Are you sure you want to remove this message?', 
 				[
 					{
-						'label' : this.translateString('skip_once'),
-						'description' : this.translateString('message_will_be_skipped_once'),
+						'label' : 'Skip once',
+						'description' : 'Message will be skipped once',
 						'token' : 'skip'
 					},
 					{
-						'label' : this.translateString('delete_forever'),
-						'description' : this.translateString('message_will_never_be_repeated'),
+						'label' : 'Delete forever',
+						'description' : 'Message will never be repeated',
 						'token' : 'remove'
 					}
 				],
@@ -896,7 +896,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			Cloudwalkers.RootView.confirm 
 			(
-				this.translateString('are_you_sure_you_want_to_remove_this_message'), 
+				'Are you sure you want to remove this message?', 
 				function () 
 				{
                     self.destroy ({success:function(){
@@ -955,7 +955,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'act' : function (action, parameters, callback)
 	{
 		
-		Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+		Cloudwalkers.RootView.growl (action.name, "The " + action.token + " is planned with success.");
 		
 		var self = this;
 
@@ -1265,12 +1265,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'hasschedule' : function(){
 		if(this.get("schedule"))
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
 	},
 
 	/*'hascontent' : function(){

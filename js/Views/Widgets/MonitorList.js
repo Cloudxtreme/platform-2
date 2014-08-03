@@ -72,9 +72,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.find(".icon-cloud-download").hide();
 		
 		if (this.category.messages.cursor)
+			//this.$el.find(".load-more").show();
 			this.hasmore = true;
-		else
-			this.hasmore = false;
 		
 		this.$container.removeClass("inner-loading");
 	},

@@ -108,7 +108,6 @@
 						<div class="submit-btn">
 							<button type="submit" class="btn green">{{translate_save_changes}}</button>
 							<button type="reset" class="btn">{{translate_cancel}}</button>
-							<span class="loadingafter"></span>
 						</div>
 						{{/authorized.ACCOUNT_SETTINGS}}
 					</form>

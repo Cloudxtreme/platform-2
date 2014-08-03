@@ -33,7 +33,6 @@
 			
 			{{#from}}
 				<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>
-				
 				<!-- CONTACTS_ROLE -->
 				
 				<br />
@@ -66,7 +65,7 @@
 			 	<span {{#children_count}}data-notifications="true"{{/children_count}}>
 			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
 			 	</span>
-			 {{/canHaveChildren}}
+			{{/canHaveChildren}}
 			 
 			 <ul class="timeline-comments">
 				 

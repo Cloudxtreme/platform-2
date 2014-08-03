@@ -1,6 +1,5 @@
-Cloudwalkers.Models.User = Backbone.Model.extend({
-
-	'typestring' : 'users',
+Cloudwalkers.Models.Group = Backbone.Model.extend({
+	
 	
 	'initialize' : function ()
 	{
@@ -12,7 +11,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		if(this.parent)
         	return CONFIG_BASE_URL + 'json/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
         
-        else return CONFIG_BASE_URL + 'json/user/' + this.id;
+        else return CONFIG_BASE_URL + 'json/group/' + this.id;
         
        /* return this.endpoint?
         
@@ -31,31 +30,6 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return response;
 	},
 	
-	
-	/*'parse' : function(response)
-	{	
-		// A new object
-		if (typeof response == "number") response = {id: response};
-
-		return response;
-	},*/
-	
-	/*'sync' : function (method, model, options) {
-
-		// Hack
-		if(method == "update") return false;
-		
-		if( method == "read")
-			Store.get(this.url(), null, function(data)
-			{
-				if(data) this.set(data);
-
-			}.bind(this));
-
-		
-		return Backbone.sync(method, model, options);
-	},*/
-	
 	'filterData' : function (type)
 	{
 		
@@ -67,27 +41,21 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 			
 		} else {
 			
-			data.role = this.getRole();
+			data.role = this.getRole().name;
 		}
 
 		return data;
 	},
 	
 	'getRole' : function ()
-	{	
-		var roles = Cloudwalkers.Session.getAccount().get('roles'); 	
-		var userrole = this.get('rolegroup');
-
-		var role = roles.filter(function(el){ return el.id == userrole});
-		return role.length? role[0]: null;
-
-		/*if (this.get ('level') == 10)
+	{
+		if (this.get ('level') == 10)
 		{
 			return 'Administrator';
 		}
 		else
 		{
 			return 'Co-worker';
-		}*/
+		}
 	}
 });
