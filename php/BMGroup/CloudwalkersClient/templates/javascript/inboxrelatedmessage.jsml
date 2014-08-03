@@ -5,10 +5,9 @@
 			<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
 		</div>
 		
-		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">-->
-		<!--<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>-->
-		<img class="avatar" alt="" src="{{avatar}}">
-		<a href="{{url}}" target="_blank">{{displayname}}</a>
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+
 		{{/from}}
 	</div>
 </div>
