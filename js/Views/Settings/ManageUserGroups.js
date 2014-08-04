@@ -2,7 +2,7 @@ Cloudwalkers.Views.Settings.ManageUserGroups = Backbone.View.extend({
 
 	'events' : {
 		'submit .create-group' : 'createGroup',
-		'click [data-edit-group-id]' : 'fetchDetails',
+		'click .group-container [data-edit-group-id]' : 'fetchDetails',
 	},
 
 	'class' : 'section',
