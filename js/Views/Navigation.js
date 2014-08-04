@@ -92,6 +92,10 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.accounts =  [];
 		data.level = Cloudwalkers.Session.getUser().level;
 
+		// Manage User Groups Roles
+		if ((Cloudwalkers.Session.isAuthorized('USER_GRANT')) | (Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')))
+			data.manage_user_groups = true;
+
 		//Mustache Translate Header
 		this.mustacheTranslateRenderHeader(data);
 		
@@ -115,10 +119,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		var data = {reports: []};
 		
 		data.level = Cloudwalkers.Session.getUser().level;
-
-		// Manage User Groups Roles
-		if ((Cloudwalkers.Session.isAuthorized('USER_GRANT')) | (Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')))
-			data.manage_user_groups = true;
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -147,7 +147,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		// Inbox
-		data.inbox = true;
+		if (Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW')){
+			data.inbox = true;
+		}
 		
 		// Profiles
 		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')){

@@ -152,8 +152,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		this.model.setRead ();
 
 		// Tags
-		this.loadtagui();
-		console.log("here");
+		//this.loadtagui();
 
 		return this;
 	},

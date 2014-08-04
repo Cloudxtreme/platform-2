@@ -6,7 +6,6 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function(options)
 	{
 		this.model = Cloudwalkers.Session.getAccount();
-
 		this.translateTitle("notes");
 	},
 
@@ -39,6 +38,12 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+ 	},
+
 	'resize' : function(height)
 	{
 		this.$el.find("#widgetcontainer").height(height -140);
@@ -53,11 +58,5 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
 		$message.parent().slimScroll({height: "inherit"});
-	},
-
-	'translateTitle' : function(translatedata)
-	{	
-		// Translate Title
-		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

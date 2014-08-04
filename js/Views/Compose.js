@@ -646,7 +646,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				this.showerror('Upload failed: ', 'image size exceeds 3mb');
 				continue;
 			}
-
 			var reader = new FileReader();
 			
 			reader.onload = (function(file)
@@ -1649,7 +1648,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 	},
-	
 	'oops' : function(action, status)
 	{
 		Cloudwalkers.RootView.confirm 
@@ -1660,7 +1658,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 					action == 'save'? this.save(status): this.post(); }.bind(this),
 				function () { this.$el.modal('hide'); }.bind(this)
 			);
-
 	},
 
 	'disablefooter' : function()
@@ -1768,7 +1765,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			"until",
 			"save",
 			"preview",
-			"post"
+			"post",
+			"save_this_as_a_response_template"
 		];
 
 		this.translated = [];

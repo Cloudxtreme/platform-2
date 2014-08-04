@@ -140,10 +140,16 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	
 	'toing' : function()
 	{	
-		Cloudwalkers.RootView.growl ("Ping", "There is no pong.");
+		Cloudwalkers.RootView.growl (this.translateString("ping"), this.translateString("there_is_no_pong"));
 		
 		// Schedule new Ping, with max allowed interval.
 		this.interval = this.max;
 		this.schedule();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

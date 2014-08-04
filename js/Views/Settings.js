@@ -32,12 +32,10 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 		if (Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT'))
 			this.tabs.push({url: '#settings/services', name: data.translate_social_connections});
 		
-		if (Cloudwalkers.Session.isAuthorized('ACCOUNT_SETTINGS'))
+		if (Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE'))
 			this.tabs.push({url: '#settings/account', name: data.translate_account_settings});
 		
-		
 		this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});
-		
 
 		// Manage User Groups Roles
 		if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
@@ -67,10 +65,11 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 			case 'account':
 				var widget = new Cloudwalkers.Views.Settings.Account();
 				break;
+
 			case 'manageusergroups':
 				var widget = new Cloudwalkers.Views.Settings.ManageUserGroups();
 				break;
-				
+			
 			default:
 				var widget = new Cloudwalkers.Views.Settings.Profile();
 		}

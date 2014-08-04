@@ -47,6 +47,9 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		var name = this.$el.find ('[name=name]').val ();
 		var mobile = this.$el.find ('[name=mobile]').val (); 
 		var locale = this.$el.find ('[name=locale]').val (); 
+
+		this.$el.find('.edit-user-profile .btn').attr('disabled', true);
+		this.$el.find('.edit-user-profile').addClass('loading');
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 		{

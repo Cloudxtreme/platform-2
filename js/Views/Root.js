@@ -223,10 +223,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		data.options = [
 			{
 				'token' : 'confirm',
-				'label' : 'Yes',
+				'label' : this.translateString('yes'),
 				'description' : 'Confirm your action'
 			}
 		];
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -316,6 +317,12 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 	

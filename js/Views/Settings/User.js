@@ -16,7 +16,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		// HACK!
 		this.parameters = {};
 		
-		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'change:clearance', this.render);
 
 		// Translate String
 		translate_you_are_about_to_remove = this.translateString("you_are_about_to_remove");
