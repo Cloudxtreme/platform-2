@@ -53,18 +53,18 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 		{
-			Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated");
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack
 			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 
-		}, 
+		}.bind(this), 
 		error: function(){
-			Cloudwalkers.RootView.growl('User Profile', "There was an error updating your settings.");
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
 			// Hack
 			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
-		}});
+		}.bind(this)});
 	},
 	
 	/**
