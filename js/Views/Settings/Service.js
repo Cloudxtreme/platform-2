@@ -417,7 +417,8 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			"to_add",
 			"is_not_connected",
 			"authenticate_user",
-			"save"
+			"save",
+			"to_your_cloudwalkers_account_select_them_below"
 		];
 
 		this.translated = [];

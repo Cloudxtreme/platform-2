@@ -8,7 +8,7 @@
 		
 		<img class="avatar" alt="" src="{{avatar}}">
 		<a href="{{url}}" target="_blank">{{displayname}}</a>
-		<br /><em>on {{networkdescription}}</em>
+		<br /><em>{{translate_on}} {{networkdescription}}</em>
 		
 		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
 		<div>
