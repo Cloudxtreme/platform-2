@@ -102,7 +102,7 @@
 		"reauthenticate_user": "Re-autenticar utilizador",
 		"is_not_connected": "não está ligado",
 		"authenticate_user": "autenticar utilizador",
-		"to_add": "A adicionar",
+		"to_add": "Para adicionar",
 		"save": "Guardar",
 		"add": "Adicionar",
 		"campaigns": "Campanhas",
@@ -324,6 +324,10 @@
 		"ping": "Ping",
 		"there_is_no_pong": "Não há pong.",
 		"save_this_as_a_response_template": "Guardar como um modelo de resposta.",
-		"there_was_an_error_updating_your_settings":"There was an error updating your settings."
+		"there_was_an_error_updating_your_settings":"Houve um erro ao actualizar as suas configurações.",
+		"to_your_cloudwalkers_account_select_them_below": "à sua conta Cloudwalkers, seleccione-as abaixo",
+		"clearance_level": "Permissões de utilizador",
+		"Favorites": "Favoritos",
+		"Retweets": "Retweets"
 	}
 }

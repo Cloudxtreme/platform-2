@@ -113,7 +113,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
 	},
-	
+
 	'mustacheTranslateRender' : function(translatelocation)
 	{
 		// Translate array
@@ -130,7 +130,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
-	},
+	}
+
 
 });
 

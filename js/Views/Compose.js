@@ -29,6 +29,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'plusone':	"Plus one",
 		'default' : "Compose"
 	},
+	'translated_titles' : {
+	},
 
 	'limitations' : {
 
@@ -256,7 +258,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Collect data
 		var params ={
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
-			title:		this.titles[this.type],
+			title:		this.translated_titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
 			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
@@ -1719,7 +1721,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		for(k in this.titles)
 		{
-            this.titles[k] = this.translateString(this.titles[k]);
+            this.translated_titles[k] = this.translateString(this.titles[k]);
 		}
 	},
 
