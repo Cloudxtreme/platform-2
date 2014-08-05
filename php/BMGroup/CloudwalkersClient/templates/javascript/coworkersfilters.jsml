@@ -27,7 +27,10 @@
 					<br />
 					<span class="toggleall inactive">{{translate_show_all}}</span>
 
-					<small class="pull-right"><a  href="#settings/users">{{translate_manage_users}}</a></small>
+					{{#authorized.USER_INVITE}}
+						<small class="pull-right"><a  href="#settings/users">{{translate_manage_users}}</a></small>
+					{{/authorized.USER_INVITE}}
+					
 				</div>
 
 			</div>

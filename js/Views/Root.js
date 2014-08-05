@@ -36,8 +36,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		// Emergency break
 		if(!this.view) return null;
 		
-		// Do some rendering
-		$('#inner-content').html (this.view.render ().el);
+		// Do some rendering, check for oops()
+		if(this.view.render ())
+			$('#inner-content').html (this.view.render ().el);
 		
 		// Tell your view
 		this.view.$el.trigger("rendered");
@@ -323,8 +324,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{	
 		setTimeout(function(){
 			Cloudwalkers.Router.Instance.navigate('#resync');
-			this.setView (new Cloudwalkers.Views.Resync({returnto: view}));
+			this.setView (new Cloudwalkers.Views.Resync({returnto: view, gofetch: true}));
 		}.bind(this));		
+	},
+
+	'oops' : function(){
+		Cloudwalkers.Router.Instance.navigate('#dashboard', true);
+		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
 	},
 
 	'translateString' : function(translatedata)
