@@ -112,7 +112,7 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
-				{{#authorized.ACCOUNT_NOTES_VIEW}}
+				<!--{{#authorized.ACCOUNT_NOTES_VIEW}}
 				<li class="notes">
 					<a href="#notes">
 						<i class="icon-edit"></i> 
@@ -120,7 +120,7 @@
 					</a>
 				</li>
 				{{/authorized.ACCOUNT_NOTES_VIEW}}
-				
+				-->
 				<!--
 				<li class="calendar">
 					<a href="#calendar">
@@ -301,9 +301,6 @@
 			{{#authorized.ACCOUNT_SETTINGS}}
 				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
-			{{#manage_user_groups}}
-				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>
-			{{/manage_user_groups}}
 		</ul>
 	</li>
 	
