@@ -132,7 +132,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		}
 	}
 
-
 });
 
 /*Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
