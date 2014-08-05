@@ -6,7 +6,11 @@
 			<i class="icon-{{icon}}"></i>
 		</div>
 		
-		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+
+		<img class="avatar" alt="" src="{{avatar}}">
+		<a href="{{url}}" target="_blank">{{displayname}}</a>
+		<br /><em>{{translate_on}} {{networkdescription}}</em>
+		
 		<div>
 			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
 			<br /><em>{{translate_on}} {{networkdescription}}</em>
