@@ -7,14 +7,11 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		this.settings = {};
 		this.settings.title = this.title;
 
-		if(!this.network)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+		if(!this.network)	this.model = Cloudwalkers.Session.getChannel('profiles');
 		else				this.model = Cloudwalkers.Session.getStream(this.network);
 		
 		this.listenTo(this.model, 'sync', this.fill);
-
-		if(!this.timespan.sort){
-			this.timespan.sort = "engagement";
-		}
+		
 
 		this.gettoptrending();
 		
@@ -69,7 +66,7 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 	'toptrendingstream' : function(streamid){
 
 		var filters = {
-			sort:  this.timespan.sort,
+			sort : "engagement",
 			records : 1
 		}
 		
@@ -80,11 +77,14 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'toptrendingall' : function(){
 
+		this.model = Cloudwalkers.Session.getChannel('profiles');
+		
 		var filters = {
-			sort:  this.timespan.sort,
+			sort: "engagement",
 			records : 1,
 			since : this.timespan.since
 		};
+
 		this.model.fetch({endpoint: "messages", parameters : filters});
 
 		return;
