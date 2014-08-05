@@ -36,6 +36,8 @@
 <script type="text/javascript" src="/js/Models/Network.js"></script>
 <script type="text/javascript" src="/js/Models/Polyglot.js"></script>
 <script type="text/javascript" src="/js/Models/Trigger.js"></script>
+<script type="text/javascript" src="/js/Models/Group.js"></script>
+<script type="text/javascript" src="/js/Models/Widget.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -55,12 +57,15 @@
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 <script type="text/javascript" src="/js/Collections/Triggers.js"></script>
+<script type="text/javascript" src="/js/Collections/Groups.js"></script>
+<script type="text/javascript" src="/js/Collections/Widgets.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Loader.js"></script>
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
+<script type="text/javascript" src="/js/Views/SimpleCompose.js"></script>
 <script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
@@ -107,11 +112,14 @@
 <script type="text/javascript" src="/js/Views/Widgets/Chart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DashboardCleaner.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Legenda.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/HeatCalendar.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageContainer.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/MessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DashboardMessageList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DashboardWrite.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/DashboardWebcare.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DetailedList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DraftsList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/DraftsFilters.js"></script>
@@ -128,6 +136,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
@@ -172,3 +181,7 @@
 <script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/CannedList.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/ManageUserGroups.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupItem.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupDetails.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/UserDropdown.js"></script>

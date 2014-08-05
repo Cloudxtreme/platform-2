@@ -24,21 +24,23 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 
 	'render' : function ()
 	{
-		var params = {streams: []};
 		
-		// Company streams
-		for(n in this.streams)
-			params.streams.push({id: this.streams[n].id, icon: this.streams[n].network.icon, name: this.streams[n].name, network: this.streams[n].network}); 
-		
-		// Select networks
-		params.networks = this.model.streams.filterNetworks(params.streams, true);
-		
-		//Mustache Translate Render
-		this.mustacheTranslateRender(params);
+		if(this.model.streams){
+			var params = {streams: []};
+			
+			// Company streams
+			for(n in this.streams)
+				params.streams.push({id: this.streams[n].id, icon: this.streams[n].network.icon, name: this.streams[n].name, network: this.streams[n].network}); 
+			
+			// Select networks
+			params.networks = this.model.streams.filterNetworks(params.streams, true);
+			
+			//Mustache Translate Render
+			this.mustacheTranslateRender(params);
 
-		// View
-		this.$el.html (Mustache.render (Templates.calendarfilters, params));
-		
+			// View
+			this.$el.html (Mustache.render (Templates.calendarfilters, params));
+		}
 		return this;
 	},
 	

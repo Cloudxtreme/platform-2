@@ -14,7 +14,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	'templates' : {
 		'messages' : 'smallentry',
-		'notes' : 'smallentrynote',
 		'notifications' : 'smallentry'
 	},
 	

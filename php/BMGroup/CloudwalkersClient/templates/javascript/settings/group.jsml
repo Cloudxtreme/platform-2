@@ -1,0 +1,6 @@
+<td data-edit-group-id="{{group.id}}" class="group-name">
+	{{name}}
+</td>
+<td>
+	<i class="icon-remove pull-right" data-delete-{{type}}-id="{{id}}"></i>
+</td>

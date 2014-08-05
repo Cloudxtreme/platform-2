@@ -1,4 +1,22 @@
 	<div class='pull-right'>
+		<span class="date" data-date="{{date}}"></span>
+	</div>
+	
+	<span class="note-icon">
+		<i class="icon-{{type_icon}}"></i>	
+	</span>
+	
+	<div class="note-subject">
+		
+		{{parent}}
+		{{#parent}}
+			{{#parent.displayname}}{{parent.displayname}}{{/parent.displayname}}
+		{{/parent}}
+	</div>
+	
+	
+<!--
+	<div class='pull-right'>
 
 		{{#inboxview}}
 			{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
@@ -16,3 +34,4 @@
 	<div class='content' data-id="{{id}}">
 		{{{text}}}
 	</div>
+-->

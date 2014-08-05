@@ -1,11 +1,12 @@
 Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	
 	'title' : 'Notes',
-	'className' : "container-fluid inbox",
+	'className' : "container-fluid inbox inbox-notes",
 			
 	'initialize' : function(options)
 	{
 		this.model = Cloudwalkers.Session.getAccount();
+		this.translateTitle("notes");
 	},
 
 	'render' : function()
@@ -25,7 +26,7 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		}
 
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.InboxMessageList(params);
+		var list = new Cloudwalkers.Views.Widgets.InboxNotesList(params);
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
@@ -36,6 +37,12 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		
 		return this;
 	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+ 	},
 
 	'resize' : function(height)
 	{

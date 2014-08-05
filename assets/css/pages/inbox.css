@@ -167,6 +167,21 @@
 	text-decoration: none; background: #333;
 }
 
+/* Notes Variation */
+.inbox-notes #inboxlist .list li.active,
+.inbox-notes #inboxlist .list li.active:hover,
+.inbox-notes #inboxlist .list li.active strong,
+.inbox-notes #inboxlist .list li.active .date,
+.inbox-notes #inboxlist .list li.active	{
+	background: #f1f08e !important;
+	color: inherit;
+}
+
+.inbox-notes #inboxlist .note-icon	{
+	padding: 4px 5px; background-color: #6c5f5c; border-radius: 50%; box-shadow: 0 0 0 2px #fff;
+	color: white; line-height: 26px;
+}
+
 
 /* Inbox Container */
 #inbox main	{

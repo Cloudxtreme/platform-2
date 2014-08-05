@@ -159,10 +159,10 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			'id' : "compose",
 			'className' : "modal hide note",
 			'thanks' : true,
-			'model' : model
+			'parent' : model
 		}
 
-		var view = new Cloudwalkers.Views.ComposeNote(options);
+		var view = new Cloudwalkers.Views.SimpleCompose(options);
 		view.render().$el.modal();
 	},
 

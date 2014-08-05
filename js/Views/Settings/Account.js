@@ -33,18 +33,18 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.$el.find("#menu").affix()
 
 		//Canned responses list
-		//var cannedlist = new Cloudwalkers.Views.Settings.CannedList();
-		//this.$el.find("#cannedlist").append(cannedlist.render().el);
+		var cannedlist = new Cloudwalkers.Views.Settings.CannedList();
+		this.$el.find("#cannedlist").append(cannedlist.render().el);
 	
 		// Render manually both trigger's views
-		//this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
-		//this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
+		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
+		this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
-		//this.$el.find("#triggerlist").append(this.twitterview.render().el);
-		//this.$el.find("#triggerlist").append(this.dmview.render().el);
+		this.$el.find("#triggerlist").append(this.twitterview.render().el);
+		this.$el.find("#triggerlist").append(this.dmview.render().el);
 
-		//this.triggers.parent = this.account;
-		//this.triggers.fetch();
+		this.triggers.parent = this.account;
+		this.triggers.fetch();
 
 		return this;
 	},
@@ -74,7 +74,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
 		
-		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
+		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated")); }});
 	},
 	
 	'deletecampaign' : function (e)
@@ -122,8 +122,13 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 			"save_changes",
 			"cancel",
 			"company_name",
+			"menu",
+			"campaigns",
+			"basic",
 			"manage_campaigns",
-			"basic"
+			"manage_auto_responders",
+			"message_templates",
+			"triggers"
 		];
 
 		this.translated = [];
