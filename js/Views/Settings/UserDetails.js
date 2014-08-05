@@ -23,6 +23,9 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 		var role = this.model.get('rolegroup')
 		var roles = Cloudwalkers.Session.getAccount().get('roles');
+
+		if(!roles || !this.model.get('rolegroup'))	
+			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 		
 		//levels[(level)? 1:0].checked = true;
 
