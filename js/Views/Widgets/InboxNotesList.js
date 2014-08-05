@@ -1,88 +1,7 @@
 
-Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.extend({
-
-	// To-do: if url streamid is given, load network-related only.
-	// To-do: local manipulate list-view & toggle
-
-	'id' : 'inboxlist',
-	'entries' : [],
-	'check' : "hasMessages",
-	'collectionstring' : "messages",
-	'filters' : {
-		contacts : {string:"", list:[]},
-		streams : []
-	},
-	'templates' : {
-		'messages' : 'smallentry',
-		'notifications' : 'smallentry'
-	},
+Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMessageList.extend({
 	
-	'events' : {
-		'remove' : 'destroy',
-		'click [data-toggle]' : 'togglefilter',
-		'input .input-rounded' : 'comparesuggestions',
-		'click [data-contact]' : 'filtercontacts',
-		'click [data-close-contact]' : 'filtercontacts',
-		'click [data-networks]' : 'filternetworks',
-		'click [data-streams]' : 'filterstreams',
-		'click .toggleall.active' : 'toggleall',
-		'click .load-more' : 'more'
-	},
-	
-	'initialize' : function (options, /* Deprecated? */ pageviewoptions)
-	{
-		if(options) $.extend(this, options);
-		
-		// Which model to focus on
-		if(!this.model)	this.model = this.options.channel;
-		this.collection = this.model[this.collectionstring];
-		
-		//Load all listeners
-		this.loadmylisteners();
-		
-		// Watch outdated
-		this.updateable(this.model, "h3.page-title");
-	},
-
-	'loadmylisteners' : function(recycle){
-
-		if(recycle)
-			this.stopListening(this.collection);
-
-		// Listen to model
-		this.listenTo(this.collection, 'seed', this.fill);
-		this.listenTo(this.collection, 'request', this.showloading);
-		this.listenTo(this.collection, 'sync', this.hideloading);
-		this.listenTo(this.collection, 'ready', this.showmore);
-
-		// Listen to contacts collection
-		this.listenTo(this.model.contacts, 'add', this.comparesuggestions);
-
-		//Empty & not empty
-		this.listenTo(this.collection, 'ready:empty', this.isempty);
-		this.listenTo(this.collection, 'request', this.unsetempty);
-
-		//if(this.listtype == 'notes')
-		this.listenTo(Cloudwalkers.RootView, 'added:note', function(){ this.collection.touch(this.model, this.filterparameters()); }.bind(this));
-
-		//listenToOnce
-		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
-	},
-	
-	'toggleall' : function ()
-	{
-		this.filternetworks(null, true);
-		this.togglestreams(true);
-	},
-	
-	'togglestreams' : function(all)
-	{
-		// Toggle streams
-		this.$el.find('[data-networks], [data-streams]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
-		
-		// Toggle select button
-		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
-	},
+	'entrytemplate': 'smallnote',
 
 	'render' : function ()
 	{	
@@ -122,42 +41,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'showloading' : function ()
-	{
-		//this.$container.addClass("inner-loading");
-		
-		this.$el.find(".inbox").addClass("loading");
-		
-		this.$el.find(".load-more").hide();
-	},
-	
-	'hideloading' : function (collection, response)
-	{	
-		if(collection.cursor && response[collection.parenttype][this.collectionstring].length)
-			this.hasmore = true;
-		else
-			this.hasmore = false;
-
-		this.$el.find(".inbox").removeClass("loading");
-		
-		this.$container.removeClass("inner-loading");
-	},
-
-	'showmore' : function(){
-
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
-	},
-	
-	'hidemore' : function()
-	{
-		this.$el.find(".load-more").hide();
-	},
-	
 	'fill' : function (models)
 	{	
-		var template = this.templates[this.collectionstring];		
-
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -169,7 +54,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Add models to view
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
+			
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: this.entrytemplate, checkunread: true, parameters:{inboxview: true}});
+			
+			if (models[n].parent && !models[n].parent.get("ojbectType"))
+				view.listenTo(models[n].parent, 'change', view.render);
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -421,7 +310,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
+		var param = {all: 1, records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
@@ -473,45 +362,5 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		});
 	},
 	
-	'destroy' : function()
-	{
-		$.each(this.entries, function(n, entry){ entry.remove()});
-	},
 
-	'isempty' : function(){		
-		$(".inbox-container").empty().addClass('empty-content');
-	},
-
-	'unsetempty' : function(){
-		$(".inbox-container").removeClass('empty-content');
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"networks",
-			"more",
-			"contacts",
-			"filters",
-			"search_contacts",
-			"suggestions",
-			"select_all",
-			"load_more",
-			"on"
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-	}
 });
