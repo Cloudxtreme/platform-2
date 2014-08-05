@@ -59,7 +59,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		
 		for (n in available)
 		{
-			available[n].translate_add = this.translateString("add");;
+			available[n].translate_add = this.translateString("add");
 			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
 		}
 	},
