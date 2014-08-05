@@ -2,8 +2,6 @@
 Style corrections and manual overrides
 ***/
 
-#timeline { position: relative;	padding-left: 0px; overflow: hidden; min-height: 100%;}
-
 /* Timeline Loading */
 
 #timeline .inner-loading { display: none; }
@@ -17,17 +15,13 @@ Style corrections and manual overrides
 	top: 15px; border-right-color: #aaa;
 }
 
-#timeline .timeline .timeline-loading{
-	top: 35px;
-}
+.timeline .timeline-body	{ min-height: 32px; }
 
 #timeline.loading .timeline-body, .load-more .timeline-body.more	{ min-height: 20px; }
 
-#timeline .timeline-bg{	position: absolute; min-height: 100%; width: 100%; left: 0px; margin-left: 33%;	border: 1px solid #e6e6e6; background: #eee; margin-right: -20px; }
-
 /* Timeline loaded */
 
-/*ul.timeline	{ margin-top: 25px; }*/
+ul.timeline	{ margin-top: 25px; }
 
 .timeline .load-more *	{ cursor: pointer; }
 
@@ -44,21 +38,12 @@ Style corrections and manual overrides
 }
 .timeline .dropdown-toggle.icon-share-alt:hover	{ background-color: rgba(255,255,255, .8) !important; }
 
-/*.timeline .timeline-body .timeline-img	{ margin-bottom: 6px !important; }*/
+.timeline .timeline-body .timeline-img	{ margin-bottom: 6px !important; }
 
 .timeline .active.open .sub-menu a i	{ color: #ddd; }
 
-.timeline .message-actions{
-	margin-top: 20px;
-}
-
-.timeline .message-actions .btn-white{
-	margin-right: 5px;
-}
-
-.timeline .actions.dropdown	{
-	margin: 15px 0px; cursor: pointer;
-	overflow: visible;
+.timeline .actions.dropdown.pull-right	{
+	margin: 2px; cursor: pointer;
 }
 
 .timeline p	{ margin: 0; }
@@ -67,7 +52,7 @@ Style corrections and manual overrides
 	font-size: 14px; 
 }
 
-.actions.dropdown.open > i	{ color: #ccc; }
+.actions.dropdown.pull-right.open > i	{ color: #ccc; }
 
 .timeline-footer	{ margin-top: 12px; padding-top: 4px; border-top: 1px solid rgba(255,255,255,.24); }
 .timeline-footer .interaction, .timeline-footer .comments	{ padding-right: 20px; font-size: .86em; }
@@ -83,33 +68,22 @@ Style corrections and manual overrides
 
 .timeline li.timeline-empty .timeline-body:after { border-right-color: #ccc; }
 
+.timeline-body	{ font-size: 13px; }
 .timeline-body a	{ color: white; font-weight: normal; /*text-decoration: none;*/ }
 
-/*.timeline .timeline-img	{
+.timeline .timeline-img	{
 	padding: 2px; margin: 1px 4px 0 10px; background: rgba(255,255,255, .2); max-height: 124px; max-width: 33.3%; border-radius: 2px !important;
-} */
+} 
 
 .timeline .attachment-link	{
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-	padding: 2px 10px;
-	border-radius: 20px;
-	text-decoration: none !important;
-	display: inline-block;
-	margin-top: 4px;
+	padding: 2px 8px; display: inline; border-radius: 20px !important; background: rgba(255,255,255, .12);
 }
 
-.timeline .attachment-link a{
-	color: #31708f;
-	font-size: 13px;
-	line-height: 20px;
-}
-
-/*.timeline .attachment-link:hover	{ background: rgba(255,255,255, .2); }*/
+.timeline .attachment-link:hover	{ background: rgba(255,255,255, .2); }
 
 .timeline .attachment-link i	{
-	color: #fff; padding-left: 5px; float: none;
-	font-size: 14px;
+	color: rgba(0,0,0,.24); padding-right: 2px; float: none;
+	font-size: 14px; line-height: 2em;
 }
 
 .timeline .timeline-video {
@@ -122,9 +96,8 @@ Style corrections and manual overrides
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.timeline .actions >	.dropdown-menu	{
-	border: 0; right: 22px; top: -1px; border-radius: 2px !important;
-	left: 62px; top: 29px;
+.timeline .actions.pull-right >	.dropdown-menu	{
+	border: 0; right: 22px; top: -1px; border-radius: 2px !important; 
 }
 
 
@@ -199,70 +172,22 @@ Timeline UI Base
 	position: absolute;
 	top: 0;
 	bottom: 0;
+	width: 10px;
+	background: #ccc;
+	left: 20%;
 	margin-left: -10px;
-	width: 6px;
-	/*background: #ddd;*/
-	left: 34%;
-	margin-top: -35px;
-}
-
-.timeline-entry{
-	padding: 20px 0px;
-	margin-bottom: 1px;
 }
 
 .timeline > li {
 	position: relative;
 }
 
-.timeline-info{
-	height: 100%;
-	width: 34%;
-	position: absolute;
-	border-bottom: 1px solid #eee;
-	box-shadow: inset -7px 0 #ddd;
-	top: 0px;
-}
-
-.timeline-info .social-info{
-	float: left;
-	margin-left: 20px;
-	position: relative;
-	top: 50%;
-	margin-top: -31px;
-	}
-
-.timeline-info .social-info .info-widget{
-	clear: both;
-	height: 35px;
-}
-
-.timeline-info .social-info .info-widget-icon{
-	background: #3d3d3d;
-	border-radius: 50%;
-	width: 25px;
-	height: 25px;
-	color: #fff;
-	text-align: center;
-	line-height: 25px;
-	float: left;
-}
-
-.timeline-info .social-info .info-widget-text{
-	float: left;
-	padding-top: 3px;
-	padding-left: 10px;
-	color: #aaa;
-}
-
 /* The date/time */
 .timeline > li .timeline-time {
 	display: block;
-	float: right;
-	color: #eee;
+	width: 15%;
+	padding-right: 100px;
 	position: absolute;
-	bottom: 15px;
-	right: 25px;
 }
 
 .timeline > li .timeline-time span {
@@ -272,53 +197,26 @@ Timeline UI Base
 
 .timeline > li .timeline-time span.date {
 	font-size: 12px;
-	color: #ddd;
+	color: #bdd0db;
 	display: block;
-	margin-right: 3px;
+	margin-bottom: 5px;
 	font-weight: 300;
 }
 
 .timeline > li .timeline-time span.time {
 	font-weight: 300;
-	font-size: 25px;
-	color: #bdd0db;
-}
-
-.timeline > li table#timeline-username{
-	position: relative;
-	height: 100%;
-	width: 70%;
-	float: right;
-	margin-right: 45px;
-	text-align: right;
-}
-
-.timeline > li table#timeline-username td{
-	font-size: 23px;
-	color: #aaa;
-	font-weight: 300;
-	line-height: 23px;
+	font-size: 36px;
 }
 
 /* Right content */
 
 .timeline > li .timeline-body {
+	margin: 0 0 15px 25%;
+	color: #fff;
+	padding: 10px;
 	font-weight: 300;
 	position: relative;
-	background: #fff;
-	border-radius: 0px;
-	box-shadow: inset #ddd -10px 0px 0 0;
-	padding: 15px 30px 15px 20px;
-	border-bottom: 2px solid #e1e8ed;
-	border-right: 2px solid #e1e8ed;
-	margin: 0 0 0 40%;
-	color: #222;
-	min-height: 70px;
-	font-size: 13px;
-}
-
-.timeline-body a{
-	color: #222;
+	border-radius: 5px;
 }
 
 .timeline > li .timeline-body h2 { 
@@ -342,60 +240,9 @@ Timeline UI Base
   margin: 5px 10px 0 0px;
 }*/
 
-.timeline > li .timeline-entry-media{
-	position: absolute;
-	top: -20px;
-	right: 20px;
-}
-
-.timeline > li .timeline-entry-media span{
-	float: left;
-	margin-top: 25px;
-}
-
-.timeline > li .timeline-entry-media span.link{
-	margin-top: 13px;
-}
-
-.timeline > li .timeline-entry-media .media-sphere,
-.timeline > li .timeline-entry-media .media-clip{
-	border-radius: 50%;
-	width: 50px;
-	height: 50px; 
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-  	background-position: center;
-  	float: left;
-	margin-left: 10px;
-	cursor: pointer;
-}
-
-.timeline > li .timeline-entry-media .media-clip{
-	background: #3d3d3d;
-	text-align: center;
-	color: #fff;
-	line-height: 35px;
-	font-size: 20px;
-	width: 35px;
-	height: 35px;
-	margin-top: 6px;
-	cursor: inherit;
-}
-
-.timeline > li .network-icon{
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	margin-top: -30px;
-	font-size: 60px;
-	color: #f5f5f5;
-}
-
-/*.timeline > li .timeline-body img.pull-right {
+.timeline > li .timeline-body img.pull-right {
   margin-left: 10px;
-}*/
+}
 
 
 .timeline > li .timeline-body a.nav-link {
@@ -426,10 +273,9 @@ Timeline UI Base
 	width: 0;
 	position: absolute;
 	pointer-events: none;
+	border-right-color: #3594cb;
 	border-width: 10px;
-	border-right-color: #fff;
-	top: 50%;
-	margin-top: -10px;
+	top: 19px;
 }
 
 .timeline > li .timeline-content:after,
@@ -456,96 +302,34 @@ Timeline UI Base
 
 /* The icons */
 .timeline > li .timeline-icon {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	font-size: 1.4em;
+	line-height: 40px;
+	-webkit-font-smoothing: antialiased;
 	position: absolute;
 	color: #fff;
 	background: #aaa;  
 	border-radius: 50%;
-	box-shadow: 0 0 0 8px #ddd;
+	box-shadow: 0 0 0 8px #ccc;
 	text-align: center;
-	left: 33.9%;
-	top: 50%;
-	margin: -25px 0 0 -27px;
+	left: 20%;
+	top: 0;
+	margin: 5px 0 0 -27px;
+	padding-bottom: 3px; 
+	padding-right: 1px;
+	padding-left: 2px;
 	-webkit-border-radius: 30px !important;
 	   -moz-border-radius: 30px !important;
 			border-radius: 30px !important;
-	font-size: 33px;
-	line-height: 44px;
-	z-index: 10;
 }
-
-.timeline-icon.entry-loading:before{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	font-family: FontAwesome; font-size: 14px; color: #fff; line-height: 2.4em; 
-	content: "\F0ED"; -webkit-font-smoothing: antialiased;
-	-webkit-animation-duration: 1.2s;
-	-webkit-animation-name: opacitypulse;
-	-webkit-animation-iteration-count: infinite;
-	font-size: 33px;
-	left: -1px;
-	top: -15px;
-}
-
-.timeline > li .timeline-icon .timeline-avatar {
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-	/*border: 2px solid #444;*/
-	box-sizing: border-box;
-	overflow: hidden;
-}
-
-.timeline > li .timeline-icon .timeline-avatar img{
-	width: 100%;
-	border-radius: 50%;
-	border: 4px solid #fff;
-	box-sizing: border-box;
-}
-
-/* Colors */
-
-.timeline > li .timeline-entry.facebook-entry .timeline-body{	box-shadow: inset #3B5998 -10px 0px 0 0; }
-.timeline > li .timeline-entry.facebook-entry .timeline-info{	box-shadow: inset -7px 0 #3B5998; }
-.timeline > li .timeline-entry.facebook-entry .timeline-icon{	box-shadow: 0 0 0 8px #3B5998; }
-
-.timeline > li .timeline-entry.twitter-entry .timeline-body{	box-shadow: inset #01a9da -10px 0px 0 0; }
-.timeline > li .timeline-entry.twitter-entry .timeline-info{	box-shadow: inset -7px 0 #01a9da; }
-.timeline > li .timeline-entry.twitter-entry .timeline-icon{	box-shadow: 0 0 0 8px #01a9da; }
-
-.timeline > li .timeline-entry.linkedin-entry .timeline-body{	box-shadow: inset #1783BC -10px 0px 0 0; }
-.timeline > li .timeline-entry.linkedin-entry .timeline-info{	box-shadow: inset -7px 0 #1783BC; }
-.timeline > li .timeline-entry.linkedin-entry .timeline-icon{	box-shadow: 0 0 0 8px #1783BC; }
-
-.timeline > li .timeline-entry.tumblr-entry .timeline-body{	box-shadow: inset #385775 -10px 0px 0 0; }
-.timeline > li .timeline-entry.tumblr-entry .timeline-info{	box-shadow: inset -7px 0 #385775; }
-.timeline > li .timeline-entry.tumblr-entry .timeline-icon{	box-shadow: 0 0 0 8px #385775; }
-
-.timeline > li .timeline-entry.google-plus-entry .timeline-body{	box-shadow: inset #DD4C39 -10px 0px 0 0; }
-.timeline > li .timeline-entry.google-plus-entry .timeline-info{	box-shadow: inset -7px 0 #DD4C39; }
-.timeline > li .timeline-entry.google-plus-entry .timeline-icon{	box-shadow: 0 0 0 8px #DD4C39; }
-
-.timeline > li .timeline-entry.youtube-entry .timeline-body{	box-shadow: inset #CC181E -10px 0px 0 0; }
-.timeline > li .timeline-entry.youtube-entry .timeline-info{	box-shadow: inset -7px 0 #CC181E; }
-.timeline > li .timeline-entry.youtube-entry .timeline-icon{	box-shadow: 0 0 0 8px #CC181E; }
-
-.timeline > li .timeline-entry.web-entry .timeline-body{	box-shadow: inset #ff9c00 -10px 0px 0 0; }
-.timeline > li .timeline-entry.web-entry .timeline-info{	box-shadow: inset -7px 0 #ff9c00; }
-.timeline > li .timeline-entry.web-entry .timeline-icon{	box-shadow: 0 0 0 8px #ff9c00; }
-
-.timeline > li .timeline-entry.blog-entry .timeline-body{	box-shadow: inset #ff9c00 -10px 0px 0 0; }
-.timeline > li .timeline-entry.blog-entry .timeline-info{	box-shadow: inset -7px 0 #ff9c00; }
-.timeline > li .timeline-entry.blog-entry .timeline-icon{	box-shadow: 0 0 0 8px #ff9c00; }
-
-.timeline > li .timeline-entry.briefcase-entry .timeline-body{	box-shadow: inset #4a4a4a -10px 0px 0 0; }
-.timeline > li .timeline-entry.briefcase-entry .timeline-info{	box-shadow: inset -7px 0 #4a4a4a; }
-.timeline > li .timeline-entry.briefcase-entry .timeline-icon{	box-shadow: 0 0 0 8px #4a4a4a; }
 
 /* Red */
-/*
 .timeline li.timeline-red .timeline-body:after {
 	border-right-color: #e02222;
 }
@@ -559,7 +343,6 @@ Timeline UI Base
 }
 
 /* Yellow */
-/*
 .timeline li.timeline-yellow .timeline-body:after {
 	border-right-color: #ffb848;
 }
@@ -573,7 +356,6 @@ Timeline UI Base
 }
 
 /* Green */
-/*
 .timeline li.timeline-green .timeline-body:after {
 	border-right-color: #35aa47;
 }
@@ -587,7 +369,6 @@ Timeline UI Base
 }
 
 /* Blue */
-/*
 .timeline li.timeline-blue .timeline-body:after {
 	border-right-color: #4b8df8;
 }
@@ -601,7 +382,6 @@ Timeline UI Base
 }
 
 /* Purple */
-/*
 .timeline li.timeline-purple .timeline-body:after {
 	border-right-color: #852b99;
 }
@@ -615,7 +395,6 @@ Timeline UI Base
 }
 
 /* Grey */
-/*
 .timeline li.timeline-grey .timeline-body:after {
 	border-right-color: #555555;
 }
@@ -667,7 +446,7 @@ Timeline UI Base
 
 	/*colors*/
 
-	/*
+
 	.timeline li.timeline-red .timeline-body:after {
 		border-right-color: transparent;
 		border-bottom-color: #e02222;
@@ -698,5 +477,5 @@ Timeline UI Base
 		border-bottom-color: #555555;
 	}
 }
-*/
+
 

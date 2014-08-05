@@ -136,7 +136,7 @@
 		"hour": "hour",
 		"hours": "hours",
 		"day": "day",
-		"on": "on",
+		"on": "On",
 		"best_time": "Best time",
 		"repeat": "Repeat",
 		"no_repeat": "No repeat",
@@ -158,7 +158,7 @@
 		"preview": "Preview",
 		"post": "Post",
 		"endless_repeat_every": "Endless repeat every",
-		"best_time_to_post": "Best time to post",
+		"best_time_to_post": "best time to post",
 		"write_post": "Write a post",
 		"Write Post": "Write Post",
 		"Edit Post": "Edit Post",
@@ -306,7 +306,7 @@
 		"message_will_be_skipped_once": "Message will be skipped once",
 		"message_will_never_be_repeated": "Message will never be repeated",
 		"the": "The",
-		"is_planned_with_success": "is planned with success",
+		"is_planned_with_success": "is planed with success",
 		"dont_forget_to_select_a_category": "Don't forget to select a category.",
 		"not_saved": "Not saved",
 		"your_formula_is_a_bit_fuzzy": "Your formula is a bit fuzzy",
@@ -328,7 +328,6 @@
 		"to_your_cloudwalkers_account_select_them_below": "to your Cloudwalkers account, select them below",
 		"clearance_level": "Clearance level",
 		"Favorites": "Favorites",
-		"Retweets": "Retweets",
-		"Likes": "Likes"
+		"Retweets": "Retweets"
 	}
 }
