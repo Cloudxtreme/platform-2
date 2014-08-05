@@ -16,7 +16,7 @@
 			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
 				{{/actions}}
 			</ul>
 		</span>
@@ -59,7 +59,7 @@
 		
 		<div class="timeline-footer">
 			{{#statistics}}
-				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
+				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name_translated}}</strong>
 			{{/statistics}}
 
 		 	{{#canHaveChildren}}

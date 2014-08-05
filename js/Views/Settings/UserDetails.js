@@ -40,6 +40,9 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 			data.roles.push (tmp);
 		}
 
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
 		self.$el.html (Mustache.render (Templates.settings.userdetails, data));
 
 		return this;
@@ -78,5 +81,22 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
-	}
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"clearance_level",
+			"save"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
 });

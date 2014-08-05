@@ -46,6 +46,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Visualize
 		for(n in this.parameters.actions)
 			this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
+
+		for(n in this.parameters.statistics)
+			this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
+
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
