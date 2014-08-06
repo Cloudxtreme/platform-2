@@ -319,6 +319,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('a.image-popup-viewer').fancybox ();
 	},
 
+
 	'resync' : function(view)
 	{	
 		setTimeout(function(){
