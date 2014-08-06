@@ -338,7 +338,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'checkauth' : function(view)
 	{
 		if(!Cloudwalkers.Session.getUser().authorized)
-			this.resync(view)
+			Cloudwalkers.RootView.resync(view);
 		else
 			window.location = "/";
 	},	
