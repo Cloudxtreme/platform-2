@@ -28,8 +28,8 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		// Add parent
 		if (this.model.loaded("model") && this.model.parent.loaded())
 			params[this.model.parent.get("objectType")] = this.model.parent.attributes;
-
-			console.log(params)
+			
+		//else if(!this.model.parent)
 
 		if(this.model.filterActions)
 			$.extend(params, {actions: this.model.filterActions()});

@@ -5,7 +5,7 @@
 			<span class="date">{{fulldate}}</span>
 			<i class="icon-{{icon}}"></i>
 		</div>
-
+		
 		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
 
 		<div>

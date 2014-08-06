@@ -27,11 +27,14 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
 		if(this.note.get("text"))	params.text = this.note.get("text");
 
-		//Mustache Translate Render
+		//Mustache Translate Header
 		this.mustacheTranslateRender(params);
 
 		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
+
+		if(this.note.get("text"))	//we are editing
+			this.$el.find('h3').remove();
 
 		// Inject custom loadercontainer
 		if(!this.$loadercontainer)
@@ -94,8 +97,9 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"cancel",
-			"save"
+			"write_note",
+			"save",
+			"cancel"
 		];
 
 		this.translated = [];
@@ -105,6 +109,6 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
-	},
+	}
 
 });

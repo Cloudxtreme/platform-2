@@ -1,4 +1,3 @@
-
 Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMessageList.extend({
 	
 	'entrytemplate': 'smallnote',

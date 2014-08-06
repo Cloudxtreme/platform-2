@@ -73,10 +73,8 @@
 				<ul>
 					<li><a data-hash="basic">{{translate_basic}}</a></li>
 					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
-
-					<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>
-					<li><a data-hash="canned">{{translate_message_templates}}</a></li>
-
+					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>-->
+					<!--<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
 				</ul>
 			</div>
 		</div>

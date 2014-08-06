@@ -233,14 +233,12 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'initializenote' : function()
 	{
 		// Add the Note
-
-		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
-
+		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
 		this.composenote = composenote;
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
-		this.listenTo(composenote.model, 'sync', this.doneposting.bind(this,200));
+		this.listenTo(composenote.note, 'sync', this.doneposting.bind(this,200));
 		this.listenTo(composenote, 'edit:cancel', this.doneposting);
 	},
 
@@ -417,56 +415,18 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	    }
 	},
 
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"add",
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-
-	},
-
 	'paginate' : function(collection, response)
 	{	
 		if(collection.cursor && response.contact[collection.endpoint].length)
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
 	'showmore' : function(){
 
 		if(this.hasmore)
 			this.$el.find(".load-more").show();
-	},
-	
-	'hidemore' : function()
-	{
-		this.$el.find(".load-more").hide();
-	},
-
-	'more' : function ()
-	{
-		this.incremental = true;
-		
-		if(!this.collection.cursor) return false;
-
-		var parameters = {after: this.collection.cursor};
-		this.touch(this.type, parameters);
-		
-		if(!this.hasmore) this.$el.find(".load-more").hide();
 	},
 
 	'translateString' : function(translatedata)
@@ -492,5 +452,22 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
+ 	},
+	
+	'hidemore' : function()
+	{
+		this.$el.find(".load-more").hide();
+	},
+
+	'more' : function ()
+	{
+		this.incremental = true;
+		
+		if(!this.collection.cursor) return false;
+
+		var parameters = {after: this.collection.cursor};
+		this.touch(this.type, parameters);
+		
+		if(!this.hasmore) this.$el.find(".load-more").hide();
 	}
 });
