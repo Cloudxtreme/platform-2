@@ -1,11 +1,13 @@
 Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'typestring' : 'notes',
+
 	'type_settings' : {
 		'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
 		'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
 		'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
 	},
+
 
 	'initialize' : function(options)
 	{
@@ -18,7 +20,6 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	{	
 		response = response.note? response.note : response;
 		
-		// Shouldn't this be a filtercontent function?
 		if(response.date)
 		{
 			response.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
