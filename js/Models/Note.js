@@ -27,7 +27,10 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			
 			response.type_icon = this.type_settings[response.model.objectType].icon;
 			
-			if(response.model) this.parent = this.attachParent(response.model.objectType, response.model.id);
+			// Hack!
+			if(response.model) response.objectType = "note";
+			
+			//if(response.model) this.parent = this.attachParent(response.model.objectType, response.model.id);
 
 		}
 
@@ -38,7 +41,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	{
 		var type = this.type_settings[type].model;
 		var object = Cloudwalkers.Session["get" + type](id);
-		
+
 		if(!object)
 		{
 			object = new Cloudwalkers.Models[type]({id: id});

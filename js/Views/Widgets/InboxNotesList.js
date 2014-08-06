@@ -54,20 +54,12 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		// Add models to view
 		for (n in models)
 		{	
-			
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: this.entrytemplate, checkunread: true, parameters:{inboxview: true}});
-			
-			if (models[n].parent && !models[n].parent.get("ojbectType"))
-				view.listenTo(models[n].parent, 'change', view.render);
+			var view = new Cloudwalkers.Views.NoteEntry ({model: models[n], template: this.entrytemplate, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
 			
 			this.$container.append(view.render().el);
-			
-			// Filter contacts
-			if(this.model.seedcontacts)
-				this.model.seedcontacts(models[n]);
 		}
 		
 		// Toggle first message
@@ -79,15 +71,14 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 	{	
 		var options = {model: view.model};
 		
-		if (this.inboxmessage) this.inboxmessage.remove();		
-		if (this.collectionstring == 'notes')	options.template = 'note';
+		if (this.inboxnote) this.inboxnote.remove();
 
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage(options);
+		this.inboxnote = new Cloudwalkers.Views.Widgets.InboxNote(options);
 		
-		$(".inbox-container").html(this.inboxmessage.render().el);
+		$(".inbox-container").html(this.inboxnote.render().el);
 		
 		// Load related messages
-		this.inboxmessage.showrelated(); //(view.model);
+		this.inboxnote.showrelated();
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");

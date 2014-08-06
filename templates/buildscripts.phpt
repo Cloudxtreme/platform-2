@@ -104,6 +104,7 @@
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
+<script type="text/javascript" src="/js/Views/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/User.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
@@ -138,6 +139,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
