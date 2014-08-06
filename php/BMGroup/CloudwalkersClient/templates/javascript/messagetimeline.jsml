@@ -12,6 +12,7 @@
 
 	<div class="timeline-body">
 		{{#objectType}}
+		{{#hasactions}}
 		<span class="actions dropdown pull-right"> 
 			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
@@ -20,7 +21,7 @@
 				{{/actions}}
 			</ul>
 		</span>
-		
+		{{/hasactions}}
 		<div class="timeline-content">
 			
 			{{#attached.image}}
