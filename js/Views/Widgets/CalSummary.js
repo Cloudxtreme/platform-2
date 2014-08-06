@@ -104,10 +104,10 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 			else counters.text ++;  
 		});
 		
-		if(counters.image)	stats.push("<div class='media-entry'><i class='icon-picture'></i> <strong>" + Math.round(counters.image/total*100) + "</strong>% images</div>"); 
-		if(counters.video)	stats.push("<div class='media-entry'><i class='icon-facetime-video'></i> <strong>" + Math.round(counters.video/total*100) + "</strong>% video</div>"); 
-		if(counters.link)	stats.push("<div class='media-entry'><i class='icon-link'></i> <strong>" + Math.round(counters.link/total*100) + "</strong>% links</div>");
-		if(counters.text)	stats.push("<div class='media-entry'><i class='icon-reorder'></i> <strong>" + Math.round(counters.text/total*100) + "</strong>% text-only</div>");
+		if(counters.image)	stats.push("<div class='media-entry'><i class='icon-picture'></i> <strong>" + Math.round(counters.image/total*100) + "</strong>% " + this.translateString("images") + "</div>"); 
+		if(counters.video)	stats.push("<div class='media-entry'><i class='icon-facetime-video'></i> <strong>" + Math.round(counters.video/total*100) + "</strong>% " + this.translateString("video") + "</div>"); 
+		if(counters.link)	stats.push("<div class='media-entry'><i class='icon-link'></i> <strong>" + Math.round(counters.link/total*100) + "</strong>% " + this.translateString("links") + "</div>");
+		if(counters.text)	stats.push("<div class='media-entry'><i class='icon-reorder'></i> <strong>" + Math.round(counters.text/total*100) + "</strong>% " + this.translateString("text-only") + "</div>");
 		
 		
 		return { counter: stats.join("<br>") };//stat.pluck("messages")};

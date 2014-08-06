@@ -412,29 +412,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	    }
 	},
 
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"add",
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-
-	},
-
 	'paginate' : function(collection, response)
 	{	
 		if(collection.cursor && response.contact[collection.endpoint].length)
@@ -448,6 +425,31 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(this.hasmore)
 			this.$el.find(".load-more").show();
 	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"latest_messages",
+			"latest_conversations",
+			"contact_notes",
+			"add_contact_note"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+ 	},
 	
 	'hidemore' : function()
 	{

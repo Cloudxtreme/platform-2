@@ -283,7 +283,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Notes list
 	'fillnotes' : function(notes)
 	{	
-		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
+		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 		else				this.$el.find('.note-list').empty();
 
 		for(n in notes)

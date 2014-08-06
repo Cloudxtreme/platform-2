@@ -12,6 +12,9 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		
 		this.listenTo(this.model, 'sync', this.fill);
 		
+		if(!this.timespan.sort){
+			this.timespan.sort = "engagement";
+		}
 
 		this.gettoptrending();
 		
@@ -66,7 +69,7 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 	'toptrendingstream' : function(streamid){
 
 		var filters = {
-			sort : "engagement",
+			sort:  this.timespan.sort,
 			records : 1
 		}
 		
@@ -80,7 +83,7 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		this.model = Cloudwalkers.Session.getChannel('profiles');
 		
 		var filters = {
-			sort: "engagement",
+			sort:  this.timespan.sort,
 			records : 1,
 			since : this.timespan.since
 		};
