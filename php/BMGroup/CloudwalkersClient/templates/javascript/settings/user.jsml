@@ -1,16 +1,18 @@
-<td>
+<td class="span2">
 	<img class="avatar" alt="{{user.name}}" src="{{#user.avatar}}{{user.avatar}}{{/user.avatar}}{{^user.avatar}}http://www.placehold.it/34/DDDDDD/FFFFFF&text=+{{/user.avatar}}">
 </td>
-<td>
+<td class="span5">
 	{{user.displayname}}
 </td>
-<td class="hidden-480">
+<td class="hidden-480 span4">
 	<small>{{user.email}}</small>
 </td>
-<td>
-	<span class="label label-success">{{user.role}}</span>
+<td class="span4">
+	<span class="role_area">
+		<span class="label {{user.role}}">{{user.role}}</span>
+	</span>
 </td>
-<td>
+<td class="span3">
 	{{#authorized.USER_DELETE}}
 		<i class="icon-remove pull-right" data-delete-user-id="{{user.id}}"></i>
 	{{/authorized.USER_DELETE}}

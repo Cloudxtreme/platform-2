@@ -1,7 +1,7 @@
 <div class="tab-pane settings-users row-fluid" id="tab_1_2">
-	<div class="span4">
+	<div class="span6">
 		<div>
-			<div class="portlet box grey">
+			<div class="portlet box newgrey">
 				<div class="portlet-title">
 					<div class="caption"><i class="icon-sitemap"></i>{{translate_user_groups}}</div>
 				</div>
@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="container-create-group">
-			<div class="portlet box blue">
+			<div class="portlet box newgrey">
 				<div class="portlet-title line expand-portlet">
 					<div class="caption"><i class="icon-plus"></i>{{translate_create_new_group}}</div>
 					<div class="tools">
@@ -34,7 +34,7 @@
 						
 						<label for="group-name">{{translate_name}}</label>
 						<input type="text" name="group-name" />
-						<input type="submit" class="btn black" value="{{translate_add}}" />
+						<input type="submit" class="btn indigo-blue" value="{{translate_add}}" />
 
 					</form>
 				</div>
@@ -42,7 +42,7 @@
 		</div>
 	</div>
 
-	<div class="span8 group-details-container">
+	<div class="span6 group-details-container">
 		
 	</div>
 	<div style="clear:both"></div>

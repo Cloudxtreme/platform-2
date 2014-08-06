@@ -1,32 +1,21 @@
-<div class="">
-	<div class="title">
-		<div class="holder">
-			<div class="frame">
-				<h3>{{user.firstname}} {{user.name}}</h3>
-			</div>
-		</div>
-	</div>
-	<div class="form-box">
-		<div class="box-holder">
-			<div class="box-frame">
-				
-				<form action="javascript:void(0);" class="edit-managed-user">
-					<ul>
-						<li>
-							<label for="level">{{translate_clearance_level}}</label>
-							<select id="level" name="level">
-								{{#roles}}
-									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
-								{{/roles}}
-							</select>
-						</li>
-
-						<li>
-							<button type="submit" class="btn black">{{translate_save}}</button>
-						</li>
-					</ul>
-				</form>
-
-			</div>
-		</div>
-	</div>
+<td class="span2">
+	<img class="avatar" alt="{{user.name}}" src="{{#user.avatar}}{{user.avatar}}{{/user.avatar}}{{^user.avatar}}http://www.placehold.it/34/DDDDDD/FFFFFF&text=+{{/user.avatar}}">
+</td>
+<td class="span5">
+	<input name="firstname" type="text" placeholder="John" value="{{user.firstname}}" />
+	<input name="name" type="text" placeholder="Doe" value="{{user.name}}" />
+</td>
+<td class="hidden-480 span4">
+	<small>{{user.email}}</small>
+</td>
+<td class="span4">
+	<select id="level" name="level">
+		{{#roles}}
+			<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+		{{/roles}}
+	</select>
+</td>
+<td class="span3">
+	<i class="icon-remove pull-right" data-delete-user-id="{{user.id}}"></i>
+	<i class="icon-check pull-right" data-managed-user-id="{{user.id}}"></i>
+</td>

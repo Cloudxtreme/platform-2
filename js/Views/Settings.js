@@ -16,7 +16,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{
-
+		//$("#inner-content").css("background","#F0F3F4");
 		var data = {};
 		this.tabs = []
 
