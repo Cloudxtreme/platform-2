@@ -2245,3 +2245,10 @@ Dashboard stats
 	opacity: 0.7 !important;
 }
 /* Lightbox override */
+
+/* RC1 COMMENTING STYLES */
+/* big no-no */
+[data-action="note-content"],
+[data-action="note-list"]{
+	display: none !important;
+}

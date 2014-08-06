@@ -61,7 +61,6 @@
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
-<script type="text/javascript" src="/js/Views/ComposeNote.js"></script>
 <script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>

@@ -11,10 +11,10 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		else				this.model = Cloudwalkers.Session.getStream(this.network);
 		
 		this.listenTo(this.model, 'sync', this.fill);
-
+		
 		if(!this.timespan.sort){
 			this.timespan.sort = "engagement";
-		}		
+		}
 
 		this.gettoptrending();
 		

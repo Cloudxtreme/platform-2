@@ -87,7 +87,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.set('level', Number(this.account.get("currentuser").level));
 			this.set('rolegroup', Number(this.account.get("currentuser").rolegroup));
 
-			this.authorized = [
+			/*this.authorized = [
 				"CAMPAIGN_CREATE", 
 				"CAMPAIGN_DELETE", 
 				"SERVICE_CONNECT", 
@@ -123,13 +123,15 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 				"ACCOUNT_NOTES_MANAGE", 
 				"ACCOUNT_TAGS_VIEW", 
 				"ACCOUNT_TAGS_MANAGE"
-			]
+			]*/
 			
 
 			// Role permissions
-			//this.authorized = this.account.get("currentuser").authorized;
+			this.authorized = this.account.get("currentuser").authorized;
 			this.removerole('ACCOUNT_TAGS_MANAGE');
 			this.removerole('ACCOUNT_TAGS_VIEW');
+			this.removerole('ACCOUNT_NOTES_MANAGE');
+			this.removerole('ACCOUNT_NOTES_VIEW');
 
 			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);			
