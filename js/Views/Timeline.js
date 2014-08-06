@@ -131,8 +131,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
-
-
 });
 
 /*Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Widgets.WidgetContainer.extend({

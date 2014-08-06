@@ -80,6 +80,8 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'toptrendingall' : function(){
 
+		this.model = Cloudwalkers.Session.getChannel('profiles');
+
 		var filters = {
 			sort:  this.timespan.sort,
 			records : 1,
