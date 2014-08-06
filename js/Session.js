@@ -8,6 +8,7 @@ Cloudwalkers.Session =
 	],
 	
 	'user' : null,
+	'resynced' : false,
 	/*'settings' : {
 		'currentAccount' : null,
 		'viewMode' : null

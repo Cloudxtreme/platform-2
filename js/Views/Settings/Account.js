@@ -115,17 +115,13 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"campaigns",
-			"account_plan",
-			"account",
-			"name",
 			"save_changes",
-			"cancel",
-			"company_name",
+ 			"cancel",
+ 			"company_name",
 			"menu",
 			"campaigns",
 			"basic",
-			"manage_campaigns",
+ 			"manage_campaigns",
 			"manage_auto_responders",
 			"message_templates",
 			"triggers"

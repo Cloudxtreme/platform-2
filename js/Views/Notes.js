@@ -6,7 +6,6 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function(options)
 	{
 		this.model = Cloudwalkers.Session.getAccount();
-		this.translateTitle("notes");
 	},
 
 	'render' : function()
@@ -37,12 +36,6 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		
 		return this;
 	},
-
-	'translateTitle' : function(translatedata)
-	{	
-		// Translate Title
-		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
- 	},
 
 	'resize' : function(height)
 	{

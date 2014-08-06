@@ -11,7 +11,8 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 	{
 		if (options) $.extend(this, options); 
 			
-		this.model.messages = new Cloudwalkers.Collections.Messages();
+		if(!this.model.messages)
+			this.model.messages = new Cloudwalkers.Collections.Messages();
 
 		// Clear the category (prevent non-change view failure)
 		//this.model.set({messages: []});
@@ -37,7 +38,9 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		//this.options.filters.records = 10;
 		
 		// Load messages
-		this.model.messages.touch(this.model, this.filters); 
+		this.model.messages.touch(this.model, this.filters);
+		
+		 
 		
 		// Load category messages
 		//this.model.fetch({endpoint: "messageids", parameters:this.options.filters});
