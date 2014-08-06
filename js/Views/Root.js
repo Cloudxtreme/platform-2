@@ -319,14 +319,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		$('a.image-popup-viewer').fancybox ();
 	},
 
-	'resync' : function(view)
-	{	
-		setTimeout(function(){
-			Cloudwalkers.Router.Instance.navigate('#resync');
-			this.setView (new Cloudwalkers.Views.Resync({returnto: view}));
-		}.bind(this));		
-	},
-
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
