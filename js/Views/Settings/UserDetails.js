@@ -11,6 +11,12 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 		this.listenTo(this.model, 'request', this.disablesave);
 		this.listenTo(this.model, 'sync', this.enablesave);
+
+		this.role = this.model.get('rolegroup')
+		this.roles = Cloudwalkers.Session.getAccount().get('roles');
+		
+		if(!this.roles || _.isUndefined(this.role))
+			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 	},
 
 	'render' : function ()
@@ -21,8 +27,8 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 		//var level = Number(this.model.get("level"));
 		//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
 
-		var role = this.model.get('rolegroup')
-		var roles = Cloudwalkers.Session.getAccount().get('roles');
+		var role = this.role;
+		var roles = this.roles;
 		
 		//levels[(level)? 1:0].checked = true;
 
