@@ -83,9 +83,6 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		var roles = Cloudwalkers.Session.getAccount().get('roles'); 	
 		var userrole = this.get('rolegroup');
 
-		if(!roles || _.isUndefined(userrole))
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
-
 		var role = roles.filter(function(el){ return el.id == userrole});
 		return role.length? role[0]: null;
 

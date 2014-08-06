@@ -322,13 +322,12 @@
 		"oops": "Oops",
 		"something_went_sideways_please_reload_the_page": "Something went sideways, please reload the page.",
 		"ping": "Ping",
-		"there_is_no_pong": "Maar zonder pong.",
-		"save_this_as_a_response_template": "De antwoord template opslaan.",
-		"there_was_an_error_updating_your_settings":"Er was een fout tijdens het updaten van uw instellingen.",
-		"to_your_cloudwalkers_account_select_them_below": "naar uw Cloudwalkers account, selecteer onderstaand",
-		"clearance_level": "Gebruikersrol",
-		"Favorites": "Favorieten",
-		"Retweets": "Retweets",
-		"something_went_sideways" : "Something went sideways"
+		"there_is_no_pong": "There is no pong.",
+		"save_this_as_a_response_template": "Save this as a response template.",
+		"there_was_an_error_updating_your_settings":"There was an error updating your settings.",
+		"to_your_cloudwalkers_account_select_them_below": "to your Cloudwalkers account, select them below",
+		"clearance_level": "Clearance level",
+		"Favorites": "Favorites",
+		"Retweets": "Retweets"
 	}
 }

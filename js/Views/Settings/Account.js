@@ -74,7 +74,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
 		
-		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated")); }});
+		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl('Account settings', "Your account settings are updated"); }});
 	},
 	
 	'deletecampaign' : function (e)
@@ -122,13 +122,8 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 			"save_changes",
 			"cancel",
 			"company_name",
-			"menu",
-			"campaigns",
-			"basic",
 			"manage_campaigns",
-			"manage_auto_responders",
-			"message_templates",
-			"triggers"
+			"basic"
 		];
 
 		this.translated = [];
