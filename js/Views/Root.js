@@ -158,10 +158,10 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			'id' : "compose",
 			'className' : "modal hide note",
 			'thanks' : true,
-			'model' : model
+			'parent' : model
 		}
 
-		var view = new Cloudwalkers.Views.ComposeNote(options);
+		var view = new Cloudwalkers.Views.SimpleCompose(options);
 		view.render().$el.modal();
 	},
 
@@ -317,19 +317,6 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
-	},
-
-	'resync' : function(view)
-	{	
-		setTimeout(function(){
-			Cloudwalkers.Router.Instance.navigate('#resync');
-			this.setView (new Cloudwalkers.Views.Resync({returnto: view, gofetch: true}));
-		}.bind(this));		
-	},
-
-	'oops' : function(){
-		Cloudwalkers.Router.Instance.navigate('#dashboard', true);
-		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
 	},
 
 	'translateString' : function(translatedata)

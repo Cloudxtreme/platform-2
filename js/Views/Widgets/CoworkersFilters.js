@@ -31,9 +31,6 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
 
-		// Apply role permissions to template data
-		Cloudwalkers.Session.censuretemplate(data);
-
 		// View
 		this.$el.html (Mustache.render (Templates.coworkersfilters, data));
 		

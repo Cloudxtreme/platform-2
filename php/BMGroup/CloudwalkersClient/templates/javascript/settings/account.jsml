@@ -53,7 +53,7 @@
 		<!--
 		<div class="separator"></div>
 
-		<h3 name="triggers">Triggers</h3>
+		<h3 name="triggers">{{translate_triggers}}</h3>
 		<div id="triggerlist"></div>
 
 		<div class="separator"></div>
@@ -73,8 +73,10 @@
 				<ul>
 					<li><a data-hash="basic">{{translate_basic}}</a></li>
 					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
-					<!--<li><a data-hash="triggers">Manage Auto responders</a></li>-->
-					<!--<li><a data-hash="canned">Message Templates</a></li>-->
+
+					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>-->
+					<!--<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
+
 				</ul>
 			</div>
 		</div>

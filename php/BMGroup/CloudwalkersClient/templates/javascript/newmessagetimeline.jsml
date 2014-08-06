@@ -1,0 +1,95 @@
+<div class="timeline-entry {{networktoken}}-entry" data-message-id="{{id}}">
+	<div class="timeline-info">
+
+		<!--<div class="user-name">{{#from}}{{displayname}}{{/from}}</div>-->
+		<table id="timeline-username">
+		<tbody>
+			<tr>
+				<td>{{#from}}{{displayname}}{{/from}}</td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="timeline-time">
+			<span class="date">{{dateonly}}</span>
+			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+		</div>
+
+		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
+		<!--<div class="social-info">
+			{{#statistics}}
+				<div class="info-widget">
+					<div class="info-widget-icon"><i class="icon-{{icon}}"></i></div>
+					<div class="info-widget-text">{{value}} {{name}}</div>
+				</div>
+			{{/statistics}}
+			{{#canHaveChildren}}
+				<div class="info-widget" {{#children_count}}data-notifications="true"{{/children_count}}>
+					<div class="info-widget-icon"><i class="icon-comment"></i></div>
+					<div class="info-widget-text">{{children_count}} comments</div>
+				</div>
+			{{/canHaveChildren}}
+		</div>-->
+
+	</div>
+
+	<div class="timeline-icon {{^from}}entry-loading{{/from}}">
+		<div class="timeline-avatar">
+			{{#from}}
+				<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
+			{{/from}}
+		</div>
+	</div>	
+
+	<div class="timeline-body">
+
+		<div class="timeline-entry-content">
+			{{#from}}
+				<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></a>
+				<br />
+			{{/from}}
+			
+			{{#subject}}
+				<strong>{{subject}}</strong><br />
+			{{/subject}}
+
+			{{{body.html}}}	
+
+			{{#attached.link}}
+			<br>
+				<div class="attachment-link">
+					<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="icon-link"></i>
+				</div>
+			{{/attached.link}}		
+		</div>
+	
+		<div class="timeline-entry-media">
+
+			{{#attached.image}}
+			<!--<span class="muted">Media:</span>-->
+				<div class="media-clip"><i class="icon-paperclip"></i></div>
+				<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
+			{{/attached.image}}
+			
+			{{#attached.video}}
+				<div class="media-sphere timeline-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+			{{/attached.video}}
+
+			<div class="clearfix"></div>
+		</div>	
+
+		<div class="message-actions">
+			{{#actionstats}}
+				<div class="btn-white" data-action="{{token}}">
+					<i class="icon-{{action.icon}}"></i>
+					{{#action.value}}
+						<span>{{action.value}}</span>
+					{{/action.value}}
+				</div>
+			{{/actionstats}}
+		</div>		
+
+		<div class="clearfix"></div>
+	</div>
+
+</div>

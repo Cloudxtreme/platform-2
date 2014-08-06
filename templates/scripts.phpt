@@ -35,6 +35,7 @@
 <script src="assets/plugins/oembedall/jquery.oembed.js"></script>
 <script src="assets/plugins/d3/d3.v3.min.js"></script>
 <script src="assets/plugins/cal-heatmap-master/cal-heatmap.min.js"></script>
+<script src="assets/plugins/lightbox/js/lightbox.min.js"></script>
 
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
