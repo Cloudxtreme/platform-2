@@ -12,7 +12,7 @@
 			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
 			<br /><em>{{translate_on}} {{networkdescription}}</em>
 		</div>
-		
+		-->
 		{{/from}}
 
 	</div>
