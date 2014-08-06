@@ -3,8 +3,8 @@ Cloudwalkers.Session =
 	'langs' :
 	[
 		{"id": "en_EN", "name": "International English"},
-		{"id": "nl_NL", "name": "Dutch"},
-		{"id": "pt_PT", "name": "Portugese"}
+		{"id": "nl_NL", "name": "Nederlands"},
+		{"id": "pt_PT", "name": "Português"}
 	],
 	
 	'user' : null,

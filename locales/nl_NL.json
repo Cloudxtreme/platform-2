@@ -39,7 +39,7 @@
 		"load_more": "laad meer",
 		"clean": "Verwijder",
 		"log_out": "Afmelden",
-		"company_accounts": "company accounts",
+		"company_accounts": "Company Accounts",
 		"select_all": "selecteer alle",
 		"start_date": "Startdatum",
 		"networks": "Netwerken",
@@ -329,6 +329,7 @@
 		"clearance_level": "Gebruikersrol",
 		"Favorites": "Favorieten",
 		"Retweets": "Retweets",
+		"Likes": "Likes",
 		"something_went_sideways" : "Something went sideways"
 	}
 }
