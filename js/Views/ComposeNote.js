@@ -27,8 +27,14 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
 		if(this.note.get("text"))	params.text = this.note.get("text");
 
+		//Mustache Translate Header
+		this.mustacheTranslateRender(params);
+
 		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
+
+		if(this.note.get("text"))	//we are editing
+			this.$el.find('h3').remove();
 
 		// Inject custom loadercontainer
 		if(!this.$loadercontainer)
@@ -79,6 +85,30 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 	'clean' : function()
 	{
 		this.$el.find('textarea').val('');
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"write_note",
+			"save",
+			"cancel"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });

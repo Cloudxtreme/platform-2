@@ -8,16 +8,21 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 		
 		//Cloudwalkers.Session.user = new Cloudwalkers.Models.Me();
 		this.listenTo(Cloudwalkers.Session.user, 'sync', this.activate);
-		this.listenTo(Cloudwalkers.Session.user, 'activated', this.refresh)
+		this.listenToOnce(Cloudwalkers.Session.user, 'activated', this.refresh)
 	},	
 
 	'render' : function ()
 	{	
 		this.$el.html('<i class="icon-cloud-download"></i>');
 
-		Store.remove('me');
-		
-		Cloudwalkers.Session.user.fetch();
+		if(this.gofetch){
+			if(Cloudwalkers.Session.resynced)
+				return Cloudwalkers.RootView.oops();
+
+			Store.remove('me');
+			
+			Cloudwalkers.Session.user.fetch();
+		}
 
 		return this;
 	},
@@ -29,6 +34,7 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 
 	'refresh' : function()
 	{	
+		Cloudwalkers.Session.resynced = true;
 		Cloudwalkers.Router.Instance.navigate (this.returnto, true);
 	}
 
