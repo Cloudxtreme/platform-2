@@ -4,6 +4,11 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'template': 'messageentry',
 	'notifications' : [],
 	'parameters' : {},
+	'tokenmap' : {
+		'favorite' : 'favourites',
+		'retweet' : 'retweets',
+		'like' : 'likes'
+	},
 	
 	'events' : 
 	{
@@ -39,6 +44,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$.extend(this.parameters, this.model.attributes);
 		
 		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+		
+		if(this.template == 'newmessagetimeline')
+			this.formatactions(this.parameters);
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(this.parameters);
@@ -97,6 +105,31 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.model.trigger("action", token);
 	},
 
+	'formatactions' : function(model)
+	{
+		var actions = model.actions;
+		var stats = model.statistics;
+		var actionstats = [];
+
+		if(!stats)	return;
+
+		$.each(actions, function(n, action){	
+
+			if(action.token == 'comment' && model.canHaveChildren)
+				actionstats.push({token: action.token, action: {icon: 'comment', value: model.children_count}});
+			else
+			{
+				var stat = stats.filter(function(el){ return el.token == this.tokenmap[action.token] }.bind(this));
+
+				actionstats.push(stat.length? {token: action.token, action: stat[0]}: {token: action.token, action:action});
+			}
+			
+
+		}.bind(this));
+		
+		model.actionstats = actionstats;
+	},
+
 	'editnote' : function()
 	{	
 		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
@@ -112,6 +145,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
 	},
+
 	'showtagedit' : function()
 	{	
 		this.$el.find('.message-tags').toggleClass("enabled");
@@ -283,7 +317,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Notes list
 	'fillnotes' : function(notes)
 	{	
-		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
+		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 		else				this.$el.find('.note-list').empty();
 
 		for(n in notes)
