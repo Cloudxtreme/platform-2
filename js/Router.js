@@ -251,6 +251,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'managekeywords' : function ()
 	{
+		if (!Cloudwalkers.Session.isAuthorized('CHANNEL_MANAGE_EDIT_MONITORING')) return this.checkauth("#keywords");
+
 		var view = new Cloudwalkers.Views.ManageKeywords ();
 		Cloudwalkers.RootView.setView (view);
 	},
