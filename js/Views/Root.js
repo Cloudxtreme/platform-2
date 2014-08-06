@@ -37,8 +37,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		if(!this.view) return null;
 		
 		// Do some rendering
-		if(this.view.render ())
-			$('#inner-content').html (this.view.render ().el);
+		$('#inner-content').html (this.view.render ().el);
 		
 		// Tell your view
 		this.view.$el.trigger("rendered");
