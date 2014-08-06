@@ -27,8 +27,8 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 		//var level = Number(this.model.get("level"));
 		//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
 
-		var role = this.role;
-		var roles = this.roles;
+		var role = this.model.get('rolegroup')
+		var roles = Cloudwalkers.Session.getAccount().get('roles');
 		
 		//levels[(level)? 1:0].checked = true;
 
