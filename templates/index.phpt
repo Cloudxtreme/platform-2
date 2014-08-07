@@ -46,6 +46,7 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/statistics.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/keywords.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/tags.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/rss.css" rel="stylesheet" type="text/css" />
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 

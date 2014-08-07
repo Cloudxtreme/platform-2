@@ -100,6 +100,7 @@
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 <script type="text/javascript" src="/js/Views/Firsttime.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkdashboard.js"></script>
+<script type="text/javascript" src="/js/Views/RSSFeed.js"></script>
 
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>

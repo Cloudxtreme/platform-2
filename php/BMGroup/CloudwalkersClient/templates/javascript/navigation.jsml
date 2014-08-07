@@ -210,6 +210,13 @@
 					</a>
 				</li>
 
+				<li>
+					<a href="#timeline/rss">
+						<i class="icon-rss"></i> 
+						<span class="title">{{translate_rss_feed}}</span>
+					</a>
+				</li>
+
 				<li class="trending">
 					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
@@ -221,6 +228,13 @@
 					<a href="#monitoring/accounts">
 						<i class="icon-plus"></i> 
 						<span class="title">{{translate_manage_accounts}}</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="#monitoring/managerss">
+						<i class="icon-plus"></i> 
+						<span class="title">{{translate_manage_rss}}</span>
 					</a>
 				</li>
 			</ul>
