@@ -65,7 +65,7 @@
 
 		 	{{#canHaveChildren}}
 			 	<span {{#children_count}}data-notifications="true"{{/children_count}}>
-			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
+			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} {{translate_comments}}</span>
 			 	</span>
 			 {{/canHaveChildren}}
 			 

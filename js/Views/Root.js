@@ -227,6 +227,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				'description' : 'Confirm your action'
 			}
 		];
+
+		// Mustache Translate
 		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
@@ -251,6 +253,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		var data = {};
 
 		data.message = message;
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -293,6 +298,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		data.message = message;
 		data.options = options;
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uidialog, data);
 

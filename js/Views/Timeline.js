@@ -113,7 +113,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.original  = [
 			"loading",
 			"view_more",
-			"no_messages"
+			"no_messages",
+			"comments"
 		];
 
 		this.translated = [];

@@ -55,6 +55,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		for(n in this.parameters.statistics)
 			this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
 		
+		this.mustacheTranslateRender(this.parameters);
+
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -474,6 +476,22 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{	
 		// Translate String
 		return Cloudwalkers.Session.polyglot.t(translatedata);
-	}
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"comments"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
 
 });
