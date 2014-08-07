@@ -103,13 +103,28 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 	
 	'uploadfile' : function(){
 		
-		if (!this.base64data)
-			Cloudwalkers.RootView.information (this.translateString("no_image"), this.translateString("select_an_image_file_first"), this.$el.find(".settings-profile .portlet-body"));
+		this.$el.find('.edit-user-avatar').addClass('loading');
 
-		else Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
+		if (!this.base64data){
+
+			Cloudwalkers.RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
+
+			this.$el.find('.edit-user-avatar').removeClass('loading');
+		
+		} else {
+			Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 			{
+			
 				Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
-			}});
+			
+				this.$el.find('.edit-user-avatar').removeClass('loading');
+
+				setTimeout(function(){
+  					window.location.reload();
+  				},1000);
+			
+			}.bind(this)});
+		}
 	},
 
 	
@@ -141,6 +156,8 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var oldpassword = this.$el.find ('[name=pass0]').val();
 		var newpassword = this.$el.find ('[name=pass1]').val();
+
+		this.$el.find('.edit-user-password').addClass('loading');
 		
 		if (newpassword != this.$el.find ('[name=pass2]').val())
 		{
@@ -153,11 +170,25 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 		{
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
-		
-		}, error: function(model, response, options)
-		{	var response = response.responseJSON.error.message;
-			Cloudwalkers.RootView.growl('Oops', response);
-		}});
+			
+			this.$el.find('.edit-user-password').removeClass('loading');
+			this.$el.find ('[name=pass0]').val('');
+			this.$el.find ('[name=pass1]').val('');
+			this.$el.find ('[name=pass2]').val('');
+			this.$el.find ('[name=pass2]').blur(); 
+
+			// Hack
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+
+		}.bind(this), 
+		error: function(model, response, options){
+			var response = response.responseJSON.error.message;
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), error);
+
+			// Hack
+			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+		}.bind(this)});
+
 	},
 	
 	/* on it's way to be deprecated */
