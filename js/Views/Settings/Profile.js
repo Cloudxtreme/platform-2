@@ -105,7 +105,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 
 		if (!this.base64data){
 
-			Cloudwalkers.RootView.information (this.translateString("no_image"), this.translateString("select_an_image_file_first"), this.$el.find(".settings-profile .portlet-body"));
+			Cloudwalkers.RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
 
 			this.$el.find('.edit-user-avatar').removeClass('loading');
 		
