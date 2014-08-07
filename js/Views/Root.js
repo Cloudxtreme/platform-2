@@ -227,6 +227,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				'description' : 'Confirm your action'
 			}
 		];
+
+		// Mustache Translate
 		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
@@ -251,6 +253,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		var data = {};
 
 		data.message = message;
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -294,6 +299,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		data.message = message;
 		data.options = options;
 
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
+
 		var tmpl = Mustache.render (Templates.uidialog, data);
 
 		var element = $(tmpl);
@@ -317,6 +325,24 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
+	},
+
+	'resync' : function(view)
+	{	
+		var returnto = view;
+
+		setTimeout(function(){
+			Cloudwalkers.Router.Instance.navigate('#resync');
+
+			var view = new Cloudwalkers.Views.Resync({returnto: returnto});
+			this.setView(view);
+
+		}.bind(this));		
+	},
+
+	'oops' : function(){
+		Cloudwalkers.Router.Instance.navigate('#dashboard', true);
+		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
 	},
 
 	'translateString' : function(translatedata)

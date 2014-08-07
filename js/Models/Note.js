@@ -18,9 +18,28 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			response.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
 			response.dateonly = moment(response.date).format("DD MMM YYYY");
 			response.time = moment(response.date).format("HH:mm");
+
+			response.type_icon = this.type_settings[response.model.objectType].icon;
+
+			// Hack!
+			if(response.model) response.objectType = "note";
 		}
 
 		return response;
+	},
+	
+	'attachParent' : function (type, id)
+	{
+		var type = this.type_settings[type].model;
+		var object = Cloudwalkers.Session["get" + type](id);
+
+		if(!object)
+		{
+			object = new Cloudwalkers.Models[type]({id: id});
+			object.fetch();
+		}
+		
+		return object;
 	},
 
 	'url' : function()
