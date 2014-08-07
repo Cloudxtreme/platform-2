@@ -321,9 +321,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'resync' : function(view)
 	{	
+		var returnto = view;
+
 		setTimeout(function(){
 			Cloudwalkers.Router.Instance.navigate('#resync');
-			this.setView (new Cloudwalkers.Views.Resync({returnto: view, gofetch: true}));
+
+			var view = new Cloudwalkers.Views.Resync({returnto: returnto});
+			this.setView(view);
+
 		}.bind(this));		
 	},
 

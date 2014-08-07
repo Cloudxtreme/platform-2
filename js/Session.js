@@ -8,7 +8,10 @@ Cloudwalkers.Session =
 	],
 	
 	'user' : null,
-	'resynced' : false,
+
+	'version' : "1.0.0.0",
+	'localversion' : null,
+
 	/*'settings' : {
 		'currentAccount' : null,
 		'viewMode' : null
@@ -22,6 +25,7 @@ Cloudwalkers.Session =
 	'loadEssentialData' : function (callback)
 	{
 		this.user = new Cloudwalkers.Models.Me();
+		this.getversion();
 
 		/* getLang and then callback */
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
@@ -178,6 +182,24 @@ Cloudwalkers.Session =
 				Store.write("messages", list);
 			});
 
+	},
+
+	/**
+	 *	Version
+	**/
+
+	'getversion' : function()
+	{	
+		Store.get("version", null, function(version)
+		{	
+			if(version)	this.localversion = version.version;	//Really need to validate this as a valid version, or we will get loops		
+		}.bind(this));
+	},
+	
+	// Simple check, full check is in resync.js
+	'isupdated' : function()
+	{	
+		return this.localversion? this.localversion == this.version: false;
 	},
 
 	/**

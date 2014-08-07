@@ -69,7 +69,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	},
 	
 	'activate' : function (data)
-	{
+	{	
 		// Prevent dislodged user access
 		if(!this.get("accounts").length)
 			return Cloudwalkers.RootView.exception(401);
