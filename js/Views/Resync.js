@@ -13,8 +13,8 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 
 	'render' : function ()
 	{	
-		this.$el.html('<i class="icon-cloud-download"></i>');
-
+		this.$el.html(Mustache.render(Templates.loading));
+	
 		this.versioncheck();
 
 		return this;

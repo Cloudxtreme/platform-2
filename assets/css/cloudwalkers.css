@@ -206,6 +206,10 @@ width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
 	-webkit-animation-iteration-count: infinite;
 }
 
+.container-loading span{
+	font-size: 16px;
+}
+
 
 /* SIDEBAR */
 nav	{
@@ -2185,6 +2189,35 @@ Dashboard stats
 	font-size: 12px;
 	line-height: 10px;
 }
+
+/* loading states */
+/* Unused loading UI
+.resync{
+	width: 400px;
+	text-align: center;
+	margin: 10% auto;
+	font-size: 14px;
+	color: #2bbedc;
+}
+
+.loading-bubble{
+	background-color: #2bbedc;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	color: #fff;
+	font-size: 2.5em;
+	-webkit-font-smoothing: antialiased;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+	margin: 30% auto 20px;
+	padding-top: 18px;
+	padding-left: 1px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}*/
 
 .loading .loadingafter:after{
 	position: relative;
