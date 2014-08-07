@@ -13,7 +13,7 @@
 		"message_board": "Berichten beheer",
 		"compose_message": "Nieuw bericht",
 		"drafts": "Drafts",
-		"scheduled": "Geplande",
+		"scheduled": "Geplande berichten",
 		"messages": "Berichten",
 		"notifications": "Notificaties",
 		"post_message": "Nieuw bericht",
@@ -330,6 +330,8 @@
 		"Favorites": "Favorieten",
 		"Retweets": "Retweets",
 		"Likes": "Likes",
-		"something_went_sideways" : "Something went sideways"
+		"Unlike": "Unlike",
+		"something_went_sideways" : "Something went sideways",
+		"comments": "Reacties"
 	}
 }
