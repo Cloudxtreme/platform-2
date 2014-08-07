@@ -265,13 +265,15 @@
 					</li>
 					{{/channels.models.length}}
 				{{/channels}}
-
+				
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 				<li>
 					<a href="#keywords">
 						<i class="icon-plus"></i> 
 						<span class="title">{{translate_manage_keywords}}</span>
 					</a>
 				</li>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_MONITORING}}

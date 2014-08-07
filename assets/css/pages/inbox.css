@@ -167,6 +167,26 @@
 	text-decoration: none; background: #333;
 }
 
+/* Notes Variation */
+.inbox-notes #inboxlist .list li.active,
+.inbox-notes #inboxlist .list li.active:hover,
+.inbox-notes #inboxlist .list li.active strong,
+.inbox-notes #inboxlist .list li.active .date,
+.inbox-notes #inboxlist .list li.active	{
+	background: #f1f08e !important;
+	color: inherit;
+}
+
+.inbox-notes #inboxlist .note-icon	{
+	float: left; padding: 1px 6px; background-color: #6c5f5c; border-radius: 50%; box-shadow: 0 0 0 2px #fff;
+	color: white; line-height: 26px;
+}
+
+.inbox-notes #inboxlist .note-subject	{
+	margin-left: 40px; min-height: 20px; border-bottom: 1px dotted white;
+	color: #6c5f5c; font-weight: 500;
+}
+
 
 /* Inbox Container */
 #inbox main	{
@@ -287,4 +307,50 @@
 #inbox main .related-messages img.avatar {
 	margin-top: -2px; width: 24px; height: 24px; border: 0;  background-color: #ddd; border-radius: 50% !important; 
 }
+
+/* Inbox Note */
+
+.inbox-container .note	{
+	background: #efefd5; box-shadow: 0 0 3px #d6d6d6;
+}
+
+.inbox-container .note .scroller	{ padding-right: 0 !important; }
+
+.inbox-container .note-header	{
+	padding: 8px 20px; background-color: #6c5f5c;
+	color: white;
+}
+
+.inbox-container .note-icon	{
+	padding: 2px 6px; color: white; border-radius: 50%; border: 2px solid white;
+}
+
+.inbox-container .note-header .inherit	{ padding: 10px; font-weight: 300; }
+
+.inbox-container .note-header img.avatar {
+	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
+}
+
+.inbox-container .note-header a {
+	color: inherit; font-weight: bold;
+}
+
+.inbox-container .note-header .date {
+	display: block; font-size: 12px;
+}
+
+.inbox-container .note-header i {
+	opacity: .5; font-size: 21px; float: right; 
+}
+
+.inbox-container .note-body	{
+	padding: 12px 18px; min-height: 20px;
+}
+
+.note-body .note-contact,
+.note-body .note-message,
+.note-body .note-notification	{
+	background: white; box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
 

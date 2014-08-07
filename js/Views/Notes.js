@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	
 	'title' : 'Notes',
-	'className' : "container-fluid inbox",
+	'className' : "container-fluid inbox inbox-notes",
 			
 	'initialize' : function(options)
 	{
@@ -26,7 +26,7 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		}
 
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.InboxMessageList(params);
+		var list = new Cloudwalkers.Views.Widgets.InboxNotesList(params);
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);

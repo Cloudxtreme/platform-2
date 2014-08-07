@@ -331,6 +331,10 @@
 		"Retweets": "Retweets",
 		"rss": "RSS",
 		"rss_feed": "RSS Feed",
-		"manage_rss": "Gerir RSS"
+		"manage_rss": "Gerir RSS",
+		"Likes": "Likes",
+		"Unlike": "Unlike",
+		"something_went_sideways" : "Algo não correu bem",
+		"comments": "Comentários"
 	}
 }
