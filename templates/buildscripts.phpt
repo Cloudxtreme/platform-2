@@ -130,6 +130,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
