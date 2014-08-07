@@ -330,6 +330,8 @@
 		"Favorites": "Favoritos",
 		"Retweets": "Retweets",
 		"Likes": "Likes",
-		"something_went_sideways" : "Algo não correu bem"
+		"Unlike": "Unlike",
+		"something_went_sideways" : "Algo não correu bem",
+		"comments": "Comentários"
 	}
 }

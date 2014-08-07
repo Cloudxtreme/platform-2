@@ -59,6 +59,9 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		data.translate_keywords = this.translateString("keywords");
 		data.translate_manage_keywords = this.translateString("manage_keywords");
 
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
 		
 		if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");

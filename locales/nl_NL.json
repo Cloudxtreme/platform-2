@@ -13,7 +13,7 @@
 		"message_board": "Berichten beheer",
 		"compose_message": "Nieuw bericht",
 		"drafts": "Drafts",
-		"scheduled": "Geplande",
+		"scheduled": "Geplande berichten",
 		"messages": "Berichten",
 		"notifications": "Notificaties",
 		"post_message": "Verstuur bericht",
@@ -38,8 +38,8 @@
 		"draft_messages": "Draft berichten",
 		"load_more": "laad meer",
 		"clean": "Verwijder",
-		"log_out": "Log Out",
-		"company_accounts": "company accounts",
+		"log_out": "Afmelden",
+		"company_accounts": "Company Accounts",
 		"select_all": "selecteer alle",
 		"start_date": "Startdatum",
 		"networks": "Netwerken",
@@ -329,6 +329,9 @@
 		"clearance_level": "Gebruikersrol",
 		"Favorites": "Favorieten",
 		"Retweets": "Retweets",
-		"something_went_sideways" : "Something went sideways"
+		"Likes": "Likes",
+		"Unlike": "Unlike",
+		"something_went_sideways" : "Something went sideways",
+		"comments": "Reacties"
 	}
 }

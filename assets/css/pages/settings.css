@@ -526,3 +526,26 @@ table.inner-service .white-box input[type=text] {
   margin-top:2px !important;
 }
 
+.edit-user-avatar{
+  text-align: center;
+}
+.edit-user-avatar .loadingafter{
+  margin-top: 40%;
+  display: block;
+  padding: 10px;
+  width: 40px;
+  margin: 40% auto;
+  opacity: 0.7;
+}
+.edit-user-avatar .loadingafter:after{
+  color: #2bbedc;
+  font-size: 40px;
+  top: -10px;
+  left: -10px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: block;
+  padding: 10px;
+  width: 42px;
+}
+

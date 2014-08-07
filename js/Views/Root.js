@@ -227,6 +227,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 				'description' : 'Confirm your action'
 			}
 		];
+
+		// Mustache Translate
 		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
@@ -251,6 +253,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		var data = {};
 
 		data.message = message;
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -294,6 +299,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		data.message = message;
 		data.options = options;
 
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
+
 		var tmpl = Mustache.render (Templates.uidialog, data);
 
 		var element = $(tmpl);
@@ -321,9 +329,14 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 	'resync' : function(view)
 	{	
+		var returnto = view;
+
 		setTimeout(function(){
 			Cloudwalkers.Router.Instance.navigate('#resync');
-			this.setView (new Cloudwalkers.Views.Resync({returnto: view, gofetch: true}));
+
+			var view = new Cloudwalkers.Views.Resync({returnto: returnto});
+			this.setView(view);
+
 		}.bind(this));		
 	},
 

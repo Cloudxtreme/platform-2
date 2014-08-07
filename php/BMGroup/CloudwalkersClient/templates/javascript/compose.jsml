@@ -260,7 +260,9 @@
 		{{/actionview}}
 		{{^actionview}}
 
-		<button id="save" class="btn">{{translate_save}}</button>
+		{{#authorized.MESSAGE_READ_DRAFTS}}
+			<button id="save" class="btn">{{translate_save}}</button>
+		{{/authorized.MESSAGE_READ_DRAFTS}}
 
 		<button id="previewbtn" class="btn" disabled>{{translate_preview}}</button>
 		<button id="post" class="btn btn-primary">{{translate_post}}</button>

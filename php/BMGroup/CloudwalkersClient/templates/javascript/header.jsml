@@ -40,7 +40,7 @@
 			<li class="dropdown user">
 				
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<img src="{{user.avatar}}" class="avatar" alt="{{user.displayname}}" /> 
+					<img id="user_avatar" src="{{user.avatar}}" class="avatar" alt="{{user.displayname}}" /> 
 					<span class="username">{{user.firstname}} {{user.name}}</span>
 					<i class="icon-angle-down"></i>
 				</a>

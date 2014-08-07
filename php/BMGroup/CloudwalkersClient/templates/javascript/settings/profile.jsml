@@ -9,9 +9,11 @@
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="portlet-body edit-user-avatar">
 					
-					<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
+					<div id="user_avatar_big" class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})">
+						<span class="loadingafter"></span>
+					</div>
 					<input type="file" />
 					
 					{{#authorized.ACCOUNT_SETTINGS}}
@@ -52,6 +54,7 @@
 						<div class="submit-btn">
 							<button type="submit" class="btn green">{{translate_change_password}}</button>
 							<a href="#" class="btn">{{translate_cancel}}</a>
+							<span class="loadingafter"></span>
 						</div>
 					</form>
 				</div>
