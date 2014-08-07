@@ -328,6 +328,9 @@
 		"to_your_cloudwalkers_account_select_them_below": "à sua conta Cloudwalkers, seleccione-as abaixo",
 		"clearance_level": "Permissões de utilizador",
 		"Favorites": "Favoritos",
-		"Retweets": "Retweets"
+		"Retweets": "Retweets",
+		"rss": "RSS",
+		"rss_feed": "RSS Feed",
+		"manage_rss": "Gerir RSS"
 	}
 }

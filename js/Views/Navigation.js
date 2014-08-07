@@ -291,7 +291,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			"account_settings",
 			"profile_settings",
 			"manage_user_groups",
-			"notes"
+			"notes",
+			"rss_feed",
+			"manage_rss"
 		];
 
 		this.translated = [];
