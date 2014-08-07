@@ -55,7 +55,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// A new object
 		if (typeof response == "number") return response = {id: response};
 		
-		
 		else {
 		
 			// Is it a child message?

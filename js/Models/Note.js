@@ -25,14 +25,26 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			response.time = moment(response.date).format("HH:mm");
 
 			response.type_icon = this.type_settings[response.model.objectType].icon;
-			
-			//var cobj = Cloudwalkers.Session.user.account[this.type_settings[response.model.objectType].typestring].get (id);
-			//Cloudwalkers.Session["get" + this.type_settings[response.model.objectType].model](response.model.id)
-			//response.model = cobj? cobj: new Cloudwalkers.Models[this.type_settings[response.model.objectType].model]({id: response.model.id});
-			//if(!response.model)
+
+			// Hack!
+			if(response.model) response.objectType = "note";
 		}
 
 		return response;
+	},
+	
+	'attachParent' : function (type, id)
+	{
+		var type = this.type_settings[type].model;
+		var object = Cloudwalkers.Session["get" + type](id);
+
+		if(!object)
+		{
+			object = new Cloudwalkers.Models[type]({id: id});
+			object.fetch();
+		}
+		
+		return object;
 	},
 
 	'url' : function()
