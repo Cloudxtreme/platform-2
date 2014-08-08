@@ -336,7 +336,7 @@
 
 .inbox-container .note-header .inherit	{ padding: 10px; font-weight: 300; }
 
-.inbox-container .note-header img.avatar {
+.inbox-container .note .note-header img.avatar {
 	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
 }
 
