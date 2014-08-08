@@ -80,7 +80,26 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.loadnoteui();
 		}	
 
+		this.loadsentiment();
+
 		return this;
+	},
+
+	'loadsentiment' : function()
+	{
+		var stats = this.parameters.stats;
+		var sentiment;
+
+		if(!stats)	return;
+		else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
+
+		if(sentiment){
+			sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
+			var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
+
+			this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
+		}
+			
 	},
 	
 	'action' : function (element)

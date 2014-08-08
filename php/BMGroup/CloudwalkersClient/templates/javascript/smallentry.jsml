@@ -14,7 +14,7 @@
 			{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
 			<div class="dot {{networktoken}}-color"></div>
 			<div class="media"><i class="icon-{{networktoken}}"></i></div>
-			<div class="sentiment"><i class="icon-smile"></i></div>
+			<div class="sentiment-wrap"></div>
 			{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
 		{{/inboxview}}
 
