@@ -6,6 +6,7 @@ Cloudwalkers.Views.RSSFeed = Cloudwalkers.Views.Pageview.extend({
 
 	'events' : 
 	{
+		'click .message' : 'openMessage'
 	},
 	
 	'initialize' : function (options)
@@ -36,6 +37,11 @@ Cloudwalkers.Views.RSSFeed = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.rssfeed, params));
 
 		return this;
+	},
+
+	'openMessage': function(el)
+	{
+		$(el).addClass('oppened');
 	},
 
 	'translateString' : function(translatedata)

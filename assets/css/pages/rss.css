@@ -1,16 +1,22 @@
 /***
 RSS Styles
 ***/
+
+ .rssfeed-container .span6{
+ 	
+ }
+
+/* small */
 .rssfeed-container .message{
-	box-shadow: 0 1px 1px rgba(0,0,0,.2);
+	box-shadow: 0 1px 1px rgba(0,0,0,.1);
 	border-radius: 3px;
 	padding: 15px;
-	margin: 20px 0;
-	background-color: #F7F7F7;
+	margin: 5px 0;
+	background-color: rgba(247, 247, 247, 0.5);
 }
 .rssfeed-container .message .image{
 	width: 202px;
-	height: 130px;
+	height: 90px;
 	overflow: hidden;
 	border: 1px solid #DFDFDF;
 	border-radius: 3px;
@@ -19,6 +25,7 @@ RSS Styles
 	background-position: 50% 20%;
 	float: left;
 	margin-right: 20px;
+	opacity: 0.7;
 }
 .rssfeed-container .message .title{
 	font-size: 24px;
@@ -26,7 +33,41 @@ RSS Styles
 	color: #666;
 	font-weight: 300;
 }
+.rssfeed-container .message .text{
+	height: 70px;
+	overflow: hidden;
+	font-size: 11px;
+}
 .rssfeed-container .message .date{
+	font-style: italic;
+	color: #666;
+	padding-top: 5px;
+	display: block;
+}
+
+/* big */
+.rssfeed-container .message.openned{
+	box-shadow: 0 1px 1px rgba(0,0,0,.2);
+	margin: 20px 0;
+	background-color: #F7F7F7;
+}
+.rssfeed-container .message.openned .image{
+	width: 202px;
+	height: 130px;
+	opacity: 1;
+}
+.rssfeed-container .message.openned .title{
+	font-size: 24px;
+	padding-bottom: 10px;
+	color: #666;
+	font-weight: 300;
+}
+.rssfeed-container .message.openned .text{
+	height: 110px;
+	overflow: hidden;
+	font-size: inherit;
+}
+.rssfeed-container .message.openned .date{
 	font-style: italic;
 	color: #666;
 	padding-top: 5px;
