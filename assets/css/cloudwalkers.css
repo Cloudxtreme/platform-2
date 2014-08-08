@@ -1136,8 +1136,8 @@ tbody.messages-container i	{
 #filter_contacts .contacts-suggestions i, #filter_tags .tags-suggestions i{ opacity: .4; }
 
 #inboxlist .list li, #inboxlist .list-loading	{
-	min-height: 66px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
-	font-weight: 300;
+	min-height: 66px; margin: 0; padding: 8px 35px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
+	font-weight: 300; position: relative;
 }
 
 #inboxlist .list > li:nth-child(odd),
@@ -1235,8 +1235,9 @@ tbody.messages-container i	{
 /* Sentiment */
 .sentiment{
 	position: absolute;
-	bottom: 0px;
-	right: 0px;
+	bottom: -1px;
+	right: -4px;
+	font-size: 25px;
 }
 
 /* Demo loading */
