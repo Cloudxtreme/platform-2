@@ -36,6 +36,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
+		this.listenTo(this.collection, 'ready', this.afterrender);
 		
 		return this;
 	},
@@ -60,10 +61,13 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			
 			this.$container.append(view.render().el);
 		}
-		
+	},
+
+	'afterrender' : function()
+	{
 		// Toggle first message
 		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
-		else 					this.hidemore();
+		else this.hidemore();
 	},
 	
 	'toggle' : function(view)

@@ -12,25 +12,7 @@
 <div class="note-body">
 	
 	{{#contact}}
-	<div class="note-contact">
-		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
-		<span>{{displayname}}</span>
-		
-		<!--{{#from}}
-		<div class="pull-right">
-			<span class="date">{{fulldate}}</span>
-			<i class="icon-{{icon}}"></i>
-		</div>
-
-		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
-
-		<div>
-			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
-			<br /><em>{{translate_on}} {{networkdescription}}</em>
-		</div>
-		
-		{{/from}}-->
-	</div>
+	{{text}}
 	{{/contact}}
 	
 	{{#message}}
