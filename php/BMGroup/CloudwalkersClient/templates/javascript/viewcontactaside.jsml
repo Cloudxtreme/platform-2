@@ -11,8 +11,7 @@
 				<span><i class="icon-chevron-right"></i></span>				
 			</a>
 		</div>
-		<div class="contactavatar">
-			<img class="avatar" src="{{avatar}}">
+		<div class="contactavatar" style="background-image: url({{avatar}})">
 		</div>
 		
 	</div>	
