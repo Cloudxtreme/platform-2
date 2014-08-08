@@ -6,7 +6,7 @@
 			<i class="icon-{{icon}}"></i>
 		</div>
 		
-		<img class="avatar" alt="" src="{{avatar}}">
+		<div class="avatar" alt="" style="background-image:url({{avatar}})"></div>
 		<a href="{{url}}" target="_blank">{{displayname}}</a>
 		<br /><em>{{translate_on}} {{networkdescription}}</em>
 		
