@@ -173,7 +173,7 @@
 .inbox-notes #inboxlist .list li.active strong,
 .inbox-notes #inboxlist .list li.active .date,
 .inbox-notes #inboxlist .list li.active	{
-	background: #f1f08e !important;
+	background: #F2F0A0 !important;
 	color: inherit;
 }
 
