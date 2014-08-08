@@ -173,7 +173,7 @@
 .inbox-notes #inboxlist .list li.active strong,
 .inbox-notes #inboxlist .list li.active .date,
 .inbox-notes #inboxlist .list li.active	{
-	background: #f1f08e !important;
+	background: #F2F0A0 !important;
 	color: inherit;
 }
 
@@ -384,10 +384,59 @@
 	padding: 12px 18px; min-height: 20px;
 }
 
-.note-body .note-contact,
-.note-body .note-message,
-.note-body .note-notification	{
+.inbox-container .single-contact{
 	background: white; box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	padding: 15px; position: relative; border-right: 5px solid;
 }
 
+.inbox-container .single-contact .avatar{
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	background-color: #ddd;
+	border-radius: 50% !important;
+	float: left;
+}
 
+/*.inbox-container .single-contact .network-icon{
+	width: 100px; 
+	background-color: rgba(0,0,0,.12); 
+	position: absolute; 
+	height: 100%; 
+	top: 0px; right: 0px;
+	padding-top: 20px;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+*/
+.inbox-container .single-contact i{
+	font-size: 130px;
+	position: absolute;
+	top: 0px;
+	opacity: .05;
+	right: 20px;
+}
+
+.inbox-container .single-contact .name{
+	font-size: 16px;
+	color: #005580;
+	margin-top: 30px;
+	margin-left: 20px;
+	float: left;
+}
+
+.inbox-container .single-contact .muted{
+	font-size: 12px;
+}
+
+.single-contact.facebook-color{	border-color: #3b5998 }
+.single-contact.youtube-color{		border-color: #CC181E }
+.single-contact.twitter-color{ 	border-color: #01a9da }
+.single-contact.linkedin-color{	border-color: #1783BC }
+.single-contact.tumblr-color{ 		border-color: #385775 }
+.single-contact.google-plus-color{ border-color: #DD4C39 }
+.single-contact.web-color{ 		border-color: #ff9c00 }
+.single-contact.blog-color{		border-color: #ff9c00 }
+.single-contact.briefcase-color{ 	border-color: #4a4a4a }
