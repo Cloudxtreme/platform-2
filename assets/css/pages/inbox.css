@@ -184,7 +184,16 @@
 
 .inbox-notes #inboxlist .note-subject	{
 	margin-left: 40px; min-height: 20px; border-bottom: 1px dotted white;
-	color: #6c5f5c; font-weight: 500;
+	color: #6c5f5c; font-weight: bold;
+}
+
+.inbox-notes #inboxlist .list li.active .content,
+.inbox-notes #inboxlist .list li.active .date{
+	color: #5b514e;
+}
+
+.inbox-notes #inboxlist .list li .content{
+	padding-top: 15px;
 }
 
 
