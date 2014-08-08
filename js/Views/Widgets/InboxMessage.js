@@ -46,7 +46,7 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(params);
-		console.log(params)
+		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		

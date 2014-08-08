@@ -116,7 +116,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			contextrender  = wrapper.append(contextrender)
 		}
 
-		console.log(context)
+		
 
 		//append the context
 		$('.inbox-container').prepend(contextrender);

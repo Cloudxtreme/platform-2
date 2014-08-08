@@ -3,10 +3,10 @@
 		<span class="date">{{fulldate}}</span>
 	</div>
 	
-	<span class="note-icon">
-		<span class="icon-{{type_icon}}"></span>	
-	</span>
-
+	{{#user}}
+	<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<span>{{displayname}}</span>
+	{{/user}}
 </div>
 
 <div class="note-body">
@@ -34,10 +34,7 @@
 	{{/contact}}
 	
 	{{#message}}
-	<div class="note-message">
-		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
-		<span>{{displayname}}</span>
-	</div>
+	{{text}}
 	{{/message}}
 	
 	{{#notification}}
