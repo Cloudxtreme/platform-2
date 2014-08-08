@@ -1232,6 +1232,13 @@ tbody.messages-container i	{
 	text-decoration: none; background: #333;
 }
 
+/* Sentiment */
+.sentiment{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+
 /* Demo loading */
 /* Is this all "deprecated"? */
 .list-loading, .header-loading{
