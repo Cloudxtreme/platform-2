@@ -76,6 +76,9 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		
 		$(".inbox-container").html(this.inboxnote.render().el);
 		
+		//render the context
+		this.rendercontext();
+
 		// Load related messages
 		this.inboxnote.showrelated();
 		
@@ -98,6 +101,26 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			button.addClass("selected");
 			this.$el.find("#filter_" + toggle).removeClass("hidden");
 		}
+	},
+
+	'rendercontext' : function()
+	{
+		var context = this.inboxnote.getcontext();
+		var contextrender;
+	
+		//Mustache render the context
+		if(context.objectType == 'message'){
+			var wrapper = $('<div class="message social-box-colors"></div>')
+			context.display = true;
+			contextrender = Mustache.render(Templates.inboxmessage, context);
+			contextrender  = wrapper.append(contextrender)
+		}
+
+		console.log(context)
+
+		//append the context
+		$('.inbox-container').prepend(contextrender);
+
 	},
 	
 	'comparesuggestions' : function (iscontact)
