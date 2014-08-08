@@ -325,7 +325,7 @@
 
 .inbox-container .note .scroller	{ padding-right: 0 !important; }
 
-.inbox-container .note-header	{
+.inbox-container .note .note-header	{
 	padding: 8px 20px; background-color: #6c5f5c;
 	color: white;
 }
@@ -349,7 +349,7 @@
 }
 
 .inbox-container .note-header i {
-	opacity: .5; font-size: 21px; float: right; 
+	/*opacity: .5; font-size: 21px; float: right; */
 }
 
 .inbox-container .note-body	{

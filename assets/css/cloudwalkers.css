@@ -559,6 +559,12 @@ tbody.messages-container i	{
 	cursor: pointer;
 }
 
+.message-notes ul.note-list li .note-header .message-actions,
+.message-notes ul.note-list li .note-header .comment-info{
+	clear: right;
+}
+
+
 .message-notes ul.note-list li .note-header:after{
 	position: absolute; 
 	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
@@ -1478,9 +1484,12 @@ counter	{
 	position: relative; width: 12px; height: 12px; top: 6px; left: 20px; background: #d9edf7; -webkit-transform: rotate(45deg);
 }
 
-.inbox-container .message-comments ul,
-.inbox-container .message-notes ul li	{
+.inbox-container .message-comments ul{
 	margin-left: 0; background: #d9edf7;
+}
+
+.inbox-container .message-notes ul li{
+	margin-left: 0; background: #F2F0A0;
 }
 
 .inbox-container .message-notes ul li:last-child{
@@ -1496,8 +1505,9 @@ counter	{
 .inbox-container .message-comments li,
 .inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even),
-.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+
+.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
 
 .inbox-container .message-comments li.active,
 .inbox-container .message-notes li.active	{
