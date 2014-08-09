@@ -86,7 +86,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'loadsentiment' : function()
-	{
+	{	
 		var stats = this.parameters.stats;
 		var sentiment;
 

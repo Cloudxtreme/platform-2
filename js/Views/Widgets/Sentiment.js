@@ -1,8 +1,8 @@
 Cloudwalkers.Views.Widgets.Sentiment = Backbone.View.extend({
 	
 	'events' : {
-		'mouseover' : 'toggleedit',
-		'mouseout' : 'toggleedit',
+		'mouseover .sentiment.main' : 'toggleedit',
+		'mouseout .sentiment.main' : 'toggleedit',
 		'click .notification-action' : 'edit',
 		'click .sentiment-edit .sentiment' : 'update'
 	},
