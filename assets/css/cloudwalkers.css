@@ -26,7 +26,7 @@ Style corrections and manual overrides
 
 /* White Button */
 .btn-white	{
-	padding: 4px 10px; max-width: 100%;  border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
+	padding: 4px 10px; max-width: 100%;  border: 1px solid rgba(0,0,0,0.15); box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
 	color: #4a4a4a; white-space: nowrap; text-overflow: ellipsis;
 }
 .btn-white:hover	{ color: black; }
@@ -558,6 +558,12 @@ tbody.messages-container i	{
 .message-notes ul.note-list li .note-header{
 	cursor: pointer;
 }
+
+.message-notes ul.note-list li .note-header .message-actions,
+.message-notes ul.note-list li .note-header .comment-info{
+	clear: right;
+}
+
 
 .message-notes ul.note-list li .note-header:after{
 	position: absolute; 
@@ -1418,8 +1424,15 @@ counter	{
 
 .inbox-container .message-header .inherit	{ padding: 10px; font-weight: 300; }
 
-.inbox-container .message-header img.avatar {
-	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
+.inbox-container .message-header .avatar {
+	float: left;
+	margin: -2px 8px 4px 0;
+	width: 30px;
+	height: 30px;
+	background-color: #fff;
+	border: 2px solid white;
+	border-radius: 50% !important;
+	background-size: cover;
 }
 
 .inbox-container .message-header a {
@@ -1478,9 +1491,12 @@ counter	{
 	position: relative; width: 12px; height: 12px; top: 6px; left: 20px; background: #d9edf7; -webkit-transform: rotate(45deg);
 }
 
-.inbox-container .message-comments ul,
-.inbox-container .message-notes ul li	{
+.inbox-container .message-comments ul{
 	margin-left: 0; background: #d9edf7;
+}
+
+.inbox-container .message-notes ul li{
+	margin-left: 0; background: #F2F0A0;
 }
 
 .inbox-container .message-notes ul li:last-child{
@@ -1496,8 +1512,9 @@ counter	{
 .inbox-container .message-comments li,
 .inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even),
-.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+
+.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
 
 .inbox-container .message-comments li.active,
 .inbox-container .message-notes li.active	{

@@ -273,6 +273,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'loadmessage' : function(view)
 	{	
 		var options = {model: view.model, notes: view.model.id? true: false, parent: this};
+		
 		if (this.type == 'note')	options.template = 'note';		
 
 		$('.viewcontact').addClass('onmessage');

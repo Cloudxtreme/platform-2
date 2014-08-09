@@ -36,6 +36,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
+		this.listenTo(this.collection, 'ready', this.afterrender);
 		
 		return this;
 	},
@@ -60,10 +61,13 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			
 			this.$container.append(view.render().el);
 		}
-		
+	},
+
+	'afterrender' : function()
+	{
 		// Toggle first message
 		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
-		else 					this.hidemore();
+		else this.hidemore();
 	},
 	
 	'toggle' : function(view)
@@ -76,6 +80,9 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		
 		$(".inbox-container").html(this.inboxnote.render().el);
 		
+		//render the context
+		this.rendercontext();
+
 		// Load related messages
 		this.inboxnote.showrelated();
 		
@@ -98,6 +105,30 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			button.addClass("selected");
 			this.$el.find("#filter_" + toggle).removeClass("hidden");
 		}
+	},
+
+	'rendercontext' : function()
+	{
+		var context = this.inboxnote.getcontext();
+		var contextrender;
+	
+		//Mustache render the context
+		if(context.objectType == 'message'){
+			var wrapper = $('<div class="message social-box-colors"></div>')
+			context.display = true;
+			contextrender = Mustache.render(Templates.inboxmessage, context);
+			contextrender  = wrapper.append(contextrender)
+		}else if(context.objectType == 'contact'){
+			console.log(context)
+			contextrender = Mustache.render(Templates.singlecontact, context);
+
+		}
+
+		
+
+		//append the context
+		$('.inbox-container').prepend(contextrender);
+
 	},
 	
 	'comparesuggestions' : function (iscontact)
