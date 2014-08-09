@@ -600,7 +600,7 @@ tbody.messages-container i	{
 }
 
 .message-body.note-content{
-	padding: 0px 0px 18px !important;
+	padding: 0px 0px 0px !important;
 }
 
 .message-body.note-content textarea{
@@ -608,6 +608,32 @@ tbody.messages-container i	{
 	max-width: 100%;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+/* Notes & entry listing style */
+#inboxlist .list li.noteentry,
+#inboxlist .list li.noteentry.unread,
+#inboxlist .list li.noteentry:nth-child(odd),
+#inboxlist .list li.noteentry.unread:nth-child(odd),
+#inboxlist .list li.noteentry .date{
+	background: #fbfad8;
+	color: #444;	
+}
+
+#inboxlist .list li.noteentry.active,
+#inboxlist .list li.noteentry:hover,
+#inboxlist .list li.noteentry.active:hover,
+#inboxlist .list li.noteentry.active .date{
+	background-color: #faf8bf !important;
+	color: #333 !important;
+}
+
+#inboxlist .list li.noteentry .content{
+	border-top: 1px dashed #fff;
+}
+
+#inboxlist .list li.noteentry.active .content{
+	color: #444 !important;
 }
 
 /*

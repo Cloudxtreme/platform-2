@@ -115,6 +115,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+		this.$el.find('.message-actions').addClass('hidden');
 
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
@@ -128,6 +129,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'canceledit' : function(collapse)
 	{	
 		this.loadmylisteners();
+		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
 			this.togglenoteaction('note-content');
