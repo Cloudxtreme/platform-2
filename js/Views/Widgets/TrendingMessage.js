@@ -14,7 +14,7 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 		if(!this.timespan.sort){
 			this.timespan.sort = "engagement";
-		}
+		}		
 
 		this.gettoptrending();
 		

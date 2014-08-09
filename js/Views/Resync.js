@@ -8,7 +8,7 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 		
 		//Cloudwalkers.Session.user = new Cloudwalkers.Models.Me();
 		this.listenTo(Cloudwalkers.Session.user, 'sync', this.activate);
-		this.listenTo(Cloudwalkers.Session.user, 'activated', this.refresh)
+		this.listenToOnce(Cloudwalkers.Session.user, 'activated', this.refresh)
 	},	
 
 	'render' : function ()

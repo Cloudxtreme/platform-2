@@ -278,6 +278,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'loadmessage' : function(view)
 	{	
 		var options = {model: view.model, notes: view.model.id? true: false, parent: this};
+		
 		if (this.type == 'note')	options.template = 'note';		
 
 		$('.viewcontact').addClass('onmessage');
@@ -417,6 +418,20 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	    }
 	},
 
+	'paginate' : function(collection, response)
+	{	
+		if(collection.cursor && response.contact[collection.endpoint].length)
+			this.hasmore = true;
+		else
+			this.hasmore = false;
+	},
+
+	'showmore' : function(){
+
+		if(this.hasmore)
+			this.$el.find(".load-more").show();
+	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
@@ -427,7 +442,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"add",
+			"latest_messages",
+			"latest_conversations",
+			"contact_notes",
+			"add_contact_note"
 		];
 
 		this.translated = [];
@@ -437,20 +455,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.translated[k] = this.translateString(this.original[k]);
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
-
-	},
-
-	'paginate' : function(collection, response)
-	{	
-		if(collection.cursor && response.contact[collection.endpoint].length)
-			this.hasmore = true;
-	},
-
-	'showmore' : function(){
-
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
-	},
+ 	},
 	
 	'hidemore' : function()
 	{

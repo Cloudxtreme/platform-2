@@ -698,5 +698,9 @@ Timeline UI Base
 		border-bottom-color: #555555;
 	}
 }
+
 */
 
+.timeline-comments a.viewdetails{
+	font-weight: bold;
+}
