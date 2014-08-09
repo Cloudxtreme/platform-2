@@ -3,13 +3,17 @@ Settings
 ***/
 
 /* Profile settings */
-.profile div.avatar-big	{
-	width: 280px; height: 280px; margin: 10px auto; background: no-repeat center; border-radius: 50% !important; overflow: hidden;
+.profile div.avatar-big {
+  width: 280px;
+  height: 280px;
+  margin: 10px auto;
+  background: no-repeat center;
+  border-radius: 50% !important;
+  overflow: hidden;
+  background-size: cover;
 }
 
-.avatar-big	{ background-size: 100% auto !important; }
-
-.settings-profile input[type=file]	{ display: none; } 
+.settings-profile input[type=file]  { display: none; } 
 
 
 /* Manage users */

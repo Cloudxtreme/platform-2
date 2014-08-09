@@ -35,7 +35,7 @@
 		</div>
 	{{/attached.link}}
 </div>
-
+{{^display}}
 <div class="message-actions">
 	<div class="actions-left">
 		{{#actions}}
@@ -61,6 +61,7 @@
 	</div>
 	<!-- END TAGS -->
 </div>
+{{/display}}
 <div style="clear:both"></div>
 
 <!-- NOTES_ROLE -->

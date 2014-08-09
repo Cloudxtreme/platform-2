@@ -117,15 +117,27 @@
 #inboxlist .list .icon-right	{ float: right; color: #666; font-size: 1.3em; }
 
 #inboxlist .list .dot {
-	display: none; width: 10px; height: 10px; margin-left: 10px; border: 2px solid white; border-radius: 50% !important; 
+	display: none;
+	width: 10px;
+	height: 10px;
+	margin-left: 10px;
+	border: 2px solid white;
+	border-radius: 50% !important;
 }
 .dot { background-color: #5373d0; }
 
-#inboxlist .list img.avatar {
-	position: relative; top: 2px; margin: 0 5px 5px 0; width: 22px; height: 22px;  background-color: #ddd; border-radius: 50% !important; 
+#inboxlist .list .avatar {
+	position: relative;
+	top: 2px;
+	margin: 0 5px 5px 0;
+	width: 22px;
+	height: 22px;
+	background-color: #ddd;
+	border-radius: 50% !important; 
+	background-size: cover;
 }
 
-#inboxlist .list li.active img.avatar {
+#inboxlist .list li.active .avatar {
 	width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
@@ -173,7 +185,7 @@
 .inbox-notes #inboxlist .list li.active strong,
 .inbox-notes #inboxlist .list li.active .date,
 .inbox-notes #inboxlist .list li.active	{
-	background: #f1f08e !important;
+	background: #F2F0A0 !important;
 	color: inherit;
 }
 
@@ -184,7 +196,16 @@
 
 .inbox-notes #inboxlist .note-subject	{
 	margin-left: 40px; min-height: 20px; border-bottom: 1px dotted white;
-	color: #6c5f5c; font-weight: 500;
+	color: #6c5f5c; font-weight: bold;
+}
+
+.inbox-notes #inboxlist .list li.active .content,
+.inbox-notes #inboxlist .list li.active .date{
+	color: #5b514e;
+}
+
+.inbox-notes #inboxlist .list li .content{
+	padding-top: 15px;
 }
 
 
@@ -311,14 +332,42 @@
 /* Inbox Note */
 
 .inbox-container .note	{
-	background: #efefd5; box-shadow: 0 0 3px #d6d6d6;
+	background: #F2F0A0; box-shadow: 0 0 3px #d6d6d6;
+	position: relative;
+	margin-top: 70px;
+}
+
+.inbox-container .note:before{
+	content: "";
+	position: absolute;
+	top: -50px;
+	right: 0;
+	border-width: 50px 0 0 80px;
+	border-style: solid;
+	border-color: transparent #e5e282;
+}
+
+.inbox-container .note:after{
+	content: "";
+	position: absolute;
+	top: -60px;
+	right: 40px;
+	border-width: 60px 0px 0px 40px;
+	border-style: solid;
+	border-color: transparent #eee;
 }
 
 .inbox-container .note .scroller	{ padding-right: 0 !important; }
 
-.inbox-container .note-header	{
-	padding: 8px 20px; background-color: #6c5f5c;
-	color: white;
+.inbox-container .note .note-header	{
+	padding: 8px 10px; background-color: #F2F0A0;
+	color: #6c5f5c;
+	border-bottom: 1px dotted #fff;
+	min-height: 30px;
+}
+.inbox-container .note .note-header > span{
+	font-weight: bold;
+	line-height: 30px;
 }
 
 .inbox-container .note-icon	{
@@ -327,7 +376,7 @@
 
 .inbox-container .note-header .inherit	{ padding: 10px; font-weight: 300; }
 
-.inbox-container .note-header img.avatar {
+.inbox-container .note .note-header img.avatar {
 	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
 }
 
@@ -340,17 +389,66 @@
 }
 
 .inbox-container .note-header i {
-	opacity: .5; font-size: 21px; float: right; 
+	/*opacity: .5; font-size: 21px; float: right; */
 }
 
 .inbox-container .note-body	{
 	padding: 12px 18px; min-height: 20px;
 }
 
-.note-body .note-contact,
-.note-body .note-message,
-.note-body .note-notification	{
+.inbox-container .single-contact{
 	background: white; box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	padding: 15px; position: relative; border-right: 5px solid;
 }
 
+.inbox-container .single-contact .avatar{
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	background-color: #ddd;
+	border-radius: 50% !important;
+	float: left;
+}
 
+/*.inbox-container .single-contact .network-icon{
+	width: 100px; 
+	background-color: rgba(0,0,0,.12); 
+	position: absolute; 
+	height: 100%; 
+	top: 0px; right: 0px;
+	padding-top: 20px;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+*/
+.inbox-container .single-contact i{
+	font-size: 130px;
+	position: absolute;
+	top: 0px;
+	opacity: .05;
+	right: 20px;
+}
+
+.inbox-container .single-contact .name{
+	font-size: 16px;
+	color: #005580;
+	margin-top: 30px;
+	margin-left: 20px;
+	float: left;
+}
+
+.inbox-container .single-contact .muted{
+	font-size: 12px;
+}
+
+.single-contact.facebook-color{	border-color: #3b5998 }
+.single-contact.youtube-color{		border-color: #CC181E }
+.single-contact.twitter-color{ 	border-color: #01a9da }
+.single-contact.linkedin-color{	border-color: #1783BC }
+.single-contact.tumblr-color{ 		border-color: #385775 }
+.single-contact.google-plus-color{ border-color: #DD4C39 }
+.single-contact.web-color{ 		border-color: #ff9c00 }
+.single-contact.blog-color{		border-color: #ff9c00 }
+.single-contact.briefcase-color{ 	border-color: #4a4a4a }

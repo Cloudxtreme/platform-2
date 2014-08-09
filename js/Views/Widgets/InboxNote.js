@@ -81,6 +81,11 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		 if(show)	$(".inbox").addClass("loading");
 		 else		$(".inbox").removeClass("loading");
 	},
+
+	'getcontext' : function()
+	{
+		return this.model.parent.attributes;
+	},
 	
 	'showrelated' : function()
 	{	
@@ -96,7 +101,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		
 		// Create related collection
 		if(!this.model.related)
-			this.model.related = new Cloudwalkers.Collections.Related();
+			this.model.related = new Cloudwalkers.Collections.Related({parenttype: 'note'});
 		
 		// Listen to collection
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
