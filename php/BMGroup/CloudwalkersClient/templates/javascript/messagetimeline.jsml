@@ -38,7 +38,7 @@
 					<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>
 				{{/showcontact}}
 				{{^showcontact}}
-					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">WlkrsNews</a>
+					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</a>
 				{{/showcontact}}
 				<!-- CONTACTS_ROLE -->
 				
