@@ -36,7 +36,13 @@
 	<div class="timeline-icon {{^from}}entry-loading{{/from}}">
 		<div class="timeline-avatar">
 			{{#from}}
-				<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
+				{{#showcontact}}
+					<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
+				{{/showcontact}}
+				{{^showcontact}}
+					<a class="viewdetails" target="_blank" href="{{url}}"><img src="{{avatar}}"/></a>
+				{{/showcontact}}
+				
 			{{/from}}
 		</div>
 	</div>	
@@ -45,9 +51,19 @@
 
 		<div class="timeline-entry-content">
 			{{#from}}
-				<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></a>
+
+				{{#showcontact}}
+					<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></a>
+					<br />
+				{{/showcontact}}
+				{{^showcontact}}
+					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</a>
+					<br>
+				{{/showcontact}}
+				<!-- CONTACTS_ROLE -->
+				
 				<br />
-			{{/from}}
+			{{/from}}	
 			
 			{{#subject}}
 				<strong>{{subject}}</strong><br />

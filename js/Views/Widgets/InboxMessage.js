@@ -33,13 +33,11 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			$.extend(params, {actions: this.model.filterActions()});
 		
 		// Meant only for the viewcontact messages demo
-		if(this.notes)	params.notes = true;
+		//if(this.notes)	params.notes = true;
 		
 		// If not Notification load Tags
-		if(!this.options.notification){
-			// View Tags
-			params.tags = true;
-		}
+		if(!this.options.notification)	params.tags = true;
+		else							params.notification = true;
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);

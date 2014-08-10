@@ -64,7 +64,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
 		
 		this.mustacheTranslateRender(this.parameters);
-
+		
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -148,6 +148,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+		this.$el.find('.message-actions').addClass('hidden');
 
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
@@ -162,6 +163,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'canceledit' : function(collapse)
 	{	
 		this.loadmylisteners();
+		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
 			this.togglenoteaction('note-content');

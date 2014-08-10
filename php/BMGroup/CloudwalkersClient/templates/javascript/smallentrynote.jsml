@@ -1,14 +1,19 @@
 	<div class='pull-right'>
 		<span class="date" data-date="{{date}}"></span>
+		<div class="media"><i class="icon-edit"></i></div>
 	</div>
 	
-	<span class="note-icon">
+	<!--<span class="note-icon">
 		<i class="icon-{{type_icon}}"></i>	
-	</span>
+	</span>-->
 	
 	<div class="note-subject">
+	{{#user}}		
+		<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+		<strong>{{displayname}}</strong>
+	{{/user}}
 	{{#parent.displayname}}
-		{{#parent.displayname}}{{parent.displayname}}{{/parent.displayname}}
+		{{#parent.displayname}}on {{parent.displayname}}{{/parent.displayname}}
 	{{/parent.displayname}}
 	
 	{{^parent.displayname}}
