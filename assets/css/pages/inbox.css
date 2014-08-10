@@ -130,10 +130,15 @@
 	clear: left;
 }
 
+#inboxlist .list li > strong{
+	position:relative;
+	top: 2px;
+}
+
 #inboxlist .list .avatar {
 	position: relative;
 	top: 2px;
-	margin: 0 5px 5px 0;
+	margin: 0 8px 5px 0;
 	width: 22px;
 	height: 22px;
 	background-color: #ddd;
