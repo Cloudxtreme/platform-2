@@ -95,6 +95,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				this.entries = [];
 		}
 
+		//Force empty content UI)
 		if(!messages.length) 	this.$el.find('.messagelist').addClass('empty-content')
 		else					this.$el.find('.messagelist').removeClass('empty-content')
 
@@ -107,11 +108,21 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		{	
 			message = messages[n];
 			message.attributes.arrow = 'arrow';
-			view = new Cloudwalkers.Views.Entry ({model: message, template: template, checkunread: true, parameters:{inboxview: true, parent: this}});
+			message.parent = this.model;
+
+			view = new Cloudwalkers.Views[this.type == 'note'? 'NoteEntry': 'Entry']({
+				model: message,
+				template: template, 
+				checkunread: true, 
+				parameters:{inboxview: true, parent: this}
+			});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.loadmessage);
 			
+			if(this.type == 'note')	
+				view.$el.addClass('noteentry')
+
 			this.$container.append(view.render().el);
 		}	
 
@@ -288,7 +299,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		if (this.inboxmessage) this.inboxmessage.remove();
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage(options);
+		this.inboxmessage = new Cloudwalkers.Views.Widgets[this.type=='note'? 'InboxNote': 'InboxMessage'](options);
 
 		if(this.type && this.type != 'messages')
 			this.loadListeners(this.inboxmessage, ['request', 'sync', ['ready', 'loaded']], true);
@@ -328,6 +339,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				$('.viewcontact').addClass('writenote');
 			}, 100)			
 		}
+
+		this.backtolist();
 	},
 
 	'filterparams' : function()

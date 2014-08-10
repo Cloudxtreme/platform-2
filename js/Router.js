@@ -208,11 +208,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var news = account.channels.findWhere({type: "news"})? account.channels.findWhere({type: "news"}).id: null;
 		var profiles = account.channels.findWhere({type: "profiles"})? account.channels.findWhere({type: "profiles"}).id: null;
 
-		var view =new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40, markasread: true}})
-		var roles;
+		var type =  channelid == profiles? 'company' : 'thirdparty';
+		var showcontact = type == 'thirdparty';
 
-		if (channelid == profiles)   	roles = 'MESSAGE_READ_COMPANY';
-		else if (channelid == news)     roles = 'MESSAGE_READ_THIRDPARTY';
+		var view =new Cloudwalkers.Views.Timeline({model: model, showcontact: showcontact, parameters: {records: 40, markasread: true}})
+		var roles = type == 'MESSAGE_READ_'+type.toUpperCase();
 
 		this.validate(view, roles);
 	},
