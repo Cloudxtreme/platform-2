@@ -52,7 +52,7 @@ img.viewdetails{
 .viewcontact .inbox-container{
 	float: left;
 	width: 50%;
-	padding: 0px 20px 20px 55px;
+	padding: 0px 30px 20px 37px;
 	box-sizing: border-box;
 	position: relative;
 	height: 100%;
@@ -157,12 +157,6 @@ img.viewdetails{
 	-webkit-transition: all .15s ease-out;
 }
 
-.viewcontact aside .contact-header:hover .network-icon,
-.viewcontact aside .contact-header:hover h5,
-.viewcontact aside .contact-header:hover span{
-	text-shadow: 0px 2px 2px rgba(0,0,0,0.7);
-}
-
 .viewcontact aside .contact-header:hover a{
 	text-decoration: none !important;
 }
@@ -198,6 +192,16 @@ img.viewdetails{
 .viewcontact aside .contact-header.web-color{ 		background-color: #ff9c00 }
 .viewcontact aside .contact-header.blog-color{		background-color: #ff9c00 }
 .viewcontact aside .contact-header.briefcase-color{ 	background-color: #4a4a4a }
+
+.viewcontact aside .contact-header:hover.facebook-color{	background-color: #4162a3 }
+.viewcontact aside .contact-header:hover.youtube-color{		background-color: #d11a21 }
+.viewcontact aside .contact-header:hover.twitter-color{ 	background-color: #01b2de }
+.viewcontact aside .contact-header:hover.linkedin-color{	background-color: #1990c3 }
+.viewcontact aside .contact-header:hover.tumblr-color{ 		background-color: #3e6081 }
+.viewcontact aside .contact-header:hover.google-plus-color{ background-color: #e0543f }
+.viewcontact aside .contact-header:hover.web-color{ 		background-color: #ffa600 }
+.viewcontact aside .contact-header:hover.blog-color{		background-color: #ffa600 }
+.viewcontact aside .contact-header:hover.briefcase-color{ 	background-color: #525252 }
 
 .viewcontact #contactfilter{
 	text-align: left;
@@ -329,6 +333,18 @@ img.viewdetails{
 	float: right;
 }
 
+.blocker{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+.writenote .blocker{
+	z-index: 99;
+}
+
 /* Write note modal */
 
 #compose.note{
@@ -364,6 +380,15 @@ img.viewdetails{
 	border-radius: 0px !important;
 	border-right: 0px !important;
 	border-left: 0px !important;
+}
+
+.viewcontact .note .message-header{
+	background-color: transparent;
+	border-bottom: 1px dashed #fff;
+}
+
+.viewcontact .note:before{
+	content: none;
 }
 	
 /* DEMO Note end*/ 
