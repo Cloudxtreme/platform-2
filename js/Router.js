@@ -400,7 +400,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'rssfeed': function()
 	{
-		console.log("RSS Feed")
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.RSSFeed());
 	},
 

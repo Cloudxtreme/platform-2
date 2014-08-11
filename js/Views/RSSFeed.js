@@ -6,7 +6,9 @@ Cloudwalkers.Views.RSSFeed = Cloudwalkers.Views.Pageview.extend({
 
 	'events' : 
 	{
-		'click .message' : 'openMessage'
+		'click .message' : 'openMessage',
+		'click .message *' : 'openMessage',
+		'click [data-rss-select]' : 'toggleList'
 	},
 	
 	'initialize' : function (options)
@@ -41,7 +43,40 @@ Cloudwalkers.Views.RSSFeed = Cloudwalkers.Views.Pageview.extend({
 
 	'openMessage': function(el)
 	{
-		$(el).addClass('oppened');
+
+		$(el.target).closest('.rssfeed-container').children().children().removeClass('opened');
+		$(el.target).closest('.rssfeed-container').children().removeClass('span12');
+		$(el.target).closest('.rssfeed-container').children().addClass('span6');
+
+		//console.log($(el.target).closest('.rssfeed-container'))
+
+		if($(el.target).hasClass('message')){
+			$(el.target).addClass('opened');
+			$(el.target).parent().removeClass('span6');
+			$(el.target).parent().addClass('span12');
+		} else {
+			$(el.target).closest('.message').addClass('opened');
+			$(el.target).closest('.message').parent().removeClass('span6');
+			$(el.target).closest('.message').parent().addClass('span12');
+		}
+	},
+
+	'toggleList': function(el){
+
+		var activeclass = $(el.target).data().rssSelect;
+
+		this.$el.find('.rssfeed-container').removeClass('cards');
+		this.$el.find('.rssfeed-container').removeClass('list');
+		this.$el.find('.rssfeed-container').addClass(activeclass);
+
+		this.$el.find('.rssfeed-selector').children().removeClass('active');
+		
+		if($(el.target).hasClass('option')){
+			$(el.target).addClass('active');
+		} else {
+			$(el.target).parent().addClass('active');
+		}
+
 	},
 
 	'translateString' : function(translatedata)

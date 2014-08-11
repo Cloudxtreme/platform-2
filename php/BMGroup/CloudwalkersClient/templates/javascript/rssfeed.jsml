@@ -4,7 +4,14 @@
 
 </div>
 
-<div class=" rssfeed-container">
+<div class="rssfeed-selector pull-right span12">
+
+	<div class="option " data-rss-select="list"><i class="icon-list" data-rss-select="list"></i></div>
+	<div class="option active" data-rss-select="cards"><i class="icon-th-list" data-rss-select="cards"></i></div>
+
+</div>
+
+<div class="rssfeed-container cards">
 
 	<div class="span6">
 		<div class="message">
@@ -47,7 +54,7 @@
 	</div>
 
 	<div class="span12">
-		<div class="message openned">
+		<div class="message opened">
 
 			<div class="image" style="background-image: url(http://webdesignledger.com/wp-content/uploads/2014/07/8-free-textures-to-download-2014.jpg);"></div>
 			
@@ -66,7 +73,7 @@
 		</div>
 	</div>
 
-	<div class="span6" style="margin-left:0px;">
+	<div class="span6">
 		<div class="message">
 
 			<div class="image" style="background-image: url(http://www.smashingmagazine.com/wp-content/uploads/2014/07/smashingconf-whistler-canada-520f.png);"></div>
