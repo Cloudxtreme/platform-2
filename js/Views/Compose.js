@@ -415,6 +415,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'toggleoption' : function (e)
 	{	
+		//Hack to refresh UI (black lines were rendering)
+		this.$el.addClass('hidden');
+		this.$el.removeClass('hidden');
+
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
 		var collapsable = $btn.parent().toggleClass("collapsed");
