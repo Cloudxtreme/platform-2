@@ -260,7 +260,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.translated_titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			//canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
+			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 
@@ -423,6 +423,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(collapsable.hasClass("collapsed") && this["summarize" + option])
 		
 			this["summarize" + option]();
+
+		//Hack -> refresh ui to clean black line glitch
+		this.$el.addClass('hidden');
+		this.$el.removeClass('hidden')
 	},
 	
 	'closealloptions' : function ()
