@@ -418,6 +418,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Hack to refresh UI (black lines were rendering)
 		this.$el.addClass('hidden');
 		this.$el.removeClass('hidden');
+		console.log("toggle")
 
 		var $btn = $(e.currentTarget);
 		var option = $btn.data("toggle");
