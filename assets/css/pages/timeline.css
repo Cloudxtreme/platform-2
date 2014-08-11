@@ -52,8 +52,9 @@ Style corrections and manual overrides
 	margin-top: 20px;
 }
 
-.timeline .message-actions .btn-white{
-	margin-right: 5px;
+.timeline .message-actions [data-action="note-list"],
+.timeline .message-actions [data-action="note-content"]{
+	display: none;
 }
 
 .timeline .actions.dropdown	{
@@ -127,6 +128,10 @@ Style corrections and manual overrides
 	left: 62px; top: 29px;
 }
 
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-list"],
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-content"]{
+	display: none;
+}
 
 /* Timeline Comments */
 
