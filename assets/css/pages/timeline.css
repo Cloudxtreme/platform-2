@@ -127,6 +127,10 @@ Style corrections and manual overrides
 	left: 62px; top: 29px;
 }
 
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-list"],
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-content"]{
+	display: none;
+}
 
 /* Timeline Comments */
 
