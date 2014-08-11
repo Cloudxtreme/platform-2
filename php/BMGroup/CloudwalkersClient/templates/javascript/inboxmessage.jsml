@@ -48,9 +48,6 @@
 	
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
-		{{#actions}}
-			<div class="btn-white pull-right action-right" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
-		{{/actions}}
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
 			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
 			<ul class="tag-list"></ul>
