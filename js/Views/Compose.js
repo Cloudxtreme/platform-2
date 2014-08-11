@@ -336,6 +336,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  		
  		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
  	},
+
+ 	'restartdate' : function()
+ 	{	
+ 		$(this.datepicker.get(0)).datepicker('update', moment.unix().format("DD/MM/YYYY"));	
+ 	},
 	
 	'editstreams' : function (model)
 	{
@@ -1002,6 +1007,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!seltime.val())
  			this.restarttime();
 
+ 		if(!seldate.val())
+ 			this.restartdate();
+
  		// Prevent empty
 		if(!seldate.val() || !seltime.val()) return null;
 
@@ -1350,7 +1358,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		}
 
-		
 		return schedule;
 	},
 	
