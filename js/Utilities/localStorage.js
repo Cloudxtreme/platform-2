@@ -125,8 +125,14 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 	 
 	 this.write = function(type, content, callback) {
 		
-		
-		window.localStorage.setItem(type, JSON.stringify(content))
+		try {
+		  	window.localStorage.setItem(type, JSON.stringify(content));
+		} catch(e) {
+			if(e.name === 'QUOTA_EXCEEDED_ERR') {
+			    // reset to make space
+				window.localStorage.clear();
+			}
+		}
 		
 		if(callback) callback(content);
 		
