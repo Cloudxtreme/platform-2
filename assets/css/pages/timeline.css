@@ -100,6 +100,10 @@ ul.timeline	{ margin-top: 25px; }
 	border: 0; right: 22px; top: -1px; border-radius: 2px !important; 
 }
 
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-list"],
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-content"]{
+	display: none;
+}
 
 /* Timeline Comments */
 
