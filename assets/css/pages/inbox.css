@@ -205,8 +205,8 @@
 }
 
 .inbox-notes #inboxlist .note-subject	{
-	margin-left: 40px; min-height: 20px; border-bottom: 1px dotted white;
-	color: #6c5f5c; font-weight: bold;
+	min-height: 20px;
+	color: #6c5f5c;
 }
 
 .inbox-notes #inboxlist .list li.active .content,
@@ -372,7 +372,7 @@
 .inbox-container .note .note-header	{
 	padding: 8px 10px; background-color: #F2F0A0;
 	color: #6c5f5c;
-	border-bottom: 1px dotted #fff;
+	border-bottom: 1px dashed #D3D2A1;
 	min-height: 30px;
 }
 .inbox-container .note .note-header > span{
@@ -399,7 +399,7 @@
 }
 
 .inbox-container .note-header i {
-	/*opacity: .5; font-size: 21px; float: right; */
+	opacity: .5; font-size: 14px; float: right;
 }
 
 .inbox-container .note-body	{
@@ -453,12 +453,41 @@
 	font-size: 12px;
 }
 
-.single-contact.facebook-color{	border-color: #3b5998 }
-.single-contact.youtube-color{		border-color: #CC181E }
-.single-contact.twitter-color{ 	border-color: #01a9da }
-.single-contact.linkedin-color{	border-color: #1783BC }
-.single-contact.tumblr-color{ 		border-color: #385775 }
-.single-contact.google-plus-color{ border-color: #DD4C39 }
-.single-contact.web-color{ 		border-color: #ff9c00 }
-.single-contact.blog-color{		border-color: #ff9c00 }
-.single-contact.briefcase-color{ 	border-color: #4a4a4a }
+.single-contact.facebook-color{	border-color: #3b5998; }
+.single-contact.youtube-color{		border-color: #CC181E; }
+.single-contact.twitter-color{ 	border-color: #01a9da; }
+.single-contact.linkedin-color{	border-color: #1783BC; }
+.single-contact.tumblr-color{ 		border-color: #385775; }
+.single-contact.google-plus-color{ border-color: #DD4C39; }
+.single-contact.web-color{ 		border-color: #ff9c00; }
+.single-contact.blog-color{		border-color: #ff9c00; }
+.single-contact.briefcase-color{ 	border-color: #4a4a4a; }
+
+div[class^="context-icon-"]{
+	width: 18px;
+	height: 18px;
+	padding: 1px 2px;
+	margin: 0 0 0 8px;
+	background-color: #E5E282;
+	border-radius: 2px !important;
+	color: white;
+	text-align: center;
+}
+
+div[class^="context-icon-"]:before{
+	font-family: FontAwesome;
+	content: "";
+	font-size: 16px;
+}
+
+div.context-icon-contact:before{
+	content: "\F007";
+}
+
+div.context-icon-message:before{
+	content: "\f0e0";
+}
+
+div.context-icon-account:before{
+	content: "\F007";
+}

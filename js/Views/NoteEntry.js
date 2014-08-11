@@ -50,7 +50,7 @@ Cloudwalkers.Views.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		// Visualize
 		for(n in this.parameters.actions)
 			this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
-		console.log(this.parameters)
+		
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters));
 		
 		if(this.$el.find("[data-date]")) this.time();
