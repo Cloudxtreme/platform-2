@@ -119,7 +119,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			contextrender = Mustache.render(Templates.inboxmessage, context);
 			contextrender  = wrapper.append(contextrender)
 		}else if(context.objectType == 'contact'){
-			console.log(context)
+			
 			contextrender = Mustache.render(Templates.singlecontact, context);
 
 		}
