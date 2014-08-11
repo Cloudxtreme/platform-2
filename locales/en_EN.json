@@ -332,6 +332,8 @@
 		"Likes": "Likes",
 		"Unlike": "Unlike",
 		"something_went_sideways" : "Something went sideways",
-		"comments": "Comments"
+		"comments": "Comments",
+		"campaign_successfully_removed": "Campaign successfully removed.",
+		"are_you_sure_you_want_to_remove_this_campaign": "Are you sure you want to remove this campaign?"
 	}
 }
