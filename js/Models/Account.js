@@ -153,15 +153,33 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 	},
 	
-	'removecampaign' : function (id, callback)
+	'removecampaign' : function (id, target)
 	{
-		var campaigns = this.get("campaigns");
-		
-		campaigns.forEach (
-			function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
-		);
-	
-		this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
+
+		this.endpoint = "/campaigns/"+id
+
+		var Campaign = Backbone.Model.extend({});
+
+		var campaign = new Campaign({
+		    id: id 
+		});
+
+		campaign.destroy({url: this.url(), success: function(){
+
+			var campaigns = this.get("campaigns");
+			campaigns.forEach (
+				function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
+			);
+
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("campaign_successfully_removed"));
+			$(target).closest('li').remove();
+		}.bind(this)});
+
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 	/*'monitorlimit' : function(type, current, target)

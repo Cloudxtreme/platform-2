@@ -133,7 +133,6 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{
 		this.collection.models = response.contact.messages;
 		this.collection.length = this.collection.models.length;
-
 		this.collection.trigger('seed', this.collection.models);		
 	},
 
@@ -150,9 +149,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		else								this.touch(type);
 	},
 
-	'getmessages' : function()
+	'getmessages' : function(params)
 	{
 		this.model.urlparams = ['messages'];
+		this.model.parameters = params || false;
 		this.collection.url = this.model.url();
 		this.collection.parenttype = 'contact';
 		this.collection.contactinfo = this.contactinfo;
@@ -183,6 +183,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				response[this.typestring][n].set("networkdescription", this.contactinfo.network? this.contactinfo.network.name: null);
 				response[this.typestring][n].set("networktoken", this.contactinfo.network? this.contactinfo.network.token: null);
 			}	
+
+			// Get paging
+			this.setcursor(response.paging);
 		}
 
 		// Ready?
@@ -290,7 +293,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	{	
 		var options = {model: view.model, notes: view.model.id? true: false, parent: this};
 		
-		if (this.type == 'note')	options.template = 'note';		
+		if (this.type == 'note')	options.template = 'inboxnote';		
 
 		$('.viewcontact').addClass('onmessage');
 
@@ -433,7 +436,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	'paginate' : function(collection, response)
 	{	
-		if(collection.cursor && response.contact[collection.endpoint].length)
+		if(collection.cursor && response.contact[collection.endpoint || collection.typestring].length)
 			this.hasmore = true;
 		else
 			this.hasmore = false;
@@ -482,7 +485,9 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(!this.collection.cursor) return false;
 
 		var parameters = {after: this.collection.cursor};
-		this.touch(this.type, parameters);
+		
+		if(this.type == 'messages')				this.getmessages(parameters);
+		else									this.touch(this.type, parameters);
 		
 		if(!this.hasmore) this.$el.find(".load-more").hide();
 	},

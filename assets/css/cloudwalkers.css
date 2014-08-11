@@ -628,10 +628,6 @@ tbody.messages-container i	{
 	color: #333 !important;
 }
 
-#inboxlist .list li.noteentry .content{
-	border-top: 1px dashed #fff;
-}
-
 #inboxlist .list li.noteentry.active .content{
 	color: #444 !important;
 }

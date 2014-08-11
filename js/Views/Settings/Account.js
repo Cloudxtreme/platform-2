@@ -82,9 +82,14 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		//var account = Cloudwalkers.Session.getAccount();
 		var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 		
-		Cloudwalkers.Session.getAccount().removecampaign(campaignid);
-		
-		$(e.target).closest('li').remove();
+		Cloudwalkers.RootView.confirm 
+		(
+			this.translateString('are_you_sure_you_want_to_remove_this_campaign'), 
+			function () 
+			{
+				Cloudwalkers.Session.getAccount().removecampaign(campaignid, e.target);
+			}
+		)
 	},
 
 	'scroll' : function(e)

@@ -1,6 +1,7 @@
 <div class="note-header" data-id="{{id}}">
 	<div class="pull-right">
 		<span class="date">{{fulldate}}</span>
+		<i class="icon-edit"></i>
 	</div>
 	
 	{{#user}}
@@ -9,7 +10,7 @@
 	{{/user}}
 </div>
 
-<div class="note-body">
+<div class="note-body message-body">
 	
 	{{#contact}}
 	{{text}}
@@ -71,9 +72,3 @@
 	<!-- END TAGS -->
 </div>
 <div style="clear:both"></div>
-
-<!-- NOTES_ROLE -->
-<div class="message-notes">
-	<div class="note-content"></div>
-	<ul class="note-list"></ul>
-</div>
