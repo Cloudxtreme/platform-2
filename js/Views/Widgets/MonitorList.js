@@ -11,7 +11,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'initialize' : function ()
 	{
-		this.category = this.options.category;		
+		this.category = this.options.category;
 
 		// Clear the category (prevent non-change view failure)
 		this.category.set({messages: []});
@@ -21,6 +21,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Load category messages
 		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
 		
+		if(this.options.reset)
+			delete this.parameters.streams;
+
 		// Watch outdated
 		this.updateable(this.category, "h3.page-title");
 	},
