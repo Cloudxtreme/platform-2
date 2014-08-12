@@ -9,15 +9,16 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	},
 
 
-	'initialize' : function(options)
-	{
-		if(options) $.extend(this, options);
-
+	'initialize' : function()
+	{	
 		this.on('action', this.action);
 	},
 
 	'parse' : function (response) 
 	{	
+		// A new object
+		if (typeof response == "number") return response = {id: response};
+		
 		response = response.note? response.note : response;
 		
 		if(response.date)
