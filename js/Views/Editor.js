@@ -430,16 +430,15 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				
 				self.trigger('ready:og');
 
-				var query = data? data.query: null;
+				/*var query = data? data.query: null;
 				var results = query? query.results: null;
-				var metadata = results? results.meta: null;
+				var metadata = data? data: null;*/
 
-				if(metadata && metadata.length)
+				if(data)
 				{	
-					$.each(metadata, function(n, property){
-						if(property.name && properties.indexOf(property.name) >= 0)
-							if(property.content)
-								self.$el.find('#out').addClass('expanded');
+					$.each(data, function(property, value){					
+						if(properties.indexOf(property) >= 0)
+							self.$el.find('#out').addClass('expanded');
 					})
 				}
 					
