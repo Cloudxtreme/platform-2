@@ -260,7 +260,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 			title:		this.translated_titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
-			//canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
+			canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 
@@ -335,6 +335,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  		var hours = moment().hour();
  		
  		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
+ 	},
+
+ 	'restartdate' : function()
+ 	{	
+ 		$(this.datepicker.get(0)).datepicker('update', moment.unix().format("DD/MM/YYYY"));	
  	},
 	
 	'editstreams' : function (model)
@@ -423,6 +428,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(collapsable.hasClass("collapsed") && this["summarize" + option])
 		
 			this["summarize" + option]();
+
+		//Hack -> refresh ui to clean black line glitch
+		this.$el.addClass('hidden');
+		this.$el.removeClass('hidden')
 	},
 	
 	'closealloptions' : function ()
@@ -998,6 +1007,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!seltime.val())
  			this.restarttime();
 
+ 		if(!seldate.val())
+ 			this.restartdate();
+
  		// Prevent empty
 		if(!seldate.val() || !seltime.val()) return null;
 
@@ -1346,7 +1358,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		}
 
-		
 		return schedule;
 	},
 	
