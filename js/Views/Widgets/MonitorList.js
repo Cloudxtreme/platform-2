@@ -21,8 +21,10 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Load category messages
 		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
 		
-		if(this.options.reset)
+		if(this.options.reset){
 			delete this.parameters.streams;
+			delete this.parameters.channels;
+		}
 
 		// Watch outdated
 		this.updateable(this.category, "h3.page-title");
