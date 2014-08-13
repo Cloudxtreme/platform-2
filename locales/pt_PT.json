@@ -334,6 +334,11 @@
 		"something_went_sideways" : "Algo não correu bem",
 		"comments": "Comentários",
 		"campaign_successfully_removed": "Campanha eliminada com sucesso.",
-		"are_you_sure_you_want_to_remove_this_campaign": "Tem a certeza que pretende eliminar esta campanha?"
+		"are_you_sure_you_want_to_remove_this_campaign": "Tem a certeza que pretende eliminar esta campanha?",
+		"you_need_a_bit_of_content": "É necessário haver algum conteúdo.",
+		"one_or_more_networks_exceed_the_character_limit": "Uma ou mais redes excedem o limite máximo de caracteres.",
+		"please_select_a_network_first": "Escolha uma rede.",
+		"not_posted": "Não enviado",
+		"Unfavorite": "Unfavorite"
 	}
 }
