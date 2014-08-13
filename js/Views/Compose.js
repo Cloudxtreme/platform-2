@@ -347,7 +347,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 		
 		this.actionstreams = [];
-		for(n in action.streams) this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		for(n in action.streams){
+			if(Cloudwalkers.Session.getStream(action.streams[n]))
+				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));		
+		} 
 		
 		// Render streamlist and activate first stream
 		this.render();
