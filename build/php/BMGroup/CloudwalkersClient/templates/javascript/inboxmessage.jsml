@@ -6,13 +6,22 @@
 			<i class="icon-{{icon}}"></i>
 		</div>
 		
+			{{#notification}}
+				<img class="avatar viewdetails"alt="" src="{{avatar}}">
+				<div>
+					<a class="viewdetails" href="{{url}}" target="_blank">{{displayname}}</a>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
+				</div>
+			{{/notification}}
+
+			{{^notification}}
+				<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+				<div>
+					<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
+				</div>
+			{{/notification}}		
 		
-		<img class="avatar" alt="" src="{{avatar}}">
-		<div>
-			<a href="{{url}}" target="_blank">{{displayname}}</a>
-			
-			<br /><em>on {{networkdescription}}</em>
-		</div>
 		{{/from}}
 
 	</div>
@@ -35,23 +44,44 @@
 		</div>
 	{{/attached.link}}
 </div>
-
+{{^display}}
 <div class="message-actions">
-	{{#actions}}
-		<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
-	{{/actions}}
-	{{#notes}}
-		<div class="btn-white pull-right" data-action="note-list" style="margin-top: -6px; margin-left: 5px;"><i class="icon-list"></i></div>
-		<div class="btn-white pull-right" data-action="note-content" style="margin-top: -6px"><i class="icon-edit"></i></div>
-	{{/notes}}
+	<div class="actions-left">
+		{{#actions}}
+			<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+		{{/actions}}
+	</div>
+	
+	<!-- TAGS -->
+	<div class="message-tags pull-right">
+		{{#actions}}
+			<div class="btn-white pull-right action-right" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+		{{/actions}}
+		{{#authorized.ACCOUNT_TAGS_MANAGE}}
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
+			<ul class="tag-list"></ul>
+			<div class="tag-input-append">
+				<input id="tags" type="text" autocomplete="off">
+				<button class="btn-white" type="button" data-action="tag-add">{{translate_add}} <i class="icon-tag"></i></button>
+			</div>
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+		{{^authorized.ACCOUNT_TAGS_MANAGE}}
+			{{#authorized.ACCOUNT_TAGS_VIEW}}
+				<ul class="tag-list"></ul>
+			{{/authorized.ACCOUNT_TAGS_VIEW}}
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+	</div>
+	<!-- END TAGS -->
 </div>
+{{/display}}
+<div style="clear:both"></div>
 
-{{#notes}}
+<!-- NOTES_ROLE -->
 <div class="message-notes">
 	<div class="note-content"></div>
 	<ul class="note-list"></ul>
 </div>
-{{/notes}}
+
 
 {{#commented}}
 <div class="message-comments">
@@ -61,7 +91,7 @@
 	
 		<ul>
 			<li>
-				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> commented {{timeago}}
+				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{translate_commented}} {{timeago}}
 			</li>
 		</ul>
 	</div>

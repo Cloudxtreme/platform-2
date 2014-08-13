@@ -5,8 +5,9 @@
 			<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
 		</div>
 		
-		<img class="avatar" alt="" src="{{avatar}}">
-		<a href="{{url}}" target="_blank">{{displayname}}</a>
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+		
 		{{/from}}
 	</div>
 </div>
@@ -30,18 +31,36 @@
 </div>
 
 <div class="message-actions">
-	{{#actions}}
-		<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
-	{{/actions}}
-	{{#notes}}
-		<div class="btn-white pull-right" data-action="note-list" style="margin-top: -6px; margin-left: 5px;"><i class="icon-list"></i></div>
-		<div class="btn-white pull-right" data-action="note-content" style="margin-top: -6px"><i class="icon-edit"></i></div>
-	{{/notes}}
-</div>
+	<div class="actions-left">
+		{{#actions}}
+			<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+		{{/actions}}
+	</div>
+	<!-- TAGS -->
+	<!--
+	<div class="message-tags pull-right">
+		{{#authorized.ACCOUNT_TAGS_MANAGE}}
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
+			<ul class="tag-list"></ul>
+			<div class="tag-input-append">
+				<input id="tags" type="text" autocomplete="off">
+				<button class="btn-white" type="button" data-action="tag-add">{{translate_add}} <i class="icon-tag"></i></button>
+			</div>
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+		{{^authorized.ACCOUNT_TAGS_MANAGE}}
+			{{#authorized.ACCOUNT_TAGS_VIEW}}
+				<ul class="tag-list"></ul>
+			{{/authorized.ACCOUNT_TAGS_VIEW}}
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+	</div>
 
-{{#notes}}
+	-->
+	<!-- END TAGS -->
+</div>
+<div style="clear:both"></div>
+
+<!-- NOTES_ROLE -->
 <div class="message-notes">
 	<div class="note-content"></div>
 	<ul class="note-list"></ul>
 </div>
-{{/notes}}

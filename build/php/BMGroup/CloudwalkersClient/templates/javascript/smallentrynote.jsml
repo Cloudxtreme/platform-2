@@ -1,18 +1,28 @@
 	<div class='pull-right'>
-
-		{{#inboxview}}
-			{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
-			<div class="media"><i class="icon-edit"></i></div>
-			{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
-		{{/inboxview}}
-
+		<span class="date" data-date="{{date}}"></span>
+		<div class="context-icon-{{parent.objectType}}"></div>
 	</div>
 	
-	{{#user}}
-		<img class="avatar" alt="{{displayname}}" src="{{avatar}}">
+	<!--<span class="note-icon">
+		<i class="icon-{{type_icon}}"></i>	
+	</span>-->
+	
+	<div class="note-subject">
+	{{#user}}		
+		<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
 		<strong>{{displayname}}</strong>
 	{{/user}}
-
+	{{#parent.displayname}}
+		{{#parent.displayname}}on {{parent.displayname}}{{/parent.displayname}}
+	{{/parent.displayname}}
+	
+	{{^parent.displayname}}
+		{{#parent.from}}
+			{{parent.from.0.displayname}} on {{parent.networkdescription}}
+		{{/parent.from}}
+	{{/parent.displayname}}
+	</div>
+	
 	<div class='content' data-id="{{id}}">
 		{{{text}}}
 	</div>
