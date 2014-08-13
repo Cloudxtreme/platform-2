@@ -31,7 +31,7 @@ Style corrections and manual overrides
 
 /* White Button */
 .btn-white	{
-	padding: 4px 10px; max-width: 100%;  border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
+	padding: 4px 10px; max-width: 100%;  border: 1px solid rgba(0,0,0,0.15); box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
 	color: #4a4a4a; white-space: nowrap; text-overflow: ellipsis;
 }
 .btn-white:hover	{ color: black; }
@@ -580,6 +580,11 @@ tbody.messages-container i	{
 	cursor: pointer;
 }
 
+.message-notes ul.note-list li .note-header .message-actions,
+.message-notes ul.note-list li .note-header .comment-info{
+	clear: right;
+}
+
 .message-notes ul.note-list li .note-header:after{
 	position: absolute; 
 	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
@@ -615,7 +620,7 @@ tbody.messages-container i	{
 }
 
 .message-body.note-content{
-	padding: 0px 0px 18px !important;
+	padding: 0px 0px 0px !important;
 }
 
 .message-body.note-content textarea{
@@ -625,6 +630,28 @@ tbody.messages-container i	{
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+/* Notes & entry listing style */
+#inboxlist .list li.noteentry,
+#inboxlist .list li.noteentry.unread,
+#inboxlist .list li.noteentry:nth-child(odd),
+#inboxlist .list li.noteentry.unread:nth-child(odd),
+#inboxlist .list li.noteentry .date{
+	background: #fbfad8;
+	color: #444;	
+}
+
+#inboxlist .list li.noteentry.active,
+#inboxlist .list li.noteentry:hover,
+#inboxlist .list li.noteentry.active:hover,
+#inboxlist .list li.noteentry.active .date{
+	background-color: #faf8bf !important;
+	color: #333 !important;
+}
+
+#inboxlist .list li.noteentry.active .content{
+	color: #444 !important;
 }
 
 /*
@@ -1594,7 +1621,7 @@ counter	{
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 40px;}
+.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 31px;}
 
 .inbox-container .message-actions div	{
 	position: relative; top: -5px; display: inline;
@@ -1616,6 +1643,10 @@ counter	{
 .inbox-container .message-comments ul,
 .inbox-container .message-notes ul li	{
 	margin-left: 0; background: #d9edf7;
+}
+
+.inbox-container .message-notes ul li{
+	margin-left: 0; background: #F2F0A0;
 }
 
 .inbox-container .message-notes ul li:last-child{
@@ -1642,8 +1673,9 @@ counter	{
 .inbox-container .message-comments li,
 .inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even),
-.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+
+.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
 
 .inbox-container .message-comments li.active,
 .inbox-container .message-notes li.active	{
@@ -2028,7 +2060,10 @@ ul.contacts-list	{
 [data-notification-action],
 .category-name.edit-toggler h4	{ cursor: pointer; }
 
-
+[data-notification-action="note-content"],
+[data-notification-action="note-list"]{
+	display: none !important;
+}
 
 /**
  * Thijs
