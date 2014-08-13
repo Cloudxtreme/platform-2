@@ -232,7 +232,7 @@
 	{{#monitoring}}
 		{{#authorized.MESSAGE_READ_MONITORING}}
 		<li>
-			<a href="#monitoring/{{channelid}}/{{channels.0.id}}">
+			<a href="#monitoring/{{channelid}}/{{first.id}}">
 				<i class="icon-tags"></i> 
 				<span class="title">{{translate_keyword_monitoring}}</span>
 				<span class="arrow"></span>

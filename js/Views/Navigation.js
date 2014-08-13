@@ -131,8 +131,17 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			
 		// Monitoring
 		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_MONITORING')){
+			
 			var monitoring = account.channels.findWhere({type: "monitoring"});
-			if(monitoring)	data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
+
+			for(n in monitoring.channels.models){
+				if(monitoring.channels.models[n].attributes.channels.length){
+					this.first =  monitoring.channels.models[n]
+					break;
+				}			
+			}
+
+			if(monitoring)	data.monitoring = {channelid: monitoring.id, first: this.first, channels: monitoring.channels.models, name: monitoring.get("name")};
 		}			
 		//}
 		
