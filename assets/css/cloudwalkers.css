@@ -1338,7 +1338,7 @@ tbody.messages-container i	{
 /* Loading progress bar */ 
 
 .progress-bar{
-	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1; top: 0px; left: 0px;
+	position: absolute; z-index: 1; height: 2px; width: 0%; background-color: #2bbedc;	box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 1; top: 0px; left: -5px;
 	-webkit-transition: width 1s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 	   -moz-transition: width 1s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 	    -ms-transition: width 1s cubic-bezier(0.785, 0.135, 0.150, 0.860);
@@ -1594,7 +1594,7 @@ counter	{
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 40px;}
+.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 30px;}
 
 .inbox-container .message-actions div	{
 	position: relative; top: -5px; display: inline;
@@ -2483,9 +2483,11 @@ Dashboard stats
 }
 /* Lightbox override */
 
-/* RC1 COMMENTING STYLES */
-/* big no-no */
+/* RC3 COMMENTING STYLES */
+/* big no-no hack */
 [data-action="note-content"],
-[data-action="note-list"]{
+[data-action="note-list"],
+[data-notification-action="note-content"],
+[data-notification-action="note-list"]{
 	display: none !important;
 }

@@ -400,7 +400,7 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 	'shortenurl' : function(model)
 	{	
 		this.releaseurlprocessing();
-
+		
 		var properties = ['description', 'og:description', 'og:image', 'og:video', 'og:title'];
 
 		var self = this;
@@ -430,16 +430,16 @@ Cloudwalkers.Views.Editor = Backbone.View.extend({
 				
 				self.trigger('ready:og');
 
-				/*var query = data? data.query: null;
-				var results = query? query.results: null;
-				var metadata = data? data: null;*/
-
 				if(data)
 				{	
-					$.each(data, function(property, value){					
-						if(properties.indexOf(property) >= 0)
-							self.$el.find('#out').addClass('expanded');
-					})
+					if(data == 'youtube')
+						self.$el.find('#out').addClass('expanded');
+					else if(_.isObject(data)){
+						$.each(data, function(property, value){					
+							if(properties.indexOf(property) >= 0)
+								self.$el.find('#out').addClass('expanded');
+						})
+					}
 				}
 					
 			});
