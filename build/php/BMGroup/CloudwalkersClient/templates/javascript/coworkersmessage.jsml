@@ -7,7 +7,7 @@
 			
 				<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/actions}}
 				</ul>
 			</span>

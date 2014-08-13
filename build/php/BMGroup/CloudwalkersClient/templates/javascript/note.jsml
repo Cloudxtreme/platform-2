@@ -3,15 +3,14 @@
 		{{#user}}
 		<div class="pull-right">
 			<span class="date">{{fulldate}}</span>
-			<i class="icon-edit"></i>
 		</div>
 		
 		
 		<img class="avatar" alt="" src="{{avatar}}">
 		<div>
-			<a>{{displayname}}</a>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
 			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
-			<br /><em>on {{contact.displayname}}</em>
+			<br /><em>{{email}} </em>
 		</div>
 		{{/user}}
 
@@ -24,9 +23,8 @@
 	
 </div>
 
-{{#authorized.ACCOUNT_NOTES_MANAGE}}
-	<div class="message-actions">
-		<div class="btn-white" data-action="note-edit" style="margin-top: -6px;"><i class="icon-pencil"></i></div>
-		<div class="btn-white" data-action="delete" style="margin-top: -6px;"><i class="icon-remove"></i></div>
-	</div>
-{{/authorized.ACCOUNT_NOTES_MANAGE}}
+<div class="message-actions toggle-note-actions">
+	<div class="btn-white" data-action="note-edit"><i class="icon-edit"></i></div>
+	<div class="btn-white" data-action="delete"><i class="icon-remove"></i></div>
+</div>
+

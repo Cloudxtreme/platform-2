@@ -157,11 +157,6 @@ Backbone.Model = Backbone.Model.extend({
 		Store.set(this.typestring, params);
 		
 		return this;
-	},
-	
-	'loaded' : function(param)
-	{
-		return this.get(param? param: "objectType") !== undefined;
 	}
 });
 

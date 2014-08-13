@@ -1,7 +1,7 @@
 
 {{#from}}
-	<img class="avatar viewdetails viewcommentcontact" alt="" src="{{avatar}}">
-	<strong><a class="viewdetails viewcommentcontact">{{displayname}}</a></strong>
+	<img class="avatar" alt="" src="{{avatar}}" />
+	<strong>{{displayname}}: </strong>
 {{/from}}
 
 <div class="message-actions pull-right hidden">

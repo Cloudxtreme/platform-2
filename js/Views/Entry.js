@@ -56,7 +56,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
 		
 		this.mustacheTranslateRender(this.parameters);
-		
+
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -115,7 +115,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
-		this.$el.find('.message-actions').addClass('hidden');
 
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
@@ -129,7 +128,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'canceledit' : function(collapse)
 	{	
 		this.loadmylisteners();
-		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
 			this.togglenoteaction('note-content');
@@ -292,7 +290,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Notes list
 	'fillnotes' : function(notes)
 	{	
-		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
+		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 		else				this.$el.find('.note-list').empty();
 
 		for(n in notes)

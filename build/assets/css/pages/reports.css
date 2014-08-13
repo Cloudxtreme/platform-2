@@ -56,7 +56,7 @@ Stats Summary
 ***/
 
 .stats-summary table {
-	width: 100%; margin: 40px 0 0px; height: 80px; 
+	width: 100%; margin: 40px 0; height: 80px; 
 }
 
 .stats-summary td {

@@ -33,13 +33,8 @@
 			{{/attached.video}}
 			
 			{{#from}}
-
-				{{#showcontact}}
-					<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>
-				{{/showcontact}}
-				{{^showcontact}}
-					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</a>
-				{{/showcontact}}
+				<!--<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>-->
+				<a class="timeline-user viewdetails" title="{{icon}} {{displayname}}" target="_blank" href="{{url}}">{{displayname}}</a>
 				<!-- CONTACTS_ROLE -->
 				
 				<br />

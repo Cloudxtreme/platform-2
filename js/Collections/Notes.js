@@ -12,7 +12,7 @@ Cloudwalkers.Collections.Notes = Backbone.Collection.extend({
 	},
 	
 	'initialize' : function(options)
-	{	
+	{
 		// Override type strings if required
 		if(options) $.extend(this, options);
 

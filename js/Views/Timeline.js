@@ -75,9 +75,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Add models to view
 		for (n in models)
 		{	
-			//Company / third party
-			models[n].attributes.showcontact = this.showcontact;
-
 			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'messagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 			
 			this.entries.push (view);
