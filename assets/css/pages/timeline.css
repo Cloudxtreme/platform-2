@@ -109,6 +109,7 @@ ul.timeline	{ margin-top: 25px; }
 
 ul.timeline-comments	{
 	margin-left: 0;
+	list-style: none;
 }
 
 .timeline-comments .comments-pointer	{

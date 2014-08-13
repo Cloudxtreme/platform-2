@@ -51,6 +51,10 @@ Style corrections and manual overrides
 #compose.thank-you aside	{
 	opacity: 0; -webkit-filter: blur(5px); filter: blur(5px);
 	-webkit-transition: all .5s linear;
+	   -moz-transition: all .5s linear;
+	    -ms-transition: all .5s linear;
+	     -o-transition: all .5s linear;
+	        transition: all .5s linear;
 }
 
 #compose.thank-you > div,
@@ -112,8 +116,10 @@ Style corrections and manual overrides
 #compose .modal-body.loaded > div{
 	opacity: 1;
 	-webkit-transition: opacity .15s ease-out;
-	-moz-transition: opacity .15s ease-out;
-	transition: opacity .15s ease-out;
+	   -moz-transition: opacity .15s ease-out;
+	    -ms-transition: opacity .15s ease-out;
+	     -o-transition: opacity .15s ease-out;
+	        transition: opacity .15s ease-out;
 }
 
 #compose .modal-body.loading:after {
@@ -126,6 +132,12 @@ Style corrections and manual overrides
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
+	    -ms-animation-duration: 1.2s;
+	    -ms-animation-name: opacitypulse;
+	    -ms-animation-iteration-count: infinite;
+	        animation-duration: 1.2s;
+	        animation-name: opacitypulse;
+	        animation-iteration-count: infinite;
 }
 
 #compose .modal-body.loaded:after{
@@ -164,7 +176,10 @@ Style corrections and manual overrides
 
 #compose input,
 #compose textarea	{
-	width: 100%; height: 32px; padding: 8px 8px 8px 30px; border: 1px solid #ccc; border-radius: 2px; box-shadow: inset 0 3px 0 rgba(0,0,0, .04); box-sizing: border-box;
+	width: 100%; height: 32px; padding: 8px 8px 8px 30px; border: 1px solid #ccc; border-radius: 2px; box-shadow: inset 0 3px 0 rgba(0,0,0, .04);
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -262,7 +277,10 @@ Style corrections and manual overrides
 }
 
 #compose .modal-body section .btn-white[data-toggle]	{
-	float: left; width: 90px; height: 32px; display: block; box-sizing: border-box;
+	float: left; width: 90px; height: 32px; display: block;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	text-align: center;
 }
 
@@ -390,7 +408,10 @@ Style corrections and manual overrides
 .bootstrap-timepicker-widget.dropdown-menu.open	{ z-index: 19999; }
 
 #compose .schedule-entry	{
-	padding: 4px 8px; margin-bottom: 6px; max-width: 100%; height: 42px; border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer; box-sizing: border-box;
+	padding: 4px 8px; margin-bottom: 6px; max-width: 100%; height: 42px; border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	font-size: 14px; color: #4a4a4a; white-space: nowrap; text-overflow: ellipsis;
 }
 
@@ -419,7 +440,10 @@ Style corrections and manual overrides
 #compose .schedule-entry select,
 #compose .schedule-entry .btn-white,
 #compose .schedule-entry div.input-symbol	{
-	max-width: 26%; margin-right: 2%;  margin-bottom: 0; float: left; box-sizing: border-box;
+	max-width: 26%; margin-right: 2%;  margin-bottom: 0; float: left;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 #compose .schedule-entry .btn-white	{ line-height: 22px; }
@@ -451,7 +475,11 @@ Style corrections and manual overrides
 
 #compose	{
 	height: auto;
-	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	-webkit-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	   -moz-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	    -ms-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	     -o-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	        transition: all 0.4s cubic-bezier(0.12,.8,0,1);
 }
 
 #compose.thanks{
@@ -460,7 +488,11 @@ Style corrections and manual overrides
 
 #compose.switch-mode	{
 	max-height: 98%;
-	-webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	-webkit-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	   -moz-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	    -ms-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	     -o-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	        transition: all 0.4s cubic-bezier(0.12,.8,0,1);
 }
 
 #compose table.end-preview	{
@@ -471,7 +503,15 @@ Style corrections and manual overrides
 #compose.switch-mode table.end-preview	{
 	opacity: 1; padding-right: 12px; cursor: pointer;
 	-webkit-transform: translate3d(-240px, 0px, 0px);
-	-webkit-transition-property: all; -webkit-transition-delay: 400ms; -webkit-transition-delay: 800ms;  -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	   -moz-transform: translate3d(-240px, 0px, 0px);
+	    -ms-transform: translate3d(-240px, 0px, 0px);
+	     -o-transform: translate3d(-240px, 0px, 0px);
+	        transform: translate3d(-240px, 0px, 0px);
+	-webkit-transition: all 0.8s cubic-bezier(0.12,.8,0,1) 0.4s;
+	   -moz-transition: all 0.8s cubic-bezier(0.12,.8,0,1) 0.4s;
+	    -ms-transition: all 0.8s cubic-bezier(0.12,.8,0,1) 0.4s;
+	     -o-transition: all 0.8s cubic-bezier(0.12,.8,0,1) 0.4s;
+	        transition: all 0.8s cubic-bezier(0.12,.8,0,1) 0.4s;
 }
 
 #compose.switch-mode table.end-preview td	{ padding-right: 10px; }
@@ -481,13 +521,29 @@ Style corrections and manual overrides
 #compose.switch-mode	{ overflow: hidden; }
 
 #compose.switch-mode aside 	{
-	 -webkit-transform: translate3d(-260px, 0px, 0px);
-	 -webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	-webkit-transform: translate3d(-260px, 0px, 0px);
+	   -moz-transform: translate3d(-260px, 0px, 0px);
+	    -ms-transform: translate3d(-260px, 0px, 0px);
+	     -o-transform: translate3d(-260px, 0px, 0px);
+	        transform: translate3d(-260px, 0px, 0px);
+	-webkit-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	   -moz-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	    -ms-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	     -o-transition: all 0.4s cubic-bezier(0.12,.8,0,1);
+	        transition: all 0.4s cubic-bezier(0.12,.8,0,1);
 }
 
 #compose.switch-mode > div 	{
-	 -webkit-transform: translate3d(700px, 0px, 0px);
-	 -webkit-transition-property: all; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	-webkit-transform: translate3d(700px, 0px, 0px);
+	   -moz-transform: translate3d(700px, 0px, 0px);
+	    -ms-transform: translate3d(700px, 0px, 0px);
+	     -o-transform: translate3d(700px, 0px, 0px);
+	        transform: translate3d(700px, 0px, 0px);
+	-webkit-transition: all 0.6s cubic-bezier(0.12,.8,0,1);
+	   -moz-transition: all 0.6s cubic-bezier(0.12,.8,0,1);
+	    -ms-transition: all 0.6s cubic-bezier(0.12,.8,0,1);
+	     -o-transition: all 0.6s cubic-bezier(0.12,.8,0,1);
+	        transition: all 0.6s cubic-bezier(0.12,.8,0,1);
 }
 
 #compose .switch-container	{
@@ -498,7 +554,15 @@ Style corrections and manual overrides
 #compose.switch-mode .switch-container	{
 	width: 60%;
 	-webkit-transform: translate3d(-80px, 0px, 0px);
-	-webkit-transition-property: all; -webkit-transition-delay: 200ms; -webkit-transition-duration: 600ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+	   -moz-transform: translate3d(-80px, 0px, 0px);
+	    -ms-transform: translate3d(-80px, 0px, 0px);
+	     -o-transform: translate3d(-80px, 0px, 0px);
+	        transform: translate3d(-80px, 0px, 0px);
+	-webkit-transition: all 0.6s cubic-bezier(0.12,.8,0,1) 0.2s;
+	   -moz-transition: all 0.6s cubic-bezier(0.12,.8,0,1) 0.2s;
+	    -ms-transition: all 0.6s cubic-bezier(0.12,.8,0,1) 0.2s;
+	     -o-transition: all 0.6s cubic-bezier(0.12,.8,0,1) 0.2s;
+	        transition: all 0.6s cubic-bezier(0.12,.8,0,1) 0.2s;
 }
 
 #compose.switch-mode .switch-container {
@@ -509,7 +573,15 @@ Style corrections and manual overrides
 	top: 0px;
 	width: 100%;
 	-webkit-transform: translate3d(40px, 0px, 0px);
+	   -moz-transform: translate3d(40px, 0px, 0px);
+	    -ms-transform: translate3d(40px, 0px, 0px);
+	     -o-transform: translate3d(40px, 0px, 0px);
+	        transform: translate3d(40px, 0px, 0px);
 	-webkit-transition: background-color .15s ease-out;
+	   -moz-transition: background-color .15s ease-out;
+	    -ms-transition: background-color .15s ease-out;
+	     -o-transition: background-color .15s ease-out;
+	        transition: background-color .15s ease-out;
 	border-radius: 0px;
 }
 
@@ -528,7 +600,13 @@ Style corrections and manual overrides
 	border: none;
 }
 
-#compose.switch-mode.thanks .switch-container { -webkit-transform: translate3d(0px, 0px, 0px); }
+#compose.switch-mode.thanks .switch-container {
+	-webkit-transform: translate3d(0px, 0px, 0px);
+	   -moz-transform: translate3d(0px, 0px, 0px);
+	    -ms-transform: translate3d(0px, 0px, 0px);
+	     -o-transform: translate3d(0px, 0px, 0px);
+	        transform: translate3d(0px, 0px, 0px);
+}
 
 #compose .thanks-wrapper{
 	position: absolute;
@@ -550,7 +628,9 @@ Style corrections and manual overrides
 	border: 1px solid #ccc;
 	border-radius: 2px;
 	box-shadow: inset 0 3px 0 rgba(0,0,0, .04);
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -583,15 +663,21 @@ Style corrections and manual overrides
 #out{ 
 	background: #eee;
 	border-bottom: 1px solid #e6e6e6;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	box-shadow: inset 0 1px #e0e0e0;
 	color: #999;
 	text-shadow: 0 1px white;
 	padding: 0px 11%; 
 	margin: 0px -10.5% 12px;
 	max-height: 0px;
-	-webkit-transition: all .15s ease-out;
 	overflow: hidden;
+	-webkit-transition: all .15s ease-out;
+	   -moz-transition: all .15s ease-out;
+	    -ms-transition: all .15s ease-out;
+	     -o-transition: all .15s ease-out;
+	        transition: all .15s ease-out;
 }
 
 #out.expanded{
@@ -603,7 +689,9 @@ Style corrections and manual overrides
 
 #out-loading{
 	position: relative;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 	padding: 0px 11%; 
 	margin: 35px -10.5% 0px;
 	overflow: hidden;
@@ -641,6 +729,6 @@ Style corrections and manual overrides
 	position: absolute;
 	top: 50%;
 	margin-top: -8px;
-	cursor: pointer;;
+	cursor: pointer;
 }
 
