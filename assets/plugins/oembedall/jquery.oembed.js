@@ -162,11 +162,13 @@
     return url;
   }
 
-  function success(oembedData, externalUrl, container) {
+  function success(oembedData, externalUrl, container, metadata) {
     $('#jqoembeddata').data(externalUrl, oembedData.code);
     settings.beforeEmbed.call(container, oembedData);
     settings.onEmbed.call(container, oembedData);
     settings.afterEmbed.call(container, oembedData);
+
+    diss.def.resolve(metadata);
   }
 
   function embedCode(container, externalUrl, embedProvider) {
@@ -217,11 +219,11 @@
                       if(!url.match("http"))  url = 'http://'+url;
 
                       var match = url.match(/^(([a-z]+:)?(\/\/)?[^\/]+\/).*$/)
-                      console.log(match)
+                     
                       if (match) {
                         match = match[1].length > 6? match[1]: match[0];
                         meta["og:image"] = match + data.query.results.link[i].href;
-                        console.log( meta["og:image"])
+                       
                       }
                     } else {
                       meta["og:image"] = data.query.results.link[i].href;
@@ -234,18 +236,21 @@
           } else {
             result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
           }
-          diss.def.resolve(meta);
-          if (result === false) return;
+          //diss.def.resolve(meta);
+          if (result === false){
+            diss.def.resolve(meta);
+            return;
+          } 
           var oembedData = $.extend({}, result);
           oembedData.code = result;
-          success(oembedData, externalUrl, container);
+          success(oembedData, externalUrl, container, meta);
         },
         error: settings.onError.call(container, externalUrl, embedProvider)
       }, settings.ajaxOptions || {});
 
       $.ajax(ajaxopts);
     } else if (embedProvider.templateRegex) {
-      if (embedProvider.embedtag.tag !== '') {
+      if (embedProvider.embedtag.tag !== '') { 
         var flashvars = embedProvider.embedtag.flashvars || '';
         var tag = embedProvider.embedtag.tag || 'embed';
         var width = embedProvider.embedtag.width || 'auto';
@@ -254,7 +259,6 @@
         var src = externalUrl.replace(embedProvider.templateRegex, embedProvider.apiendpoint);
         if (!embedProvider.nocache) src += '&jqoemcache=' + rand(5);
         if (embedProvider.apikey) src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
-
 
         var code = $('<' + tag + '/>')
           .attr('src', src)
@@ -271,14 +275,15 @@
         if (tag == 'iframe')
           code
           .attr('scrolling', embedProvider.embedtag.scrolling || "no")
+          .attr('style', 'width: 100%')
           .attr('frameborder', embedProvider.embedtag.frameborder || "0");
 
 
         var oembedData = {
           code: code
         };
-        success(oembedData, externalUrl, container);
-      } else if (embedProvider.apiendpoint) {
+        success(oembedData, externalUrl, container, "youtube");
+      } else if (embedProvider.apiendpoint) { 
         //Add APIkey if true
         if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
         ajaxopts = $.extend({
