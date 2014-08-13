@@ -1546,7 +1546,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
 		if(error = this.draft.validateCustom())
- 			return this.showerror("Not posted: ", error);
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
 
 		//Disables footer action
 		this.disablefooter();
@@ -1596,7 +1596,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			checkblock = false;
 
 		if(error = this.draft.validateCustom([checkblock]))
- 			return this.showerror("Not posted: ", error);
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1655,6 +1655,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
 	},
 
 	'showerror' : function(title, error)
