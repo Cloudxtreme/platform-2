@@ -1471,7 +1471,7 @@ counter	{
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 40px;}
+.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 30px;}
 
 .inbox-container .message-actions div	{
 	position: relative; top: -5px; display: inline;
@@ -2288,9 +2288,11 @@ Dashboard stats
 }
 /* Lightbox override */
 
-/* RC1 COMMENTING STYLES */
-/* big no-no */
+/* RC3 COMMENTING STYLES */
+/* big no-no hack */
 [data-action="note-content"],
-[data-action="note-list"]{
+[data-action="note-list"],
+[data-notification-action="note-content"],
+[data-notification-action="note-list"]{
 	display: none !important;
 }
