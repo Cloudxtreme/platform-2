@@ -213,10 +213,15 @@
                 if (data.query.results.link[i].hasOwnProperty("rel")) {
                   if (data.query.results.link[i].rel == "apple-touch-icon") {
                     if (data.query.results.link[i].href.charAt(0) == "/") {
-                      var match = url.match(/(^|\s|\r|\n)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g)
+
+                      if(!url.match("http"))  url = 'http://'+url;
+
+                      var match = url.match(/^(([a-z]+:)?(\/\/)?[^\/]+\/).*$/)
+                      console.log(match)
                       if (match) {
-                        match = match[0]
-                        meta["og:image"] = 'http://'+ match + data.query.results.link[i].href;
+                        match = match[1].length > 6? match[1]: match[0];
+                        meta["og:image"] = match + data.query.results.link[i].href;
+                        console.log( meta["og:image"])
                       }
                     } else {
                       meta["og:image"] = data.query.results.link[i].href;
