@@ -342,7 +342,7 @@
 /* Inbox Note */
 
 .inbox-container .note	{
-	background: #faf8bf; box-shadow: 0 0 3px #d6d6d6;
+	background: #faf8bf !important; box-shadow: 0 0 3px #d6d6d6;
 	position: relative;
 	margin-top: 70px;
 }
@@ -365,6 +365,11 @@
 	border-width: 60px 0px 0px 40px;
 	border-style: solid;
 	border-color: transparent #eee;
+}
+
+.inbox-container ul.related-messages .note:before,
+.inbox-container ul.related-messages .note:after{
+	border: none;
 }
 
 .inbox-container .note .scroller	{ padding-right: 0 !important; }

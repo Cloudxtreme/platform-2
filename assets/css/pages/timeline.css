@@ -141,6 +141,7 @@ Style corrections and manual overrides
 
 ul.timeline-comments	{
 	margin-left: 0;
+	list-style: none;
 }
 
 .timeline-comments .comments-pointer	{

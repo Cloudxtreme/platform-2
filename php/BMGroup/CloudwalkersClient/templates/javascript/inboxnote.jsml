@@ -12,13 +12,7 @@
 
 <div class="note-body message-body">
 	
-	{{#contact}}
 	{{text}}
-	{{/contact}}
-	
-	{{#message}}
-	{{text}}
-	{{/message}}
 	
 	{{#notification}}
 	<div class="note-notification">
