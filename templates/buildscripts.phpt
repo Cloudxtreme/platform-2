@@ -52,6 +52,7 @@
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
 <script type="text/javascript" src="/js/Collections/CannedResponses.js"></script>
 <script type="text/javascript" src="/js/Collections/Related.js"></script>
+<script type="text/javascript" src="/js/Collections/RelatedNotes.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>

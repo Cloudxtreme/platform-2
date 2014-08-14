@@ -138,6 +138,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			'ACCOUNT_NOTES_VIEW' : '#notes'
 			}
 
+		// "Manual" validation
+		if(!Cloudwalkers.Session.isupdated())
+			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+
 		var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
 
 		// Parameters
@@ -146,10 +150,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (!channel)	return this.home();		
 		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		
-
-		// "Manual" validation
-		if(!Cloudwalkers.Session.isupdated())
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 		
 		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
 		{

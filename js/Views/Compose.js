@@ -336,13 +336,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  		
  		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
  	},
+
+ 	'restartdate' : function()
+ 	{	
+ 		$(this.datepicker.get(0)).datepicker('update', moment.unix().format("DD/MM/YYYY"));	
+ 	},
 	
 	'editstreams' : function (model)
 	{
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 		
 		this.actionstreams = [];
-		for(n in action.streams) this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		for(n in action.streams){
+			if(Cloudwalkers.Session.getStream(action.streams[n]))
+				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));		
+		} 
 		
 		// Render streamlist and activate first stream
 		this.render();
@@ -423,6 +431,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(collapsable.hasClass("collapsed") && this["summarize" + option])
 		
 			this["summarize" + option]();
+
+		//Hack -> refresh ui to clean black line glitch
+		this.$el.addClass('hidden');
+		this.$el.removeClass('hidden')
 	},
 	
 	'closealloptions' : function ()
@@ -998,6 +1010,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(!seltime.val())
  			this.restarttime();
 
+ 		if(!seldate.val())
+ 			this.restartdate();
+
  		// Prevent empty
 		if(!seldate.val() || !seltime.val()) return null;
 
@@ -1346,7 +1361,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		}
 
-		
 		return schedule;
 	},
 	
@@ -1535,7 +1549,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
 		if(error = this.draft.validateCustom())
- 			return this.showerror("Not posted: ", error);
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
 
 		//Disables footer action
 		this.disablefooter();
@@ -1585,7 +1599,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			checkblock = false;
 
 		if(error = this.draft.validateCustom([checkblock]))
- 			return this.showerror("Not posted: ", error);
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
 		
 		//Disables footer action
 		this.disablefooter();
@@ -1644,6 +1658,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
 	},
 
 	'showerror' : function(title, error)

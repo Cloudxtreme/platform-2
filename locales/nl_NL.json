@@ -337,6 +337,10 @@
 		"something_went_sideways" : "Something went sideways",
 		"comments": "Reacties",
 		"campaign_successfully_removed": "Campaign successfully removed.",
-		"are_you_sure_you_want_to_remove_this_campaign": "Are you sure you want to remove this campaign?"
+		"are_you_sure_you_want_to_remove_this_campaign": "Are you sure you want to remove this campaign?",
+		"you_need_a_bit_of_content": "You need a bit of content.",
+		"one_or_more_networks_exceed_the_character_limit": "One or more networks exceed the character limit.",
+		"please_select_a_network_first": "Please select a network first.",
+		"not_posted": "Not posted"
 	}
 }
