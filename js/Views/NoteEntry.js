@@ -1,4 +1,6 @@
 Cloudwalkers.Views.NoteEntry = Cloudwalkers.Views.Entry.extend({
+
+	'className' : 'note',
 	
 	'events' : 
 	{

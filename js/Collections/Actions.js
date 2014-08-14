@@ -83,7 +83,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var action = this.templates[token];
 
 		// Toggle
-		if (action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+		
+		this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
 		
 		// Confirm modal
 		if (action.type == 'confirm')
@@ -158,7 +159,12 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	
 	'like' : function ()
 	{
-		
+	},
+
+	'toggleAction': function (token)
+	{
+		var action = this.templates[token];
+		this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 	},
 
 	'translateString' : function(translatedata)

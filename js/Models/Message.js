@@ -87,13 +87,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		//Check for any content	
 		if(!this.hascontent() && $.inArray('content', ignorelist) < 0)
-			return "You need a bit of content.";
+			return this.translateString("you_need_a_bit_of_content");
 
 		if(!this.validatecontent())	
-			return "One or more networks exceed the character limit.";
+			return this.translateString("one_or_more_networks_exceed_the_character_limit");
 
 		if(!this.get("streams").length && $.inArray('streams', ignorelist) < 0)
-			return "Please select a network first.";
+			return this.translateString("please_select_a_network_first");
 	
 		if((error = this.validateschedules()) && $.inArray('schedule', ignorelist) < 0)
 			return error;

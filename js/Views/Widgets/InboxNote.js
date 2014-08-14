@@ -101,7 +101,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		
 		// Create related collection
 		if(!this.model.related)
-			this.model.related = new Cloudwalkers.Collections.Related({parenttype: 'note'});
+			this.model.related = new Cloudwalkers.Collections.RelatedNotes();
 		
 		// Listen to collection
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
@@ -114,7 +114,6 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 	
 	'fillrelated' : function(models)
 	{
-		
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -137,7 +136,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		// Add models to view
 		for (n in models)
 		{	
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'full', parameters: {notes: this.notes}});
+			var view = new Cloudwalkers.Views.NoteEntry ({model: models[n], template: 'inboxnote', parameters: {notes: this.notes}});
 			
 			this.related.push (view);
 			
