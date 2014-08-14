@@ -617,6 +617,14 @@ tbody.messages-container i	{
 
 .message-notes ul li .message-actions .notification-action{
 	z-index: 99;
+	padding: 5px;
+	float: left;
+	width: 18px;
+	background-color:#fff;
+	background-color: rgba(255,255,255,0.5);
+}
+.message-notes ul li .message-actions .notification-action:hover{
+	background-color: rgba(255,255,255,1);
 }
 
 .message-body.note-content{
