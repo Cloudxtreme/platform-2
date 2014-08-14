@@ -1,11 +1,7 @@
 /*** Default style ***/
 
 div[class^='pv-'], img{
-    -webkit-transition: all .15s ease-out;
-       -moz-transition: all .15s ease-out;
-        -ms-transition: all .15s ease-out;
-         -o-transition: all .15s ease-out;
-            transition: all .15s ease-out;
+	-webkit-transition: all .15s ease-out;
 }
 
 #preview, #preview > div{
@@ -59,7 +55,7 @@ div[class^='pv-'], img{
 
 .pv-buttons h3{	margin: 10px 0;	color: #222; font-size: 18px; font-weight: 100; line-height: 32px; text-align: center; }
 
-.pv-btn-area{ width: 100%; border-bottom: thin solid #eee; padding: 20px 10px; }
+.pv-btn-area{ width: 100%; border-bottom: thin solid #eee;padding: 20px 10px; }
 
 .clearfix{ clear: both;}
 
@@ -75,13 +71,7 @@ div[class^='pv-'], img{
 .gb .pv-url > a{}
 
 .gp{ background-color: rgba(0,0,0,.2); }
-.gp .pv-avatar{
-    -webkit-border-radius: 25px;
-       -moz-border-radius: 25px;
-            border-radius: 25px;
-    overflow: hidden;
-    margin-top: -5px;
-}
+.gp .pv-avatar{	border-radius: 25px; overflow: hidden; margin-top: -5px; }
 .gp .pv-header, .gp .pv-main-text{ padding: 0px 20px; }
 .pv-gpstripe{ background: repeat-x url("gp.png") 0 0; background-position-x: 1px; height: 0px; top: 1px; position: relative; width: 100%; left: 0px; margin-top: 0px; opacity: 0; display: none;}
 .gp.link .pv-gpstripe{ height: 16px !important; margin-top: -15px; display: block;}
@@ -112,12 +102,7 @@ div[class^='pv-'], img{
 /* Link / URL / img specific styles */
 .fb.img .pv-img, .gp.img .pv-img, .twt.img .pv-img, .img .pv-url-content{display: block;}
 .fb.link .pv-img, .gp.link .pv-img, .twt.link .pv-img, .gp.link .pv-url-content-text, .twt.link .pv-url-content-text{display: block;}
-.twt.img .pv-img{
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
-    overflow: hidden;
-}
+.twt.img .pv-img{ border-radius: 5px; overflow: hidden;}
 
 .li.link .pv-url-content{display: block;}
 
@@ -166,11 +151,7 @@ div[class^='pv-'], img{
 #pv-fb-comment{border-top: 1px solid #e1e2e3; margin: 0; background-color: #f6f7f8; padding:8px 20px 0px}
 #pv-fb-comment > .pv-avatar{width: 30px; height: 30px; float: left; margin-right: 5px;}
 #pv-fb-comment > input{ float: right; max-width: 90%; min-height: 30px; padding-top: 8px; border-color: #d3d6db; color: #898f9c; background: #fff !important;
-	box-shadow: none; font-size: 12px; padding-left: 5px !important;
-    -webkit-border-radius: 0px;
-       -moz-border-radius: 0px;
-            border-radius: 0px;
-}
+	box-shadow: none; border-radius: 0px; font-size: 12px; padding-left: 5px !important;}
 
 /* Social widgets */
 #pv-twt-bottom{ padding: 9px 12px; }
@@ -184,37 +165,12 @@ div[class^='pv-'], img{
 .gp .pv-url-text{ font-size: 12px; color: #999; }
 /* Social widgets */
 #pv-gp-bottom{ padding: 20px; }
-.pv-gp-button{
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
-       -moz-box-shadow: 0 1px 0 rgba(0,0,0,.05);
-            box-shadow: 0 1px 0 rgba(0,0,0,.05);
-    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
-       -moz-transition: background-color .218s,border-color .218s,box-shadow .218s;
-        -ms-transition: background-color .218s,border-color .218s,box-shadow .218s;
-         -o-transition: background-color .218s,border-color .218s,box-shadow .218s;
-            transition: background-color .218s,border-color .218s,box-shadow .218s;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-    background-color: #fff; border: 1px solid #d9d9d9; cursor: pointer; float: left; height: 28px; line-height: 28px; margin-left: 8px; padding: 0 10px 0 10px; outline: none; width: auto; background-image: none; color: #666666; font-size: 14px; font-weight: bold;
-}
-.pv-gp-button i{ font-weight: normal; margin-right: 3px; font-size: 13px;}
-#pv-gp-bottom input{
-    background-color: #fff; border: 1px solid #ddd; color: #999; cursor: text; font-size: 12px; height: auto; margin: 0 0 0 0; padding: 6px 8px; margin-left: 10px; max-width: 80%;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-    -webkit-border-radius: 0px;
-       -moz-border-radius: 0px;
-            border-radius: 0px;
-    -webkit-box-shadow: none;
-       -moz-box-shadow: none;
-            box-shadow: none;
-}
+.pv-gp-button{ -webkit-border-radius: 3px;border-radius: 3px;-webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);box-shadow: 0 1px 0 rgba(0,0,0,.05);-webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+transition: background-color .218s,border-color .218s,box-shadow .218s;-webkit-user-select: none;background-color: #fff;border: 1px solid #d9d9d9;cursor: pointer;float: left;height: 28px;line-height: 28px;margin-left: 8px;
+padding: 0 10px 0 10px;outline: none;width: auto;background-image: none;-webkit-appearance: none; color: #666666; font-size: 14px; font-weight: bold;}
+.pv-gp-button i{font-weight: normal; margin-right: 3px; font-size: 13px;}
+#pv-gp-bottom input{ box-sizing: border-box; background-color: #fff; border: 1px solid #ddd; color: #999; cursor: text; font-size: 12px; height: auto; margin: 0 0 0 0; padding: 6px 8px; margin-left: 10px; max-width: 80%;
+	border-radius: 0px; box-shadow: none;}
 
 .twt .pv-main-text, .twt.pv-title{ color: #292f33; font-size: 14px;}
 
@@ -227,42 +183,19 @@ div[class^='pv-'], img{
 #preview .progress-bar{ top:1px;}
 
 .twt .progress-bar { background-color: #01a9da; }
-.twt .tip {
-    -webkit-box-shadow: #01a9da 1px 0 4px 1px;
-       -moz-box-shadow: #01a9da 1px 0 4px 1px;
-            box-shadow: #01a9da 1px 0 4px 1px;
-}
+.twt .tip {	-webkit-box-shadow: #01a9da 1px 0 4px 1px; }
 
 .fb .progress-bar{ background-color: #3B5998; }
-.fb .tip {
-    -webkit-box-shadow: #3B5998 1px 0 4px 1px;
-       -moz-box-shadow: #3B5998 1px 0 4px 1px;
-            box-shadow: #3B5998 1px 0 4px 1px;
-}
+.fb .tip { -webkit-box-shadow: #3B5998 1px 0 4px 1px; }
 
 .li .progress-bar {	background-color: #1783BC; }
-.li .tip {
-    -webkit-box-shadow: #1783BC 1px 0 4px 1px;
-       -moz-box-shadow: #1783BC 1px 0 4px 1px;
-            box-shadow: #1783BC 1px 0 4px 1px;
-}
+.li .tip { -webkit-box-shadow: #1783BC 1px 0 4px 1px; }
 
 .gp .progress-bar{ background-color: #DD4C39; }
-.gp .tip {
-    -webkit-box-shadow: #DD4C39 1px 0 4px 1px;
-       -moz-box-shadow: #DD4C39 1px 0 4px 1px;
-            box-shadow: #DD4C39 1px 0 4px 1px;
-}
+.gp .tip { -webkit-box-shadow: #DD4C39 1px 0 4px 1px; }
 
 /* Loading - Show loading bar & network watermark */
-#pv-main.pv-load .progress-bar{
-    width:110%; opacity: 1;
-    -webkit-transition: all 1.2s ease-out;
-       -moz-transition: all 1.2s ease-out;
-        -ms-transition: all 1.2s ease-out;
-         -o-transition: all 1.2s ease-out;
-            transition: all 1.2s ease-out;
-}
+#pv-main.pv-load .progress-bar{ width:110%; opacity: 1; -webkit-transition: all 1.2s ease-out;}
 
 /* Loaded - Hide loading bar & show the actual preview */
 #pv-main.pv-loaded .progress-bar {width: 0%; opacity: 0;}

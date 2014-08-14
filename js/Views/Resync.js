@@ -39,9 +39,6 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 
 	'refresh' : function()
 	{	
-		// Reload navigation & stuff
-		Cloudwalkers.RootView = new Cloudwalkers.Views.Root();
-
 		Cloudwalkers.Router.Instance.navigate (this.returnto, true);
 	},
 

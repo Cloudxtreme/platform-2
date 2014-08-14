@@ -6,16 +6,22 @@
 			<i class="icon-{{icon}}"></i>
 		</div>
 		
-		<div class="avatar" alt="" style="background-image:url({{avatar}})"></div>
-		<a href="{{url}}" target="_blank">{{displayname}}</a>
-		<br /><em>{{translate_on}} {{networkdescription}}</em>
+			{{#notification}}
+				<img class="avatar viewdetails"alt="" src="{{avatar}}">
+				<div>
+					<a class="viewdetails" href="{{url}}" target="_blank">{{displayname}}</a>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
+				</div>
+			{{/notification}}
+
+			{{^notification}}
+				<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+				<div>
+					<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
+				</div>
+			{{/notification}}		
 		
-		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
-		<div>
-			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
-			<br /><em>{{translate_on}} {{networkdescription}}</em>
-		</div>
-		-->
 		{{/from}}
 
 	</div>
@@ -38,7 +44,7 @@
 		</div>
 	{{/attached.link}}
 </div>
-
+{{^display}}
 <div class="message-actions">
 	<div class="actions-left">
 		{{#actions}}
@@ -48,6 +54,9 @@
 	
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
+		{{#actions}}
+			<div class="btn-white pull-right action-right" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+		{{/actions}}
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
 			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
 			<ul class="tag-list"></ul>
@@ -64,6 +73,7 @@
 	</div>
 	<!-- END TAGS -->
 </div>
+{{/display}}
 <div style="clear:both"></div>
 
 <!-- NOTES_ROLE -->

@@ -29,11 +29,7 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 	'parse' : function(data)
 	{
 		// Catch hierarchy
-		if (this.parent && data[this.parent.get("objectType")]) data = data[this.parent.get("objectType")];
-
-        // Hack -> CLOUD-617
-        else if (this.parent && this.parent.get("objectType") == 'comment')
-            data = data['message']
+		if (this.parent) data = data[this.parent.get("objectType")];
 		
 		return data;
 	}

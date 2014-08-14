@@ -29,7 +29,7 @@ Cloudwalkers.Views.KeywordMonitoring = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(filter, 4);
 		
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.MonitorList ({category: this.category, reset: true});
+		var list = new Cloudwalkers.Views.Widgets.MonitorList ({category: this.category});
 		this.appendWidget(list, 8);
 		
 		filter.list = list;

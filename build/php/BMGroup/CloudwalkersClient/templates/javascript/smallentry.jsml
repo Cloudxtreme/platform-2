@@ -21,7 +21,7 @@
 	
 	{{#from}}
 		{{#trendview}}<i class="icon-{{networktoken}}"></i>{{/trendview}}
-		{{^trendview}}<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>{{/trendview}}
+		{{^trendview}}<img class="avatar" alt="{{displayname}}" src="{{avatar}}">{{/trendview}}
 		<strong>{{displayname}}</strong>
 	{{/from}}
 

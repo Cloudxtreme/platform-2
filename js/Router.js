@@ -14,7 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
-		//'notes' : 'notes',
+		'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
@@ -136,10 +136,6 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			'ACCOUNT_NOTES_VIEW' : '#notes'
 			}
 
-		// "Manual" validation
-		if(!Cloudwalkers.Session.isupdated())
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
-
 		var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
 
 		// Parameters
@@ -148,6 +144,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		if (!channel)	return this.home();		
 		if (!available || !available.length) return this.home();
 		if (!type) type = "messages";		
+
+		// "Manual" validation
+		if(!Cloudwalkers.Session.isupdated())
+			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 		
 		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
 		{
@@ -206,11 +206,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		var news = account.channels.findWhere({type: "news"})? account.channels.findWhere({type: "news"}).id: null;
 		var profiles = account.channels.findWhere({type: "profiles"})? account.channels.findWhere({type: "profiles"}).id: null;
 
-		var view =new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40, markasread: true}})
-		var roles;
+		var type =  channelid == profiles? 'company' : 'thirdparty';
+		var showcontact = type == 'thirdparty';
 
-		if (channelid == profiles)   	roles = 'MESSAGE_READ_COMPANY';
-		else if (channelid == news)     roles = 'MESSAGE_READ_THIRDPARTY';
+		var view =new Cloudwalkers.Views.Timeline({model: model, showcontact: showcontact, parameters: {records: 40, markasread: true}})
+		var roles = type == 'MESSAGE_READ_'+type.toUpperCase();
 
 		this.validate(view, roles);
 	},

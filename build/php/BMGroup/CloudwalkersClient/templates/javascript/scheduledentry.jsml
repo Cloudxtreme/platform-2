@@ -1,4 +1,3 @@
-<!-- {{id}} -->
 	<td>{{scheduledate}}</td>
 	<td>
 	{{#streams}}

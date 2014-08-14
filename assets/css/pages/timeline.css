@@ -100,6 +100,10 @@ ul.timeline	{ margin-top: 25px; }
 	border: 0; right: 22px; top: -1px; border-radius: 2px !important; 
 }
 
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-list"],
+.timeline .actions.pull-right >	.dropdown-menu [data-action="note-content"]{
+	display: none;
+}
 
 /* Timeline Comments */
 
@@ -109,7 +113,6 @@ ul.timeline	{ margin-top: 25px; }
 
 ul.timeline-comments	{
 	margin-left: 0;
-	list-style: none;
 }
 
 .timeline-comments .comments-pointer	{
@@ -478,5 +481,6 @@ Timeline UI Base
 		border-bottom-color: #555555;
 	}
 }
-
-
+.timeline-comments a.viewdetails{
+	font-weight: bold;
+}

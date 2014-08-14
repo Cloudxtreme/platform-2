@@ -1,4 +1,4 @@
-<div>
+<div class="lightbox">
 	<div class="title">
 		<div class="holder">
 			<div class="frame">
@@ -13,16 +13,16 @@
 				<form action="javascript:void(0);" class="edit-managed-user">
 					<ul>
 						<li>
-							<label for="level">{{translate_clearance_level}}</label>
+							<label for="level">Clearance level</label>
 							<select id="level" name="level">
-								{{#roles}}
-									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
-								{{/roles}}
+								{{#levels}}
+									<option value="{{level}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+								{{/levels}}
 							</select>
 						</li>
 
 						<li>
-							<button type="submit" class="btn black">{{translate_save}}</button>
+							<button type="submit" class="btn black">Save</button>
 						</li>
 					</ul>
 				</form>

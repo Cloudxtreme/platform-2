@@ -55,7 +55,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// A new object
 		if (typeof response == "number") return response = {id: response};
 		
-		
 		else {
 		
 			// Is it a child message?
@@ -88,13 +87,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		//Check for any content	
 		if(!this.hascontent() && $.inArray('content', ignorelist) < 0)
-			return this.translateString("you_need_a_bit_of_content");
+			return "You need a bit of content.";
 
 		if(!this.validatecontent())	
-			return this.translateString("one_or_more_networks_exceed_the_character_limit");
+			return "One or more networks exceed the character limit.";
 
 		if(!this.get("streams").length && $.inArray('streams', ignorelist) < 0)
-			return this.translateString("please_select_a_network_first");
+			return "Please select a network first.";
 	
 		if((error = this.validateschedules()) && $.inArray('schedule', ignorelist) < 0)
 			return error;

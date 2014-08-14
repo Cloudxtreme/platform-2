@@ -12,16 +12,15 @@
 
 	<div class="timeline-body">
 		{{#objectType}}
-		{{#hasactions}}
 		<span class="actions dropdown pull-right"> 
 			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 				{{/actions}}
 			</ul>
 		</span>
-		{{/hasactions}}
+		
 		<div class="timeline-content">
 			
 			{{#attached.image}}
@@ -33,10 +32,7 @@
 			{{/attached.video}}
 			
 			{{#from}}
-				<!--<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>-->
-				<a class="timeline-user viewdetails" title="{{icon}} {{displayname}}" target="_blank" href="{{url}}">{{displayname}}</a>
-				<!-- CONTACTS_ROLE -->
-				
+				<a href="{{url}}" class="timeline-user" title="{{icon}} {{displayname}}" target="_blank">{{displayname}}</a>
 				<br />
 			{{/from}}
 			
@@ -60,12 +56,12 @@
 		
 		<div class="timeline-footer">
 			{{#statistics}}
-				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name_translated}}</strong>
+				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
 			{{/statistics}}
 
 		 	{{#canHaveChildren}}
 			 	<span {{#children_count}}data-notifications="true"{{/children_count}}>
-			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} {{translate_comments}}</span>
+			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
 			 	</span>
 			 {{/canHaveChildren}}
 			 
