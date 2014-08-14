@@ -1,4 +1,4 @@
-<div class="single-contact {{network.token}}-color">
+<div class="single-contact {{network.token}}-color" data-id="{{id}}">
 	<img class="avatar" alt="" src="{{avatar}}">
 	<div class="name">
 		<strong>{{displayname}}</strong>

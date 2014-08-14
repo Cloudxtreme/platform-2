@@ -114,7 +114,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				model: message,
 				template: template, 
 				checkunread: true, 
-				parameters:{inboxview: true, parent: this}
+				parameters:{parent: this}
 			});
 			
 			this.entries.push (view);

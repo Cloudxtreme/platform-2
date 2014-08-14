@@ -75,7 +75,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		var options = {model: view.model};
 		
 		if (this.inboxnote) this.inboxnote.remove();
-
+		
 		this.inboxnote = new Cloudwalkers.Views.Widgets.InboxNote(options);
 		
 		$(".inbox-container").html(this.inboxnote.render().el);
@@ -113,18 +113,18 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		var contextrender;
 	
 		//Mustache render the context
-		if(context.objectType == 'message'){
+		if(context.objectType == 'message')
+		{
 			var wrapper = $('<div class="message social-box-colors"></div>')
 			context.display = true;
 			contextrender = Mustache.render(Templates.inboxmessage, context);
 			contextrender  = wrapper.append(contextrender)
-		}else if(context.objectType == 'contact'){
-			
-			contextrender = Mustache.render(Templates.singlecontact, context);
 
-		}
-
-		
+		}else if(context.objectType == 'contact')
+		{	
+			var contactcard = new Cloudwalkers.Views.ContactCard({contact: context});
+			contextrender = contactcard.render().el;
+		}	
 
 		//append the context
 		$('.inbox-container').prepend(contextrender);

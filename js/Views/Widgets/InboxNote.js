@@ -72,6 +72,9 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		
 		// Check notifications (second conditional, after message render)
 		if (this.options.notification && this.model.get("objectType")) this.addNotifications();
+		
+		// Check if it's an account note
+		if (this.model.attributes.ACCOUNT)	this.$el.addClass('nocontext')
 
 		return this;
 	},
