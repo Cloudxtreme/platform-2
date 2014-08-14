@@ -1,4 +1,5 @@
-<div class="portlet box blue messagelist" id='monitorlist'>
+<!-- Deprecated <div class="portlet box blue messagelist" id='monitorlist'> -->
+<div class="portlet box newgrey messagelist" id='monitorlist'>
 	<div class="portlet-title line">
 		<div class="caption"><i class="icon-tags icon-large"></i>{{name}}</div>
 		<div class="tools">
