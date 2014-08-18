@@ -556,6 +556,10 @@ tbody.messages-container i	{
 	display: none;
 }
 
+.modal-body .checkbox{
+	padding-left: 20px !important;
+}
+
 .message-notes ul.note-list{
 	padding: 10px;
 	margin-left: 0px;

@@ -99,7 +99,8 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		this.original  = [
 			"write_note",
 			"save",
-			"cancel"
+			"cancel",
+			"private_note"
 		];
 
 		this.translated = [];
