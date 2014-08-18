@@ -3,26 +3,40 @@
 		<div class="context-icon-{{parent.objectType}}"></div>
 	</div>
 	
-	<!--<span class="note-icon">
-		<i class="icon-{{type_icon}}"></i>	
-	</span>-->
-	
 	<div class="note-subject">
-	{{#user}}		
-		<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
-		<strong>{{displayname}}</strong>
-	{{/user}}
-	{{#parent.displayname}}
-		{{#parent.displayname}}on {{parent.displayname}}{{/parent.displayname}}
-	{{/parent.displayname}}
+		
+		{{^inboxview}}
+			{{#user}}		
+				<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+				<strong>{{displayname}}</strong>
+			{{/user}}
+		{{/inboxview}}
+		{{#inboxview}}
+			{{#CONTACT}}
+				{{#parent}}
+					<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+					<strong>{{displayname}}</strong>
+				{{/parent}}
+			{{/CONTACT}}
+
+			{{#MESSAGE}}
+				{{#parent}}
+					<div class="avatar" alt="{{parent.from.0.displayname}}" style="background-image:url({{parent.from.0.avatar}})"></div>
+					<strong>{{parent.from.0.displayname}}</strong>
+					on {{parent.networkdescription}}
+				{{/parent}}
+			{{/MESSAGE}}
+
+			{{#ACCOUNT}}
+				{{#user}}
+					<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+					{{displayname}}
+				{{/user}}
+			{{/ACCOUNT}}
+		{{/inboxview}}
 	
-	{{^parent.displayname}}
-		{{#parent.from}}
-			{{parent.from.0.displayname}} on {{parent.networkdescription}}
-		{{/parent.from}}
-	{{/parent.displayname}}
 	</div>
 	
 	<div class='content' data-id="{{id}}">
-		{{{text}}}
+		{{{intro}}}
 	</div>
