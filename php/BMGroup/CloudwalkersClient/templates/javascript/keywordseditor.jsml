@@ -53,6 +53,7 @@
 				<!--deprecated-->
 				<label>{{translate_filters}}:</label>
 				<div class="input-symbol" data-option="fullbody">
+					<div class="container-loading hidden"><i class="icon-cloud-download"></i></div>
 					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
 						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
 							<span class="demo_hit_me">+</spam>
@@ -61,7 +62,9 @@
 									<li class="add_message_contains" data-value="message contains">{{translate_message_contains}}</li>
 									<li class="add_message_no_contains" data-value="message !contains" class="demo_doesntcontain">{{translate_message_doesnt_contain}}</li>
 									<li class="add_country_is" data-value="county =">{{translate_country_is}}</li>
+									<li class="add_country_is_not" data-value="county =">{{translate_country_is_not}}</li>
 									<li class="add_language_is" data-value="language =">{{translate_language_is}}</li>
+									<li class="add_language_is_not" data-value="language =">{{translate_language_is_not}}</li>
 									<li class="add_group" data-value="(">{{translate_group}}</li>
 								</ul>
 							</span>
