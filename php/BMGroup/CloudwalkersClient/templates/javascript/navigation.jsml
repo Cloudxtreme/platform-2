@@ -224,12 +224,12 @@
 					</a>
 				</li>
 
-				<li>
+				<!--<li>
 					<a href="#timeline/rss">
 						<i class="icon-rss"></i> 
 						<span class="title">{{translate_rss_feed}}</span>
 					</a>
-				</li>
+				</li>-->
 
 				<li class="trending">
 					<a href="#trending/{{news}}">
@@ -245,12 +245,12 @@
 					</a>
 				</li>
 
-				<li>
+				<!--<li>
 					<a href="#monitoring/managerss">
 						<i class="icon-plus"></i> 
 						<span class="title">{{translate_manage_rss}}</span>
 					</a>
-				</li>
+				</li>-->
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_THIRDPARTY}}

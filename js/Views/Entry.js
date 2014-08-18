@@ -80,7 +80,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.loadnoteui();
 		}	
 
-		this.loadsentiment();
+		//this.loadsentiment();
 
 		return this;
 	},
