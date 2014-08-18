@@ -33,10 +33,14 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			response.time = moment(response.date).format("HH:mm");
 
 			response.type_icon = this.type_settings[response.model.objectType].icon;
+			//Easy type check for templates
+			response[response.model.objectType] = true;
 
 			// Hack!
 			if(response.model) response.objectType = "note";
 		}
+
+		response.intro = response.text? response.text.substr(0, 72): " ";
 
 		return response;
 	},
