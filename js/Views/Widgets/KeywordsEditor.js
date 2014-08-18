@@ -15,6 +15,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		// Listen to channel changes
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
+		this.listenTo(Cloudwalkers.Session.getAccount(), 'sync', this.showFilter);
 		
 	},
 
@@ -25,8 +26,9 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		
 		var account = Cloudwalkers.Session.getAccount();
-		var filters = account.get("filteroptions");
-		
+
+		var filters = account.attributes.filteroptions;
+	
 		// Check presets
 		if(!filters) account.fetch({endpoint: "filteroptions", success: this.render.bind(this)})
 
@@ -37,33 +39,54 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		data.title = this.title;
 		this.mustacheTranslateRender(data);
 
-		this.$el.find ('#keywordseditor').keywordfilterscript({
-			update : this.translateString('update'),
-			cancel: this.translateString('cancel'),
-			message_contains: this.translateString('message_contains'),
-			message_doesnt_contain: this.translateString('message_doesnt_contain'),
-			country_is: this.translateString('country_is'),
-			language_is: this.translateString('language_is'),
-			group: this.translateString('group'),
-			end_group: this.translateString('end_group'),
-			and: this.translateString('and'),
-			or: this.translateString('or'),
-			save: this.translateString('save'),
-			insert_text: this.translateString('insert_text'),
-			countries: filters.countries,
-			languages: filters.languages,
-			
-			success: function(formula) {this.formula = formula}.bind(this)
-		});
+		//if filters are filled
+		if(filters){
+			this.$el.find ('#keywordseditor').keywordfilterscript({
+				update : this.translateString('update'),
+				cancel: this.translateString('cancel'),
+				message_contains: this.translateString('message_contains'),
+				message_doesnt_contain: this.translateString('message_doesnt_contain'),
+				country_is: this.translateString('country_is'),
+				language_is: this.translateString('language_is'),
+				country_is_not: this.translateString('country_is_not'),
+				language_is_not: this.translateString('language_is_not'),
+				group: this.translateString('group'),
+				end_group: this.translateString('end_group'),
+				and: this.translateString('and'),
+				or: this.translateString('or'),
+				save: this.translateString('save'),
+				there_are: this.translateString('there_are'),
+				groups_left_open_please_close_them_and_resubmit: this.translateString('groups_left_open_please_close_them_and_resubmit'),
+				formula_is_not_valid_add_more_parameters: this.translateString('formula_is_not_valid_add_more_parameters'),
+				choose_language: this.translateString('choose_language'),
+				choose_country: this.translateString('choose_country'),
+				insert_text: this.translateString('insert_text'),
+				countries: filters.countries,
+				languages: filters.languages,
+				
+				success: function(formula) {this.formula = formula}.bind(this)
+
+			});
+
+		}
 
 		this.$el.html (Mustache.render (Templates.keywordseditor, data));
 		
 		// Chosen
 		this.$el.find("select").chosen({width: "100%"});
 
+		if(!filters){
+			this.$el.find('#keyword_filter').addClass("hidden");
+			this.$el.find('.container-loading').removeClass("hidden");
+		}
+
 		return this;
 	},
-	
+	'showFilter' : function(){
+		this.$el.find('#keyword_filter').removeClass("hidden");
+		this.$el.find('.container-loading').addClass("hidden");
+	},
+
 	'addCategory' : function (e)
 	{
 		e.preventDefault ();
@@ -82,14 +105,14 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var catid = Number($("#keyword_manage_category").val())
 		
 		// Check selected
-		if(!catid) return Cloudwalkers.RootView.alert("Don't forget to select a category.");
+		if(!catid) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_select_a_category"));
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
 		category.channels.create(this.keywordFormula(), {parent: catid, wait: true, error: function(){
 			
-			Cloudwalkers.RootView.information ("Not saved", "Your formula is a bit fuzzy", this.$el.find(".manage-keyword"));
+			Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
 			this.$el.find(".managekeyword .icon-cloud-upload").hide();
 			
 		}.bind(this)});
@@ -210,10 +233,17 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"message_doesnt_contain",
 			"country_is",
 			"language_is",
+			"country_is_not",
+			"language_is_not",
 			"group",
 			"end_group",
 			"save",
-			"insert_text"
+			"insert_text",
+			"there_are",
+			"groups_left_open_please_close_them_and_resubmit",
+			"formula_is_not_valid_add_more_parameters",
+			"choose_language",
+			"choose_country"
 		];
 
 		this.translated = [];
