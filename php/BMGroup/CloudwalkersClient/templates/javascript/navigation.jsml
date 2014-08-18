@@ -35,6 +35,13 @@
 					<span class="title">{{translate_drafts}}</span>
 				</a>
 			</li>
+
+			<li class="sent">
+				<a href="#sent">
+					<i class="icon-upload"></i> 
+					<span class="title">{{translate_sent}}</span>
+				</a>
+			</li>
 			
 			<li class="schedule">
 				<a href="#schedule">
@@ -133,7 +140,14 @@
 		</li>
 	{{/inbox}}
 	
-	
+		{{#authorized.MESSAGE_READ_DRAFTS}}
+				<li class="sent">
+					<a href="#sent">
+						<i class="icon-upload"></i> 
+						<span class="title">{{translate_sent}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_DRAFTS}}
 		<!-- Co-workers cloud -->
 		{{#authorized._CW_COWORKERS_VIEW}}
 		<li>

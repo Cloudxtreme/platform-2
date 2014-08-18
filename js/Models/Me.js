@@ -128,6 +128,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
+			this.removerole('ACCOUNT_TAGS_VIEW');
+			this.removerole('ACCOUNT_TAGS_MANAGE')
 
 			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);			

@@ -16,6 +16,14 @@
 			<div class="media"><i class="icon-{{networktoken}}"></i></div>
 			{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
 		{{/inboxview}}
+		{{#sentview}}
+			{{#streams}}
+				{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
+				<div class="dot {{network.token}}-color"></div>
+				<div class="media"><i class="icon-{{network.token}}"></i></div>
+				{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
+			{{/streams}}
+		{{/sentview}}
 
 	</div>
 	

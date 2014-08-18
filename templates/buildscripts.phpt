@@ -72,6 +72,7 @@
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
 <script type="text/javascript" src="/js/Views/Resync.js"></script>
 <script type="text/javascript" src="/js/Views/ContactCard.js"></script>
+<script type="text/javascript" src="/js/Views/Sent.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 
 <!-- Deprecated Views -->
@@ -133,6 +134,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/SentMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>

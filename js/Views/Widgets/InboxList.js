@@ -45,7 +45,7 @@ Cloudwalkers.Views.Widgets.InboxList = Cloudwalkers.Views.Widgets.Widget.extend(
 	{	
 		// Template data
 		var param = {streams: [], networks: []};
-		
+	
 		// Get template
 		this.$el.html (Mustache.render (Templates.list, param));
 		

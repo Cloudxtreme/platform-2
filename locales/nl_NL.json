@@ -339,6 +339,7 @@
 		"one_or_more_networks_exceed_the_character_limit": "One or more networks exceed the character limit.",
 		"please_select_a_network_first": "Please select a network first.",
 		"not_posted": "Not posted",
-		"private_note": "Private note"
+		"private_note": "Private note",
+		"Sent": "Sent"
 	}
 }
