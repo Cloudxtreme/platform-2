@@ -367,8 +367,14 @@
 	border-color: transparent #eee;
 }
 
+.inbox-container .note.nocontext{
+	margin-top: 10px;
+}
+
 .inbox-container ul.related-messages .note:before,
-.inbox-container ul.related-messages .note:after{
+.inbox-container ul.related-messages .note:after,
+.inbox-container .note.nocontext:after,
+.inbox-container .note.nocontext:before{
 	border: none;
 }
 
@@ -401,6 +407,10 @@
 
 .inbox-container .note-header .date {
 	display: block; font-size: 12px;
+	font-style: italic;
+	opacity: .8;
+	padding-right: 10px;
+	margin-top: 7px;
 }
 
 .inbox-container .note-header i {
@@ -414,6 +424,7 @@
 .inbox-container .single-contact{
 	background: white; box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	padding: 15px; position: relative; border-right: 5px solid;
+	cursor: pointer;
 }
 
 .inbox-container .single-contact .avatar{
@@ -439,9 +450,9 @@
 }
 */
 .inbox-container .single-contact i{
-	font-size: 130px;
+	font-size: 80px;
 	position: absolute;
-	top: 0px;
+	top: 25px;
 	opacity: .05;
 	right: 20px;
 }
