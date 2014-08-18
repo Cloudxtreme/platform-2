@@ -197,6 +197,11 @@ Style corrections and manual overrides
 	margin: 5px 0px 5px 0px;
 }
 
+#compose .checkbox input{
+	width: inherit;
+	height: inherit;
+}
+
 #compose [data-option=limit].hidden	{ float: none; }
 
 #compose [data-option=limit].color-notice	{ color: #777; }
