@@ -114,14 +114,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 				model: message,
 				template: template, 
 				checkunread: true, 
-				parameters:{parent: this}
+				parameters:{parent: this, contactview: true}
 			});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.loadmessage);
-			
-			if(this.type == 'note')	
-				view.$el.addClass('noteentry')
 
 			this.$container.append(view.render().el);
 		}	

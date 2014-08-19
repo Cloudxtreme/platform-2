@@ -348,6 +348,8 @@
 		"choose_country": "Escolha o país",
 		"country_is_not": "país não é",
 		"language_is_not": "lingua não é",
+		"Unfavorite": "Unfavorite",
+		"are_you_sure_you_want_to_remove_this_category": "Tem a certeza que pretende eliminar esta categoria?",
 		"are_you_sure_you_want_to_remove_this_filter": "Tem a certeza que pretende eliminar este filtro?"
 	}
 }
