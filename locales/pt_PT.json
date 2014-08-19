@@ -339,6 +339,9 @@
 		"one_or_more_networks_exceed_the_character_limit": "Uma ou mais redes excedem o limite máximo de caracteres.",
 		"please_select_a_network_first": "Escolha uma rede.",
 		"not_posted": "Não enviado",
-		"private_note": "Nota privada"
+		"private_note": "Nota privada",
+		"Unfavorite": "Unfavorite",
+		"are_you_sure_you_want_to_remove_this_category": "Tem a certeza que pretende eliminar esta categoria?",
+		"are_you_sure_you_want_to_remove_this_filter": "Tem a certeza que pretende eliminar este filtro?"
 	}
 }

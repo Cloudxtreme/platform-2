@@ -60,8 +60,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'dashboard' : function ()
 	{	
-		if(!Cloudwalkers.Session.isupdated())
-			return Cloudwalkers.RootView.resync('#dashboard');
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#dashboard');
 
 		// Check first-timer
 		if (Cloudwalkers.Session.getAccount().get("firstTime"))
@@ -137,8 +137,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			}
 
 		// "Manual" validation
-		if(!Cloudwalkers.Session.isupdated())
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 		var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
 
@@ -374,13 +374,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
 		//Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
 
-		if(!Cloudwalkers.Session.isupdated())
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
-		if(Cloudwalkers.Session.isAuthorized(roles))
+		if(Cloudwalkers.Session.isAuthorized && Cloudwalkers.Session.isAuthorized(roles))
 			Cloudwalkers.RootView.setView(view)
 		else
-			window.location = "/";
+			this.home();
 	},
 	
 	'exception' : function (errno)
