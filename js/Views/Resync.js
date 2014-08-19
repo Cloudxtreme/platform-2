@@ -57,7 +57,7 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 		else
 			window.location = "/";*/
 		
-		if(!Cloudwalkers.Session.isupdated())	this.updateme();
+		this.updateme();
 		//else									window.location = "/";	
 	},
 
