@@ -6,11 +6,11 @@
 	
 	<div class="modal-body">
 		<textarea>{{text}}</textarea>
-		<div class="checkbox">
+	<!--	<div class="checkbox">
 	        <label>
 	        	<input type="checkbox" checked="checked">{{translate_private_note}}
 	        </label>
-	    </div>
+	    </div>-->
 	</div>
 
 	<div class="modal-footer toload">
