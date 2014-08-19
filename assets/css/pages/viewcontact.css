@@ -5,7 +5,7 @@ img.viewdetails{
 }
 
 #compose.viewcontact{
-	height: 620px;
+	height: 605px;
 }
 
 #compose.viewcontact #inboxlist{
@@ -339,6 +339,11 @@ img.viewdetails{
 	min-height: 140px !important;
 }
 
+.viewcontact aside textarea{
+	padding-left: 8px;
+	min-height: 150px !important;
+}
+
 .viewcontact #notefield #post{
 	float: right;
 }
@@ -400,6 +405,22 @@ img.viewdetails{
 
 .viewcontact .note:before{
 	content: none;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active{
+	background: #F2F0A0 !important;
+	color: inherit;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active strong,
+#compose.viewcontact #inboxlist .list > li.note.active .date,
+#compose.viewcontact #inboxlist .list > li.note.active .media{
+	background: #F2F0A0 !important;
+	color: #5b514e !important;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active .content{
+	color: #5b514e;
 }
 	
 /* DEMO Note end*/ 

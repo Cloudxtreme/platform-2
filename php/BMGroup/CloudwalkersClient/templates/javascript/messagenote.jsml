@@ -13,10 +13,11 @@
 		<div class="notification-action" data-notification-action="edit"><i class="icon-pencil"></i></div>
 	</div>
 	{{/authorized.ACCOUNT_NOTES_MANAGE}}
-	
-	{{#date}}
-		<div class="comment-info pull-right">{{date}}</div>
-	{{/date}}
+	{{#user}}
+		{{#date}}
+			<div class="comment-info pull-right">{{date}}</div>
+		{{/date}}
+	{{/user}}
 </div>
 
 <div class="note-body">{{{text}}}</div>
