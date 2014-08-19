@@ -68,13 +68,18 @@ Settings
 
 #service-connected .portlet-body  {
   padding-left: 0px;
-  width: 200%; box-sizing: border-box; -webkit-transform: translate3d(0px, 0px, 0);
-  -webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+  width: 200%; box-sizing: border-box; 
+  -webkit-transform: translate3d(0px, 0px, 0);
+  -webkit-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
+  -moz-transform: translate3d(0px, 0px, 0);
+  -moz-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
 }
 
 #service-connected.open-detail .portlet-body  {
   -webkit-transform: translate3d(-50%, 0px, 0);
-  -webkit-transition-property: all; -webkit-transition-duration: 400ms; -webkit-transition-timing-function: cubic-bezier(0.12, .8, 0, 1);
+  -webkit-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
+  -moz-transform: translate3d(-50%, 0px, 0);
+  -moz-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
 }
 
 #service-connected ul.services  {
