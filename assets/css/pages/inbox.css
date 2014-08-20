@@ -341,13 +341,18 @@
 
 /* Inbox Note */
 
-.inbox-container .note	{
+.inbox-container .note, .messagelist .note {
 	background: #faf8bf !important; box-shadow: 0 0 3px #d6d6d6;
 	position: relative;
 	margin-top: 70px;
 }
 
-.inbox-container .note:before{
+#compose.viewcontact #inboxlist .list li.note{
+	margin: 20px 30px 20px 37px;
+	padding: 0px;
+}
+
+.inbox-container .note:before, .messagelist .note:before{
 	content: "";
 	position: absolute;
 	top: -50px;
@@ -367,7 +372,7 @@
 	border-color: transparent #eee;
 }
 
-.inbox-container .note.nocontext{
+.inbox-container .note.nocontext, .messagelist .note.nocontext{
 	margin-top: 10px;
 }
 
@@ -380,45 +385,50 @@
 
 .inbox-container .note .scroller	{ padding-right: 0 !important; }
 
-.inbox-container .note .note-header	{
+.inbox-container .note .note-header, .messagelist .note .note-header{
 	padding: 8px 10px; background-color: #F2F0A0;
 	color: #6c5f5c;
 	border-bottom: 1px dashed #D3D2A1;
 	min-height: 30px;
 }
-.inbox-container .note .note-header > span{
+.inbox-container .note .note-header > span, .messagelist .note .note-header > span{
 	font-weight: bold;
 	line-height: 30px;
 }
 
-.inbox-container .note-icon	{
+.inbox-container .note-icon, .messagelist .note-icon {
 	padding: 2px 6px; color: white; border-radius: 50%; border: 2px solid white;
 }
 
-.inbox-container .note-header .inherit	{ padding: 10px; font-weight: 300; }
+.inbox-container .note-header .inherit, .messagelist .note-header .inherit { padding: 10px; font-weight: 300; }
 
-.inbox-container .note .note-header img.avatar {
+.inbox-container .note .note-header img.avatar, #inboxlist .messagelist .note .note-header img.avatar {
 	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
 }
 
-.inbox-container .note-header a {
+.inbox-container .note-header a, .messagelist .note-header a {
 	color: inherit; font-weight: bold;
 }
 
-.inbox-container .note-header .date {
+.inbox-container .note-header .date, #inboxlist .messagelist .note-header .date {
 	display: block; font-size: 12px;
 	font-style: italic;
 	opacity: .8;
 	padding-right: 10px;
 	margin-top: 7px;
+	width: auto;
 }
 
-.inbox-container .note-header i {
+.inbox-container .note-header i, .messagelist .note-header i {
 	opacity: .5; font-size: 14px; float: right;
 }
 
-.inbox-container .note-body	{
+.inbox-container .note-body, .messagelist .note-body {
 	padding: 12px 18px; min-height: 20px;
+}
+
+#inboxlist .messagelist .note .message-actions{
+	padding: 5px 18px;
 }
 
 .inbox-container .single-contact{

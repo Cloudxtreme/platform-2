@@ -101,7 +101,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 		var message;
 		var view;
-		var template = this.type == 'note'? 'smallentrynote': 'smallentry';
+		var template = this.type == 'note'? 'inboxnote': 'smallentry';
 
 		// Add models to view
 		for (n in messages)
@@ -285,10 +285,10 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	},
 
 	'loadmessage' : function(view)
-	{	
+	{
 		var options = {model: view.model, notes: view.model.id? true: false, parent: this};
 		
-		if (this.type == 'note')	options.template = 'inboxnote';		
+		if (this.type == 'note')	return;		
 
 		$('.viewcontact').addClass('onmessage');
 

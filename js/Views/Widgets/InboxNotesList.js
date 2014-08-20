@@ -131,6 +131,8 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		}	
 
 		//append the context
+		$('.inbox-container').find('.message').remove();
+		$('.inbox-container').find('.single-contact').remove();
 		$('.inbox-container').prepend(contextrender);
 
 	},
