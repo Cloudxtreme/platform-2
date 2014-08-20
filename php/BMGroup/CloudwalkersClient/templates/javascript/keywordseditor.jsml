@@ -54,7 +54,7 @@
 				<label>{{translate_filters}}:</label>
 				<div class="input-symbol" data-option="fullbody">
 					<div class="container-loading hidden"><i class="icon-cloud-download"></i></div>
-					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12">
+					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12 keywordeditarea">
 						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
 							<span class="demo_hit_me">+</spam>
 							<span class="demo_options">
@@ -74,9 +74,10 @@
 				<br><br>
 
 				<button class="btn blue add-keyword" onclick="return false;" data-option="submit">{{translate_create}}</button>
-				<button class="btn blue update-keyword edit-keyword inactive">{{translate_update}}</button>
+				<button class="btn blue update-keyword edit-keyword inactive" data-option="update">{{translate_update}}</button>
 				
 				<button class="btn cancel-edit-keyword edit-keyword inactive">{{translate_cancel}}</button>
+				<button class="btn reset-keyword" onclick="return false;">{{translate_reset}}</button>
 				
 			</form>
 			<div id="keyword_warning"></div>

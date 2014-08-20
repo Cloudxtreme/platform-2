@@ -28,7 +28,7 @@
 	
 	{{#from}}
 		<img class="avatar" alt="" src="{{avatar}}">
-		<strong><a href="#settings/users" target="_blank">{{displayname}}</a></strong>
+		<strong><a>{{displayname}}</a></strong>
 	{{/from}}
 	
 	<div class='content'>

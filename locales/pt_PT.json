@@ -227,7 +227,7 @@
 		"message_templates": "Modelos de Mensagens",
 		"triggers": "Triggers",
 		"your_account_settings_are_updated": "As suas Configurações de Conta foram actualizadas",
-		"reset": "Reset",
+		"reset": "Limpar",
 		"twitter_new_follower_response": "Twitter: Reposta a novo seguidor",
 		"dm_out_of_office_response": "DM: Resposta Fora do escritório",
 		"user_management": "Gerir Utilizador",
@@ -350,6 +350,9 @@
 		"language_is_not": "lingua não é",
 		"Unfavorite": "Unfavorite",
 		"are_you_sure_you_want_to_remove_this_category": "Tem a certeza que pretende eliminar esta categoria?",
-		"are_you_sure_you_want_to_remove_this_filter": "Tem a certeza que pretende eliminar este filtro?"
+		"are_you_sure_you_want_to_remove_this_filter": "Tem a certeza que pretende eliminar este filtro?",
+		"are_you_sure_you_want_to_reset_this_filter": "Tem a certeza que pretende limpar este filtro?",
+		"keyword_filter_has_been_updated": "Filtro actualizado",
+		"outbox": "Caixa de saída"
 	}
 }
