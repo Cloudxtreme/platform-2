@@ -162,6 +162,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Barchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Piechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/LoadMore.js"></script>
 
 <!-- Deprecated views -->
 <script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>

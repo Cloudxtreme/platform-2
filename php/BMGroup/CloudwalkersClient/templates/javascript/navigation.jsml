@@ -106,7 +106,7 @@
 				{{#authorized.MESSAGE_READ_DRAFTS}}
 				<li class="drafts">
 					<a href="#drafts">
-						<i class="icon-edit"></i> 
+						<i class="icon-file-alt"></i> 
 						<span class="title">{{translate_drafts}}</span>
 					</a>
 				</li>

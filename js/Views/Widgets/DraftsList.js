@@ -66,6 +66,8 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
 		
+		this.addScroll();
+
 		return this;
 	},
 
@@ -81,19 +83,29 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	},
 	
 	'hideloading' : function ()
-	{	
-		//this.$el.find(".icon-cloud-download").hide();
+	{
+		this.$el.find(".icon-cloud-download").hide();
 		this.$container.removeClass("inner-loading");
 		
-		//if (this.model.messages.cursor)
-			//this.$el.find(".load-more").show();
-			//this.hasmore = true;
+		if (this.model.messages.cursor)
+			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
 	'showmore' : function(){
 
-		if(this.model.messages.cursor)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'fill' : function (list)
@@ -155,12 +167,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	
 	'more' : function ()
 	{
-		this.incremental = true;
-		
-		//console.log(parameters)
-		
-		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
-		
+		this.incremental = true;	
+				
+		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
 	
@@ -180,7 +189,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+		//this.addScroll();
 	},
 	
 	'addScroll' : function () {
