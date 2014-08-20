@@ -515,5 +515,8 @@ div.context-icon-message:before{
 }
 
 div.context-icon-account:before{
-	content: "\F007";
+	content: "\F0c2";
+}
+div.context-icon-comment:before{
+	content: "\f0e0";
 }
