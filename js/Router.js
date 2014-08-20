@@ -14,7 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
-		'sent' : 'sent',
+		'outbox(/:type)' : 'outbox',
 		'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
@@ -169,8 +169,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		this.validate(view, roles);
 	},
 
-	'sent' : function()
+	'outbox' : function(type)
 	{
+		if (!type) type = "sent";
+		
 		var view = new Cloudwalkers.Views.Sent();
 		var roles = 'MESSAGE_READ_DRAFTS';
 
