@@ -167,7 +167,6 @@
 			} else {
 				if($(".demo_options:visible").length != 0){
 					$(".demo_options").hide('fast');
-					console.log("hide 3")
 				};
 			}
 			// Change 
@@ -189,8 +188,6 @@
 					} else if($(e.target).attr("data-option") == "cancel"){
 						// Close popups
 						$(".demo_options").hide('fast');
-					} else {
-						console.log($(e.target).attr("data-value"));
 					}
 				}	
 			}
