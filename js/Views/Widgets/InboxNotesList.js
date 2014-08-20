@@ -37,6 +37,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
 		this.listenTo(this.collection, 'ready', this.afterrender);
+		this.listenTo(Cloudwalkers.RootView, 'ready:notecontext', this.rendercontext);
 		
 		return this;
 	},
@@ -109,6 +110,9 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 
 	'rendercontext' : function()
 	{
+		if(!this.inboxnote)
+			return
+		
 		var context = this.inboxnote.getcontext();
 		var contextrender;
 	
