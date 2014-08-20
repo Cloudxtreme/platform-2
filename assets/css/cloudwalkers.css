@@ -1396,6 +1396,11 @@ tbody.messages-container i	{
 	        transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 }
 
+.portlet-body .load-more-wrap.inner-loading{
+	margin-top: 5px;
+	height: 26px;
+}
+
 .tip{
 	position: absolute;	height: 100%; right: 0px; width: 50px; -webkit-box-shadow: #2bbedc 1px 0 4px 1px; -webkit-border-radius: 100%;
 }
@@ -1409,7 +1414,7 @@ ul.toload, .toload ul{max-height: 5px !important;
 	     -o-transition: all .9s ease-out .1s;
 	        transition: all .9s ease-out .1s;
 }
-ul.loaded, .loaded ul{max-height: 9999px !important;}
+ul.loaded, .loaded ul{max-height: 99999px; overflow-y: hidden;}
 ul.loaded{ min-height: 5px;}
 .toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
 /*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/

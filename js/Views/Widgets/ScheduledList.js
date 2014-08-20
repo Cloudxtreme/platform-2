@@ -64,7 +64,9 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
-		
+			
+		this.addScroll();
+
 		return this;
 	},
 	
@@ -87,8 +89,17 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'showmore' : function(){
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'fill' : function (list)
@@ -148,12 +159,9 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	
 	'more' : function ()
 	{
-		this.incremental = true;
-		
-		//console.log(parameters)
-		
-		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
-		
+		this.incremental = true;	
+				
+		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
 	
@@ -173,7 +181,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+		//this.addScroll();
 	},
 	
 	'addScroll' : function () {
