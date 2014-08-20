@@ -348,6 +348,8 @@
 		"choose_country": "Choose country",
 		"country_is_not": "country is not",
 		"language_is_not": "language is not",
+		"Unfavorite": "Unfavorite",
+		"are_you_sure_you_want_to_remove_this_category": "Are you sure you want to remove this category?",
 		"are_you_sure_you_want_to_remove_this_filter": "Are you sure you want to remove this filter?",
 		"are_you_sure_you_want_to_reset_this_filter": "Are you sure you want to reset this filter?",
 		"keyword_filter_has_been_updated": "Keyword filter has been updated"

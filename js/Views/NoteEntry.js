@@ -28,7 +28,7 @@ Cloudwalkers.Views.NoteEntry = Cloudwalkers.Views.Entry.extend({
 	{
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
-		
+	
 		// A loaded model
 		if(this.model.loaded())
 		{
@@ -38,6 +38,7 @@ Cloudwalkers.Views.NoteEntry = Cloudwalkers.Views.Entry.extend({
 				{
 					this.model.parent = this.model.attachParent(this.model.get("model").objectType, this.model.get("model").id);
 					if(!this.model.parent.loaded()) this.listenTo(this.model.parent, "sync", this.render)
+					else this.parameters.parent = this.model.parent.attributes;
 				
 				} else
 					this.parameters.parent = this.model.parent.attributes;

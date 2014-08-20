@@ -41,8 +41,7 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 	{	
 		// Reload navigation & stuff
 		Cloudwalkers.RootView.navigation.renderHeader();
-        Cloudwalkers.RootView.navigation.render();
-
+		Cloudwalkers.RootView.navigation.render();
 
 		Cloudwalkers.Router.Instance.navigate (this.returnto, true);
 	},
@@ -58,7 +57,7 @@ Cloudwalkers.Views.Resync = Backbone.View.extend({
 		else
 			window.location = "/";*/
 		
-		if(!Cloudwalkers.Session.isupdated())	this.updateme();
+		this.updateme();
 		//else									window.location = "/";	
 	},
 
