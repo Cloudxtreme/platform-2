@@ -1745,8 +1745,9 @@ counter	{
 */
 
 .toggleall	{
-	background: #4a4a4a; display: inline; padding: 2px 10px; border-radius: 20px; cursor: pointer;
+	background: #4a4a4a; display: inline-block; padding: 2px 10px; border-radius: 20px; cursor: pointer;
 	color: white; font-size: 12px;
+	margin-top: 8px;
 }
 .toggleall.inactive	{ background: #ddd; cursor: default; }
 
