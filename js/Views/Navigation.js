@@ -303,7 +303,9 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			"notes",
 			"rss_feed",
 			"manage_rss",
-			"sent"
+			"sent",
+			"outbox"
+
 		];
 
 		this.translated = [];

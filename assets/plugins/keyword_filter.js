@@ -1,5 +1,5 @@
 (function($){
-	
+
 	this.init = function(options){
 		this.translations = {};
 
@@ -7,8 +7,13 @@
 			$.extend(this.translations, options);
 		}
 
-		$('html').mouseup(function(e) {
+		$('html').mouseup(function(e)
+		{
 			e.stopPropagation();
+
+			if(e.target.className == "no-js"){
+				return;	
+			}
 
 			// Search for demo_bubble. Get ID and 2nd class which defines type
 			var el_ref = $(e.target).closest(".demo_bubble");
@@ -18,31 +23,34 @@
 					el_ref_type =  el_ref_type[1];
 			}
 			var el_ref_class = e.target.classList;
-				var el_ref_hit =  el_ref_class[0];
-				var el_ref_hit_3 =  el_ref_class[2];
-				var el_parent_ref = e.target.parentElement.classList;
-				el_parent_ref = el_parent_ref[0];
+			var el_ref_hit =  el_ref_class[0];
+			var el_ref_hit_3 =  el_ref_class[2];
+			var el_parent_ref = e.target.parentElement.classList;
+			el_parent_ref = el_parent_ref[0];
 
-				//console.log("id:" + el_ref_id + "ref:" + el_parent_ref + " type:" + el_ref_type + " and hit:" + el_ref_hit + " and ref_hit_3:" + el_ref_hit_3);
-				
-				// Validate data. If group is left open either is closed or removed
-				if($(e.target).attr("data-option") == "submit"){
+			//console.log("id:" + el_ref_id + "ref:" + el_parent_ref + " type:" + el_ref_type + " and hit:" + el_ref_hit + " and ref_hit_3:" + el_ref_hit_3);
+			
+			// Validate data. If group is left open either is closed or removed
+			if(($(e.target).attr("data-option") == "submit") || ($(e.target).attr("data-option") == "update")){
 
-					var valid_formula = false;
-					var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
-			    	var result = "";
+				var valid_formula = false;
+				var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
+				var result = "";
 
-					// detect groups left open
-					// if the filter has enough size
-					if($("#keyword_filter").children().length > 3){
-						if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
-							$('#keyword_filter').children().eq(-2).remove();
+				// detect groups left open
+				// if the filter has enough size
+				if($("#keyword_filter").children().length > 3)
+				{
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true)
+					{
+						$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
 						addPlus("small");
-						}
+					}
 					valid_formula = true;
 
-		   			if(open_groups > 1){
+		   			if(open_groups > 1)
+		   			{
 
 		   				addWarning(this.translations.there_are + ' ' + open_groups + ' ' + this.translations.groups_left_open_please_close_them_and_resubmit);
 		   				
@@ -79,13 +87,13 @@
 		   			}
 
 					
-					} else {
-						addWarning(this.translations.formula_is_not_valid_add_more_parameters);
-						valid_formula = false;
-					}
+				} else {
+					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
+					valid_formula = false;
+				}
 					
 					// check if there are and/or before end 
-					$("#keyword_filter").children().each(function()
+				$("#keyword_filter").children().each(function()
 		    	{
 		    		if(($("#"+this.id).hasClass("demo_end_group")) && ($("#"+this.id).prev().hasClass("demo_drop")))
 		    		{
@@ -125,7 +133,7 @@
 									value_to_insert = filter_data + " ";
 					    		} else if((filter_data == "and ") || (filter_data == "or ")){
 					    			value_to_insert = filter_data + " ";
-					    		} else if((filter_data == "language = ") || (filter_data == "country = ")){
+					    		} else if((filter_data == "language = ") || (filter_data == "country = ") || (filter_data == "language != ") || (filter_data == "country != ")){
 					    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id')).attr("data-value") + "' ";
 					    		} else {
 					    			value_to_insert = filter_data + "'" + $("#" + $(this).attr('id') + " .sel_value").text() + "' ";
@@ -180,14 +188,13 @@
 					} else if($(e.target).attr("data-option") == "cancel"){
 						// Close popups
 						$(".demo_options").hide('fast');
-					} else {
-						console.log($(e.target).attr("data-value"));
 					}
 				}	
 			}
 			// Change option and color if needed
 			if(el_ref_class == "demo_change_val"){
 				var text = $(e.target).attr("data-value");
+				var text_full = $(e.target).html();
 				var option = $("#" + el_ref_id).attr("data-option");
 				if((text == "and") || (text == "or")){
 					if($("#" + el_ref_id).hasClass("demo_and")){
@@ -197,9 +204,9 @@
 						$("#" + el_ref_id).removeClass("demo_or");
 					}
 					$("#" + el_ref_id).addClass("demo_" + text);
-				} else if((option == "language = ") || (option == "country = ")){
-					$("#" + el_ref_id).attr("data-value",datavalue+" ");
-					//Continue language vs ln
+				} else if((option == "language = ") || (option == "country = ") || (option == "language != ") || (option == "country != ")){
+					$("#" + el_ref_id).attr("data-value",text);
+					$("#" + el_ref_id + " .sel_value").html(text_full);
 				}
 
 				if($("#" + el_ref_id).hasClass("demo_drop")){
@@ -207,7 +214,9 @@
 					var text = $(e.target).attr("data-text");
 					$("#" + el_ref_id).attr("data-value",datavalue+" ");
 				}
-				$("#" + el_ref_id + " .sel_value ").html(text);
+				if((option != "language = ") && (option != "country = ") && (option != "language != ") && (option != "country != ")){
+					$("#" + el_ref_id + " .sel_value ").html(text);
+				}
 			}
 			// Add message contains
 			if(el_ref_hit == "add_message_contains"){
@@ -386,8 +395,11 @@
 	
 	}
 	// initialize
-	$.fn.keywordfilterscript = function(){	
+	$.fn.keywordfilterscript = function(){
 		return init.apply(this, arguments);
 	}
+	$.fn.keywordfilterdestroy = function () {
+		$('html').unbind('mouseup')
+	};
 
 })(jQuery);
