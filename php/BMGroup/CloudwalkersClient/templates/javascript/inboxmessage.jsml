@@ -7,7 +7,7 @@
 		</div>
 		
 			{{#notification}}
-				<img class="avatar viewdetails"alt="" src="{{avatar}}">
+				<div class="avatar viewdetails" data-action="viewcontact" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
 				<div>
 					<a class="viewdetails" href="{{url}}" target="_blank">{{displayname}}</a>
 					<br /><em>{{translate_on}} {{networkdescription}}</em>
@@ -15,7 +15,7 @@
 			{{/notification}}
 
 			{{^notification}}
-				<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+				<div class="avatar viewdetails" data-action="viewcontact" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
 				<div>
 					<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
 					<br /><em>{{translate_on}} {{networkdescription}}</em>
