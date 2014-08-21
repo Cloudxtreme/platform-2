@@ -46,6 +46,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 				cancel: this.translateString('cancel'),
 				message_contains: this.translateString('message_contains'),
 				message_doesnt_contain: this.translateString('message_doesnt_contain'),
+				author_is: this.translateString('author_is'),
+				author_is_not: this.translateString('author_is_not'),
 				country_is: this.translateString('country_is'),
 				language_is: this.translateString('language_is'),
 				country_is_not: this.translateString('country_is_not'),
@@ -61,6 +63,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 				choose_language: this.translateString('choose_language'),
 				choose_country: this.translateString('choose_country'),
 				insert_text: this.translateString('insert_text'),
+				insert_author: this.translateString('insert_author'),
 				countries: filters.countries,
 				languages: filters.languages,
 				
@@ -112,12 +115,17 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
-		category.channels.create(this.keywordFormula(), {parent: catid, wait: true, error: function(){
-			
-			Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
-			this.$el.find(".managekeyword .icon-cloud-upload").hide();
-			
-		}.bind(this)});
+		category.channels.create(this.keywordFormula(), {
+			parent: catid,
+			wait: true,
+			error: function(){
+				Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
+				this.$el.find(".managekeyword .icon-cloud-upload").hide();
+			}.bind(this),
+			success: function (){
+				Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
+			}.bind(this)
+		});
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
@@ -177,6 +185,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		for(n in stringFormulaClean)
 		{
 			this.formulaElement(stringFormulaClean[n]);
+			this.$el.find("select").chosen({width: "100%"});
 		}
 		
 		$("#keyword_filter #demo_plus").remove();
@@ -199,7 +208,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		if(size == "small")
 			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + translation.translate_or + '</li></ul></span></span>');
 		if(size == "large")
-			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
+			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is">' + translation.translate_author_is + '</li><li class="add_author_is_not">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
 	},
 
 	'formulaElement' : function(e){
@@ -224,7 +233,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var countrieslist = "";
 		for(n in countries)
 		{
-			countrieslist += '<li class="demo_change_val" data-value="'+countries[n].token+'">'+countries[n].name+'</li>'
+			countrieslist += '<option value="'+countries[n].token+'">'+countries[n].name+'</option>'
 		}
 		
 
@@ -266,14 +275,15 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			for(n in countries)
 			{
 				if(countries[n].token == splitValue[2])
-					textValue = countries[n].name
+					tokenValue = countries[n].token
 			}
 
 			if(splitValue[1] == '!='){
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + textValue + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul>' + countrieslist + '</ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 			} else {
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + textValue + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul>' + countrieslist + '</ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 			}
+			$('#keyword_filter select').val(tokenValue).trigger('change');
 		}
 
 		// Generate message bubble
@@ -289,6 +299,22 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + translation.translate_message_doesnt_contain + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			} else {
 				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message contains ">' + translation.translate_message_contains + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+			}
+		}
+
+		// Generate author bubble
+		if(e.indexOf('author') != -1){
+			//get text
+			splitValue = e.split("'");
+			textValue = splitValue[1];
+
+			splitValue = e.split(' ');
+			splitValue[2] = splitValue[2].replace(/'/g, "");
+
+			if(splitValue[1] == '!='){
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + translation.translate_author_is_not + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+			} else {
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + translation.translate_author_is + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 			}
 		}
 	},
@@ -383,6 +409,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"cancel",
 			"message_contains",
 			"message_doesnt_contain",
+			"author_is",
+			"author_is_not",
 			"country_is",
 			"language_is",
 			"country_is_not",
@@ -391,6 +419,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"end_group",
 			"save",
 			"insert_text",
+			"insert_author",
 			"there_are",
 			"groups_left_open_please_close_them_and_resubmit",
 			"formula_is_not_valid_add_more_parameters",
