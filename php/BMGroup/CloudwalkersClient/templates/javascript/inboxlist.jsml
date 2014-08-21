@@ -43,6 +43,7 @@
 	
 	<div class="clearfix">
 		<ul class="list toload tabbed"></ul>
-		<input type="button" class="btn load-more" value="{{translate_load_more}}" />
+		<div id="loadmore"></div>
+		<!--<input type="button" class="btn load-more" value="{{translate_load_more}}" />-->
 	</div>
 </div>
