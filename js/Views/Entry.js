@@ -320,6 +320,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.togglenoteaction('note-list');
 		this.newnote = true;
 		this.fetchnotes();
+		
+		this.trigger('note:added');
 
 		this.composenote.remove();
 		this.loadnoteui();

@@ -29,8 +29,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		var params = {commented: commented} //this.model.filterData('full', {commented: commented});
 		$.extend(params, this.model.attributes)
 
-		if(this.model.filterActions)
-			$.extend(params, {actions: this.model.filterActions()});
+		/*if(this.model.filterActions)
+			$.extend(params, {actions: this.model.filterActions()});*/
 		
 		// Meant only for the viewcontact messages demo
 		//if(this.notes)	params.notes = true;
@@ -48,6 +48,9 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
 		
+		//Add actions
+		this.renderactions();
+
 		// Add notes interface to the message
 		
 		//if(this.parameters.notes)
@@ -73,6 +76,24 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 
 		return this;
+	},
+
+	'renderactions' : function()
+	{	
+		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
+
+		this.$el.find('.message-actions').html(this.actions.render().el)
+
+		//Init the listener only once
+		if(!this.triggered){
+			this.on('note:added', this.incrementaction.bind(this, 'note-list'));
+			this.triggered = true;
+		}
+	},
+
+	'incrementaction' : function(token)
+	{	
+		this.actions.incrementaction(token);
 	},
 	
 	'loading' : function(show)

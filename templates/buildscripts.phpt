@@ -72,6 +72,8 @@
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
 <script type="text/javascript" src="/js/Views/Resync.js"></script>
 <script type="text/javascript" src="/js/Views/ContactCard.js"></script>
+<script type="text/javascript" src="/js/Views/Actions.js"></script>
+<script type="text/javascript" src="/js/Views/Action.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 
 <!-- Deprecated Views -->
