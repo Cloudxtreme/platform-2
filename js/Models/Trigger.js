@@ -36,7 +36,7 @@ Cloudwalkers.Models.Trigger = Backbone.Model.extend({
 
 	'url' : function()
 	{	
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 		
 		if(this.id)					url.push(this.typestring, this.id)
 		else if(this.parent)		url.push(this.parent.typestring, this.parent.id, this.typestring);

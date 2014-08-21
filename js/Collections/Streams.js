@@ -13,7 +13,8 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	{
 		var param = this.parameters? "?" + $.param (this.parameters): "";
 		
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/streams' + param;
+		return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/streams' + param;
+		// return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/streams' + param;
 	},
 	
 	'parse' : function (response)
@@ -24,6 +25,11 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	},
 	
 	'sync' : function (method, model, options) {
+		
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
 		
 		/*// Store Local - deprecated
 		if( method == "read")

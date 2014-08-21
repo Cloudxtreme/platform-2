@@ -38,7 +38,7 @@ Cloudwalkers.Collections.Notes = Backbone.Collection.extend({
 
 	'url' : function()
 	{
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 
 		if(this.id)											url.push(this.typestring, this.id);
 		else if(!this.parentmodel)							url.push(this.typestring);

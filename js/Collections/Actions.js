@@ -62,7 +62,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var param = this.parameters? "?" + $.param (this.parameters): "";
 		var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
 		
-		return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
+		return Cloudwalkers.Session.api + '/' + parent + '/actions' + param;
+		// return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
 	},
 	
 	'rendertokens' : function (tokens)

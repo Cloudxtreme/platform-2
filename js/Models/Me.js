@@ -17,7 +17,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
 		
-		return CONFIG_BASE_URL + "json/user/me" + param;
+		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	
 	'parse' : function (response)
@@ -37,6 +37,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		// For specific methods
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		

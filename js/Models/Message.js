@@ -37,9 +37,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
         if(!this.id){
         	params = this.parameters;
         	if(this.endpoint){
-        		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
         	} else {
-        		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
         	}
         }
         	
@@ -72,6 +72,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack

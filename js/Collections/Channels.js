@@ -18,7 +18,8 @@ Cloudwalkers.Collections.Channels = Backbone.Collection.extend({
 	{
 		var param = this.parameters? "?" + $.param (this.parameters): "";
 		
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/channels' + param;
+		return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/channels' + param;
+		// return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/channels' + param;
 	},
 	
 	'parse' : function(response)
