@@ -175,7 +175,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"all_languages",
 			"global",
 			"update",
-			"cancel"
+			"cancel",
+			"manage_keyword"
 		];
 
 		this.translated = [];
