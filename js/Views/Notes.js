@@ -11,6 +11,10 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 
 	'render' : function()
 	{
+
+		// Translation for Title
+		this.translateTitle("notes");
+		
 		// Create pageview
 		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -58,5 +62,17 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 		$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 		
 		$message.parent().slimScroll({height: "inherit"});
+	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });
