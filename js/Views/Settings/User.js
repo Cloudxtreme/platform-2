@@ -1,11 +1,11 @@
 Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 
 	'tagName' : 'tr',
+
 	'events' : 
 	{
 		'click [data-edit-user-id]' : 'openDetails',
-		'click [data-delete-user-id]' : 'deleteUser',
-		'click [data-managed-user-id]' : 'saveDetails'
+		'click [data-delete-user-id]' : 'deleteUser'
 	},
 	
 	'initialize' : function (options)
@@ -16,7 +16,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		// HACK!
 		this.parameters = {};
 		
-		this.listenTo(this.model, 'change:clearance', this.closeDetails);
+		this.listenTo(this.model, 'change:clearance', this.render);
 
 		// Translate String
 		translate_you_are_about_to_remove = this.translateString("you_are_about_to_remove");
@@ -25,7 +25,7 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		translate_thats_an_ex_user = this.translateString("thats_an_ex_user");
 	},
 
-	'render' : function (a)
+	'render' : function ()
 	{
 		var self = this;
 		var data = {};
@@ -35,49 +35,18 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(data);
-
-		this.$el.html (Mustache.render (Templates.settings.user, data));
+		
+		self.$el.html (Mustache.render (Templates.settings.user, data));
 
 		return this;
 	},
 
 	'openDetails' : function ()
-	{	
-		var data = {};
-		
-		data.user = this.model.attributes;
-		data.user.role = this.model.getRole().name;
-
-		var role = this.model.get('rolegroup')
-		var roles = Cloudwalkers.Session.getAccount().get('roles');
-		data.roles = [];
-		for (var i = 0; i < roles.length; i ++)
-		{
-			var tmp = roles[i];
-			tmp.checked = this.model.get ('rolegroup') == roles[i].id;
-
-			data.roles.push (tmp);
-		}
-
-		this.$el.html (Mustache.render (Templates.settings.userdetails, data));
+	{
+		var view = new Cloudwalkers.Views.Settings.UserDetails ({ 'model' : this.model, 'view': this.view });
+		$(".manage-users-edit-widget .portlet-body").html(view.render().el);
 	},
-
-	'closeDetails' : function ()
-	{	
-		this.render();
-	},
-
-	'saveDetails' : function(){
-		var data = {rolegroup: this.$("#level").val(), firstname: this.$("input[name=firstname]").val() , name: this.$("input[name=name]").val() };
-
-		this.model.parent = Cloudwalkers.Session.getAccount();
-
-		this.model.save(data, {
-			patch: true, 
-			success: this.success.bind(this)
-		});
-	},
-
+	
 	'deleteUser' : function (e)
 	{
 		var self = this;
@@ -94,13 +63,6 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 			});
 		});
 	},
-
-	'success' : function()
-	{	
-		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
-		this.model.trigger("change:clearance");
-	},
-
 	'translateString' : function(translatedata)
 	{	
 		// Translate String

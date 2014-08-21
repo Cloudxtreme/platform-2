@@ -579,17 +579,18 @@ cursor: pointer;
   overflow-y: auto;
 }
 
-/* Settings Tables */
-.tabbable-custom.tabbable-full-width .nav-tabs > li {
+/* Settings Tables  NEW UI */
+
+/*.tabbable-custom.tabbable-full-width .nav-tabs > li {
   border-radius: 3px;
   /*background-color: #fff;*/
   /* to remove  */
-  background-color: #F7F7F7;
+  /*background-color: #F7F7F7;
   margin-right: 5px;
   box-shadow: 0 1px 1px rgba(0,0,0,.2);
   opacity: 0.6;
 }
-.tabbable-custom.tabbable-full-width .nav-tabs > li:hover{
+/*.tabbable-custom.tabbable-full-width .nav-tabs > li:hover{
   opacity: 1;
 }
 .tabbable-custom.tabbable-full-width .nav-tabs > li.active{
@@ -602,6 +603,7 @@ cursor: pointer;
   background-color: none;
   border: none;
 }
+*/
 .newgrey{
   border-radius: 3px;
 }
@@ -626,11 +628,12 @@ cursor: pointer;
   font-size: 12px;
   cursor: pointer;
 }
+/* NEW UI
 .tabbable-custom > .tab-content{
   background-color: transparent;
   border: none;
 }
-
+*/
 #widgetcontainer .newgrey.box .portlet-title i{
   color: #2bbedc;
 }
@@ -654,6 +657,7 @@ cursor: pointer;
 .settings-users .label{
   text-shadow: none !important;
 }
+/* NEW UI
 .settings-users .label.Conversation.manager{
   background-color: #2BBEDC;
 }
@@ -669,6 +673,7 @@ cursor: pointer;
 .settings-users .label.Co-worker{
   background-color: #CC135F;
 }
+*/
 .settings-users .user-line{
   width: 100%;
 }
@@ -676,11 +681,12 @@ cursor: pointer;
   width: 40%;
   height: 10px;
 }
+/* NEW UI
 .settings-users select{
   margin: 0;
   height: 27px;
 }
-
+*/
 .edit-user-avatar{
   text-align: center;
 }

@@ -1,7 +1,7 @@
 Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
-	'tagName' : 'tr',
+
 	'events' : {
-		'click [data-managed-user-id]' : 'submit'
+		'submit form.edit-managed-user' : 'submit'
 	},
 	
 	'initialize' : function (options)
@@ -56,7 +56,7 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 	'submit' : function (e)
 	{		
-		var data = {rolegroup: this.$("#level").val(), firstname: $("input[name=firstname]").val() , name: $("input[name=name]").val() };
+		var data = {rolegroup: $("#level").val()};
 
 		this.model.parent = Cloudwalkers.Session.getAccount();
 
@@ -70,7 +70,7 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	'success' : function()
 	{	
 		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
-		this.model.trigger("change:clearance");
+		this.model.trigger("change:clearance")	;
 	},
 
 	'disablesave' : function()
