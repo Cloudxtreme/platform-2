@@ -16,6 +16,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
+		/*
 		if (!$client->isLogin ())
 		{
 			echo '<html>';
@@ -28,6 +29,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 
 			exit;
 		}
+		*/
 
 		//$_SESSION['account'] = null;
 
