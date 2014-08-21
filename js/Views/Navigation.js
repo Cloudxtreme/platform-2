@@ -304,7 +304,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 			"rss_feed",
 			"manage_rss",
 			"sent",
-			"outbox"
+			"outbox",
+			"calendar"
 
 		];
 
