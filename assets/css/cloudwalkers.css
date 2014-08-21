@@ -1375,11 +1375,11 @@ ul.loaded{ min-height: 5px;}
 .toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
 /*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/
 .loaded li, .loaded tr{
-	-webkit-transition: all .15s ease-out .5s;
-	   -moz-transition: all .15s ease-out .5s;
-	    -ms-transition: all .15s ease-out .5s;
-	     -o-transition: all .15s ease-out .5s;
-	        transition: all .15s ease-out .5s
+	-webkit-transition: opacity .15s ease-out .5s;
+	   -moz-transition: opacity .15s ease-out .5s;
+	    -ms-transition: opacity .15s ease-out .5s;
+	     -o-transition: opacity .15s ease-out .5s;
+	        transition: opacity .15s ease-out .5s
 }
 /* Rollback effect */
 .toload li:nth-child(1), .toload tr:nth-child(1){	-webkit-transition: all .15s ease-out .45s; -moz-transition: all .15s ease-out .45s;}
