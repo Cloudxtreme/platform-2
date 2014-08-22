@@ -1,12 +1,18 @@
 Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'typestring' : 'notes',
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 	'type_settings' : {
 		'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
 		'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
 		'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
 	},
+=======
+>>>>>>> Stashed changes
 
 
 	'initialize' : function()
@@ -26,13 +32,23 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			response.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
 			response.dateonly = moment(response.date).format("DD MMM YYYY");
 			response.time = moment(response.date).format("HH:mm");
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< Updated upstream
+			
+>>>>>>> Stashed changes
 			response.type_icon = this.type_settings[response.model.objectType].icon;
 			//Easy type check for templates
 			response[response.model.objectType] = true;
 
+<<<<<<< Updated upstream
 			// Hack!
 			if(response.model) response.objectType = "note";
+=======
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 		}
 
 		response.intro = response.text? response.text.substr(0, 72): " ";
