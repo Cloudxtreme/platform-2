@@ -40,7 +40,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 		
 		// DEV Check
-		$.get(Cloudwalkers.Session.api + '/version', this.version.bind(this));
+		// $.get(Cloudwalkers.Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken, 'Accept': "application/json"}}
 		
 	},
 	
