@@ -33,6 +33,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		
 		'resync' : 'resync',
 		'home' : 'home',
+		'logout' : 'home',
 		'*path' : 'dashboard'
 	},
 
@@ -363,6 +364,11 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'home' : function ()
 	{	
+		$.ajax({ url: config.authurl[window.location.origin] + "revoke", headers : {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        }});
+		
 		Cloudwalkers.Session.reset();
 		window.location = "/";
 		

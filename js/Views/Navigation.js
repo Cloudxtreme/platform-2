@@ -41,7 +41,6 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		// DEV Check
 		// $.get(Cloudwalkers.Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken, 'Accept': "application/json"}}
-		
 	},
 	
 	'headeraction' : function(element)
