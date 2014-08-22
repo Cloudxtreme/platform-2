@@ -9,7 +9,7 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'url' : function()
 	{	
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 		
 		if(this.parentpoint)	url.push("accounts", Cloudwalkers.Session.getAccount ().id);
 		if(this.typestring)		url.push(this.typestring);		
@@ -32,6 +32,11 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	 'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? options.endpoint: false;
 		
 		this.parentpoint = method != "delete";

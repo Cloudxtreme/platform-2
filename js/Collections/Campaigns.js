@@ -9,7 +9,8 @@ Cloudwalkers.Collections.Campaigns = Backbone.Collection.extend({
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/campaigns';
+		return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/campaigns'; 
+		//return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/campaigns';
 	},
 	
 	'parse' : function (response)

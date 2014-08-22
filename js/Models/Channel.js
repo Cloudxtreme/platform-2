@@ -35,7 +35,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	{
 		var id = this.id? this.id: "";
 		
-		return CONFIG_BASE_URL + 'json/channel/' + id + this.endpoint + this.parameters;
+		return Cloudwalkers.Session.api + '/channel/' + id + this.endpoint + this.parameters;
 	},
 	
 	'parse' : function(response)
@@ -50,6 +50,11 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		if(method == "read")
 		{
 			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";

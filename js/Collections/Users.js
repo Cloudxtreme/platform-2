@@ -35,11 +35,17 @@
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
+		return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
+		// return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
 	},
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		if(method == "read")
 		{
 			this.processing = true;

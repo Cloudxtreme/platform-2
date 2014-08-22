@@ -101,24 +101,24 @@
 		    		}
 		    	});
 
-					if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
-						if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
-							$('#keyword_filter').children().eq(-2).remove();
-						$("#keyword_filter #demo_plus").remove();
-						addPlus("small");
-						}
-					} else {
-						addWarning(this.translations.formula_is_not_valid_add_more_parameters);
-						valid_formula = false;
+				if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
+						$('#keyword_filter').children().eq(-2).remove();
+					$("#keyword_filter #demo_plus").remove();
+					addPlus("small");
 					}
+				} else {
+					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
+					valid_formula = false;
+				}
 					
 					
-					// if filter is valid
-					if(valid_formula == true)
-					{
-						var filter_src = $("#keyword_filter").children();
-			    	filter_src.each(function()
-			    	{
+				// if filter is valid
+				if(valid_formula == true)
+				{
+					var filter_src = $("#keyword_filter").children();
+		    		filter_src.each(function()
+		    		{
 			    		if(this.id != "demo_plus"){
 					    	var value_to_insert = "";
 					    	var filter_data = "";
@@ -133,11 +133,13 @@
 									value_to_insert = filter_data + " ";
 					    		} else if((filter_data == "and ") || (filter_data == "or ")){
 					    			value_to_insert = filter_data + " ";
-					    		} else if((filter_data == "language = ") || (filter_data == "country = ") || (filter_data == "language != ") || (filter_data == "country != ")){
+					    		} else if((filter_data == "language = ") || (filter_data == "language != ")){
 					    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id')).attr("data-value") + "' ";
 					    		} else {
 					    			value_to_insert = filter_data + "'" + $("#" + $(this).attr('id') + " .sel_value").text() + "' ";
 					    		}
+					    	} else if((filter_data == "country = ") || (filter_data == "country != ")){
+				    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id') + " #countries").val() + "' ";
 					    	} else {
 					    		value_to_insert = filter_data + "'" +  $("#" + $(this).attr('id') + " .text").text() + "' ";
 					    	}
@@ -232,11 +234,25 @@
 				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + this.translations.message_doesnt_contain + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_text + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 			}
+			// Add author is
+			if(el_ref_hit == "add_author_is"){
+				var rand_id = "filter_" + getRandomInt(1,999);
+				$("#keyword_filter #demo_plus").remove();
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + this.translations.author_is + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_author + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				addPlus("small",rand_id);
+			}
+			// Add author is not
+			if(el_ref_hit == "add_author_is_not"){
+				var rand_id = "filter_" + getRandomInt(1,999);
+				$("#keyword_filter #demo_plus").remove();
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + this.translations.author_is_not + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_author + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				addPlus("small",rand_id);
+			}
 			// Add country is
 			if(el_ref_hit == "add_country_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + this.translations.choose_country + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				fillcountries();
 			}
@@ -244,7 +260,7 @@
 			if(el_ref_hit == "add_country_is_not"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != ">' + this.translations.country_is_not + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + this.translations.choose_country + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="countries"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != ">' + this.translations.country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				fillcountries();
 			}
@@ -343,9 +359,10 @@
 			//<li class="demo_change_val" data-value="en">en</li>
 			for(n in options.countries)
 			{
-				var li = '<li class="demo_change_val" data-value="'+options.countries[n].token+'">'+options.countries[n].name+'</li>'
-				$("#keyword_filter #countries ul").append(li);
+				var li = '<option value="'+options.countries[n].token+'">'+options.countries[n].name+'</option>'
+				$("#keyword_filter #countries").append(li);
 			}
+			$("#keyword_filter #countries").chosen({width: "100%"});
 		}
 
 		function filllanguages()
@@ -385,9 +402,9 @@
 		}
 
 		// Large plus button
-		var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + this.translations.message_doesnt_contain + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li></ul></span></span>';
+		var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains">' + this.translations.message_doesnt_contain + '</li><li class="add_author_is">' + this.translations.author_is + '</li><li class="add_author_is_not">' + this.translations.author_is_not + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li></ul></span></span>';
 		// Large plus button with end group
-		var bot_plus_large_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + this.translations.message_doesnt_contain + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li><li class="add_end_group">' + this.translations.end_group + '</li></ul></span></span>';
+		var bot_plus_large_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains">' + this.translations.message_doesnt_contain + '</li><li class="add_author_is">' + this.translations.author_is + '</li><li class="add_author_is_not">' + this.translations.author_is_not + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li><li class="add_end_group">' + this.translations.end_group + '</li></ul></span></span>';
 		// Small plus button
 		var bot_plus_small = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + this.translations.and + '</li><li class="add_or">' + this.translations.or + '</li></ul></span></span>';
 		// Small plus button with end group

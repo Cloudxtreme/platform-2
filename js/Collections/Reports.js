@@ -42,7 +42,8 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	
 	'url' : function()
 	{
-		return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
+		return Cloudwalkers.Session.api + '/streams/' + this.streamid + '/reports?complete=1'; 
+		//return CONFIG_BASE_URL + 'json/stream/' + this.streamid + '/reports?complete=1';
 	},
 		
 	'parse' : function (response)
@@ -57,6 +58,11 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	},
 	
 	'sync' : function (method, model, options) {
+		
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
 		
 		this.processing = true;
 		

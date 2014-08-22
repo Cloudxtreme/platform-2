@@ -72,6 +72,7 @@
 
 <!-- Templates -->
 <script type="text/javascript" src="/templates/templates.js"></script>
+<script type="text/javascript" src="/js/config.js"></script>
 <?php include 'buildscripts.phpt'; ?>
 
 <script>
