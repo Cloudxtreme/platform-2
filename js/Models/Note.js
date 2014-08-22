@@ -9,6 +9,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	},
 
 
+
 	'initialize' : function()
 	{	
 		this.on('action', this.action);

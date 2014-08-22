@@ -14,7 +14,7 @@ class BMGroup_CloudwalkersClient_Controllers_Home
 			exit;
 		}
 
-		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
+		//$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 
 		/*
 		if (!$client->isLogin ())
