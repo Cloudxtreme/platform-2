@@ -18,7 +18,7 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 	
 	'url' : function ()
     {
-		var url = [CONFIG_BASE_URL + "json", "accounts", Cloudwalkers.Session.getAccount ().id ];
+		var url = [Cloudwalkers.Session.api, "accounts", Cloudwalkers.Session.getAccount ().id ];
 		
 		if(this.endpoint)	url.push(this.typestring, this.endpoint);
 		if(this.following)	url.push(this.modelstring + "ids", this.following);		
@@ -45,6 +45,12 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 	    
     'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
+		
 		if(method == "read")	this.processing = true;
 		if(options.parameters)	this.parameters = options.parameters;
 		if(!options.following)	this.following = false;

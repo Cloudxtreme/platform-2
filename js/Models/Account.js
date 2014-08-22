@@ -61,11 +61,16 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'url' : function ()
 	{		
-		return CONFIG_BASE_URL + 'json/account/' + this.id + this.endpoint;
+		return Cloudwalkers.Session.api + '/account/' + this.id + this.endpoint;
 	},
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 
 		return Backbone.sync(method, model, options);

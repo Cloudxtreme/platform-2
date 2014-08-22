@@ -16,7 +16,7 @@ Cloudwalkers.Collections.Triggers = Backbone.Collection.extend({
 	'url' : function()
 	{
 		
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 		
 		if(this.parent)				url.push(this.parent.typestring, this.parent.id, this.typestring);
 		else if(this.typestring)	url.push(this.typestring);		

@@ -428,7 +428,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"and",
 			"or",
 			"reset",
-			"are_you_sure_you_want_to_reset_this_filter"
+			"are_you_sure_you_want_to_reset_this_filter",
+			"manage_keyword"
 		];
 
 		this.translated = [];

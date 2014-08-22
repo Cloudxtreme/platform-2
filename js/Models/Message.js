@@ -27,6 +27,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
 
 		// Children
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
@@ -37,9 +38,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
         if(!this.id){
         	params = this.parameters;
         	if(this.endpoint){
-        		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
         	} else {
-        		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
         	}
         }
         	
@@ -72,6 +73,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -265,7 +271,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule", "variations"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "canHaveChildren", "children_count", "schedule", "variations"]
 		
 		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
@@ -324,11 +330,23 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	},
 
-	'filterActions' : function ()
+	'filterActions' : function (token)
 	{	
 		if(!this.get("actiontokens")) return [];
+
+		var tokens = this.actions.rendertokens();	
+
+		if(token == 'notes')
+			tokens.map(function(t){
+
+				if(t.token == 'note-list')
+					t.value = this.notes.length;
+				
+				return t;
+
+			}.bind(this))
 		
-		return this.actions.rendertokens();
+		return tokens;
 	},
 	
 	'filterCalReadable' : function ()

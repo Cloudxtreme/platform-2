@@ -1,0 +1,4 @@
+<div class="btn-compound" data-action="{{compound}}">
+	<div class="actionvalue btn-white" data-action="{{tokenview}}"><i class="icon-{{icon}}"></i><span>{{value}}</span></div>
+	<div class="actionname btn-white" data-action="{{tokenadd}}">{{name}}</div>					
+</div>
