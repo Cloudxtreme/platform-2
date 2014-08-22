@@ -37,7 +37,7 @@ Cloudwalkers.Collections.Tags = Backbone.Collection.extend({
 
 	'url' : function()
 	{
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 
 		if(this.parentmodel.typestring == 'contacts'){
 			

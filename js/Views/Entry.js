@@ -27,7 +27,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(options) $.extend(this, options);
 
 		this.loadmylisteners();
-		
 	},
 
 	'loadmylisteners' : function()
@@ -331,13 +330,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchnotes' : function()
-	{	
-		var notes = new Cloudwalkers.Collections.Notes();		
-		notes.parentmodel = this.model;
-		notes.parenttype = 'message';
-		this.listenTo(notes,'seed', this.fillnotes);
+	{		
+		this.model.notes.parentmodel = this.model;
+		this.model.notes.parenttype = 'message';
+		this.listenTo(this.model.notes,'seed', this.fillnotes);
 
-		notes.touch(this.model);
+		this.model.notes.touch(this.model);
 
 		this.loadednotes = true;
 	},
@@ -373,6 +371,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.togglenoteaction('note-list');
 		this.newnote = true;
 		this.fetchnotes();
+		
+		this.trigger('note:added');
 
 		this.composenote.remove();
 		this.loadnoteui();

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>Oauth2 login</title>
+		
+		<link rel="icon" href="/favicon.ico">
+		
+		<!-- Bootstrap CSS -->
+		<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/css/login.css" rel="stylesheet" type="text/css" />
+		
+	</head>
+	
+	<body class="cover">
+	
+		<div class="site-wrapper">
+			<div class="site-wrapper-inner">
+				<div class="cover-container">
+				
+					<center>
+					<h4 class="form-signin-heading">...</h4>
+					<center>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+		
+			function extractToken(hash)
+			{   
+				var match = hash.match(/access_token=(\w+)/);
+				return !!match && match[1];
+			}
+			
+			if (extractToken(window.location.href));
+				window.parent.postMessage(extractToken(window.location.href), window.location.origin);
+		
+		</script>
+	
+	</body>
+</html>

@@ -357,6 +357,11 @@
 		"are_you_sure_you_want_to_reset_this_filter": "Are you sure you want to reset this filter?",
 		"keyword_filter_has_been_updated": "Keyword filter has been updated",
 		"outbox": "outbox",
-		"calendar": "Calendar"
+		"calendar": "Calendar",
+		"keyword_filter_has_been_successfully_added": "Keyword filter has been successfully added",
+		"outbox": "outbox",
+		"author_is" : "author is",
+		"author_is_not" : "author is not",
+		"insert_author": "insert author"
 	}
 }

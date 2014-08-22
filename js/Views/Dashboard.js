@@ -3,6 +3,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'title' : "Dashboard",
 	'views' : [],
 
+	'events' : {
+		'change #select_dashboard' : 'selectDashboard'
+	},
+
 	'initialize' : function()
 	{
 
@@ -17,15 +21,21 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		this.model.statistics = new Cloudwalkers.Collections.Statistics();
 		
 		this.listenTo(this.model.statistics, 'seed', this.filldynamicreports);
+
+		// get roles list
+		this.roles = Cloudwalkers.Session.getAccount().get('roles');
 	},
 
-	'getTemplate' : function()
+	'getTemplate' : function(selectedrole)
 	{
 		var template = new Cloudwalkers.Collections.Widgets();
-		var role = Cloudwalkers.Session.user.getRole();
 		
+		var role = Cloudwalkers.Session.user.getRole();
 		if(role)	role = role.template? role.template.name: null;
 		
+		if(selectedrole)
+			role = selectedrole;
+
 		switch(role)
 		{
 
@@ -117,14 +127,33 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		}
 	},
 
-	'render' : function ()
+	'render' : function (selectedrole)
 	{
 		// Pageview
-		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
+		var data = {};
+
+		// Dashboard Select switch (true|false)
+		data.dashboardselect = true;
+
+		// Roles list for Dashboard Select
+		data.roles = [];
+		for (var i = 0; i < this.roles.length; i ++)
+		{
+			var tmp = this.roles[i];
+			
+			tmp.checked = selectedrole == this.roles[i].name;
+
+			data.roles.push (tmp);
+		}
+
+		// Title
+		data.title = this.title;
+
+		this.$el.html (Mustache.render (Templates.pageview, data));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 		// Report widgets (dynamic)
-		var widgets = this.getTemplate().models;
+		var widgets = this.getTemplate(selectedrole).models;
 
 		// Append widgets
 		for(i in widgets)
@@ -279,6 +308,10 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		this.end = moment().zone(0).endOf('isoweek'); 
 		
 		return {since: this.start.unix(), until: this.end.unix()};
+	},
+
+	'selectDashboard' : function(e){
+		this.render($(e.target).val())
 	},
 
 	'translateWidgets' : function(translatedata)
