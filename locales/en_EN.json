@@ -361,6 +361,7 @@
 		"keyword_filter_has_been_successfully_added": "Keyword filter has been successfully added",
 		"author_is" : "author is",
 		"author_is_not" : "author is not",
-		"insert_author": "insert author"
+		"insert_author": "insert author",
+		"Note": "Note"
 	}
 }

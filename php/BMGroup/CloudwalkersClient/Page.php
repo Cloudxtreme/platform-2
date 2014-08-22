@@ -14,9 +14,11 @@ class BMGroup_CloudwalkersClient_Page
 		$html->set ('header', $this->getHeader ());
 		$html->set ('footer', $this->getFooter ());
 
+		/*
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		
 		$html->set ('login', $client->isLogin ());
+		*/
 
 		return $html->parse ('index.phpt');
 	}
@@ -25,12 +27,14 @@ class BMGroup_CloudwalkersClient_Page
 	{
 		$page = new Neuron_Core_Template ();
 
+		/*
 		$client = BMGroup_CloudwalkersClient_Client::getInstance ();
 		if ($client->isLogin ())
 		{
 			$user = $client->getUserData ();
 			$page->set ('user', $user);
 		}
+		*/
 
 		return $page->parse ('modules/cloudwalkersclient/blocks/header.phpt');
 	}

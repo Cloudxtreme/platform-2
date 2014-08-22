@@ -361,6 +361,7 @@
 		"keyword_filter_has_been_successfully_added": "Filtro adicionado com sucesso",
 		"author_is" : "autor é",
 		"author_is_not" : "autor não é",
-		"insert_author": "inserir autor"
+		"insert_author": "inserir autor",
+		"Note": "Nota"
 	}
 }
