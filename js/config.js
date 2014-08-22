@@ -3,7 +3,7 @@ var config =
 		
 	tokens : {
 		'http://cloudwalkers-website' : 'oauth253f66ea2e89a99.45574901',
-		'http://platform.cloudwalkers.local' : 'oauth253f66ea2e89a99.45574901',
+		'http://platform.cloudwalkers.local' : 'oauth253f63ffbac9012.56862210',
 		'https://platform.cloudwalkers.be' : 'oauth253f65b84cd9ba6.21126665',
 		'http://rc3.cloudwalkers.be' : 'oauth253f65ac4d19395.66548206',
 		'http://rc2.cloudwalkers.be' : 'oauth253f65af9244b61.94828765',
@@ -63,7 +63,8 @@ var config =
 		if (event.origin !== window.location.origin)
 		return;
 		
-		Store.set("settings", {key: "token", value: event.data}, config.hello);
+		if (event.data) Store.set("settings", {key: "token", value: event.data}, config.hello);
+		else config.hello();
 	}
 }
 			
