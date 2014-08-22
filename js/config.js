@@ -8,7 +8,8 @@ var config =
 		'http://rc3.cloudwalkers.be' : 'oauth253f65ac4d19395.66548206',
 		'http://rc2.cloudwalkers.be' : 'oauth253f65af9244b61.94828765',
 		'http://rc1.cloudwalkers.be' : 'oauth253f65b3306cc99.62686940',
-		'http://rc0.cloudwalkers.be' : 'oauth253f65b5607bd22.45756124'
+		'http://rc0.cloudwalkers.be' : 'oauth253f65b5607bd22.45756124',
+		'http://cloudwalkers-website.local' : 'oauth253f70f5746a249.45888839'
 	},
 	
 	api : {
@@ -18,7 +19,8 @@ var config =
 		'http://rc3.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
 		'http://rc2.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
 		'http://rc1.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
-		'http://rc0.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/'
+		'http://rc0.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
+		'http://cloudwalkers-website.local' : 'https://devapi.cloudwalkers.be/'
 	},
 	
 	authurl : {
@@ -28,7 +30,8 @@ var config =
 		'http://rc3.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
 		'http://rc2.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
 		'http://rc1.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
-		'http://rc0.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize'
+		'http://rc0.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
+		'http://cloudwalkers-website.local' : 'https://devapi.cloudwalkers.be/oauth2/authorize'
 	},
 	
 	setloginwindow : function ()
