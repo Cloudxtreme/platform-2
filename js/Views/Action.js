@@ -16,7 +16,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 	},
 
 	'render' : function()
-	{			
+	{	
 		this.$el.html(Mustache.render(Templates[this.template], this.action));
 
 		return this;
@@ -24,18 +24,21 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 
 	'rendercompound' : function()
 	{	
-		// Treat this as a normal action
-		if(this.action.length < 2){
-			
+		// It's a complex compound, like notes, with multiple action tokens
+		if(this.action.length >= 2)			
+			this.rendercomplexcompound();
+		else
 			this.action = this.action[0];
-			return;
-		}
+		
+	},
 
+	'rendercomplexcompound' : function()
+	{	
 		var actionview = this.action[0].hasOwnProperty('value')? this.action[0]: this.action[1];
 		var actionadd = this.action[0].hasOwnProperty('value')? this.action[1]: this.action[0];
 
 		actionview.tokenview = actionview.token;
-		actionview.tokenadd = actionadd.token;
+		actionview.token = actionadd.token;
 		
 		this.action = actionview;
 	},
