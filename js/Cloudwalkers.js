@@ -27,6 +27,8 @@ var Cloudwalkers = {
 		// Define API root
 		Cloudwalkers.Session.api = config.api[window.location.origin] + Cloudwalkers.version;
 		
+		console.log(Cloudwalkers.Session.api)
+		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
 		{

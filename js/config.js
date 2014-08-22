@@ -3,6 +3,7 @@ var config =
 		
 	tokens : {
 		'http://cloudwalkers-website' : 'oauth253f66ea2e89a99.45574901',
+		'http://platform.cloudwalkers.local' : 'oauth253f66ea2e89a99.45574901',
 		'https://platform.cloudwalkers.be' : 'oauth253f65b84cd9ba6.21126665',
 		'http://rc3.cloudwalkers.be' : 'oauth253f65ac4d19395.66548206',
 		'http://rc2.cloudwalkers.be' : 'oauth253f65af9244b61.94828765',
@@ -12,6 +13,7 @@ var config =
 	
 	api : {
 		'http://cloudwalkers-website' : 'https://devapi.cloudwalkers.be/',
+		'http://platform.cloudwalkers.local' : 'https://devapi.cloudwalkers.be/',
 		'https://platform.cloudwalkers.be' : 'https://api.cloudwalkers.be/',
 		'http://rc3.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
 		'http://rc2.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/',
@@ -21,6 +23,7 @@ var config =
 	
 	authurl : {
 		'http://cloudwalkers-website' : 'https://devapi.cloudwalkers.be/oauth2/authorize',
+		'http://platform.cloudwalkers.local' : 'https://devapi.cloudwalkers.be/oauth2/authorize',
 		'https://platform.cloudwalkers.be' : 'https://api.cloudwalkers.be/oauth2/authorize',
 		'http://rc3.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
 		'http://rc2.cloudwalkers.be' : 'https://stagingapi.cloudwalkers.be/oauth2/authorize',
