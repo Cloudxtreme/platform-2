@@ -9,6 +9,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
+		'note_view' : {name: "Note", icon: 'edit', token: 'note-list', type: 'note', compound: 'note', valuetag: 'notesCount'},
+		'note_manage' : {name: "Create note", icon: 'list', token: 'note-content', type: 'note', compound: 'note'},
+		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
@@ -42,7 +45,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'initialize' : function(models, options)
 	{
 		if(options) $.extend(this, options);
-		
+	
 		// Listen to action
 		this.listenTo( this.parent, "action", this.startaction);
 		
@@ -59,28 +62,44 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var param = this.parameters? "?" + $.param (this.parameters): "";
 		var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
 		
-		return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
+		return Cloudwalkers.Session.api + '/' + parent + '/actions' + param;
+		// return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
 	},
 	
 	'rendertokens' : function (tokens)
-	{
+	{	
+		var stats = this.parent.get("stats");
+
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
-		
-		// Admin only
-		if(!Cloudwalkers.Session.getUser().level) return [];
-		
+
 		return tokens.map(function(token)
-			{ return this.templates[token] }.bind(this));
+			{
+				if(stats)	this.appendstat(token);
+				return this.templates[token]
+
+			}.bind(this));
+	},
+
+	'appendstat' : function(token)
+	{	
+		if(!this.templates[token])	return;
+
+		var valuetag = this.templates[token].valuetag || null;
+		
+		if(valuetag && this.parent.get("stats").hasOwnProperty(valuetag))
+			this.templates[token].value = this.parent.get("stats")[valuetag];
+
 	},
 	
 	'startaction' : function (token)
-	{
+	{	
 		// Triggered action
 		var action = this.templates[token];
 
 		// Toggle
-		if (action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+		
+		this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
 		
 		// Confirm modal
 		if (action.type == 'confirm')
@@ -92,13 +111,16 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		// Show growl
 		else if (action.type == 'growl')
 		{
-			Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
+			Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 			
 			action.id = 1;
 			action.parent = this.parent;
 			
 			return new Cloudwalkers.Models.Action(action).destroy();
 		}
+		
+		// Show note
+		else if (action.type == 'note')	Cloudwalkers.RootView.writeNote(this.parent);		
 		
 		// Call Compose modal
 		else if (action.type == 'edit')	var params = {model: this.parent};
@@ -152,6 +174,17 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	
 	'like' : function ()
 	{
-		
+	},
+
+	'toggleAction': function (token)
+	{
+		var action = this.templates[token];
+		this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

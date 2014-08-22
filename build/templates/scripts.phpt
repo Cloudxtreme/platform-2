@@ -41,6 +41,9 @@
 <script src="/assets/plugins/uploader/jquery.iframe-transport.js" type="text/javascript"></script>
 <script src="/assets/plugins/uploader/jquery.fileupload.js" type="text/javascript"></script>
 
+<!-- POLYGLOT -->
+<script src="/assets/plugins/polyglot.min.js" type="text/javascript"></script>
+
 <!-- BOOTSTRAP PLUGINS -->
 <script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
@@ -66,6 +69,7 @@
 
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
+<script src="/assets/plugins/keyword_filter.js" type="text/javascript"></script>
 
 <!-- Templates -->
 <script type="text/javascript" src="/templates/templates.js"></script>

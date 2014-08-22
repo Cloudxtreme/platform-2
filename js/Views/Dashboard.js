@@ -3,19 +3,21 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	'title' : "Dashboard",
 	
 	'widgets' : [
-		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable'},
-		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming", scrollable: 'scrollable'},
-		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled", scrollable: 'scrollable'},
-		{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers", scrollable: 'scrollable'},
-		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/", scrollable: 'scrollable'},
-		{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/", scrollable: 'scrollable'}
+		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable', translation: {'title': 'inbox'}},
+		{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming", scrollable: 'scrollable', translation: { 'title': 'keywords'}},
+		{widget: "schedulecounter", type: "schedule", source: "outgoing", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled", scrollable: 'scrollable', translation:{ 'title': 'schedule'}},
+		{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers", scrollable: 'scrollable', translation: { 'title': 'co-workers_wall'}},
+		{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_company_posts'}},
+		{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_accounts_we_follow'}}
 	],
 	
 	'initialize' : function()
 	{
 		// Check for outdated streams
 		Cloudwalkers.Session.ping();
-		
+
+		// Translation for Title
+		this.translateTitle("dashboard");
 	},
 	
 	'addDynamicReports' : function ()
@@ -44,16 +46,22 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{
+		var widgets = this.widgets;
+
 		// Pageview
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
-		
-		// Report widgets (dynamic)
-		var widgets = this.widgets.concat(this.addDynamicReports());
+
+		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
+			widgets = widgets.concat(this.addDynamicReports());
 		
 		// Append widgets
 		for(i in widgets)
 		{
+			
+			// Translation for each widget
+			this.translateWidgets(widgets[i]);
+
 			switch(widgets[i].widget)
 			{
 				case 'messagescounters':
@@ -77,7 +85,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 					break;
 			}
 			
-			this.appendWidget(widget, Number(widgets[i].size));
+			if(widget)
+				this.appendWidget(widget, Number(widgets[i].size));
 		}
 		
 		return this;
@@ -85,9 +94,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	
 	'addMessagesCounters' : function (widgetdata)
 	{
-		
 		var channel = Cloudwalkers.Session.getChannel(widgetdata.type);
-		
+		if(!channel)	return;
+
 		$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 		
 		return new Cloudwalkers.Views.Widgets.MessagesCounters (widgetdata);
@@ -110,6 +119,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		//var channel = Cloudwalkers.Session.getChannel("internal");
 
 		widgetdata.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
+		
+		if(!widgetdata.model)	return;
+
 		widgetdata.link = "#coworkers";
 		
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
@@ -124,6 +136,24 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			since: Math.round(Date.now()/3600000) *3600 - 86400 *widgetdata.since
 		};
 
+		if(!widgetdata.model)	return;
+
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
+	},
+
+	'translateWidgets' : function(translatedata)
+	{	
+		// Translate Widgets
+		if(translatedata.translation)
+			for(k in translatedata.translation)
+			{
+				translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
+			}
+	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

@@ -51,6 +51,16 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		data.name = this.category.get("name");
 		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 		
+		//Mustache translations
+		data.translate_filters = this.translateString("filters");
+		data.translate_select_all = this.translateString("select_all");
+		data.translate_building_your_data = this.translateString("building_your_data");
+		data.translate_this_will_take_a_minute_or_so = this.translateString("this_will_take_a_minute_or_so");
+		data.translate_keywords = this.translateString("keywords");
+		data.translate_manage_keywords = this.translateString("manage_keywords");
+
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
 		
@@ -103,6 +113,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		if(streams) this.list.parameters.streams = streams.join(",");
 		else delete this.list.parameters.streams;
 
+		this.category.messages.trigger('change:filter');
 		this.category.messages.touch(this.category, this.list.parameters);
 
 		return this;
@@ -160,6 +171,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		if(channel) this.list.parameters.channels = channel;
 		else delete this.list.parameters.channels;
 
+		this.category.messages.trigger('change:filter');
 		this.category.messages.touch(this.category, this.list.parameters);
 
 		return this;
@@ -197,6 +209,11 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 		
 		return this;*/
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 
 });

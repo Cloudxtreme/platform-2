@@ -3,9 +3,9 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 	'className' : 'stats-summary cal-summary',
 	
 	'columns' :  [
-		{"title": "Total messages", "func": "parsetotal"},
-		{"title": "Average", "func": "parseavg"},
-		{"title": "Media", "func": "parsemedia"}
+		{"title": "Total messages", "func": "parsetotal", translation: {'title': 'total_messages'}},
+		{"title": "Average", "func": "parseavg", translation: {'title': 'average'}},
+		{"title": "Media", "func": "parsemedia", translation: {'title': 'media'}}
 		/*{"title": "Trending post", "func": "parsetrending"}*/
 	],
 	
@@ -31,6 +31,10 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		{			
 			params.columns.push(this.columns[this.columnviews[n]]);
 		}*/
+		for(k in this.columns)
+		{
+			this.translateColumns(this.columns[k]);
+		}
 
 		// Build view
 		this.$el.html (Mustache.render (Templates.statsummary, params));
@@ -72,8 +76,9 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		if(!collection.length) return {counter: 0};
 		
 		var stats = this.calview.viewtype == "agendaWeek"?
-			{title: "Daily average", divide: 7}:
-			{title: "Weekly average", divide: 4}
+			// With Translations
+			{title: this.translateString("daily_average"), divide: 7}:
+			{title: this.translateString("weekly_average"), divide: 4}
 		
 		var avg = Math.round(collection.length / stats.divide);
 			
@@ -99,10 +104,10 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 			else counters.text ++;  
 		});
 		
-		if(counters.image)	stats.push("<div class='media-entry'><i class='icon-picture'></i> <strong>" + Math.round(counters.image/total*100) + "</strong>% images</div>"); 
-		if(counters.video)	stats.push("<div class='media-entry'><i class='icon-facetime-video'></i> <strong>" + Math.round(counters.video/total*100) + "</strong>% video</div>"); 
-		if(counters.link)	stats.push("<div class='media-entry'><i class='icon-link'></i> <strong>" + Math.round(counters.link/total*100) + "</strong>% links</div>");
-		if(counters.text)	stats.push("<div class='media-entry'><i class='icon-reorder'></i> <strong>" + Math.round(counters.text/total*100) + "</strong>% text-only</div>");
+		if(counters.image)	stats.push("<div class='media-entry'><i class='icon-picture'></i> <strong>" + Math.round(counters.image/total*100) + "</strong>% " + this.translateString("images") + "</div>"); 
+		if(counters.video)	stats.push("<div class='media-entry'><i class='icon-facetime-video'></i> <strong>" + Math.round(counters.video/total*100) + "</strong>% " + this.translateString("video") + "</div>"); 
+		if(counters.link)	stats.push("<div class='media-entry'><i class='icon-link'></i> <strong>" + Math.round(counters.link/total*100) + "</strong>% " + this.translateString("links") + "</div>");
+		if(counters.text)	stats.push("<div class='media-entry'><i class='icon-reorder'></i> <strong>" + Math.round(counters.text/total*100) + "</strong>% " + this.translateString("text-only") + "</div>");
 		
 		
 		return { counter: stats.join("<br>") };//stat.pluck("messages")};
@@ -121,5 +126,21 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		// Parse
 		return { counter: Mustache.render (Templates.caltrendingentry, params)};
+	},
+
+	'translateColumns' : function(translatedata)
+	{	
+		// Translate Columns
+		if(translatedata.translation)
+			for(k in translatedata.translation)
+			{
+				translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
+			}
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

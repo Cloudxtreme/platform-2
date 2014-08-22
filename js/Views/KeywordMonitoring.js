@@ -13,6 +13,9 @@ Cloudwalkers.Views.KeywordMonitoring = Cloudwalkers.Views.Pageview.extend({
 		//this.listenTo(Cloudwalkers.Session.getStreams(), 'sync', this.render);
 		
 		this.category = this.options.category;
+
+		// Translation for Title
+		this.translateTitle("keyword_monitoring");
 	},
 	
 	'render' : function()
@@ -26,12 +29,17 @@ Cloudwalkers.Views.KeywordMonitoring = Cloudwalkers.Views.Pageview.extend({
 		this.appendWidget(filter, 4);
 		
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.MonitorList ({category: this.category});
+		var list = new Cloudwalkers.Views.Widgets.MonitorList ({category: this.category, reset: true});
 		this.appendWidget(list, 8);
 		
 		filter.list = list;
 		
 		return this;
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

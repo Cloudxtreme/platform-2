@@ -18,14 +18,24 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var user = Cloudwalkers.Session.getUser ();
 		
-		
 		var self = this;
 		var data = {
-			user: { firstname: user.get('firstname'), name: user.get('name'), avatar: user.get('avatar')}
+			user: { firstname: user.get('firstname'), name: user.get('name'), avatar: user.get('avatar'), role: user.getRole ()},
+			langs: Cloudwalkers.Session.langs
 		};
+		
+		// Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
 		this.$el.html (Mustache.render (Templates.settings.profile, data));
 		
 		this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
+		
+		// Select current lang
+		this.$el.find("option[value=" + user.get('locale') + "]").attr("selected", true);
 		
 		return this;
 	},
@@ -35,11 +45,26 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		var user = Cloudwalkers.Session.getUser ();
 		var firstname = this.$el.find ('[name=firstname]').val ();
 		var name = this.$el.find ('[name=name]').val ();
+		var mobile = this.$el.find ('[name=mobile]').val (); 
+		var locale = this.$el.find ('[name=locale]').val (); 
+
+		this.$el.find('.edit-user-profile .btn').attr('disabled', true);
+		this.$el.find('.edit-user-profile').addClass('loading');
 		
-		user.save ({firstname: firstname, name: name}, {patch: true, success: function ()
-		{
-			Cloudwalkers.RootView.growl('User Profile', "Your profile settings are updated");
-		}});
+		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
+		{	
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+			
+			// Hack
+			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+
+		}.bind(this), 
+		error: function(){
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+
+			// Hack
+			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+		}.bind(this)});
 	},
 	
 	/**
@@ -57,7 +82,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		{
 			// Check type
 			if (!f.type.match('image.*')) 
-				return Cloudwalkers.RootView.information ("Wrong file", "You need a valid image.", this.$el.find(".settings-profile .portlet-body"));
+				return Cloudwalkers.RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
 
 			var reader = new FileReader();
 			
@@ -76,13 +101,28 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 	
 	'uploadfile' : function(){
 		
-		if (!this.base64data)
-			Cloudwalkers.RootView.information ("No image", "Select an image file first.", this.$el.find(".settings-profile .portlet-body"));
+		this.$el.find('.edit-user-avatar').addClass('loading');
 
-		else Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
+		if (!this.base64data){
+
+			Cloudwalkers.RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
+
+			this.$el.find('.edit-user-avatar').removeClass('loading');
+		
+		} else {
+			Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 			{
-				Cloudwalkers.RootView.growl('User Profile', "You have a new profile picture.");
-			}});
+			
+				Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
+			
+				this.$el.find('.edit-user-avatar').removeClass('loading');
+
+				setTimeout(function(){
+  					window.location.reload();
+  				},1000);
+			
+			}.bind(this)});
+		}
 	},
 
 	
@@ -114,10 +154,12 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var oldpassword = this.$el.find ('[name=pass0]').val();
 		var newpassword = this.$el.find ('[name=pass1]').val();
+
+		this.$el.find('.edit-user-password').addClass('loading');
 		
 		if (newpassword != this.$el.find ('[name=pass2]').val())
 		{
-			Cloudwalkers.RootView.growl('Oops', "Please re-type your new password.");
+			Cloudwalkers.RootView.growl('Oops', this.translateString("please_retype_your_new_password"));
 			return null;
 		}
 		
@@ -125,12 +167,26 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 		{
-			Cloudwalkers.RootView.growl('User Profile', "You have a new password now.");
-		
-		}, error: function(model, response, options)
-		{	var response = response.responseJSON.error.message;
-			Cloudwalkers.RootView.growl('Oops', response);
-		}});
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
+			
+			this.$el.find('.edit-user-password').removeClass('loading');
+			this.$el.find ('[name=pass0]').val('');
+			this.$el.find ('[name=pass1]').val('');
+			this.$el.find ('[name=pass2]').val('');
+			this.$el.find ('[name=pass2]').blur(); 
+
+			// Hack
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+
+		}.bind(this), 
+		error: function(model, response, options){
+			var response = response.responseJSON.error.message;
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), error);
+
+			// Hack
+			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+		}.bind(this)});
+
 	},
 	
 	/* on it's way to be deprecated */
@@ -138,6 +194,45 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		// Check collapse option
 		$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+	},
+	
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"profile_type",
+			"profile_picture",
+			"select",
+			"upload",
+			"upload_profile_picture",
+			"change_password",
+			"current_password",
+			"new_password",
+			"retype_new_password",
+			"cancel",
+			"your_profile",
+			"first_name",
+			"last_name",
+			"mobile_phone",
+			"language",
+			"save_changes",
+			"cancel",
+			"no_image"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });

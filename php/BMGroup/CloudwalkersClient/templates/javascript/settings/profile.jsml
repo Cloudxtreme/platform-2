@@ -4,25 +4,28 @@
 		<div class="collapse-open">
 			<div class="portlet box grey">
 				<div class="portlet-title line">
-					<div class="caption"><i class="icon-camera-retro"></i>Profile picture</div>
+					<div class="caption"><i class="icon-camera-retro"></i>{{translate_profile_picture}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="portlet-body edit-user-avatar">
 					
-					<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
+					<div id="user_avatar_big" class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})">
+						<span class="loadingafter"></span>
+					</div>
 					<input type="file" />
 					
-					<input id="add-file" class="btn btn-block btn-info" type="button" value="Select" />
-					<input id="upload-file" class="btn btn-block black" type="button" value="Upload" />
-					
+					{{#authorized.ACCOUNT_SETTINGS}}
+						<input id="add-file" class="btn btn-block btn-info" type="button" value="{{translate_select}}" />
+						<input id="upload-file" class="btn btn-block black" type="button" value="{{translate_upload}}" />
+					{{/authorized.ACCOUNT_SETTINGS}}
 					<!--
 					<form action="javascript:void(0);" class="edit-user-avatar" method="post" enctype="multipart/form-data">
 						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
 						<center>
 							<input type="file" name="select file" id="file"><br><br>
-							<button type="file" class="btn black">Upload Profile Picture</button>
+							<button type="file" class="btn black">{{translate_upload_profile_picture}}</button>
 						</center>
 					</form>
 					-->
@@ -30,10 +33,11 @@
 			</div>
 		</div>
 		
+		{{#authorized.ACCOUNT_SETTINGS}}
 		<div class="collapse-closed">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
-					<div class="caption"><i class="icon-key"></i>Change password</div>
+					<div class="caption"><i class="icon-key"></i>{{translate_change_password}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -41,20 +45,26 @@
 				<div class="portlet-body">
 					
 					<form action="javascript:void(0);" class="edit-user-password">
-						<label class="control-label">Current Password</label>
+						<label class="control-label">{{translate_current_password}}</label>
 						<input name="pass0" type="password" class="m-wrap span12" />
-						<label class="control-label">New Password</label>
+						<label class="control-label">{{translate_new_password}}</label>
 						<input name="pass1" type="password" class="m-wrap span12" />
-						<label class="control-label">Re-type New Password</label>
+						<label class="control-label">{{translate_retype_new_password}}</label>
 						<input name="pass2" type="password" class="m-wrap span12" />
 						<div class="submit-btn">
-							<button type="submit" class="btn green">Change Password</button>
-							<a href="#" class="btn">Cancel</a>
+							<button type="submit" class="btn green">{{translate_change_password}}</button>
+							<a href="#" class="btn">{{translate_cancel}}</a>
+							<span class="loadingafter"></span>
 						</div>
 					</form>
 				</div>
+				
 			</div>
 		</div>
+		{{/authorized.ACCOUNT_SETTINGS}}
+		
+		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role.name}}</strong></div>
+		
 	</div>
 		
 	<div class="span8">
@@ -62,14 +72,29 @@
 			<div id="tab_1-1" class="tab-pane active">
 				<div style="height: auto;">
 					
-					<h3>Your profile</h3>
+					<h3>{{translate_your_profile}}</h3>
 					
 					<form action="javascript:void(0);" class="edit-user-profile">
-						<label class="control-label">First Name</label>
-						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" />
-						<label class="control-label">Last Name</label>
-						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" />
+						<label class="control-label">{{translate_first_name}}</label>
+						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
+						<label class="control-label">{{translate_last_name}}</label>
+						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
+
+						<label class="control-label">{{translate_mobile_phone}}</label>
+						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" 
+						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
+
+
+						<label class="control-label">{{translate_language}}</label>
+						<select name="locale" {{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}>
+							{{#langs}}
+							<option value="{{id}}">{{name}}</option>
+							{{/langs}}
+						</select>
+						
 						<!--
 						<label class="control-label">Mobile Number</label>
 						<input type="text" placeholder="+1 646 580 DEMO (6284)" class="m-wrap span8" />
@@ -82,10 +107,13 @@
 						<label class="control-label">Website Url</label>
 						<input type="text" placeholder="http://www.mywebsite.com" class="m-wrap span8" />
 						-->
+						{{#authorized.ACCOUNT_SETTINGS}}
 						<div class="submit-btn">
-							<button type="submit" class="btn green">Save Changes</button>
-							<button type="reset" class="btn">Cancel</button>
+							<button type="submit" class="btn green">{{translate_save_changes}}</button>
+							<button type="reset" class="btn">{{translate_cancel}}</button>
+							<span class="loadingafter"></span>
 						</div>
+						{{/authorized.ACCOUNT_SETTINGS}}
 					</form>
 				</div>
 			</div>

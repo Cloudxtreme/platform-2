@@ -17,7 +17,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
 		
-		return CONFIG_BASE_URL + "json/user/me" + param;
+		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	
 	'parse' : function (response)
@@ -37,6 +37,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		// For specific methods
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
@@ -69,7 +74,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	},
 	
 	'activate' : function (data)
-	{
+	{	
 		// Prevent dislodged user access
 		if(!this.get("accounts").length)
 			return Cloudwalkers.RootView.exception(401);
@@ -83,15 +88,101 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.account = this.getCurrentAccount();
 			this.account.activate();
 			
-			// Set current user level
-			this.level = Number(this.account.get("currentuser").level);
+			// Set current user level & permissions
+			this.set('level', Number(this.account.get("currentuser").level));
+			this.set('rolegroup', Number(this.account.get("currentuser").rolegroup));
+
+			/*this.authorized = [
+				"CAMPAIGN_CREATE", 
+				"CAMPAIGN_DELETE", 
+				"SERVICE_CONNECT", 
+				"SERVICE_DELETE", 
+				"USER_INVITE", 
+				"USER_DELETE", 
+				"ACCOUNT_SETTINGS", 
+				"GROUP_MANAGE", 
+				"DASHBOARD_VIEW", 
+				"MESSAGE_SEND_COWORKERS", 
+				"MESSAGE_SEND_INTERNAL", 
+				"MESSAGE_SEND_EXTERNAL", 
+				"MESSAGE_OUT_ATTACHMENTS", 
+				"MESSAGE_OUT_SCHEDULE", 
+				"MESSAGE_OUT_REPEAT", 
+				"MESSAGE_OUT_EDIT_OWN", 
+				"MESSAGE_ACTIONS", 
+				"MESSAGE_READ_INBOX_MESSAGES", 
+				"MESSAGE_READ_INBOX_NOTIFICATIONS", 
+				"MESSAGE_READ_DRAFTS", 
+				"MESSAGE_READ_SCHEDULE", 
+				"MESSAGE_READ_COMPANY", 
+				"MESSAGE_ACTIONS_COMPANY", 
+				"MESSAGE_READ_THIRDPARTY", 
+				"MESSAGE_ACTIONS_THIRDPARTY", 
+				"MESSAGE_READ_MONITORING", 
+				"MESSAGE_ACTIONS_MONITORING", 
+				"CHANNEL_MANAGE_ADD_MONITORING", 
+				"CHANNEL_MANAGE_EDIT_MONITORING", 
+				"CHANNEL_MANAGE_DELETE_MONITORING", 
+				"STATISTICS_VIEW", 
+				"ACCOUNT_NOTES_VIEW", 
+				"ACCOUNT_NOTES_MANAGE", 
+				"ACCOUNT_TAGS_VIEW", 
+				"ACCOUNT_TAGS_MANAGE"
+			]*/
 			
+
+			// Role permissions
+			this.authorized = this.account.get("currentuser").authorized;
+			this.removerole('ACCOUNT_TAGS_MANAGE');
+			this.removerole('ACCOUNT_TAGS_VIEW');
+
+			this.parseauthorized();
+			this.censuretokens = this.censure(this.authorized);			
+
 			// Call callback
 			this.trigger("activated");
 			//setTimeout(this.trigger, 100, 'activated');
 
 		}.bind(this));
 		
+	},
+
+	// Can perform ANY of the actions?
+	'isauthorized' : function(actions)
+	{	
+		if(!_.isArray(actions))		return _.contains(this.authorized, actions);
+		else 						return _.intersection(this.authorized, actions).length != 0;
+	},
+
+	'removerole' : function(role)
+	{	
+		var index = this.authorized.indexOf(role);
+
+		if(index >= 0)
+			this.authorized.splice(index-1, index+1)
+	},
+
+	'censure' : function(permissions)
+	{	
+		var censures = {};
+
+		for(n in permissions){
+			censures[permissions[n]] = true;
+		}
+
+		return censures;
+	},
+
+	'parseauthorized' : function()
+	{
+		if(this.isauthorized(['MESSAGE_OUT_EDIT_OWN', 'MESSAGE_ACTIONS'])) this.authorized.push('_CW_COWORKERS_VIEW');
+		if(this.isauthorized([
+			'MESSAGE_READ_INBOX_MESSAGES',
+			'MESSAGE_READ_INBOX_NOTIFICATIONS', 
+			'MESSAGE_READ_SCHEDULE', 
+			'MESSAGE_READ_DRAFTS', 
+			'ACCOUNT_NOTES_VIEW'
+		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
 	'offline' : function ()

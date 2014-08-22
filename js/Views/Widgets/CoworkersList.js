@@ -25,26 +25,39 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		//Show all reloads te listeners
 		this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
-		
+
+		this.listenTo(Cloudwalkers.RootView, 'added:message', this.messageadded);
+
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");
+
+		// Translation for Title
+		this.translateTitle("co-workers_messages");
 	},
 
 	'render' : function (params)
 	{	
 		this.loadmylisteners();
 		
+		var data = {};
+		
+		//Mustache Translate Render
+		data.title = this.title;
+		this.mustacheTranslateRender(data);
+
 		// Get template
-		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
+		this.$el.html (Mustache.render (Templates.coworkerslist, data));
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
+		
+		this.addScroll();
 		
 		return this;
 	},
@@ -57,7 +70,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	'showloading' : function ()
 	{
 		this.$el.find(".icon-cloud-download").show();
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
@@ -66,14 +79,25 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$container.removeClass("inner-loading");
 		
 		if (this.model.messages.cursor)
-			//this.$el.find(".load-more").show();
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
-	'showmore' : function(){
+	'showmore' : function()
+	{
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
+		
 	},
 	
 	'fill' : function (list)
@@ -135,13 +159,19 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	
 	'more' : function ()
 	{
-		this.incremental = true;
-		
-		//console.log(parameters)
-		
-		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
-		
+		this.incremental = true;	
+				
+		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'messageadded' : function(draft)
+	{
+		var coworkersstream = Cloudwalkers.Session.getStream('coworkers').id;
+		var streams = draft.get("streams");
+		
+		if(streams && streams.indexOf(coworkersstream) >= 0)
+			this.model.messages.touch(this.model);
 	},
 	
 	/*'more' : function ()
@@ -160,7 +190,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+//		this.addScroll();
 	},
 	
 	'addScroll' : function () {
@@ -177,5 +207,35 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"load_more",
+			"co-workers",
+			"search_co-workers"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

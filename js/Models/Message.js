@@ -27,15 +27,23 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
-		
+		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
+
 		// Children
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 	},
 	
 	'url' : function (params)
     {
-        if(!this.id)
-        	return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        if(!this.id){
+        	params = this.parameters;
+        	if(this.endpoint){
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
+        	} else {
+        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
+        	}
+        }
+        	
         
         return this.endpoint?
         
@@ -47,7 +55,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// A new object
 		if (typeof response == "number") return response = {id: response};
-		
 		
 		else {
 		
@@ -66,6 +73,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
 		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
@@ -76,13 +87,63 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	/* Validations */
-	// Checkblock : what validations to block
-	'validateCustom' : function (checkblock)
+	'validateCustom' : function (ignorelist)
 	{	
+		var error;
+
 		//Check for any content	
-		if(!this.hascontent() && checkblock != 'content')	return "You need a bit of content.";
-		if(!this.checkcontent())							return "One or more networks exceed the character limit.";
-		if(!this.get("streams").length)						return "Please select a network first.";
+		if(!this.hascontent() && $.inArray('content', ignorelist) < 0)
+			return this.translateString("you_need_a_bit_of_content");
+
+		if(!this.validatecontent())	
+			return this.translateString("one_or_more_networks_exceed_the_character_limit");
+
+		if(!this.get("streams").length && $.inArray('streams', ignorelist) < 0)
+			return this.translateString("please_select_a_network_first");
+	
+		if((error = this.validateschedules()) && $.inArray('schedule', ignorelist) < 0)
+			return error;
+	},
+
+	'validateschedules' : function()
+	{
+		var error;
+
+		//Check in default
+		error = this.validateschedule(this.get("schedule"));
+		
+		if(error)	return error;
+		
+		//Check in variations
+		$.each(this.get("variations"), function(n, variation)
+		{
+			error = this.validateschedule(variation.schedule);
+			
+			if(error)	return false;	//Found error
+			else		return true;	
+
+		}.bind(this));
+		
+		return error;
+	},
+
+	'validateschedule' : function(schedule)
+	{	
+		if(!schedule)	return false;
+
+		var scheduledate = schedule.date || null;
+		var repeatuntil = schedule.repeat? schedule.repeat.until: null;
+
+		if(scheduledate && scheduledate < moment().unix())
+			return "One or more streams are scheduled into the past."
+
+		if(scheduledate && repeatuntil && repeatuntil < scheduledate)
+			return "One or more streams have the repeat date happening before the scheduled date."
+
+		if(!scheduledate && repeatuntil && repeatuntil < moment().unix())
+			return "One or more streams have the repeat date set to the past."
+
+		return false;
 	},
 
 	'hascontent' : function()
@@ -113,7 +174,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'checkcontent' : function()
+	'validatecontent' : function()
 	{					
 		//Hardcoded smallest limit. Get it dinamically
 		var smallestlimit = 140;
@@ -182,8 +243,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}.bind(this));
 	}, 
 	
-	
-	
 	'cloneSanitized' : function ()
 	{
 		var model = this.clone();
@@ -212,7 +271,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "canHaveChildren", "children_count", "schedule", "variations"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "canHaveChildren", "children_count", "schedule", "variations"]
 		
 		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
@@ -250,7 +309,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(filtered.schedule) filtered.scheduledate = moment(filtered.schedule.date).format("DD MMM YYYY HH:mm");
 		
 		// Add limited text
-		if(response.body) filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): "...";
+		filtered.body.intro = response.body.plaintext? response.body.plaintext.substr(0, 72): " ";
 		
 		// Date
 		if(response.date)
@@ -263,12 +322,31 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		return filtered;
 	},
-	
-	'filterActions' : function ()
+	//Temp hack for viewcontact endpoint
+	'generateintro' : function()
+	{
+		if(this.get("body") && !this.get("body").intro)
+			this.attributes.body.intro = this.get("body").plaintext.substr(0, 72);
+
+	},
+
+	'filterActions' : function (token)
 	{	
 		if(!this.get("actiontokens")) return [];
+
+		var tokens = this.actions.rendertokens();	
+
+		if(token == 'notes')
+			tokens.map(function(t){
+
+				if(t.token == 'note-list')
+					t.value = this.notes.length;
+				
+				return t;
+
+			}.bind(this))
 		
-		return this.actions.rendertokens();
+		return tokens;
 	},
 	
 	'filterCalReadable' : function ()
@@ -279,7 +357,13 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(!this.calNode) this.calNode = {id: this.id};
 		
 		// Calendar node elements
-		this.calNode.start = loaded? $.fullCalendar.moment(this.get("date")): $.fullCalendar.moment(); /*new Date(this.get("date")): new Date()*/
+		
+		if(this.get("schedule")){
+			this.calNode.start = loaded? $.fullCalendar.moment(this.get("scheduledate")): $.fullCalendar.moment();
+		} else {
+			this.calNode.start = loaded? $.fullCalendar.moment(this.get("date")): $.fullCalendar.moment(); /*new Date(this.get("date")): new Date()*/
+		}
+		
 		this.calNode.title = loaded? (this.get("title")? this.get("title"): this.get("body").plaintext).substring(0, media? 12: 16): "...";
 		this.calNode.className = loaded? this.get("networktoken") + '-color': 'hidden';
 		this.calNode.networkdescription = loaded? this.get("networkdescription"): null;
@@ -289,7 +373,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Prettify intro
 		if(loaded && this.calNode.intro.length >= 72) this.calNode.intro += "...";
-		
 		return this;
 	},
 	
@@ -340,7 +423,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			if(key == 'image' || key == 'link'){
 				var attachments = [value];
 				variation['attachments'] = attachments;
-			}else{
+			}else if(key){
 				variation[key] = value;
 			}
 
@@ -366,6 +449,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				variation[key] = value;
 			}	
 		}
+
+		return variation;
+
 	},
 	
 	'getvariation' : function (stream, key)
@@ -388,10 +474,10 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 	
 	'original' : function (stream, key, input)
-	{
+	{	
 		// Variation or self
 		var variations = this.get("variations")? this.get("variations").filter(function(vr){ return stream && vr.stream == stream.id }): [];
-		var variation = (stream)? (variations.length? variations[0]: {id: stream.id}) : this.attributes; 
+		var variation = (stream)? (variations.length? variations[0]: {stream: stream.id}) : this.attributes; 
 		
 		// Set
 		if (input !== undefined)
@@ -422,9 +508,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		//If image is an object it means it's meant to exclude
 
 		var variation = this.getvariation(streamid);
-		var attachments = variation.attachments;
+		var attachments = variation? variation.attachments : [];
 
-		if(_.isObject(image)){	// It's a default iamge
+		if(_.isNumber(image)){	// It's a default iamge
 			this.addexclude(streamid, image)			
 		}else{					// It's a variation image
 			for(n in attachments){
@@ -434,18 +520,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}
 	},
 
-	'addexclude' : function(streamid, image){
-	
-		var variation = this.getvariation(streamid);
+	'addexclude' : function(streamid, index){
+
+		var variation = this.getvariation(streamid) || this.setvariation(streamid);;
 		var excludes = variation.excludes;
 
 		if(variation.excludes)
-			variation.excludes.push(image);
+			variation.excludes.attachments.push(index);
 		else
-			variation.excludes = [image];
+			variation.excludes = {attachments : [index]};
 	},
 
-	'checkexclude' : function(streamid, image){
+	'checkexclude' : function(streamid, index){
 
 		var variation = this.getvariation(streamid);
 		var excludes;
@@ -454,8 +540,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		else			excludes = variation.excludes;
 
 		if(excludes){
-			for(n in excludes){
-				if(excludes[n].name == image.name)
+			for(n in excludes.attachments){
+				if(excludes.attachments[n] == index)
 					return true;
 			}
 		}
@@ -464,6 +550,56 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		return false;
 
 	},
+
+	// Temporary implementation
+	/*'removevarimg' : function(streamid, image){
+		//If image is an object it means it's meant to exclude
+
+		var variation = this.getvariation(streamid)
+		var attachments = variation? variation.attachments : [];
+
+		if(_.isNumber(image)){	// It's a default iamge
+			
+			this.addexclude(streamid, image)			
+		}else{			console.log(image)		// It's a variation image
+			for(n in attachments){
+				if(attachments[n].type == 'image' && attachments[n].name == image) 
+					attachments.splice(n,1);
+			}
+		}
+	},
+
+	'addexclude' : function(streamid, index){
+	
+		var variation = this.getvariation(streamid) || this.setvariation(streamid);
+		var excludes = variation.excludes;
+
+		if(variation.excludes)
+			variation.excludes.push(index);
+		else
+			variation.excludes = [index];
+	},
+
+	'checkexclude' : function(streamid, index){
+
+		var variation = this.getvariation(streamid);
+		var excludes;
+
+		if(!variation)	return false;
+		else			excludes = variation.excludes;
+
+		if(excludes){
+			
+			for(n in excludes){
+				if(excludes[n] == index)
+					return true;
+			}
+		}
+
+		//There are no excludes
+		return false;
+
+	},*/
 			
 
 	/* End variation functions */
@@ -726,16 +862,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			Cloudwalkers.RootView.dialog 
 			(
-				'Are you sure you want to remove this message?', 
+				this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 				[
 					{
-						'label' : 'Skip once',
-						'description' : 'Message will be skipped once',
+						'label' : this.translateString('skip_once'),
+						'description' : this.translateString('message_will_be_skipped_once'),
 						'token' : 'skip'
 					},
 					{
-						'label' : 'Delete forever',
-						'description' : 'Message will never be repeated',
+						'label' : this.translateString('delete_forever'),
+						'description' : this.translateString('message_will_never_be_repeated'),
 						'token' : 'remove'
 					}
 				],
@@ -777,7 +913,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			Cloudwalkers.RootView.confirm 
 			(
-				'Are you sure you want to remove this message?', 
+				this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 				function () 
 				{
                     self.destroy ({success:function(){
@@ -836,7 +972,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'act' : function (action, parameters, callback)
 	{
 		
-		Cloudwalkers.RootView.growl (action.name, "The " + action.token + " is planned with success.");
+		Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 		
 		var self = this;
 
@@ -1146,6 +1282,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'hasschedule' : function(){
 		if(this.get("schedule"))
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	},
 
 	/*'hascontent' : function(){

@@ -1,3 +1,12 @@
+<div {{#bigdata}}class="bigdata"{{/bigdata}}>
+	<h4 class="pull-left">{{title}}</h4>
 
-<h4>{{title}}</h4>
-<div id='cal-heatmap'></div>
+	{{#navigate}}
+		<span class="navigate-buttons btn-group pull-right">
+			<a class="btn" id="next"><i class="icon-caret-left"></i></a>
+			<a class="btn" id="previous"><i class="icon-caret-right"></i></a>
+		</span>
+	{{/navigate}}
+	<div class="clearfix"></div>
+	<div id='cal-heatmap'></div>
+</div>

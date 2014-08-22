@@ -1,6 +1,6 @@
 
 <aside>
-	<h3>Networks</h3>
+	<h3>{{translate_networks}}</h3>
 	<ul class="compose-streams social-icon-colors">
 	{{#streams}}
 		<li data-streams="{{id}}" class="btn-white inactive"><i class="icon-{{attributes.network.icon}}"></i><span>{{attributes.defaultname}}</span></li>
@@ -17,221 +17,240 @@
 </section>	
 
 <div>
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>{{title}}</h3>
-	</div>
-	<div class="modal-body {{#type}}loading{{/type}}">
-		
-		<div class="tabs-container">
-			{{^actionview}}
-			<section class="stream-tabs">
-				<div class="stream-tab active">Default</div>
-			</section>
-			{{/actionview}}
-			{{#actionview}}
-			<section class="action-tabs"></section>
-			{{/actionview}}
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>{{title}}</h3>
 		</div>
-		
-		<section data-type="post">
+		<div class="modal-body {{#type}}loading{{/type}}">
 			
-			<div class="input-symbol hidden" data-option="subject">
-				<input type="text" placeholder="Subject" />
+			<div class="tabs-container">
+				{{^actionview}}
+				<section class="stream-tabs">
+					<div class="stream-tab active">{{translate_default}}</div>
+				</section>
+				{{/actionview}}
+				{{#actionview}}
+				<section class="action-tabs"></section>
+				{{/actionview}}
 			</div>
 			
-		</section>
-		
-		<section data-type="icon">
-			<i  data-action="{{actionview}}" class="icon-cloud"></i>			
-		</section>
+			<section data-type="post">
+				
+				<div class="input-symbol hidden" data-option="subject">
+					<input type="text" placeholder="{{translate_subject}}" />
+				</div>
+				
+			</section>
+			<!--
+			<section data-type="canned">
 
-		<section data-collapsable="images" class="collapsed clearfix first">
-			
-			<div class="btn-white" data-toggle="images">Images</div>
-			
-			<div class="collapsable-content">
-					
-				<div class="photo-booth hidden">
-					<h2>Photo Booth</h2>
-					
-					<video autoplay></video>
-					<canvas style="display:none;" width="640" height="480"></canvas>
-					
-					<div class='capture-button'><i class="icon-camera-retro"></i></div>
-				</div>
-				
-				<input type="file" multiple="multiple" />
-				
-				<div>
-					<span>Pictures</span>
-					<ul class="pictures-container">
-						<li class="add-file">&plus;</li>
-					</ul>
-				</div>
-				
-				<div class="clearfix">
-					<span>Camera</span>
-					<ul class="snapshots-container">
-						<li class="add-snapshot">&plus;</li>
-					</ul>
-				</div>
-				
-			</div>
-			
-			
-			
-			<ul class="summary" data-toggle="images"></ul>
-			
-		</section>
-		
-		<!--<section data-collapsable="link" class="collapsed clearfix">
-			
-			<div class="btn-white" data-toggle="link">Link</div>
-			
-			<div class="collapsable-content">
-				<div class="input-symbol">
-					<input type="text" placeholder="http://" />
-				</div>
-			</div>
-			
-			<div class="summary" data-toggle="link"></div>
-			
-		</section>-->
-		
-		<section data-collapsable="campaign" class="collapsed clearfix">
-			
-			<div class="btn-white" data-toggle="campaign">Campaign</div>
-			
-			<div class="collapsable-content">
-				<select class="campaign-list">
-					<option value="0">No campaign...</option>
-					{{#campaigns}}
-					<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
-					{{/campaigns}}
-				</select>
-				<input type="text" placeholder="campaign name" class="hidden campaign-name" />
-				<span class="add-campaign">&plus;</span>
-			</div>
-			
-			<div class="summary" data-toggle="campaign"></div>
-			
-		</section>
-		
-		<section data-collapsable="schedule" class="schedule-group collapsed clearfix">
-			
-			<div class="btn-white" data-toggle="schedule">Schedule</div>
-			
-			<div class="collapsable-content some-margin">
-				
-				<div class="schedule-entry" data-set="now">
-					<label class="icon-ok-circle">Now</label>
-				</div>
-				
-				<div class="schedule-entry inactive clearfix" data-set="in">
-					<label class="icon-circle-blank">In</label>
-					
-					<select id="delay-select">
-						<option selected="selected" value="600">10min</option>
-						<option value="900">15min</option>
-						<option value="1800">30 min</label>
-						<option value="2700">45 min</label>
-						<option value="3600">1 hour</label>
-						<option value="7200">2 hours</label>
-						<option value="10800">3 hours</label>
-						<option value="14400">4 hours</label>
-						<option value="18000">5 hours</label>
-						<option value="21600">6 hours</label>
-						<option value="43200">12 hours</label>
-						<option value="86400">1 day</label>
-						<option value="604800">1 week</label>
+				<div class="collapsable-content {{^canned}}loading{{/canned}}">
+					<select class="canned-list">
+						<option></option>
+						{{#canned}}
+							<option value="{{id}}">{{attributes.body.plaintext}}</option>
+						{{/canned}}
 					</select>
 				</div>
-				
-				<div class="schedule-entry inactive clearfix" data-set="on">
-					<label class="icon-circle-blank">On</label>
-					
-					<div class="input-symbol" data-option="schedule-start-date">
-						<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
-					</div>
-					
-					<div class="bootstrap-timepicker input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
-						<input id="delay-time" type="text" />
-					</div>
-					
-					<span class="btn-white inactive">Best time</span>
-				</div>
 
-			</div>
-			<div class="summary" data-toggle="schedule"></div>
-			
-		</section>
-		
-		<section data-collapsable="repeat" class="schedule-group collapsed clearfix last">
-			
-			<div class="btn-white" data-toggle="repeat">Repeat</div>
-			
-			<div class="collapsable-content some-margin">
+				<div class="alert alert-info">
+					<label class="checkbox">
+			      		<input type="checkbox">{{translate_save_this_as_a_response_template}}
+			    	</label>
+				</div>	
+			</section>
+			-->
+			<section data-type="icon">
+				<i  data-action="{{actionview}}" class="icon-cloud"></i>			
+			</section>
+
+			<section data-collapsable="images" class="collapsed clearfix first">
 				
-				<div class="schedule-entry" data-set="onlyonce">
-					<label class="icon-ok-circle">No repeat</label>
+				<div class="btn-white" data-toggle="images">{{translate_images}}</div>
+				
+				<div class="collapsable-content">
+						
+					<div class="photo-booth hidden">
+						<h2>{{translate_photo_booth}}</h2>
+						
+						<video autoplay></video>
+						<canvas style="display:none;" width="640" height="480"></canvas>
+						
+						<div class='capture-button'><i class="icon-camera-retro"></i></div>
+					</div>
+					
+					<input type="file" multiple="multiple" />
+					
+					<div>
+						<span>{{translate_pictures}}</span>
+						<ul class="pictures-container">
+							<li class="add-file">&plus;</li>
+						</ul>
+					</div>
+					
+					<div class="clearfix">
+						<span>{{translate_camera}}</span>
+						<ul class="snapshots-container">
+							<li class="add-snapshot">&plus;</li>
+						</ul>
+					</div>
+					
 				</div>
 				
-				<div class="schedule-entry inactive single-toggle" data-set="every">
 				
-					<label class="icon-circle-blank">Every</label>
-					<div class="input-symbol number-input" data-option="schedule-start-date">
-						<input id="repeat-interval" type="text" value="0" /> 
+				
+				<ul class="summary" data-toggle="images"></ul>
+				
+			</section>
+			
+			<!--<section data-collapsable="link" class="collapsed clearfix">
+				
+				<div class="btn-white" data-toggle="link">Link</div>
+				
+				<div class="collapsable-content">
+					<div class="input-symbol">
+						<input type="text" placeholder="http://" />
 					</div>
+				</div>
 				
-					<select id="every-select">
-						<option value="1" data-single="hour" data-multiple="hours">hours</option>
-						<option value="24" data-single="day" data-multiple="days">days</label>
-						<option value="168" selected data-single="week" data-multiple="weeks">weeks</label>
-						<option value="720" data-single="month" data-multiple="months">months</label>
+				<div class="summary" data-toggle="link"></div>
+				
+			</section>-->
+			
+			<section data-collapsable="campaign" class="collapsed clearfix">
+				
+				<div class="btn-white" data-toggle="campaign">{{translate_campaign}}</div>
+				
+				<div class="collapsable-content">
+					<select class="campaign-list">
+						<option value="0">{{translate_no_campaign}}</option>
+						{{#campaigns}}
+						<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+						{{/campaigns}}
 					</select>
-					
-					<select id="every-select-weekday">
-						<option value=0>select a day...</option>
-						<option value="MONDAY">monday</option>
-						<option value="TUESDAY">tuesday</option>
-						<option value="WEDNESDAY">wednesday</label>
-						<option value="THURSDAY">thursday</label>
-						<option value="FRIDAY">friday</label>
-						<option value="SATURDAY">saturday</label>
-						<option value="SUNDAY">sunday</label>
-						<option value=0>doesn't matter</label>
-					</select>
-					
+					<input type="text" placeholder="campaign name" class="hidden campaign-name" />
+					{{#authorized.CAMPAIGN_CREATE}}
+						<span class="add-campaign">&plus;</span>
+					{{/authorized.CAMPAIGN_CREATE}}
 				</div>
 				
-				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
-					
-					<label class="icon-circle-blank">Repeat</label>
-					<div class="input-symbol number-input" data-option="schedule-start-date">
-						<input id="repeat-amount" type="text" value="0" />
-					</div>
-					<label>times</label>
-
-				</div>
+				<div class="summary" data-toggle="campaign"></div>
 				
-				<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
-					
-					<label class="icon-circle-blank">Until</label>
-					<div class="input-symbol" data-option="schedule-start-date">				
-						<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
-					</div>
-				</div>
-				
-				
-				
-			</div>
+			</section>
 			
-			<div class="summary" data-toggle="repeat"></div>
+			<section data-collapsable="schedule" class="schedule-group collapsed clearfix">
+				
+				<div class="btn-white" data-toggle="schedule">{{translate_schedule}}</div>
+				
+				<div class="collapsable-content some-margin">
+					
+					<div class="schedule-entry" data-set="now">
+						<label class="icon-ok-circle">{{{translate_now}}}</label>
+					</div>
+					
+					<div class="schedule-entry inactive clearfix" data-set="in">
+						<label class="icon-circle-blank">{{translate_in}}</label>
+						
+						<select id="delay-select">
+							<option selected="selected" value="600">10 {{translate_mins}}</option>
+							<option value="900">15 {{translate_mins}}</option>
+							<option value="1800">30 {{translate_mins}}</label>
+							<option value="2700">45 {{translate_mins}}</label>
+							<option value="3600">1 {{translate_hour}}</label>
+							<option value="7200">2 {{translate_hours}}</label>
+							<option value="10800">3 {{translate_hours}}</label>
+							<option value="14400">4 {{translate_hours}}</label>
+							<option value="18000">5 {{translate_hours}}</label>
+							<option value="21600">6 {{translate_hours}}</label>
+							<option value="43200">12 {{translate_hours}}</label>
+							<option value="86400">1 {{translate_day}}</label>
+							<option value="604800">1 {{translate_week}}</label>
+						</select>
+					</div>
+					
+					<div class="schedule-entry inactive clearfix" data-set="on">
+						<label class="icon-circle-blank">{{translate_on}}</label>
+						
+						<div class="input-symbol" data-option="schedule-start-date">
+							<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
+						</div>
+						
+						<div class="bootstrap-timepicker input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
+							<input id="delay-time" type="text" />
+						</div>
+						
+						<span class="btn-white inactive">{{translate_best_time}}</span>
+					</div>
 
-		</section>
-		
-		
+				</div>
+				<div class="summary" data-toggle="schedule"></div>
+				
+			</section>
+			
+			<section data-collapsable="repeat" class="schedule-group collapsed clearfix last">
+				
+				<div class="btn-white" data-toggle="repeat">{{translate_repeat}}</div>
+				
+				<div class="collapsable-content some-margin">
+					
+					<div class="schedule-entry" data-set="onlyonce">
+						<label class="icon-ok-circle">{{translate_no_repeat}}</label>
+					</div>
+					
+					<div class="schedule-entry inactive single-toggle" data-set="every">
+					
+						<label class="icon-circle-blank">{{translate_every}}</label>
+						<div class="input-symbol number-input" data-option="schedule-start-date">
+							<input id="repeat-interval" type="text" value="0" /> 
+						</div>
+					
+						<select id="every-select">
+							<option value="1" data-single="hour" data-multiple="hours">{{translate_hours}}</option>
+							<option value="24" data-single="day" data-multiple="days">{{translate_days}}</label>
+							<option value="168" selected data-single="week" data-multiple="weeks">{{translate_weeks}}</label>
+							<option value="720" data-single="month" data-multiple="months">{{translate_months}}</label>
+						</select>
+						
+						<select id="every-select-weekday">
+							<option value=0>{{translate_select_a_day}}</option>
+							<option value="MONDAY">{{translate_monday}}</option>
+							<option value="TUESDAY">{{translate_tuesday}}</option>
+							<option value="WEDNESDAY">{{translate_wednesday}}</label>
+							<option value="THURSDAY">{{translate_thursday}}</label>
+							<option value="FRIDAY">{{translate_friday}}</label>
+							<option value="SATURDAY">{{translate_saturday}}</label>
+							<option value="SUNDAY">{{translate_sunday}}</label>
+							<option value=0>{{translate_doesnt_matter}}</label>
+						</select>
+						
+					</div>
+					
+					<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
+						
+						<label class="icon-circle-blank">{{translate_repeat}}</label>
+						<div class="input-symbol number-input" data-option="schedule-start-date">
+							<input id="repeat-amount" type="text" value="0" />
+						</div>
+						<label>{{translate_times}}</label>
+
+					</div>
+					
+					<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
+						
+						<label class="icon-circle-blank">{{translate_until}}</label>
+						<div class="input-symbol" data-option="schedule-start-date">				
+							<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
+						</div>
+					</div>
+					
+					
+					
+				</div>
+				
+				<div class="summary" data-toggle="repeat"></div>
+
+			</section>
 
 	</div>
 	
@@ -240,10 +259,16 @@
 		<button id="action" class="btn btn-primary" data-action="{{actionview}}">{{actionview}}</button>
 		{{/actionview}}
 		{{^actionview}}
-		<button id="save" class="btn">Save</button>
-		<button id="previewbtn" class="btn" disabled>Preview</button>
-		<button id="post" class="btn btn-primary">Post</button>
+
+		{{#authorized.MESSAGE_READ_DRAFTS}}
+			<button id="save" class="btn">{{translate_save}}</button>
+		{{/authorized.MESSAGE_READ_DRAFTS}}
+
+		<button id="previewbtn" class="btn" disabled>{{translate_preview}}</button>
+		<button id="post" class="btn btn-primary">{{translate_post}}</button>
 		{{/actionview}}
 	</div>
+
 	
 </div>
+<div class="clearfix"></div>

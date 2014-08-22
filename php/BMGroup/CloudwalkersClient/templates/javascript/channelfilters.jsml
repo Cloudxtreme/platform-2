@@ -3,7 +3,7 @@
 
 		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>Filters</div>
+				<div class="caption"><i class="icon-tags icon-large"></i>{{translate_filters}}</div>
 			</div>
 			<div class="portlet-body">
 
@@ -19,18 +19,18 @@
 					<div class="clear"></div>
 					<br />
 					
-					<li class="toggleall networks inactive">select all</li>
+					<li class="toggleall networks inactive">{{translate_select_all}}</li>
 				</div>
 				
 				<div class='building-notice inactive'>
-					<strong>Building your data</strong>
-					<br>This will take a minute or so.
+					<strong>{{translate_building_your_data}}</strong>
+					<br>{{translate_this_will_take_a_minute_or_so}}
 				</div>
 								
 				<hr />
 				
 				<div class="filter keyword-list">
-					<label>{{name}} keywords</label>
+					<label>{{name}} {{translate_keywords}}</label>
 					<ul>
 					{{#keywords}}
 						<li class='active filter' data-keyword-id="{{id}}">
@@ -41,12 +41,13 @@
 					
 					<div class="clear"></div>
 					<br />
-
-					<small class="pull-right">
-						<a href="#keywords">manage keywords</a>
-					</small>
+					{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+						<small class="pull-right">
+							<a href="#keywords">{{translate_manage_keywords}}</a>
+						</small>
+					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					
-					<li class="toggleall keywords inactive">select all</li>
+					<li class="toggleall keywords inactive">{{translate_select_all}}</li>
 				</div>
 
 			</div>

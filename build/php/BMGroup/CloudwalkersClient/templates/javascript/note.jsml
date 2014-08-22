@@ -1,0 +1,30 @@
+<div class="message-header default-color" data-id="{{id}}">
+	<div class="inherit">
+		{{#user}}
+		<div class="pull-right">
+			<span class="date">{{fulldate}}</span>
+		</div>
+		
+		
+		<img class="avatar" alt="" src="{{avatar}}">
+		<div>
+			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
+			<br /><em>{{email}} </em>
+		</div>
+		{{/user}}
+
+	</div>
+</div>
+
+<div class="message-body">
+	
+	{{{text}}}
+	
+</div>
+
+<div class="message-actions toggle-note-actions">
+	<div class="btn-white" data-action="note-edit"><i class="icon-edit"></i></div>
+	<div class="btn-white" data-action="delete"><i class="icon-remove"></i></div>
+</div>
+

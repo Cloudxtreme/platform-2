@@ -1,11 +1,32 @@
 <div class="tab-pane row-fluid settings-account active">
 
-	<div class="span4">
-	
+	<div class="span8">
+
+		<div style="height: auto;">
+			
+			<h3 name="basic">{{translate_account}}</h3>
+			
+			<form action="javascript:void(0);">
+				<label class="control-label">{{translate_name}}</label>
+				<input data-attribute="account-name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
+
+				<div class="submit-btn">
+					<button type="submit" data-action="editaccount" class="btn green edit-account">{{translate_save_changes}}</button>
+					<button type="reset" data-action="reseetaccount" class="btn">{{translate_cancel}}</button>
+					<span class="loadingafter"></span>
+				</div>
+			</form>
+		</div>
+
+		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
+
+		<div class="separator"></div>
+
+		<h3 name="campaigns">{{translate_campaigns}}</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
-					<div class="caption"><i class="icon-bar-chart"></i>Campaigns</div>
+					<div class="caption"><i class="icon-bar-chart"></i>{{translate_campaigns}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -17,10 +38,11 @@
 							<li>
 								<i class="yellow icon-bullseye"></i>
 								<span class="campaign-name">{{name}}</span>
-								
+								{{#authorized.CAMPAIGN_DELETE}}
 								<span class="pull-right">
 									<i class="icon-remove" data-delete-campaign-id="{{id}}"></i>
 								</span>
+								{{/authorized.CAMPAIGN_DELETE}}
 							</li>
 						{{/campaigns}}
 						
@@ -28,25 +50,34 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="alert alert-info">Account plan: <strong>{{plan.name}}</strong></div>
-	
+		<!--
+		<div class="separator"></div>
+
+		<h3 name="triggers">{{translate_triggers}}</h3>
+		<div id="triggerlist"></div>
+
+		<div class="separator"></div>
+
+		<h3 name="canned">{{translate_message_templates}}</h3>
+		<div id="cannedlist"></div>
+		-->
 	</div>
 
-	<div class="span8">
-		<div style="height: auto;">
-			
-			<h3>Account</h3>
-			
-			<form action="javascript:void(0);" class="edit-account">
-				<label class="control-label">Name</label>
-				<input name="name" type="text" placeholder="Company name" class="m-wrap span8" value="{{name}}" />
+	<div class="span4">
 
-				<div class="submit-btn">
-					<button type="submit" class="btn green edit-account">Save Changes</button>
-					<button type="reset" class="btn">Cancel</button>
-				</div>
-			</form>
+		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
+			<div class="portlet-title line">
+				<div class="caption">{{translate_menu}}</div>
+			</div>
+			<div class="portlet-body">
+				<ul>
+					<li><a data-hash="basic">{{translate_basic}}</a></li>
+					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
+					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>-->
+					<!--<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
+				</ul>
+			</div>
 		</div>
+		
 	</div>
 </div>

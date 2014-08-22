@@ -1,0 +1,14 @@
+<!-- {{title}} inbox -->
+
+	<div class="row-fluid">
+		<h1>{{title}}</h1>
+	</div>
+
+	<div class="row-fluid container">
+		
+		<section id="list" class="span4 clearfix"></section>
+		<main class="span8"></main>
+		
+	</div>
+	
+<!-- end inbox -->   

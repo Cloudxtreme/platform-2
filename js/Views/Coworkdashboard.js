@@ -23,6 +23,8 @@ Cloudwalkers.Views.Coworkdashboard = Cloudwalkers.Views.Pageview.extend({
 		// View
 		params = {displayname: Cloudwalkers.Session.user.get("displayname")};
 
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
 		this.$el.html (Mustache.render (Templates.coworkerdashboard, params));
 
 		return this;
@@ -88,5 +90,29 @@ Cloudwalkers.Views.Coworkdashboard = Cloudwalkers.Views.Pageview.extend({
 	'destroy' : function ()
 	{
 		$('#sidebar, #inner-content').removeClass("collapsed expanded");
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"welcome",
+			"lets_get_started",
+			"update_your_profile"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

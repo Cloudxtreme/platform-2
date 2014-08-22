@@ -1,0 +1,57 @@
+
+<aside class="nodata">
+
+	<div class="contactupper">
+		<h3>{{username}}</h3>
+		<div class="contactavatar">
+			<img class="avatar" src="{{avatar}}">
+		</div>		
+	</div>	
+
+	<div class="contactbottom">
+		<div id="contactfilter">
+			<ul>
+				<li class="btn-white inactive" data-type="messages"><span>Latest messages</span><i class="pull-right icon-angle-right"></i></li>
+				<li class="btn-white active" data-type="conversation"><span>Latest conversations</span><i class="pull-right icon-angle-right"></i></li>
+				{{#authorized.ACCOUNT_NOTES_MANAGE}}
+					<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+				{{/authorized.ACCOUNT_NOTES_MANAGE}}
+				{{^authorized.ACCOUNT_NOTES_MANAGE}}
+					{{#authorized.ACCOUNT_NOTES_VIEW}}
+						<li class="btn-white inactive" data-type="note"><span>Contact notes</span><i class="pull-right icon-angle-right"></i></li>
+					{{/authorized.ACCOUNT_NOTES_VIEW}}
+				{{/authorized.ACCOUNT_NOTES_MANAGE}}
+			</ul>
+		</div>
+	</div>
+
+	{{#authorized.ACCOUNT_NOTES_MANAGE}}
+	<div class="contactactions">
+		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>Add contact note</div>
+	</div>
+	<div id="notecontainer"></div>
+	{{/authorized.ACCOUNT_NOTES_MANAGE}}
+	
+</aside>
+
+<div id="inboxlist">
+	<div class="closewrapper">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	</div>
+	
+	<table class="end-preview">
+		<tbody><tr><td valign="middle">
+			<i class="icon-chevron-left"></i>
+		</td></tr></tbody>
+	</table>
+	<div class="modal-body">
+		<div class="blocker"></div>
+		<div class="messagelist">
+			<ul class="list toload tabbed"></ul>
+			<input type="button" class="btn load-more" value="load more" style="display: inline-block;">
+		</div>
+
+		<div class="inbox-container"></div>
+	</div>
+		
+</div>

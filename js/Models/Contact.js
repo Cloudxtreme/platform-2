@@ -5,13 +5,19 @@ Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
 	
 	'url' : function ()
 	{
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 		
 		if(this.parent)		url.push(this.parent.typestring, this.parent.id, this.typestring, this.id);
-		else if(this.id)	url.push(this.typestring, this.id);
+		//else if(this.id)	url.push(this.typestring, this.id);
+		else if(this.id)	url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring, this.id);
 		else				url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring);
+
+		if(this.urlparams)
+			url = url.concat(this.urlparams)
+
+		url = url.join("/");
 		
-		return url.join("/");
+		return this.parameters? url + "?" + $.param(this.parameters) : url;
 	},
 	
 	'parse' : function(response)

@@ -92,7 +92,7 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 
 	'render' : function ()
 	{
-			
+		console.log("here");
 		var data = this.prepareData ();
 		var self = this;
 
@@ -150,6 +150,9 @@ Cloudwalkers.Views.Message = Backbone.View.extend({
 		this.afterRender ();
 
 		this.model.setRead ();
+
+		// Tags
+		//this.loadtagui();
 
 		return this;
 	},

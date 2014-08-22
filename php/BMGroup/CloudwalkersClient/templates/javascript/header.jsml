@@ -10,7 +10,7 @@
 			<i class="icon-group"></i>
 		</div>
 		
-		{{#level}}
+		
 		<div class="header-icon" data-header-action="messages">
 			<i class="icon-envelope"></i>
 		</div>
@@ -20,7 +20,7 @@
 			<i class="icon-globe"></i>
 		</div>
 		-->
-		{{/level}}
+		
 		
 		<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 			<img src="/assets/img/menu-toggler.png" alt="" />
@@ -40,7 +40,7 @@
 			<li class="dropdown user">
 				
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<img src="{{user.avatar}}" class="avatar" alt="{{user.displayname}}" /> 
+					<img id="user_avatar" src="{{user.avatar}}" class="avatar" alt="{{user.displayname}}" /> 
 					<span class="username">{{user.firstname}} {{user.name}}</span>
 					<i class="icon-angle-down"></i>
 				</a>
@@ -52,13 +52,20 @@
 					</li>
 				{{/accounts}}
 					<li class="account-selector divider"></li>
+					{{#authorized.ACCOUNT_NOTES_MANAGE}}
+						<!-- NOTES_ROLE -->
+						<li><a data-header-action="writenote"><i class="icon-edit "></i> {{translate_write_note}}</a></li>
+						<li class="account-selector divider"></li>
+					{{/authorized.ACCOUNT_NOTES_MANAGE}}
 				{{#dev}}
-					<li><a href="#home"><i class="icon-fire-extinguisher "></i> Clean</a></li>
+					<li><a href="#home"><i class="icon-fire-extinguisher "></i> {{translate_clean}}</a></li>
 					<li class="account-selector divider"></li>
 				{{/dev}}
-					<li><a href="#settings/profile"><i class="icon-cog"></i> Profile settings</a></li>
+					<li><a href="https://cloudwalkers.zendesk.com/hc/nl/requests/new" target="_blank"><i class="icon-medkit"></i> {{translate_support}}</a></li>
 					<li class="divider"></li>
-					<li><a href="/logout" onclick="Cloudwalkers.Session.reset();"><i class="icon-off"></i> Log Out</a></li>
+					<li><a href="#settings/profile"><i class="icon-cog"></i> {{translate_profile_settings}}</a></li>
+					<li class="divider"></li>
+					<li><a href="/logout" onclick="Cloudwalkers.Session.reset();"><i class="icon-off"></i> {{translate_log_out}}</a></li>
 				</ul>
 			</li>
 

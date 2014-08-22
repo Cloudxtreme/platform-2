@@ -1,7 +1,6 @@
 Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'routes' : {
-		'' : 'dashboard',
 		'dashboard/:accountid' : 'changeaccount',
 		
 		'demo(/:demotype)' : 'demo',
@@ -15,6 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
+		'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
@@ -31,8 +31,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'firsttime' : 'firsttime',
 		'work' : 'coworkdashboard',
 		
+		'resync' : 'resync',
 		'home' : 'home',
-		'*path' : '404'
+		'*path' : 'dashboard'
 	},
 
 	'initialize' : function (){},
@@ -59,14 +60,16 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'dashboard' : function ()
 	{	
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#dashboard');
+
 		// Check first-timer
 		if (Cloudwalkers.Session.getAccount().get("firstTime"))
 			 
 			return this.navigate("#firsttime", true);
 			
-		// Check administrator level
-		if (!Cloudwalkers.Session.getAccount().get('currentuser').level)
-			 
+		// Coworker level
+		if (!Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW'))			 
 			return this.navigate("#work", true);
 		
 		
@@ -107,7 +110,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'coworkers' : function ()
 	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkers());
+		var view = new Cloudwalkers.Views.Coworkers()
+		var roles = '_CW_COWORKERS_VIEW';
+
+		this.validate(view, roles);
 	},
 	
 	
@@ -123,24 +129,59 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	 'inbox' : function (type, streamid)
 	{
+		var types = {
+			'MESSAGE_READ_INBOX_NOTIFICATIONS' : '#messages/notifications',
+			'MESSAGE_READ_INBOX_SCHEDULE' : '#scheduled',
+			'MESSAGE_READ_DRAFTS' : '#drafts',
+			'ACCOUNT_NOTES_VIEW' : '#notes'
+			}
+
+		// "Manual" validation
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+
+		var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
+
 		// Parameters
 		var channel = Cloudwalkers.Session.getChannel ('inbox');
+
+		if (!channel)	return this.home();		
+		if (!available || !available.length) return this.home();
+		if (!type) type = "messages";		
 		
-		if (!channel) return this.home();
-		if (!type) type = "messages";
-		
-		// Visualisation
+		if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
+		{
+			if(Cloudwalkers.Session.getUser().authorized && available.length)
+				return this.navigate(types[available[0]], {trigger: true});
+			else 
+				window.location = "/";
+		}
+
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Inbox({channel: channel, type: type, streamid: streamid}));
 	},
 	
 	'drafts' : function ()
-	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+	{	
+		var view = new Cloudwalkers.Views.Drafts();
+		var roles = 'MESSAGE_READ_DRAFTS';
+
+		this.validate(view, roles);
+	},
+
+	'notes' : function ()
+	{	
+		var view = new Cloudwalkers.Views.Notes();
+		var roles = 'ACCOUNT_NOTES_VIEW';
+
+		this.validate(view, roles);
 	},
 	
 	'scheduled' : function ()
-	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Scheduled());
+	{	
+		var view = new Cloudwalkers.Views.Scheduled();
+		var roles = 'MESSAGE_READ_SCHEDULE';
+
+		this.validate(view, roles);
 	},
 	
 	'calendar' : function ()
@@ -153,14 +194,25 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	**/
 	
 	'timeline' : function (channelid, streamid)
-	{
+	{	
 		// Get model from url
 		var model = streamid?
 			Cloudwalkers.Session.getStream(Number(streamid)) :
 			Cloudwalkers.Session.getChannel(Number(channelid));
 
-		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, parameters: {records: 40, markasread: true}}));
+		var id = streamid? streamid: channelid;
+
+		var account = Cloudwalkers.Session.getAccount ();
+		var news = account.channels.findWhere({type: "news"})? account.channels.findWhere({type: "news"}).id: null;
+		var profiles = account.channels.findWhere({type: "profiles"})? account.channels.findWhere({type: "profiles"}).id: null;
+
+		var type =  channelid == profiles? 'company' : 'thirdparty';
+		var showcontact = type == 'thirdparty';
+
+		var view =new Cloudwalkers.Views.Timeline({model: model, showcontact: showcontact, parameters: {records: 40, markasread: true}})
+		var roles = type == 'MESSAGE_READ_'+type.toUpperCase();
+
+		this.validate(view, roles);
 	},
 	
 	/**
@@ -169,6 +221,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	
 	'trending' : function (channelid, streamid)
 	{
+
 		// Get model from url
 		var channel = Cloudwalkers.Session.getChannel(Number(channelid));
 		var model = streamid? Cloudwalkers.Session.getStream(Number(streamid)): channel;
@@ -182,8 +235,12 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 			markasread: true
 		}
 
-		// Visualisation
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params}));
+		var id = streamid? streamid: channelid;		
+
+		var view = new Cloudwalkers.Views.Timeline({model: model, trending: true, parameters: params});
+		var roles = 'MESSAGE_READ_THIRDPARTY';
+
+		this.validate(view, roles);
 	},
 	
 	'manageaccounts' : function ()
@@ -199,14 +256,19 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Monitoring
 	 **/
 	'monitoring' : function (id, catid, messageid)
-	{
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(Number(catid))}));	
+	{	
+		var view = new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(Number(catid))});
+		var roles = 'MESSAGE_READ_MONITORING';
+
+		this.validate(view, roles);
 	},
 	
 	'managekeywords' : function ()
 	{
 		var view = new Cloudwalkers.Views.ManageKeywords ();
-		Cloudwalkers.RootView.setView (view);
+		var roles = 'CHANNEL_MANAGE_EDIT_MONITORING';
+
+		this.validate(view, roles);
 	},
 	
 	
@@ -215,16 +277,13 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 
 	'reports' : function (streamid)
-	{
-		
+	{			
 		var view = new Cloudwalkers.Views.Reports ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
+		var roles = 'STATISTICS_VIEW';
+		
+		if (streamid)	view.subnavclass = 'reports_' + streamid;
 
-		if (streamid)
-		{
-			view.subnavclass = 'reports_' + streamid;
-		}
-
-		Cloudwalkers.RootView.setView (view);
+		this.validate(view, roles);
 	},
 	
 	
@@ -234,15 +293,14 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'statistics' : function (streamid)
 	{
-		/*var model = streamid?	Cloudwalkers.Session.getStream(Number(streamid)) :
-								Cloudwalkers.Session.getAccount();*/
-								
 		var model = Cloudwalkers.Session.getAccount();
-		
-		Cloudwalkers.RootView.setView ( streamid?
+		var view = streamid?
 			new Cloudwalkers.Views.StatStream({model: model, streamid: streamid}):
 			new Cloudwalkers.Views.Statistics({model: model})
-		);
+
+		var roles = 'STATISTICS_VIEW';
+
+		this.validate(view, roles);
 	},
 
 	
@@ -252,9 +310,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 
 	'settings' : function (endpoint)
 	{
-		
+		var roles;
+
+		if (endpoint == 'users')			roles = 'USER_INVITE';
+		if (endpoint == 'services')			roles = 'SERVICE_CONNECT';
+		if (endpoint == 'account')			roles = 'CAMPAIGN_DELETE';
+
 		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
-		Cloudwalkers.RootView.setView (view);
+
+		this.validate(view, roles);
 	},
 	
 	/**
@@ -274,14 +338,49 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{	
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Coworkdashboard());
 	},
+	/**
+	 * Manage User Groups
+	 **/
 	
+	'manageusergroups' : function ()
+	{	
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.ManageUserGroups ());
+	},
+
+	/*'checkauth' : function(view)
+	{
+		if(!Cloudwalkers.Session.getUser().authorized)
+			Cloudwalkers.RootView.resync(view);
+		else
+			window.location = "/";
+	},*/	
+
+	'resync' : function(view)
+	{
+		this.navigate('#resync')
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Resync({returnto: view}));
+	},
 
 	'home' : function ()
-	{
+	{	
 		Cloudwalkers.Session.reset();
 		window.location = "/";
 		
 		return false;
+	},
+
+	'validate' : function(view, roles)
+	{
+		//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
+		//Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+
+		//if(!Cloudwalkers.Session.isupdated())
+			//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+
+		if(Cloudwalkers.Session.isAuthorized && Cloudwalkers.Session.isAuthorized(roles))
+			Cloudwalkers.RootView.setView(view)
+		else
+			this.home();
 	},
 	
 	'exception' : function (errno)

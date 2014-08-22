@@ -5,7 +5,8 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 	
 	'url' : function()
 	{	
-		return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
+		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
+		// return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
 	},
 	
 	'parse' : function (response)
@@ -28,6 +29,11 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 		
 		return Backbone.sync(method, model, options);

@@ -23,14 +23,19 @@
 <script type="text/javascript" src="/js/Models/Campaign.js"></script>
 <script type="text/javascript" src="/js/Models/User.js"></script>
 <script type="text/javascript" src="/js/Models/Contact.js"></script>
+<script type="text/javascript" src="/js/Models/Note.js"></script>
+<script type="text/javascript" src="/js/Models/Tag.js"></script>
 <script type="text/javascript" src="/js/Models/Me.js"></script>
 <script type="text/javascript" src="/js/Models/Stream.js"></script>
 <script type="text/javascript" src="/js/Models/Message.js"></script>
+<script type="text/javascript" src="/js/Models/CannedResponse.js"></script>
 <script type="text/javascript" src="/js/Models/Notification.js"></script>
 <script type="text/javascript" src="/js/Models/Action.js"></script>
 <script type="text/javascript" src="/js/Models/Report.js"></script>
 <script type="text/javascript" src="/js/Models/Statistic.js"></script>
 <script type="text/javascript" src="/js/Models/Network.js"></script>
+<script type="text/javascript" src="/js/Models/Polyglot.js"></script>
+<script type="text/javascript" src="/js/Models/Trigger.js"></script>
 
 <!-- Collections -->
 <script type="text/javascript" src="/js/Collections/Accounts.js"></script>
@@ -38,26 +43,37 @@
 <script type="text/javascript" src="/js/Collections/Campaigns.js"></script>
 <script type="text/javascript" src="/js/Collections/Users.js"></script>
 <script type="text/javascript" src="/js/Collections/Contacts.js"></script>
+<script type="text/javascript" src="/js/Collections/Notes.js"></script>
+<script type="text/javascript" src="/js/Collections/Tags.js"></script>
 <script type="text/javascript" src="/js/Collections/Channels.js"></script>
 <script type="text/javascript" src="/js/Collections/Streams.js"></script>
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
+<script type="text/javascript" src="/js/Collections/CannedResponses.js"></script>
 <script type="text/javascript" src="/js/Collections/Related.js"></script>
+<script type="text/javascript" src="/js/Collections/RelatedNotes.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
+<script type="text/javascript" src="/js/Collections/Triggers.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="/js/Views/Loader.js"></script>
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
+<script type="text/javascript" src="/js/Views/ComposeNote.js"></script>
 <script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
 <script type="text/javascript" src="/js/Views/Message.js"></script>
 <script type="text/javascript" src="/js/Views/ContactView.js"></script>
+<script type="text/javascript" src="/js/Views/ViewContact.js"></script>
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
+<script type="text/javascript" src="/js/Views/Resync.js"></script>
+<script type="text/javascript" src="/js/Views/ContactCard.js"></script>
+<script type="text/javascript" src="/js/Views/Actions.js"></script>
+<script type="text/javascript" src="/js/Views/Action.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 
 <!-- Deprecated Views -->
@@ -69,6 +85,7 @@
 <script type="text/javascript" src="/js/Views/Inbox.js"></script>
 <script type="text/javascript" src="/js/Views/Demo.js"></script>
 <script type="text/javascript" src="/js/Views/Drafts.js"></script>
+<script type="text/javascript" src="/js/Views/Notes.js"></script>
 <script type="text/javascript" src="/js/Views/Scheduled.js"></script>
 <script type="text/javascript" src="/js/Views/Calendar.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkers.js"></script>
@@ -87,6 +104,7 @@
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
+<script type="text/javascript" src="/js/Views/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/User.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
@@ -116,7 +134,11 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
@@ -140,6 +162,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Barchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Piechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/LoadMore.js"></script>
 
 <!-- Deprecated views -->
 <script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>
@@ -155,4 +178,6 @@
 <script type="text/javascript" src="/js/Views/Settings/UserDetails.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Profile.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/Account.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/CannedList.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>

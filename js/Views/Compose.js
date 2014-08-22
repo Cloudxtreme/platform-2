@@ -13,6 +13,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	'actionstreams': [],
 	'actionview': false,
 	'minutestep': 5,
+	'maxfilesize' : 3000000,
+	'besttimes' : {},
 	
 	'titles' : {
 		'post' :	"Write Post",
@@ -26,6 +28,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'favourite': "Favourite",
 		'plusone':	"Plus one",
 		'default' : "Compose"
+	},
+	'translated_titles' : {
 	},
 
 	'limitations' : {
@@ -45,12 +49,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'mobile-phone':	["editor","schedule","repeat"],
 		
 		// Actions
-		'comment' : ["editor"],
-		'reply' : ["editor"],
-		'dm' : ["editor"],
+		'comment' : ["editor", "canned"],
+		'reply' : 	["editor", "canned"],
+		'dm' : 		["editor", "canned"],
 		'retweet' : ["icon"],
-		'like' : ["icon"],
-		'favorite' : ["icon"],
+		'like' : 	["icon"],
+		'favorite' :["icon"],
 		'plusone' : ["icon"]
 	},
 	
@@ -78,6 +82,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'blur [data-collapsable=link] input' : 'listentolink',
 		
 		'change select.campaign-list' : 'listentocampaign',
+		'change select.canned-list' : 'listentocanned',
 		'blur .campaign-name' : 'listentoaddcampaign',
 		'click .add-campaign' : 'toggleaddcampaign',
 		
@@ -129,7 +134,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft.attributes.variations = [];
 			
 		} else if(this.action && this.reference)
-		{
+		{	
 			// Get action dynamics
 			this.action.parent = this.reference;
 			this.actionstreams = [];
@@ -139,7 +144,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.action.fetch();
 					
 		} else if(this.model)
-		{
+		{				
 			this.type = "edit";
 			this.state = 'loading';
 			this.draft = this.model.clone();
@@ -153,14 +158,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Draft message
 		if(!this.draft)
-		{
+		{	
 			// The draft message
 			this.draft = new Cloudwalkers.Models.Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
 			// Listen to validation
 			this.listenTo(this.draft, "invalid", this.invalid);
 		}
 
-		this.loadListeners(this.draft, ['request', 'sync'], true);
+		this.loadmylisteners();
 
 		//Twitter reply
 		//This is a hack indeed...What better way to make this?
@@ -169,24 +174,77 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
 		}
 		
+		this.censurecompose();
+
+		// Translate Titles
+		this.translateTitles();	
+
+	},
+
+	'loadmylisteners' : function()
+	{
+		this.loadListeners(this.draft, ['request', 'sync'], true);
+	},
+
+	'censurecompose' : function()
+	{
+		// Block on global level
+		var blocklist = [];
+
+		var globalcheck = {
+			'MESSAGE_OUT_ATTACHMENTS' 	: ['images'],
+			'MESSAGE_OUT_SCHEDULE'		: ['schedule'],
+			'MESSAGE_OUT_REPEAT'		: ['repeat'],
+			'CAMPAIGN_CREATE'			: ['campaign']
+		}
+
+		// Create block functionality array
+		$.each(globalcheck, function(permission, features)
+		{	
+			if(!Cloudwalkers.Session.isAuthorized(permission))
+				blocklist = _.union(blocklist, features);			
+		})
+		
+		// Apply blockage
+		$.each(this.options, function(token, features)
+		{	
+			this.options[token] = _.difference(features, blocklist);
+		}.bind(this))
+		
 	},
 	
 	'original' : function ()
 	{	
 		var variations;
 
+		var schedule = this.draft.get("schedule");
+
 		// Convert dates to unix
-		if (this.draft.get("schedule") && this.draft.get("schedule").date)	this.draft.get("schedule").date = moment(this.draft.get("schedule").date).unix();
+		if (schedule && schedule.date)	schedule.date = moment(schedule.date).unix();
+		if (schedule && schedule.repeat && schedule.repeat.until)	schedule.repeat.until = moment(schedule.repeat.until).unix();
+
 		if (variations = this.draft.get("variations"))
 		{
 			$.each(variations, function(i, variation)
 			{
-				if(variation.schedule)
+				if(variation.schedule && variation.schedule.date)
 					variation.schedule.date = moment(variation.schedule.date).unix();
+
+				if(variation.schedule && !variation.schedule.date)
+					variation.schedule.now = true;
+
+				if(variation.schedule && variation.schedule.repeat && variation.schedule.repeat.until)
+					variation.schedule.repeat.until = moment(variation.schedule.repeat.until).unix();
+
+				//Hack to force only one image
+				if(variation.attachments && variation.attachments.length)
+					variation.attachments = [variation.attachments.pop()]
+				
 			})
 		}
 
 		this.state = 'loaded';
+
 		// Render for editor
 		this.render();
 		
@@ -196,20 +254,29 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		// Collect data
 		var params ={
 			streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
-			title:		this.titles[this.type],
+			title:		this.translated_titles[this.type],
 			campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
+			//canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 			actionview: this.actionview? this.type: false,
 		};
 
+		
 		//Only add loading state when editing
 		if(this.type == "edit")	params.type = this.type;
 
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
+
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(params);
+		
 		// Create view
 		var view = Mustache.render(Templates.compose, params);
+
 		this.$el.html (view);		
 		
 		if(this.state == 'loading')	this.disablefooter();
@@ -219,11 +286,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		this.$el.find("[data-type=post]").append(this.editor.render().el);
 
 		// Listen to editor triggers
-		this.listenTo(this.editor, "imageadded", this.addimage);
+		this.listenTo(this.editor, "imageadded", this.listentourlfiles);
 		this.listenTo(this.editor, "change:content", this.monitor);
 
 		// Add Chosen
 		this.$el.find(".campaign-list").chosen({width: "50%"});
+		this.$el.find(".canned-list").chosen({width: "100%"});
 		
 		// Add Datepicker
 		this.$el.find('#delay-date, #repeat-until').datepicker({format: 'dd-mm-yyyy', weekStart: 1});
@@ -253,6 +321,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
+	
+	'option' : function (token)
+	{	
+		var options = this.options[this.type];
+		
+		return options? options.indexOf(token) >= 0: false; 
+	},
 
 	'restarttime' : function()
  	{	
@@ -261,13 +336,21 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
  		
  		this.$el.find('#delay-time').timepicker('setTime', hours +':'+ minutes);
  	},
+
+ 	'restartdate' : function()
+ 	{	
+ 		$(this.datepicker.get(0)).datepicker('update', moment.unix().format("DD/MM/YYYY"));	
+ 	},
 	
 	'editstreams' : function (model)
 	{
 		var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 		
 		this.actionstreams = [];
-		for(n in action.streams) this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));	
+		for(n in action.streams){
+			if(Cloudwalkers.Session.getStream(action.streams[n]))
+				this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));		
+		} 
 		
 		// Render streamlist and activate first stream
 		this.render();
@@ -295,6 +378,48 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(streamid)	this.draft.setvariation(streamid, object, content);
 		else 			this.draft.set(object, content);
 	},
+
+	'updatelimitations' : function(streamid, update)
+	{	
+		if(!streamid){
+			this.editor.trigger('update:limit', 0);
+			return;
+		}
+
+		var stream = Cloudwalkers.Session.getStream(streamid);
+		var limitations = stream.getlimitations();
+		var numimages = 0;
+		
+		//Add all variation images
+		if(streamid && this.draft.getvariation(streamid,'image')){
+			var imgs = this.draft.getvariation(streamid, 'image');
+			
+			$.each(imgs, function(i, image){
+				numimages += this.draft.getvariation(streamid, 'image').length;
+			}.bind(this));
+		}
+		// Temporary: prevent multiple adds
+		// Add defaults (if ther wasn't any variation image already added)
+		else if(this.draft.get("attachments")){
+			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
+			$.each(imgs, function(i, image){
+
+				//The image should be excluded
+				//if(streamid && this.draft.checkexclude(streamid, i))
+				if(streamid && this.draft.checkexclude(streamid, i))
+					return true; //Continue
+
+				numimages ++;
+
+			}.bind(this));
+		}
+
+		if(numimages && limitations['picture-url-length'])
+			this.editor.trigger('update:limit', limitations['picture-url-length'].limit, update); //Hack for only 1 image max
+			//this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
+		else
+			this.editor.trigger('update:limit', 0, update);
+	},
 	
 	'toggleoption' : function (e)
 	{	
@@ -306,6 +431,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if(collapsable.hasClass("collapsed") && this["summarize" + option])
 		
 			this["summarize" + option]();
+
+		//Hack -> refresh ui to clean black line glitch
+		this.$el.addClass('hidden');
+		this.$el.removeClass('hidden')
 	},
 	
 	'closealloptions' : function ()
@@ -414,14 +543,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	},
 	
 	'togglesubcontent' : function (stream)
-	{ 	//console.log(this.draft, this.draft.get("variations"));
+	{ 	//console.log(this.streams, this.draft.get("variations"));
 		this.activestream = stream;
-		
+	
 		if(this.actionview)
 		{
 			var options = this.options[this.type];
 			var network = false;
-		
+			
 		} else {
 			
 			// Get the right network
@@ -451,6 +580,10 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Editor
 		if (options.indexOf("editor") >= 0)		this.$el.find("#editor.hidden").removeClass("hidden");
 		else									this.$el.find("#editor").addClass("hidden");
+
+		// Icon
+		if (options.indexOf("canned") >= 0)		this.$el.find("[data-type=canned]").removeClass("hidden");
+		else									this.$el.find("[data-type=canned]").addClass("hidden");
 		
 		// Full Body
 		if (options.indexOf("fullbody") >= 0)	this.$el.find("[data-option=limit]").addClass("hidden");
@@ -473,14 +606,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.togglerepeat(options.indexOf("repeat") >= 0);
 
-		// Update content, images and links
-		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
-
 		this.updatesubject();
 
 		this.updateimages();
 
 		this.summarizeschedule();
+
+		this.updatelimitations(stream? stream.id: null)
+
+		// Update content, images and links
+		this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
 	},
 
 	'updatesubject' : function()
@@ -511,17 +646,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var files = e.target.files;
 		var draft = this.draft;
 		var self = this;
+
 		for (var i = 0, f; f = files[i]; i++)
-		{
+		{	
 			// Check type
-			if (!f.type.match('image.*')) continue;
-			
+			if (!f.type.match(/^image\/(gif|jpg|jpeg|png)$/i))
+			{
+				this.showerror('Upload failed: ', 'only .jpg .jpeg .png and .gif extensions supported');
+				continue;
+			} 
+			if (f.size > this.maxfilesize)
+			{	
+				this.showerror('Upload failed: ', 'image size exceeds 3mb');
+				continue;
+			}
 			var reader = new FileReader();
 			
 			reader.onload = (function(file)
 			{	return function(e)
 				{	
 					self.addimage({type: 'image', data: e.target.result, name: file.name});
+					self.updatelimitations(streamid, true);
+					self.editor.trigger("change:charlength");
 
 			}})(f);
 			
@@ -530,6 +676,23 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			break;
 		}	
 	},
+
+	'listentourlfiles' : function(image)
+	{	
+		var streamid = this.activestream ? this.activestream.id : false;
+		var numimages = 0;
+		
+		if(streamid && this.draft.getvariation(streamid,'image'))
+			numimages += this.draft.getvariation(streamid, 'image').length;
+		
+		if(this.draft.get("attachments")){
+			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
+			numimages += imgs.length
+		}
+		
+		if(!numimages)	this.addimage(image);
+	},
+
 	// Add to the variation or the default
 	'addimage' : function(image){
 		var streamid = this.activestream ? this.activestream.id : false;
@@ -575,11 +738,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamid = this.activestream ? this.activestream.id : false;
 		var summary = this.$el.find("[data-collapsable=images] .summary").empty();
 		var picturescontainer = this.$el.find("ul.pictures-container").empty();
-		var picturescontainer = this.$el.find("ul.snapshots-container").empty();
+		var snapscontainer = this.$el.find("ul.snapshots-container").empty();
 		var images = [];
 
 		//Add all variation images
-		if(streamid && this.draft.getvariation(streamid,'image')){
+		if(streamid && this.draft.getvariation(streamid,'image') && this.draft.getvariation(streamid,'image').length){
 			var imgs = this.draft.getvariation(streamid, 'image');
 			
 			$.each(imgs, function(i, image){
@@ -587,16 +750,17 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				this.listimage(image);
 			}.bind(this));
 		}
-
-		//Add default images that aren't in this stream's exclude list
-		if(this.draft.get("attachments")){
+		// Temporary: prevent multiple adds
+		// Add defaults (if ther wasn't any variation image already added)
+		else if(this.draft.get("attachments")){
 			imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
 			$.each(imgs, function(i, image){
 
 				//The image should be excluded
-				if(streamid && this.draft.checkexclude(streamid, image))
+				//if(streamid && this.draft.checkexclude(streamid, i))
+				if(streamid && this.draft.checkexclude(streamid, i))
 					return true; //Continue
-				
+
 				this.summarizeimages(image);
 				this.listimage(image);
 
@@ -654,15 +818,29 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Is it in the default attachments?
 		for (n in attachs){
 			if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
-				attachindex = n;
+				attachindex = parseInt(n);
 				break;
 			}
 		}
 		
-		if(!streamid)
+		if(!streamid){
 			attachs.splice(attachindex,1);
-		else
-			this.draft.removevarimg(streamid, attachs[attachindex] || image.data("filename"));
+
+			//Remove this entry from all variations's exclude list
+			if(this.draft.get("variations"))
+			{
+				$.each(this.draft.get("variations"), function(n, variation)
+				{
+					if(variation.excludes)
+						variation.excludes.attachments = _.difference(variation.excludes.attachments, [attachindex])
+				});				
+			}
+		}
+		else{
+			this.draft.removevarimg(streamid, _.isNumber(attachindex)? attachindex: image.data("filename"));
+			this.updatelimitations(streamid, true);
+			this.editor.trigger("change:charlength");
+		}
 
 
 		//Remove from the summary interface
@@ -803,29 +981,66 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		return this;
 	},
 
-	'parsemoment' : function(selectordate, selectortime)
+	'parsemoment' : function(seldate, seltime)
 	{
-		var seldate = $(selectordate);
+		/*var seldate = $(selectordate);
 		var seltime = $(selectortime);
 
 		if(!seltime.val())
  			this.restarttime();
 		
 		// Prevent empty
-		if(!seldate.val() || !seltime.val()) return null;
+		if(!seldate.val() || !seltime.val()) return null;*/
 		
 		var date = moment(seldate.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY","DD/MM/YY","DDMMYYYY","YYYYMMDD","MM-DD-YYYY","MM-DD-YY"]);
-		var time = seltime.val().split(":");
+		var time = seltime ? seltime.val().split(":") : null;
 		var newdate = _.clone(date);
 
-		if (time.length > 1) 
+		if (time && time.length > 1) 
 			newdate.add('minutes', Number(time[0])*60 + Number(time[1]));
+		
+		return newdate.isValid()? newdate : undefined;
+	},
+
+	'parsescheduledate' : function(selectordate, selectortime)
+	{
+		var seldate = $(selectordate);
+		var seltime = $(selectortime);
+		
+		if(!seltime.val())
+ 			this.restarttime();
+
+ 		if(!seldate.val())
+ 			this.restartdate();
+
+ 		// Prevent empty
+		if(!seldate.val() || !seltime.val()) return null;
+
+		var newdate = this.parsemoment(seldate, seltime);
 
 		// Validate
-		if(!newdate.isValid()) return undefined;
+		//if(newdate && newdate.unix() > moment().unix()) 	return newdate;
+		//else												return undefined;
+
+		return newdate;
 		
-		// Future-check
-		return newdate.unix() < moment().unix()? undefined: newdate;
+	},	
+
+	'parserepeatdate' : function(selectordate)
+	{
+		var seldate = $(selectordate);
+
+		if(!seldate.val()) return null;
+
+		var newdate = this.parsemoment(seldate);
+
+		// Validate
+		if(!newdate)	return undefined;
+
+		// Is there a schedule?
+		//if(this.$el.find('#delay-date').val())	return newdate.unix() < this.parsescheduledate("#delay-date", "#delay-time").unix() ? undefined: newdate;
+		//else 									return newdate.unix() < moment().unix()? undefined: newdate;
+
 	},
 	
 	/* Called on stream toggle */
@@ -906,7 +1121,6 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			if(schedule.repeat.until)
 			{
 				this.toggleschedentry("[data-set=now]").toggleschedentry("[data-set=until]", true);
-				
 				$(this.datepicker.get(1)).datepicker('update', moment.unix(schedule.repeat.until).format("DD/MM/YYYY"));
 			}
 					
@@ -923,7 +1137,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	/* Called on input update */
 	
 	'monitorschedule' : function(e, element)
-	{	//console.log("monitorschedule");
+	{	
 		// Various data
 		var field = element || $(e.currentTarget);
 		var entry = field.data("set")? field: field.parents("[data-set]").eq(0);
@@ -934,7 +1148,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
-			 
+			
 		// clear now default
 		if(schedule.now) delete schedule.now;
 		
@@ -966,12 +1180,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.toggleschedentry("[data-set=now], [data-set=in]").toggleschedentry("[data-set=on]", true);
 			$("[data-set=in] select").val(600);
 
+			this.parsescheduledate("#delay-date", "#delay-time");
 			// Data
-			if (this.parsemoment("#delay-date", "#delay-time") === undefined)
+			/*if (this.parsescheduledate("#delay-date", "#delay-time") === undefined)
 			{
-				this.datepicker.datepicker('hide').val("");
+				this.datepicker.datepicker('hide');
+				this.$el.find("#delay-date").val("");
 				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
-			}
+			}*/
 			
 			// Force clean "in"
 			if(schedule.settings && schedule.settings.delayselect) delete schedule.settings.delayselect;
@@ -1021,6 +1237,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			// Data
 			if(!Number($("#repeat-interval").val())) $("#repeat-interval").val(1);
 			$("#repeat-amount").val(0);	
+
+			// Data
+			/*if (this.parserepeatdate("#repeat-until") === undefined)
+			{	
+				this.datepicker.datepicker('hide');
+				this.$el.find("#repeat-until").val("");
+				Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+			}*/
 		}
 		
 		// Set the data
@@ -1050,21 +1274,42 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// Set the data
 		this.draft.original(this.activestream, "schedule", schedule);
+
+		// Fetch
+		/*if(this.activestream && !this.hasbesttime()){
+			var stream = Cloudwalkers.Session.getStream(this.activestream.id);
+
+			this.listenToOnce(stream, 'sync', this.setbesttime);
+			stream.fetch({endpoint: "besttimetopost"});
+		}*/
 		
 		return this;
+	},
+
+	'setbesttime' : function(besttimes)
+	{
+		//console.log(besttimes)
+	},
+
+	'hasbesttime' : function()
+	{	
+		var streamid = this.activestream? this.activestream.id: false;
+		var stream = streamid ? this.streams.models.filter(function(el){  return el.id == streamid}): false;
+		
+		return stream.length? stream[0].get("bestTimeToPost"): false;
 	},
 	
 	/* Parse schedule values */
 	
 	'parsescheduled' : function()
-	{
+	{	
 		
 		// Get variation/default info
 		var schedule;
 		
 		if(!(schedule = this.draft.original(this.activestream, "schedule")))
 			 schedule = {repeat:{}};
-			
+
 		if (!schedule.settings) schedule.settings = {};
 		
 		var select = this.$el.find("section[data-collapsable] .schedule-entry").not(".inactive")
@@ -1079,12 +1324,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		else if (select.filter("#delay-date").val())
 		{
-			var date = this.parsemoment("#delay-date", "#delay-time");
-			
+			var date = this.parsescheduledate("#delay-date", "#delay-time");
+	
 			/*if (select.filter("#delay-date").val())	var time = $("#delay-time").val().split(":");
 			if (time.length > 1) 					date.add('minutes', Number(time[0])*60 + Number(time[1]));*/
 			
+			
 			if(date) schedule.date = date.unix();				
+			
 			if(select.filter("#delay-time").is('[disabled=disabled]'))	schedule.besttimetopost = true;	
 		} 
 		
@@ -1111,22 +1358,24 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			repsettings.everyweek = $("#every-select-weekday").val() || null;
 
 			schedule.repeat.settings = repsettings;*/
+
 		}
-		
+
 		return schedule;
 	},
 	
 	'summarizeschedule' : function ()
 	{	
+		// Translations
+		this.translate_best_time_to_post = this.translateString("best_time_to_post");
 
 		// Collect the data
 		var scheduled = this.parsescheduled();
-		
 		var summary = this.$el.find("[data-collapsable=schedule] .summary").empty()
 		
 		if(scheduled && scheduled.date)
 		{
-			var time = scheduled.besttimetopost? "Best time to post": moment.unix(scheduled.date).format("HH:mm");
+			var time = scheduled.besttimetopost? this.translate_best_time_to_post: moment.unix(scheduled.date).format("HH:mm");
 			summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
 		}
 		
@@ -1138,9 +1387,16 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	
 	'summarizerepeat' : function()
 	{
+
+		//Mustache Translate Summarize Repeat
+		this.mustacheTranslateSummarizeRepeat(this);
+
 		// Collect the data
 		var scheduled = this.parsescheduled();
 		
+		if(scheduled && !scheduled.repeat)
+			this.$el.find("[data-collapsable=repeat] .summary").empty();
+
 		// Emergency breaks
 		if(!scheduled || !scheduled.repeat) return this;
 		
@@ -1161,8 +1417,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			var times = scheduled.repeat.amount;
 			var end = start.clone().add('seconds', times * scheduled.repeat.interval);
 		}
-		
-		if(times) summary.html("<span>" + times + " times " + (end? "<em class='negative'>until " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
+
+		if(times) summary.html("<span>" + times + " " + this.translate_times + " " + (end? "<em class='negative'>" + this.translate_until + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
 		else if(scheduled.repeat.interval)
 		{
 			var sum, intv;
@@ -1174,12 +1430,58 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 				if(Math.round(sum) == sum) return true;
 			});	
 			
-			var weekdays = {1: 'hours', 24: 'days', 168: 'weeks', 720: 'months'};
-		
-			summary.html("<span>Endless repeat every " + sum + " " + weekdays[intv]);
+			var weekdays = {1: this.translate_hours, 24: this.translate_days, 168: this.translate_weeks, 720: this.translate_months};
+			
+			
+			summary.html("<span>" + this.translate_endless_repeat_every + " " + sum + " " + weekdays[intv]);
 		
 		}				
 		return this;
+	},
+
+	/**
+	 *	Canned
+	**/
+
+	/*'fetchcanned' : function()
+	{		
+		if(this.options[this.type] && !this.options[this.type].indexOf('canned'))
+			return null;
+
+		if(Cloudwalkers.Session.getCannedResponses().touched)
+			return Cloudwalkers.Session.getCannedResponses().models;
+		
+		// Fetch once
+		var canned = new Cloudwalkers.Collections.CannedResponses();
+		canned.fetch();
+
+		this.listenTo(canned, 'sync', this.rendercanned);
+	},
+
+	'rendercanned' : function(canned)
+	{	
+		Cloudwalkers.Session.getCannedResponses().touched = true;
+
+		this.$el.find("[data-type=canned] .collapsable-content").html(Mustache.render(Templates.cannedresponsesdrop, {canned: canned.models}));
+		this.$el.find(".canned-list").chosen({width: "100%"});
+		this.$el.find(".canned-list").chosen({no_results_text: "Oops, nothing found!"}); 
+		this.$el.find("[data-type=canned] .collapsable-content").removeClass('loading');
+	},*/
+	
+	'listentocanned' : function (e)
+	{
+		// Message id
+		var result = $(e.currentTarget).val();
+		var cannedtext = $(".chosen-single > span").get(0).textContent;
+
+		if(result != 0){
+			var canned = Cloudwalkers.Session.getCannedResponses();
+			var response = canned.models.filter(function(el){ if(el.id == result) return el; });
+			var responsehtml = response[0]? response[0].get("body").html: null;
+
+			if(responsehtml)
+				this.trigger("replace:content", responsehtml)
+		}
 	},
 
 	
@@ -1191,9 +1493,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 	{
 		// Animate compose view
 		this.$el.addClass("switch-mode");
-		
+
 		// Create new preview object
-		this.preview = new Cloudwalkers.Views.Preview({model: this.draft, previewtype: 'default', streamid: this.activestream.id});
+		this.preview = new Cloudwalkers.Views.Preview({model: this.draft.clone(), previewtype: 'default', streamid: this.activestream.id});
 		
 		// Add preview view to Compose
 		this.$el.find('.switch-container').append(this.preview.render().el);
@@ -1216,9 +1518,9 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 
 		var error;
  
- 		if(error = this.draft.validateCustom())
- 			return Cloudwalkers.RootView.information ("Not saved: ", error, this.$el.find(".modal-footer"));
-
+ 		if(error = this.draft.validateCustom(['streams', 'schedule']))
+ 			return this.showerror("Not saved: ", error);
+		
 		//Disables footer action
 		this.disablefooter();
 
@@ -1226,12 +1528,20 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		this.draft.sanitizepost();
 		
-		if(this.draft.id)	this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});
-		else 				this.draft.save({status: status}, {success: this.thankyou.bind(this)});
+		if(this.draft.id)	this.draft.save({
+			body: this.draft.get("body"), 
+			attachments: this.draft.get("attachments"), 
+			variations: this.draft.get("variations"), 
+			streams: this.draft.get("streams"), 
+			schedule: this.draft.get("schedule"), 
+			update: true
+		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
+
+		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
 	},
 	
 	'post' : function()
-	{		
+	{	
 		// Prevent empty post
 		//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
 		//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
@@ -1239,8 +1549,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var error;
  
 		if(error = this.draft.validateCustom())
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
- 		
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
+
 		//Disables footer action
 		this.disablefooter();
 		
@@ -1252,11 +1562,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Update a Patch
 		else if(this.draft.id){
 			//console.log("right before the save:", this.draft.get('variations'));
-			this.draft.save({body: this.draft.get("body"), variations: this.draft.get("variations"), streams: this.draft.get("streams"), status: "scheduled", schedule: this.draft.get("schedule"), update: true}, {patch: true, endpoint: "original", success: this.thankyou.bind(this)});			
+			this.draft.save({
+				body: this.draft.get("body"), 
+				attachments : this.draft.get("attachments"),
+				variations: this.draft.get("variations"), 
+				streams: this.draft.get("streams"), 
+				status: "scheduled", 
+				schedule: this.draft.get("schedule"), 
+				update: true
+			}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});			
 		} 
 		
 		// Or just post
-		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this)});
+		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});
 		
 		
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
@@ -1268,6 +1586,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streamids = [];
 		var checkblock = 'content';
 		var error;
+		var params;
 		
 		this.$el.find(".action-tabs div").each(function() { streamids.push($(this).data("stream"))});
 		
@@ -1279,19 +1598,32 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
 			checkblock = false;
 
-		if(error = this.draft.validateCustom(checkblock))
- 			return Cloudwalkers.RootView.information ("Not posted: ", error, this.$el.find(".modal-footer"));
+		if(error = this.draft.validateCustom([checkblock]))
+ 			return this.showerror(this.translateString("not_posted") + ": ", error);
 		
 		//Disables footer action
 		this.disablefooter();
-		
+
+		// Canned respose
+		if(this.$el.find("[data-type=canned] input").is(':checked'))
+
+			Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}, status: "CANNED"});
+
 		// Create & Save
-		var postaction = this.reference.actions.create({streams: streamids, message: this.draft.get("body").html, actiontype: this.type}, {success: this.thankyou.bind(this)});
+		var postaction = this.reference.actions.create({
+			parameters: params? params: null, 
+			streams: streamids, 
+			message: this.draft.get("body").html, 
+			actiontype: this.type
+			}, 
+			{success: this.thankyou.bind(this, null), error: this.oops.bind(this, 'saveaction')}
+		);
+
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function()
+	'thankyou' : function(action)
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1307,18 +1639,43 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		// After sales service 
 		if(this.type == "edit")
-		{
-			var varn;
-			/*if(varn = this.draft.get("variations")) varn.forEach(function(el)
-			{
-				if(el.id) console.log(el.id, el, Cloudwalkers.Session.getStream(el.id));
-			});
+		{	
+			var varn = this.draft.get("variations");
 			
-			else */ this.model.fetch();	
+			if(varn && varn.length) varn.forEach(function(el)
+			{ 
+				if(el.id) 
+				{	
+					if(action && action == 'post')
+						Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+					Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
+				}
+			}.bind(this));
+			
+			else this.model.fetch()	
 		}
 		
-		if(this.type == "post") Cloudwalkers.RootView.trigger("added:message", this.draft);
-		
+		if(this.type == "post")
+			Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
+	},
+
+	'showerror' : function(title, error)
+	{
+		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
+	},
+	'oops' : function(action, status)
+	{
+		Cloudwalkers.RootView.confirm 
+			(
+				'An error ocurred while posting your message. Do you want to retry?',
+				function () { 
+					this.loadmylisteners();
+					action == 'save'? this.save(status): this.post(); }.bind(this),
+				function () { this.$el.modal('hide'); }.bind(this)
+			);
 	},
 
 	'disablefooter' : function()
@@ -1367,15 +1724,99 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			return this.$el.find('.action-tabs')[0].scrollWidth > this.$el.find('.action-tabs').width();
 	},
 
-	'checklimitations' : function(type, attributes){
+	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },
+	'triggerblur' : function() { this.editor.trigger('blur:content'); },
 
-		if(type == 'link'){
-
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateTitles' : function(translatedata)
+	{
+		
+		for(k in this.titles)
+		{
+            this.translated_titles[k] = this.translateString(this.titles[k]);
 		}
 	},
 
-	'triggerpaste' : function(e) { this.editor.trigger('paste:content', e); },
-	'triggerblur' : function() { this.editor.trigger('blur:content'); },
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"default",
+			"subject",
+			"images",
+			"photo_booth",
+			"pictures",
+			"camera",
+			"campaign",
+			"no_campaign",
+			"schedule",
+			"now",
+			"in",
+			"mins",
+			"hour",
+			"hours",
+			"day",
+			"week",
+			"on",
+			"best_time",
+			"repeat",
+			"no_repeat",
+			"every",
+			"days",
+			"weeks",
+			"months",
+			"select_a_day",
+			"monday",
+			"tuesday",
+			"wednesday",
+			"thursday",
+			"friday",
+			"saturday",
+			"sunday",
+			"doesnt_matter",
+			"times",
+			"until",
+			"save",
+			"preview",
+			"post",
+			"save_this_as_a_response_template"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	
+	'mustacheTranslateSummarizeRepeat' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"times",
+			"until",
+			"endless_repeat_every",
+			"hours",
+			"days",
+			"weeks",
+			"months"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	}
 });
 
 
@@ -1440,4 +1881,4 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		
 		return this;
 	},
-*/
+*/	

@@ -35,6 +35,7 @@
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/inbox.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/calendar.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/settings.css" rel="stylesheet" type="text/css" />
@@ -42,6 +43,7 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/write.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/statistics.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/keywords.css" rel="stylesheet" type="text/css" />
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 
@@ -50,6 +52,10 @@
 		<link href="assets/demo/preview.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/plugins/cal-heatmap-master/cal-heatmap.css" rel="stylesheet" type="text/css" />
 		<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" /> - http://kamisama.github.io/cal-heatmap/v2/ -->
+
+		<!-- This is the demos CSS-->
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/demos.css" rel="stylesheet" type="text/css"/>
+		
 		<!-- END PAGE LEVEL STYLES -->
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>

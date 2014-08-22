@@ -12,6 +12,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		contacts : {string:"", list:[]},
 		streams : []
 	},
+	'templates' : {
+		'messages' : 'smallentry',
+		'notes' : 'smallentrynote',
+		'notifications' : 'smallentry'
+	},
 	
 	'events' : {
 		'remove' : 'destroy',
@@ -30,7 +35,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(options) $.extend(this, options);
 		
 		// Which model to focus on
-		this.model = this.options.channel;
+		if(!this.model)	this.model = this.options.channel;
 		this.collection = this.model[this.collectionstring];
 		
 		//Load all listeners
@@ -45,6 +50,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(recycle)
 			this.stopListening(this.collection);
 
+		this.$el.find('#loadmore').empty();
+
 		// Listen to model
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
@@ -57,6 +64,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		//Empty & not empty
 		this.listenTo(this.collection, 'ready:empty', this.isempty);
 		this.listenTo(this.collection, 'request', this.unsetempty);
+
+		//if(this.listtype == 'notes')
+		this.listenTo(Cloudwalkers.RootView, 'added:note', function(){ this.collection.touch(this.model, this.filterparameters()); }.bind(this));
 
 		//listenToOnce
 		this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
@@ -82,8 +92,6 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Template data
 		var param = {streams: [], networks: []};
 		
-		
-		
 		// Select streams
 		this.model.streams.each (function(stream)
 		{
@@ -93,7 +101,11 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
+		param.note = this.listtype? true: false;
 		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(param);
+
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
@@ -117,26 +129,36 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{
 		//this.$container.addClass("inner-loading");
 		
-		$(".inbox").addClass("loading");
+		this.$el.find(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function (collection, response)
-	{
-		if(collection.cursor && response.channel[this.collectionstring].length)
-			//this.$el.find(".load-more").show();
+	{	
+		if(collection.cursor && response[collection.parenttype][this.collectionstring].length)
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 
-		$(".inbox").removeClass("loading");
+		this.$el.find(".inbox").removeClass("loading");
 		
 		this.$container.removeClass("inner-loading");
 	},
 
 	'showmore' : function(){
+		
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'hidemore' : function()
@@ -145,7 +167,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'fill' : function (models)
-	{
+	{	
+		var template = this.templates[this.collectionstring];		
+
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -156,8 +180,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		// Add models to view
 		for (n in models)
-		{
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'smallentry'/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
+		{	
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
 			
 			this.entries.push (view);
 			this.listenTo(view, "toggle", this.toggle);
@@ -165,7 +189,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			this.$container.append(view.render().el);
 			
 			// Filter contacts
-			this.model.seedcontacts(models[n]);
+			if(this.model.seedcontacts)
+				this.model.seedcontacts(models[n]);
 		}
 		
 		// Toggle first message
@@ -174,10 +199,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'toggle' : function(view)
-	{
-		if (this.inboxmessage) this.inboxmessage.remove();
+	{	
+		var options = {model: view.model};
 		
-		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: view.model});
+		if (this.inboxmessage) this.inboxmessage.remove();		
+		if (this.collectionstring == 'notes')	options.template = 'note';
+
+		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage(options);
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);
 		
@@ -195,19 +223,19 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		var toggle = button.data("toggle");
 		var selected = button.hasClass("selected");
 		
-		$("[data-toggle].selected").removeClass("selected");
-		$("[id^=filter_]").addClass("hidden");
+		this.$el.find("[data-toggle].selected").removeClass("selected");
+		this.$el.find("[id^=filter_]").addClass("hidden");
 		
 		if(!selected)
 		{
 			button.addClass("selected");
-			$("#filter_" + toggle).removeClass("hidden");
+			this.$el.find("#filter_" + toggle).removeClass("hidden");
 		}
 	},
 	
 	'comparesuggestions' : function (iscontact)
 	{
-		var string = $("#filter_contacts input").val();
+		var string = this.$el.find("#filter_contacts input").val();
 		
 		if(!string) return this.hidesuggestions();
 		else string = string.toLowerCase();
@@ -405,7 +433,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = {records: 20, group: 1};
+		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
@@ -422,6 +450,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Memory cloth
 		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
 		
+		if(!settings)	return;
 		if(!settings.streams) settings.streams = [];
 		
 		// And store
@@ -467,5 +496,34 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 
 	'unsetempty' : function(){
 		$(".inbox-container").removeClass('empty-content');
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"networks",
+			"more",
+			"contacts",
+			"filters",
+			"search_contacts",
+			"suggestions",
+			"select_all",
+			"load_more",
+			"on"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

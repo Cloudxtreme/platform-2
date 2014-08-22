@@ -8,7 +8,7 @@ Cloudwalkers.Views.Coworkers = Cloudwalkers.Views.Pageview.extend({
 		// Select draft stream (should be integrated)
 		//var channel = Cloudwalkers.Session.getChannel("internal");
 		
-		this.model = this.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
+		this.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
 
 		// Emergency break
 		if (!this.model) return Cloudwalkers.Session.home();
@@ -16,6 +16,9 @@ Cloudwalkers.Views.Coworkers = Cloudwalkers.Views.Pageview.extend({
 		// Listen for changes
 		this.listenTo(this.model, 'outdated', this.model.fetch);
 		this.listenTo(this.model, 'sync', this.render);
+
+		// Translation for Title
+		this.translateTitle("co-workers_wall");
 	},
 	
 	'render' : function()
@@ -34,6 +37,11 @@ Cloudwalkers.Views.Coworkers = Cloudwalkers.Views.Pageview.extend({
 		filter.list = list;
 		
 		return this;
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 });

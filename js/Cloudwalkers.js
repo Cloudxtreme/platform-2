@@ -1,5 +1,7 @@
 var Cloudwalkers = {
-
+	
+	'version' : 1,
+	
 	'Views' : {
 		'Settings': {},
 		'Widgets' : {
@@ -14,6 +16,19 @@ var Cloudwalkers = {
 	'init' : function ()
 	{
 
+		// Check if there is authentication
+		Store.get("settings", {key: "token"}, function(entry)
+		{
+			Cloudwalkers.Session.authenticationtoken = entry? entry.value: undefined;
+			
+			if(!entry) window.location = "/login.html";
+		});
+		
+		// Define API root
+		Cloudwalkers.Session.api = config.api[window.location.origin] + Cloudwalkers.version;
+		
+		console.log(Cloudwalkers.Session.api)
+		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
 		{
@@ -26,6 +41,7 @@ var Cloudwalkers = {
 			// And then rout the router.
 			Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();
 			Backbone.history.start();
+
 		});
 	}
 };
@@ -121,9 +137,11 @@ Backbone.Model = Backbone.Model.extend({
 	'url' : function (params)
     {
         return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
+        	
+        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
     },
     
     'parse' : function(response)
@@ -139,6 +157,11 @@ Backbone.Model = Backbone.Model.extend({
     
     'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -156,6 +179,11 @@ Backbone.Model = Backbone.Model.extend({
 		Store.set(this.typestring, params);
 		
 		return this;
+	},
+	
+	'loaded' : function(param)
+	{
+		return this.get(param? param: "objectType") !== undefined;
 	}
 });
 
@@ -181,14 +209,14 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'url' : function(a)
-	{
+	{	
 		// Get parent model
 		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 		
 		var url = (this.parentmodel)?
 	
-			CONFIG_BASE_URL + "json/" + this.parenttype + "/" + this.parentmodel.id :
-			CONFIG_BASE_URL + "json/"+ this.typestring;
+			Cloudwalkers.Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
+			Cloudwalkers.Session.api + '/' + this.typestring;
 				
 		if(this.endpoint)	url += "/" + this.endpoint;
 	
@@ -196,18 +224,32 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'parse' : function (response)
-	{
+	{	
+		if(this.parentmodel && !this.parenttype)
+			this.parenttype = this.parentmodel.get("objectType");
+		
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];
-	
+		
 		// Get paging
-		this.setcursor(response.paging);
+		if(response)
+			this.setcursor(response.paging);
 		
 		// Ready?
 		if(!response.paging) this.ready();
 		
 		return response[this.typestring];
+	},
+	
+	'sync' : function (method, model, options)
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
+		return Backbone.sync(method, model, options);
 	},
 	
 	'setcursor' : function (paging) {
@@ -246,12 +288,12 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'touch' : function(model, params)
-	{
+	{	
 		// Work data
 		this.parentmodel = model;
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
-		
+
 		// Check for history (within ping lifetime), temp disabled
 		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
 		
@@ -272,13 +314,13 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'touchresponse' : function(url, collection, response)
-	{
+	{	
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
-		
+
 		// Store results based on url
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
-	
+		
 		// Seed ids to collection
 		this.seed(ids);
 	},
@@ -339,7 +381,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	{
 		// Ignore empty id lists
 		if(!ids) ids = [];
-
+	
 		var list = [];
 		var fresh = _.compact( ids.map(function(id)
 		{
@@ -368,10 +410,9 @@ Backbone.Collection = Backbone.Collection.extend({
 			
 			this.fetch({remove: false});
 		}
-		
 		// Trigger listening models
 		this.trigger("seed", list);
-
+		
 		return list;
 	},
 	
@@ -386,7 +427,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	},
 	
 	'ready' : function()
-	{
+	{	
 		setTimeout(function(collection){ collection.trigger("ready", collection); }, 1, this);
 	}
 });

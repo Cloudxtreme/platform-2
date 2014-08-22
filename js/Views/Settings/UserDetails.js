@@ -8,29 +8,46 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	{
 		// Parameters	
 		if(options) $.extend(this, options);		
+
+		this.listenTo(this.model, 'request', this.disablesave);
+		this.listenTo(this.model, 'sync', this.enablesave);
+
+		this.role = this.model.get('rolegroup')
+		this.roles = Cloudwalkers.Session.getAccount().get('roles');
+		
+		if(!this.roles || _.isUndefined(this.role))
+			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 	},
 
 	'render' : function ()
 	{
 		var self = this;
 		var data = {};
+		//left dropdown & default checked
+		//var level = Number(this.model.get("level"));
+		//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
 
-		var level = Number(this.model.get("level"));
-		var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
+		var role = this.role;
+		var roles = this.roles;
 		
-		levels[(level)? 1:0].checked = true;
+		//levels[(level)? 1:0].checked = true;
 
 		data.user = this.model.attributes;
 		data.title = data.user.name;
-
-		data.levels = [];
-		for (var i = 0; i < levels.length; i ++)
+		
+		// add levels to dropdown
+		//data.levels = [];
+		data.roles = [];
+		for (var i = 0; i < roles.length; i ++)
 		{
-			var tmp = levels[i];
-			tmp.checked = this.model.get ('level') == levels[i].level;
+			var tmp = roles[i];
+			tmp.checked = this.model.get ('rolegroup') == roles[i].id;
 
-			data.levels.push (tmp);
+			data.roles.push (tmp);
 		}
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 
 		self.$el.html (Mustache.render (Templates.settings.userdetails, data));
 
@@ -38,19 +55,54 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	},
 
 	'submit' : function (e)
-	{
-		
-		var data = {level: $("#level").val()};
-		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.model.get('id');
-		
-		Cloudwalkers.Net.put (url, {}, data, function()
-		{
-			Cloudwalkers.RootView.growl('Manage Users', "The user clearance is updated.");
-			
-			// Load users
-			this.view.collection.fetch({records: 100});
-		
-		}.bind(this));
+	{		
+		var data = {rolegroup: $("#level").val()};
 
-	}
+		this.model.parent = Cloudwalkers.Session.getAccount();
+
+		this.model.save(data, {
+			patch: true, 
+			success: this.success.bind(this)
+		});
+
+	},
+
+	'success' : function()
+	{	
+		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
+		this.model.trigger("change:clearance")	;
+	},
+
+	'disablesave' : function()
+	{	
+		this.$el.find('.edit-managed-user .btn').attr("disabled", true);
+	},
+
+	'enablesave' : function()
+	{	
+		this.$el.find('.edit-managed-user .btn').attr("disabled", false);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"clearance_level",
+			"save"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
 });

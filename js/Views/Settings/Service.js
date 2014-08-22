@@ -32,6 +32,9 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Clone service data
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
 		
 		// Render view
 		this.$el.html (Mustache.render (Templates.settings.service, data));
@@ -53,13 +56,14 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Update profile
 		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 		{
-			Cloudwalkers.RootView.growl ("Social connections", "A successful update, there.");
+			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+
 		}});
 	},
 	
 	'delete' : function ()
 	{
-		Cloudwalkers.RootView.confirm("You are about to delete a service. All statistics information will be lost.", function()
+		Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 		{
 			// View
 			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
@@ -371,7 +375,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 		Cloudwalkers.RootView.confirm 
 		(
-			'Are you sure you want to remove this service? All statistics will be lost.', 
+			this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
 			function ()
 			{
 				self.deleteService (self.service.id, function ()
@@ -390,5 +394,39 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
         var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
         Cloudwalkers.RootView.popup (view);
-    }
+    },
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"done",
+			"delete",
+			"connected_to",
+			"reauthenticate_user",
+			"to_add",
+			"is_not_connected",
+			"authenticate_user",
+			"save",
+			"to_your_cloudwalkers_account_select_them_below"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	}
 });

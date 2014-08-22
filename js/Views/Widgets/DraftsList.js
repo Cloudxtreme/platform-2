@@ -39,6 +39,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		// Watch outdated
 		// this.updateable(this.model, "h3.page-title");
+
+		// Translation for Title
+		this.translateTitle("draft_messages");
 		
 	},
 
@@ -47,7 +50,14 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.loadmylisteners();
 
 		// Get template
-		this.$el.html (Mustache.render (Templates.coworkerslist, {title: this.title }));
+		var data = {reports: []};
+
+		//Mustache Translate Render
+		data.title = this.title;
+		this.mustacheTranslateRender(data);
+
+		// View
+		this.$el.html (Mustache.render (Templates.coworkerslist, data));
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -56,6 +66,8 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
 		
+		this.addScroll();
+
 		return this;
 	},
 
@@ -71,19 +83,29 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	},
 	
 	'hideloading' : function ()
-	{	
-		//this.$el.find(".icon-cloud-download").hide();
+	{
+		this.$el.find(".icon-cloud-download").hide();
 		this.$container.removeClass("inner-loading");
 		
-		//if (this.model.messages.cursor)
-			//this.$el.find(".load-more").show();
-			//this.hasmore = true;
+		if (this.model.messages.cursor)
+			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
 	'showmore' : function(){
 
-		if(this.model.messages.cursor)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'fill' : function (list)
@@ -145,12 +167,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	
 	'more' : function ()
 	{
-		this.incremental = true;
-		
-		//console.log(parameters)
-		
-		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
-		
+		this.incremental = true;	
+				
+		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
 	
@@ -170,7 +189,7 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+		//this.addScroll();
 	},
 	
 	'addScroll' : function () {
@@ -187,6 +206,31 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+	'translateTitle' : function(translatedata)
+	{	
+		// Translate Title
+		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"load_more"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
 

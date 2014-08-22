@@ -55,13 +55,24 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	{
 		if(this.cursor) this.parameters.after = this.cursor;
 			
-		return CONFIG_BASE_URL + 'json/account/' + this.id + '/ping?' + $.param (this.parameters);
+		return Cloudwalkers.Session.api + '/account/' + this.id + '/ping?' + $.param (this.parameters);
 	},
 	
 	'parse' : function(response) {
 		
 		return response.pong;
 	},
+	
+	'sync' : function (method, model, options)
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
+		return Backbone.sync(method, model, options);
+	},
+
 	
 	/**
 	 *	Update [something]	
@@ -140,10 +151,16 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	
 	'toing' : function()
 	{	
-		Cloudwalkers.RootView.growl ("Ping", "There is no pong.");
+		Cloudwalkers.RootView.growl (this.translateString("ping"), this.translateString("there_is_no_pong"));
 		
 		// Schedule new Ping, with max allowed interval.
 		this.interval = this.max;
 		this.schedule();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

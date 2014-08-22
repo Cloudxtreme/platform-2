@@ -11,24 +11,34 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	
 	'initialize' : function ()
 	{
-		this.category = this.options.category;		
+		this.category = this.options.category;
 
 		// Clear the category (prevent non-change view failure)
 		this.category.set({messages: []});
-
+		this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
 		this.loadmylisteners();
 				
 		// Load category messages
 		// this.category.fetch({endpoint: "messageids", parameters:{records: 25}});
 		
+		if(this.options.reset){
+			delete this.parameters.streams;
+			delete this.parameters.channels;
+		}
+
 		// Watch outdated
 		this.updateable(this.category, "h3.page-title");
 	},
 
 	'render' : function ()
 	{
+		var data = {};
+		//Mustache translations
+		data.name = this.category.get("name");
+		data.translate_load_more = this.translateString("load_more");
+
 		// Get template
-		this.$el.html (Mustache.render (Templates.monitorlist, {name: this.category.get("name") }));		
+		this.$el.html (Mustache.render (Templates.monitorlist, data));		
 
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -37,11 +47,20 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Load category message
 		this.category.messages.touch(this.category, this.parameters);
 		
+		this.addScroll();
+
 		return this;
 	},
 
-	'loadmylisteners' : function(){
+	'loadmylisteners' : function(recycle)
+	{
+		if(recycle){
+			this.stopListening(this.category.messages);
+			this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+		}
 
+		this.$el.find('#loadmore').empty();
+		
 		// Listen to category
 		this.listenTo(this.category.messages, 'seed', this.fill);
 		this.listenTo(this.category.messages, 'request', this.showloading);
@@ -62,16 +81,26 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		this.$el.find(".icon-cloud-download").hide();
 		
 		if (this.category.messages.cursor)
-			//this.$el.find(".load-more").show();
 			this.hasmore = true;
+		else
+			this.hasmore = false;
 		
 		this.$container.removeClass("inner-loading");
 	},
 
 	'showmore' : function(){
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{	//Hack
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').html();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.category.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'fill' : function (list)
@@ -148,7 +177,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+		//this.addScroll();
 	},
 	
 	'addScroll' : function () {
@@ -165,5 +194,10 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'destroy' : function()
 	{
 		$.each(this.entries, function(n, entry){ entry.remove()});
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

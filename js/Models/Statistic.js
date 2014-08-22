@@ -13,6 +13,8 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 	{ 
 		var response = 0;
 
+		if(!this.get("streams"))	return;
+
 		if(hassublevel) {
 			key = keys[0];
 			subkey = keys[1];

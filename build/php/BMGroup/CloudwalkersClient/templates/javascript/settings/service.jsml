@@ -1,19 +1,19 @@
 <div class="pull-right {{^listname}}no-list{{/listname}}">
-	<span class="btn-white close-detail">Done</span>
-	<span class="btn-white delete-detail">Delete</span>
+	<span class="btn-white close-detail">{{translate_done}}</span>
+	<span class="btn-white delete-detail">{{translate_delete}}</span>
 </div>
 
 <div class="service-authenticate {{#listname}}pull-right clearfix{{/listname}}{{^listname}}pull-left{{/listname}}">
 {{#valid}}
 
-	Connected to {{account}}<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">Re-authenticate user</a>
+	{{translate_connected_to}} {{account}}<br><br>
+	<a href="{{authenticateUrl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
 
 {{/valid}}
 {{^valid}}
 
-	{{account}} is not connected<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">Authenticate user</a>
+	{{account}} {{translate_is_not_connected}}<br><br>
+	<a href="{{authenticateUrl}}" class="btn-black">{{translate_authenticate_user}}</a>
 
 {{/valid}}
 </div>
@@ -21,7 +21,7 @@
 {{#listname}}
 
 	<h3>{{listname}}</h3>
-	<small>To add {{network.name}} {{listname}} to your Cloudwalkers account, select them below.</small>
+	<small>{{translate_to_add}} {{network.name}} {{listname}} to your Cloudwalkers account, select them below.</small>
 	
 	<ul class="service-profiles clearfix">
 		{{#profiles}}
@@ -40,8 +40,8 @@
 		<legend>
 			General
 
-			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">Delete</a>
-			<button type="submit" class="btn blue pull-right">Save</button>
+			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">{{translate_delete}}</a>
+			<button type="submit" class="btn blue pull-right">{{translate_save}}</button>
 		</legend>
 
 		<table class="inner-service">

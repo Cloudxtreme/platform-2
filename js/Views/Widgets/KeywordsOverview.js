@@ -25,10 +25,18 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'render' : function ()
-	{	
+	{
 		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
+
+		var data = {categories: categories};
 		
-		this.$el.html (Mustache.render (Templates.keywordsoverview, {categories: categories}));
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+		
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
+		this.$el.html (Mustache.render (Templates.keywordsoverview, data));
 		
 		return this;
 	},
@@ -47,7 +55,9 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
 		
-		Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).save({name: name});
+		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
+		channel.endpoint = '';
+		channel.save({name: name});
 		
 		$cat.find('h4').html(name);
 		
@@ -60,10 +70,18 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		
 		var $cat = $(e.target).closest('[data-category]');
 		
-		Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
+		Cloudwalkers.RootView.confirm 
+		(
+			this.translateString('are_you_sure_you_want_to_remove_this_category'), 
+			function () 
+			{
+				Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
+				Cloudwalkers.RootView.navigation.render();
+				$cat.next().remove();
+				$cat.remove();
+			}
+		)
 		
-		$cat.next().remove();
-		$cat.remove();
 	},
 
 	'toggleEditKeyword' : function (e)
@@ -80,10 +98,39 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		e.stopPropagation();
 		
 		var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
+
+		Cloudwalkers.RootView.confirm 
+		(
+			this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
+			function () 
+			{
+				Cloudwalkers.Session.getChannel(id).destroy();
+				$(e.target).parent().remove();
+			}
+		)
 		
-		Cloudwalkers.Session.getChannel(id).destroy();
 		
-		$(e.target).parent().remove();
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"categories_overview",
+			"change_name"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 	/*

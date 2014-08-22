@@ -1,7 +1,17 @@
 Cloudwalkers.Session = 
 {
+	'langs' :
+	[
+		{"id": "en_EN", "name": "International English"},
+		{"id": "nl_NL", "name": "Nederlands"},
+		{"id": "pt_PT", "name": "Português"}
+	],
 	
 	'user' : null,
+
+	'version' : "1.0.0.0",
+	'localversion' : null,
+
 	/*'settings' : {
 		'currentAccount' : null,
 		'viewMode' : null
@@ -15,8 +25,12 @@ Cloudwalkers.Session =
 	'loadEssentialData' : function (callback)
 	{
 		this.user = new Cloudwalkers.Models.Me();
+		this.getversion();
 
-		this.user.once("activated", callback);
+		/* getLang and then callback */
+		this.user.once("activated", function () { this.setLang(); }.bind(this));
+		this.listenTo(this,"translation:done",  callback );
+
 		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
@@ -169,6 +183,44 @@ Cloudwalkers.Session =
 			});
 
 	},
+
+	/**
+	 *	Version
+	**/
+
+	'getversion' : function()
+	{	
+		Store.get("version", null, function(version)
+		{	
+			if(version)	this.localversion = version.version;	//Really need to validate this as a valid version, or we will get loops		
+		}.bind(this));
+	},
+	
+	// Simple check, full check is in resync.js
+	'isupdated' : function()
+	{	
+		return this.localversion? this.localversion == this.version: false;
+	},
+
+	/**
+	 *	Role permissions
+	 *  Checks for permission or returns the authorized list
+	 **/
+
+	'isAuthorized' : function(actions)	
+	{
+		return (actions)? this.user.isauthorized(actions): this.user.authorized;
+	},
+
+	/* 	Generate permission tokens for templates */
+	'censuretemplate' : function(data)
+	{
+		if(!data)	data = {};
+
+		var authorized = this.getUser().censuretokens;		
+
+		data.authorized = authorized;
+	},
 	
 	/**
 	 *	Ping shortcut function
@@ -192,7 +244,9 @@ Cloudwalkers.Session =
 	{
 		return (id)? this.user.accounts.get(id):  this.user.account;
 	},
+
 	
+
 	'getAccounts' : function (id)
 	{
 		return this.user.accounts;
@@ -281,7 +335,6 @@ Cloudwalkers.Session =
 		return this.user.account.users;
 	},
 	
-	
 	/**
 	 *	Contacts shortcut functions
 	 **/
@@ -309,6 +362,22 @@ Cloudwalkers.Session =
 	{
 		return this.user.account.messages;
 	},
+
+	/**
+	 *	Messages shortcut functions
+	 **/
+	
+	'getCannedResponse' : function (id)
+	{
+		return this.user.account.cannedresponses.get(id);
+	},
+	
+
+	'getCannedResponses' : function ()
+	{
+		return this.user.account.cannedresponses;
+	},
+	
 	
 	/**
 	 *	Notifications shortcut functions
@@ -365,6 +434,25 @@ Cloudwalkers.Session =
 	'getComments' : function ()
 	{
 		return this.user.account.comments;
+	},
+
+	/* setLang - get default language */
+	'setLang' : function(callback)
+	{
+		var lang = this.user.attributes.locale;
+		var extendLang;
+
+		moment.lang(lang);
+		
+		extendLang = new Cloudwalkers.Models.Polyglot();
+		extendLang.fetch({
+			success: function (){
+				this.translationLang = extendLang.get("translation");
+				this.polyglot = new Polyglot({phrases: this.translationLang});
+				this.trigger("translation:done");
+			}.bind(this)
+		});
+
 	}
 }
 

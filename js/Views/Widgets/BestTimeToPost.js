@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 		if(this.filled)
 			return;
 
-		var fulldata = this.collection.parsebesttime();
+		var fulldata = this.collection.clone().parsebesttime();
 		
 		$.each(fulldata, function(key, day){
 			day.fill = day.value*100/fulldata["maxvalue"];

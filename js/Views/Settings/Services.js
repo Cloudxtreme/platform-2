@@ -38,6 +38,8 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		var account = Cloudwalkers.Session.getAccount();
 		var data = {};
 		
+		//Mustache translations
+		data.translate_active_social_connections = this.translateString("active_social_connections");
 		
 		this.$el.html (Mustache.render (Templates.settings.services, data));
 		
@@ -57,6 +59,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		
 		for (n in available)
 		{
+			available[n].translate_add = this.translateString("add");
 			$container.append(Mustache.render (Templates.settings.service_option, available[n]));
 		}
 	},
@@ -230,5 +233,12 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		});
 	},
 	
-	'negotiateFunctionalities' : function(el) {}
+	'negotiateFunctionalities' : function(el) {
+
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	}
 });

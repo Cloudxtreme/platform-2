@@ -10,7 +10,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		// // this.bind ('view:change', this.render, this);
 
-		this.navigation = new Cloudwalkers.Views.Navigation ();
+		this.navigation = new Cloudwalkers.Views.Navigation (this);
 		this.navigation.fit();
 		
 		//this.share = new Cloudwalkers.Views.Share ();
@@ -143,6 +143,28 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		view.render().$el.modal({backdrop: 'static'});
 	},
 
+	'viewContact' : function(contact)
+	{	
+		if(!contact)	contact = 0;
+		var options = {contact : contact};
+
+		var view = new Cloudwalkers.Views.ViewContact(options);
+		view.render().$el.modal();
+	},
+
+	'writeNote' : function(model)
+	{	
+		var options = {
+			'id' : "compose",
+			'className' : "modal hide note",
+			'thanks' : true,
+			'model' : model
+		}
+
+		var view = new Cloudwalkers.Views.ComposeNote(options);
+		view.render().$el.modal();
+	},
+
 	'writeMessage' : function (e)
 	{
 		e.preventDefault ();
@@ -193,7 +215,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	},
 
 
-	'confirm' : function (message, callback)
+	'confirm' : function (message, callback, cancelcallback)
 	{
 		var data = {};
 
@@ -201,10 +223,13 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		data.options = [
 			{
 				'token' : 'confirm',
-				'label' : 'Yes',
+				'label' : this.translateString('yes'),
 				'description' : 'Confirm your action'
 			}
 		];
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -216,6 +241,11 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			callback ();
 			modal.modal ('hide');
 		});
+
+		element.find ('[data-dismiss=modal]').click (function ()
+		{
+			if(cancelcallback)	cancelcallback ();
+		});
 	},
 
 	'alert' : function (message, callback)
@@ -223,6 +253,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		var data = {};
 
 		data.message = message;
+
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
 
 		var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -266,6 +299,9 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		data.message = message;
 		data.options = options;
 
+		// Mustache Translate
+		data.translate_close = this.translateString('close')
+
 		var tmpl = Mustache.render (Templates.uidialog, data);
 
 		var element = $(tmpl);
@@ -289,5 +325,31 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	'imagePopups' : function ()
 	{
 		$('a.image-popup-viewer').fancybox ();
+	},
+
+	'resync' : function(view)
+	{	
+		var returnto = view;
+
+		setTimeout(function(){
+			Cloudwalkers.Router.Instance.navigate('#resync');
+
+			var view = new Cloudwalkers.Views.Resync({returnto: returnto});
+			this.setView(view);
+
+		}.bind(this));		
+	},
+
+	'oops' : function(){
+		Cloudwalkers.Router.Instance.navigate('#dashboard', true);
+		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
+
+	
 });

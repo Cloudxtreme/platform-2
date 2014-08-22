@@ -166,7 +166,7 @@ Style corrections and manual overrides
 #compose textarea:focus	{ border-color: #2bbedc; }
 
 #compose input[type=text]	{ height: 32px; background: transparent; }
-#compose textarea	{ min-height: 92px; max-width: 100%; overflow: auto; }
+#compose textarea	{ min-height: 92px; max-width: 100%; }
 
 #compose *::-webkit-input-placeholder { color: #999; }
 
@@ -594,3 +594,416 @@ Style corrections and manual overrides
 	margin-top: -8px;
 	cursor: pointer;;
 }
+
+
+/* DEMO viewContact */ 
+#compose.viewcontact{
+	height: 600px;
+	max-height: 90%;
+}
+
+.viewcontact .modal-body{
+	width: 200%;
+	height: 100%;
+	position: relative;
+	right: 0%;
+	z-index: 1;
+	-webkit-transition: all .15s ease-out;
+	overflow: hidden;
+}
+
+.viewcontact .messagelist{
+	float: left;
+	width: 50%;
+	height: 100%;
+	overflow: scroll;
+}
+
+.viewcontact .inbox-container{
+	float: left;
+	width: 50%;
+	padding: 0px 20px 20px 55px;
+	box-sizing: border-box;
+	position: relative;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.viewcontact.onmessage .inbox-container .progress-bar{
+	margin-top: 0px;
+}
+
+.viewcontact .inbox-container > div, .viewcontact .inbox-container > ul{
+	margin-top: 10px;
+}
+
+.viewcontact #inboxlist{
+	position: relative;
+	background-color: #efefef;
+	height: 100%;
+	overflow: hidden;
+}
+
+#compose.viewcontact aside{
+	position: relative;
+	z-index: 10;
+	text-align: center;
+	height: 100%;
+	padding: 0px;
+	background-color: #eee;
+	box-sizing: border-box;
+	-webkit-transition: all .25s ease-out;
+}
+
+.viewcontact aside h3{
+	position: relative;
+	bottom: 0px;
+	opacity: 1;
+	-webkit-transition: all .25s ease-out;
+}
+
+.viewcontact aside.nodata h3{
+	bottom: 10px;
+	opacity: 0;
+	min-height: 32px;
+}
+
+.viewcontact aside .contactavatar{
+	margin: 35px auto 20px;
+	overflow: hidden;
+	width: 170px;
+	height: 170px;
+	background-color: #ddd;
+	border-radius: 50% !important;
+	border: 2px solid #ddd;
+}
+
+.viewcontact aside .contactavatar img{
+	-webkit-transition: all .15s ease-out;
+	width: 100%;
+	height: 100%;
+	
+}
+
+.viewcontact aside.nodata .contactavatar img{
+	width: 100%;
+	height: 100%;
+	
+}
+
+.viewcontact aside .contactupper {
+	padding-bottom: 20px;
+	background-color: #fff;
+}
+
+.viewcontact aside .contactupper .contact-header{
+	padding: 2px 2px 2px 0px;
+	box-shadow: inset -2px -2px 1px 1px rgba(0,0,0,0.1);
+	position: relative;
+}
+
+.viewcontact aside .contact-header .network-icon{
+	position: absolute;
+	padding: 12px 20px;
+	font-size: 20px;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(0,0,0,.12);
+	height: 100%;
+}
+
+.viewcontact aside .contact-header span{
+	position: absolute;
+	top: 12px;
+	right: 20px;
+}
+
+.viewcontact aside .contact-header .network-icon,
+.viewcontact aside .contact-header	h5,
+.viewcontact aside .contact-header span{
+	color: #fff !important;
+	box-sizing: border-box;
+	-webkit-transition: all .15s ease-out;
+}
+
+.viewcontact aside .contact-header:hover .network-icon,
+.viewcontact aside .contact-header:hover h5,
+.viewcontact aside .contact-header:hover span{
+	text-shadow: 0px 2px 2px rgba(0,0,0,0.7);
+}
+
+.viewcontact aside .contact-header:hover a{
+	text-decoration: none !important;
+}
+
+/*.viewcontact aside .contact-network{
+	border-radius: 15px;
+	width: 30px;
+	height: 30px;
+	background-color: #ddd;
+	color: #fff;
+	float: right;
+	margin-right: 20px;
+	padding: 5px;
+	box-sizing: border-box;
+	opacity: .7;
+}
+
+.viewcontact aside .contact-network i{
+	font-size: 14px;
+}
+
+.viewcontact aside .contact-network:hover {
+	opacity: 1;
+	text-decoration: none;
+}*/
+
+.viewcontact aside .contact-header.facebook-color{	background-color: #3b5998 }
+.viewcontact aside .contact-header.youtube-color{		background-color: #CC181E }
+.viewcontact aside .contact-header.twitter-color{ 	background-color: #01a9da }
+.viewcontact aside .contact-header.linkedin-color{	background-color: #1783BC }
+.viewcontact aside .contact-header.tumblr-color{ 		background-color: #385775 }
+.viewcontact aside .contact-header.google-plus-color{ background-color: #DD4C39 }
+.viewcontact aside .contact-header.web-color{ 		background-color: #ff9c00 }
+.viewcontact aside .contact-header.blog-color{		background-color: #ff9c00 }
+.viewcontact aside .contact-header.briefcase-color{ 	background-color: #4a4a4a }
+
+.viewcontact #contactfilter{
+	text-align: left;
+}
+
+.viewcontact #contactfilter .btn-white{
+	padding: 12px 20px;
+}
+
+.viewcontact #contactfilter .btn-white.active {
+	background-color: #fff;
+}
+
+.viewcontact #contactfilter .btn-white.active i{
+	margin-top: 4px;
+}
+
+.viewcontact ul.list{
+	cursor: pointer;
+}
+
+.viewcontact ul.list li:hover .arrow{
+	color: #999;
+}
+
+.viewcontact.onmessage .modal-body{
+	right:100%;
+}
+
+.viewcontact #inboxlist .end-preview{
+	left: -40px;
+	width: 27px;
+	opacity: 0;
+	-webkit-transform: none;
+	-webkit-transition: left .25s ease-out .5s;
+	color: #ccc;
+}
+
+.viewcontact #inboxlist .end-preview:hover{
+	color: #999;
+}
+
+.viewcontact.onmessage #inboxlist .end-preview{
+	left: 0px;
+	width: 27px;
+	opacity: 1;
+	z-index: 20;
+}
+
+.viewcontact #inboxlist .end-preview td i{
+	background-color: #fff;
+	padding: 20px;
+	cursor: pointer;
+}
+
+.viewcontact #inboxlist .end-preview td i:before{
+	left: -9px;
+	position: relative;
+}
+
+.viewcontact .pull-right .arrow{
+	font-size: 16px;
+	margin-top: 10px;
+	margin-left: 8px;
+	color: #ddd;
+}
+
+.viewcontact .contactactions{
+	margin-top: 10px;
+	padding: 20px;
+}
+
+.viewcontact .contactactions .btn-white{
+	background-color: #fff;
+}
+
+.viewcontact .contactactions i{
+	padding-right: 10px;
+
+}
+
+/* on note */
+
+.viewcontact.writenote aside{
+	width: 700px !important;
+}
+
+.viewcontact aside #notecontainer{
+	max-height: 0px;
+	overflow: hidden;
+	-webkit-transition: all .35s ease-out 0s;
+}	
+
+.viewcontact.writenote aside #notecontainer{
+	-webkit-transition: all .35s ease-out .15s;
+	max-height: 300px !important;
+}
+
+.viewcontact aside #notecontainer .modal-body,
+.viewcontact .note-content .modal-body,
+.viewcontact .note-list .modal-body{
+	width: 100%;
+	position: inherit;
+	padding: 0px 20px !important;
+	box-sizing: border-box;
+}
+
+.message-body.note-content{
+	padding: 0px;
+	margin: 20px 0px;
+}
+
+.message-body.note-content textarea{
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.viewcontact .note-list .modal-body{
+	padding: 0px !important;
+}
+
+.viewcontact .note-content section,
+.viewcontact .note-list section{
+	padding: inherit !important;
+}
+
+.viewcontact aside #notecontainer .modal-header,
+.viewcontact .note-list .modal-header,
+.message-body.note-content .modal-header{
+	display: none;
+}
+
+.viewcontact aside .contactactions textarea{
+	/*height: inherit !important;
+	min-height: inherit !important;*/
+	margin-top: 20px !important;
+	min-height: 140px !important;
+}
+
+.viewcontact #notefield #post{
+	float: right;
+}
+
+.viewcontact .message-notes{
+	border-top: 1px solid #ddd;
+	display: none;
+}
+
+.viewcontact .message-notes h5{
+	text-align: center;
+}
+
+.viewcontact .message-notes .note-content .modal-header button{
+	display: none;
+}
+
+.message-notes ul.note-list,
+.message-notes .note-content{
+	display: none;
+}
+
+.message-notes ul.note-list{
+	padding: 10px;
+}
+
+.message-notes ul.note-list li{
+	-webkit-transition: background 1s ease-out;
+	margin-bottom: 5px;
+	position: relative;
+}
+
+.message-notes ul.note-list li.new{
+	background: #2bbedc;
+}
+
+.message-notes ul.note-list li .note-header{
+	cursor: pointer;
+}
+
+.message-notes ul.note-list li .note-header:after{
+	position: absolute; 
+	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
+	width: 100%;
+	left: 0px;
+	top: 2px;
+	height: 30px;
+	padding-top: 10px;
+}
+
+.message-notes ul.note-list li .modal-footer{
+	margin: 10px -11px -11px -11px;
+}
+
+.message-notes ul li .note-body{
+	display: none;
+	margin-top: 20px;
+}
+
+.message-notes ul li .message-actions{
+	padding: 4px 0px;
+	height: 10px;
+}
+
+.message-notes ul li .message-actions .notification-action{
+	z-index: 99;
+}
+
+/* DEMO viewContact end */ 
+
+/* DEMO Note */ 
+
+#compose.note{
+	max-width: 600px;
+	margin-left: -300px;
+}
+
+#compose.note .modal-header,
+#compose.note .modal-footer{
+	margin-left: 0px;
+	padding: 15px;
+}
+
+#compose.note .modal-body{
+	padding: 0px 20px 15px;
+}
+
+#compose.note textarea{
+	padding: 8px;
+}
+
+/*#compose .note-content{
+	min-height: 157px; 
+}*/
+
+#contact.note.thanks, #compose.note.thanks{
+	max-width: 450px;
+	margin-left: -225px;
+}
+	
+/* DEMO Note end*/ 

@@ -26,7 +26,16 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 		// Prep global Messages collection
 		this.messages = new Cloudwalkers.Collections.Messages();
-		
+
+		// Prep global Canned Responses collection
+		//this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
+
+		// Prep global Notes collection
+		this.notes = new Cloudwalkers.Collections.Notes();
+
+		// Prep global Notes collection
+		this.tags = new Cloudwalkers.Collections.Tags();
+
 		// Prep global Notifications collection
 		this.notifications = new Cloudwalkers.Collections.Notifications();
 		
@@ -52,11 +61,16 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'url' : function ()
 	{		
-		return CONFIG_BASE_URL + 'json/account/' + this.id + this.endpoint;
+		return Cloudwalkers.Session.api + '/account/' + this.id + this.endpoint;
 	},
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 
 		return Backbone.sync(method, model, options);
@@ -72,6 +86,9 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	{	
 		// First load
 		if(!Store.exists("channels")) this.firstload();
+		
+		// Fetch Canned Responses
+		//this.cannedresponses.fetch({parameters: {records: 50}});
 		
 		// Load Streams (first, so channels find them)
 		Store.filter("streams", null, function(list) { this.streams.add(list); }.bind(this));
@@ -141,15 +158,33 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 	},
 	
-	'removecampaign' : function (id, callback)
+	'removecampaign' : function (id, target)
 	{
-		var campaigns = this.get("campaigns");
-		
-		campaigns.forEach (
-			function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
-		);
-	
-		this.save({campaigns: campaigns}, {patch: true, wait: true, success: callback});
+
+		this.endpoint = "/campaigns/"+id
+
+		var Campaign = Backbone.Model.extend({});
+
+		var campaign = new Campaign({
+		    id: id 
+		});
+
+		campaign.destroy({url: this.url(), success: function(){
+
+			var campaigns = this.get("campaigns");
+			campaigns.forEach (
+				function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
+			);
+
+			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("campaign_successfully_removed"));
+			$(target).closest('li').remove();
+		}.bind(this)});
+
+	},
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 	
 	/*'monitorlimit' : function(type, current, target)

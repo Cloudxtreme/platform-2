@@ -49,9 +49,9 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 		this.settings = {
 			title	: this.title,
-			network : this.icon ? {icon: this.icon} : {icon : "cloud"}	
+			network : this.icon ? {icon: this.icon} : {icon : "cloud"}
 		};
-
+		
 		this.settings.filterfunc = this.filterfunc;
 		this.settings.footer = this.footer;
 
@@ -86,7 +86,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck("contacts");
 		var total = statl - statf;
 
-		var description = "New contacts"
+		var description = this.translateString("new_contacts")
+
 		this.settings.network = {icon : "group"};
 
 		return [{content: total, descr : description}];
@@ -99,7 +100,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck("messages");
 		var total = statl - statf;
 
-		var description = "New messages"
+		var description = this.translateString("new_messages")
+
 		this.settings.network = {icon : "cloud-upload"};
 
 		return [{content: total, descr : description}];
@@ -112,7 +114,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck("activities");
 		var total = statl - statf;
 
-		var description = "New activities"
+		var description = this.translateString("new_activities")
+
 		this.settings.network = {icon : "cloud-download"};
 
 		return [{content: total, descr : description}];
@@ -125,7 +128,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","impressions"], false, true);
 		var total = statl - statf;
 
-		var description = "New impressions"
+		var description = this.translateString("new_impressions")
 
 		return [{content: total, descr : description}];
 	},
@@ -137,7 +140,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck("notifications");
 		var total = statl - statf;
 
-		var description = "New notifications"
+		var description = this.translateString("new_notifications")
 
 		return [{content: total, descr : description}];
 	},
@@ -175,7 +178,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck("activities", this.network);
 		var total = statl - statf;
 
-		var description = "New activities"
+		var description = this.translateString("new_activities")
 
 		return [{content: total, descr : description}];
 	},
@@ -187,7 +190,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","impressions"], this.network, true);
 		var total = statl - statf;
 
-		var description = "Post views"
+		var description = this.translateString("post_views")
 
 		return [{content: total, descr : description}];
 	},
@@ -321,5 +324,11 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	'negotiateFunctionalities' : function()
 	{
 		
-	}
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
 });

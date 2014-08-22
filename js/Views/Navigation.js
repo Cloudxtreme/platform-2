@@ -25,7 +25,8 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	
 	'events' : {
 		'click .notification-toggle' : 'toggleNotifications',
-		'click .btn-compose' : 'compose'
+		'click .btn-compose' : 'compose',
+		'click #writenote' : 'writenote',
 	},
 
 	'initialize' : function ()
@@ -39,7 +40,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 		
 		// DEV Check
-		$.get(CONFIG_BASE_URL + "json/version", this.version.bind(this));
+		$.get(Cloudwalkers.Session.api + '/version', this.version.bind(this));
 		
 	},
 	
@@ -51,6 +52,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		if(token == 'messages') Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
 		if(token == 'contacts') Cloudwalkers.Router.Instance.navigate("#coworkers", true);
 		if(token == 'post') Cloudwalkers.RootView.compose();
+		if(token == 'writenote') this.writenote();
 		//if(token == 'post') Cloudwalkers.RootView.popup (new Cloudwalkers.Views.Write ());
 		//this.model.trigger("action", token);
 	},
@@ -61,7 +63,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		$('#sidebar').html (this.render().el);
 		//this.render();
 
-		$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction);
+		$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction.bind(this));
 	},
 	
 	'version' : function (response)
@@ -89,11 +91,17 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		data.user = Cloudwalkers.Session.user.attributes;
 		data.accounts =  [];
 		data.level = Cloudwalkers.Session.getUser().level;
+
+		//Mustache Translate Header
+		this.mustacheTranslateRenderHeader(data);
 		
 		Cloudwalkers.Session.user.accounts.each(function(model)
 		{
 			data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Cloudwalkers.Session.get("currentAccount"))})
 		});
+		
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
 		
 		this.header = Mustache.render (Templates.header, data);
 
@@ -108,37 +116,63 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		data.level = Cloudwalkers.Session.getUser().level;
 		
+		//Mustache Translate Render
+		this.mustacheTranslateRender(data);
+
 		// Administrator
-		if(data.level)
-		{
-			// News
-			data.news = account.channels.findWhere({type: "news"}).id;
+		//if(data.level)
+		//{
 			
-			// Monitoring
-			var monitoring = account.channels.findWhere({type: "monitoring"});
-			data.monitoring = {channelid: monitoring.id, first: monitoring.channels.models[0], channels: monitoring.channels.models, name: monitoring.get("name")};
+		// News
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY')){
+			data.news = account.channels.findWhere({type: "news"});
+			if(data.news) data.news = account.channels.findWhere({type: "news"}).id;
 		}
+			
+		// Monitoring
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_MONITORING')){
+			
+			var monitoring = account.channels.findWhere({type: "monitoring"});
+
+			for(n in monitoring.channels.models){
+				if(monitoring.channels.models[n].attributes.channels.length){
+					this.first =  monitoring.channels.models[n]
+					break;
+				}			
+			}
+
+			if(monitoring)	data.monitoring = {channelid: monitoring.id, first: this.first, channels: monitoring.channels.models, name: monitoring.get("name")};
+		}			
+		//}
 		
 		// Scheduled
-		data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
-		data.scheduled.streams = account.streams.where({outgoing: 1});
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE')){
+			data.scheduled = {channelid: Cloudwalkers.Session.getChannel("internal").id};
+			data.scheduled.streams = account.streams.where({outgoing: 1});
+		}
 		
 		// Inbox
-		data.inbox = true;
+		if (Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW')){
+			data.inbox = true;
+		}
 		
 		// Profiles
-		var profiles = account.channels.findWhere({type: "profiles"});
-		data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
-		
-		
-		
+		if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY')){
+			var profiles = account.channels.findWhere({type: "profiles"});
+			data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
+		}
+			
 		// Reports
-		data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
-		{
-			return stream.attributes;
-		});
+		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW')){
+			data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
+			{
+				return stream.attributes;
+			});
+		}
 		
-
+		// Apply role permissions to template data
+		Cloudwalkers.Session.censuretemplate(data);
+		
 		this.$el.html (Mustache.render(Templates.navigation, data));
 		
 		this.handleSidebarMenu();
@@ -157,6 +191,12 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
     },
     
     'compose' : function () { Cloudwalkers.RootView.compose(); },
+
+    'writenote' : function ()
+    {
+    	var account = Cloudwalkers.Session.getAccount();
+		Cloudwalkers.RootView.writeNote(account); 
+	},
     
     'setActive' : function (path) {
 		
@@ -191,6 +231,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		for(n in this.views)
 		{
+
 			views[this.views[n].name] = {streams: []};
 			
 			// children on same level
@@ -199,8 +240,73 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 		return views;
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+	'mustacheTranslateRenderHeader' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"write_note",
+			"clean",
+			"support",
+			"profile_settings",
+			"log_out"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
+	},
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"compose",
+			"dashboard",
+			"message_board",
+			"compose_message",
+			"drafts",
+			"scheduled",
+			"inbox",
+			"messages",
+			"notifications",
+			"post_message",
+			"calendar",
+			"co-workers_wall",
+			"company_accounts",
+			"media",
+			"trending_posts",
+			"accounts_we_follow",
+			"keyword_monitoring",
+			"manage_accounts",
+			"manage_keywords",
+			"reports",
+			"settings",
+			"manage_users",
+			"social_connections",
+			"account_settings",
+			"profile_settings",
+			"manage_user_groups",
+			"notes"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
-	
 	// Add unread count logic for inbox icon
 	/*
 		// New messages
@@ -240,5 +346,4 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		}
 		
 	*/
-
 });

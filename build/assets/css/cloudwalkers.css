@@ -485,6 +485,12 @@ tbody.messages-container i	{
 	font-size: 18px; float: left; padding: 2px 4px 0 0;
 }
 
+.viewcontact i{ cursor: pointer; }
+
+.portlet .messages-container .viewcontact i	{
+	font-size: 14px; float: none; margin-left: 5px; color: #ccc;
+}
+
 .portlet .messages-container p	{ margin: 0px; }
 
 .dashboardwidget .messages-container li	{ cursor: pointer; }
@@ -682,6 +688,8 @@ tbody.messages-container i	{
 
 .dashboard-stat.cloud-color, .dashboard-stat.cloud-upload-color, .dashboard-stat.cloud-download-color, .dashboard-stat.group-color	{ background-color: #2bbedc; }
 
+.social-box-colors .default-color .inherit{ background-color: #2bbedc !important; color: white;}
+
 .social-box-colors .facebook-color	{ border-color: #3B5998 !important; }
 .social-box-colors .facebook-color .portlet-title	{ background-color: #3B5998 !important; }
 .social-box-colors .facebook-color .inherit	{ color: white; background: #3B5998 !important; }
@@ -863,6 +871,8 @@ tbody.messages-container i	{
 }*/
 
 
+
+
 /**
 * Inbox Container
 */
@@ -922,7 +932,7 @@ tbody.messages-container i	{
 }
 
 
-
+/* Progress bar replaced
 .inbox.loading h3.page-title:after	{
 	float: right; width: 10%; height: 21px; display: block;
 	text-align: right; font-family: FontAwesome; font-size: 21px; color: #ddd; line-height: 2.4em; 
@@ -930,7 +940,7 @@ tbody.messages-container i	{
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
-}
+}*/
 
 #inboxlist {
 	background: white; border-right: 2px solid #dfdfdf; box-shadow: 0 0 1px rgba(0,0,0,.1)
@@ -1012,6 +1022,8 @@ tbody.messages-container i	{
 #filter_contacts .contacts-suggestions li:hover { background-color: #fafafa; }
 
 #filter_contacts .contacts-suggestions img.avatar { opacity: .4; }
+
+#filter_contacts .contacts-suggestions i{ opacity: .4; }
 
 #inboxlist .list li, #inboxlist .list-loading	{
 	min-height: 66px; margin: 0; padding: 8px 10px 10px; background:#fff; border-bottom: 1px solid #ddd;
@@ -1299,6 +1311,10 @@ counter	{
 	opacity: .5; font-size: 21px; float: right; 
 }
 
+.inbox-container .message-header .viewcontact i	{
+	font-size: 14px; float: none; margin-left: 5px;
+}
+
 .inbox-container .message-body	{
 	padding: 12px 18px; min-height: 20px;
 }
@@ -1331,7 +1347,7 @@ counter	{
 	position: relative; top: -5px; display: inline;
 }
 
-.inbox-container .message-comments	{
+.inbox-container .message-comments{
 	padding: 10px; border-top: 1px solid #ddd;
 }
 
@@ -1339,36 +1355,49 @@ counter	{
 	position: relative; width: 12px; height: 12px; top: 6px; left: 20px; background: #d9edf7; -webkit-transform: rotate(45deg);
 }
 
-.inbox-container .message-comments ul	{
+.inbox-container .message-comments ul,
+.inbox-container .message-notes ul li	{
 	margin-left: 0; background: #d9edf7;
 }
 
-.inbox-container .message-comments i.icon-cloud-download	{
+.inbox-container .message-notes ul li:last-child{
+	margin-bottom: 0px !important;
+}
+
+.inbox-container .message-comments i.icon-cloud-download,
+.inbox-container .message-notes i.icon-cloud-download	{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite;
 }
 
-.inbox-container .message-comments li	{ padding: 10px; }
+.inbox-container .message-comments li,
+.inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even),
+.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
 
-.inbox-container .message-comments li.active	{
+.inbox-container .message-comments li.active,
+.inbox-container .message-notes li.active	{
 	background:#b1e2ec; border: solid white; border-width: 1px 0;
 }
 
-.inbox-container .message-comments li:first-child.active	{
+.inbox-container .message-comments li:first-child.active,
+.inbox-container .message-notes li:first-child.active	{
 	background: none; border-top-width: 0;
 }
 
-.inbox-container .message-comments img.avatar {
+.inbox-container .message-comments img.avatar,
+.inbox-container .message-notes img.avatar {
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
-.inbox-container .message-comments img {
+.inbox-container .message-comments img,
+.inbox-container .message-notes img {
 	max-height: 22px; 
 }
 
-.inbox-container .message-comments p { display: inline; }
+.inbox-container .message-comments p,
+.inbox-container .message-notes p { display: inline; }
 
 .inbox-container .comment-info {
 	color: #aac1cd; font-size: 12px;
