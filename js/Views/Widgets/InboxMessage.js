@@ -89,6 +89,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			this.on('note:added', this.incrementaction.bind(this, 'note-list'));
 			this.triggered = true;
 		}*/
+
+		this.loadedlists = [];
 	},
 
 	'incrementaction' : function(token)

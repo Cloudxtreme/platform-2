@@ -548,10 +548,10 @@ tbody.messages-container i	{
 /* Notes */
 .message-notes{
 	border-top: 1px solid #ddd;
-	display: none;
+	
 }
 
-.message-notes .note-list .modal-header{
+.message-notes .action-list .modal-header{
 	display: none;
 }
 
@@ -567,7 +567,7 @@ tbody.messages-container i	{
 
 .message-notes .note-content .modal-body textarea,
 .message .note-content .modal-body textarea,
-.message-notes .note-list .modal-body textarea{
+.message-notes .action-list .modal-body textarea{
 	width: 100%;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
@@ -576,7 +576,7 @@ tbody.messages-container i	{
 	padding: 8px !important;
 }
 
-.message-notes ul.note-list,
+
 .message-notes .note-content{
 	display: none;
 }
@@ -585,12 +585,12 @@ tbody.messages-container i	{
 	padding-left: 20px !important;
 }
 
-.message-notes ul.note-list{
+.message-notes ul.action-list{
 	padding: 10px;
 	margin-left: 0px;
 }
 
-.message-notes ul.note-list li{
+.message-notes ul.action-list li{
 	margin-bottom: 5px;
 	position: relative;
 	list-style: none;
@@ -601,20 +601,20 @@ tbody.messages-container i	{
 	        transition: background 1s ease-out;
 }
 
-.message-notes ul.note-list li.new{
+.message-notes ul.action-list li.new{
 	background: #2bbedc;
 }
 
-.message-notes ul.note-list li .note-header{
+.message-notes ul.action-list li .note-header{
 	cursor: pointer;
 }
 
-.message-notes ul.note-list li .note-header .message-actions,
-.message-notes ul.note-list li .note-header .comment-info{
+.message-notes ul.action-list li .note-header .message-actions,
+.message-notes ul.action-list li .note-header .comment-info{
 	clear: right;
 }
 
-.message-notes ul.note-list li .note-header:after{
+.message-notes ul.action-list li .note-header:after{
 	position: absolute; 
 	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
 	width: 100%;
@@ -624,7 +624,7 @@ tbody.messages-container i	{
 	padding-top: 10px;
 }
 
-.message-notes ul.note-list li .modal-footer{
+.message-notes ul.action-list li .modal-footer{
 	margin: 10px -11px -11px -11px;
 }
 

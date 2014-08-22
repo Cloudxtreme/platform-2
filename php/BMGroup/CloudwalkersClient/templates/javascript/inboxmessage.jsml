@@ -52,9 +52,10 @@
 <!-- NOTES_ROLE -->
 <div class="message-notes">
 	<div class="note-content"></div>
-	<ul class="note-list"></ul>
-</div>
+	<div class="action-lists">
 
+	</div>
+</div>
 
 {{#commented}}
 <div class="message-comments">

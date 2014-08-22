@@ -17,6 +17,8 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 
 	'render' : function(token)
 	{	
+		this.selected = this.$el.find('.inactive').data('token');
+
 		this.actionsleft = [];
 		this.actionsright = [];
 		this.compounds = [];
@@ -37,6 +39,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 		var actions;
 		var compound;
 		var action;
+		var inactive;
 
 		if(this.message)	actions = this.message.filterActions(token);
 		else				return;
@@ -52,8 +55,15 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 				else
 					this.compounds.push(compound[0].compound)
 
+			if(this.selected){
+				if(compound && compound[0].token == this.selected)
+					inactive = 'inactive';
 
-			var action = new Cloudwalkers.Views.Action({action: compound || actions[n]})
+				else if(!compound && actions[n].token == this.selected)
+					inactive = 'inactive';
+			}
+
+			var action = new Cloudwalkers.Views.Action({action: compound || actions[n], inactive: inactive})
 
 			this['actions'+action.position].push(action)
 		}
