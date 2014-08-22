@@ -342,6 +342,7 @@
 		"private_note": "Private note",
 		"Unfavorite": "Unfavorite",
 		"are_you_sure_you_want_to_remove_this_category": "Are you sure you want to remove this category?",
-		"are_you_sure_you_want_to_remove_this_filter": "Are you sure you want to remove this filter?"
+		"are_you_sure_you_want_to_remove_this_filter": "Are you sure you want to remove this filter?",
+		"Note": "Note"
 	}
 }
