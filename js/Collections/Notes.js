@@ -11,11 +11,11 @@ Cloudwalkers.Collections.Notes = Backbone.Collection.extend({
 		'remove' : 'destroy'
 	},
 	
-	'initialize' : function(options)
+	'initialize' : function(models, options)
 	{	
 		// Override type strings if required
 		if(options) $.extend(this, options);
-
+		
 		// Check if it's empty only after sync
 		this.on('sync', function(){
 			setTimeout(function(){

@@ -11,7 +11,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 			this.template = 'compoundaction';
 			this.rendercompound();
 		}
-
+		
 		this.positionaction();
 	},
 

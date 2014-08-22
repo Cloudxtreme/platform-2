@@ -8,14 +8,21 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 	{
 		$.extend(this, options);
 
+		this.listenTo(this.message.notes, 'ready', this.updateactions.bind(this, "notes"));
+		this.listenTo(this.message.notes, 'destroy', this.updateactions.bind(this, "notes"));
+		this.listenTo(this.message.actions, 'ready', this.updateactions);
+		this.listenTo(this.message.actions, 'destroy', this.updateactions);
+
+	},
+
+	'render' : function(token)
+	{	
 		this.actionsleft = [];
 		this.actionsright = [];
 		this.compounds = [];
-	},
 
-	'render' : function()
-	{
-		this.fillactions();
+		//Default values
+		this.fillactions(token);
 
 		this.$el.html(Mustache.render(Templates.actions));
 
@@ -25,15 +32,15 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 		return this;
 	},
 
-	'fillactions' : function()
-	{
+	'fillactions' : function(token)
+	{	
 		var actions;
 		var compound;
 		var action;
 
-		if(this.message)	actions = this.message.filterActions();
+		if(this.message)	actions = this.message.filterActions(token);
 		else				return;
-
+		
 		for(n in actions)
 		{	
 			compound = actions[n].compound? actions.filter(function(a){ return a.compound == actions[n].compound}): null;
@@ -49,6 +56,11 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 
 			this['actions'+action.position].push(action)
 		}
+	},
+
+	'updateactions' : function(token)
+	{
+		this.render(token);
 	},
 
 	'renderactions' : function(position, actions)

@@ -85,10 +85,10 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.$el.find('.message-actions').html(this.actions.render().el)
 
 		//Init the listener only once
-		if(!this.triggered){
+		/*if(!this.triggered){
 			this.on('note:added', this.incrementaction.bind(this, 'note-list'));
 			this.triggered = true;
-		}
+		}*/
 	},
 
 	'incrementaction' : function(token)

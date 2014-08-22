@@ -27,6 +27,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
 
 		// Children
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
@@ -329,11 +330,23 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	},
 
-	'filterActions' : function ()
+	'filterActions' : function (token)
 	{	
 		if(!this.get("actiontokens")) return [];
+
+		var tokens = this.actions.rendertokens();	
+
+		if(token == 'notes')
+			tokens.map(function(t){
+
+				if(t.token == 'note-list')
+					t.value = this.notes.length;
+				
+				return t;
+
+			}.bind(this))
 		
-		return this.actions.rendertokens();
+		return tokens;
 	},
 	
 	'filterCalReadable' : function ()
