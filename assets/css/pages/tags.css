@@ -18,7 +18,7 @@
 }
 
 .inbox-container .message-actions .actions-left div {
-	top: 3px !important;
+	top: 0px !important;
 	vertical-align: top;
 	display: inline-block;
 }

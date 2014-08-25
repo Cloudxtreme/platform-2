@@ -28,6 +28,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
+		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
+
+		this.listenToOnce(this.notes, 'add', this.updatecollection.bind(this, this.notes));
 
 		// Children
 		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
@@ -84,6 +87,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(method == "update") return false;
 		
 		return Backbone.sync(method, model, options);
+	},
+
+	'updatecollection' : function(collection)
+	{
+		collection.updated = true;
 	},
 
 	/* Validations */
@@ -330,21 +338,20 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	},
 
-	'filterActions' : function (token)
+	'filterActions' : function ()
 	{	
 		if(!this.get("actiontokens")) return [];
 
 		var tokens = this.actions.rendertokens();	
 		
-		if(token == 'notes')
-			tokens.map(function(t){
+		tokens.map(function(t){
 				
-				if(t.token == 'note')
-					t.value = this.notes.length;
-				
-				return t;
+			if(t.token == 'note' && this.notes.updated)
+				t.value = this.notes.length;
+			
+			return t;
 
-			}.bind(this))
+		}.bind(this))
 		
 		return tokens;
 	},

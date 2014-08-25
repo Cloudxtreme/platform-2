@@ -39,7 +39,8 @@
 
 				// detect groups left open
 				// if the filter has enough size
-				if($("#keyword_filter").children().length > 3)
+				//if($("#keyword_filter").children().length > 3)
+				if($("#keyword_filter").children().length > 1)
 				{
 					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true)
 					{
@@ -85,8 +86,6 @@
 							addPlus("small");
 		   				}	
 		   			}
-
-					
 				} else {
 					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
 					valid_formula = false;
@@ -101,21 +100,22 @@
 		    		}
 		    	});
 
-				if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
+				//if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
+				if(($("#keyword_filter").children().length > 1) || $("#keyword_filter").children().length < 2){
 					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
 						$('#keyword_filter').children().eq(-2).remove();
-					$("#keyword_filter #demo_plus").remove();
-					addPlus("small");
+						$("#keyword_filter #demo_plus").remove();
+						addPlus("small");
 					}
 				} else {
 					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
 					valid_formula = false;
 				}
 					
-					
-				// if filter is valid
+				
 				if(valid_formula == true)
 				{
+					// if filter is valid fill it
 					var filter_src = $("#keyword_filter").children();
 		    		filter_src.each(function()
 		    		{
@@ -148,6 +148,10 @@
 					});
 					// send the result
 					removeWarning();
+			    	options.success(result);
+			    } else {
+			    	// If formula is invalid empty the result
+			    	result = "";
 			    	options.success(result);
 			    }
 			}
@@ -393,7 +397,7 @@
 		}
 		// Add warning
 		function addWarning(message){
-			var box = '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+ message +'</div>';
+			var box = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>'+ message +'</div>';
 			removeWarning();
 			$("#keyword_warning").append(box);
 		}

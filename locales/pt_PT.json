@@ -362,6 +362,8 @@
 		"author_is" : "autor é",
 		"author_is_not" : "autor não é",
 		"insert_author": "inserir autor",
-		"Note": "Nota"
+		"Note": "Nota",
+		"dont_forget_to_fill_the_keyword_name": "Não se esqueça de preencher o nome da palavra chave.",
+		"please_add_a_filter_to_your_keyword": "Por favor adicione um filtro à sua palavra chave."
 	}
 }

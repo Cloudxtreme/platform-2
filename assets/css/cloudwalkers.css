@@ -80,13 +80,22 @@ li.btn-white	{
 .btn-compound .btn-white.actionvalue{
 	float: left;
 	top: 0px;
-	padding: 5px 7px 5px 9px;
+	padding: 4px 7px 4px 9px;
+}
+
+.btn-compound .btn-white.actionvalue.noresults > i,
+.btn-compound .btn-white.actionvalue.noresults > span{
+	opacity: .4;
+}
+
+.btn-compound .btn-white.actionvalue.noresults:hover{
+	color: #4a4a4a !important;
 }
 
 .btn-compound .btn-white.actionname{
 	float: left;
 	top: 0px;
-	padding: 5px 9px 5px 7px;
+	padding: 4px 9px 4px 7px;
 	border-left: 0px;
 	margin-left: 0px !important;
 }
@@ -2237,8 +2246,7 @@ ul.contacts-list	{
 [data-notification-action],
 .category-name.edit-toggler h4	{ cursor: pointer; }
 
-[data-notification-action="note-content"],
-[data-notification-action="note-list"]{
+[data-notification-action="note"]{
 	display: none !important;
 }
 
