@@ -164,7 +164,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'toggleactions' : function(action, token)
 	{	
 		//var other = action == 'action-list'? token: 'action-list';
-		
 		//Buttons
 		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
 		/*var otherbutton = this.$el.find('[data-action='+other+']');
@@ -242,7 +241,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'expandlist' : function(token)
 	{
 		var list = token+'list';
-
+		
 		//Check if list has been fetched already
 		if(this.loadedlists.indexOf(list) < 0)
 			return this.fetchactions(token)		
@@ -266,11 +265,14 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'fillactions' : function(token, actions)
 	{	
-		if(!actions.length)	
-			return this.$el.find('.action-list li').html('No actions found')
-
 		// Create the list div
 		var listclass = token+'-list';
+
+		if(!actions.length)
+			return this.$el.find('.action-list li').html('No actions found')
+
+		this.$el.find('.'+listclass).remove();
+
 		var container = this.$el.find('.action-lists').append('<ul class="action-list '+listclass+'"></ul>');
 
 		// Fill it
@@ -401,8 +403,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'noteadded' : function(note)
 	{	
-		//this.addnote(note, true);
-		this.toggleactions('note');
+		this.addnote(note, true);
+		this.toggleactions('action-list', 'note');
 		this.newnote = true;
 		this.fetchactions('note');
 		
