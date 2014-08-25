@@ -557,7 +557,7 @@ tbody.messages-container i	{
 /* Notes */
 .message-notes{
 	border-top: 1px solid #ddd;
-	
+	background-color: #fff;
 }
 
 .message-notes .action-list .modal-header{
@@ -1691,25 +1691,25 @@ counter	{
 	        transform: rotate(45deg);
 }
 
-.inbox-container .message-comments ul,
-.inbox-container .message-notes ul li	{
+.message-comments ul,
+.message-notes ul li	{
 	margin-left: 0; background: #d9edf7;
 }
 
-.inbox-container .message-notes ul.action-list.comment-list li{
+.message-notes ul.action-list.comment-list li{
 	background: #d9edf7;
 }
 
-.inbox-container .message-notes ul li{
+.message-notes ul li{
 	margin-left: 0; background: #F2F0A0; min-height: 20px;
 }
 
-.inbox-container .message-notes ul li:last-child{
+.message-notes ul li:last-child{
 	margin-bottom: 0px !important;
 }
 
-.inbox-container .message-comments i.icon-cloud-download,
-.inbox-container .message-notes i.icon-cloud-download	{
+.message-comments i.icon-cloud-download,
+.message-notes i.icon-cloud-download	{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
@@ -1725,37 +1725,37 @@ counter	{
 			animation-iteration-count: infinite;
 }
 
-.inbox-container .message-comments li,
-.inbox-container .message-notes li	{ padding: 10px; }
+.message-comments li,
+.message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+.message-comments li:nth-child(even) { background:#e0f0f8; }
 
-.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
+.message-notes li:nth-child(even)	{ background:#F4F192; }
 
-.inbox-container .message-comments li.active,
-.inbox-container .message-notes li.active	{
+.message-comments li.active,
+.message-notes li.active	{
 	background:#b1e2ec; border: solid white; border-width: 1px 0;
 }
 
-.inbox-container .message-comments li:first-child.active,
-.inbox-container .message-notes li:first-child.active	{
+.message-comments li:first-child.active,
+.message-notes li:first-child.active	{
 	background: none; border-top-width: 0;
 }
 
-.inbox-container .message-comments img.avatar,
-.inbox-container .message-notes img.avatar {
+.message-comments img.avatar,
+.message-notes img.avatar {
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
-.inbox-container .message-comments img,
-.inbox-container .message-notes img {
+.message-comments img,
+.message-notes img {
 	max-height: 22px; 
 }
 
-.inbox-container .message-comments p,
-.inbox-container .message-notes p { display: inline; }
+.message-comments p,
+.message-notes p { display: inline; }
 
-.inbox-container .message-notes .note-body{
+.message-notes .note-body{
 	padding: 0px;
 }
 

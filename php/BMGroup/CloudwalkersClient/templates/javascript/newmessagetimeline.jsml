@@ -59,51 +59,49 @@
 		</div>
 	</div>	
 
-	<div class="timeline-body">
+	<div class="timeline-body-wrapper">
+		<div class="timeline-body">
 
-		<div class="timeline-entry-content">
-						
-			{{#subject}}
-				<strong>{{subject}}</strong><br />
-			{{/subject}}
+			<div class="timeline-entry-content">
+							
+				{{#subject}}
+					<strong>{{subject}}</strong><br />
+				{{/subject}}
 
-			{{{body.html}}}	
+				{{{body.html}}}	
 
-			{{#attached.link}}
-			<br>
-				<div class="attachment-link">
-					<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="icon-link"></i>
-				</div>
-			{{/attached.link}}		
-		</div>
-	
-		<div class="timeline-entry-media">
+				{{#attached.link}}
+				<br>
+					<div class="attachment-link">
+						<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="icon-link"></i>
+					</div>
+				{{/attached.link}}		
+			</div>
+		
+			<div class="timeline-entry-media">
 
-			{{#attached.image}}
-			<!--<span class="muted">Media:</span>-->
-				<div class="media-clip"><i class="icon-paperclip"></i></div>
-				<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
-			{{/attached.image}}
-			
-			{{#attached.video}}
-				<div class="media-sphere timeline-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
-			{{/attached.video}}
+				{{#attached.image}}
+				<!--<span class="muted">Media:</span>-->
+					<div class="media-clip"><i class="icon-paperclip"></i></div>
+					<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
+				{{/attached.image}}
+				
+				{{#attached.video}}
+					<div class="media-sphere timeline-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+				{{/attached.video}}
+
+				<div class="clearfix"></div>
+			</div>	
+
+			<div class="message-actions"></div>		
 
 			<div class="clearfix"></div>
-		</div>	
-
-		<div class="message-actions">
-			{{#actionstats}}
-				<div class="btn-white" data-action="{{token}}">
-					<i class="icon-{{action.icon}}"></i>
-					{{#action.value}}
-						<span>{{action.value}}</span>
-					{{/action.value}}
-				</div>
-			{{/actionstats}}
-		</div>		
-
-		<div class="clearfix"></div>
+		</div>
+		<div class="message-notes">
+			<div class="note-content"></div>
+			<div class="action-lists">
+			</div>
+		</div>
 	</div>
 
 </div>
