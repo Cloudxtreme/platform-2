@@ -335,17 +335,17 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(!this.get("actiontokens")) return [];
 
 		var tokens = this.actions.rendertokens();	
-
+		
 		if(token == 'notes')
 			tokens.map(function(t){
-				console.log(t.token)
-				if(t.token == 'note-list')
+				
+				if(t.token == 'note')
 					t.value = this.notes.length;
 				
 				return t;
 
 			}.bind(this))
-		console.log(tokens, token)
+		
 		return tokens;
 	},
 	
