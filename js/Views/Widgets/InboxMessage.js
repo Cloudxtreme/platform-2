@@ -78,20 +78,14 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		return this;
 	},
 
-	'renderactions' : function()
+	/*'renderactions' : function()
 	{	
 		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
 
 		this.$el.find('.message-actions').html(this.actions.render().el)
 
-		//Init the listener only once
-		/*if(!this.triggered){
-			this.on('note:added', this.incrementaction.bind(this, 'note-list'));
-			this.triggered = true;
-		}*/
-
 		this.loadedlists = [];
-	},
+	},*/
 
 	'incrementaction' : function(token)
 	{	
