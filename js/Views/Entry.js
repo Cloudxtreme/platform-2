@@ -84,7 +84,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		{
 			var token = $(element.currentTarget).data ('token');
 
-			this.toggleactions(action, token);
+			this.toggleactions(action, token, element);
 		}
 		else if(action == 'note-edit')
 		{
@@ -161,8 +161,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}.bind(this),200)
 	},
 
-	'toggleactions' : function(action, token)
+	'toggleactions' : function(action, token, element)
 	{	
+		if(element && $(element.currentTarget).hasClass('noresults'))	return;
+
 		//var other = action == 'action-list'? token: 'action-list';
 		//Buttons
 		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
