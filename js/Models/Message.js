@@ -28,6 +28,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
 		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
+		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 
 		this.listenToOnce(this.notes, 'add', this.updatecollection.bind(this, this.notes));
 

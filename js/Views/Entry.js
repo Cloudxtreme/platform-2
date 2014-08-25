@@ -263,8 +263,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	
-		var collection = token == 'note'? this.model.notes: this.model.actions;
+	{	//Temporarily, only notes or notifications
+		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
 		collection.parentmodel = this.model;
 		collection.parenttype = 'message';
@@ -290,20 +290,25 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Fill it
 		for(n in actions)
 		{	
-			this.addaction(actions[n], listclass);
+			this.addaction(actions[n], token);
 		}
 
 		//container.slideDown();
 	},
 
-	'addaction' : function(action, listclass)
-	{
-		var options = {model: action, template: 'messagenote'}
-		var note;
+	'addaction' : function(action, token)
+	{	
+		var options = {model: action, template: token == 'note'? 'messagenote': 'timelinecomment'}
+		var listclass = token+'-list';
+		var action;
 
 		if(this.newaction)	options.isnew = true;
 
-		action = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+		if(token == 'note')
+			action = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+		else
+			action = new Cloudwalkers.Views.Notification(options);
+
 		this.$el.find('.'+listclass).append(action.render().el);
 
 		this.newaction = false;
