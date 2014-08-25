@@ -421,7 +421,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.note-content').append(composenote.render().el);		
 	},
 
-<<<<<<< HEAD
 	'fetchnotes' : function()
 	{		
 		this.model.notes.parentmodel = this.model;
@@ -445,8 +444,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}
 	},
 
-=======
->>>>>>> remotes/origin/rc2
 	'addnote' : function(newnote)
 	{	
 		var options = {model: newnote, template: 'messagenote'}
