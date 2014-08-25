@@ -217,6 +217,10 @@ Timeline UI Base
 	margin-bottom: 1px;
 }
 
+.timeline-entry .message-actions .btn-white{
+	padding: 4px 8px;
+}
+
 .timeline > li {
 	position: relative;
 }
@@ -308,6 +312,10 @@ Timeline UI Base
 
 /* Right content */
 
+.timeline > li .timeline-body-wrapper{
+	margin: 0 0 0 40%;
+}
+
 .timeline > li .timeline-body {
 	font-weight: 300;
 	position: relative;
@@ -315,9 +323,8 @@ Timeline UI Base
 	border-radius: 0px;
 	box-shadow: inset #ddd -5px 0px 0 0;
 	padding: 15px 30px 15px 20px;
-	border-bottom: 2px solid #e1e8ed;
-	border-right: 2px solid #e1e8ed;
-	margin: 0 0 0 40%;
+	/*border-bottom: 2px solid #e1e8ed;
+	border-right: 2px solid #e1e8ed;*/
 	color: #222;
 	min-height: 70px;
 	font-size: 13px;
