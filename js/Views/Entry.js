@@ -404,7 +404,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		//this.addnote(note, true);
 		this.toggleactions('note');
 		this.newnote = true;
-		this.fetchnotes();
+		this.fetchactions('note');
 		
 		this.trigger('note:added');
 
