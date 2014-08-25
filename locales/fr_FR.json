@@ -354,8 +354,12 @@
 		"are_you_sure_you_want_to_reset_this_filter": "Êtes-vous sûr de couloir sup primer ce filtre?",
 		"keyword_filter_has_been_updated": "Filtre mot-clé a été mis à jour",
 		"keyword_filter_has_been_successfully_added": "Keyword filter has been successfully added",
+		"outbox": "outbox",
 		"author_is" : "author is",
 		"author_is_not" : "author is not",
-		"insert_author": "insert author"
+		"insert_author": "insert author",
+		"Note": "Note",
+		"dont_forget_to_fill_the_keyword_name": "Don't forget to fill the keyword name",
+		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword."
 	}
 }

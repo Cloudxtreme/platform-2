@@ -112,10 +112,10 @@
 					valid_formula = false;
 				}
 					
-					
-				// if filter is valid
+				
 				if(valid_formula == true)
 				{
+					// if filter is valid fill it
 					var filter_src = $("#keyword_filter").children();
 		    		filter_src.each(function()
 		    		{
@@ -148,6 +148,10 @@
 					});
 					// send the result
 					removeWarning();
+			    	options.success(result);
+			    } else {
+			    	// If formula is invalid empty the result
+			    	result = "";
 			    	options.success(result);
 			    }
 			}

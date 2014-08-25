@@ -109,31 +109,35 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		
 		var catid = Number($("#keyword_manage_category").val())
 		
-		// Check selected
+		// Clear infos
+		$("#keywordsfilter * .alert").remove();
+		
+		// Check Category
 		if(!catid) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_select_a_category"));
 		
 		var category = Cloudwalkers.Session.getChannel(catid);
+
+		// Check Name
+		if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+
+		console.log(this.keywordFormula().settings.formula)
+
+		// if formula is empty
+		if(!this.keywordFormula().settings.formula) return Cloudwalkers.RootView.alert(this.translateString("please_add_a_filter_to_your_keyword"));
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
-		$("#keywordsfilter * .alert").remove();
-		
-		if(this.keywordFormula().settings.formula){
-			category.channels.create(this.keywordFormula(), {
-				parent: catid,
-				wait: true,
-				error: function(){
-					Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
-					this.$el.find(".managekeyword .icon-cloud-upload").hide();
-				}.bind(this),
-				success: function (){
-					Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
-				}.bind(this)
-			});
-			this.$el.find(".managekeyword .icon-cloud-upload").show();
-		} else {
-			Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
-			this.$el.find(".managekeyword .icon-cloud-upload").hide();
-		}
+		category.channels.create(this.keywordFormula(), {
+			parent: catid,
+			wait: true,
+			error: function(){
+				Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("something_went_wrong"), this.$el.find(".manage-keyword"));
+				this.$el.find(".managekeyword .icon-cloud-upload").hide();
+			}.bind(this),
+			success: function (){
+				Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
+			}.bind(this)
+		});
+		this.$el.find(".managekeyword .icon-cloud-upload").show();
 	},
 
 	'updateKeyword' : function (e)
@@ -333,6 +337,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{	
 		var object = {name: $("#keyword_manage_name").val(), settings: {}};
 
+		object.settings.formula = "";
 		object.settings.formula = this.formula;
 
 		return object;
