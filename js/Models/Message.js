@@ -338,7 +338,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 		if(token == 'notes')
 			tokens.map(function(t){
-
+				console.log(t.token)
 				if(t.token == 'note-list')
 					t.value = this.notes.length;
 				
