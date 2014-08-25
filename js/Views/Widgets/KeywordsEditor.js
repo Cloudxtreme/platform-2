@@ -120,9 +120,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		// Check Name
 		if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
 
-		console.log(this.keywordFormula().settings.formula)
-
-		// if formula is empty
+		// Check Formula
 		if(!this.keywordFormula().settings.formula) return Cloudwalkers.RootView.alert(this.translateString("please_add_a_filter_to_your_keyword"));
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
