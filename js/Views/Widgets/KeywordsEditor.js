@@ -115,19 +115,25 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
-		category.channels.create(this.keywordFormula(), {
-			parent: catid,
-			wait: true,
-			error: function(){
-				Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
-				this.$el.find(".managekeyword .icon-cloud-upload").hide();
-			}.bind(this),
-			success: function (){
-				Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
-			}.bind(this)
-		});
-
-		this.$el.find(".managekeyword .icon-cloud-upload").show();
+		$("#keyword_warning .alert").remove();
+		console.log(this.keywordFormula().settings.formula);
+		if(this.keywordFormula().settings.formula){
+			category.channels.create(this.keywordFormula(), {
+				parent: catid,
+				wait: true,
+				error: function(){
+					Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
+					this.$el.find(".managekeyword .icon-cloud-upload").hide();
+				}.bind(this),
+				success: function (){
+					Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
+				}.bind(this)
+			});
+			this.$el.find(".managekeyword .icon-cloud-upload").show();
+		} else {
+			Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("your_formula_is_a_bit_fuzzy"), this.$el.find(".manage-keyword"));
+			this.$el.find(".managekeyword .icon-cloud-upload").hide();
+		}
 	},
 
 	'updateKeyword' : function (e)
