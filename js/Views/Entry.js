@@ -214,28 +214,40 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
 		var inactivebuttons = this.$el.find('.actionvalue.inactive');
 		var inactivebuttonss = this.$el.find('.actionname.inactive');
-		var lists = this.$el.find('.action-list').slideUp();
+		var lists = this.$el.find('.action-list');
+		var notecontent = this.$el.find('.note-content');
+
+		var delay = false;
+
+		if(lists.is(':visible') || notecontent.is(':visible'))
+			delay = true;
 
 		// Buttons
 		inactivebuttons.removeClass('inactive');
 		inactivebuttonss.removeClass('inactive');
 
 		//Lists or other things
-		this.$el.find('.action-list').slideUp();
-		this.$el.find('.note-content').slideUp();
+		this.$el.find('.action-list').slideUp('fast');
+		this.$el.find('.note-content').slideUp('fast');
 
 		if(operation == 'close')
 			return;
 
 		// Expand lists & stuff //
 
-		clickedbutton.addClass('inactive');	
+		setTimeout(function()
+		{
+			clickedbutton.addClass('inactive');	
 
-		if(action == 'action-list')
-			this.expandlist(token);
+			if(action == 'action-list')
+				this.expandlist(token);
 
-		else if(action == 'note')
-			this.$el.find('.note-content').slideDown();
+			// Composenote
+			else if(action == 'note')
+				notecontent.slideDown();
+
+		}.bind(this),delay? 200: 1);
+
 	},
 
 	'expandlist' : function(token)
@@ -263,7 +275,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.loadedlists.push(token+'list');
 	},
 
-	'fillactions' : function(token, actions)
+	'fillactions' : function(token, actions, update)
 	{	
 		// Create the list div
 		var listclass = token+'-list';
@@ -281,7 +293,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.addaction(actions[n], listclass);
 		}
 
-		container.slideDown();
+		//container.slideDown();
 	},
 
 	'addaction' : function(action, listclass)
@@ -403,7 +415,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 	'noteadded' : function(note)
 	{	
-		this.addnote(note, true);
+		//this.addnote(note, true);
 		this.toggleactions('action-list', 'note');
 		this.newnote = true;
 		this.fetchactions('note');
