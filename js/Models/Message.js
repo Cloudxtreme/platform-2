@@ -47,8 +47,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
         
         return this.endpoint?
         
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
     },
 
 	'parse' : function(response)

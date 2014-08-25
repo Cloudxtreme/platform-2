@@ -243,9 +243,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		var list = token+'list';
 
+		//Check if list has been fetched already
 		if(this.loadedlists.indexOf(list) < 0)
-			return this.fetchactions(token)
-		
+			return this.fetchactions(token)		
 		
 		this.$el.find('.action-list.'+token+'-list').slideDown();
 
@@ -402,7 +402,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'noteadded' : function(note)
 	{	
 		//this.addnote(note, true);
-		this.togglenoteaction('note-list');
+		this.toggleactions('note');
 		this.newnote = true;
 		this.fetchnotes();
 		
