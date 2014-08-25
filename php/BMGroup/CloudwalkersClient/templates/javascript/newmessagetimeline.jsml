@@ -5,7 +5,19 @@
 		<table id="timeline-username">
 		<tbody>
 			<tr>
-				<td>{{#from}}{{displayname}}{{/from}}</td>
+				<td>
+					{{#from}}
+
+						{{#showcontact}}
+							<span class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></span>
+						{{/showcontact}}
+						{{^showcontact}}
+							<span class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>
+							<br>
+						{{/showcontact}}
+						
+					{{/from}}	
+				</td>
 			</tr>
 		</tbody>
 		</table>
@@ -52,21 +64,7 @@
 	<div class="timeline-body">
 
 		<div class="timeline-entry-content">
-			{{#from}}
-
-				{{#showcontact}}
-					<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></a>
-					<br />
-				{{/showcontact}}
-				{{^showcontact}}
-					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</a>
-					<br>
-				{{/showcontact}}
-				<!-- CONTACTS_ROLE -->
-				
-				<br />
-			{{/from}}	
-			
+						
 			{{#subject}}
 				<strong>{{subject}}</strong><br />
 			{{/subject}}

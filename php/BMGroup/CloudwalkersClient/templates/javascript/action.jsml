@@ -1,1 +1,1 @@
-<div class="btn-white" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>
+<div class="btn-white {{inactive}}" data-action="{{token}}"><i class="icon-{{icon}}"></i></div>

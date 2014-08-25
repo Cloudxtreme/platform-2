@@ -303,7 +303,7 @@ Timeline UI Base
 	font-size: 23px;
 	color: #aaa;
 	font-weight: 300;
-	line-height: 23px;
+	line-height: 23px !important;
 }
 
 /* Right content */
@@ -313,7 +313,7 @@ Timeline UI Base
 	position: relative;
 	background: #fff;
 	border-radius: 0px;
-	box-shadow: inset #ddd -10px 0px 0 0;
+	box-shadow: inset #ddd -5px 0px 0 0;
 	padding: 15px 30px 15px 20px;
 	border-bottom: 2px solid #e1e8ed;
 	border-right: 2px solid #e1e8ed;
@@ -491,9 +491,9 @@ Timeline UI Base
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
-	font-size: 33px;
-	left: -1px;
-	top: -15px;
+	font-size: 21px;
+	left: 0px;
+	top: 0px;
 }
 
 .timeline > li .timeline-icon .timeline-avatar {
@@ -514,39 +514,39 @@ Timeline UI Base
 
 /* Colors */
 
-.timeline > li .timeline-entry.facebook-entry .timeline-body{	box-shadow: inset #3B5998 -10px 0px 0 0; }
+.timeline > li .timeline-entry.facebook-entry .timeline-body{	box-shadow: inset #3B5998 -5px 0px 0 0; }
 .timeline > li .timeline-entry.facebook-entry .timeline-info{	box-shadow: inset -7px 0 #3B5998; }
 .timeline > li .timeline-entry.facebook-entry .timeline-icon{	box-shadow: 0 0 0 8px #3B5998; }
 
-.timeline > li .timeline-entry.twitter-entry .timeline-body{	box-shadow: inset #01a9da -10px 0px 0 0; }
+.timeline > li .timeline-entry.twitter-entry .timeline-body{	box-shadow: inset #01a9da -5px 0px 0 0; }
 .timeline > li .timeline-entry.twitter-entry .timeline-info{	box-shadow: inset -7px 0 #01a9da; }
 .timeline > li .timeline-entry.twitter-entry .timeline-icon{	box-shadow: 0 0 0 8px #01a9da; }
 
-.timeline > li .timeline-entry.linkedin-entry .timeline-body{	box-shadow: inset #1783BC -10px 0px 0 0; }
+.timeline > li .timeline-entry.linkedin-entry .timeline-body{	box-shadow: inset #1783BC -5px 0px 0 0; }
 .timeline > li .timeline-entry.linkedin-entry .timeline-info{	box-shadow: inset -7px 0 #1783BC; }
 .timeline > li .timeline-entry.linkedin-entry .timeline-icon{	box-shadow: 0 0 0 8px #1783BC; }
 
-.timeline > li .timeline-entry.tumblr-entry .timeline-body{	box-shadow: inset #385775 -10px 0px 0 0; }
+.timeline > li .timeline-entry.tumblr-entry .timeline-body{	box-shadow: inset #385775 -5px 0px 0 0; }
 .timeline > li .timeline-entry.tumblr-entry .timeline-info{	box-shadow: inset -7px 0 #385775; }
 .timeline > li .timeline-entry.tumblr-entry .timeline-icon{	box-shadow: 0 0 0 8px #385775; }
 
-.timeline > li .timeline-entry.google-plus-entry .timeline-body{	box-shadow: inset #DD4C39 -10px 0px 0 0; }
+.timeline > li .timeline-entry.google-plus-entry .timeline-body{	box-shadow: inset #DD4C39 -5px 0px 0 0; }
 .timeline > li .timeline-entry.google-plus-entry .timeline-info{	box-shadow: inset -7px 0 #DD4C39; }
 .timeline > li .timeline-entry.google-plus-entry .timeline-icon{	box-shadow: 0 0 0 8px #DD4C39; }
 
-.timeline > li .timeline-entry.youtube-entry .timeline-body{	box-shadow: inset #CC181E -10px 0px 0 0; }
+.timeline > li .timeline-entry.youtube-entry .timeline-body{	box-shadow: inset #CC181E -5px 0px 0 0; }
 .timeline > li .timeline-entry.youtube-entry .timeline-info{	box-shadow: inset -7px 0 #CC181E; }
 .timeline > li .timeline-entry.youtube-entry .timeline-icon{	box-shadow: 0 0 0 8px #CC181E; }
 
-.timeline > li .timeline-entry.web-entry .timeline-body{	box-shadow: inset #ff9c00 -10px 0px 0 0; }
+.timeline > li .timeline-entry.web-entry .timeline-body{	box-shadow: inset #ff9c00 -5px 0px 0 0; }
 .timeline > li .timeline-entry.web-entry .timeline-info{	box-shadow: inset -7px 0 #ff9c00; }
 .timeline > li .timeline-entry.web-entry .timeline-icon{	box-shadow: 0 0 0 8px #ff9c00; }
 
-.timeline > li .timeline-entry.blog-entry .timeline-body{	box-shadow: inset #ff9c00 -10px 0px 0 0; }
+.timeline > li .timeline-entry.blog-entry .timeline-body{	box-shadow: inset #ff9c00 -5px 0px 0 0; }
 .timeline > li .timeline-entry.blog-entry .timeline-info{	box-shadow: inset -7px 0 #ff9c00; }
 .timeline > li .timeline-entry.blog-entry .timeline-icon{	box-shadow: 0 0 0 8px #ff9c00; }
 
-.timeline > li .timeline-entry.briefcase-entry .timeline-body{	box-shadow: inset #4a4a4a -10px 0px 0 0; }
+.timeline > li .timeline-entry.briefcase-entry .timeline-body{	box-shadow: inset #4a4a4a -5px 0px 0 0; }
 .timeline > li .timeline-entry.briefcase-entry .timeline-info{	box-shadow: inset -7px 0 #4a4a4a; }
 .timeline > li .timeline-entry.briefcase-entry .timeline-icon{	box-shadow: 0 0 0 8px #4a4a4a; }
 
