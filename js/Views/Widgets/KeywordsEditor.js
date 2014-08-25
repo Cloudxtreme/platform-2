@@ -282,16 +282,18 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 			for(n in countries)
 			{
-				if(countries[n].token == splitValue[2])
-					tokenValue = countries[n].token
+				if(countries[n].token == splitValue[2].toUpperCase())
+					tokenValue = countries[n].token.toUpperCase();
 			}
 
-			if(splitValue[1] == '!='){
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
-			} else {
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+			if(tokenValue){
+				if(splitValue[1] == '!='){
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				} else {
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				}
+				$('#keyword_filter select').val(tokenValue).trigger('change');
 			}
-			$('#keyword_filter select').val(tokenValue).trigger('change');
 		}
 
 		// Generate message bubble
