@@ -10,6 +10,8 @@ Cloudwalkers.Models.Notification = Cloudwalkers.Models.Message.extend({
 		
 		// Actions
 		this.actions = new Cloudwalkers.Collections.Actions(false, {parent: this});
+		this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
+		this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
 		
 		// Listen to destroy
 		// Reload parent message for message counter
