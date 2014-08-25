@@ -7,7 +7,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 	'initialize' : function(options)
 	{
 		$.extend(this, options);
-		this.message.notes.on('all', function(a){console.log(a)})
+		
 		this.listenTo(this.message.notes, 'ready', this.updateactions.bind(this, "notes"));
 		this.listenTo(this.message.notes, 'destroy', this.updateactions.bind(this, "notes"));
 		this.listenTo(this.message.actions, 'ready', this.updateactions);

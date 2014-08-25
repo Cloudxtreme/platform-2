@@ -345,7 +345,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				return t;
 
 			}.bind(this))
-		
+		console.log(tokens, token)
 		return tokens;
 	},
 	
