@@ -96,7 +96,6 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	{	
 		// Triggered action
 		var action = this.templates[token];
-		console.log(action)
 		// Toggle
 		
 		this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
