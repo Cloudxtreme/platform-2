@@ -39,6 +39,8 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		// Load messages
 		this.model.messages.touch(this.model, this.filters); 
 		
+		this.trigger('rendered');
+
 		// Load category messages
 		//this.model.fetch({endpoint: "messageids", parameters:this.options.filters});
 
