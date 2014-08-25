@@ -70,9 +70,21 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 				
 			//Load note composer
 			this.loadnoteui();
-		}	
+		}
+
+		if(this.parameters.hasactions)
+			this.renderactions();
 
 		return this;
+	},
+
+	'renderactions' : function()
+	{	
+		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
+		
+		this.$el.find('.message-actions').html(this.actions.render().el)
+
+		this.loadedlists = [];
 	},
 	
 	'action' : function (element)
@@ -221,6 +233,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 		var delay = false;
 
+		//Is there a delay needed in the animation?
 		if(lists.is(':visible') || notecontent.is(':visible'))
 			delay = true;
 
@@ -286,7 +299,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			return this.$el.find('.action-list li').html('No actions found')
 
 		this.$el.find('.'+listclass).remove();
-
+		
 		var container = this.$el.find('.action-lists').append('<ul class="action-list '+listclass+'"></ul>');
 
 		// Fill it
