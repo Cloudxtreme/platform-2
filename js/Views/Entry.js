@@ -4,6 +4,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'template': 'messageentry',
 	'notifications' : [],
 	'parameters' : {},
+	'loadedlists' : [],
 	
 	'events' : 
 	{
@@ -33,7 +34,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
@@ -77,21 +78,32 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'action' : function (element)
 	{
 		// Action token
-		var token = $(element.currentTarget).data ('action');
-		
-		if(token == 'note-content' || token == 'note-list'){
-			this.togglenoteaction(token);
-		}else if(token == 'note-edit'){
+		var action = $(element.currentTarget).data ('action');
+	
+		if(action == 'note' || action == 'action-list')
+		{
+			var token = $(element.currentTarget).data ('token');
+
+			this.toggleactions(action, token);
+		}
+		else if(action == 'note-edit')
+		{
 			this.editnote();
-		}else if(token == 'tag-showedit'){
+		}
+		else if(action == 'tag-showedit')
+		{
 			this.showtagedit();
-		}else if(token == 'tag-add'){
+		}
+		else if(action == 'tag-add')
+		{
 			var tag = $(element.currentTarget).siblings( "input" ).val();
 			if(tag) {
 				this.submittag(tag);
 				$(element.currentTarget).siblings( "input" ).val('');
 			}
-		}else if(token == 'viewcontact'){
+		}
+		else if(action == 'viewcontact')
+		{
 
 			//We are inside viewcontact modal
 			if(this.parent)	return;
@@ -99,8 +111,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
 			if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 			
-		}else
-			this.model.trigger("action", token);
+		}
+		else
+			this.model.trigger("action", action);
 	},
 
 	'editnote' : function()
@@ -148,41 +161,138 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}.bind(this),200)
 	},
 
-	'togglenoteaction' : function(token)
-	{
-		var other = token == 'note-list'? 'note-content': 'note-list';
-		var container = this.$el.find('.message-notes');
-		var element = this.$el.find('.'+token);
+	'toggleactions' : function(action, token)
+	{	
+		//var other = action == 'action-list'? token: 'action-list';
+		
+		//Buttons
+		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
+		/*var otherbutton = this.$el.find('[data-action='+other+']');
+		var inactivebuttons = this.$el.find('.actionvalue.inactive');*/
 
-		var clicked = this.$el.find('[data-action='+token+']');
-		var otherbutton = this.$el.find('[data-action='+other+']');
+		if(!clickedbutton.hasClass('inactive'))
+			this.processaction('open', action, token)
 
+		else if(clickedbutton.hasClass('inactive'))
+			this.processaction('close')
+		
+
+		//container & list
+		/*var container = this.$el.find('.message-notes');
+		var list = this.$el.find('.action-list');
+
+		// Only for write note
 		other = this.$el.find('.'+other);
 		
-		if(!container.is(':visible') && !clicked.hasClass('inactive'))
+		if(!container.is(':visible') && !clickedbutton.hasClass('inactive'))	// Check
 		{	
-			this.$el.find('.message-notes').slideDown();
-			element.slideDown();
-			clicked.addClass('inactive');
+			this.$el.find('.message-notes').slideDown(); 	//slide container
+			list.slideDown();							 	//render list
+			clickedbutton.addClass('inactive');				//update button
 		}
-		else if(container.is(':visible') && !clicked.hasClass('inactive'))
+		else if(container.is(':visible') && !clickedbutton.hasClass('inactive'))
 		{	
 			other.slideUp('fast');
-			otherbutton.removeClass('inactive');
-			element.slideDown();
-			clicked.addClass('inactive');
+			inactivebuttons.removeClass('inactive');
+			list.slideDown();
+			clickedbutton.addClass('inactive');
 		}
-		else if(container.is(':visible') && clicked.hasClass('inactive'))
+		else if(container.is(':visible') && clickedbutton.hasClass('inactive'))
 		{
 			this.$el.find('.message-notes').slideUp();
-			clicked.removeClass('inactive');
+			clickedbutton.removeClass('inactive');
 			other.slideUp();
-			element.slideUp();
+			list.slideUp();
 		}
 		
-		if(token == 'note-list' && !this.loadednotes)
-			this.fetchnotes();
+		if(action == 'action-list' && !this.loadednotes)
+			this.fetchnotes();*/
 
+	},
+
+	'processaction' : function(operation, action, token)
+	{	
+		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
+		var inactivebuttons = this.$el.find('.actionvalue.inactive');
+		var inactivebuttonss = this.$el.find('.actionname.inactive');
+		var lists = this.$el.find('.action-list').slideUp();
+
+		// Buttons
+		inactivebuttons.removeClass('inactive');
+		inactivebuttonss.removeClass('inactive');
+
+		//Lists or other things
+		this.$el.find('.action-list').slideUp();
+		this.$el.find('.note-content').slideUp();
+
+		if(operation == 'close')
+			return;
+
+		// Expand lists & stuff //
+
+		clickedbutton.addClass('inactive');	
+
+		if(action == 'action-list')
+			this.expandlist(token);
+
+		else if(action == 'note')
+			this.$el.find('.note-content').slideDown();
+	},
+
+	'expandlist' : function(token)
+	{
+		var list = token+'list';
+
+		//Check if list has been fetched already
+		if(this.loadedlists.indexOf(list) < 0)
+			return this.fetchactions(token)		
+		
+		this.$el.find('.action-list.'+token+'-list').slideDown();
+
+	},
+
+	'fetchactions' : function(token)
+	{	
+		var collection = token == 'note'? this.model.notes: this.model.actions;
+
+		collection.parentmodel = this.model;
+		collection.parenttype = 'message';
+		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
+
+		collection.touch(this.model);
+
+		this.loadedlists.push(token+'list');
+	},
+
+	'fillactions' : function(token, actions)
+	{	
+		if(!actions.length)	
+			return this.$el.find('.action-list li').html('No actions found')
+
+		// Create the list div
+		var listclass = token+'-list';
+		var container = this.$el.find('.action-lists').append('<ul class="action-list '+listclass+'"></ul>');
+
+		// Fill it
+		for(n in actions)
+		{	
+			this.addaction(actions[n], listclass);
+		}
+
+		container.slideDown();
+	},
+
+	'addaction' : function(action, listclass)
+	{
+		var options = {model: action, template: 'messagenote'}
+		var note;
+
+		if(this.newaction)	options.isnew = true;
+
+		action = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+		this.$el.find('.'+listclass).append(action.render().el);
+
+		this.newaction = false;
 	},
 	
 	'toggleaction' : function (token, newaction)
@@ -276,29 +386,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.note-content').append(composenote.render().el);		
 	},
 
-	'fetchnotes' : function()
-	{		
-		this.model.notes.parentmodel = this.model;
-		this.model.notes.parenttype = 'message';
-		this.listenTo(this.model.notes,'seed', this.fillnotes);
-
-		this.model.notes.touch(this.model);
-
-		this.loadednotes = true;
-	},
-
-	//Notes list
-	'fillnotes' : function(notes)
-	{	
-		if(!notes.length)	this.$el.find('.note-list li').html('No notes found')
-		else				this.$el.find('.note-list').empty();
-
-		for(n in notes)
-		{	
-			this.addnote(notes[n]);
-		}
-	},
-
 	'addnote' : function(newnote)
 	{	
 		var options = {model: newnote, template: 'messagenote'}
@@ -315,9 +402,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'noteadded' : function(note)
 	{	
 		//this.addnote(note, true);
-		this.togglenoteaction('note-list');
+		this.toggleactions('note');
 		this.newnote = true;
-		this.fetchnotes();
+		this.fetchactions('note');
 		
 		this.trigger('note:added');
 

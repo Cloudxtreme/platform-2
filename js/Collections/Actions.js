@@ -9,8 +9,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
-		'note_view' : {name: "Note", icon: 'edit', token: 'note-list', type: 'note', compound: 'note', valuetag: 'notesCount'},
-		'note_manage' : {name: "Create note", icon: 'list', token: 'note-content', type: 'note', compound: 'note'},
+		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notesCount'},
+		'note_manage' : {name: "Create note", icon: 'list', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
@@ -18,12 +18,12 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'dm' : {name: "DM", icon: 'comments-alt', token: 'dm', type: 'dialog', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
-		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite'/*, valuetag: 'favourites', compound: 'favorite', tokenview: 'favorite-list'*/},
+		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite', valuetag: 'favourites'},
 		'unfavorite' : {name: "Unfavorite", icon: 'star-empty', token: 'unfavorite', type: 'growl', toggle: 'favorite', actiontype: 'favorite'},
 		'plusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'plusone', type: 'options', toggle: 'unplusone'},
 		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'growl', toggle: 'plusone', actiontype: 'plusone'}
@@ -96,7 +96,6 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	{	
 		// Triggered action
 		var action = this.templates[token];
-
 		// Toggle
 		
 		this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
