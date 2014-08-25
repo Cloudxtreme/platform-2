@@ -380,7 +380,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
 		this.composenote = composenote;
 
-		//this.listenTo(composenote.note, 'sync', this.noteadded);
+		this.listenTo(composenote.note, 'sync', this.noteadded);
 		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
 		this.$el.find('.note-content').append(composenote.render().el);		
