@@ -115,7 +115,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var category = Cloudwalkers.Session.getChannel(catid);
 		
 		//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
-		$("#keyword_warning .alert").remove();
+		$("#keywordsfilter * .alert").remove();
 		
 		if(this.keywordFormula().settings.formula){
 			category.channels.create(this.keywordFormula(), {
