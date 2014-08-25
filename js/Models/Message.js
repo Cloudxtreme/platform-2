@@ -47,8 +47,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
         
         return this.endpoint?
         
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
     },
 
 	'parse' : function(response)
@@ -335,11 +335,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(!this.get("actiontokens")) return [];
 
 		var tokens = this.actions.rendertokens();	
-
+		
 		if(token == 'notes')
 			tokens.map(function(t){
-
-				if(t.token == 'note-list')
+				
+				if(t.token == 'note')
 					t.value = this.notes.length;
 				
 				return t;

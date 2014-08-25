@@ -17,8 +17,10 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 
 	'render' : function()
 	{	
-		this.$el.html(Mustache.render(Templates[this.template], this.action));
+		this.action.inactive = this.inactive
 
+		this.$el.html(Mustache.render(Templates[this.template], this.action));
+		
 		return this;
 	},
 
@@ -37,8 +39,8 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 		var actionview = this.action[0].hasOwnProperty('value')? this.action[0]: this.action[1];
 		var actionadd = this.action[0].hasOwnProperty('value')? this.action[1]: this.action[0];
 
-		actionview.tokenview = actionview.token;
-		actionview.token = actionadd.token;
+		/*actionview.tokenview = 'action-list';
+		actionview.token = 'action-add';*/
 		
 		this.action = actionview;
 	},

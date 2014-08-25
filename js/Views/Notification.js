@@ -24,7 +24,6 @@ Cloudwalkers.Views.Notification = Cloudwalkers.Views.Entry.extend({
 
 	'render' : function ()
 	{
-		
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
