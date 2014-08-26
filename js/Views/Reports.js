@@ -39,7 +39,7 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 		var self = this;
 		$.ajax 
 		(
-			CONFIG_BASE_URL + 'json/stream/' + stream.get ('id') + '/statistics',
+			Cloudwalkers.Session.api + '/streams/' + stream.get ('id') + '/statistics',
 			{
 				'success' : function (data)
 				{
@@ -76,7 +76,11 @@ Cloudwalkers.Views.Reports = Cloudwalkers.Views.Widgets.WidgetContainer.extend({
 							self.addReportWidget (stream.attributes, other[i]);
 						}
 					}
-				}
+				},
+				beforeSend: function(xhr){
+					xhr.setRequestHeader('Accept', 'application/json');
+					xhr.setRequestHeader('Authorization', 'Bearer ' + Cloudwalkers.Session.authenticationtoken);
+				},
 			}
 		);
 	},
