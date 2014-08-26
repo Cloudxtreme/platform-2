@@ -18,7 +18,11 @@ Style corrections and manual overrides
 }
 
 #timeline .timeline .timeline-loading{
-	top: 35px;
+	top: 45px;
+}
+
+#timeline .timeline .timeline-loading .timeline-body{
+	margin: 0 0 0 40%;
 }
 
 #timeline.loading .timeline-body, .load-more .timeline-body.more	{ min-height: 20px; }
@@ -36,6 +40,9 @@ Style corrections and manual overrides
 .load-more .timeline-body.more	{ padding: 15px 20px; width: 20%; }
 .no-content .timeline-body.more	{ padding: 10px 20px; width: 20%; }
 
+.timeline-body.more { border-bottom: 1px solid #ccc; max-width: 200px; color: #999 !important;}
+.timeline-body.more span { -webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite; }
+.timeline-body.more:after { border-right-color: #fff !important; margin-top: -1px !important;}
 .timeline .more a	{ color: white; }
 
 .timeline .dropdown-toggle.icon-share-alt	{
@@ -65,7 +72,7 @@ Style corrections and manual overrides
 .timeline p	{ margin: 0; }
 
 .timeline .timeline-user	{
-	font-size: 14px; 
+	font-size: 23px; 
 }
 
 .actions.dropdown.open > i	{ color: #ccc; }
@@ -272,7 +279,7 @@ Timeline UI Base
 	color: #eee;
 	position: absolute;
 	bottom: 15px;
-	right: 25px;
+	right: 50px;
 }
 
 .timeline > li .timeline-time span {
@@ -402,7 +409,7 @@ Timeline UI Base
 	left: 10px;
 	top: 50%;
 	margin-top: -30px;
-	font-size: 60px;
+	font-size: 56px;
 	color: #f5f5f5;
 }
 

@@ -4,8 +4,8 @@
 		<li class="timeline-blue timeline-loading">
 			<div class="timeline-time"></div>
 			<div class="timeline-icon entry-loading"></div>
-			<div class="timeline-body more inner-loading">
-				{{translate_loading}}
+			<div class="timeline-body more">
+				<span>{{translate_loading}}...</span>
 			</div>
 		</li>
 		
