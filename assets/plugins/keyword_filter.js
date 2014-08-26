@@ -318,43 +318,80 @@
 			// Remove filter
 			if(el_ref_hit == "demo_remove_filter"){
 
-				if($("#" + el_ref_id).hasClass("demo_group")){
-					$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
-					$("#" + el_ref_id).nextUntil(".demo_end_group").remove();
-					$("#keyword_filter #demo_plus").remove();
-					plus_size = "large";
-				}
-				if($("#" + el_ref_id ).prev().hasClass("demo_group"))
-				{
-					$("#keyword_filter #demo_plus").remove();
-					plus_size = "large";
-				} else if($("#" + el_ref_id ).next().attr('id') != "demo_plus")
-				{
-					if($("#" + el_ref_id ).prev().hasClass('demo_drop'))
-					{
-						$("#keyword_filter #demo_plus").remove();
-						if($("#" + el_ref_id ).next().next().hasClass('demo_drop')){
-							$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
-						}
-						plus_size = "large";
-					} else if(($("#" + el_ref_id ).prev().prev().hasClass('demo_group')) && ($("#" + el_ref_id ).next().next().hasClass('demo_end_group')))
-					{
+				// If it's a drop down, remove it and parameter after it
+				if($("#" + el_ref_id).hasClass("demo_drop")){
+					
+					// If parameter after it is group, remove it
+					if($("#" + el_ref_id).next().hasClass("demo_group")){
+						$("#" + el_ref_id).nextUntil(".demo_end_group").remove();
 						$("#" + el_ref_id).nextAll(".demo_end_group").remove();
 					} else {
-						$("#keyword_filter #demo_plus").remove();
+						$("#" + el_ref_id).next().remove();
+					}
+
+					$("#" + el_ref_id).remove();
+
+				} // If it's a group start
+				else if($("#" + el_ref_id).hasClass("demo_group")){
+
+					$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
+					$("#" + el_ref_id).nextUntil(".demo_end_group").remove();
+					$("#" + el_ref_id).nextAll(".demo_end_group").remove();
+					$("#" + el_ref_id).remove();
+
+					$("#keyword_filter #demo_plus").remove();
+					addPlus("large");
+
+				} // If it's a group end
+				else if($("#" + el_ref_id).hasClass("demo_end_group")){
+
+					$("#" + el_ref_id).remove();
+
+					$("#keyword_filter #demo_plus").remove();
+					addPlus("large");
+
+				} else {
+					
+					// parameter was alone inside group
+					if(($("#" + el_ref_id ).prev().hasClass("demo_group")) && ($("#" + el_ref_id ).next().hasClass("demo_end_group")))
+					{
+						$("#" + el_ref_id ).prev().remove();
+						$("#" + el_ref_id ).next().remove();
+						
+						if($("#" + el_ref_id ).prev().hasClass('demo_drop'))
+						{
+							$("#" + el_ref_id ).prev().remove();
+						}
+						plus_size = "large";
+
+					} else if($("#" + el_ref_id ).next().attr('id') != "demo_plus")
+					{
+						if($("#" + el_ref_id ).prev().hasClass('demo_drop'))
+						{
+							if($("#" + el_ref_id ).next().next().hasClass('demo_drop')){
+								$("#" + el_ref_id).nextAll(".demo_end_group").next().remove();
+							}
+							plus_size = "large";
+						} else {
+							plus_size = "small";
+						}
+						$("#" + el_ref_id ).next().remove();
+					} else if((!$("#" + el_ref_id ).prev().attr('id')) || ($("#" + el_ref_id ).prev().hasClass('demo_drop')) )
+					{
+						plus_size = "large";
+					} else {
 						plus_size = "small";
 					}
-					$("#" + el_ref_id ).next().remove();
-				} else if((!$("#" + el_ref_id ).prev().attr('id')) || ($("#" + el_ref_id ).prev().hasClass('demo_drop')) )
-				{
-					$("#keyword_filter #demo_plus").remove();
-					plus_size = "large";
-				} else {
-					$("#keyword_filter #demo_plus").remove();
-					plus_size = "small";
+
+					$("#" + el_ref_id ).remove();
+					
+					// If formula is empty, force large plus
+					if($("#keyword_filter").children().length == 0){
+						plus_size = "large";
+					}		
+					$("#keyword_filter #demo_plus").remove();		
+					addPlus(plus_size);
 				}
-				$("#" + el_ref_id ).remove();
-				addPlus(plus_size);
 			}
 		}.bind(this));
 	
