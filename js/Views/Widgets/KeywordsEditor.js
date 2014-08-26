@@ -207,8 +207,6 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");*/
 		// End deprecated
 		
-		// Update chosen
-		this.$el.find("select").trigger('chosen:updated');
 	},
 
 	'addPlus' : function (size){
@@ -292,7 +290,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 				} else {
 					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				}
-				$('#keyword_filter select').val(tokenValue).trigger('change');
+				// Update chosen
+				$('#' + rand_id + ' select').val(tokenValue).trigger('change');
 			}
 		}
 
