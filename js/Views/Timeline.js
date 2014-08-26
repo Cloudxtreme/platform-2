@@ -99,6 +99,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.$el.find('.load-more .timeline-icon').addClass('entry-loading');
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
