@@ -207,8 +207,6 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");*/
 		// End deprecated
 		
-		// Update chosen
-		this.$el.find("select").trigger('chosen:updated');
 	},
 
 	'addPlus' : function (size){
@@ -235,7 +233,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		var languageslist = "";
 		for(n in languages)
 		{
-			languageslist += '<li class="demo_change_val" data-value="'+languages[n].token+'">'+languages[n].name+'</li>'
+			languageslist += '<option value="'+languages[n].token+'">'+languages[n].name+'</option>'
 		}
 
 		var countrieslist = "";
@@ -264,14 +262,18 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 			for(n in languages)
 			{
-				if(languages[n].token == splitValue[2])
-					textValue = languages[n].name
+				if(languages[n].token.toLowerCase() == splitValue[2].toLowerCase())
+					tokenValue = languages[n].token.toLowerCase();
 			}
 
-			if(splitValue[1] == '!='){
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + translation.translate_language_is_not + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + textValue + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul>' + languageslist + '</ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
-			} else {				
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + translation.translate_language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + textValue + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul>' + languageslist + '</ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+			if(tokenValue){
+				if(splitValue[1] == '!='){
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + translation.translate_language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				} else {
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + translation.translate_language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				}
+				// Update chosen
+				$('#' + rand_id + ' select').val(tokenValue).trigger('change');
 			}
 		}
 
@@ -282,16 +284,19 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 			for(n in countries)
 			{
-				if(countries[n].token == splitValue[2])
-					tokenValue = countries[n].token
+				if(countries[n].token.toUpperCase() == splitValue[2].toUpperCase())
+					tokenValue = countries[n].token.toUpperCase();
 			}
 
-			if(splitValue[1] == '!='){
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
-			} else {
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+			if(tokenValue){
+				if(splitValue[1] == '!='){
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				} else {
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+				}
+				// Update chosen
+				$('#' + rand_id + ' select').val(tokenValue).trigger('change');
 			}
-			$('#keyword_filter select').val(tokenValue).trigger('change');
 		}
 
 		// Generate message bubble

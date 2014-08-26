@@ -133,13 +133,13 @@
 									value_to_insert = filter_data + " ";
 					    		} else if((filter_data == "and ") || (filter_data == "or ")){
 					    			value_to_insert = filter_data + " ";
-					    		} else if((filter_data == "language = ") || (filter_data == "language != ")){
-					    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id')).attr("data-value") + "' ";
 					    		} else {
 					    			value_to_insert = filter_data + "'" + $("#" + $(this).attr('id') + " .sel_value").text() + "' ";
 					    		}
 					    	} else if((filter_data == "country = ") || (filter_data == "country != ")){
 				    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id') + " #countries").val() + "' ";
+					    	} else if((filter_data == "language = ") || (filter_data == "language != ")){
+				    			value_to_insert = filter_data + "'"  + $("#" + $(this).attr('id') + " #languages").val() + "' ";
 					    	} else {
 					    		value_to_insert = filter_data + "'" +  $("#" + $(this).attr('id') + " .text").text() + "' ";
 					    	}
@@ -272,7 +272,7 @@
 			if(el_ref_hit == "add_language_is"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + this.translations.choose_language + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				filllanguages();
 			}
@@ -280,7 +280,7 @@
 			if(el_ref_hit == "add_language_is_not"){
 				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="">' + this.translations.language_is_not + '<span class="demo_drop demo_bubble_text"><span class="sel_value">' + this.translations.choose_language + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options" id="languages"><ul></ul></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != ">' + this.translations.language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				filllanguages();
 			}
@@ -374,9 +374,10 @@
 			//<li class="demo_change_val" data-value="en">en</li>
 			for(n in options.languages)
 			{
-				var li = '<li class="demo_change_val" data-value="'+options.languages[n].token+'">'+options.languages[n].name+'</li>'
-				$("#keyword_filter #languages ul").append(li);
+				var li = '<option value="'+options.languages[n].token+'">'+options.languages[n].name+'</option>'
+				$("#keyword_filter #languages").append(li);
 			}
+			$("#keyword_filter #languages").chosen({width: "100%"});
 		}
 
 		// Random number for IDs
