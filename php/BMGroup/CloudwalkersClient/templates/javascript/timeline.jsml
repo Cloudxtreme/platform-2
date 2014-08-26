@@ -13,7 +13,7 @@
 			<div class="timeline-info"></div>
 			<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
 			<div class="timeline-body more">
-				<strong>{{translate_view_more}}</strong>
+				<span>{{translate_view_more}}</span>
 			</div>
 		</li>
 		

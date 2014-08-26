@@ -7,7 +7,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
-		'click .load-more' : 'more'
+		'click .load-more .more' : 'more'
 	},
 	
 	'initialize' : function (options)
@@ -34,6 +34,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	{
 		this.$el.removeClass("loading");
 		this.$el.find(".timeline-loading").hide();
+
+		this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
 	
 	'render' : function ()
@@ -101,6 +104,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.incremental = true;
 
 		this.$el.find('.load-more .timeline-icon').addClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('loading')+'...');
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		

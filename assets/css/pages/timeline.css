@@ -52,8 +52,8 @@ Style corrections and manual overrides
 .load-more .timeline-body.more	{ padding: 15px 20px; width: 20%; }
 .no-content .timeline-body.more	{ padding: 10px 20px; width: 20%; }
 
-.timeline-body.more { border-bottom: 1px solid #ccc; max-width: 200px; color: #999 !important;}
-.timeline-body.more span { -webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite; }
+.timeline-body.more { border-bottom: 1px solid #ddd; max-width: 200px; color: #999 !important;}
+.timeline-loading .timeline-body.more span { -webkit-animation-duration: 1.2s; -webkit-animation-name: opacitypulse; -webkit-animation-iteration-count: infinite; }
 .timeline-body.more:after { border-right-color: #fff !important; margin-top: -1px !important;}
 .timeline .more a	{ color: white; }
 
