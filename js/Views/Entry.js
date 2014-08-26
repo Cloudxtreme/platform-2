@@ -103,6 +103,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 
 			this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
 		}
+	},
 			
 	'renderactions' : function()
 	{	
