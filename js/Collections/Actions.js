@@ -18,7 +18,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'dm' : {name: "DM", icon: 'comments-alt', token: 'dm', type: 'dialog', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
