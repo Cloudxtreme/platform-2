@@ -51,7 +51,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 			// prevent duplicates on complex compounds
 			if(compound && compound.length)
 				if(this.compounds.indexOf(compound[0].compound) >= 0)
-					return;
+					continue;
 				else
 					this.compounds.push(compound[0].compound)
 
