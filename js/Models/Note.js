@@ -46,7 +46,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 		var type = this.type_settings[type].model;
 		var object = Cloudwalkers.Session["get" + type](id);
 
-		if(!object)
+		if(!object || !object.get('objectType'))
 		{
 			object = new Cloudwalkers.Models[type]({id: id});
 			object.fetch();
