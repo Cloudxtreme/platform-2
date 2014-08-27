@@ -74,7 +74,8 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 	'toggle' : function(view)
 	{	
 		var options = {model: view.model};
-		
+		var type = view.model.parent? view.model.parent.get('objectType'): null;
+
 		if (this.inboxnote) this.inboxnote.remove();
 		
 		this.inboxnote = new Cloudwalkers.Views.Widgets.InboxNote(options);
@@ -85,7 +86,8 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		this.rendercontext();
 
 		// Load related messages
-		this.inboxnote.showrelated();
+		if(type != 'account')
+			this.inboxnote.showrelated();
 		
 		this.$el.find(".list .active").removeClass("active");
 		view.$el.addClass("active");
