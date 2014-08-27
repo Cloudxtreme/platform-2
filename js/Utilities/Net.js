@@ -2,7 +2,7 @@ Cloudwalkers.Net =
 {
     'get' : function (method, get, callback)
     {
-        var url = CONFIG_BASE_URL + 'json/' + method + (get? '?' + jQuery.param (get): '');
+        var url = Cloudwalkers.Session.api + '/' + method + (get? '?' + jQuery.param (get): '');
 
         $.ajax (
         {
@@ -18,7 +18,7 @@ Cloudwalkers.Net =
 
 	'put' : function (method, get, data, callback)
 	{
-		var url = CONFIG_BASE_URL + 'json/' + method;
+		var url = Cloudwalkers.Session.api + '/' + method;
 
 		if (typeof (get) != 'undefined' && get)
 		{
@@ -42,7 +42,7 @@ Cloudwalkers.Net =
 
 	'post' : function (method, get, data, callback)
 	{
-		var url = CONFIG_BASE_URL + 'json/' + method;
+		var url = Cloudwalkers.Session.api + '/' + method;
 
 		if (typeof (get) != 'undefined' && get)
 		{
@@ -66,7 +66,7 @@ Cloudwalkers.Net =
 
 	'remove' : function (method, get, callback)
 	{
-		var url = CONFIG_BASE_URL + 'json/' + method;
+		var url = Cloudwalkers.Session.api + '/' + method;
 
 		if (typeof (get) != 'undefined' && get)
 		{
