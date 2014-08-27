@@ -159,7 +159,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		var index = this.authorized.indexOf(role);
 
 		if(index >= 0)
-			this.authorized.splice(index-1, index+1)
+			this.authorized.splice(index, index+1)
 	},
 
 	'censure' : function(permissions)
