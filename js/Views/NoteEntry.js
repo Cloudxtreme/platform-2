@@ -22,31 +22,33 @@ Cloudwalkers.Views.NoteEntry = Cloudwalkers.Views.Entry.extend({
 		this.listenTo(this.model, 'destroy', this.remove);
 		
 	},
-	
 
 	'render' : function ()
 	{
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
-	
+
 		// A loaded model
 		if(this.model.loaded())
 		{
 			// Load Parent data
 			if(this.model.loaded("model"))
+				
 				if(!this.model.parent)
 				{
 					this.model.parent = this.model.attachParent(this.model.get("model").objectType, this.model.get("model").id);
 					
 					if(!this.model.parent.loaded()){
 						this.listenTo(this.model.parent, "sync", this.render)
-						Cloudwalkers.RootView.trigger("ready:notecontext");
 					} else {
 						this.parameters.parent = this.model.parent.attributes;
+						Cloudwalkers.RootView.trigger("ready:notecontext");
 					}
 				
-				} else
+				} else{
 					this.parameters.parent = this.model.parent.attributes;
+					Cloudwalkers.RootView.trigger("ready:notecontext");
+				}
 				
 			// Load Actions
 			if(this.type == "full") this.parameters.actions = this.model.filterActions();
