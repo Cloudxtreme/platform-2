@@ -199,6 +199,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		$("#keyword_filter #demo_plus").remove();
 		this.addPlus('small');
 
+
+		// Update chosen
+		this.$el.find("#keyword_manage_category").trigger('chosen:updated');
+
 		// Deprecated
 		/*$('#filter_include').val(filters.include? filters.include.join(", "): "");
 		$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");

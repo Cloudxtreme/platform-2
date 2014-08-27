@@ -93,9 +93,11 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 	'refresh' : function ()
 	{
 		var self = this;
+		var url = this.getDataURL();
+		
 		$.ajax 
 		(
-			this.getDataURL (),
+			Cloudwalkers.Session.api + '/' + url,
 			{
 				'success' : function (data)
 				{
@@ -122,6 +124,10 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 					}
 
 					self.trigger ('dataset:change', series);
+				},
+				beforeSend: function(xhr){
+					xhr.setRequestHeader('Accept', 'application/json');
+					xhr.setRequestHeader('Authorization', 'Bearer ' + Cloudwalkers.Session.authenticationtoken);
 				}
 			}
 		);
@@ -137,8 +143,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 	'getDataURL': function ()
 	{
 		
-		
-		var url = "json/" + this.get('url') + '?';
+		var url = this.get('url') + '?';
 		if (this.daterange)
 		{
 			url += 'start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000) + '&';
@@ -148,7 +153,7 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 		{
 			url += 'interval=' + this.intervalinput;
 		}
-
+		
 		return url;
 	},
 
@@ -311,12 +316,13 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 	'getSeries' : function (callback)
 	{
 		var self = this;
+		var url = this.getDataURL();
 
 		this.isFetched = true;
 
 		$.ajax 
 		(
-			this.getDataURL (),
+			Cloudwalkers.Session.api + '/' + url,
 			{
 				'success' : function (data)
 				{
@@ -340,6 +346,10 @@ Cloudwalkers.Models.Report = Backbone.Model.extend({
 
 					callback (series);
 
+				},
+				beforeSend: function(xhr){
+					xhr.setRequestHeader('Accept', 'application/json');
+					xhr.setRequestHeader('Authorization', 'Bearer ' + Cloudwalkers.Session.authenticationtoken);
 				}
 			}
 		);
