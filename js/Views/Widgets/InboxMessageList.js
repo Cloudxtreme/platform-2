@@ -153,7 +153,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 			this.$container.css('max-height', 999999);
 
 			if(!this.hasmore)
-				return this.$el.find('#loadmore').html();	
+				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
 			this.$el.find('#loadmore').html(load.render().el)

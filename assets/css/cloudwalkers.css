@@ -653,7 +653,7 @@ tbody.messages-container i	{
 	height: 10px;
 }
 
-.message-notes ul li .message-actions .notification-action{
+.message-actions .notification-action{
 	z-index: 99;
 	padding: 5px;
 	float: left;
@@ -661,7 +661,20 @@ tbody.messages-container i	{
 	background-color:#fff;
 	background-color: rgba(255,255,255,0.5);
 }
-.message-notes ul li .message-actions .notification-action:hover{
+
+.action-list .message-actions,
+.message-comments .message-actions{
+	padding-right: 0px !important;
+	padding-top: 4px !important;
+}
+
+.message-actions .notification-action i{
+	opacity: .5;
+	font-size: 14px;
+	float: right;
+}
+
+.message-actions .notification-action:hover{
 	background-color: rgba(255,255,255,1);
 }
 
@@ -2116,7 +2129,9 @@ ul.contacts-list	{
 [data-notification-action],
 .category-name.edit-toggler h4	{ cursor: pointer; }
 
-[data-notification-action="note"]{
+[data-notification-action="note"],
+#draftsparent [data-action="note"],
+#monitorparent [data-action="note"]{
 	display: none !important;
 }
 
