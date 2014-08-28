@@ -227,3 +227,8 @@ aside .tag-input-append{
 .inbox-container .message-actions .message-tags [data-action='note-compound'], .inbox-container .message-actions .message-tags [data-action='note-list']{
 	display: inline-block !important;
 }
+
+/* Google Plus Edit action fix */
+.inbox-container .message-actions div[data-action="edit"]{
+	display: none !important;
+}
