@@ -5,7 +5,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	'viewtype' : 'month',
 	'views' : [],
 	
-	'parameters' : {records: 300},
+	'parameters' : {records: 5},
 	'events' : {
 		'remove': 'destroy',
 		'change select' : 'toggleView',
@@ -78,7 +78,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'populate' : function (from, to, timezone, callback)
 	{
-				
+		this.loader('on','');
 		// Limit to month
 		from = from.startOf('month').add(1, 'month');
 		to = to.endOf('month').subtract(1, 'month');
@@ -87,21 +87,27 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Touch Channel
-		this.listenTo(this.model.messages, 'request',  function(){this.loader('on','')});
-		this.listenTo(this.model.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.model.messages, 'sync', this.fill.bind(this, callback));
 		this.listenTo(this.model.messages, 'ready:empty', this.fill.bind(this, callback));
 		this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 
-		this.listenTo(this.model.messages, 'ready',  function(){this.loader('off','')});
-		this.listenTo(this.model.messages, 'ready:empty',  function(){this.loader('off','')});
+		m_item = from.date();
 
-		$.extend(this.parameters, {since: from.unix(), until: to.unix()})
+		while(m_item <= to.date()){
+			var metafrom = moment(from).add(m_item, 'days');
+			var metato = moment(metafrom).add(1, 'days');
 
-		this.model.messages.touch(this.model, this.parameters);		
+			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
+
+			this.model.messages.touch(this.model, this.parameters);
+
+			m_item++;
+		}	
 	},
 
 	'populate_scheduled' : function (from, to, timezone, callback)
 	{
+		this.loader('','on');
 		// Limit to month
 		from = from.startOf('month').add(1, 'month');
 		to = to.endOf('month').subtract(1, 'month');
@@ -110,17 +116,22 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Touch Channel
-		this.listenTo(this.scheduled.messages, 'request',  function(){this.loader('','on')});
-		this.listenTo(this.scheduled.messages, 'ready', this.fill.bind(this, callback));
+		this.listenTo(this.scheduled.messages, 'sync', this.fill.bind(this, callback));
 		this.listenTo(this.scheduled.messages, 'ready:empty', this.fill.bind(this, callback));
 		this.listenTo(this.scheduled.messages, 'cached', this.fill.bind(this, callback));
 
-		this.listenTo(this.scheduled.messages, 'ready',  function(){this.loader('','off')});
-		this.listenTo(this.scheduled.messages, 'ready:empty',  function(){this.loader('','off')});
+		// Get messages for each day
+		s_item = moment().subtract(1,'days').date();
+		while(s_item <= to.date()){
+			var metafrom = moment(from).add(s_item, 'days');
+			var metato = moment(metafrom).add(1, 'days');
+			//console.log(metafrom.date(), metato.date())
+			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
-		$.extend(this.parameters, {since: from.unix(), until: to.unix()})		
-		
-		this.scheduled.messages.touch(this.scheduled, this.parameters);	
+			this.scheduled.messages.touch(this.scheduled, this.parameters);
+
+			s_item++;
+		}
 	},
 	
 	'datedisplay' : function (from, to)
@@ -148,19 +159,51 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'fill' : function (callback, collection)
 	{
-		// console.log("filling networks");
 		var nodes = [];
-
+		//console.log("collection",collection)
 		if(!collection)	return callback(nodes);
+
+		/*for (n in collection.models)
+		{
+			//console.log(collection.models[n].filterCalReadable().calNode)
+			//nodes.push(collection.models[n].filterCalReadable().calNode);
+			this.renderCalendarEvent(collection.models[n].filterCalReadable().calNode)
+		}*/
 		
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
 		}
 
-		callback(nodes);
+		this.renderCalendarEvent(nodes)
+
+		if(this.scheduled)
+			this.scheduled.messages.destroy();
+		if(this.scheduled)
+			this.model.messages.destroy();
+
+
 	},
 
+	'renderCalendarEvent' : function(eventData){
+		$('#calendar').fullCalendar();
+		//console.log(eventData)
+		for (eventNr in eventData)
+		{
+			var newEvent = {
+				id: eventData[eventNr].id,
+				start: eventData[eventNr].start,
+				title: eventData[eventNr].title,
+				className: eventData[eventNr].className,
+				networkdescription: eventData[eventNr].networkdescription,
+				intro: eventData[eventNr].intro, 
+				icon: eventData[eventNr].icon,
+				allDay: false
+			}
+			$('#calendar').fullCalendar( 'renderEvent', newEvent );
+		}
+		this.loader('off','off');
+	},
 	
 	'updatenode' : function (model, date)
 	{
