@@ -229,6 +229,6 @@ aside .tag-input-append{
 }
 
 /* Google Plus Edit action fix */
-.inbox-container .google-plus-color .message-actions [data-action="edit"]{
+.inbox-container .message-actions div[data-action="edit"]{
 	display: none !important;
 }
