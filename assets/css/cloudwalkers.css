@@ -85,7 +85,7 @@ li.btn-white	{
 
 .btn-compound .btn-white.actionvalue.noresults > i,
 .btn-compound .btn-white.actionvalue.noresults > span{
-	opacity: .4;
+	opacity: .2;
 }
 
 .btn-compound .btn-white.actionvalue.noresults:hover{
