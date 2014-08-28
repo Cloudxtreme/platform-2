@@ -329,6 +329,9 @@
 		"clearance_level": "Rôle de l'utilisateur",
 		"Favorites": "Favori",
 		"Retweets": "Retweets",
+		"rss": "RSS",
+		"rss_feed": "RSS Feed",
+		"manage_rss": "Manage RSS",
 		"Likes": "Likes",
 		"Unlike": "Unlike",
 		"something_went_sideways" : "Something went sideways",
@@ -352,15 +355,16 @@
 		"are_you_sure_you_want_to_remove_this_category": "Êtes-vous sûr de couloir sup primer cette catégorie?",
 		"are_you_sure_you_want_to_remove_this_filter": "Êtes-vous sûr de couloir sup primer ce filtre?",
 		"are_you_sure_you_want_to_reset_this_filter": "Êtes-vous sûr de couloir sup primer ce filtre?",
-		"keyword_filter_has_been_updated": "Filtre mot-clé a été mis à jour",
+		"keyword_filter_has_been_updated": "Keyword filter has been updated",
+		"outbox": "Outbox",
 		"calendar": "Calendar",
 		"keyword_filter_has_been_successfully_added": "Keyword filter has been successfully added",
-		"outbox": "Outbox",
 		"author_is" : "author is",
 		"author_is_not" : "author is not",
 		"insert_author": "insert author",
 		"Note": "Note",
 		"dont_forget_to_fill_the_keyword_name": "Don't forget to fill the keyword name",
-		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword."
+		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword.",
+		"text-only": "text-only"
 	}
 }
