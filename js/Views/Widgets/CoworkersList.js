@@ -91,7 +91,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 			this.$container.css('max-height', 999999);
 
 			if(!this.hasmore)
-				return this.$el.find('#loadmore').html();	
+				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
 			this.$el.find('#loadmore').html(load.render().el)
