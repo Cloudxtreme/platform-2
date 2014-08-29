@@ -91,12 +91,12 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.model.messages, 'ready:empty', this.fill.bind(this, callback));
 		this.listenTo(this.model.messages, 'cached', this.fill.bind(this, callback));
 
-		m_item = from.date();
+		m_item = from.date()-1;
 
-		while(m_item <= to.date()){
+		while(m_item < to.date()){
 			var metafrom = moment(from).add(m_item, 'days');
 			var metato = moment(metafrom).add(1, 'days');
-
+			
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
 			this.model.messages.touch(this.model, this.parameters);
