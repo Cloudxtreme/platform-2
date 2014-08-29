@@ -42,12 +42,12 @@
 		<i class="icon-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
-		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">-->
-		<img class="avatar" alt="" src="{{avatar}}">
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<!--<img class="avatar" alt="" src="{{avatar}}">-->
 	{{/iconview}}
 		<strong>
-			<!--<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>-->
-			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+			<!--<a href="{{url}}" target="_blank">{{displayname}}</a>-->
 		</strong>
 	{{/from}}
 	
