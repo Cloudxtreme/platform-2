@@ -178,10 +178,10 @@
 			// Change 
 			if(el_ref_type == "demo_contains"){
 				if(el_ref_hit != "btn"){
-					if($("#" + el_ref_id + " .demo_options").is(":visible")){
+					/*if($("#" + el_ref_id + " .demo_options").is(":visible")){
 						var text = $("#" + el_ref_id + " .text").html();
 						$("#" + el_ref_id + " .demo_options input").val(text);
-					}				
+					}*/				
 				} else {
 					if($(e.target).attr("data-option") == "save"){
 						// Set text
