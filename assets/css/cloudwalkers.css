@@ -523,11 +523,11 @@ tbody.messages-container i	{
 	font-weight: 300;
 }
 
-#monitorparent .portlet .messages-container li{
-	padding: 0px;
+#monitorlist.portlet .messages-container li{
+	padding: 0px !important;
 }
 
-#monitorparent .portlet .messages-container li > div:first-child{
+#monitorlist.portlet .messages-container li > div:first-child{
 	padding: 10px 8px;
 }
 
@@ -663,6 +663,10 @@ tbody.messages-container i	{
 
 .message-notes ul.action-list li .modal-footer{
 	margin: 10px -11px -11px -11px;
+}
+
+#monitorparent .message-notes ul.action-list li .modal-footer{
+	margin: 10px -18px -15px -18px;
 }
 
 .message-notes ul li .note-body{
@@ -1747,7 +1751,7 @@ counter	{
 
 .inbox-container .message-notes ul li,
 #monitorparent .message-notes ul li{
-	margin-left: 0; background: #F2F0A0; min-height: 20px;
+	margin-left: 0; background: #F2F0A0; min-height: 40px;
 	border: none;
 }
 
@@ -1756,7 +1760,8 @@ counter	{
 }
 
 .inbox-container .message-comments i.icon-cloud-download,
-.inbox-container .message-notes i.icon-cloud-download	{
+.inbox-container .message-notes i.icon-cloud-download,
+#monitorparent .message-notes i.icon-cloud-download	{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
@@ -1813,7 +1818,8 @@ counter	{
 	padding: 0px;
 }
 
-.inbox-container .comment-info {
+.inbox-container .comment-info,
+.message-notes .comment-info {
 	color: #aac1cd; font-size: 12px;
 }
 
