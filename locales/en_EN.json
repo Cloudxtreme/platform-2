@@ -340,9 +340,26 @@
 		"please_select_a_network_first": "Please select a network first.",
 		"not_posted": "Not posted",
 		"private_note": "Private note",
+		"sent": "Sent",
+		"there_are": "There are",
+		"groups_left_open_please_close_them_and_resubmit":"groups left open. Please close them and resubmit",
+		"formula_is_not_valid_add_more_parameters":"Formula is not valid. Add more parameters",
+		"choose_language": "Choose language",
+		"choose_country": "Choose country",
+		"country_is_not": "country is not",
+		"language_is_not": "language is not",
 		"Unfavorite": "Unfavorite",
 		"are_you_sure_you_want_to_remove_this_category": "Are you sure you want to remove this category?",
 		"are_you_sure_you_want_to_remove_this_filter": "Are you sure you want to remove this filter?",
-		"Note": "Note"
+		"are_you_sure_you_want_to_reset_this_filter": "Are you sure you want to reset this filter?",
+		"keyword_filter_has_been_updated": "Keyword filter has been updated",
+		"keyword_filter_has_been_successfully_added": "Keyword filter has been successfully added",
+		"outbox": "Outbox",
+		"author_is" : "author is",
+		"author_is_not" : "author is not",
+		"insert_author": "insert author",
+		"Note": "Note",
+		"dont_forget_to_fill_the_keyword_name": "Don't forget to fill the keyword name",
+		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword."
 	}
 }
