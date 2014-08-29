@@ -156,7 +156,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
-			this.togglenoteaction('note-content');
+			this.toggleaction('note');
 		else{
 			this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
 			
@@ -182,7 +182,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
 		/*var otherbutton = this.$el.find('[data-action='+other+']');
 		var inactivebuttons = this.$el.find('.actionvalue.inactive');*/
-
+		
 		if(!clickedbutton.hasClass('inactive'))
 			this.processaction('open', action, token)
 

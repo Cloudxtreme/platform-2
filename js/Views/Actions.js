@@ -70,7 +70,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 	},
 
 	'updateactions' : function(token)
-	{
+	{	
 		this.render(token);
 	},
 
