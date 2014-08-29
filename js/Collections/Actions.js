@@ -9,8 +9,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
-		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes'},
-		'note_manage' : {name: "Create note", icon: 'list', token: 'note', type: 'note', compound: 'note'},
+		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes', hidemetoken: 'hidden'}, //I was desperate
+		'note_manage' : {name: "Add note", icon: 'edit', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!

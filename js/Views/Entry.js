@@ -57,6 +57,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		this.mustacheTranslateRender(this.parameters);
 		
+		this.parameters.hasnotes = this.model.hasnotes();
+		
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -91,9 +93,13 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		// Action token
 		var action = $(element.currentTarget).data ('action');
-	
+		
 		if(action == 'note' || action == 'action-list')
-		{
+		{	
+			// Goddamn ugly hack for old timeline
+			if(this.template == 'messagetimeline')
+				Cloudwalkers.RootView.writeNote(this.model);
+
 			var token = $(element.currentTarget).data ('token');
 
 			this.toggleactions(action, token, element);
@@ -278,7 +284,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	//Temporarily, only notes or notifications
+	{	
+		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
 		collection.parentmodel = this.model;
@@ -438,7 +445,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		//this.addnote(note, true);
 		this.toggleactions('action-list', 'note');
 		this.newnote = true;
-		this.fetchactions('note');
+		//this.fetchactions('note');
 		
 		this.trigger('note:added');
 
@@ -605,7 +612,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"comments"
+			"comments",
+			"notes"
 		];
 
 		this.translated = [];

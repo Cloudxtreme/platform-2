@@ -1291,6 +1291,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
 	},
 
+	'hasnotes' : function()
+	{
+		var stats = this.get("stats");
+		var notes;
+
+		if(stats)
+			return stats.notes
+	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String

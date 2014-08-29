@@ -1751,9 +1751,11 @@ counter	{
 
 .inbox-container .message-notes ul li,
 #monitorparent .message-notes ul li{
-	margin-left: 0; background: #F2F0A0; min-height: 40px;
+	margin-left: 0; background: #F2F0A0; min-height: 20px;
 	border: none;
 }
+
+#monitorparent .message-notes ul li { min-height: 40px; }
 
 .inbox-container .message-notes ul li:last-child{
 	margin-bottom: 0px !important;
@@ -2182,9 +2184,12 @@ ul.contacts-list	{
 
 [data-notification-action="note"],
 #draftsparent [data-action="note"],
-#monitorparent [data-action="note"].oldbtn,
-#timeline [data-action="note"]{
+#monitorparent [data-action="note"].oldbtn{
 	display: none !important;
+}
+
+.message-action.hidden{
+	display: none;
 }
 
 /**
