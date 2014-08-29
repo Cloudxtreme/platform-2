@@ -48,7 +48,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(recycle)
 			this.stopListening(this.collection);
 
-		this.listenTo(this.collection, 'request', this.hidemore)
+		//this.listenTo(this.collection, 'request', this.hideloading)
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'sync', this.paginate);
 		this.listenTo(this.collection, 'ready', this.showmore);
@@ -437,12 +437,23 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 			this.hasmore = true;
 		else
 			this.hasmore = false;
+
+
 	},
 
 	'showmore' : function(){
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').empty();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 
 	'translateString' : function(translatedata)
@@ -470,9 +481,15 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		}
  	},
 	
-	'hidemore' : function()
+	'hideloading' : function ()
 	{
-		this.$el.find(".load-more").hide();
+		this.$el.find(".icon-cloud-download").hide();
+		this.$container.removeClass("inner-loading");
+		
+		if (this.model.messages.cursor)
+			this.hasmore = true;
+		else
+			this.hasmore = false;
 	},
 
 	'more' : function ()

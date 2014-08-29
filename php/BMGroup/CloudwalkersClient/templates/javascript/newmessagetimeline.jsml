@@ -9,7 +9,7 @@
 					{{#from}}
 
 						{{#showcontact}}
-							<span class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}"><b>{{displayname}}</b></span>
+							<span class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</span>
 						{{/showcontact}}
 						{{^showcontact}}
 							<span class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>

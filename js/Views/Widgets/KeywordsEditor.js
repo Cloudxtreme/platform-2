@@ -272,9 +272,9 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 
 			if(tokenValue){
 				if(splitValue[1] == '!='){
-					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + translation.translate_language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + translation.translate_language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				} else {
-					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + translation.translate_language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + translation.translate_language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				}
 				// Update chosen
 				$('#' + rand_id + ' select').val(tokenValue).trigger('change');
