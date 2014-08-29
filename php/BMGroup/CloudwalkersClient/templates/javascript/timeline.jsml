@@ -1,4 +1,9 @@
 <div class="timeline-bg"></div>
+	
+	<div class="filterbanner" id="timeline-filters">
+
+	</div>
+
 	<ul class="timeline social-box-colors messages-container" id='pages'>
 		
 		<li class="timeline-blue timeline-loading">

@@ -41,7 +41,7 @@ Style corrections and manual overrides
 
 /* Timeline loaded */
 
-/*ul.timeline	{ margin-top: 25px; }*/
+ul.timeline > li:nth-child(2)	{ padding-top: 25px; }
 
 .timeline .load-more { padding: 30px 0px 60px;}
 
