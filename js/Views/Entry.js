@@ -87,6 +87,19 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.message-actions').html(this.actions.render().el)
 
 		this.loadedlists = [];
+
+		// Temporary ugly hack to update actions on timeline
+		if(this.template == 'messagetimeline'){
+			this.actions.on('actions:update', this.updatetimelineactions.bind(this));
+		}
+	},
+
+	'updatetimelineactions' : function()
+	{
+		var notescount = this.actions.message.notes.length;
+		console.log(notescount)
+		if(notescount)
+			this.$el.find('.interaction > .notescount').html(notescount);
 	},
 	
 	'action' : function (element)
@@ -97,8 +110,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(action == 'note' || action == 'action-list')
 		{	
 			// Goddamn ugly hack for old timeline
-			if(this.template == 'messagetimeline')
-				Cloudwalkers.RootView.writeNote(this.model);
+			if(this.template == 'messagetimeline'){
+				var composenote = Cloudwalkers.RootView.writeNote(this.model);
+				this.listenTo(composenote.note, 'sync', this.noteadded);
+			}
 
 			var token = $(element.currentTarget).data ('token');
 
@@ -284,7 +299,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	
+	{	console.log("fetchactions", token)
 		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 

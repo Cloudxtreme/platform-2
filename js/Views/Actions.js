@@ -12,7 +12,6 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 		this.listenTo(this.message.notes, 'destroy', this.updateactions.bind(this, "notes"));
 		this.listenTo(this.message.actions, 'ready', this.updateactions);
 		this.listenTo(this.message.actions, 'destroy', this.updateactions);
-
 	},
 
 	'render' : function(token)
@@ -72,6 +71,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 	'updateactions' : function(token)
 	{	
 		this.render(token);
+		this.trigger("actions:update")
 	},
 
 	'renderactions' : function(position, actions)
