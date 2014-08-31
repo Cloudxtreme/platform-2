@@ -97,7 +97,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'updatetimelineactions' : function()
 	{
 		var notescount = this.actions.message.notes.length;
-		console.log(notescount)
+		
 		if(notescount)
 			this.$el.find('.interaction > .notescount').html(notescount);
 	},
@@ -299,7 +299,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	console.log("fetchactions", token)
+	{	
 		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
