@@ -9,8 +9,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
-		'note_view' : {name: "View notes", icon: 'edit', token: 'note-content', type: 'note'},
-		'note_manage' : {name: "Create note", icon: 'list', token: 'note-list', type: 'note'},
+		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes', hidemetoken: 'hidden'}, //I was desperate
+		'note_manage' : {name: "Add note", icon: 'edit', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
@@ -18,7 +18,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'dm' : {name: "DM", icon: 'comments-alt', token: 'dm', type: 'dialog', clone: true, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		// Hack!
-		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true,/* compound: 'comment', tokenview: 'comment-list', */maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike'},
@@ -45,7 +45,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'initialize' : function(models, options)
 	{
 		if(options) $.extend(this, options);
-		
+	
 		// Listen to action
 		this.listenTo( this.parent, "action", this.startaction);
 		
@@ -62,26 +62,40 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		var param = this.parameters? "?" + $.param (this.parameters): "";
 		var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
 		
-		return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
+		return Cloudwalkers.Session.api + '/' + parent + '/actions' + param;
+		// return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
 	},
 	
 	'rendertokens' : function (tokens)
 	{	
+		var stats = this.parent.get("stats");
+
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
-		
-		// Admin only
-		//if(!Cloudwalkers.Session.getUser().level) return [];
-		
+
 		return tokens.map(function(token)
-			{ return this.templates[token] }.bind(this));
+			{
+				if(stats)	this.appendstat(token);
+				return this.templates[token]
+
+			}.bind(this));
+	},
+
+	'appendstat' : function(token)
+	{	
+		if(!this.templates[token])	return;
+
+		var valuetag = this.templates[token].valuetag || null;
+		
+		if(valuetag && this.parent.get("stats").hasOwnProperty(valuetag))
+			this.templates[token].value = this.parent.get("stats")[valuetag];
+
 	},
 	
 	'startaction' : function (token)
-	{
+	{	
 		// Triggered action
 		var action = this.templates[token];
-
 		// Toggle
 		
 		this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);

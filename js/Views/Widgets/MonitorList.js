@@ -47,6 +47,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		// Load category message
 		this.category.messages.touch(this.category, this.parameters);
 		
+		this.addScroll();
+
 		return this;
 	},
 
@@ -57,6 +59,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 			this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
 		}
 
+		this.$el.find('#loadmore').empty();
+		
 		// Listen to category
 		this.listenTo(this.category.messages, 'seed', this.fill);
 		this.listenTo(this.category.messages, 'request', this.showloading);
@@ -86,8 +90,17 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 
 	'showmore' : function(){
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+		setTimeout(function()
+		{	//Hack
+			this.$container.css('max-height', 999999);
+
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').empty();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.category.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'fill' : function (list)
@@ -164,7 +177,7 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+		//this.addScroll();
 	},
 	
 	'addScroll' : function () {

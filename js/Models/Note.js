@@ -1,24 +1,27 @@
 Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'typestring' : 'notes',
+
 	'type_settings' : {
 		'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
 		'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
 		'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
 	},
 
-	'initialize' : function(options)
-	{
-		if(options) $.extend(this, options);
 
+
+	'initialize' : function()
+	{	
 		this.on('action', this.action);
 	},
 
 	'parse' : function (response) 
 	{	
+		// A new object
+		if (typeof response == "number") return response = {id: response};
+		
 		response = response.note? response.note : response;
 		
-		// Shouldn't this be a filtercontent function?
 		if(response.date)
 		{
 			response.fulldate = moment(response.date).format("DD MMM YYYY HH:mm");
@@ -26,19 +29,35 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 			response.time = moment(response.date).format("HH:mm");
 
 			response.type_icon = this.type_settings[response.model.objectType].icon;
-			
-			//var cobj = Cloudwalkers.Session.user.account[this.type_settings[response.model.objectType].typestring].get (id);
-			//Cloudwalkers.Session["get" + this.type_settings[response.model.objectType].model](response.model.id)
-			//response.model = cobj? cobj: new Cloudwalkers.Models[this.type_settings[response.model.objectType].model]({id: response.model.id});
-			//if(!response.model)
+			//Easy type check for templates
+			response[response.model.objectType] = true;
+
+			// Hack!
+			if(response.model) response.objectType = "note";
 		}
 
+		response.intro = response.text? response.text.substr(0, 72): " ";
+
 		return response;
+	},
+	
+	'attachParent' : function (type, id)
+	{
+		var type = this.type_settings[type].model;
+		var object = Cloudwalkers.Session["get" + type](id);
+
+		if(!object || !object.get('objectType'))
+		{
+			object = new Cloudwalkers.Models[type]({id: id});
+			object.fetch();
+		}
+		
+		return object;
 	},
 
 	'url' : function()
 	{	
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 
 		if(this.id)										url.push(this.typestring, this.id);
 		else if(!this.parent)							url.push(this.typestring);

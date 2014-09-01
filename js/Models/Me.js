@@ -17,7 +17,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
 		
-		return CONFIG_BASE_URL + "json/user/me" + param;
+		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	
 	'parse' : function (response)
@@ -37,6 +37,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		// For specific methods
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
@@ -128,10 +133,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 			// Role permissions
 			this.authorized = this.account.get("currentuser").authorized;
-			this.removerole('ACCOUNT_TAGS_MANAGE');
 			this.removerole('ACCOUNT_TAGS_VIEW');
-			this.removerole('ACCOUNT_NOTES_MANAGE');
-			this.removerole('ACCOUNT_NOTES_VIEW');
+			this.removerole('ACCOUNT_TAGS_MANAGE')
 
 			this.parseauthorized();
 			this.censuretokens = this.censure(this.authorized);			
@@ -156,7 +159,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		var index = this.authorized.indexOf(role);
 
 		if(index >= 0)
-			this.authorized.splice(index-1, index+1)
+			this.authorized.splice(index, index+1)
 	},
 
 	'censure' : function(permissions)
@@ -184,8 +187,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'offline' : function ()
 	{
+		Cloudwalkers.Session.reset();
+		window.location = "/login.html";
+		
 		// If Me exists local, use when offline.
-		if (Store.exists("me")) this.trigger("change");
+		// if (Store.exists("me")) this.trigger("change");
 	},
 	
 	'getCurrentAccount' : function()

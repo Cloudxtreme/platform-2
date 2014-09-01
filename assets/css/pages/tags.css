@@ -18,9 +18,14 @@
 }
 
 .inbox-container .message-actions .actions-left div {
-	top: 5px !important;
+	top: 0px !important;
 	vertical-align: top;
 	display: inline-block;
+}
+
+.inbox-container .message-actions .actions-left .btn-white,
+.inbox-container .message-actions .actions-right .btn-white{
+	margin-left: 3px;
 }
 
 .message-tags{
@@ -166,7 +171,7 @@ div.btn-white.pull-right {
 	border: 1px solid #ccc;
 }
 #compose .message-tags{
-	width: 90%;
+	/*width: 90%;*/
 	margin-right: 12px;
 	margin-top: 10px;
 }
@@ -190,8 +195,9 @@ div.btn-white.pull-right {
 #compose .inbox-container div.btn-white.pull-right{
 	margin-top: 7px
 }
-#compose .inbox-container .tag-input-append{
+#compose .inbox-container .tag-input-append {
 	margin-top: 5px;
+	margin-bottom: 3px;
 }
 #compose .inbox-container button{
 	margin-top: -1px;
@@ -206,4 +212,23 @@ div.btn-white.pull-right {
 
 .related-messages .actions-left{
  	margin-bottom: 14px;
+}
+
+aside .tag-input-append{
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+.inbox-container .message-actions .actions-left [data-action='note-compound'], .inbox-container .message-actions .actions-left [data-action='note-list']{
+	display: none;
+}
+.inbox-container .message-actions .message-tags .action-right{
+	display: none;
+}
+.inbox-container .message-actions .message-tags [data-action='note-compound'], .inbox-container .message-actions .message-tags [data-action='note-list']{
+	display: inline-block !important;
+}
+
+/* Google Plus Edit action fix */
+.inbox-container .message-actions div[data-action="edit"]{
+	display: none !important;
 }

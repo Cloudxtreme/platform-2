@@ -145,6 +145,7 @@
 	border-radius: 50% !important; 
 	background-size: cover;
 	float: left;
+	background-position: center;
 }
 
 #inboxlist .list li.active .avatar {
@@ -187,6 +188,35 @@
 
 #inboxlist .list .link:hover	{
 	text-decoration: none; background: #333;
+}
+
+/* Notes Variation */
+.inbox-notes #inboxlist .list li.active,
+.inbox-notes #inboxlist .list li.active:hover,
+.inbox-notes #inboxlist .list li.active strong,
+.inbox-notes #inboxlist .list li.active .date,
+.inbox-notes #inboxlist .list li.active	{
+	background: #F2F0A0 !important;
+	color: inherit;
+}
+
+.inbox-notes #inboxlist .note-icon	{
+	float: left; padding: 1px 6px; background-color: #6c5f5c; border-radius: 50%; box-shadow: 0 0 0 2px #fff;
+	color: white; line-height: 26px;
+}
+
+.inbox-notes #inboxlist .note-subject	{
+	min-height: 20px;
+	color: #6c5f5c;
+}
+
+.inbox-notes #inboxlist .list li.active .content,
+.inbox-notes #inboxlist .list li.active .date{
+	color: #5b514e;
+}
+
+.inbox-notes #inboxlist .list li .content{
+	padding-top: 15px;
 }
 
 
@@ -310,3 +340,184 @@
 	margin-top: -2px; width: 24px; height: 24px; border: 0;  background-color: #ddd; border-radius: 50% !important; 
 }
 
+/* Inbox Note */
+
+.inbox-container .note, .messagelist .note {
+	background: #faf8bf !important; box-shadow: 0 0 3px #d6d6d6;
+	position: relative;
+	margin-top: 70px;
+}
+
+#compose.viewcontact #inboxlist .list li.note{
+	margin: 20px 30px 20px 37px;
+	padding: 0px;
+}
+
+.inbox-container .note:before, .messagelist .note:before{
+	content: "";
+	position: absolute;
+	top: -50px;
+	right: 0;
+	border-width: 50px 0 0 80px;
+	border-style: solid;
+	border-color: transparent #e5e282;
+}
+
+.inbox-container .note:after{
+	content: "";
+	position: absolute;
+	top: -60px;
+	right: 40px;
+	border-width: 60px 0px 0px 40px;
+	border-style: solid;
+	border-color: transparent #eee;
+}
+
+.inbox-container .note.nocontext, .messagelist .note.nocontext{
+	margin-top: 10px;
+}
+
+.inbox-container ul.related-messages .note:before,
+.inbox-container ul.related-messages .note:after,
+.inbox-container .note.nocontext:after,
+.inbox-container .note.nocontext:before{
+	border: none;
+}
+
+.inbox-container .note .scroller	{ padding-right: 0 !important; }
+
+.inbox-container .note .note-header, .messagelist .note .note-header{
+	padding: 8px 10px; background-color: #F2F0A0;
+	color: #6c5f5c;
+	border-bottom: 1px dashed #D3D2A1;
+	min-height: 30px;
+}
+.inbox-container .note .note-header > span, .messagelist .note .note-header > span{
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.inbox-container .note-icon, .messagelist .note-icon {
+	padding: 2px 6px; color: white; border-radius: 50%; border: 2px solid white;
+}
+
+.inbox-container .note-header .inherit, .messagelist .note-header .inherit { padding: 10px; font-weight: 300; }
+
+.inbox-container .note .note-header img.avatar, #inboxlist .messagelist .note .note-header img.avatar {
+	float: left; margin: -2px 8px 4px 0; width: 30px; height: 30px;  background-color: #fff; border: 2px solid white; border-radius: 50% !important; 
+}
+
+.inbox-container .note-header a, .messagelist .note-header a {
+	color: inherit; font-weight: bold;
+}
+
+.inbox-container .note-header .date, #inboxlist .messagelist .note-header .date {
+	display: block; font-size: 12px;
+	font-style: italic;
+	opacity: .8;
+	padding-right: 10px;
+	margin-top: 7px;
+	width: auto;
+}
+
+/*.inbox-container .note-header i, .messagelist .note-header i {
+	opacity: .5; font-size: 14px; float: right;
+}*/
+
+.inbox-container .note-body, .messagelist .note-body {
+	padding: 12px 18px; min-height: 20px;
+}
+
+#inboxlist .messagelist .note .message-actions{
+	padding: 5px 18px;
+}
+
+.inbox-container .single-contact{
+	background: white; box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	padding: 15px; position: relative; border-right: 5px solid;
+	cursor: pointer;
+}
+
+.inbox-container .single-contact .avatar{
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	background-color: #ddd;
+	border-radius: 50% !important;
+	float: left;
+}
+
+/*.inbox-container .single-contact .network-icon{
+	width: 100px; 
+	background-color: rgba(0,0,0,.12); 
+	position: absolute; 
+	height: 100%; 
+	top: 0px; right: 0px;
+	padding-top: 20px;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+*/
+.inbox-container .single-contact i{
+	font-size: 80px;
+	position: absolute;
+	top: 25px;
+	opacity: .05;
+	right: 20px;
+}
+
+.inbox-container .single-contact .name{
+	font-size: 16px;
+	color: #005580;
+	margin-top: 30px;
+	margin-left: 20px;
+	float: left;
+}
+
+.inbox-container .single-contact .muted{
+	font-size: 12px;
+}
+
+.single-contact.facebook-color{	border-color: #3b5998; }
+.single-contact.youtube-color{		border-color: #CC181E; }
+.single-contact.twitter-color{ 	border-color: #01a9da; }
+.single-contact.linkedin-color{	border-color: #1783BC; }
+.single-contact.tumblr-color{ 		border-color: #385775; }
+.single-contact.google-plus-color{ border-color: #DD4C39; }
+.single-contact.web-color{ 		border-color: #ff9c00; }
+.single-contact.blog-color{		border-color: #ff9c00; }
+.single-contact.briefcase-color{ 	border-color: #4a4a4a; }
+
+div[class^="context-icon-"]{
+	width: 18px;
+	height: 18px;
+	padding: 1px 2px;
+	margin: 0 0 0 8px;
+	background-color: #E5E282;
+	border-radius: 2px !important;
+	color: white;
+	text-align: center;
+}
+
+div[class^="context-icon-"]:before{
+	font-family: FontAwesome;
+	content: "";
+	font-size: 16px;
+}
+
+div.context-icon-contact:before{
+	content: "\F007";
+}
+
+div.context-icon-message:before{
+	content: "\f0e0";
+}
+
+div.context-icon-account:before{
+	content: "\F0c2";
+}
+div.context-icon-comment:before{
+	content: "\f0e0";
+}

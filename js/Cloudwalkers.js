@@ -1,5 +1,7 @@
 var Cloudwalkers = {
-
+	
+	'version' : 1,
+	
 	'Views' : {
 		'Settings': {},
 		'Widgets' : {
@@ -14,6 +16,17 @@ var Cloudwalkers = {
 	'init' : function ()
 	{
 
+		// Check if there is authentication
+		Store.get("settings", {key: "token"}, function(entry)
+		{
+			Cloudwalkers.Session.authenticationtoken = entry? entry.value: undefined;
+			
+			if(!entry) window.location = "/login.html";
+		});
+		
+		// Define API root
+		Cloudwalkers.Session.api = config.api[window.location.origin] + Cloudwalkers.version;
+		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
 		{
@@ -122,9 +135,11 @@ Backbone.Model = Backbone.Model.extend({
 	'url' : function (params)
     {
         return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
+        	
+        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
+        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
     },
     
     'parse' : function(response)
@@ -140,6 +155,11 @@ Backbone.Model = Backbone.Model.extend({
     
     'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -157,6 +177,11 @@ Backbone.Model = Backbone.Model.extend({
 		Store.set(this.typestring, params);
 		
 		return this;
+	},
+	
+	'loaded' : function(param)
+	{
+		return this.get(param? param: "objectType") !== undefined;
 	}
 });
 
@@ -188,8 +213,8 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		var url = (this.parentmodel)?
 	
-			CONFIG_BASE_URL + "json/" + this.parenttype + "/" + this.parentmodel.id :
-			CONFIG_BASE_URL + "json/"+ this.typestring;
+			Cloudwalkers.Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
+			Cloudwalkers.Session.api + '/' + this.typestring;
 				
 		if(this.endpoint)	url += "/" + this.endpoint;
 	
@@ -213,6 +238,16 @@ Backbone.Collection = Backbone.Collection.extend({
 		if(!response.paging) this.ready();
 		
 		return response[this.typestring];
+	},
+	
+	'sync' : function (method, model, options)
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
+		return Backbone.sync(method, model, options);
 	},
 	
 	'setcursor' : function (paging) {

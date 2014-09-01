@@ -50,12 +50,14 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		this.$container = this.$el.find ('.messages-container');
 		this.$loadercontainer = this.$el.find ('.portlet-body');
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 		
 		// Load category message
 		this.model.messages.touch(this.model, params? params: this.parameters);
+		
+		this.addScroll();
 		
 		return this;
 	},
@@ -68,7 +70,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	'showloading' : function ()
 	{
 		this.$el.find(".icon-cloud-download").show();
-		this.$el.find(".load-more").hide();
+		//this.$el.find(".load-more").hide();
 	},
 	
 	'hideloading' : function ()
@@ -82,10 +84,20 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 			this.hasmore = false;
 	},
 
-	'showmore' : function(){
+	'showmore' : function()
+	{
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').empty();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
+		
 	},
 	
 	'fill' : function (list)
@@ -147,12 +159,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	
 	'more' : function ()
 	{
-		this.incremental = true;
-		
-		//console.log(parameters)
-		
-		var hasmore = this.model.messages.more(this.model, this.parameters); //this.model.parameters);
-		
+		this.incremental = true;	
+				
+		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();
 	},
 
@@ -181,7 +190,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		
 		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 		
-		this.addScroll();
+//		this.addScroll();
 	},
 	
 	'addScroll' : function () {

@@ -5,7 +5,8 @@ Cloudwalkers.Views.Notification = Cloudwalkers.Views.Entry.extend({
 	'events' : {
 		'mouseover' : 'toggleactions',
 		'mouseout' : 'toggleactions',
-		'click *[data-notification-action]' : 'action'
+		'click *[data-notification-action]' : 'action',
+		'click .viewcommentcontact': 'togglecommentcontact'
 	},
 	
 	/*'initialize' : function (options)
@@ -23,7 +24,6 @@ Cloudwalkers.Views.Notification = Cloudwalkers.Views.Entry.extend({
 
 	'render' : function ()
 	{
-		
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
@@ -90,6 +90,12 @@ Cloudwalkers.Views.Notification = Cloudwalkers.Views.Entry.extend({
 		// Mark stream
 		if (this.model.get("stream"))
 			Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
+	},
+
+	'togglecommentcontact' : function()
+	{
+		var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
+		if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 	}
 	
 	/*'action' : function (element)

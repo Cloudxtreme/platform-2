@@ -13,7 +13,7 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 	
 	'url' : function()
 	{	
-		var url = [CONFIG_BASE_URL + "json"];
+		var url = [Cloudwalkers.Session.api];
 		
 		if(this.parent)				url.push(this.parent.typestring, this.parent.id);
 		if(this.typestring)			url.push(this.typestring);		
@@ -27,13 +27,13 @@ Cloudwalkers.Models.Action = Backbone.Model.extend({
 	
 	
 	'parse' : function(data)
-	{
+	{	
 		// Catch hierarchy
 		if (this.parent && data[this.parent.get("objectType")]) data = data[this.parent.get("objectType")];
 
-        // Hack -> CLOUD-617
-        else if (this.parent && this.parent.get("objectType") == 'comment')
-            data = data['message']
+		// Hack -> CLOUD-617
+		else if (this.parent && this.parent.get("objectType") == 'comment')
+			data = data['message']
 		
 		return data;
 	}

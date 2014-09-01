@@ -55,7 +55,9 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
 		
-		Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).save({name: name});
+		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
+		channel.endpoint = '';
+		channel.save({name: name});
 		
 		$cat.find('h4').html(name);
 		

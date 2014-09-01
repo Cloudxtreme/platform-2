@@ -4,6 +4,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'template': 'messageentry',
 	'notifications' : [],
 	'parameters' : {},
+	'loadedlists' : [],
 	
 	'events' : 
 	{
@@ -22,7 +23,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(options) $.extend(this, options);
 
 		this.loadmylisteners();
-		
 	},
 
 	'loadmylisteners' : function()
@@ -34,7 +34,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{
+	{	
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
@@ -56,7 +56,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
 		
 		this.mustacheTranslateRender(this.parameters);
-
+		
+		this.parameters.hasnotes = this.model.hasnotes();
+		
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -70,29 +72,71 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 				
 			//Load note composer
 			this.loadnoteui();
-		}	
+		}
+
+		if(this.parameters.hasactions)
+			this.renderactions();
 
 		return this;
+	},
+
+	'renderactions' : function()
+	{	
+		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
+		
+		this.$el.find('.message-actions').html(this.actions.render().el)
+
+		this.loadedlists = [];
+
+		// Temporary ugly hack to update actions on timeline
+		if(this.template == 'messagetimeline'){
+			this.actions.on('actions:update', this.updatetimelineactions.bind(this));
+		}
+	},
+
+	'updatetimelineactions' : function()
+	{
+		var notescount = this.actions.message.notes.length;
+		
+		if(notescount)
+			this.$el.find('.interaction > .notescount').html(notescount);
 	},
 	
 	'action' : function (element)
 	{
 		// Action token
-		var token = $(element.currentTarget).data ('action');
+		var action = $(element.currentTarget).data ('action');
 		
-		if(token == 'note-content' || token == 'note-list'){
-			this.togglenoteaction(token);
-		}else if(token == 'note-edit'){
+		if(action == 'note' || action == 'action-list')
+		{	
+			// Goddamn ugly hack for old timeline
+			if(this.template == 'messagetimeline'){
+				var composenote = Cloudwalkers.RootView.writeNote(this.model);
+				this.listenTo(composenote.note, 'sync', this.noteadded);
+			}
+
+			var token = $(element.currentTarget).data ('token');
+
+			this.toggleactions(action, token, element);
+		}
+		else if(action == 'note-edit')
+		{
 			this.editnote();
-		}else if(token == 'tag-showedit'){
+		}
+		else if(action == 'tag-showedit')
+		{
 			this.showtagedit();
-		}else if(token == 'tag-add'){
+		}
+		else if(action == 'tag-add')
+		{
 			var tag = $(element.currentTarget).siblings( "input" ).val();
 			if(tag) {
 				this.submittag(tag);
 				$(element.currentTarget).siblings( "input" ).val('');
 			}
-		}else if(token == 'viewcontact'){
+		}
+		else if(action == 'viewcontact')
+		{
 
 			//We are inside viewcontact modal
 			if(this.parent)	return;
@@ -100,8 +144,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
 			if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 			
-		}else
-			this.model.trigger("action", token);
+		}
+		else
+			this.model.trigger("action", action);
 	},
 
 	'editnote' : function()
@@ -115,6 +160,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(composenote, 'save:success', this.saved);
 
 		this.$el.find('.message-body').addClass('note-content').html(composenote.render().el);
+		this.$el.find('.message-actions').addClass('hidden');
 
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
@@ -128,9 +174,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'canceledit' : function(collapse)
 	{	
 		this.loadmylisteners();
+		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
-			this.togglenoteaction('note-content');
+			this.toggleaction('note');
 		else{
 			this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
 			
@@ -147,41 +194,161 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}.bind(this),200)
 	},
 
-	'togglenoteaction' : function(token)
-	{
-		var other = token == 'note-list'? 'note-content': 'note-list';
-		var container = this.$el.find('.message-notes');
-		var element = this.$el.find('.'+token);
+	'toggleactions' : function(action, token, element)
+	{	
+		if(element && $(element.currentTarget).hasClass('noresults'))	return;
 
-		var clicked = this.$el.find('[data-action='+token+']');
-		var otherbutton = this.$el.find('[data-action='+other+']');
+		//var other = action == 'action-list'? token: 'action-list';
+		//Buttons
+		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
+		/*var otherbutton = this.$el.find('[data-action='+other+']');
+		var inactivebuttons = this.$el.find('.actionvalue.inactive');*/
+		
+		if(!clickedbutton.hasClass('inactive'))
+			this.processaction('open', action, token)
 
+		else if(clickedbutton.hasClass('inactive'))
+			this.processaction('close')
+		
+
+		//container & list
+		/*var container = this.$el.find('.message-notes');
+		var list = this.$el.find('.action-list');
+
+		// Only for write note
 		other = this.$el.find('.'+other);
 		
-		if(!container.is(':visible') && !clicked.hasClass('inactive'))
+		if(!container.is(':visible') && !clickedbutton.hasClass('inactive'))	// Check
 		{	
-			this.$el.find('.message-notes').slideDown();
-			element.slideDown();
-			clicked.addClass('inactive');
+			this.$el.find('.message-notes').slideDown(); 	//slide container
+			list.slideDown();							 	//render list
+			clickedbutton.addClass('inactive');				//update button
 		}
-		else if(container.is(':visible') && !clicked.hasClass('inactive'))
+		else if(container.is(':visible') && !clickedbutton.hasClass('inactive'))
 		{	
 			other.slideUp('fast');
-			otherbutton.removeClass('inactive');
-			element.slideDown();
-			clicked.addClass('inactive');
+			inactivebuttons.removeClass('inactive');
+			list.slideDown();
+			clickedbutton.addClass('inactive');
 		}
-		else if(container.is(':visible') && clicked.hasClass('inactive'))
+		else if(container.is(':visible') && clickedbutton.hasClass('inactive'))
 		{
 			this.$el.find('.message-notes').slideUp();
-			clicked.removeClass('inactive');
+			clickedbutton.removeClass('inactive');
 			other.slideUp();
-			element.slideUp();
+			list.slideUp();
 		}
 		
-		if(token == 'note-list' && !this.loadednotes)
-			this.fetchnotes();
+		if(action == 'action-list' && !this.loadednotes)
+			this.fetchnotes();*/
 
+	},
+
+	'processaction' : function(operation, action, token)
+	{	
+		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
+		var inactivebuttons = this.$el.find('.actionvalue.inactive');
+		var inactivebuttonss = this.$el.find('.actionname.inactive');
+		var lists = this.$el.find('.action-list');
+		var notecontent = this.$el.find('.note-content');
+
+		var delay = false;
+
+		//Is there a delay needed in the animation?
+		if(lists.is(':visible') || notecontent.is(':visible'))
+			delay = true;
+
+		// Buttons
+		inactivebuttons.removeClass('inactive');
+		inactivebuttonss.removeClass('inactive');
+
+		//Lists or other things
+		this.$el.find('.action-list').slideUp('fast');
+		this.$el.find('.note-content').slideUp('fast');
+
+		if(operation == 'close')
+			return;
+
+		// Expand lists & stuff //
+
+		setTimeout(function()
+		{
+			clickedbutton.addClass('inactive');	
+
+			if(action == 'action-list')
+				this.expandlist(token);
+
+			// Composenote
+			else if(action == 'note')
+				notecontent.slideDown();
+
+		}.bind(this),delay? 200: 1);
+
+	},
+
+	'expandlist' : function(token)
+	{
+		var list = token+'list';
+		
+		//Check if list has been fetched already
+		if(this.loadedlists.indexOf(list) < 0)
+			return this.fetchactions(token)		
+		
+		this.$el.find('.action-list.'+token+'-list').slideDown();
+
+	},
+
+	'fetchactions' : function(token)
+	{	
+		//Temporarily, only notes or notifications
+		var collection = token == 'note'? this.model.notes: this.model.notifications;
+
+		collection.parentmodel = this.model;
+		collection.parenttype = 'message';
+		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
+
+		collection.touch(this.model, {records: 999});
+
+		this.loadedlists.push(token+'list');
+	},
+
+	'fillactions' : function(token, actions, update)
+	{	
+		// Create the list div
+		var listclass = token+'-list';
+
+		if(!actions.length)
+			return this.$el.find('.action-list li').html('No actions found')
+
+		this.$el.find('.'+listclass).remove();
+		
+		var container = this.$el.find('.action-lists').append('<ul class="action-list '+listclass+'"></ul>');
+
+		// Fill it
+		for(n in actions)
+		{	
+			this.addaction(actions[n], token);
+		}
+
+		//container.slideDown();
+	},
+
+	'addaction' : function(action, token)
+	{	
+		var options = {model: action, template: token == 'note'? 'messagenote': 'timelinecomment'}
+		var listclass = token+'-list';
+		var action;
+
+		if(this.newaction)	options.isnew = true;
+
+		if(token == 'note')
+			action = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+		else
+			action = new Cloudwalkers.Views.Notification(options);
+
+		this.$el.find('.'+listclass).append(action.render().el);
+
+		this.newaction = false;
 	},
 	
 	'toggleaction' : function (token, newaction)
@@ -275,30 +442,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.note-content').append(composenote.render().el);		
 	},
 
-	'fetchnotes' : function()
-	{	
-		var notes = new Cloudwalkers.Collections.Notes();		
-		notes.parentmodel = this.model;
-		notes.parenttype = 'message';
-		this.listenTo(notes,'seed', this.fillnotes);
-
-		notes.touch(this.model);
-
-		this.loadednotes = true;
-	},
-
-	//Notes list
-	'fillnotes' : function(notes)
-	{	
-		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
-		else				this.$el.find('.note-list').empty();
-
-		for(n in notes)
-		{	
-			this.addnote(notes[n]);
-		}
-	},
-
 	'addnote' : function(newnote)
 	{	
 		var options = {model: newnote, template: 'messagenote'}
@@ -315,9 +458,11 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'noteadded' : function(note)
 	{	
 		//this.addnote(note, true);
-		this.togglenoteaction('note-list');
+		this.toggleactions('action-list', 'note');
 		this.newnote = true;
-		this.fetchnotes();
+		this.fetchactions('note');
+		
+		this.trigger('note:added');
 
 		this.composenote.remove();
 		this.loadnoteui();
@@ -482,7 +627,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"comments"
+			"comments",
+			"notes"
 		];
 
 		this.translated = [];

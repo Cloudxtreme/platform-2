@@ -50,6 +50,7 @@
 <script type="text/javascript" src="/js/Collections/Messages.js"></script>
 <script type="text/javascript" src="/js/Collections/CannedResponses.js"></script>
 <script type="text/javascript" src="/js/Collections/Related.js"></script>
+<script type="text/javascript" src="/js/Collections/RelatedNotes.js"></script>
 <script type="text/javascript" src="/js/Collections/Notifications.js"></script>
 <script type="text/javascript" src="/js/Collections/Actions.js"></script>
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
@@ -61,6 +62,7 @@
 <script type="text/javascript" src="/js/Views/Root.js"></script>
 <script type="text/javascript" src="/js/Views/Navigation.js"></script>
 <script type="text/javascript" src="/js/Views/Compose.js"></script>
+<script type="text/javascript" src="/js/Views/ComposeNote.js"></script>
 <script type="text/javascript" src="/js/Views/Preview.js"></script>
 <script type="text/javascript" src="/js/Views/Share.js"></script>
 <script type="text/javascript" src="/js/Views/Pageview.js"></script>
@@ -69,6 +71,9 @@
 <script type="text/javascript" src="/js/Views/ViewContact.js"></script>
 <script type="text/javascript" src="/js/Views/Editor.js"></script>
 <script type="text/javascript" src="/js/Views/Resync.js"></script>
+<script type="text/javascript" src="/js/Views/ContactCard.js"></script>
+<script type="text/javascript" src="/js/Views/Actions.js"></script>
+<script type="text/javascript" src="/js/Views/Action.js"></script>
 <!--<script type="text/javascript" src="/js/Views/Widget.js"></script>-->
 
 <!-- Deprecated Views -->
@@ -99,6 +104,7 @@
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
+<script type="text/javascript" src="/js/Views/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/User.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
@@ -128,7 +134,9 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessageList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxNotificationList.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNotesList.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/InboxMessage.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
@@ -154,6 +162,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Barchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Piechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Table.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/LoadMore.js"></script>
 
 <!-- Deprecated views -->
 <script type="text/javascript" src="/js/Views/Widgets/InboxDemoList.js"></script>

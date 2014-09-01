@@ -1,11 +1,10 @@
 
-a.viewdetails,
-img.viewdetails{
+.viewdetails{
 	cursor: pointer;
 }
 
 #compose.viewcontact{
-	height: 620px;
+	height: 605px;
 }
 
 #compose.viewcontact #inboxlist{
@@ -13,7 +12,11 @@ img.viewdetails{
 }
 
 #compose.viewcontact #inboxlist .list li{
-	padding: 8px 20px 10px;
+	padding: 8px 30px 10px 20px
+}
+
+#compose.viewcontact #inboxlist .list li > .pull-right{
+	right: 35px;
 }
 
 #compose.viewcontact #inboxlist .closewrapper{
@@ -52,7 +55,7 @@ img.viewdetails{
 .viewcontact .inbox-container{
 	float: left;
 	width: 50%;
-	padding: 0px 20px 20px 55px;
+	padding: 0px 30px 20px 37px;
 	box-sizing: border-box;
 	position: relative;
 	height: 100%;
@@ -106,6 +109,7 @@ img.viewdetails{
 	background-color: #ddd;
 	border-radius: 50% !important;
 	border: 2px solid #ddd;
+	background-size: cover;
 }
 
 .viewcontact aside .contactavatar img{
@@ -156,12 +160,6 @@ img.viewdetails{
 	-webkit-transition: all .15s ease-out;
 }
 
-.viewcontact aside .contact-header:hover .network-icon,
-.viewcontact aside .contact-header:hover h5,
-.viewcontact aside .contact-header:hover span{
-	text-shadow: 0px 2px 2px rgba(0,0,0,0.7);
-}
-
 .viewcontact aside .contact-header:hover a{
 	text-decoration: none !important;
 }
@@ -198,6 +196,16 @@ img.viewdetails{
 .viewcontact aside .contact-header.blog-color{		background-color: #ff9c00 }
 .viewcontact aside .contact-header.briefcase-color{ 	background-color: #4a4a4a }
 
+.viewcontact aside .contact-header:hover.facebook-color{	background-color: #4162a3 }
+.viewcontact aside .contact-header:hover.youtube-color{		background-color: #d11a21 }
+.viewcontact aside .contact-header:hover.twitter-color{ 	background-color: #01b2de }
+.viewcontact aside .contact-header:hover.linkedin-color{	background-color: #1990c3 }
+.viewcontact aside .contact-header:hover.tumblr-color{ 		background-color: #3e6081 }
+.viewcontact aside .contact-header:hover.google-plus-color{ background-color: #e0543f }
+.viewcontact aside .contact-header:hover.web-color{ 		background-color: #ffa600 }
+.viewcontact aside .contact-header:hover.blog-color{		background-color: #ffa600 }
+.viewcontact aside .contact-header:hover.briefcase-color{ 	background-color: #525252 }
+
 .viewcontact #contactfilter{
 	text-align: left;
 }
@@ -220,6 +228,12 @@ img.viewdetails{
 
 .viewcontact ul.list li:hover .arrow{
 	color: #999;
+	opacity: 1;
+	-webkit-transition: 'opacity' .15s ease-out;
+}
+
+.writenote .arrow{
+	opacity: 0;
 }
 
 .viewcontact.onmessage .modal-body{
@@ -324,8 +338,26 @@ img.viewdetails{
 	min-height: 140px !important;
 }
 
+.viewcontact aside textarea{
+	padding-left: 8px;
+	min-height: 150px !important;
+}
+
 .viewcontact #notefield #post{
 	float: right;
+}
+
+.blocker{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+}
+
+.writenote .blocker{
+	z-index: 99;
 }
 
 /* Write note modal */
@@ -363,6 +395,31 @@ img.viewdetails{
 	border-radius: 0px !important;
 	border-right: 0px !important;
 	border-left: 0px !important;
+}
+
+.viewcontact .note .message-header{
+	background-color: transparent;
+	border-bottom: 1px dashed #fff;
+}
+
+.viewcontact .note:before{
+	content: none;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active{
+	background: #F2F0A0 !important;
+	color: inherit;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active strong,
+#compose.viewcontact #inboxlist .list > li.note.active .date,
+#compose.viewcontact #inboxlist .list > li.note.active .media{
+	background: #F2F0A0 !important;
+	color: #5b514e !important;
+}
+
+#compose.viewcontact #inboxlist .list > li.note.active .content{
+	color: #5b514e;
 }
 	
 /* DEMO Note end*/ 

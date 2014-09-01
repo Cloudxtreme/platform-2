@@ -31,7 +31,7 @@ Style corrections and manual overrides
 
 /* White Button */
 .btn-white	{
-	padding: 4px 10px; max-width: 100%;  border: 1px solid #ddd; box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
+	padding: 4px 10px; max-width: 100%;  border: 1px solid rgba(0,0,0,0.15); box-shadow: 0 1px #eee; overflow: hidden; cursor: pointer;
 	color: #4a4a4a; white-space: nowrap; text-overflow: ellipsis;
 }
 .btn-white:hover	{ color: black; }
@@ -46,7 +46,9 @@ li.btn-white	{
 	margin-bottom: 4px; 
 }
 
-.btn-white.inactive	{
+.btn-white.inactive,
+.btn-white.btn-compound .actionvalue.inactive,
+.btn-white.btn-compound .actionname.inactive	{
 	background: #eee; border: 1px solid #ccc; box-shadow: inset 0 1px #e0e0e0;
 	color: #999; text-shadow: 0 1px white;
 	-webkit-box-sizing: border-box;
@@ -64,6 +66,38 @@ li.btn-white	{
 .btn-white.btn-round	{
 	display: block; width: 32px; height: 32px; padding: 4px; border-radius: 100% !important;
 	font-size: 18px; text-align: center; line-height: 1.72em;
+}
+
+.btn-compound{
+	position: relative;
+	padding: 0px;
+}
+
+.btn-compound .btn-white span{
+	margin-left: 3px;
+}
+
+.btn-compound .btn-white.actionvalue{
+	float: left;
+	top: 0px;
+	padding: 4px 7px 4px 9px;
+}
+
+.btn-compound .btn-white.actionvalue.noresults > i,
+.btn-compound .btn-white.actionvalue.noresults > span{
+	opacity: .4;
+}
+
+.btn-compound .btn-white.actionvalue.noresults:hover{
+	color: #4a4a4a !important;
+}
+
+.btn-compound .btn-white.actionname{
+	float: left;
+	top: 0px;
+	padding: 4px 9px 4px 7px;
+	border-left: 0px;
+	margin-left: 0px !important;
 }
 
 
@@ -489,6 +523,18 @@ tbody.messages-container i	{
 	font-weight: 300;
 }
 
+#monitorparent #monitorlist.portlet .messages-container li{
+	padding: 0px !important;
+}
+
+#monitorparent #monitorlist.portlet .messages-container li > div:first-child{
+	padding: 10px 8px;
+}
+
+#monitorparent .action-list{
+	background-color: #fff;
+}
+
 .portlet .messages-container > li:nth-child(odd),
 .portlet .messages-container > a:nth-child(odd) li	{ background:#f5f5f5 }
 
@@ -510,6 +556,10 @@ tbody.messages-container i	{
 	font-size: 18px; float: left; padding: 2px 4px 0 0;
 }
 
+#monitorparent .portlet .messages-container .btn-compound i	{
+	font-size: 13px; float: none; padding: 0px;
+}
+
 .viewcontact i{ cursor: pointer; }
 
 .portlet .messages-container .viewcontact i	{
@@ -523,10 +573,10 @@ tbody.messages-container i	{
 /* Notes */
 .message-notes{
 	border-top: 1px solid #ddd;
-	display: none;
+	
 }
 
-.message-notes .note-list .modal-header{
+.message-notes .action-list .modal-header{
 	display: none;
 }
 
@@ -542,7 +592,7 @@ tbody.messages-container i	{
 
 .message-notes .note-content .modal-body textarea,
 .message .note-content .modal-body textarea,
-.message-notes .note-list .modal-body textarea{
+.message-notes .action-list .modal-body textarea{
 	width: 100%;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
@@ -551,17 +601,21 @@ tbody.messages-container i	{
 	padding: 8px !important;
 }
 
-.message-notes ul.note-list,
+
 .message-notes .note-content{
 	display: none;
 }
 
-.message-notes ul.note-list{
-	padding: 10px;
+.modal-body .checkbox{
+	padding-left: 20px !important;
+}
+
+.message-notes ul.action-list{
+	padding: 10px !important;
 	margin-left: 0px;
 }
 
-.message-notes ul.note-list li{
+.message-notes ul.action-list li{
 	margin-bottom: 5px;
 	position: relative;
 	list-style: none;
@@ -572,15 +626,32 @@ tbody.messages-container i	{
 	        transition: background 1s ease-out;
 }
 
-.message-notes ul.note-list li.new{
+.message-notes ul.action-list li.new{
 	background: #2bbedc;
 }
 
-.message-notes ul.note-list li .note-header{
+.message-notes ul.action-list li .note-header{
 	cursor: pointer;
 }
 
-.message-notes ul.note-list li .note-header:after{
+.message-notes ul.action-list li .note-header .message-actions,
+.message-notes ul.action-list li .note-header .comment-info{
+	clear: right;
+}
+
+#keywordfilter-actions.message-actions .actions-right{
+	margin-left: 0px;
+}
+
+#keywordfilter-actions.message-actions{
+	position: absolute; bottom: 8px; right: 8px; background: #fff; padding: 0px !important;
+}
+
+#keywordfilter-actions.message-actions .actions-left{
+	display: none;
+}
+
+.message-notes ul.action-list li .note-header:after{
 	position: absolute; 
 	content: "\F107"; font-family: FontAwesome; font-size: 20px; color: #aac1cd; text-align: center;
 	width: 100%;
@@ -590,13 +661,21 @@ tbody.messages-container i	{
 	padding-top: 10px;
 }
 
-.message-notes ul.note-list li .modal-footer{
+.message-notes ul.action-list li .modal-footer{
 	margin: 10px -11px -11px -11px;
+}
+
+#monitorparent .message-notes ul.action-list li .modal-footer{
+	margin: 10px -18px -15px -18px;
 }
 
 .message-notes ul li .note-body{
 	display: none;
 	margin-top: 20px;
+}
+
+#monitorparent .message-notes ul li .note-body{
+	margin-top: 0px;
 }
 
 .message-notes ul li .note-body textarea{
@@ -610,12 +689,34 @@ tbody.messages-container i	{
 	height: 10px;
 }
 
-.message-notes ul li .message-actions .notification-action{
+.message-actions .notification-action{
 	z-index: 99;
+	padding: 5px;
+	float: left;
+	width: 18px;
+	background-color:#fff;
+	background-color: rgba(255,255,255,0.5);
+}
+
+.action-list .message-actions,
+.message-comments .message-actions{
+	padding-right: 0px !important;
+	padding-top: 4px !important;
+}
+
+.message-actions .notification-action i{
+	opacity: .5;
+	font-size: 14px;
+	float: right;
+	padding-right: 0px;
+}
+
+.message-actions .notification-action:hover{
+	background-color: rgba(255,255,255,1);
 }
 
 .message-body.note-content{
-	padding: 0px 0px 18px !important;
+	padding: 0px 0px 0px !important;
 }
 
 .message-body.note-content textarea{
@@ -625,6 +726,28 @@ tbody.messages-container i	{
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+/* Notes & entry listing style */
+#inboxlist .list li.noteentry,
+#inboxlist .list li.noteentry.unread,
+#inboxlist .list li.noteentry:nth-child(odd),
+#inboxlist .list li.noteentry.unread:nth-child(odd),
+#inboxlist .list li.noteentry .date{
+	background: #fbfad8;
+	color: #444;	
+}
+
+#inboxlist .list li.noteentry.active,
+#inboxlist .list li.noteentry:hover,
+#inboxlist .list li.noteentry.active:hover,
+#inboxlist .list li.noteentry.active .date{
+	background-color: #faf8bf !important;
+	color: #333 !important;
+}
+
+#inboxlist .list li.noteentry.active .content{
+	color: #444 !important;
 }
 
 /*
@@ -1348,13 +1471,18 @@ tbody.messages-container i	{
 
 .progress-bar.loaded{
 	position: absolute;
-	width: 100%;
+	width: 105%;
 	opacity: 0;
 	-webkit-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 	   -moz-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 	    -ms-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 	     -o-transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
 	        transition: width .15s ease-out 0s, opacity .5s ease-out .15s;
+}
+
+.portlet-body .load-more-wrap.inner-loading{
+	margin-top: 5px;
+	height: 26px;
 }
 
 .tip{
@@ -1370,7 +1498,7 @@ ul.toload, .toload ul{max-height: 5px !important;
 	     -o-transition: all .9s ease-out .1s;
 	        transition: all .9s ease-out .1s;
 }
-ul.loaded, .loaded ul{max-height: 9999px !important;}
+ul.loaded, .loaded ul{max-height: 99999px; overflow-y: hidden;}
 ul.loaded{ min-height: 5px;}
 .toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
 /*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/
@@ -1594,9 +1722,11 @@ counter	{
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-.inbox-container .message-actions	{ clear: both; padding: 5px 18px; min-height: 30px;}
+.inbox-container .message-actions,
+#monitorparent .message-actions	{ clear: both; padding: 5px 18px; min-height: 31px;}
 
-.inbox-container .message-actions div	{
+.inbox-container .message-actions > div,
+#monitorparent .message-actions.pull-right > div		{
 	position: relative; top: -5px; display: inline;
 }
 
@@ -1614,16 +1744,26 @@ counter	{
 }
 
 .inbox-container .message-comments ul,
-.inbox-container .message-notes ul li	{
+.inbox-container .message-notes ul li,
+#monitorparent .message-notes ul li{
 	margin-left: 0; background: #d9edf7;
 }
+
+.inbox-container .message-notes ul li,
+#monitorparent .message-notes ul li{
+	margin-left: 0; background: #F2F0A0; min-height: 20px;
+	border: none;
+}
+
+#monitorparent .message-notes ul li { min-height: 40px; }
 
 .inbox-container .message-notes ul li:last-child{
 	margin-bottom: 0px !important;
 }
 
 .inbox-container .message-comments i.icon-cloud-download,
-.inbox-container .message-notes i.icon-cloud-download	{
+.inbox-container .message-notes i.icon-cloud-download,
+#monitorparent .message-notes i.icon-cloud-download	{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
@@ -1642,8 +1782,9 @@ counter	{
 .inbox-container .message-comments li,
 .inbox-container .message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even),
-.inbox-container .message-notes li:nth-child(even)	{ background:#e0f0f8; }
+.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+
+.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
 
 .inbox-container .message-comments li.active,
 .inbox-container .message-notes li.active	{
@@ -1656,8 +1797,15 @@ counter	{
 }
 
 .inbox-container .message-comments img.avatar,
-.inbox-container .message-notes img.avatar {
+.inbox-container .message-notes img.avatar,
+#monitorparent .message-notes img.avatar {
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
+}
+
+#monitorparent .message-notes img.avatar {
+	margin-bottom: 0px;
+	margin-right: 0px;
+	top: 0px;
 }
 
 .inbox-container .message-comments img,
@@ -1668,7 +1816,12 @@ counter	{
 .inbox-container .message-comments p,
 .inbox-container .message-notes p { display: inline; }
 
-.inbox-container .comment-info {
+.inbox-container .message-notes .note-body{
+	padding: 0px;
+}
+
+.inbox-container .comment-info,
+.message-notes .comment-info {
 	color: #aac1cd; font-size: 12px;
 }
 
@@ -1692,8 +1845,9 @@ counter	{
 */
 
 .toggleall	{
-	background: #4a4a4a; display: inline; padding: 2px 10px; border-radius: 20px; cursor: pointer;
+	background: #4a4a4a; display: inline-block; padding: 2px 10px; border-radius: 20px; cursor: pointer;
 	color: white; font-size: 12px;
+	margin-top: 8px;
 }
 .toggleall.inactive	{ background: #ddd; cursor: default; }
 
@@ -2010,7 +2164,7 @@ ul.contacts-list	{
 }
 
 #monitorlist div.icon	{ width: 32px; margin: 0; }
-#monitorlist div.content	{ margin-left: 28px; }
+#monitorlist div.content	{ margin-left: 28px; padding-right: 115px; }
 #monitorlist div.content .muted	{ font-size: 12px; }
 
 #monitolist tr.hidden	{ display: none; }
@@ -2028,7 +2182,16 @@ ul.contacts-list	{
 [data-notification-action],
 .category-name.edit-toggler h4	{ cursor: pointer; }
 
+[data-notification-action="note"],
+#draftsparent [data-action="note"],
+#coworkersparent [data-action="note"],
+#monitorparent [data-action="note"].oldbtn{
+	display: none !important;
+}
 
+.message-action.hidden{
+	display: none;
+}
 
 /**
  * Thijs
@@ -2482,12 +2645,3 @@ Dashboard stats
 	opacity: 0.7 !important;
 }
 /* Lightbox override */
-
-/* RC3 COMMENTING STYLES */
-/* big no-no hack */
-[data-action="note-content"],
-[data-action="note-list"],
-[data-notification-action="note-content"],
-[data-notification-action="note-list"]{
-	display: none !important;
-}

@@ -36,7 +36,7 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	{
 		var id = this.id? this.id: "";
 		
-		return CONFIG_BASE_URL + 'json/streams/' + id + this.endpoint + this.parameters;
+		return Cloudwalkers.Session.api + '/streams/' + id + this.endpoint + this.parameters;
 	},
 	
 	'parse' : function(response)
@@ -53,6 +53,11 @@ Cloudwalkers.Models.Stream = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		if(method == "read")
 		{
 			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";

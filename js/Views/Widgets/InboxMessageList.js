@@ -50,6 +50,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(recycle)
 			this.stopListening(this.collection);
 
+		this.$el.find('#loadmore').empty();
+
 		// Listen to model
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'request', this.showloading);
@@ -145,9 +147,18 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	},
 
 	'showmore' : function(){
+		
+		setTimeout(function()
+		{		
+			this.$container.css('max-height', 999999);
 
-		if(this.hasmore)
-			this.$el.find(".load-more").show();
+			if(!this.hasmore)
+				return this.$el.find('#loadmore').empty();	
+
+			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
+			this.$el.find('#loadmore').html(load.render().el)
+
+		}.bind(this),200)
 	},
 	
 	'hidemore' : function()

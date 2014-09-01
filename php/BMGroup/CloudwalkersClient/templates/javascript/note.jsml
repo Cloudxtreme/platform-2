@@ -3,6 +3,7 @@
 		{{#user}}
 		<div class="pull-right">
 			<span class="date">{{fulldate}}</span>
+			<i class="icon-edit"></i>
 		</div>
 		
 		
@@ -10,7 +11,7 @@
 		<div>
 			<a>{{displayname}}</a>
 			<!--<div data-contact={{contact}}>{{displayname}}</div>-->
-			<br /><em>{{email}} </em>
+			<br /><em>on {{contact.displayname}}</em>
 		</div>
 		{{/user}}
 

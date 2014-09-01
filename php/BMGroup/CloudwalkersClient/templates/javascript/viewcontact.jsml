@@ -45,9 +45,11 @@
 		</td></tr></tbody>
 	</table>
 	<div class="modal-body">
+		<div class="blocker"></div>
 		<div class="messagelist">
 			<ul class="list toload tabbed"></ul>
-			<input type="button" class="btn load-more" value="load more" style="display: inline-block;">
+			<div id="loadmore"></div>
+			<!--<input type="button" class="btn load-more" value="load more" style="display: inline-block;">-->
 		</div>
 
 		<div class="inbox-container"></div>
