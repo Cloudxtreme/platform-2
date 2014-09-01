@@ -37,7 +37,7 @@
 			}
 			
 			if (extractToken(window.location.href));
-				window.parent.postMessage(extractToken(window.location.href), window.location.origin);
+				window.parent.postMessage(extractToken(window.location.href), window.location.origin? window.location.origin: window.location.protocol + "//" + window.location.hostname);
 		
 		</script>
 	

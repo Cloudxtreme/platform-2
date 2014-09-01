@@ -92,6 +92,10 @@
 	color: white;
 }
 
+#inboxlist .list li.failed{
+	border-right: 2px solid red;
+}
+
 #inboxlist .list li.active .content	{ color: #bbebf9; }
 
 #inboxlist .list li.unread { line-height: 24px; background: #e3f1f8; }
