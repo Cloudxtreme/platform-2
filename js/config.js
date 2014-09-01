@@ -5,7 +5,7 @@ var config =
 		'https://devplatform.cloudwalkers.be': 'oauth253fb03252cfbc2.44920946',
 		'http://cloudwalkers-website' : 'oauth253f66ea2e89a99.45574901',
 		'http://platform.cloudwalkers.local' : 'oauth253f63ffbac9012.56862210',
-		'https://platform.cloudwalkers.be' : 'oauth253f65b84cd9ba6.21126665',
+		'https://platform.cloudwalkers.be' : 'oauth25404a74ebf5626.12419507',
 		'http://rc3.cloudwalkers.be' : 'oauth253f65ac4d19395.66548206',
 		'http://rc2.cloudwalkers.be' : 'oauth253f65af9244b61.94828765',
 		'http://rc1.cloudwalkers.be' : 'oauth253f65b3306cc99.62686940',
