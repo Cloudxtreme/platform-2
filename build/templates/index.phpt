@@ -24,7 +24,6 @@
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/Medium.js/medium.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/css/cloudwalkers.css" rel="stylesheet" type="text/css" />
-		<link href="<?php echo BASE_URL; ?>assets/plugins/etch/etch.css" rel="stylesheet" type="text/css" />
 		<!-- END GLOBAL MANDATORY STYLES -->
 		<!-- BEGIN PAGE LEVEL STYLES --> 
 		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -41,9 +40,11 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/settings.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/reports.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/compose.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/viewcontact.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/write.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/statistics.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/keywords.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/tags.css" rel="stylesheet" type="text/css" />
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 

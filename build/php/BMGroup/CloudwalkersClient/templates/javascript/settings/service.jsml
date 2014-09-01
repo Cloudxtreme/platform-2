@@ -21,7 +21,7 @@
 {{#listname}}
 
 	<h3>{{listname}}</h3>
-	<small>{{translate_to_add}} {{network.name}} {{listname}} to your Cloudwalkers account, select them below.</small>
+	<small>{{translate_to_add}} {{network.name}} {{listname}} {{translate_to_your_cloudwalkers_account_select_them_below}}.</small>
 	
 	<ul class="service-profiles clearfix">
 		{{#profiles}}
