@@ -9,8 +9,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false, valuetag: 'shares'},
 		'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
 		'edit' : {name: "Edit", icon: 'edit', token: 'edit', type: 'edit', redirect: false},
-		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes'},
-		'note_manage' : {name: "Create note", icon: 'list', token: 'note', type: 'note', compound: 'note'},
+		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes', hidemetoken: 'hidden'}, //I was desperate
+		'note_manage' : {name: "Add note", icon: 'edit', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
 		
 		// Hack!
@@ -23,7 +23,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options', valuetag: 'retweets'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike', valuetag: 'likes'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
-		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite', valuetag: 'favourites'},
+		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite'},
 		'unfavorite' : {name: "Unfavorite", icon: 'star-empty', token: 'unfavorite', type: 'growl', toggle: 'favorite', actiontype: 'favorite'},
 		'plusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'plusone', type: 'options', toggle: 'unplusone'},
 		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'growl', toggle: 'plusone', actiontype: 'plusone'}

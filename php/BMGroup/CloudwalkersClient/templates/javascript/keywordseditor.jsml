@@ -61,8 +61,8 @@
 								<ul>
 									<li class="add_message_contains" data-value="message contains">{{translate_message_contains}}</li>
 									<li class="add_message_no_contains" data-value="message !contains">{{translate_message_doesnt_contain}}</li>
-									<li class="add_author_is" data-value="author =">{{translate_author_is}}</li>
-									<li class="add_author_is_not" data-value="author !=">{{translate_author_is_not}}</li>
+									<li class="add_author_is hidden" data-value="author =">{{translate_author_is}}</li>
+									<li class="add_author_is_not hidden" data-value="author !=">{{translate_author_is_not}}</li>
 									<li class="add_country_is" data-value="county =">{{translate_country_is}}</li>
 									<li class="add_country_is_not" data-value="county =">{{translate_country_is_not}}</li>
 									<li class="add_language_is" data-value="language =">{{translate_language_is}}</li>

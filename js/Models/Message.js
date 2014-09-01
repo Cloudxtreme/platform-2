@@ -279,7 +279,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	{	
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "canHaveChildren", "children_count", "schedule", "variations"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "status", "canHaveChildren", "children_count", "schedule", "variations"]
 		
 		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
@@ -1289,6 +1289,15 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'hasschedule' : function(){
 		if(this.get("schedule"))
 			return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
+	},
+
+	'hasnotes' : function()
+	{
+		var stats = this.get("stats");
+		var notes;
+
+		if(stats)
+			return stats.notes
 	},
 
 	'translateString' : function(translatedata)
