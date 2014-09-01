@@ -666,7 +666,6 @@ Style corrections and manual overrides
 /* embeded */
 
 #out{ 
-	float: left;
 	width: 99%;
 	background: #eee;
 	border-bottom: 1px solid #e6e6e6;
@@ -695,7 +694,6 @@ Style corrections and manual overrides
 #out img{ float: left; max-width: 45%; max-height:180px; padding-right: 15px; margin-bottom: 20px; }
 
 #out-loading{
-	float: left;
 	width: 99%;
 	position: relative;
 	/*-webkit-box-sizing: border-box;

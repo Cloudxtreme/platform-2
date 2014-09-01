@@ -2184,6 +2184,7 @@ ul.contacts-list	{
 
 [data-notification-action="note"],
 #draftsparent [data-action="note"],
+#coworkersparent [data-action="note"],
 #monitorparent [data-action="note"].oldbtn{
 	display: none !important;
 }
