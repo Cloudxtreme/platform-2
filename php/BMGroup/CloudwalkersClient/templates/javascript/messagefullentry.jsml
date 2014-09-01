@@ -1,4 +1,4 @@
-
+<div style="position: relative; min-height: 110px;">
 	<div class='pull-right'>
 		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
 		
@@ -8,9 +8,10 @@
 			
 			<ul class="dropdown-menu">
 			{{#actions}}
-				<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+				<li><a class="button-post action message-action oldbtn" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
 			{{/actions}}
 			</ul>
+
 		</span>
 		{{/actions.length}}
 		<!--{{#share.length}}
@@ -28,8 +29,9 @@
 		<!--<div class="media"><i class="icon-{{media}}"></i></div>-->
 		
 		<div class="media"><i class="icon-{{networktoken}}"></i></div>
-
 	</div>
+
+	<div class="message-actions" id="keywordfilter-actions"></div>
 	
 	{{#attached}}
 		{{#image}}
@@ -42,12 +44,12 @@
 		<i class="icon-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
-		<!--<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">-->
-		<img class="avatar" alt="" src="{{avatar}}">
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<!--<img class="avatar" alt="" src="{{avatar}}">-->
 	{{/iconview}}
 		<strong>
-			<!--<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>-->
-			<a href="{{url}}" target="_blank">{{displayname}}</a>
+			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+			<!--<a href="{{url}}" target="_blank">{{displayname}}</a>-->
 		</strong>
 	{{/from}}
 	
@@ -67,4 +69,11 @@
 				</div>
 			{{/link}}
 		{{/attached}}
+	</div>
+</div>
+	<div class="message-notes">
+		<div class="note-content"></div>
+		<div class="action-lists">
+			<span id="closenotelist"></div>
+		</div>
 	</div>

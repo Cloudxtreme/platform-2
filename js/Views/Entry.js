@@ -66,6 +66,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		this.mustacheTranslateRender(this.parameters);
 		
+		this.parameters.hasnotes = this.model.hasnotes();
+		
 		this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 		
 		if(this.$el.find("[data-date]")) this.time();
@@ -84,6 +86,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(this.parameters.hasactions)
 			this.renderactions();
 
+		if(this.model.get("status") && this.model.get("status") == 'failed')
+			this.$el.addClass('failed');
+
 		return this;
 	},
 
@@ -94,15 +99,34 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.message-actions').html(this.actions.render().el)
 
 		this.loadedlists = [];
+
+		// Temporary ugly hack to update actions on timeline
+		if(this.template == 'messagetimeline'){
+			this.actions.on('actions:update', this.updatetimelineactions.bind(this));
+		}
+	},
+
+	'updatetimelineactions' : function()
+	{
+		var notescount = this.actions.message.notes.length;
+		
+		if(notescount)
+			this.$el.find('.interaction > .notescount').html(notescount);
 	},
 	
 	'action' : function (element)
 	{
 		// Action token
 		var action = $(element.currentTarget).data ('action');
-	
+		
 		if(action == 'note' || action == 'action-list')
-		{
+		{	
+			// Goddamn ugly hack for old timeline
+			if(this.template == 'messagetimeline'){
+				var composenote = Cloudwalkers.RootView.writeNote(this.model);
+				this.listenTo(composenote.note, 'sync', this.noteadded);
+			}
+
 			var token = $(element.currentTarget).data ('token');
 
 			this.toggleactions(action, token, element);
@@ -191,7 +215,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.$el.find('.message-actions').removeClass('hidden');
 
 		if(collapse)
-			this.togglenoteaction('note-content');
+			this.toggleaction('note');
 		else{
 			this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
 			
@@ -217,7 +241,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
 		/*var otherbutton = this.$el.find('[data-action='+other+']');
 		var inactivebuttons = this.$el.find('.actionvalue.inactive');*/
-
+		
 		if(!clickedbutton.hasClass('inactive'))
 			this.processaction('open', action, token)
 
@@ -313,14 +337,15 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	//Temporarily, only notes or notifications
+	{	
+		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
 		collection.parentmodel = this.model;
 		collection.parenttype = 'message';
 		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
 
-		collection.touch(this.model);
+		collection.touch(this.model, {records: 999});
 
 		this.loadedlists.push(token+'list');
 	},
@@ -663,7 +688,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		// Translate array
 		this.original  = [
-			"comments"
+			"comments",
+			"notes"
 		];
 
 		this.translated = [];

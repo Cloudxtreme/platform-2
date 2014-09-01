@@ -41,7 +41,7 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 
 	'url' : function()
 	{	
-		var url = [CONFIG_BASE_URL + "json/accounts"];
+		var url = [Cloudwalkers.Session.api + "/accounts"];
 		var account = Cloudwalkers.Session.getAccount();
 
 		if(account){

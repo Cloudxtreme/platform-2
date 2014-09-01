@@ -18,7 +18,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 	'render' : function()
 	{	
 		this.action.inactive = this.inactive;
-
+		
 		if(this.action.value == 0)
 			this.action.noresults = 'noresults';
 		else
