@@ -36,8 +36,10 @@
 				return !!match && match[1];
 			}
 			
-			if (extractToken(window.location.href));
-				window.parent.postMessage(extractToken(window.location.href), window.location.origin? window.location.origin: window.location.protocol + "//" + window.location.hostname);
+			var token = extractToken(window.location.href);
+			
+			if (token && token.length > 6)
+				window.parent.postMessage(token, window.location.origin? window.location.origin: window.location.protocol + "//" + window.location.hostname);
 		
 		</script>
 	
