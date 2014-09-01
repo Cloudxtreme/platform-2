@@ -523,11 +523,11 @@ tbody.messages-container i	{
 	font-weight: 300;
 }
 
-#monitorlist.portlet .messages-container li{
+#monitorparent #monitorlist.portlet .messages-container li{
 	padding: 0px !important;
 }
 
-#monitorlist.portlet .messages-container li > div:first-child{
+#monitorparent #monitorlist.portlet .messages-container li > div:first-child{
 	padding: 10px 8px;
 }
 
