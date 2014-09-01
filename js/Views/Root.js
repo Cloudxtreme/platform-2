@@ -163,6 +163,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 
 		var view = new Cloudwalkers.Views.ComposeNote(options);
 		view.render().$el.modal();
+
+		return view;
 	},
 
 	'writeMessage' : function (e)

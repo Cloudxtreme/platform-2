@@ -299,7 +299,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	
+	{	console.log("fetchactions")
 		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
@@ -307,7 +307,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		collection.parenttype = 'message';
 		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
 
-		collection.touch(this.model);
+		collection.touch(this.model, {records: 999});
 
 		this.loadedlists.push(token+'list');
 	},
@@ -460,7 +460,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		//this.addnote(note, true);
 		this.toggleactions('action-list', 'note');
 		this.newnote = true;
-		//this.fetchactions('note');
+		this.fetchactions('note');
 		
 		this.trigger('note:added');
 
