@@ -39,7 +39,7 @@ var config =
 	
 	setloginwindow : function ()
 	{
-		$("iframe").get(0).src = config.authurl[window.location.origin] + "authorize?response_type=token&state=xyz&client_id=" + config.tokens[window.location.origin] + "&redirect_uri=" + window.location.origin + "/auth.html";
+		$("iframe").get(0).src = config.authurl[origin()] + "authorize?response_type=token&state=xyz&client_id=" + config.tokens[origin()] + "&redirect_uri=" + origin() + "/auth.html";
 	},
 	
 	hello : function ()
@@ -63,12 +63,17 @@ var config =
 	
 	receiveToken :function (event)
 	{
-		if (event.origin !== window.location.origin)
+		if (event.origin !== origin())
 		return;
 		
 		if (event.data) Store.set("settings", {key: "token", value: event.data}, config.hello);
 		else config.hello();
 	}
+}
+
+var origin = function ()
+{
+	return (window.location.origin)? window.location.origin : window.location.protocol + "//" + window.location.hostname;
 }
 			
 			
