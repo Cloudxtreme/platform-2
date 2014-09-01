@@ -299,7 +299,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'fetchactions' : function(token)
-	{	console.log("fetchactions")
+	{	
 		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
 
