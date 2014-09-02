@@ -21,7 +21,7 @@ var Cloudwalkers = {
 		{
 			Cloudwalkers.Session.authenticationtoken = entry? entry.value: undefined;
 			
-			if(!entry) window.location = "/login.html";
+			if(!entry || entry.value) window.location = "/login.html";
 		});
 		
 		// Define API root
