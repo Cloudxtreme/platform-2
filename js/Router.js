@@ -27,7 +27,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'reports/:streamid' : 'reports',
 		'statistics' : 'statistics',
 		'statistics/:streamid' : 'statistics',
-		'settings(/:sub)' : 'settings',
+		'settings(/:sub)(/:service)' : 'settings',
 		'firsttime' : 'firsttime',
 		'work' : 'coworkdashboard',
 		
@@ -309,15 +309,15 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Settings
 	 **/
 	 
-	'settings' : function (endpoint)
-	{
+	'settings' : function (endpoint, serviceid)
+	{	
 		var roles;
 
 		if (endpoint == 'users')			roles = 'USER_INVITE';
 		if (endpoint == 'services')			roles = 'SERVICE_CONNECT';
 		if (endpoint == 'account')			roles = 'CAMPAIGN_DELETE';
 
-		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint});
+		var view = new Cloudwalkers.Views.Settings ({endpoint: endpoint, serviceid: serviceid});
 
 		this.validate(view, roles);
 	},
