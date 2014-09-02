@@ -90,7 +90,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			from = from.startOf('month');
 
 		to = (to.endOf('month').subtract(1, 'month')).endOf('month');
-		//to = to.endOf('month');
 
 		console.log('from', from.format("DD MMM YYYY"), 'to', to.format("DD MMM YYYY"))
 		// Display
@@ -176,8 +175,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'fill' : function (callback, collection)
 	{
+		console.log("fill", collection.models.length);
 		
-		if(collection.models[0] && !collection.models[0].loaded())
+		if(!collection.models[0])
 			return;
 
 		var nodes = [];
@@ -199,6 +199,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		//console.log(collection.models[0].filterCalReadable().calNode.start.hours('23').minutes('59'))
 		// Add more
 		if((collection.models.length > 0) && (collection.models[0].filterCalReadable().calNode.networkdescription != "Scheduled messages")){
+			console.log("add see more");
 			nodes.push({
 				className: "calendar-more",
 				icon: "plus",
@@ -209,7 +210,8 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			});
 		}
 
-		this.renderCalendarEvent(nodes)
+		if(nodes.length > 0)
+			this.renderCalendarEvent(nodes)
 
 		if(this.scheduled)
 			this.scheduled.messages.destroy();
@@ -328,7 +330,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 			eventSources: [
 				this.populate.bind(this),
-				this.populate_scheduled.bind(this),
+				//this.populate_scheduled.bind(this),
 		    ],
 			eventRender: function(event, element)
 			{	
@@ -349,6 +351,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				event.rendered = true;
 
 			},
+			// click on view more
 			eventClick: function(calEvent, jsEvent, view) {
 				if(calEvent.className[0] == "calendar-more"){
 					var toDate = new Date(calEvent.start);
