@@ -58,7 +58,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		{
 			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 
-		}});
+		}.bind(this)});
 	},
 	
 	'delete' : function ()

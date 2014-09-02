@@ -6,6 +6,8 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	'initialize' : function(options)
 	{
 		this.model = Cloudwalkers.Session.getAccount();
+
+		this.events['click [data-action=viewcontact]'] = 'viewcontact';
 	},
 
 	'render' : function()
@@ -26,6 +28,7 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 
 		// Add list widget
 		var list = new Cloudwalkers.Views.Widgets.InboxNotesList(params);
+		this.list = list;
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
@@ -35,6 +38,11 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 
 		
 		return this;
+	},
+
+	'viewcontact' : function()
+	{
+		this.list.trigger('contact:clicked');
 	},
 
 	'resize' : function(height)

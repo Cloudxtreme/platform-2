@@ -4,6 +4,8 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 
 	'render' : function ()
 	{	
+		this.on('contact:clicked', this.contactview);
+
 		// Template data
 		var param = {streams: [], networks: []};
 		
@@ -206,6 +208,13 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 			this.requestcontacts(this.filters.contacts.buffered);
 			this.filters.contacts.buffered = false;
 		}
+	},
+
+	'contactview' : function()
+	{	
+		var context = this.inboxnote.getcontext();
+		var contact = context.from ? context.from[0] : null;
+		if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 	},
 	
 	'filtercontacts' : function (e)
