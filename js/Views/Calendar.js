@@ -79,9 +79,11 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 	
+	
+
 	'populate' : function (from, to, timezone, callback)
 	{
-		console.log("populate")
+		//console.log("populate", from, to, timezone, callback)
 		this.loader('on','');
 		// Limit to month
 		if(from.date() > 1) 
@@ -91,13 +93,13 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 		to = (to.endOf('month').subtract(1, 'month')).endOf('month');
 
-		console.log('from', from.format("DD MMM YYYY"), 'to', to.format("DD MMM YYYY"))
 		// Display
 		this.datedisplay(from, to);
 		
 		// Touch Channel
+		this.listenTo(this.posted.messages, 'seed', this.hasmore);
 		this.listenTo(this.posted.messages, 'sync', this.fill.bind(this, callback));
-
+		
 		m_item = from.date()-1;
 
 		while(m_item < to.date()){
@@ -107,11 +109,19 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			metato =  moment(metato).hours('22').minutes('59');
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
-
 			this.posted.messages.touch(this.posted, this.parameters);
 
 			m_item++;
 		}	
+	},
+
+	'hasmore' : function(list){
+		/*
+		console.log("hasmore? ", list)
+		
+		if(list.paging.cursors)
+			console.log("alright")
+		*/
 	},
 
 	'populate_scheduled' : function (from, to, timezone, callback)
@@ -126,7 +136,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		//from = from.subtract(1, 'day')
 
 		to = (to.endOf('month').subtract(1, 'month')).endOf('month');
-		console.log('from', from.format("DD MMM YYYY"), 'to', to.format("DD MMM YYYY"))
 		// Display
 		this.datedisplay(from, to);
 		
@@ -135,7 +144,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 		// Get messages for each day
 		s_item = moment().subtract(1,'days').date();
-		console.log("here",s_item)
 		while(s_item <= to.date()){
 			var metafrom = moment(from).add(s_item, 'days');
 			var metato = metafrom;
@@ -173,15 +181,22 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find("h3.stats-header-timeview").html("<strong>" + current + viewtype + ": </strong>" + span);
 	},
 	
-	'fill' : function (callback, collection)
-	{
-		console.log("fill", collection.models.length);
-		
+	'fill' : function (callback, collection, metaform)
+	{	
 		if(!collection.models[0])
 			return;
 
+		fillfrom = moment(collection.models[0].filterCalReadable().calNode.start).hours('0').minutes('0');
+		fillto = moment(fillfrom).hours('22').minutes('59');
+
+		fillparameters = {
+			since : fillfrom.unix(),
+			until :  fillto.unix(),
+			records: 5
+		}
+
 		var nodes = [];
-		//console.log("collection",collection)
+		
 		if(!collection)	return callback(nodes);
 
 		/*for (n in collection.models)
@@ -190,24 +205,31 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			//nodes.push(collection.models[n].filterCalReadable().calNode);
 			this.renderCalendarEvent(collection.models[n].filterCalReadable().calNode)
 		}*/
-		
+
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
 			this.totals.push(collection.models[n].filterCalReadable().calNode);
 		}
-		//console.log(collection.models[0].filterCalReadable().calNode.start.hours('23').minutes('59'))
+
 		// Add more
-		if((collection.models.length > 0) && (collection.models[0].filterCalReadable().calNode.networkdescription != "Scheduled messages")){
-			console.log("add see more");
-			nodes.push({
-				className: "calendar-more",
-				icon: "plus",
-				id: 0000,
-				allDay: false,
-				title: "see more",
-				start: moment(collection.models[0].filterCalReadable().calNode.start).hours('23').minutes('59'),
-			});
+		if((nodes.length > 0) && (nodes[0].networkdescription != "Scheduled messages") && (nodes[0].networkdescription)){
+			
+			//console.log(collection)
+						
+			// hack
+			hasmore = true;
+			
+			if(hasmore){
+				nodes.push({
+					className: "calendar-more",
+					icon: "plus",
+					id: 0000,
+					allDay: false,
+					title: this.translateString("view_more"),
+					start: moment(nodes[0].start).hours('23').minutes('59'),
+				});
+			}
 		}
 
 		if(nodes.length > 0)
@@ -218,27 +240,12 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		if(this.posted)
 			this.posted.messages.destroy();
 
-		//console.log(this.totals.length).filterCalReadable().calNode
-		
 	},
 
 	'renderCalendarEvent' : function(eventData){
-		console.log("renderCalendarEvent", eventData)
+
 		$('#calendar').fullCalendar();
-		/*if((eventData.length > 0) && (eventData[0].networkdescription != "Scheduled messages")){
-			var newEvent = {	
-				id: 000000,
-				start: eventData[eventData.length-1].start.hour(23).minute(59),
-				title: "load more",
-				className: "nada",
-				networkdescription: "nada",
-				intro: "nada", 
-				icon: "nada",
-				allDay: false
-			}
-			$('#calendar').fullCalendar( 'renderEvent', newEvent );
-		}
-*/
+
 		for (eventNr in eventData)
 		{
 			var newEvent = {
@@ -315,7 +322,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	 *	http://arshaw.com/fullcalendar/docs2/
 	**/
 	'initCalendar' : function () {
-		console.log("initialize calendar")
 		$('#calendar').fullCalendar({ //re-initialize the calendar
 			header: false,
 			slotMinutes: 30,
@@ -330,7 +336,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 			eventSources: [
 				this.populate.bind(this),
-				//this.populate_scheduled.bind(this),
+				this.populate_scheduled.bind(this),
 		    ],
 			eventRender: function(event, element)
 			{	
@@ -360,8 +366,12 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
         			$('select').trigger("chosen:updated");
 					$('#calendar').fullCalendar( 'changeView', 'agendaDay' );
 					$('#calendar').fullCalendar( 'gotoDate', toDate );
+					
+					from = toDate;
+					to = from;
+					//this.populate(from, to)
 				}
-			}	
+			}.bind(this)
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped
 			
