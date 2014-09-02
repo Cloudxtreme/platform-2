@@ -32,6 +32,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Clone service data
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
+		data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
