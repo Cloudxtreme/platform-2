@@ -20,10 +20,10 @@ var Cloudwalkers = {
 		
 		// Check if there is authentication
 		if(token && token.length > 9)
-		{
+		{	
 			Cloudwalkers.Session.authenticationtoken = token;
 			
-		} else window.location = "/login.html";
+		} else{ console.log("token error", token); window.location = "/login.html";}
 
 		// Define API root
 		Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
