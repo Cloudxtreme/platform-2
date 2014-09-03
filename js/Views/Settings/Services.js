@@ -40,12 +40,12 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	{
 		var service = new Cloudwalkers.Models.Service({id: serviceid});
 
-		this.listenTo(service, 'sync', this.updatechannels);
+		this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
 
 		service.fetch({parentpoint: false});
 	},
 
-	'updatechannels' : function(service)
+	'updatechannels' : function(operation, service)
 	{	
 		var streams = service.get("streams");
 
@@ -53,17 +53,18 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
 
 		for(n in streams){
-			this.parsestream(streams[n]);
+			this.parsestream(streams[n], operation);
 		}
 
 		//Refresh navigation
 		Cloudwalkers.RootView.navigation.renderHeader();
 		Cloudwalkers.RootView.navigation.render();
 
-		Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+		if(operation == 'add')
+			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
 	},
 
-	'parsestream' : function(stream)
+	'parsestream' : function(stream, operation)
 	{	
 		var channels = stream.channels;
 		var channel;
@@ -72,9 +73,8 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			for(n in channels){
 
 				channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
-				if(channel){
-					channel.streams.add(stream);
-				}
+				if(channel)
+					channel.streams[operation](stream);
 			}
 		}
 
