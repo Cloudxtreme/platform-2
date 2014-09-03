@@ -13,6 +13,9 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		// Create Services collection
 		this.services = new Cloudwalkers.Collections.Services();
 		
+		if(this.options.serviceid)
+			return this.appendservice(this.options.serviceid)
+
 		// Get Services options 
 		this.listenTo(this.services, "available:ready", this.appendOptions);
 		this.services.fetchAvailable();
@@ -31,6 +34,50 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	{
 		//Remove?
 		this.$el.find(".inner-loading").removeClass("inner-loading");	
+	},
+
+	'appendservice' : function(serviceid)
+	{
+		var service = new Cloudwalkers.Models.Service({id: serviceid});
+
+		this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
+
+		service.fetch({parentpoint: false});
+	},
+
+	'updatechannels' : function(operation, service)
+	{	
+		var streams = service.get("streams");
+
+		if(!streams)
+			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+
+		for(n in streams){
+			this.parsestream(streams[n], operation);
+		}
+
+		//Refresh navigation
+		Cloudwalkers.RootView.navigation.renderHeader();
+		Cloudwalkers.RootView.navigation.render();
+
+		if(operation == 'add')
+			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+	},
+
+	'parsestream' : function(stream, operation)
+	{	
+		var channels = stream.channels;
+		var channel;
+		
+		if(channels.length){
+			for(n in channels){
+
+				channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
+				if(channel)
+					channel.streams[operation](stream);
+			}
+		}
+
 	},
 
 	'render' : function ()
@@ -80,14 +127,14 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		var token = $(e.target).data ('add-service');
 		
 		this.listenToOnce(this.services, "sync", function(service)
-		{
+		{	
 			var auth = service.get("authenticateUrl");
 			
 			// Prevent API bug
 			if(!auth) return null;
 			
 			// Go to authentication page
-			window.location = this.processLink (auth);
+			window.location = this.processLink (auth, service.id);
 			
 		});
 		
@@ -185,15 +232,15 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		}
 	},*/
 
-	'processLink' : function (url)
+	'processLink' : function (url, serviceid)
 	{
 		if (url.indexOf ('?') > 0)
 		{
-			url = url + '&return=' + encodeURIComponent(window.location.origin + "/#settings/services");
+			url = url + '&return=' + encodeURIComponent(window.location.origin + "/#settings/services/"+serviceid);
 		}
 		else
 		{
-			url = url + '?return=' + encodeURIComponent(window.location.origin + "/#settings/services");
+			url = url + '?return=' + encodeURIComponent(window.location.origin + "/#settings/services/"+serviceid);
 		}
 		
 		return url;

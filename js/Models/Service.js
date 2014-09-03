@@ -2,9 +2,9 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'typestring' : "services",
 	
-	'initialize' : function ()
+	'initialize' : function (options)
 	{
-		
+
 	},
 	
 	'url' : function()
@@ -39,9 +39,33 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		
 		this.endpoint = (options.endpoint)? options.endpoint: false;
 		
-		this.parentpoint = method != "delete";
+		if(options.hasOwnProperty("parentpoint"))
+			this.parentpoint = model.parentpoint
+		else
+			this.parentpoint = method != "delete";
 		
 		return Backbone.sync(method, model, options);
+	},
+	
+	updateStreams : function (active)
+	{
+		this.once('sync', this.parseStreamChanges)
+			.fetch({parentpoint: false});
+	},
+	
+	parseStreamChanges : function (service)
+	{
+		service.get('streams').forEach(function(entry)
+		{
+			var stream = Cloudwalkers.Session.getStream(entry.id);
+			
+			// Active stream
+			if (entry.available && !stream) console.log("get stream", entry.id, entry.defaultname);
+			
+			// Inactive stream
+			else if (!entry.available && stream) console.log("remove stream", entry.id, entry.defaultname);
+			
+		});
 	}
 	
 });
