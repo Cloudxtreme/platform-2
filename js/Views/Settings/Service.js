@@ -58,8 +58,11 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 		{
 			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+			
+			// Check for 
+			profile.parent.updateStreams(profile.get('activated'));
 
-		}});
+		}.bind(this)});
 	},
 	
 	'delete' : function ()

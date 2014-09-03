@@ -42,6 +42,9 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		this.parentpoint = method != "delete";
 		
 		return Backbone.sync(method, model, options);
-	}
+	},
+	
+	updateStreams : function (active)
+	{}
 	
 });
