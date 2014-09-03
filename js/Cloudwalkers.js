@@ -23,7 +23,7 @@ var Cloudwalkers = {
 		{	
 			Cloudwalkers.Session.authenticationtoken = token;
 			
-		}
+		} else{ console.log("token error", token); window.location = "/login.html";}
 
 		// Define API root
 		Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
