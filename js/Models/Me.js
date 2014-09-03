@@ -186,7 +186,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	},
 	
 	'offline' : function (user, response, options)
-	{	console.log("offline", user, response, options)
+	{	console.log("offline", JSON.stringify(user), JSON.stringify(response), JSON.stringify(options))
 		Cloudwalkers.Session.reset();
 		//window.location = "/login.html";
 		
