@@ -48,6 +48,24 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	},
 	
 	updateStreams : function (active)
-	{}
+	{
+		this.once('sync', this.parseStreamChanges)
+			.fetch();
+	},
+	
+	parseStreamChanges : function ()
+	{
+		this.get('streams').forEach(function(entry)
+		{
+			var stream = Cloudwalkers.Session.getStream(entry.id);
+			
+			// Active stream
+			if (entry.available && !stream) console.log("get stream", entry.id, entry.defaultname);
+			
+			// Inactive stream
+			else if (!entry.available && stream) console.log("remove stream", entry.id, entry.defaultname);
+			
+		});
+	}
 	
 });

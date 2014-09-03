@@ -61,7 +61,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			this.parseprofile(profile);
 			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 			
-			// Check for 
+			// Check for stream changes
 			profile.parent.updateStreams(profile.get('activated'));
 
 		}.bind(this)});
