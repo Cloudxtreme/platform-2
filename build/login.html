@@ -62,29 +62,16 @@
 
 		<!-- Application scripts -->
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script src="/assets/plugins/jquery.1.10.2-min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/js/config.js"></script>
 
-		<!-- PLUGINS -->
-		<script src="/assets/plugins/jquery.1.10.2-min.js" type="text/javascript"></script>
-		
-		<!-- Utilities -->
-		<script type="text/javascript" src="/assets/scripts/localStorage.js"></script>
-		<!--
-		<script type="text/javascript" src="/js/Utilities/IDBStorage.js"></script>
-		<script type="text/javascript" src="/js/Utilities/IDBstores.js"></script>
-		-->
 		<script>
-			//$(document).ready(function() {   
-				
-				//config.setloginwindow();
-				
-				// IDB Store
-				Store = new StorageClassLocal();
-				config.hasToken();
-				
-				// Store = new StorageClassIDB("cwdSuperDB", 2, hasToken);
-				
-			//});
+			
+			$(function()
+			{
+				config.hasToken();	
+			});
+
 		</script>
 		<!-- end Application scripts -->
 	</body>
