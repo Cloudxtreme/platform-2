@@ -16,7 +16,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		var param = this.endpoint?
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
-
+		
 		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	
@@ -185,8 +185,8 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
-	'offline' : function (user, response, options)
-	{	console.log("offline", JSON.stringify(user), JSON.stringify(response), JSON.stringify(options))
+	'offline' : function ()
+	{
 		Cloudwalkers.Session.reset();
 		//window.location = "/login.html";
 		
