@@ -30,7 +30,7 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		return response;
 	},
 	
-	 'sync' : function (method, model, options)
+	'sync' : function (method, model, options)
 	{
 		options.headers = {
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
@@ -55,17 +55,21 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	parseStreamChanges : function (service)
 	{
+		var streams = new Cloudwalkers.Collections.Streams();
+		var ids = [];
+		
 		service.get('streams').forEach(function(entry)
 		{
 			var stream = Cloudwalkers.Session.getStream(entry.id);
 			
 			// Active stream
-			if (entry.available && !stream) console.log("get stream", entry.id, entry.defaultname);
+			if (entry.available && !stream) ids.push(entry.id);
 			
 			// Inactive stream
-			else if (!entry.available && stream) console.log("remove stream", entry.id, entry.defaultname);
-			
+			else if (!entry.available && stream) Cloudwalkers.Session.getStream(entry.id).silentRemove();
 		});
+		
+		if(ids) streams.fetch({data: {ids: ids}});
 	}
 	
 });

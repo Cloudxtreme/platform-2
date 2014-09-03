@@ -15,15 +15,16 @@ var Cloudwalkers = {
 
 	'init' : function ()
 	{
-
-		// Check if there is authentication
-		Store.get("settings", {key: "token"}, function(entry)
-		{
-			Cloudwalkers.Session.authenticationtoken = entry? entry.value: undefined;
-			
-			if(!entry || !entry.value) window.location = "/login.html";
-		});
+		// Authentication
+		var token = window.localStorage.getItem('token');
 		
+		// Check if there is authentication
+		if(token && token.length > 9)
+		{
+			Cloudwalkers.Session.authenticationtoken = token;
+			
+		} else window.location = "/login.html";
+
 		// Define API root
 		Cloudwalkers.Session.api = config.api[window.location.origin] + Cloudwalkers.version;
 		

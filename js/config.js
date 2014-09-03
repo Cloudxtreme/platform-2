@@ -49,16 +49,17 @@ var config =
 	
 	hasToken : function ()
 	{
-		Store.get("settings", "token", function(entry)
+		// Authentication
+		var token = window.localStorage.getItem('token');
+		
+		if(token && token.length > 9) config.hello();
+		else	
 		{
-			if(entry) hello();
+			if(token) window.localStorage.removeItem('token');
 			
-			else
-			{
-				config.setloginwindow();
-				window.addEventListener("message", config.receiveToken, false);	
-			}
-		});
+			config.setloginwindow();
+			window.addEventListener("message", config.receiveToken, false);	
+		}
 	},
 	
 	receiveToken :function (event)
@@ -66,8 +67,12 @@ var config =
 		if (event.origin !== origin())
 		return;
 		
-		if (event.data) Store.set("settings", {key: "token", value: event.data}, config.hello);
-		else config.hello();
+		if (event.data && event.data.length > 9)
+		{
+			window.localStorage.setItem('token', event.data);
+			config.hello();
+		}
+		else config.setloginwindow();
 	}
 }
 
