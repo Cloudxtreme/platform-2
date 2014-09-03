@@ -17,6 +17,13 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
 		console.log(Cloudwalkers.Session.api + '/user/me' + param)
+
+		var req = new XMLHttpRequest();
+		req.open('GET', 'https://stagingapi.cloudwalkers.be/1/user/me' , false);
+		req.send(null);
+		var headers = req.getAllResponseHeaders().toLowerCase();
+		console.log(headers);
+
 		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	

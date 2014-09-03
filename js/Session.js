@@ -32,7 +32,7 @@ Cloudwalkers.Session =
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
 		this.listenTo(this,"translation:done",  callback );
 
-		this.user.fetch({success: this.user.offline.bind(this.user), error: this.user.offline.bind(this.user)});
+		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
 	'refresh' : function ()
