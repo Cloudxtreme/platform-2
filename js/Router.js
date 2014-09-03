@@ -364,7 +364,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	'home' : function ()
 	{	
-		$.ajax({ url: config.authurl[window.location.origin] + "revoke", headers : {
+		$.ajax({ url: config.authurl + "revoke", headers : {
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
             'Accept': "application/json"
         },
