@@ -9,10 +9,14 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'url' : function ()
 	{
-		if(this.parent)
+		if(this.parent){
+			console.log(Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id);
         	return Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
         
-        else return Cloudwalkers.Session.api + 'user/' + this.id;
+        }else{
+        	console.log(Cloudwalkers.Session.api + 'user/' + this.id);
+        	return Cloudwalkers.Session.api + 'user/' + this.id;	
+        } 
         
        /* return this.endpoint?
         
