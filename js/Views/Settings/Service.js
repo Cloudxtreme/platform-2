@@ -34,6 +34,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		data.listname = this.listnames[data.network.token];
 		data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
 
+
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
 		
@@ -56,13 +57,35 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		
 		// Update profile
 		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
-		{
+		{	
+			this.parseprofile(profile);
 			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 			
 			// Check for 
 			profile.parent.updateStreams(profile.get('activated'));
 
 		}.bind(this)});
+	},
+
+	'parseprofile' : function(profile)
+	{	
+		var service = profile.parent;
+		var streams;
+
+		if(service && service.get("streams")){
+			streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+			console.log(streams)
+		}
+
+		if(streams && streams.length){
+			for(n in streams){
+				this.parent.parsestream(streams[n], profile.get("activated")? 'add': 'remove');
+			}
+		}
+
+		//Refresh navigation
+		Cloudwalkers.RootView.navigation.renderHeader();
+		Cloudwalkers.RootView.navigation.render();
 	},
 	
 	'delete' : function ()
@@ -73,10 +96,15 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
 			
 			// Data
-			this.service.destroy();
-			this.parent.closedetail();
+			this.service.destroy({success: this.removeservice.bind(this)});
 						
 		}.bind(this));
+	},
+
+	'removeservice' : function(service)
+	{
+		this.parent.updatechannels('remove', service)
+		this.parent.closedetail();
 	},
 	
 	'closedetail' : function()

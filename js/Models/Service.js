@@ -2,9 +2,9 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'typestring' : "services",
 	
-	'initialize' : function ()
+	'initialize' : function (options)
 	{
-		
+
 	},
 	
 	'url' : function()
@@ -39,7 +39,10 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		
 		this.endpoint = (options.endpoint)? options.endpoint: false;
 		
-		this.parentpoint = method != "delete";
+		if(options.hasOwnProperty("parentpoint"))
+			this.parentpoint = model.parentpoint
+		else
+			this.parentpoint = method != "delete";
 		
 		return Backbone.sync(method, model, options);
 	},
