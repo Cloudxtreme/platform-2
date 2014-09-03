@@ -32,6 +32,8 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Clone service data
 		var data = _.clone(this.service.attributes);
 		data.listname = this.listnames[data.network.token];
+		data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
+
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -69,6 +71,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 
 		if(service && service.get("streams")){
 			streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+			console.log(streams)
 		}
 
 		if(streams && streams.length){
