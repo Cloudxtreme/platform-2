@@ -28,7 +28,14 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 			this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
 			
 			// Place counter
-			this.list.models[n].count = this.list.models[n].get("count")[options.countString];
+			//this.list.models[n].count = this.list.models[n].get("count")[options.countString];
+
+			if(this.list.models[n].get("counters"))
+				this.counters = this.list.models[n].get("counters").MESSAGE;
+				for(k in this.counters){
+					if((this.counters[k].type == "UNREAD") && (this.counters[k].interval == "TOTAL"))
+						this.list.models[n].count = this.counters[k].amount;
+				}
 		}
 	},
 	
