@@ -58,11 +58,11 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		// Update profile
 		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 		{	
-			this.parseprofile(profile);
+			//this.parseprofile(profile);
 			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 			
 			// Check for stream changes
-			profile.parent.updateStreams(profile.get('activated'));
+			profile.parent.updateStreams(profile.get('activated'), profile);
 
 		}.bind(this)});
 	},
@@ -96,16 +96,16 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
 			
 			// Data
-			this.service.destroy({success: this.removeservice.bind(this)});
+			this.service.destroy({success: this.closedetail.bind(this)});
 						
 		}.bind(this));
 	},
 
-	'removeservice' : function(service)
+	/*'removeservice' : function(service)
 	{
 		this.parent.updatechannels('remove', service)
 		this.parent.closedetail();
-	},
+	},*/
 	
 	'closedetail' : function()
 	{

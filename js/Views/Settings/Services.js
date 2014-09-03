@@ -39,13 +39,16 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 	'appendservice' : function(serviceid)
 	{
 		var service = new Cloudwalkers.Models.Service({id: serviceid});
+		service.addservice();
 
-		this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
+		//this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
 
-		service.fetch({parentpoint: false});
+		//service.fetch({parentpoint: false});
+
+
 	},
 
-	'updatechannels' : function(operation, service)
+	/*'updatechannels' : function(operation, service)
 	{	
 		var streams = service.get("streams");
 
@@ -78,7 +81,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			}
 		}
 
-	},
+	},*/
 
 	'render' : function ()
 	{
