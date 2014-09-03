@@ -32,20 +32,24 @@ Cloudwalkers.Session =
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
 		this.listenTo(this,"translation:done",  callback );
 
-		this.user.fetch({error: this.user.offline.bind(this.user),
-			statusCode: {
-			200: function() {console.log('200')},
-			304: function() {console.log('304')},
-			404: function() {console.log('404')},
-			401: function() {console.log('401')},
-			402: function() {console.log('402')},
-			403: function() {console.log('403')},
-			400: function() {console.log('400')},
-			503: function() {console.log('503')},
-			406: function() {console.log('406')},
-			500: function() {console.log('500')}
-			}
-		});
+		//this.user.fetch({error: this.user.offline.bind(this.user)};
+			$.support.cors = true;
+			$.ajax({
+		       url: 'https://stagingapi.cloudwalkers.be/1/user/me',
+		     	 headers: {
+                'Authorization': 'Bearer ' Cloudwalkers.Session.authenticationtoken,
+                'Accept': "application/json"
+            	},
+            	type: 'get',
+		       cache: false,
+		       dataType: 'json',
+		       success: function(data) {
+		           
+		       },
+		       error: function(xhr, status, errorThrown) {
+		           console.log(errorThrown+'\n'+status+'\n'+xhr.statusText);
+		       }
+		    });
 	},
 	
 	'refresh' : function ()
