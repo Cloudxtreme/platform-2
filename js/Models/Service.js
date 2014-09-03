@@ -50,12 +50,12 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	updateStreams : function (active)
 	{
 		this.once('sync', this.parseStreamChanges)
-			.fetch();
+			.fetch({parentpoint: false});
 	},
 	
-	parseStreamChanges : function ()
+	parseStreamChanges : function (service)
 	{
-		this.get('streams').forEach(function(entry)
+		service.get('streams').forEach(function(entry)
 		{
 			var stream = Cloudwalkers.Session.getStream(entry.id);
 			
