@@ -15,7 +15,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		
 		this.setCursor(false);
 		
-		this.fetch({success: this.schedule.bind(this), error: this.toing});
+		this.fetch({success: this.schedule.bind(this), error: this.toing.bind(this)});
 		
 		this.on("change:paging", this.setCursor, this);
 		this.on("change:updates", this.updateModels, this);
