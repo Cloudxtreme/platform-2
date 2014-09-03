@@ -16,7 +16,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		var param = this.endpoint?
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
-		
+		console.log(Cloudwalkers.Session.api + '/user/me' + param)
 		return Cloudwalkers.Session.api + '/user/me' + param;
 	},
 	
