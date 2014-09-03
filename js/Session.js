@@ -37,7 +37,7 @@ Cloudwalkers.Session =
 			$.ajax({
 		       url: 'https://stagingapi.cloudwalkers.be/1/user/me',
 		     	 headers: {
-                'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+                //'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
                 'Accept': "application/json"
             	},
             	type: 'get',
