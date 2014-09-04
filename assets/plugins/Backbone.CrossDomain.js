@@ -82,7 +82,7 @@
         // catch IE7/8/9 but keep IE10 using the built in XMLHttpRequest which
         // IE10 finally supports for CORS.
         if (useXDomainRequest && !Backbone.$.support.cors) {
-
+            console.log("msg")
             // See this article for more details on all the silly nuances: http://vq.io/14DJ1Tv
 
             // Basically Backbone.sync rewritten to use XDomainRequest object
