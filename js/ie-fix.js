@@ -9,11 +9,17 @@ $( function()
 		// Is there a auth token?
 		if(Cloudwalkers.Session.authenticationtoken)
 			
-			arguments[0].headers = {
-	            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-	            'Accept': "application/json"
-	        };
-	
+			var url = arguments[0].url;
+			var op;
+
+	     	if(url){
+
+	     		op 	= (url.indexOf('?') >= 0)? '&': '?';
+	     		url = url + op + Cloudwalkers.Session.authenticationtoken;
+
+	     		arguments[0].url = url;
+	     	}
+		console.log(arguments[0].url)
 		return Backbone.$.ajax.apply(Backbone.$, arguments);
 	};
 
