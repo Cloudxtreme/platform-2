@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'entries' : [],
 
 	'events' : {
-		'submit .category-edit form' : 'editCategory',
+		'submit form' : 'editCategory',
 		//'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
 		//'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
@@ -28,7 +28,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
-		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), remember: cat.get("remember"), keywords: cat.channels.models}});
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), settings: cat.get("settings"), keywords: cat.channels.models}});
 
 		var data = {categories: categories};
 		
@@ -50,7 +50,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
-	'editCategoryName' : function (e)
+	'editCategory' : function (e)
 	{
 		e.stopPropagation();
 
@@ -58,11 +58,15 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var name = $cat.find('[name="name"]').val();
 		var remember = $cat.find('[name="remember"]').val();
 		
+		var settings = {
+			remember: remember
+		};
+
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
 		channel.save({
 			name: name,
-			remember: remember
+			settings: settings
 		});
 		
 		$cat.find('.name_val').html(name);
