@@ -5,7 +5,7 @@ $( function()
 	 *	Add authorization headers to each Backbone.sync call
 	 */
 	Backbone.ajax = function()
-	{
+	{	console.log("here")
 		// Is there a auth token?
 		if(Cloudwalkers.Session.authenticationtoken)
 			
