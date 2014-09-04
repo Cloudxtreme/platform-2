@@ -5,15 +5,21 @@ $( function()
 	 *	Add authorization headers to each Backbone.sync call
 	 */
 	Backbone.ajax = function()
-	{
+	{	
 		// Is there a auth token?
 		if(Cloudwalkers.Session.authenticationtoken)
 			
-			arguments[0].headers = {
-	            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-	            'Accept': "application/json"
-	        };
-	
+			var url = arguments[0].url;
+			var op;
+
+	     	if(url){
+
+	     		op 	= (url.indexOf('?') >= 0)? '&': '?';
+	     		url = url + op + 'auth_token=' + Cloudwalkers.Session.authenticationtoken;
+
+	     		arguments[0].url = url;
+	     	}
+		
 		return Backbone.$.ajax.apply(Backbone.$, arguments);
 	};
 

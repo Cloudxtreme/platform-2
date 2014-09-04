@@ -76,7 +76,7 @@ Backbone.ajax = function()
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
             'Accept': "application/json"
         };
-
+        
 	return Backbone.$.ajax.apply(Backbone.$, arguments);
 };
  
