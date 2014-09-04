@@ -35,7 +35,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 					if((this.counters[k].type == "UNREAD") && (this.counters[k].interval == "TOTAL"))
 						this.list.models[n].count = this.counters[k].amount;
 				}
-
+			
 			if(!this.list.models[n].count)
 				this.list.models[n].count = this.list.models[n].get("count")[options.countString];
 		}
