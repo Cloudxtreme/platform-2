@@ -1,6 +1,7 @@
 $( function()
 {
-	console.log("ie9");
+	console.log("ie9", JSON.stringify(Cloudwalkers));
+	console.log("ie9", JSON.stringify(Cloudwalkers.Session));
 	/*
 	 *	Add authorization headers to each Backbone.sync call
 	 */
