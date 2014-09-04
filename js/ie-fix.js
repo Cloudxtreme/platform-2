@@ -1,12 +1,10 @@
 $( function()
-{
-	console.log("ie9", JSON.stringify(Cloudwalkers));
-	console.log("ie9", JSON.stringify(Cloudwalkers.Session));
+{	
 	/*
 	 *	Add authorization headers to each Backbone.sync call
 	 */
 	Backbone.ajax = function()
-	{	
+	{	console.log(Cloudwalkers.Session.authenticationtoken)
 		// Is there a auth token?
 		if(Cloudwalkers.Session.authenticationtoken)
 			
@@ -23,6 +21,4 @@ $( function()
 		
 		return Backbone.$.ajax.apply(Backbone.$, arguments);
 	};
-
-
 });
