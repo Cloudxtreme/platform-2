@@ -32,7 +32,7 @@ Cloudwalkers.Session =
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
 		this.listenTo(this,"translation:done",  callback );
 
-		$.support.cors = true;
+		/*$.support.cors = true;
 	    $.ajax({
 	        url: 'https://stagingapi.cloudwalkers.be/1/user/me&browser=ie9',
 	        headers: {
@@ -48,9 +48,9 @@ Cloudwalkers.Session =
 	        error: function(xhr, status, errorThrown) {
 	            console.log(errorThrown+'\n'+status+'\n'+xhr.statusText);
 	        }
-      	});
+      	});*/
 
-	//	this.user.fetch({error: this.user.offline.bind(this.user)});
+		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
 	'refresh' : function ()
