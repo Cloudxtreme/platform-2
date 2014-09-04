@@ -60,11 +60,15 @@
 <script src="/assets/plugins/chart.js.legend/legend.js"></script>
 <script src="/assets/plugins/media.js"></script>
 
+<!--[if lt IE 10]>
+<script src="/js/ie-fix.js"></script>
+<![endif]-->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
 <script src="/assets/plugins/respond.min.js"></script>
 <script src="/assets/plugins/modernizr/modernizr.js"></script>
 <![endif]-->
+
 
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
