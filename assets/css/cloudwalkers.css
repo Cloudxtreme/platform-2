@@ -2119,6 +2119,9 @@ ul.contacts-list	{
 .messages-container .category-remember h4{
 	float: left;
 }
+.messages-container .category-name .remember_val{
+	font-weight: bold;
+}
 
 #monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
 
