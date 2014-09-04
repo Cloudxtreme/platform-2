@@ -131,7 +131,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			"change_name",
 			"remember_for",
 			"days",
-			"change_days"
+			"save_changes"
 		];
 
 		this.translated = [];

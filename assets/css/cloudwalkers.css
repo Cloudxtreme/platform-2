@@ -2120,7 +2120,7 @@ ul.contacts-list	{
 	float: left;
 }
 .messages-container .category-name .remember_val{
-	font-weight: bold;
+	font-weight: 600;
 }
 
 #monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }

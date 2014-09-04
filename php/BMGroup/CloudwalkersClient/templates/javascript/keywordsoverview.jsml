@@ -25,7 +25,7 @@
 					<span class="category-edit border-left" style='display: none;'>
 						<form>
 							<input type="text" value="{{name}}" name="name" />
-							<input type="text" value="{{days}}" name="days" />
+							{{translate_remember_for}}: <input type="text" value="{{days}}" name="days" />{{translate_days}}
 							<button class="btn blue edit-toggler" type="submit">{{translate_save_changes}}</button>
 						</form>
 					</span>
