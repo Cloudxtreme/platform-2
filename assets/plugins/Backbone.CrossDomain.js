@@ -82,7 +82,7 @@
         // catch IE7/8/9 but keep IE10 using the built in XMLHttpRequest which
         // IE10 finally supports for CORS.
         if (useXDomainRequest && !Backbone.$.support.cors) {
-            console.log("msg")
+
             // See this article for more details on all the silly nuances: http://vq.io/14DJ1Tv
 
             // Basically Backbone.sync rewritten to use XDomainRequest object
@@ -103,9 +103,18 @@
             if (!options.emulateHTTP && (method === 'update' || method === 'patch' || method === 'delete')) {
                 throw new Error('Backbone.CrossDomain cannot use PUT, PATCH, DELETE with XDomainRequest (IE) and emulateHTTP=false');
             }
+
+            var url = equestUrl(model, options);
+            var op;
+
+            if(url){
+
+                op  = (url.indexOf('?') >= 0)? '&': '?';
+                url = url + op + 'auth_token=' + Cloudwalkers.Session.authenticationtoken;
+            }
             
             // Default JSON-request options.
-            var params = {type: type, dataType: 'json', url: requestUrl(model, options)};
+            var params = {type: type, dataType: 'json', url: url};
 
             // Ensure that we have a URL.
             if (!params.url) throw new Error('No URL!');
