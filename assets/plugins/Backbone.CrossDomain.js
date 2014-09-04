@@ -104,7 +104,7 @@
                 throw new Error('Backbone.CrossDomain cannot use PUT, PATCH, DELETE with XDomainRequest (IE) and emulateHTTP=false');
             }
 
-            var url = equestUrl(model, options);
+            var url = requestUrl(model, options);
             var op;
 
             if(url){
