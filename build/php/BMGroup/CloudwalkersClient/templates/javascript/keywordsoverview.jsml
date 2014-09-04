@@ -24,8 +24,8 @@
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<span class="category-edit border-left" style='display: none;'>
 						<form>
-							<span><input type="text" value="{{name}}" name="name" /><button class="btn blue edit-toggler" type="submit">{{translate_save_changes}}</button></span>
-							<span class="edit_remember">{{translate_remember_for}}: <input type="text" value="{{settings.remember}}" name="remember" /> {{translate_days}}</span>
+							<span class="edit_name"><input type="text" value="{{name}}" name="name" /><button class="btn blue edit-toggler" type="submit">{{translate_save_changes}}</button></span>
+							<span class="edit_remember">{{translate_remember_for}} <input type="text" value="{{settings.remember}}" name="remember" /> {{translate_days}}</span>
 						</form>
 					</span>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}

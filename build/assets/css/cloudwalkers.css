@@ -2129,13 +2129,22 @@ ul.contacts-list	{
 	display: block;
 }
 .messages-container .category-edit .edit_remember {
-	margin-top: 5px;
-	margin-bottom: -5px;
+	margin-top: 4px;
+	margin-bottom: -8px;
 }
 
 .messages-container .category-edit .edit_remember input{
-	width: 30px;
+	width: 25px;
 	padding: 2px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.messages-container .category-edit .edit-toggler{
+	padding: 3px 14px;
+}
+.messages-container .category-edit .edit_name input{
+	padding: 3px;
 }
 
 #monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
