@@ -34,7 +34,7 @@ Cloudwalkers.Session =
  		
  		console.log("making the users/me fetch");
 		
-		$.support.cors = true;
+		/*$.support.cors = true;
 	    $.ajax({
 	        url: 'https://stagingapi.cloudwalkers.be/1/user/me?access_token=abcdef',
 	        type: 'get',
@@ -46,11 +46,11 @@ Cloudwalkers.Session =
 	        error: function(xhr, status, errorThrown) {
 	            console.log(errorThrown+'\n'+status+'\n'+xhr.statusText);
 	        }
-      	});
+      	});*/
 	   
 	    //console.log("Bearer:",Cloudwalkers.Session.authenticationtoken);
 
-		//this.user.fetch({error: this.user.offline.bind(this.user)});
+		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
 	'refresh' : function ()
