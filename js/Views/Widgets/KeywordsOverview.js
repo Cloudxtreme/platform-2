@@ -7,7 +7,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'entries' : [],
 
 	'events' : {
-		'submit form' : 'editCategory',
+		'submit .category-edit form' : 'editCategoryName',
+		'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
@@ -48,7 +49,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
-	'editCategory' : function (e)
+	'editCategoryName' : function (e)
 	{
 		e.stopPropagation();
 
@@ -60,6 +61,22 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		channel.save({name: name});
 		
 		$cat.find('h4').html(name);
+		
+		return false;
+	},
+
+	'editCategoryRemember' : function (e)
+	{
+		e.stopPropagation();
+
+		var $cat = $(e.target).closest('[data-category]');
+		var name = $cat.find('[name="remember"]').val();
+		
+		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
+		channel.endpoint = '';
+		channel.save({remember: remember});
+		
+		$cat.find('h3').html(remember);
 		
 		return false;
 	},
@@ -121,7 +138,10 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		// Translate array
 		this.original  = [
 			"categories_overview",
-			"change_name"
+			"change_name",
+			"remember_for",
+			"days",
+			"change_days"
 		];
 
 		this.translated = [];

@@ -19,14 +19,25 @@
 					{{/authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
 				</div>
 				
-				<span class="category-name edit-toggler"><h4>{{name}}</h4></span>
-				<span class="category-edit border-left" style='display: none;'>
-					<form>
-						<input type="text" value="{{name}}" name="name" />
-						<button class="btn blue edit-toggler" type="submit">{{translate_change_name}}</button>
-					</form>
-				</span>
-				
+				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}"><h4>{{name}}</h4></span>
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					<span class="category-edit border-left" style='display: none;'>
+						<form>
+							<input type="text" value="{{name}}" name="name" />
+							<button class="btn blue edit-toggler" type="submit">{{translate_change_name}}</button>
+						</form>
+					</span>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+
+				<span class="category-remember {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler-remember{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">{{translate_remember_for}}<h4>{{remember}}</h4> {{translate_days}}</span>
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					<span class="category-edit-remember border-left" style='display: none;'>
+						<form>
+							<input type="text" value="{{days}}" name="days" />
+							<button class="btn blue edit-toggler-remember" type="submit">{{translate_change_days}}</button>
+						</form>
+					</span>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 			</li>
 			<li>
 				<ul>
