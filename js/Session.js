@@ -31,8 +31,26 @@ Cloudwalkers.Session =
 		/* getLang and then callback */
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
 		this.listenTo(this,"translation:done",  callback );
+ 		
+ 		console.log("making the users/me fetch");
+		
+		/*$.support.cors = true;
+	    $.ajax({
+	        url: 'https://stagingapi.cloudwalkers.be/1/user/me?access_token=abcdef',
+	        type: 'get',
+	        cache: false,
+	        dataType: 'json',
+	        success: function(data) {
+	             console.log("login successfull")
+	        },
+	        error: function(xhr, status, errorThrown) {
+	            console.log(errorThrown+'\n'+status+'\n'+xhr.statusText);
+	        }
+      	});*/
+	   
+	    //console.log("Bearer:",Cloudwalkers.Session.authenticationtoken);
 
-		this.user.fetch({success: this.user.offline.bind(this.user), error: this.user.offline.bind(this.user)});
+		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
 	'refresh' : function ()
@@ -312,6 +330,11 @@ Cloudwalkers.Session =
 	'getStreams' : function ()
 	{
 		return this.user.account.streams;
+	},
+
+	'addStream' : function(stream)
+	{
+		return this.user.account.streams.add(stream);
 	},
 	
 	/*'setStreams' : function (list)

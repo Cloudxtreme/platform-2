@@ -16,13 +16,7 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 			return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
 		
 		else return Cloudwalkers.Session.api + '/users/' + this.id;	
-		
-		 
-        
-       /* return this.endpoint?
-        
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;*/
+
 	},
 	
 	'parse' : function(response)
