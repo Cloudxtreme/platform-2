@@ -2114,6 +2114,7 @@ ul.contacts-list	{
 }
 .messages-container .category-remember{
 	display: inline-block;
+	margin-bottom: -15px;
 }
 .messages-container .category-remember h4{
 	float: left;

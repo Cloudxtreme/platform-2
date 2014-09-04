@@ -10,7 +10,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		'submit .category-edit form' : 'editCategoryName',
 		'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
-		'click .edit-toggler-remember' : 'toggleEditCategory',
+		'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -48,6 +48,13 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		e.stopPropagation();
 		
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
+	},
+
+	'toggleEditCategoryRemember' : function (e)
+	{
+		e.stopPropagation();
+		
+		$(e.target).closest('[data-category]').find('.category-remember, .category-edit-remember').toggle();
 	},
 
 	'editCategoryName' : function (e)
