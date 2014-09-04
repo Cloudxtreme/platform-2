@@ -7,10 +7,10 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'entries' : [],
 
 	'events' : {
-		'submit .category-edit form' : 'editCategoryName',
-		'submit .category-edit-remember form' : 'editCategoryRemember',
+		'submit .category-edit form' : 'editCategory',
+		//'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
-		'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
+		//'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -50,41 +50,23 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
-	'toggleEditCategoryRemember' : function (e)
-	{
-		e.stopPropagation();
-		
-		$(e.target).closest('[data-category]').find('.category-remember, .category-edit-remember').toggle();
-	},
-
 	'editCategoryName' : function (e)
 	{
 		e.stopPropagation();
 
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
+		var remember = $cat.find('[name="remember"]').val();
 		
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
-		channel.save({name: name});
+		channel.save({
+			name: name,
+			remember: remember
+		});
 		
-		$cat.find('h4').html(name);
-		
-		return false;
-	},
-
-	'editCategoryRemember' : function (e)
-	{
-		e.stopPropagation();
-
-		var $cat = $(e.target).closest('[data-category]');
-		var name = $cat.find('[name="remember"]').val();
-		
-		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
-		channel.endpoint = '';
-		channel.save({remember: remember});
-		
-		$cat.find('h3').html(remember);
+		$cat.find('h4 .name').html(name);
+		$cat.find('h4 .remember').html(remember);
 		
 		return false;
 	},
