@@ -64,6 +64,19 @@ AuthorizationError.prototype.constructor = AuthorizationError;
  *	Backbone Extensions
  **/
  
+/*
+ *	Add authorization headers to each Backbone.sync call
+ */
+Backbone.ajax = function()
+{
+	// Is there a auth token?
+	if(Cloudwalkers.Session.authenticationtoken)
+		
+		console.log(arguments)
+
+	return Backbone.$.ajax.apply(Backbone.$, arguments);
+};
+ 
 /*Backbone.View = Backbone.View.extend({
 
 	'hasContainer' : false,
