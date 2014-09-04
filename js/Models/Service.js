@@ -50,16 +50,25 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	updateStreams : function (active, profile)
 	{	
-		this.once('sync', this.parseStreamChanges.bind(this, profile))
+		// Save the channels before the call
+		if(!active)
+			this.backupstreams = this.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+
+		this.once('sync', this.parseStreamChanges.bind(this, profile, active))
 			.fetch({parentpoint: false});
 	},
 	
-	parseStreamChanges : function (profile, service)
+	parseStreamChanges : function (profile, active)
 	{	
 		var streams;
 
-		if(service && service.get("streams")){
-			streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+		if(active){
+			if(this.get("streams")){
+				streams = this.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+				console.log(streams)
+			}
+		}else{
+			streams = this.backupstreams;
 		}
 
 		if(streams && streams.length){
@@ -79,9 +88,9 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 			.fetch({parentpoint: false});
 	},
 
-	'updatechannels' : function(operation, service)
+	'updatechannels' : function(operation)
 	{	
-		var streams = service.get("streams");
+		var streams = this.get("streams");
 
 		if(!streams)
 			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
