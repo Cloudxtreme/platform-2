@@ -44,7 +44,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		
 		// For specific methods
 		//this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
-		this.endpoint = '?access_token=abcdef',
+		this.endpoint = '?access_token=abcdef';
 		// Caching
 		if( method == "read")
 			Store.get("me", null, function(data)
