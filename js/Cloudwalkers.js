@@ -443,6 +443,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	
 	'ready' : function()
 	{	
-		setTimeout(function(collection){ collection.trigger("ready", collection); }, 1, this);
+		var collection = this;
+		setTimeout(function(collection){ console.log(collection), collection.trigger("ready", collection); }, 1, this);
 	}
 });
