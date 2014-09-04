@@ -18,6 +18,7 @@
 <script src="/assets/plugins/mustache.0.7.3-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/underscore.1.6.0-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/backbone.1.0.0-min.js" type="text/javascript"></script>
+<script src="/assets/plugins/Backbone.CrossDomain.js" type="text/javascript"></script>
 
 <!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>

@@ -37,14 +37,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		options.headers = {
+		/*options.headers = {	
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
             'Accept': "application/json"
-        };
+        };*/
 		
 		// For specific methods
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
-		
+		//this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+		this.endpoint = '?access_token='+Cloudwalkers.Session.authenticationtoken;
 		// Caching
 		if( method == "read")
 			Store.get("me", null, function(data)
@@ -185,8 +185,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
-	'offline' : function ()
-	{
+	'offline' : function (user, response, options)
+	{	console.log("user:", JSON.stringify(user));
+		console.log("response:", JSON.stringify(response));
+		console.log("options:", JSON.stringify(options));
+
 		Cloudwalkers.Session.reset();
 		//window.location = "/login.html";
 		
