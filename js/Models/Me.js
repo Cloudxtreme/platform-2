@@ -185,8 +185,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		])) this.authorized.push('_CW_INBOX_VIEW');
 	},
 	
-	'offline' : function ()
-	{
+	'offline' : function (user, response, options)
+	{	console.log("user:", user);
+		console.log("response:", response);
+		console.log("options:", options);
+		
 		Cloudwalkers.Session.reset();
 		//window.location = "/login.html";
 		
