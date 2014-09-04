@@ -2102,6 +2102,27 @@ ul.contacts-list	{
 	font-size: 1.2em; margin: 0 2px; padding: 6px;
 }
 
+#category_create_name{
+	margin-bottom: 5px;
+}
+#category_create_remember{
+	width: 50px;
+}
+.addcategory .portlet-body span{
+	display: inline-block;
+	padding: 7px;
+}
+.messages-container .category-remember{
+	display: inline-block;
+	margin-bottom: -15px;
+}
+.messages-container .category-remember h4{
+	float: left;
+}
+.messages-container .category-name .remember_val{
+	font-weight: 600;
+}
+
 #monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
 
 .managekeywords .inactive	{ display: none; }

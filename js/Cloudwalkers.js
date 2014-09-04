@@ -20,10 +20,10 @@ var Cloudwalkers = {
 		
 		// Check if there is authentication
 		if(token && token.length > 9)
-		{
+		{	
 			Cloudwalkers.Session.authenticationtoken = token;
 			
-		} else window.location = "/login.html";
+		} else{ console.log("token error", token); window.location = "/login.html";}
 
 		// Define API root
 		Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
@@ -63,6 +63,22 @@ AuthorizationError.prototype.constructor = AuthorizationError;
 /**
  *	Backbone Extensions
  **/
+ 
+/*
+ *	Add authorization headers to each Backbone.sync call
+ */
+Backbone.ajax = function()
+{
+	// Is there a auth token?
+	if(Cloudwalkers.Session.authenticationtoken)
+		
+		arguments[0].headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+        
+	return Backbone.$.ajax.apply(Backbone.$, arguments);
+};
  
 /*Backbone.View = Backbone.View.extend({
 

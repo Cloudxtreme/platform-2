@@ -1,10 +1,11 @@
 Cloudwalkers.Models.Service = Backbone.Model.extend({
 	
 	'typestring' : "services",
+	'channels' : [],
 	
 	'initialize' : function (options)
 	{
-
+		this.on('destroy', this.remove);
 	},
 	
 	'url' : function()
@@ -47,29 +48,75 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		return Backbone.sync(method, model, options);
 	},
 	
-	updateStreams : function (active)
-	{
-		this.once('sync', this.parseStreamChanges)
+	updateStreams : function (active, profile)
+	{	
+		this.once('sync', this.parseStreamChanges.bind(this, profile))
 			.fetch({parentpoint: false});
 	},
 	
-	parseStreamChanges : function (service)
+	parseStreamChanges : function (profile, service)
+	{	
+		var streams;
+
+		if(service && service.get("streams")){
+			streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+		}
+
+		if(streams && streams.length){
+			for(n in streams){
+				this.parsestream(streams[n], profile.get("activated")? 'add': 'remove');
+			}
+		}
+
+		//Refresh navigation
+		Cloudwalkers.RootView.navigation.renderHeader();
+		Cloudwalkers.RootView.navigation.render();
+	},
+
+	'addservice' : function()
 	{
-		var streams = new Cloudwalkers.Collections.Streams();
-		var ids = [];
+		this.once('sync', this.updatechannels.bind(this, "add"))
+			.fetch({parentpoint: false});
+	},
+
+	'updatechannels' : function(operation, service)
+	{	
+		var streams = service.get("streams");
+
+		if(!streams)
+			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+
+		for(n in streams)
+			this.parsestream(streams[n], operation);
+
+		//Refresh navigation
+		Cloudwalkers.RootView.navigation.renderHeader();
+		Cloudwalkers.RootView.navigation.render();
+
+		if(operation == 'add')
+			Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+	},
+
+	'parsestream' : function(stream, operation)
+	{	
+		var channels = stream.channels;
+		var channel;
 		
-		service.get('streams').forEach(function(entry)
-		{
-			var stream = Cloudwalkers.Session.getStream(entry.id);
-			
-			// Active stream
-			if (entry.available && !stream) ids.push(entry.id);
-			
-			// Inactive stream
-			else if (!entry.available && stream) Cloudwalkers.Session.getStream(entry.id).silentRemove();
-		});
-		
-		if(ids) streams.fetch({data: {ids: ids}});
+		if(channels.length){
+			for(n in channels){
+
+				channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
+				if(channel)
+					channel.streams[operation](stream);
+
+				console.log(operation, stream.id, channel.id)
+			}
+		}
+	},
+
+	'remove' : function()
+	{
+		this.updatechannels('remove', this)
 	}
 	
 });

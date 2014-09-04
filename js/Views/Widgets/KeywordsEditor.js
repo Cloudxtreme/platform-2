@@ -49,7 +49,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 
-		var object = {name: $("#category_create_name").val()};
+		var object = {
+			name: $("#category_create_name").val(),
+			remember: $("#category_create_remember").val()
+		};
 
 		this.channel.channels.create(object, {parent: this.channel.id, wait: true});
 
@@ -176,7 +179,9 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 			"global",
 			"update",
 			"cancel",
-			"manage_keyword"
+			"manage_keyword",
+			"remember_for",
+			"days"
 		];
 
 		this.translated = [];

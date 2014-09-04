@@ -7,8 +7,10 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'entries' : [],
 
 	'events' : {
-		'submit form' : 'editCategory',
+		'submit .category-edit form' : 'editCategory',
+		//'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
+		//'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -26,7 +28,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
-		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), remember: cat.get("remember"), keywords: cat.channels.models}});
 
 		var data = {categories: categories};
 		
@@ -48,18 +50,23 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
-	'editCategory' : function (e)
+	'editCategoryName' : function (e)
 	{
 		e.stopPropagation();
 
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
+		var remember = $cat.find('[name="remember"]').val();
 		
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
-		channel.save({name: name});
+		channel.save({
+			name: name,
+			remember: remember
+		});
 		
-		$cat.find('h4').html(name);
+		$cat.find('.name_val').html(name);
+		$cat.find('.remember_val').html(remember);
 		
 		return false;
 	},
@@ -121,7 +128,10 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		// Translate array
 		this.original  = [
 			"categories_overview",
-			"change_name"
+			"change_name",
+			"remember_for",
+			"days",
+			"save_changes"
 		];
 
 		this.translated = [];
