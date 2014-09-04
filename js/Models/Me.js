@@ -188,7 +188,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'offline' : function ()
 	{
 		Cloudwalkers.Session.reset();
-		//window.location = "/login.html";
+		window.location = "/login.html";
 		
 		// If Me exists local, use when offline.
 		// if (Store.exists("me")) this.trigger("change");
