@@ -22,8 +22,6 @@ Cloudwalkers.Views.Widgets.DashboardMessageList = Cloudwalkers.Views.Widgets.Mes
 		
 		// Listen to model
 		this.listenTo(this.model.messages, 'seed', this.fill);
-		this.model.messages.on('sync', function(a){console.log("sync")})
-		this.model.messages.on('ready', function(a){console.log("ready")})
 		this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 		
 		this.initializeWidget ();
