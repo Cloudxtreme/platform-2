@@ -272,7 +272,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'checkloaded' : function (response)
 	{
-		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
+		var model = this;
+		if(response.objectType) setTimeout(function(){ model.trigger('loaded'); }, 1, this);
 	},
 	
 	'filterData' : function (response)

@@ -20,13 +20,12 @@
 				</div>
 				
 				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}"><h4 class="name_val">{{name}}</h4></span>
-				<span class="category-name category-remember {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">{{translate_remember_for}} <span class="remember_val">{{remember}}</span> {{translate_days}}</span>
+				<span class="category-name category-remember {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">{{translate_remember_for}} <span class="remember_val">{{settings.remember}}</span> {{translate_days}}</span>
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<span class="category-edit border-left" style='display: none;'>
 						<form>
-							<input type="text" value="{{name}}" name="name" />
-							{{translate_remember_for}}: <input type="text" value="{{days}}" name="days" />{{translate_days}}
-							<button class="btn blue edit-toggler" type="submit">{{translate_save_changes}}</button>
+							<span><input type="text" value="{{name}}" name="name" /><button class="btn blue edit-toggler" type="submit">{{translate_save_changes}}</button></span>
+							<span class="edit_remember">{{translate_remember_for}}: <input type="text" value="{{settings.remember}}" name="remember" /> {{translate_days}}</span>
 						</form>
 					</span>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}

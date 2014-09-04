@@ -2116,11 +2116,26 @@ ul.contacts-list	{
 	display: inline-block;
 	margin-bottom: -15px;
 }
+.messages-container span{
+	cursor: pointer;
+}
 .messages-container .category-remember h4{
 	float: left;
 }
 .messages-container .category-name .remember_val{
 	font-weight: 600;
+}
+.messages-container .category-edit span{
+	display: block;
+}
+.messages-container .category-edit .edit_remember {
+	margin-top: 5px;
+	margin-bottom: -5px;
+}
+
+.messages-container .category-edit .edit_remember input{
+	width: 30px;
+	padding: 2px;
 }
 
 #monitorparent td	{ word-wrap: break-word; overflow-x: hidden; max-width: 100%; }
