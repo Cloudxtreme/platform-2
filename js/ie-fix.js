@@ -19,7 +19,7 @@ $( function()
 
 	     		arguments[0].url = url;
 	     	}
-		
+		console.log("ie9")
 		return Backbone.$.ajax.apply(Backbone.$, arguments);
 	};
 
