@@ -9,14 +9,15 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 	
 	'url' : function ()
 	{
-		if(this.parent){
-			console.log(Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id);
-        	return Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
-        
-        }else{
-        	console.log(Cloudwalkers.Session.api + 'user/' + this.id);
-        	return Cloudwalkers.Session.api + 'user/' + this.id;	
-        } 
+		if (this.parent)
+			return Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
+		
+		else if (this.method == 'create' || this.method == 'delete')
+			return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
+		
+		else return Cloudwalkers.Session.api + '/users/' + this.id;	
+		
+		 
         
        /* return this.endpoint?
         
@@ -35,30 +36,20 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		return response;
 	},
 	
-	
-	/*'parse' : function(response)
-	{	
-		// A new object
-		if (typeof response == "number") response = {id: response};
-
-		return response;
-	},*/
-	
-	/*'sync' : function (method, model, options) {
-
+	'sync' : function (method, model, options)
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
+		this.method = method;
+		
 		// Hack
 		if(method == "update") return false;
 		
-		if( method == "read")
-			Store.get(this.url(), null, function(data)
-			{
-				if(data) this.set(data);
-
-			}.bind(this));
-
-		
 		return Backbone.sync(method, model, options);
-	},*/
+	},
 	
 	'filterData' : function (type)
 	{
