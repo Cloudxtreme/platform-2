@@ -110,7 +110,7 @@
             if(url){
 
                 op  = (url.indexOf('?') >= 0)? '&': '?';
-                url = url + op + 'auth_token=' + Cloudwalkers.Session.authenticationtoken;
+                url = url + op + 'access_token=' + Cloudwalkers.Session.authenticationtoken;
             }
             
             // Default JSON-request options.
