@@ -1,6 +1,6 @@
 $( function()
 {
-
+	console.log("ie9");
 	/*
 	 *	Add authorization headers to each Backbone.sync call
 	 */
@@ -19,7 +19,7 @@ $( function()
 
 	     		arguments[0].url = url;
 	     	}
-		console.log("ie9")
+		
 		return Backbone.$.ajax.apply(Backbone.$, arguments);
 	};
 
