@@ -10,6 +10,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		'submit .category-edit form' : 'editCategoryName',
 		'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
+		'click .edit-toggler-remember' : 'toggleEditCategory',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -27,7 +28,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
-		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), remember: cat.get("remember"), keywords: cat.channels.models}});
 
 		var data = {categories: categories};
 		
