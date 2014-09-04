@@ -65,8 +65,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			remember: remember
 		});
 		
-		$cat.find('h4 .name').html(name);
-		$cat.find('h4 .remember').html(remember);
+		$cat.find('.name_val').html(name);
+		$cat.find('.remember_val').html(remember);
 		
 		return false;
 	},

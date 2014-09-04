@@ -19,8 +19,8 @@
 					{{/authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
 				</div>
 				
-				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}"><h4 class="name">{{name}}</h4></span>
-				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">{{translate_remember_for}}<h4 class="remember">{{remember}}</h4> {{translate_days}}</span>
+				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}"><h4 class="name_val">{{name}}</h4></span>
+				<span class="category-name category-remember {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">{{translate_remember_for}} <span class="remember_val">{{remember}}</span> {{translate_days}}</span>
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<span class="category-edit border-left" style='display: none;'>
 						<form>
