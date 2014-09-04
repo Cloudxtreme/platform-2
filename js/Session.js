@@ -34,11 +34,7 @@ Cloudwalkers.Session =
 
 		$.support.cors = true;
 	    $.ajax({
-	        url: 'https://stagingapi.cloudwalkers.be/1/user/me',
-	        headers: {
-	               'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-	               'Accept': "application/json"
-	            },
+	        url: 'https://stagingapi.cloudwalkers.be/1/user/me?access_token=abcdef',
 	        type: 'get',
 	        cache: false,
 	        dataType: 'json',
