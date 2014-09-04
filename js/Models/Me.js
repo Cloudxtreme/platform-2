@@ -37,14 +37,14 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		/*options.headers = {
+		/*options.headers = {	
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
             'Accept': "application/json"
         };*/
 		
 		// For specific methods
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
-		
+		//this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+		this.endpoint = '?access_token=abcdef',
 		// Caching
 		if( method == "read")
 			Store.get("me", null, function(data)
