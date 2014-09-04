@@ -108,7 +108,6 @@
             var op;
 
             if(url){
-
                 op  = (url.indexOf('?') >= 0)? '&': '?';
                 url = url + op + 'access_token=' + Cloudwalkers.Session.authenticationtoken;
             }
