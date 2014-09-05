@@ -88,7 +88,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{	
 		if(accountid != Cloudwalkers.Session.get("currentAccount"))
 		{
-			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home}); //patch: true
+			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)}); //patch: true
 		}
 	},
 	
@@ -375,20 +375,25 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Resync({returnto: view}));
 	},
 
-	'home' : function ()
+	'home' : function (changeaccount)
 	{	
-		$.ajax({ url: config.authurl + "revoke", headers : {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        },
-        success: function()
-        {
-        	window.location = "/";
-        }});
+		if(!changeaccount){
+
+			$.ajax({ url: config.authurl + "revoke", headers : {
+	            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+	            'Accept': "application/json"
+	        },
+	        success: function()
+	        {
+	        	window.location = "/";
+	        }});
+		}else{
+			window.location = "/";
+		}
 		
 		Cloudwalkers.RootView.view.remove();
 		Cloudwalkers.RootView.navigation.remove();
-		Cloudwalkers.Session.reset();
+		Cloudwalkers.Session.reset(changeaccount);
 		
 		return false;
 	},

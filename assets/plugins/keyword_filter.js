@@ -7,7 +7,7 @@
 			$.extend(this.translations, options);
 		}
 
-		$('html').mouseup(function(e)
+		$('html').mousedown(function(e)
 		{
 			e.stopPropagation();
 
@@ -452,7 +452,7 @@
 		return init.apply(this, arguments);
 	}
 	$.fn.keywordfilterdestroy = function () {
-		$('html').unbind('mouseup')
+		$('html').unbind('mousedown')
 	};
 
 })(jQuery);
