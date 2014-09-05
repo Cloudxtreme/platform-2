@@ -36,7 +36,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 					if((this.counters[k].type == "UNREAD") && (this.counters[k].interval == "TOTAL"))
 						this.list.models[n].count = this.counters[k].amount;
 				}
-			} else if (this.list.models[n].channels){
+			} else if(this.list.models[n].channels){
 				// Keyword Filters
 				
 				this.keywordchannels = this.list.models[n].channels.models;
@@ -45,13 +45,16 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 					this.keywordstreams = this.keywordchannels[k].streams.models;
 
 					for(j in this.keywordstreams){
-						this.counters = this.keywordstreams[j].get("counters").MESSAGE;
-						
-						for(i in this.counters){
-							// change interval to SINCEREMEMBER
-							if((this.counters[i].type == "UNREAD") && (this.counters[i].interval == "TOTAL"))
-								this.list.models[n].count += parseInt(this.counters[i].amount);
+
+						if(this.keywordstreams[j].get("counters")){
+							this.counters = this.keywordstreams[j].get("counters").MESSAGE;
 							
+							for(i in this.counters){
+								// change interval to SINCEREMEMBER
+								if((this.counters[i].type == "UNREAD") && (this.counters[i].interval == "TOTAL"))
+									this.list.models[n].count += parseInt(this.counters[i].amount);
+								
+							}
 						}
 					}
 
