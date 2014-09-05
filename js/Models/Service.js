@@ -65,7 +65,6 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 		if(active){
 			if(this.get("streams")){
 				streams = this.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
-				console.log(streams)
 			}
 		}else{
 			streams = this.backupstreams;
@@ -117,8 +116,6 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 				channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
 				if(channel)
 					channel.streams[operation](stream);
-
-				console.log(operation, stream.id, channel.id)
 			}
 		}
 	},
