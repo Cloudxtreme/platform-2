@@ -3,10 +3,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'id' : "timeline",
 	'parameters': { records: 20, markasread: true },
 	'entries' : [],
+
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
-		'click .load-more' : 'more'
+		'click .load-more .more' : 'more'
 	},
 	
 	'initialize' : function (options)
@@ -32,12 +33,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'hideloading': function()
 	{
 		this.$el.removeClass("loading");
-		//this.$el.find(".timeline-loading").hide();
+		this.$el.find(".timeline-loading").hide();
+
+		this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
 	
 	'render' : function ()
 	{
-
 		// Network filters
 		var params = {} // {networks: this.model.streams.filterNetworks(null, true)};
 		
@@ -53,6 +56,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		// Load messages
 		this.collection.touch(this.model, this.filterparameters());
+
+		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
 	},
@@ -77,8 +82,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		{	
 			//Company / third party
 			models[n].attributes.showcontact = this.showcontact;
-
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'messagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'newmessagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 			
 			this.entries.push (view);
 			
@@ -98,10 +102,18 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.$el.find('.load-more .timeline-icon').addClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('loading')+'...');
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'resize' : function(height)
+	{	
+		this.$el.css('min-height', height);
 	},
 
 	'translateString' : function(translatedata)
@@ -128,7 +140,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
-
 });
 
 /*Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Widgets.WidgetContainer.extend({

@@ -85,7 +85,7 @@ li.btn-white	{
 
 .btn-compound .btn-white.actionvalue.noresults > i,
 .btn-compound .btn-white.actionvalue.noresults > span{
-	opacity: .4;
+	opacity: .2;
 }
 
 .btn-compound .btn-white.actionvalue.noresults:hover{
@@ -573,7 +573,7 @@ tbody.messages-container i	{
 /* Notes */
 .message-notes{
 	border-top: 1px solid #ddd;
-	
+	background-color: #fff;
 }
 
 .message-notes .action-list .modal-header{
@@ -1779,20 +1779,20 @@ counter	{
 			animation-iteration-count: infinite;
 }
 
-.inbox-container .message-comments li,
-.inbox-container .message-notes li	{ padding: 10px; }
+.message-comments li,
+.message-notes li	{ padding: 10px; }
 
-.inbox-container .message-comments li:nth-child(even) { background:#e0f0f8; }
+.message-comments li:nth-child(even) { background:#e0f0f8; }
 
-.inbox-container .message-notes li:nth-child(even)	{ background:#F4F192; }
+.message-notes li:nth-child(even)	{ background:#F4F192; }
 
-.inbox-container .message-comments li.active,
-.inbox-container .message-notes li.active	{
+.message-comments li.active,
+.message-notes li.active	{
 	background:#b1e2ec; border: solid white; border-width: 1px 0;
 }
 
-.inbox-container .message-comments li:first-child.active,
-.inbox-container .message-notes li:first-child.active	{
+.message-comments li:first-child.active,
+.message-notes li:first-child.active	{
 	background: none; border-top-width: 0;
 }
 
@@ -1813,10 +1813,10 @@ counter	{
 	max-height: 22px; 
 }
 
-.inbox-container .message-comments p,
-.inbox-container .message-notes p { display: inline; }
+.message-comments p,
+.message-notes p { display: inline; }
 
-.inbox-container .message-notes .note-body{
+.message-notes .note-body{
 	padding: 0px;
 }
 
@@ -2690,3 +2690,19 @@ Dashboard stats
 	opacity: 0.7 !important;
 }
 /* Lightbox override */
+
+
+/* Filter banner */
+
+.filterbanner{
+	width: 100%;
+	position: fixed;
+	background-color: #fff;
+	/*padding: 10px;*/
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	z-index: 10;
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+	border-bottom: 1px solid #ddd;
+}

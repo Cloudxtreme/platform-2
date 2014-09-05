@@ -52,7 +52,9 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		this.$el.find('.edit-user-profile').addClass('loading');
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
-		{
+
+		{	
+
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack

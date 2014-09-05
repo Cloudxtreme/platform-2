@@ -1,4 +1,6 @@
-Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
+Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
+
+	// This view defaults to note
 
 	'template' : 'composenote', // Can be overriden
 
@@ -12,11 +14,10 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		// Parameters
 		if(options) $.extend(this, options);
 
-		// Empty note
-		if(!this.note)	this.note = new Cloudwalkers.Models.Note();
+		if(!this.model)	this.model = new Cloudwalkers.Models.Note();
 
-		if(this.model)
-			this.note.parent = this.model;
+		if(this.parent)
+			this.model.parent = this.parent;
 	},
 
 	'render' : function()
@@ -25,7 +26,7 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		var params = {};
 		var view;
 
-		if(this.note.get("text"))	params.text = this.note.get("text");
+		if(this.model.get("text"))	params.text = this.model.get("text");
 
 		//Mustache Translate Header
 		this.mustacheTranslateRender(params);
@@ -33,14 +34,14 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 		view = Mustache.render(Templates[this.template], params);
 		this.$el.html (view);
 
-		if(this.note.get("text"))	//we are editing
+		if(this.model.get("text"))	//we are editing
 			this.$el.find('h3').remove();
 
 		// Inject custom loadercontainer
 		if(!this.$loadercontainer)
 			this.$loadercontainer = this.$el.find ('.modal-footer');
 
-		this.loadListeners(this.note, ['request', 'sync']);
+		this.loadListeners(this.model, ['request', 'sync']);
 
 		this.trigger("rendered");
 
@@ -49,19 +50,32 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 
 	'post' : function()
 	{	
-		var notetext = this.$el.find('textarea').val();
+		var text = this.$el.find('textarea').val();
+		var typestring = this.model.typestring;
 
-		this.note.save({'text': notetext}, {patch: this.note.id? true: false, success: this.thanks? this.thankyou.bind(this): this.trigger.bind(this,'save:success')});
+		if(typestring)	this['post'+typestring](text);
+	},
+
+	'postnotes' : function(text)
+	{
+		this.model.save({'text': text}, {patch: this.model.id? true: false, success: this.thanks? this.thankyou.bind(this): this.trigger.bind(this,'save:success')});
+	},
+
+	'postmessages' : function(text)
+	{
+		var content = {'html' : text, 'plaintext' : text};
+		this.model.set('body', content);
+
+		this.model.save({'body': this.model.get('body'), status:'draft'}, {success: this.thanks? this.thankyou.bind(this): this.trigger.bind(this,'save:success')});
 	},
 
 	'cancel' : function()
 	{	
 		this.trigger('edit:cancel');
-		if(!this.persistent){		
+		if(!this.persistent){
 			this.$el.find('button.close').click();
 			this.remove();
-
-		}
+		}		
 	},
 
 	'thankyou' : function()
@@ -76,10 +90,23 @@ Cloudwalkers.Views.ComposeNote = Backbone.View.extend({
 			// Add preview view to Compose
 			this.$el.find('section').html(thanks);
 			setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
+
+			if(this.close){
+				setTimeout(function(){
+					if(this.type == 'draft'){
+						this.model = new Cloudwalkers.Models.Message();
+					} else {
+						this.model = new Cloudwalkers.Models.Note();
+					}
+						
+					this.render();
+				}.bind(this), 2000);
+			}
+
 		}.bind(this),200);	
 
 		// Trigger to update #notes view
-		Cloudwalkers.RootView.trigger("added:note", this.note);			
+		Cloudwalkers.RootView.trigger("added:note", this.model);			
 	},
 
 	'clean' : function()
