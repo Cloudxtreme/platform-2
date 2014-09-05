@@ -8,9 +8,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'events' : {
 		'submit form' : 'editCategory',
-		//'submit .category-edit-remember form' : 'editCategoryRemember',
 		'click .edit-toggler' : 'toggleEditCategory',
-		//'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -58,6 +56,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var name = $cat.find('[name="name"]').val();
 		var remember = $cat.find('[name="remember"]').val();
 		
+
 		var settings = {
 			remember: remember
 		};

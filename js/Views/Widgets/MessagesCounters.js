@@ -23,19 +23,45 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		if(this.list)
 		for (n in this.list.models)
 		{
+			this.list.models[n].count = 0;
 			// Add change listeners
 			this.listenTo(this.list.models[n], "change", this.render);
 			this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
 			
 			// Place counter
-			
-			if(this.list.models[n].get("counters"))
+			if(this.list.models[n].get("counters")){
+				// Inbox & Agenda
 				this.counters = this.list.models[n].get("counters").MESSAGE;
 				for(k in this.counters){
 					if((this.counters[k].type == "UNREAD") && (this.counters[k].interval == "TOTAL"))
 						this.list.models[n].count = this.counters[k].amount;
 				}
-			
+			} else if(this.list.models[n].channels){
+				// Keyword Filters
+				
+				this.keywordchannels = this.list.models[n].channels.models;
+
+				for(k in this.keywordchannels){
+					this.keywordstreams = this.keywordchannels[k].streams.models;
+
+					for(j in this.keywordstreams){
+
+						if(this.keywordstreams[j].get("counters")){
+							this.counters = this.keywordstreams[j].get("counters").MESSAGE;
+							
+							for(i in this.counters){
+								// change interval to SINCEREMEMBER
+								if((this.counters[i].type == "UNREAD") && (this.counters[i].interval == "TOTAL"))
+									this.list.models[n].count += parseInt(this.counters[i].amount);
+								
+							}
+						}
+					}
+
+				}
+
+			}
+
 			if(!this.list.models[n].count)
 				this.list.models[n].count = this.list.models[n].get("count")[options.countString];
 		}
