@@ -1,7 +1,9 @@
 Cloudwalkers.UrlShortener = Backbone.Model.extend({
 
-	'initialize' : function() {
+	'initialize' : function(options) {
 		
+		if(options) $.extend(this, options);
+
 		/*// Create local Ping
 		if(!Store.exists("ping", {id: this.id})) Store.post("ping", {id: this.id});
 		
@@ -30,6 +32,11 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.longurl = options.q;
 		this.campaign = options.campaign;
 

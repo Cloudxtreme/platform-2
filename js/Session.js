@@ -313,6 +313,11 @@ Cloudwalkers.Session =
 	{
 		return this.user.account.streams;
 	},
+
+	'addStream' : function(stream)
+	{
+		return this.user.account.streams.add(stream);
+	},
 	
 	/*'setStreams' : function (list)
 	{

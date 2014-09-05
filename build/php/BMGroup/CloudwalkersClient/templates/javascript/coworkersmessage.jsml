@@ -7,7 +7,7 @@
 			
 				<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
 				{{/actions}}
 				</ul>
 			</span>
@@ -26,7 +26,7 @@
 	
 	{{#from}}
 		<img class="avatar" alt="" src="{{avatar}}">
-		<strong><a href="#settings/users" target="_blank">{{displayname}}</a></strong>
+		<strong><a>{{displayname}}</a></strong>
 	{{/from}}
 	
 	<div class='content'>
