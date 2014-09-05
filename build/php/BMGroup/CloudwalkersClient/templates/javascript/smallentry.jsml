@@ -16,12 +16,18 @@
 			<div class="media"><i class="icon-{{networktoken}}"></i></div>
 			{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
 		{{/inboxview}}
+		{{#contactview}}
+			{{#date}}<span class="date" data-date="{{date}}"></span>{{/date}}
+			<div class="dot {{networktoken}}-color"></div>
+			<div class="media"><i class="icon-{{networktoken}}"></i></div>
+			{{#arrow}}<div class="arrow"><i class="icon-chevron-right"></i></div>{{/arrow}}
+		{{/contactview}}
 
 	</div>
 	
 	{{#from}}
 		{{#trendview}}<i class="icon-{{networktoken}}"></i>{{/trendview}}
-		{{^trendview}}<img class="avatar" alt="{{displayname}}" src="{{avatar}}">{{/trendview}}
+		{{^trendview}}<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>{{/trendview}}
 		<strong>{{displayname}}</strong>
 	{{/from}}
 

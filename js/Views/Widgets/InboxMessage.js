@@ -115,12 +115,18 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 			this.model.related = new Cloudwalkers.Collections.Related();
 		
 		// Listen to collection
+		this.listenTo(this.model.related, 'seed', this.updateCounters);
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
-		this.listenTo(this.model.related, 'all', this.sendtriggers)	
+		this.listenTo(this.model.related, 'all', this.sendtriggers);
 
 		// Load messages
 		this.model.related.touch(this.model, {records: 20, markasread: true});
 		
+	},
+
+	'updateCounters' : function(models){
+		//treta = models[0];
+		//console.log("update counter on stream id ", models)
 	},
 	
 	'fillrelated' : function(models)

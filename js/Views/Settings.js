@@ -55,7 +55,7 @@ Cloudwalkers.Views.Settings = Cloudwalkers.Views.Pageview.extend({
 				break;
 				
 			case 'services':
-				var widget = new Cloudwalkers.Views.Settings.Services();
+				var widget = new Cloudwalkers.Views.Settings.Services({serviceid: this.options.serviceid});
 				break;
 			
 			case 'account':

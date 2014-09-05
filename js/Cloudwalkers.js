@@ -15,17 +15,18 @@ var Cloudwalkers = {
 
 	'init' : function ()
 	{
-
-		// Check if there is authentication
-		Store.get("settings", {key: "token"}, function(entry)
-		{
-			Cloudwalkers.Session.authenticationtoken = entry? entry.value: undefined;
-			
-			if(!entry) window.location = "/login.html";
-		});
+		// Authentication
+		var token = window.localStorage.getItem('token');
 		
+		// Check if there is authentication
+		if(token && token.length > 9)
+		{	
+			Cloudwalkers.Session.authenticationtoken = token;
+			
+		} else{ console.log("token error", token); window.location = "/login.html";}
+
 		// Define API root
-		Cloudwalkers.Session.api = config.api[window.location.origin] + Cloudwalkers.version;
+		Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
 		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
@@ -62,6 +63,22 @@ AuthorizationError.prototype.constructor = AuthorizationError;
 /**
  *	Backbone Extensions
  **/
+ 
+/*
+ *	Add authorization headers to each Backbone.sync call
+ */
+Backbone.ajax = function()
+{
+	// Is there a auth token?
+	if(Cloudwalkers.Session.authenticationtoken)
+		
+		arguments[0].headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+        
+	return Backbone.$.ajax.apply(Backbone.$, arguments);
+};
  
 /*Backbone.View = Backbone.View.extend({
 
@@ -426,6 +443,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	
 	'ready' : function()
 	{	
-		setTimeout(function(collection){ collection.trigger("ready", collection); }, 1, this);
+		var collection = this;
+		setTimeout(function(){ collection.trigger("ready", collection); }, 1, this);
 	}
 });

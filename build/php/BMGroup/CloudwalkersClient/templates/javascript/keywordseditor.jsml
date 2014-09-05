@@ -9,10 +9,12 @@
 		<div class="portlet-body">
 			<form data-add-category="1">
 				<label for="category_create_name">{{translate_name}}:</label>
-
 				<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
-				<button class="btn blue span4 pull-right" type="submit">{{translate_create}}</button>
 
+				<label for="category_create_remember">{{translate_remember_for}}:</label>
+				<input type="text" id="category_create_remember" name="remind" class="m-wrap span7" required value="7" /><span>{{translate_days}}</span>
+
+				<button class="btn blue span4 pull-right" type="submit">{{translate_create}}</button>
 			</form>
 		</div>
 	</div>
