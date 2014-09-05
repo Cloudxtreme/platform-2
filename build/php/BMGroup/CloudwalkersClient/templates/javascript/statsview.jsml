@@ -7,37 +7,37 @@
 		
 		{{^customActive}}
 		<span class="period-buttons btn-group">
-			<a class="btn" id="subtract"><i class="icon-caret-left"></i></a>
-			<a class="btn" id="add"><i class="icon-caret-right"></i></a>
+			<a class="btn" id="subtract" disabled="disabled"><i class="icon-caret-left"></i></a>
+			<a class="btn" id="add" disabled="disabled"><i class="icon-caret-right"></i></a>
 		</span>
 		{{/customActive}}
 			
-		<h3 class="stats-header-timeview"><strong>{{periodstring}}{{span}}: </strong>{{timeview}}</h3>
+		<h3 class="stats-header-timeview"><strong>{{fullperiod}}: </strong>{{timeview}}</h3>
 		
 		<div class="pull-right">
 			
-			{{#period}}<a class="btn" id="now">now</a>{{/period}}
+			{{#period}}<a class="btn" id="now">{{translate_now}}</a>{{/period}}
 			
 			<!--
 			<a class="btn"><i class="icon-print"></i></a>
 			-->
 			
-			<select class="networks">
-				<option value="0">All networks</option>
+			<select class="networks" disabled="disabled">
+				<option value="0">{{translate_all_networks}}</option>
 				{{#streams}}
 				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network.token}} {{customname}}</option>
 				{{/streams}}
 			</select>
 
-			<select class="time">
-				<optgroup label="Time spans">
-					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>Week</option>
-					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>Month</option>
-					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>Quarter</option>
-					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>Year</option>
+			<select class="time" disabled="disabled">
+				<optgroup label="{{translate_time_spans}}">
+					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>{{translate_week}}</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{translate_month}}</option>
+					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>{{translate_quarter}}</option>
+					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>{{translate_year}}</option>
 				</optgroup>
-				<optgroup label="Extra">
-					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>Custom</option>
+				<optgroup label="{{translate_extra}}">
+					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>{{translate_custom}}</option>
 				</optgroup>
 			</select>
 
@@ -47,7 +47,7 @@
 		<div class="header-custom">
 			<input id="start" type="text" value="{{startstring}}" />
 			<input id="end" type="text" value="{{endstring}}" />
-			<a class="btn" id="show">show</a>
+			<a class="btn" id="show">{{translate_show}}</a>
 		</div>
 		{{/customActive}}
 	</div>

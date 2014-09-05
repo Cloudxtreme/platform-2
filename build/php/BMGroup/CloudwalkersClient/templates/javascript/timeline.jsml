@@ -4,7 +4,7 @@
 		<div class="timeline-time"></div>
 		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
 		<div class="timeline-body more inner-loading">
-			Loading
+			{{translate_loading}}
 		</div>
 	</li>
 	
@@ -15,7 +15,7 @@
 		</div>
 		<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
 		<div class="timeline-body more">
-			<strong>View more</strong>
+			<strong>{{translate_view_more}}</strong>
 		</div>
 	</li>
 	
@@ -26,7 +26,7 @@
 		</div>
 		<div class="timeline-icon"><i class="icon-adjust"></i></div>
 		<div class="timeline-body more">
-			<strong>No messages</strong>
+			<strong>{{translate_no_messages}}</strong>
 		</div>
 	</li>
 	

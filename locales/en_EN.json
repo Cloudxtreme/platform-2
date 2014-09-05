@@ -365,6 +365,7 @@
 		"Note": "Note",
 		"dont_forget_to_fill_the_keyword_name": "Don't forget to fill the keyword name",
 		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword.",
-		"text-only": "text-only"
+		"text-only": "text-only",
+		"remember_for": "Remember for"
 	}
 }

@@ -365,6 +365,8 @@
 		"Note": "Nota",
 		"dont_forget_to_fill_the_keyword_name": "Não se esqueça de preencher o nome da palavra chave.",
 		"please_add_a_filter_to_your_keyword": "Por favor adicione um filtro à sua palavra chave.",
-		"text-only": "só texto"
+		"text-only": "só texto",
+		"remember_for": "Lembrar por",
+		"change_days": "Alterar dias"
 	}
 }

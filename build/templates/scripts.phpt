@@ -18,6 +18,7 @@
 <script src="/assets/plugins/mustache.0.7.3-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/underscore.1.6.0-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/backbone.1.0.0-min.js" type="text/javascript"></script>
+<script src="/assets/plugins/Backbone.CrossDomain.js" type="text/javascript"></script>
 
 <!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
@@ -58,14 +59,16 @@
 <script src="/assets/plugins/chart.js/Chart.min.js"></script>
 <script src="/assets/plugins/chart.js.legend/legend.js"></script>
 <script src="/assets/plugins/media.js"></script>
-<script src="/assets/plugins/etch/etch.js"></script>
-<script src="/assets/plugins/rangy-core.js"></script>
 
+<!--[if lt IE 10]>
+<script src="/js/ie-fix.js"></script>
+<![endif]-->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
 <script src="/assets/plugins/respond.min.js"></script>
 <script src="/assets/plugins/modernizr/modernizr.js"></script>
 <![endif]-->
+
 
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>
@@ -73,6 +76,7 @@
 
 <!-- Templates -->
 <script type="text/javascript" src="/templates/templates.js"></script>
+<script type="text/javascript" src="/js/config.js"></script>
 <?php include 'buildscripts.phpt'; ?>
 
 <script>

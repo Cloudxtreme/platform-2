@@ -129,20 +129,15 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	{
 		
 		var data = {email: $('input[name=invite-email]').val()}
-		var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
+		var url = Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
 		
-		Cloudwalkers.Net.post (url, {}, data, function(resp){ 
+		var user = new Cloudwalkers.Models.User(data);
 		
-			if(resp.error)	Cloudwalkers.RootView.growl('Oops', this.translateString("theres_something_fishy_about_that_email_address"));
-			else			Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
-		}.bind(this));
-
-	},
-	
-	'deleteUser' : function ()
-	{
-		
-		//delete /account/ID/users/USER ID	
+		user.once('sync', function(response)
+		{
+			Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
+			
+		}).save();
 	},
 	
 	/* on it's way to be deprecated */

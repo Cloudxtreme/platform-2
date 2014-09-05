@@ -12,15 +12,16 @@
 
 	<div class="timeline-body">
 		{{#objectType}}
+		{{#hasactions}}
 		<span class="actions dropdown pull-right"> 
 			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			<ul class="dropdown-menu">
 				{{#actions}}
-					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action {{hidemetoken}}" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
 				{{/actions}}
 			</ul>
 		</span>
-		
+		{{/hasactions}}
 		<div class="timeline-content">
 			
 			{{#attached.image}}
@@ -32,7 +33,15 @@
 			{{/attached.video}}
 			
 			{{#from}}
-				<a href="{{url}}" class="timeline-user" title="{{icon}} {{displayname}}" target="_blank">{{displayname}}</a>
+
+				{{#showcontact}}
+					<a class="timeline-user viewdetails" data-action="viewcontact" title="{{icon}} {{displayname}}">{{displayname}}</a>
+				{{/showcontact}}
+				{{^showcontact}}
+					<a class="timeline-user viewdetails" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</a>
+				{{/showcontact}}
+				<!-- CONTACTS_ROLE -->
+				
 				<br />
 			{{/from}}
 			
@@ -56,14 +65,23 @@
 		
 		<div class="timeline-footer">
 			{{#statistics}}
-				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name}}</strong>
+				<strong class='interaction'><i class='icon-{{icon}}'></i> {{value}} {{name_translated}}</strong>
 			{{/statistics}}
 
 		 	{{#canHaveChildren}}
 			 	<span {{#children_count}}data-notifications="true"{{/children_count}}>
-			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} comments</span>
+			 		<span class='comments'><i class='icon-comment'></i> {{children_count}} {{translate_comments}}</span>
 			 	</span>
 			 {{/canHaveChildren}}
+
+			 {{#hasnotes}}
+				{{#authorized.ACCOUNT_NOTES_VIEW}}
+					<a href="#notes"><span class='interaction'><i class='icon-edit'></i> <span class="notescount">{{hasnotes}}</span> {{translate_notes}}</span></a>
+				{{/authorized.ACCOUNT_NOTES_VIEW}}
+				{{^authorized.ACCOUNT_NOTES_VIEW}}
+					<span class='interaction'><i class='icon-edit'></i> {{hasnotes}} {{translate_notes}}</span>
+				{{/authorized.ACCOUNT_NOTES_VIEW}}
+			{{/hasnotes}}
 			 
 			 <ul class="timeline-comments">
 				 

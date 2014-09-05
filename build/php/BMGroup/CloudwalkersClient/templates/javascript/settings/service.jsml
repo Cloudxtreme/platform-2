@@ -7,13 +7,13 @@
 {{#valid}}
 
 	{{translate_connected_to}} {{account}}<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
+	<a href="{{authurl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
 
 {{/valid}}
 {{^valid}}
 
 	{{account}} {{translate_is_not_connected}}<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">{{translate_authenticate_user}}</a>
+	<a href="{{authurl}}" class="btn-black">{{translate_authenticate_user}}</a>
 
 {{/valid}}
 </div>
@@ -21,7 +21,7 @@
 {{#listname}}
 
 	<h3>{{listname}}</h3>
-	<small>{{translate_to_add}} {{network.name}} {{listname}} to your Cloudwalkers account, select them below.</small>
+	<small>{{translate_to_add}} {{network.name}} {{listname}} {{translate_to_your_cloudwalkers_account_select_them_below}}.</small>
 	
 	<ul class="service-profiles clearfix">
 		{{#profiles}}
