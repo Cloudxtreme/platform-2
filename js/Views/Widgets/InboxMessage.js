@@ -119,8 +119,13 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.listenTo(this.model.related, 'seed', this.fillrelated);
 		this.listenTo(this.model.related, 'all', this.sendtriggers);
 
+		// check if read or not
+		var markread_val = false;
+		if(this.model.get("read") != "1")
+			markread_val = true;
+
 		// Load messages
-		this.model.related.touch(this.model, {records: 20, markasread: true});
+		this.model.related.touch(this.model, {records: 20, markasread: markread_val});
 		
 	},
 
