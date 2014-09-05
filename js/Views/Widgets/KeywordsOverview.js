@@ -101,6 +101,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var id = Number($(e.target).closest('[data-keyword]').data('keyword'));
 		
 		this.editor.fillKeyword(id, e);
+
+		$("html, body").animate({ scrollTop: $('#keywordsfilter').offset().top-50 }, 500);
 	},
 
 	'deleteKeyword' : function (e)

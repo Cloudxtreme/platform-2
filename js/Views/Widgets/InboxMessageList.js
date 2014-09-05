@@ -105,7 +105,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(param);
-
+		
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		

@@ -77,6 +77,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(this.parameters.hasactions)
 			this.renderactions();
 
+		if(this.model.get("status") && this.model.get("status") == 'failed')
+			this.$el.addClass('failed');
+
 		return this;
 	},
 
