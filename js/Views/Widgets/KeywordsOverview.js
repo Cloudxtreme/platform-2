@@ -55,12 +55,11 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
 		var remember = $cat.find('[name="remember"]').val();
-		
 
 		var settings = {
 			remember: remember
 		};
-
+		
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
 		channel.save({

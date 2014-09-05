@@ -27,8 +27,6 @@
 			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
 		</div>
 
-		<!--<div class="sentiment-wrap"></div>-->
-
 		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
 		<!--<div class="social-info">
 			{{#statistics}}
