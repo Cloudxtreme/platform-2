@@ -92,6 +92,22 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		return this;
 	},
 
+	'loadsentiment' : function()
+	{	
+		var stats = this.parameters.stats;
+		var sentiment;
+
+		if(!stats)	return;
+		else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
+
+		if(sentiment){
+			sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
+			var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
+
+			this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
+		}
+	},
+			
 	'renderactions' : function()
 	{	
 		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
@@ -112,6 +128,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(notescount)
 			this.$el.find('.interaction > .notescount').html(notescount);
+
 	},
 	
 	'action' : function (element)

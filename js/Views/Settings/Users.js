@@ -3,7 +3,8 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 	'events' : {
 		/*'click .add-user' : 'addUser',
 		'submit .edit-user-profile' : 'editUserProfile',*/
-		'submit .users-invite' : 'addUser'
+		'submit .users-invite' : 'addUser',
+		'click .invite-link' : 'scrolldown'
 	},
 
 	'class' : 'section',
@@ -145,11 +146,19 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		// Check collapse option
 		$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 	},
+
+	'scrolldown' : function() {
+	
+		$('html, body').animate({
+	        scrollTop: $(".invite-user").offset().top
+	    }, 500);
+	},
 	
 	'fail' : function ()
 	{
 		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
 	},
+
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
