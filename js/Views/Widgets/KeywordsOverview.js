@@ -26,7 +26,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
-		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), settings: cat.get("settings"), keywords: cat.channels.models}});
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), keywords: cat.channels.models}});
 
 		var data = {categories: categories};
 		
@@ -54,22 +54,12 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
-		var remember = $cat.find('[name="remember"]').val();
 		
-
-		var settings = {
-			remember: remember
-		};
-
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
-		channel.save({
-			name: name,
-			settings: settings
-		});
+		channel.save({name: name});
 		
-		$cat.find('.name_val').html(name);
-		$cat.find('.remember_val').html(remember);
+		$cat.find('h4').html(name);
 		
 		return false;
 	},
@@ -133,10 +123,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		// Translate array
 		this.original  = [
 			"categories_overview",
-			"change_name",
-			"remember_for",
-			"days",
-			"save_changes"
+			"change_name"
 		];
 
 		this.translated = [];
