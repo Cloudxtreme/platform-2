@@ -13,7 +13,7 @@ Cloudwalkers.Views.Widgets.Report = Cloudwalkers.Views.Widgets.Widget.extend ({
 		this.$el.find(".dashboard-stat").addClass("portlet-loading");
 		
 		// Load report data
-		this.stream.reports.hook({success: this.fill.bind(this), error: this.fail});
+		this.stream.reports.hook({success: this.fill.bind(this), error: this.fail.bind(this)});
 
 		return this;
 	},
@@ -40,5 +40,11 @@ Cloudwalkers.Views.Widgets.Report = Cloudwalkers.Views.Widgets.Widget.extend ({
 	'fail' : function ()
 	{
 		Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

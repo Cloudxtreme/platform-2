@@ -49,19 +49,23 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 	
 	'deleteUser' : function (e)
 	{
-		var self = this;
-		var tr = $(e.currentTarget).parents("tr");
+		var $tr = $(e.currentTarget).parents('tr');
+		var user = Cloudwalkers.Session.getUser($row.data('delete-user-id'));
 		
 		Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 			
-			tr.remove();
-			
+			this.model.destroy();
+			$tr.remove({success: function()
+			{
+				Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
+			}});
+			/*
 			var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + self.model.get('id');
 			Cloudwalkers.Net.remove (url, {}, function(){
 			
 				Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
-			});
-		});
+			}.bind(this));*/
+		}.bind(this));
 	},
 	'translateString' : function(translatedata)
 	{	

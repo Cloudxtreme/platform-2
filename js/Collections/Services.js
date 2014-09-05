@@ -2,6 +2,11 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.Service,
 	'endpoint' : "",
+
+	'initialize' : function(){
+
+		this.on('add', this.model.updateStreams)
+	},
 	
 	'url' : function()
 	{	
@@ -24,8 +29,6 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 			return response.account.services;
 		}
 	},
-	
-	
 	
 	'sync' : function (method, model, options)
 	{

@@ -7,13 +7,13 @@
 {{#valid}}
 
 	{{translate_connected_to}} {{account}}<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
+	<a href="{{authurl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
 
 {{/valid}}
 {{^valid}}
 
 	{{account}} {{translate_is_not_connected}}<br><br>
-	<a href="{{authenticateUrl}}" class="btn-black">{{translate_authenticate_user}}</a>
+	<a href="{{authurl}}" class="btn-black">{{translate_authenticate_user}}</a>
 
 {{/valid}}
 </div>

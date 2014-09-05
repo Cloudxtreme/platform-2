@@ -32,6 +32,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// Listen for changes
 		//this.listenTo(this.model, 'outdated', this.model.fetch);
 		this.listenTo(this.posted, 'sync', this.render);
+		//this.listenTo(this.scheduled, 'sync', this.render);
 		//this.listenTo(this.model.messages, 'seed', this.fill);
 		//this.listenTo(this.model.messages, 'request', this.showloading);
 		
@@ -71,53 +72,92 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find("select").chosen({width: "200px", disable_search_threshold: 10, inherit_select_classes: true});
 		
 		// Init FullCalendar
-		setTimeout( this.initCalendar.bind(this), 10);
+		setTimeout( this.initCalendar.bind(this), 1000);
 
 		// Reset Loader counter
 		this.loaderswitch = [];
 		return this;
 	},
 	
-	'populate' : function (from, to, timezone, callback)
-	{
-		this.loader('on','');
-		// Limit to month
-		from = from.startOf('month').add(1, 'month');
-		to = to.endOf('month').subtract(1, 'month');
-		
-		// Display
-		this.datedisplay(from, to);
-		
-		// Touch Channel
-		this.listenTo(this.posted.messages, 'sync', this.fill.bind(this, callback));
+	
 
+	'populate' : function (from, to, timezone, callback, dayview)
+	{
+		
+		if(!dayview){
+			this.loader('on','');
+			// Limit to month
+			if(from.date() > 1) 
+				from = from.startOf('month').add(1, 'month');
+			else
+				from = from.startOf('month');
+
+			to = (to.endOf('month').subtract(1, 'month')).endOf('month');
+			m_item = from.date()-1;
+		} else {
+			this.parameters.records = 50;
+			$('#calendar').fullCalendar( 'removeEvents', function(event) {
+				if(event.start.date() == from.date())
+					return true;
+			});
+			m_item = 0;
+		}
 		m_item = from.date()-1;
 
+		// Display top
+		this.datedisplay(from, to);
+		
+		// Listen to
+		this.listenTo(this.posted.messages, 'seed', this.hasmore);
+		this.listenTo(this.posted.messages, 'sync', this.fill.bind(this, callback));
+		
+		
+
 		while(m_item < to.date()){
-			var metafrom = moment(from).add(m_item, 'days');
+			if(!dayview){
+				var metafrom = moment(from).add(m_item, 'days');
+			} else {
+				var metafrom = moment(from);
+			}
 			var metato = metafrom;
 			metafrom = moment(metafrom).hours('0').minutes('0');
 			metato =  moment(metato).hours('22').minutes('59');
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
+			// Touch
 			this.posted.messages.touch(this.posted, this.parameters);
 
 			m_item++;
 		}	
 	},
 
+	'hasmore' : function(list){
+		/*
+		console.log("hasmore? ", list)
+		
+		if(list.paging.cursors)
+			console.log("alright")
+		*/
+	},
+
 	'populate_scheduled' : function (from, to, timezone, callback)
 	{
 		this.loader('','on');
 		// Limit to month
-		from = from.startOf('month').add(1, 'month');
-		to = to.endOf('month').subtract(1, 'month');
+		if(from.date() > 1) 
+			from = from.startOf('month').add(1, 'month');
+		else
+			from = from.startOf('month');
+
+		//from = from.subtract(1, 'day')
+
+		to = (to.endOf('month').subtract(1, 'month')).endOf('month');
 		
-		// Display
+		// Display top
 		this.datedisplay(from, to);
 		
-		// Touch Channel
+		// Listen to
 		this.listenTo(this.scheduled.messages, 'sync', this.fill.bind(this, callback));
 
 		// Get messages for each day
@@ -130,6 +170,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
+			// Touch
 			this.scheduled.messages.touch(this.scheduled, this.parameters);
 
 			s_item++;
@@ -159,13 +200,22 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find("h3.stats-header-timeview").html("<strong>" + current + viewtype + ": </strong>" + span);
 	},
 	
-	'fill' : function (callback, collection)
-	{
-		if(collection.models[0] && !collection.models[0].loaded())
+	'fill' : function (callback, collection, metaform)
+	{	
+		if(!collection.models[0])
 			return;
 
+		fillfrom = moment(collection.models[0].filterCalReadable().calNode.start).hours('0').minutes('0');
+		fillto = moment(fillfrom).hours('22').minutes('59');
+
+		fillparameters = {
+			since : fillfrom.unix(),
+			until :  fillto.unix(),
+			records: 5
+		}
+
 		var nodes = [];
-		//console.log("collection",collection)
+		
 		if(!collection)	return callback(nodes);
 
 		/*for (n in collection.models)
@@ -174,52 +224,47 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			//nodes.push(collection.models[n].filterCalReadable().calNode);
 			this.renderCalendarEvent(collection.models[n].filterCalReadable().calNode)
 		}*/
-		
+
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
 			this.totals.push(collection.models[n].filterCalReadable().calNode);
 		}
-		//console.log(collection.models[0].filterCalReadable().calNode.start.hours('23').minutes('59'))
+
 		// Add more
-		if((collection.models.length > 0) && (collection.models[0].filterCalReadable().calNode.networkdescription != "Scheduled messages")){
-			nodes.push({
-				className: "calendar-more",
-				icon: "plus",
-				id: 0000,
-				allDay: false,
-				title: "see more",
-				start: moment(collection.models[0].filterCalReadable().calNode.start).hours('23').minutes('59'),
-			});
+		if((nodes.length > 0) && (nodes[0].networkdescription != "Scheduled messages") && (nodes[0].networkdescription) && (this.parameters.records == 5)){
+			
+			//console.log(collection)
+						
+			// hack
+			hasmore = true;
+			
+			if(hasmore){
+				nodes.push({
+					className: "calendar-more",
+					icon: "plus",
+					id: 0000,
+					allDay: false,
+					title: this.translateString("view_more"),
+					start: moment(nodes[0].start).hours('23').minutes('59'),
+				});
+			}
 		}
 
-		this.renderCalendarEvent(nodes)
+		if(nodes.length > 0)
+			this.renderCalendarEvent(nodes)
 
 		if(this.scheduled)
 			this.scheduled.messages.destroy();
 		if(this.posted)
 			this.posted.messages.destroy();
 
-		//console.log(this.totals.length).filterCalReadable().calNode
-		
 	},
 
 	'renderCalendarEvent' : function(eventData){
+
 		$('#calendar').fullCalendar();
-		/*if((eventData.length > 0) && (eventData[0].networkdescription != "Scheduled messages")){
-			var newEvent = {	
-				id: 000000,
-				start: eventData[eventData.length-1].start.hour(23).minute(59),
-				title: "load more",
-				className: "nada",
-				networkdescription: "nada",
-				intro: "nada", 
-				icon: "nada",
-				allDay: false
-			}
-			$('#calendar').fullCalendar( 'renderEvent', newEvent );
-		}
-*/
+
 		for (eventNr in eventData)
 		{
 			var newEvent = {
@@ -264,16 +309,27 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		
 		else $('#calendar').removeClass("hidden");
 		
+		setTimeout( this.initCalendar.bind(this), 1000);
+
 		// Toggle Calendar
 		$('#calendar').fullCalendar ('changeView', this.viewtype);
 	},
 	
 	'prev' : function () {
 		$('#calendar').fullCalendar('prev');
+		if(this.scheduled)
+			this.scheduled.messages.destroy();
+		if(this.posted)
+			this.posted.messages.destroy();
+
 	},
 	
 	'next' : function () {
 		$('#calendar').fullCalendar('next');
+		if(this.scheduled)
+			this.scheduled.messages.destroy();
+		if(this.posted)
+			this.posted.messages.destroy();
 	},
 	
 	'now' : function () {
@@ -298,8 +354,8 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 			slotEventOverlap: false,
 
 			eventSources: [
-		        this.populate.bind(this),
-		    	this.populate_scheduled.bind(this),
+				this.populate.bind(this),
+				this.populate_scheduled.bind(this),
 		    ],
 			eventRender: function(event, element)
 			{	
@@ -320,9 +376,25 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				event.rendered = true;
 
 			},
-			eventAfterAllRender : function( view ) {
-				//console.log($('#calcontainer .fc-event').length);
-            }
+			// click on view more
+			eventClick: function(calEvent, jsEvent, view) {
+				if(calEvent.className[0] == "calendar-more"){
+					var toDate = new Date(calEvent.start);
+
+					$('select').val("agendaDay");
+        			$('select').trigger("chosen:updated");
+					$('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+					$('#calendar').fullCalendar( 'gotoDate', toDate );
+					
+					from = calEvent.start;
+					to = from;
+					dayview = true;
+					timezone = "";
+					callback = "";
+
+					this.populate(from, to, timezone, callback, dayview)
+				}
+			}.bind(this)
 			
 			/*drop: function (date, allDay) { // this function is called when something is dropped
 			

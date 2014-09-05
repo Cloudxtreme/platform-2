@@ -1,0 +1,6 @@
+<div class="btn-white {{inactive}}" data-action="{{token}}">
+    <i class="icon-{{icon}}"></i>
+    {{^noresults}}
+        <span style="margin-left: 3px;">{{value}}</span>
+    {{/noresults}}
+</div>
