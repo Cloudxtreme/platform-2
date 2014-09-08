@@ -12,8 +12,11 @@ Cloudwalkers.Models.User = Backbone.Model.extend({
 		if (this.parent)
 			return Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
 		
-		else if (this.method == 'create' || this.method == 'delete')
+		else if (this.method == 'create')
 			return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
+
+		else if (this.method == 'delete')
+			return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.id;
 		
 		else return Cloudwalkers.Session.api + '/users/' + this.id;	
 
