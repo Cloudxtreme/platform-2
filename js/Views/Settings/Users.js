@@ -137,7 +137,7 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		{
 			Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
 			
-		}).save();
+		}.bind(this)).save();
 	},
 	
 	/* on it's way to be deprecated */
