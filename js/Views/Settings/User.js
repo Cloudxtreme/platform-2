@@ -54,9 +54,8 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 		
 		Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 			
-			this.model.destroy();
-			$tr.remove({success: function()
-			{
+			this.model.destroy({success: function(){
+				$tr.remove();
 				Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 			}});
 			/*
