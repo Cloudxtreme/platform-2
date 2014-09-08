@@ -38,6 +38,10 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		//Mustache Translate Render
 		data.title = this.title;
 		this.mustacheTranslateRender(data);
+
+		translation = {}
+		this.mustacheTranslateRender(translation);
+
 		//if filters are filled
 		if(filters && !this.scriptloaded){
 			this.$el.find ('#keywordseditor').keywordfilterdestroy();
@@ -190,10 +194,8 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		    return el !== '' ? el : null;
 		});
 
-		translation = {}
-		this.mustacheTranslateRender(translation);
-
-		for(n in stringFormulaClean)
+for
+		(n in stringFormulaClean)
 		{
 			this.formulaElement(stringFormulaClean[n]);
 			this.$el.find("select").chosen({width: "100%"});
@@ -221,7 +223,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		if(size == "small")
 			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + translation.translate_or + '</li></ul></span></span>');
 		if(size == "large")
-			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is">' + translation.translate_author_is + '</li><li class="add_author_is_not">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
+			$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is hidden">' + translation.translate_author_is + '</li><li class="add_author_is_not hidden">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
 	},
 
 	'formulaElement' : function(e){
