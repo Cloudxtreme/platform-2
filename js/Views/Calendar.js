@@ -141,39 +141,53 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		*/
 	},
 
-	'populate_scheduled' : function (from, to, timezone, callback)
+	'populate_scheduled' : function (from, to, timezone, callback, dayview)
 	{
-		this.loader('','on');
-		// Limit to month
-		if(from.date() > 1) 
-			from = from.startOf('month').add(1, 'month');
-		else
-			from = from.startOf('month');
+		if(!dayview){
+			this.loader('on','');
+			// Limit to month
+			if(from.date() > 1) 
+				from = from.startOf('month').add(1, 'month');
+			else
+				from = from.startOf('month');
 
-		//from = from.subtract(1, 'day')
+			to = (to.endOf('month').subtract(1, 'month')).endOf('month');
+			m_item = from.date()-1;
+		} else {
+			this.parameters.records = 50;
+			$('#calendar').fullCalendar( 'removeEvents', function(event) {
+				if(event.start.date() == from.date())
+					return true;
+			});
+			m_item = 0;
+		}
+		m_item = from.date()-1;
 
-		to = (to.endOf('month').subtract(1, 'month')).endOf('month');
-		
 		// Display top
 		this.datedisplay(from, to);
 		
 		// Listen to
+		this.listenTo(this.scheduled.messages, 'seed', this.hasmore);
 		this.listenTo(this.scheduled.messages, 'sync', this.fill.bind(this, callback));
+		
+		
 
-		// Get messages for each day
-		s_item = moment().subtract(1,'days').date();
-		while(s_item <= to.date()){
-			var metafrom = moment(from).add(s_item, 'days');
+		while(m_item < to.date()){
+			if(!dayview){
+				var metafrom = moment(from).add(m_item, 'days');
+			} else {
+				var metafrom = moment(from);
+			}
 			var metato = metafrom;
 			metafrom = moment(metafrom).hours('0').minutes('0');
-			metato =  moment(metato).hours('23').minutes('59');
+			metato =  moment(metato).hours('22').minutes('59');
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
 			// Touch
 			this.scheduled.messages.touch(this.scheduled, this.parameters);
 
-			s_item++;
+			m_item++;
 		}
 	},
 	
@@ -262,11 +276,14 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'renderCalendarEvent' : function(eventData){
-
-		$('#calendar').fullCalendar();
-
 		for (eventNr in eventData)
 		{
+			if(eventData[eventNr].title == "...")
+				return;
+
+			if(eventData[eventNr].networkdescription =="Scheduled messages")
+				eventData[eventNr].start = moment(eventData[eventNr].start._i, 'DD MMM YYYY HH:mm').format('YYYY-MM-DDTHH:mm:ssZ');
+
 			var newEvent = {
 				id: eventData[eventNr].id,
 				start: eventData[eventNr].start,
@@ -393,6 +410,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 					callback = "";
 
 					this.populate(from, to, timezone, callback, dayview)
+					this.populate_scheduled(from, to, timezone, callback, dayview)
 				}
 			}.bind(this)
 			

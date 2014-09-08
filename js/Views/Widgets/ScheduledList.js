@@ -34,9 +34,6 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'ready', this.showmore);
 		this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
-		// Load listeners
-		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
-		
 		// Watch outdated
 		// this.updateable(this.model, "h3.page-title");
 
@@ -47,6 +44,8 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'render' : function (params)
 	{	
+		this.loadmylisteners();
+
 		var data = {};
 
 		//Mustache Translate Render
@@ -69,6 +68,11 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 		return this;
 	},
+
+	'loadmylisteners' : function()
+	{
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
+	},
 	
 	'showloading' : function ()
 	{
@@ -90,7 +94,7 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	'showmore' : function(){
 
 		setTimeout(function()
-		{		
+		{	//Hack
 			this.$container.css('max-height', 999999);
 
 			if(!this.hasmore)
