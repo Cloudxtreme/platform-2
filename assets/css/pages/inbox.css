@@ -428,8 +428,12 @@
 	opacity: .5; font-size: 14px; float: right;
 }*/
 
-.inbox-container .note-body, .messagelist .note-body {
+.inbox-container .note-body, .messagelist .note-body{
 	padding: 12px 18px; min-height: 20px;
+}
+
+.message-notes .note-list .note-body{
+	padding: 12px 0px 0px; min-height: 20px;
 }
 
 #inboxlist .messagelist .note .message-actions{

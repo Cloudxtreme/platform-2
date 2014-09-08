@@ -674,6 +674,10 @@ tbody.messages-container i	{
 	margin-top: 20px;
 }
 
+.message-notes ul.note-list .note-body{
+	margin-top: 0px;
+}
+
 #monitorparent .message-notes ul li .note-body{
 	margin-top: 0px;
 }
@@ -685,7 +689,7 @@ tbody.messages-container i	{
 }
 
 .message-notes ul li .message-actions{
-	padding: 4px 0px;
+	/*padding: 4px 0px;*/
 	height: 10px;
 }
 
@@ -702,6 +706,10 @@ tbody.messages-container i	{
 .message-comments .message-actions{
 	padding-right: 0px !important;
 	padding-top: 4px !important;
+}
+
+.note-list .message-actions{
+	padding-top: 0px !important;
 }
 
 .message-actions .notification-action i{
@@ -1730,6 +1738,10 @@ counter	{
 	position: relative; top: -5px; display: inline;
 }
 
+ul.note-list .note-header .message-actions > div{
+	top: 0px;
+}
+
 .inbox-container .message-comments{
 	padding: 10px; border-top: 1px solid #ddd;
 }
@@ -1750,7 +1762,8 @@ counter	{
 }
 
 .inbox-container .message-notes ul li,
-#monitorparent .message-notes ul li{
+#monitorparent .message-notes ul li,
+.message-notes ul.note-list > li{
 	margin-left: 0; background: #F2F0A0; min-height: 20px;
 	border: none;
 }
@@ -1798,7 +1811,8 @@ counter	{
 
 .inbox-container .message-comments img.avatar,
 .inbox-container .message-notes img.avatar,
-#monitorparent .message-notes img.avatar {
+#monitorparent .message-notes img.avatar,
+.message-notes ul.note-list .note-header img.avatar{
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 

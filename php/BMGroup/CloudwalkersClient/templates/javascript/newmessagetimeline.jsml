@@ -17,15 +17,14 @@
 						{{/showcontact}}
 						
 					{{/from}}	
+					<div class="timeline-time">
+						<span class="date">{{dateonly}}</span>
+						<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+					</div>
 				</td>
 			</tr>
 		</tbody>
 		</table>
-
-		<div class="timeline-time">
-			<span class="date">{{dateonly}}</span>
-			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
-		</div>
 
 		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
 		<!--<div class="social-info">
