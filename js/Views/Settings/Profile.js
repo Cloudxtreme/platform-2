@@ -20,7 +20,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var self = this;
 		var data = {
-			user: { firstname: user.get('firstname'), name: user.get('name'), avatar: user.get('avatar'), role: user.getRole ()},
+			user: { firstname: user.get('firstname'), name: user.get('name'), mobile: user.get('mobile'), avatar: user.get('avatar'), role: user.getRole ()},
 			langs: Cloudwalkers.Session.langs
 		};
 		

@@ -194,8 +194,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		    return el !== '' ? el : null;
 		});
 
-for
-		(n in stringFormulaClean)
+		for(n in stringFormulaClean)
 		{
 			this.formulaElement(stringFormulaClean[n]);
 			this.$el.find("select").chosen({width: "100%"});
