@@ -77,7 +77,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{	
 		// Prevent dislodged user access
 		if(!this.get("accounts").length)
-			return Cloudwalkers.RootView.exception(401);
+			return Cloudwalkers.Router.Instance.exception(401);
 		
 		// Get stored accounts
 		Store.filter("accounts", null, function(accounts)
