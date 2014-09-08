@@ -132,7 +132,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 	
 	'action' : function (element)
-	{
+	{	
 		// Action token
 		var action = $(element.currentTarget).data ('action');
 		
@@ -231,8 +231,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.loadmylisteners();
 		this.$el.find('.message-actions').removeClass('hidden');
 
-		if(collapse)
-			this.toggleaction('note');
+		if(collapse){
+			this.toggleactions('note', 'note');
+			this.$el.find('.note-content .modal-body textarea').val('');
+		}
 		else{
 			this.$el.find('.message-body').removeClass('note-content').html(this.model.get("text"));
 			
@@ -408,7 +410,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
-
+		console.log(token)
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
 		

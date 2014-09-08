@@ -17,17 +17,14 @@
 						{{/showcontact}}
 						
 					{{/from}}	
+					<div class="timeline-time">
+						<span class="date">{{dateonly}}</span>
+						<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+					</div>
 				</td>
 			</tr>
 		</tbody>
 		</table>
-
-		<div class="timeline-time">
-			<span class="date">{{dateonly}}</span>
-			<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
-		</div>
-
-		<!--<div class="sentiment-wrap"></div>-->
 
 		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
 		<!--<div class="social-info">
@@ -62,6 +59,9 @@
 	</div>	
 
 	<div class="timeline-body-wrapper">
+
+		<div class="arrow-bg"></div>
+
 		<div class="timeline-body">
 
 			<div class="timeline-entry-content">
@@ -95,7 +95,7 @@
 				<div class="clearfix"></div>
 			</div>	
 
-			<div class="message-actions"></div>		
+			<div class="message-actions"></div>	
 
 			<div class="clearfix"></div>
 		</div>
@@ -103,7 +103,12 @@
 			<div class="note-content"></div>
 			<div class="action-lists">
 			</div>
+		</div>	
+
+		<div class="arrow-wrapper">
+			<i class="icon-chevron-right"></i>
 		</div>
+
 	</div>
 
 </div>

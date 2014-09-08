@@ -71,6 +71,10 @@ ul.timeline > li:nth-child(2)	{ padding-top: 25px; }
 	margin-top: 20px;
 }
 
+.timeline .note-list .message-actions{
+	margin-top: 0px;
+}
+
 .timeline .message-actions [data-action="note-list"],
 .timeline .message-actions [data-action="note-content"]{
 	display: none;
@@ -284,14 +288,15 @@ Timeline UI Base
 	color: #aaa;
 }
 
-/* The date/time */
+/* The date/time & username */
 .timeline > li .timeline-time {
 	display: block;
 	float: right;
 	color: #eee;
 	position: absolute;
-	bottom: 15px;
-	right: 50px;
+	/* bottom: 15px; */
+	right: 5px;
+	margin-top: 10px;
 }
 
 .timeline > li .timeline-time span {
@@ -455,8 +460,10 @@ Timeline UI Base
 }
 
 /* The triangle */
-.timeline > li .timeline-body:after {
-	right: 100%;
+.timeline > li .timeline-body-wrapper:after,
+.timeline .timeline-body.more:after {
+	left: 40%;
+	margin-left: -20px;
 	border: solid transparent;
 	content: " ";
 	height: 0;
@@ -467,6 +474,13 @@ Timeline UI Base
 	border-right-color: #fff;
 	top: 50%;
 	margin-top: -10px;
+}
+
+.timeline .timeline-body.more:after{
+	right: 100%;
+	margin-left: 0px;
+	left: inherit;
+	top: 17px;
 }
 
 .timeline > li .timeline-content:after,
@@ -490,6 +504,29 @@ Timeline UI Base
 .timeline >li .timeline-footer:after {
 	clear: both;
 }
+
+/* Arrow */
+
+.timeline-body-wrapper .arrow-bg,
+.timeline-body-wrapper .arrow-wrapper{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	right: -15px;
+	top: 50%;
+	margin-top: -20px;
+	z-index: 0;
+	box-shadow: inset #01a9da -5px 0px 0 0;
+}
+
+.timeline-body-wrapper .arrow-wrapper{
+	background-color: none;
+}
+
 
 /* The icons */
 .timeline > li .timeline-icon {
