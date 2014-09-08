@@ -56,14 +56,14 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 
 		}.bind(this), 
 		error: function(){
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
 			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 		}.bind(this)});
 	},
 	
