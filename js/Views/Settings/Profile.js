@@ -20,7 +20,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var self = this;
 		var data = {
-			user: { firstname: user.get('firstname'), name: user.get('name'), avatar: user.get('avatar'), role: user.getRole ()},
+			user: { firstname: user.get('firstname'), name: user.get('name'), mobile: user.get('mobile'), avatar: user.get('avatar'), role: user.getRole ()},
 			langs: Cloudwalkers.Session.langs
 		};
 		
@@ -56,14 +56,14 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 
 		}.bind(this), 
 		error: function(){
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
 			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
 		}.bind(this)});
 	},
 	
