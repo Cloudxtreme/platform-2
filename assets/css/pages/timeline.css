@@ -778,3 +778,46 @@ Timeline UI Base
 .timeline-comments a.viewdetails{
 	font-weight: bold;
 }
+
+/* Timeline Filter */
+#timeline-filters{
+	z-index: 12;
+	padding: 5px;
+}
+#timeline-filters span{
+	font-size: 16px;
+	padding: 10px 15px 0 15px;
+	display: inline-block;
+	color: #555555 !important;
+}
+#timeline-filters div{
+	box-shadow: 0 1px #eee !important;
+	background-color: #fff !important;
+	width: 46px;
+	padding: 8px 0;
+	border-radius: 2px !important;
+	border: 1px solid #ccc;
+	text-align: center;
+	font-size: 15px;
+	margin: -5px 2px 0;
+}
+#timeline-filters div:hover{
+	background-color: #eee !important;
+}
+
+#timeline-filters div i:before{
+	cursor: pointer;
+}
+ul.timeline > li:nth-child(2){
+	margin-top: 45px;
+}
+#timeline .timeline .timeline-loading {
+	top: 90px;
+}
+
+.timeline-body-wrapper .arrow-wrapper{
+	right: -18px;
+}
+.timeline-body-wrapper .arrow-wrapper i{
+	padding:14px;
+}
