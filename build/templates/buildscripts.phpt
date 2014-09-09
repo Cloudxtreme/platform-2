@@ -1,1 +1,1 @@
-<script type="text/javascript" src="<?php echo BASE_URL; ?>js/cloudwalkers.min.js?v=1.0.5.77"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>js/cloudwalkers.min.js?v=1.0.5.80"></script>

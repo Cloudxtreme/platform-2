@@ -61,7 +61,12 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
 		
-		if(params)	this.parameters = params;
+		if(params){	
+			this.parameters = params;
+			Cloudwalkers.Session.viewsettings('scheduled', {streams: params.target? [params.target]: []});
+		}
+		else if(this.filters.streams.length)
+			this.parameters.target = this.filters.streams.join(",");
 
 		// Load category message
 		this.model.messages.touch(this.model, this.parameters);
