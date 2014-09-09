@@ -98,7 +98,9 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.category.messages, parentcontainer: this.$container});
-			this.$el.find('#loadmore').html(load.render().el)
+			this.$el.find('#loadmore').html(load.render().el);
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -155,6 +157,8 @@ Cloudwalkers.Views.Widgets.MonitorList = Cloudwalkers.Views.Widgets.Widget.exten
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.loadmore.loadmylisteners();
 		
 		var hasmore = this.category.messages.more(this.category, this.parameters);//this.category.parameters);
 		

@@ -156,7 +156,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
-			this.$el.find('#loadmore').html(load.render().el)
+			this.$el.find('#loadmore').html(load.render().el);
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -464,6 +466,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.loadmore.loadmylisteners();
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
