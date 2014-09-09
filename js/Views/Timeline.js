@@ -7,7 +7,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
-		'click .load-more .more' : 'more'
+		'click .load-more .more' : 'more',
+		'click [data-network-streams]' : 'filternetworks',
+		'click .toggleall.networks.active' : 'toggleallnetworks'
 	},
 	
 	'initialize' : function (options)
@@ -97,6 +99,48 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			this.$container.append(this.$nocontent);
 		
 		this.hideloading();
+	},
+
+	'toggleallnetworks' : function (all)
+	{
+		this.filternetworks(null, true);
+		this.togglefilters(all, ".network-list");
+	},
+
+	'togglefilters' : function(all, selector)
+	{
+		// Toggle streams
+		this.$el.find(selector + " .filter").addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		
+		// Toggle select button
+		$(selector + " .toggleall").addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+	},
+
+	'filternetworks' : function (e, all)
+	{
+		//console.log(e, all)
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("network-streams") == $(e.currentTarget).data("network-streams");
+
+		this.togglefilters(all, ".network-list");
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("network-streams")).split(" ");
+		
+		if(all) this.button = false;
+		
+		// Add ids
+		if(streams) this.parameters.streams = streams.join(",");
+		else delete this.parameters.streams;
+
+		this.collection.trigger('change:filter');
+		this.collection.touch(this.category, this.parameters);
+
+		return this;
+		
 	},
 
 	'more' : function ()

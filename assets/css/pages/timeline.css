@@ -801,6 +801,9 @@ Timeline UI Base
 	font-size: 15px;
 	margin: -5px 2px 0;
 }
+#timeline-filters div.active{
+	background-color: #eee !important;
+}
 #timeline-filters div:hover{
 	background-color: #eee !important;
 }
