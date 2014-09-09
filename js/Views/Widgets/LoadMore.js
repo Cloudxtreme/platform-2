@@ -15,6 +15,7 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 	'loadmylisteners' : function()
 	{
 		this.loadListeners(this.list, ['request', 'sync', 'ready'], true);
+		this.trigger("rendered");
 	},
 
 	'render' : function()
@@ -24,8 +25,8 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 		this.$container = this.$el.find ('.load-more-wrap');
 		this.$loadercontainer = this.$el.find ('.load-more-wrap');
 
-		this.loadmylisteners();
-		this.trigger("rendered");
+		//this.loadmylisteners();
+		//this.trigger("rendered");
 
 		return this;
 	},

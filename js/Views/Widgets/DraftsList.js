@@ -63,8 +63,10 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		//this.$el.find(".load-more").hide();
 		
+		if(params)	this.parameters = params;
+
 		// Load category message
-		this.model.messages.touch(this.model, params? params: this.parameters);
+		this.model.messages.touch(this.model, this.parameters);
 		
 		this.addScroll();
 
@@ -103,7 +105,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
-			this.$el.find('#loadmore').html(load.render().el)
+			this.$el.find('#loadmore').html(load.render().el);
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -168,6 +172,8 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 	'more' : function ()
 	{
 		this.incremental = true;	
+
+		this.loadmore.loadmylisteners();
 				
 		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();

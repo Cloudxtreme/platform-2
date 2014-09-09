@@ -149,12 +149,23 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	{
 		e.preventDefault ();
 		
-		this.editing.save(
-			this.keywordFormula(),
-			{success:  function(){
-				Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_updated'))
-			}.bind(this)}
-		);
+		// Check Name
+		if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+
+		// Check Formula
+		if(this.keywordFormula().settings.formula){
+			this.editing.save(
+				this.keywordFormula(),
+				{
+					success:  function(){
+						Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_updated'))
+					}.bind(this),
+					error: function(){
+						Cloudwalkers.RootView.growl (this.translateString("not_saved"), this.translateString("something_went_wrong"));
+					}.bind(this)
+				}
+			);
+		}
 
 		this.$el.find(".managekeyword .icon-cloud-upload").show();
 
