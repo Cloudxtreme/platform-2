@@ -42,7 +42,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'render' : function ()
 	{
 		// Network filters
-		var params = {} // {networks: this.model.streams.filterNetworks(null, true)};
+		var params = {networks: this.model.streams.filterNetworks(null, true)};
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
@@ -129,7 +129,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			"loading",
 			"view_more",
 			"no_messages",
-			"comments"
+			"comments",
+			"filters",
+			"select_all"
 		];
 
 		this.translated = [];
