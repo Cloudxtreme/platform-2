@@ -106,7 +106,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{	
 		// Action token
 		var action = $(element.currentTarget).data ('action');
-		
+		console.log(this.model)
 		if(action == 'note' || action == 'action-list')
 		{	
 			// Goddamn ugly hack for old timeline
@@ -355,7 +355,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
-		console.log(token)
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
 		
