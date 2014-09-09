@@ -1,4 +1,4 @@
-<div class="message-header {{#streams}}{{network.icon}}{{/streams}}-color" data-id="{{id}}">
+<div class="message-header {{failed}} {{#streams}}{{network.icon}}{{/streams}}-color" data-id="{{id}}">
 	<div class="inherit">
 		
 		<div class="pull-right">
@@ -17,7 +17,7 @@
 	</div>
 </div>
 
-<div class="message-body">
+<div class="message-body {{failed}}">
 	{{#attached.image}}
 		<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
 	{{/attached.image}}
@@ -33,6 +33,13 @@
 			<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
 		</div>
 	{{/attached.link}}
+
+	{{#failed}}
+		<div class="alert alert-danger failedalert" role="alert">
+			{{translate_an_error_occurred_while_sending_this_message}}
+			<div><b>Some reason</b></div>
+		</div>
+	{{/failed}}
 </div>
 {{^display}}
 <div class="message-actions"></div>

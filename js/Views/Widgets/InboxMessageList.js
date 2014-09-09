@@ -438,7 +438,16 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
+		var param;
+
+		if(this.listtype == 'notes')	
+			param = {all: 1};
+
+		else if(this.model.get('token') && this.model.get('token') == 'sent')
+			param = {records: 20};
+
+		else
+			param = {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
 		if(this.filters.streams.length){
