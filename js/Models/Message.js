@@ -862,7 +862,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	'deleteMessage' : function ()
-	{
+	{	
 		var self = this;
 
 		// Repeat or skip?
@@ -885,14 +885,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				],
 				function (response) 
 				{
-					var url = 'post/?' + response.token + '=' + self.get ('id');
+					var url = Cloudwalkers.Session.api + '/messages/' + self.get ('id');
 
 					// Do the call
 					jQuery.ajax
 					({
 						dataType:"json", 
-						type:"get", 
-						url: url, 
+						type:"delete", 
+						url: url,
+						headers: {
+				            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+				            'Accept': "application/json"
+				        },
 						success:function(objData)
 						{   
                             /*

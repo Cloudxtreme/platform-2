@@ -93,7 +93,31 @@
 }
 
 #inboxlist .list li.failed{
-	border-right: 2px solid red;
+	background-color: #f2dede;
+	border: thin solid #ebccd1;
+}
+
+#inboxlist .list li.failed .date,
+#inboxlist .list li.failed strong,
+#inboxlist .list li.failed .content{
+	color: #e02222 ;
+}
+
+#inboxlist .list li.failed:hover{
+	background-color: #eed3d7;
+}
+
+#inboxlist .list li.failed .media{
+	background: #e02222 ;
+}
+
+#inboxlist .list li.active.failed,
+#inboxlist .list li.active.failed:hover,
+#inboxlist .list li.active.failed strong,
+#inboxlist .list li.active.failed .date,
+#inboxlist .list li.active.failed .media	{
+	background: #e02222  !important;
+	color: white;
 }
 
 #inboxlist .list li.active .content	{ color: #bbebf9; }
@@ -104,7 +128,6 @@
 #inboxlist .list li.unread .media i { display: none; }
 #inboxlist .list li.unread .media 	{ background: none; }
 #inboxlist .list li.unread .date	{ color: #005580; font-weight: bold; }
-
 
 #inboxlist .list span.number	{
 	float: right; background: #b1e2ec; border-radius: 5px !important; padding: 0 6px;

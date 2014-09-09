@@ -367,6 +367,7 @@
 		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword.",
 		"text-only": "text-only",
 		"remember_for": "Remember for",
-		"Add note": "Add note"
+		"Add note": "Add note",
+		"an_error_occurred_while_sending_this_message": "An error occurred while sending this message:"
 	}
 }

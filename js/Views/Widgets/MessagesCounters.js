@@ -98,10 +98,13 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 	'updatesettings' : function (e)
 	{
 		// Currently streams only
-		if(this.options.source != "streams") return null;
+		if(this.options.source != "streams" && this.options.source != "outgoing") return null;
 
 		var model = this.list.get($(e.currentTarget).data("stream"));
 		var view = model.get("childtypes")[0] + "s";
+
+		if(this.options.source == 'outgoing')
+			view = 'scheduled';
 		
 		// Memory cloth
 		var settings = Cloudwalkers.Session.viewsettings(view);
