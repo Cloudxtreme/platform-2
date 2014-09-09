@@ -451,7 +451,7 @@
 	$.fn.keywordfilterscript = function(){
 		return init.apply(this, arguments);
 	}
-	$.fn.keywordfilterdestroy = function () {
+	$.fn.keywordfilterdestroy = function() {
 		$('html').unbind('mouseup')
 	};
 

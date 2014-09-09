@@ -69,7 +69,7 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 		
 		// Add models to view
 		for (n in models)
-		{	
+		{
 			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{sentview: true}});
 			
 			this.entries.push (view);
