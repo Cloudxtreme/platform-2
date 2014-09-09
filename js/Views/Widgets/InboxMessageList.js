@@ -125,10 +125,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'showloading' : function ()
-	{
+	'showloading' : function (object)
+	{	
 		//this.$container.addClass("inner-loading");
 		
+		//Just to make sure we are triggering a collection request and not a markasread request
+		if(!object.hasOwnProperty('length'))	return;
+
 		this.$el.find(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
