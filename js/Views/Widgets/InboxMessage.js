@@ -252,7 +252,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.original  = [
 			"add",
 			"on",
-			"commented"
+			"commented",
+			"an_error_occurred_while_sending_this_message"
 		];
 
 		this.translated = [];

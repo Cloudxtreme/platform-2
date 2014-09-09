@@ -368,6 +368,7 @@
 		"text-only": "só texto",
 		"remember_for": "Lembrar por",
 		"change_days": "Alterar dias",
-		"Add note": "Adicionar nota"
+		"Add note": "Adicionar nota",
+		"an_error_occurred_while_sending_this_message": "Ocorreu um erro no envio desta mensagem:"
 	}
 }

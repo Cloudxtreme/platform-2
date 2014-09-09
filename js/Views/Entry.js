@@ -86,8 +86,10 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		if(this.parameters.hasactions)
 			this.renderactions();
 
-		if(this.model.get("status") && this.model.get("status") == 'failed')
+		if(this.model.get("status") && this.model.get("status") == 'FAILED'){
 			this.$el.addClass('failed');
+			this.model.attributes.failed = 'failed';
+		}
 
 		return this;
 	},
@@ -410,7 +412,6 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
-		console.log(token)
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
 		

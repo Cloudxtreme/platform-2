@@ -12,6 +12,11 @@ Cloudwalkers.Views.Scheduled = Cloudwalkers.Views.Pageview.extend({
 
 		// Emergency break
 		if (!this.model) return Cloudwalkers.Session.home();
+
+		var settings = Cloudwalkers.Session.viewsettings('scheduled');
+		
+		if (settings.streams)
+			this.options.filters = {streams : settings.streams};
 		
 		// Listen for changes
 		//this.listenTo(this.model, 'outdated', this.model.fetch);
@@ -27,11 +32,11 @@ Cloudwalkers.Views.Scheduled = Cloudwalkers.Views.Pageview.extend({
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 		// Add filter widget
-		var filter = new Cloudwalkers.Views.Widgets.ScheduledFilters ({model: this.model});
+		var filter = new Cloudwalkers.Views.Widgets.ScheduledFilters ({model: this.model, filters: this.options.filters});
 		this.appendWidget(filter, 4);
 		
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.ScheduledList ({model: this.model});
+		var list = new Cloudwalkers.Views.Widgets.ScheduledList ({model: this.model, filters: this.options.filters});
 		this.appendWidget(list, 8);
 		
 		filter.list = list;
