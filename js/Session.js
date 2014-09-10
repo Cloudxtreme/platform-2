@@ -127,7 +127,7 @@ Cloudwalkers.Session =
 		if(!content) return viewsettings[pointer][value];
 		
 		else if(value && content)
-		{	console.log(viewsettings)
+		{	
 			viewsettings[pointer][value] = $.extend(viewsettings[pointer][value], content);
 			this.updateSetting("viewsettings", viewsettings);
 			

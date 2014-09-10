@@ -37,7 +37,7 @@
 	{{#failed}}
 		<div class="alert alert-danger failedalert" role="alert">
 			{{translate_an_error_occurred_while_sending_this_message}}
-			<div><b>Some reason</b></div>
+			<div><b>{{errormessage}}</b></div>
 		</div>
 	{{/failed}}
 </div>
