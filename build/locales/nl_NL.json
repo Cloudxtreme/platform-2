@@ -361,6 +361,8 @@
 		"Note": "Note",
 		"dont_forget_to_fill_the_keyword_name": "Don't forget to fill the keyword name",
 		"please_add_a_filter_to_your_keyword": "Please add a filter to your keyword.",
-		"remember_for": "Remember for"
+		"remember_for": "Remember for",
+		"Add note": "Add note",
+		"an_error_occurred_while_sending_this_message": "An error occurred while sending this message:"
 	}
 }

@@ -53,7 +53,7 @@
 		<!--
 		<div class="separator"></div>
 
-		<h3 name="triggers">{{translate_triggers}}</h3>
+		<h3 name="triggers">Triggers</h3>
 		<div id="triggerlist"></div>
 
 		<div class="separator"></div>
