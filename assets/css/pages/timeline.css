@@ -815,7 +815,10 @@ ul.timeline > li:nth-child(2){
 	margin-top: 45px;
 }
 #timeline .timeline .timeline-loading {
-	top: 90px;
+	top: 103px;
+}
+#timeline .timeline .timeline-loading .timeline-body{
+	min-height: 0px;
 }
 
 .timeline-body-wrapper .arrow-wrapper{

@@ -41,11 +41,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
 	
-	'render' : function ()
+	'render' : function (streams)
 	{
+		if(!streams)
+			streams = null;
+
 		// Network filters
 		var params = {networks: this.model.streams.filterNetworks(null, true)};
-		
+
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
 
@@ -57,16 +60,30 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters(streams));
+
+		if(streams)
+			this.togglefilters(streams);
 
 		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
 	},
 		
-	'filterparameters' : function()
+	'filterparameters' : function(streams)
 	{
-		return this.parameters;
+		var param;
+
+		param = this.parameters;
+
+		param.streams = "";
+
+		if(streams){
+			param.streams = streams.join(",");
+		}
+
+		return param;
+
 	},
 	
 	'fill' : function (models)
@@ -104,16 +121,18 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'toggleallnetworks' : function (all)
 	{
 		this.filternetworks(null, true);
-		this.togglefilters(all, ".network-list");
 	},
 
-	'togglefilters' : function(all, selector)
+	'togglefilters' : function(streams)
 	{
+		streams = streams.join(" ");
+		
 		// Toggle streams
-		this.$el.find(selector + " .filter").addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		this.$el.find("[data-network-streams]").addClass('inactive').removeClass('active');;	
+		this.$el.find("[data-network-streams='" + streams + "']").addClass('active').removeClass('inactive');;		
 		
 		// Toggle select button
-		$(selector + " .toggleall").addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
 	},
 
 	'filternetworks' : function (e, all)
@@ -123,21 +142,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		if(!all)
 			all = this.button && this.button.data("network-streams") == $(e.currentTarget).data("network-streams");
 
-		this.togglefilters(all, ".network-list");
+		//this.togglefilters(all, ".network-list");
 		
 		if(!all)
 			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
 		
 		var streams = all? null: String(this.button.data("network-streams")).split(" ");
 		
-		if(all) this.button = false;
-		
-		// Add ids
-		if(streams) this.parameters.streams = streams.join(",");
-		else delete this.parameters.streams;
-
-		this.collection.trigger('change:filter');
-		this.collection.touch(this.category, this.parameters);
+		this.render(streams);
 
 		return this;
 		
