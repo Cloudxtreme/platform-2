@@ -302,7 +302,8 @@ Backbone.Collection = Backbone.Collection.extend({
 		var model = this.updates([id]);
 	},
 	
-	'touch' : function(model, params)
+	// responseparams: parameters for the second fecth(ids)
+	'touch' : function(model, params, responseparams)
 	{	
 		// Work data
 		this.parentmodel = model;
@@ -313,7 +314,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
 		
 		// Hard-wired request (no caching)
-		this.fetch({success: this.touchresponse.bind(this, this.url())});
+		this.fetch({success: this.touchresponse.bind(this, this.url(), responseparams)});
 	},
 	
 	'touchlocal' : function(touch)
@@ -328,7 +329,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		} else this.fetch({success: this.touchresponse.bind(this, this.url())});
 	},
 	
-	'touchresponse' : function(url, collection, response)
+	'touchresponse' : function(url, responseparams, collection, response)
 	{	
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
@@ -337,7 +338,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 		
 		// Seed ids to collection
-		this.seed(ids);
+		this.seed(ids, responseparams);
 	},
 	
 	/**
@@ -392,7 +393,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	/**
 		Temp: non-caching seed
 	**/
-	'seed' : function(ids)
+	'seed' : function(ids, responseparams)
 	{
 		// Ignore empty id lists
 		if(!ids) ids = [];
@@ -422,6 +423,9 @@ Backbone.Collection = Backbone.Collection.extend({
 		{
 			this.endpoint = this.parentmodel? this.typestring: null;
 			this.parameters = {ids: fresh.join(",")};
+
+			if(responseparams)
+				$.extend(this.parameters, responseparams);
 			
 			this.fetch({remove: false});
 		}
