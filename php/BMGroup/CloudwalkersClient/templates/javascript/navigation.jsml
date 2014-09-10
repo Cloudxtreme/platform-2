@@ -158,6 +158,12 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
+				<li class="calendar">
+					<a href="#calendar">
+						<i class="icon-calendar"></i> 
+						<span class="title">{{translate_calendar}}</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_DRAFTS}}
@@ -238,6 +244,13 @@
 					</a>
 				</li>
 
+				<!--<li>
+					<a href="#timeline/rss">
+						<i class="icon-rss"></i> 
+						<span class="title">{{translate_rss_feed}}</span>
+					</a>
+				</li>-->
+
 				<li class="trending">
 					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
@@ -251,6 +264,13 @@
 						<span class="title">{{translate_manage_accounts}}</span>
 					</a>
 				</li>
+
+				<!--<li>
+					<a href="#monitoring/managerss">
+						<i class="icon-plus"></i> 
+						<span class="title">{{translate_manage_rss}}</span>
+					</a>
+				</li>-->
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_THIRDPARTY}}
@@ -331,6 +351,9 @@
 			{{#authorized.ACCOUNT_SETTINGS}}
 				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
+			{{#manage_user_groups}}
+				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>
+			{{/manage_user_groups}}
 		</ul>
 	</li>
 	
