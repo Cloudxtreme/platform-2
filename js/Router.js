@@ -14,6 +14,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'share' : 'share',
 		'inbox(/:type)(/:streamid)' : 'inbox',
 		'drafts' : 'drafts',
+		'outbox(/:type)' : 'outbox',
 		'notes' : 'notes',
 		'scheduled' : 'scheduled',
 		'calendar' : 'calendar',
@@ -85,7 +86,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{	
 		if(accountid != Cloudwalkers.Session.get("currentAccount"))
 		{
-			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home}); //patch: true
+			Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)}); //patch: true
 		}
 	},
 	
@@ -164,6 +165,16 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	'drafts' : function ()
 	{	
 		var view = new Cloudwalkers.Views.Drafts();
+		var roles = 'MESSAGE_READ_DRAFTS';
+
+		this.validate(view, roles);
+	},
+
+	'outbox' : function(type)
+	{
+		if (!type) type = "sent";
+		
+		var view = new Cloudwalkers.Views.Sent();
 		var roles = 'MESSAGE_READ_DRAFTS';
 
 		this.validate(view, roles);
@@ -362,20 +373,25 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Resync({returnto: view}));
 	},
 
-	'home' : function ()
+	'home' : function (changeaccount)
 	{	
-		$.ajax({ url: config.authurl + "revoke", headers : {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        },
-        success: function()
-        {
-        	window.location = "/";
-        }});
+		if(!changeaccount){
+
+			$.ajax({ url: config.authurl + "revoke", headers : {
+	            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+	            'Accept': "application/json"
+	        },
+	        success: function()
+	        {
+	        	window.location = "/";
+	        }});
+		}else{
+			window.location = "/";
+		}
 		
 		Cloudwalkers.RootView.view.remove();
 		Cloudwalkers.RootView.navigation.remove();
-		Cloudwalkers.Session.reset();
+		Cloudwalkers.Session.reset(changeaccount);
 		
 		return false;
 	},

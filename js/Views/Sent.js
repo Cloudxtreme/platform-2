@@ -1,38 +1,26 @@
-Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
+Cloudwalkers.Views.Sent = Cloudwalkers.Views.Pageview.extend({
 	
-	'title' : 'Notes',
-	'className' : "container-fluid inbox inbox-notes",
+	'title' : 'Sent',
+	'className' : "container-fluid inbox",
 			
 	'initialize' : function(options)
 	{
-		this.model = Cloudwalkers.Session.getAccount();
-
-		this.events['click [data-action=viewcontact]'] = 'viewcontact';
+		this.model = Cloudwalkers.Session.getStream("sent");
+		
+		this.translateTitle("sent");
 	},
 
 	'render' : function()
-	{
-
-		// Translation for Title
-		this.translateTitle("notes");
-		
+	{	
 		// Create pageview
 		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
 		// Dedect childtype
 		//this.options.channel.childtype = this.options.type.slice(0, -1);
-		
-		var params = {
-			'check' : "hasnotes",
-			'collectionstring' : "notes",
-			'listtype' : 'notes',
-			model: this.model
-		}
 
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.InboxNotesList(params);
-		this.list = list;
+		var list = new Cloudwalkers.Views.Widgets.SentMessageList({model: this.model});
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);
@@ -42,11 +30,6 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 
 		
 		return this;
-	},
-
-	'viewcontact' : function()
-	{
-		this.list.trigger('contact:clicked');
 	},
 
 	'resize' : function(height)
@@ -69,11 +52,5 @@ Cloudwalkers.Views.Notes = Cloudwalkers.Views.Pageview.extend({
 	{	
 		// Translate Title
 		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
 	}
 });

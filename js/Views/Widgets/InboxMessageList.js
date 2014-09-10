@@ -105,7 +105,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(param);
-
+		
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
@@ -438,10 +438,24 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
+		var param;
+
+		if(this.listtype == 'notes')	
+			param = {all: 1};
+
+		else if(this.model.get('token') && this.model.get('token') == 'sent')
+			param = {records: 20};
+
+		else
+			param = {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
-		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
+		if(this.filters.streams.length){
+			if(this.model.get('token') && this.model.get('token') == 'sent')
+				param.target = this.filters.streams.join(",");
+			else
+				param.streams = this.filters.streams.join(",");	
+		} 
 		
 		// And store
 		this.storeview();

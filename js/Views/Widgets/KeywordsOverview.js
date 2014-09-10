@@ -55,12 +55,11 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
 		var remember = $cat.find('[name="remember"]').val();
-		
 
 		var settings = {
 			remember: remember
 		};
-
+		
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
 		channel.save({
@@ -101,6 +100,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var id = Number($(e.target).closest('[data-keyword]').data('keyword'));
 		
 		this.editor.fillKeyword(id, e);
+
+		$("html, body").animate({ scrollTop: $('#keywordsfilter').offset().top-50 }, 500);
 	},
 
 	'deleteKeyword' : function (e)
