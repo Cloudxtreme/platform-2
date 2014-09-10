@@ -2,7 +2,8 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
 		'click i[data-delete-campaign-id]' : 'deletecampaign',
-		'click #menu a' : 'scroll'
+		'click #menu a' : 'scroll',
+		'submit form' : 'editaccount'
 	},
 
 	'initialize' : function()
@@ -14,13 +15,15 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.triggers = new Cloudwalkers.Collections.Triggers();
 
 		this.listenTo(this.triggers, 'sync', this.filltriggers);
+
+		this.account = Cloudwalkers.Session.getAccount();
 		
 		this.triggermodel = {};
 	},
 
 	'render' : function ()
 	{		
-		var data = Cloudwalkers.Session.getAccount().attributes;
+		var data = this.account.attributes;
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -74,7 +77,20 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
 		
-		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated")); }}.bind(this));
+		this.account.save ({name: name}, {patch: true, success: function ()
+			{
+				Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
+				
+				// Hack
+				window.location.reload();
+
+			}.bind(this),
+			error: function(){
+				Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
+
+				// Hack
+				window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			}.bind(this)});
 	},
 	
 	'deletecampaign' : function (e)
