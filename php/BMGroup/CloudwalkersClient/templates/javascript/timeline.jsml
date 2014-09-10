@@ -1,9 +1,9 @@
 <div class="timeline-bg"></div>
 	
-<div class="filterbanner" id="timeline-filters">
+<div class="filterbanner filter network-list social-icon-colors" id="timeline-filters">
 	<span class="caption">{{translate_filters}}:</span>
 	{{#networks}}
-		<div class="social-icon-colors btn white active filter" data-network-streams="{{ids}}">
+		<div class="btn white active filter" data-network-streams="{{ids}}">
 			<i class="icon-{{icon}}"></i>
 		</div>
 	{{/networks}}
