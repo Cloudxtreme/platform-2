@@ -302,19 +302,21 @@ Backbone.Collection = Backbone.Collection.extend({
 		var model = this.updates([id]);
 	},
 	
-	// responseparams: parameters for the second fecth(ids)
-	'touch' : function(model, params, responseparams)
+	// seedparameters: parameters for the second fecth(ids)
+	'touch' : function(model, params, seedparameters)
 	{	
 		// Work data
 		this.parentmodel = model;
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
 
+		this.seedparameters = seedparameters;
+
 		// Check for history (within ping lifetime), temp disabled
 		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
 		
 		// Hard-wired request (no caching)
-		this.fetch({success: this.touchresponse.bind(this, this.url(), responseparams)});
+		this.fetch({success: this.touchresponse.bind(this, this.url())});
 	},
 	
 	'touchlocal' : function(touch)
@@ -329,7 +331,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		} else this.fetch({success: this.touchresponse.bind(this, this.url())});
 	},
 	
-	'touchresponse' : function(url, responseparams, collection, response)
+	'touchresponse' : function(url, collection, response)
 	{	
 		// Get ids
 		var ids = response[this.parenttype][this.typestring];
@@ -338,7 +340,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 		
 		// Seed ids to collection
-		this.seed(ids, responseparams);
+		this.seed(ids);
 	},
 	
 	/**
@@ -393,7 +395,7 @@ Backbone.Collection = Backbone.Collection.extend({
 	/**
 		Temp: non-caching seed
 	**/
-	'seed' : function(ids, responseparams)
+	'seed' : function(ids)
 	{
 		// Ignore empty id lists
 		if(!ids) ids = [];
@@ -424,8 +426,8 @@ Backbone.Collection = Backbone.Collection.extend({
 			this.endpoint = this.parentmodel? this.typestring: null;
 			this.parameters = {ids: fresh.join(",")};
 
-			if(responseparams)
-				$.extend(this.parameters, responseparams);
+			if(this.seedparameters)
+				$.extend(this.parameters, this.seedparameters);
 			
 			this.fetch({remove: false});
 		}
