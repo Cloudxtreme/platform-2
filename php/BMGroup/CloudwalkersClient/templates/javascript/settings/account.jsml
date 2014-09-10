@@ -2,7 +2,7 @@
 
 	<div class="span8">
 
-		<div style="height: auto;">
+		<div style="height: auto;" class="edit-account-name">
 			
 			<h3 name="basic">{{translate_account}}</h3>
 			
