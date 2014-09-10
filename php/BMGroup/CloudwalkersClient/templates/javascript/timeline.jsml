@@ -1,21 +1,32 @@
+<div class="timeline-bg"></div>
+	
+<div class="filterbanner filter network-list social-icon-colors" id="timeline-filters">
+	<span class="caption">{{translate_filters}}:</span>
+	{{#networks}}
+		<div class="btn white active filter" data-network-streams="{{ids}}">
+			<i class="icon-{{icon}}"></i>
+		</div>
+	{{/networks}}
+
+	<li class="toggleall networks inactive">{{translate_select_all}}</li>
+	
+</div>
+
 <ul class="timeline social-box-colors messages-container" id='pages'>
 	
 	<li class="timeline-blue timeline-loading">
 		<div class="timeline-time"></div>
-		<div class="timeline-icon"><i class="icon-cloud-download"></i></div>
-		<div class="timeline-body more inner-loading">
-			{{translate_loading}}
+		<div class="timeline-icon entry-loading"></div>
+		<div class="timeline-body more">
+			<span>{{translate_loading}}...</span>
 		</div>
 	</li>
 	
 	<li class="timeline-grey load-more">
-		<div class="timeline-time">
-			<span class="date"></span>
-			<span class="time"></span>
-		</div>
+		<div class="timeline-info"></div>
 		<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
 		<div class="timeline-body more">
-			<strong>{{translate_view_more}}</strong>
+			<span>{{translate_view_more}}</span>
 		</div>
 	</li>
 	
@@ -29,8 +40,4 @@
 			<strong>{{translate_no_messages}}</strong>
 		</div>
 	</li>
-
 </ul>
-
-
-

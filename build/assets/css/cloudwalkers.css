@@ -1013,24 +1013,6 @@ tbody.messages-container i	{
 .social-box-colors .blog-color .timeline-body:after	{ border-right-color: #f39501 !important; }
 .dashboard-stat.blog-color	{ background-color: #f39501; }
 
-/*
-.social-box-colors .failed.message-header	{ border:thin solid #ebccd1 !important; }
-.social-box-colors .failed .portlet-title	{ background-color: #f2dede !important; }
-.social-box-colors .failed .inherit	{ color: #a94442; background: #f2dede !important; }
-.social-box-colors .failed .time	{ color: #a94442 !important; }
-.social-box-colors .failed .timeline-body	{ background-color: #f2dede !important; }
-.social-box-colors .failed .timeline-body:after	{ border-right-color: #f2dede !important; }
-.social-box-colors .failed.message-body	{ color: #CCC !important; }
-*/
-.social-box-colors .failed.message-body	{ color: #CCC; }
-.social-box-colors .failed .failedalert{
-	margin-top: 15px;
-	margin-bottom: 10px;
-	color: #e02222 !important;
-}
-
-.dashboard-stat.blog-color	{ background-color: #f2dede; }
-
 .dashboard-stat-comparison.facebook-color { background-color: #3B5998; }
 .dashboard-stat-comparison.twitter-color  { background-color: #01a9da; }
 .dashboard-stat-comparison.linkedin-color { background-color: #1783BC; }
@@ -1571,10 +1553,6 @@ ul.loaded{ min-height: 5px;}
 
 .messagelist.empty-content .empty-list:before{ 
 	content: '';
-}
-
-.empty-list.loaded .slimScrollDiv{
-	display: none;
 }
 
 /* Update */

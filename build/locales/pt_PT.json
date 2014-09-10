@@ -362,8 +362,6 @@
 		"dont_forget_to_fill_the_keyword_name": "Não se esqueça de preencher o nome da palavra chave.",
 		"please_add_a_filter_to_your_keyword": "Por favor adicione um filtro à sua palavra chave.",
 		"remember_for": "Lembrar por",
-		"change_days": "Alterar dias",
-		"Add note": "Adicionar nota",
-		"an_error_occurred_while_sending_this_message": "Ocorreu um erro no envio desta mensagem:"
+		"change_days": "Alterar dias"
 	}
 }

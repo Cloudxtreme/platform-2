@@ -111,14 +111,6 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_DRAFTS}}
-				{{#authorized.MESSAGE_READ_SCHEDULE}}
-				<li class="schedule">
-					<a href="#scheduled">
-						<i class="icon-time"></i> 
-						<span class="title">{{translate_scheduled}}</span>
-					</a>
-				</li>
-				{{/authorized.MESSAGE_READ_SCHEDULE}}
 				{{#authorized.ACCOUNT_NOTES_VIEW}}
 				<li class="notes">
 					<a href="#notes">
@@ -139,7 +131,7 @@
 			</ul>
 		</li>
 	{{/inbox}}
-		<!--
+
 		{{#authorized.MESSAGE_READ_DRAFTS}}
 		<li>
 			<a href="#outbox/sent">
@@ -169,7 +161,6 @@
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_DRAFTS}}
-		-->
 		
 		<!-- Co-workers cloud -->
 		{{#authorized._CW_COWORKERS_VIEW}}

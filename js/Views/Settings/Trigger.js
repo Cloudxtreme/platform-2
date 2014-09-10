@@ -21,6 +21,9 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 			description: this.description
 		}
 
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
+
 		this.$el.html(Mustache.render(Templates.settings.trigger, params))
 		
 		return this;
@@ -53,6 +56,29 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 	'reset' : function()
 	{
 		this.$el.find('textarea').val("");
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"save_changes",
+			"reset"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
 

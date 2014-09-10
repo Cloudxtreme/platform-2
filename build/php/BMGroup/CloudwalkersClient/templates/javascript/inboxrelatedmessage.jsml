@@ -7,7 +7,7 @@
 		
 		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
 		<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
-
+		
 		{{/from}}
 	</div>
 </div>

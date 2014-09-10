@@ -3,10 +3,13 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'id' : "timeline",
 	'parameters': { records: 20, markasread: true },
 	'entries' : [],
+
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
-		'click .load-more' : 'more'
+		'click .load-more .more' : 'more',
+		'click [data-network-streams]' : 'filternetworks',
+		'click .toggleall.networks.active' : 'toggleallnetworks'
 	},
 	
 	'initialize' : function (options)
@@ -32,15 +35,20 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'hideloading': function()
 	{
 		this.$el.removeClass("loading");
-		//this.$el.find(".timeline-loading").hide();
+		this.$el.find(".timeline-loading").hide();
+
+		this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
 	
-	'render' : function ()
+	'render' : function (streams)
 	{
+		if(!streams)
+			streams = null;
 
 		// Network filters
-		var params = {} // {networks: this.model.streams.filterNetworks(null, true)};
-		
+		var params = {networks: this.model.streams.filterNetworks(null, true)};
+
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
 
@@ -52,14 +60,30 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters(streams));
+
+		if(streams)
+			this.togglefilters(streams);
+
+		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
 	},
 		
-	'filterparameters' : function()
+	'filterparameters' : function(streams)
 	{
-		return this.parameters;
+		var param;
+
+		param = this.parameters;
+
+		param.streams = "";
+
+		if(streams){
+			param.streams = streams.join(",");
+		}
+
+		return param;
+
 	},
 	
 	'fill' : function (models)
@@ -77,8 +101,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		{	
 			//Company / third party
 			models[n].attributes.showcontact = this.showcontact;
-
-			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'messagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
+			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'newmessagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 			
 			this.entries.push (view);
 			
@@ -95,13 +118,58 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.hideloading();
 	},
 
+	'toggleallnetworks' : function (all)
+	{
+		this.filternetworks(null, true);
+	},
+
+	'togglefilters' : function(streams)
+	{
+		streams = streams.join(" ");
+		
+		// Toggle streams
+		this.$el.find("[data-network-streams]").addClass('inactive').removeClass('active');;	
+		this.$el.find("[data-network-streams='" + streams + "']").addClass('active').removeClass('inactive');;		
+		
+		// Toggle select button
+		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
+	},
+
+	'filternetworks' : function (e, all)
+	{
+		//console.log(e, all)
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("network-streams") == $(e.currentTarget).data("network-streams");
+
+		//this.togglefilters(all, ".network-list");
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("network-streams")).split(" ");
+		
+		this.render(streams);
+
+		return this;
+		
+	},
+
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.$el.find('.load-more .timeline-icon').addClass('entry-loading');
+		this.$el.find('.load-more .timeline-body span').html(this.translateString('loading')+'...');
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
 		if(!hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'resize' : function(height)
+	{	
+		this.$el.css('min-height', height);
 	},
 
 	'translateString' : function(translatedata)
@@ -117,7 +185,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			"loading",
 			"view_more",
 			"no_messages",
-			"comments"
+			"comments",
+			"filters",
+			"select_all"
 		];
 
 		this.translated = [];
@@ -128,7 +198,6 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			translatelocation["translate_" + this.original[k]] = this.translated[k];
 		}
 	}
-
 });
 
 /*Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Widgets.WidgetContainer.extend({

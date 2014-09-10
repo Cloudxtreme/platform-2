@@ -8,6 +8,12 @@ Cloudwalkers.Views.Sent = Cloudwalkers.Views.Pageview.extend({
 		this.model = Cloudwalkers.Session.getStream("sent");
 		
 		this.translateTitle("sent");
+
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings('sent');
+		
+		if (settings.streams)
+			this.options.filters = {contacts : {string:"", list:[]}, streams : settings.streams};
 	},
 
 	'render' : function()
@@ -16,11 +22,12 @@ Cloudwalkers.Views.Sent = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 		
+		this.options.model = this.model;
 		// Dedect childtype
 		//this.options.channel.childtype = this.options.type.slice(0, -1);
 
 		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.SentMessageList({model: this.model});
+		var list = new Cloudwalkers.Views.Widgets.SentMessageList(this.options);
 		
 		this.appendWidget(list, 4);
 		this.appendhtml(Templates.inboxcontainer);

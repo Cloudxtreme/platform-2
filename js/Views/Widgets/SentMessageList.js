@@ -34,8 +34,16 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 
 		this.$container = this.$el.find ('ul.list');
 		
+		// Set selected streams
+		if (this.filters.streams.length)
+		{
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
+			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
+
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters(),  {fields: 'defaults,sendlogs'});
 		
 		return this;
 	},
@@ -85,7 +93,24 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 		// Toggle first message
 		if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
 		else 					this.hidemore();
-	}
+	},
+
+	'storeview' : function ()
+	{	
+		
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings('sent');
+		
+		if(!settings)	return;
+		if(!settings.streams) settings.streams = [];
+		
+		// And store
+		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
+		{
+			settings.streams = this.filters.streams;
+			Cloudwalkers.Session.viewsettings('sent', settings);
+		}
+	},
 
 
 });

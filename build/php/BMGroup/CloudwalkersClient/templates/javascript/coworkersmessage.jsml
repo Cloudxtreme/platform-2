@@ -6,11 +6,9 @@
 				<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			
 				<ul class="dropdown-menu">
-				{{#hasactions}}
-					{{#actions}}
-						<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
-					{{/actions}}
-				{{/hasactions}}
+				{{#actions}}
+					<li><a class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name_translated}}</a></li>
+				{{/actions}}
 				</ul>
 			</span>
 		{{/actions.length}}
