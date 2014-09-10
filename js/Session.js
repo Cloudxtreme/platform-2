@@ -121,6 +121,10 @@ Cloudwalkers.Session =
 		
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
+
+		// Sent hack
+		if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
 		
 		var viewsettings = this.clone(this.get("viewsettings"));
 		

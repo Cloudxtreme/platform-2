@@ -7,7 +7,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
-		'click .load-more .more' : 'more'
+		'click .load-more .more' : 'more',
+		'click [data-network-streams]' : 'filternetworks',
+		'click .toggleall.networks.active' : 'toggleallnetworks'
 	},
 	
 	'initialize' : function (options)
@@ -39,11 +41,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
 	
-	'render' : function ()
+	'render' : function (streams)
 	{
+		if(!streams)
+			streams = null;
+
 		// Network filters
 		var params = {networks: this.model.streams.filterNetworks(null, true)};
-		
+
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
 
@@ -55,16 +60,30 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+		this.collection.touch(this.model, this.filterparameters(streams));
+
+		if(streams)
+			this.togglefilters(streams);
 
 		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
 	},
 		
-	'filterparameters' : function()
+	'filterparameters' : function(streams)
 	{
-		return this.parameters;
+		var param;
+
+		param = this.parameters;
+
+		param.streams = "";
+
+		if(streams){
+			param.streams = streams.join(",");
+		}
+
+		return param;
+
 	},
 	
 	'fill' : function (models)
@@ -97,6 +116,43 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			this.$container.append(this.$nocontent);
 		
 		this.hideloading();
+	},
+
+	'toggleallnetworks' : function (all)
+	{
+		this.filternetworks(null, true);
+	},
+
+	'togglefilters' : function(streams)
+	{
+		streams = streams.join(" ");
+		
+		// Toggle streams
+		this.$el.find("[data-network-streams]").addClass('inactive').removeClass('active');;	
+		this.$el.find("[data-network-streams='" + streams + "']").addClass('active').removeClass('inactive');;		
+		
+		// Toggle select button
+		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
+	},
+
+	'filternetworks' : function (e, all)
+	{
+		//console.log(e, all)
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("network-streams") == $(e.currentTarget).data("network-streams");
+
+		//this.togglefilters(all, ".network-list");
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("network-streams")).split(" ");
+		
+		this.render(streams);
+
+		return this;
+		
 	},
 
 	'more' : function ()
