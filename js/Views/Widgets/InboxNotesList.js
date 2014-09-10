@@ -379,6 +379,8 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.loadmore.loadmylisteners();
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		
