@@ -35,8 +35,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
-		this.listenTo(this.model, 'destroy', this.remove);
-
+		this.listenTo(this.model, 'destroyed', this.remove);
 	},
 
 	'render' : function ()
