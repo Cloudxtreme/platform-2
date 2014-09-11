@@ -1866,7 +1866,6 @@ ul.action-list.comment-list li{
 	margin-left: 0; background: #d9edf7;
 }
 
-.inbox-container .message-notes ul li,
 #monitorparent .message-notes ul li,
 .message-notes ul.note-list > li{
 	margin-left: 0; background: #F2F0A0; min-height: 20px;

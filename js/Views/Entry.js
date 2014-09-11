@@ -412,7 +412,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
-		if(!token)	return;
+		if(!newaction)	return;
 
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
