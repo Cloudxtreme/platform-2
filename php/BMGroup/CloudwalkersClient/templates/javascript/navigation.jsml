@@ -158,12 +158,12 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
-				<li class="calendar">
+				<!--<li class="calendar">
 					<a href="#calendar">
 						<i class="icon-calendar"></i> 
 						<span class="title">{{translate_calendar}}</span>
 					</a>
-				</li>
+				</li>-->
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_DRAFTS}}
