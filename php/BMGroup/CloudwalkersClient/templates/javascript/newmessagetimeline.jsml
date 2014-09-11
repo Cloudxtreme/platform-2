@@ -60,14 +60,17 @@
 
 	<div class="timeline-body-wrapper">
 
-		{{#url}}
-			<div class="arrow-shadow">
-				<a href="{{url}}" target="_blank"></a>
-				<i class="icon-chevron-right"></i>	
-			</div>
-			{{/url}}
-
 		<div class="timeline-body">
+
+			{{#url}}
+				<div class="arrow-shadow">
+					<a href="{{url}}" target="_blank"></a>
+					<i class="icon-chevron-right"></i>	
+				</div>
+				<div class="arrow-hidder">
+					<a href="{{url}}" target="_blank"></a>
+				</div>
+			{{/url}}
 
 			<div class="timeline-entry-content">
 							
@@ -109,12 +112,6 @@
 			<div class="action-lists">
 			</div>
 		</div>	
-
-		{{#url}}
-			<div class="arrow-hidder">
-				<a href="{{url}}" target="_blank"></a>
-			</div>
-		{{/url}}
 
 	</div>
 
