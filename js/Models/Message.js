@@ -913,6 +913,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             */
                             
                            self.trigger("destroy", {wait: true})
+                           self.trigger("destroyed", {wait: true})
                            // self.trigger ("destroy", self, self.collection);
                             
                             // Hack
@@ -933,7 +934,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				{
                     self.destroy ({success:function(){
 	                    
-	                    // Hack
+	                    //trigger destroy
+						 self.trigger ("destroyed", self, self.collection);
+						 //Keep the old code
 						 self.trigger ("destroy", self, self.collection);
 						//window.location.reload();
 	                    
@@ -1028,6 +1031,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                     }
                     */
                     self.trigger ("destroy", self, self.collection);
+                    self.trigger ("destroyed", self, self.collection);
 				}
 				else
 				{

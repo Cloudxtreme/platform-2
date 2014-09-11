@@ -76,6 +76,9 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	'editaccount' : function (e)
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
+
+		this.$el.find(".edit-account-name").addClass('loading');
+		this.$el.find('.edit-account-name .btn').attr('disabled', true);
 		
 		this.account.save ({name: name}, {patch: true, success: function ()
 			{
