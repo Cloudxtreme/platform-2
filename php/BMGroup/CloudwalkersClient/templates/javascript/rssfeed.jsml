@@ -1,0 +1,196 @@
+<div class="row-fluid">
+
+	<h3 class="page-title">{{title}}</h3>
+
+</div>
+
+<div class="rssfeed-selector pull-right span12">
+
+	<div class="option " data-rss-select="list"><i class="icon-list" data-rss-select="list"></i></div>
+	<div class="option active" data-rss-select="cards"><i class="icon-th-list" data-rss-select="cards"></i></div>
+
+</div>
+
+<div class="rssfeed-container cards">
+
+	<div class="span6">
+		<div class="message">
+			
+			<div class="image" style="background-image: url(http://webdesignledger.com/wp-content/uploads/2014/08/1-free-handwritten-fonts.jpg);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title membres
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://files.smashingmagazine.com/wallpapers/aug-14/about-everything/aug-14-about-everything-preview.jpg);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title familie
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="message opened">
+
+			<div class="image" style="background-image: url(http://webdesignledger.com/wp-content/uploads/2014/07/8-free-textures-to-download-2014.jpg);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title commun
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://www.smashingmagazine.com/wp-content/uploads/2014/07/smashingconf-whistler-canada-520f.png);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title desirabilite
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://www.smashingmagazine.com/wp-content/uploads/2014/07/clue-final-level-opt.png);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title vocabules
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6" style="margin-left:0px;">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://webdesignledger.com/wp-content/uploads/2014/07/1-mobile-app-designs-with-graphs-charts.jpg);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title franca
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://www.zurb.com/blog/system/images/1327/original/Foundation-Apps-Grid.png);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title vocabules
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6" style="margin-left:0px;">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://www.zurb.com/blog/system/images/1311/original/tavern-blog.png);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title desirabilite
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="message">
+
+			<div class="image" style="background-image: url(http://www.zurb.com/blog/system/images/1305/original/blog-header.jpg);"></div>
+			
+			<div class="text">
+				
+				<div class="title">
+					Title vocabules
+				</div>
+				
+				Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
+
+			</div>
+			
+			<span class="date">30 jun. 2014 16:07</span>
+
+		</div>
+	</div>
+
+</div>

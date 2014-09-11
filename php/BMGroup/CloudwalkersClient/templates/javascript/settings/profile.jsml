@@ -25,7 +25,7 @@
 						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
 						<center>
 							<input type="file" name="select file" id="file"><br><br>
-							<button type="file" class="btn black">{{translate_upload_profile_picture}}</button>
+							<button type="file" class="btn blue">{{translate_upload_profile_picture}}</button>
 						</center>
 					</form>
 					-->

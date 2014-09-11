@@ -43,11 +43,36 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function (streams)
 	{
+		var params;
+
 		if(!streams)
 			streams = null;
 
 		// Network filters
-		var params = {networks: this.model.streams.filterNetworks(null, true)};
+		if( this.model.streams){ //Its a channel
+			params = {networks: this.model.streams.filterNetworks(null, true)};
+			this.parameters.streams = params.networks;
+		}
+		else					//It's a stream, so it's company accounts time!
+		{
+			params = {};
+
+			var channelid = this.model.get('channels')? this.model.get('channels')[0]: null;
+
+			if(channelid){
+				var channel = Cloudwalkers.Session.getChannel(Number(channelid));
+
+				params = {networks: channel.streams.filterNetworks(null, true)};
+
+				if(streams){
+					this.model = channel;
+					this.collection = this.model.messages;
+					this.listenTo(this.collection, 'seed', this.fill);
+				}
+
+				this.parameters.streams = streams? streams: params.networks;
+			}
+		}					
 
 		//Mustache Translate Render
 		this.mustacheTranslateRender(params);
@@ -76,7 +101,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 
 		param = this.parameters;
 
-		param.streams = "";
+		//param.streams = "";
 
 		if(streams){
 			param.streams = streams.join(",");

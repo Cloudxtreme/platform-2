@@ -193,11 +193,11 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			if(smallestlimit - this.get("body").plaintext.length < 0)
 				return false;
 		}*/			
-
+		
 		// Variations
 		if(this.get("streams") && this.get("streams").length){
 			$.each(this.get("streams"), function(n, stream)
-			{	
+			{
 				var network = Cloudwalkers.Session.getStream(stream).get("network");
 				var limit = network.limitations['max-length']? network.limitations['max-length'].limit : null;
 				
@@ -278,13 +278,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'filterData' : function (response)
 	{	
+		//In case it's a notification
+		if(response.message && response.message.body)
+			response = response.message;
+
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "status", "canHaveChildren", "children_count", "schedule", "variations"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "status", "canHaveChildren", "children_count", "schedule", "variations", "url"]
 		
 		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
-
 		// Stream		
 		var stream = Cloudwalkers.Session.getStream(response.stream);
 		
@@ -910,6 +913,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             */
                             
                            self.trigger("destroy", {wait: true})
+                           self.trigger("destroyed", {wait: true})
                            // self.trigger ("destroy", self, self.collection);
                             
                             // Hack
@@ -930,7 +934,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				{
                     self.destroy ({success:function(){
 	                    
-	                    // Hack
+	                    //trigger destroy
+						 self.trigger ("destroyed", self, self.collection);
+						 //Keep the old code
 						 self.trigger ("destroy", self, self.collection);
 						//window.location.reload();
 	                    
@@ -1025,6 +1031,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                     }
                     */
                     self.trigger ("destroy", self, self.collection);
+                    self.trigger ("destroyed", self, self.collection);
 				}
 				else
 				{

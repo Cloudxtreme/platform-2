@@ -36,6 +36,7 @@
 <script type="text/javascript" src="/js/Models/Network.js"></script>
 <script type="text/javascript" src="/js/Models/Polyglot.js"></script>
 <script type="text/javascript" src="/js/Models/Trigger.js"></script>
+<script type="text/javascript" src="/js/Models/Group.js"></script>
 <script type="text/javascript" src="/js/Models/Widget.js"></script>
 
 <!-- Collections -->
@@ -57,6 +58,7 @@
 <script type="text/javascript" src="/js/Collections/Reports.js"></script>
 <script type="text/javascript" src="/js/Collections/Statistics.js"></script>
 <script type="text/javascript" src="/js/Collections/Triggers.js"></script>
+<script type="text/javascript" src="/js/Collections/Groups.js"></script>
 <script type="text/javascript" src="/js/Collections/Widgets.js"></script>
 
 <!-- Views -->
@@ -103,6 +105,7 @@
 <script type="text/javascript" src="/js/Views/Settings.js"></script>
 <script type="text/javascript" src="/js/Views/Firsttime.js"></script>
 <script type="text/javascript" src="/js/Views/Coworkdashboard.js"></script>
+<script type="text/javascript" src="/js/Views/RSSFeed.js"></script>
 
 <!-- Widgets Views -->
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
@@ -161,6 +164,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/StatSummary.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CalSummary.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/CalendarFilters.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/Sentiment.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Linechart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Intervalchart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Charts/Numberstat.js"></script>
@@ -188,3 +192,7 @@
 <script type="text/javascript" src="/js/Views/Settings/Trigger.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/CannedList.js"></script>
 <script type="text/javascript" src="/js/Views/Settings/StreamSettings.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/ManageUserGroups.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupItem.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/GroupDetails.js"></script>
+<script type="text/javascript" src="/js/Views/Settings/UserDropdown.js"></script>

@@ -1,6 +1,11 @@
 Cloudwalkers.Models.Note = Backbone.Model.extend({
 
 	'typestring' : 'notes',
+	'type_settings' : {
+		'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
+		'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
+		'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
+	},
 
 	'type_settings' : {
 		'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
@@ -96,6 +101,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	                    
 	                // Hack
 					self.trigger ("destroy");
+					self.trigger ("destroyed");
 					//self.destroy();
 					//window.location.reload();
 	                    

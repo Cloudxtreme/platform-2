@@ -35,8 +35,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'action:toggle', this.toggleaction);
-		this.listenTo(this.model, 'destroy', this.remove);
-
+		this.listenTo(this.model, 'destroyed', this.remove);
 	},
 
 	'render' : function ()
@@ -90,10 +89,26 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.$el.addClass('failed');
 			this.model.attributes.failed = 'failed';
 		}
-
+		
 		return this;
 	},
 
+	'loadsentiment' : function()
+	{	
+		var stats = this.parameters.stats;
+		var sentiment;
+
+		if(!stats)	return;
+		else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
+
+		if(sentiment){
+			sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
+			var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
+
+			this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
+		}
+	},
+			
 	'renderactions' : function()
 	{	
 		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
@@ -114,6 +129,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(notescount)
 			this.$el.find('.interaction > .notescount').html(notescount);
+
 	},
 	
 	'action' : function (element)
@@ -395,6 +411,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
+		if(!newaction)	return;
+
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
 		
