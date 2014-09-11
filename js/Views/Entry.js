@@ -90,7 +90,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.$el.addClass('failed');
 			this.model.attributes.failed = 'failed';
 		}
-
+		
 		return this;
 	},
 

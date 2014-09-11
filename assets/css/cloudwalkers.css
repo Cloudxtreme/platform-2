@@ -708,8 +708,14 @@ tbody.messages-container i	{
 	padding-top: 4px !important;
 }
 
-.note-list .message-actions{
+.note-list .message-actions,
+.comment-list .message-actions{
 	padding-top: 0px !important;
+}
+
+.note-list .message-actions i.icon-cloud-download,
+.comment-list .message-actions i.icon-cloud-download{
+	color: #fff;
 }
 
 .message-actions .notification-action i{
@@ -1855,7 +1861,8 @@ ul.note-list .note-header .message-actions > div{
 
 .inbox-container .message-comments ul,
 .inbox-container .message-notes ul li,
-#monitorparent .message-notes ul li{
+#monitorparent .message-notes ul li,
+ul.action-list.comment-list li{
 	margin-left: 0; background: #d9edf7;
 }
 
@@ -1874,7 +1881,9 @@ ul.note-list .note-header .message-actions > div{
 
 .inbox-container .message-comments i.icon-cloud-download,
 .inbox-container .message-notes i.icon-cloud-download,
-#monitorparent .message-notes i.icon-cloud-download	{
+#monitorparent .message-notes i.icon-cloud-download,
+.comment-list i.icon-cloud-download,
+.note-list i.icon-cloud-download{
 	color: white; padding: 0 4px 4px 2px;
 	-webkit-animation-duration: 1.2s;
 	-webkit-animation-name: opacitypulse;
@@ -1910,7 +1919,8 @@ ul.note-list .note-header .message-actions > div{
 .inbox-container .message-comments img.avatar,
 .inbox-container .message-notes img.avatar,
 #monitorparent .message-notes img.avatar,
-.message-notes ul.note-list .note-header img.avatar{
+.message-notes ul.note-list .note-header img.avatar,
+.action-list.comment-list img.avatar{
 	margin-top: -3px; width: 18px; height: 18px; border: 2px solid white;  background-color: #ddd; border-radius: 50% !important; 
 }
 
