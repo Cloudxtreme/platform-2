@@ -1,3 +1,4 @@
+<!-- New UI
 <div class="row-fluid">
 	<div class="span12">
 
@@ -47,7 +48,7 @@
 
 	</div>
 </div>
-<!-- Deprecated
+-->
 <div class="row-fluid">
 	<div class="span12">
 
@@ -105,4 +106,3 @@
 
 	</div>
 </div>
--->
