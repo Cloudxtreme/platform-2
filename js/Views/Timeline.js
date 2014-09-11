@@ -3,13 +3,20 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'id' : "timeline",
 	'parameters': { records: 20, markasread: true },
 	'entries' : [],
+	'check' : "hasMessages",
+	'filters' : {
+		streams : []
+	},
 
 	'events' : 
 	{
 		'click *[data-action]' : 'action',
+		'click [data-toggle]' : 'togglefilter',
+		'click [data-streams]' : 'filterstreams',
 		'click .load-more .more' : 'more',
-		'click [data-network-streams]' : 'filternetworks',
-		'click .toggleall.networks.active' : 'toggleallnetworks'
+		'click [data-networks]' : 'filternetworks',
+		'click .toggleall.networks.active' : 'toggleallnetworks',
+		'click .toggleall.active' : 'toggleall',
 	},
 	
 	'initialize' : function (options)
@@ -40,75 +47,144 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
 		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
 	},
-	
-	'render' : function (streams)
+
+	'toggleall' : function ()
 	{
-		var params;
+		this.filternetworks(null, true);
+		this.togglestreams(true);
+	},
+	
+	'render' : function ()
+	{
+		// Template data
+		var param = {streams: [], networks: []};
 
-		if(!streams)
-			streams = null;
+		param = {networks: this.model.streams.filterNetworks(null, true), streams: []};
 
-		// Network filters
-		if( this.model.streams){ //Its a channel
-			params = {networks: this.model.streams.filterNetworks(null, true)};
-			this.parameters.streams = params.networks;
-		}
-		else					//It's a stream, so it's company accounts time!
+		this.model.streams.each (function(stream)
 		{
-			params = {};
+			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
 
-			var channelid = this.model.get('channels')? this.model.get('channels')[0]: null;
+		}.bind(this));	
 
-			if(channelid){
-				var channel = Cloudwalkers.Session.getChannel(Number(channelid));
-
-				params = {networks: channel.streams.filterNetworks(null, true)};
-
-				if(streams){
-					this.model = channel;
-					this.collection = this.model.messages;
-					this.listenTo(this.collection, 'seed', this.fill);
-				}
-
-				this.parameters.streams = streams? streams: params.networks;
-			}
-		}					
+		// Select networks
+		param.networks = this.model.streams.filterNetworks(param.streams, true);
 
 		//Mustache Translate Render
-		this.mustacheTranslateRender(params);
+		this.mustacheTranslateRender(param);
 
 		// Pageview
-		this.$el.html (Mustache.render (Templates.timeline, params));
+		this.$el.html (Mustache.render (Templates.timeline, param));
+
+		// Set selected streams --> Need memory cloth array, to finish implementation
+		if (this.filters.streams.length)
+		{
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
+			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
 		
 		this.$container = this.$el.find("ul.timeline").eq(0);
 		this.$loadmore = this.$el.find(".load-more").remove();
 		this.$nocontent = this.$el.find(".no-content").remove();
 		
 		// Load messages
-		this.collection.touch(this.model, this.filterparameters(streams));
-
-		if(streams)
-			this.togglefilters(streams);
+		this.collection.touch(this.model, this.filterparameters());
 
 		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
 	},
-		
-	'filterparameters' : function(streams)
+
+	'filternetworks' : function (e, all)
 	{
-		var param;
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("networks") == $(e.currentTarget).data("networks");
 
-		param = this.parameters;
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var streams = all? null: String(this.button.data("networks")).split(" ");
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (streams)
+		{
+			$(streams.map(function(id){ return '[data-streams="'+ id +'"]'; }).join(",")).removeClass("inactive").addClass("active");
+			this.filters.streams = streams;
+		
+		} else this.filters.streams = [];
+		
+		// Fetch filtered messages
+		//this.collection.touch(this.model, this.filterparameters());
+		this.render();
 
-		//param.streams = "";
+		return this;
+	},
+	
+	'filterstreams' : function (e, all)
+	{	
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("streams") == $(e.currentTarget).data("streams");
 
-		if(streams){
-			param.streams = streams.join(",");
-		}
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var stream = all? null: Number(this.button.data("streams"));
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (stream)
+		{
+			$('[data-networks~="'+ stream +'"]').removeClass("inactive").addClass("active");
+			this.filters.streams = [stream];
+			
+		} else this.filters.streams = [];
+			
+		// Fetch filtered messages
+		//this.collection.touch(this.model, this.filterparameters());
+		this.render();
+		
+		return this;
+	},
+		
+	'filterparameters' : function()
+	{
+		var param = this.parameters;
+
+		if(this.filters.streams.length)
+			param.streams = this.filters.streams.join(",");
+		else
+			param.streams = [];
 
 		return param;
 
+	},
+
+	'togglefilter' : function(e)
+	{
+		var button = $(e.currentTarget);
+		var toggle = button.data("toggle");
+		var selected = button.hasClass("selected");
+		
+		this.$el.find("[data-toggle].selected").removeClass("selected");
+		this.$el.find("[id^=filter_]").slideUp('fast');
+		
+		if(!selected)
+		{
+			button.addClass("selected");
+			this.$el.find("#filter_" + toggle).slideDown('fast');
+		}
 	},
 	
 	'fill' : function (models)
@@ -153,13 +229,13 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		streams = streams.join(" ");
 		
 		// Toggle streams
-		this.$el.find("[data-network-streams]").addClass('inactive').removeClass('active');;	
-		this.$el.find("[data-network-streams='" + streams + "']").addClass('active').removeClass('inactive');;		
+		this.$el.find("[data-network-streams]").removeClass('inactive');;	
+		this.$el.find("[data-network-streams='" + streams + "']").addClass('inactive');		
 		
 		// Toggle select button
-		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
+		this.$el.find(".toggleall").addClass('inactive');
 	},
-
+/*
 	'filternetworks' : function (e, all)
 	{
 		//console.log(e, all)
@@ -170,7 +246,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		//this.togglefilters(all, ".network-list");
 		
 		if(!all)
-			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+			this.button = $(e.currentTarget).addClass('inactive');
 		
 		var streams = all? null: String(this.button.data("network-streams")).split(" ");
 		
@@ -178,6 +254,45 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 
 		return this;
 		
+	},
+
+	'filterstreams' : function (e, all)
+	{	
+		// Check button state
+		if(!all)
+			all = this.button && this.button.data("streams") == $(e.currentTarget).data("streams");
+
+		this.togglestreams(all);
+		
+		if(!all)
+			this.button = $(e.currentTarget).addClass('active').removeClass('inactive');
+		
+		var stream = all? null: Number(this.button.data("streams"));
+		
+		if(all) this.button = false;
+		
+		
+		// Highlight related streams and fetch
+		if (stream)
+		{
+			$('[data-networks~="'+ stream +'"]').removeClass("inactive").addClass("active");
+			this.parameters.streams = [stream];
+			
+		} else this.parameters.streams = [];
+			
+		// Fetch filtered messages
+		this.collection.touch(this.model, this.filterparameters());
+		
+		return this;
+	},
+*/
+	'togglestreams' : function(all)
+	{
+		// Toggle streams
+		this.$el.find('[data-networks], [data-streams]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
+		
+		// Toggle select button
+		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
 	},
 
 	'more' : function ()
@@ -212,7 +327,8 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 			"no_messages",
 			"comments",
 			"filters",
-			"select_all"
+			"select_all",
+			"more"
 		];
 
 		this.translated = [];

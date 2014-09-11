@@ -1,14 +1,30 @@
 <div class="timeline-bg"></div>
 	
 <div class="filterbanner filter network-list social-icon-colors" id="timeline-filters">
-	<span class="caption">{{translate_filters}}:</span>
-	{{#networks}}
-		<div class="btn white active filter" data-network-streams="{{ids}}">
-			<i class="icon-{{icon}}"></i>
+	<section id="timeline-filters-section">
+		<div class="filter-bg">
+			<span class="caption">{{translate_filters}}:</span>
+			{{#networks}}
+				<div class="btn-white filter" data-networks="{{ids}}">
+					<i class="icon-{{icon}}"></i>
+				</div>
+			{{/networks}}
+			<div class="btn-white pull-right" data-toggle="streams">
+				{{translate_more}}
+			</div>
+			<!--<li class="toggleall networks inactive">{{translate_select_all}}</li>-->
 		</div>
-	{{/networks}}
 
-	<li class="toggleall networks inactive">{{translate_select_all}}</li>
+		<div id="filter_streams" class="clearfix" style="display: none;">	
+			<ul class="social-icon-colors">
+				{{#streams}}
+					<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
+				{{/streams}}
+				</ul>
+			<li class="toggleall inactive">{{translate_select_all}}</li>
+		</div>
+
+	</section>
 	
 </div>
 

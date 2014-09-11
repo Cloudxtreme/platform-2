@@ -314,7 +314,7 @@ Timeline UI Base
 
 .timeline > li .timeline-time span.date {
 	font-size: 12px;
-	color: #ddd;
+	color: #ccc;
 	display: block;
 	margin-right: 3px;
 	font-weight: 300;
@@ -820,31 +820,76 @@ Timeline UI Base
 }
 
 /* Timeline Filter */
+
+/* Filter banner */
+
+.filterbanner{	
+	position: fixed;
+	right: 0px;
+	/*left: 18%;*/
+	background-color: #fff;
+	/*padding: 10px;*/
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	z-index: 10;
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+	border-bottom: 1px solid #ddd;
+}
+
+section#timeline-filters-section{
+	position: absolute;
+	width: 33%;
+	height: 100%;
+	border-right: 1px solid #e5e5e5;
+	box-sizing: border-box;
+}
+
+section#timeline-filters-section .filter-bg{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	top: 0px;
+	left: 0px;
+	z-index: 20;
+	padding: 15px 10px;
+	box-sizing: border-box;
+}
+
 #timeline-filters{
 	z-index: 12;
-	padding: 10px;
+	height: 60px;
 }
 #timeline-filters span{
-	font-size: 16px;
+	font-size: 14px;
 	padding: 10px 15px 0 15px;
+	position: relative;
+	bottom: 8px;
 	display: inline-block;
 	color: #555555 !important;
 }
+
+#timeline-filters .btn-white{
+	padding: 5px 8px;
+}
+
+#timeline-filters .btn-white.pull-right{
+	margin-top: 0px;
+}
+
+/*
 #timeline-filters div{
 	box-shadow: 0 1px #eee !important;
 	background-color: #fff !important;
 	width: 46px;
-	padding: 8px 0;
 	border-radius: 2px !important;
 	border: 1px solid #ccc;
 	text-align: center;
 	font-size: 15px;
 	margin: -5px 2px 0;
-}
-#timeline-filters div.active{
-	background-color: #eee !important;
-}
-#timeline-filters div:hover{
+}*/
+#timeline-filters .btn-active.active{
 	background-color: #eee !important;
 }
 
@@ -859,4 +904,19 @@ ul.timeline > li:nth-child(2){
 }
 #timeline .timeline .timeline-loading .timeline-body{
 	min-height: 0px;
+}
+
+.filterbanner #filter_streams{
+	width: 100%;
+	position: absolute;
+	left: 0px;
+	box-sizing: border-box;
+	background-color: #fff;
+	box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.08);
+	top: 59px;
+}
+
+.filterbanner #filter_streams ul{
+	margin: 0px;
+
 }

@@ -198,11 +198,11 @@
 						<span class="title">{{translate_media}}</span>
 						<span class="arrow"></span>
 					</a>
-					<ul class="sub-menu">
+					<!--<ul class="sub-menu">
 					{{#streams}}
 						<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
-					</ul>
+					</ul>-->
 				</li>
 				{{#authorized.MESSAGE_READ_THIRDPARTY}}
 				<li class="trending">
