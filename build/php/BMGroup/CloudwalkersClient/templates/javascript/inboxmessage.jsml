@@ -7,7 +7,7 @@
 		</div>
 		
 			{{#notification}}
-				<div class="avatar viewdetails" data-action="viewcontact" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+				<a class="avatar" href="{{url}}" target="_blank" alt="{{displayname}}" style="background-image:url({{avatar}})"></a>
 				<div>
 					<a class="viewdetails" href="{{url}}" target="_blank">{{displayname}}</a>
 					<br /><em>{{translate_on}} {{networkdescription}}</em>
