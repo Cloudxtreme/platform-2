@@ -1971,15 +1971,17 @@ ul.action-list.comment-list li{
 	margin-top: 8px;
 }
 .toggleall.inactive	{ background: #ddd; cursor: default; }
+/* New UI
 .channelfilters .toggleall{
 	top: 2px;
 	position: relative;
 	margin: 0 5px;
 }
+
 .keyword-list .toggleall{
 	top: 12px;
 }
-
+*/
 .keyword-list .filter i{
 	float: none;
 }
@@ -2301,8 +2303,8 @@ ul.contacts-list	{
 #channelfilters small a	{ color: #2bbedc; }
  
 .filter .btn.white	{
-	/* margin: 20px 2px 0; */
-	margin: 0px 2px 0;
+	margin: 20px 2px 0;
+	/* New UI margin: 0px 2px 0;*/
 	width: 46px; padding: 8px 0; border-radius: 2px !important; border: 1px solid #ccc; background: #eee; box-shadow: inset 0 1px #e0e0e0;
 	text-align: center; font-size: 21px;
 	-webkit-box-sizing: border-box;
@@ -2332,9 +2334,9 @@ ul.contacts-list	{
 }
 
 .filter.keyword-list ul .filter	{
-	/* float: left;
-	width: 31.2%; */
-	float: right;
+	float: left;
+	width: 31.2%;
+	/* New UI float: right;*/
 	padding: 4px 6px;
 	padding-right: 8px;
 	margin: 4px .9%;
@@ -2371,14 +2373,16 @@ ul.contacts-list	{
 .filter.keyword-list div.clear	{
 	clear: both; width: 100%;
 }
+/* New UI
 .keyword-list label{
 	display: block;
 	margin-top: 13px;
 	float: left;
 }
+
 .keyword-list * {
 	float: right;
-}
+}*/
 .portlet-body.social-icon-colors.loaded.empty-list {
 	overflow: hidden;
 }
