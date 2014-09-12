@@ -14,6 +14,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		'click [data-toggle]' : 'togglefilter',
 		'click [data-streams]' : 'filterstreams',
 		'click .load-more .more' : 'more',
+		'click .load-more .timeline-icon' : 'more',
 		'click [data-networks]' : 'filternetworks',
 		'click .toggleall.networks.active' : 'toggleallnetworks',
 		'click .toggleall.active' : 'toggleall',
