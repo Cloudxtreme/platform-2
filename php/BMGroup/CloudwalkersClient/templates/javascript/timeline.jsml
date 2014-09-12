@@ -4,11 +4,13 @@
 	<section id="timeline-filters-section">
 		<div class="filter-bg">
 			<span class="caption">{{translate_filters}}:</span>
+
 			{{#networks}}
 				<div class="btn-white filter" data-networks="{{ids}}">
 					<i class="icon-{{icon}}"></i>
 				</div>
 			{{/networks}}
+
 			<div class="btn-white pull-right" data-toggle="streams">
 				{{translate_more}}
 			</div>
