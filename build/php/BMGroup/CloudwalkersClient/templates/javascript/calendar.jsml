@@ -20,6 +20,7 @@
 			<a class="btn"><i class="icon-print"></i></a>
 			<select>
 				<optgroup label="Time spans">
+					<option value="agendaDay" {{#datActive}}selected="true"{{/datActive}}>{{translate_day}}</option>
 					<option value="agendaWeek" {{#weekActive}}selected="true"{{/weekActive}}>{{translate_week}}</option>
 					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{translate_month}}</option>
 					<!--<option value="list" {{#listActive}}selected="true"{{/listActive}}>{{translate_list_view}}</option>-->
@@ -30,6 +31,8 @@
 	</div>
 	
 	<div id="widgetcontainer" class="row-fluid"></div>
+
+	<div class="container-loading"><i class="icon-cloud-download"></i></div>
 
 	<div id="calcontainer" class="row-fluid">
 		

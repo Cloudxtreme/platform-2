@@ -33,6 +33,7 @@
 						<input type="text" name="invite-email" />
 						<br/><br/>
 						<input type="submit" class="btn green" value="{{translate_invite_user}}" />
+						<span class="loadingafter"></span>
 						
 						<!--Great spot for pending invitations...-->
 					</form>

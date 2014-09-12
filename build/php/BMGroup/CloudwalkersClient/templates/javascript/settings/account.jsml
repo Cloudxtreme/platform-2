@@ -2,17 +2,17 @@
 
 	<div class="span8">
 
-		<div style="height: auto;">
+		<div style="height: auto;" class="edit-account-name">
 			
 			<h3 name="basic">{{translate_account}}</h3>
 			
-			<form action="javascript:void(0);">
+			<form action="javascript:void(0);" id="editaccount">
 				<label class="control-label">{{translate_name}}</label>
 				<input data-attribute="account-name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
 
 				<div class="submit-btn">
 					<button type="submit" data-action="editaccount" class="btn green edit-account">{{translate_save_changes}}</button>
-					<button type="reset" data-action="reseetaccount" class="btn">{{translate_cancel}}</button>
+					<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{translate_cancel}}</button>
 					<span class="loadingafter"></span>
 				</div>
 			</form>
@@ -56,11 +56,12 @@
 		<h3 name="triggers">{{translate_triggers}}</h3>
 		<div id="triggerlist"></div>
 
+		
 		<div class="separator"></div>
-
 		<h3 name="canned">{{translate_message_templates}}</h3>
 		<div id="cannedlist"></div>
 		-->
+		
 	</div>
 
 	<div class="span4">
@@ -73,8 +74,8 @@
 				<ul>
 					<li><a data-hash="basic">{{translate_basic}}</a></li>
 					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
-					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>-->
-					<!--<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
+					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>
+					<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
 				</ul>
 			</div>
 		</div>
