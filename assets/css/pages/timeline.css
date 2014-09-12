@@ -335,6 +335,10 @@ Timeline UI Base
 	text-align: right;
 }
 
+.timeline > li table#timeline-username span{
+	cursor: default !important;
+}
+
 .timeline > li table#timeline-username td{
 	font-size: 23px;
 	color: #aaa;
