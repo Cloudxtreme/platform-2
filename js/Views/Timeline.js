@@ -55,9 +55,10 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'render' : function ()
-	{
+	{	
 		// Template data
 		var param = {streams: [], networks: []};
+		this.filters.streams = [];
 
 		// Type of timeline (news or company accounts)
 		if(this.model.get('type') == 'news')	this.rendernews(param);
@@ -152,6 +153,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 
 		this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist, param));
 
+		if(this.timelinetype == 'news' && !this.newsloaded)
+			this.$el.find('.filter-bg').addClass('loading');
+
 		this.$container = this.$el.find("ul.timeline").eq(0);
 		this.$loadmore = this.$el.find(".load-more").remove();
 		this.$nocontent = this.$el.find(".no-content").remove();
@@ -184,11 +188,14 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 
 			this.$el.find('.caption').after(btn);
 		}
+
+		this.$el.find('.filter-bg .loadingafter').remove();
+		this.newsloaded = true;
 		
 	},
 
 	'filternetworks' : function (e, all)
-	{
+	{	
 		// Check button state
 		if(!all)
 			all = this.button && this.button.data("networks") == $(e.currentTarget).data("networks");
@@ -202,7 +209,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		if(all) this.button = false;
 		
-		
+			
 		// Highlight related streams and fetch
 		if (streams)
 		{
@@ -251,11 +258,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	{
 		var param = this.parameters;
 		var filter = this.timelinetype == 'news'? 'contacts': 'streams';
-
+		
 		if(this.filters.streams.length)
 			param[filter] = this.filters.streams.join(",");
 		else
-			param.streams = [];
+			param[filter] = [];
 		
 		return param;
 

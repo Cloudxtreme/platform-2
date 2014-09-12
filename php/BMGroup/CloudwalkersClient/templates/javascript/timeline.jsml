@@ -10,6 +10,9 @@
 					<i class="icon-{{icon}}"></i>
 				</div>
 			{{/networks}}
+			{{^networks}}
+				<span class="loadingafter"></span>
+			{{/networks}}
 
 			<div class="btn-white pull-right" data-toggle="streams">
 				{{translate_more}}

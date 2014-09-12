@@ -933,3 +933,8 @@ ul.timeline > li.no-content{
 	margin: 0px;
 
 }
+
+.filter-bg.loading .loadingafter,
+#timeline.loading .loadingafter{
+	left: -15px;
+}
