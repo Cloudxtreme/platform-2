@@ -1,3 +1,54 @@
+<!-- New UI
+<div class="row-fluid">
+	<div class="span12">
+
+		<div class="portlet box newgrey channelfilters">
+			<div class="portlet-title line">
+				<div class="caption"><i class="icon-tags icon-large"></i>{{translate_filters}}</div>
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					<div class="pull-right">
+						<a href="#keywords"><i class="icon-plus"></i> {{translate_manage_keywords}}</a>
+					</div>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+			</div>
+			<div class="portlet-body">
+
+				
+				<div class="filter network-list social-icon-colors span4">
+					
+					{{#networks}}
+						<div class="btn white active filter" data-network-streams="{{ids}}">
+							<i class="icon-{{icon}}"></i>
+						</div>
+					{{/networks}}
+					
+					<li class="toggleall networks inactive">{{translate_select_all}}</li>
+				</div>
+				
+				<div class="filter keyword-list span8">
+
+					<ul>
+					{{#keywords}}
+						<li class='active filter' data-keyword-id="{{id}}">
+							<i class="icon-tag icon-muted"></i> {{attributes.name}}
+						</li>
+					{{/keywords}}
+						<li class="toggleall keywords inactive">{{translate_select_all}}</li>
+					</ul>
+
+				</div>
+
+				<div class='building-notice inactive span12'>
+					<strong>{{translate_building_your_data}}</strong>
+					<br>{{translate_this_will_take_a_minute_or_so}}
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+-->
 <div class="row-fluid">
 	<div class="span12">
 

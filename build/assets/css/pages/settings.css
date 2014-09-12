@@ -86,9 +86,9 @@ Settings
   float: left; width: 50%; box-sizing: border-box;
 }
 
-#service-connected .service-detail  {
-  float: left; width: 50%; padding: 0 10px 10px 20px; background: white; box-sizing: border-box;
-  -webkit-font-smoothing: antialiased; -webkit-perspective: 1000; backface-visibility: hidden;
+#service-connected .service-detail	{
+	float: left; width: 50%; padding: 0 10px 10px 20px; box-sizing: border-box;
+	-webkit-font-smoothing: antialiased; -webkit-perspective: 1000; backface-visibility: hidden;
 }
 
 #service-connected .service-detail h3 {
@@ -535,6 +535,158 @@ table.inner-service .white-box input[type=text] {
   margin-top:2px !important;
 }
 
+.profile .settings-users .group-container td i, .profile .settings-users .group-users-container td i{
+font-size: 20px;
+color: #777;
+padding: 1px 0 0 4px;
+cursor: pointer;
+}
+.group-details-container div .portlet{
+    background-color: #DDD;
+}
+.group-container .group-name{
+  cursor: pointer;
+  padding-right: 20px;
+}
+.profile .table-hover .group-container tr:hover td, 
+.profile .table-hover .group-container tr:hover th,
+.profile .table-hover .group-container tr.active td,
+.profile .table-hover .group-container tr.active th {
+  background:#eee;
+}
+.group-container .group-name.active{
+  font-weight: bold;
+}
+.portlet-body{
+  overflow: auto;
+}
+.all-user-list{
+  display: none;
+}
+.group-details-container .portlet-body {
+  overflow: visible;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.group-details-container .add-group-user{
+  width: 100%;
+}
+.chosen-results{
+  height: 120px;
+  overflow-y: auto;
+}
+
+/* Settings Tables  NEW UI */
+
+/*.tabbable-custom.tabbable-full-width .nav-tabs > li {
+  border-radius: 3px;
+  /*background-color: #fff;*/
+  /* to remove  */
+  /*background-color: #F7F7F7;
+  margin-right: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.2);
+  opacity: 0.6;
+}
+/*.tabbable-custom.tabbable-full-width .nav-tabs > li:hover{
+  opacity: 1;
+}
+.tabbable-custom.tabbable-full-width .nav-tabs > li.active{
+  opacity: 1;
+}
+.tabbable-custom.tabbable-full-width .nav-tabs > li > a{
+  padding: 5px 15px;
+}
+.settings-users .tabbable-custom > .tab-content {
+  background-color: none;
+  border: none;
+}
+*/
+.newgrey{
+  border-radius: 3px;
+}
+.newgrey.box > .portlet-title{
+  color: #555555 !important;
+  border-radius: 3px 3px 0 0;
+  background-color: #dde6e9 !important;
+}
+.newgrey.box > .portlet-body{
+  border-radius: 0 0 3px 3px;
+  /* to remove */
+  background-color: #F7F7F7;
+}
+.newgrey{
+  box-shadow: 0 1px 1px rgba(0,0,0,.2);
+}
+.portlet-body .progress-bar{
+  margin-left: -5%;
+}
+.newgrey.box .portlet-title .caption.invite-link{
+  float: right;
+  font-size: 12px;
+  cursor: pointer;
+}
+/* NEW UI
+.tabbable-custom > .tab-content{
+  background-color: transparent;
+  border: none;
+}
+*/
+#widgetcontainer .newgrey.box .portlet-title i{
+  color: #2bbedc;
+}
+.settings-users .icon-check:before, .settings-users .icon-edit-sign:before, .settings-users .icon-remove:before{
+  cursor: pointer;
+}
+.profile .settings-users .user-container td i.icon-check{
+  color: #2bbedc;
+}
+.profile .settings-users .user-container td i.icon-check:hover{
+  color: #02869F;
+}
+.indigo-blue{
+  background-color: #2bbedc;
+  color: #fff;
+}
+.indigo-blue:hover{
+  background-color: #02869F !important;
+  color: #fff !important;
+}
+.settings-users .label{
+  text-shadow: none !important;
+}
+/* NEW UI
+.settings-users .label.Conversation.manager{
+  background-color: #2BBEDC;
+}
+.settings-users .label.Publisher{
+  background-color: #5B8F99;
+}
+.settings-users .label.Editor{
+  background-color: #52B992;
+}
+.settings-users .label.Webcare{
+  background-color: #FF7572;
+}
+.settings-users .label.Co-worker{
+  background-color: #CC135F;
+}
+*/
+.settings-users .user-line{
+  width: 100%;
+}
+.profile .settings-users input[type=text]{
+  width: 40%;
+  height: 10px;
+}
+/* NEW UI
+.settings-users select{
+  margin: 0;
+  height: 27px;
+}
+*/
 .edit-user-avatar{
   text-align: center;
 }
@@ -558,3 +710,8 @@ table.inner-service .white-box input[type=text] {
   width: 42px;
 }
 
+/* Overriding some rule*/
+.users-invite [name=invite-email]{
+  height: inherit !important;
+  width: inherit !important;
+}

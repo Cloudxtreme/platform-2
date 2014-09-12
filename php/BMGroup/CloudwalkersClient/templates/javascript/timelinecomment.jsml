@@ -16,8 +16,6 @@
 	{{/image}}
 {{/attachments}}
 
-{{{body.html}}}
-
 {{#attachments}}
 	{{#link}}
 		<div class="attachment-link">
@@ -32,3 +30,5 @@
 {{^fulldate}}
 <i class="icon-cloud-download"></i>
 {{/fulldate}}
+
+{{{body.html}}}

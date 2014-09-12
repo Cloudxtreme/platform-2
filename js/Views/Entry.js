@@ -4,6 +4,12 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	'template': 'messageentry',
 	'notifications' : [],
 	'parameters' : {},
+	'tokenmap' : {
+		'favorite' : 'favourites',
+		'retweet' : 'retweets',
+		'like' : 'likes'
+	},
+
 	'loadedlists' : [],
 	
 	'events' : 
@@ -38,6 +44,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		$.extend(this.parameters, this.model.attributes);
 		
 		if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+		
+		if(this.template == 'newmessagetimeline')
+			this.formatactions(this.parameters);
 		
 		// Apply role permissions to template data
 		Cloudwalkers.Session.censuretemplate(this.parameters);
@@ -80,10 +89,26 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.$el.addClass('failed');
 			this.model.attributes.failed = 'failed';
 		}
-
+		
 		return this;
 	},
 
+	'loadsentiment' : function()
+	{	
+		var stats = this.parameters.stats;
+		var sentiment;
+
+		if(!stats)	return;
+		else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
+
+		if(sentiment){
+			sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
+			var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
+
+			this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
+		}
+	},
+			
 	'renderactions' : function()
 	{	
 		this.actions = new Cloudwalkers.Views.Actions({message: this.model});
@@ -104,6 +129,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		
 		if(notescount)
 			this.$el.find('.interaction > .notescount').html(notescount);
+
 	},
 	
 	'action' : function (element)
@@ -153,9 +179,34 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.model.trigger("action", action);
 	},
 
+	'formatactions' : function(model)
+	{
+		var actions = model.actions;
+		var stats = model.statistics;
+		var actionstats = [];
+
+		if(!stats)	return;
+
+		$.each(actions, function(n, action){	
+
+			if(action.token == 'comment' && model.canHaveChildren)
+				actionstats.push({token: action.token, action: {icon: 'comment', value: model.children_count}});
+			else
+			{
+				var stat = stats.filter(function(el){ return el.token == this.tokenmap[action.token] }.bind(this));
+
+				actionstats.push(stat.length? {token: action.token, action: stat[0]}: {token: action.token, action:action});
+			}
+			
+
+		}.bind(this));
+		
+		model.actionstats = actionstats;
+	},
+
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({model: this.model});
 
 		//Prevent auto re-render on save
 		this.stopListening(this.model);
@@ -169,6 +220,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		// Anything to hide
 		this.$el.find('.toggle-note-actions').toggle();
 	},
+
 	'showtagedit' : function()
 	{	
 		this.$el.find('.message-tags').toggleClass("enabled");
@@ -359,6 +411,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	
 	'toggleaction' : function (token, newaction)
 	{
+		if(!newaction)	return;
+
 		var current = this.$el.find('[data-action="' + token + '"]');
 		var clone = current.clone().attr("data-action", newaction.token);
 		
@@ -438,13 +492,36 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	//Note textarea
 	'loadnoteui' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
 		this.composenote = composenote;
 
-		this.listenTo(composenote.note, 'sync', this.noteadded);
+		this.listenTo(composenote.model, 'sync', this.noteadded);
 		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
 		this.$el.find('.note-content').append(composenote.render().el);		
+	},
+
+	'fetchnotes' : function()
+	{		
+		this.model.notes.parentmodel = this.model;
+		this.model.notes.parenttype = 'message';
+		this.listenTo(this.model.notes,'seed', this.fillnotes);
+
+		this.model.notes.touch(this.model);
+
+		this.loadednotes = true;
+	},
+
+	//Notes list
+	'fillnotes' : function(notes)
+	{	
+		if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
+		else				this.$el.find('.note-list').empty();
+
+		for(n in notes)
+		{	
+			this.addnote(notes[n]);
+		}
 	},
 
 	'addnote' : function(newnote)

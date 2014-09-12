@@ -161,7 +161,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			'model' : model //context -> message, contact, account
 		}
 
-		var view = new Cloudwalkers.Views.ComposeNote(options);
+		var view = new Cloudwalkers.Views.SimpleCompose(options);
 		view.render().$el.modal();
 
 		return view;

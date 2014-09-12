@@ -72,7 +72,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 
 	'editnote' : function()
 	{	
-		var composenote = new Cloudwalkers.Views.ComposeNote({note: this.model});
+		var composenote = new Cloudwalkers.Views.SimpleCompose({model: this.model});
 
 		this.listenTo(composenote, 'edit:cancel', this.canceledit);
 		this.listenTo(composenote, 'save:success', this.saved);

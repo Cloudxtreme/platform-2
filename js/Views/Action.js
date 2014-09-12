@@ -23,7 +23,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 			this.action.noresults = 'noresults';
 		else
 			this.action.noresults = false;
-
+		
 		this.$el.html(Mustache.render(Templates[this.template], this.action));
 		
 		return this;

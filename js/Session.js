@@ -112,7 +112,7 @@ Cloudwalkers.Session =
 	},
 	
 	'viewsettings' : function(value, content)
-	{
+	{	console.log(value, content)
 		// Split into accounts
 		var pointer = "account_" + this.getAccount().id;
 		
@@ -121,13 +121,17 @@ Cloudwalkers.Session =
 		
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
+
+		// Sent hack
+		if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
 		
 		var viewsettings = this.clone(this.get("viewsettings"));
 		
 		if(!content) return viewsettings[pointer][value];
 		
 		else if(value && content)
-		{	
+		{
 			viewsettings[pointer][value] = $.extend(viewsettings[pointer][value], content);
 			this.updateSetting("viewsettings", viewsettings);
 			

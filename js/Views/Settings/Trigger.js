@@ -2,7 +2,9 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 
 	'events' : {
 		'click [data-action=save]' : 'save',
-		'click [data-action=reset]' : 'reset'
+
+		'keyup textarea' : 'enablereset',
+		'click [type=reset]' : 'reset'
 	},
 	
 	'initialize' : function(options)
@@ -20,6 +22,9 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 			message: this.model.getmessage('REPLY'),
 			description: this.description
 		}
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(params);
 
 		this.$el.html(Mustache.render(Templates.settings.trigger, params))
 		
@@ -39,6 +44,9 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 
 	'save' : function()
 	{	
+		this.$el.addClass('loading');
+		this.$el.find('.submit-btn button').attr('disabled', true);
+
 		this.model.setaction('REPLY', {message: this.$el.find('textarea').val()});
 
 		//Patch if it's an edit
@@ -47,12 +55,56 @@ Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
 			//condition: this.model.get('condition') || null,
 			actions: this.model.get("actions")
 			//streams: this.
-		}, {patch: this.model.id? true: false, success: function(){console.log("Success")}})
+		}, {patch: this.model.id? true: false, 
+				success: function(){
+					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+
+					//remove loading and enable submit button
+					this.$el.removeClass('loading');
+					this.$el.find('[type=submit]').attr('disabled', false);
+				}.bind(this),
+				error: function(){
+					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+
+					//remove loading & reset buttons
+					this.$el.removeClass('loading');
+					this.$el.find('[type=submit]').attr('disabled', false);
+					this.$el.find('[type=reset]').attr('disabled', false);
+
+				}.bind(this)	
+			})
 	},
 
-	'reset' : function()
+	'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+
+	'reset' : function(e)
+	{ 
+		$(e.currentTarget).closest('form').get(0).reset();
+
+		this.$el.find('[type=reset]').attr('disabled', true);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
 	{
-		this.$el.find('textarea').val("");
+		// Translate array
+		this.original  = [
+			"save_changes",
+			"reset"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });
 

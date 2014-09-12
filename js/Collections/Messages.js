@@ -30,7 +30,7 @@ Cloudwalkers.Collections.Messages = Backbone.Collection.extend({
 	
 	'destroy' : function ()
 	{
-		console.log("collection destroyed")
+		//console.log("collection destroyed")
 		this.reset();
 	},
 

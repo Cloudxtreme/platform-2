@@ -1,0 +1,118 @@
+<div class="timeline-entry {{networktoken}}-entry" data-message-id="{{id}}">
+	<div class="timeline-info">
+
+		<!--<div class="user-name">{{#from}}{{displayname}}{{/from}}</div>-->
+		<table id="timeline-username">
+		<tbody>
+			<tr>
+				<td>
+					{{#from}}
+
+						{{#showcontact}}
+							<span class="timeline-user" title="{{icon}} {{displayname}}">{{displayname}}</span>
+						{{/showcontact}}
+						{{^showcontact}}
+							<span class="timeline-user" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>
+							<br>
+						{{/showcontact}}
+						
+					{{/from}}	
+					<div class="timeline-time">
+						<span class="date">{{dateonly}}</span>
+						<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="network-icon"><i class="icon-{{networktoken}}"></i></div>
+		<!--<div class="social-info">
+			{{#statistics}}
+				<div class="info-widget">
+					<div class="info-widget-icon"><i class="icon-{{icon}}"></i></div>
+					<div class="info-widget-text">{{value}} {{name}}</div>
+				</div>
+			{{/statistics}}
+			{{#canHaveChildren}}
+				<div class="info-widget" {{#children_count}}data-notifications="true"{{/children_count}}>
+					<div class="info-widget-icon"><i class="icon-comment"></i></div>
+					<div class="info-widget-text">{{children_count}} comments</div>
+				</div>
+			{{/canHaveChildren}}
+		</div>-->
+
+	</div>
+
+	<div class="timeline-icon {{^from}}entry-loading{{/from}}">
+		<div class="timeline-avatar">
+			{{#from}}
+				{{#showcontact}}
+					<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
+				{{/showcontact}}
+				{{^showcontact}}
+					<a class="viewdetails" target="_blank" href="{{url}}"><img src="{{avatar}}"/></a>
+				{{/showcontact}}
+				
+			{{/from}}
+		</div>
+	</div>	
+
+	<div class="timeline-body-wrapper">
+
+		<div class="timeline-body">
+
+			{{#url}}
+				<div class="arrow-shadow">
+					<a href="{{url}}" target="_blank"></a>
+					<i class="icon-chevron-right"></i>	
+				</div>
+				<div class="arrow-hidder">
+					<a href="{{url}}" target="_blank"></a>
+				</div>
+			{{/url}}
+
+			<div class="timeline-entry-content">
+							
+				{{#subject}}
+					<strong>{{subject}}</strong><br />
+				{{/subject}}
+
+				{{{body.html}}}	
+
+				{{#attached.link}}
+				<br>
+					<div class="attachment-link">
+						<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="icon-link"></i>
+					</div>
+				{{/attached.link}}		
+			</div>
+		
+			<div class="timeline-entry-media">
+
+				{{#attached.image}}
+				<!--<span class="muted">Media:</span>-->
+					<div class="media-clip"><i class="icon-paperclip"></i></div>
+					<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
+				{{/attached.image}}
+				
+				{{#attached.video}}
+					<div class="media-sphere timeline-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+				{{/attached.video}}
+
+				<div class="clearfix"></div>
+			</div>	
+
+			<div class="message-actions"></div>	
+
+			<div class="clearfix"></div>
+		</div>
+		<div class="message-notes">
+			<div class="note-content"></div>
+			<div class="action-lists">
+			</div>
+		</div>	
+
+	</div>
+
+</div>

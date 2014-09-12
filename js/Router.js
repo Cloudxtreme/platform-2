@@ -20,8 +20,10 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'calendar' : 'calendar',
 		'coworkers' : 'coworkers',
 		'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
+		//'timeline/rss' : 'rssfeed',
 		'timeline/:channel(/:stream)' : 'timeline',
 		'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
+		//'monitoring/managerss' : 'managerss',
 		'monitoring/accounts' : 'manageaccounts',
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 		'keywords' : 'managekeywords',
@@ -220,7 +222,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var type =  channelid == profiles? 'company' : 'thirdparty';
 		var showcontact = type == 'thirdparty';
-
+		
 		var view =new Cloudwalkers.Views.Timeline({model: model, showcontact: showcontact, parameters: {records: 40, markasread: true}})
 		var roles = type == 'MESSAGE_READ_'+type.toUpperCase();
 
@@ -421,6 +423,17 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 			default : window.location = red;
 		}
+	},
+
+	'rssfeed': function()
+	{
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.RSSFeed());
+	},
+
+	'managerss': function()
+	{
+		console.log("Manage RSS")
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.ManageRSS());
 	}
 
 });

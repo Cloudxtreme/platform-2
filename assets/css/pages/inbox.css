@@ -183,7 +183,7 @@
 
 #inboxlist .list a { color: black; }
 
-#inboxlist .list div.pull-right	{ margin-left: 10px; }
+#inboxlist .list div.pull-right	{ margin-left: 10px; position: relative; position: absolute; height: 83%; right: 8px;}
 
 #inboxlist .list .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
@@ -192,7 +192,7 @@
 #inboxlist .list .date	{ font-size: 12px; }
 
 #inboxlist .list .media	{
-	width: 12px; height: 14px; padding: 1px 2px; margin: 0 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
+	width: 12px; height: 14px; padding: 1px 2px; margin: 6px 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
 	color: white; text-align: center; line-height: 12px;
 }
 #inboxlist .list .media	i	{ font-size: 10px; }
@@ -451,8 +451,12 @@
 	opacity: .5; font-size: 14px; float: right;
 }*/
 
-.inbox-container .note-body, .messagelist .note-body {
+.inbox-container .note-body, .messagelist .note-body{
 	padding: 12px 18px; min-height: 20px;
+}
+
+.message-notes .note-list .note-body{
+	padding: 12px 0px 0px; min-height: 20px;
 }
 
 #inboxlist .messagelist .note .message-actions{
