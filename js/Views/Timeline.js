@@ -42,7 +42,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	'hideloading': function()
 	{
 		this.$el.removeClass("loading");
-		this.$el.find(".timeline-loading").hide();
+		this.$el.find(".timeline-loading.timeline-blue").hide();
 
 		this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
 		this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
@@ -59,13 +59,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Template data
 		var param = {streams: [], networks: []};
 
-		param = {networks: this.model.streams.filterNetworks(null, true), streams: []};
-
-		this.model.streams.each (function(stream)
-		{
-			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
-
-		}.bind(this));	
+		// Type of timeline (news or company accounts)
+		if(this.model.get('type') == 'news')	this.rendernews(param);
+		else									this.rendercompany(param);
 
 		// Select networks
 		param.networks = this.model.streams.filterNetworks(param.streams, true);
@@ -73,27 +69,107 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		//Mustache Translate Render
 		this.mustacheTranslateRender(param);
 
-		// Pageview
 		this.$el.html (Mustache.render (Templates.timeline, param));
 
 		// Set selected streams --> Need memory cloth array, to finish implementation
 		if (this.filters.streams.length)
 		{
-			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
-			
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");			
 			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
 		}
-		
-		this.$container = this.$el.find("ul.timeline").eq(0);
-		this.$loadmore = this.$el.find(".load-more").remove();
-		this.$nocontent = this.$el.find(".no-content").remove();
-		
-		// Load messages
-		this.collection.touch(this.model, this.filterparameters());
+
+		this.reload(param)
 
 		this.resize(Cloudwalkers.RootView.height());
 
 		return this;
+	},
+
+	'rendernews' : function(param)
+	{
+		this.timelinetype = 'news';
+
+		// Streams in the dropdown need to be fetched
+		this.contacts = new Cloudwalkers.Collections.Contacts([], {});
+		this.listenTo(this.contacts, 'sync', this.fillcontacts);
+
+		this.contacts.touch(null, {records: 200});
+
+	},
+
+	'rendercompany' : function(param)
+	{
+		this.timelinetype = 'company';
+
+		this.model.streams.each (function(stream)
+		{
+			if(stream.get(this.check)) param.streams.push({id: stream.id, icon: stream.get("network").icon, name: stream.get("defaultname"), network: stream.get("network")}); 
+
+		}.bind(this));	
+	},
+
+	'reload' : function(param)
+	{	
+		this.reloadui(param);
+		
+		if(!this.filters.streams.length)
+			this.collection = this.model.messages;
+
+		if(this.timelinetype == 'news'){
+
+			var contact;
+
+			if(this.filters.streams && this.filters.streams.length){
+
+				contact = new Cloudwalkers.Models.Contact({id: this.filters.streams[0]});
+				this.collection = this.model.messages.clone();
+				contact.endpoint = 'messages';
+				this.listenToOnce(this.collection, 'sync', this.fill);
+
+				this.collection.url = contact.url();
+				this.collection.parentmodel = 'contact';
+				this.collection.parenttype = 'contact';
+				this.collection.cursor = false;
+
+				this.collection.fetch({endpoint: 'messages'});
+				return;
+			}
+		}
+
+		// Load messages
+		this.collection.touch(this.model, this.filterparameters());
+	},
+
+	'reloadui' : function(param)
+	{
+		this.$el.addClass("loading");
+
+		if(!param){
+			param = {};
+
+			//Mustache Translate Render
+			this.mustacheTranslateRender(param);
+		}		
+
+		this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist, param));
+
+		this.$container = this.$el.find("ul.timeline").eq(0);
+		this.$loadmore = this.$el.find(".load-more").remove();
+		this.$nocontent = this.$el.find(".no-content").remove();
+	},
+
+	'fillcontacts' : function (models)
+	{	
+		var contacts = models.models;
+		var streams = [];
+
+		// Add contacts to list
+		for (n in contacts)
+		{	
+			if(contacts[n].loaded()){
+				this.$el.find('#filter_streams ul').append(Mustache.render(Templates.filterstream, contacts[n].attributes));
+			}
+		}
 	},
 
 	'filternetworks' : function (e, all)
@@ -121,8 +197,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		} else this.filters.streams = [];
 		
 		// Fetch filtered messages
-		//this.collection.touch(this.model, this.filterparameters());
-		this.render();
+		this.reload();
 
 		return this;
 	},
@@ -152,8 +227,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		} else this.filters.streams = [];
 			
 		// Fetch filtered messages
-		//this.collection.touch(this.model, this.filterparameters());
-		this.render();
+		this.reload();
 		
 		return this;
 	},
@@ -188,7 +262,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'fill' : function (models)
-	{
+	{	
+		//For fetched accounts we follow messages
+		if(models.models)
+			models = models.models;
+
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else
@@ -212,9 +290,10 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Add loadmore button
 		if (this.collection.cursor)
 			this.$container.append(this.$loadmore);
+
 		
 		else if(!models.length)
-			this.$container.append(this.$nocontent);
+			this.$container.append(this.$nocontent);	
 		
 		this.hideloading();
 	},

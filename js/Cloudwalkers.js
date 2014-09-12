@@ -271,7 +271,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Without paging, it's a models call (ignore)
 		if(!paging) return false;
-	
+		
 		this.cursor = paging.cursors? paging.cursors.after: false;
 	},
 	
