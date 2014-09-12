@@ -2,7 +2,7 @@
 Style corrections and manual overrides
 ***/
 
-#timeline { position: relative;	padding-left: 0px; overflow: hidden; min-height: 100%;}
+#timeline { position: relative;	padding-left: 0px; padding-right: 30px; overflow: hidden; min-height: 100%;}
 
 /* Timeline Loading */
 
@@ -257,7 +257,7 @@ Timeline UI Base
 
 .timeline-info{
 	height: 100%;
-	width: 33.8%;
+	width: 34.1%;
 	position: absolute;
 	border-bottom: 1px solid #eee;
 	box-shadow: inset -5px 0 #ddd;
@@ -348,7 +348,7 @@ Timeline UI Base
 /* Right content */
 
 .timeline > li .timeline-body-wrapper{
-	margin: 0 0 0 40%;
+	margin: 0 0 0 39%;
 }
 
 .timeline > li .timeline-body {
@@ -473,7 +473,7 @@ Timeline UI Base
 /* The triangle */
 .timeline > li .timeline-body-wrapper:after,
 .timeline .timeline-body.more:after {
-	left: 40%;
+	left: 39%;
 	margin-left: -20px;
 	border: solid transparent;
 	content: " ";
@@ -581,7 +581,7 @@ Timeline UI Base
 	border-radius: 50%;
 	box-shadow: 0 0 0 7px #ddd;
 	text-align: center;
-	left: 33.7%;
+	left: 34.1%;
 	top: 50%;
 	margin: -25px 0 0 -27px;
 	-webkit-border-radius: 30px !important;
@@ -848,7 +848,7 @@ Timeline UI Base
 
 section#timeline-filters-section{
 	position: absolute;
-	width: 33%;
+	width: 33.1%;
 	height: 100%;
 	border-right: 1px solid #e5e5e5;
 	box-sizing: border-box;
@@ -874,8 +874,8 @@ section#timeline-filters-section .filter-bg{
 	font-size: 14px;
 	padding: 10px 15px 0 15px;
 	position: relative;
-	bottom: 8px;
-	display: inline-block;
+	bottom: 4px;
+	float: left;
 	color: #555555 !important;
 }
 
@@ -937,6 +937,12 @@ ul.timeline > li.no-content{
 .filter-bg.loading .loadingafter,
 #timeline.loading .loadingafter{
 	left: -15px;
+	bottom: 10px;
+}
+
+/* Amazing stupid hack */
+.filter-bg.loading .filter.btn-white{
+	margin-left: 3px;
 }
 
 .timeline-grey.load-more i{
