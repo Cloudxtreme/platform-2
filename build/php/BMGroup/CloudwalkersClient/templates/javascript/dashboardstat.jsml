@@ -16,6 +16,6 @@
 	{{/details}}
 
 	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
-		{{footer}}
+		{{{footer}}}
 	</a>
 </div>
