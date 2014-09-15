@@ -53,6 +53,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	{
 		this.filternetworks(null, true);
 		this.togglestreams(true);
+
+		this.$el.find("[id^=filter_]").slideUp('fast');
+		this.$el.find("[data-toggle=streams]").removeClass('selected');
 	},
 	
 	'render' : function ()

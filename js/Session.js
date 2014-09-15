@@ -112,7 +112,7 @@ Cloudwalkers.Session =
 	},
 	
 	'viewsettings' : function(value, content)
-	{	console.log(value, content)
+	{
 		// Split into accounts
 		var pointer = "account_" + this.getAccount().id;
 		
