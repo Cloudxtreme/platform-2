@@ -137,10 +137,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		} else if(this.action && this.type == "resend")
 		{
 			// Clone, but filter out unwanted data.
-			this.draft = this.reference.resendsanitize();
-
-			//Get the original stream
+			this.draft = this.reference.cloneSanitized(true);
 			this.draft.attributes.variations = [];
+
+			var streams = this.draft.get("streams");
+
+			for(n in streams)
+				streams[n] = streams[n].id? streams[n].id: streams[n];
 			
 		} else if(this.action && this.reference)
 		{	
@@ -464,7 +467,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var streams = this.draft.get("streams");
 		
 		if(streams) streams.forEach(function (el)
-		{
+		{	
 			this.$el.find("li[data-streams=" + (el.id? el.id : el) + "]").click();
 		
 		}.bind(this));
