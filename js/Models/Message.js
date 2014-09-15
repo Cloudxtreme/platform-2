@@ -253,7 +253,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 	'cloneSanitized' : function (keepstreams)
 	{	
-		var model = this.clone();
+		var model = new Cloudwalkers.Models.Message();
+		$.extend(true, model, this);
+		//var model = this.clone();
 	
 		if (model.attributes.date)				delete model.attributes.date;
 		if (model.attributes.from)				delete model.attributes.from;
@@ -269,7 +271,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		{
 			delete model.id; delete model.attributes.id;
 		}
-	
+		
 		return model;	
 	},
 
