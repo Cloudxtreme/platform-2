@@ -57,7 +57,7 @@
 </div>
 
 {{#commented}}
-<div class="message-comments">
+<!--<div class="message-comments">
 
 	<div class="scroller">
 		<div class="comments-pointer"></div>
@@ -69,5 +69,5 @@
 		</ul>
 	</div>
 
-</div>
+</div>-->
 {{/commented}}
