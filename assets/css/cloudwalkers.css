@@ -1435,7 +1435,7 @@ aside .tag-input-append{
 
 #inboxlist .list a { color: black; }
 
-#inboxlist .list div.pull-right	{ margin-left: 10px; }
+#inboxlist .list .specs.pull-right	{ margin-left: 10px; }
 
 #inboxlist .list .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
