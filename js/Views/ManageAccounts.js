@@ -66,7 +66,7 @@ Cloudwalkers.Views.ManageAccounts = Cloudwalkers.Views.Pageview.extend({
 		
 		// Add models to view
 		for (n in models)
-		{
+		{	
 			var view = new Cloudwalkers.Views.ContactView ({model: models[n], parameters:{inboxview: true}});
 			
 			this.entries.push (view);

@@ -1,4 +1,4 @@
-<!-- Add Category -->
+	<!-- Add Category -->
 	<div class="portlet box grey addcategory">
 		<div class="portlet-title line">
 			<div class="caption"><i class="icon-plus"></i>{{translate_add_category}}</div>
@@ -9,19 +9,22 @@
 		<div class="portlet-body">
 			<form data-add-category="1">
 				<label for="category_create_name">{{translate_name}}:</label>
+				
 				<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
 
+				<span style="display:none;">
 				<label for="category_create_remember">{{translate_remember_for}}:</label>
-				<input type="text" id="category_create_remember" name="remind" class="m-wrap span7" required /><span>{{translate_days}}</span>
-
+				<input type="text" id="category_create_remember" name="remind" class="m-wrap span7" /><span>{{translate_days}}</span>
+				</span>
 				<button class="btn blue span4 pull-right" type="submit">{{translate_create}}</button>
+				
 			</form>
 		</div>
 	</div>
 	<!-- end Add Category -->
-
+	
 	<!-- Manage keyword -->
-	<div class="portlet box blue managekeyword">
+	<div id="keywordsfilter" class="portlet box blue managekeyword">
 		<div class="portlet-title line add-keyword">
 			<div class="caption"><i class="icon-tag"></i>{{translate_add_keyword}}</div>
 			<div class="tools">
@@ -34,10 +37,10 @@
 				<i class="icon-cloud-upload" style="display: none;"></i>
 			</div>
 		</div>
-
+		
 		<div class="portlet-body manage-keyword">
 			<form data-keyword="true">
-
+				
 				<label for="keyword_manage_category">{{translate_category}}:</label>
 				<select id="keyword_manage_category">
 					<option value="0">{{translate_select_category}}</option>
@@ -45,66 +48,52 @@
 						<option value="{{id}}">{{attributes.name}}</option>
 					{{/categories}}
 				</select>
-
+				
 				<label for="keyword_manage_name">{{translate_name}}:</label>
 				<input type="text" value="" placeholder="{{translate_keyword_name}}" id="keyword_manage_name" name="name" class="m-wrap span12" />
 				<br><br>
-
+				
 				<labl>{{translate_finetune}}</labl>
 				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />-->
 				<!--deprecated-->
 				<label>{{translate_filters}}:</label>
-				<div class="keyword-edit-filters">
-					<span class=''>
-						<button class="btn span6" data-keyword-filter="filter-include">{{translate_include}}</button>
-						<button class="btn span6" data-keyword-filter="filter-exclude">{{translate_exclude}}</button>
-					</span>
-					<br><br>
-					<span class=''>
-						<button class="btn span6" data-keyword-filter="filter-languages">{{translate_languages}}</button>
-						<button class="btn span6" data-keyword-filter="filter-countries">{{translate_countries}}</button>
-					</span>
-					<br><br><br>
-
-					<div class="keyword-filter inactive" data-keyword-filter="filter-include">
-						<label for="filter_include"><i class='icon-filter'></i> {{translate_include}} <small> {{translate_use_comma_separated_words}}</small></label>
-						<input type="text" value="" id="filter_include" name="name" class="m-wrap span12" /> 
-					</div>
-					<div class="keyword-filter inactive" data-keyword-filter="filter-exclude">
-						<label for="filter_exclude"><i class='icon-filter'></i> {{translate_exclude}} <small> {{translate_use_comma_separated_words}}</small></label>
-						<input type="text" value="" id="filter_exclude" name="name" class="m-wrap span12" /> 
-					</div>
-					<div class="keyword-filter inactive" data-keyword-filter="filter-languages">
-						<label for="filter_languages"><i class='icon-filter'></i> {{translate_language}} <small> {{translate_select_from_list}}</small></label>
-						<select multiple id="filter_languages" name="languages" data-placeholder="{{translate_all_languages}}">
-						{{#filteroptions.languages}}
-							<option value="{{token}}">{{name}}</option>
-						{{/filteroptions.languages}}
-						</select>
-					</div>
-					<div class="keyword-filter inactive" data-keyword-filter="filter-countries">
-						<label for="filter_countries"><i class='icon-filter'></i> {{translate_country}} <small> {{translate_select_from_list}}</small></label>
-						<select multiple id="filter_countries" name="countries" data-placeholder="{{translate_global}}">
-						{{#filteroptions.countries}}
-							<option value="{{token}}">{{name}}</option>
-						{{/filteroptions.countries}}
-						</select>
-					</div>
+				<div class="input-symbol" data-option="fullbody">
+					<div class="container-loading hidden"><i class="icon-cloud-download"></i></div>
+					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12 keywordeditarea">
+						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
+							<span class="demo_hit_me">+</spam>
+							<span class="demo_options">
+								<ul>
+									<li class="add_message_contains" data-value="message contains">{{translate_message_contains}}</li>
+									<li class="add_message_no_contains" data-value="message !contains">{{translate_message_doesnt_contain}}</li>
+									<li class="add_author_is hidden" data-value="author =">{{translate_author_is}}</li>
+									<li class="add_author_is_not hidden" data-value="author !=">{{translate_author_is_not}}</li>
+									<li class="add_country_is" data-value="county =">{{translate_country_is}}</li>
+									<li class="add_country_is_not" data-value="county =">{{translate_country_is_not}}</li>
+									<li class="add_language_is" data-value="language =">{{translate_language_is}}</li>
+									<li class="add_language_is_not" data-value="language =">{{translate_language_is_not}}</li>
+									<li class="add_group" data-value="(">{{translate_group}}</li>
+								</ul>
+							</span>
+						</span>
+					</section>
 				</div>
-				<!--end deprecated-->
+				<br><br>
 
-				<button class="btn blue add-keyword">{{translate_create}}</button>
-				<button class="btn blue update-keyword edit-keyword inactive">{{translate_update}}</button>
-
+				<button class="btn blue add-keyword" onclick="return false;" data-option="submit">{{translate_create}}</button>
+				<button class="btn blue update-keyword edit-keyword inactive" data-option="update">{{translate_update}}</button>
+				
 				<button class="btn cancel-edit-keyword edit-keyword inactive">{{translate_cancel}}</button>
-
+				<button class="btn reset-keyword" onclick="return false;">{{translate_reset}}</button>
+				
 			</form>
+			<div id="keyword_warning"></div>
 		</div>
 	</div>
-
+	
 	<!--
 	<div class="well">
-
+		
 		<style type="text/css">
 			.op{color:#ffa500;font-variant:small-caps}
 			.field{color:green;font-variant:small-caps}
@@ -112,7 +101,7 @@
 			.quickhelp{list-style: none; margin-left: 0;}
 			.quickhelp li{padding: 5px 0;}
 		</style>
-
+		
 		<h4>Quick help</h4>
 		Define the keyword formula in human readable text:
 
@@ -144,5 +133,5 @@
 			</li>
 		</ul>
 	</div>-->
-
+	
 	<!-- end Manage keyword -->

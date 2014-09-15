@@ -17,14 +17,17 @@
     min-width: 50px;
 }
 
-.inbox-container .message-actions .actions-left div {
+.inbox-container .message-actions .actions-left div,
+.timeline-entry .message-actions .actions-left div {
 	top: 0px !important;
 	vertical-align: top;
 	display: inline-block;
 }
 
 .inbox-container .message-actions .actions-left .btn-white,
-.inbox-container .message-actions .actions-right .btn-white{
+.inbox-container .message-actions .actions-right .btn-white,
+.timeline-entry .message-actions .actions-left .btn-white,
+.timeline-entry .message-actions .actions-right .btn-white{
 	margin-left: 3px;
 }
 

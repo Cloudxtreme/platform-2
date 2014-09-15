@@ -35,6 +35,13 @@
 					<span class="title">{{translate_drafts}}</span>
 				</a>
 			</li>
+
+			<li class="sent">
+				<a href="#sent">
+					<i class="icon-upload"></i> 
+					<span class="title">{{translate_sent}}</span>
+				</a>
+			</li>
 			
 			<li class="schedule">
 				<a href="#schedule">
@@ -132,8 +139,43 @@
 			</ul>
 		</li>
 	{{/inbox}}
-	
-	
+
+		<!--{{#authorized.MESSAGE_READ_DRAFTS}}
+		<li>
+			<a href="#outbox/sent">
+				<i class="icon-upload-alt"></i> 
+				<span class="title">{{translate_outbox}}</span>
+				<span class="arrow"></span>
+				<span class="selected"></span>
+			</a>
+
+			<ul class="sub-menu">
+				{{#authorized.MESSAGE_READ_DRAFTS}}
+				<li class="sent">
+					<a href="#outbox/sent">
+						<i class="icon-envelope"></i> 
+						<span class="title">{{translate_sent}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_DRAFTS}}
+				{{#authorized.MESSAGE_READ_SCHEDULE}}
+				<li class="schedule">
+					<a href="#scheduled">
+						<i class="icon-time"></i> 
+						<span class="title">{{translate_scheduled}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_SCHEDULE}}
+				<li class="calendar">
+					<a href="#calendar">
+						<i class="icon-calendar"></i> 
+						<span class="title">{{translate_calendar}}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		{{/authorized.MESSAGE_READ_DRAFTS}}-->
+		
 		<!-- Co-workers cloud -->
 		{{#authorized._CW_COWORKERS_VIEW}}
 		<li>
@@ -164,11 +206,11 @@
 						<span class="title">{{translate_media}}</span>
 						<span class="arrow"></span>
 					</a>
-					<ul class="sub-menu">
+					<!--<ul class="sub-menu">
 					{{#streams}}
 						<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
-					</ul>
+					</ul>-->
 				</li>
 				{{#authorized.MESSAGE_READ_THIRDPARTY}}
 				<li class="trending">
@@ -179,9 +221,9 @@
 					</a>
 			
 					<ul class="sub-menu">
-					{{#streams}}
+					<!--{{#streams}}
 						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}
+					{{/streams}}-->
 					</ul>
 				</li>
 				{{/authorized.MESSAGE_READ_THIRDPARTY}}
@@ -210,6 +252,13 @@
 					</a>
 				</li>
 
+				<!--<li>
+					<a href="#timeline/rss">
+						<i class="icon-rss"></i> 
+						<span class="title">{{translate_rss_feed}}</span>
+					</a>
+				</li>-->
+
 				<li class="trending">
 					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
@@ -223,6 +272,13 @@
 						<span class="title">{{translate_manage_accounts}}</span>
 					</a>
 				</li>
+
+				<!--<li>
+					<a href="#monitoring/managerss">
+						<i class="icon-plus"></i> 
+						<span class="title">{{translate_manage_rss}}</span>
+					</a>
+				</li>-->
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_THIRDPARTY}}
@@ -303,6 +359,9 @@
 			{{#authorized.ACCOUNT_SETTINGS}}
 				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
+			{{#manage_user_groups}}
+				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>
+			{{/manage_user_groups}}
 		</ul>
 	</li>
 	

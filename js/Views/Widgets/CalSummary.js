@@ -13,12 +13,17 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 	{
 		if (options) $.extend(this, options);
 		
-		this.listenTo(this.calview.model.messages, "ready", this.fill);
+		//this.listenTo(this.collection, "update:stats", function(){console.log("ok")})
+
+		//this.listenTo(this.calview.model.messages, "ready", this.fill);
 		
 		// Which collection to focus on
 		//this.collection = this.model.statistics;
 
 		//this.listenTo(this.collection, 'ready', this.fill);
+		
+		//this.fetch({success: function(){ console.log("here")}});
+
 		
 	},
 	
@@ -39,7 +44,23 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		// Build view
 		this.$el.html (Mustache.render (Templates.statsummary, params));
 		
+		//this.getTotal(this.from, this.to);
+
 		return this;
+	},
+
+	'getTotal': function(from, to){
+		// Get total from messageids
+		var stream = new Cloudwalkers.Models.Channel({id: this.calview.posted.id});
+
+		stream.fetch({endpoint: 'messageids', parameters: {since: from.unix(), until: to.unix(), records: 999}, success: this.showtotal.bind(this)});
+	},
+
+	'showtotal' : function(e){
+		// Show total
+		var total = e.attributes.messages.length;
+
+		this.$el.find("[data-type='parsetotal'] .stats-summary-counter").html(total);
 	},
 	
 	'fill' : function(collection)
@@ -62,6 +83,7 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 	 *	Column data
 	 **/
 	 
+	/* Deprecated
 	'parsetotal' : function (collection)
 	{
 		// Get most recent stat
@@ -69,6 +91,7 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		return { counter: collection.length};//stat.pluck("contacts")};
 	},
+	*/
 	
 	'parseavg' : function (collection)
 	{

@@ -2,7 +2,7 @@ Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
 	
 	'typestring' : "contacts",
 	'modelstring' : "contact",
-	
+
 	'url' : function ()
 	{
 		var url = [Cloudwalkers.Session.api];
@@ -12,6 +12,8 @@ Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
 		else if(this.id)	url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring, this.id);
 		else				url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring);
 
+		if(this.endpoint)	url.push(this.endpoint);
+
 		if(this.urlparams)
 			url = url.concat(this.urlparams)
 
@@ -19,18 +21,26 @@ Cloudwalkers.Models.Contact = Cloudwalkers.Models.User.extend({
 		
 		return this.parameters? url + "?" + $.param(this.parameters) : url;
 	},
+
+	'sync' : function (method, model, options)
+	{	
+		if(method == "read" && options.endpoint)	this.endpoint = options.endpoint;
+		
+		return Backbone.sync(method, model, options);
+	},
 	
 	'parse' : function(response)
 	{	
 		// some sanity
 		if(response[this.modelstring]) response = response[this.modelstring];
-		
+		if(this.endpoint && response[this.endpoint])	response = response[this.endpoint];
+
 		// A new object
 		if (typeof response == "number") response = {id: response};
 		
 		// Store incoming object
 		else this.stamp(response);
-
+		
 		return response;
 	},
 	

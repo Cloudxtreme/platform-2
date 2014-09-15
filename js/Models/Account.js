@@ -28,7 +28,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		this.messages = new Cloudwalkers.Collections.Messages();
 
 		// Prep global Canned Responses collection
-		//this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
+		this.cannedresponses = new Cloudwalkers.Collections.CannedResponses();
 
 		// Prep global Notes collection
 		this.notes = new Cloudwalkers.Collections.Notes();
@@ -88,7 +88,7 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		if(!Store.exists("channels")) this.firstload();
 		
 		// Fetch Canned Responses
-		//this.cannedresponses.fetch({parameters: {records: 50}});
+		this.cannedresponses.fetch({parameters: {records: 50}});
 		
 		// Load Streams (first, so channels find them)
 		Store.filter("streams", null, function(list) { this.streams.add(list); }.bind(this));

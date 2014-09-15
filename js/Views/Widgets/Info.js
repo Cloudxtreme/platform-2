@@ -293,7 +293,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
 		var total = statl - statf;
 
-		var description = this.title;
+		var description = this.translateString("new_shares")
 
 		return [{content: total, descr : description}];
 	},
@@ -304,7 +304,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","types","posts"], this.network,3);
 		var total = statl - statf;
 
-		var description = this.title;
+		var description = this.translateString("new_posts")
 
 		return [{content: total, descr : description}];
 	},
@@ -315,7 +315,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","types","dms"], this.network,3);
 		var total = statl - statf;
 
-		var description = this.title;
+		var description = this.translateString("new_direct_messages")
 
 		return [{content: total, descr : description}];
 	},

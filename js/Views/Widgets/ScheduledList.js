@@ -34,9 +34,6 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'ready', this.showmore);
 		this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
-		// Load listeners
-		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
-		
 		// Watch outdated
 		// this.updateable(this.model, "h3.page-title");
 
@@ -47,6 +44,8 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'render' : function (params)
 	{	
+		this.loadmylisteners();
+
 		var data = {};
 
 		//Mustache Translate Render
@@ -62,12 +61,24 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.$loadercontainer = this.$el.find ('.portlet-body');
 		this.$el.find(".load-more").hide();
 		
+		if(params){	
+			this.parameters = params;
+			Cloudwalkers.Session.viewsettings('scheduled', {streams: params.target? [params.target]: []});
+		}
+		else if(this.filters.streams.length)
+			this.parameters.target = this.filters.streams.join(",");
+
 		// Load category message
-		this.model.messages.touch(this.model, params? params: this.parameters);
+		this.model.messages.touch(this.model, this.parameters);
 			
 		this.addScroll();
 
 		return this;
+	},
+
+	'loadmylisteners' : function()
+	{
+		this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 	},
 	
 	'showloading' : function ()
@@ -90,14 +101,16 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	'showmore' : function(){
 
 		setTimeout(function()
-		{		
+		{	//Hack
 			this.$container.css('max-height', 999999);
 
 			if(!this.hasmore)
 				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
-			this.$el.find('#loadmore').html(load.render().el)
+			this.$el.find('#loadmore').html(load.render().el);
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -159,7 +172,9 @@ Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.Widget.ext
 	
 	'more' : function ()
 	{
-		this.incremental = true;	
+		this.incremental = true;
+
+		this.loadmore.loadmylisteners();	
 				
 		var hasmore = this.model.messages.more(this.model, this.parameters);		
 		if(!hasmore) this.$el.find(".load-more").hide();

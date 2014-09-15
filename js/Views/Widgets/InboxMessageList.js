@@ -105,7 +105,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(param);
-
+		
 		// Get template
 		this.$el.html (Mustache.render (Templates.inboxlist, param));
 		
@@ -125,10 +125,13 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		return this;
 	},
 	
-	'showloading' : function ()
-	{
+	'showloading' : function (object)
+	{	
 		//this.$container.addClass("inner-loading");
 		
+		//Just to make sure we are triggering a collection request and not a markasread request
+		if(!object.hasOwnProperty('length'))	return;
+
 		this.$el.find(".inbox").addClass("loading");
 		
 		this.$el.find(".load-more").hide();
@@ -156,7 +159,9 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 				return this.$el.find('#loadmore').empty();	
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
-			this.$el.find('#loadmore').html(load.render().el)
+			this.$el.find('#loadmore').html(load.render().el);
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -433,10 +438,24 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'filterparameters' : function() {
 		
-		var param = this.listtype == 'notes'? {all: 1}: {records: 20, group: 1};
+		var param;
+
+		if(this.listtype == 'notes')	
+			param = {all: 1};
+
+		else if(this.model.get('token') && this.model.get('token') == 'sent')
+			param = {records: 20};
+
+		else
+			param = {records: 20, group: 1};
 		
 		if(this.filters.contacts.list.length) param.contacts = this.filters.contacts.list.join(",");
-		if(this.filters.streams.length) param.streams = this.filters.streams.join(",");
+		if(this.filters.streams.length){
+			if(this.model.get('token') && this.model.get('token') == 'sent')
+				param.target = this.filters.streams.join(",");
+			else
+				param.streams = this.filters.streams.join(",");	
+		} 
 		
 		// And store
 		this.storeview();
@@ -464,6 +483,8 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'more' : function ()
 	{
 		this.incremental = true;
+
+		this.loadmore.loadmylisteners();
 		
 		var hasmore = this.collection.more(this.model, this.filterparameters());
 		

@@ -7,7 +7,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		/*'submit .edit-user-avatar' : 'editUserAvatar',*/ 
 		'click #add-file' : 'addfile',
 		'change input[type=file]' : 'listentofile',
-		'click #upload-file' : 'uploadfile'
+		'click #upload-file' : 'uploadfile',
+
+		'change select' : 'enablereset',
+		'keydown input' : 'enablereset',
+		'click [type=reset]' : 'disablereset'
 	},
 
 	'class' : 'section',
@@ -20,7 +24,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		
 		var self = this;
 		var data = {
-			user: { firstname: user.get('firstname'), name: user.get('name'), avatar: user.get('avatar'), role: user.getRole ()},
+			user: { firstname: user.get('firstname'), name: user.get('name'), mobile: user.get('mobile'), avatar: user.get('avatar'), role: user.getRole ()},
 			langs: Cloudwalkers.Session.langs
 		};
 		
@@ -52,7 +56,7 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		this.$el.find('.edit-user-profile').addClass('loading');
 		
 		user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
-		{	
+		{
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 			
 			// Hack
@@ -61,10 +65,17 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		}.bind(this), 
 		error: function(){
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
-
-			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			
 		}.bind(this)});
+	},
+
+	'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+
+	'disablereset' : function(e)
+	{ 
+		$(e.currentTarget).closest('form').get(0).reset();
+
+		this.$el.find('[type=reset]').attr('disabled', true);
 	},
 	
 	/**

@@ -92,6 +92,34 @@
 	color: white;
 }
 
+#inboxlist .list li.failed{
+	background-color: #f2dede;
+	border: thin solid #ebccd1;
+}
+
+#inboxlist .list li.failed .date,
+#inboxlist .list li.failed strong,
+#inboxlist .list li.failed .content{
+	color: #e02222 ;
+}
+
+#inboxlist .list li.failed:hover{
+	background-color: #eed3d7;
+}
+
+#inboxlist .list li.failed .media{
+	background: #e02222 ;
+}
+
+#inboxlist .list li.active.failed,
+#inboxlist .list li.active.failed:hover,
+#inboxlist .list li.active.failed strong,
+#inboxlist .list li.active.failed .date,
+#inboxlist .list li.active.failed .media	{
+	background: #e02222  !important;
+	color: white;
+}
+
 #inboxlist .list li.active .content	{ color: #bbebf9; }
 
 #inboxlist .list li.unread { line-height: 24px; background: #e3f1f8; }
@@ -100,7 +128,6 @@
 #inboxlist .list li.unread .media i { display: none; }
 #inboxlist .list li.unread .media 	{ background: none; }
 #inboxlist .list li.unread .date	{ color: #005580; font-weight: bold; }
-
 
 #inboxlist .list span.number	{
 	float: right; background: #b1e2ec; border-radius: 5px !important; padding: 0 6px;
@@ -156,7 +183,7 @@
 
 #inboxlist .list a { color: black; }
 
-#inboxlist .list div.pull-right	{ margin-left: 10px; }
+#inboxlist .list .specs.pull-right	{ margin-left: 10px; position: relative; position: absolute; height: 83%; right: 8px;}
 
 #inboxlist .list .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
@@ -165,7 +192,7 @@
 #inboxlist .list .date	{ font-size: 12px; }
 
 #inboxlist .list .media	{
-	width: 12px; height: 14px; padding: 1px 2px; margin: 0 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
+	width: 12px; height: 14px; padding: 1px 2px; margin: 6px 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
 	color: white; text-align: center; line-height: 12px;
 }
 #inboxlist .list .media	i	{ font-size: 10px; }
@@ -424,12 +451,17 @@
 	opacity: .5; font-size: 14px; float: right;
 }*/
 
-.inbox-container .note-body, .messagelist .note-body {
+.inbox-container .note-body, .messagelist .note-body{
 	padding: 12px 18px; min-height: 20px;
+}
+
+.message-notes .note-list .note-body{
+	padding: 12px 0px 0px; min-height: 20px;
 }
 
 #inboxlist .messagelist .note .message-actions{
 	padding: 5px 18px;
+	min-height: 31px;
 }
 
 .inbox-container .single-contact{

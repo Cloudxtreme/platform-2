@@ -50,13 +50,12 @@ Cloudwalkers.Views.Settings.User = Backbone.View.extend({
 	'deleteUser' : function (e)
 	{
 		var $tr = $(e.currentTarget).parents('tr');
-		var user = Cloudwalkers.Session.getUser($row.data('delete-user-id'));
+		var user = Cloudwalkers.Session.getUser($tr.data('delete-user-id'));
 		
 		Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 			
-			this.model.destroy();
-			$tr.remove({success: function()
-			{
+			this.model.destroy({success: function(){
+				$tr.remove();
 				Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 			}});
 			/*

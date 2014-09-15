@@ -32,6 +32,13 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 
 		// View
 		this.$el.html (Mustache.render (Templates.scheduledfilters, params));
+
+		if (this.filters.streams.length)
+		{	
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");
+			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
 		
 		return this;
 	},
@@ -68,8 +75,10 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 		
 		if(all) this.button = false;
 
+		this.list.render(streams? {records: 200, target: streams, sort: 'asc'} : {records: 200, sort: 'asc'});
+
 		// Fetch filtered messages
-		this.model.messages.touch(this.model, streams? {records: 20, targets: streams, sort: 'asc'} : {records: 40, sort: 'asc'});
+		//this.model.messages.touch(this.model, streams? {records: 20, target: streams, sort: 'asc'} : {records: 40, sort: 'asc'});
 		
 		return this;
 	},

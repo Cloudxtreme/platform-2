@@ -2,7 +2,11 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 
 	'events' : {
 		'click i[data-delete-campaign-id]' : 'deletecampaign',
-		'click #menu a' : 'scroll'
+		'click #menu a' : 'scroll',
+		'submit form#editaccount' : 'editaccount',
+
+		'keydown [data-attribute=account-name]' : 'enablebtnaccount',
+		'click [data-action=reseetaccount]' : 'disablebtnaccount'
 	},
 
 	'initialize' : function()
@@ -14,13 +18,15 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.triggers = new Cloudwalkers.Collections.Triggers();
 
 		this.listenTo(this.triggers, 'sync', this.filltriggers);
+
+		this.account = Cloudwalkers.Session.getAccount();
 		
 		this.triggermodel = {};
 	},
 
 	'render' : function ()
 	{		
-		var data = Cloudwalkers.Session.getAccount().attributes;
+		var data = this.account.attributes;
 		
 		//Mustache Translate Render
 		this.mustacheTranslateRender(data);
@@ -37,17 +43,27 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		//this.$el.find("#cannedlist").append(cannedlist.render().el);
 	
 		// Render manually both trigger's views
-		//this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
-		//this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
+		this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
+		this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
-		//this.$el.find("#triggerlist").append(this.twitterview.render().el);
-		//this.$el.find("#triggerlist").append(this.dmview.render().el);
+		this.$el.find("#triggerlist").append(this.twitterview.render().el);
+		this.$el.find("#triggerlist").append(this.dmview.render().el);
 
-		//this.triggers.parent = this.account;
-		//this.triggers.fetch();
+		this.triggers.parent = this.account;
+		this.triggers.fetch();
 
 		return this;
 	},
+
+	'enablebtnaccount' : function()	{ this.$el.find('[data-action=reseetaccount]').attr('disabled', false);	},
+
+	'disablebtnaccount' : function(e)
+	{ 
+		$(e.currentTarget).closest('form').get(0).reset();
+
+		this.$el.find('[data-action=reseetaccount]').attr('disabled', true);
+	},
+	
 
 	'filltriggers' : function(models)
 	{
@@ -73,8 +89,28 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	'editaccount' : function (e)
 	{
 		var name = this.$el.find ('[data-attribute=account-name]').val ();
+
+		this.$el.find(".edit-account-name").addClass('loading');
+		this.$el.find('.edit-account-name .btn').attr('disabled', true);
 		
-		this.account.save ({name: name}, {patch: true, success: function () { Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated")); }}.bind(this));
+		this.account.save ({name: name}, {patch: true, success: function ()
+			{
+				Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
+				
+				//Reenable submit button & remove loading
+				this.$el.find(".edit-account-name").removeClass('loading');
+				this.$el.find('[data-action=editaccount]').attr('disabled', false);
+
+			}.bind(this),
+			error: function(){
+				Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
+				
+				//Reaneable buttons & remove loading
+				this.$el.find(".edit-account-name").removeClass('loading');
+				this.$el.find('[data-action=editaccount]').attr('disabled', false);
+				this.$el.find('[data-action=editaccount]').attr('disabled', false);
+
+			}.bind(this)});
 	},
 	
 	'deletecampaign' : function (e)

@@ -18,6 +18,7 @@
 <script src="/assets/plugins/mustache.0.7.3-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/underscore.1.6.0-min.js" type="text/javascript"></script>
 <script src="/assets/plugins/backbone.1.0.0-min.js" type="text/javascript"></script>
+<script src="/assets/plugins/Backbone.CrossDomain.js" type="text/javascript"></script>
 
 <!-- JQUERY PLUGINS -->
 <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
@@ -35,6 +36,7 @@
 <script src="assets/plugins/oembedall/jquery.oembed.js"></script>
 <script src="assets/plugins/d3/d3.v3.min.js"></script>
 <script src="assets/plugins/cal-heatmap-master/cal-heatmap.min.js"></script>
+<script src="assets/plugins/lightbox/js/lightbox.min.js"></script>
 
 <!-- JQUERY UI PLUGINS -->
 <script src="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
@@ -59,11 +61,15 @@
 <script src="/assets/plugins/chart.js.legend/legend.js"></script>
 <script src="/assets/plugins/media.js"></script>
 
+<!--[if lt IE 10]>
+<script src="/js/ie-fix.js"></script>
+<![endif]-->
 <!--[if lt IE 9]>
 <script src="/assets/plugins/excanvas.min.js"></script>
 <script src="/assets/plugins/respond.min.js"></script>
 <script src="/assets/plugins/modernizr/modernizr.js"></script>
 <![endif]-->
+
 
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="/assets/scripts/charts.js" type="text/javascript"></script>

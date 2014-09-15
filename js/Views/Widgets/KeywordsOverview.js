@@ -7,10 +7,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'entries' : [],
 
 	'events' : {
-		'submit .category-edit form' : 'editCategoryName',
-		'submit .category-edit-remember form' : 'editCategoryRemember',
+		'submit form' : 'editCategory',
 		'click .edit-toggler' : 'toggleEditCategory',
-		'click .edit-toggler-remember' : 'toggleEditCategoryRemember',
 		'click .delete-category' : 'deleteCategory',
 		'click .delete-keyword' : 'deleteKeyword',
 		'click [data-keyword]' : 'toggleEditKeyword'
@@ -28,7 +26,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'render' : function ()
 	{
-		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), remember: cat.get("remember"), keywords: cat.channels.models}});
+		categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), settings: cat.get("settings"), keywords: cat.channels.models}});
 
 		var data = {categories: categories};
 		
@@ -50,41 +48,27 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 	},
 
-	'toggleEditCategoryRemember' : function (e)
-	{
-		e.stopPropagation();
-		
-		$(e.target).closest('[data-category]').find('.category-remember, .category-edit-remember').toggle();
-	},
-
-	'editCategoryName' : function (e)
+	'editCategory' : function (e)
 	{
 		e.stopPropagation();
 
 		var $cat = $(e.target).closest('[data-category]');
 		var name = $cat.find('[name="name"]').val();
+		var remember = $cat.find('[name="remember"]').val();
+
+		var settings = {
+			remember: remember
+		};
 		
 		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
-		channel.save({name: name});
+		channel.save({
+			name: name,
+			settings: settings
+		});
 		
-		$cat.find('h4').html(name);
-		
-		return false;
-	},
-
-	'editCategoryRemember' : function (e)
-	{
-		e.stopPropagation();
-
-		var $cat = $(e.target).closest('[data-category]');
-		var name = $cat.find('[name="remember"]').val();
-		
-		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
-		channel.endpoint = '';
-		channel.save({remember: remember});
-		
-		$cat.find('h3').html(remember);
+		$cat.find('.name_val').html(name);
+		$cat.find('.remember_val').html(remember);
 		
 		return false;
 	},
@@ -116,6 +100,8 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		var id = Number($(e.target).closest('[data-keyword]').data('keyword'));
 		
 		this.editor.fillKeyword(id, e);
+
+		$("html, body").animate({ scrollTop: $('#keywordsfilter').offset().top-50 }, 500);
 	},
 
 	'deleteKeyword' : function (e)
@@ -149,7 +135,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			"change_name",
 			"remember_for",
 			"days",
-			"change_days"
+			"save_changes"
 		];
 
 		this.translated = [];

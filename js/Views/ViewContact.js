@@ -48,7 +48,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(recycle)
 			this.stopListening(this.collection);
 
-		//this.listenTo(this.collection, 'request', this.hideloading)
+		this.listenTo(this.collection, 'request', this.showloading)
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'sync', this.paginate);
 		this.listenTo(this.collection, 'ready', this.showmore);
@@ -244,12 +244,14 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 	'initializenote' : function()
 	{
 		// Add the Note
-		var composenote = new Cloudwalkers.Views.ComposeNote({model: this.model, persistent: true});
+
+		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
+
 		this.composenote = composenote;
 		this.$el.find('#notecontainer').append(composenote.render().el);
 
 		// Note has been saved, revert UI
-		this.listenTo(composenote.note, 'sync', this.doneposting.bind(this,200));
+		this.listenTo(composenote.model, 'sync', this.doneposting.bind(this,200));
 		this.listenTo(composenote, 'edit:cancel', this.doneposting);
 	},
 
@@ -439,6 +441,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	},
 
+	'showloading' : function()
+	{
+		this.$el.find(".load-more").hide();
+	},
+
 	'showmore' : function(){
 
 		setTimeout(function()
@@ -450,6 +457,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
 			this.$el.find('#loadmore').html(load.render().el)
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -496,11 +505,38 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		
 		if(!this.collection.cursor) return false;
 
+		this.loadmore.loadmylisteners();
+
 		var parameters = {after: this.collection.cursor};
 		
 		if(this.type == 'messages')				this.getmessages(parameters);
 		else									this.touch(this.type, parameters);
 		
 		if(!this.hasmore) this.$el.find(".load-more").hide();
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"latest_messages",
+			"latest_conversations",
+			"contact_notes",
+			"add_contact_note"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 });

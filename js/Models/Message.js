@@ -193,7 +193,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			if(smallestlimit - this.get("body").plaintext.length < 0)
 				return false;
 		}*/			
-
+		
 		// Variations
 		if(this.get("streams") && this.get("streams").length){
 			$.each(this.get("streams"), function(n, stream)
@@ -251,39 +251,48 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}.bind(this));
 	}, 
 	
-	'cloneSanitized' : function ()
-	{
-		var model = this.clone();
-		
+	'cloneSanitized' : function (keepstreams)
+	{	
+		var model = new Cloudwalkers.Models.Message();
+		$.extend(true, model, this);
+		//var model = this.clone();
+	
 		if (model.attributes.date)				delete model.attributes.date;
 		if (model.attributes.from)				delete model.attributes.from;
-		if (model.attributes.stream)			delete model.attributes.stream;
+
+		if (model.attributes.stream && !keepstreams)
+			delete model.attributes.stream;
 		
-		model.attributes.streams = [];
+		if(!keepstreams)
+			model.attributes.streams = [];
 		
 		// A clone shouldn't have an id
 		if(model.id)
 		{
 			delete model.id; delete model.attributes.id;
 		}
-	
+		
 		return model;	
 	},
-	
+
 	'checkloaded' : function (response)
 	{
-		if(response.objectType) setTimeout(function(model){ model.trigger('loaded'); }, 1, this);
+		var model = this;
+		if(response.objectType) setTimeout(function(){ model.trigger('loaded'); }, 1, this);
 	},
 	
 	'filterData' : function (response)
 	{	
+		//In case it's a notification
+		if(response.message && response.message.body)
+			response = response.message;
+
 		// Set up filtered data
 		var filtered = {};
-		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "canHaveChildren", "children_count", "schedule", "variations"]
+		var values = ["id", "objectType", "actiontokens", "subject", "body", "date", "engagement", "from", "read", "stream", "streams", "attachments", "parent", "statistics", "stats", "status", "canHaveChildren", "children_count", "schedule", "variations", "url"]
 		
 		$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 		
-
 		// Stream		
 		var stream = Cloudwalkers.Session.getStream(response.stream);
 		
@@ -861,7 +870,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 
 	'deleteMessage' : function ()
-	{
+	{	
 		var self = this;
 
 		// Repeat or skip?
@@ -884,14 +893,18 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				],
 				function (response) 
 				{
-					var url = 'post/?' + response.token + '=' + self.get ('id');
+					var url = Cloudwalkers.Session.api + '/messages/' + self.get ('id');
 
 					// Do the call
 					jQuery.ajax
 					({
 						dataType:"json", 
-						type:"get", 
-						url: url, 
+						type:"delete", 
+						url: url,
+						headers: {
+				            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+				            'Accept': "application/json"
+				        },
 						success:function(objData)
 						{   
                             /*
@@ -905,6 +918,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                             */
                             
                            self.trigger("destroy", {wait: true})
+                           self.trigger("destroyed", {wait: true})
                            // self.trigger ("destroy", self, self.collection);
                             
                             // Hack
@@ -925,7 +939,9 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				{
                     self.destroy ({success:function(){
 	                    
-	                    // Hack
+	                    //trigger destroy
+						 self.trigger ("destroyed", self, self.collection);
+						 //Keep the old code
 						 self.trigger ("destroy", self, self.collection);
 						//window.location.reload();
 	                    
@@ -1020,6 +1036,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
                     }
                     */
                     self.trigger ("destroy", self, self.collection);
+                    self.trigger ("destroyed", self, self.collection);
 				}
 				else
 				{

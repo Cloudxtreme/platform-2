@@ -31,7 +31,7 @@ Cloudwalkers.Session =
 		/* getLang and then callback */
 		this.user.once("activated", function () { this.setLang(); }.bind(this));
 		this.listenTo(this,"translation:done",  callback );
-
+		
 		this.user.fetch({error: this.user.offline.bind(this.user)});
 	},
 	
@@ -46,9 +46,18 @@ Cloudwalkers.Session =
 		});*/
 	},
 	
-	'reset' : function ()
-	{
+	'reset' : function (changeaccount)
+	{	
+		var token;
+
+		if(changeaccount)
+			token = window.localStorage.getItem('token');
+		
 		window.localStorage.clear();
+
+		if(changeaccount && token)
+			window.localStorage.setItem('token', token);
+		
 	},
 	
 	'home' : function()
@@ -112,6 +121,10 @@ Cloudwalkers.Session =
 		
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
+
+		// Sent hack
+		if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
 		
 		var viewsettings = this.clone(this.get("viewsettings"));
 		
