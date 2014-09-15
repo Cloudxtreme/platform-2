@@ -269,6 +269,24 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	
 		return model;	
 	},
+
+	'resendsanitize' : function ()
+	{
+		var model = this.clone();
+		console.log(model.attributes)
+		if (model.attributes.date)				delete model.attributes.date;
+		if (model.attributes.schedule)			delete model.attributes.schedule;
+		if (model.attributes.scheduledate)		delete model.attributes.scheduledate;
+		if (model.attributes.time)				delete model.attributes.time;
+		
+		// A clone shouldn't have an id
+		if(model.id)
+		{
+			delete model.id; delete model.attributes.id;
+		}
+	
+		return model;	
+	},
 	
 	'checkloaded' : function (response)
 	{

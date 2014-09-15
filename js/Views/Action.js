@@ -54,6 +54,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 	{
 		if(_.isArray(this.action) && this.action[0].type == 'note')		this.position = 'right';
 		else if(this.action.type == 'note')								this.position = 'right';
+		else if(this.action.token == 'delete')							this.position = 'right';
 	},
 
 	'increment' : function()

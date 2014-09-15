@@ -52,6 +52,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		'comment' : ["editor", "canned"],
 		'reply' : 	["editor", "canned"],
 		'dm' : 		["editor", "canned"],
+		'resend' : 	["editor", "canned"],
 		'retweet' : ["icon"],
 		'like' : 	["icon"],
 		'favorite' :["icon"],
@@ -133,6 +134,14 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.draft = this.reference.cloneSanitized();
 			this.draft.attributes.variations = [];
 			
+		} else if(this.action && this.type == "resend")
+		{
+			// Clone, but filter out unwanted data.
+			this.draft = this.reference.resendsanitize();
+
+			//Get the original stream
+			this.draft.attributes.variations = [];
+			
 		} else if(this.action && this.reference)
 		{	
 			// Get action dynamics
@@ -144,7 +153,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.action.fetch();
 					
 		} else if(this.model)
-		{				
+		{	
 			this.type = "edit";
 			this.state = 'loading';
 			this.draft = this.model.clone();
