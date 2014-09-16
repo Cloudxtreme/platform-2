@@ -51,7 +51,8 @@
 					<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
 				{{/showcontact}}
 				{{^showcontact}}
-					<a class="viewdetails" target="_blank" href="{{url}}"><img src="{{avatar}}"/></a>
+					{{#url}}<a class="viewdetails" target="_blank" href="{{url}}"><img src="{{avatar}}"/></a>{{/url}}
+					{{^url}}<div class="viewdetails"><img src="{{avatar}}"/></div>{{/url}}
 				{{/showcontact}}
 				
 			{{/from}}
