@@ -760,6 +760,7 @@ aside .tag-input-append{
 	width: 18px;
 	background-color:#fff;
 	background-color: rgba(255,255,255,0.5);
+	top:0px !important;
 }
 
 .action-list .message-actions,
