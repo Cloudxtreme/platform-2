@@ -1881,7 +1881,7 @@ counter	{
 }
 
 .inbox-container .inbox-video {
-	margin: 2px 5px; width: 200px; height: 120px; background: black center no-repeat; background-size: 100%; border-radius: 2px !important;
+	margin: 2px 5px 20px; width: 200px; height: 120px; background: black center no-repeat; background-size: 100%; border-radius: 2px !important;
 }
 
 .inbox-container .inbox-video:hover{
