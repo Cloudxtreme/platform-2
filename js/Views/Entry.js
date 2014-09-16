@@ -16,7 +16,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		'remove' : 'destroy',
 		'click [data-notifications]' : 'loadNotifications',
-		'click [data-youtube]' : 'loadYoutube',
+		//'click [data-youtube]' : 'loadYoutube',
 		'click *[data-action]' : 'action',
 		'click' : 'toggle',
 	},
@@ -90,6 +90,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.model.attributes.failed = 'failed';
 		}
 		
+		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
+
 		return this;
 	},
 
@@ -366,7 +368,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
 
 		collection.touch(this.model, {records: 999});
-
+		
 		this.loadedlists.push(token+'list');
 	},
 
@@ -477,7 +479,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 	
 	'loadYoutube' : function ()
-	{		
+	{	
 		// Get container
 		var $container = this.$el.find(".timeline-video").eq(0);
 		var url = $container.data("youtube");
@@ -495,7 +497,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
 		this.composenote = composenote;
 
-		this.listenTo(composenote.model, 'sync', this.noteadded);
+		//this.listenTo(composenote.model, 'sync', this.noteadded);
+		this.listenTo(composenote, 'save:success', this.noteadded);
 		this.listenTo(composenote, 'edit:cancel', this.canceledit.bind(this, true));
 
 		this.$el.find('.note-content').append(composenote.render().el);		

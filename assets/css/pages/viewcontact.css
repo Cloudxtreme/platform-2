@@ -331,6 +331,10 @@
 	display: none;
 }
 
+.viewcontact aside #notecontainer textarea{
+	padding-left: 8px;
+}
+
 .viewcontact aside .contactactions textarea{
 	/*height: inherit !important;
 	min-height: inherit !important;*/

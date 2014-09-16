@@ -1,5 +1,7 @@
 Cloudwalkers.Views.Actions = Backbone.View.extend({
 
+	'className' : 'message-actions-wrapper',
+
 	'actionsright' : [],
 	'actionsleft' : [],
 	'compounds' : [],
@@ -43,6 +45,8 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 		if(this.message)	actions = this.message.filterActions(token);
 		else				return;
 		
+		this.reorderactions(actions);
+		
 		for(n in actions)
 		{	
 			compound = actions[n].compound? actions.filter(function(a){ return a.compound == actions[n].compound}): null;
@@ -55,17 +59,34 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 					this.compounds.push(compound[0].compound)
 
 			if(this.selected){
-				if(compound && compound[0].token == this.selected)
+				if(compound && (compound[0].token == this.selected))
 					inactive = 'inactive';
 
 				else if(!compound && actions[n].token == this.selected)
 					inactive = 'inactive';
+
+				else
+					inactive = false;
 			}
 
 			var action = new Cloudwalkers.Views.Action({action: compound || actions[n], inactive: inactive})
 
 			this['actions'+action.position].push(action)
 		}
+	},
+
+	'reorderactions' : function(actions)
+	{	
+		var del;
+
+		for(n in actions){
+			if (actions[n].token == 'delete')
+				del = actions.splice(n,1);
+		}
+
+		if(del)
+			actions.push(del[0]);
+		
 	},
 
 	'updateactions' : function(token)

@@ -112,5 +112,20 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 		}
 	},
 
+	'requestcontacts' : function(string)
+	{
+		if(string != this.filters.contacts.string)
+		{
+			if(!this.model.contacts.processing)
+			{
+				this.$el.find(".loading-contacts").removeClass("hidden");
+				
+				this.filters.contacts.string = string;
+				this.model.contacts.fetch({remove: false, parameters: {q: string, channels: this.model.id}, success: this.loadedcontacts.bind(this)});
+			
+			} else this.filters.contacts.buffered = string;
+		}
+	},
+
 
 });

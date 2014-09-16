@@ -1,4 +1,4 @@
-	<div class='pull-right'>
+	<div class='pull-right specs'>
 		<span class="date" data-date="{{date}}"></span>
 		<div class="context-icon-{{parent.objectType}}"></div>
 	</div>

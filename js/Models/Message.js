@@ -197,7 +197,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		// Variations
 		if(this.get("streams") && this.get("streams").length){
 			$.each(this.get("streams"), function(n, stream)
-			{
+			{	
 				var network = Cloudwalkers.Session.getStream(stream).get("network");
 				var limit = network.limitations['max-length']? network.limitations['max-length'].limit : null;
 				
@@ -251,25 +251,30 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		}.bind(this));
 	}, 
 	
-	'cloneSanitized' : function ()
-	{
-		var model = this.clone();
-		
+	'cloneSanitized' : function (keepstreams)
+	{	
+		var model = new Cloudwalkers.Models.Message();
+		$.extend(true, model, this);
+		//var model = this.clone();
+	
 		if (model.attributes.date)				delete model.attributes.date;
 		if (model.attributes.from)				delete model.attributes.from;
-		if (model.attributes.stream)			delete model.attributes.stream;
+
+		if (model.attributes.stream && !keepstreams)
+			delete model.attributes.stream;
 		
-		model.attributes.streams = [];
+		if(!keepstreams)
+			model.attributes.streams = [];
 		
 		// A clone shouldn't have an id
 		if(model.id)
 		{
 			delete model.id; delete model.attributes.id;
 		}
-	
+		
 		return model;	
 	},
-	
+
 	'checkloaded' : function (response)
 	{
 		var model = this;

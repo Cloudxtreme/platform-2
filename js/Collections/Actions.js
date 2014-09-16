@@ -12,6 +12,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes', hidemetoken: 'hidden'}, //I was desperate
 		'note_manage' : {name: "Add note", icon: 'edit', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
+		'resend' : {name: "Resend", icon: 'arrow-up', token: 'resend', type: 'write'},
 		
 		// Hack!
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
@@ -69,19 +70,25 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'rendertokens' : function (tokens)
 	{	
 		var action;
+		var renderedtokens = [];
 		var stats = this.parent.get("stats");
 
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 
-		return tokens.map(function(token)
-			{
-				action = this.templates[token];
+		for(n in tokens)
+		{	
+			token = tokens[n];
+			action = this.templates[token];
 
-				if(stats)	action = this.appendstat(token);
-				return action;
+			if(!action)	continue;
 
-			}.bind(this));
+			if(stats)	action = this.appendstat(token);
+			
+			renderedtokens.push(action);
+		}
+		
+		return renderedtokens;
 	},
 
 	'appendstat' : function(token)

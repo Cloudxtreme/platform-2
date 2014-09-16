@@ -183,7 +183,7 @@
 
 #inboxlist .list a { color: black; }
 
-#inboxlist .list div.pull-right	{ margin-left: 10px; position: relative; position: absolute; height: 83%; right: 8px;}
+#inboxlist .list .specs.pull-right	{ margin-left: 10px; position: relative; position: absolute; height: 83%; right: 8px;}
 
 #inboxlist .list .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
@@ -461,6 +461,7 @@
 
 #inboxlist .messagelist .note .message-actions{
 	padding: 5px 18px;
+	min-height: 31px;
 }
 
 .inbox-container .single-contact{

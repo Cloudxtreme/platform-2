@@ -57,8 +57,8 @@ Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
 	},
 
 	'postnotes' : function(text)
-	{
-		this.model.save({'text': text}, {patch: this.model.id? true: false, success: this.thanks? this.thankyou.bind(this): this.trigger.bind(this,'save:success')});
+	{	
+		this.model.save({'text': text}, {patch: this.model.id? true: false, success: this.thanks? this.thankyou.bind(this): this.saved.bind(this)});
 	},
 
 	'postmessages' : function(text)
@@ -76,6 +76,13 @@ Cloudwalkers.Views.SimpleCompose = Backbone.View.extend({
 			this.$el.find('button.close').click();
 			this.remove();
 		}		
+	},
+
+	'saved' : function()
+	{	
+		setTimeout(function(){
+			this.trigger('save:success');
+		}.bind(this), 200)
 	},
 
 	'thankyou' : function()
