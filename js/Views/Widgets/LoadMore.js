@@ -20,7 +20,12 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 
 	'render' : function()
 	{	
-		this.$el.html(Mustache.render(Templates.loadmore));
+		param = {};
+
+		//Mustache Translate Render
+		this.mustacheTranslateRender(param);
+
+		this.$el.html(Mustache.render(Templates.loadmore, param));
 
 		this.$container = this.$el.find ('.load-more-wrap');
 		this.$loadercontainer = this.$el.find ('.load-more-wrap');
@@ -38,6 +43,28 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 
 		var maxheight = this.parentcontainer.outerHeight();
 		this.parentcontainer.css('max-height', maxheight);
+	},
+
+	'translateString' : function(translatedata)
+	{	
+		// Translate String
+		return Cloudwalkers.Session.polyglot.t(translatedata);
+	},
+
+	'mustacheTranslateRender' : function(translatelocation)
+	{
+		// Translate array
+		this.original  = [
+			"load_more"
+		];
+
+		this.translated = [];
+
+		for(k in this.original)
+		{
+			this.translated[k] = this.translateString(this.original[k]);
+			translatelocation["translate_" + this.original[k]] = this.translated[k];
+		}
 	}
 
 });
