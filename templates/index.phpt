@@ -26,6 +26,7 @@
 
 		<link href="<?php echo BASE_URL; ?>assets/css/cloudwalkers.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/plugins/lightbox/css/lightbox.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/plugins/colorbox-master/colorbox.css" rel="stylesheet" type="text/css" />
 
 		<!-- END GLOBAL MANDATORY STYLES -->
 		<!-- BEGIN PAGE LEVEL STYLES --> 

@@ -16,7 +16,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{
 		'remove' : 'destroy',
 		'click [data-notifications]' : 'loadNotifications',
-		'click [data-youtube]' : 'loadYoutube',
+		//'click [data-youtube]' : 'loadYoutube',
 		'click *[data-action]' : 'action',
 		'click' : 'toggle',
 	},
@@ -90,6 +90,8 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.model.attributes.failed = 'failed';
 		}
 		
+		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+
 		return this;
 	},
 
@@ -477,7 +479,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 	
 	'loadYoutube' : function ()
-	{		
+	{	
 		// Get container
 		var $container = this.$el.find(".timeline-video").eq(0);
 		var url = $container.data("youtube");

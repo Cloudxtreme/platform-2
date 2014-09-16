@@ -97,7 +97,7 @@
 				{{/attached.image}}
 				
 				{{#attached.video}}
-					<div class="media-sphere timeline-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+					<div class="media-sphere youtube-video inactive" href="{{url}}?rel=0&amp;wmode=transparent" style="background-image: url({{image}});"></div>
 				{{/attached.video}}
 
 				<div class="clearfix"></div>

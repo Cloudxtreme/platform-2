@@ -75,6 +75,8 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		// Mark as read
 		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 
+		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+
 		return this;
 	},
 

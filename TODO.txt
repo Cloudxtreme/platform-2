@@ -5,6 +5,7 @@
 
 Implement a general error logger;
 Update boostrap 2 to bootstrap 3;
+Update font-awesome to 4.2;
 Cleanup, regroup & rewrite all the css;
 Come up with a unified & sexy design solution for the whole platform (keep ux in mind);
 Fix Statistics;
