@@ -699,6 +699,10 @@ tbody.messages-container i	{
 	display: inline-block;
 }
 
+#keywordfilter-actions.message-actions .actions-right > div{
+	display: block;
+}
+
 .inbox-container .message-actions .actions-left div,
 .timeline-entry .message-actions .actions-left div {
 	top: 0px !important;
