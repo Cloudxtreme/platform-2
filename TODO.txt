@@ -21,3 +21,4 @@ Reimplement working dashboard;
 Remove unused templates, views, models & collections;
 Implement unit testing (frontend) with new relic;
 Re-organize the project files and structure according to superadmin;
+Map the features into groups and pages for better testing.
