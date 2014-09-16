@@ -1,0 +1,22 @@
+
+/*************** TODO LIST *****************/
+/*** (This should be sorted by priority) ***/
+
+
+Implement a general error logger;
+Update boostrap 2 to bootstrap 3;
+Cleanup, regroup & rewrite all the css;
+Come up with a unified & sexy design solution for the whole platform (keep ux in mind);
+Fix Statistics;
+Rewrite the oembed plugin to only render og or metadata;
+Clean unused headers from the models & collections;
+Cleanup all the Hacks, deprecated code (ie: .net shit) & review it;
+Remove old report entries;
+Remove localstore;
+Replace localstorage with indexdb;
+Rethink and reimplement ping to work with the indexdb logic;
+Reimplement some sort of Resync (version/account checker & data refresher);
+Reimplement working dashboard;
+Remove unused templates, views, models & collections;
+Implement unit testing (frontend) with new relic;
+Re-organize the project files and structure according to superadmin;
