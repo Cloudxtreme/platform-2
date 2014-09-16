@@ -90,7 +90,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 			this.model.attributes.failed = 'failed';
 		}
 		
-		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
 
 		return this;
 	},

@@ -2943,4 +2943,8 @@ Dashboard stats
 	background-color: #333 !important;
 	opacity: 0.7 !important;
 }
+
+#cboxOverlay{
+	background: #333 !important;
+}
 /* Lightbox override */
