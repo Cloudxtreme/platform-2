@@ -59,11 +59,14 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 					this.compounds.push(compound[0].compound)
 
 			if(this.selected){
-				if(compound && compound[0].token == this.selected)
+				if(compound && (compound[0].token == this.selected))
 					inactive = 'inactive';
 
 				else if(!compound && actions[n].token == this.selected)
 					inactive = 'inactive';
+
+				else
+					inactive = false;
 			}
 
 			var action = new Cloudwalkers.Views.Action({action: compound || actions[n], inactive: inactive})
