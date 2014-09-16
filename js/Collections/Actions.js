@@ -70,19 +70,25 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'rendertokens' : function (tokens)
 	{	
 		var action;
+		var renderedtokens = [];
 		var stats = this.parent.get("stats");
 
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 
-		return tokens.map(function(token)
-			{
-				action = this.templates[token];
+		for(n in tokens)
+		{	
+			token = tokens[n];
+			action = this.templates[token];
 
-				if(stats)	action = this.appendstat(token);
-				return action;
+			if(!action)	continue;
 
-			}.bind(this));
+			if(stats)	action = this.appendstat(token);
+			
+			renderedtokens.push(action);
+		}
+		
+		return renderedtokens;
 	},
 
 	'appendstat' : function(token)

@@ -1891,7 +1891,7 @@ counter	{
 }
 
 .inbox-container .message-actions,
-#monitorparent .message-actions	{ clear: both; padding: 5px 18px; min-height: 31px;}
+#monitorparent .message-actions	{ clear: both; padding: 5px 18px; min-height: 28px;}
 
 .inbox-container .message-actions > div,
 #monitorparent .message-actions.pull-right > div		{
