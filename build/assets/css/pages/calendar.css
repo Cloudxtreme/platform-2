@@ -277,3 +277,15 @@ margin-left: 0px !important;
 #calendar .mobile .fc-content {
 margin-top: 53px;
 }
+#calendar .calendar-more{
+  background-color: #fff;
+}
+#calendar .calendar-more .fc-event-time, #calendar .calendar-more .fc-event-title{
+  color: #000;
+}
+#calendar .fc-view-agendaDay .calendar-more{
+  display: none;
+}
+.container-fluid.calendar .pull-right{
+  text-transform: capitalize;
+}

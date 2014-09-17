@@ -37,11 +37,6 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		// For specific methods
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
@@ -188,7 +183,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	'offline' : function ()
 	{
 		Cloudwalkers.Session.reset();
-		//window.location = "/login.html";
+		window.location = "/login.html";
 		
 		// If Me exists local, use when offline.
 		// if (Store.exists("me")) this.trigger("change");

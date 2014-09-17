@@ -101,6 +101,7 @@ Cloudwalkers.Models.Note = Backbone.Model.extend({
 	                    
 	                // Hack
 					self.trigger ("destroy");
+					self.trigger ("destroyed");
 					//self.destroy();
 					//window.location.reload();
 	                    

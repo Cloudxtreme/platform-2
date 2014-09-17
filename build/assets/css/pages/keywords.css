@@ -9,7 +9,13 @@
 	display: inline-block;
 	font-size: 14px;
 	line-height: 20px;
+	cursor: default;
 }
+
+#keywordsfilter .demo_bubble:hover .demo_remove_filter{
+	opacity: 1;
+}
+
 #keywordsfilter #demo_plus{
 	padding: 2px 10px;
 }
@@ -37,6 +43,7 @@
 	border: 1px #d9edf7 solid;
 	display: inline-block;
 	margin-left: 5px;
+	cursor: pointer;
 }
 #keywordsfilter .demo_and {
 	background-color: #dff2dc;
@@ -62,6 +69,7 @@
 	background-color: #fff;
 	border: 1px #d9edf7 solid;
 	color: #31708f;
+	z-index: 1;
 }
 #keywordsfilter .demo_options li{
 	padding: 0 5px;
@@ -92,12 +100,15 @@
 	border-radius: 10px;
 	padding: 2px 5px;
 	margin-right: -6px;
+	cursor: pointer;
 }
 #keywordsfilter .demo_options input{
 	margin: 10px;
 }
 #keywordsfilter .sel_value {
 	margin-right: 5px;
+	min-width: 15px;
+	display: inline-block;
 }
 #keywordsfilter .demo_remove_filter{
 	border-radius: 10px;
@@ -119,4 +130,57 @@
 #keywordsfilter #countries{
 	max-height: 150px;
 	overflow-y: scroll;
+}
+#keywordsfilter .container-loading{
+	padding: 0px;
+	margin: 0;
+	width: 100%;
+	margin-bottom: -33px;
+}
+#keywordsfilter .input-symbol .chosen-container{
+	margin-bottom: 0px;
+	margin-top: -5px;
+	margin-bottom: -1px;
+}
+#keywordsfilter .input-symbol .chosen-container .chosen-drop{
+	min-width: 200px;
+	position: absolute;
+	border-radius: 10px;
+	padding: 2px 0;
+	margin: -3px 0 0 0;
+	background-color: #fff;
+	border: 1px #d9edf7 solid;
+	color: #31708f;
+}
+#keywordsfilter .input-symbol .chosen-container .chosen-single{
+	padding: 0px;
+	margin-right: -6px;
+}
+#keywordsfilter .input-symbol .chosen-container .chosen-single div b{
+	background: none;
+}
+#keywordsfilter .input-symbol .chosen-container .chosen-single div b:before {
+	background-color: #fff;
+	color: #31708f;
+	border-radius: 10px;
+	padding: 2px 5px;
+	margin-right: -6px;
+	font-family: FontAwesome;
+	content: "\F0DD";
+	font-weight: 400;
+}
+#keywordsfilter .input-symbol .chosen-container .chosen-single div b:hover:before {
+	background-color: #B4CDDA;
+	color: #31708f;
+	content: "\F0DD";
+}
+#keywordsfilter .input-symbol .chosen-container > *{
+	border: none;
+	background-image: none;
+	box-shadow: none;
+	color: #31708f;
+	font-size: 14px;
+}
+#keywordsfilter label, #keywordsfilter [data-keyword]{
+	cursor: default !important;
 }

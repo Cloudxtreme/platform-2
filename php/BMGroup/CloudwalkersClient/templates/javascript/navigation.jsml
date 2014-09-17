@@ -111,6 +111,14 @@
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_DRAFTS}}
+				{{#authorized.MESSAGE_READ_SCHEDULE}}
+				<li class="schedule">
+					<a href="#scheduled">
+						<i class="icon-time"></i> 
+						<span class="title">{{translate_scheduled}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_SCHEDULE}}
 				{{#authorized.ACCOUNT_NOTES_VIEW}}
 				<li class="notes">
 					<a href="#notes">
@@ -132,7 +140,7 @@
 		</li>
 	{{/inbox}}
 
-		{{#authorized.MESSAGE_READ_DRAFTS}}
+		<!--{{#authorized.MESSAGE_READ_DRAFTS}}
 		<li>
 			<a href="#outbox/sent">
 				<i class="icon-upload-alt"></i> 
@@ -166,7 +174,7 @@
 				</li>
 			</ul>
 		</li>
-		{{/authorized.MESSAGE_READ_DRAFTS}}
+		{{/authorized.MESSAGE_READ_DRAFTS}}-->
 		
 		<!-- Co-workers cloud -->
 		{{#authorized._CW_COWORKERS_VIEW}}
@@ -198,11 +206,11 @@
 						<span class="title">{{translate_media}}</span>
 						<span class="arrow"></span>
 					</a>
-					<ul class="sub-menu">
+					<!--<ul class="sub-menu">
 					{{#streams}}
 						<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
 					{{/streams}}
-					</ul>
+					</ul>-->
 				</li>
 				{{#authorized.MESSAGE_READ_THIRDPARTY}}
 				<li class="trending">
@@ -213,9 +221,9 @@
 					</a>
 			
 					<ul class="sub-menu">
-					{{#streams}}
+					<!--{{#streams}}
 						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}
+					{{/streams}}-->
 					</ul>
 				</li>
 				{{/authorized.MESSAGE_READ_THIRDPARTY}}

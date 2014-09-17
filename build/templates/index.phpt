@@ -23,7 +23,11 @@
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
 		<link href="<?php echo BASE_URL; ?>assets/plugins/Medium.js/medium.css" rel="stylesheet" type="text/css"/>
+
 		<link href="<?php echo BASE_URL; ?>assets/css/cloudwalkers.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/plugins/lightbox/css/lightbox.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/plugins/colorbox-master/colorbox.css" rel="stylesheet" type="text/css" />
+
 		<!-- END GLOBAL MANDATORY STYLES -->
 		<!-- BEGIN PAGE LEVEL STYLES --> 
 		<link href="<?php echo BASE_URL; ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -33,6 +37,7 @@
 		<link href="<?php echo BASE_URL; ?>assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" type="text/css" />
+
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/dashboard.css?v=2304923" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/inbox.css?v=2304923" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/timeline.css?v=2304923" rel="stylesheet" type="text/css" />
@@ -45,6 +50,8 @@
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/statistics.css?v=2304923" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/keywords.css?v=2304923" rel="stylesheet" type="text/css" />
 		<link href="<?php echo BASE_URL; ?>assets/css/pages/tags.css?v=2304923" rel="stylesheet" type="text/css" />
+		<link href="<?php echo BASE_URL; ?>assets/css/pages/rss.css?v=2304923" rel="stylesheet" type="text/css" />
+
 		
 		<link href="<?php echo BASE_URL; ?>assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 

@@ -130,12 +130,21 @@ Cloudwalkers.Views.Settings.Users = Backbone.View.extend({
 		
 		var data = {email: $('input[name=invite-email]').val()}
 		var url = Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
+
+		// Make the loading effect
+		this.$el.find('.users-invite').addClass('loading');
+		this.$el.find('.users-invite .btn').attr('disabled', true);
 		
 		var user = new Cloudwalkers.Models.User(data);
 		
 		user.once('sync', function(response)
 		{
 			Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
+
+			// remove the loading effect
+			this.$el.find('input[name=invite-email]').val('');
+			this.$el.find('.users-invite').removeClass('loading');
+			this.$el.find('.users-invite .btn').attr('disabled', false);
 			
 		}.bind(this)).save();
 	},

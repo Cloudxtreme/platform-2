@@ -41,11 +41,6 @@
 	
 	'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		if(method == "read")
 		{
 			this.processing = true;

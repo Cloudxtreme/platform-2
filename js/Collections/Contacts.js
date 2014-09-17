@@ -44,13 +44,7 @@ Cloudwalkers.Collections.Contacts = Cloudwalkers.Collections.Users.extend({
 	},
 	    
     'sync' : function (method, model, options)
-	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
-		
+	{	
 		if(method == "read")	this.processing = true;
 		if(options.parameters)	this.parameters = options.parameters;
 		if(!options.following)	this.following = false;

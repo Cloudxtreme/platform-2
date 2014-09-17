@@ -12,6 +12,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'note_view' : {name: "Note", icon: 'edit', token: 'note', type: 'note', compound: 'note', valuetag: 'notes', hidemetoken: 'hidden'}, //I was desperate
 		'note_manage' : {name: "Add note", icon: 'edit', token: 'note', type: 'note', compound: 'note'},
 		'tag' : {name: "tag", icon: 'edit', token: 'tag', type: 'tag'},
+		'resend' : {name: "Resend", icon: 'arrow-up', token: 'resend', type: 'write'},
 		
 		// Hack!
 		'reply' : {name: "Reply", icon: 'comments-alt', token: 'reply', type: 'write', clone: true, parameters: [{"token":"message","name":"Message", type:"string", required:false, value:"@{{from.name}} "}]},
@@ -23,7 +24,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options', valuetag: 'retweets'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike', valuetag: 'likes'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
-		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite'},
+		'favorite' : {name: "Favorite", icon: 'star', token: 'favorite', type: 'options', toggle: 'unfavorite', valuetag: 'favourites'},
 		'unfavorite' : {name: "Unfavorite", icon: 'star-empty', token: 'unfavorite', type: 'growl', toggle: 'favorite', actiontype: 'favorite'},
 		'plusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'plusone', type: 'options', toggle: 'unplusone'},
 		'unplusone' : {name: "Unfavorite", icon: 'google-plus-sign', token: 'unplusone', type: 'growl', toggle: 'plusone', actiontype: 'plusone'}
@@ -47,8 +48,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		if(options) $.extend(this, options);
 	
 		// Listen to action
-		this.listenTo( this.parent, "action", this.startaction);
-		
+		this.listenTo( this.parent, "action", this.startaction);		
 	},
 	
 	'parse' : function(data)
@@ -68,28 +68,41 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	
 	'rendertokens' : function (tokens)
 	{	
+		var action;
+		var renderedtokens = [];
 		var stats = this.parent.get("stats");
 
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 
-		return tokens.map(function(token)
-			{
-				if(stats)	this.appendstat(token);
-				return this.templates[token]
+		for(n in tokens)
+		{	
+			token = tokens[n];
+			action = this.templates[token];
 
-			}.bind(this));
+			if(!action)	continue;
+
+			if(stats)	action = this.appendstat(token);
+			
+			renderedtokens.push(action);
+		}
+		
+		return renderedtokens;
 	},
 
 	'appendstat' : function(token)
 	{	
 		if(!this.templates[token])	return;
 
+		var action = {};
 		var valuetag = this.templates[token].valuetag || null;
+
+		$.extend(action, this.templates[token]);
 		
 		if(valuetag && this.parent.get("stats").hasOwnProperty(valuetag))
-			this.templates[token].value = this.parent.get("stats")[valuetag];
+			action.value = this.parent.get("stats")[valuetag];
 
+		return action;
 	},
 	
 	'startaction' : function (token)
@@ -125,7 +138,10 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		else if (action.type == 'edit')	var params = {model: this.parent};
 		else							var params = {reference: this.parent, action: new Cloudwalkers.Models.Action(action)} 
 		
-		Cloudwalkers.RootView.compose(params);
+		var compose = Cloudwalkers.RootView.compose(params);
+
+		//Uncomment when CLOUD-793 is fixed
+		//this.listenTo(compose, 'action:success', function(a){this.parent.updateactions(a)}.bind(this));
 
 		return;
 

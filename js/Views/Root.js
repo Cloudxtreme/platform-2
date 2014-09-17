@@ -141,6 +141,8 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 		var view = new Cloudwalkers.Views.Compose(options);
 		
 		view.render().$el.modal({backdrop: 'static'});
+
+		return view;
 	},
 
 	'viewContact' : function(contact)
@@ -158,7 +160,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 			'id' : "compose",
 			'className' : "modal hide note",
 			'thanks' : true,
-			'model' : model //context -> message, contact, account
+			'parent' : model //context -> message, contact, account
 		}
 
 		var view = new Cloudwalkers.Views.SimpleCompose(options);

@@ -23,7 +23,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 			this.action.noresults = 'noresults';
 		else
 			this.action.noresults = false;
-
+		
 		this.$el.html(Mustache.render(Templates[this.template], this.action));
 		
 		return this;
@@ -54,6 +54,7 @@ Cloudwalkers.Views.Action = Backbone.View.extend({
 	{
 		if(_.isArray(this.action) && this.action[0].type == 'note')		this.position = 'right';
 		else if(this.action.type == 'note')								this.position = 'right';
+		else if(this.action.token == 'delete')							this.position = 'right';
 	},
 
 	'increment' : function()

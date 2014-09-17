@@ -172,11 +172,6 @@ Backbone.Model = Backbone.Model.extend({
     
     'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -259,11 +254,6 @@ Backbone.Collection = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		return Backbone.sync(method, model, options);
 	},
 	
@@ -271,7 +261,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Without paging, it's a models call (ignore)
 		if(!paging) return false;
-	
+		
 		this.cursor = paging.cursors? paging.cursors.after: false;
 	},
 	
@@ -302,12 +292,15 @@ Backbone.Collection = Backbone.Collection.extend({
 		var model = this.updates([id]);
 	},
 	
-	'touch' : function(model, params)
+	// seedparameters: parameters for the second fecth(ids)
+	'touch' : function(model, params, seedparameters)
 	{	
 		// Work data
 		this.parentmodel = model;
 		this.endpoint = this.modelstring + "ids";
 		this.parameters = params;
+
+		this.seedparameters = seedparameters;
 
 		// Check for history (within ping lifetime), temp disabled
 		// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
@@ -422,6 +415,9 @@ Backbone.Collection = Backbone.Collection.extend({
 		{
 			this.endpoint = this.parentmodel? this.typestring: null;
 			this.parameters = {ids: fresh.join(",")};
+
+			if(this.seedparameters)
+				$.extend(this.parameters, this.seedparameters);
 			
 			this.fetch({remove: false});
 		}

@@ -48,7 +48,7 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		if(recycle)
 			this.stopListening(this.collection);
 
-		//this.listenTo(this.collection, 'request', this.hideloading)
+		this.listenTo(this.collection, 'request', this.showloading)
 		this.listenTo(this.collection, 'seed', this.fill);
 		this.listenTo(this.collection, 'sync', this.paginate);
 		this.listenTo(this.collection, 'ready', this.showmore);
@@ -441,6 +441,11 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 	},
 
+	'showloading' : function()
+	{
+		this.$el.find(".load-more").hide();
+	},
+
 	'showmore' : function(){
 
 		setTimeout(function()
@@ -452,6 +457,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 
 			var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.collection, parentcontainer: this.$container});
 			this.$el.find('#loadmore').html(load.render().el)
+
+			this.loadmore = load;
 
 		}.bind(this),200)
 	},
@@ -497,6 +504,8 @@ Cloudwalkers.Views.ViewContact = Backbone.View.extend({
 		this.incremental = true;
 		
 		if(!this.collection.cursor) return false;
+
+		this.loadmore.loadmylisteners();
 
 		var parameters = {after: this.collection.cursor};
 		

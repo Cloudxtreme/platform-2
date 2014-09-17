@@ -15,7 +15,7 @@
 	{{/authorized.ACCOUNT_NOTES_MANAGE}}
 	{{#user}}
 		{{#date}}
-			<div class="comment-info pull-right">{{date}}</div>
+			<div class="comment-info pull-right">{{fulldate}}</div>
 		{{/date}}
 	{{/user}}
 </div>

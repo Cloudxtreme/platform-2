@@ -7,7 +7,11 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		/*'submit .edit-user-avatar' : 'editUserAvatar',*/ 
 		'click #add-file' : 'addfile',
 		'change input[type=file]' : 'listentofile',
-		'click #upload-file' : 'uploadfile'
+		'click #upload-file' : 'uploadfile',
+
+		'change select' : 'enablereset',
+		'keydown input' : 'enablereset',
+		'click [type=reset]' : 'disablereset'
 	},
 
 	'class' : 'section',
@@ -61,10 +65,17 @@ Cloudwalkers.Views.Settings.Profile = Backbone.View.extend({
 		}.bind(this), 
 		error: function(){
 			Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
-
-			// Hack
-			window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+			
 		}.bind(this)});
+	},
+
+	'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+
+	'disablereset' : function(e)
+	{ 
+		$(e.currentTarget).closest('form').get(0).reset();
+
+		this.$el.find('[type=reset]').attr('disabled', true);
 	},
 	
 	/**

@@ -21,8 +21,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.scheduled = Cloudwalkers.Session.getStream("scheduled");
 		
 
-		// to-do: this.drafts = Cloudwalkers.Session.getStream("draft");
-
 		// Emergency break
 		if (!this.posted) return Cloudwalkers.Session.home();
 
@@ -30,19 +28,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.translateTitle("calendar");
 		
 		// Listen for changes
-		//this.listenTo(this.model, 'outdated', this.model.fetch);
 		this.listenTo(this.posted, 'sync', this.render);
-		//this.listenTo(this.scheduled, 'sync', this.render);
-		//this.listenTo(this.model.messages, 'seed', this.fill);
-		//this.listenTo(this.model.messages, 'request', this.showloading);
-		
-		// to-do: this.listenTo(this.drafts, 'sync', this.render);
-		// to-do: this.listenTo(this.drafts.messages, 'seed', this.filldrafts);
-		// to-do: this.listenTo(this.drafts.messages, 'request', this.showloading);
-		
-		//this.model.messages.on("all", function(call){ console.log(call); })
-
-		this.totals = [];
 
 	},
 	
@@ -60,14 +46,15 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// Add filter widget
 		var filter = new Cloudwalkers.Views.Widgets.CalendarFilters ({model: this.posted, calview: this});
 		this.appendWidget(filter, 3);
-		
-		
+
 		// Statistics
-		/*var view = new Cloudwalkers.Views.Widgets.CalSummary ({calview: this});
-		
+		var view = new Cloudwalkers.Views.Widgets.CalSummary ({calview: this});
+
 		this.views.push(view);
 		this.appendWidget(view, 9);
-		*/
+		
+		this.CalSummary = view;			
+
 		// Chosen
 		this.$el.find("select").chosen({width: "200px", disable_search_threshold: 10, inherit_select_classes: true});
 		
@@ -76,10 +63,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 		// Reset Loader counter
 		this.loaderswitch = [];
+
 		return this;
 	},
-	
-	
 
 	'populate' : function (from, to, timezone, callback, dayview)
 	{
@@ -93,7 +79,6 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				from = from.startOf('month');
 
 			to = (to.endOf('month').subtract(1, 'month')).endOf('month');
-			m_item = from.date()-1;
 		} else {
 			this.parameters.records = 50;
 			$('#calendar').fullCalendar( 'removeEvents', function(event) {
@@ -107,12 +92,12 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		// Display top
 		this.datedisplay(from, to);
 		
+		if(!dayview)
+			this.CalSummary.getTotal(from, to);
 		// Listen to
-		this.listenTo(this.posted.messages, 'seed', this.hasmore);
 		this.listenTo(this.posted.messages, 'sync', this.fill.bind(this, callback));
 		
-		
-
+		// cycle day by day
 		while(m_item < to.date()){
 			if(!dayview){
 				var metafrom = moment(from).add(m_item, 'days');
@@ -125,20 +110,11 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
-			// Touch
+			// Touch the day
 			this.posted.messages.touch(this.posted, this.parameters);
 
 			m_item++;
 		}	
-	},
-
-	'hasmore' : function(list){
-		/*
-		console.log("hasmore? ", list)
-		
-		if(list.paging.cursors)
-			console.log("alright")
-		*/
 	},
 
 	'populate_scheduled' : function (from, to, timezone, callback, dayview)
@@ -167,11 +143,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		this.datedisplay(from, to);
 		
 		// Listen to
-		this.listenTo(this.scheduled.messages, 'seed', this.hasmore);
 		this.listenTo(this.scheduled.messages, 'sync', this.fill.bind(this, callback));
 		
-		
-
+		// cycle day by day
 		while(m_item < to.date()){
 			if(!dayview){
 				var metafrom = moment(from).add(m_item, 'days');
@@ -184,7 +158,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 
 			$.extend(this.parameters, {since: metafrom.unix(), until: metato.unix()})
 
-			// Touch
+			// Touch the day
 			this.scheduled.messages.touch(this.scheduled, this.parameters);
 
 			m_item++;
@@ -215,7 +189,8 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'fill' : function (callback, collection, metaform)
-	{	
+	{
+
 		if(!collection.models[0])
 			return;
 
@@ -232,50 +207,50 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		
 		if(!collection)	return callback(nodes);
 
-		/*for (n in collection.models)
-		{
-			//console.log(collection.models[n].filterCalReadable().calNode)
-			//nodes.push(collection.models[n].filterCalReadable().calNode);
-			this.renderCalendarEvent(collection.models[n].filterCalReadable().calNode)
-		}*/
-
 		for (n in collection.models)
 		{
 			nodes.push(collection.models[n].filterCalReadable().calNode);
-			this.totals.push(collection.models[n].filterCalReadable().calNode);
 		}
 
 		// Add more
-		if((nodes.length > 0) && (nodes[0].networkdescription != "Scheduled messages") && (nodes[0].networkdescription) && (this.parameters.records == 5)){
-			
-			//console.log(collection)
-						
-			// hack
-			hasmore = true;
-			
-			if(hasmore){
-				nodes.push({
-					className: "calendar-more",
-					icon: "plus",
-					id: 0000,
-					allDay: false,
-					title: this.translateString("view_more"),
-					start: moment(nodes[0].start).hours('23').minutes('59'),
-				});
-			}
-		}
+		if((nodes.length > 0) && (nodes[0].networkdescription)){
 
-		if(nodes.length > 0)
-			this.renderCalendarEvent(nodes)
+				if((this.parameters.records == 5) && (nodes[0].networkdescription != "Scheduled messages")){
+					// it's not a scheduled messages stream, let's see if it has more messages
+					stream.fetch({endpoint: 'messageids', parameters: fillparameters, success: this.validateViewmore.bind(this, nodes, this.scheduled, this.posted)});
+				} else {
+					// render the events of this day
+					this.renderDayEvents(nodes)
+				}
+		} 
 
+		// let's clean
 		if(this.scheduled)
 			this.scheduled.messages.destroy();
+
 		if(this.posted)
 			this.posted.messages.destroy();
 
 	},
 
-	'renderCalendarEvent' : function(eventData){
+	'validateViewmore' : function(nodes, scheduled, posted, result){
+		// if there's paging, add "view more" event
+		if(result.attributes.paging.cursors.after){
+			nodes.push({
+				className: "calendar-more",
+				icon: "plus",
+				id: 0000,
+				allDay: false,
+				title: this.translateString("view_more"),
+				start: moment(nodes[0].start).hours('23').minutes('59'),
+			});
+		}
+		//render the events
+		this.renderDayEvents(nodes)
+	},
+
+	'renderDayEvents' : function(eventData){
+		// render each event of this day
 		for (eventNr in eventData)
 		{
 			if(eventData[eventNr].title == "...")
@@ -298,24 +273,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 		}
 		this.loader('off','off');
 	},
-	
-	'updatenode' : function (model, date)
-	{
-		$('#calendar').fullCalendar( 'updateEvent', model.filterCalReadable().calNode)
-		$('#calendar').fullCalendar( 'updateEvent', scheduled.filterCalReadable().calNode)
-	},
-	
-	'filldrafts' : function (list)
-	{		
 		
-		$('#drafts-list').html("");
-		
-		for (n in list)
-		{
-			this.addDraft("Draft message ("+ list[n].id +")");
-		}
-	},
-	
 	'toggleView' : function (e)
 	{	
 		// Store view span
@@ -334,19 +292,10 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 	
 	'prev' : function () {
 		$('#calendar').fullCalendar('prev');
-		if(this.scheduled)
-			this.scheduled.messages.destroy();
-		if(this.posted)
-			this.posted.messages.destroy();
-
 	},
 	
 	'next' : function () {
 		$('#calendar').fullCalendar('next');
-		if(this.scheduled)
-			this.scheduled.messages.destroy();
-		if(this.posted)
-			this.posted.messages.destroy();
 	},
 	
 	'now' : function () {
@@ -393,7 +342,7 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				event.rendered = true;
 
 			},
-			// click on view more
+			// click on "view more" to go to day view
 			eventClick: function(calEvent, jsEvent, view) {
 				if(calEvent.className[0] == "calendar-more"){
 					var toDate = new Date(calEvent.start);
@@ -414,53 +363,9 @@ Cloudwalkers.Views.Calendar = Cloudwalkers.Views.Pageview.extend({
 				}
 			}.bind(this)
 			
-			/*drop: function (date, allDay) { // this function is called when something is dropped
-			
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
-				
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
-				copiedEventObject.className = $(this).attr("data-class");
-				
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-				
-				$(this).remove();
-			},*/
 		});
 	},
 	
-	'addDraft' : function (title)
-	{
-		
-		title = title.length == 0 ? "Untitled Event" : title;
-		var html = $('<div class="external-event label">' + title + '</div>');
-		$('#drafts-list').append(html);
-		this.initDrag(html);
-	},
-	
-	'initDrag' : function (el)
-	{
-		// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-		// it doesn't need to have a start or end
-		var eventObject = {
-			title: $.trim(el.text()) // use the element's text as the event title
-		};
-		// store the Event Object in the DOM element so we can get to it later
-		el.data('eventObject', eventObject);
-		// make the event draggable using jQuery UI
-		el.draggable({
-			zIndex: 999,
-			revert: true, // will cause the event to go back to its
-			revertDuration: 0 //  original position after the drag
-		});
-	},
-
 	'loader' : function(a,b){
 		
 		if(a){ this.loaderswitch.a = a; }

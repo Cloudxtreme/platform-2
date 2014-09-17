@@ -1,43 +1,36 @@
 <div class="timeline-bg"></div>
 	
-<div class="filterbanner" id="timeline-filters">
-	<span class="caption">{{translate_filters}}:</span>
-	{{#networks}}
-		<div class="social-icon-colors btn white active filter" data-network-streams="{{ids}}">
-			<i class="icon-{{icon}}"></i>
-		</div>
-	{{/networks}}
+<div class="filterbanner filter network-list social-icon-colors" id="timeline-filters">
+	<section id="timeline-filters-section">
+		<div class="filter-bg">
+			<span class="caption">{{translate_filters}}:</span>
 
-	<li class="toggleall networks inactive">{{translate_select_all}}</li>
+			{{#networks}}
+				<div class="btn-white filter" data-networks="{{ids}}">
+					<i class="icon-{{icon}}"></i>
+				</div>
+			{{/networks}}
+			{{^networks}}
+				<span class="loadingafter"></span>
+			{{/networks}}
+
+			<div class="btn-white pull-right" data-toggle="streams">
+				{{translate_more}}
+			</div>
+			<!--<li class="toggleall networks inactive">{{translate_select_all}}</li>-->
+		</div>
+
+		<div id="filter_streams" class="clearfix" style="display: none;">	
+			<ul class="social-icon-colors">
+				{{#streams}}
+					<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
+				{{/streams}}
+				</ul>
+			<li class="toggleall inactive">{{translate_select_all}}</li>
+		</div>
+
+	</section>
 	
 </div>
 
-<ul class="timeline social-box-colors messages-container" id='pages'>
-	
-	<li class="timeline-blue timeline-loading">
-		<div class="timeline-time"></div>
-		<div class="timeline-icon entry-loading"></div>
-		<div class="timeline-body more">
-			<span>{{translate_loading}}...</span>
-		</div>
-	</li>
-	
-	<li class="timeline-grey load-more">
-		<div class="timeline-info"></div>
-		<div class="timeline-icon"><i class="icon-chevron-down"></i></div>
-		<div class="timeline-body more">
-			<span>{{translate_view_more}}</span>
-		</div>
-	</li>
-	
-	<li class="timeline-grey no-content">
-		<div class="timeline-time">
-			<span class="date"></span>
-			<span class="time"></span>
-		</div>
-		<div class="timeline-icon"><i class="icon-adjust"></i></div>
-		<div class="timeline-body more">
-			<strong>{{translate_no_messages}}</strong>
-		</div>
-	</li>
-</ul>
+<ul class="timeline social-box-colors messages-container" id='pages'></ul>

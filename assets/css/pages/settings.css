@@ -709,3 +709,9 @@ cursor: pointer;
   padding: 10px;
   width: 42px;
 }
+
+/* Overriding some rule*/
+.users-invite [name=invite-email]{
+  height: inherit !important;
+  width: inherit !important;
+}

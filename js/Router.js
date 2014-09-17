@@ -222,7 +222,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 		var type =  channelid == profiles? 'company' : 'thirdparty';
 		var showcontact = type == 'thirdparty';
-
+		
 		var view =new Cloudwalkers.Views.Timeline({model: model, showcontact: showcontact, parameters: {records: 40, markasread: true}})
 		var roles = type == 'MESSAGE_READ_'+type.toUpperCase();
 
