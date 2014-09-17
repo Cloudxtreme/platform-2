@@ -533,6 +533,10 @@ tbody.messages-container i	{
 	padding: 10px 8px;
 }
 
+#monitorparent #monitorlist .message-notes .note-list .note-body{
+	padding: 12px;
+}
+
 #monitorparent .action-list{
 	background-color: #fff;
 }
@@ -668,7 +672,7 @@ tbody.messages-container i	{
 }
 
 #monitorparent .message-notes ul.action-list li .modal-footer{
-	margin: 10px -18px -15px -18px;
+	margin: 10px -12px -15px -12px;
 }
 
 .message-notes ul li .note-body{

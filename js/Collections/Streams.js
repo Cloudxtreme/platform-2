@@ -26,6 +26,11 @@ Cloudwalkers.Collections.Streams = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options) {
 		
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		/*// Store Local - deprecated
 		if( method == "read")
 			Store.get(this.url(), null, function(data)

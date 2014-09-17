@@ -31,7 +31,12 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{		
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.longurl = options.q;
 		this.campaign = options.campaign;
 

@@ -75,7 +75,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{		
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -87,14 +92,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	'updatecollection' : function(collection)
 	{
 		collection.updated = true;
-	},
-
-	'updateactions' : function(response)
-	{
-		var attributes = response.get("actionresult")? response.get("actionresult").models.update[0]: null;
-
-		if(attributes)
-			$.extend(this.attributes, attributes);
 	},
 
 	/* Validations */

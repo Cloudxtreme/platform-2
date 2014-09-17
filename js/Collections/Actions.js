@@ -48,7 +48,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		if(options) $.extend(this, options);
 	
 		// Listen to action
-		this.listenTo( this.parent, "action", this.startaction);		
+		this.listenTo( this.parent, "action", this.startaction);
+		
 	},
 	
 	'parse' : function(data)
@@ -138,10 +139,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		else if (action.type == 'edit')	var params = {model: this.parent};
 		else							var params = {reference: this.parent, action: new Cloudwalkers.Models.Action(action)} 
 		
-		var compose = Cloudwalkers.RootView.compose(params);
-
-		//Uncomment when CLOUD-793 is fixed
-		//this.listenTo(compose, 'action:success', function(a){this.parent.updateactions(a)}.bind(this));
+		Cloudwalkers.RootView.compose(params);
 
 		return;
 

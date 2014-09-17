@@ -31,7 +31,12 @@ Cloudwalkers.Collections.Services = Backbone.Collection.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{		
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 		
 		return Backbone.sync(method, model, options);
