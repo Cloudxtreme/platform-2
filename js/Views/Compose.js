@@ -1623,7 +1623,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function(action)
+	'thankyou' : function(action, response)
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1656,8 +1656,11 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			else this.model.fetch()	
 		}
 		
-		if(this.type == "post")
+		else if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
+
+		else
+			this.trigger("action:success", response);
 
 		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
 	},
