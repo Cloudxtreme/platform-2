@@ -49,12 +49,7 @@ Cloudwalkers.Models.Channel = Backbone.Model.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
+	{		
 		if(method == "read")
 		{
 			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
