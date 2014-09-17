@@ -32,6 +32,12 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'seed', this.fill);
 		//this.listenTo(this.collection, 'request', this.showloading);
 		//this.listenTo(this.collection, 'sync', this.hideloading);
+
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(this.model.get("type"));
+		
+		if (settings.streams)
+			this.filters = {streams : settings.streams};
 	},
 	
 	/*'showloading': function()
@@ -60,9 +66,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 	
 	'render' : function ()
 	{	
-		// Template data
 		var param = {streams: [], networks: []};
-		this.filters.streams = [];
 
 		// Type of timeline (news or company accounts)
 		if(this.model.get('type') == 'news')	this.rendernews(param);
@@ -73,7 +77,7 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 
 		this.$el.html (Mustache.render (Templates.timeline, param));
 
-		// Set selected streams --> Need memory cloth array, to finish implementation
+		// Set selected streams
 		if (this.filters.streams.length)
 		{
 			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");			
@@ -196,6 +200,12 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find('.filter-bg .loadingafter').remove();
 		this.newsloaded = true;
 		
+		// Set selected streams
+		if (this.filters.streams.length)
+		{
+			this.$el.find("[data-streams], [data-networks], .toggleall").toggleClass("inactive active");			
+			this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
+		}
 	},
 
 	'filternetworks' : function (e, all)
@@ -224,6 +234,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		// Fetch filtered messages
 		this.reload();
+
+		// Update memorycloth
+		this.storeview();
 
 		return this;
 	},
@@ -255,6 +268,9 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		// Fetch filtered messages
 		this.reload();
 		
+		// Update memorycloth
+		this.storeview();
+
 		return this;
 	},
 		
@@ -399,6 +415,23 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 		// Toggle select button
 		this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
+	},
+
+	'storeview' : function ()
+	{	
+		
+		// Memory cloth
+		var settings = Cloudwalkers.Session.viewsettings(this.model.get("type"));
+		
+		if(!settings)	return;
+		if(!settings.streams) settings.streams = [];
+		
+		// And store
+		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
+		{
+			settings.streams = this.filters.streams;
+			Cloudwalkers.Session.viewsettings(this.model.get("type"), settings);
+		}
 	},
 
 	'more' : function ()

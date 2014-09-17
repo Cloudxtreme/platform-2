@@ -94,6 +94,14 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		collection.updated = true;
 	},
 
+	'updateactions' : function(response)
+	{
+		var attributes = response.get("actionresult")? response.get("actionresult").models.update[0]: null;
+
+		if(attributes)
+			$.extend(this.attributes, attributes);
+	},
+
 	/* Validations */
 	'validateCustom' : function (ignorelist)
 	{	
