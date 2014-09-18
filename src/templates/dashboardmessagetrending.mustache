@@ -1,22 +1,22 @@
-<td onclick="document.location='#trending/{{channel}}/0/{{#stream}}{{id}}{{/stream}}/{{id}}';" class="clickable">
+<td onclick="document.location="#trending/{{channel}}/0/{{#stream}}{{id}}{{/stream}}/{{id}}";" class="clickable">
 
 	<ul>
 
 		<li>
 			{{#stream}}
-				<div class='icon'>
+				<div class="icon">
 					<i class="icon-{{network.icon}}"></i>
 				</div>
 			{{/stream}}
 
 			{{#from}}{{name}}{{/from}}
 			
-			<span class='right engagement count-{{engagement}}'>
+			<span class="right engagement count-{{engagement}}">
 				{{engagement}}
 			</span>
 		</li>
 
-		<li class='clear'>
+		<li class="clear">
 			
 			<!--<small>
 				Followed by <strong>{{#stream}}{{customname}}{{/stream}}</strong>,
@@ -50,9 +50,9 @@
 		</li>
 
 		<li>
-			<span class='actions icon-right dropdown'>
+			<span class="actions icon-right dropdown">
 
-				<i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
+				<i class="icon-share dropdown-toggle" data-toggle="dropdown"></i>
 
 				<ul class="dropdown-menu">
 

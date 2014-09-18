@@ -10,7 +10,7 @@
 	<div id="counter" class="pull-right">140</div>
 	<!-- end Body -->
 	
-	<!-- Body Extra's -->
+	<!-- Body Extra"s -->
 	<div class="accordion pull-right write-extras">
 		
 		<div id="url" class="accordion-body {{^attachments.link}}collapse{{/attachments.link}}">
@@ -40,23 +40,23 @@
 			<select name="campaign">
 	            <optgroup label="Select campaign">
 	            {{#campaigns}}
-	            	<option value='{{id}}' {{#selected}}selected="true"{{/selected}}>{{name}}</option>
+	            	<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{name}}</option>
 	            {{/campaigns}}
 	            </optgroup>
-				<option value='0' data-toggle="collapse" data-target="#new-campaign">add new...</option>
+				<option value="0" data-toggle="collapse" data-target="#new-campaign">add new...</option>
 			</select>
 			
 			<div class="accordion">
 				<div id="new-campaign" class="new-campaign accordion-footer {{#campaigns}}collapse{{/campaigns}}">
 			
 					<input type="text" name="campaignname" placeholder="campaign name" />
-					<button id="add-campaign" class='btn' type="button">Add</button>
+					<button id="add-campaign" class="btn" type="button">Add</button>
 				</div>
 			</div>
 		</div>
 
 	</div>
-	<!-- end Body Extra's -->
+	<!-- end Body Extra"s -->
 	
 	<!-- Body Actions -->
 	<a data-toggle="collapse" data-target="#url" class="btn blue">Link</a>

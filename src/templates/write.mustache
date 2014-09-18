@@ -18,45 +18,45 @@
 		<div class="row-fluid">
 			<div class="span12">
 					<!-- BEGIN PORTLET-->
-					<div class="portlet box blue" id='message'>
+					<div class="portlet box blue" id="message">
 						<div class="portlet-title line">
 							<div class="caption"><i class="icon-envelope-alt icon-large"></i>Add your message</div>
 						</div>
-						<div class="portlet-body" id='inbox-workers'>
+						<div class="portlet-body" id="inbox-workers">
 							<!--<div class="scroller" data-height="" data-always-visible="1" data-rail-visible1="1">-->
 								<table class="table table-striped table-bordered table-advance table-hover">
 									<tbody>
 										<!--
 										<tr>
-											<td class='message-header'>
+											<td class="message-header">
 												<strong>Compose your message</strong>
 											</td>
 										</tr>
 										-->
 										<tr>
-											<td class='message-body'>
+											<td class="message-body">
 											
 												<!--<form action="#">-->
 												
 													<textarea class="span12 m-wrap" rows="5" name="message">{{#message.body}}{{message.body.plaintext}}{{/message.body}}</textarea>
 													
-													<span class='right'>characters: <var class="total-text-counter">0</var> / <var class="total-max-counter">0</var></span>
+													<span class="right">characters: <var class="total-text-counter">0</var> / <var class="total-max-counter">0</var></span>
 													
 													<h2>Add</h2>
 													
-													<button class='btn' data-toggle-target="subject" type="button">Subject</button>
-													<button class='btn' data-toggle-target="url" type="button">URL</button>
-													<button class='btn' data-toggle-target="picture" type="button">Picture</button>
-													<button class='btn' data-toggle-target="campaign" type="button">Campaign</button>
+													<button class="btn" data-toggle-target="subject" type="button">Subject</button>
+													<button class="btn" data-toggle-target="url" type="button">URL</button>
+													<button class="btn" data-toggle-target="picture" type="button">Picture</button>
+													<button class="btn" data-toggle-target="campaign" type="button">Campaign</button>
 
-													<!--<button class='btn blue'>tags</button>-->
+													<!--<button class="btn blue">tags</button>-->
 													
-													<div class='add-data {{^message.subject}}inactive{{/message.subject}}' data-toggle-id="subject">
+													<div class="add-data {{^message.subject}}inactive{{/message.subject}}" data-toggle-id="subject">
 														<label class="control-label">Subject</label>
 														<input name="title" type="text" placeholder="your title" class="m-wrap span8" value="{{message.subject}}" />
 													</div>
 
-													<div class='add-data {{^sortedattachments.link}}inactive{{/sortedattachments.link}}' data-toggle-id="url">
+													<div class="add-data {{^sortedattachments.link}}inactive{{/sortedattachments.link}}" data-toggle-id="url">
 														<label class="control-label">URL</label>
 														<input type="text" name="url" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
 
@@ -64,21 +64,21 @@
 														<input type="text" name="url2" placeholder="URL" value="{{#sortedattachments.link}}{{url}}{{/sortedattachments.link}}" />
 													</div>
 
-													<div class='add-data {{^sortedattachments.image}}inactive{{/sortedattachments.image}}' data-toggle-id="picture">
+													<div class="add-data {{^sortedattachments.image}}inactive{{/sortedattachments.image}}" data-toggle-id="picture">
 														<input class="fileupload" id="fileupload" type="file" name="picture" value="Picture" title="Picture" data-url="{{BASE_URL}}upload" multiple />
 														<div class="fileupload-feedback" id="fileupload-feedback"></div>
 													</div>
 													
-													<div class='add-data inactive' data-toggle-id="campaign">
+													<div class="add-data inactive" data-toggle-id="campaign">
 														<select name="campaign">
-	                                                        <option value='0'>select campaign</option>
-	                                                        {{#campaigns}}<option value='{{id}}'>{{name}}</option>{{/campaigns}}
+	                                                        <option value="0">select campaign</option>
+	                                                        {{#campaigns}}<option value="{{id}}">{{name}}</option>{{/campaigns}}
 															<option disabled="disabled">- - - - - - - - - - - </option>
-															<option value='0'>add new...</option>
+															<option value="0">add new...</option>
 														</select>
 														<div class="new-campaign inactive">
 															<input type="text" name="campaignname" placeholder="campaign name" />
-															<button class='btn' name="add-campaign" type="button">Add</button>
+															<button class="btn" name="add-campaign" type="button">Add</button>
 														</div>
 													</div>
 													
@@ -97,7 +97,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td class='message-header social-icon-colors channels'>
+											<td class="message-header social-icon-colors channels">
 												<div style="display: none;">
 													{{#channels}}
 														<input type="checkbox" name="channel[{{id}}]" id="channel_{{id}}" value="{{id}}" {{#checked}}checked="checked"{{/checked}} />
@@ -105,13 +105,13 @@
 												</div>
 
 												{{#channels}}
-													<div class='btn white'><label for="channel_{{id}}"><i class='icon-{{network.icon}}'></i> {{customname}}</label></div>
+													<div class="btn white"><label for="channel_{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</label></div>
 												{{/channels}}
 
 												<!--
-												<div class='btn white'><i class='icon-twitter'></i> bmgroup</div>
-												<div class='btn white'><i class='icon-tumblr'></i> bmgroup</div>
-												<div class='btn white'><i class='icon-youtube'></i> bmgroup</div>
+												<div class="btn white"><i class="icon-twitter"></i> bmgroup</div>
+												<div class="btn white"><i class="icon-tumblr"></i> bmgroup</div>
+												<div class="btn white"><i class="icon-youtube"></i> bmgroup</div>
 												-->
 												
 											</td>
@@ -120,18 +120,18 @@
 									</tbody>
 								</table>
 								
-								<div class='message-buttons'>
+								<div class="message-buttons">
 
 									{{#canSchedule}}
-										<button class="btn blue" id='schedule-btn-toggle' type="button"><i class="icon-time"></i> Schedule message</button>
+										<button class="btn blue" id="schedule-btn-toggle" type="button"><i class="icon-time"></i> Schedule message</button>
 									{{/canSchedule}}
 
 									{{#canSendNow}}
-										<button class="btn black right" id='button-response' type="button" value="send">Send now</button>
+										<button class="btn black right" id="button-response" type="button" value="send">Send now</button>
 									{{/canSendNow}}
 
 									{{#canSave}}
-										<button style="margin-right: 15px;" class="btn black right" id='button-response' type="submit" value="draft">Save</button>	
+										<button style="margin-right: 15px;" class="btn black right" id="button-response" type="submit" value="draft">Save</button>	
 									{{/canSave}}
 								</div>
 								
@@ -247,7 +247,7 @@
 												<!--</form>-->
 												
 												{{#canSchedule}}
-													<button class="btn blue right" id='schedule-btn' type="submit">Schedule now</button>
+													<button class="btn blue right" id="schedule-btn" type="submit">Schedule now</button>
 												{{/canSchedule}}
 											</td>
 										</tr>
