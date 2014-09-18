@@ -153,28 +153,15 @@
 		<script type="text/javascript" src="/js/config.js"></script>
 		-->
 
-		<script data-main="/js/main" src="/js/lib/requirejs/require.js"></script>
-		
 		<!-- Scripts -->
 		{{#files.scripts}}
 			<script src="{{{src}}}" type="text/javascript"></script>
 		{{/files.scripts}}
-
-		<script>
-			$(document).ready(function() {   
-				
-				Store = new StorageClassLocal();
-				
-				/*Store = window.indexedDB?
-					new StorageClassIDB("CloudwalkersDB", 1):
-					new StorageClassLocal();*/
-				
-				Cloudwalkers.init ();
-			});
-		</script>
 		
 		<!-- Templates -->
 		<script src="{{{files.templates}}}" type="text/javascript"></script>
+
+		<script data-main="/js/main" src="/js/lib/requirejs/require.js"></script>
 
 	</body>
 </html>
