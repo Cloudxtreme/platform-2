@@ -1,0 +1,21 @@
+
+	<div class='pull-right'>
+		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		<div class="media"><i class="icon-{{media}}"></i></div>
+	</div>
+	
+	{{#user}}
+		<img class="avatar" alt="" src="{{avatar}}">
+		<strong>
+			<a href="#">{{displayname}}</a>
+		</strong>
+	{{/user}}
+	
+	{{#from}}
+		<i class="icon-{{icon}}"></i>
+		<strong><a href="{{url}}" target="_blank">{{name}}</a></strong>
+	{{/from}}
+	
+	<div class='content'>
+		{{{body.plaintext}}}
+	</div>

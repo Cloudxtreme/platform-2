@@ -1,0 +1,51 @@
+<div class="post-row">
+	<div class="picture">
+		{{#from}}
+			<img src="{{avatar}}" alt="image description" width="27" height="28" />
+		{{/from}}
+		{{^from}}
+			<img src="images/ico8.png" alt="image description" width="27" height="28" />
+		{{/from}}
+	</div>
+	<div class="post-box" style="height:inherit;">
+		<div class="title-post">
+			<h4>
+				{{scheduledate}}
+			</h4>
+
+			<p style="margin: 3px;">
+				{{#streams}}{{customname}}, {{/streams}}
+			</p>
+		</div>
+		<div class="post">
+			{{#subject}}
+				<h5>{{subject}}</h5>
+			{{/subject}}
+			<div class="holder">
+				<div class="text-post">
+					<div class="picture">
+						{{#sortedattachments.image}}
+							<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+								<img src="{{url}}" alt="image description" width="93" height="68" />
+							</a>
+						{{/sortedattachments.image}}
+					</div>
+
+					{{{body.html}}}
+
+					{{#sortedattachments.link}}
+						<p class="link">
+							<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+						</p>
+					{{/sortedattachments.link}}
+				</div>
+
+				<div class="col-button">
+					{{#actions}}
+						<a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><span>{{name}}</span></a>
+					{{/actions}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

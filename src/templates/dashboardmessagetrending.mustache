@@ -1,0 +1,66 @@
+<td onclick="document.location='#trending/{{channel}}/0/{{#stream}}{{id}}{{/stream}}/{{id}}';" class="clickable">
+
+	<ul>
+
+		<li>
+			{{#stream}}
+				<div class='icon'>
+					<i class="icon-{{network.icon}}"></i>
+				</div>
+			{{/stream}}
+
+			{{#from}}{{name}}{{/from}}
+			
+			<span class='right engagement count-{{engagement}}'>
+				{{engagement}}
+			</span>
+		</li>
+
+		<li class='clear'>
+			
+			<!--<small>
+				Followed by <strong>{{#stream}}{{customname}}{{/stream}}</strong>,
+				posted <span class="time time-since" data-date="{{date}}">{{date}}</span>
+			</small>
+			<br />-->
+			
+			{{#subject}}
+				<small>{{subject}}</small><br />
+			{{/subject}}
+			
+			<div class="dashboard-trending-limit-height">
+				{{body.plaintext}}
+			</div>
+
+			<!--
+			<div class="picture">
+				{{#sortedattachments.image}}
+					<a href="{{url}}" class="image-popup-viewer" target="_BLANK" >
+						<img src="{{url}}" alt="image description" width="93" height="68" />
+					</a>
+				{{/sortedattachments.image}}
+			</div>
+			-->
+
+			{{#sortedattachments.link}}
+				<p class="link">
+					<a href="{{url}}" target="_BLANK">{{shortlink}}</a>
+				</p>
+			{{/sortedattachments.link}}
+		</li>
+
+		<li>
+			<span class='actions icon-right dropdown'>
+
+				<i class='icon-share dropdown-toggle' data-toggle="dropdown"></i>
+
+				<ul class="dropdown-menu">
+
+					{{#actions}}
+						<li><a href="javascript:void(0);" class="button-post action message-action" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					{{/actions}}
+				</ul>
+			</span>
+		</li>
+	</ul>
+</td>

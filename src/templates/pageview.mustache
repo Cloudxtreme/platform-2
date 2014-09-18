@@ -1,0 +1,15 @@
+<!-- {{title}} pageview -->
+
+	<div class="row-fluid">
+		<h3 class="page-title">{{title}}</h3>
+	</div>
+
+	<div id="widgetcontainer" class="row-fluid"></div>
+	{{#dashboardselect}}
+		<select id="select_dashboard" class="pull-right">
+			{{#roles}}
+				<option value="{{name}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+			{{/roles}}
+		</select>
+	{{/dashboardselect}}
+<!-- end pageview -->   

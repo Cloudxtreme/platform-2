@@ -1,0 +1,33 @@
+	<tr data-category="{{id}}">
+		<td class="category-{{id}}-name"><h4>{{name}}</h4></td>
+		<td class="category-{{id}}-edit border-left" style='display: none;'>
+			
+			<form data-edit-category-id="{{id}}">
+
+				<input type="text" value="{{name}}" id="category_{{id}}_name" name="name" />
+
+				<button class="btn blue" type="submit">Change name</button>
+
+			</form>
+		
+		</td>
+		<td>
+			<i class="icon-remove icon-2x pull-right" data-delete-category-id="{{id}}"></i>
+			<i class="icon-edit-sign icon-2x pull-right" data-edit-category-id="{{id}}"></i>
+		</td>
+	</tr>
+	<tr id="category-{{id}}-tags">
+		<td colspan='2'>
+			
+			<ul>
+				{{#keywords}}
+					<li data-edit-keyword-id="{{id}}">
+						<i class="icon-tag icon-muted"></i>
+						{{name}}
+						<i class="icon-remove pull-right" data-delete-keyword-id="{{id}}"></i>
+					</li>
+				{{/keywords}}
+			</ul>
+			
+		</td>
+	</tr>

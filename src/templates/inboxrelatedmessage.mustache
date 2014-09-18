@@ -1,0 +1,41 @@
+<div class="message-header {{icon}}-color" data-id="{{id}}">
+	<div class="inherit">
+		{{#from}}
+		<div class="pull-right">
+			<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
+		</div>
+		
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+
+		{{/from}}
+	</div>
+</div>
+
+<div class="message-body">
+	{{#attachments}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attachments}}
+	
+	{{{body.html}}}
+	
+	{{#attachments}}
+		{{#link}}
+			<div class="attachment-link">
+				<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+			</div>
+		{{/link}}
+	{{/attachments}}
+</div>
+
+<div class="message-actions"></div>
+<div style="clear:both"></div>
+
+<!-- NOTES_ROLE -->
+<div class="message-notes">
+	<div class="note-content"></div>
+	<div class="action-lists">
+	</div>
+</div>
