@@ -879,8 +879,6 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 
 	'deleteMessage' : function ()
 	{	
-		var self = this;
-
 		// Repeat or skip?
 		if (this.repeat ().repeat)
 		{
@@ -899,43 +897,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						'token' : 'remove'
 					}
 				],
-				function (response) 
-				{
-					var url = Cloudwalkers.Session.api + '/messages/' + self.get ('id');
 
-					// Do the call
-					jQuery.ajax
-					({
-						dataType:"json", 
-						type:"delete", 
-						url: url,
-						headers: {
-				            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-				            'Accept': "application/json"
-				        },
-						success:function(objData)
-						{   
-                            /*
-							var collection = self.collection;
-
-                            if (collection)
-                            {
-							    collection.reset ();
-							    collection.fetch ();
-                            }
-                            */
-                            
-                           self.trigger("destroy", {wait: true})
-                           self.trigger("destroyed", {wait: true})
-                           // self.trigger ("destroy", self, self.collection);
-                            
-                            // Hack
-							//window.location.reload();
-                            
-						}
-					});
-					
-				}
+				this.deletetype.bind(this)
 			);
 		}
 		else
@@ -945,20 +908,30 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 				this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 				function () 
 				{
-                    self.destroy ({success:function(){
-	                    
-	                    //trigger destroy
-						 self.trigger ("destroyed", self, self.collection);
-						 //Keep the old code
-						 self.trigger ("destroy", self, self.collection);
-						//window.location.reload();
-	                    
-                    }});
-                    //self.trigger ("destroy", self, self.collection);
-
-				}
+                    this.destroy ({success: this.destroysuccess.bind(this)});
+				}.bind(this)
 			);
 		}
+	},
+
+	'deletetype' : function(response)
+	{	
+		var endpoint;
+
+		if(response.token == 'skip')
+			this.save({trigger: Math.random()}, {patch: true, endpoint: 'skip'});
+
+		if(response.token == 'remove')
+			this.destroy({wait: true, success: this.destroysuccess.bind(this)});
+	},
+
+	'destroysuccess' : function()
+	{
+		//trigger destroy
+		this.trigger ("destroyed", this, this.collection);
+						
+		//Keep the old code
+		this.trigger ("destroy", this, this.collection);
 	},
 
 	'humandate' : function (entry)
