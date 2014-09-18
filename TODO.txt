@@ -3,6 +3,7 @@
 /*** (This should be sorted by priority) ***/
 
 
+Clean singular form endpoints (/account/id/..., /user/me, ...) to plural.
 Implement a general error logger;
 Update boostrap 2 to bootstrap 3;
 Update font-awesome to 4.2;
