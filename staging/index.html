@@ -111,29 +111,24 @@
 		<script src="/storage/IDBStorage.js" type="text/javascript"></script>
 		<script src="/storage/IDBStores.js" type="text/javascript"></script>
 
-		<script type="text/javascript">
-			var CONFIG_BASE_URL = '<?php echo BASE_URL; ?>';
-			var Cloudwalkers = {};
-		</script>
-
 		<!-- PLUGON CDN'S
 		<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 		<script src="//cdn.jsdelivr.net/uniformjs/2.1.1/jquery.uniform.min.js" type="text/javascript" ></script>
 		<script src="//cdn.jsdelivr.net/mustache.js/0.7.3/mustache.min.js" type="text/javascript"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script>
-		-->
+		
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
-		<!-- PLUGINS -->
+-->
+		<!-- PLUGINS
 		<script src="/js/lib/jquery.1.10.2-min.js" type="text/javascript"></script>
 		<script src="/js/lib/jquery.uniform.2.1.1-min.js" type="text/javascript"></script>
 		<script src="/js/lib/mustache.0.7.3-min.js" type="text/javascript"></script>
 		<script src="/js/lib/underscore.1.6.0-min.js" type="text/javascript"></script>
 		<script src="/js/lib/backbone.1.0.0-min.js" type="text/javascript"></script>
 		<script src="/js/lib/Backbone.CrossDomain.js" type="text/javascript"></script>
-
-		<!-- JQUERY PLUGINS -->
+ -->
+		<!-- JQUERY PLUGINS 
 		<script src="/js/lib/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
 		<script src="/js/lib/flot/jquery.flot.js" type="text/javascript"></script>
 		<script src="/js/lib/flot/jquery.flot.resize.js" type="text/javascript"></script>
@@ -151,16 +146,16 @@
 		<script src="/js/lib/cal-heatmap-master/cal-heatmap.min.js"></script>
 		<script src="/js/lib/lightbox/js/lightbox.min.js"></script>
 		<script src="/js/lib/colorbox-master/jquery.colorbox-min.js"></script>
-
-		<!-- JQUERY UI PLUGINS -->
+-->
+		<!-- JQUERY UI PLUGINS 
 		<script src="/js/lib/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 		<script src="/js/lib/uploader/jquery.iframe-transport.js" type="text/javascript"></script>
 		<script src="/js/lib/uploader/jquery.fileupload.js" type="text/javascript"></script>
-
-		<!-- POLYGLOT -->
+-->
+		<!-- POLYGLOT 
 		<script src="/js/lib/polyglot.min.js" type="text/javascript"></script>
-
-		<!-- BOOTSTRAP PLUGINS -->
+-->
+		<!-- BOOTSTRAP PLUGINS 
 		<script src="/js/lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="/js/lib/bootstrap-daterangepicker/date.js" type="text/javascript"></script>
 		<script src="/js/lib/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script> 
@@ -168,13 +163,13 @@
 		<script src="/js/lib/bootstrap-timepicker/js/bootstrap-timepicker.js" type="text/javascript"></script>
 		<script src="/js/lib/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 		<script src="/js/lib/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
-
-		<!-- HTML5 PLUGINS -->
+-->
+		<!-- HTML5 PLUGINS 
 		<script src="/js/lib/Medium.js/medium.js"></script>
 		<script src="/js/lib/chart.js/Chart.min.js"></script>
 		<script src="/js/lib/chart.js.legend/legend.js"></script>
 		<script src="/js/lib/media.js"></script>
-
+-->
 		<!--[if lt IE 10]>
 		<script src="/js/ie-fix.js"></script>
 		<![endif]-->
@@ -185,15 +180,15 @@
 		<![endif]-->
 
 
-		<!-- PAGE LEVEL SCRIPTS -->
+		<!-- PAGE LEVEL SCRIPTS
 		<script src="/js/lib/charts.js" type="text/javascript"></script>
 		<script src="/js/lib/keyword_filter.js" type="text/javascript"></script>
-
+ -->
 		<!-- Templates 
 		<script type="text/javascript" src="/templates/templates.js"></script>
 		<script type="text/javascript" src="/js/config.js"></script>
 		-->
-		
+
 		<!-- Scripts -->
 			<script src="/js/Cloudwalkers.js" type="text/javascript"></script>
 			<script src="/js/Collections/Accounts.js" type="text/javascript"></script>
@@ -379,22 +374,11 @@
 			<script src="/js/config.js" type="text/javascript"></script>
 			<script src="/js/login-main.js" type="text/javascript"></script>
 			<script src="/js/main.js" type="text/javascript"></script>
-
-		<script>
-			$(document).ready(function() {   
-				
-				Store = new StorageClassLocal();
-				
-				/*Store = window.indexedDB?
-					new StorageClassIDB("CloudwalkersDB", 1):
-					new StorageClassLocal();*/
-				
-				Cloudwalkers.init ();
-			});
-		</script>
 		
 		<!-- Templates -->
 		<script src="/js/templates.js" type="text/javascript"></script>
+
+		<script data-main="/js/main" src="/js/lib/requirejs/require.js"></script>
 
 	</body>
 </html>

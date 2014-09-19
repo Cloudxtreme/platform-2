@@ -50,9 +50,10 @@ require(
 	function(Backbone, bootstrap, cwd)
 	{	
 		// IDB Store
-		Store = new StorageClassIDB("cwdSuperDB", 2, function()
-		{
-			Cloudwalkers = cwd.init();
+		$(document).ready(function()
+		{   
+		 	Store = new StorageClassLocal();   
+		 	Cloudwalkers.init ();
 		});
 	}
 );
