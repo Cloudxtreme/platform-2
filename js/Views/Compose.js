@@ -140,8 +140,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.actionstreams = [];
 			this.actionview = true;
 			
+			this.action.params = {};
+			$.extend(true, this.action.params, this.action.parameters);
+			delete this.action.parameters;
+
 			this.listenTo(this.action, "change", this.editstreams)
-			this.action.fetch();
+			this.action.fetch(); 
 					
 		} else if(this.model)
 		{				
@@ -171,7 +175,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//This is a hack indeed...What better way to make this?
 		if(this.type == 'reply' && this.reference.get("networktoken") == 'twitter'){
 			
-			var parameters = this.action.parameters[0]; 
+			var parameters = this.action.params[0]; 
 			var user = '@' + this.reference.get("from")[0].username;
 			var tag = '<short contenteditable="false">'+ user +'</short>&nbsp;';
 
