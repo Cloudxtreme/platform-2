@@ -170,8 +170,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Twitter reply
 		//This is a hack indeed...What better way to make this?
 		if(this.type == 'reply' && this.reference.get("networktoken") == 'twitter'){
-			var parameters = this.action.parameters[0];
-			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
+			
+			var parameters = this.action.parameters[0]; 
+			var user = '@' + this.reference.get("from")[0].username;
+			var tag = '<short contenteditable="false">'+ user +'</short>&nbsp;';
+
+			this.draft.set('body', { html : tag});
 		}
 		
 		this.censurecompose();
@@ -1613,7 +1617,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var postaction = this.reference.actions.create({
 			parameters: params? params: null, 
 			streams: streamids, 
-			message: this.draft.get("body").html, 
+			message: this.draft.get("body").plaintext, 
 			actiontype: this.type
 			}, 
 			{success: this.thankyou.bind(this, null), error: this.oops.bind(this, 'saveaction')}
