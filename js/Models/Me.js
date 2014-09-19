@@ -1,7 +1,6 @@
 Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	
 	'unreadMessages' : null,
-	'endpoint' : '1',
 	
 	'initialize' : function (data)
 	{
@@ -20,7 +19,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 
 	'url' : function ()
 	{	
-		var param = (this.endpoint || this.reload)?
+		var param = this.endpoint?
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
 		
