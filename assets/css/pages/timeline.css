@@ -852,6 +852,10 @@ Timeline UI Base
 	border-bottom: 1px solid #ddd;
 }
 
+.filterbanner .btn-white{
+	position: initial;
+}
+
 section#timeline-filters-section{
 	position: absolute;
 	width: 33.1%;

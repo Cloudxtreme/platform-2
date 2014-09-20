@@ -140,8 +140,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			this.actionstreams = [];
 			this.actionview = true;
 			
+			this.action.params = {};
+			$.extend(true, this.action.params, this.action.parameters);
+			delete this.action.parameters;
+
 			this.listenTo(this.action, "change", this.editstreams)
-			this.action.fetch();
+			this.action.fetch(); 
 					
 		} else if(this.model)
 		{				
@@ -170,8 +174,12 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		//Twitter reply
 		//This is a hack indeed...What better way to make this?
 		if(this.type == 'reply' && this.reference.get("networktoken") == 'twitter'){
-			var parameters = this.action.parameters[0];
-			this.draft.set('body', { html : Mustache.render(parameters.value, {from: this.reference.get("from")[0]})});
+			
+			var parameters = this.action.params[0]; 
+			var user = '@' + this.reference.get("from")[0].username;
+			var tag = '<short contenteditable="false">'+ user +'</short>&nbsp;';
+
+			this.draft.set('body', { html : tag});
 		}
 		
 		this.censurecompose();
@@ -1538,6 +1546,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
 
 		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
+
+		this.loadingalert();
 	},
 	
 	'post' : function()
@@ -1576,7 +1586,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});
 		
-		
+		this.loadingalert();
+
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 		
 	},
@@ -1613,11 +1624,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		var postaction = this.reference.actions.create({
 			parameters: params? params: null, 
 			streams: streamids, 
-			message: this.draft.get("body").html, 
+			message: this.draft.get("body").plaintext, 
 			actiontype: this.type
 			}, 
 			{success: this.thankyou.bind(this, null), error: this.oops.bind(this, 'saveaction')}
 		);
+
+		this.loadingalert();
 
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
@@ -1665,10 +1678,19 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
 	},
 
+	'loadingalert' : function()
+	{
+		setTimeout(function(){
+			this.showerror("", this.translateString("busy_network"));
+		}.bind(this), 2000) //20 seconds
+
+	},
+
 	'showerror' : function(title, error)
 	{
 		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 	},
+
 	'oops' : function(action, status)
 	{
 		Cloudwalkers.RootView.confirm 
