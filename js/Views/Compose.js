@@ -1584,7 +1584,7 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		} 
 		
 		// Or just post
-		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});
+		else this.draft.save({status: "scheduled"}, {/*success: this.thankyou.bind(this, 'post'),*/ error: this.oops.bind(this, 'post')});
 		
 		this.loadingalert();
 
