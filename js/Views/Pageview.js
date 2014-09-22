@@ -52,6 +52,8 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 			
 			if (widget.negotiateFunctionalities)
 				widget.negotiateFunctionalities();
+
+			this.listenTo(widget, 'view:update', this.updatewidget.bind(this, widget));
 		}
 	},
 	
@@ -77,6 +79,14 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		// Trigger all Widgets
 		$.each(this.widgetviews, function(i, view){ view.trigger("rendered"); });
 	},
+
+	'updatewidget' : function(widget)
+	{
+		widget.render();	
+		
+		if (widget.negotiateFunctionalities)
+			widget.negotiateFunctionalities();
+	},	
 	
 	'destroy' : function ()
 	{	
