@@ -122,9 +122,17 @@ Cloudwalkers.Session =
 		if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
 
-		// Sent hack
+		// Sent hack to add the object
 		if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'])
 			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
+
+		// Timeline hack to add the object
+		if(value == 'profiles' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['profiles'])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['profiles'] = {streams: []};
+
+		// Timeline hack to add the object
+		if(value == 'news' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['news'])
+			Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['news'] = {streams: []};
 		
 		var viewsettings = this.clone(this.get("viewsettings"));
 		

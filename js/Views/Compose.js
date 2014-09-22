@@ -1546,6 +1546,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		}, {patch: true, endpoint: "original", success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
 
 		else this.draft.save({status: status}, {success: this.thankyou.bind(this, 'save'), error: this.oops.bind(this, 'save', status)});
+
+		this.loadingalert();
 	},
 	
 	'post' : function()
@@ -1584,7 +1586,8 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 		// Or just post
 		else this.draft.save({status: "scheduled"}, {success: this.thankyou.bind(this, 'post'), error: this.oops.bind(this, 'post')});
 		
-		
+		this.loadingalert();
+
 		//this.draft.save({status: "scheduled"}, {patch: this.draft.id? true: false, success: this.thankyou.bind(this)});
 		
 	},
@@ -1627,11 +1630,13 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			{success: this.thankyou.bind(this, null), error: this.oops.bind(this, 'saveaction')}
 		);
 
+		this.loadingalert();
+
 		this.loadListeners(postaction, ['request:action', 'sync']);
 		postaction.trigger("request:action");
 	},
 	
-	'thankyou' : function(action)
+	'thankyou' : function(action, response)
 	{
 		var thanks = Mustache.render(Templates.thankyou);
 
@@ -1664,16 +1669,28 @@ Cloudwalkers.Views.Compose = Backbone.View.extend({
 			else this.model.fetch()	
 		}
 		
-		if(this.type == "post")
+		else if(this.type == "post")
 			Cloudwalkers.RootView.trigger("added:message", this.draft);
 
+		else
+			this.trigger("action:success", response);
+
 		Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
+	},
+
+	'loadingalert' : function()
+	{
+		setTimeout(function(){
+			this.showerror("", this.translateString("busy_network"));
+		}.bind(this), 20000) //20 seconds
+
 	},
 
 	'showerror' : function(title, error)
 	{
 		Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 	},
+
 	'oops' : function(action, status)
 	{
 		Cloudwalkers.RootView.confirm 

@@ -39,7 +39,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 
 	'render' : function ()
-	{	
+	{
 		// Parameters
 		$.extend(this.parameters, this.model.attributes);
 		
@@ -91,7 +91,7 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		}
 		
 		this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
-
+		
 		return this;
 	},
 
@@ -120,9 +120,9 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 		this.loadedlists = [];
 
 		// Temporary ugly hack to update actions on timeline
-		if(this.template == 'messagetimeline'){
+		/*if(this.template == 'messagetimeline'){
 			this.actions.on('actions:update', this.updatetimelineactions.bind(this));
-		}
+		}*/
 	},
 
 	'updatetimelineactions' : function()
@@ -135,17 +135,17 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	},
 	
 	'action' : function (element)
-	{	
+	{
 		// Action token
 		var action = $(element.currentTarget).data ('action');
 		
 		if(action == 'note' || action == 'action-list')
 		{	
 			// Goddamn ugly hack for old timeline
-			if(this.template == 'messagetimeline'){
+			/*if(this.template == 'messagetimeline'){
 				var composenote = Cloudwalkers.RootView.writeNote(this.model);
 				this.listenTo(composenote.note, 'sync', this.noteadded);
-			}
+			}*/
 
 			var token = $(element.currentTarget).data ('token');
 
