@@ -15,11 +15,32 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 	'initialize' : function(options)
 	{
 	
-		 if(!options.color) this.options.color = this.color;
+		if(!options.color) this.options.color = this.color;
 		
 		// The list source is either the streams or subchannels
 		this.list = options.channel[options.source];
+		this.listenToOnce(options.channel, 'sync', this.updatedcounters.bind(this))
+
+		options.channel.fetch();
+		this.rendercounters();
+	},
+
+	'updatedcounters' : function(models)
+	{	
+		this.options.channel = models;
+		this.options.channel[this.options.source].models = this.options.channel.get(this.options.source);
 		
+		for(n in this.options.channel[this.options.source].models){
+			this.options.channel[this.options.source].models[n] = new Cloudwalkers.Models.Stream(this.options.channel[this.options.source].models[n]);
+		}
+		
+		this.list = this.options.channel[this.options.source];
+		
+		this.rendercounters();
+	},
+
+	'rendercounters' : function()
+	{	
 		if(this.list)
 		for (n in this.list.models)
 		{
@@ -39,7 +60,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 
 				var counter;
 
-				if(options.source == "outgoing")
+				if(this.options.source == "outgoing")
 					counter = this.list.models[n].get("counters").total.scheduled.messages.total;
 				else
 					counter = this.list.models[n].get("counters").recent.incoming.any.unread;
@@ -69,14 +90,16 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 				}
 
 			}
-
+			
 			if(!this.list.models[n].count)
-				this.list.models[n].count = this.list.models[n].get("count")[options.countString];
+				this.list.models[n].count = this.list.models[n].get("count")[this.options.countString];
 		}
+
+		this.trigger('view:update');
 	},
 	
 	'render' : function ()
-	{
+	{	
 		var data = { list: [] };		
 		$.extend (data, this.options);
 		
