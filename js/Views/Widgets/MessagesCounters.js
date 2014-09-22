@@ -19,7 +19,13 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// The list source is either the streams or subchannels
 		this.list = options.channel[options.source];
-		
+
+		this.listenTo(this.list, 'sync', this.preparelist);
+		this.options.channel.fetch();
+	},
+
+	'preparelist' : function()
+	{
 		if(this.list)
 		for (n in this.list.models)
 		{
