@@ -40,10 +40,10 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 				var counter;
 
 				if(options.source == "outgoing")
-					counter = this.list.models[n].get("counters").total.scheduled.messages.total;
+					this.list.models[n].count = this.list.models[n].get("counters").total.scheduled.messages.total;
 				else
-					counter = this.list.models[n].get("counters").recent.incoming.any.unread;
-
+					this.list.models[n].count = this.list.models[n].get("counters").recent.incoming.any.unread;
+				
 			} else if(this.list.models[n].channels){
 				// Keyword Filters
 				
