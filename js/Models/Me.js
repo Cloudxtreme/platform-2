@@ -7,11 +7,11 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		// Load data
 		this.once('change', this.activate);
 
-		/*if(Store.exists("me"))
+		if(Store.exists("me"))
 			Store.remove('me');
 
 		if(Store.exists("channels"))
-			Store.remove('channels');*/
+			Store.remove('channels');
 
 		// Prevent conflicting user login
 		this.on ('change:id', function(id){ if(this.previous("id")) Cloudwalkers.Session.home(); });
