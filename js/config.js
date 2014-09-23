@@ -1,12 +1,12 @@
 var config =
 {
-	appid : 'oauth2541ff55b395e57.00391293',
+	/*appid : 'oauth2541ff55b395e57.00391293',
 	apiurl: 'http://cloudwalkers-api.local/',
-	authurl: 'http://cloudwalkers-api.local/oauth2/',
+	authurl: 'http://cloudwalkers-api.local/oauth2/',*/
 	
-	/*appid : 'oauth253fb03252cfbc2.44920946',
+	appid : 'oauth253fb03252cfbc2.44920946',
 	apiurl: 'https://devapi.cloudwalkers.be/',
-	authurl: 'https://devapi.cloudwalkers.be/oauth2/',*/
+	authurl: 'https://devapi.cloudwalkers.be/oauth2/',
 	
 	setloginwindow : function ()
 	{
