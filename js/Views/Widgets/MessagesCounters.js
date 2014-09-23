@@ -49,7 +49,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 
 				for(k in this.keywordchannels){
 					this.keywordstreams = this.keywordchannels[k].streams.models;
-					console.log(this.keywordchannels[k].streams.models.get("counters"))
+					
 					for(j in this.keywordstreams){
 
 						if(this.keywordstreams[j].get("counters")){
