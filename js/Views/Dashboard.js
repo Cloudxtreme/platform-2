@@ -52,8 +52,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
-		/*if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
-			widgets = widgets.concat(this.addDynamicReports());*/
+		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
+			widgets = widgets.concat(this.addDynamicReports());
 		
 		// Append widgets
 		for(i in widgets)
