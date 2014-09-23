@@ -362,12 +362,16 @@ Cloudwalkers.Views.Entry = Backbone.View.extend({
 	{	
 		//Temporarily, only notes or notifications
 		var collection = token == 'note'? this.model.notes: this.model.notifications;
+		var params = { records: 999 };
+
+		if(token != 'notes')
+			params.markasread = true;
 
 		collection.parentmodel = this.model;
 		collection.parenttype = 'message';
 		this.listenTo(collection,'seed', this.fillactions.bind(this, token));
 
-		collection.touch(this.model, {records: 999});
+		collection.touch(this.model, params);
 		
 		this.loadedlists.push(token+'list');
 	},
