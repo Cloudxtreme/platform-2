@@ -4,7 +4,7 @@
 require.config({baseUrl: '/js/'});
 
 require(
-	['lib/jquery/jquery', 'config'],
+	['lib/jquery/dist/jquery', 'config'],
 	function($, config)
 	{
 		config.hasToken();

@@ -4,7 +4,7 @@
 require.config({
 	baseUrl: '/js/',
 	paths: {
-		'jquery': 'lib/jquery/jquery',
+		'jquery': 'lib/jquery/dist/jquery',
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
 		'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
@@ -49,12 +49,8 @@ require(
 	['backbone', 'bootstrap', 'Cloudwalkers'],
 	function(Backbone, bootstrap, cwd)
 	{	
-		// IDB Store
-		$(document).ready(function()
-		{   
-		 	Store = new StorageClassLocal();   
-		 	Cloudwalkers.init ();
-		});
+		Store = new StorageClassLocal();   
+		Cloudwalkers = cwd.init ();
 	}
 );
 

@@ -110,6 +110,7 @@
 		<!-- Storage -->
 		<script src="/storage/IDBStorage.js" type="text/javascript"></script>
 		<script src="/storage/IDBStores.js" type="text/javascript"></script>
+		<script src="/storage/localStorage.js" type="text/javascript"></script>
 
 		<!-- PLUGON CDN'S
 		<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -190,190 +191,375 @@
 		-->
 
 		<!-- Scripts -->
+		<!--
 			<script src="/js/Cloudwalkers.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Accounts.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Actions.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Campaigns.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/CannedResponses.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Channels.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Contacts.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Drafts.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Groups.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Messages.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Notes.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Notifications.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Related.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/RelatedNotes.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Reports.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Services.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Statistics.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Streams.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Tags.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Triggers.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Users.js" type="text/javascript"></script>
+		
 			<script src="/js/Collections/Widgets.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Account.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Action.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Campaign.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/CannedResponse.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Channel.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Contact.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Etch.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Group.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Me.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Message.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Network.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Note.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Notification.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Polyglot.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Report.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Service.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Statistic.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Stream.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Tag.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Trigger.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/User.js" type="text/javascript"></script>
+		
 			<script src="/js/Models/Widget.js" type="text/javascript"></script>
+		
 			<script src="/js/Router.js" type="text/javascript"></script>
+		
 			<script src="/js/Session.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/Net.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/Parser.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/Ping.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/StreamLibrary.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/UrlShortener.js" type="text/javascript"></script>
+		
 			<script src="/js/Utilities/Utils.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Action.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ActionParameters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Actions.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Calendar.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Comment.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Comments.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Compose.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ContactCard.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ContactView.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Coworkdashboard.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Coworkers.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Dashboard.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Demo.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Drafts.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Editor.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Entry.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Error.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Firsttime.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Inbox.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/KeywordMonitoring.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Loader.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ManageAccounts.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ManageKeywords.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Message.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/MessageBoard.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Navigation.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/NoteEntry.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Notes.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Notification.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/OriginalMessage.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Pageview.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Preview.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/RSSFeed.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Reports.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Resync.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Root.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Scheduled.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Sent.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Account.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/CannedList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/GroupDetails.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/GroupItem.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/ManageUserGroups.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Profile.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Service.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Services.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/StreamSettings.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Trigger.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/User.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/UserDetails.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/UserDropdown.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Settings/Users.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Share.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/SimpleCompose.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/StatStream.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Statistics.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Timeline.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Trending.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/User.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/ViewContact.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widget.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/WidgetContainer.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/BestTimeToPost.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CalSummary.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CalendarFilters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CannedResponses.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Chart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Barchart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Comparison.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Intervalchart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Linechart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Numberstat.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Piechart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Table.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Charts/Textstat.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CombinedStatistics.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Combo.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CompoundChart.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CoworkersFilters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/CoworkersList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DashboardCleaner.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DashboardMessageList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DashboardWebcare.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DashboardWrite.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Datepicker.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DemoMessage.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DetailedList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DetailedView.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DraftsFilters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/DraftsList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/HeatCalendar.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxDemoList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxFilter.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxMessage.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxMessageList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxNote.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxNotesList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/InboxNotificationList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Info.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/KeywordsEditor.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/KeywordsOverview.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Legenda.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/LoadMore.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/MessageContainer.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/MessageList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/MessagesCounters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/MonitorFilters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/MonitorList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/NetworkStatistics.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/NewCombinedStatistics.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/NoteEntry.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Report.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/ScheduledFilters.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/ScheduledList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/ScheduledTable.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/SentMessageList.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Sentiment.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/StatSummary.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/TagEntry.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Timeline.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Title.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/TitleSeparator.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/TrendingMessage.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Widgets/Widget.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Write.js" type="text/javascript"></script>
+		
 			<script src="/js/Views/Write_new.js" type="text/javascript"></script>
+		
 			<script src="/js/config-default.js" type="text/javascript"></script>
+		
 			<script src="/js/config.js" type="text/javascript"></script>
+		
 			<script src="/js/login-main.js" type="text/javascript"></script>
+		
 			<script src="/js/main.js" type="text/javascript"></script>
+		-->
 		
 		<!-- Templates -->
 		<script src="/js/templates.js" type="text/javascript"></script>
