@@ -104,7 +104,14 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		if(this.list)
 		{	
-			this.list.comparator = function (a, b) { return b.count - a.count }
+			this.list.comparator = function (a, b) {
+				//return b.count - a.count
+
+				if(b.count == a.count)
+					return b.id - a.id
+				else
+					return b.count - a.count
+			}
 			
 			this.list.sort();
 			
@@ -133,7 +140,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		var model = this.list.get($(e.currentTarget).data("stream"));
 		var view = model.get("childtypes")[0] + "s";
 
-		if(this.options.source == 'outgoing')
+		if(this.options.channel.get("type") == "outgoing")
 			view = 'scheduled';
 		
 		// Memory cloth
@@ -141,6 +148,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// ... And store
 		settings.streams = [model.id];
+
 		Cloudwalkers.Session.viewsettings(view, settings);
 		
 	},
