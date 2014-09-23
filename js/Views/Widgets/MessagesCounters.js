@@ -15,7 +15,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 	'initialize' : function(options)
 	{
 	
-		 if(!options.color) this.options.color = this.color;
+		if(!options.color) this.options.color = this.color;
 		
 		// The list source is either the streams or subchannels
 		this.list = options.channel[options.source];
@@ -37,21 +37,19 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 						this.list.models[n].count = this.counters[k].amount;
 				}*/
 
-				var counter;
-
 				if(options.source == "outgoing")
 					this.list.models[n].count = this.list.models[n].get("counters").total.scheduled.messages.total;
 				else
 					this.list.models[n].count = this.list.models[n].get("counters").recent.incoming.any.unread;
 				
-			} else if(this.list.models[n].channels){
+			} else if(this.list.models[n].channels){	
 				// Keyword Filters
 				
 				this.keywordchannels = this.list.models[n].channels.models;
 
 				for(k in this.keywordchannels){
 					this.keywordstreams = this.keywordchannels[k].streams.models;
-
+					
 					for(j in this.keywordstreams){
 
 						if(this.keywordstreams[j].get("counters")){
@@ -65,13 +63,13 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 							}
 						}
 					}
-
+					this.list.models[n].count = this.keywordchannels[k].streams.models.get("counters").recent.incoming.any.unread;
 				}
 
 			}
 
-			if(!this.list.models[n].count)
-				this.list.models[n].count = this.list.models[n].get("count")[options.countString];
+			//if(!this.list.models[n].count)
+			//	this.list.models[n].count = this.list.models[n].get("count")[options.countString];
 		}
 	},
 	
