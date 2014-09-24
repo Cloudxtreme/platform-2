@@ -95,27 +95,28 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 		this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 
-		this.fill(this.collection.models);
-
-		// Lazy update
-		//this.options.channel.fetch({remove: false})
+		this.fill(this.collection);
 		
-		//Hack to test the collection fetch
-		this.options.channel.endpoint = '/streams';
-		this.collection.url = this.options.channel.url();
-
-		this.collection.fetch({remove: false})
+		// For inbox & scheduled
+		if(this.options.source == 'streams')
+		{
+			this.options.channel.endpoint = '/streams';
+			this.collection.url = this.options.channel.url();
+		
+			// Lazy update
+			this.collection.fetch({remove: false})
+		}
 
 		return this;
 	},
 
-	'fill' : function(models)
+	'fill' : function(collection)
 	{
 		this.$container.empty();
 
-		for(n in this.collection.models)
-		{
-			var counterentry = new Cloudwalkers.Views.CounterEntry({model: this.collection.models[n], data: this.options});
+		for(n in collection.models)
+		{	
+			var counterentry = new Cloudwalkers.Views.CounterEntry({model: collection.models[n], data: this.options});
 			this.$container.append(counterentry.render().el);
 		}
 	},	
