@@ -46,10 +46,3 @@ var config =
 var origin = function ()
 {
 	return (window.location.origin)? window.location.origin : window.location.protocol + "//" + window.location.hostname;
-}
-			
-			
-			
-			
-			
-			
