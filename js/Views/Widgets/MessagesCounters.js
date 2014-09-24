@@ -18,14 +18,15 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		if(!options.color) this.options.color = this.color;
 		
 		// The list source is either the streams or subchannels
-		this.list = options.channel[options.source];
-		this.listenToOnce(options.channel, 'sync', this.updatedcounters.bind(this))
+		this.collection = options.channel[options.source];
+		//options.channel.on('ready', this.fill);
+		this.listenToOnce(this.collection, 'sync', this.fill)
 
 		//options.channel.fetch();
-		this.rendercounters();
+		//this.rendercounters();
 	},
 
-	'updatedcounters' : function(models)
+	/*'updatedcounters' : function(models)
 	{	
 		this.options.channel = models;
 		this.options.channel[this.options.source].models = this.options.channel.get(this.options.source);
@@ -37,33 +38,27 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.list = this.options.channel[this.options.source];
 		
 		this.rendercounters();
-	},
+	},*/
 
-	'rendercounters' : function()
+	/*'preparelist' : function()
 	{	
-		if(this.list)
-		for (n in this.list.models)
+		if(this.collection)
+		for (n in this.collection.models)
 		{
-			this.list.models[n].count = 0;
+			this.collection.models[n].count = 0;
 			// Add change listeners
-			this.listenTo(this.list.models[n], "change", this.render);
-			this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
+			// this.listenTo(this.list.models[n], "change", this.render);
+			// this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
 			
 			// Place counter
-			if(this.list.models[n].get("counters")){
-				// Inbox & Agenda
-				/*this.counters = this.list.models[n].get("counters").MESSAGE;
-				for(k in this.counters){
-					if((this.counters[k].type == "UNREAD") && (this.counters[k].interval == "TOTAL"))
-						this.list.models[n].count = this.counters[k].amount;
-				}*/
+			if(this.collection.models[n].get("counters")){
 				
 				if(this.options.channel.get("type") == "outgoing")
-					this.list.models[n].count = this.list.models[n].get("counters").total.scheduled.messages.total;
+					this.collection.models[n].count = this.collection.models[n].get("counters").total.scheduled.messages.total;
 				else
-					this.list.models[n].count = this.list.models[n].get("counters").recent.incoming.any.unread;
+					this.collection.models[n].count = this.collection.models[n].get("counters").recent.incoming.any.unread;
 				
-			} else if(this.list.models[n].channels){	
+			} else if(this.collection.models[n].channels){	// Deprecated
 
 				// Keyword Filters
 				
@@ -87,60 +82,53 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 					}
 					this.list.models[n].count = this.keywordchannels[k].streams.models.get("counters").recent.incoming.any.unread;
 				}
-
 			}
-
-			//if(!this.list.models[n].count)
-			//	this.list.models[n].count = this.list.models[n].get("count")[options.countString];
 		}
 
-		this.trigger('view:update');
-	},
+		this.collection.comparator = function (a, b) { return b.count - a.count }
+			
+		this.collection.sort();
+	},*/
 	
 	'render' : function ()
-	{	
-		var data = { list: [] };		
-		$.extend (data, this.options);
-		
-		if(this.list)
-		{	
-			this.list.comparator = function (a, b) {
-				//return b.count - a.count
+	{			
+		this.$el.html (Mustache.render (Templates.messagescounters, this.options));
+		this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 
-				if(b.count == a.count)
-					return b.id - a.id
-				else
-					return b.count - a.count
-			}
-			
-			this.list.sort();
-			
-			this.list.each(function(model)
-			{
-				var attr = model.attributes;
-				
-				// Hack!
-				if(data.typelink)	var url = data.typelink + "/" + (model.get("hasMessages")? "messages" : "notifications");
-				else				var url = data.link? data.link: '#' + data.type + '/' + data.channel.id + '/' + model.id;
-				
-				data.list.push({ id: attr.id, name: attr.name, url: url, count: model.count, icon: attr.network ?attr.network.icon: data.icon });
-			});
-		}
+		this.fill(this.collection.models);
+
+		// Lazy update
+		//this.options.channel.fetch({remove: false})
 		
-		this.$el.html (Mustache.render (Templates.messagescounters, data));
+		//Hack to test the collection fetch
+		this.options.channel.endpoint = '/streams';
+		this.collection.url = this.options.channel.url();
+
+		this.collection.fetch({remove: false})
 
 		return this;
 	},
+
+	'fill' : function(models)
+	{
+		this.$container.empty();
+
+		for(n in this.collection.models)
+		{
+			var counterentry = new Cloudwalkers.Views.CounterEntry({model: this.collection.models[n], data: this.options});
+			this.$container.append(counterentry.render().el);
+		}
+	},	
 	
 	'updatesettings' : function (e)
 	{
 		// Currently streams only
 		if(this.options.source != "streams" && this.options.source != "outgoing") return null;
 
-		var model = this.list.get($(e.currentTarget).data("stream"));
+		var model = this.collection.get($(e.currentTarget).data("stream"));
 		var view = model.get("childtypes")[0] + "s";
 
-		if(this.options.channel.get("type") == "outgoing")
+		if(this.options.source == 'outgoing')
 			view = 'scheduled';
 		
 		// Memory cloth
@@ -148,7 +136,6 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// ... And store
 		settings.streams = [model.id];
-
 		Cloudwalkers.Session.viewsettings(view, settings);
 		
 	},

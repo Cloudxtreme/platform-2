@@ -111,6 +111,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
 <script type="text/javascript" src="/js/Views/NoteEntry.js"></script>
+<script type="text/javascript" src="/js/Views/CounterEntry.js"></script>
 <script type="text/javascript" src="/js/Views/User.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
