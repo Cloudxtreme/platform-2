@@ -17,7 +17,7 @@ Cloudwalkers.Views.CounterEntry = Cloudwalkers.Views.Entry.extend({
 		this.$el.attr('href', url);
 		this.$el.attr('data-stream', this.model.id);
 
-		if(this.model.get("type") == "outgoing")
+		if(this.data.channel.get("type") == "outgoing")
 			this.count = this.model.get("counters").total.scheduled.messages.total;
 		else
 			this.count = this.model.get("counters").recent.incoming.any.unread;
