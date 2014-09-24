@@ -1,6 +1,6 @@
 var config =
 {
-	appid : 'oauth25422e0e464de54.35477275',
+	appid : 'oauth25422e15127f2a4.21295482',
 	apiurl: 'https://stagingapi.cloudwalkers.be/',
 	authurl: 'https://stagingapi.cloudwalkers.be/oauth2/',
 	
