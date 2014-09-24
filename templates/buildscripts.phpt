@@ -149,6 +149,7 @@
 <script type="text/javascript" src="/js/Views/Widgets/InboxNote.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/NoteEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/TagEntry.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/CounterEntry.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Timeline.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/ScheduledTable.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Datepicker.js"></script>
