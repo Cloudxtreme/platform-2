@@ -19,7 +19,8 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// The list source is either the streams or subchannels
 		this.collection = options.channel[options.source];
-		//this.listenToOnce(options.channel, 'sync', this.updatedcounters.bind(this))
+		//options.channel.on('ready', this.fill);
+		this.listenToOnce(this.collection, 'sync', this.fill)
 
 		//options.channel.fetch();
 		//this.rendercounters();
@@ -39,7 +40,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.rendercounters();
 	},*/
 
-	'preparelist' : function()
+	/*'preparelist' : function()
 	{	
 		if(this.collection)
 		for (n in this.collection.models)
@@ -87,34 +88,35 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.collection.comparator = function (a, b) { return b.count - a.count }
 			
 		this.collection.sort();
-	},
+	},*/
 	
 	'render' : function ()
-	{	
-		this.preparelist();
+	{			
+		this.$el.html (Mustache.render (Templates.messagescounters, this.options));
+		this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 
-		var data = { list: [] };		
-		$.extend (data, this.options);
-		
-		this.$el.html (Mustache.render (Templates.messagescounters, data));
-
-		this.fill();
+		this.fill(this.collection.models);
 
 		// Lazy update
-		this.options.channel.fetch()
-		//this.collection.fetch();
+		//this.options.channel.fetch({remove: false})
+		
+		//Hack to test the collection fetch
+		this.options.channel.endpoint = '/streams';
+		this.collection.url = this.options.channel.url();
+
+		this.collection.fetch({remove: false})
 
 		return this;
 	},
 
-	'fill' : function()
-	{	
-		var counterentry;
+	'fill' : function(models)
+	{
+		this.$container.empty();
 
 		for(n in this.collection.models)
 		{
-			counterentry = new Cloudwalkers.Views.Widgets.CounterEntry({model: this.collection.models[n], data: this.options, channel: this.options.channel});
-			this.$el.find('ul.messages-container.messages-list').append(counterentry.render().el);
+			var counterentry = new Cloudwalkers.Views.CounterEntry({model: this.collection.models[n], data: this.options});
+			this.$container.append(counterentry.render().el);
 		}
 	},	
 	

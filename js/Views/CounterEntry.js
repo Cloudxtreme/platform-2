@@ -6,8 +6,7 @@ Cloudwalkers.Views.CounterEntry = Cloudwalkers.Views.Entry.extend({
 	{
 		$.extend(this, options);
 
-		//this.listenTo(this.model, 'change', this.render)
-		//this.model.on('all', function(a){console.log(a)})
+		this.listenTo(this.model, 'change', this.render)
 	},
 
 	'render' : function ()
@@ -18,11 +17,16 @@ Cloudwalkers.Views.CounterEntry = Cloudwalkers.Views.Entry.extend({
 		this.$el.attr('href', url);
 		this.$el.attr('data-stream', this.model.id);
 
+		if(this.model.get("type") == "outgoing")
+			this.count = this.model.get("counters").total.scheduled.messages.total;
+		else
+			this.count = this.model.get("counters").recent.incoming.any.unread;
+
 		var params = { 
-			id: this.model.id, 
+			//id: this.model.id, 
 			name: this.model.get("name"), 
 			url: url, 
-			count: this.model.count, 
+			count: this.count, 
 			icon: this.model.get("network") ?this.model.get("network").icon: this.data.icon 
 		};
 
