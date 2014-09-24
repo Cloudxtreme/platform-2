@@ -21,7 +21,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		this.list = options.channel[options.source];
 		this.listenToOnce(options.channel, 'sync', this.updatedcounters.bind(this))
 
-		options.channel.fetch();
+		//options.channel.fetch();
 		this.rendercounters();
 	},
 
