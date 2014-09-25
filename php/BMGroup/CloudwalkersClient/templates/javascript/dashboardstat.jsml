@@ -15,8 +15,10 @@
 	</div>
 	{{/details}}
 
+	{{#footer}}
 	<a class="more" href="#reports/{{streamid}}">
 		{{{footer}}}
 		<i class="icon-chevron-right m-icon-white"></i>
 	</a>
+	{{/footer}}
 </div>
