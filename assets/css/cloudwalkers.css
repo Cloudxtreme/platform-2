@@ -653,7 +653,8 @@ tbody.messages-container i	{
 	position: absolute; bottom: 8px; right: 8px; background: #fff; padding: 0px !important;
 }
 
-#keywordfilter-actions.message-actions .actions-left{
+#keywordfilter-actions.message-actions .actions-left,
+#keywordfilter-actions.message-actions .actions-right [data-action=delete]{
 	display: none;
 }
 
