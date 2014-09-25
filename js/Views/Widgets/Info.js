@@ -222,9 +222,10 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3);
 		var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3);
 		var total = statl - statf;
+		var percent = total == 0? 0: Math.floor(total/statf*100);
 
-		var description = this.title;
-
+		var description = '<strong>'+ total +'</strong> ('+ percent +'%) in last 7 days';
+		//console.log(statl-statf, ((statl-statf)/statf)*100, statl, statf)
 		return [{content: total >= 0? total: 0, descr : description}];
 	},
 
