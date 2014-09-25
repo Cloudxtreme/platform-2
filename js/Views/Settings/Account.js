@@ -17,7 +17,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 		this.account = Cloudwalkers.Session.getAccount();
 		this.triggers = new Cloudwalkers.Collections.Triggers();
 
-		this.listenTo(this.triggers, 'sync', this.filltriggers);
+		//this.listenTo(this.triggers, 'sync', this.filltriggers);
 
 		this.account = Cloudwalkers.Session.getAccount();
 		
@@ -66,7 +66,7 @@ Cloudwalkers.Views.Settings.Account = Backbone.View.extend({
 	
 
 	'filltriggers' : function(models)
-	{
+	{	console.log(models)
 		//Hack time!
 		var twitterfollow = models.filter(function(el){ if(el.get("event") == 'CONTACT-NEW') return el;})
 		var dmout = models.filter(function(el){ if(el.get("event") == 'MESSAGE-RECEIVED') return el;})
