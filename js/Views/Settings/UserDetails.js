@@ -62,7 +62,8 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 		this.model.save(data, {
 			patch: true, 
-			success: this.success.bind(this)
+			success: this.success.bind(this),
+			error: this.error
 		});
 
 	},
@@ -71,6 +72,12 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	{	
 		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 		this.model.trigger("change:clearance")	;
+	},
+
+	'error' : function(model, response)
+	{	
+		var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
+		Cloudwalkers.RootView.alert(error);
 	},
 
 	'disablesave' : function()
