@@ -68,10 +68,17 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 
 	},
 
-	'success' : function()
+	'success' : function(model)
 	{	
 		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 		this.model.trigger("change:clearance");
+
+		// Has the user updated himself?
+		if(model.id == Cloudwalkers.Session.getUser().id){
+			setTimeout(function(){
+  				window.location.reload();
+  			},1000);
+		}
 	},
 
 	'error' : function(model, response)

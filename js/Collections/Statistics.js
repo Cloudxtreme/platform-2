@@ -167,7 +167,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		return { counter: list};
 	},
 
-	parsebesttime : function(){
+	parsebesttime : function(streamid){
 
 		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 		var besttime,
@@ -190,7 +190,12 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 
 			if(statistic && statistic.get("streams")){
 				var streams = statistic.get("streams");
-				streams.forEach(function(stream){
+				$.each(streams, function(index, stream){
+					
+					//If we are filtering per stream
+					if(streamid && streamid != stream.id)
+						return true;
+					
 					stream 	= new Cloudwalkers.Models.Stream(stream);
 					besttime = stream.getbesttime();
 					
