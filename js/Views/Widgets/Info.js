@@ -75,7 +75,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	},
 	
 	'fill' : function(){
-		console.log("fill")
+		
 		var parsetype = this.columns[this.filterfunc];
 		this.settings.details = this[parsetype]();
 
@@ -224,7 +224,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 		var description = this.title;
 
-		return [{content: total, descr : description}];
+		return [{content: total >= 0? total: 0, descr : description}];
 	},
 
 	'parsementions' : function(){
