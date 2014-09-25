@@ -15,7 +15,8 @@
 	</div>
 	{{/details}}
 
-	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
+	<a class="more" href="#reports/{{streamid}}">
 		{{{footer}}}
+		<i class="icon-chevron-right m-icon-white"></i>
 	</a>
 </div>
