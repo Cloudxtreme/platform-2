@@ -52,7 +52,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 		this.settings = {
 			title	: this.title,
-			network : this.icon ? {icon: this.icon} : {icon : "cloud"}
+			network : this.icon ? {icon: this.icon} : {icon : "cloud"},
+			streamid: this.network
 		};
 		
 		this.settings.filterfunc = this.filterfunc;
