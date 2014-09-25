@@ -120,13 +120,17 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 
 	},
 	
-	'monitorlimit' : function(type, current, target)
+	'monitorlimit' : function(type, current, target, alert)
 	{
 		if(current >= this.limits[type])
 		{
+			var title = "Upgrade?";
+			var message = "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.";
+			
 			$('.alert-info').remove();
-				
-			Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.");
+			
+			if(alert)	Cloudwalkers.RootView.alert(title + " " + message);
+			else		Cloudwalkers.RootView.information (title, message);
 		
 			if(target)
 			{
@@ -145,6 +149,18 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 		}
 		
 		return false;
+	},
+
+	'usersbyrole' : function(userrole)
+	{
+		var roles = this.get("roles");
+		var rolegroup = roles? _.findWhere(roles, {name: userrole}): null;
+		var users = this.users.models;
+
+		if(rolegroup)
+			return users.filter(function(user){ return user.get("rolegroup") == rolegroup.id });
+		else
+			return [];
 	},
 	
 	'addcampaign' : function (name, callback)

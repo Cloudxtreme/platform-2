@@ -71,13 +71,18 @@ Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
 	'success' : function()
 	{	
 		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
-		this.model.trigger("change:clearance")	;
+		this.model.trigger("change:clearance");
 	},
 
 	'error' : function(model, response)
 	{	
-		var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
-		Cloudwalkers.RootView.alert(error);
+		var account = Cloudwalkers.Session.getAccount();
+
+		if(!account.monitorlimit('admins', Cloudwalkers.Session.getUsers('Conversation manager').length, null, true))
+		{
+			var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
+			Cloudwalkers.RootView.alert(error);
+		}		
 	},
 
 	'disablesave' : function()

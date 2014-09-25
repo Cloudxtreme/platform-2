@@ -357,9 +357,9 @@ Cloudwalkers.Session =
 		return (id)? this.user.account.users.get (id):  this.user;
 	},
 	
-	'getUsers' : function ()
+	'getUsers' : function (userrole)
 	{
-		return this.user.account.users;
+		return userrole? this.user.account.usersbyrole(userrole): this.user.account.users;
 	},
 	
 	/**
