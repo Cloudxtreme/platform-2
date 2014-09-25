@@ -72,6 +72,12 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	{	
 		this.$el.html (Mustache.render (Templates.dashboardstat, this.settings));
 
+		if(this.settings.details && this.settings.details.length)
+		{	
+			if(this.settings.details[0].content !== undefined)
+				this.$el.find('.dashboard-stat').removeClass('portlet-loading');
+		}
+
 		return this;
 	},
 	
@@ -79,12 +85,6 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		
 		var parsetype = this.columns[this.filterfunc];
 		this.settings.details = this[parsetype]();
-
-		if(this.settings.details && this.settings.details.length)
-		{
-			if(this.settings.details[0].content)
-				this.$el.find('.portlet-loading').eq(0).removeClass('portlet-loading')
-		}
 
 		this.render();
 	},
