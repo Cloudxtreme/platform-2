@@ -81,7 +81,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		var model = this.collection.get($(e.currentTarget).data("stream"));
 		var view = model.get("childtypes")[0] + "s";
 
-		if(this.options.source == 'outgoing')
+		if(this.options.channel.get('type') == "outgoing")
 			view = 'scheduled';
 		
 		// Memory cloth
