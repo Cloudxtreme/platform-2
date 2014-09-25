@@ -54,7 +54,6 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		for(n in collection.models)
 		{	
 			var counterentry = new Cloudwalkers.Views.CounterEntry({model: collection.models[n], data: this.options});
-			console.log(this.$container)
 			this.$container.append(counterentry.render().el);
 		}
 	},	
