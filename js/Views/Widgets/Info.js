@@ -219,8 +219,11 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 
 	'parsefollowers' : function(){
 
-		var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3);
-		var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3);
+		var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3) || 
+					this.collection.latest().pluck("contacts", this.network);
+
+		var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3) ||
+					this.collection.first().pluck("contacts", this.network);
 		var total = statl - statf;
 		var percent = total == 0? 0: Math.floor(total/statf*100);
 
