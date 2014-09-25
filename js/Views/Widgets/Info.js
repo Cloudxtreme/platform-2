@@ -224,9 +224,12 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var total = statl - statf;
 		var percent = total == 0? 0: Math.floor(total/statf*100);
 
+		if(percent >= 0)	percent = '+' + percent;
+		if(total >= 0)		total 	= '+' + total;
+
 		var description = '<strong>'+ total +'</strong> ('+ percent +'%) in last 7 days';
 		//console.log(statl-statf, ((statl-statf)/statf)*100, statl, statf)
-		return [{content: total >= 0? total: 0, descr : description}];
+		return [{content: statl, descr : description}];
 	},
 
 	'parsementions' : function(){
