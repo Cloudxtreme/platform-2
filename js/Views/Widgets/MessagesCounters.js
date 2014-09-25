@@ -20,75 +20,20 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		// The list source is either the streams or subchannels
 		this.collection = options.channel[options.source];
 		//options.channel.on('ready', this.fill);
-		this.listenToOnce(this.collection, 'sync', this.fill)
 
-		//options.channel.fetch();
-		//this.rendercounters();
+		// Scheduled list
+		if(this.options.channel.get('type') == "outgoing")
+		{
+			this.listenTo(Cloudwalkers.RootView, 'added:message', this.addedmessage.bind(this))
+		}
 	},
 
-	/*'updatedcounters' : function(models)
-	{	
-		this.options.channel = models;
-		this.options.channel[this.options.source].models = this.options.channel.get(this.options.source);
-		
-		for(n in this.options.channel[this.options.source].models){
-			this.options.channel[this.options.source].models[n] = new Cloudwalkers.Models.Stream(this.options.channel[this.options.source].models[n]);
-		}
-		
-		this.list = this.options.channel[this.options.source];
-		
-		this.rendercounters();
-	},*/
-
-	/*'preparelist' : function()
-	{	
-		if(this.collection)
-		for (n in this.collection.models)
-		{
-			this.collection.models[n].count = 0;
-			// Add change listeners
-			// this.listenTo(this.list.models[n], "change", this.render);
-			// this.listenTo(this.list.models[n], "change", this.negotiateFunctionalities);
-			
-			// Place counter
-			if(this.collection.models[n].get("counters")){
-				
-				if(this.options.channel.get("type") == "outgoing")
-					this.collection.models[n].count = this.collection.models[n].get("counters").total.scheduled.messages.total;
-				else
-					this.collection.models[n].count = this.collection.models[n].get("counters").recent.incoming.any.unread;
-				
-			} else if(this.collection.models[n].channels){	// Deprecated
-
-				// Keyword Filters
-				
-				this.keywordchannels = this.list.models[n].channels.models;
-
-				for(k in this.keywordchannels){
-					this.keywordstreams = this.keywordchannels[k].streams.models;
-					
-					for(j in this.keywordstreams){
-
-						if(this.keywordstreams[j].get("counters")){
-							this.counters = this.keywordstreams[j].get("counters").MESSAGE;
-							
-							for(i in this.counters){
-								// change interval to SINCEREMEMBER
-								if((this.counters[i].type == "UNREAD") && (this.counters[i].interval == "TOTAL"))
-									this.list.models[n].count += parseInt(this.counters[i].amount);
-								
-							}
-						}
-					}
-					this.list.models[n].count = this.keywordchannels[k].streams.models.get("counters").recent.incoming.any.unread;
-				}
-			}
-		}
-
-		this.collection.comparator = function (a, b) { return b.count - a.count }
-			
-		this.collection.sort();
-	},*/
+	'addedmessage' : function(message)
+	{
+		// Is it a scheduled message?
+		if(message.get("schedule") && message.get("schedule").date)
+			this.updatecollection();
+	},
 	
 	'render' : function ()
 	{			
@@ -97,15 +42,7 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 
 		this.fill(this.collection);
 		
-		// For inbox & scheduled
-		if(this.options.source == 'streams')
-		{
-			this.options.channel.endpoint = '/streams';
-			this.collection.url = this.options.channel.url();
-		
-			// Lazy update
-			this.collection.fetch({remove: false})
-		}
+		this.updatecollection();
 
 		return this;
 	},
@@ -121,6 +58,21 @@ Cloudwalkers.Views.Widgets.MessagesCounters = Cloudwalkers.Views.Widgets.Widget.
 		}
 	},	
 	
+	'updatecollection' : function()
+	{
+		this.listenToOnce(this.collection, 'sync', this.fill);
+
+		// For inbox & scheduled
+		if(this.options.source == 'streams')
+		{
+			this.options.channel.endpoint = '/streams';
+			this.collection.url = this.options.channel.url();
+		
+			// Lazy update
+			this.collection.fetch({remove: false})
+		}
+	},
+
 	'updatesettings' : function (e)
 	{
 		// Currently streams only
