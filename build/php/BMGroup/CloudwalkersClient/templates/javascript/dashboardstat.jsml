@@ -1,4 +1,4 @@
-<div class="dashboard-stat {{network.icon}}-color" data-network="{{network.icon}}" data-report="{{filterfunc}}">
+<div class="dashboard-stat {{network.icon}}-color portlet-loading" data-network="{{network.icon}}" data-report="{{filterfunc}}">
 	<div class="visual">
 	{{icon}}
 		<i class="icon-{{network.icon}}"></i>
@@ -10,12 +10,15 @@
 			{{content}}
 		</div>
 		<div class="desc">                           
-			{{descr}}
+			{{{descr}}}
 		</div>
 	</div>
 	{{/details}}
 
-	<a class="more" {{#showLink}}href="#reports/{{#stream}}{{id}}{{/stream}}"{{/showLink}} >
+	{{#footer}}
+	<a class="more" href="#reports/{{streamid}}">
 		{{{footer}}}
+		<i class="icon-chevron-right m-icon-white"></i>
 	</a>
+	{{/footer}}
 </div>
