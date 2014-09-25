@@ -1,6 +1,7 @@
 Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'title' : "Dashboard",
+	'statistics' : [],
 	
 	'widgets' : [
 		{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable', translation: {'title': 'inbox'}},
@@ -18,9 +19,15 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 		// Translation for Title
 		this.translateTitle("dashboard");
+
+		// Reports
+		this.model = Cloudwalkers.Session.getAccount();
+		this.model.statistics = new Cloudwalkers.Collections.Statistics();
+		
+		this.listenTo(this.model.statistics, 'seed', this.filldynamicreports);
 	},
 	
-	'addDynamicReports' : function ()
+	/*'addDynamicReports' : function ()
 	{
 		var streams =  Cloudwalkers.Session.getStreams();
 		var reportables = streams.where({statistics: 1});
@@ -42,6 +49,48 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 			}
 		
 		return widgets;
+	},*/
+
+	'filldynamicreports' : function()
+	{	
+		var streams =  Cloudwalkers.Session.getStreams();
+		var reportables = streams.where({statistics: 1});
+
+		this.appendWidget(new Cloudwalkers.Views.Widgets.DashboardCleaner ({size: 12}), 12)
+
+		for(n in reportables)
+		{
+			this.fillstreamwidget(reportables[n].id)
+		}		
+			
+		//	this.appendWidget(view, this.widgets[n].span);
+	},
+
+	'fillstreamwidget' : function(stream)
+	{	
+		var widgets = [
+			{widget: "Info", data: {title: "Followers", filterfunc: "followers"}, span: 3},
+			{widget: "Info", data: {title: "Best time to post", filterfunc: "besttimetopost"}, span: 3},
+			/*{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 3},
+			{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 3}*/
+		]
+
+		for(n in widgets)
+		{	
+			var token = Cloudwalkers.Session.getStream(stream).get("network").token;
+
+			if(token != 'facebook' && token != 'twitter')
+				continue;
+
+			widgets[n].data.network = stream;
+			widgets[n].data.model = this.model;
+			widgets[n].data.footer = Cloudwalkers.Session.getStream(stream).get("defaultname");
+	
+			var view = new Cloudwalkers.Views.Widgets[widgets[n].widget] (widgets[n].data);
+
+			this.statistics.push(view);
+			this.appendWidget(view, widgets[n].span);
+		}
 	},
 	
 	'render' : function ()
@@ -52,8 +101,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
 
-		if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
-			widgets = widgets.concat(this.addDynamicReports());
+		/*if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
+			widgets = widgets.concat(this.addDynamicReports());*/
 		
 		// Append widgets
 		for(i in widgets)
@@ -89,6 +138,8 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 				this.appendWidget(widget, Number(widgets[i].size));
 		}
 		
+		this.model.statistics.touch(this.model, this.filterparameters());
+
 		return this;
 	},
 	
@@ -139,6 +190,14 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		if(!widgetdata.model)	return;
 
 		return new Cloudwalkers.Views.Widgets.DashboardMessageList (widgetdata);
+	},
+
+	'filterparameters' : function() {
+ 
+		this.start = moment().zone(0).startOf('isoweek');
+		this.end = moment().zone(0).endOf('isoweek'); 
+		
+		return {since: this.start.unix(), until: this.end.unix()};
 	},
 
 	'translateWidgets' : function(translatedata)

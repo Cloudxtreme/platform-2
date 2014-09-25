@@ -12,6 +12,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		"post-activity-network" : "parsepostactivitynetwork",
 		"activity-network" : "parseactivitynetwork",
 		"page-views-network" : "parseviewsnetwork",
+		"besttimetopost" : "parsebesttimetopost",
 		"followers" : "parsefollowers",
 		"following" : "parsefollowing",
 		"mentions" : "parsementions",
@@ -42,6 +43,8 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 			'linkedin'	: 'New notifications'
 		}
 	},
+
+	'streamid' : null,
 	
 	'initialize' : function (options)
 	{	
@@ -72,9 +75,15 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	},
 	
 	'fill' : function(){
-
+		console.log("fill")
 		var parsetype = this.columns[this.filterfunc];
 		this.settings.details = this[parsetype]();
+
+		if(this.settings.details && this.settings.details.length)
+		{
+			if(this.settings.details[0].content)
+				this.$el.find('.portlet-loading').eq(0).removeClass('portlet-loading')
+		}
 
 		this.render();
 	},
@@ -218,18 +227,6 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		return [{content: total, descr : description}];
 	},
 
-	//TWITTER SPECIFIC
-	'parsefollowers' : function(){
-
-		var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3);
-		var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3);
-		var total = statl - statf;
-
-		var description = this.title;
-
-		return [{content: total, descr : description}];
-	},
-
 	'parsementions' : function(){
 
 		var statl = this.collection.latest().pluck(["notifications","types","comments"], this.network,3);
@@ -320,6 +317,47 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		return [{content: total, descr : description}];
 	},
 
+	'parsebesttimetopost' : function()
+	{	
+		var besttimes = this.collection.clone().parsebesttime(this.network);
+
+	    if (besttimes.length == 0)
+	        return null;
+	    
+	    var modeMap = {},
+	        maxEl = besttimes[0].time,
+	        maxCount = 1;
+
+	    for(var i = 0; i < besttimes.length; i++)
+	    {	
+	        var el = besttimes[i].time;
+	        if(el < 0)	continue;
+
+	        if (modeMap[el] == null)
+	            modeMap[el] = 1;
+	        else
+	            modeMap[el]++;
+
+	        if (modeMap[el] > maxCount)
+	        {
+	            maxEl = el;
+	            maxCount = modeMap[el];
+	        }
+	        else if (modeMap[el] == maxCount)
+	        {
+	            maxEl = el;
+	            maxCount = modeMap[el];
+	        }
+	    }
+
+	    var description = this.title;
+	    
+	    if(maxEl >= 0)
+	    	return [{content: maxEl+'h - '+ (maxEl+1) +'h', descr : description}];
+	    else
+	    	return false;
+	    
+	},
 
 	'negotiateFunctionalities' : function()
 	{
