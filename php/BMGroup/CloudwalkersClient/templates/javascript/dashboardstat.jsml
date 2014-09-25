@@ -1,4 +1,4 @@
-<div class="dashboard-stat {{network.icon}}-color" data-network="{{network.icon}}" data-report="{{filterfunc}}">
+<div class="dashboard-stat {{network.icon}}-color portlet-loading" data-network="{{network.icon}}" data-report="{{filterfunc}}">
 	<div class="visual">
 	{{icon}}
 		<i class="icon-{{network.icon}}"></i>
