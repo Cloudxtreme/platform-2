@@ -68,23 +68,26 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 
 	'fillstreamwidget' : function(stream)
 	{	
+		var token = Cloudwalkers.Session.getStream(stream).get("network").token;
+		var title = token == 'facebook'? 'Likes': 'Followers';
 		var widgets = [
-			{widget: "Info", data: {title: "Followers", filterfunc: "followers"}, span: 3},
+			{widget: "Info", data: {title: title, filterfunc: "followers"}, span: 3},
 			{widget: "Info", data: {title: "Best time to post", filterfunc: "besttimetopost"}, span: 3},
 			/*{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 3},
 			{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 3}*/
 		]
 
 		for(n in widgets)
-		{	
-			var token = Cloudwalkers.Session.getStream(stream).get("network").token;
-
+		{
 			if(token != 'facebook' && token != 'twitter')
 				continue;
 
 			widgets[n].data.network = stream;
 			widgets[n].data.model = this.model;
 			widgets[n].data.footer = Cloudwalkers.Session.getStream(stream).get("defaultname");
+
+			if(widgets[n].data.filterfunc != "besttimetopost")
+				widgets[n].data.footer = widgets[n].data.footer + ' ' + title;
 	
 			var view = new Cloudwalkers.Views.Widgets[widgets[n].widget] (widgets[n].data);
 
