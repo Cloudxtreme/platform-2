@@ -49,6 +49,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		'LinkedIn':'#1783BC', 
 		'GooglePlus':'#DD4C39', 
 		'YouTube':'#CC181E', 
+		'Youtube' : '#CC181E',
 		'Internal':'#E2EAE9', 
 		'Others':'#E5E5E5',
 		'CoworkerWall':"#CCCCCC"
