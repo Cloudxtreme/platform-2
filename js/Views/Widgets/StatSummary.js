@@ -121,7 +121,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	// *** Network specific plucks ***
 
 	'parsecontactsnetwork' : function ()
-	{	
+	{	console.log(this.collection.latest())
 		// Get most recent stat
 		var stat = this.collection.latest();
 		return { counter: stat.pluck("contacts", this.network)};

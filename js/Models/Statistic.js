@@ -62,7 +62,7 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 				}
 			}
 		});
-		
+		//console.log(streamid,keys,response)
 		return response;
 	},
 

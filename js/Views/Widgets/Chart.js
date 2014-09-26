@@ -59,9 +59,9 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		view = this;
-		this.collection = this.model.statistics;	
+		this.collection = this.statistics;	
 	
-		this.listenTo(this.collection, 'ready', this.fill);
+		//this.listenTo(this.collection, 'ready', this.fill);
 	},
 
 	'render' : function ()
@@ -590,6 +590,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parseage : function(collection){
 		
 		var streams = collection.latest().get("streams");
+		//console.log(JSON.stringify(collection.latest()));
 		var grouped = this.groupkey(streams, "contacts", "age");
 		var total = 0;
 		var data = [];

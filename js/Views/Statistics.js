@@ -20,7 +20,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'widgets' : [
-		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
+		//{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
 		{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
 		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", translation:{ 'title': 'contacts'}, display: "divided"}, span: 6},
@@ -59,18 +59,23 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		if (options) $.extend(this, options);
 
 		// Check if collection exists
-		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
+		//if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
 		
 		// Which collection to focus on
-		this.collection = this.model.statistics;
+		this.collection = new Cloudwalkers.Collections.Statistics();
 		
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
+		this.listenTo(this.collection, 'sync', this.fillcharts);
 		
-		this.cleancollection();
+		//this.cleancollection();
 		
-		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});
-		
+		google.load('visualization', '1',  {'callback': function () { this.render();}.bind(this), 'packages':['corechart']});		
+	},
+
+	'rendercharts' : function()
+	{
+
 	},
 	
 	'render' : function()
@@ -110,9 +115,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	},
 
-	'fillcharts' : function()
+	'fillcharts' : function(collection)
 	{	
-		if(this.collection.latest() && this.collection.latest().get("streams"))
+		if(collection.latest() && collection.latest().get("streams"))
 			this.hideloading();
 		else
 			this.listenToOnce(this.collection, 'sync', this.hideloading);
@@ -144,7 +149,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				this.widgets[n].data = this.networkspecific[this.widgets[n].data][token];
 
 			this.widgets[n].data.network = streamid;
-			this.widgets[n].data.model = this.model;
+			this.widgets[n].data.statistics = collection;
 			this.widgets[n].data.parent = this;
 			this.widgets[n].data.visualization = google.visualization;
 			this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
@@ -345,7 +350,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'cleancollection' : function()
 	{	
-		this.listenToOnce(this.collection, 'sync', this.fillcharts);
 		this.collection.reset();
 	},
 
