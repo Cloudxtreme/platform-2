@@ -22,6 +22,15 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'render' : function ()
 	{	
+	
+		/* This Should be in the Widget
+		if (this.widgets[n].data.title == translate.top_rated_comment)
+		{
+			if (this.timespan == 'quarter')		this.widgets[n].span = 8;
+			else if (this.timespan == 'year')	this.widgets[n].span = 8;
+			else								this.widgets[n].span = 12;
+		}*/
+		
 		this.$el.html (Mustache.render (Templates.trendingmsg, this.settings));
 		this.hideloading();
 

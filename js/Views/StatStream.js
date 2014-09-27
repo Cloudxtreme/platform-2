@@ -47,31 +47,24 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		},
 	],
 	
-	'initialize' : function(options)
+	/**
+	 *	Stream Data
+	 *	Add streamlevel data to widget object
+	 */
+	streamdata: function (widget)
 	{
-		if (options) $.extend(this, options);
+		// network token
+		var network = Cloudwalkers.Session.getStream (Number(this.streamid)).get ("network").token;
+		var data = {};
 		
-		// Test
-		//console.log("the streamid was:", this.streamid)
-		this.streamid = Number(this.streamid);
+		// Network specific charts - deprecated or in need for rewrite?
+		// if(this.widgets[n].networks && this.widgets[n].networks != network)	continue;
+		
+		if (_.isString (widget.data))
+			data = this.networkspecific[widget.data][network];
+			
+		data.network = this.streamid;
 
-		// Check if collection exists
-		if(!this.model.statistics) this.model.statistics = new Cloudwalkers.Collections.Statistics();
-		
-		// Which collection to focus on
-		this.collection = this.model.statistics;
-		
-		// Listen to model
-		this.listenTo(this.collection, 'request', this.showloading);
-		//this.listenTo(this.collection, 'ready', this.hideloading);
-		//this.listenToOnce(this.collection, 'sync', this.fillcharts);
-		//this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
-		
-		this.cleancollection();
-
-		google.load('visualization', '1',  {'callback': function () { this.gloaded = true; }.bind(this), 'packages':['corechart']});
-		
+		return _.extend (widget.data, data);
 	}
-
-
 });

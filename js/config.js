@@ -1,8 +1,8 @@
 var config =
 {
-	appid : 'oauth25422e15127f2a4.21295482',
-	apiurl: 'https://stagingapi.cloudwalkers.be/',
-	authurl: 'https://stagingapi.cloudwalkers.be/oauth2/',
+	appid : 'oauth253f63ffbac9012.56862210',
+	apiurl: 'https://devapi.cloudwalkers.be/',
+	authurl: 'https://devapi.cloudwalkers.be/oauth2/',
 	
 	setloginwindow : function ()
 	{

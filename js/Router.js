@@ -309,8 +309,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	{
 		//var model = Cloudwalkers.Session.getAccount();
 		var view = streamid?
-			new Cloudwalkers.Views.StatStream({/*model: model*/, streamid: streamid}):
-			new Cloudwalkers.Views.Statistics(/*{model: model}*/)
+			new Cloudwalkers.Views.StatStream({streamid: streamid}):
+			new Cloudwalkers.Views.Statistics();
 
 		var roles = 'STATISTICS_VIEW';
 

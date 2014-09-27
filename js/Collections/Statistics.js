@@ -22,15 +22,40 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 
 	},
 	
-	'touch' : function (model, params)
-	{
-		// Work data
-		this.parentmodel = model;
-		this.endpoint = this.modelstring + "ids";
-		this.parameters = params;
+	'url' : function(a)
+	{	
+		// Get parent model
+		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 		
-		// Check for history (without! ping lifetime)
-		Store.get("touches", {id: this.url()}, this.touchlocal.bind(this));
+		var url = Cloudwalkers.Session.api + '/accounts/' + this.parentmodel.id;
+				
+		if(this.endpoint) url += '/' + this.endpoint;
+	
+		return url;
+	},
+	
+	/**
+	 *	Touch
+	 *	This touch works different then the other collection touches
+	 */
+	'touch' : function (params)
+	{
+		this.parentmodel = Cloudwalkers.Session.getAccount();
+		this.endpoint = this.modelstring + "ids";
+		
+		// Hard-wired request (no caching)
+		this.fetch({data: params, success: this.touchresponse.bind(this)});
+	},
+	
+	'touchresponse' : function(coll, response)
+	{	
+		// Get ids
+		var ids = response.account.statistics;
+
+		if (ids.length)
+			this.fetch ({reset: true, data: {ids: ids.join (",")}, success: this.trigger.bind(this, 'sync:data')});
+		
+		else this.trigger ('sync:noresults');
 	},
 	
 	

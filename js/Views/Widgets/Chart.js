@@ -66,6 +66,15 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 
 	'render' : function ()
 	{	
+		/* This should be in the Widget
+		if(this.widgets[n].data.title == translate.messages_evolution)
+		{
+			if (this.timespan == 'quarter')		this.widgets[n].span = 6;
+			else if (this.timespan == 'year')	this.widgets[n].span = 12;
+			else								this.widgets[n].span = 4;
+		}*/
+		
+		
 		// Create view
 		this.settings = {};
 		this.settings.title = this.title;
