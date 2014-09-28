@@ -8,6 +8,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'colors' : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
 	'processing' : false,
 	'parameters' : {},
+
 	'paging' : {},
 	'cursor' : false,
 	
@@ -52,8 +53,13 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		// Get ids
 		var ids = response.account.statistics;
 
+		this.endpoint = this.modelstring + 's';
+
 		if (ids.length)
+		{
 			this.fetch ({reset: true, data: {ids: ids.join (",")}, success: this.trigger.bind(this, 'sync:data')});
+			this.trigger('seed', ids)
+		}
 		
 		else this.trigger ('sync:noresults');
 	},

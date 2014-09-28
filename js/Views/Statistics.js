@@ -30,9 +30,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'widgets' : [
-		//{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
+		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
-		{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
+		/*{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
 		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", translation:{ 'title': 'contacts'}, display: "divided"}, span: 6},
 		{widget: "CompoundChart", span: 6, data :
 		{	template: "2col1row", chartdata: [ 
@@ -63,7 +63,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", translation:{ 'title': 'countries'}}, connect: 'regional'},
 				{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", translation:{ 'title': 'cities'}}}
 			]
-		}}
+		}}*/
 	],
 	
 	'initialize' : function(options)
@@ -75,6 +75,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Listen to model
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'seed', this.fillcharts);
+		this.listenTo(this.collection, 'sync:data', this.hideloading);
 		
 		// General i18n
 		translate =
@@ -126,20 +127,14 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'request' : function ()
 	{
-		this.fillcharts ();
+		//this.fillcharts ();
 		this.collection.touch (this.filterparameters ());
 	},
 
 	'fillcharts' : function (list)
-	{	
-		// Please make me pretty
-		if(list && list.length) this.hideloading ();
-		
-		else if (list) return this.showempty ();
-		
+	{		
+		if (list && !list.length) return this.showempty ();		
 		else this.$container.html('');
-		
-
 
 		// Iterate widgets
 		this.widgets.forEach (function (widget)

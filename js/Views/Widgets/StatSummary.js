@@ -21,9 +21,8 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		if (options) $.extend(this, options);
 		
 		// Which collection to focus on
-		this.collection = this.model.statistics;
-
-		this.listenTo(this.collection, 'ready', this.fill);
+		this.collection = this.parentview.collection;
+		this.listenTo(this.collection, 'sync:data', this.fill);
 	},
 	
 	'render' : function ()
@@ -64,7 +63,7 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	 **/
 	 
 	'parsecontacts' : function ()
-	{	
+	{
 		// Get most recent stat
 		var stat = this.collection.latest();
 		return { counter: stat.pluck("contacts")};
