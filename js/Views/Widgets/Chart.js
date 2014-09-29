@@ -58,10 +58,11 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
+
 		view = this;
-		this.collection = this.statistics;	
+		this.collection = this.parentview.collection;	
 	
-		//this.listenTo(this.collection, 'ready', this.fill);
+		this.listenTo(this.collection, 'ready', this.fill);
 	},
 
 	'render' : function ()
@@ -85,7 +86,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 	'fill' : function ()
 	{ 	
-		if(!this.collection.latest() || !this.collection.latest().get('streams'))	return;
+		if(!this.collection.latest() || !this.collection.latest().get('streams'))
+			return;
 		
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];

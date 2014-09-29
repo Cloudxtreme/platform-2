@@ -120,17 +120,16 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	// *** Network specific plucks ***
 
 	'parsecontactsnetwork' : function ()
-	{	console.log(this.collection.latest())
+	{
 		// Get most recent stat
 		var stat = this.collection.latest();
-		return { counter: stat.pluck("contacts", this.network)};
+		return { counter: stat.pluck("contacts", this.parentview.streamid)};
 	},
 	
 	'parsescorenetwork' : function ()
 	{
-	
 		stat = this.collection.latest();
-		var total = stat.pluck("notifications", this.network) + stat.pluck("activities", this.network);
+		var total = stat.pluck("notifications", this.parentview.streamid) + stat.pluck("activities", this.parentview.streamid);
 		
 		return 	{counter: total};
 	},
@@ -141,13 +140,13 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 		var statl = this.collection.latest();
 		var statf = this.collection.first();
 		
-		var total = statl.pluck("messages", this.network) - statf.pluck("messages", this.network);
+		var total = statl.pluck("messages", this.parentview.streamid) - statf.pluck("messages", this.parentview.streamid);
 		return { counter: total };
 	},
 
 	'parsebesttime' : function(){
 
-		var besttimes = this.collection.clone().parsebesttime();
+		var besttimes = this.collection.clone().parsebesttime(this.parentview.streamid);
 
 	    if (besttimes.length == 0)
 	        return null;
@@ -177,8 +176,11 @@ Cloudwalkers.Views.Widgets.StatSummary = Cloudwalkers.Views.Widgets.Widget.exten
 	            maxCount = modeMap[el];
 	        }
 	    }
-	    
-	    return {counter : maxEl+"h" };
+	   
+	    if(maxEl >= 0)
+	    	return {counter: maxEl+'h - '+ (maxEl+1) +'h'};
+	    else
+	    	return {counter:'--'};
 	},
 
 	'translateString' : function(translatedata)

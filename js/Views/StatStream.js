@@ -55,13 +55,10 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 	{
 		// network token
 		var network = Cloudwalkers.Session.getStream (Number(this.streamid)).get ("network").token;
-		var data = {};
-		
-		// Network specific charts - deprecated or in need for rewrite?
-		// if(this.widgets[n].networks && this.widgets[n].networks != network)	continue;
+		var data = {};	
 		
 		if (_.isString (widget.data))
-			data = this.networkspecific[widget.data][network];
+			widget.data = this.networkspecific[widget.data][network];
 			
 		data.network = this.streamid;
 

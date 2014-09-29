@@ -7,7 +7,7 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 		this.settings = {};
 		this.settings.title = this.title;
 
-		this.collection = this.model.statistics;
+		this.collection = this.parentview.collection;
 		this.listenTo(this.collection, 'ready', this.fill);
 		
 	},
@@ -18,11 +18,12 @@ Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
 		return this;
 	},
 
-	'fill' : function(){
+	'fill' : function()
+	{
 		if(this.filled)
 			return;
 
-		var fulldata = this.collection.clone().parsebesttime();
+		var fulldata = this.collection.clone().parsebesttime(this.parentview.streamid);
 		
 		$.each(fulldata, function(key, day){
 			day.fill = day.value*100/fulldata["maxvalue"];

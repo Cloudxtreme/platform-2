@@ -40,10 +40,6 @@ Cloudwalkers.Views.Widgets.CompoundChart = Backbone.View.extend({
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
-		view = this;
-		this.collection = this.statistics;	
-	
-		//this.listenTo(this.collection, 'ready', this.fill);
 
 		this.charttemplate = "compoundchart"+this.options.template;
 		this.template = this.options.template;
@@ -68,9 +64,10 @@ Cloudwalkers.Views.Widgets.CompoundChart = Backbone.View.extend({
 		if(this.filled)	return true;
 
 		$.each(this.charts, function(index, chart){
-			//chart.data.model = this.model;
-			chart.data.network = this.network;
 			
+			chart.data.network = this.network;
+			chart.data.parentview = this.parentview;
+
 			var view = new Cloudwalkers.Views.Widgets[chart.widget](chart.data).render().el;
 			this.$el.find(this.templatemap[this.template][index]).append(view);
 			

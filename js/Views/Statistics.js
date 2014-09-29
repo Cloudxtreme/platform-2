@@ -32,7 +32,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'widgets' : [
 		{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
-		/*{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
+		{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
 		{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", translation:{ 'title': 'contacts'}, display: "divided"}, span: 6},
 		{widget: "CompoundChart", span: 6, data :
 		{	template: "2col1row", chartdata: [ 
@@ -63,7 +63,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", translation:{ 'title': 'countries'}}, connect: 'regional'},
 				{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", translation:{ 'title': 'cities'}}}
 			]
-		}}*/
+		}}
 	],
 	
 	'initialize' : function(options)
@@ -86,6 +86,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			messages_evolution: this.translateString ("messages_evolution"),
 			activity_calendar: this.translateString ("activity_calendar")
 		}
+
+		this.streamid = parseInt(this.streamid)
 	},
 	
 	'render' : function()
@@ -132,7 +134,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'fillcharts' : function (list)
-	{		
+	{
 		if (list && !list.length) return this.showempty ();		
 		else this.$container.html('');
 
@@ -148,7 +150,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				widget.data = this.streamdata (widget);
 			
 			widget.data.parentview = this;
-				
+			widget.data.timespan = {
+				since : this.start.unix(), 
+				to : this.end.unix()
+			}
+
 			/// if(this.timespan == 'week') choose new_this or new_this_m
 			/// this.widgets[n].data.statistics = collection;
 			/// this.widgets[n].data.visualization = google.visualization;

@@ -11,9 +11,9 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.collection = this.model.statistics;
+		this.collection = this.parentview.collection;
 
-		this.listenTo(this.model, 'change', this.render);
+		//this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.collection, 'ready', this.fill)
 	},
 

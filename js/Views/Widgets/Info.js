@@ -53,19 +53,19 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		this.settings = {
 			title	: this.title,
 			network : this.icon ? {icon: this.icon} : {icon : "cloud"},
-			streamid: this.network
+			streamid: this.streamid
 		};
 		
 		this.settings.filterfunc = this.filterfunc;
 		this.settings.footer = this.footer;
 
-		this.collection = this.model.collection;
+		this.collection = this.parentview.collection;
 		
 		this.listenTo(this.collection, 'ready', this.fill);
 		this.listenTo(this.collection, 'change', this.render);
 
-		if(this.network)
-			this.settings.network.icon = Cloudwalkers.Session.getStream(this.network).get("network").token;
+		if(this.streamid)
+			this.settings.network.icon = Cloudwalkers.Session.getStream(this.streamid).get("network").token;
 	},
 
 	'render' : function ()

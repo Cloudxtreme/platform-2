@@ -230,17 +230,16 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 					stream 	= new Cloudwalkers.Models.Stream(stream);
 					besttime = stream.getbesttime();
 					
-					if(besttime){
-						if(daily.length == 0){
+					if(besttime){ 
+						if(daily.length == 0)
 							daily = _.values(besttime);
-						}else{
-							for(i in besttime){							
-								daily[i] += besttime[i];
-		
-								//Keep track of the highest week & daily value
-								if(daily[i]>maxvalue)	maxvalue=daily[i];
-								if(daily[i]>dailyvalue)	dailyvalue=daily[i];
-							}
+						
+						for(i in besttime){							
+							daily[i] += besttime[i];
+	
+							//Keep track of the highest week & daily value
+							if(daily[i]>maxvalue)	maxvalue=daily[i];
+							if(daily[i]>dailyvalue)	dailyvalue=daily[i];
 						}
 					}
 				});
