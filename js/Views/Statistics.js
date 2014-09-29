@@ -150,7 +150,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 	'fillcharts' : function (list)
 	{
-		if (list && !list.length) return this.showempty ();		
+		if (list && !list.length) return this.showempty();		
 		else this.$container.html('');
 	
 		// Iterate widgets
