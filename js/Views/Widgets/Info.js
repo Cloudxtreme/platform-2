@@ -59,7 +59,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		this.settings.filterfunc = this.filterfunc;
 		this.settings.footer = this.footer;
 
-		this.collection = this.parentview.collection;
+		this.collection = this.model.collection;
 		
 		this.listenTo(this.collection, 'ready', this.fill);
 		this.listenTo(this.collection, 'change', this.render);

@@ -141,7 +141,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 				this.appendWidget(widget, Number(widgets[i].size));
 		}
 		
-		this.model.statistics.touch(this.model, this.filterparameters());
+		this.model.statistics.touch(this.filterparameters());
 
 		return this;
 	},
