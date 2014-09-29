@@ -50,10 +50,13 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	{	
 		if(options) $.extend(this, options);
 
+		if(!this.network && this.parentview)
+			this.network = this.parentview.streamid;
+
 		this.settings = {
 			title	: this.title,
-			network : this.icon ? {icon: this.icon} : {icon : "cloud"},
-			streamid: this.streamid
+			network : this.network? {icon: Cloudwalkers.Session.getStream(this.network).get("network").token}: {icon : "cloud"},
+			streamid: this.network
 		};
 		
 		this.settings.filterfunc = this.filterfunc;
@@ -63,9 +66,6 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		
 		this.listenTo(this.collection, 'ready', this.fill);
 		this.listenTo(this.collection, 'change', this.render);
-
-		if(this.streamid)
-			this.settings.network.icon = Cloudwalkers.Session.getStream(this.streamid).get("network").token;
 	},
 
 	'render' : function ()
