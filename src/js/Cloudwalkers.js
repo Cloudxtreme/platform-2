@@ -4,20 +4,20 @@ define(
 	{
 		var Cloudwalkers = {
 			
-			'version' : 1,
+			version : 1,
 			
-			'Views' : {
+			Views : {
 				'Settings': {},
 				'Widgets' : {
 					'Charts' : {}
 				}
 			},
-			'Router' : {},
-			'Models' : {},
-			'Collections' : {},
-			'Utilities' : {},
+			Router : {},
+			Models : {},
+			Collections : {},
+			Utilities : {},
 
-			'init' : function ()
+			init : function ()
 			{
 				// Authentication
 				var token = window.localStorage.getItem('token');
@@ -36,13 +36,13 @@ define(
 				Cloudwalkers.Session.loadEssentialData (function ()
 				{
 					// Root view
-					Cloudwalkers.RootView = new Cloudwalkers.Views.Root();
+					Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
 					Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					Cloudwalkers.Router.Instance = new Cloudwalkers.Router ();
+					Cloudwalkers.Router.Instance = new Router ();
 					Backbone.history.start();
 
 				});
@@ -155,7 +155,7 @@ define(
 
 		Backbone.Model = Backbone.Model.extend({
 			
-			'url' : function (params)
+			url : function (params)
 		    {
 		        return this.endpoint?
 		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
@@ -165,7 +165,7 @@ define(
 		        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
 		    },
 		    
-		    'parse' : function(response)
+		    parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") response = {id: response};
@@ -176,7 +176,7 @@ define(
 				return response;
 			},
 		    
-		    'sync' : function (method, model, options)
+		    sync : function (method, model, options)
 			{
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 				
@@ -186,7 +186,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'stamp' : function(params)
+			stamp : function(params)
 			{
 				if (!params) params = {id: this.id};
 				
@@ -197,7 +197,7 @@ define(
 				return this;
 			},
 			
-			'loaded' : function(param)
+			loaded : function(param)
 			{
 				return this.get(param? param: "objectType") !== undefined;
 			}
@@ -219,12 +219,12 @@ define(
 
 		Backbone.Collection = Backbone.Collection.extend({
 
-			'distantAdd' : function(model)
+			distantAdd : function(model)
 			{
 				if(!this.get(model.id)) this.add(model);	
 			},
 			
-			'url' : function(a)
+			url : function(a)
 			{	
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
@@ -239,7 +239,7 @@ define(
 				return this.parameters? url + "?" + $.param (this.parameters): url;
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{	
 				if(this.parentmodel && !this.parenttype)
 					this.parenttype = this.parentmodel.get("objectType");
@@ -258,12 +258,12 @@ define(
 				return response[this.typestring];
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				return Backbone.sync(method, model, options);
 			},
 			
-			'setcursor' : function (paging) {
+			setcursor : function (paging) {
 				
 				// Without paging, it's a models call (ignore)
 				if(!paging) return false;
@@ -271,7 +271,7 @@ define(
 				this.cursor = paging.cursors? paging.cursors.after: false;
 			},
 			
-			'updates' : function (ids)
+			updates : function (ids)
 			{
 				for(n in ids)
 				{
@@ -289,7 +289,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});
@@ -299,7 +299,7 @@ define(
 			},
 			
 			// seedparameters: parameters for the second fecth(ids)
-			'touch' : function(model, params, seedparameters)
+			touch : function(model, params, seedparameters)
 			{	
 				// Work data
 				this.parentmodel = model;
@@ -315,7 +315,7 @@ define(
 				this.fetch({success: this.touchresponse.bind(this, this.url())});
 			},
 			
-			'touchlocal' : function(touch)
+			touchlocal : function(touch)
 			{
 				// Is there a local touch list (and filled)?
 				if (touch && touch.modelids.length)
@@ -327,7 +327,7 @@ define(
 				} else this.fetch({success: this.touchresponse.bind(this, this.url())});
 			},
 			
-			'touchresponse' : function(url, collection, response)
+			touchresponse : function(url, collection, response)
 			{	
 				// Get ids
 				var ids = response[this.parenttype][this.typestring];
@@ -391,7 +391,7 @@ define(
 			/**
 				Temp: non-caching seed
 			**/
-			'seed' : function(ids)
+			seed : function(ids)
 			{
 				// Ignore empty id lists
 				if(!ids) ids = [];
@@ -433,7 +433,7 @@ define(
 				return list;
 			},
 			
-			'more' : function(model, params)
+			more : function(model, params)
 			{
 				if(!this.cursor) return false;
 				
@@ -443,7 +443,7 @@ define(
 				return this;
 			},
 			
-			'ready' : function()
+			ready : function()
 			{	
 				var collection = this;
 				setTimeout(function(){ collection.trigger("ready", collection); }, 1, this);

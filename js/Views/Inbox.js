@@ -1,4 +1,6 @@
-Cloudwalkers.Views.IB = Cloudwalkers.Views.Pageview.extend({
+/*
+Deprecated
+Cloudwalkers.Views.IB = Cloudwalkers.Views.Pageview.extend({ 
 	
 	'id' : 'inbox',
 	'title' : 'Inbox',
@@ -75,7 +77,7 @@ Cloudwalkers.Views.IB = Cloudwalkers.Views.Pageview.extend({
 		list.$el.find("div.filter").append(filter);
 		
 		return this;
-	},*/
+	},
 	
 	'resize' : function(height)
 	{
@@ -94,7 +96,7 @@ Cloudwalkers.Views.IB = Cloudwalkers.Views.Pageview.extend({
 	}
 	
 });
-
+*/
 
 Cloudwalkers.Views.Inbox = Cloudwalkers.Views.Pageview.extend({
 
