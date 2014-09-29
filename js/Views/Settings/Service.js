@@ -96,7 +96,7 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
 			
 			// Data
-			this.service.destroy({success: this.closedetail.bind(this)});
+			this.service.destroy({success: this.servicedeleted.bind(this)});
 						
 		}.bind(this));
 	},
@@ -106,6 +106,12 @@ Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
 		this.parent.updatechannels('remove', service)
 		this.parent.closedetail();
 	},*/
+
+	'servicedeleted' : function()
+	{
+		this.trigger('service:deleted');
+		this.closedetail();
+	},
 	
 	'closedetail' : function()
 	{
