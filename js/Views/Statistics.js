@@ -22,6 +22,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'remove': 'destroy',
 		'click #add': 'addperiod',
 		'click #subtract': 'subtractperiod',
+		'click #subtractempty': 'subtractempty',
 		'click #now': 'now',
 		'click #show': 'changecustom',
 		'change .stats-header select.networks': 'changestream',
@@ -126,18 +127,32 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		
 		return this;
 	},
+
+	'writeui' : function(params)
+	{
+		if(!params)
+			params = this.timemanager();
+
+		this.$el.find('.stats-header-timeview').eq(0)
+			.html('<strong>'+ params.fullperiod +': </strong>'+ params.timeview)
+
+	},
 	
-	'request' : function ()
+	'request' : function (period)
 	{
 		//this.fillcharts ();
+		this.writeui();
 		this.collection.touch (this.filterparameters ());
+
+		// Saving the period
+		this.currentperiod = period;
 	},
 
 	'fillcharts' : function (list)
 	{
 		if (list && !list.length) return this.showempty ();		
 		else this.$container.html('');
-
+	
 		// Iterate widgets
 		this.widgets.forEach (function (widget)
 		{	
@@ -154,12 +169,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				since : this.start.unix(), 
 				to : this.end.unix()
 			}
-
-			/// if(this.timespan == 'week') choose new_this or new_this_m
-			/// this.widgets[n].data.statistics = collection;
-			/// this.widgets[n].data.visualization = google.visualization;
-			/// this.widgets[n].data.timespan = {since : this.start.unix(), to : this.end.unix()}
-			/// this.widgets[n].data.span = this.timespan;
 
 			var view = new Cloudwalkers.Views.Widgets[widget.widget] (widget.data);
 			
@@ -223,22 +232,25 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.$el.find('select').prop('disabled', false).trigger("chosen:updated");
 
 		this.listenToOnce(this, 'change:period', this.request);
+
+		// Rendering charts after span change
+		if(this.currentperiod)
+			this.period = this.currentperiod;
 	},
 	
 	'showempty' : function ()
 	{
-		// Reset view
-		this.$container.html('');
-		
-		this.$container.append("empty");	
+		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
+
+		var view = new Cloudwalkers.Views.Widgets.EmptyData ({message: message});
+		this.appendWidget (view, 8, null, 2);
 	},
 
 	'now' : function()
 	{
-		this.cleancollection();
 		this.period = 0;
 		
-		this.trigger('change:period');
+		this.trigger('change:period', this.period);
 	},
 	
 	'addperiod' : function (e)
@@ -247,10 +259,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 
 		if(this.period >= 0 || state == 'disabled')	return;
 		
-		this.cleancollection();
 		this.period += 1;
 		
-		this.trigger('change:period');
+		this.trigger('change:period', this.period);
 	},
 	
 	'subtractperiod' : function(e)
@@ -258,11 +269,14 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var state = $(e.target).attr('disabled');
 
 		if(state == 'disabled')	return;
-		
-		this.cleancollection();
-		this.period -= 1;
-		
-		this.trigger('change:period');
+	},
+
+	'subtractempty' : function()
+	{
+		this.period -= 1;	
+		this.trigger('change:period', this.period);
+
+		this.$container.html('');
 	},
 	
 	'changestream' : function()
@@ -282,8 +296,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	
 	'changecustom' : function()
 	{
-		this.cleancollection();
-
 		this.start = moment(this.$el.find('#start').val(), "DD-MM-YYYY");
 		this.end = moment(this.$el.find('#end').val(), "DD-MM-YYYY");
 		
@@ -319,9 +331,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	{
 	},
 
-	'updatenetwork' : function(e){
+	'updatenetwork' : function(e)
+	{
 		var report = e.currentTarget.dataset.report;
-		
 	},
 
 	'translateString' : function(translatedata)

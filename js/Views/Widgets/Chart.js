@@ -129,11 +129,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	        	if(group[0] == "Male")
 	        		group[0] = this.translateString('male')
 	        	
-	        }.bind(this))
+	        }.bind(this));
+
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 			
 			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
 	        chart.draw(fulldata.data, options);
+
+	        this.removeloading();
 	    }
 	},
 
@@ -157,6 +160,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsecontacts : function(collection, statistic, token){
 		
 		var networks = {};
+		var totalcontacts = 0;
 		var streams;
 		var colors = [];
 		var fulldata = {
@@ -190,9 +194,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
 			fulldata.colors.push(network.getcolor());
+
+			// Check if there are any contacts at all
+			totalcontacts += network.getcontacts();
 		});		
 
-		if(fulldata.data.length == 0)
+		if(collection && (fulldata.data.length == 0 || totalcontacts == 0))
 			return this.emptychartdata();
 
 		fulldata.options.colors = fulldata.colors;
@@ -1051,7 +1058,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data : [["No results", 1]],
 			options : {
 				colors : ["#e5e5e5"]
-			}
+			},
+			empty : true
 		};
 
 		fulldata.data.unshift(["Results", "Number"]);

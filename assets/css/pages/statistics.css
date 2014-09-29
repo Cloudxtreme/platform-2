@@ -19,6 +19,19 @@
     margin-bottom: 15px;
 }
 
+#statistics .well.widget{
+    margin-top: 100px;
+    color: #999;
+}
+
+#statistics .well.widget a{
+    font-size: 16px;
+}
+
+#statistics .well.widget a:hover{
+    cursor: pointer;
+}
+
 /* Charts styling*/
 
 .title-separator{

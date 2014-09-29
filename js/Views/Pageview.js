@@ -34,7 +34,7 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 		}
 	},
 	
-	'appendWidget' : function(widget, span, padding) {
+	'appendWidget' : function(widget, span, padding, offset) {
 		
 		if(!this.span || span == 0)
 		{
@@ -49,6 +49,9 @@ Cloudwalkers.Views.Pageview = Backbone.View.extend({
 			this.widgetviews.push(widget);
 		
 			widget.$el.addClass("span" + span);
+
+			if(offset)
+				widget.$el.addClass("offset" + offset);
 			
 			if (widget.negotiateFunctionalities)
 				widget.negotiateFunctionalities();

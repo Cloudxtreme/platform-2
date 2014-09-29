@@ -369,6 +369,8 @@
 		"remember_for": "Remember for",
 		"Add note": "Add note",
 		"an_error_occurred_while_sending_this_message": "An error occurred while sending this message:",
-		"busy_network" : "The network is quite busy for the moment, please wait while we're sending your message."
+		"busy_network" : "The network is quite busy for the moment, please wait while we're sending your message.",
+		"empty_statistics_data" : "There is still no available data.",
+		"show_last_statistics" :  "Show me last week's statistics"
 	}
 }
