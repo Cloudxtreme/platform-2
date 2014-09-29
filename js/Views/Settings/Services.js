@@ -93,12 +93,6 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		
 		this.$el.html (Mustache.render (Templates.settings.services, data));
 		
-		/*// Get Service options
-		Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
-		
-		// Get connected Services
-		Cloudwalkers.Net.get ('wizard/service/list', {'account': account.id}, this.appendConnected.bind(this));
-		*/
 		this.$container = this.$el.find('.portlet-body');
 		return this;
 	},
@@ -130,7 +124,7 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		var token = $(e.target).data ('add-service');
 		
 		this.listenToOnce(this.services, "sync", function(service)
-		{	
+		{
 			var auth = service.get("authenticateUrl");
 			
 			// Prevent API bug
@@ -141,13 +135,24 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 			
 		});
 		
-		this.services.create({},{wait: true, endpoint: token});
+		this.services.create({},{wait: true, endpoint: token, error: this.error.bind(this)});
 
+	},
+
+	'error' : function(model, response)
+	{	
+		var account = Cloudwalkers.Session.getAccount();
+
+		if(!account.monitorlimit('services', this.services.models.length, null, true))
+		{
+			var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
+			Cloudwalkers.RootView.alert(error);
+		}		
 	},
 	
 	'limited' : function (collection) 
-	{
-		
+	{	
+		// Makes the UI disabled on limit
 		Cloudwalkers.Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
 	},
 	
@@ -198,6 +203,14 @@ Cloudwalkers.Views.Settings.Services = Backbone.View.extend({
 		// Create service view
 		this.detail = new Cloudwalkers.Views.Settings.Service ({id: $(e.currentTarget).data("service"), parent: this});
 		this.$el.find(".service-detail").html( this.detail.render().el);
+
+		// To check if we can remove the exceeded limit warning
+		this.listenTo(this.detail, 'service:deleted', this.deletedservice.bind(this));
+	},
+
+	'deletedservice' : function()
+	{	
+		this.limited(this.services);
 	},
 	
 	'closedetail' : function ()
