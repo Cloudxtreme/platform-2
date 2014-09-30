@@ -146,11 +146,11 @@
     font-size: 10px !important;
 }
 
-.q1{background-color: #2bbedc !important; fill: #2bbedc !important; }
-.q2{background-color: #2CA7C0 !important; fill: #2CA7C0 !important; }
-.q3{background-color: #2E90A4 !important; fill: #2E90A4 !important; }
-.q4{background-color: #2F7988 !important; fill: #2F7988 !important; }
-.q5{background-color: #30616B !important; fill: #30616B !important; }
+.q1{background-color: #BCF4FE !important; fill: #BCF4FE !important; }
+.q2{background-color: #89E7F8 !important; fill: #89E7F8 !important; }
+.q3{background-color: #2BC0DC !important; fill: #2BC0DC !important; }
+.q4{background-color: #14879b !important; fill: #14879b !important; }
+.q5{background-color: #005D6E !important; fill: #005D6E !important; }
 
 #statistics .chosen-container{
     text-transform: capitalize;
