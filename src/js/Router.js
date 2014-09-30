@@ -1,12 +1,12 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Views/Demo', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Draft',
+	['backbone', 'Session', 'Views/Root', 'Views/Demo', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
 	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', 'Views/Calendar', 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/Reports', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
-	 'Views/Coworkdashboard', 'Views/ManageUserGroups', 'Views/Resync', 'Views/RSSFeed', 'Views/ManageRSS'],
+	 'Views/Coworkdashboard', /*'Views/ManageUserGroups'*/, 'Views/Resync', 'Views/RSSFeed'/*, 'Views/ManageRSS'*/],
 
 	function (Backbone, Session, RootView, Demo, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
 			  CalendarView, TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, ReportsView, StatStreamView, StatisticsView,
-			  SettingsView, FirsttimeView, CoworkdashboardView, ManageUserGroupsView, ResyncView, RSSFeedView, ManageRSSView)
+			  SettingsView, FirsttimeView, CoworkdashboardView, /*ManageUserGroupsView, */ResyncView, RSSFeedView/*, ManageRSSView*/)
 
 	{
 		var Router = Backbone.Router.extend (
