@@ -1,10 +1,6 @@
 var config =
 {
-	/*appid : 'oauth2541ff55b395e57.00391293',
-	apiurl: 'http://cloudwalkers-api.local/',
-	authurl: 'http://cloudwalkers-api.local/oauth2/',*/
-	
-	appid : 'oauth253fb03252cfbc2.44920946',
+	appid : 'oauth2542a71afd5a159.94428680',
 	apiurl: 'https://devapi.cloudwalkers.be/',
 	authurl: 'https://devapi.cloudwalkers.be/oauth2/',
 	
@@ -51,9 +47,3 @@ var origin = function ()
 {
 	return (window.location.origin)? window.location.origin : window.location.protocol + "//" + window.location.hostname;
 }
-			
-			
-			
-			
-			
-			

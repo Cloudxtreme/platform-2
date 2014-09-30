@@ -20,6 +20,11 @@ Cloudwalkers.Collections.CannedResponses = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.parameters = options.parameters;
 
 		// Hack

@@ -49,6 +49,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		'LinkedIn':'#1783BC', 
 		'GooglePlus':'#DD4C39', 
 		'YouTube':'#CC181E', 
+		'Youtube' : '#CC181E',
 		'Internal':'#E2EAE9', 
 		'Others':'#E5E5E5',
 		'CoworkerWall':"#CCCCCC"
@@ -57,14 +58,24 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'initialize' : function (options)
 	{
 		if(options) $.extend(this, options);
+
 		view = this;
-		this.collection = this.model.statistics;	
+		this.collection = this.parentview.collection;	
 	
 		this.listenTo(this.collection, 'ready', this.fill);
 	},
 
 	'render' : function ()
 	{	
+		/* This should be in the Widget
+		if(this.widgets[n].data.title == translate.messages_evolution)
+		{
+			if (this.timespan == 'quarter')		this.widgets[n].span = 6;
+			else if (this.timespan == 'year')	this.widgets[n].span = 12;
+			else								this.widgets[n].span = 4;
+		}*/
+		
+		
 		// Create view
 		this.settings = {};
 		this.settings.title = this.title;
@@ -75,7 +86,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	
 	'fill' : function ()
 	{ 	
-		if(!this.collection.latest() || !this.collection.latest().get('streams'))	return;
+		if(!this.collection.latest() || !this.collection.latest().get('streams'))
+			return;
 		
 		var data, chart, fulldata;
 		var parsefunc = this.columns[this.filterfunc];
@@ -117,11 +129,14 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	        	if(group[0] == "Male")
 	        		group[0] = this.translateString('male')
 	        	
-	        }.bind(this))
+	        }.bind(this));
+
 			fulldata.data = google.visualization.arrayToDataTable(fulldata.data);
 			
 			chart = new google.visualization[this.chart](this.$el.find(chartcontainer).get(0));
 	        chart.draw(fulldata.data, options);
+
+	        this.removeloading();
 	    }
 	},
 
@@ -145,6 +160,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parsecontacts : function(collection, statistic, token){
 		
 		var networks = {};
+		var totalcontacts = 0;
 		var streams;
 		var colors = [];
 		var fulldata = {
@@ -178,9 +194,12 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		$.each(networks, function(index, network){
 			fulldata.data.push([network.gettitle(), network.getcontacts()]);
 			fulldata.colors.push(network.getcolor());
+
+			// Check if there are any contacts at all
+			totalcontacts += network.getcontacts();
 		});		
 
-		if(fulldata.data.length == 0)
+		if(collection && (fulldata.data.length == 0 || totalcontacts == 0))
 			return this.emptychartdata();
 
 		fulldata.options.colors = fulldata.colors;
@@ -589,6 +608,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	parseage : function(collection){
 		
 		var streams = collection.latest().get("streams");
+		//console.log(JSON.stringify(collection.latest()));
 		var grouped = this.groupkey(streams, "contacts", "age");
 		var total = 0;
 		var data = [];
@@ -1038,7 +1058,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			data : [["No results", 1]],
 			options : {
 				colors : ["#e5e5e5"]
-			}
+			},
+			empty : true
 		};
 
 		fulldata.data.unshift(["Results", "Number"]);

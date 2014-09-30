@@ -31,7 +31,11 @@ Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
 
 	'sync' : function(method, model, options) 
 	{
-
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		var self = this;
 		var passtrough = options.success;
 		options.success = function (response)

@@ -70,7 +70,10 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		this.time();
 		
 		// Check notifications (second conditional, after message render)
-		if (this.options.notification && this.model.get("objectType")) this.addNotifications();
+		//if (this.options.notification && this.model.get("objectType")) this.addNotifications();
+
+		// New notification list
+		if (this.options.notification && this.model.get("objectType"))	this.togglecomments();
 		
 		// Mark as read
 		if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
@@ -218,6 +221,11 @@ Cloudwalkers.Views.Widgets.InboxMessage = Cloudwalkers.Views.Entry.extend({
 		
 		// Manage loading
 		this.loading(false);
+	},
+
+	'togglecomments' : function()
+	{
+		this.$el.find('[data-token=comment][data-action=action-list]').click();
 	},
 	
 	'markasread' : function()

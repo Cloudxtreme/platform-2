@@ -8,6 +8,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 	'colors' : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
 	'processing' : false,
 	'parameters' : {},
+
 	'paging' : {},
 	'cursor' : false,
 	
@@ -22,15 +23,45 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 
 	},
 	
-	'touch' : function (model, params)
-	{
-		// Work data
-		this.parentmodel = model;
-		this.endpoint = this.modelstring + "ids";
-		this.parameters = params;
+	'url' : function(a)
+	{	
+		// Get parent model
+		if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 		
-		// Check for history (without! ping lifetime)
-		Store.get("touches", {id: this.url()}, this.touchlocal.bind(this));
+		var url = Cloudwalkers.Session.api + '/accounts/' + this.parentmodel.id;
+				
+		if(this.endpoint) url += '/' + this.endpoint;
+	
+		return url;
+	},
+	
+	/**
+	 *	Touch
+	 *	This touch works different then the other collection touches
+	 */
+	'touch' : function (params)
+	{
+		this.parentmodel = Cloudwalkers.Session.getAccount();
+		this.endpoint = this.modelstring + "ids";
+		
+		// Hard-wired request (no caching)
+		this.fetch({data: params, success: this.touchresponse.bind(this)});
+	},
+	
+	'touchresponse' : function(coll, response)
+	{	
+		// Get ids
+		var ids = response.account.statistics;
+
+		this.endpoint = this.modelstring + 's';
+
+		if (ids.length)
+		{
+			this.fetch ({reset: true, data: {ids: ids.join (",")}, success: this.trigger.bind(this, 'sync:data')});
+			this.trigger('seed', ids)
+		}
+		
+		else this.trigger ('sync:noresults');
 	},
 	
 	
@@ -167,7 +198,7 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 		return { counter: list};
 	},
 
-	parsebesttime : function(){
+	parsebesttime : function(streamid){
 
 		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 		var besttime,
@@ -190,21 +221,25 @@ Cloudwalkers.Collections.Statistics = Backbone.Collection.extend({
 
 			if(statistic && statistic.get("streams")){
 				var streams = statistic.get("streams");
-				streams.forEach(function(stream){
+				$.each(streams, function(index, stream){
+					
+					//If we are filtering per stream
+					if(streamid && streamid != stream.id)
+						return true;
+					
 					stream 	= new Cloudwalkers.Models.Stream(stream);
 					besttime = stream.getbesttime();
 					
-					if(besttime){
-						if(daily.length == 0){
+					if(besttime){ 
+						if(daily.length == 0)
 							daily = _.values(besttime);
-						}else{
-							for(i in besttime){							
-								daily[i] += besttime[i];
-		
-								//Keep track of the highest week & daily value
-								if(daily[i]>maxvalue)	maxvalue=daily[i];
-								if(daily[i]>dailyvalue)	dailyvalue=daily[i];
-							}
+						
+						for(i in besttime){							
+							daily[i] += besttime[i];
+	
+							//Keep track of the highest week & daily value
+							if(daily[i]>maxvalue)	maxvalue=daily[i];
+							if(daily[i]>dailyvalue)	dailyvalue=daily[i];
 						}
 					}
 				});

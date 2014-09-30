@@ -3,7 +3,8 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 	'title' : "First Time",
 	'events' : {
 		'remove': 'destroy',
-		'click [data-add-service]' : 'addService'
+		'click [data-add-service]' : 'addService',
+		'click #ready' : 'ready'
 	},
 	
 	'initialize' : function()
@@ -14,9 +15,7 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		// Get Services options 
 		this.listenTo(this.services, "available:ready", this.appendOptions)
 		this.services.fetchAvailable();
-		
-		
-
+	
 	},
 		
 	'render' : function ()
@@ -80,6 +79,12 @@ Cloudwalkers.Views.Firsttime = Cloudwalkers.Views.Pageview.extend({
 		this.services.create({},{wait: true, endpoint: token});
 
 	},
+
+	'ready' : function()
+	{
+		Cloudwalkers.Session.getAccount().set("firstTime", 0);
+		Cloudwalkers.Router.Instance.navigate('#dashboard', true);
+	},	
 
 	/*'addService' : function (e)
 	{

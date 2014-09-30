@@ -75,7 +75,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{		
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
 		// Hack
@@ -914,7 +919,7 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		var endpoint;
 
 		if(response.token == 'skip')
-			this.save({trigger: Math.random()}, {patch: true, endpoint: 'skip'});
+			this.save({trigger: Math.random()}, {patch: true, endpoint: 'skip', success: this.skipwatcher.bind(this)});
 
 		if(response.token == 'remove')
 			this.destroy({wait: true, success: this.destroysuccess.bind(this)});
@@ -927,6 +932,12 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 						
 		//Keep the old code
 		this.trigger ("destroy", this, this.collection);
+	},
+
+	'skipwatcher' : function(response)
+	{
+		if(response.get("status") == 'REMOVED')
+			this.destroysuccess();
 	},
 
 	'humandate' : function (entry)

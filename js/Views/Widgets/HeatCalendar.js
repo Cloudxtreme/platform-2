@@ -11,14 +11,30 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.collection = this.model.statistics;
+		this.collection = this.parentview.collection;
 
-		this.listenTo(this.model, 'change', this.render);
+		//this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.collection, 'ready', this.fill)
 	},
 
 	'render' : function ()
 	{	
+		/* This should be in the Widget
+		if(this.widgets[n].data.title == translate.activity_calendar)
+		{
+			if (this.timespan == translate.this)	quarter.widgets[n].span = 6;
+			else if (this.timespan == 'year')
+			{
+				this.widgets[n].span = 12;
+				this.widgets[n].data.bigdata = true;
+			}
+			else
+			{
+				this.widgets[n].span = 4;
+				this.widgets[n].data.bigdata = false;
+			}							
+		}*/
+		
 		this.$el.html (Mustache.render (Templates.activitycalendar, this.options));
 		return this;
 	},

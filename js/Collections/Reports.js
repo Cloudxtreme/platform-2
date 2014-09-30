@@ -59,6 +59,11 @@ Cloudwalkers.Collections.Reports = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options) {
 		
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.processing = true;
 		
 		return Backbone.sync(method, model, options);

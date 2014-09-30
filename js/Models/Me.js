@@ -6,13 +6,19 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	{
 		// Load data
 		this.once('change', this.activate);
-		
+
+		/*if(Store.exists("me"))
+			Store.remove('me');
+
+		if(Store.exists("channels"))
+			Store.remove('channels');*/
+
 		// Prevent conflicting user login
 		this.on ('change:id', function(id){ if(this.previous("id")) Cloudwalkers.Session.home(); });
 	},
 
 	'url' : function ()
-	{
+	{	
 		var param = this.endpoint?
 			this.endpoint :
 			(Store.exists("me")? "?include_accounts=ids": "");
@@ -32,11 +38,18 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 		Store.write("me", [response.user]);
 		//Store.set("users", response.user);
 		
+		if(this.reload)	this.reload = false;
+
 		return response.user;
 	},
 	
 	'sync' : function (method, model, options)
 	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		// For specific methods
 		this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 		
@@ -81,6 +94,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			
 			// Set current account
 			this.account = this.getCurrentAccount();
+
 			this.account.activate();
 			
 			// Set current user level & permissions

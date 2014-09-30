@@ -111,11 +111,13 @@
 <script type="text/javascript" src="/js/Views/Widgets/Widget.js"></script>
 <script type="text/javascript" src="/js/Views/Entry.js"></script>
 <script type="text/javascript" src="/js/Views/NoteEntry.js"></script>
+<script type="text/javascript" src="/js/Views/CounterEntry.js"></script>
 <script type="text/javascript" src="/js/Views/User.js"></script>
 <script type="text/javascript" src="/js/Views/Write.js"></script>
 <script type="text/javascript" src="/js/Views/Comments.js"></script>
 <script type="text/javascript" src="/js/Views/Comment.js"></script>
 <script type="text/javascript" src="/js/Views/Notification.js"></script>
+<script type="text/javascript" src="/js/Views/Widgets/EmptyData.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Chart.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Info.js"></script>
 <script type="text/javascript" src="/js/Views/Widgets/Combo.js"></script>

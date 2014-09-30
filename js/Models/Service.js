@@ -32,7 +32,12 @@ Cloudwalkers.Models.Service = Backbone.Model.extend({
 	},
 	
 	'sync' : function (method, model, options)
-	{		
+	{
+		options.headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+		
 		this.endpoint = (options.endpoint)? options.endpoint: false;
 		
 		if(options.hasOwnProperty("parentpoint"))
