@@ -269,6 +269,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var state = $(e.target).attr('disabled');
 
 		if(state == 'disabled')	return;
+
+		this.period -= 1;
+
+		this.trigger('change:period', this.period);
 	},
 
 	'subtractempty' : function()
