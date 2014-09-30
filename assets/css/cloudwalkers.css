@@ -383,7 +383,7 @@ nav	{
 /* Widget Loading */
 
 .portlet-loading, .inner-loading	{
-	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #bbb !important;
+	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #eee !important;
 }
 
 .inner-loading	{

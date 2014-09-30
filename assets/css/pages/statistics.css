@@ -155,3 +155,7 @@
 #statistics .chosen-container{
     text-transform: capitalize;
 }
+
+#statistics .chosen-container.networks .chosen-results{
+    height: 220px !important;
+}

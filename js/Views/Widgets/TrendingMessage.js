@@ -7,13 +7,12 @@
 		this.settings = {};
 		this.settings.title = this.title;
 
-		if(!this.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
-		else				this.model = Cloudwalkers.Session.getStream(this.streamid);
+		if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+		else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
 		
 		this.listenTo(this.model, 'sync', this.fill);
 
-		this.gettoptrending();
-		
+		this.gettoptrending();		
 	},
 
 	'render' : function ()
@@ -65,8 +64,8 @@
 
 	'gettoptrending' : function(){
 
-		if(this.streamid)
-			return this.toptrendingstream(this.streamid);
+		if(this.parentview.streamid)
+			return this.toptrendingstream(this.parentview.streamid);
 		else
 			return this.toptrendingall();
 	},
