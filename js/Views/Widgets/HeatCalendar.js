@@ -106,16 +106,19 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var data = {};
 		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
 		
-		while(statistics.size() > 0){
-			var statistic = statistics.shift();
-			var messages = statistic.pluck("messages", this.parentview.streamid);
+		while(statistics.models.length > 1)
+		{	
+			var statistic1 = statistics.models.shift();
+			var statistic2 = statistics.models[0];
+
+			var messages = statistic2.pluck("messages", this.parentview.streamid) - statistic1.pluck("messages", this.parentview.streamid);
 			
-			timestamp = new Date(statistic.get("date")).getTime()/1000;
+			timestamp = new Date(statistic2.get("date")).getTime()/1000;
 
 			data[timestamp] = messages;
 
 			//Get starting statistics date
-			if(date == 0)	date = statistic.get("date");
+			if(date == 0)	date = statistic2.get("date");
 		}		
 
 		return {data: data, legend: this.generaterange(data,4), date: date};
