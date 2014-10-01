@@ -10,7 +10,7 @@
 			<div class="scroller" data-height="240px" data-always-visible="1" data-rail-visible1="1">
 				<ul class="messages-container messages-list">
 
-					{{#list}}
+					<!--{{#list}}
 						<a href="{{url}}" data-stream="{{id}}">
 							<li>
 								<span class="number unread-{{count}}">{{count}}</span>
@@ -18,7 +18,7 @@
 								{{name}}
 							</li>
 						</a>
-					{{/list}}
+					{{/list}}-->
 
 				</ul>
 			</div>

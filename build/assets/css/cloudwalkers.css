@@ -8,6 +8,7 @@ Style corrections and manual overrides
 
 .hidden	{ display: none; }
 .separator { border-bottom: solid 1px #ddd; margin: 30px 0px; }
+.well.widget { text-align: center; padding: 50px 75px; }
 
 /**
  *	Forms
@@ -382,7 +383,7 @@ nav	{
 /* Widget Loading */
 
 .portlet-loading, .inner-loading	{
-	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #bbb !important;
+	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #eee !important;
 }
 
 .inner-loading	{
