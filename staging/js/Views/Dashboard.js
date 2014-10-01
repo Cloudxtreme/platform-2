@@ -1,10 +1,10 @@
 define(
-	['mustache', 'Session', 'Views/Pageview', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner', 'Views/Widgets/Report',
+	['mustache', 'Session', 'Views/Pageview', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
 	 'Views/Widgets/MessagesCounters', 'Views/Widgets/DashboardMessageList', 'Views/Widgets/Info'],
 
-	function (Mustache, Session, Pageview, StatisticsCollection, DashboardCleanerWidget, ReportWidget, 
+	function (Mustache, Session, Pageview, StatisticsCollection, DashboardCleanerWidget, 
 			  MessagesCountersWidget, DashboardMessageListWidget, InfoWidget)
-	{ console.log(Pageview)
+	{
 		var Dashboard = Pageview.extend({
 
 			title : "Dashboard",

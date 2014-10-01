@@ -1,4 +1,11 @@
-Cloudwalkers.Views.Widgets.DashboardCleaner = Cloudwalkers.Views.Pageview.extend({
-	'messagetemplate' : 'cleaner',
-	'title' : ''
-});
+define(
+	['Views/Pageview'],
+	function (Pageview)
+	{
+		var DashboardCleaner = Pageview.extend({
+			
+			'messagetemplate' : 'cleaner',
+			'title' : ''
+		});
+	}
+);

@@ -18,7 +18,7 @@ Views/Inbox.js
 Views/Notes.js
 Views/Scheduled.js
 
-/** 1 Outubro **/
+/** 1 October **/
 Views/ManageAccount.js
 Views/Calendar.js
 Views/Timeline.js
@@ -29,7 +29,17 @@ Views/StatStream.js
 Views/Statistics.js
 Views/Settings.js
 Views/Firsttime.js
-
+Views/Coworkdashboard.js
+Views/Resync.js
+Views/RSSFeed.js
+Views/SimpleCompose.js
+Views/Widgets/MonitorList.js
+Models/Account.js
+Views/Pageview.js
+Views/Widgets/InboxNotificationList.js
+Collection/Statistics.js
+Views/Widgets/DashboardCleaner.js
+Views/Widgets/CoworkersFilters.js
 
 
 /** Left to be updated **/
@@ -43,6 +53,7 @@ Group or ungroup views like /settings and /widgets
 
 /** Deprecated?? **/
 ContactView -> Where are we using this?
+Dashboardcleaner -> Any better solution?
 
 
 /** TEMP **/

@@ -1,79 +1,86 @@
-Cloudwalkers.Views.Resync = Backbone.View.extend({
-
-	'className' : 'container-loading',
-
-	'initialize' : function(options)
-	{	
-		$.extend(this, options);
-		
-		//Cloudwalkers.Session.user = new Cloudwalkers.Models.Me();
-		this.listenTo(Cloudwalkers.Session.user, 'sync', this.activate);
-		this.listenToOnce(Cloudwalkers.Session.user, 'activated', this.refresh)
-	},	
-
-	'render' : function ()
-	{	
-		this.$el.html(Mustache.render(Templates.loading));
-	
-		this.versioncheck();
-
-		return this;
-	},
-
-	'updateme' : function()
+define(
+	['backbone', 'Session', 'Views/Root', 'Router'],
+	function (Backbone, Session, RootView, Router)
 	{
-		Store.remove('me');
-		Cloudwalkers.Session.user.fetch();
-	},
+		var Resync = Backbone.View.extend({
 
-	'activate' : function(data)
-	{	
-		var currversion = Cloudwalkers.Session.version;
+			className : 'container-loading',
 
-		Store.write("version", [{version: currversion}]);
+			initialize : function(options)
+			{	
+				$.extend(this, options);
+				
+				this.listenTo(Session.user, 'sync', this.activate);
+				this.listenToOnce(Session.user, 'activated', this.refresh)
+			},	
 
-		//Force loaded
-		Cloudwalkers.Session.localversion = currversion;
-		Cloudwalkers.Session.user.activate(data);
-	},
+			render : function ()
+			{	
+				this.$el.html(Mustache.render(Templates.loading));
+			
+				this.versioncheck();
 
-	'refresh' : function()
-	{	
-		// Reload navigation & stuff
-		Cloudwalkers.RootView.navigation.renderHeader();
-		Cloudwalkers.RootView.navigation.render();
+				return this;
+			},
 
-		Cloudwalkers.Router.Instance.navigate (this.returnto, true);
-	},
+			updateme : function()
+			{
+				Store.remove('me');
+				Session.user.fetch();
+			},
 
-	//Check type of update necessary - hardcoded "me" refresh
-	'versioncheck' : function(view)
-	{	
-		/*var localversion = Cloudwalkers.Session.version;
-		var currversion = Cloudwalkers.Session.version;
-	
-		if(localversion && this.parseversion(localversion) < this.parseversion(currversion))
-			this.updateme();
-		else
-			window.location = "/";*/
-		
-		this.updateme();
-		//else									window.location = "/";	
-	},
+			activate : function(data)
+			{	
+				var currversion = Session.version;
 
-	// Full check, needed now? Maybe for types of content update, according to version difference?
-	'parseversion' : function (version)
-	{
-	    if (typeof(version) != 'string') { return false; }
+				Store.write("version", [{version: currversion}]);
 
-	    var x = version.split('.');
+				//Force loaded
+				Session.localversion = currversion;
+				Session.user.activate(data);
+			},
 
-	    var a = x[0];
-	    var b = x[1];
-	    var c = x[2];
-	    var d = x[3];
+			refresh : function()
+			{	
+				// Reload navigation & stuff
+				RootView.navigation.renderHeader();
+				RootView.navigation.render();
 
-	    return parseInt(a+b+c+d);
+				Router.Instance.navigate (this.returnto, true);
+			},
+
+			//Check type of update necessary - hardcoded "me" refresh
+			versioncheck : function(view)
+			{	
+				/*var localversion = Cloudwalkers.Session.version;
+				var currversion = Cloudwalkers.Session.version;
+			
+				if(localversion && this.parseversion(localversion) < this.parseversion(currversion))
+					this.updateme();
+				else
+					window.location = "/";*/
+				
+				this.updateme();
+				//else									window.location = "/";	
+			},
+
+			// Full check, needed now? Maybe for types of content update, according to version difference?
+			parseversion : function (version)
+			{
+			    if (typeof(version) != 'string') { return false; }
+
+			    var x = version.split('.');
+
+			    var a = x[0];
+			    var b = x[1];
+			    var c = x[2];
+			    var d = x[3];
+
+			    return parseInt(a+b+c+d);
+			}
+
+		});
+
+		return Resync;
 	}
-
-});
+);
