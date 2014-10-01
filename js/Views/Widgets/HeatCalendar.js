@@ -46,6 +46,7 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var resizesettings;
 		var cal = new CalHeatMap();
 		var data = this.calculatedata();
+		
 		var settings = {
 			itemSelector: this.$el.find('#cal-heatmap').get(0),
 			domain: "month",
@@ -106,20 +107,26 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var data = {};
 		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
 		
-		while(statistics.models.length > 1)
-		{	
-			var statistic1 = statistics.models.shift();
-			var statistic2 = statistics.models[0];
+		if(statistics.models.length >= 2)
+		{
+			while(statistics.models.length >= 2)
+			{
+				var statistic1 = statistics.models.shift();
+				var statistic2 = statistics.models[0];
+				
+				var messages = statistic2.pluck("messages", this.parentview.streamid) - statistic1.pluck("messages", this.parentview.streamid);
+				
+				timestamp = new Date(statistic2.get("date")).getTime()/1000;
 
-			var messages = statistic2.pluck("messages", this.parentview.streamid) - statistic1.pluck("messages", this.parentview.streamid);
-			
-			timestamp = new Date(statistic2.get("date")).getTime()/1000;
+				data[timestamp] = messages;
 
-			data[timestamp] = messages;
-
-			//Get starting statistics date
-			if(date == 0)	date = statistic2.get("date");
-		}		
+				//Get starting statistics date
+				if(date == 0)	date = statistic2.get("date");
+			}		
+		}
+		
+		if(statistics.models.length == 1)
+			date = statistics.models.shift().get("date")
 
 		return {data: data, legend: this.generaterange(data,4), date: date};
 	},
