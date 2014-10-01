@@ -104,6 +104,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 			var options = {
 				'pieHole':0.4,
 				'chartArea': {'width': '95%', 'height': '90%'},
+				'vAxis': {minValue: 0},
 	            'width': width,
 	            'height': width * 0.7,
 	            'legend':{textStyle:{fontSize:'13'}},
