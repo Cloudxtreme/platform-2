@@ -4,7 +4,7 @@ define(
 	{
 		Session = 
 		{
-			'langs' :
+			langs :
 			[
 				{"id": "en_EN", "name": "International English"},
 				{"id": "fr_FR", "name": "Français"},
@@ -12,22 +12,22 @@ define(
 				{"id": "pt_PT", "name": "Português"}
 			],
 			
-			'user' : null,
+			user : null,
 
-			'version' : "1.0.0.0",
-			'localversion' : null,
+			version : "1.0.0.0",
+			localversion : null,
 
 			/*'settings' : {
 				'currentAccount' : null,
 				'viewMode' : null
 			},*/
 
-			'isLoaded' : function ()
+			isLoaded : function ()
 			{
 				return this.user != null;
 			},
 			
-			'loadEssentialData' : function (callback)
+			loadEssentialData : function (callback)
 			{
 				this.user = new Cloudwalkers.Models.Me();
 				this.getversion();
@@ -39,7 +39,7 @@ define(
 				this.user.fetch({error: this.user.offline.bind(this.user)});
 			},
 			
-			'refresh' : function ()
+			refresh : function ()
 			{
 				
 				console.log("Session.refresh triggered")
@@ -50,7 +50,7 @@ define(
 				});*/
 			},
 			
-			'reset' : function (changeaccount)
+			reset : function (changeaccount)
 			{	
 				var token;
 
@@ -64,7 +64,7 @@ define(
 				
 			},
 			
-			'home' : function()
+			home : function()
 			{
 				Cloudwalkers.Router.Instance.home();	
 			},
@@ -83,7 +83,7 @@ define(
 				//$.extend(Cloudwalkers.Session.settings, user.get("settings"));
 			},*/
 			
-			'updateSetting' : function(attribute, value, callbacks)
+			updateSetting : function(attribute, value, callbacks)
 			{
 				
 				if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
@@ -97,13 +97,13 @@ define(
 				}
 			},
 			
-			'get' : function(attribute)
+			get : function(attribute)
 			{
 				// Update session
 				return this.user.get("settings")[attribute];
 			},
 			
-			'clone' : function(obj)
+			clone : function(obj)
 			{
 				if(obj == null || typeof(obj) != 'object') return obj;
 				
@@ -115,7 +115,7 @@ define(
 				return output;
 			},
 			
-			'viewsettings' : function(value, content)
+			viewsettings : function(value, content)
 			{
 				// Split into accounts
 				var pointer = "account_" + this.getAccount().id;
@@ -156,7 +156,7 @@ define(
 			 *	Manage storage
 			 **/
 
-			'manage' : function ()
+			manage : function ()
 			{
 
 				// Limit messages
@@ -214,7 +214,7 @@ define(
 			 *	Version
 			**/
 
-			'getversion' : function()
+			getversion : function()
 			{	
 				Store.get("version", null, function(version)
 				{	
@@ -223,7 +223,7 @@ define(
 			},
 			
 			// Simple check, full check is in resync.js
-			'isupdated' : function()
+			isupdated : function()
 			{	
 				return this.localversion? this.localversion == this.version: false;
 			},
@@ -233,13 +233,13 @@ define(
 			 *  Checks for permission or returns the authorized list
 			 **/
 
-			'isAuthorized' : function(actions)	
+			isAuthorized : function(actions)	
 			{
 				return (actions)? this.user.isauthorized(actions): this.user.authorized;
 			},
 
 			/* 	Generate permission tokens for templates */
-			'censuretemplate' : function(data)
+			censuretemplate : function(data)
 			{
 				if(!data)	data = {};
 
@@ -252,12 +252,12 @@ define(
 			 *	Ping shortcut function
 			 **/
 
-			'getPing' : function ()
+			getPing : function ()
 			{
 				return this.user.account.ping;
 			},
 			
-			'ping' : function ()
+			ping : function ()
 			{
 				this.user.account.ping.forceping();
 			},
@@ -266,14 +266,14 @@ define(
 			 *	Accounts shortcut functions
 			 **/
 
-			'getAccount' : function (id)
+			getAccount : function (id)
 			{
 				return (id)? this.user.accounts.get(id):  this.user.account;
 			},
 
 			
 
-			'getAccounts' : function (id)
+			getAccounts : function (id)
 			{
 				return this.user.accounts;
 			},
@@ -282,12 +282,12 @@ define(
 			 *	Channels shortcut functions
 			 **/
 			
-			'getChannel' : function (id)
+			getChannel : function (id)
 			{
 				return (typeof id == "number")? this.user.account.channels.get(id): this.user.account.channels.findWhere({type: id});
 			},
 			
-			'getChannels' : function (id)
+			getChannels : function (id)
 			{
 				return this.user.account.channels;
 			},
@@ -299,7 +299,7 @@ define(
 				return this;
 			},*/
 			
-			'storeChannel' : function(channel)
+			storeChannel : function(channel)
 			{
 				// Store child channels
 				if( channel.channels && channel.channels.length)
@@ -329,17 +329,17 @@ define(
 			 *	Streams shortcut functions
 			 **/
 			
-			'getStream' : function (id)
+			getStream : function (id)
 			{
 				return (typeof id == "number")?  this.user.account.streams.get (id):  this.user.account.streams.findWhere({token: id});
 			},
 			
-			'getStreams' : function ()
+			getStreams : function ()
 			{
 				return this.user.account.streams;
 			},
 
-			'addStream' : function(stream)
+			addStream : function(stream)
 			{
 				return this.user.account.streams.add(stream);
 			},
@@ -356,12 +356,12 @@ define(
 			 *	Users shortcut functions
 			 **/
 			
-			'getUser' : function (id)
+			getUser : function (id)
 			{
 				return (id)? this.user.account.users.get (id):  this.user;
 			},
 			
-			'getUsers' : function ()
+			getUsers : function ()
 			{
 				return this.user.account.users;
 			},
@@ -370,12 +370,12 @@ define(
 			 *	Contacts shortcut functions
 			 **/
 			
-			'getContact' : function (id)
+			getContact : function (id)
 			{
 				return this.user.account.contacts.get (id);
 			},
 			
-			'getContacts' : function ()
+			getContacts : function ()
 			{
 				return this.user.account.contacts;
 			},
@@ -384,12 +384,12 @@ define(
 			 *	Messages shortcut functions
 			 **/
 			
-			'getMessage' : function (id)
+			getMessage : function (id)
 			{
 				return this.user.account.messages.get (id);
 			},
 			
-			'getMessages' : function ()
+			getMessages : function ()
 			{
 				return this.user.account.messages;
 			},
@@ -398,13 +398,13 @@ define(
 			 *	Messages shortcut functions
 			 **/
 			
-			'getCannedResponse' : function (id)
+			getCannedResponse : function (id)
 			{
 				return this.user.account.cannedresponses.get(id);
 			},
 			
 
-			'getCannedResponses' : function ()
+			getCannedResponses : function ()
 			{
 				return this.user.account.cannedresponses;
 			},
@@ -414,12 +414,12 @@ define(
 			 *	Notifications shortcut functions
 			 **/
 			
-			'getNotification' : function (id)
+			getNotification : function (id)
 			{
 				return this.user.account.notifications.get (id);
 			},
 			
-			'getNotifications' : function ()
+			getNotifications : function ()
 			{
 				return this.user.account.notifications;
 			},
@@ -428,12 +428,12 @@ define(
 			 *	Statistics shortcut functions
 			 **/
 			
-			'getStatistic' : function (id)
+			getStatistic : function (id)
 			{
 				return this.user.account.statistics.get (id);
 			},
 			
-			'getStatistics' : function ()
+			getStatistics : function ()
 			{
 				return this.user.account.statistics;
 			},
@@ -443,12 +443,12 @@ define(
 			 *	Deprectated?
 			 **/
 			
-			'getReport' : function (id)
+			getReport : function (id)
 			{
 				return this.user.account.reports.get (id);
 			},
 			
-			'getReports' : function ()
+			getReports : function ()
 			{
 				return this.user.account.reports;
 			},
@@ -457,18 +457,18 @@ define(
 			 *	Messages shortcut functions - deprecated
 			 **/
 			
-			'getComment' : function (id)
+			getComment : function (id)
 			{
 				return this.user.account.comments.get (id);
 			},
 			
-			'getComments' : function ()
+			getComments : function ()
 			{
 				return this.user.account.comments;
 			},
 
 			/* setLang - get default language */
-			'setLang' : function(callback)
+			setLang : function(callback)
 			{
 				var lang = this.user.attributes.locale;
 				var extendLang;

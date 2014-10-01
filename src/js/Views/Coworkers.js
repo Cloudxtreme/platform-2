@@ -1,47 +1,52 @@
-Cloudwalkers.Views.Coworkers = Cloudwalkers.Views.Pageview.extend({
-
-	'title' : 'Co-workers wall',
-	'className' : "container-fluid coworkers",
-	
-	'initialize' : function ()
+define(
+	['mustache', 'Session', 'Views/Pageview', 'Views/Widgets/CoworkersFilters', 'Views/Widgets/CoworkersList'],
+	function (Mustache, Session, Pageview, CoworkersFiltersWidget, CoworkersListWidget)
 	{
-		// Select draft stream (should be integrated)
-		//var channel = Cloudwalkers.Session.getChannel("internal");
-		
-		this.model = Cloudwalkers.Session.getStream("coworkers"); //channel.getStream("coworkers");
+		var Coworkers = Pageview.extend({
 
-		// Emergency break
-		if (!this.model) return Cloudwalkers.Session.home();
-		
-		// Listen for changes
-		this.listenTo(this.model, 'outdated', this.model.fetch);
-		this.listenTo(this.model, 'sync', this.render);
+			title : 'Co-workers wall',
+			className : "container-fluid coworkers",
+			
+			initialize : function ()
+			{			
+				this.model = Session.getStream("coworkers");
 
-		// Translation for Title
-		this.translateTitle("co-workers_wall");
-	},
-	
-	'render' : function()
-	{
-		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
-		this.$container = this.$el.find("#widgetcontainer").eq(0);
+				// Emergency break
+				if (!this.model) return Session.home();
+				
+				// Listen for changes
+				this.listenTo(this.model, 'outdated', this.model.fetch);
+				this.listenTo(this.model, 'sync', this.render);
 
-		// Add filter widget
-		var filter = new Cloudwalkers.Views.Widgets.CoworkersFilters ({model: this.model});
-		this.appendWidget(filter, 4);
-		
-		// Add list widget
-		var list = new Cloudwalkers.Views.Widgets.CoworkersList ({model: this.model});
-		this.appendWidget(list, 8);
-		
-		filter.list = list;
-		
-		return this;
-	},
-	'translateTitle' : function(translatedata)
-	{	
-		// Translate Title
-		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				// Translation for Title
+				this.translateTitle("co-workers_wall");
+			},
+			
+			render : function()
+			{
+				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
+				this.$container = this.$el.find("#widgetcontainer").eq(0);
+
+				// Add filter widget
+				var filter = new CoworkersFiltersWidget ({model: this.model});
+				this.appendWidget(filter, 4);
+				
+				// Add list widget
+				var list = new CoworkersListWidget ({model: this.model});
+				this.appendWidget(list, 8);
+				
+				filter.list = list;
+				
+				return this;
+			},
+			translateTitle : function(translatedata)
+			{	
+				// Translate Title
+				this.title = Session.polyglot.t(translatedata);
+			}
+			
+		});
+
+		return Coworkers;
 	}
-	
-});
+);

@@ -1,10 +1,10 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Views/Demo', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
+	['backbone', 'Session', 'Views/Root', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
 	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', 'Views/Calendar', 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/Reports', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups'*/, 'Views/Resync', 'Views/RSSFeed'/*, 'Views/ManageRSS'*/],
 
-	function (Backbone, Session, RootView, Demo, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
+	function (Backbone, Session, RootView, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
 			  CalendarView, TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, ReportsView, StatStreamView, StatisticsView,
 			  SettingsView, FirsttimeView, CoworkdashboardView, /*ManageUserGroupsView, */ResyncView, RSSFeedView/*, ManageRSSView*/)
 
@@ -13,13 +13,6 @@ define(
 		{
 			routes : {
 				'dashboard/:accountid' : 'changeaccount',
-				
-				'demo(/:demotype)' : 'demo',
-				
-				'inbox/drafts' : 'ib-drafts',
-				'inbox/sent' : 'ib-sent',
-				'inbox/scheduled' : 'ib-scheduled',
-				'inbox/trash' : 'ib-trash',
 
 				'write' : 'write',
 				'share' : 'share',
@@ -52,22 +45,6 @@ define(
 			},
 
 			initialize : function (){},
-			
-			/**
-			 *	Demo
-			 **/
-			 
-			 demo : function (demotype)
-			{
-				// Parameters
-				var channel = Session.getChannel ('inbox');
-				
-				var type = "messages";
-				
-				// Visualisation
-				RootView.setView (new Demo({channel: channel, type: type, demotype: demotype}));
-			},
-
 			
 			/**
 			 *	Dashboard
@@ -135,12 +112,6 @@ define(
 			/**
 			 *	Inbox
 			 **/
-			 
-			/*'ib-drafts' : function() // Deprecated?
-			{
-				// Visualisation
-				RootView.setView (new Cloudwalkers.Views.IB({channeltype: 'draft', filter: 'editors', title: "Drafts"}));
-			},*/
 			 
 			inbox : function (type, streamid)
 			{
@@ -448,5 +419,7 @@ define(
 			}
 
 		});
+	
+		return Router;
 	}
 );
