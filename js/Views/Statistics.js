@@ -77,6 +77,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.listenTo(this.collection, 'request', this.showloading);
 		this.listenTo(this.collection, 'seed', this.fillcharts);
 		this.listenTo(this.collection, 'sync:data', this.hideloading);
+		this.listenTo(this.collection, 'sync:noresults', this.showempty);
 		
 		// General i18n
 		translate =
@@ -224,7 +225,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.$el.addClass("loading");
 	},
 	
-	'hideloading' : function (collection, response)
+	'hideloading' : function ()
 	{	
 		this.$el.removeClass("loading");
 		this.$el.find('.period-buttons .btn').attr("disabled", false);
@@ -239,10 +240,13 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'showempty' : function ()
-	{
-		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
+	{	
+		this.cleanviews();
+		this.hideloading();
 
+		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
 		var view = new Cloudwalkers.Views.Widgets.EmptyData ({message: message});
+
 		this.appendWidget (view, 8, null, 2);
 	},
 
@@ -279,8 +283,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	{
 		this.period -= 1;	
 		this.trigger('change:period', this.period);
-
-		this.$container.html('');
 	},
 	
 	'changestream' : function()
