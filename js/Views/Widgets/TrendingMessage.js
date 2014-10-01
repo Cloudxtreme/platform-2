@@ -1,4 +1,4 @@
-Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
+	Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'initialize' : function (options)
 	{
@@ -7,21 +7,25 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 		this.settings = {};
 		this.settings.title = this.title;
 
-		if(!this.network)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
-		else				this.model = Cloudwalkers.Session.getStream(this.network);
+		if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+		else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
 		
 		this.listenTo(this.model, 'sync', this.fill);
 
-		if(!this.timespan.sort){
-			this.timespan.sort = "engagement";
-		}		
-
-		this.gettoptrending();
-		
+		this.gettoptrending();		
 	},
 
 	'render' : function ()
 	{	
+	
+		/* This Should be in the Widget
+		if (this.widgets[n].data.title == translate.top_rated_comment)
+		{
+			if (this.timespan == 'quarter')		this.widgets[n].span = 8;
+			else if (this.timespan == 'year')	this.widgets[n].span = 8;
+			else								this.widgets[n].span = 12;
+		}*/
+		
 		this.$el.html (Mustache.render (Templates.trendingmsg, this.settings));
 		this.hideloading();
 
@@ -60,8 +64,8 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'gettoptrending' : function(){
 
-		if(this.network)
-			return this.toptrendingstream(this.network);
+		if(this.parentview.streamid)
+			return this.toptrendingstream(this.parentview.streamid);
 		else
 			return this.toptrendingall();
 	},
@@ -80,13 +84,12 @@ Cloudwalkers.Views.Widgets.TrendingMessage = Backbone.View.extend({
 
 	'toptrendingall' : function(){
 
-		this.model = Cloudwalkers.Session.getChannel('profiles');
-
 		var filters = {
-			sort:  this.timespan.sort,
+			sort:  'engagement',
 			records : 1,
 			since : this.timespan.since
 		};
+
 		this.model.fetch({endpoint: "messages", parameters : filters});
 
 		return;

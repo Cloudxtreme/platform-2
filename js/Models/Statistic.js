@@ -27,7 +27,7 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 		} 
 		
 		$.each(this.get("streams"), function(i, stream)
-		{	
+		{
 			// No stream, global sum
 			if(!streamid){
 				if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
@@ -62,7 +62,7 @@ Cloudwalkers.Models.Statistic = Backbone.Model.extend({
 				}
 			}
 		});
-		
+		//console.log(streamid,keys,response)
 		return response;
 	},
 

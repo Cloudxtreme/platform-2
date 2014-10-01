@@ -21,10 +21,9 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		this.translateTitle("dashboard");
 
 		// Reports
-		this.model = Cloudwalkers.Session.getAccount();
-		this.model.statistics = new Cloudwalkers.Collections.Statistics();
+		this.collection = new Cloudwalkers.Collections.Statistics();
 		
-		this.listenTo(this.model.statistics, 'seed', this.filldynamicreports);
+		this.listenTo(this.collection, 'seed', this.filldynamicreports);
 	},
 	
 	/*'addDynamicReports' : function ()
@@ -83,7 +82,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 				continue;
 
 			widgets[n].data.network = stream;
-			widgets[n].data.model = this.model;
+			widgets[n].data.parentview = this;
 			widgets[n].data.footer = Cloudwalkers.Session.getStream(stream).get("defaultname");
 
 			if(widgets[n].data.filterfunc != "besttimetopost")
@@ -103,9 +102,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		// Pageview
 		this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 		this.$container = this.$el.find("#widgetcontainer").eq(0);
-
-		/*if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
-			widgets = widgets.concat(this.addDynamicReports());*/
 		
 		// Append widgets
 		for(i in widgets)
@@ -141,7 +137,7 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 				this.appendWidget(widget, Number(widgets[i].size));
 		}
 		
-		this.model.statistics.touch(this.model, this.filterparameters());
+		this.collection.touch(this.filterparameters());
 
 		return this;
 	},

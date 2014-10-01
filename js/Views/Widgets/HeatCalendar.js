@@ -11,14 +11,30 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.collection = this.model.statistics;
+		this.collection = this.parentview.collection;
 
-		this.listenTo(this.model, 'change', this.render);
+		//this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.collection, 'ready', this.fill)
 	},
 
 	'render' : function ()
 	{	
+		/* This should be in the Widget
+		if(this.widgets[n].data.title == translate.activity_calendar)
+		{
+			if (this.timespan == translate.this)	quarter.widgets[n].span = 6;
+			else if (this.timespan == 'year')
+			{
+				this.widgets[n].span = 12;
+				this.widgets[n].data.bigdata = true;
+			}
+			else
+			{
+				this.widgets[n].span = 4;
+				this.widgets[n].data.bigdata = false;
+			}							
+		}*/
+		
 		this.$el.html (Mustache.render (Templates.activitycalendar, this.options));
 		return this;
 	},
@@ -90,17 +106,19 @@ Cloudwalkers.Views.Widgets.HeatCalendar = Backbone.View.extend({
 		var data = {};
 		var max = 0, min = 0, day, timestamp, date = 0, msgpivot = 0;
 		
-		while(statistics.size() > 0){
-			var statistic = statistics.shift();
-			var messages = statistic.pluck("messages");
-			
-			timestamp = new Date(statistic.get("date")).getTime()/1000;
+		while(statistics.models.length > 1)
+		{	
+			var statistic1 = statistics.models.shift();
+			var statistic2 = statistics.models[0];
 
-			data[timestamp] = messages >= msgpivot ? messages - msgpivot : 0;
-			msgpivot = messages;
+			var messages = statistic2.pluck("messages", this.parentview.streamid) - statistic1.pluck("messages", this.parentview.streamid);
+			
+			timestamp = new Date(statistic2.get("date")).getTime()/1000;
+
+			data[timestamp] = messages;
 
 			//Get starting statistics date
-			if(date == 0)	date = statistic.get("date");
+			if(date == 0)	date = statistic2.get("date");
 		}		
 
 		return {data: data, legend: this.generaterange(data,4), date: date};

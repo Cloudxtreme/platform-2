@@ -364,6 +364,8 @@
 		"remember_for": "Remember for",
 		"Add note": "Add note",
 		"an_error_occurred_while_sending_this_message": "An error occurred while sending this message:",
-		"busy_network" : "Er is momenteel veel activiteit op het netwerk, gelieve even te wachten."
+		"busy_network" : "Er is momenteel veel activiteit op het netwerk, gelieve even te wachten.",
+		"empty_statistics_data" : "There is still no available data.",
+		"show_last_statistics" :  "Show me last week's statistics"
 	}
 }

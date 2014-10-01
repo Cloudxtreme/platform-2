@@ -370,6 +370,8 @@
 		"change_days": "Alterar dias",
 		"Add note": "Adicionar nota",
 		"an_error_occurred_while_sending_this_message": "Ocorreu um erro no envio desta mensagem:",
-		"busy_network" : "The network is quite busy for the moment, please wait while we're sending your message."
+		"busy_network" : "The network is quite busy for the moment, please wait while we're sending your message.",
+		"empty_statistics_data" : "There is still no available data.",
+		"show_last_statistics" :  "Show me last week's statistics"
 	}
 }
