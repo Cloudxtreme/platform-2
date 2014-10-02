@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Utilities/Parser'],
+	function (Backbone, Parser)
 	{
 		var ActionParameters = Backbone.View.extend({
 
@@ -33,7 +33,7 @@ define(
 
 					if (typeof (v.value) != 'undefined' && v.value != "")
 					{
-						v.value = Cloudwalkers.Utilities.Parser.parseFromMessage (v.value, message);
+						v.value = Parser.parseFromMessage (v.value, message);
 					}
 
 					data.input[v.type] = v;

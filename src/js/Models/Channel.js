@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Collections/Contacts', 'Collections/Messages'],
-	function (Backbone, Contacts, Messages)
+	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages', 'Collections/Messages', 'Collections/Notifications', 'Collections/Streams'],
+	function (Backbone, Session, Contacts, Messages, Channels, Notifications, Streams)
 	{
 		var Channel = Backbone.Model.extend({
 	
@@ -14,14 +14,14 @@ define(
 				this.channels.seed(this.get("channels"));
 				
 				// Child streams
-				this.streams = new Cloudwalkers.Collections.Streams();
+				this.streams = new Streams();
 				this.streams.seed(this.get("streams"));
 				
 				// Child messages
 				this.messages = new Messages();
 				
 				// Child notifications
-				this.notifications = new Cloudwalkers.Collections.Notifications();
+				this.notifications = new Notifications();
 				
 				// Child contacts
 				this.contacts = new Contacts();
@@ -53,7 +53,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				if(method == "read")
 				{
 					this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
@@ -134,7 +139,7 @@ define(
 				Store.set("channels", this.attributes);
 			}
 			 */
-		});		
+		});
 
 		return Channel;
 });

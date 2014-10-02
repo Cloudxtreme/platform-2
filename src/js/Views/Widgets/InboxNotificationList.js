@@ -4,10 +4,10 @@ define(
 	{
 		var InboxNotificationListWidget = InboxMessageListWidget.extend({
 	
-			collectionstring : "notifications",
-			check : "hasNotifications",
+			'collectionstring' : "notifications",
+			'check' : "hasNotifications",
 					
-			toggle : function(view)
+			'toggle' : function(view)
 			{
 				if (this.inboxmessage) this.inboxmessage.remove();
 
@@ -19,7 +19,7 @@ define(
 				view.$el.addClass("active").removeClass("unread");
 			},
 			
-			showmessage : function(model)
+			'showmessage' : function(model)
 			{
 				// Load message
 				var message = Session.getMessage(model.get("parent").id);

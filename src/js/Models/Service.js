@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Router', 'Views/Root'],
+	function (Backbone, Session, Router, RootView)
 	{
 		var Service = Backbone.Model.extend({
 	
@@ -36,7 +36,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				this.endpoint = (options.endpoint)? options.endpoint: false;
 				
 				if(options.hasOwnProperty("parentpoint"))
@@ -76,8 +81,8 @@ define(
 				}
 
 				//Refresh navigation
-				Cloudwalkers.RootView.navigation.renderHeader();
-				Cloudwalkers.RootView.navigation.render();
+				RootView.navigation.renderHeader();
+				RootView.navigation.render();
 			},
 
 			'addservice' : function()
@@ -91,17 +96,17 @@ define(
 				var streams = this.get("streams");
 
 				if(!streams)
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Router.Instance.navigate("#settings/services", true)
 
 				for(n in streams)
 					this.parsestream(streams[n], operation);
 
 				//Refresh navigation
-				Cloudwalkers.RootView.navigation.renderHeader();
-				Cloudwalkers.RootView.navigation.render();
+				RootView.navigation.renderHeader();
+				RootView.navigation.render();
 
 				if(operation == 'add')
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Router.Instance.navigate("#settings/services", true)
 			},
 
 			'parsestream' : function(stream, operation)

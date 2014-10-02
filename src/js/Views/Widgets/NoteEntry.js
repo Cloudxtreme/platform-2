@@ -1,108 +1,115 @@
-Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
+define(
+	['Views/Entry', 'Session', 'Views/SimpleCompose'],
+	function (Entry, Session, SimpleComposeView)
+	{
+		var NoteEntry = Entry.extend({
 	
-	'tagName' : 'li',
-	'template': 'messagenote',
+			'tagName' : 'li',
+			'template': 'messagenote',
 
-	'events' : {
-		'mouseover' : 'toggleactions',
-		'mouseout' : 'toggleactions',
-		'click *[data-notification-action]' : 'action',
-		'click .note-header' : 'togglenote',
-	},
+			'events' : {
+				'mouseover' : 'toggleactions',
+				'mouseout' : 'toggleactions',
+				'click *[data-notification-action]' : 'action',
+				'click .note-header' : 'togglenote',
+			},
 
-	'initialize' : function(options)
-	{	
-		this.parameters = {};
-		if(options) $.extend(this, options);
+			'initialize' : function(options)
+			{	
+				this.parameters = {};
+				if(options) $.extend(this, options);
 
-		this.listenToOnce(this.model, 'change', this.render);
-		this.listenTo(this.model, 'destroy', this.remove);
-	},
+				this.listenToOnce(this.model, 'change', this.render);
+				this.listenTo(this.model, 'destroy', this.remove);
+			},
 
-	'render' : function ()
-	{	
-		// Apply role permissions to template data
-		Session.censuretemplate(this.model.attributes);
-		
-		this.model.attributes.date = moment(this.model.attributes.date).format("DD MMM YYYY");
-		this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));
+			'render' : function ()
+			{	
+				// Apply role permissions to template data
+				Session.censuretemplate(this.model.attributes);
+				
+				this.model.attributes.date = moment(this.model.attributes.date).format("DD MMM YYYY");
+				this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));
 
-		if(this.isnew)	this.makenew();
+				if(this.isnew)	this.makenew();
 
-		return this;
-	},
+				return this;
+			},
 
-	'makenew' : function()
-	{
-		this.$el.addClass('new');
+			'makenew' : function()
+			{
+				this.$el.addClass('new');
 
-		setTimeout(function(){
-			this.$el.removeClass('new');
-		}.bind(this), 2000)
-	},
+				setTimeout(function(){
+					this.$el.removeClass('new');
+				}.bind(this), 2000)
+			},
 
-	'togglenote' : function()
-	{	
-		this.$el.find('.note-body').slideToggle('fast');
-	},
+			'togglenote' : function()
+			{	
+				this.$el.find('.note-body').slideToggle('fast');
+			},
 
-	'toggleactions' : function(e)
-	{	
-		var out = e.originalEvent.type == "mouseout";
-		
-		this.$el.find(".message-actions")[out? "addClass": "removeClass"]("hidden");
-		this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");
-	},
+			'toggleactions' : function(e)
+			{	
+				var out = e.originalEvent.type == "mouseout";
+				
+				this.$el.find(".message-actions")[out? "addClass": "removeClass"]("hidden");
+				this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");
+			},
 
-	'action' : function(e)
-	{	
-		e.stopPropagation();
+			'action' : function(e)
+			{	
+				e.stopPropagation();
 
-		// Action token
-		var token = $(e.currentTarget).data ('notification-action');		
-		this.model.trigger("action", token);
+				// Action token
+				var token = $(e.currentTarget).data ('notification-action');		
+				this.model.trigger("action", token);
 
-		if(token == 'edit'){
-			if(!this.$el.find('.note-body').is(':visible'))	this.togglenote();
+				if(token == 'edit'){
+					if(!this.$el.find('.note-body').is(':visible'))	this.togglenote();
 
-			if(this.isediting)	this.canceledit();
-			else				this.editnote();
-		}
-	},
+					if(this.isediting)	this.canceledit();
+					else				this.editnote();
+				}
+			},
 
-	'editnote' : function()
-	{	
-		var composenote = new Cloudwalkers.Views.SimpleCompose({model: this.model});
+			'editnote' : function()
+			{	
+				var composenote = new SimpleComposeView({model: this.model});
 
-		this.listenTo(composenote, 'edit:cancel', this.canceledit);
-		this.listenTo(composenote, 'save:success', this.saved);
+				this.listenTo(composenote, 'edit:cancel', this.canceledit);
+				this.listenTo(composenote, 'save:success', this.saved);
 
-		this.$el.find('.note-body').html(composenote.render().el);
+				this.$el.find('.note-body').html(composenote.render().el);
 
-		this.isediting = true;
-	},
+				this.isediting = true;
+			},
 
-	'canceledit' : function()
-	{	
-		this.$el.find('.note-body').html(this.model.get("text"));
+			'canceledit' : function()
+			{	
+				this.$el.find('.note-body').html(this.model.get("text"));
 
-		this.isediting = false;
-	},
+				this.isediting = false;
+			},
 
-	'saved' : function()
-	{
-		setTimeout(function(){
-			this.canceledit();
-		}.bind(this),200)
-	},
+			'saved' : function()
+			{
+				setTimeout(function(){
+					this.canceledit();
+				}.bind(this),200)
+			},
 
-	'remove' : function ()
-    {	
-		this.$el.slideUp(300);
+			'remove' : function ()
+		    {	
+				this.$el.slideUp(300);
 
-		setTimeout(function(){
-			this.remove()
-		}.bind(this),300);
-    }
+				setTimeout(function(){
+					this.remove()
+				}.bind(this),300);
+		    }
 
+		});	
+
+		return NoteEntry;
 });

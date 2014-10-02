@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Group'],
+	function (Backbone, Session, Group)
 	{
 		var  Groups = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.Group,
+			'model' : Group,
 			'typestring' : "groups",
 			'modelstring' : "group",
 			'parenttype' : "account",

@@ -1,6 +1,6 @@
 define(
-	['Models/User'],
-	function (User)
+	['Models/User', 'Session', 'Models/Contact'],
+	function (User, Session, Contact)
 	{
 		var Contact = User.extend({
 	
@@ -95,6 +95,7 @@ define(
 				}
 			}
 		});
+
 	
 		return Contact;
 });
@@ -104,7 +105,7 @@ define(
 		 *		Actions
 		 **/
 
-		Cloudwalkers.Models.Contact.actions = {
+		Contact.actions = {
 			templates :
 			{
 				'dm': {name: "Direct message", icon: 'message', type:'dialog'}

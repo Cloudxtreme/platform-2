@@ -4,18 +4,18 @@ define(
 	{
 		var Coworkdashboard = Pageview.extend({
 
-			title : "First Time",
-			events : {
+			'title' : "First Time",
+			'events' : {
 				'remove': 'destroy',
 				'click [data-add-service]' : 'addServiceCall'
 			},
 			
-			initialize : function()
+			'initialize' : function()
 			{
 				var account = Session.getAccount();
 			},
 				
-			render : function ()
+			'render' : function ()
 			{
 				// Navigation view
 				Backbone.history.fragment = "settings/services";
@@ -46,7 +46,7 @@ define(
 			
 			*/
 
-			processLink : function (url)
+			'processLink' : function (url)
 			{
 				if (url.indexOf ('?') > 0)
 				{
@@ -59,7 +59,7 @@ define(
 				return url;
 			},
 
-			addServiceCall : function (e)
+			'addServiceCall' : function (e)
 			{
 				e.preventDefault ();
 
@@ -91,18 +91,18 @@ define(
 				});
 			},
 			
-			destroy : function ()
+			'destroy' : function ()
 			{
 				$('#sidebar, #inner-content').removeClass("collapsed expanded");
 			},
 
-			translateString : function(translatedata)
+			'translateString' : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			mustacheTranslateRender : function(translatelocation)
+			'mustacheTranslateRender' : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [
@@ -120,7 +120,6 @@ define(
 				}
 			}
 		});
-		
 		return Coworkdashboard;
 	}
 );

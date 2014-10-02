@@ -1,16 +1,7 @@
-/**
-* A standard widget
-*/
-/*Cloudwalkers.Views.Widgets.DraftList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
-
-	'template' : 'messagedraftcontainer',
-	'messagetemplate' : 'messagedraft'
-
-});*/
 
 define(
-	['Views/Widgets/Widget', 'Collections/Messages'],
-	function (Widget)
+	['Views/Widgets/Widget', 'Collections/Messages', 'Session', 'Views/Root', 'Views/Entry', 'Views/Widgets/LoadMore', 'Views/Widgets/MessageContainer'],
+	function (Widget, Messages, Session, RootView, EntryView, LoadMoreWidget, MessageContainerWidget)
 	{
 		var ScheduledList = Widget.extend({
 
@@ -36,7 +27,7 @@ define(
 				this.listenTo(this.model.messages, 'seed', this.fill);
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
-				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
+				this.listenTo(RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
 				// Watch outdated
 				// this.updateable(this.model, "h3.page-title");
@@ -111,7 +102,7 @@ define(
 					if(!this.hasmore)
 						return this.$el.find('#loadmore').empty();	
 
-					var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+					var load = new LoadMoreWidget({list: this.model.messages, parentcontainer: this.$container});
 					this.$el.find('#loadmore').html(load.render().el);
 
 					this.loadmore = load;
@@ -138,7 +129,7 @@ define(
 				// Add messages to view
 				for (n in list)
 				{
-					var view = new Cloudwalkers.Views.Entry ({tagName: "tr", model: list[n], type: "full", template: "scheduledentry"});
+					var view = new EntryView ({tagName: "tr", model: list[n], type: "full", template: "scheduledentry"});
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);
@@ -167,7 +158,7 @@ define(
 				{
 					//var message = Session.getMessage(ids[n]);
 					
-					var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], type: "full", template: "messagefullentry"});
+					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
 					
 					this.$container.append(messageView.render().el);
@@ -251,15 +242,3 @@ define(
 		return ScheduledList;
 });
 
-
-
-
-
-/**
-* A standard widget
-* /
-Cloudwalkers.Views.Widgets.ScheduledList = Cloudwalkers.Views.Widgets.MessageContainer.extend({
-
-	'messagetemplate' : 'messageschedulelist'
-
-});*/

@@ -1,11 +1,11 @@
 define(
-	['backbone', 'Collections/Contacts', 'Collections/Messages'],
-	function (Backbone, Contacts, Messages)
+	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages'],
+	function (Backbone, Session, Contacts, Messages)
 	{
 		var Stream = Backbone.Model.extend({
 	
 			'parameters' : {},
-			
+	
 			'initialize' : function(attributes){
 				
 				// Child messages
@@ -17,7 +17,7 @@ define(
 				// Has reports?
 				if(this.get("statistics"))
 				{
-					this.reports = new Cloudwalkers.Collections.Reports();
+					//this.reports = new Cloudwalkers.Collections.Reports(); -> deprecated?
 					this.reports.streamid = this.id;
 				}
 				
@@ -56,7 +56,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				if(method == "read")
 				{
 					this.endpoint = (options.endpoint)? "/" + options.endpoint: "";

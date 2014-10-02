@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Models/User', 'Views/Root', 'Views/Settings'],
+	function (Backbone, User, RootView, SettingsView)
 	{
 		var Service = Backbone.View.extend({
 
@@ -54,7 +54,7 @@ define(
 				var entry = $(e.currentTarget).toggleClass("active inactive");
 				
 				// Patch data
-				var profile = new Cloudwalkers.Models.User({id: entry.data("id")});
+				var profile = new User({id: entry.data("id")});
 				
 				profile.parent = this.service;
 				profile.typestring = "profiles";
@@ -63,7 +63,7 @@ define(
 				profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 				{	
 					//this.parseprofile(profile);
-					Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+					RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 					
 					// Check for stream changes
 					profile.parent.updateStreams(profile.get('activated'), profile);
@@ -88,13 +88,13 @@ define(
 				}
 
 				//Refresh navigation
-				Cloudwalkers.RootView.navigation.renderHeader();
-				Cloudwalkers.RootView.navigation.render();
+				RootView.navigation.renderHeader();
+				RootView.navigation.render();
 			},
 			
 			'delete' : function ()
 			{
-				Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
+				RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 				{
 					// View
 					this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
@@ -409,7 +409,7 @@ define(
 
 				var self = this;
 
-				Cloudwalkers.RootView.confirm 
+				RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
 					function ()
@@ -428,8 +428,8 @@ define(
 
 		        var streamid = $(e.target).attr ('data-stream-details-id');
 
-		        var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
-		        Cloudwalkers.RootView.popup (view);
+		        var view = new SettingsView.StreamSettings ({ 'streamid' : streamid });
+		        RootView.popup (view);
 		    },
 			'translateTitle' : function(translatedata)
 			{	

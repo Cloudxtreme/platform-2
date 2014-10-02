@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/User'],
+	function (Backbone, Session, User)
 	{
 		var Users = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.User,
+			'model' : User,
 			'typestring' : "users",
 			'modelstring' : "user",
 			'parenttype' : "account",
@@ -45,6 +45,11 @@ define(
 			
 			'sync' : function (method, model, options)
 			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				if(method == "read")
 				{
 					this.processing = true;

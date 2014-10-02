@@ -1,11 +1,11 @@
 
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Stream'],
+	function (Backbone, Session, Stream)
 	{
 		var Streams = Backbone.Collection.extend({
-
-			'model' : Cloudwalkers.Models.Stream,
+			
+			'model' : Stream,
 			
 			'initialize' : function(){
 				
@@ -29,6 +29,11 @@ define(
 			},
 			
 			'sync' : function (method, model, options) {
+				
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
 				
 				/*// Store Local - deprecated
 				if( method == "read")

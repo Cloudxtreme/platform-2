@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Action'],
+	function (Backbone, ActionView)
 	{
 		var Actions = Backbone.View.extend({
 
@@ -73,7 +73,7 @@ define(
 							inactive = false;
 					}
 
-					var action = new Cloudwalkers.Views.Action({action: compound || actions[n], inactive: inactive})
+					var action = new ActionView({action: compound || actions[n], inactive: inactive})
 
 					this['actions'+action.position].push(action)
 				}

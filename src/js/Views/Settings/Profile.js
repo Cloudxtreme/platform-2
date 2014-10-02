@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Root', 'Router'],
+	function (Backbone, RootView, Router)
 	{
 		var Profile = Backbone.View.extend({
 
@@ -61,14 +61,14 @@ define(
 				
 				user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+					RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 					
 					// Hack
-					window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+					window.location.reload(); //Router.Instance.navigate("#settings/profile", true);
 
 				}.bind(this), 
 				error: function(){
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+					RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 					
 				}.bind(this)});
 			},
@@ -97,7 +97,7 @@ define(
 				{
 					// Check type
 					if (!f.type.match('image.*')) 
-						return Cloudwalkers.RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
+						return RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
 
 					var reader = new FileReader();
 					
@@ -120,7 +120,7 @@ define(
 
 				if (!this.base64data){
 
-					Cloudwalkers.RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
+					RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
 
 					this.$el.find('.edit-user-avatar').removeClass('loading');
 				
@@ -128,7 +128,7 @@ define(
 					Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 					{
 					
-						Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
+						RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
 					
 						this.$el.find('.edit-user-avatar').removeClass('loading');
 
@@ -156,7 +156,7 @@ define(
 						
 						user.save ({avatarBase64: base64img}, {patch: true, success: function ()
 						{
-							Cloudwalkers.RootView.growl('User Profile', "You have a brand new avatar now.");
+							RootView.growl('User Profile', "You have a brand new avatar now.");
 							$(".avatar-big").css('background-image',"url(" + base64img + ")");
 						}});
 					};       
@@ -174,7 +174,7 @@ define(
 				
 				if (newpassword != this.$el.find ('[name=pass2]').val())
 				{
-					Cloudwalkers.RootView.growl('Oops', this.translateString("please_retype_your_new_password"));
+					RootView.growl('Oops', this.translateString("please_retype_your_new_password"));
 					return null;
 				}
 				
@@ -182,7 +182,7 @@ define(
 				
 				user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
+					RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
 					
 					this.$el.find('.edit-user-password').removeClass('loading');
 					this.$el.find ('[name=pass0]').val('');
@@ -191,15 +191,15 @@ define(
 					this.$el.find ('[name=pass2]').blur(); 
 
 					// Hack
-					//window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+					//window.location.reload(); //Router.Instance.navigate("#settings/profile", true);
 
 				}.bind(this), 
 				error: function(model, response, options){
 					var response = response.responseJSON.error.message;
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), error);
+					RootView.growl(this.translateString("user_profile"), error);
 
 					// Hack
-					window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+					window.location.reload(); //Router.Instance.navigate("#settings/profile", true);
 				}.bind(this)});
 
 			},

@@ -1,41 +1,48 @@
-Cloudwalkers.Views.Widgets.BestTimeToPost = Backbone.View.extend({
-
-	'initialize' : function (options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		if(options) $.extend(this, options);
-		
-		this.settings = {};
-		this.settings.title = this.title;
+		var BestTimeToPost = Backbone.View.extend({
 
-		this.collection = this.model.statistics;
-		this.listenTo(this.collection, 'ready', this.fill);
-		
-	},
+			'initialize' : function (options)
+			{
+				if(options) $.extend(this, options);
+				
+				this.settings = {};
+				this.settings.title = this.title;
 
-	'render' : function ()
-	{	
-		this.$el.html (Mustache.render (Templates.besttimewrap, this.settings));		
-		return this;
-	},
+				this.collection = this.model.statistics;
+				this.listenTo(this.collection, 'ready', this.fill);
+				
+			},
 
-	'fill' : function(){
-		if(this.filled)
-			return;
+			'render' : function ()
+			{	
+				this.$el.html (Mustache.render (Templates.besttimewrap, this.settings));		
+				return this;
+			},
 
-		var fulldata = this.collection.clone().parsebesttime();
-		
-		$.each(fulldata, function(key, day){
-			day.fill = day.value*100/fulldata["maxvalue"];
-			day.time = day.time >= 0 ? day.time+"h" : "";
-			this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
-		}.bind(this));
+			'fill' : function(){
+				if(this.filled)
+					return;
 
-		this.filled = true;
-	},
+				var fulldata = this.collection.clone().parsebesttime();
+				
+				$.each(fulldata, function(key, day){
+					day.fill = day.value*100/fulldata["maxvalue"];
+					day.time = day.time >= 0 ? day.time+"h" : "";
+					this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
+				}.bind(this));
 
-	'negotiateFunctionalities' : function()
-	{
+				this.filled = true;
+			},
 
-	}
-	
+			'negotiateFunctionalities' : function()
+			{
+
+			}
+			
+		});
+
+		return BestTimeToPost;
 });

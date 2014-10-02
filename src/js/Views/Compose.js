@@ -1194,7 +1194,7 @@ define (
 					{
 						this.datepicker.datepicker('hide');
 						this.$el.find("#delay-date").val("");
-						Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+						RootView.alert("Please set your Schedule to a date in the future");
 					}*/
 					
 					// Force clean "in"
@@ -1251,7 +1251,7 @@ define (
 					{	
 						this.datepicker.datepicker('hide');
 						this.$el.find("#repeat-until").val("");
-						Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
+						RootView.alert("Please set your Schedule to a date in the future");
 					}*/
 				}
 				
@@ -1522,7 +1522,7 @@ define (
 			save : function(status)
 			{	
 				// Prevent empty patch
-				//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+				//if (!this.draft.validateCustom()) return RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
 				var error;
 		 
@@ -1553,8 +1553,8 @@ define (
 			post : function()
 			{	
 				// Prevent empty post
-				//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
-				//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
+				//if (!this.draft.validateCustom()) return RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
+				//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
 
 				var error;
 		 
@@ -1603,7 +1603,7 @@ define (
 				
 				// Check stream selection
 				//if (!streamids.length)
-				//	return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
+				//	return RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
 				
 				// Check text if required
 				if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)

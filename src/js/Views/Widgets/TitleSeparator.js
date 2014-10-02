@@ -1,25 +1,32 @@
-Cloudwalkers.Views.Widgets.TitleSeparator = Backbone.View.extend({
-
-	'className' : 'titleseparator',
-
-	'initialize' : function (options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		if(options) $.extend(this, options);
-		
-		this.settings = {};
-		this.settings.title = this.title;
-	},
+		TitleSeparator = Backbone.View.extend({
 
-	'render' : function ()
-	{	
-		this.$el.html (Mustache.render (Templates.titleseparator, this.settings));	
+			'className' : 'titleseparator',
 
-		return this;
-	},
+			'initialize' : function (options)
+			{
+				if(options) $.extend(this, options);
+				
+				this.settings = {};
+				this.settings.title = this.title;
+			},
 
-	'negotiateFunctionalities' : function()
-	{
+			'render' : function ()
+			{	
+				this.$el.html (Mustache.render (Templates.titleseparator, this.settings));	
 
-	}
-	
+				return this;
+			},
+
+			'negotiateFunctionalities' : function()
+			{
+
+			}
+			
+		});
+
+		return TitleSeparator;
 });

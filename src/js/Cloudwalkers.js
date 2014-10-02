@@ -42,7 +42,7 @@ define(
 					Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					Cloudwalkers.Router.Instance = new Router ();
+					Router.Instance = new Router ();
 					Backbone.history.start();
 
 				});

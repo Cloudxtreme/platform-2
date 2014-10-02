@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Trigger'],
+	function (Backbone, Session, Trigger)
 	{
 		var Triggers = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.Trigger,
+			'model' : Trigger,
 			'typestring' : "triggers",
 			
 			'initialize' : function()

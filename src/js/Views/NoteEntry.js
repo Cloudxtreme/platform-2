@@ -1,11 +1,11 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Views/Root', 'Views/Entry'],
+	function (Backbone, Session, RootView, EntryView)
 	{
-		var NoteEntry = Cloudwalkers.Views.Entry.extend({
+		var NoteEntry = EntryView.extend({
 
 			'className' : 'note',
-			
+	
 			'events' : 
 			{
 				'remove' : 'destroy',
@@ -46,12 +46,12 @@ define(
 								this.listenTo(this.model.parent, "sync", this.render)
 							} else {
 								this.parameters.parent = this.model.parent.attributes;
-								Cloudwalkers.RootView.trigger("ready:notecontext");
+								RootView.trigger("ready:notecontext");
 							}
 						
 						} else{
 							this.parameters.parent = this.model.parent.attributes;
-							Cloudwalkers.RootView.trigger("ready:notecontext");
+							RootView.trigger("ready:notecontext");
 						}
 						
 					// Load Actions

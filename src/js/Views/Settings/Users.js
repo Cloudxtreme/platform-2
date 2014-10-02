@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Collections/Users', 'Models/User', 'Views/Root', 'Views/Settings'],
+	function (Backbone, Users, User, RootView, SettingsView)
 	{
 		var Users = Backbone.View.extend({
 
@@ -17,7 +17,7 @@ define(
 			'initialize' : function ()
 			{
 				
-				this.collection = new Cloudwalkers.Collections.Users();
+				this.collection = new Users();
 				
 				//  en to model
 				this.listenToOnce(this.collection, 'sync', this.fill);
@@ -50,7 +50,7 @@ define(
 				this.collection.fetch();
 				
 				/*
-				var administrators = new Cloudwalkers.Collections.Users ([], {});
+				var administrators = new Users ([], {});
 
 				this.collections.push (administrators);
 
@@ -73,13 +73,13 @@ define(
 				
 				for (n in models)
 				{	
-					var view = new Cloudwalkers.Views.Settings.User ({ 'model' : models[n], view: this });
+					var view = new SettingsView.User ({ 'model' : models[n], view: this });
 					$container.append(view.render().el);
 				}
 				
 				/*collection.each (function (user)
 				{
-					var view = new Cloudwalkers.Views.Settings.User ({ 'model' : user });
+					var view = new SettingsView.User ({ 'model' : user });
 					$container.append(view.render().el);
 				});*/
 			},
@@ -112,7 +112,7 @@ define(
 
 				collection.on ('add', function (model)
 				{
-					var view = new Cloudwalkers.Views.Settings.User ({ 'model' : model });
+					var view = new SettingsView.User ({ 'model' : model });
 					html.find ('.user-container').append (view.render ().el);
 				});
 
@@ -139,11 +139,11 @@ define(
 				this.$el.find('.users-invite').addClass('loading');
 				this.$el.find('.users-invite .btn').attr('disabled', true);
 				
-				var user = new Cloudwalkers.Models.User(data);
+				var user = new User(data);
 				
 				user.once('sync', function(response)
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
+					RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
 
 					// remove the loading effect
 					this.$el.find('input[name=invite-email]').val('');
@@ -169,7 +169,7 @@ define(
 			
 			'fail' : function ()
 			{
-				Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
+				RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
 			},
 
 			'translateString' : function(translatedata)

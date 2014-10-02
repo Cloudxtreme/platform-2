@@ -5,8 +5,8 @@
 **/
 
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session'],
+	function (Backbone, Session)
 	{
 		var Editor = Backbone.View.extend({
 	

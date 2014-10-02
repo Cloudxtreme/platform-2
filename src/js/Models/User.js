@@ -1,11 +1,11 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Views/Root'],
+	function (Backbone, Session, RootView)
 	{
 		var User = Backbone.Model.extend({
 
 			'typestring' : 'users',
-			
+	
 			'initialize' : function ()
 			{
 
@@ -38,7 +38,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				this.method = method;
 				
 				// Hack
@@ -75,7 +80,7 @@ define(
 				var userrole = this.get('rolegroup');
 
 				if(!roles || _.isUndefined(userrole))
-					return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+					return RootView.resync('#'+Backbone.history.fragment);
 
 				var role = roles.filter(function(el){ return el.id == userrole});
 				return role.length? role[0]: null;

@@ -14,19 +14,20 @@ define(
 	{
 		var Statistics = Pageview.extend({
 			
-			id : "statistics",
-			start : 0,
-			end: 0,
-			timespan : "week",
-			period : 0,
-			custom : false,
-			views : [],
+			'id' : "statistics",
+			'start' : 0,
+			'end': 0,
+			'timespan' : "week",
+			'period' : 0,
+			'custom' : false,
+			'views' : [],
 			
-			events : {
+			'events' : {
 				'remove': 'destroy',
 				'click #add': 'addperiod',
 				'click #subtract': 'subtractperiod',
 				'click #subtractempty': 'subtractempty',
+				'click #addempty': 'addempty',
 				'click #now': 'now',
 				'click #show': 'changecustom',
 				'change .stats-header select.networks': 'changestream',
@@ -34,7 +35,7 @@ define(
 				'click .dashboard-stat' : 'updatenetwork'
 			},
 			
-			widgets : [
+			'widgets' : [
 				{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
 				{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
@@ -46,6 +47,8 @@ define(
 						{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", translation:{ 'title': 'contacts_evolution'}}}
 					]
 				}},
+				//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
+				//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 				
 				{widget: "TitleSeparator", data: {translation:{ 'title': 'new_this'}}},
 				{widget: "Info", data: {translation:{ 'title': 'contact_evolution'}, filterfunc: "contact-evolution"}, span: 3},
@@ -69,7 +72,7 @@ define(
 				}}
 			],
 			
-			initialize : function(options)
+			'initialize' : function(options)
 			{	
 				if (options) $.extend(this, options);
 
@@ -79,6 +82,7 @@ define(
 				this.listenTo(this.collection, 'request', this.showloading);
 				this.listenTo(this.collection, 'seed', this.fillcharts);
 				this.listenTo(this.collection, 'sync:data', this.hideloading);
+				this.listenTo(this.collection, 'sync:noresults', this.showempty);
 				
 				// General i18n
 				translate =
@@ -93,7 +97,7 @@ define(
 				this.streamid = parseInt(this.streamid)
 			},
 			
-			render : function()
+			'render' : function()
 			{			
 				// Time attributes
 				var params = this.timemanager();
@@ -130,17 +134,15 @@ define(
 				return this;
 			},
 
-			writeui : function(params)
+			'writeui' : function()
 			{
-				if(!params)
-					params = this.timemanager();
+				var params = this.timemanager();
 
 				this.$el.find('.stats-header-timeview').eq(0)
 					.html('<strong>'+ params.fullperiod +': </strong>'+ params.timeview)
-
 			},
 			
-			request : function (period)
+			'request' : function (period)
 			{
 				//this.fillcharts ();
 				this.writeui();
@@ -150,7 +152,7 @@ define(
 				this.currentperiod = period;
 			},
 
-			fillcharts : function (list)
+			'fillcharts' : function (list)
 			{
 				if (list && !list.length) return this.showempty();		
 				else this.$container.html('');
@@ -172,7 +174,7 @@ define(
 						to : this.end.unix()
 					}
 
-					var view = new window[widget.widget] (widget.data);
+					var view = new Cloudwalkers.Views.Widgets[widget.widget] (widget.data);
 					
 					this.views.push (view);
 					
@@ -194,21 +196,21 @@ define(
 					for (var n in widget.data.chartdata) this.translateWidgets (widget.data.chartdata[n].data);
 			},
 			
-			timemanager : function ()
+			'timemanager' : function ()
 			{
 				// Get parameters
 				var params = this.filterparameters();
 				
-				var start = moment.unix(params.since);
+				var start = moment.unix(params.since).zone(0);
 				var startformat = (start.date() > 24 || params.span == "quarter")? (start.month() == 11? "DD MMM YYYY":"DD MMM"): "DD";
 				
 				params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
-				params.timeview = start.format(startformat) + " - " + moment.unix(params.until).format("DD MMM YYYY");
+				params.timeview = start.format(startformat) + " - " + moment.unix(params.until).zone(0).format("DD MMM YYYY");
 				params[params.span + "Active"] = true;
 				
 				// Custom fields
-				params.startstring = moment.unix(params.since).format("DD-MM-YYYY");
-				params.endstring = moment.unix(params.until).format("DD-MM-YYYY");
+				params.startstring = moment.unix(params.since).zone(0).format("DD-MM-YYYY");
+				params.endstring = moment.unix(params.until).zone(0).format("DD-MM-YYYY");
 				
 				// BIG NO-NO
 				// Language Hack (invert word order)
@@ -217,16 +219,16 @@ define(
 				} else {
 					params.fullperiod = this.translateString(params.periodstring) + " " + this.translateString(params.span);
 				}
-
+				
 				return params;
 			},
 
-			showloading : function ()
+			'showloading' : function ()
 			{	
 				this.$el.addClass("loading");
 			},
 			
-			hideloading : function (collection, response)
+			'hideloading' : function ()
 			{	
 				this.$el.removeClass("loading");
 				this.$el.find('.period-buttons .btn').attr("disabled", false);
@@ -240,22 +242,25 @@ define(
 					this.period = this.currentperiod;
 			},
 			
-			showempty : function ()
-			{
-				var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
+			'showempty' : function ()
+			{	
+				this.cleanviews();
+				this.hideloading();
 
-				var view = new EmptyDataWidget ({message: message});
+				var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
+				var view = new EmptyDataWidget ({timeparams: this.timeparams});
+
 				this.appendWidget (view, 8, null, 2);
 			},
 
-			now : function()
+			'now' : function()
 			{
 				this.period = 0;
 				
 				this.trigger('change:period', this.period);
 			},
 			
-			addperiod : function (e)
+			'addperiod' : function (e)
 			{	
 				var state = $(e.target).attr('disabled');
 
@@ -266,7 +271,7 @@ define(
 				this.trigger('change:period', this.period);
 			},
 			
-			subtractperiod : function(e)
+			'subtractperiod' : function(e)
 			{
 				var state = $(e.target).attr('disabled');
 
@@ -277,22 +282,26 @@ define(
 				this.trigger('change:period', this.period);
 			},
 
-			subtractempty : function()
+			'subtractempty' : function()
 			{
 				this.period -= 1;	
 				this.trigger('change:period', this.period);
+			},
 
-				this.$container.html('');
+			'addempty' : function()
+			{
+				this.period += 1;	
+				this.trigger('change:period', this.period);
 			},
 			
-			changestream : function()
+			'changestream' : function()
 			{	
 				var streamid = Number(this.$el.find("select.networks").val());
 				
 				Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
 			},
 			
-			changespan : function()
+			'changespan' : function()
 			{
 				var timespan = this.$el.find("select.time").val();
 				this.timespan = timespan;
@@ -300,7 +309,7 @@ define(
 				this.trigger('change:period');
 			},
 			
-			changecustom : function()
+			'changecustom' : function()
 			{
 				this.start = moment(this.$el.find('#start').val(), "DD-MM-YYYY");
 				this.end = moment(this.$el.find('#end').val(), "DD-MM-YYYY");
@@ -308,15 +317,14 @@ define(
 				this.trigger('change:period');
 			},
 			
-			filterparameters : function() {
+			'filterparameters' : function() {
 		 
 				// Get time span
-				//var span = this.$el.find('.stats-header select').val();
-				//if(span) this.timespan = span;
+
 				if (this.timespan == "now") {	this.period = 0; }
 				if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
-				if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');	this.end = moment().zone(0).endOf('month'); }
-				if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');	this.end = moment().zone(0).endOf('year'); }
+				if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
+				if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
 
 				if (this.timespan == "quarter")
 				{	//Still not updated with .zone(0)
@@ -330,25 +338,28 @@ define(
 					if(this.period < 0) { this.start.subtract(this.timespan +"s", Math.abs(this.period));	this.end.subtract(this.timespan +"s", Math.abs(this.period)); }
 				}
 				
+				// For the empty data check
+				this.timeparams = {since: this.start.unix(), until: this.end.unix(), span: this.timespan};
+
 				return {since: this.start.unix(), until: this.end.unix(), span: this.timespan, period: this.period, reset: true};
 			},
 			
-			finish : function()
+			'finish' : function()
 			{
 			},
 
-			updatenetwork : function(e)
+			'updatenetwork' : function(e)
 			{
 				var report = e.currentTarget.dataset.report;
 			},
 
-			translateString : function(translatedata)
+			'translateString' : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			translateWidgets : function(translatedata)
+			'translateWidgets' : function(translatedata)
 			{	
 				// Translate Widgets
 				if(translatedata.translation)
@@ -358,7 +369,7 @@ define(
 					}
 			},
 
-			mustacheTranslateRender : function(translatelocation)
+			'mustacheTranslateRender' : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

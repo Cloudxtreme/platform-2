@@ -1,6 +1,6 @@
 define(
-	['Models/Message', 'Collections/Actions'],
-	function (Message, Actions)
+	['Models/Message', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Models/Message'],
+	function (Message, Actions, Notes, Notifications, Message)
 	{
 		var Notification = Message.extend({
 			
@@ -8,14 +8,14 @@ define(
 			{			
 				if (typeof (this.attributes.parent) != 'undefined')
 				{
-					this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
+					this.set ('parentmodel', new Message (this.attributes.parent));
 					this.get ('parentmodel').trigger ('change');
 				}
 				
 				// Actions
 				this.actions = new Actions(false, {parent: this});
-				this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
-				this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
+				this.notes = new Notes(false, {parent: this});
+				this.notifications = new Notifications(false, {parent: this});
 				
 				// Listen to destroy
 				// Reload parent message for message counter

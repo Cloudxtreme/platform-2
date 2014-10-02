@@ -1,11 +1,11 @@
 define(
-	['Views/Entry', 'Collections/Actions'],
-	function (EntryView, Actions)
+	['Views/Entry', 'Session', 'Collections/Actions', 'Views/Root', 'Views/ActionParameters'],
+	function (EntryView, Session, Actions, RootView, ActionParametersView)
 	{
 		var Notification = Entry.extend({
 	
 			'template': 'message',
-			
+	
 			'events' : {
 				'mouseover' : 'toggleactions',
 				'mouseout' : 'toggleactions',
@@ -99,7 +99,7 @@ define(
 			'togglecommentcontact' : function()
 			{
 				var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
-				if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
+				if(contact)	RootView.viewContact({model: contact});
 			}
 			
 			/*'action' : function (element)
@@ -135,11 +135,11 @@ define(
 					{
 						if (action.type == 'dialog')
 						{
-							var view = new Cloudwalkers.Views.ActionParameters ({
+							var view = new ActionParametersView ({
 								'message' : targetmodel,
 								'action' : action
 							});
-							Cloudwalkers.RootView.popup (view);
+							RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -148,7 +148,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							Cloudwalkers.RootView.writeDialog 
+							RootView.writeDialog 
 							(
 								targetmodel,
 								action

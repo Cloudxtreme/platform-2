@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Action', 'Views/Root'],
+	function (Backbone, Session, Action, RootView)
 	{
 		var Actions = Backbone.Collection.extend({
 	
-			'model' : Cloudwalkers.Models.Action,
+			'model' : Action,
 			'typestring' : "actions",
 			'modelstring' : "action",
 			'token' : "",
@@ -115,7 +115,7 @@ define(
 				var action = this.templates[token];
 				// Toggle
 				
-				this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
+				this.listenTo(RootView, token.concat(':success'), this.toggleAction);
 				
 				// Confirm modal
 				if (action.type == 'confirm')
@@ -127,22 +127,22 @@ define(
 				// Show growl
 				else if (action.type == 'growl')
 				{
-					Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+					RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 					
 					action.id = 1;
 					action.parent = this.parent;
 					
-					return new Cloudwalkers.Models.Action(action).destroy();
+					return new Action(action).destroy();
 				}
 				
 				// Show note
-				else if (action.type == 'note')	Cloudwalkers.RootView.writeNote(this.parent);		
+				else if (action.type == 'note')	RootView.writeNote(this.parent);		
 				
 				// Call Compose modal
 				else if (action.type == 'edit')	var params = {model: this.parent};
-				else							var params = {reference: this.parent, action: new Cloudwalkers.Models.Action(action)} 
+				else							var params = {reference: this.parent, action: new Action(action)} 
 				
-				var compose = Cloudwalkers.RootView.compose(params);
+				var compose = RootView.compose(params);
 
 				//Uncomment when CLOUD-793 is fixed
 				//this.listenTo(compose, 'action:success', function(a){this.parent.updateactions(a)}.bind(this));
@@ -177,7 +177,7 @@ define(
 					if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 
 					// Notify action (temp)
-					Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
+					RootView.growl (action.name, "The " + token + " is planned with success.");
 
 					return;
 				}

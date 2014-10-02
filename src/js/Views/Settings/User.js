@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Root', 'Views/Settings'],
+	function (Backbone, RootView, SettingsView)
 	{
 		var User = Backbone.View.extend({
 
@@ -47,7 +47,7 @@ define(
 
 			'openDetails' : function ()
 			{
-				var view = new Cloudwalkers.Views.Settings.UserDetails ({ 'model' : this.model, 'view': this.view });
+				var view = new SettingsView.UserDetails ({ 'model' : this.model, 'view': this.view });
 				$(".manage-users-edit-widget .portlet-body").html(view.render().el);
 			},
 			
@@ -56,17 +56,17 @@ define(
 				var $tr = $(e.currentTarget).parents('tr');
 				var user = Session.getUser($tr.data('delete-user-id'));
 				
-				Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
+				RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 					
 					this.model.destroy({success: function(){
 						$tr.remove();
-						Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
+						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 					}});
 					/*
 					var url = 'account/' + Session.getAccount().get('id') + '/users/' + self.model.get('id');
 					Cloudwalkers.Net.remove (url, {}, function(){
 					
-						Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
+						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 					}.bind(this));*/
 				}.bind(this));
 			},

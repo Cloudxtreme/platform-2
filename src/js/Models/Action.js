@@ -1,11 +1,11 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session'],
+	function (Backbone, Session)
 	{
 		var Action = Backbone.Model.extend({
 	
 			'typestring' : "actions",
-			
+	
 			'initialize' : function(options, init)
 			{
 				if(options) $.extend(this, options);

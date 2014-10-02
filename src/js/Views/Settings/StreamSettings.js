@@ -1,6 +1,6 @@
 define(
-    ['backbone'],
-    function (Backbone)
+    ['backbone', 'Views/Root'],
+    function (Backbone, RootView)
     {
         var StreamSettings = Backbone.View.extend({
 
@@ -58,7 +58,7 @@ define(
                 {
                     if (typeof (data.error) != 'undefined')
                     {
-                        Cloudwalkers.RootView.alert (data.error.message);
+                        RootView.alert (data.error.message);
                     }
                     else
                     {

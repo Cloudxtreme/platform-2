@@ -71,6 +71,5 @@ define(
 			}
 
 		});
-
 		return Action;
 });

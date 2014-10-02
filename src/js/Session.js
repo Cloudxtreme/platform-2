@@ -1,6 +1,6 @@
 define(
-	['Cloudwalkers', 'Models/Me', 'Collections/Accounts'],
-	function (Cloudwalkers, Me, Accounts)
+	['Cloudwalkers', 'Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
+	function (Cloudwalkers, Me, RootView, Router, Accounts, Polyglot)
 	{
 		Session = 
 		{
@@ -29,7 +29,7 @@ define(
 			
 			loadEssentialData : function (callback)
 			{
-				this.user = new Cloudwalkers.Models.Me();
+				this.user = new Me();
 				this.getversion();
 
 				/* getLang and then callback */
@@ -66,7 +66,7 @@ define(
 			
 			home : function()
 			{
-				Cloudwalkers.Router.Instance.home();	
+				Router.Instance.home();	
 			},
 			
 			/**
@@ -124,7 +124,7 @@ define(
 					Session.user.attributes.settings.viewsettings = {};
 				
 				if(!Session.user.attributes.settings.viewsettings[pointer])
-					Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
+					Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
 
 				// Sent hack to add the object
 				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer]['sent'])
@@ -475,7 +475,7 @@ define(
 
 				moment.lang(lang);
 				
-				extendLang = new Cloudwalkers.Models.Polyglot();
+				extendLang = new Polyglot();
 				extendLang.fetch({
 					success: function (){
 						this.translationLang = extendLang.get("translation");

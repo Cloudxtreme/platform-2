@@ -1,10 +1,10 @@
 define(
-	['Collections/Messages'],
-	function (Messages)
+	['Session', 'Collections/Messages', 'Models/Notification'],
+	function (Session, Messages, Notification)
 	{
 		var Notifications = Messages.extend({
 	
-			'model' : Cloudwalkers.Models.Notification,
+			'model' : Notification,
 			'typestring' : "notifications",
 			'modelstring' : "notification",
 			

@@ -1,42 +1,49 @@
-Cloudwalkers.Utils = {
-
-	'months' : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ],
-
-	'longdate' : function (date)
+define(
+	[],
+	function ()
 	{
-		return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear () + ' ' + this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2);
-	},
+		var Utils = {
 
-	'shortdate' : function (date)
-	{
-		return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear ();
-	},
+			'months' : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ],
 
-	'time' : function (date)
-	{
-		return this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2)
-	},
+			'longdate' : function (date)
+			{
+				return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear () + ' ' + this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2);
+			},
 
-	'zeroIt' : function (s, len)
-	{
-		var c = '0';
-		var s = String(s);
-		
-		while(s.length < len) s = c + s;
+			'shortdate' : function (date)
+			{
+				return date.getDate () + ' ' + this.month (date.getMonth () + 1) + ' ' + date.getFullYear ();
+			},
 
-		return s;
-	},
+			'time' : function (date)
+			{
+				return this.zeroIt (date.getHours (), 2) + ':' + this.zeroIt (date.getMinutes (), 2)
+			},
 
-	'month' : function (monthid)
-	{
-		if (typeof (this.months[monthid - 1]) != 'undefined')
-		{
-			return this.months[monthid - 1];
-		}
-		else
-		{
-			return 'Month out of range';
-		}
-	}
+			'zeroIt' : function (s, len)
+			{
+				var c = '0';
+				var s = String(s);
+				
+				while(s.length < len) s = c + s;
 
-};
+				return s;
+			},
+
+			'month' : function (monthid)
+			{
+				if (typeof (this.months[monthid - 1]) != 'undefined')
+				{
+					return this.months[monthid - 1];
+				}
+				else
+				{
+					return 'Month out of range';
+				}
+			}
+
+		};
+
+		return Utils;
+});

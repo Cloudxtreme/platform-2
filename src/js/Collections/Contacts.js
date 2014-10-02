@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Collections/Users', 'Models/Contact'],
+	function (Backbone, Session, Users, Contact)
 	{
-		var Contacts = Cloudwalkers.Collections.Users.extend({
+		var Contacts = Users.extend({
 
-			'model' : Cloudwalkers.Models.Contact,
+			'model' : Contact,
 			'typestring' : "contacts",
 			'modelstring' : "contact",
 			'parenttype' : "account",
@@ -48,7 +48,13 @@ define(
 			},
 			    
 		    'sync' : function (method, model, options)
-			{	
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
+				
 				if(method == "read")	this.processing = true;
 				if(options.parameters)	this.parameters = options.parameters;
 				if(!options.following)	this.following = false;

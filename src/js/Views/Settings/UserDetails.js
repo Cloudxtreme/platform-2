@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Root'],
+	function (Backbone, RootView)
 	{
 		var UserDetails = Backbone.View.extend({
 
@@ -20,7 +20,7 @@ define(
 				this.roles = Session.getAccount().get('roles');
 				
 				if(!this.roles || _.isUndefined(this.role))
-					return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+					return RootView.resync('#'+Backbone.history.fragment);
 			},
 
 			'render' : function ()
@@ -73,7 +73,7 @@ define(
 
 			'success' : function()
 			{	
-				Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
+				RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 				this.model.trigger("change:clearance")	;
 			},
 

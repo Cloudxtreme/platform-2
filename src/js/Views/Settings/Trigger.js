@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Models/Trigger', 'Views/Root'],
+	function (Backbone, Trigger, RootView)
 	{
 		var Trigger = Backbone.View.extend({
 
@@ -15,7 +15,7 @@ define(
 			{
 				$.extend(this, options);
 
-				if(!this.model)	this.model = new Cloudwalkers.Models.Trigger();
+				if(!this.model)	this.model = new Trigger();
 			},
 
 			'render' : function()
@@ -61,14 +61,14 @@ define(
 					//streams: this.
 				}, {patch: this.model.id? true: false, 
 						success: function(){
-							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+							RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 
 							//remove loading and enable submit button
 							this.$el.removeClass('loading');
 							this.$el.find('[type=submit]').attr('disabled', false);
 						}.bind(this),
 						error: function(){
-							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+							RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
 							//remove loading & reset buttons
 							this.$el.removeClass('loading');

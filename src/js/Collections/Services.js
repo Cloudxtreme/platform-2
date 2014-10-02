@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Service'],
+	function (Backbone, Session, Service)
 	{
 		var Services = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.Service,
+			'model' : Service,
 			'endpoint' : "",
 
 			'initialize' : function(){
@@ -35,7 +35,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 				
 				return Backbone.sync(method, model, options);

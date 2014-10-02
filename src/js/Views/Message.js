@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Root', 'Views/ActionParameters', 'Views/Comments', 'Views/OriginalMessage'],
+	function (Backbone, RootView, ActionParametersView, CommentsView, OriginalMessageView)
 	{
 		var Message = Backbone.View.extend({
 
@@ -129,7 +129,7 @@ define(
 						parameters.template = this.options.originaltemplate;
 					}
 
-					var parentview = new Cloudwalkers.Views.OriginalMessage (parameters);
+					var parentview = new OriginalMessageView (parameters);
 					this.$el.find ('.parent-message-view').html (parentview.render().el);
 				}
 
@@ -205,11 +205,11 @@ define(
 					{
 						if (action.type == 'dialog')
 						{
-							var view = new Cloudwalkers.Views.ActionParameters ({
+							var view = new ActionParametersView ({
 								'message' : targetmodel,
 								'action' : action
 							});
-							Cloudwalkers.RootView.popup (view);
+							RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -218,7 +218,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							Cloudwalkers.RootView.writeDialog 
+							RootView.writeDialog 
 							(
 								targetmodel,
 								action
@@ -270,7 +270,7 @@ define(
 						params.selectedchild = this.options.selectedchild;
 					}
 
-					this.commentsView = new Cloudwalkers.Views.Comments (params)
+					this.commentsView = new CommentsView (params)
 					this.commentsView.render ();
 				}
 

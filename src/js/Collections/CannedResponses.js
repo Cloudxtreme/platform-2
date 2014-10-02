@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/CannedResponse'],
+	function (Backbone, Session, CannedResponse)
 	{
 		var CannedResponses = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.CannedResponse,
+			'model' : CannedResponse,
 			'touched' : false,
 			
 			'initialize' : function()
@@ -24,6 +24,11 @@ define(
 			
 			'sync' : function (method, model, options)
 			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				this.parameters = options.parameters;
 
 				// Hack

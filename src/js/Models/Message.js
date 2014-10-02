@@ -1,6 +1,7 @@
 define(
-	['backbone', 'Collections/Actions'],
-	function (Backbone, Actions)
+	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Models/Message', 'Views/Root', 
+	 'Views/ActionParameters', 'Utilities/Utils'],
+	function (Backbone, Session, Actions, Notes, Notifications, Message, RootView, ActionParametersView, Utils)
 	{
 		var Message = Backbone.Model.extend({
 	
@@ -25,19 +26,19 @@ define(
 
 				if (typeof (this.attributes.parent) != 'undefined')
 				{
-					this.set ('parentmodel', new Cloudwalkers.Models.Message (this.attributes.parent));
+					this.set ('parentmodel', new Message (this.attributes.parent));
 					this.get ('parentmodel').trigger ('change');
 				}
 				
 				// Actions
 				this.actions = new Actions(false, {parent: this});
-				this.notes = new Cloudwalkers.Collections.Notes(false, {parent: this});
-				this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
+				this.notes = new Notes(false, {parent: this});
+				this.notifications = new Notifications(false, {parent: this});
 
 				this.listenToOnce(this.notes, 'add', this.updatecollection.bind(this, this.notes));
 
 				// Children
-				this.notifications = new Cloudwalkers.Collections.Notifications(false, {parent: this});
+				this.notifications = new Notifications(false, {parent: this});
 			},
 			
 			'url' : function (params)
@@ -79,7 +80,12 @@ define(
 			},
 			
 			'sync' : function (method, model, options)
-			{		
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 				
 				// Hack
@@ -260,7 +266,7 @@ define(
 			
 			'cloneSanitized' : function (keepstreams)
 			{	
-				var model = new Cloudwalkers.Models.Message();
+				var model = new Message();
 				$.extend(true, model, this);
 				//var model = this.clone();
 			
@@ -816,7 +822,7 @@ define(
 						'token' : 'internal-share',
 						'callback' : function (message)
 						{
-							Cloudwalkers.RootView.shareMessage (message);
+							RootView.shareMessage (message);
 						}
 					});
 				}
@@ -828,7 +834,7 @@ define(
 						'token' : 'internal-edit',
 						'callback' : function (message)
 						{
-							Cloudwalkers.RootView.editMessage (self);
+							RootView.editMessage (self);
 						}
 					});
 
@@ -881,7 +887,7 @@ define(
 				// Repeat or skip?
 				if (this.repeat ().repeat)
 				{
-					Cloudwalkers.RootView.dialog 
+					RootView.dialog 
 					(
 						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 						[
@@ -902,7 +908,7 @@ define(
 				}
 				else
 				{
-					Cloudwalkers.RootView.confirm 
+					RootView.confirm 
 					(
 						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 						function () 
@@ -918,7 +924,7 @@ define(
 				var endpoint;
 
 				if(response.token == 'skip')
-					this.save({trigger: Math.random()}, {patch: true, endpoint: 'skip'});
+					this.save({trigger: Math.random()}, {patch: true, endpoint: 'skip', success: this.skipwatcher.bind(this)});
 
 				if(response.token == 'remove')
 					this.destroy({wait: true, success: this.destroysuccess.bind(this)});
@@ -933,23 +939,29 @@ define(
 				this.trigger ("destroy", this, this.collection);
 			},
 
+			'skipwatcher' : function(response)
+			{
+				if(response.get("status") == 'REMOVED')
+					this.destroysuccess();
+			},
+
 			'humandate' : function (entry)
 			{
 				var date = (new Date(entry? entry: this.get ('date')));
 				
-				return Cloudwalkers.Utils.longdate (date);
+				return Utils.longdate (date);
 			},
 
 			'shortdate' : function ()
 			{
 				var date = this.date ();
-				return Cloudwalkers.Utils.shortdate (date);
+				return Utils.shortdate (date);
 			},
 
 			'time' : function ()
 			{
 				var date = this.date ();
-				return Cloudwalkers.Utils.time (date);
+				return Utils.time (date);
 			},
 
 			'date' : function ()
@@ -975,7 +987,7 @@ define(
 			'act' : function (action, parameters, callback)
 			{
 				
-				Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+				RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 				
 				var self = this;
 
@@ -1255,11 +1267,11 @@ define(
 					{
 						if (action.type == 'dialog')
 						{
-							var view = new Cloudwalkers.Views.ActionParameters ({
+							var view = new ActionParametersView ({
 								'message' : targetmodel,
 								'action' : action
 							});
-							Cloudwalkers.RootView.popup (view);
+							RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -1268,7 +1280,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							Cloudwalkers.RootView.writeDialog
+							RootView.writeDialog
 								(
 									targetmodel,
 									action
@@ -1307,6 +1319,9 @@ define(
 				return Object.getOwnPropertyNames(this.get("body")).length > 0;
 			}*/
 		});
+
+
+
 		
 		return Message;
 });

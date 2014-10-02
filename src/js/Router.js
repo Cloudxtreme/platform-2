@@ -383,7 +383,7 @@ define(
 			validate : function(view, roles)
 			{
 				//if (!Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
-				//Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+				//Cloudwalkers.RootView.setView (new DraftsView());
 
 				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);

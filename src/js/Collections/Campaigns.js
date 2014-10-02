@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Campaign'],
+	function (Backbone, Session, Campaign)
 	{
 		var Campaigns = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.Campaign,
+			'model' : Campaign,
 			
 			'initialize' : function()
 			{
@@ -14,7 +14,6 @@ define(
 			'url' : function()
 			{
 				return Session.api + '/account/' + Session.getAccount ().id + '/campaigns'; 
-				//return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/campaigns';
 			},
 			
 			'parse' : function (response)

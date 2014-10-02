@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Collections/Messages'],
-	function (Widget, Messages)
+	['Views/Widgets/Widget', 'Collections/Messages', 'Views/Root', 'Views/Entry', 'Views/Widgets/LoadMore'],
+	function (Widget, Messages, RootView, EntryView, LoadMoreWidget)
 	{
 		var DraftsList = Widget.extend({
 
@@ -26,7 +26,7 @@ define(
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
 				this.listenTo(this.model.messages, 'destroy', this.showmore);
-				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
+				this.listenTo(RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 
 				//Show all reloads te listeners
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
@@ -98,7 +98,7 @@ define(
 					if(!this.hasmore)
 						return this.$el.find('#loadmore').empty();	
 
-					var load = new Cloudwalkers.Views.Widgets.LoadMore({list: this.model.messages, parentcontainer: this.$container});
+					var load = new LoadMoreWidget({list: this.model.messages, parentcontainer: this.$container});
 					this.$el.find('#loadmore').html(load.render().el);
 
 					this.loadmore = load;
@@ -122,7 +122,7 @@ define(
 				// Add messages to view
 				for (n in list)
 				{
-					var view = new Cloudwalkers.Views.Entry ({model: list[n], type: "full", template: "coworkersmessage"});
+					var view = new EntryView ({model: list[n], type: "full", template: "coworkersmessage"});
 					this.entries.push (view);
 
 					// Filter user
@@ -156,7 +156,7 @@ define(
 				{
 					//var message = Session.getMessage(ids[n]);
 					
-					var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], type: "full", template: "messagefullentry"});
+					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
 					
 					this.$container.append(messageView.render().el);

@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Collections/Services', 'Models/Service', 'Views/Root', 'Views/Settings', 'Router'],
+	function (Backbone, Services, Service, RootView, SettingsView, Router)
 	{
 		var Services = Backbone.View.extend({
 
@@ -15,7 +15,7 @@ define(
 			'initialize' : function()
 			{
 				// Create Services collection
-				this.services = new Cloudwalkers.Collections.Services();
+				this.services = new Services();
 				
 				if(this.options.serviceid)
 					return this.appendservice(this.options.serviceid)
@@ -42,7 +42,7 @@ define(
 
 			'appendservice' : function(serviceid)
 			{
-				var service = new Cloudwalkers.Models.Service({id: serviceid});
+				var service = new Service({id: serviceid});
 				service.addservice();
 
 				//this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
@@ -57,18 +57,18 @@ define(
 				var streams = service.get("streams");
 
 				if(!streams)
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Router.Instance.navigate("#settings/services", true)
 
 				for(n in streams){
 					this.parsestream(streams[n], operation);
 				}
 
 				//Refresh navigation
-				Cloudwalkers.RootView.navigation.renderHeader();
-				Cloudwalkers.RootView.navigation.render();
+				RootView.navigation.renderHeader();
+				RootView.navigation.render();
 
 				if(operation == 'add')
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Router.Instance.navigate("#settings/services", true)
 			},
 
 			'parsestream' : function(stream, operation)
@@ -200,7 +200,7 @@ define(
 				this.$el.find("#service-connected").addClass("open-detail");
 				
 				// Create service view
-				this.detail = new Cloudwalkers.Views.Settings.Service ({id: $(e.currentTarget).data("service"), parent: this});
+				this.detail = new SettingsView.Service ({id: $(e.currentTarget).data("service"), parent: this});
 				this.$el.find(".service-detail").html( this.detail.render().el);
 			},
 			
@@ -227,7 +227,7 @@ define(
 				}
 				else
 				{
-					var view = new Cloudwalkers.Views.Settings.Service ({ 'serviceid' : id });
+					var view = new SettingsView.Service ({ 'serviceid' : id });
 					container.show ();
 					container.html (view.render ().el);
 
@@ -266,7 +266,7 @@ define(
 				{
 					if (typeof (data.error) != 'undefined')
 					{
-						Cloudwalkers.RootView.alert (data.error.message);
+						RootView.alert (data.error.message);
 					}
 					else
 					{

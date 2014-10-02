@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/Entry'],
-	function (Pageview, Mustache, Session, RootView, Contacts, EntryView)
+	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/Entry', 'Models/Contact'],
+	function (Pageview, Mustache, Session, RootView, Contacts, EntryView, Contact)
 	{
 		var Timeline = Pageview.extend({
 	
@@ -125,7 +125,7 @@ define(
 
 					if(this.filters.streams && this.filters.streams.length){
 
-						contact = new Cloudwalkers.Models.Contact({id: this.filters.streams[0]});
+						contact = new Contact({id: this.filters.streams[0]});
 						this.collection = this.model.messages.clone();
 						contact.endpoint = 'messages';
 						this.listenToOnce(this.collection, 'sync', this.fill);

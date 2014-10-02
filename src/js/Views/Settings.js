@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile'],
-	function (Pageview, Mustache, Session, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings)
+	['Views/Pageview', 'mustache', 'Session', 'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile', 'Views/Settings'],
+	function (Pageview, Mustache, Session, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings, SettingsView)
 	{
 		var Settings = Pageview.extend({
 
@@ -69,7 +69,7 @@ define(
 						break;
 
 					/*case 'manageusergroups':
-						var widget = new Cloudwalkers.Views.Settings.ManageUserGroups();
+						var widget = new SettingsView.ManageUserGroups();
 						break;*/
 					
 					default:

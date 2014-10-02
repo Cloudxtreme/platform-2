@@ -1,7 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
+	 'Views/SimpleCompose', 'Views/Widgets/NoteEntry'],
+
+	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView, NoteEntryWidget)
 	{
+		
 		var Entry = Backbone.View.extend({
 	
 			'tagName' : 'li',
@@ -99,7 +102,7 @@ define(
 				return this;
 			},
 
-			'loadsentiment' : function()
+			/*'loadsentiment' : function()
 			{	
 				var stats = this.parameters.stats;
 				var sentiment;
@@ -113,11 +116,11 @@ define(
 
 					this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
 				}
-			},
+			},*/
 					
 			'renderactions' : function()
 			{	
-				this.actions = new Cloudwalkers.Views.Actions({message: this.model});
+				this.actions = new ActionsView({message: this.model});
 				
 				this.$el.find('.message-actions').html(this.actions.render().el)
 
@@ -147,7 +150,7 @@ define(
 				{	
 					// Goddamn ugly hack for old timeline
 					/*if(this.template == 'messagetimeline'){
-						var composenote = Cloudwalkers.RootView.writeNote(this.model);
+						var composenote = RootView.writeNote(this.model);
 						this.listenTo(composenote.note, 'sync', this.noteadded);
 					}*/
 
@@ -178,7 +181,7 @@ define(
 					if(this.parent)	return;
 
 					var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
-					if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
+					if(contact)	RootView.viewContact({model: contact});
 					
 				}
 				else
@@ -212,7 +215,7 @@ define(
 
 			'editnote' : function()
 			{	
-				var composenote = new Cloudwalkers.Views.SimpleCompose({model: this.model});
+				var composenote = new SimpleComposeView({model: this.model});
 
 				//Prevent auto re-render on save
 				this.stopListening(this.model);
@@ -366,12 +369,16 @@ define(
 			{	
 				//Temporarily, only notes or notifications
 				var collection = token == 'note'? this.model.notes: this.model.notifications;
+				var params = { records: 999 };
+
+				if(token != 'notes')
+					params.markasread = true;
 
 				collection.parentmodel = this.model;
 				collection.parenttype = 'message';
 				this.listenTo(collection,'seed', this.fillactions.bind(this, token));
 
-				collection.touch(this.model, {records: 999});
+				collection.touch(this.model, params);
 				
 				this.loadedlists.push(token+'list');
 			},
@@ -406,9 +413,9 @@ define(
 				if(this.newaction)	options.isnew = true;
 
 				if(token == 'note')
-					action = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+					action = new NoteEntryWidget(options);
 				else
-					action = new Cloudwalkers.Views.Notification(options);
+					action = new NotificationView(options);
 
 				this.$el.find('.'+listclass).append(action.render().el);
 
@@ -449,7 +456,7 @@ define(
 				
 				/*// Does collection exist?
 				if(!this.model.notifications)
-					this.model.notifications = new Cloudwalkers.Collections.Notifications();
+					this.model.notifications = new Notifications();
 				
 				console.log(this.model.notifications)*/
 				
@@ -475,7 +482,7 @@ define(
 				// Add models to view
 				for (n in list)
 				{
-					var view = new Cloudwalkers.Views.Notification ({model: list[n], template: 'timelinecomment'});
+					var view = new NotificationView ({model: list[n], template: 'timelinecomment'});
 					this.notifications.push (view);
 					
 					$container.append(view.render().el);
@@ -498,7 +505,7 @@ define(
 			//Note textarea
 			'loadnoteui' : function()
 			{	
-				var composenote = new Cloudwalkers.Views.SimpleCompose({parent: this.model, persistent: true});
+				var composenote = new SimpleComposeView({parent: this.model, persistent: true});
 				this.composenote = composenote;
 
 				//this.listenTo(composenote.model, 'sync', this.noteadded);
@@ -538,7 +545,7 @@ define(
 
 				if(this.newnote)	options.isnew = true;
 
-				note = new Cloudwalkers.Views.Widgets.NoteEntry(options);
+				note = new NoteEntryWidget(options);
 				this.$el.find('.note-list').append(note.render().el);
 
 				this.newnote = false;
@@ -558,6 +565,7 @@ define(
 			},
 
 			/* Tags */
+			/*
 			'loadtagui' : function()
 			{
 				this.fetchtags();
@@ -573,6 +581,7 @@ define(
 				tags.touch(this.model);
 				this.loadedtags = true;
 			},
+
 			'rendertag' : function(tags){
 
 						
@@ -584,6 +593,7 @@ define(
 					this.addtag(tags[n]);
 				}
 			},
+
 			'submittag' : function(newtag)
 			{	
 				// Update Tags - POST
@@ -594,6 +604,7 @@ define(
 
 				this.tag.save({'name': newtag}, {success: this.addtag.bind(this)});
 			},
+			
 			'addtag' : function(newtag)
 			{
 				var options = {model: newtag, parent: this.model, template: 'messagetag'}
@@ -602,6 +613,7 @@ define(
 				tag = new Cloudwalkers.Views.Widgets.TagEntry(options);
 				this.$el.find('.tag-list').append(tag.render().el);
 			},
+
 			'entertag' : function(e)
 			{
 				if ( e.which === 13 ) {
@@ -611,7 +623,7 @@ define(
 						$(e.target).val('');
 					}
 			    }
-			},
+			},*/
 			
 			/*'action' : function (element)
 			{
@@ -657,11 +669,11 @@ define(
 					{
 						if (action.type == 'dialog')
 						{
-							var view = new Cloudwalkers.Views.ActionParameters ({
+							var view = new ActionParametersView ({
 								'message' : targetmodel,
 								'action' : action
 							});
-							Cloudwalkers.RootView.popup (view);
+							RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -670,7 +682,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							Cloudwalkers.RootView.writeDialog 
+							RootView.writeDialog 
 							(
 								targetmodel,
 								action

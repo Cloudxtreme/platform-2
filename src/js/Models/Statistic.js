@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session'],
+	function (Backbone, Session)
 	{
 		var Statistic = Backbone.Model.extend({
 	
@@ -31,7 +31,7 @@ define(
 				} 
 				
 				$.each(this.get("streams"), function(i, stream)
-				{	
+				{
 					// No stream, global sum
 					if(!streamid){
 						if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
@@ -66,7 +66,7 @@ define(
 						}
 					}
 				});
-				
+				//console.log(streamid,keys,response)
 				return response;
 			},
 

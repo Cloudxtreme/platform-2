@@ -1,70 +1,77 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
-
-	'events' : {
-		'click' : 'more'
-	},
-
-	'initialize' : function(options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		$.extend(this, options)
-	},
+		var LoadMore = Backbone.View.extend({
 
-	'loadmylisteners' : function()
-	{
-		this.loadListeners(this.list, ['request', 'sync', 'ready'], true);
-		this.trigger("rendered");
-	},
+			'events' : {
+				'click' : 'more'
+			},
 
-	'render' : function()
-	{	
-		param = {};
+			'initialize' : function(options)
+			{
+				$.extend(this, options)
+			},
 
-		//Mustache Translate Render
-		this.mustacheTranslateRender(param);
+			'loadmylisteners' : function()
+			{
+				this.loadListeners(this.list, ['request', 'sync', 'ready'], true);
+				this.trigger("rendered");
+			},
 
-		this.$el.html(Mustache.render(Templates.loadmore, param));
+			'render' : function()
+			{	
+				param = {};
 
-		this.$container = this.$el.find ('.load-more-wrap');
-		this.$loadercontainer = this.$el.find ('.load-more-wrap');
+				//Mustache Translate Render
+				this.mustacheTranslateRender(param);
 
-		//this.loadmylisteners();
-		//this.trigger("rendered");
+				this.$el.html(Mustache.render(Templates.loadmore, param));
 
-		return this;
-	},
+				this.$container = this.$el.find ('.load-more-wrap');
+				this.$loadercontainer = this.$el.find ('.load-more-wrap');
 
-	'more' : function()
-	{
-		this.$el.find('.btn.load-more').addClass('hidden');
-		this.$el.find('.load-more-wrap').addClass('inner-loading');
+				//this.loadmylisteners();
+				//this.trigger("rendered");
 
-		var maxheight = this.parentcontainer.outerHeight();
-		this.parentcontainer.css('max-height', maxheight);
-	},
+				return this;
+			},
 
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Session.polyglot.t(translatedata);
-	},
+			'more' : function()
+			{
+				this.$el.find('.btn.load-more').addClass('hidden');
+				this.$el.find('.load-more-wrap').addClass('inner-loading');
 
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"load_more"
-		];
+				var maxheight = this.parentcontainer.outerHeight();
+				this.parentcontainer.css('max-height', maxheight);
+			},
 
-		this.translated = [];
+			'translateString' : function(translatedata)
+			{	
+				// Translate String
+				return Session.polyglot.t(translatedata);
+			},
 
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-	}
+			'mustacheTranslateRender' : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"load_more"
+				];
 
+				this.translated = [];
+
+				for(k in this.original)
+				{
+					this.translated[k] = this.translateString(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
+			}
+
+		});
+
+		return LoadMore;
 });

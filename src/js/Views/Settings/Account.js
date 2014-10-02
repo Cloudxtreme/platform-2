@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Collections/Triggers', 'Models/Trigger', 'Views/Root', 'Views/Settings'],
+	function (Backbone, Triggers, Trigger, RootView, SettingsView)
 	{
 		var Account = Backbone.View.extend({
 
@@ -19,7 +19,7 @@ define(
 				this.streams = this.streams.filterNetworks();
 
 				this.account = Session.getAccount();
-				this.triggers = new Cloudwalkers.Collections.Triggers();
+				this.triggers = new Triggers();
 
 				this.listenTo(this.triggers, 'sync', this.filltriggers);
 
@@ -43,12 +43,12 @@ define(
 				this.$el.find("#menu").affix()
 
 				//Canned responses list
-				//var cannedlist = new Cloudwalkers.Views.Settings.CannedList();
+				//var cannedlist = new SettingsView.CannedList();
 				//this.$el.find("#cannedlist").append(cannedlist.render().el);
 			
 				// Render manually both trigger's views
-				this.twitterview = new Cloudwalkers.Views.Settings.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
-				this.dmview = new Cloudwalkers.Views.Settings.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
+				this.twitterview = new SettingsView.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
+				this.dmview = new SettingsView.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
 				this.$el.find("#triggerlist").append(this.twitterview.render().el);
 				this.$el.find("#triggerlist").append(this.dmview.render().el);
@@ -75,10 +75,10 @@ define(
 				var twitterfollow = models.filter(function(el){ if(el.get("event") == 'CONTACT-NEW') return el;})
 				var dmout = models.filter(function(el){ if(el.get("event") == 'MESSAGE-RECEIVED') return el;})
 				
-				twitterfollow = new Cloudwalkers.Models.Trigger(twitterfollow[0].attributes);
+				twitterfollow = new Trigger(twitterfollow[0].attributes);
 				this.twitterview.updatetrigger(twitterfollow);
 				
-				dmout = new Cloudwalkers.Models.Trigger(dmout[0].attributes);
+				dmout = new Trigger(dmout[0].attributes);
 				this.dmview.updatetrigger(dmout);
 			},
 
@@ -99,7 +99,7 @@ define(
 				
 				this.account.save ({name: name}, {patch: true, success: function ()
 					{
-						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
+						RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
 						
 						//Reenable submit button & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -107,7 +107,7 @@ define(
 
 					}.bind(this),
 					error: function(){
-						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
+						RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
 						
 						//Reaneable buttons & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -122,7 +122,7 @@ define(
 				//var account = Session.getAccount();
 				var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 				
-				Cloudwalkers.RootView.confirm 
+				RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_campaign'), 
 					function () 

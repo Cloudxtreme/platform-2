@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Message'],
+	function (Backbone, Session, Message)
 	{
 		var Messages = Backbone.Collection.extend({
 	
-			'model' : Cloudwalkers.Models.Message,
+			'model' : Message,
 			'typestring' : "messages",
 			'modelstring' : "message",
 			'parameters' : {},

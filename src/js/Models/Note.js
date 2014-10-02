@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Contact', 'Models/Message', 'Models/Account', 'Views/Root'],
+	function (Backbone, Session, Contact, Message, Account, RootView)
 	{
 		var Note = Backbone.Model.extend({
 
@@ -56,12 +56,24 @@ define(
 				var object = Session["get" + type](id);
 
 				if(!object || !object.get('objectType'))
-				{
-					object = new Cloudwalkers.Models[type]({id: id});
+				{	
+					var func = this.functioncall(type);
+
+					object = new func({id: id});
 					object.fetch();
 				}
 				
 				return object;
+			},
+
+			functioncall : function(functionname, args)
+			{	
+				var func = window[functionname];
+				 
+				// is it a function?
+				if (typeof func === "function")
+
+					return func.apply(null, args);
 			},
 
 			'url' : function()
@@ -96,7 +108,7 @@ define(
 			{
 				var self = this;
 
-				Cloudwalkers.RootView.confirm 
+				RootView.confirm 
 				(
 					'Are you sure you want to remove this note?', 
 					function () 

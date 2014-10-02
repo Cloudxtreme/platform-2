@@ -1,11 +1,11 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session'],
+	function (Backbone, Session)
 	{
 		var Trigger = Backbone.Model.extend({
 	
 			'typestring' : "triggers",
-			
+	
 			'initialize' : function()
 			{
 				if(!this.get("actions"))	this.set("actions", [])

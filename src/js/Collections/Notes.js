@@ -1,10 +1,10 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Note'],
+	function (Backbone, Session, Note)
 	{
 		var Notes = Backbone.Collection.extend({
 	
-			'model' : Cloudwalkers.Models.Note,
+			'model' : Note,
 			'typestring' : "notes",
 			'modelstring' : "note",
 			'parameters' : {},

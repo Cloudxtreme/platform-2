@@ -3,12 +3,12 @@
  **/
 
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session', 'Models/Message'],
+	function (Backbone, Session, Message)
 	{
 		var Drafts = Backbone.Collection.extend({
 
-			'model' : Cloudwalkers.Models.Message,
+			'model' : Message,
 			'name' : null,
 
 			'nextPageParameters' : null,
@@ -35,7 +35,11 @@ define(
 
 			'sync' : function(method, model, options) 
 			{
-
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
 				var self = this;
 				var passtrough = options.success;
 				options.success = function (response)

@@ -48,12 +48,6 @@ define(
 				
 				// Prep global Statistics collection
 				this.statistics = new Statistics();
-				
-				// Prep global Reports collection // Deprecated?
-				//this.reports = new ReportsCollection();
-				
-				// Prep global Comments collection - deprecated
-				// this.comments = new Cloudwalkers.Collections.Comments();
 
 			},
 			
@@ -198,7 +192,7 @@ define(
 					{
 						$('.alert-info').remove();
 						
-						Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
+						RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
 					
 						if(target)
 						{

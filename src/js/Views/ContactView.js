@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Session'],
+	function (Backbone, Session)
 	{
 		var ContactView = Backbone.View.extend({
 	

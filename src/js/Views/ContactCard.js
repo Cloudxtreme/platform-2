@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Root'],
+	function (Backbone, RootView)
 	{
 		var ContactCard = Backbone.View.extend({
 
@@ -23,7 +23,7 @@ define(
 			'viewcontact' : function()
 			{	
 				if(this.contact)
-					Cloudwalkers.RootView.viewContact({model: this.contact});
+					RootView.viewContact({model: this.contact});
 			}
 
 		});

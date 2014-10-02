@@ -1,7 +1,11 @@
 /**
 * A standard widget
 */
-Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.extend({
+define(
+	['Views/Widgets/Widget', 'Views/Root'],
+	function (Widget, RootView)
+	{
+		KeywordsOverview = Widget.extend({
 
 	'id' : 'monitorparent',
 	'entries' : [],
@@ -79,13 +83,13 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		
 		var $cat = $(e.target).closest('[data-category]');
 		
-		Cloudwalkers.RootView.confirm 
+		RootView.confirm 
 		(
 			this.translateString('are_you_sure_you_want_to_remove_this_category'), 
 			function () 
 			{
 				Session.getChannel(Number($cat.attr('data-category'))).destroy();
-				Cloudwalkers.RootView.navigation.render();
+				RootView.navigation.render();
 				$cat.next().remove();
 				$cat.remove();
 			}
@@ -110,7 +114,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		
 		var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
 
-		Cloudwalkers.RootView.confirm 
+		RootView.confirm 
 		(
 			this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
 			function () 
@@ -207,7 +211,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 				{
 					if (typeof (data.error) != 'undefined')
 					{
-						Cloudwalkers.RootView.alert (data.error.message);
+						RootView.alert (data.error.message);
 					}
 					else
 					{
@@ -220,7 +224,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	
 	'fail' : function ()
 	{
-		Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
+		RootView.growl ("Oops", "Something went sideways, please reload the page.");
 	}
 	*/
 });
