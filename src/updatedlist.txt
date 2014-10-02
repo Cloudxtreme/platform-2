@@ -40,6 +40,10 @@ Views/Widgets/InboxNotificationList.js
 Collection/Statistics.js
 Views/Widgets/DashboardCleaner.js
 Views/Widgets/CoworkersFilters.js
+Views/Widgets/MessagesCounters.js
+Collections/Channels.js
+Views/Widgets/DashboardMessageList.js
+Views/Preview.js
 
 
 /** Left to be updated **/
