@@ -157,13 +157,13 @@ Cloudwalkers.Views.Widgets.CalSummary = Cloudwalkers.Views.Widgets.Widget.extend
 		if(translatedata.translation)
 			for(k in translatedata.translation)
 			{
-				translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
+				translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
 			}
 	},
 
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	}
 });

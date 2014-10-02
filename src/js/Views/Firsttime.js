@@ -1,6 +1,6 @@
 define(
 	['backbone', 'Views/Pageview', 'Session', 'Router', 'Collections/Services'],
-	function (Backbone, Pageview, Session, Router, ServicesCollection)
+	function (Backbone, Pageview, Session, Router, Services)
 	{
 		var Firsttime = Pageview.extend({
 
@@ -14,7 +14,7 @@ define(
 			initialize : function()
 			{
 				// Create Services collection
-				this.services = new ServicesCollection();
+				this.services = new Services();
 				
 				// Get Services options 
 				this.listenTo(this.services, "available:ready", this.appendOptions)

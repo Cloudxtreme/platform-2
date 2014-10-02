@@ -1,55 +1,62 @@
-Cloudwalkers.Collections.CannedResponses = Backbone.Collection.extend({
-
-	'model' : Cloudwalkers.Models.CannedResponse,
-	'touched' : false,
-	
-	'initialize' : function()
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		//this.on("destroy", this.store.bind(this, "delete"));
+		var CannedResponses = Backbone.Collection.extend({
 
-		if( Cloudwalkers.Session.user.account)
-			Cloudwalkers.Session.getCannedResponses().listenTo(this, "add", Cloudwalkers.Session.getCannedResponses().distantAdd);
-	},
-	
-	'url' : function()
-	{
-		var url = Cloudwalkers.Session.api + '/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
-		//var url = CONFIG_BASE_URL + 'json/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
-		return this.parameters? url + "?" + $.param (this.parameters): url;
-	},
-	
-	'sync' : function (method, model, options)
-	{
-		this.parameters = options.parameters;
+			'model' : Cloudwalkers.Models.CannedResponse,
+			'touched' : false,
+			
+			'initialize' : function()
+			{
+				//this.on("destroy", this.store.bind(this, "delete"));
 
-		// Hack
-		if(method == "update") return false;
-		
-		return Backbone.sync(method, model, options);
-	},
-	
-	'parse' : function (response)
-	{	
-		return response.stream.messages;
-	},
-	
-	'store' : function (action, model)
-	{
-		if(action == "delete")
-			Store.remove("campaigns", {id: model.id});
-	},
+				if( Session.user.account)
+					Session.getCannedResponses().listenTo(this, "add", Session.getCannedResponses().distantAdd);
+			},
+			
+			'url' : function()
+			{
+				var url = Session.api + '/streams/' + Session.getAccount ().id + ':canned/messages';
+				//var url = CONFIG_BASE_URL + 'json/streams/' + Session.getAccount ().id + ':canned/messages';
+				return this.parameters? url + "?" + $.param (this.parameters): url;
+			},
+			
+			'sync' : function (method, model, options)
+			{
+				this.parameters = options.parameters;
 
-	'removecanned' : function(id)
-	{
-		var cannedresponse;
+				// Hack
+				if(method == "update") return false;
+				
+				return Backbone.sync(method, model, options);
+			},
+			
+			'parse' : function (response)
+			{	
+				return response.stream.messages;
+			},
+			
+			'store' : function (action, model)
+			{
+				if(action == "delete")
+					Store.remove("campaigns", {id: model.id});
+			},
 
-		$.each(this.models, function(n, canned){
-			if(canned.id == id){
-				cannedresponse = this.models.splice(n,1)
-				return false;
-			}
-		}.bind(this))
+			'removecanned' : function(id)
+			{
+				var cannedresponse;
 
-		if(cannedresponse)	return cannedresponse;
-	} 
+				$.each(this.models, function(n, canned){
+					if(canned.id == id){
+						cannedresponse = this.models.splice(n,1)
+						return false;
+					}
+				}.bind(this))
+
+				if(cannedresponse)	return cannedresponse;
+			} 
+		});
+
+		return CannedResponses;
 });

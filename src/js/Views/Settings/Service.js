@@ -1,464 +1,471 @@
-Cloudwalkers.Views.Settings.Service = Backbone.View.extend({
-
-	'events' : {
-		/*'submit form' : 'submit',
-		'click [data-delete]' : 'deleteServiceClick',
-        'click [data-stream-details-id]' : 'streamDetailView',*/
-        'click li[data-id]' : 'toggleprofile',
-        'click .delete-detail' : 'delete',
-        'click .close-detail' : 'closedetail'
-	},
-	
-	'listnames' : {
-		'facebook': "Pages",
-		'twitter': false,
-		'linkedin': "Companies",
-		'google-plus': "Pages",
-		'youtube': false
-	}, 
-
-	'service' : null,
-	
-	'initialize' : function(options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		if (options) $.extend(this, options);
-		
-		// Set service
-		this.service = this.parent.services.get(this.id);
-	},
-	
-	'render' : function ()
-	{
-		// Clone service data
-		var data = _.clone(this.service.attributes);
-		data.listname = this.listnames[data.network.token];
-		data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
+		var Service = Backbone.View.extend({
 
-
-		//Mustache Translate Render
-		this.mustacheTranslateRender(data);
-		
-		// Render view
-		this.$el.html (Mustache.render (Templates.settings.service, data));
-		
-		return this;
-	},
-	
-	'toggleprofile' : function (e)
-	{
-		// Button
-		var entry = $(e.currentTarget).toggleClass("active inactive");
-		
-		// Patch data
-		var profile = new Cloudwalkers.Models.User({id: entry.data("id")});
-		
-		profile.parent = this.service;
-		profile.typestring = "profiles";
-		
-		// Update profile
-		profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
-		{	
-			//this.parseprofile(profile);
-			Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+			'events' : {
+				/*'submit form' : 'submit',
+				'click [data-delete]' : 'deleteServiceClick',
+		        'click [data-stream-details-id]' : 'streamDetailView',*/
+		        'click li[data-id]' : 'toggleprofile',
+		        'click .delete-detail' : 'delete',
+		        'click .close-detail' : 'closedetail'
+			},
 			
-			// Check for stream changes
-			profile.parent.updateStreams(profile.get('activated'), profile);
+			'listnames' : {
+				'facebook': "Pages",
+				'twitter': false,
+				'linkedin': "Companies",
+				'google-plus': "Pages",
+				'youtube': false
+			}, 
 
-		}.bind(this)});
-	},
-
-	'parseprofile' : function(profile)
-	{	
-		var service = profile.parent;
-		var streams;
-
-		if(service && service.get("streams")){
-			streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
-			console.log(streams)
-		}
-
-		if(streams && streams.length){
-			for(n in streams){
-				this.parent.parsestream(streams[n], profile.get("activated")? 'add': 'remove');
-			}
-		}
-
-		//Refresh navigation
-		Cloudwalkers.RootView.navigation.renderHeader();
-		Cloudwalkers.RootView.navigation.render();
-	},
-	
-	'delete' : function ()
-	{
-		Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
-		{
-			// View
-			this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
+			'service' : null,
 			
-			// Data
-			this.service.destroy({success: this.closedetail.bind(this)});
-						
-		}.bind(this));
-	},
-
-	/*'removeservice' : function(service)
-	{
-		this.parent.updatechannels('remove', service)
-		this.parent.closedetail();
-	},*/
-	
-	'closedetail' : function()
-	{
-		this.parent.closedetail();
-	},
-	
-
-	/*'render' : function ()
-	{
-		var self = this;
-
-		self.getServiceData (this.options.serviceid, function (data)
-		{
-			self.$el.closest(".inner-loading").removeClass("inner-loading");
-			
-			// Set service data
-			self.service = data.service;
-
-			var groupedsettings = {};
-
-			for (var i = 0; i < data.service.settings.length; i ++)
+			'initialize' : function(options)
 			{
-				if (typeof (groupedsettings[data.service.settings[i].type]) == 'undefined')
-				{
-					groupedsettings[data.service.settings[i].type] = [];
+				if (options) $.extend(this, options);
+				
+				// Set service
+				this.service = this.parent.services.get(this.id);
+			},
+			
+			'render' : function ()
+			{
+				// Clone service data
+				var data = _.clone(this.service.attributes);
+				data.listname = this.listnames[data.network.token];
+				data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
+
+
+				//Mustache Translate Render
+				this.mustacheTranslateRender(data);
+				
+				// Render view
+				this.$el.html (Mustache.render (Templates.settings.service, data));
+				
+				return this;
+			},
+			
+			'toggleprofile' : function (e)
+			{
+				// Button
+				var entry = $(e.currentTarget).toggleClass("active inactive");
+				
+				// Patch data
+				var profile = new Cloudwalkers.Models.User({id: entry.data("id")});
+				
+				profile.parent = this.service;
+				profile.typestring = "profiles";
+				
+				// Update profile
+				profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
+				{	
+					//this.parseprofile(profile);
+					Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+					
+					// Check for stream changes
+					profile.parent.updateStreams(profile.get('activated'), profile);
+
+				}.bind(this)});
+			},
+
+			'parseprofile' : function(profile)
+			{	
+				var service = profile.parent;
+				var streams;
+
+				if(service && service.get("streams")){
+					streams = service.get("streams").filter(function(stream){ if(stream.profile) return stream.profile.id == profile.id});
+					console.log(streams)
 				}
-				groupedsettings[data.service.settings[i].type].push (data.service.settings[i]);
-			}
 
-			data.service.groupedsettings = groupedsettings;
-
-			self.setStreamChannels (data.service);
-
-			self.$el.html 
-			(
-				Mustache.render 
-				(
-					Templates.settings.service, 
-					data.service,
-					{
-						'service_channel' : Templates.settings.service_channel,
-                        'service_stream' : Templates.settings.service_stream
-					}
-				)
-			);
-		});
-
-		return this;
-	},*/
-
-	'processSettings': function (settings)
-	{
-		var self = this;
-
-		// Most services will provide an authentication URL.
-		$.each (settings, function (i, v)
-		{
-			if (v.type == 'link')
-			{
-				settings[i].url = self.processLink (v.url);
-			}
-		});
-	},
-
-	'processLink' : function (url)
-	{
-		if (url.indexOf ('?') > 0)
-		{
-			url = url + '&return=' + encodeURIComponent(window.location);
-		}
-		else
-		{
-			url = url + '?return=' + encodeURIComponent(window.location);
-		}
-		return url;
-	},
-	
-	'getServiceData' : function (id, callback)
-	{
-		var self = this;
-		Cloudwalkers.Net.get 
-		(
-			'wizard/service/' + id,
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			function (data)
-			{
-				self.processSettings (data.service.settings);
-				callback (data);
-			}
-		);
-	},
-
-	'storeServiceData' : function (id, data, callback)
-	{
-		Cloudwalkers.Net.put 
-		(
-			'wizard/service/' + id,
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')
-			},
-			data,
-			callback
-		);
-	},
-
-	'deleteService' : function (id, callback)
-	{
-		Cloudwalkers.Net.remove (
-			'wizard/service/' + id,
-			{
-				'account' : Cloudwalkers.Session.getAccount ().get ('id')	
-			},
-			callback
-		);
-	},
-
-	'setStreamChannels' : function (service)
-	{
-		var channels = Cloudwalkers.Session.getChannels ();
-
-		function loadChannels (stream, channels)
-		{
-			var out = [];
-
-			//for (var i = 0; i < channels.length; i ++)
-            channels.each (function (channel)
-			{
-                //console.log (channels);
-                //console.log (channel);
-
-                if (channel.get ('parent') || !channel.get ('name'))
-                {
-                    return;
-                }
-
-				// Check if selected
-				var selected = false;
-				for (var j = 0; j < stream.channels.length; j ++)
-				{
-					if (stream.channels[j] == channel.get ('id'))
-					{
-						selected = true;
-						break;
+				if(streams && streams.length){
+					for(n in streams){
+						this.parent.parsestream(streams[n], profile.get("activated")? 'add': 'remove');
 					}
 				}
 
-				var tmp  = {
-					'channel' : channel.attributes,
-					'selected' : selected,
-					'channels' : []
-				};
-				
-				var subchannels = channel.attributes? channel.get("channels"): channel.channels;
-				
-				// Recursive!
-				if (subchannels && subchannels.length)
+				//Refresh navigation
+				Cloudwalkers.RootView.navigation.renderHeader();
+				Cloudwalkers.RootView.navigation.render();
+			},
+			
+			'delete' : function ()
+			{
+				Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 				{
-					//tmp.channels = loadChannels (stream, new Backbone.Collection (subchannels));
-				}
+					// View
+					this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
+					
+					// Data
+					this.service.destroy({success: this.closedetail.bind(this)});
+								
+				}.bind(this));
+			},
 
-				out.push (tmp);
-			});
-
-			return out;
-		}
-
-        // Little helper method
-        function parseStreamSettings (stream)
-        {
-            var groupedsettings = {
-                'string' : [],
-                'boolean' : []
-            };
-            for (var j = 0; j < stream.settings.length; j ++)
-            {
-                if (typeof (groupedsettings[stream.settings[j].type]) == 'undefined')
-                {
-                    groupedsettings[stream.settings[j].type] = [];
-                }
-                groupedsettings[stream.settings[j].type].push (stream.settings[j]);
-            }
-
-            stream.groupedsettings = groupedsettings;
-        }
-
-        function parseStreams ()
-        {
-            var out = [];
-            for (var i = 0; i < service.streams.length; i ++)
-            {
-                if (service.streams[i].canSetChannels && typeof (service.streams[i].parent) == 'undefined')
-                {
-                    parseStreamSettings (service.streams[i]);
-
-                    out.push ({
-                        'parsedchannels' : loadChannels (service.streams[i], channels),
-                        'stream' : service.streams[i],
-                        'substreams' : parseSubstreams (service.streams[i])
-                    });
-                }
-            }
-            return out;
-        }
-
-        function parseSubstreams (stream)
-        {
-            var out = [];
-
-            // Get the children streams
-            $.each (service.streams, function (iii, v)
-            {
-                if ((typeof (v.parent) != 'undefined'))
-                {
-                    if (v.parent.id == stream.id)
-                    {
-                        parseStreamSettings (v);
-
-                        out.push ({
-                            'parsedchannels' : loadChannels (v, channels),
-                            'stream' : v,
-                            'substreams' : parseSubstreams (v)
-                        });
-                    }
-                }
-            });
-
-            return out;
-        }
-
-        service.parsedstreams = parseStreams ();
-	},
-
-	'submit' : function (e)
-	{
-		// Gather all data
-		var self = this;
-
-		e.preventDefault ();
-
-		var form = $(e.target);
-
-		var formdata = {
-			'streams' : {}
-		};
-
-		form.find ('[data-channel-setting]').each (function (i, v)
-		{
-			if ($(v).attr ('type') == 'checkbox')
+			/*'removeservice' : function(service)
 			{
-				formdata[$(v).attr ('name')] = $(v).is (':checked');
-			}
-			else
+				this.parent.updatechannels('remove', service)
+				this.parent.closedetail();
+			},*/
+			
+			'closedetail' : function()
 			{
-				formdata[$(v).attr ('name')] = $(v).val ();
-			}
-		});
+				this.parent.closedetail();
+			},
+			
 
-		$.each (this.service.streams, function (i, v)
-		{
-			var channels = [];
-			form.find('[data-stream-id=' + v.id + '][data-channel-id]:checked').each (function (i, v)
+			/*'render' : function ()
 			{
-				channels.push ($(v).attr ('data-channel-id'));
-			});
+				var self = this;
 
-			formdata.streams[v.id] = {
-				'channels' : channels
-			};
-
-			// And settings.
-			form.find ('[data-stream-setting=' + v.id + ']').each (function (ii, vv)
-			{
-				if ($(vv).attr ('type') == 'checkbox')
+				self.getServiceData (this.options.serviceid, function (data)
 				{
-					formdata.streams[v.id][$(vv).attr ('name')] = $(vv).is (':checked');
+					self.$el.closest(".inner-loading").removeClass("inner-loading");
+					
+					// Set service data
+					self.service = data.service;
+
+					var groupedsettings = {};
+
+					for (var i = 0; i < data.service.settings.length; i ++)
+					{
+						if (typeof (groupedsettings[data.service.settings[i].type]) == 'undefined')
+						{
+							groupedsettings[data.service.settings[i].type] = [];
+						}
+						groupedsettings[data.service.settings[i].type].push (data.service.settings[i]);
+					}
+
+					data.service.groupedsettings = groupedsettings;
+
+					self.setStreamChannels (data.service);
+
+					self.$el.html 
+					(
+						Mustache.render 
+						(
+							Templates.settings.service, 
+							data.service,
+							{
+								'service_channel' : Templates.settings.service_channel,
+		                        'service_stream' : Templates.settings.service_stream
+							}
+						)
+					);
+				});
+
+				return this;
+			},*/
+
+			'processSettings': function (settings)
+			{
+				var self = this;
+
+				// Most services will provide an authentication URL.
+				$.each (settings, function (i, v)
+				{
+					if (v.type == 'link')
+					{
+						settings[i].url = self.processLink (v.url);
+					}
+				});
+			},
+
+			'processLink' : function (url)
+			{
+				if (url.indexOf ('?') > 0)
+				{
+					url = url + '&return=' + encodeURIComponent(window.location);
 				}
 				else
 				{
-					formdata.streams[v.id][$(vv).attr ('name')] = $(vv).val ();
+					url = url + '?return=' + encodeURIComponent(window.location);
 				}
-			});
-
-		});
-
-		// And store.
-		this.storeServiceData (this.service.id, formdata, function ()
-		{
-			self.render ();
-		});
-	},
-
-	'deleteServiceClick' : function (e)
-	{
-		e.preventDefault ();
-
-		var self = this;
-
-		Cloudwalkers.RootView.confirm 
-		(
-			this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
-			function ()
+				return url;
+			},
+			
+			'getServiceData' : function (id, callback)
 			{
-				self.deleteService (self.service.id, function ()
+				var self = this;
+				Cloudwalkers.Net.get 
+				(
+					'wizard/service/' + id,
+					{
+						'account' : Session.getAccount ().get ('id')
+					},
+					function (data)
+					{
+						self.processSettings (data.service.settings);
+						callback (data);
+					}
+				);
+			},
+
+			'storeServiceData' : function (id, data, callback)
+			{
+				Cloudwalkers.Net.put 
+				(
+					'wizard/service/' + id,
+					{
+						'account' : Session.getAccount ().get ('id')
+					},
+					data,
+					callback
+				);
+			},
+
+			'deleteService' : function (id, callback)
+			{
+				Cloudwalkers.Net.remove (
+					'wizard/service/' + id,
+					{
+						'account' : Session.getAccount ().get ('id')	
+					},
+					callback
+				);
+			},
+
+			'setStreamChannels' : function (service)
+			{
+				var channels = Session.getChannels ();
+
+				function loadChannels (stream, channels)
 				{
-					self.trigger ('service:delete');
+					var out = [];
+
+					//for (var i = 0; i < channels.length; i ++)
+		            channels.each (function (channel)
+					{
+		                //console.log (channels);
+		                //console.log (channel);
+
+		                if (channel.get ('parent') || !channel.get ('name'))
+		                {
+		                    return;
+		                }
+
+						// Check if selected
+						var selected = false;
+						for (var j = 0; j < stream.channels.length; j ++)
+						{
+							if (stream.channels[j] == channel.get ('id'))
+							{
+								selected = true;
+								break;
+							}
+						}
+
+						var tmp  = {
+							'channel' : channel.attributes,
+							'selected' : selected,
+							'channels' : []
+						};
+						
+						var subchannels = channel.attributes? channel.get("channels"): channel.channels;
+						
+						// Recursive!
+						if (subchannels && subchannels.length)
+						{
+							//tmp.channels = loadChannels (stream, new Backbone.Collection (subchannels));
+						}
+
+						out.push (tmp);
+					});
+
+					return out;
+				}
+
+		        // Little helper method
+		        function parseStreamSettings (stream)
+		        {
+		            var groupedsettings = {
+		                'string' : [],
+		                'boolean' : []
+		            };
+		            for (var j = 0; j < stream.settings.length; j ++)
+		            {
+		                if (typeof (groupedsettings[stream.settings[j].type]) == 'undefined')
+		                {
+		                    groupedsettings[stream.settings[j].type] = [];
+		                }
+		                groupedsettings[stream.settings[j].type].push (stream.settings[j]);
+		            }
+
+		            stream.groupedsettings = groupedsettings;
+		        }
+
+		        function parseStreams ()
+		        {
+		            var out = [];
+		            for (var i = 0; i < service.streams.length; i ++)
+		            {
+		                if (service.streams[i].canSetChannels && typeof (service.streams[i].parent) == 'undefined')
+		                {
+		                    parseStreamSettings (service.streams[i]);
+
+		                    out.push ({
+		                        'parsedchannels' : loadChannels (service.streams[i], channels),
+		                        'stream' : service.streams[i],
+		                        'substreams' : parseSubstreams (service.streams[i])
+		                    });
+		                }
+		            }
+		            return out;
+		        }
+
+		        function parseSubstreams (stream)
+		        {
+		            var out = [];
+
+		            // Get the children streams
+		            $.each (service.streams, function (iii, v)
+		            {
+		                if ((typeof (v.parent) != 'undefined'))
+		                {
+		                    if (v.parent.id == stream.id)
+		                    {
+		                        parseStreamSettings (v);
+
+		                        out.push ({
+		                            'parsedchannels' : loadChannels (v, channels),
+		                            'stream' : v,
+		                            'substreams' : parseSubstreams (v)
+		                        });
+		                    }
+		                }
+		            });
+
+		            return out;
+		        }
+
+		        service.parsedstreams = parseStreams ();
+			},
+
+			'submit' : function (e)
+			{
+				// Gather all data
+				var self = this;
+
+				e.preventDefault ();
+
+				var form = $(e.target);
+
+				var formdata = {
+					'streams' : {}
+				};
+
+				form.find ('[data-channel-setting]').each (function (i, v)
+				{
+					if ($(v).attr ('type') == 'checkbox')
+					{
+						formdata[$(v).attr ('name')] = $(v).is (':checked');
+					}
+					else
+					{
+						formdata[$(v).attr ('name')] = $(v).val ();
+					}
 				});
+
+				$.each (this.service.streams, function (i, v)
+				{
+					var channels = [];
+					form.find('[data-stream-id=' + v.id + '][data-channel-id]:checked').each (function (i, v)
+					{
+						channels.push ($(v).attr ('data-channel-id'));
+					});
+
+					formdata.streams[v.id] = {
+						'channels' : channels
+					};
+
+					// And settings.
+					form.find ('[data-stream-setting=' + v.id + ']').each (function (ii, vv)
+					{
+						if ($(vv).attr ('type') == 'checkbox')
+						{
+							formdata.streams[v.id][$(vv).attr ('name')] = $(vv).is (':checked');
+						}
+						else
+						{
+							formdata.streams[v.id][$(vv).attr ('name')] = $(vv).val ();
+						}
+					});
+
+				});
+
+				// And store.
+				this.storeServiceData (this.service.id, formdata, function ()
+				{
+					self.render ();
+				});
+			},
+
+			'deleteServiceClick' : function (e)
+			{
+				e.preventDefault ();
+
+				var self = this;
+
+				Cloudwalkers.RootView.confirm 
+				(
+					this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
+					function ()
+					{
+						self.deleteService (self.service.id, function ()
+						{
+							self.trigger ('service:delete');
+						});
+					}
+				);
+			},
+
+		    'streamDetailView' : function (e)
+		    {
+		        e.preventDefault ();
+
+		        var streamid = $(e.target).attr ('data-stream-details-id');
+
+		        var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
+		        Cloudwalkers.RootView.popup (view);
+		    },
+			'translateTitle' : function(translatedata)
+			{	
+				// Translate Title
+				this.title = Session.polyglot.t(translatedata);
+			},
+			'translateString' : function(translatedata)
+			{	
+				// Translate String
+				return Session.polyglot.t(translatedata);
+			},
+
+			'mustacheTranslateRender' : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"done",
+					"delete",
+					"connected_to",
+					"reauthenticate_user",
+					"to_add",
+					"is_not_connected",
+					"authenticate_user",
+					"save",
+					"to_your_cloudwalkers_account_select_them_below"
+				];
+
+				this.translated = [];
+
+				for(k in this.original)
+				{
+					this.translated[k] = this.translateString(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
 			}
-		);
-	},
+		});
 
-    'streamDetailView' : function (e)
-    {
-        e.preventDefault ();
-
-        var streamid = $(e.target).attr ('data-stream-details-id');
-
-        var view = new Cloudwalkers.Views.Settings.StreamSettings ({ 'streamid' : streamid });
-        Cloudwalkers.RootView.popup (view);
-    },
-	'translateTitle' : function(translatedata)
-	{	
-		// Translate Title
-		this.title = Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"done",
-			"delete",
-			"connected_to",
-			"reauthenticate_user",
-			"to_add",
-			"is_not_connected",
-			"authenticate_user",
-			"save",
-			"to_your_cloudwalkers_account_select_them_below"
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-	}
+		return Service;
 });

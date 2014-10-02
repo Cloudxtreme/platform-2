@@ -124,7 +124,7 @@ Cloudwalkers.Views.Widgets.CompoundChart = Backbone.View.extend({
 	'getstreamcontext' : function(streamid)
 	{
 		var context = {};
-		//var network = Cloudwalkers.Session.getStream(streamid).get("network");
+		//var network = Session.getStream(streamid).get("network");
 		
 		context.reports = this.reports[streamid];
 		//context.network = network;

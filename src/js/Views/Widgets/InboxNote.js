@@ -47,7 +47,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		this.mustacheTranslateRender(params);
 
 		// Apply role permissions to template data
-		Cloudwalkers.Session.censuretemplate(params);
+		Session.censuretemplate(params);
 		
 		// Visualize
 		this.$el.html (Mustache.render (Templates[this.template], params));
@@ -56,7 +56,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		
 		//if(this.parameters.notes)
 		if(this.model.get("objectType")){
-			if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+			if (Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
 
 				//Load default note
 				this.$el.find('.note-list').html('<li>' + Mustache.render (Templates.messagenote)+'</li>');
@@ -65,7 +65,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 				this.loadnoteui();
 			}	
 			
-			if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
+			if ((Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
 		}
 		
 		this.time();
@@ -205,7 +205,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 		this.model.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
-		Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
+		Session.getStreams().outdated(this.model.get("stream"));
 	},
 
 	/*'viewcontact' : function(e)
@@ -223,7 +223,7 @@ Cloudwalkers.Views.Widgets.InboxNote = Cloudwalkers.Views.Widgets.InboxMessage.e
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 
 	'mustacheTranslateRender' : function(translatelocation)

@@ -15,7 +15,7 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 		if(options) $.extend(this, options);
 
 		this.model.childtype = "message";
-		this.streams = Cloudwalkers.Session.getChannel ('internal').get ("additional").outgoing;
+		this.streams = Session.getChannel ('internal').get ("additional").outgoing;
 
     },
 
@@ -125,7 +125,7 @@ Cloudwalkers.Views.Widgets.ScheduledFilters = Cloudwalkers.Views.Widgets.Widget.
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 	'mustacheTranslateRender' : function(translatelocation)
 	{

@@ -61,7 +61,7 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		this.listenTo(this.collection, 'change', this.render);
 
 		if(this.network)
-			this.settings.network.icon = Cloudwalkers.Session.getStream(this.network).get("network").token;
+			this.settings.network.icon = Session.getStream(this.network).get("network").token;
 	},
 
 	'render' : function ()
@@ -329,6 +329,6 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 });

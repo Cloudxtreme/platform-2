@@ -1,108 +1,115 @@
-Cloudwalkers.Views.Settings.UserDetails = Backbone.View.extend({
-
-	'events' : {
-		'submit form.edit-managed-user' : 'submit'
-	},
-	
-	'initialize' : function (options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		// Parameters	
-		if(options) $.extend(this, options);		
+		var UserDetails = Backbone.View.extend({
 
-		this.listenTo(this.model, 'request', this.disablesave);
-		this.listenTo(this.model, 'sync', this.enablesave);
+			'events' : {
+				'submit form.edit-managed-user' : 'submit'
+			},
+			
+			'initialize' : function (options)
+			{
+				// Parameters	
+				if(options) $.extend(this, options);		
 
-		this.role = this.model.get('rolegroup')
-		this.roles = Cloudwalkers.Session.getAccount().get('roles');
-		
-		if(!this.roles || _.isUndefined(this.role))
-			return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
-	},
+				this.listenTo(this.model, 'request', this.disablesave);
+				this.listenTo(this.model, 'sync', this.enablesave);
 
-	'render' : function ()
-	{
-		var self = this;
-		var data = {};
-		//left dropdown & default checked
-		//var level = Number(this.model.get("level"));
-		//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
+				this.role = this.model.get('rolegroup')
+				this.roles = Session.getAccount().get('roles');
+				
+				if(!this.roles || _.isUndefined(this.role))
+					return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+			},
 
-		var role = this.role;
-		var roles = this.roles;
-		
-		//levels[(level)? 1:0].checked = true;
+			'render' : function ()
+			{
+				var self = this;
+				var data = {};
+				//left dropdown & default checked
+				//var level = Number(this.model.get("level"));
+				//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
 
-		data.user = this.model.attributes;
-		data.title = data.user.name;
-		
-		// add levels to dropdown
-		//data.levels = [];
-		data.roles = [];
-		for (var i = 0; i < roles.length; i ++)
-		{
-			var tmp = roles[i];
-			tmp.checked = this.model.get ('rolegroup') == roles[i].id;
+				var role = this.role;
+				var roles = this.roles;
+				
+				//levels[(level)? 1:0].checked = true;
 
-			data.roles.push (tmp);
-		}
+				data.user = this.model.attributes;
+				data.title = data.user.name;
+				
+				// add levels to dropdown
+				//data.levels = [];
+				data.roles = [];
+				for (var i = 0; i < roles.length; i ++)
+				{
+					var tmp = roles[i];
+					tmp.checked = this.model.get ('rolegroup') == roles[i].id;
 
-		//Mustache Translate Render
-		this.mustacheTranslateRender(data);
+					data.roles.push (tmp);
+				}
 
-		self.$el.html (Mustache.render (Templates.settings.userdetails, data));
+				//Mustache Translate Render
+				this.mustacheTranslateRender(data);
 
-		return this;
-	},
+				self.$el.html (Mustache.render (Templates.settings.userdetails, data));
 
-	'submit' : function (e)
-	{		
-		var data = {rolegroup: $("#level").val()};
+				return this;
+			},
 
-		this.model.parent = Cloudwalkers.Session.getAccount();
+			'submit' : function (e)
+			{		
+				var data = {rolegroup: $("#level").val()};
 
-		this.model.save(data, {
-			patch: true, 
-			success: this.success.bind(this)
+				this.model.parent = Session.getAccount();
+
+				this.model.save(data, {
+					patch: true, 
+					success: this.success.bind(this)
+				});
+
+			},
+
+			'success' : function()
+			{	
+				Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
+				this.model.trigger("change:clearance")	;
+			},
+
+			'disablesave' : function()
+			{	
+				this.$el.find('.edit-managed-user .btn').attr("disabled", true);
+			},
+
+			'enablesave' : function()
+			{	
+				this.$el.find('.edit-managed-user .btn').attr("disabled", false);
+			},
+
+			'translateString' : function(translatedata)
+			{	
+				// Translate String
+				return Session.polyglot.t(translatedata);
+			},
+
+			'mustacheTranslateRender' : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"clearance_level",
+					"save"
+				];
+
+				this.translated = [];
+
+				for(k in this.original)
+				{
+					this.translated[k] = this.translateString(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
+			},
 		});
-
-	},
-
-	'success' : function()
-	{	
-		Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
-		this.model.trigger("change:clearance")	;
-	},
-
-	'disablesave' : function()
-	{	
-		this.$el.find('.edit-managed-user .btn').attr("disabled", true);
-	},
-
-	'enablesave' : function()
-	{	
-		this.$el.find('.edit-managed-user .btn').attr("disabled", false);
-	},
-
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
-
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"clearance_level",
-			"save"
-		];
-
-		this.translated = [];
-
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-	},
+		
+		return UserDetails;
 });

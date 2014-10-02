@@ -17,7 +17,7 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 		this.on("change:remove", this.removeModels, this);
 		
 		// Function triggers (shortcuts)
-		this.listenTo(Cloudwalkers.Session, 'ping', this.forceping);*/
+		this.listenTo(Session, 'ping', this.forceping);*/
 	},
 	
 	/*'url' : function()
@@ -43,8 +43,8 @@ Cloudwalkers.UrlShortener = Backbone.Model.extend({
 
 	'url' : function()
 	{	
-		var url = [Cloudwalkers.Session.api + "/accounts"];
-		var account = Cloudwalkers.Session.getAccount();
+		var url = [Session.api + "/accounts"];
+		var account = Session.getAccount();
 
 		if(account){
 			url.push(account.id)

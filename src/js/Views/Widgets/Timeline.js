@@ -20,7 +20,7 @@ Cloudwalkers.Views.Widgets.Timeline = Cloudwalkers.Views.Widgets.MessageContaine
 
 			if (typeof (filters.streams) != 'undefined' && filters.streams.length > 0)
 			{
-				var stream = Cloudwalkers.Session.getStream (filters.streams[0]);
+				var stream = Session.getStream (filters.streams[0]);
 
 				if (stream)
 					this.title = stream.customname;

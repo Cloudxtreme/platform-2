@@ -60,7 +60,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		var data = {streams: [], input: {}, attachments: {}};
 		
 		// Stream data
-		Cloudwalkers.Session.getChannel("outgoing").streams.each(function(stream)
+		Session.getChannel("outgoing").streams.each(function(stream)
 		{
 			data.streams.push({id: stream.id, name: stream.get("name"), token: stream.get("network").icon});
 		});
@@ -82,7 +82,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		
 
 		// New model
-		else this.model = Cloudwalkers.Session.getAccount()[this.typestring].add({new: true});
+		else this.model = Session.getAccount()[this.typestring].add({new: true});
 		
 		// Time selection
 		setTimeout( function() { this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'}); }.bind(this), 100 );
@@ -91,7 +91,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 		this.draft = false;
 		this.sendnow = false;
 		
-		var account = Cloudwalkers.Session.getAccount();
+		var account = Session.getAccount();
 
 		this.actionparameters = {};
 
@@ -385,7 +385,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'managestreams' : function ()
 	{
 		// Parameters
-		var streams = this.$el.find("[data-stream-id].active").map(function(){ return Cloudwalkers.Session.getStream($(this).data("stream-id"))}).get();
+		var streams = this.$el.find("[data-stream-id].active").map(function(){ return Session.getStream($(this).data("stream-id"))}).get();
 		this.options = [];
 		
 		$.each(streams, function(n, stream){ this.options = $.extend(this.options, this.formoptions[stream.get("network").token]) }.bind(this));
@@ -418,15 +418,15 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	
 	/*'getAvailableStreams' : function ()
 	{
-		//var streams = Cloudwalkers.Session.getStreams ();
-        var channel = Cloudwalkers.Session.getChannel("internal");
+		//var streams = Session.getStreams ();
+        var channel = Session.getChannel("internal");
         var streams = new Cloudwalkers.Collections.Streams(channel.get("additional").outgoing);
 
 		
 		// If this is an action parameter, only show streams of the same network
 		if (typeof (this.options.actionparameters) != 'undefined' && typeof (this.model) != 'undefined')
 		{
-			var stream = Cloudwalkers.Session.getStream (this.model.get ('stream'));
+			var stream = Session.getStream (this.model.get ('stream'));
 
 			if (stream)
 			{
@@ -572,7 +572,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	'getValidationRules' : function ()
 	{
 		var self = this;
-		var streams = Cloudwalkers.Session.getStreams ();
+		var streams = Session.getStreams ();
 		var selectedstreams = [];
 
 		 $.each(streams.where({outgoing: 1}), function(i, stream)
@@ -745,7 +745,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
                 data += '&files[]=' + escape(self.files[i]);
             }
 
-            var url = CONFIG_BASE_URL + 'post/?account=' + Cloudwalkers.Session.getAccount ().get ('id');
+            var url = CONFIG_BASE_URL + 'post/?account=' + Session.getAccount ().get ('id');
             if (self.model && !self.isClone ())
             {
                 url += '&id=' + self.model.get ('id');
@@ -809,7 +809,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 	                            window.location.reload();
                             }
 
-                            Cloudwalkers.Session.trigger ('message:add');
+                            Session.trigger ('message:add');
 
                             return true;
                         }

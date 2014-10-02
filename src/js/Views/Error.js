@@ -1,14 +1,21 @@
-Cloudwalkers.Views.Error = Backbone.View.extend({
-
-	'render' : function ()
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		var data = {};
+		var Error = Backbone.View.extend({
 
-		data.error = this.options.error;
+			'render' : function ()
+			{
+				var data = {};
 
-		$(this.el).html (Mustache.render (Templates.error, data));
+				data.error = this.options.error;
 
-		return this;
-	}
+				$(this.el).html (Mustache.render (Templates.error, data));
 
+				return this;
+			}
+
+		});
+
+		return Error;
 });

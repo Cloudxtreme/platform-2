@@ -25,21 +25,21 @@ define(
 				// Check if there is authentication
 				if(token && token.length > 9)
 				{	
-					Cloudwalkers.Session.authenticationtoken = token;
+					Session.authenticationtoken = token;
 					
 				} else{ console.log("token error", token); window.location = "/login.html";}
 
 				// Define API root
-				Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
+				Session.api = config.apiurl + Cloudwalkers.version;
 				
 				// First load essential user data
-				Cloudwalkers.Session.loadEssentialData (function ()
+				Session.loadEssentialData (function ()
 				{
 					// Root view
 					Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
-					Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
+					Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
 					Cloudwalkers.Router.Instance = new Router ();
@@ -76,10 +76,10 @@ define(
 		Backbone.ajax = function()
 		{
 			// Is there a auth token?
-			if(Cloudwalkers.Session.authenticationtoken)
+			if(Session.authenticationtoken)
 				
 				arguments[0].headers = {
-		            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
 		            'Accept': "application/json"
 		        };
 		        
@@ -158,8 +158,8 @@ define(
 			url : function (params)
 		    {
 		        return this.endpoint?
-		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
-		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
+		        	Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+		        	Session.api + '/' + this.typestring + '/' + this.id;
 		        	
 		        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
 		        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
@@ -231,8 +231,8 @@ define(
 				
 				var url = (this.parentmodel)?
 			
-					Cloudwalkers.Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
-					Cloudwalkers.Session.api + '/' + this.typestring;
+					Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
+					Session.api + '/' + this.typestring;
 						
 				if(this.endpoint)	url += "/" + this.endpoint;
 			
@@ -309,7 +309,7 @@ define(
 				this.seedparameters = seedparameters;
 
 				// Check for history (within ping lifetime), temp disabled
-				// Store.get("touches", {id: this.url(), ping: Cloudwalkers.Session.getPing().cursor}, this.touchlocal.bind(this));
+				// Store.get("touches", {id: this.url(), ping: Session.getPing().cursor}, this.touchlocal.bind(this));
 				
 				// Hard-wired request (no caching)
 				this.fetch({success: this.touchresponse.bind(this, this.url())});
@@ -333,7 +333,7 @@ define(
 				var ids = response[this.parenttype][this.typestring];
 
 				// Store results based on url
-				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Session.getPing().cursor});
 				
 				// Seed ids to collection
 				this.seed(ids);
@@ -355,7 +355,7 @@ define(
 					
 					// Or in Session collection
 					if(!model)
-						model = Cloudwalkers.Session.user.account[this.typestring].get (id);
+						model = Session.user.account[this.typestring].get (id);
 					
 					// Or create new
 					if(!model) model = this.create({id: id});
@@ -404,7 +404,7 @@ define(
 					
 					// Or in Session collection
 					if(!model)
-						model = Cloudwalkers.Session.user.account[this.typestring].get (id);
+						model = Session.user.account[this.typestring].get (id);
 					
 					// Or create new
 					if(!model) model = this.create({id: id});

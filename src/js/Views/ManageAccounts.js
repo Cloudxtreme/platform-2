@@ -1,6 +1,6 @@
 define(
 	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/ContactView'],
-	function (Pageview, Mustache, Session, RootView, ContactsCollection, ContactView)
+	function (Pageview, Mustache, Session, RootView, Contacts, ContactView)
 	{
 		var ManageAccounts = Pageview.extend({
 	
@@ -26,7 +26,7 @@ define(
 				if(options) $.extend(this, options);
 			
 				// Which collection to focus on
-				this.collection = new ContactsCollection([], {});
+				this.collection = new Contacts([], {});
 				
 				// Listen to contacts collection
 				this.listenTo(this.collection, 'seed', this.limited);

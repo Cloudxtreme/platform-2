@@ -159,7 +159,7 @@ Cloudwalkers.Views.Widgets.DemoMessage = Cloudwalkers.Views.Entry.extend({
 		this.model.save({read: 1}, {patch: true, wait: true});
 		
 		// Mark stream
-		Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
+		Session.getStreams().outdated(this.model.get("stream"));
 	},
 	
 	'destroy' : function()

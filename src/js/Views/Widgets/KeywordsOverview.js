@@ -16,12 +16,12 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 	'initialize' : function ()
 	{
-		this.channel = Cloudwalkers.Session.getChannel("monitoring");
+		this.channel = Session.getChannel("monitoring");
 		
 		this.editor = this.options.editor;
 		
 		// Listen to channel changes
-		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+		this.listenTo(Session.getChannels(), 'sync', this.render);
 	},
 
 	'render' : function ()
@@ -34,7 +34,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 		this.mustacheTranslateRender(data);
 		
 		// Apply role permissions to template data
-		Cloudwalkers.Session.censuretemplate(data);
+		Session.censuretemplate(data);
 		
 		this.$el.html (Mustache.render (Templates.keywordsoverview, data));
 		
@@ -60,7 +60,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			remember: remember
 		};
 		
-		var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
+		var channel = Session.getChannel(Number($cat.attr('data-category')));
 		channel.endpoint = '';
 		channel.save({
 			name: name,
@@ -84,7 +84,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			this.translateString('are_you_sure_you_want_to_remove_this_category'), 
 			function () 
 			{
-				Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
+				Session.getChannel(Number($cat.attr('data-category'))).destroy();
 				Cloudwalkers.RootView.navigation.render();
 				$cat.next().remove();
 				$cat.remove();
@@ -115,7 +115,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 			this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
 			function () 
 			{
-				Cloudwalkers.Session.getChannel(id).destroy();
+				Session.getChannel(id).destroy();
 				$(e.target).parent().remove();
 			}
 		)
@@ -125,7 +125,7 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 	'mustacheTranslateRender' : function(translatelocation)
 	{
@@ -170,12 +170,12 @@ Cloudwalkers.Views.Widgets.KeywordsOverview = Cloudwalkers.Views.Widgets.Widget.
 
 		this.sendData 
 		(
-			CONFIG_BASE_URL + 'json/wizard/monitoring/editkeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
+			CONFIG_BASE_URL + 'json/wizard/monitoring/editkeyword?account=' + Session.getAccount ().get ('id'),
 			data,
 			function ()
 			{
 				self.render ();
-				Cloudwalkers.Session.refresh ();
+				Session.refresh ();
 			}
 		);
 		

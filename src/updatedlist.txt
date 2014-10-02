@@ -24,7 +24,6 @@ Views/Calendar.js
 Views/Timeline.js
 Views/KeywordMonitoring.js
 Views/ManageKeywords.js
-Views/Reports.js
 Views/StatStream.js
 Views/Statistics.js
 Views/Settings.js
@@ -53,12 +52,16 @@ hardcoded ajax calls
 Fix the goddamn translations
 Sort out the widgets/non widgets
 Group or ungroup views like /settings and /widgets
+Remove all models and widgets, add them as running the code
 
 
 /** Deprecated?? **/
 ContactView -> Where are we using this?
 Dashboardcleaner -> Any better solution?
-
+Models/Widget -> What's this?
+Comment -> Used?
+Views/Error -> User?
+Views/Services/StreamSettings -> Old .net code. What does this do?
 
 /** TEMP **/
 
@@ -67,5 +70,11 @@ Dashboardcleaner -> Any better solution?
 define(
 	[],
 	function ()
+	{
+		var 
+
+define(
+	['backbone'],
+	function (Backbone)
 	{
 		var 

@@ -52,8 +52,8 @@ define(
 			//Check type of update necessary - hardcoded "me" refresh
 			versioncheck : function(view)
 			{	
-				/*var localversion = Cloudwalkers.Session.version;
-				var currversion = Cloudwalkers.Session.version;
+				/*var localversion = Session.version;
+				var currversion = Session.version;
 			
 				if(localversion && this.parseversion(localversion) < this.parseversion(currversion))
 					this.updateme();

@@ -1,111 +1,116 @@
-Cloudwalkers.Views.Settings.Trigger = Backbone.View.extend({
-
-	'events' : {
-		'click [data-action=save]' : 'save',
-
-		'keyup textarea' : 'enablereset',
-		'click [type=reset]' : 'reset'
-	},
-	
-	'initialize' : function(options)
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		$.extend(this, options);
+		var Trigger = Backbone.View.extend({
 
-		if(!this.model)	this.model = new Cloudwalkers.Models.Trigger();
-	},
+			'events' : {
+				'click [data-action=save]' : 'save',
 
-	'render' : function()
-	{	
-		this.model.parent = Cloudwalkers.Session.getAccount();
-		
-		var params = {
-			message: this.model.getmessage('REPLY'),
-			description: this.description
-		}
+				'keyup textarea' : 'enablereset',
+				'click [type=reset]' : 'reset'
+			},
+			
+			'initialize' : function(options)
+			{
+				$.extend(this, options);
 
-		//Mustache Translate Render
-		this.mustacheTranslateRender(params);
+				if(!this.model)	this.model = new Cloudwalkers.Models.Trigger();
+			},
 
-		this.$el.html(Mustache.render(Templates.settings.trigger, params))
-		
-		return this;
-	},
+			'render' : function()
+			{	
+				this.model.parent = Session.getAccount();
+				
+				var params = {
+					message: this.model.getmessage('REPLY'),
+					description: this.description
+				}
 
-	'updatetrigger' : function(model)
-	{	
-		this.model = model;
-		this.render();
+				//Mustache Translate Render
+				this.mustacheTranslateRender(params);
 
-		this.$el.find('.inner-loading').removeClass('inner-loading');
-		this.$el.find('.loading').removeClass('loading');
-		this.$el.find('textarea').attr('disable', false);
+				this.$el.html(Mustache.render(Templates.settings.trigger, params))
+				
+				return this;
+			},
 
-	},
+			'updatetrigger' : function(model)
+			{	
+				this.model = model;
+				this.render();
 
-	'save' : function()
-	{	
-		this.$el.addClass('loading');
-		this.$el.find('.submit-btn button').attr('disabled', true);
+				this.$el.find('.inner-loading').removeClass('inner-loading');
+				this.$el.find('.loading').removeClass('loading');
+				this.$el.find('textarea').attr('disable', false);
 
-		this.model.setaction('REPLY', {message: this.$el.find('textarea').val()});
+			},
 
-		//Patch if it's an edit
-		this.model.save({
-			event: this.model.get('event'),
-			//condition: this.model.get('condition') || null,
-			actions: this.model.get("actions")
-			//streams: this.
-		}, {patch: this.model.id? true: false, 
-				success: function(){
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+			'save' : function()
+			{	
+				this.$el.addClass('loading');
+				this.$el.find('.submit-btn button').attr('disabled', true);
 
-					//remove loading and enable submit button
-					this.$el.removeClass('loading');
-					this.$el.find('[type=submit]').attr('disabled', false);
-				}.bind(this),
-				error: function(){
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+				this.model.setaction('REPLY', {message: this.$el.find('textarea').val()});
 
-					//remove loading & reset buttons
-					this.$el.removeClass('loading');
-					this.$el.find('[type=submit]').attr('disabled', false);
-					this.$el.find('[type=reset]').attr('disabled', false);
+				//Patch if it's an edit
+				this.model.save({
+					event: this.model.get('event'),
+					//condition: this.model.get('condition') || null,
+					actions: this.model.get("actions")
+					//streams: this.
+				}, {patch: this.model.id? true: false, 
+						success: function(){
+							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 
-				}.bind(this)	
-			})
-	},
+							//remove loading and enable submit button
+							this.$el.removeClass('loading');
+							this.$el.find('[type=submit]').attr('disabled', false);
+						}.bind(this),
+						error: function(){
+							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
-	'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+							//remove loading & reset buttons
+							this.$el.removeClass('loading');
+							this.$el.find('[type=submit]').attr('disabled', false);
+							this.$el.find('[type=reset]').attr('disabled', false);
 
-	'reset' : function(e)
-	{ 
-		$(e.currentTarget).closest('form').get(0).reset();
+						}.bind(this)	
+					})
+			},
 
-		this.$el.find('[type=reset]').attr('disabled', true);
-	},
+			'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
 
-	'translateString' : function(translatedata)
-	{	
-		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
-	},
+			'reset' : function(e)
+			{ 
+				$(e.currentTarget).closest('form').get(0).reset();
 
-	'mustacheTranslateRender' : function(translatelocation)
-	{
-		// Translate array
-		this.original  = [
-			"save_changes",
-			"reset"
-		];
+				this.$el.find('[type=reset]').attr('disabled', true);
+			},
 
-		this.translated = [];
+			'translateString' : function(translatedata)
+			{	
+				// Translate String
+				return Session.polyglot.t(translatedata);
+			},
 
-		for(k in this.original)
-		{
-			this.translated[k] = this.translateString(this.original[k]);
-			translatelocation["translate_" + this.original[k]] = this.translated[k];
-		}
-	}
+			'mustacheTranslateRender' : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"save_changes",
+					"reset"
+				];
+
+				this.translated = [];
+
+				for(k in this.original)
+				{
+					this.translated[k] = this.translateString(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
+			}
+		});
+
+		return Trigger;			
 });
-
-	

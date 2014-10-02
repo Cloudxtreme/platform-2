@@ -315,7 +315,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		// Add or remove contact
 		if(button.data("contact"))
 		{
-			var contact = Cloudwalkers.Session.getContact(button.data("contact"));
+			var contact = Session.getContact(button.data("contact"));
 			
 			if(this.filters.contacts.list.indexOf(contact.id) < 0)
 			{
@@ -467,7 +467,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	{
 		
 		// Memory cloth
-		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
+		var settings = Session.viewsettings(this.collectionstring);
 		
 		if(!settings)	return;
 		if(!settings.streams) settings.streams = [];
@@ -476,7 +476,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 		{
 			settings.streams = this.filters.streams;
-			Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
+			Session.viewsettings(this.collectionstring, settings);
 		}
 	},
 	
@@ -493,7 +493,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	
 	'negotiateFunctionalities' : function() {
 		
-		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		this.listenTo(Session, 'destroy:view', this.remove);
 		
 		this.addScroll();
 	},
@@ -522,7 +522,7 @@ Cloudwalkers.Views.Widgets.InboxMessageList = Cloudwalkers.Views.Widgets.Widget.
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 	'mustacheTranslateRender' : function(translatelocation)
 	{

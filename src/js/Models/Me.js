@@ -1,5 +1,5 @@
 define(['backbone', 'Session', 'Router', 'Collections/Accounts'], 
-	function (Backbone, Session, Router, AccountsCollection)
+	function (Backbone, Session, Router, Accounts)
 	{
 		var Me = Backbone.Models.User.extend(
 		{			
@@ -94,7 +94,7 @@ define(['backbone', 'Session', 'Router', 'Collections/Accounts'],
 				// Get stored accounts
 				Store.filter("accounts", null, function(accounts)
 				{
-					this.accounts = new AccountsCollection(accounts);
+					this.accounts = new Accounts(accounts);
 					
 					// Set current account
 					this.account = this.getCurrentAccount();

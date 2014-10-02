@@ -158,7 +158,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numcontacts = stream.getcontacts();
 			
 			if(token && network.gettoken() != token)
@@ -207,7 +207,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var nummessages = stream.getmessages();
 			
 			if(token && network.gettoken() != token)
@@ -350,7 +350,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numactivities = stream.getactivities();
 			
 			if(token && network.gettoken() != token)
@@ -396,7 +396,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numimpressions = stream.getimpressions();
 			
 			if(token && network.gettoken() != token)
@@ -442,7 +442,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numnotifications = stream.getnotifications();
 			
 			if(token && network.gettoken() != token)
@@ -488,7 +488,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numfollowers = stream.getfollowers();
 			
 			if(token && network.gettoken() != token)
@@ -534,7 +534,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		
 		$.each(streams, function(index, stream){
 			var stream = new Cloudwalkers.Models.Stream(stream);
-			var network = new Cloudwalkers.Models.Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
+			var network = new Cloudwalkers.Models.Network(Session.getStream(stream.id).get("network"));
 			var numfollowing = stream.getfollowing();
 			
 			if(token && network.gettoken() != token)
@@ -679,8 +679,8 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 		// Groups & sums by country
 		$.each(streams, function(k, stream){
 			if((streamid && stream.id == streamid) || !streamid){
-				var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
-				var token = Cloudwalkers.Session.getStream(stream.id).get("network").token;
+				var network = Session.getStream(stream.id).get("network").name;
+				var token = Session.getStream(stream.id).get("network").token;
 				
 				if(_.isObject(stream["contacts"].geo)){
 					var countries = stream["contacts"].geo["countries"];
@@ -1055,7 +1055,7 @@ Cloudwalkers.Views.Widgets.Chart = Backbone.View.extend({
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	}	
 
 });

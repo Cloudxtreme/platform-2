@@ -225,7 +225,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		// Add or remove contact
 		if(button.data("contact"))
 		{
-			var contact = Cloudwalkers.Session.getContact(button.data("contact"));
+			var contact = Session.getContact(button.data("contact"));
 			
 			if(this.filters.contacts.list.indexOf(contact.id) < 0)
 			{
@@ -363,7 +363,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 	{
 		
 		// Memory cloth
-		var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
+		var settings = Session.viewsettings(this.collectionstring);
 		
 		if(!settings)	return;
 		if(!settings.streams) settings.streams = [];
@@ -372,7 +372,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 		{
 			settings.streams = this.filters.streams;
-			Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
+			Session.viewsettings(this.collectionstring, settings);
 		}
 	},
 	
@@ -389,7 +389,7 @@ Cloudwalkers.Views.Widgets.InboxNotesList = Cloudwalkers.Views.Widgets.InboxMess
 	
 	'negotiateFunctionalities' : function() {
 		
-		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		this.listenTo(Session, 'destroy:view', this.remove);
 		
 		this.addScroll();
 	},

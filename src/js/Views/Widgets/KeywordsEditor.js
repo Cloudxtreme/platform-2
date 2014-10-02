@@ -11,12 +11,12 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	
 	'initialize' : function ()
 	{
-		this.channel = Cloudwalkers.Session.getChannel("monitoring");
+		this.channel = Session.getChannel("monitoring");
 		
 		// Listen to channel changes
-		this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
-		this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
-		this.listenTo(Cloudwalkers.Session.getAccount(), 'sync', this.showFilter);
+		this.listenTo(Session.getChannels(), 'sync', this.render);
+		this.listenTo(Session.getChannels(), 'remove', this.render);
+		this.listenTo(Session.getAccount(), 'sync', this.showFilter);
 	},
 
 	'render' : function (e)
@@ -25,7 +25,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		if(e && e.preventDefault) e.preventDefault();
 		
 		
-		var account = Cloudwalkers.Session.getAccount();
+		var account = Session.getAccount();
 
 		var filters = account.attributes.filteroptions;
 	
@@ -122,7 +122,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		// Check Category
 		if(!catid) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_select_a_category"));
 		
-		var category = Cloudwalkers.Session.getChannel(catid);
+		var category = Session.getChannel(catid);
 
 		// Check Name
 		if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
@@ -180,7 +180,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
 		
 		// Collect keyword
-		var keyword = this.editing = Cloudwalkers.Session.getChannel(id);
+		var keyword = this.editing = Session.getChannel(id);
 		var filters = keyword.get("settings");
 
 		$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
@@ -241,7 +241,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 		//Default values - ID, countries, values
 		rand_id = this.getRandomInt(1,999);
 
-		var account = Cloudwalkers.Session.getAccount();
+		var account = Session.getAccount();
 
 		var filters = account.attributes.filteroptions;
 
@@ -412,7 +412,7 @@ Cloudwalkers.Views.Widgets.KeywordsEditor = Cloudwalkers.Views.Widgets.Widget.ex
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 
 	'mustacheTranslateRender' : function(translatelocation)

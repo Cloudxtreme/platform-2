@@ -1,10 +1,10 @@
 define(
 	['backbone', 'Session', 'Models/Statistic', 'Models/Stream'],
-	function (Backbone, Session, StatisticModel, StreamModel)
+	function (Backbone, Session, Statistic, Stream)
 	{
 		var Statistics = Backbone.Collection.extend({
 	
-			model : StatisticModel,
+			model : Statistic,
 			typestring : "statistics",
 			modelstring : "statistic",
 			parenttype : "account",
@@ -231,7 +231,7 @@ define(
 							if(streamid && streamid != stream.id)
 								return true;
 							
-							stream 	= new StreamModel(stream);
+							stream 	= new Stream(stream);
 							besttime = stream.getbesttime();
 							
 							if(besttime){ 

@@ -22,7 +22,7 @@ Cloudwalkers.Views.Widgets.NoteEntry = Cloudwalkers.Views.Entry.extend({
 	'render' : function ()
 	{	
 		// Apply role permissions to template data
-		Cloudwalkers.Session.censuretemplate(this.model.attributes);
+		Session.censuretemplate(this.model.attributes);
 		
 		this.model.attributes.date = moment(this.model.attributes.date).format("DD MMM YYYY");
 		this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));

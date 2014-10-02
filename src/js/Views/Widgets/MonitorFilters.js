@@ -49,7 +49,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		var data = {keywords: this.category.channels.models};
 		
 		data.name = this.category.get("name");
-		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
+		data.networks = Session.getStreams().filterNetworks(this.streams, true);
 		
 		//Mustache translations
 		data.translate_filters = this.translateString("filters");
@@ -60,13 +60,13 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 		data.translate_manage_keywords = this.translateString("manage_keywords");
 
 		// Apply role permissions to template data
-		Cloudwalkers.Session.censuretemplate(data);
+		Session.censuretemplate(data);
 
 		this.$el.html (Mustache.render (Templates.channelfilters, data));
 		
 		if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 		
-		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
+		this.listenTo(Session, 'destroy:view', this.remove);
 		
 		return this;
 	},
@@ -213,7 +213,7 @@ Cloudwalkers.Views.Widgets.MonitorFilters = Cloudwalkers.Views.Widgets.Widget.ex
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	}
 
 });

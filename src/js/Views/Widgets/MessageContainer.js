@@ -48,7 +48,7 @@ Cloudwalkers.Views.Widgets.MessageContainer = Cloudwalkers.Views.Widgets.Widget.
         this.options.channel.bind('sort', this.resort, this);
         this.options.channel.bind('remove', this.removeMessage, this);
 
-        Cloudwalkers.Session.bind 
+        Session.bind 
         (
         	'message:add', 
         	function () 

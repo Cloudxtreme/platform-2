@@ -10,7 +10,7 @@
 
 define(
 	['Views/Pageview', 'mustache', 'Session', 'Router', 'Collections/Statistics', 'Views/Widgets/EmptyData'],
-	function (Pageview, Mustache, Session, Router, StatisticsCollection, EmptyDataWidget)
+	function (Pageview, Mustache, Session, Router, Statistics, EmptyDataWidget)
 	{
 		var Statistics = Pageview.extend({
 			
@@ -73,7 +73,7 @@ define(
 			{	
 				if (options) $.extend(this, options);
 
-				this.collection = new StatisticsCollection();
+				this.collection = new Statistics();
 				
 				// Listen to model
 				this.listenTo(this.collection, 'request', this.showloading);

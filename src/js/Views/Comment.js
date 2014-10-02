@@ -1,40 +1,47 @@
-Cloudwalkers.Views.Comment = Cloudwalkers.Views.Message.extend({
-
-	'events' : 
+define(
+	['Views/Message'],
+	function (Message)
 	{
-		'click .button-post.action.comment-message-action' : 'messageAction'
-	},
+		var Comment = Message.extend({
 
-	'initialize' : function ()
-	{
-		var self = this;
+			'events' : 
+			{
+				'click .button-post.action.comment-message-action' : 'messageAction'
+			},
 
-		this.options.template = 'comment';
+			'initialize' : function ()
+			{
+				var self = this;
 
-		this.model.on ('change', function ()
-		{
-			self.render ();	
+				this.options.template = 'comment';
+
+				this.model.on ('change', function ()
+				{
+					self.render ();	
+				});
+			},
+
+			'className' : 'comments-row',
+			//'template' : 'comment',
+
+			'tagName' : 'li',
+
+			'additionalData' : function (data)
+			{
+				data.parent = false;
+				return data;
+			},
+
+			'afterRender' : function ()
+			{
+				if (this.options.selected)
+				{
+					this.$el.addClass ('selected');
+				}
+
+				this.delegateEvents (this.events);
+			}
 		});
-	},
 
-	'className' : 'comments-row',
-	//'template' : 'comment',
-
-	'tagName' : 'li',
-
-	'additionalData' : function (data)
-	{
-		data.parent = false;
-		return data;
-	},
-
-	'afterRender' : function ()
-	{
-		if (this.options.selected)
-		{
-			this.$el.addClass ('selected');
-		}
-
-		this.delegateEvents (this.events);
-	}
+		return Comment;
 });

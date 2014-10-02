@@ -1,162 +1,169 @@
-Cloudwalkers.Models.Stream = Backbone.Model.extend({
-	
-	'parameters' : {},
-	
-	'initialize' : function(attributes){
-		
-		// Child messages
-		this.messages = new Cloudwalkers.Collections.Messages();
-		
-		// Child contacts (temp hack, should be channel level only)
-		this.contacts = new Cloudwalkers.Collections.Contacts();
-	
-		// Has reports?
-		if(this.get("statistics"))
-		{
-			this.reports = new Cloudwalkers.Collections.Reports();
-			this.reports.streamid = this.id;
-		}
-		
-		// Listen to outdates
-		//this.on("outdated", this.update);
-
-	},
-	
-	'outdated' : function ()
+define(
+	['backbone', 'Collections/Contacts', 'Collections/Messages'],
+	function (Backbone, Contacts, Messages)
 	{
-		this.fetch();
-	},
+		var Stream = Backbone.Model.extend({
 	
-	'update' : function ()
-	{
-		this.fetch();
-	},
-	
-	'url' : function ()
-	{
-		var id = this.id? this.id: "";
-		
-		return Cloudwalkers.Session.api + '/streams/' + id + this.endpoint + this.parameters;
-	},
-	
-	'parse' : function(response)
-	{
-		if(response.stream) response = response.stream;
-		
-		// Hack
-		this.outdated = response.outdated = false;
-		
-		Store.set("streams", response);
-		
-		return response;
-	},
-	
-	'sync' : function (method, model, options)
-	{		
-		if(method == "read")
-		{
-			this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
-			this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+			'parameters' : {},
 			
-		} else if(method == "create")
-		{
-			this.endpoint = (options.parent)? options.parent + "/streams": "";  
-		}
+			'initialize' : function(attributes){
+				
+				// Child messages
+				this.messages = new Messages();
+				
+				// Child contacts (temp hack, should be channel level only)
+				this.contacts = new Contacts();
+			
+				// Has reports?
+				if(this.get("statistics"))
+				{
+					this.reports = new Cloudwalkers.Collections.Reports();
+					this.reports.streamid = this.id;
+				}
+				
+				// Listen to outdates
+				//this.on("outdated", this.update);
 
-		return Backbone.sync(method, model, options);
-	},
-	
-	'seedusers' : function (child)
-	{	
+			},
+			
+			'outdated' : function ()
+			{
+				this.fetch();
+			},
+			
+			'update' : function ()
+			{
+				this.fetch();
+			},
+			
+			'url' : function ()
+			{
+				var id = this.id? this.id: "";
+				
+				return Session.api + '/streams/' + id + this.endpoint + this.parameters;
+			},
+			
+			'parse' : function(response)
+			{
+				if(response.stream) response = response.stream;
+				
+				// Hack
+				this.outdated = response.outdated = false;
+				
+				Store.set("streams", response);
+				
+				return response;
+			},
+			
+			'sync' : function (method, model, options)
+			{		
+				if(method == "read")
+				{
+					this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+					this.parameters = (options.parameters)? "?" + $.param(options.parameters): "";
+					
+				} else if(method == "create")
+				{
+					this.endpoint = (options.parent)? options.parent + "/streams": "";  
+				}
 
-		var users = child.get("from");
-		
-		if (users && users.length) this.users.add(users);	
-	},
+				return Backbone.sync(method, model, options);
+			},
+			
+			'seedusers' : function (child)
+			{	
 
-	'getcontacts' : function(){
-		return _.isObject(this.get("contacts")) ? this.get("contacts").total : this.get("contacts");
-	},
+				var users = child.get("from");
+				
+				if (users && users.length) this.users.add(users);	
+			},
 
-	'getnotifications' : function(){
-		return _.isObject(this.get("notifications")) ? this.get("notifications").total : this.get("notifications");
-	},
+			'getcontacts' : function(){
+				return _.isObject(this.get("contacts")) ? this.get("contacts").total : this.get("contacts");
+			},
 
-	'getmessages' : function(){
-		return _.isObject(this.get("messages")) ? this.get("messages").total : this.get("messages");
-	},
+			'getnotifications' : function(){
+				return _.isObject(this.get("notifications")) ? this.get("notifications").total : this.get("notifications");
+			},
 
-	'getactivities' : function(){
-		return _.isObject(this.get("activities")) ? this.get("activities").total : this.get("activities");
-	},
+			'getmessages' : function(){
+				return _.isObject(this.get("messages")) ? this.get("messages").total : this.get("messages");
+			},
 
-	'getimpressions' : function(){
+			'getactivities' : function(){
+				return _.isObject(this.get("activities")) ? this.get("activities").total : this.get("activities");
+			},
 
-		if(this.impressions)	return this.impressions;
+			'getimpressions' : function(){
 
-		var messages = _.isObject(this.get("messages")) ? this.get("messages") : null;		
-		if(messages && messages.impressions)	return messages.impressions
-		else									return 0;
-	},
+				if(this.impressions)	return this.impressions;
 
-	'getfollowers' : function(){
+				var messages = _.isObject(this.get("messages")) ? this.get("messages") : null;		
+				if(messages && messages.impressions)	return messages.impressions
+				else									return 0;
+			},
 
-		if(_.isObject(this.get("contacts"))){
-			if(_.isObject(this.get("contacts").types)){
-				return this.get("contacts").types.followers;
-			}else{ 
-				return 0;
+			'getfollowers' : function(){
+
+				if(_.isObject(this.get("contacts"))){
+					if(_.isObject(this.get("contacts").types)){
+						return this.get("contacts").types.followers;
+					}else{ 
+						return 0;
+					}
+				}else{
+					return 0;
+				}
+			},
+
+			'getfollowing' : function(){
+
+				if(_.isObject(this.get("contacts"))){
+					if(_.isObject(this.get("contacts").types)){
+						return this.get("contacts").types.following;
+					}else{ 
+						return 0;
+					}
+				}else{
+					return 0;
+				}
+			},
+
+			'getbesttime' : function(){
+				if(_.isObject(this.get("messages").besttimetopost))
+					return this.get("messages").besttimetopost;
+			},
+
+			'getnetwork' : function(){
+				return this.get("network");
+			},
+
+
+			// Get/increment attributes dinamically to help in statistics
+
+			'getattribute' : function(attribute){
+				var attr = "get"+attribute;
+				return this[attr]();
+			},
+
+			'incrementattr' : function(attribute, n){
+				var attr = this.get(attribute);
+				
+				if(_.isObject(attr))		attr.total += n;
+				else						attr += n;
+				
+				this.set(attribute, attr);
+
+				return this;
+			},
+
+			'getlimitations' : function(limitation)
+			{
+				var network = this.get('network');
+
+				return network? network.limitations: null;
 			}
-		}else{
-			return 0;
-		}
-	},
+		});
 
-	'getfollowing' : function(){
-
-		if(_.isObject(this.get("contacts"))){
-			if(_.isObject(this.get("contacts").types)){
-				return this.get("contacts").types.following;
-			}else{ 
-				return 0;
-			}
-		}else{
-			return 0;
-		}
-	},
-
-	'getbesttime' : function(){
-		if(_.isObject(this.get("messages").besttimetopost))
-			return this.get("messages").besttimetopost;
-	},
-
-	'getnetwork' : function(){
-		return this.get("network");
-	},
-
-
-	// Get/increment attributes dinamically to help in statistics
-
-	'getattribute' : function(attribute){
-		var attr = "get"+attribute;
-		return this[attr]();
-	},
-
-	'incrementattr' : function(attribute, n){
-		var attr = this.get(attribute);
-		
-		if(_.isObject(attr))		attr.total += n;
-		else						attr += n;
-		
-		this.set(attribute, attr);
-
-		return this;
-	},
-
-	'getlimitations' : function(limitation)
-	{
-		var network = this.get('network');
-
-		return network? network.limitations: null;
-	}
+		return Stream;
 });

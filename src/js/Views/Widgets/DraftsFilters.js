@@ -45,14 +45,14 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 		/*var data = {keywords: this.category.channels.models};
 		
 		data.name = this.category.get("name");
-		data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
+		data.networks = Session.getStreams().filterNetworks(this.streams, true);
 		
 
 		
 		
 		if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 		
-		this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);*/
+		this.listenTo(Session, 'destroy:view', this.remove);*/
 		
 		return this;
 	},
@@ -208,7 +208,7 @@ Cloudwalkers.Views.Widgets.DraftsFilters = Cloudwalkers.Views.Widgets.Widget.ext
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 
 	'mustacheTranslateRender' : function(translatelocation)

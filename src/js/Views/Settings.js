@@ -40,7 +40,7 @@ define(
 				this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});
 
 				// Manage User Groups Roles
-				/*if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
+				/*if ((Session.isAuthorized('GROUP_MANAGE')) || (Session.isAuthorized('USER_GRANT')))
 					this.tabs.push ({url: '#settings/manageusergroups', name: data.translate_manage_user_groups});*/
 				
 				// Translation for Title

@@ -1,10 +1,10 @@
 define(
 	['backbone', 'Session', 'Models/Channel'],
-	function (Backbone, Session, ChannelModel)
+	function (Backbone, Session, Channel)
 	{
 		var Channels = Backbone.Collection.extend({
 
-			model : ChannelModel,
+			model : Channel,
 			
 			initialize : function()
 			{
@@ -106,7 +106,7 @@ define(
 				
 				var fresh = _.compact( ids.map(function(id)
 				{
-					channel = Cloudwalkers.Session.getChannels().add({id: id});
+					channel = Session.getChannels().add({id: id});
 					
 					list.push(channel);
 					
@@ -130,7 +130,7 @@ define(
 			{
 				this.each(function(channel)
 				{
-					Cloudwalkers.Session.getStreams().add(channel.streams);
+					Session.getStreams().add(channel.streams);
 				});
 			}*/
 		});

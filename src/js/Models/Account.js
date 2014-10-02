@@ -2,8 +2,8 @@ define(
 	['backbone', 'Session', 'Views/Root', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
 	 'Collections/Messages', 'Collections/CannedResponses', 'Collections/Notes', 'Collections/Notifications', 'Collections/Statistics'],
 
-	function (Backbone, Session, RootView, ChannelsCollection, StreamsCollection, CampaignsCollection, UsersCollection, ContactsCollection,
-			  MessagesCollection, CannedResponsesCollection, NotesCollection, NotificationsCollection, StatisticsCollection)
+	function (Backbone, Session, RootView, Channels, Streams, CampaignsCollection, Users, Contacts,
+			  Messages, CannedResponses, Notes, Notifications, Statistics)
 	{
 		var Account = Backbone.Model.extend({
 	
@@ -17,37 +17,37 @@ define(
 			initialize : function ()
 			{
 				// Collect Channels
-				this.channels = new ChannelsCollection();
+				this.channels = new Channels();
 				
 				// Collect streams, fetch triggered in User model
-				this.streams = new StreamsCollection();
+				this.streams = new Streams();
 				
 				// Collect Campaigns
 				this.campaigns = new CampaignsCollection();
 				
 				// Prep Users collection, fetch on demand
-				this.users = new UsersCollection();
+				this.users = new Users();
 				
 				// Prep Contacts collection, fetch on demand
-				this.contacts = new ContactsCollection();
+				this.contacts = new Contacts();
 
 				// Prep global Messages collection
-				this.messages = new MessagesCollection();
+				this.messages = new Messages();
 
 				// Prep global Canned Responses collection
-				this.cannedresponses = new CannedResponsesCollection();
+				this.cannedresponses = new CannedResponses();
 
 				// Prep global Notes collection
-				this.notes = new NotesCollection();
+				this.notes = new Notes();
 
 				// Prep global Notes collection
 				//this.tags = new TagsCollection();
 
 				// Prep global Notifications collection
-				this.notifications = new NotificationsCollection();
+				this.notifications = new Notifications();
 				
 				// Prep global Statistics collection
-				this.statistics = new StatisticsCollection();
+				this.statistics = new Statistics();
 				
 				// Prep global Reports collection // Deprecated?
 				//this.reports = new ReportsCollection();
@@ -233,7 +233,7 @@ define(
 
 			'getChannelFromType' : function (type)
 			{
-				return Cloudwalkers.Session.getAccount().channels.findWhere({type: type});
+				return Session.getAccount().channels.findWhere({type: type});
 			},
 
 			'_findChannelRecursive' : function (channels, id)

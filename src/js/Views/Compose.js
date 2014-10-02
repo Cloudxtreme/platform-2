@@ -5,8 +5,8 @@
 **/
 
 define (
-	['backbone', 'Session', 'Views/Root', 'Models/Message', 'Views/Editor', 'Views/Preview',],
-	function (Backbone, Session, RootView, MessageModel, EditorView, PreviewView)
+	['backbone', 'Session', 'Views/Root', 'Models/Message', 'Views/Editor', 'Views/Preview', 'Collections/CannedResponses'],
+	function (Backbone, Session, RootView, Message, EditorView, PreviewView, CannedResponses)
 	{
 		var Compose = Backbone.View.extend({
 	
@@ -164,7 +164,7 @@ define (
 				if(!this.draft)
 				{	
 					// The draft message
-					this.draft = new MessageModel({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
+					this.draft = new Message({"variations": [], "attachments": [], "streams": [], "body": {}, "schedule": {}});
 					// Listen to validation
 					this.listenTo(this.draft, "invalid", this.invalid);
 				}
@@ -1460,7 +1460,7 @@ define (
 					return Session.getCannedResponses().models;
 				
 				// Fetch once
-				var canned = new Cloudwalkers.Collections.CannedResponses();
+				var canned = new CannedResponses();
 				canned.fetch();
 
 				this.listenTo(canned, 'sync', this.rendercanned);

@@ -52,7 +52,7 @@ define(
 
 			dashboard : function ()
 			{	
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#dashboard');
 
 				// Check first-timer
@@ -123,7 +123,7 @@ define(
 					}
 
 				// "Manual" validation
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 				var available = _.intersection(_.keys(types), Session.getUser().authorized);
@@ -345,7 +345,7 @@ define(
 
 			/*'checkauth' : function(view)
 			{
-				if(!Cloudwalkers.Session.getUser().authorized)
+				if(!Session.getUser().authorized)
 					Cloudwalkers.RootView.resync(view);
 				else
 					window.location = "/";
@@ -382,10 +382,10 @@ define(
 
 			validate : function(view, roles)
 			{
-				//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
+				//if (!Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
 				//Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
 
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 				if(Session.isAuthorized && Session.isAuthorized(roles))

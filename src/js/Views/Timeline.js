@@ -1,6 +1,6 @@
 define(
 	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/Entry'],
-	function (Pageview, Mustache, Session, RootView, ContactsCollection, EntryView)
+	function (Pageview, Mustache, Session, RootView, Contacts, EntryView)
 	{
 		var Timeline = Pageview.extend({
 	
@@ -92,7 +92,7 @@ define(
 				this.timelinetype = 'news';
 
 				// Streams in the dropdown need to be fetched
-				this.contacts = new ContactsCollection([], {});
+				this.contacts = new Contacts([], {});
 				this.listenTo(this.contacts, 'sync', this.fillcontacts.bind(this, param));
 
 				this.contacts.touch(null, {records: 200});

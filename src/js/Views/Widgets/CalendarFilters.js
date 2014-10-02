@@ -18,7 +18,7 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 		this.collection = this.model.messages;
 		
 		// Available Streams
-		this.streams = Cloudwalkers.Session.getChannel ('internal').get ("additional").outgoing;
+		this.streams = Session.getChannel ('internal').get ("additional").outgoing;
 
     },
 
@@ -218,7 +218,7 @@ Cloudwalkers.Views.Widgets.CalendarFilters = Cloudwalkers.Views.Widgets.Widget.e
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 
 	'mustacheTranslateRender' : function(translatelocation)

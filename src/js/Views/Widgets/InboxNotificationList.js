@@ -1,6 +1,6 @@
 define(
 	['Views/Widgets/InboxMessageList', 'Session', 'Models/Message', 'Views/Widgets/InboxMessage'],
-	function (InboxMessageListWidget, Session, MessageModel, InboxMessageWidget)
+	function (InboxMessageListWidget, Session, Message, InboxMessageWidget)
 	{
 		var InboxNotificationListWidget = InboxMessageListWidget.extend({
 	
@@ -23,7 +23,7 @@ define(
 			{
 				// Load message
 				var message = Session.getMessage(model.get("parent").id);
-				if(!message) message = new MessageModel({id: model.get("parent").id});
+				if(!message) message = new Message({id: model.get("parent").id});
 				
 				this.model.messages.add(message);
 				

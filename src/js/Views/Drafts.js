@@ -1,6 +1,6 @@
 define(
-	['mustache', 'Session', 'Views/Pageview', 'Views/Widgets/DraftsFilters', 'Views/Widgets/DraftsList'],
-	function (Mustache, Session, Pageview, DraftsFiltersWidget, DraftsListWidget)
+	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/DraftsFilters', 'Views/Widgets/DraftsList'],
+	function (Pageview, Mustache, Session, DraftsFiltersWidget, DraftsListWidget)
 	{
 		var Drafts = Pageview.extend({
 

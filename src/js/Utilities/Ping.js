@@ -1,4 +1,4 @@
-Cloudwalkers.Session.Ping = Backbone.Model.extend({
+Session.Ping = Backbone.Model.extend({
 	
 	'interval' : 30000,	// avg interval: 30 sec
 	'min' : 10000,		// min interval: 10 sec
@@ -23,7 +23,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 		this.on("change:remove", this.removeModels, this);
 		
 		// Function triggers (shortcuts)
-		this.listenTo(Cloudwalkers.Session, 'ping', this.forceping);
+		this.listenTo(Session, 'ping', this.forceping);
 	},
 	
 	/**
@@ -55,7 +55,7 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	{
 		if(this.cursor) this.parameters.after = this.cursor;
 			
-		return Cloudwalkers.Session.api + '/account/' + this.id + '/ping?' + $.param (this.parameters);
+		return Session.api + '/account/' + this.id + '/ping?' + $.param (this.parameters);
 	},
 	
 	'parse' : function(response) {
@@ -77,22 +77,22 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	 	//console.log("Ping:", updates);
 	 		
 		// Accounts
-		if (updates.accounts) Cloudwalkers.Session.getAccounts().updates(updates.accounts);
+		if (updates.accounts) Session.getAccounts().updates(updates.accounts);
 		
 		// Streams
-		if (updates.streams) Cloudwalkers.Session.getStreams().updates(updates.streams);
+		if (updates.streams) Session.getStreams().updates(updates.streams);
 		
 		// Messages
-		if (updates.messages) Cloudwalkers.Session.getMessages().updates(updates.messages);
+		if (updates.messages) Session.getMessages().updates(updates.messages);
 		
 		// Notifications
-		if (updates.notifications) Cloudwalkers.Session.getNotifications().updates(updates.notifications);
+		if (updates.notifications) Session.getNotifications().updates(updates.notifications);
 		
 		// Users
-		if (updates.users) Cloudwalkers.Session.getUsers().updates(updates.users);
+		if (updates.users) Session.getUsers().updates(updates.users);
 		
 		// Contacts
-		if (updates.contacts) Cloudwalkers.Session.getContacts().updates(updates.contacts);
+		if (updates.contacts) Session.getContacts().updates(updates.contacts);
 	 },
 	 
 	 /**
@@ -156,6 +156,6 @@ Cloudwalkers.Session.Ping = Backbone.Model.extend({
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	}
 });

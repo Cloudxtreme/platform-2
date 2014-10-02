@@ -48,7 +48,7 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 	'translateString' : function(translatedata)
 	{	
 		// Translate String
-		return Cloudwalkers.Session.polyglot.t(translatedata);
+		return Session.polyglot.t(translatedata);
 	},
 
 	'mustacheTranslateRender' : function(translatelocation)

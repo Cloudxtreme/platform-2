@@ -15,7 +15,7 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 	'render' : function()
 	{	
 		var param = {streams: [], networks: []};
-		var streams = Cloudwalkers.Session.getChannel('outgoing').streams;
+		var streams = Session.getChannel('outgoing').streams;
 
 		streams.each (function(stream)
 		{
@@ -99,7 +99,7 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 	{	
 		
 		// Memory cloth
-		var settings = Cloudwalkers.Session.viewsettings('sent');
+		var settings = Session.viewsettings('sent');
 		
 		if(!settings)	return;
 		if(!settings.streams) settings.streams = [];
@@ -108,7 +108,7 @@ Cloudwalkers.Views.Widgets.SentMessageList = Cloudwalkers.Views.Widgets.InboxMes
 		if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 		{
 			settings.streams = this.filters.streams;
-			Cloudwalkers.Session.viewsettings('sent', settings);
+			Session.viewsettings('sent', settings);
 		}
 	},
 
