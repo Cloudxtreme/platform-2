@@ -23,6 +23,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #add': 'addperiod',
 		'click #subtract': 'subtractperiod',
 		'click #subtractempty': 'subtractempty',
+		'click #addempty': 'addempty',
 		'click #now': 'now',
 		'click #show': 'changecustom',
 		'change .stats-header select.networks': 'changestream',
@@ -129,14 +130,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		return this;
 	},
 
-	'writeui' : function(params)
+	'writeui' : function()
 	{
-		if(!params)
-			params = this.timemanager();
+		var params = this.timemanager();
 
 		this.$el.find('.stats-header-timeview').eq(0)
 			.html('<strong>'+ params.fullperiod +': </strong>'+ params.timeview)
-
 	},
 	
 	'request' : function (period)
@@ -198,16 +197,16 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		// Get parameters
 		var params = this.filterparameters();
 		
-		var start = moment.unix(params.since);
+		var start = moment.unix(params.since).zone(0);
 		var startformat = (start.date() > 24 || params.span == "quarter")? (start.month() == 11? "DD MMM YYYY":"DD MMM"): "DD";
 		
 		params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
-		params.timeview = start.format(startformat) + " - " + moment.unix(params.until).format("DD MMM YYYY");
+		params.timeview = start.format(startformat) + " - " + moment.unix(params.until).zone(0).format("DD MMM YYYY");
 		params[params.span + "Active"] = true;
 		
 		// Custom fields
-		params.startstring = moment.unix(params.since).format("DD-MM-YYYY");
-		params.endstring = moment.unix(params.until).format("DD-MM-YYYY");
+		params.startstring = moment.unix(params.since).zone(0).format("DD-MM-YYYY");
+		params.endstring = moment.unix(params.until).zone(0).format("DD-MM-YYYY");
 		
 		// BIG NO-NO
 		// Language Hack (invert word order)
@@ -216,7 +215,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		} else {
 			params.fullperiod = this.translateString(params.periodstring) + " " + this.translateString(params.span);
 		}
-
+		
 		return params;
 	},
 
@@ -245,7 +244,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.hideloading();
 
 		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
-		var view = new Cloudwalkers.Views.Widgets.EmptyData ({message: message});
+		var view = new Cloudwalkers.Views.Widgets.EmptyData ({timeparams: this.timeparams});
 
 		this.appendWidget (view, 8, null, 2);
 	},
@@ -284,6 +283,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.period -= 1;	
 		this.trigger('change:period', this.period);
 	},
+
+	'addempty' : function()
+	{
+		this.period += 1;	
+		this.trigger('change:period', this.period);
+	},
 	
 	'changestream' : function()
 	{	
@@ -311,12 +316,11 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'filterparameters' : function() {
  
 		// Get time span
-		//var span = this.$el.find('.stats-header select').val();
-		//if(span) this.timespan = span;
+
 		if (this.timespan == "now") {	this.period = 0; }
 		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
-		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');	this.end = moment().zone(0).endOf('month'); }
-		if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');	this.end = moment().zone(0).endOf('year'); }
+		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
+		if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
 
 		if (this.timespan == "quarter")
 		{	//Still not updated with .zone(0)
@@ -330,6 +334,9 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			if(this.period < 0) { this.start.subtract(this.timespan +"s", Math.abs(this.period));	this.end.subtract(this.timespan +"s", Math.abs(this.period)); }
 		}
 		
+		// For the empty data check
+		this.timeparams = {since: this.start.unix(), until: this.end.unix(), span: this.timespan};
+
 		return {since: this.start.unix(), until: this.end.unix(), span: this.timespan, period: this.period, reset: true};
 	},
 	
