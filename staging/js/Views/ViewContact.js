@@ -1,9 +1,9 @@
 define(
 	['backbone', 'Session', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/SimpleCompose', 'Views/Widgets/InboxMessage', 
-	 'Views/Widgets/TagEntry', 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
+	 /*'Views/Widgets/TagEntry',*/ 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
 
-	function (Backbone, Session, ContactModel, NotesCollection, MessagesCollection, SimpleComposeView, InboxMessageWidget,
-		      TagEntryWidget, LoadMoreWidget, EntryView, NoteEntryView, MessageModel)
+	function (Backbone, Session, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
+		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteEntryView, Message)
 	{
 		var ViewContact = Backbone.View.extend({
 
@@ -29,10 +29,10 @@ define(
 				this.contact = options.contact? options.contact.model: null;
 				
 				if(this.contact)
-					this.model = new ContactModel(this.contact);
+					this.model = new Contact(this.contact);
 
 				if(!this.model && this.contactid)
-				   this.model = new ContactModel({id:this.contactid});
+				   this.model = new Contact({id:this.contactid});
 
 				this.loadmylisteners();
 				
@@ -42,12 +42,12 @@ define(
 			{	
 				//Restart collection parameters
 				if(this.type == 'note'){
-					this.collection = new NotesCollection();
+					this.collection = new Notes();
 					this.collection.parentmodel = 'contact';	//Hack
 					this.collection.parenttype = 'contact';		//Hack
 				}	
 				else
-					this.collection = new MessagesCollection();
+					this.collection = new Messages();
 
 				if(recycle)
 					this.stopListening(this.collection);
@@ -170,7 +170,7 @@ define(
 					
 					for (n in response[this.typestring]){
 
-						response[this.typestring][n] = new MessageModel(response[this.typestring][n])
+						response[this.typestring][n] = new Message(response[this.typestring][n])
 						response[this.typestring][n].generateintro();
 						response[this.typestring][n].set("read",1); //Force read UI	
 
@@ -212,7 +212,7 @@ define(
 				this.collection.url = this.model.url();
 
 				// Store results based on url
-				//Store.set("touches", {id: this.collection.url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+				//Store.set("touches", {id: this.collection.url, modelids: ids, cursor: this.cursor, ping: Session.getPing().cursor});
 			
 				// Seed ids to collection
 				this.collection.seed(ids);

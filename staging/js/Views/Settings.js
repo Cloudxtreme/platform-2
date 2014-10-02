@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile'],
-	function (Pageview, Mustache, Session, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings)
+	['Views/Pageview', 'mustache', 'Session', 'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile', 'Views/Settings'],
+	function (Pageview, Mustache, Session, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings, SettingsView)
 	{
 		var Settings = Pageview.extend({
 
@@ -40,7 +40,7 @@ define(
 				this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});
 
 				// Manage User Groups Roles
-				/*if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
+				/*if ((Session.isAuthorized('GROUP_MANAGE')) || (Session.isAuthorized('USER_GRANT')))
 					this.tabs.push ({url: '#settings/manageusergroups', name: data.translate_manage_user_groups});*/
 				
 				// Translation for Title
@@ -69,7 +69,7 @@ define(
 						break;
 
 					/*case 'manageusergroups':
-						var widget = new Cloudwalkers.Views.Settings.ManageUserGroups();
+						var widget = new SettingsView.ManageUserGroups();
 						break;*/
 					
 					default:

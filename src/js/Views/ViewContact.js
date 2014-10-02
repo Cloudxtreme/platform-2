@@ -1,9 +1,9 @@
 define(
 	['backbone', 'Session', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/SimpleCompose', 'Views/Widgets/InboxMessage', 
-	 'Views/Widgets/TagEntry', 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
+	 /*'Views/Widgets/TagEntry',*/ 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
 
 	function (Backbone, Session, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
-		      TagEntryWidget, LoadMoreWidget, EntryView, NoteEntryView, Message)
+		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteEntryView, Message)
 	{
 		var ViewContact = Backbone.View.extend({
 

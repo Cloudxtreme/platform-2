@@ -1,11 +1,11 @@
 define(
 	['backbone', 'Session', 'Views/Root', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
-	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', 'Views/Calendar', 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
+	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups'*/, 'Views/Resync', 'Views/RSSFeed'/*, 'Views/ManageRSS'*/],
 
 	function (Backbone, Session, RootView, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
-			  CalendarView, TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, StatStreamView, StatisticsView,
+			  /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, StatStreamView, StatisticsView,
 			  SettingsView, FirsttimeView, CoworkdashboardView, /*ManageUserGroupsView, */ResyncView, RSSFeedView/*, ManageRSSView*/)
 
 	{
@@ -21,7 +21,7 @@ define(
 				'outbox(/:type)' : 'outbox',
 				'notes' : 'notes',
 				'scheduled' : 'scheduled',
-				'calendar' : 'calendar',
+				//'calendar' : 'calendar',
 				'coworkers' : 'coworkers',
 				'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 				//'timeline/rss' : 'rssfeed',
@@ -52,7 +52,7 @@ define(
 
 			dashboard : function ()
 			{	
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#dashboard');
 
 				// Check first-timer
@@ -123,7 +123,7 @@ define(
 					}
 
 				// "Manual" validation
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 				var available = _.intersection(_.keys(types), Session.getUser().authorized);
@@ -345,7 +345,7 @@ define(
 
 			/*'checkauth' : function(view)
 			{
-				if(!Cloudwalkers.Session.getUser().authorized)
+				if(!Session.getUser().authorized)
 					Cloudwalkers.RootView.resync(view);
 				else
 					window.location = "/";
@@ -382,10 +382,10 @@ define(
 
 			validate : function(view, roles)
 			{
-				//if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
-				//Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Drafts());
+				//if (!Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
+				//Cloudwalkers.RootView.setView (new DraftsView());
 
-				//if(!Cloudwalkers.Session.isupdated())
+				//if(!Session.isupdated())
 					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 				if(Session.isAuthorized && Session.isAuthorized(roles))

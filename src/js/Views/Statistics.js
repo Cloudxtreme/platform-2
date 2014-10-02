@@ -174,7 +174,9 @@ define(
 						to : this.end.unix()
 					}
 
-					var view = new Cloudwalkers.Views.Widgets[widget.widget] (widget.data);
+					var widgetchart = this.functioncall(widget.widget);
+
+					var view = new widgetchart(widget.data);
 					
 					this.views.push (view);
 					
@@ -182,6 +184,16 @@ define(
 					
 				}.bind(this));
 
+			},
+
+			functioncall : function(functionname, args)
+			{	
+				var func = window[functionname];
+				 
+				// is it a function?
+				if (typeof func === "function")
+
+					return func.apply(null, args);
 			},
 			
 			/**

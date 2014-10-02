@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Views/ActionParameters', 'Views/Comments', 'Views/OriginalMessage'],
-	function (Backbone, RootView, ActionParametersView, CommentsView, OriginalMessageView)
+	['backbone', 'Views/Root', 'Views/ActionParameters', 'Views/OriginalMessage'],
+	function (Backbone, RootView, ActionParametersView, OriginalMessageView)
 	{
 		var Message = Backbone.View.extend({
 

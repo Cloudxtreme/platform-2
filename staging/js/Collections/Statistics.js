@@ -1,22 +1,22 @@
 define(
 	['backbone', 'Session', 'Models/Statistic', 'Models/Stream'],
-	function (Backbone, Session, StatisticModel, StreamModel)
+	function (Backbone, Session, Statistic, Stream)
 	{
 		var Statistics = Backbone.Collection.extend({
 	
-			model : StatisticModel,
-			typestring : "statistics",
-			modelstring : "statistic",
-			parenttype : "account",
-			networkcolors : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
-			colors : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
-			processing : false,
-			parameters : {},
+			'model' : Statistic,
+			'typestring' : "statistics",
+			'modelstring' : "statistic",
+			'parenttype' : "account",
+			'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
+			'colors' : ["#D97041", "#C7604C", "#21323D", "#9D9B7F", "#7D4F6D", "#584A5E"],
+			'processing' : false,
+			'parameters' : {},
 
-			paging : {},
-			cursor : false,
+			'paging' : {},
+			'cursor' : false,
 			
-			initialize : function (options){
+			'initialize' : function (options){
 				
 				// Override type strings if required
 				if (options) $.extend(this, options);
@@ -27,7 +27,7 @@ define(
 
 			},
 			
-			url : function(a)
+			'url' : function(a)
 			{	
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
@@ -43,7 +43,7 @@ define(
 			 *	Touch
 			 *	This touch works different then the other collection touches
 			 */
-			touch : function (params)
+			'touch' : function (params)
 			{
 				this.parentmodel = Session.getAccount();
 				this.endpoint = this.modelstring + "ids";
@@ -52,7 +52,7 @@ define(
 				this.fetch({data: params, success: this.touchresponse.bind(this)});
 			},
 			
-			touchresponse : function(coll, response)
+			'touchresponse' : function(coll, response)
 			{	
 				// Get ids
 				var ids = response.account.statistics;
@@ -69,23 +69,23 @@ define(
 			},
 			
 			
-			latest : function ()
+			'latest' : function ()
 			{	
 				return this.at(this.length-1);
 			},
 
-			first : function ()
+			'first' : function ()
 			{
 				return this.at(0);
 			},
 
-			place : function (i)
+			'place' : function (i)
 			{
 				return this.at(i);
 			},
 			
 			/* temp function */
-			parse : function (response)
+			'parse' : function (response)
 			{
 				if(typeof response == "string") console.log("is string"	)
 				//console.log(response)
@@ -114,7 +114,7 @@ define(
 			 *	Column data
 			 **/
 			 
-			contacts : function (single)
+			'contacts' : function (single)
 			{
 				var stat = this.latest();
 				
@@ -146,7 +146,7 @@ define(
 				return list;
 			},
 			
-			age : function (single)
+			'age' : function (single)
 			{
 				
 				var list = [];
@@ -154,7 +154,7 @@ define(
 				return { counter: list};
 			},
 			
-			gender : function (single)
+			'gender' : function (single)
 			{
 				
 				var list = [];
@@ -162,7 +162,7 @@ define(
 				return { counter: list};
 			},
 			
-			regional : function (single)
+			'regional' : function (single)
 			{
 				
 				var list = [];
@@ -170,7 +170,7 @@ define(
 				return { counter: list};
 			},
 			
-			countries : function (single)
+			'countries' : function (single)
 			{
 				
 				var list = [];
@@ -178,7 +178,7 @@ define(
 				return { counter: list};
 			},
 			
-			cities : function (single)
+			'cities' : function (single)
 			{
 				
 				var list = [];
@@ -186,7 +186,7 @@ define(
 				return { counter: list};
 			},
 			
-			besttime : function (single)
+			'besttime' : function (single)
 			{
 				
 				var list = [];
@@ -194,7 +194,7 @@ define(
 				return { counter: list};
 			},
 			
-			activity : function (single)
+			'activity' : function (single)
 			{
 				
 				var list = [];
@@ -231,7 +231,7 @@ define(
 							if(streamid && streamid != stream.id)
 								return true;
 							
-							stream 	= new StreamModel(stream);
+							stream 	= new Stream(stream);
 							besttime = stream.getbesttime();
 							
 							if(besttime){ 

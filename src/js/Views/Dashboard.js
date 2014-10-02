@@ -1,9 +1,9 @@
 define(
 	['Views/Pageview', 'mustache', 'Session', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
-	 'Views/Widgets/MessagesCounters', 'Views/Widgets/DashboardMessageList', 'Views/Widgets/Info'],
+	 'Views/Widgets/MessagesCounters', /*'Views/Widgets/DashboardMessageList', */'Views/Widgets/Info'],
 
 	function (Pageview, Mustache, Session, Statistics, DashboardCleanerWidget, 
-			  MessagesCountersWidget, DashboardMessageListWidget, InfoWidget)
+			  MessagesCountersWidget, /*DashboardMessageListWidget, */InfoWidget)
 	{
 		var Dashboard = Pageview.extend({
 

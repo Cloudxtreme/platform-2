@@ -145,14 +145,14 @@ define(
 				
 				// Get messages
 				var messages = this.category.messages.seed(ids);
-				//Cloudwalkers.Session.getMessages().seed(ids);
+				//Session.getMessages().seed(ids);
 				
 				// Add messages to view
 				for (n in messages)
 				{
-					//var message = Cloudwalkers.Session.getMessage(ids[n]);
+					//var message = Session.getMessage(ids[n]);
 					
-					var messageView = new Cloudwalkers.Views.Entry ({model: messages[n], type: "full", template: "messagefullentry"});
+					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
 					
 					this.$container.append(messageView.render().el);

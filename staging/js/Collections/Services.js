@@ -1,44 +1,56 @@
-Cloudwalkers.Collections.Services = Backbone.Collection.extend({
-
-	'model' : Cloudwalkers.Models.Service,
-	'endpoint' : "",
-
-	'initialize' : function(){
-
-		this.on('add', this.model.updateStreams)
-	},
-	
-	'url' : function()
-	{	
-		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
-		// return CONFIG_BASE_URL + 'json/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
-	},
-	
-	'parse' : function (response)
+define(
+	['backbone', 'Session', 'Models/Service'],
+	function (Backbone, Session, Service)
 	{
-		// Hold available endpoint contained
-		if(response.services)
-		{
-			// Store
-			this.available = response.services.available;
-			this.trigger("available:ready", this, response.services.available);
+		var Services = Backbone.Collection.extend({
 
-		} else {
+			'model' : Service,
+			'endpoint' : "",
+
+			'initialize' : function(){
+
+				this.on('add', this.model.updateStreams)
+			},
 			
-			this.ready();
-			return response.account.services;
-		}
-	},
-	
-	'sync' : function (method, model, options)
-	{		
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
-		
-		return Backbone.sync(method, model, options);
-	},
-	
-	'fetchAvailable' : function (options)
-	{
-		this.fetch({endpoint: "available"});
-	}
+			'url' : function()
+			{	
+				return Session.api + '/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
+				// return CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
+			},
+			
+			'parse' : function (response)
+			{
+				// Hold available endpoint contained
+				if(response.services)
+				{
+					// Store
+					this.available = response.services.available;
+					this.trigger("available:ready", this, response.services.available);
+
+				} else {
+					
+					this.ready();
+					return response.account.services;
+				}
+			},
+			
+			'sync' : function (method, model, options)
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
+				this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
+				
+				return Backbone.sync(method, model, options);
+			},
+			
+			'fetchAvailable' : function (options)
+			{
+				this.fetch({endpoint: "available"});
+			}
+		});
+
+		return Services;
 });

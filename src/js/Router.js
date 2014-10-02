@@ -1,11 +1,11 @@
 define(
 	['backbone', 'Session', 'Views/Root', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
-	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', 'Views/Calendar', 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
+	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups'*/, 'Views/Resync', 'Views/RSSFeed'/*, 'Views/ManageRSS'*/],
 
 	function (Backbone, Session, RootView, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
-			  CalendarView, TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, StatStreamView, StatisticsView,
+			  /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, StatStreamView, StatisticsView,
 			  SettingsView, FirsttimeView, CoworkdashboardView, /*ManageUserGroupsView, */ResyncView, RSSFeedView/*, ManageRSSView*/)
 
 	{
@@ -21,7 +21,7 @@ define(
 				'outbox(/:type)' : 'outbox',
 				'notes' : 'notes',
 				'scheduled' : 'scheduled',
-				'calendar' : 'calendar',
+				//'calendar' : 'calendar',
 				'coworkers' : 'coworkers',
 				'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
 				//'timeline/rss' : 'rssfeed',

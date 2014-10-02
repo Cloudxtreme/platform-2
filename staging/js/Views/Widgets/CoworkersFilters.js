@@ -1,6 +1,6 @@
 define(
 	['Views/Widgets/Widget', 'mustache', 'Session', 'Collections/Users', 'Views/User'],
-	function (WidgetView, Mustache, Session, UsersCollection, UserView)
+	function (WidgetView, Mustache, Session, Users, UserView)
 	{
 		var CoworkersFilters = WidgetView.extend ({
 
@@ -21,7 +21,7 @@ define(
 				this.model.childtype = "message";
 				
 				// Check contacts collection existance
-				if (!this.model.users) this.model.users = new UsersCollection();
+				if (!this.model.users) this.model.users = new Users();
 				else this.model.users.reset();
 				
 				// Listen to contacts collection
@@ -51,14 +51,14 @@ define(
 				/*var data = {keywords: this.category.channels.models};
 				
 				data.name = this.category.get("name");
-				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
+				data.networks = Session.getStreams().filterNetworks(this.streams, true);
 				
 
 				
 				
 				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 				
-				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);*/
+				this.listenTo(Session, 'destroy:view', this.remove);*/
 				
 				return this;
 			},

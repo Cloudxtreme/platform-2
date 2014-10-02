@@ -1,6 +1,6 @@
 define(
-	['Cloudwalkers', 'Models/Me', 'Collections/Accounts'],
-	function (Cloudwalkers, Me, Accounts)
+	['Cloudwalkers', 'Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
+	function (Cloudwalkers, Me, RootView, Router, Accounts, Polyglot)
 	{
 		Session = 
 		{
@@ -29,7 +29,7 @@ define(
 			
 			loadEssentialData : function (callback)
 			{
-				this.user = new Cloudwalkers.Models.Me();
+				this.user = new Me();
 				this.getversion();
 
 				/* getLang and then callback */
@@ -46,7 +46,7 @@ define(
 				
 				/*this.getAccount ().refresh (function ()
 				{
-					Cloudwalkers.Session.trigger ('channels:change');
+					Session.trigger ('channels:change');
 				});*/
 			},
 			
@@ -66,7 +66,7 @@ define(
 			
 			home : function()
 			{
-				Cloudwalkers.Router.Instance.home();	
+				Router.Instance.home();	
 			},
 			
 			/**
@@ -80,20 +80,20 @@ define(
 				
 				
 				
-				//$.extend(Cloudwalkers.Session.settings, user.get("settings"));
+				//$.extend(Session.settings, user.get("settings"));
 			},*/
 			
 			updateSetting : function(attribute, value, callbacks)
 			{
 				
-				if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
+				if( Session.user.attributes.settings[attribute] != value)
 				{
 					// Update session and save on user
-					Cloudwalkers.Session.user.attributes.settings[attribute] = value;
+					Session.user.attributes.settings[attribute] = value;
 					
 					callbacks = ($.extend(callbacks, {patch: true}) || {patch: true});
 					
-					Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.user.attributes.settings}, callbacks);
+					Session.user.save({settings: Session.user.attributes.settings}, callbacks);
 				}
 			},
 			
@@ -120,23 +120,23 @@ define(
 				// Split into accounts
 				var pointer = "account_" + this.getAccount().id;
 				
-				if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
-					Cloudwalkers.Session.user.attributes.settings.viewsettings = {};
+				if(!Session.user.attributes.settings.viewsettings)
+					Session.user.attributes.settings.viewsettings = {};
 				
-				if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
-					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
+				if(!Session.user.attributes.settings.viewsettings[pointer])
+					Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
 
 				// Sent hack to add the object
-				if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'])
-					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
+				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer]['sent'])
+					Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'profiles' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['profiles'])
-					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['profiles'] = {streams: []};
+				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer]['profiles'])
+					Session.user.attributes.settings.viewsettings[pointer]['profiles'] = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'news' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['news'])
-					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer]['news'] = {streams: []};
+				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer]['news'])
+					Session.user.attributes.settings.viewsettings[pointer]['news'] = {streams: []};
 				
 				var viewsettings = this.clone(this.get("viewsettings"));
 				
@@ -180,7 +180,7 @@ define(
 						// Clean touch id-lists
 						Store.filter("touches", null, function(list)
 						{
-							var cursor = Cloudwalkers.Session.getPing().cursor;
+							var cursor = Session.getPing().cursor;
 							
 							list = list.filter(function(touch){ return touch.ping == cursor; });
 							
@@ -305,7 +305,7 @@ define(
 				if( channel.channels && channel.channels.length)
 					channel.channels = channel.channels.map(function(el)
 					{ 
-						Cloudwalkers.Session.storeChannel(el);
+						Session.storeChannel(el);
 						return el.id;
 					});
 				
@@ -475,7 +475,7 @@ define(
 
 				moment.lang(lang);
 				
-				extendLang = new Cloudwalkers.Models.Polyglot();
+				extendLang = new Polyglot();
 				extendLang.fetch({
 					success: function (){
 						this.translationLang = extendLang.get("translation");
@@ -488,7 +488,7 @@ define(
 		}
 
 		// Add events
-		_.extend(Cloudwalkers.Session, Backbone.Events);
+		_.extend(Session, Backbone.Events);
 
 		return Session;
 	}

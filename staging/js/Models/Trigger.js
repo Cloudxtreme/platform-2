@@ -1,47 +1,54 @@
-Cloudwalkers.Models.Trigger = Backbone.Model.extend({
+define(
+	['backbone', 'Session'],
+	function (Backbone, Session)
+	{
+		var Trigger = Backbone.Model.extend({
 	
-	'typestring' : "triggers",
+			'typestring' : "triggers",
 	
-	'initialize' : function()
-	{
-		if(!this.get("actions"))	this.set("actions", [])
-	},
+			'initialize' : function()
+			{
+				if(!this.get("actions"))	this.set("actions", [])
+			},
 
-	'getaction' : function(type)
-	{
-		var actions = this.get("actions");
-		var action = actions? actions.filter(function(el){ if(el.action == type) return el; }): null;
+			'getaction' : function(type)
+			{
+				var actions = this.get("actions");
+				var action = actions? actions.filter(function(el){ if(el.action == type) return el; }): null;
 
-		if(action)
-			return action.length? action[0]: null;
-	},
+				if(action)
+					return action.length? action[0]: null;
+			},
 
-	'getmessage' : function(type)
-	{
-		var action = this.getaction(type);
-		
-		if(action && action.message)
-			return action.message.body? action.message.body.html: action.message;
-		else
-			return null;
-	},
-
-	'setaction' : function(type, attrs)
-	{
-		var action = this.getaction(type);
-
-		if(action)	$.extend(action, attrs)
-		else		this.attributes.actions.push($.extend({action: type}, attrs));
-	},
-
-	'url' : function()
-	{	
-		var url = [Cloudwalkers.Session.api];
-		
-		if(this.id)					url.push(this.typestring, this.id)
-		else if(this.parent)		url.push(this.parent.typestring, this.parent.id, this.typestring);
-		else if(this.typestring)	url.push(this.typestring);		
+			'getmessage' : function(type)
+			{
+				var action = this.getaction(type);
 				
-		return url.join("/");
-	}
+				if(action && action.message)
+					return action.message.body? action.message.body.html: action.message;
+				else
+					return null;
+			},
+
+			'setaction' : function(type, attrs)
+			{
+				var action = this.getaction(type);
+
+				if(action)	$.extend(action, attrs)
+				else		this.attributes.actions.push($.extend({action: type}, attrs));
+			},
+
+			'url' : function()
+			{	
+				var url = [Session.api];
+				
+				if(this.id)					url.push(this.typestring, this.id)
+				else if(this.parent)		url.push(this.parent.typestring, this.parent.id, this.typestring);
+				else if(this.typestring)	url.push(this.typestring);		
+						
+				return url.join("/");
+			}
+		});
+	
+		return Trigger;
 });

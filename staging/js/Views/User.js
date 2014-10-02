@@ -1,27 +1,34 @@
-Cloudwalkers.Views.User = Backbone.View.extend({
-	
-	'tagName' : 'li',
-	'template': 'user',
-	
-	'events' : 
+define(
+	['backbone'],
+	function (Backbone)
 	{
-		'click' : 'select'
-	},
+		var User = Backbone.View.extend({
 	
-	'initialize' : function (options)
-	{
-		if(options) $.extend(this, options);
-		
-		this.listenTo(this.model, 'change', this.render);
-	},
-
-	'render' : function ()
-	{
-		this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type)));
+			'tagName' : 'li',
+			'template': 'user',
+			
+			'events' : 
+			{
+				'click' : 'select'
+			},
+			
+			'initialize' : function (options)
+			{
+				if(options) $.extend(this, options);
 				
-		return this;
-	},
-	
-	'select' : function() { this.trigger("select", this); }
+				this.listenTo(this.model, 'change', this.render);
+			},
 
+			'render' : function ()
+			{
+				this.$el.html (Mustache.render (Templates[this.template], this.model.filterData(this.type)));
+						
+				return this;
+			},
+			
+			'select' : function() { this.trigger("select", this); }
+
+		});
+
+		return User;
 });

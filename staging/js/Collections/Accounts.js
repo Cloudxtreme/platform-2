@@ -1,10 +1,10 @@
 define(
 	['backbone', 'Session', 'Models/Account'],
-	function (Backbone, Session, AccountModel)
+	function (Backbone, Session, Account)
 	{
 		var Accounts = Backbone.Collection.extend({
 
-			model : AccountModel,
+			model : Account,
 
 			fetch : function(method, model, options) 
 			{

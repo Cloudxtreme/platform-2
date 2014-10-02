@@ -43,14 +43,27 @@ define(
 					chart.data.model = this.model;
 					chart.data.network = this.network;
 					
-					var view = new Cloudwalkers.Views.Widgets[chart.widget](chart.data).render().el;
+					var widget = this.functioncall(chart.widget)
+					
+					var view = new widget(chart.data).render().el;
+
 					this.$el.find(this.templatemap[this.template][index]).append(view);
 					
 				}.bind(this));
 
 				this.filled = true;
 			},
-	
+
+			functioncall : function(functionname, args)
+			{	
+				var func = window[functionname];
+				 
+				// is it a function?
+				if (typeof func === "function")
+
+					return func.apply(null, args);
+			},
+
 			'negotiateFunctionalities' : function()
 			{
 

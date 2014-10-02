@@ -1,6 +1,6 @@
 define(
-	['Collection/Messages'],
-	function (Messages)
+	['Collections/Messages'],
+	function(Messages)
 	{
 		var Related = Messages.extend({
 

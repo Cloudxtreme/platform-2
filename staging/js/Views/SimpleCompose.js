@@ -1,6 +1,6 @@
 define(
 	['backbone', 'Views/Root', 'Session', 'Models/Note', 'Models/Message'],
-	function (Backbone, RootView, Session, NoteModel, MessageModel)
+	function (Backbone, RootView, Session, Note, Message)
 	{
 		var SimpleCompose = Backbone.View.extend({
 
@@ -18,7 +18,7 @@ define(
 				// Parameters
 				if(options) $.extend(this, options);
 
-				if(!this.model)	this.model = new NoteModel();
+				if(!this.model)	this.model = new Note();
 
 				if(this.parent)
 					this.model.parent = this.parent;
@@ -105,9 +105,9 @@ define(
 					if(this.close){
 						setTimeout(function(){
 							if(this.type == 'draft'){
-								this.model = new MessageModel();
+								this.model = new Message();
 							} else {
-								this.model = new NoteModel();
+								this.model = new Note();
 							}
 								
 							this.render();

@@ -224,7 +224,31 @@ define(
 				$.each(this.notifications, function(n, entry){ entry.remove()});
 				$.each(this.related, function(n, entry){ entry.remove()});
 			},
+
 			'translateString' : function(translatedata)
 			{	
+				// Translate String
+				return Session.polyglot.t(translatedata);
+			},
+
+			'mustacheTranslateRender' : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"add",
+					"on",
+					"commented"
+				];
+
+				this.translated = [];
+
+				for(k in this.original)
+				{
+					this.translated[k] = this.translateString(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
+			}	
+		});
+
 		return InboxNote;
 });

@@ -102,12 +102,12 @@ define(
 
 
 		/**
-		 *		Actions
+		 *		Actions -> Deprecated?
 		 **/
-
+		 /*
 		Contact.actions = {
 			templates :
 			{
 				'dm': {name: "Direct message", icon: 'message', type:'dialog'}
 			}
-		}
+		}*/

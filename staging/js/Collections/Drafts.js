@@ -2,69 +2,80 @@
  *	Deprecated, should integrate in Messages.
  **/
 
-Cloudwalkers.Collections.Drafts = Backbone.Collection.extend({
-
-	'model' : Cloudwalkers.Models.Message,
-	'name' : null,
-
-	'nextPageParameters' : null,
-	'canHaveFilters' : false,
-
-	'filter' : '',
-
-	'initialize' : function (models, options)
+define(
+	['backbone', 'Session', 'Models/Message'],
+	function (Backbone, Session, Message)
 	{
-		this.name = options.name;
-		this.filter = typeof (options.filter) != 'undefined' ? options.filter : '';
+		var Drafts = Backbone.Collection.extend({
 
-		var d1;
-		var d2;
+			'model' : Message,
+			'name' : null,
 
-		this.comparator = function (message1, message2)
-		{
-			d1 = message1.date (false);
-			d2 = message2.date (false);
+			'nextPageParameters' : null,
+			'canHaveFilters' : false,
 
-			return (d1 ? d1.getTime () : 0) < (d2 ? d2.getTime () : 0) ? 1 : -1;
-		};
-	},
+			'filter' : '',
 
-	'sync' : function(method, model, options) 
-	{
+			'initialize' : function (models, options)
+			{
+				this.name = options.name;
+				this.filter = typeof (options.filter) != 'undefined' ? options.filter : '';
 
-		var self = this;
-		var passtrough = options.success;
-		options.success = function (response)
-		{
-			passtrough (response.messages);
-		}
+				var d1;
+				var d2;
 
-		//var parameters = { 'account' : Cloudwalkers.Session.getAccount ().get ('id') };
-		var whos = this.filter;
+				this.comparator = function (message1, message2)
+				{
+					d1 = message1.date (false);
+					d2 = message2.date (false);
 
-		var fetch_url = CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().get ('id') + '/drafts/' + whos;
+					return (d1 ? d1.getTime () : 0) < (d2 ? d2.getTime () : 0) ? 1 : -1;
+				};
+			},
 
-		// Default JSON-request options.
-		var params = _.extend({
-			type:         'POST',
-			dataType:     'json',
-			url:			method == 'read' ? fetch_url : '',
-			cache: false
-		}, options);
+			'sync' : function(method, model, options) 
+			{
+				options.headers = {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        };
+				
+				var self = this;
+				var passtrough = options.success;
+				options.success = function (response)
+				{
+					passtrough (response.messages);
+				}
 
-		// Make the request.
-		return $.ajax(params);
-	},
+				//var parameters = { 'account' : Session.getAccount ().get ('id') };
+				var whos = this.filter;
 
-	'update' : function (parameters)
-	{
-		if (typeof (parameters) == 'undefined')
-		{
-			parameters = {};
-		}
+				var fetch_url = CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().get ('id') + '/drafts/' + whos;
 
-		parameters.remove = false;
-		this.fetch (parameters);
-	}
+				// Default JSON-request options.
+				var params = _.extend({
+					type:         'POST',
+					dataType:     'json',
+					url:			method == 'read' ? fetch_url : '',
+					cache: false
+				}, options);
 
+				// Make the request.
+				return $.ajax(params);
+			},
+
+			'update' : function (parameters)
+			{
+				if (typeof (parameters) == 'undefined')
+				{
+					parameters = {};
+				}
+
+				parameters.remove = false;
+				this.fetch (parameters);
+			}
+
+		});
+
+		return Drafts;
 });

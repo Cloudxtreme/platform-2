@@ -2,7 +2,7 @@ define(
 	['Views/Widgets/Widget', 'Session', 'Views/User'],
 	function (Widget, Session, UserView)
 	{
-		var ScheduledFilters = .Widget.extend ({
+		var ScheduledFilters = Widget.extend ({
 	
 			'id' : "scheduledfilters",
 			'filters' : {

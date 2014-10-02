@@ -1,9 +1,9 @@
 define(
-	['mustache', 'Session', 'Views/Pageview', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
-	 'Views/Widgets/MessagesCounters', 'Views/Widgets/DashboardMessageList', 'Views/Widgets/Info'],
+	['Views/Pageview', 'mustache', 'Session', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
+	 'Views/Widgets/MessagesCounters', /*'Views/Widgets/DashboardMessageList', */'Views/Widgets/Info'],
 
-	function (Mustache, Session, Pageview, StatisticsCollection, DashboardCleanerWidget, 
-			  MessagesCountersWidget, DashboardMessageListWidget, InfoWidget)
+	function (Pageview, Mustache, Session, Statistics, DashboardCleanerWidget, 
+			  MessagesCountersWidget, /*DashboardMessageListWidget, */InfoWidget)
 	{
 		var Dashboard = Pageview.extend({
 
@@ -28,7 +28,7 @@ define(
 				this.translateTitle("dashboard");
 
 				// Reports
-				this.collection = new StatisticsCollection();
+				this.collection = new Statistics();
 				
 				this.listenTo(this.collection, 'seed', this.filldynamicreports);
 			},

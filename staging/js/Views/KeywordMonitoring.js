@@ -4,13 +4,17 @@ define(
 	{
 		var KeywordMonitoring = Pageview.extend({
 
-			title : 'Keyword Monitoring',
-			className : "container-fluid monitoring",
+			'title' : 'Keyword Monitoring',
+			'className' : "container-fluid monitoring",
 			
-			initialize : function ()
+			'initialize' : function ()
 			{
 				// Emergency break
 				if (!this.options.category) return Session.home();
+				
+				// Listen for changes
+				//this.listenTo(Session.getChannels(), 'sync', this.render);
+				//this.listenTo(Session.getStreams(), 'sync', this.render);
 				
 				this.category = this.options.category;
 
@@ -18,10 +22,11 @@ define(
 				this.translateTitle("keyword_monitoring");
 			},
 			
-			render : function()
+			'render' : function()
 			{
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
+
 
 				// Add filter widget
 				var filter = new MonitorFiltersWidget ({category: this.category });
@@ -42,8 +47,7 @@ define(
 				
 				return this;
 			},
-
-			translateTitle : function(translatedata)
+			'translateTitle' : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);
