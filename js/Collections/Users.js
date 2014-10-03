@@ -19,7 +19,6 @@
 	
 	'parse' : function (response)
 	{
-		
 		// Solve response json tree problem
 		if (this.parentmodel)
 			response = response[this.parenttype];
@@ -29,6 +28,8 @@
 		
 		// Ready?
 		if(!response.paging) this.ready();
+
+		this.processing = false;
 		
 		return response[this.typestring];
 	},
@@ -40,7 +41,7 @@
 	},
 	
 	'sync' : function (method, model, options)
-	{
+	{	
 		options.headers = {
             'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
             'Accept': "application/json"
@@ -50,6 +51,9 @@
 		{
 			this.processing = true;
 			this.parameters = this.parameters? "?" + $.param(this.parameters): "";
+
+			//Overrrding default params with fetch specif params
+			if(options.parameters)	this.parameters = "?" + $.param(options.parameters);
 		}
 
 		return Backbone.sync(method, model, options);

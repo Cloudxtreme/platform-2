@@ -2,7 +2,6 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 
 	'id' : 'coworkersparent',
 	'title': "Co-workers messages",
-	'parameters' : {records: 20},
 	'entries' : [],
 	
 	'events' : {
@@ -27,6 +26,9 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 		this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 
 		this.listenTo(Cloudwalkers.RootView, 'added:message', this.messageadded);
+
+		//Reseting the parameters
+		this.parameters = {records: 20};
 
 		// Watch outdated
 		this.updateable(this.model, "h3.page-title");

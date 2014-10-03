@@ -18,6 +18,8 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		// Check contacts collection existance
 		if (!this.model.users) this.model.users = new Cloudwalkers.Collections.Users();
 		else this.model.users.reset();
+
+		this.model.users.parentmodel = this.model;
 		
 		// Listen to contacts collection
 		//this.listenTo(this.model.users, 'add', this.fill);
@@ -65,7 +67,6 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		//triggers the list to re-listen to events
 		this.model.messages.trigger('update:content');
 
-		
 		// Load category message
 		this.model.messages.touch(this.model, {records: 20});
 	},
@@ -74,7 +75,6 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	{
 		// Toggle all active
 		this.$el.find(".toggleall").addClass('active').removeClass('inactive');
-		
 		
 		var string = $("#filter_contacts input").val();
 		
@@ -85,7 +85,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 		
 		// On typed, search for more
 		if (users.length < 5 && !isuser.cid && string.length > 2) this.requestusers(string);
-
+		
 		if (!users.length)
 		{
 			return this.hidesuggestions();
@@ -118,7 +118,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'requestusers' : function(string)
-	{
+	{	
 		if(string != this.filters.users.string)
 		{
 			if(!this.model.users.processing)
@@ -133,7 +133,7 @@ Cloudwalkers.Views.Widgets.CoworkersFilters = Cloudwalkers.Views.Widgets.Widget.
 	},
 	
 	'loadedusers' : function()
-	{
+	{	
 		this.$el.find(".loading-contacts").addClass("hidden");
 		
 		// Check pending requests

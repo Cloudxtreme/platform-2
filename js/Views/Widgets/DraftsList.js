@@ -12,7 +12,6 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 
 	'id' : 'draftsparent',
 	'title': "Draft messages",
-	'parameters' : {records: 20},
 	'entries' : [],
 	
 	'events' : {
@@ -39,6 +38,9 @@ Cloudwalkers.Views.Widgets.DraftsList = Cloudwalkers.Views.Widgets.Widget.extend
 		
 		// Watch outdated
 		// this.updateable(this.model, "h3.page-title");
+
+		//Reseting the parameters
+		this.parameters = {records: 20};
 
 		// Translation for Title
 		this.translateTitle("draft_messages");
