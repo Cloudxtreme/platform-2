@@ -1350,6 +1350,8 @@ aside .tag-input-append{
 
 #filter_contacts .loading-contacts, #filter_tags .loading-tags { width: 0; }
 
+#filter_contacts .loading-contacts{ margin-left: 0px; }
+
 #filter_contacts .loading-contacts:after, #filter_tags .loading-tags:after { 
 	position: relative; left: -24px; 
 	font-family: FontAwesome; font-size: 14px; color: #ccc; line-height: 2.5em; 
