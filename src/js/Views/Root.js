@@ -301,7 +301,7 @@ define (
 
 			imagePopups : function ()
 			{
-				$('a.image-popup-viewer').fancybox ();
+				$('a.image-popup-viewer').colorbox ();
 			},
 
 			resync : function(view)

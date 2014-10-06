@@ -1,9 +1,10 @@
 define(
 	['backbone', 'Session', 'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/SimpleCompose', 'Views/Widgets/NoteEntry'],
+	 'Views/SimpleCompose'],
 
-	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView, NoteEntryWidget)
+	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{
+		//var NoteEntryWidget = require('Views/Widgets/NoteEntry')
 		
 		var Entry = Backbone.View.extend({
 	

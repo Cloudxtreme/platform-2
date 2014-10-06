@@ -1,6 +1,6 @@
 define(
-	['Models/User', 'Session', 'Models/Contact'],
-	function (User, Session, Contact)
+	['Models/User', 'Session'],
+	function (User, Session)
 	{
 		var Contact = User.extend({
 	

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Root'],
-	function (Backbone, Session, RootView)
+	['backbone'],
+	function (Backbone)
 	{
 		var User = Backbone.Model.extend({
 

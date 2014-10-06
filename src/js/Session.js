@@ -2,7 +2,7 @@ define(
 	['Cloudwalkers', 'Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
 	function (Cloudwalkers, Me, RootView, Router, Accounts, Polyglot)
 	{
-		Session = 
+		var Session = 
 		{
 			langs :
 			[

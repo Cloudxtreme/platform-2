@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Models/Message', 'Views/Root', 
+	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Views/Root', 
 	 'Views/ActionParameters', 'Utilities/Utils'],
-	function (Backbone, Session, Actions, Notes, Notifications, Message, RootView, ActionParametersView, Utils)
-	{
+	function (Backbone, Session, Actions, Notes, Notifications, RootView, ActionParametersView, Utils)
+	{	console.log("Message")
 		var Message = Backbone.Model.extend({
 	
 			'typestring' : "messages",
@@ -1313,15 +1313,12 @@ define(
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
-			},
+			}
 
 			/*'hascontent' : function(){
 				return Object.getOwnPropertyNames(this.get("body")).length > 0;
 			}*/
 		});
-
-
-
 		
 		return Message;
 });

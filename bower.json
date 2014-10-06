@@ -13,6 +13,18 @@
         "underscore": "*",
         "backbone": "*",
         "mustache": "*",
-        "bootstrap": "*"
+        "bootstrap": "*",
+        "backbone.crossdomain": "*",
+        "bootstrap-datepicker": "*",
+        "bootstrap-timepicker": "*",
+        "cal-heatmap": "*",
+        "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip",
+        "d3": "*",
+        "fontawesome": "*",
+        "fullcalendar": "*",
+        "jquery.gritter": "*",
+        "slimscroll": "*",
+        "jquery.ui": "*",
+        "polyglot": "*"
     }
 }

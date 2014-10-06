@@ -1,7 +1,7 @@
 define(
 	['backbone', 'Session', 'Router', 'config', 'Views/Root'],
 	function (Backbone, Session, Router, config, RootView)
-	{
+	{	console.log("Cloudwalkers")
 		var Cloudwalkers = {
 			
 			version : 1,
@@ -21,7 +21,7 @@ define(
 			{
 				// Authentication
 				var token = window.localStorage.getItem('token');
-				
+				console.log("token", token)
 				// Check if there is authentication
 				if(token && token.length > 9)
 				{	

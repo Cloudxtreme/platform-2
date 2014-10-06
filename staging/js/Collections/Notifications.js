@@ -1,6 +1,6 @@
 define(
-	['Session', 'Collections/Messages', 'Models/Notification'],
-	function (Session, Messages, Notification)
+	['Session', 'Collections/Messages'],
+	function (Session, Messages)
 	{
 		var Notifications = Messages.extend({
 	

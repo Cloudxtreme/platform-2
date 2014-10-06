@@ -1,6 +1,6 @@
 define(
-	['Models/Message', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Models/Message'],
-	function (Message, Actions, Notes, Notifications, Message)
+	['Models/Message', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications'],
+	function (Message, Actions, Notes, Notifications)
 	{
 		var Notification = Message.extend({
 			
@@ -15,6 +15,10 @@ define(
 				// Actions
 				this.actions = new Actions(false, {parent: this});
 				this.notes = new Notes(false, {parent: this});
+
+				// Make sure the collection is defined
+				if(!Notifications)	Notifications = require('Collections/Notifications');
+
 				this.notifications = new Notifications(false, {parent: this});
 				
 				// Listen to destroy

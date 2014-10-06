@@ -47,10 +47,13 @@ var Cloudwalkers;
 
 require(
 	['backbone', 'bootstrap', 'Cloudwalkers'],
-	function(Backbone, bootstrap, cwd)
-	{	
-		Store = new StorageClassLocal();   
-		Cloudwalkers = cwd.init ();
+	function(Backbone, bootstrap, Cwd)
+	{	console.log(Backbone)
+		$(document).ready(function()
+		{			
+			Store = new StorageClassLocal();			
+			Cloudwalkers = Cwd.init ();
+		});
 	}
 );
 

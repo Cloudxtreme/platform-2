@@ -1,7 +1,7 @@
-define(['backbone', 'Session', 'Router', 'Collections/Accounts'], 
-	function (Backbone, Session, Router, Accounts)
+define(['Models/User', 'Session', 'Router', 'Collections/Accounts'], 
+	function (User, Session, Router, Accounts)
 	{
-		var Me = Backbone.Models.User.extend(
+		var Me = User.extend(
 		{			
 			unreadMessages : null,
 			
@@ -9,6 +9,8 @@ define(['backbone', 'Session', 'Router', 'Collections/Accounts'],
 			{
 				// Load data
 				this.once('change', this.activate);
+
+				if(!Session)	Session = require('Session')
 
 				// Force reload me on restart
 				/*if(Store.exists("me"))

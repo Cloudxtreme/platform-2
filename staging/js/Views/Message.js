@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Views/ActionParameters', 'Views/OriginalMessage'],
-	function (Backbone, RootView, ActionParametersView, OriginalMessageView)
+	['backbone', 'Views/Root', 'Views/ActionParameters'],
+	function (Backbone, RootView, ActionParametersView)
 	{
 		var Message = Backbone.View.extend({
 
@@ -128,6 +128,8 @@ define(
 					{
 						parameters.template = this.options.originaltemplate;
 					}
+
+					var OriginalMessageView = require('Views/Message');
 
 					var parentview = new OriginalMessageView (parameters);
 					this.$el.find ('.parent-message-view').html (parentview.render().el);
