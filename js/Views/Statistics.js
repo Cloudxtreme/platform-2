@@ -24,6 +24,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		'click #subtract': 'subtractperiod',
 		'click #subtractempty': 'subtractempty',
 		'click #addempty': 'addempty',
+		'click #showreports': 'showreports',
 		'click #now': 'now',
 		'click #show': 'changecustom',
 		'change .stats-header select.networks': 'changestream',
@@ -247,7 +248,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.cleanviews();
 		this.hideloading();
 
-		var view = new Cloudwalkers.Views.Widgets.EmptyData ({timeparams: this.timeparams});
+		var view = new Cloudwalkers.Views.Widgets.EmptyStatisticsData ({timeparams: this.timeparams, stream: this.streamid});
 
 		this.views.push (view);
 		this.appendWidget (view, 8, null, 2);
@@ -292,6 +293,16 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	{
 		this.period += 1;	
 		this.trigger('change:period', this.period);
+	},
+
+	'showreports' : function()
+	{	
+		var streamid = Number(this.$el.find("select.networks").val());
+
+		if(!streamid)
+			streamid = Cloudwalkers.Session.getStreams().where ({statistics: 1})[0].id;
+
+		Cloudwalkers.Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
 	},
 	
 	'changestream' : function()
