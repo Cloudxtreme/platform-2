@@ -151,7 +151,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'fillcharts' : function (list)
 	{
 		if (list && !list.length) return this.showempty();		
-		else this.$container.html('');
+
+		this.cleanviews();
 	
 		// Iterate widgets
 		this.widgets.forEach (function (widget)
@@ -164,8 +165,8 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			if (this.streamid)
 				widget.data = this.streamdata (widget);
 			
-			widget.data.parentview = this;
-			widget.data.timespan = {
+				widget.data.parentview = this;
+				widget.data.timespan = {
 				since : this.start.unix(), 
 				to : this.end.unix()
 			}
@@ -225,7 +226,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'hideloading' : function ()
-	{	
+	{
 		this.$el.removeClass("loading");
 		this.$el.find('.period-buttons .btn').attr("disabled", false);
 
@@ -246,6 +247,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
 		var view = new Cloudwalkers.Views.Widgets.EmptyData ({timeparams: this.timeparams});
 
+		this.views.push (view);
 		this.appendWidget (view, 8, null, 2);
 	},
 
