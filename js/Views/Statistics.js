@@ -162,11 +162,14 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 				this.translatechart (widget);
 
 			// Stream based data	
-			if (this.streamid)
-				widget.data = this.streamdata (widget);
-			
-				widget.data.parentview = this;
-				widget.data.timespan = {
+			if (this.streamid && this.streamdata(widget))
+				widget.data = this.streamdata(widget);
+
+			else if(this.streamid)
+				return;
+
+			widget.data.parentview = this;
+			widget.data.timespan = {
 				since : this.start.unix(), 
 				to : this.end.unix()
 			}
@@ -244,7 +247,6 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		this.cleanviews();
 		this.hideloading();
 
-		var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
 		var view = new Cloudwalkers.Views.Widgets.EmptyData ({timeparams: this.timeparams});
 
 		this.views.push (view);
