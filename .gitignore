@@ -3,3 +3,8 @@ js/config.js
 /.settings
 /.buildpath
 /.project
+node_modules
+dist/
+staging/
+src/js/config.js
+src/vendor

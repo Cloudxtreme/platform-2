@@ -4,10 +4,6 @@ define({
 	apiurl: "https://devapi.cloudwalkers.be/",
 	authurl: "https://devapi.cloudwalkers.be/oauth2/",
 	
-	/*appid : 'oauth253fb03252cfbc2.44920946',
-	apiurl: 'https://devapi.cloudwalkers.be/',
-	authurl: 'https://devapi.cloudwalkers.be/oauth2/',*/
-	
 	setloginwindow : function ()
 	{
 		$("iframe").get(0).src = this.authurl + "authorize?response_type=token&state=xyz&client_id=" + this.appid + "&redirect_uri=" + origin() + "/auth.html";
