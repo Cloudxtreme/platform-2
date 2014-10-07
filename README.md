@@ -28,7 +28,6 @@ The gruntfile takes care of JS sanity testing,
 compression of javascript and css files, concatinating of template files
 and the templating process of the html files.
 
-Run before first use: 		grunt install
 Run for release: 			grunt release
 Run for staging:			grunt staging
 Change listener:			grunt watcher
@@ -45,7 +44,6 @@ Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/superchargin
 
 Run 	# Instalation
 Run 	# Plugins Instalation
-Run 	grunt install
 Run		grunt staging --force	(The current version is till experimental and this will allow to go through all the warnings.)
 
 #######
