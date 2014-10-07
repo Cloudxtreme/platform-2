@@ -14,14 +14,6 @@ Cloudwalkers platform version using Backbone.js, Grunt, Bower & Requirejs
 7. Edit config file if required.
 
 
-# Plugin instalation
-
-This will install the necessary plugins in a newly created src/vendor folder.
-All the plugin conflicts should be resolved persistently.
-
-Run before first use:		bower install
-
-
 # Cloudwalkers Gruntfile
 
 The gruntfile takes care of JS sanity testing,
