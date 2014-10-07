@@ -4,18 +4,18 @@ define(
 	{
 		var Notes = Backbone.Collection.extend({
 	
-			'model' : Note,
-			'typestring' : "notes",
-			'modelstring' : "note",
-			'parameters' : {},
-			'paging' : {},
-			'cursor' : false,
+			model : Note,
+			typestring : "notes",
+			modelstring : "note",
+			parameters : {},
+			paging : {},
+			cursor : false,
 			
-			'events' : {
+			events : {
 				'remove' : 'destroy'
 			},
 			
-			'initialize' : function(models, options)
+			initialize : function(models, options)
 			{	
 				// Override type strings if required
 				if(options) $.extend(this, options);
@@ -28,19 +28,19 @@ define(
 				});
 			},
 			
-			'destroy' : function ()
+			destroy : function ()
 			{
 				console.log("collection destroyed")
 				this.reset();
 			},
 
-			'isempty' : function(){		
+			isempty : function(){		
 				if(this.length == 0){
 					this.trigger('ready:empty');
 				}
 			},
 
-			'url' : function()
+			url : function()
 			{
 				var url = [Session.api];
 

@@ -4,14 +4,14 @@ define(
 	{
 		var Contacts = Users.extend({
 
-			'model' : Contact,
-			'typestring' : "contacts",
-			'modelstring' : "contact",
-			'parenttype' : "account",
-			'comparator' : 'displayname',
-			'processing' : false,
+			model : Contact,
+			typestring : "contacts",
+			modelstring : "contact",
+			parenttype : "account",
+			comparator : 'displayname',
+			processing : false,
 
-			'initialize' : function (models, options)
+			initialize : function (models, options)
 			{
 				if(!Session)	Session = require('Session');
 				
@@ -22,7 +22,7 @@ define(
 				}
 			},
 			
-			'url' : function ()
+			url : function ()
 		    {
 				var url = [Session.api, "accounts", Session.getAccount ().id ];
 				
@@ -39,7 +39,7 @@ define(
 					CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");*/
 		    },
 		    
-		    'parse' : function (response)
+		    parse : function (response)
 			{
 				this.parameters = "";
 				this.processing = false;
@@ -49,7 +49,7 @@ define(
 					response[this.typestring]: response.account[this.typestring];
 			},
 			    
-		    'sync' : function (method, model, options)
+		    sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -64,7 +64,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'touch' : function(model, params)
+			touch : function(model, params)
 			{
 				// Exception for following
 				if(!model) this.following = "following" + "?" + $.param(params);
@@ -83,7 +83,7 @@ define(
 			},
 			
 			
-			'updates' : function (ids)
+			updates : function (ids)
 			{
 				for(n in ids)
 				{
@@ -101,7 +101,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});

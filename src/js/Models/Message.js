@@ -1,12 +1,13 @@
 define(
 	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Views/Root', 
 	 'Views/ActionParameters', 'Utilities/Utils'],
+	
 	function (Backbone, Session, Actions, Notes, Notifications, RootView, ActionParametersView, Utils)
-	{	console.log("Message")
+	{	
 		var Message = Backbone.Model.extend({
 	
-			'typestring' : "messages",
-			'limits' : {'twitter' :140, 'linkedin' : 700},
+			typestring : "messages",
+			limits : {'twitter' :140, 'linkedin' : 700},
 
 			/*
 			*
@@ -16,7 +17,7 @@ define(
 			*
 			*/
 
-			'initialize' : function ()
+			initialize : function ()
 			{			
 				// Deprecated?
 				//this.on ('change', this.afterChange);
@@ -41,7 +42,7 @@ define(
 				this.notifications = new Notifications(false, {parent: this});
 			},
 			
-			'url' : function (params)
+			url : function (params)
 		    {
 		        if(!this.id){
 		        	params = this.parameters;
@@ -59,7 +60,7 @@ define(
 		        	Session.api + '/' + this.typestring + '/' + this.id;
 		    },
 
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") return response = {id: response};
@@ -79,7 +80,7 @@ define(
 				return response;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -94,12 +95,12 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 
-			'updatecollection' : function(collection)
+			updatecollection : function(collection)
 			{
 				collection.updated = true;
 			},
 
-			'updateactions' : function(response)
+			updateactions : function(response)
 			{
 				var attributes = response.get("actionresult")? response.get("actionresult").models.update[0]: null;
 
@@ -108,7 +109,7 @@ define(
 			},
 
 			/* Validations */
-			'validateCustom' : function (ignorelist)
+			validateCustom : function (ignorelist)
 			{	
 				var error;
 
@@ -126,7 +127,7 @@ define(
 					return error;
 			},
 
-			'validateschedules' : function()
+			validateschedules : function()
 			{
 				var error;
 
@@ -148,7 +149,7 @@ define(
 				return error;
 			},
 
-			'validateschedule' : function(schedule)
+			validateschedule : function(schedule)
 			{	
 				if(!schedule)	return false;
 
@@ -167,7 +168,7 @@ define(
 				return false;
 			},
 
-			'hascontent' : function()
+			hascontent : function()
 			{
 				var result;
 
@@ -195,7 +196,7 @@ define(
 				}
 			},
 
-			'validatecontent' : function()
+			validatecontent : function()
 			{					
 				//Hardcoded smallest limit. Get it dinamically
 				var smallestlimit = 140;
@@ -242,7 +243,7 @@ define(
 
 			/* !Validations */
 			
-			'sanitizepost' : function ()
+			sanitizepost : function ()
 			{
 				// Remove body HTML
 				if(this.attributes.body.html)  delete this.attributes.body.html;
@@ -264,7 +265,7 @@ define(
 				}.bind(this));
 			}, 
 			
-			'cloneSanitized' : function (keepstreams)
+			cloneSanitized : function (keepstreams)
 			{	
 				var model = new Message();
 				$.extend(true, model, this);
@@ -288,13 +289,13 @@ define(
 				return model;	
 			},
 
-			'checkloaded' : function (response)
+			checkloaded : function (response)
 			{
 				var model = this;
 				if(response.objectType) setTimeout(function(){ model.trigger('loaded'); }, 1, this);
 			},
 			
-			'filterData' : function (response)
+			filterData : function (response)
 			{	
 				//In case it's a notification
 				if(response.message && response.message.body)
@@ -353,14 +354,14 @@ define(
 				return filtered;
 			},
 			//Temp hack for viewcontact endpoint
-			'generateintro' : function()
+			generateintro : function()
 			{
 				if(this.get("body") && !this.get("body").intro)
 					this.attributes.body.intro = this.get("body").plaintext.substr(0, 72);
 
 			},
 
-			'filterActions' : function ()
+			filterActions : function ()
 			{	
 				if(!this.get("actiontokens")) return [];
 
@@ -378,7 +379,7 @@ define(
 				return tokens;
 			},
 			
-			'filterCalReadable' : function ()
+			filterCalReadable : function ()
 			{
 				var loaded = (this.get("objectType"));
 				var media =  loaded && this.get("media") != "reorder";
@@ -405,7 +406,7 @@ define(
 				return this;
 			},
 			
-			'attach' : function (attach, index, streamid)
+			attach : function (attach, index, streamid)
 			{	
 				var attachments = this.get("attachments") || [];
 				
@@ -417,7 +418,7 @@ define(
 				return response;
 			},
 			
-			'unattach' : function (index)
+			unattach : function (index)
 			{
 				var attachments = this.get("attachments") || [];
 				
@@ -425,7 +426,7 @@ define(
 				attachments.splice(index, 1);
 			},
 			
-			'addcampaign' : function ()
+			addcampaign : function ()
 			{
 				
 				
@@ -440,7 +441,7 @@ define(
 			
 			/*Variation functions*/
 
-			'setvariation' : function(stream, key, value)
+			setvariation : function(stream, key, value)
 			{	
 				var variations = this.get("variations") || [];
 				var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
@@ -483,7 +484,7 @@ define(
 
 			},
 			
-			'getvariation' : function (stream, key)
+			getvariation : function (stream, key)
 			{	
 				// Get variation object
 				var variations = this.get("variations") || []
@@ -502,7 +503,7 @@ define(
 				
 			},
 			
-			'original' : function (stream, key, input)
+			original : function (stream, key, input)
 			{	
 				// Variation or self
 				var variations = this.get("variations")? this.get("variations").filter(function(vr){ return stream && vr.stream == stream.id }): [];
@@ -519,7 +520,7 @@ define(
 				return variation[key];
 			},
 			
-			'removevariation' : function(streamid)
+			removevariation : function(streamid)
 			{
 				var variations = this.get("variations");
 				if(!variations)	return;
@@ -533,7 +534,7 @@ define(
 				});
 			},
 
-			'removevarimg' : function(streamid, image){
+			removevarimg : function(streamid, image){
 				//If image is an object it means it's meant to exclude
 
 				var variation = this.getvariation(streamid);
@@ -549,7 +550,7 @@ define(
 				}
 			},
 
-			'addexclude' : function(streamid, index){
+			addexclude : function(streamid, index){
 
 				var variation = this.getvariation(streamid) || this.setvariation(streamid);;
 				var excludes = variation.excludes;
@@ -560,7 +561,7 @@ define(
 					variation.excludes = {attachments : [index]};
 			},
 
-			'checkexclude' : function(streamid, index){
+			checkexclude : function(streamid, index){
 
 				var variation = this.getvariation(streamid);
 				var excludes;
@@ -707,13 +708,13 @@ define(
 				return data;
 			},*/
 
-			'location' : function ()
+			location : function ()
 			{
 				return "#";
 			},
 			
 			
-			'afterChange' : function ()
+			afterChange : function ()
 			{
 				this.addInternalActions ();
 
@@ -723,7 +724,7 @@ define(
 				}
 			},
 
-			'getActionIcon' : function (action)
+			getActionIcon : function (action)
 			{
 				if (action.token == 'internal-share')
 				{
@@ -793,7 +794,7 @@ define(
 				return action.token;
 			},
 
-			'addInternalActions' : function ()
+			addInternalActions : function ()
 			{
 				var self = this;
 
@@ -882,7 +883,7 @@ define(
 				}
 			},
 
-			'deleteMessage' : function ()
+			deleteMessage : function ()
 			{	
 				// Repeat or skip?
 				if (this.repeat ().repeat)
@@ -919,7 +920,7 @@ define(
 				}
 			},
 
-			'deletetype' : function(response)
+			deletetype : function(response)
 			{	
 				var endpoint;
 
@@ -930,7 +931,7 @@ define(
 					this.destroy({wait: true, success: this.destroysuccess.bind(this)});
 			},
 
-			'destroysuccess' : function()
+			destroysuccess : function()
 			{
 				//trigger destroy
 				this.trigger ("destroyed", this, this.collection);
@@ -939,37 +940,37 @@ define(
 				this.trigger ("destroy", this, this.collection);
 			},
 
-			'skipwatcher' : function(response)
+			skipwatcher : function(response)
 			{
 				if(response.get("status") == 'REMOVED')
 					this.destroysuccess();
 			},
 
-			'humandate' : function (entry)
+			humandate : function (entry)
 			{
 				var date = (new Date(entry? entry: this.get ('date')));
 				
 				return Utils.longdate (date);
 			},
 
-			'shortdate' : function ()
+			shortdate : function ()
 			{
 				var date = this.date ();
 				return Utils.shortdate (date);
 			},
 
-			'time' : function ()
+			time : function ()
 			{
 				var date = this.date ();
 				return Utils.time (date);
 			},
 
-			'date' : function ()
+			date : function ()
 			{
 				return (new Date(this.get ('date')));
 			},
 
-			'getAction' : function (token)
+			getAction : function (token)
 			{
 				
 				var actions = this.get ('actions');
@@ -984,7 +985,7 @@ define(
 			},
 
 			// Execute an action, if possible with parameters
-			'act' : function (action, parameters, callback)
+			act : function (action, parameters, callback)
 			{
 				
 				RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
@@ -1040,7 +1041,7 @@ define(
 				});
 			},
 
-			'scheduledate' : function (showtext)
+			scheduledate : function (showtext)
 			{
 				if (typeof (showtext) == 'undefined')
 				{
@@ -1063,7 +1064,7 @@ define(
 
 			},
 
-			'calculateIntervalFromSeconds' : function (intervalSeconds)
+			calculateIntervalFromSeconds : function (intervalSeconds)
 			{
 				var out = {};
 
@@ -1103,7 +1104,7 @@ define(
 				return false;
 			},
 
-			'repeat' : function ()
+			repeat : function ()
 			{
 				var schedule = this.get ('schedule');
 
@@ -1143,7 +1144,7 @@ define(
 				return out;
 			},
 
-			'getStream' : function ()
+			getStream : function ()
 			{
 				if (this.get ('stream'))
 				{
@@ -1152,7 +1153,7 @@ define(
 				return null;
 			},
 
-			'getProcessedAttachments' : function ()
+			getProcessedAttachments : function ()
 			{
 				var attachments = [];
 				var attachment;
@@ -1184,7 +1185,7 @@ define(
 				return attachments;
 			},
 
-			'hasAttachement' : function(type){
+			hasAttachement : function(type){
 
 				if (typeof (this.attributes.attachments) != 'undefined')
 				{
@@ -1198,7 +1199,7 @@ define(
 				}
 			},
 
-			'setRead' : function ()
+			setRead : function ()
 			{
 				if (!this.get ('read'))
 				{
@@ -1216,7 +1217,7 @@ define(
 				}
 			},
 
-			'shortBody' : function ()
+			shortBody : function ()
 			{
 				var body = this.get ('body');
 
@@ -1236,7 +1237,7 @@ define(
 				return out;
 			},
 
-			'messageAction' : function (action)
+			messageAction : function (action)
 			{
 
 				if (action == null)
@@ -1290,17 +1291,17 @@ define(
 				}
 			},
 
-			'hasattachements' : function(){
+			hasattachements : function(){
 				if(this.get("attachments"))
 					return this.get("attachments").length > 0;
 			},
 
-			'hasschedule' : function(){
+			hasschedule : function(){
 				if(this.get("schedule"))
 					return Object.getOwnPropertyNames(this.get("schedule")).length > 0;
 			},
 
-			'hasnotes' : function()
+			hasnotes : function()
 			{
 				var stats = this.get("stats");
 				var notes;
@@ -1309,7 +1310,7 @@ define(
 					return stats.notes
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

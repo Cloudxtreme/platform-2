@@ -4,13 +4,13 @@ define(
     {
         var StreamSettings = Backbone.View.extend({
 
-        	'events' : {
+        	events : {
                 'submit form' : 'submit'
         	},
 
-            'streamid' : null,
+            streamid : null,
 
-        	'render' : function ()
+        	render : function ()
         	{
         		var self = this;
 
@@ -37,17 +37,17 @@ define(
         		return this;
         	},
 
-            'getStreamSettings' : function (callback)
+            getStreamSettings : function (callback)
             {
                 Cloudwalkers.Net.get('stream/' + this.streamid + '/events', null, callback);
             },
 
-            'setStreamSettings' : function (data, callback)
+            setStreamSettings : function (data, callback)
             {
                 Cloudwalkers.Net.put('stream/' + this.streamid + '/events', null, data, callback);
             },
 
-            'submit' : function (e)
+            submit : function (e)
             {
                 var self = this;
 

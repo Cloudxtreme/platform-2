@@ -5,12 +5,12 @@ define(
 		var Group = Backbone.Model.extend({
 	
 	
-			'initialize' : function ()
+			initialize : function ()
 			{
 
 			},
 			
-			'url' : function ()
+			url : function ()
 			{
 				if(this.parent)
 		        	return CONFIG_BASE_URL + 'json/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
@@ -23,7 +23,7 @@ define(
 		        	CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;*/
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") response = {id: response};
@@ -34,7 +34,7 @@ define(
 				return response;
 			},
 			
-			'filterData' : function (type)
+			filterData : function (type)
 			{
 				
 				var data = this.attributes;
@@ -51,7 +51,7 @@ define(
 				return data;
 			},
 			
-			'getRole' : function ()
+			getRole : function ()
 			{
 				if (this.get ('level') == 10)
 				{

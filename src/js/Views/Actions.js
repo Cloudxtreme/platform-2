@@ -4,13 +4,13 @@ define(
 	{
 		var Actions = Backbone.View.extend({
 
-			'className' : 'message-actions-wrapper',
+			className : 'message-actions-wrapper',
 
-			'actionsright' : [],
-			'actionsleft' : [],
-			'compounds' : [],
+			actionsright : [],
+			actionsleft : [],
+			compounds : [],
 
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				$.extend(this, options);
 				
@@ -20,7 +20,7 @@ define(
 				this.listenTo(this.message.actions, 'destroy', this.updateactions);
 			},
 
-			'render' : function(token)
+			render : function(token)
 			{	
 				this.selected = this.$el.find('.inactive').data('token');
 
@@ -39,7 +39,7 @@ define(
 				return this;
 			},
 
-			'fillactions' : function(token)
+			fillactions : function(token)
 			{	
 				var actions;
 				var compound;
@@ -79,7 +79,7 @@ define(
 				}
 			},
 
-			'reorderactions' : function(actions)
+			reorderactions : function(actions)
 			{	
 				var del;
 
@@ -93,13 +93,13 @@ define(
 				
 			},
 
-			'updateactions' : function(token)
+			updateactions : function(token)
 			{	
 				this.render(token);
 				this.trigger("actions:update")
 			},
 
-			'renderactions' : function(position, actions)
+			renderactions : function(position, actions)
 			{	
 				var container = this.$el.find('.actions-'+position);
 				
@@ -109,7 +109,7 @@ define(
 
 			},
 
-			'incrementaction' : function(token)
+			incrementaction : function(token)
 			{	
 				var action = this.actionsright.filter(function(act){ return act.action.token == token});
 

@@ -4,14 +4,14 @@ define(
 	{
 		var Firsttime = Pageview.extend({
 
-			'title' : "First Time",
-			'events' : {
+			title : "First Time",
+			events : {
 				'remove': 'destroy',
 				'click [data-add-service]' : 'addService',
 				'click #ready' : 'ready'
 			},
 			
-			'initialize' : function()
+			initialize : function()
 			{
 				// Create Services collection
 				this.services = new Services();
@@ -22,7 +22,7 @@ define(
 			
 			},
 				
-			'render' : function ()
+			render : function ()
 			{
 				// Navigation view
 				Backbone.history.fragment = "settings/services";
@@ -39,7 +39,7 @@ define(
 				return this;
 			},
 			
-			'appendOptions' : function(services, available) {
+			appendOptions : function(services, available) {
 				
 				var $container = this.$el.find(".networks-list");
 				
@@ -49,7 +49,7 @@ define(
 				}
 			},
 
-			'processLink' : function (url)
+			processLink : function (url)
 			{
 				
 				if (url.indexOf ('?') > 0)
@@ -63,7 +63,7 @@ define(
 				return url;
 			},
 			
-			'addService' : function (e)
+			addService : function (e)
 			{
 				// Service token
 				var token = $(e.target).data ('add-service');
@@ -84,7 +84,7 @@ define(
 
 			},
 
-			'ready' : function()
+			ready : function()
 			{
 				Session.getAccount().set("firstTime", 0);
 				Router.Instance.navigate('#dashboard', true);
@@ -111,7 +111,7 @@ define(
 
 			},*/
 			
-			'destroy' : function ()
+			destroy : function ()
 			{
 				$('#sidebar, #inner-content').removeClass("collapsed expanded");
 			}

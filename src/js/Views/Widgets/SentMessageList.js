@@ -4,7 +4,7 @@ define(
 	{
 		var SentMessageList = InboxMessageList.extend({
 	
-			'initialize' : function (options, /* Deprecated? */ pageviewoptions)
+			initialize : function (options, /* Deprecated? */ pageviewoptions)
 			{
 				if(options) $.extend(this, options);
 				
@@ -16,7 +16,7 @@ define(
 				this.loadmylisteners();
 			},
 
-			'render' : function()
+			render : function()
 			{	
 				var param = {streams: [], networks: []};
 				var streams = Session.getChannel('outgoing').streams;
@@ -52,7 +52,7 @@ define(
 				return this;
 			},
 
-			'toggle' : function(view)
+			toggle : function(view)
 			{	
 				var options = {model: view.model, template: 'sentmessage'};
 				
@@ -67,7 +67,7 @@ define(
 				view.$el.addClass("active");
 			},
 
-			'fill' : function (models)
+			fill : function (models)
 			{	
 				var template = this.templates[this.collectionstring];		
 
@@ -99,7 +99,7 @@ define(
 				else 					this.hidemore();
 			},
 
-			'storeview' : function ()
+			storeview : function ()
 			{	
 				
 				// Memory cloth
@@ -116,7 +116,7 @@ define(
 				}
 			},
 
-			'requestcontacts' : function(string)
+			requestcontacts : function(string)
 			{
 				if(string != this.filters.contacts.string)
 				{

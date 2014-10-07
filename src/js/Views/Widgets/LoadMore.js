@@ -7,22 +7,22 @@ define(
 	{
 		var LoadMore = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click' : 'more'
 			},
 
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				$.extend(this, options)
 			},
 
-			'loadmylisteners' : function()
+			loadmylisteners : function()
 			{
 				this.loadListeners(this.list, ['request', 'sync', 'ready'], true);
 				this.trigger("rendered");
 			},
 
-			'render' : function()
+			render : function()
 			{	
 				param = {};
 
@@ -40,7 +40,7 @@ define(
 				return this;
 			},
 
-			'more' : function()
+			more : function()
 			{
 				this.$el.find('.btn.load-more').addClass('hidden');
 				this.$el.find('.load-more-wrap').addClass('inner-loading');
@@ -49,13 +49,13 @@ define(
 				this.parentcontainer.css('max-height', maxheight);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

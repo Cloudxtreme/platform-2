@@ -1,13 +1,13 @@
 define(
-	['backbone', 'Session', 'Models/CannedResponse'],
+	[backbone, Session, Models/CannedResponse],
 	function (Backbone, Session, CannedResponse)
 	{	
 		var CannedResponses = Backbone.Collection.extend({
 
-			'model' : CannedResponse,
-			'touched' : false,
+			model : CannedResponse,
+			touched : false,
 			
-			'initialize' : function()
+			initialize : function()
 			{	
 				if(!Session)	Session = require('Session');
 
@@ -17,14 +17,14 @@ define(
 					Session.getCannedResponses().listenTo(this, "add", Session.getCannedResponses().distantAdd);
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				var url = Session.api + '/streams/' + Session.getAccount ().id + ':canned/messages';
 				//var url = CONFIG_BASE_URL + 'json/streams/' + Session.getAccount ().id + ':canned/messages';
 				return this.parameters? url + "?" + $.param (this.parameters): url;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -39,18 +39,18 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{	
 				return response.stream.messages;
 			},
 			
-			'store' : function (action, model)
+			store : function (action, model)
 			{
 				if(action == "delete")
 					Store.remove("campaigns", {id: model.id});
 			},
 
-			'removecanned' : function(id)
+			removecanned : function(id)
 			{
 				var cannedresponse;
 

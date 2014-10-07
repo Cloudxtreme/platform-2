@@ -1,8 +1,8 @@
 define(
-	['Views/Entry', 'mustache'],
-	function (EntryView, Mustache)
+	['Views/Entry'],
+	function (Entry)
 	{
-		var CounterEntry = EntryView.extend({
+		var CounterEntry = Entry.extend({
 
 			tagName : 'a',
 
@@ -10,10 +10,11 @@ define(
 			{
 				$.extend(this, options);
 
-				this.listenTo(this.model, 'change', this.render)
+				//this.listenTo(this.model, 'change', this.render)
+				//this.model.on('all', function(a){console.log(a)})
 			},
 
-			render : function ()	
+			render : function ()
 			{	
 				if(this.data.typelink)	var url = this.data.typelink + "/" + (this.model.get("hasMessages")? "messages" : "notifications");
 				else					var url = this.data.link? this.data.link: '#' + this.data.type + '/' + this.data.channel.id + '/' + this.model.id;
@@ -21,16 +22,11 @@ define(
 				this.$el.attr('href', url);
 				this.$el.attr('data-stream', this.model.id);
 
-				if(this.data.channel.get("type") == "outgoing")
-					this.count = this.model.get("counters").total.scheduled.messages.total;
-				else
-					this.count = this.model.get("counters").recent.incoming.any.unread;
-
 				var params = { 
-					//id: this.model.id, 
+					id: this.model.id, 
 					name: this.model.get("name"), 
 					url: url, 
-					count: this.count, 
+					count: this.model.count, 
 					icon: this.model.get("network") ?this.model.get("network").icon: this.data.icon 
 				};
 

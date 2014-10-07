@@ -4,12 +4,12 @@ define(
 	{
 		var ContactView = Backbone.View.extend({
 	
-			'tagName' : 'li',
-			'template': 'contactentry',
-			'notifications' : [],
-			'parameters' : {},
+			tagName : 'li',
+			template : 'contactentry',
+			notifications : [],
+			parameters : {},
 			
-			'events' : 
+			events : 
 			{
 				'click .contact-delete' : 'unfollow'
 				/*'click [data-notifications]' : 'loadNotifications',
@@ -18,7 +18,7 @@ define(
 				'click' : 'toggle'*/
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				// HACK!
 				this.parameters = {};
@@ -32,7 +32,7 @@ define(
 				this.listenTo(this.model, 'destroy', this.remove);
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				
 				// Parameters
@@ -53,7 +53,7 @@ define(
 				return this;
 			},
 			
-			'unfollow' : function ()
+			unfollow : function ()
 			{	
 				this.model.trigger("unfollow", this.model);	
 				

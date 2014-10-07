@@ -4,24 +4,24 @@ define(
 	{
 		var Campaigns = Backbone.Collection.extend({
 
-			'model' : Campaign,
+			model : Campaign,
 			
-			'initialize' : function()
+			initialize : function()
 			{
 				this.on("destroy", this.store.bind(this, "delete"));
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				return Session.api + '/account/' + Session.getAccount ().id + '/campaigns'; 
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{
 				return response.campaigns;
 			},
 			
-			'store' : function (action, model)
+			store : function (action, model)
 			{
 				if(action == "delete")
 					Store.remove("campaigns", {id: model.id});

@@ -4,15 +4,15 @@ define(
 	{
 		var UserDropdown = Backbone.View.extend({
 
-			'tagName' : 'option',
+			tagName : 'option',
 
-			'events' : 
+			events : 
 			{
 				'click [data-edit-user-id]' : 'openDetails',
 				'click [data-delete-user-id]' : 'deleteUser'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				// Parameters	
 				if(options) $.extend(this, options);
@@ -23,7 +23,7 @@ define(
 				this.listenTo(this.model, 'change', this.render);
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var self = this;
 				var data = {};

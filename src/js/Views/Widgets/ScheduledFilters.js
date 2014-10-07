@@ -4,17 +4,17 @@ define(
 	{
 		var ScheduledFilters = Widget.extend ({
 	
-			'id' : "scheduledfilters",
-			'filters' : {
+			id : "scheduledfilters",
+			filters : {
 				users : {string:"", list:[]}
 			},
-			'events' : {
+			events : {
 				'remove' : 'destroy',
 				'click *[data-streams]' : 'filter',
 				'click .toggleall.active' : 'toggleall'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 		    {
 				if(options) $.extend(this, options);
 
@@ -23,7 +23,7 @@ define(
 
 		    },
 
-			'render' : function ()
+			render : function ()
 			{
 				var params = {streams: []};
 				
@@ -47,14 +47,14 @@ define(
 				return this;
 			},
 			
-			'toggleall' : function ()
+			toggleall : function ()
 			{
 				
 				this.filter(true);
 				this.togglefilters(true);
 			},
 			
-			'togglefilters' : function(all)
+			togglefilters : function(all)
 			{
 				// Toggle streams
 				this.$el.find('li').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
@@ -63,7 +63,7 @@ define(
 				this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
 			},
 			
-			'filter' : function (e, all)
+			filter : function (e, all)
 			{
 				
 				// Check button state
@@ -87,7 +87,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function (models)
+			fill : function (models)
 			{	
 				// Clean load
 				$.each(this.entries, function(n, entry){ entry.remove()});
@@ -108,7 +108,7 @@ define(
 				this.$el.find(".inner-loading").removeClass("inner-loading")
 			},
 			
-			'select' : function(view)
+			select : function(view)
 			{	
 				// Render list
 				this.list.render({users: view.model.id, records: 20});
@@ -116,7 +116,7 @@ define(
 				this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
@@ -126,12 +126,14 @@ define(
 					railVisible: false
 				});
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
-			'mustacheTranslateRender' : function(translatelocation)
+			
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

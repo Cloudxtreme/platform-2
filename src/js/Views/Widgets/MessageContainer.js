@@ -7,17 +7,17 @@ define(
 	{
 		var MessageContainer = Widget.extend ({
 
-			'template' : 'messagecontainer',
-			'messageelement' : 'tr',
+			template : 'messagecontainer',
+			messageelement : 'tr',
 
-			'canLoadMore' : true,
+			canLoadMore : true,
 
-			'events' : {
+			events : {
 				/*'click .portlet-title.line' : 'collapse',*/
 				'click .load-more a' : 'loadMore'
 			},
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				var self = this;
 
@@ -28,14 +28,14 @@ define(
 		        this.initializeWidget ();
 			},
 
-			'refreshWidget' : function (e)
+			refreshWidget : function (e)
 			{
 				e.preventDefault ();
 
 				this.options.channel.update ();
 			},
 
-			'innerRender' : function (element)
+			innerRender : function (element)
 			{
 				var self = this;
 				var data = {};
@@ -95,7 +95,7 @@ define(
 				return this;
 			},
 
-			'loadMore' : function ()
+			loadMore : function ()
 			{
 				var self = this;
 
@@ -113,19 +113,19 @@ define(
 			},
 
 			
-			'onDestroy' : function ()
+			onDestroy : function ()
 		    {
 		        clearInterval (this.interval);
 		        this.$el.find ('.scroller').slimScroll({'destroy':1});
 		    },
 
 			// Just a small function to overwrite
-			'processMessageView' : function (message)
+			processMessageView : function (message)
 			{
 
 			},
 
-			'getMessageView' : function (message)
+			getMessageView : function (message)
 			{
 				var messageView;
 
@@ -141,7 +141,7 @@ define(
 				return messageView;
 			},
 
-			'onFirstAddEvent' : function (message, messageView)
+			onFirstAddEvent : function (message, messageView)
 			{
 				var self = this;
 				setTimeout (function ()
@@ -150,17 +150,17 @@ define(
 				}, 1);
 			},
 
-			'onFirstAdd' : function (message, messageView)
+			onFirstAdd : function (message, messageView)
 			{
 
 			},
 
-			'afterInit' : function ()
+			afterInit : function ()
 			{
 
 			},
 
-			'resort' : function ()
+			resort : function ()
 			{
 				var self = this;
 
@@ -222,12 +222,12 @@ define(
 				}, 1);
 			},
 
-			'removeMessage' : function (message)
+			removeMessage : function (message)
 			{
 				this.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 			},
 
-			'refresh' : function ()
+			refresh : function ()
 			{
 
 			}

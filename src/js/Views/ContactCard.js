@@ -4,23 +4,23 @@ define(
 	{
 		var ContactCard = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click' : 'viewcontact'
 			},	
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				$.extend(this, options);
 			},
 
-			'render' : function()
+			render : function()
 			{
 				this.$el.html(Mustache.render(Templates.singlecontact, this.contact));
 
 				return this;
 			},
 
-			'viewcontact' : function()
+			viewcontact : function()
 			{	
 				if(this.contact)
 					RootView.viewContact({model: this.contact});

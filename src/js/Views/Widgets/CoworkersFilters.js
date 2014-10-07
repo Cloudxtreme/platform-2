@@ -23,6 +23,8 @@ define(
 				// Check contacts collection existance
 				if (!this.model.users) this.model.users = new Users();
 				else this.model.users.reset();
+
+		        this.model.users.parentmodel = this.model;
 				
 				// Listen to contacts collection
 				//this.listenTo(this.model.users, 'add', this.fill);

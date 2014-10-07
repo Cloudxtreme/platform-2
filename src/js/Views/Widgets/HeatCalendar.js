@@ -4,14 +4,14 @@ define(
 	{
 		var HeatCalendar = Backbone.View.extend({
 	
-			'title' : "Info",
-			'filled' : false,
-			'nummonths' : {
+			title : "Info",
+			filled : false,
+			nummonths : {
 				'quarter' : 3,
 				'year' : 12
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 				
@@ -21,7 +21,7 @@ define(
 				this.listenTo(this.collection, 'ready', this.fill)
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				/* This should be in the Widget
 				if(this.widgets[n].data.title == translate.activity_calendar)
@@ -43,7 +43,7 @@ define(
 				return this;
 			},
 
-			'fill' : function(){
+			fill : function(){
 
 				if(this.filled)	return false;
 
@@ -90,7 +90,7 @@ define(
 
 			},
 
-			'calculatesizes' : function(nummonths)
+			calculatesizes : function(nummonths)
 			{
 				var containerwidth = this.$el.find('#cal-heatmap').get(0).clientWidth;
 				var monthwidth = (containerwidth - 40)/nummonths;
@@ -105,7 +105,7 @@ define(
 				return settings;
 			},
 
-			'calculatedata' : function(){
+			calculatedata : function(){
 				
 				var statistics = $.extend(true, {}, this.collection);
 				var data = {};
@@ -135,7 +135,7 @@ define(
 				return {data: data, legend: this.generaterange(data,4), date: date};
 			},
 
-			'generaterange' : function(data, steps){
+			generaterange : function(data, steps){
 
 				var max = _.max(data, function(day){ return day });
 				var min = _.min(data, function(day){ return day });
@@ -150,7 +150,7 @@ define(
 			},
 
 			
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 				
 			}

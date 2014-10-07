@@ -7,18 +7,18 @@ define(
 	{
 		var Widget = Backbone.View.extend({
 
-			'title' : 'Untitled widget',
-			'icon' : 'inbox',
-			'color' : 'blue',
-			'network' : null,
-			'entries' : [],
-			'events' : {
+			title : 'Untitled widget',
+			icon : 'inbox',
+			color : 'blue',
+			network : null,
+			entries : [],
+			events : {
 				
 			},
 
-			'tools' : [],
+			tools : [],
 
-		    'initialize' : function ()
+		    initialize : function ()
 		    {
 		        if(!this.options.color) this.options.color = this.color;
 		        
@@ -27,18 +27,18 @@ define(
 		        this.initializeWidget ();
 		    },
 
-		    'initializeWidget' : function ()
+		    initializeWidget : function ()
 		    {
 		        this.bind ('destroy', this.onDestroy);
 		        this.bind ('add', function(){ console.log("View add triggrered")});
 		    },
 
-			'innerRender' : function (element)
+			innerRender : function (element)
 			{
 				element.html ('No inner content set.');
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 
 				var self = this;
@@ -79,7 +79,7 @@ define(
 				return this;
 			},
 
-			'attachToolEvents' : function (tool)
+			attachToolEvents : function (tool)
 			{
 				var self = this;
 				this.$el.find ('.' + tool['class']).click (function (ev)
@@ -88,7 +88,7 @@ define(
 				});
 			},
 			
-			'negotiateFunctionalities' : function() {
+			negotiateFunctionalities : function() {
 				
 				// Check for scroller
 				if(this.$el.find('.scroller').length) this.addScroll();
@@ -101,7 +101,7 @@ define(
 					this.appendCollapseble(this.options.open);
 			},
 			
-			'appendCollapseble' : function(open) {
+			appendCollapseble : function(open) {
 				
 				this.$el.addClass(open? 'collapse-open':'collapse-closed');
 
@@ -114,7 +114,7 @@ define(
 
 			},
 			
-			'appendCounter' : function(amount) {
+			appendCounter : function(amount) {
 				
 				var count = 0;
 				this.$el.find("li .number, li .count").each(function(){ count += Number($(this).text())});
@@ -125,7 +125,7 @@ define(
 				this.$el.find(".tools").append($('<span class="count">' + count + '</span>'));
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
@@ -151,7 +151,7 @@ define(
 				});*/
 			},
 
-		    'onDestroy' : function ()
+		    onDestroy : function ()
 		    {
 		       
 				$.each(this.entries, function(i, entry)
@@ -164,7 +164,7 @@ define(
 		        //this.$el.html ('DESTROYED');
 		    },
 			
-			'collapse' : function ()
+			collapse : function ()
 			{
 				this.$el.toggleClass("collapse-closed collapse-open");
 				//this.trigger ('view:collapse');

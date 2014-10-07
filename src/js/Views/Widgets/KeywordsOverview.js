@@ -7,10 +7,10 @@ define(
 	{
 		KeywordsOverview = Widget.extend({
 
-			'id' : 'monitorparent',
-			'entries' : [],
+			id : 'monitorparent',
+			entries : [],
 
-			'events' : {
+			events : {
 				'submit form' : 'editCategory',
 				'click .edit-toggler' : 'toggleEditCategory',
 				'click .delete-category' : 'deleteCategory',
@@ -18,7 +18,7 @@ define(
 				'click [data-keyword]' : 'toggleEditKeyword'
 			},
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				this.channel = Session.getChannel("monitoring");
 				
@@ -28,7 +28,7 @@ define(
 				this.listenTo(Session.getChannels(), 'sync', this.render);
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				categories = this.channel.channels.map(function(cat){ return {id: cat.id, name: cat.get("name"), settings: cat.get("settings"), keywords: cat.channels.models}});
 
@@ -45,14 +45,14 @@ define(
 				return this;
 			},
 
-			'toggleEditCategory' : function (e)
+			toggleEditCategory : function (e)
 			{
 				e.stopPropagation();
 				
 				$(e.target).closest('[data-category]').find('.category-name, .category-edit').toggle();
 			},
 
-			'editCategory' : function (e)
+			editCategory : function (e)
 			{
 				e.stopPropagation();
 
@@ -77,7 +77,7 @@ define(
 				return false;
 			},
 
-			'deleteCategory' : function (e)
+			deleteCategory : function (e)
 			{
 				e.stopPropagation();
 				
@@ -97,7 +97,7 @@ define(
 				
 			},
 
-			'toggleEditKeyword' : function (e)
+			toggleEditKeyword : function (e)
 			{
 				e.stopPropagation();
 
@@ -108,7 +108,7 @@ define(
 				$("html, body").animate({ scrollTop: $('#keywordsfilter').offset().top-50 }, 500);
 			},
 
-			'deleteKeyword' : function (e)
+			deleteKeyword : function (e)
 			{
 				e.stopPropagation();
 				
@@ -126,12 +126,14 @@ define(
 				
 				
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
-			'mustacheTranslateRender' : function(translatelocation)
+			
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

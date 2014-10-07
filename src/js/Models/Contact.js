@@ -4,10 +4,10 @@ define(
 	{
 		var Contact = User.extend({
 	
-			'typestring' : "contacts",
-			'modelstring' : "contact",
+			typestring : "contacts",
+			modelstring : "contact",
 
-			'url' : function ()
+			url : function ()
 			{
 				var url = [Session.api];
 				
@@ -26,14 +26,14 @@ define(
 				return this.parameters? url + "?" + $.param(this.parameters) : url;
 			},
 
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{	
 				if(method == "read" && options.endpoint)	this.endpoint = options.endpoint;
 				
 				return Backbone.sync(method, model, options);
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// some sanity
 				if(response[this.modelstring]) response = response[this.modelstring];
@@ -50,12 +50,12 @@ define(
 			
 			/* Deprecated? */
 			
-			'initialize' : function (attributes)
+			initialize : function (attributes)
 			{
 				this.gender = this.get("gender");
 			},
 
-			'getMales' : function (){
+			getMales : function (){
 				if(this.gender){
 					return this.gender.male;
 				}else{
@@ -63,7 +63,7 @@ define(
 				}
 			},
 
-			'getFemales' : function (){
+			getFemales : function (){
 				if(this.gender){
 					return this.gender.female;
 				}else{
@@ -71,7 +71,7 @@ define(
 				}
 			},
 
-			'getOthers' : function (){
+			getOthers : function (){
 				if(this.gender){
 					return this.gender.other;
 				}else{
@@ -79,7 +79,7 @@ define(
 				}
 			},
 
-			'getGender' : function (){
+			getGender : function (){
 				if(this.gender){
 					return this.gender;
 				}else{
@@ -87,7 +87,7 @@ define(
 				}
 			},
 
-			'getAge' : function (){
+			getAge : function (){
 				if(this.age){
 					return this.age;
 				}else{

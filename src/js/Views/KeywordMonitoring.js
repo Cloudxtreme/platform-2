@@ -4,10 +4,10 @@ define(
 	{
 		var KeywordMonitoring = Pageview.extend({
 
-			'title' : 'Keyword Monitoring',
-			'className' : "container-fluid monitoring",
+			title : 'Keyword Monitoring',
+			className : "container-fluid monitoring",
 			
-			'initialize' : function ()
+			initialize : function ()
 			{
 				// Emergency break
 				if (!this.options.category) return Session.home();
@@ -22,7 +22,7 @@ define(
 				this.translateTitle("keyword_monitoring");
 			},
 			
-			'render' : function()
+			render : function()
 			{
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -47,7 +47,8 @@ define(
 				
 				return this;
 			},
-			'translateTitle' : function(translatedata)
+
+			translateTitle : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);

@@ -4,9 +4,9 @@ define(
 	{
 		var Channels = Backbone.Collection.extend({
 
-			'model' : Channel,
+			model : Channel,
 	
-			'initialize' : function()
+			initialize : function()
 			{
 				if(!Session)	Session = require('Session')
 					
@@ -20,7 +20,7 @@ define(
 				}
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				
@@ -28,19 +28,19 @@ define(
 				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/channels' + param;
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{
 				this.parameters = false;
 					
 				return response.channels;
 			},
 			
-			'distantAdd' : function(model)
+			distantAdd : function(model)
 			{
 				if(!this.get(model.id)) this.add(model);	
 			},
 			
-			'seed' : function(ids)
+			seed : function(ids)
 			{
 				// Ignore empty id lists
 				if(!ids || !ids.length) return [];
@@ -68,7 +68,7 @@ define(
 				return list;
 			},
 			
-			'cleanModel' : function(model)
+			cleanModel : function(model)
 			{
 				if( model.get("parent"))
 					Session.getChannel(model.get("parent")).set({channels: this.pluck("id")});
@@ -76,7 +76,7 @@ define(
 				Store.remove("channels", {id: model.id});
 			},
 			
-			'updates' : function (ids)
+			updated : function (ids)
 			{
 				for(n in ids)
 				{
@@ -94,7 +94,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});

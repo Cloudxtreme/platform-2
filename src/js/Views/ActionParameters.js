@@ -4,12 +4,12 @@ define(
 	{
 		var ActionParameters = Backbone.View.extend({
 
-			'events' : 
+			events : 
 			{
 				'submit form' : 'submit'
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				this.$el.html (Templates['action-parameters']);
 
@@ -44,7 +44,7 @@ define(
 				return this;
 			},
 
-			'submit' : function (e)
+			submit : function (e)
 			{
 				e.preventDefault ();
 

@@ -371,7 +371,16 @@
 		"Add note": "Adicionar nota",
 		"an_error_occurred_while_sending_this_message": "Ocorreu um erro no envio desta mensagem:",
 		"busy_network" : "The network is quite busy for the moment, please wait while we're sending your message.",
-		"empty_statistics_data" : "There is still no available data.",
-		"show_last_statistics" :  "Show me last week's statistics"
+		"empty_statistics_data" : "There is no available data.",
+		"show_previous_week_statistics" :  "Show me the previous week's statistics",
+		"show_next_week_statistics" :  "Show me the next week's statistics",
+		"show_previous_month_statistics" :  "Show me the previous month's statistics",
+		"show_next_month_statistics" :  "Show me the next month's statistics",
+		"show_previous_quarter_statistics" :  "Show me the previous quarter's statistics",
+		"show_next_quarter_statistics" :  "Show me the next quarter's statistics",
+		"show_previous_year_statistics" :  "Show me the previous year's statistics",
+		"show_next_year_statistics" :  "Show me the next year's statistics",
+		"show_older_reports" : "Show older reports",
+		"last 7 days" : "Last 7 days"
 	}
 }

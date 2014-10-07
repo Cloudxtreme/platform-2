@@ -7,26 +7,26 @@ define(
 	{
 		var Widget = Backbone.View.extend({
 
-			'title' : '...',
-			'color' : 'blue',
-			'icon' : 'cloud',
+			title : '...',
+			color : 'blue',
+			icon : 'cloud',
 			
-			'events' : {
+			events : {
 				'click .portlet-title.line' : 'collapse'
 			},
 
-		    'initialize' : function ()
+		    initialize : function ()
 		    {
 				//this.listenTo(this.model, "change", this.render);
 				this.bind ('destroy', this.destroy);
 		    },
 
-			'innerRender' : function ()
+			innerRender : function ()
 			{
 				this.$el.addClass('inner-empty');
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var self = this;
 				var data = {
@@ -52,12 +52,12 @@ define(
 				return this;
 			},
 			
-			'appendCounter' : function(amount) {
+			appendCounter : function(amount) {
 				
 				this.$el.find(".tools").append($('<span class="count">' + amount + '</span>'));
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
@@ -70,7 +70,7 @@ define(
 				});
 			},
 			
-			'appendCollapsible' : function(open) {
+			appendCollapsible : function(open) {
 
 				if(this.$el.find(".tools .count").length)
 						this.$el.find(".tools .count").addClass('collapse');
@@ -79,12 +79,12 @@ define(
 				this.$el.addClass(open? 'collapse-open':'collapse-closed');
 			},
 			
-			'collapse' : function ()
+			collapse : function ()
 			{
 				this.$el.toggleClass("collapse-closed collapse-open");
 			},
 
-		    'destroy' : function ()
+		    destroy : function ()
 		    {   
 		        this.$el.find ('.scroller').slimScroll({'destroy':1});
 		    }

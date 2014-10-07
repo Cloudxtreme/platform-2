@@ -4,9 +4,9 @@ define(
 	{
 		var StatSummary = Widget.extend ({
 
-			'className' : 'stats-summary',
+			className : 'stats-summary',
 			
-			'columns' :  {
+			columns :  {
 				"contacts" : {'translate_title': 'total_contacts', "func": "parsecontacts"},
 				"score-trending" : {"translate_title": "popularity_score", "func": "parsescore"},
 				"outgoing" : {"translate_title": "messages_sent", "func": "parsesent"},
@@ -20,7 +20,7 @@ define(
 				"besttime" : {"translate_title": "best_time_to_post", "func": "parsebesttime"}
 			},
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				if (options) $.extend(this, options);
 				
@@ -29,7 +29,7 @@ define(
 				this.listenTo(this.collection, 'sync:data', this.fill);
 			},
 			
-			'render' : function ()
+			render : function ()
 			{
 				// Parameters
 				var params = {columns: []};
@@ -51,7 +51,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function()
+			fill : function()
 			{
 				
 				this.$el.find("[data-type]").each(function(i, el){
@@ -66,14 +66,14 @@ define(
 			 *	Column data
 			 **/
 			 
-			'parsecontacts' : function ()
+			parsecontacts : function ()
 			{
 				// Get most recent stat
 				var stat = this.collection.latest();
 				return { counter: stat.pluck("contacts")};
 			},
 			
-			'parsescore' : function ()
+			parsescore : function ()
 			{
 			
 				stat = this.collection.latest();
@@ -82,7 +82,7 @@ define(
 				return 	{counter: total};
 			},
 			
-			'parsesent' : function ()
+			parsesent : function ()
 			{
 				// Get most recent stat
 				var statl = this.collection.latest();
@@ -92,7 +92,7 @@ define(
 				return { counter: total };
 			},
 			
-			'parseactivity' : function ()
+			parseactivity : function ()
 			{
 
 				//$.each(Session.getStreams().models, function(index, model) { console.log(model.id, model.get("token"))});
@@ -104,7 +104,7 @@ define(
 				return {counter: total >= 0 ? total : 0};
 			},
 
-			'activitymsgs' : function(statistic, id){
+			activitymsgs : function(statistic, id){
 
 				var streams = statistic.get("streams");
 				
@@ -123,14 +123,14 @@ define(
 
 			// *** Network specific plucks ***
 
-			'parsecontactsnetwork' : function ()
+			parsecontactsnetwork : function ()
 			{
 				// Get most recent stat
 				var stat = this.collection.latest();
 				return { counter: stat.pluck("contacts", this.parentview.streamid)};
 			},
 			
-			'parsescorenetwork' : function ()
+			parsescorenetwork : function ()
 			{
 				stat = this.collection.latest();
 				var total = stat.pluck("notifications", this.parentview.streamid) + stat.pluck("activities", this.parentview.streamid);
@@ -138,7 +138,7 @@ define(
 				return 	{counter: total};
 			},
 			
-			'parsesentnetwork' : function ()
+			parsesentnetwork : function ()
 			{
 				// Get most recent stat
 				var statl = this.collection.latest();
@@ -148,7 +148,7 @@ define(
 				return { counter: total };
 			},
 
-			'parsebesttime' : function(){
+			parsebesttime : function(){
 
 				var besttimes = this.collection.clone().parsebesttime(this.parentview.streamid);
 
@@ -187,7 +187,7 @@ define(
 			    	return {counter:'--'};
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

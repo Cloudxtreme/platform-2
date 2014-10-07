@@ -4,9 +4,9 @@ define(
 	{
 		TitleSeparator = Backbone.View.extend({
 
-			'className' : 'titleseparator',
+			className : 'titleseparator',
 
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 				
@@ -14,14 +14,14 @@ define(
 				this.settings.title = this.title;
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				this.$el.html (Mustache.render (Templates.titleseparator, this.settings));	
 
 				return this;
 			},
 
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 
 			}

@@ -4,11 +4,11 @@ define(
 	{
 		var Notifications = Messages.extend({
 	
-			'model' : Notification,
-			'typestring' : "notifications",
-			'modelstring' : "notification",
+			model : Notification,
+			typestring : "notifications",
+			modelstring : "notification",
 			
-			'initialize' : function()
+			initialize : function()
 			{	
 				if(!Session)	Session = require('Session')
 

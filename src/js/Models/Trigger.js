@@ -4,14 +4,14 @@ define(
 	{
 		var Trigger = Backbone.Model.extend({
 	
-			'typestring' : "triggers",
+			typestring : "triggers",
 	
-			'initialize' : function()
+			initialize : function()
 			{
 				if(!this.get("actions"))	this.set("actions", [])
 			},
 
-			'getaction' : function(type)
+			getaction : function(type)
 			{
 				var actions = this.get("actions");
 				var action = actions? actions.filter(function(el){ if(el.action == type) return el; }): null;
@@ -20,7 +20,7 @@ define(
 					return action.length? action[0]: null;
 			},
 
-			'getmessage' : function(type)
+			getmessage : function(type)
 			{
 				var action = this.getaction(type);
 				
@@ -30,7 +30,7 @@ define(
 					return null;
 			},
 
-			'setaction' : function(type, attrs)
+			setaction : function(type, attrs)
 			{
 				var action = this.getaction(type);
 
@@ -38,7 +38,7 @@ define(
 				else		this.attributes.actions.push($.extend({action: type}, attrs));
 			},
 
-			'url' : function()
+			url : function()
 			{	
 				var url = [Session.api];
 				

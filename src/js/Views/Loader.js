@@ -18,7 +18,7 @@ define(
 	{
 		Backbone.View = Backbone.View.extend({
 			
-			'loadListeners' : function(model, states, once){
+			loadListeners : function(model, states, once){
 				var length = states.length;
 				var listentype = 'listenTo';
 
@@ -41,12 +41,12 @@ define(
 				this.on("rendered", this.addLoader);
 			},
 
-			'addLoader' : function(){
+			addLoader : function(){
 				this.container = this.$loadercontainer ? this.$loadercontainer : this.$container;
 				this.loader = $(Templates.progressbar).appendTo(this.container);
 			},
 
-			'loadRender' : function(index, length){
+			loadRender : function(index, length){
 
 				//console.log(index, length)
 
@@ -74,20 +74,20 @@ define(
 				},1);
 			},
 
-			'restart' : function(){
+			restart : function(){
 				this.loadingstate = 0;
 				this.loader.remove();
 				this.addLoader();
 				this.container.removeClass('loaded').addClass('toload');
 			},
 
-			'finishLoading' : function(){
+			finishLoading : function(){
 				this.loader.css('width','100%');
 				this.loader.addClass('loaded');
 				this.container.removeClass('toload').addClass('loaded');
 			},
 
-			'emptylist' : function(){
+			emptylist : function(){
 				
 				this.loadRender(99,99);
 				this.container.addClass('empty-list');
@@ -98,9 +98,9 @@ define(
 			 *	Update
 			**/
 			
-			'counter' : 0,
+			counter : 0,
 			
-			'updateable' : function (model, countertarget)
+			updateable : function (model, countertarget)
 			{	
 				// where to place the counter
 				this.$countertarget = countertarget? countertarget: this.$container;
@@ -108,7 +108,7 @@ define(
 				this.listenTo(model? model: this.model, "outdated", this.showupdate);
 			},
 			
-			'showupdate' : function (model)
+			showupdate : function (model)
 			{
 				// Create Counter
 				if(!this.$counter)
@@ -123,13 +123,13 @@ define(
 				this.$counter.html(++this.counter);
 			},
 			
-			'clearupdate' : function ()
+			clearupdate : function ()
 			{
 				this.$el.find(".outdated").removeClass("outdated");
 				this.resetupdate();
 			},
 			
-			'resetupdate' : function ()
+			resetupdate : function ()
 			{
 				this.counter = 0;
 				this.$counter.remove();

@@ -4,9 +4,9 @@ define(
 	{
 		var NoteEntry = EntryView.extend({
 
-			'className' : 'note',
+			className : 'note',
 	
-			'events' : 
+			events : 
 			{
 				'remove' : 'destroy',
 				'click [data-notifications]' : 'loadNotifications',
@@ -15,7 +15,7 @@ define(
 				'click' : 'toggle',
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				this.parameters = {};
 				
@@ -27,7 +27,7 @@ define(
 				
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);

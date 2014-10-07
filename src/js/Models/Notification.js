@@ -4,7 +4,7 @@ define(
 	{
 		var Notification = Message.extend({
 			
-			'initialize' : function ()
+			initialize : function ()
 			{			
 				if (typeof (this.attributes.parent) != 'undefined')
 				{
@@ -30,7 +30,7 @@ define(
 				})
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") return {id: response};

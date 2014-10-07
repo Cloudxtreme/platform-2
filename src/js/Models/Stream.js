@@ -4,9 +4,9 @@ define(
 	{
 		var Stream = Backbone.Model.extend({
 	
-			'parameters' : {},
+			parameters : {},
 	
-			'initialize' : function(attributes){
+			initialize : function(attributes){
 				
 				// Child messages
 				this.messages = new Messages();
@@ -27,24 +27,24 @@ define(
 
 			},
 			
-			'outdated' : function ()
+			outdated : function ()
 			{
 				this.fetch();
 			},
 			
-			'update' : function ()
+			update : function ()
 			{
 				this.fetch();
 			},
 			
-			'url' : function ()
+			url : function ()
 			{
 				var id = this.id? this.id: "";
 				
 				return Session.api + '/streams/' + id + this.endpoint + this.parameters;
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{
 				if(response.stream) response = response.stream;
 				
@@ -56,7 +56,7 @@ define(
 				return response;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -76,7 +76,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'seedusers' : function (child)
+			seedusers : function (child)
 			{	
 
 				var users = child.get("from");
@@ -84,23 +84,23 @@ define(
 				if (users && users.length) this.users.add(users);	
 			},
 
-			'getcontacts' : function(){
+			getcontacts : function(){
 				return _.isObject(this.get("contacts")) ? this.get("contacts").total : this.get("contacts");
 			},
 
-			'getnotifications' : function(){
+			getnotifications : function(){
 				return _.isObject(this.get("notifications")) ? this.get("notifications").total : this.get("notifications");
 			},
 
-			'getmessages' : function(){
+			getmessages : function(){
 				return _.isObject(this.get("messages")) ? this.get("messages").total : this.get("messages");
 			},
 
-			'getactivities' : function(){
+			getactivities : function(){
 				return _.isObject(this.get("activities")) ? this.get("activities").total : this.get("activities");
 			},
 
-			'getimpressions' : function(){
+			getimpressions : function(){
 
 				if(this.impressions)	return this.impressions;
 
@@ -109,7 +109,7 @@ define(
 				else									return 0;
 			},
 
-			'getfollowers' : function(){
+			getfollowers : function(){
 
 				if(_.isObject(this.get("contacts"))){
 					if(_.isObject(this.get("contacts").types)){
@@ -122,7 +122,7 @@ define(
 				}
 			},
 
-			'getfollowing' : function(){
+			getfollowing : function(){
 
 				if(_.isObject(this.get("contacts"))){
 					if(_.isObject(this.get("contacts").types)){
@@ -135,24 +135,24 @@ define(
 				}
 			},
 
-			'getbesttime' : function(){
+			getbesttime : function(){
 				if(_.isObject(this.get("messages").besttimetopost))
 					return this.get("messages").besttimetopost;
 			},
 
-			'getnetwork' : function(){
+			getnetwork : function(){
 				return this.get("network");
 			},
 
 
 			// Get/increment attributes dinamically to help in statistics
 
-			'getattribute' : function(attribute){
+			getattribute : function(attribute){
 				var attr = "get"+attribute;
 				return this[attr]();
 			},
 
-			'incrementattr' : function(attribute, n){
+			incrementattr : function(attribute, n){
 				var attr = this.get(attribute);
 				
 				if(_.isObject(attr))		attr.total += n;
@@ -163,7 +163,7 @@ define(
 				return this;
 			},
 
-			'getlimitations' : function(limitation)
+			getlimitations : function(limitation)
 			{
 				var network = this.get('network');
 

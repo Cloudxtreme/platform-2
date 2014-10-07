@@ -4,17 +4,17 @@ define(
 	{
 		var NoteEntry = Entry.extend({
 	
-			'tagName' : 'li',
-			'template': 'messagenote',
+			tagName : 'li',
+			template: 'messagenote',
 
-			'events' : {
+			events : {
 				'mouseover' : 'toggleactions',
 				'mouseout' : 'toggleactions',
 				'click *[data-notification-action]' : 'action',
 				'click .note-header' : 'togglenote',
 			},
 
-			'initialize' : function(options)
+			initialize : function(options)
 			{	
 				this.parameters = {};
 				if(options) $.extend(this, options);
@@ -23,7 +23,7 @@ define(
 				this.listenTo(this.model, 'destroy', this.remove);
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				// Apply role permissions to template data
 				Session.censuretemplate(this.model.attributes);
@@ -36,7 +36,7 @@ define(
 				return this;
 			},
 
-			'makenew' : function()
+			makenew : function()
 			{
 				this.$el.addClass('new');
 
@@ -45,12 +45,12 @@ define(
 				}.bind(this), 2000)
 			},
 
-			'togglenote' : function()
+			togglenote : function()
 			{	
 				this.$el.find('.note-body').slideToggle('fast');
 			},
 
-			'toggleactions' : function(e)
+			toggleactions : function(e)
 			{	
 				var out = e.originalEvent.type == "mouseout";
 				
@@ -58,7 +58,7 @@ define(
 				this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");
 			},
 
-			'action' : function(e)
+			action : function(e)
 			{	
 				e.stopPropagation();
 
@@ -74,7 +74,7 @@ define(
 				}
 			},
 
-			'editnote' : function()
+			editnote : function()
 			{	
 				var composenote = new SimpleComposeView({model: this.model});
 
@@ -86,21 +86,21 @@ define(
 				this.isediting = true;
 			},
 
-			'canceledit' : function()
+			canceledit : function()
 			{	
 				this.$el.find('.note-body').html(this.model.get("text"));
 
 				this.isediting = false;
 			},
 
-			'saved' : function()
+			saved : function()
 			{
 				setTimeout(function(){
 					this.canceledit();
 				}.bind(this),200)
 			},
 
-			'remove' : function ()
+			remove : function ()
 		    {	
 				this.$el.slideUp(300);
 

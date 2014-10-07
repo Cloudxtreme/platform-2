@@ -4,17 +4,16 @@ define(
 	{
 		var CoworkersList = Widget.extend({
 
-			'id' : 'coworkersparent',
-			'title': "Co-workers messages",
-			'parameters' : {records: 20},
-			'entries' : [],
+			id : 'coworkersparent',
+			title: "Co-workers messages",
+			entries : [],
 			
-			'events' : {
+			events : {
 				'remove' : 'destroy',
 				'click .load-more' : 'more'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);	
 				
@@ -32,6 +31,9 @@ define(
 
 				this.listenTo(RootView, 'added:message', this.messageadded);
 
+		        //Reseting the parameters
+		        this.parameters = {records: 20};
+
 				// Watch outdated
 				this.updateable(this.model, "h3.page-title");
 
@@ -39,7 +41,7 @@ define(
 				this.translateTitle("co-workers_messages");
 			},
 
-			'render' : function (params)
+			render : function (params)
 			{	
 				this.loadmylisteners();
 				
@@ -68,18 +70,18 @@ define(
 				return this;
 			},
 
-			'loadmylisteners' : function(){
+			loadmylisteners : function(){
 				
 				this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 			},
 			
-			'showloading' : function ()
+			showloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").show();
 				//this.$el.find(".load-more").hide();
 			},
 			
-			'hideloading' : function ()
+			hideloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").hide();
 				this.$container.removeClass("inner-loading");
@@ -90,7 +92,7 @@ define(
 					this.hasmore = false;
 			},
 
-			'showmore' : function()
+			showmore : function()
 			{
 				setTimeout(function()
 				{		
@@ -108,7 +110,7 @@ define(
 				
 			},
 			
-			'fill' : function (list)
+			fill : function (list)
 			{		
 				// Clean load or add
 				if(this.incremental) this.incremental = false;
@@ -165,7 +167,7 @@ define(
 				}
 			},*/
 			
-			'more' : function ()
+			more : function ()
 			{
 				this.incremental = true;	
 
@@ -175,7 +177,7 @@ define(
 				if(!hasmore) this.$el.find(".load-more").hide();
 			},
 
-			'messageadded' : function(draft)
+			messageadded : function(draft)
 			{
 				var coworkersstream = Session.getStream('coworkers').id;
 				var streams = draft.get("streams");
@@ -196,14 +198,14 @@ define(
 				
 			},*/
 			
-			'negotiateFunctionalities' : function() {
+			negotiateFunctionalities : function() {
 				
 				this.listenTo(Session, 'destroy:view', this.remove);
 				
 		//		this.addScroll();
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
@@ -214,24 +216,24 @@ define(
 				});
 			},
 			
-			'destroy' : function()
+			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
 			},
 
-			'translateTitle' : function(translatedata)
+			translateTitle : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

@@ -5,14 +5,14 @@ define(
 	{
 		var InboxMessage = EntryView.extend({
 	
-			'tagName' : 'div',
-			'className' : "message social-box-colors",
-			'template' : 'inboxmessage',
-			'related' : [],
-			'messageview' : [],
-			'notifications' : [],
+			tagName : 'div',
+			className : "message social-box-colors",
+			template : 'inboxmessage',
+			related : [],
+			messageview : [],
+			notifications : [],
 			
-			'events' : 
+			events : 
 			{
 				'remove' : 'destroy',
 				'click *[data-youtube]' : 'loadYoutube',
@@ -20,7 +20,7 @@ define(
 				'keyup #tags' : 'entertag'
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				// Manage loading
 				this.loading(!this.model.get("objectType"));
@@ -93,18 +93,18 @@ define(
 				this.loadedlists = [];
 			},*/
 
-			'incrementaction' : function(token)
+			incrementaction : function(token)
 			{	
 				this.actions.incrementaction(token);
 			},
 			
-			'loading' : function(show)
+			loading : function(show)
 			{
 				 if(show)	$(".inbox").addClass("loading");
 				 else		$(".inbox").removeClass("loading");
 			},
 			
-			'showrelated' : function()
+			showrelated : function()
 			{	
 				// Show loading
 				this.loading(true);
@@ -135,12 +135,12 @@ define(
 				
 			},
 
-			'updateCounters' : function(models){
+			updateCounters : function(models){
 				//treta = models[0];
 				//console.log("update counter on stream id ", models)
 			},
 			
-			'fillrelated' : function(models)
+			fillrelated : function(models)
 			{
 				
 				// Clean load or add
@@ -176,11 +176,11 @@ define(
 				this.loading(false);
 			},
 
-			'sendtriggers' : function(trigger){
+			sendtriggers : function(trigger){
 				this.trigger(trigger);
 			},
 			
-			'addNotifications' : function()
+			addNotifications : function()
 			{
 				// Manage loading
 				this.loading(true);
@@ -195,7 +195,7 @@ define(
 				this.model.notifications.touch(this.model, {records: 50, markasread: true/* deprecated? group: 1*/});
 			},
 			
-			'fillNotifications' : function (list)
+			fillNotifications : function (list)
 			{
 				
 				// Clean load
@@ -224,7 +224,7 @@ define(
 				this.loading(false);
 			},
 			
-			'markasread' : function()
+			markasread : function()
 			{
 				
 				// Send update
@@ -240,19 +240,20 @@ define(
 				RootView.viewContact();
 			},*/
 			
-			'destroy' : function()
+			destroy : function()
 			{
 				$.each(this.modelview, function(n, entry){ entry.remove()});
 				$.each(this.notifications, function(n, entry){ entry.remove()});
 				$.each(this.related, function(n, entry){ entry.remove()});
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

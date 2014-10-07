@@ -4,9 +4,9 @@ define(
 	{
 		var InboxNotesList = InboxMessageList.extend({
 	
-			'entrytemplate': 'smallentrynote',
+			entrytemplate: 'smallentrynote',
 
-			'render' : function ()
+			render : function ()
 			{	
 				this.on('contact:clicked', this.contactview);
 
@@ -48,7 +48,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function (models)
+			fill : function (models)
 			{	
 				// Clean load or add
 				if(this.incremental) this.incremental = false;
@@ -70,14 +70,14 @@ define(
 				}
 			},
 
-			'afterrender' : function()
+			afterrender : function()
 			{
 				// Toggle first message
 				if(this.entries.length) setTimeout(this.toggle.bind(this, this.entries[0]), 1);
 				else this.hidemore();
 			},
 			
-			'toggle' : function(view)
+			toggle : function(view)
 			{	
 				var options = {model: view.model};
 				var type = view.model.parent? view.model.parent.get('objectType'): null;
@@ -99,7 +99,7 @@ define(
 				view.$el.addClass("active");
 			},
 			
-			'togglefilter' : function(e)
+			togglefilter : function(e)
 			{
 
 				var button = $(e.currentTarget);
@@ -116,7 +116,7 @@ define(
 				}
 			},
 
-			'rendercontext' : function()
+			rendercontext : function()
 			{
 				if(!this.inboxnote)
 					return
@@ -145,7 +145,7 @@ define(
 
 			},
 			
-			'comparesuggestions' : function (iscontact)
+			comparesuggestions : function (iscontact)
 			{
 				var string = this.$el.find("#filter_contacts input").val();
 				
@@ -166,12 +166,12 @@ define(
 				
 			},
 			
-			'comparenamefilter' : function(string, contact)
+			comparenamefilter : function(string, contact)
 			{
 				return contact.get("displayname").toLowerCase().indexOf(string) >= 0 || (contact.get("name") && contact.get("name").toLowerCase().indexOf(string) >= 0);
 			},
 			
-			'showsuggestions' : function(contacts)
+			showsuggestions : function(contacts)
 			{
 				this.$el.find("#filter_contacts label").removeClass("hidden");
 				this.$el.find("ul.contacts-suggestions").empty();
@@ -180,13 +180,13 @@ define(
 					this.$el.find("ul.contacts-suggestions").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));
 			},
 			
-			'hidesuggestions' : function()
+			hidesuggestions : function()
 			{
 				this.$el.find("#filter_contacts label").addClass("hidden");
 				this.$el.find("ul.contacts-suggestions").empty();
 			},
 			
-			'requestcontacts' : function(string)
+			requestcontacts : function(string)
 			{
 				if(string != this.filters.contacts.string)
 				{
@@ -201,7 +201,7 @@ define(
 				}
 			},
 			
-			'loadedcontacts' : function()
+			loadedcontacts : function()
 			{
 				this.$el.find(".loading-contacts").addClass("hidden");
 				
@@ -214,14 +214,14 @@ define(
 				}
 			},
 
-			'contactview' : function()
+			contactview : function()
 			{	
 				var context = this.inboxnote.getcontext();
 				var contact = context.from ? context.from[0] : null;
 				if(contact)	RootView.viewContact({model: contact});
 			},
 			
-			'filtercontacts' : function (e)
+			filtercontacts : function (e)
 			{
 				var button = $(e.currentTarget);
 				var param = {};
@@ -251,7 +251,7 @@ define(
 				return this;
 			},
 			
-			'filternetworks' : function (e, all)
+			filternetworks : function (e, all)
 			{
 				this.loadmylisteners(true);	
 				
@@ -283,7 +283,7 @@ define(
 				return this;
 			},
 			
-			'filterstreams' : function (e, all)
+			filterstreamsv: function (e, all)
 			{
 				this.loadmylisteners(true);
 				
@@ -350,7 +350,7 @@ define(
 				return this;
 			},*/
 			
-			'filterparameters' : function() {
+			filterparameters : function() {
 				
 				var param = {all: 1, records: 20, group: 1};
 				
@@ -363,7 +363,7 @@ define(
 				return param;
 			},
 			
-			'storeview' : function ()
+			storeview : function ()
 			{
 				
 				// Memory cloth
@@ -380,7 +380,7 @@ define(
 				}
 			},
 			
-			'more' : function ()
+			more : function ()
 			{
 				this.incremental = true;
 
@@ -391,14 +391,14 @@ define(
 				if(!hasmore) this.$el.find(".load-more").hide();
 			},
 			
-			'negotiateFunctionalities' : function() {
+			negotiateFunctionalities : function() {
 				
 				this.listenTo(Session, 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					height: "inherit"

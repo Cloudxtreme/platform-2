@@ -4,11 +4,11 @@ define(
 	{
 		var Actions = Backbone.Collection.extend({
 	
-			'model' : Action,
-			'typestring' : "actions",
-			'modelstring' : "action",
-			'token' : "",
-			'templates' :
+			model : Action,
+			typestring : "actions",
+			modelstring : "action",
+			token : "",
+			templates :
 			{
 				'share' : {name: "Share", icon: 'share-alt', token: 'share', type: 'write', maxsize: {'twitter': 140}, clone: true, redirect: false, valuetag: 'shares'},
 				'delete' : {name: "Delete", icon: 'remove', token: 'delete', type: 'confirm'},
@@ -47,7 +47,7 @@ define(
 				'unplusone' : ['campaign'],
 			},*/
 			
-			'initialize' : function(models, options)
+			initialize : function(models, options)
 			{
 				if(options) $.extend(this, options);
 			
@@ -55,12 +55,12 @@ define(
 				this.listenTo( this.parent, "action", this.startaction);		
 			},
 			
-			'parse' : function(data)
+			parse : function(data)
 			{
 				return data;
 			},
 			
-			'url' : function ()
+			url : function ()
 			{	
 				// Parent and parameters
 				var param = this.parameters? "?" + $.param (this.parameters): "";
@@ -70,7 +70,7 @@ define(
 				// return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
 			},
 			
-			'rendertokens' : function (tokens)
+			rendertokens : function (tokens)
 			{	
 				var action;
 				var renderedtokens = [];
@@ -94,7 +94,7 @@ define(
 				return renderedtokens;
 			},
 
-			'appendstat' : function(token)
+			appendstat : function(token)
 			{	
 				if(!this.templates[token])	return;
 
@@ -109,7 +109,7 @@ define(
 				return action;
 			},
 			
-			'startaction' : function (token)
+			startaction : function (token)
 			{	
 				// Triggered action
 				var action = this.templates[token];
@@ -151,7 +151,7 @@ define(
 
 			},
 			
-			'delete' : function (model)
+			delete : function (model)
 			{
 				model.deleteMessage ();
 			},
@@ -191,17 +191,17 @@ define(
 			
 			
 			
-			'like' : function ()
+			like : function ()
 			{
 			},
 
-			'toggleAction': function (token)
+			toggleAction: function (token)
 			{
 				var action = this.templates[token];
 				this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

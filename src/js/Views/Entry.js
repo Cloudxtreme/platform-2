@@ -8,19 +8,19 @@ define(
 		
 		var Entry = Backbone.View.extend({
 	
-			'tagName' : 'li',
-			'template': 'messageentry',
-			'notifications' : [],
-			'parameters' : {},
-			'tokenmap' : {
+			tagName : 'li',
+			template: 'messageentry',
+			notifications : [],
+			parameters : {},
+			tokenmap : {
 				'favorite' : 'favourites',
 				'retweet' : 'retweets',
 				'like' : 'likes'
 			},
 
-			'loadedlists' : [],
+			loadedlists : [],
 			
-			'events' : 
+			events : 
 			{
 				'remove' : 'destroy',
 				'click [data-notifications]' : 'loadNotifications',
@@ -29,7 +29,7 @@ define(
 				'click' : 'toggle',
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				// HACK!
 				this.parameters = {};
@@ -39,14 +39,14 @@ define(
 				this.loadmylisteners();
 			},
 
-			'loadmylisteners' : function()
+			loadmylisteners : function()
 			{
 				this.listenTo(this.model, 'change', this.render);
 				this.listenTo(this.model, 'action:toggle', this.toggleaction);
 				this.listenTo(this.model, 'destroyed', this.remove);
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);
@@ -119,7 +119,7 @@ define(
 				}
 			},*/
 					
-			'renderactions' : function()
+			renderactions : function()
 			{	
 				this.actions = new ActionsView({message: this.model});
 				
@@ -133,7 +133,7 @@ define(
 				}*/
 			},
 
-			'updatetimelineactions' : function()
+			updatetimelineactions : function()
 			{
 				var notescount = this.actions.message.notes.length;
 				
@@ -142,7 +142,7 @@ define(
 
 			},
 			
-			'action' : function (element)
+			action : function (element)
 			{
 				// Action token
 				var action = $(element.currentTarget).data ('action');
@@ -189,7 +189,7 @@ define(
 					this.model.trigger("action", action);
 			},
 
-			'formatactions' : function(model)
+			formatactions : function(model)
 			{
 				var actions = model.actions;
 				var stats = model.statistics;
@@ -214,7 +214,7 @@ define(
 				model.actionstats = actionstats;
 			},
 
-			'editnote' : function()
+			editnote : function()
 			{	
 				var composenote = new SimpleComposeView({model: this.model});
 
@@ -231,13 +231,13 @@ define(
 				this.$el.find('.toggle-note-actions').toggle();
 			},
 
-			'showtagedit' : function()
+			showtagedit : function()
 			{	
 				this.$el.find('.message-tags').toggleClass("enabled");
 				this.$el.find('.message-tags .edit').toggleClass("inactive");
 			},
 
-			'canceledit' : function(collapse)
+			canceledit : function(collapse)
 			{	
 				this.loadmylisteners();
 				this.$el.find('.message-actions').removeClass('hidden');
@@ -254,7 +254,7 @@ define(
 				}
 			},
 
-			'saved' : function()
+			saved : function()
 			{
 				setTimeout(function(){
 					this.canceledit();
@@ -262,7 +262,7 @@ define(
 				}.bind(this),200)
 			},
 
-			'toggleactions' : function(action, token, element)
+			toggleactions : function(action, token, element)
 			{	
 				if(element && $(element.currentTarget).hasClass('noresults'))	return;
 
@@ -312,7 +312,7 @@ define(
 
 			},
 
-			'processaction' : function(operation, action, token)
+			processaction : function(operation, action, token)
 			{	
 				var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
 				var inactivebuttons = this.$el.find('.actionvalue.inactive');
@@ -354,7 +354,7 @@ define(
 
 			},
 
-			'expandlist' : function(token)
+			expandlist : function(token)
 			{
 				var list = token+'list';
 				
@@ -366,7 +366,7 @@ define(
 
 			},
 
-			'fetchactions' : function(token)
+			fetchactions : function(token)
 			{	
 				//Temporarily, only notes or notifications
 				var collection = token == 'note'? this.model.notes: this.model.notifications;
@@ -384,7 +384,7 @@ define(
 				this.loadedlists.push(token+'list');
 			},
 
-			'fillactions' : function(token, actions, update)
+			fillactions : function(token, actions, update)
 			{	
 				// Create the list div
 				var listclass = token+'-list';
@@ -405,7 +405,7 @@ define(
 				//container.slideDown();
 			},
 
-			'addaction' : function(action, token)
+			addaction : function(action, token)
 			{	
 				var options = {model: action, template: token == 'note'? 'messagenote': 'timelinecomment'}
 				var listclass = token+'-list';
@@ -423,7 +423,7 @@ define(
 				this.newaction = false;
 			},
 			
-			'toggleaction' : function (token, newaction)
+			toggleaction : function (token, newaction)
 			{
 				if(!newaction)	return;
 
@@ -438,15 +438,15 @@ define(
 				current.before(clone).remove();
 			},
 			
-			'toggle' : function() { this.trigger("toggle", this); },
+			toggle : function() { this.trigger("toggle", this); },
 			
-			'checkUnread' : function()
+			checkUnread : function()
 			{
 				if(!this.model.get("read")) this.$el.addClass("unread");
 				else						this.$el.removeClass("unread");
 			},
 			
-			'loadNotifications' : function()
+			loadNotifications : function()
 			{
 				
 				// Collapse if open
@@ -468,7 +468,7 @@ define(
 				
 			},
 			
-			'fillNotifications' : function (list)
+			fillNotifications : function (list)
 			{		
 				// Clean load
 				$.each(this.notifications, function(n, entry){ entry.remove()});
@@ -490,7 +490,7 @@ define(
 				}
 			},
 			
-			'loadYoutube' : function ()
+			loadYoutube : function ()
 			{	
 				// Get container
 				var $container = this.$el.find(".timeline-video").eq(0);
@@ -504,7 +504,7 @@ define(
 			},
 
 			//Note textarea
-			'loadnoteui' : function()
+			loadnoteui : function()
 			{	
 				var composenote = new SimpleComposeView({parent: this.model, persistent: true});
 				this.composenote = composenote;
@@ -516,7 +516,7 @@ define(
 				this.$el.find('.note-content').append(composenote.render().el);		
 			},
 
-			'fetchnotes' : function()
+			fetchnotes : function()
 			{		
 				this.model.notes.parentmodel = this.model;
 				this.model.notes.parenttype = 'message';
@@ -528,7 +528,7 @@ define(
 			},
 
 			//Notes list
-			'fillnotes' : function(notes)
+			fillnotes : function(notes)
 			{	
 				if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 				else				this.$el.find('.note-list').empty();
@@ -539,7 +539,7 @@ define(
 				}
 			},
 
-			'addnote' : function(newnote)
+			addnote : function(newnote)
 			{	
 				var options = {model: newnote, template: 'messagenote'}
 				var note;
@@ -552,7 +552,7 @@ define(
 				this.newnote = false;
 			},
 
-			'noteadded' : function(note)
+			noteadded : function(note)
 			{	
 				//this.addnote(note, true);
 				this.toggleactions('action-list', 'note');
@@ -693,7 +693,7 @@ define(
 				}
 			},*/
 			
-			'time' : function ()
+			time : function ()
 			{
 				var now = new Date;
 				var date = new Date(this.$el.find("[data-date]").attr("data-date"));
@@ -711,7 +711,7 @@ define(
 				this.tm = setTimeout(this.time.bind(this), 60000);
 			},
 			
-			'destroy' : function ()
+			destroy : function ()
 		    {
 				// To-do:
 				//this.model.notifications.trigger("destroy");
@@ -719,13 +719,13 @@ define(
 				window.clearTimeout(this.tm);
 		    },
 
-		    'translateString' : function(translatedata)
+		    translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

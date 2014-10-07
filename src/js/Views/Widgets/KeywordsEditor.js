@@ -4,7 +4,7 @@ define(
 	{
 		var KeywordsEditor = Widget.extend ({
 
-			'events' : {
+			events : {
 				'submit form[data-add-category]' : 'addCategory',
 				'click button.add-keyword' : 'addKeyword',
 				'click button.update-keyword' : 'updateKeyword',
@@ -13,7 +13,7 @@ define(
 				'click button[data-keyword-filter]' : 'toggleFilter'
 			},
 			
-			'initialize' : function ()
+			initialize : function ()
 			{
 				this.channel = Session.getChannel("monitoring");
 				
@@ -23,7 +23,7 @@ define(
 				this.listenTo(Session.getAccount(), 'sync', this.showFilter);
 			},
 
-			'render' : function (e)
+			render : function (e)
 			{
 				// Prevent "cancel" page reload
 				if(e && e.preventDefault) e.preventDefault();
@@ -95,12 +95,13 @@ define(
 
 				return this;
 			},
-			'showFilter' : function(){
+
+			showFilter : function(){
 				this.$el.find('#keyword_filter').removeClass("hidden");
 				this.$el.find('.container-loading').addClass("hidden");
 			},
 
-			'addCategory' : function (e)
+			addCategory : function (e)
 			{
 				e.preventDefault ();
 				
@@ -114,7 +115,7 @@ define(
 				this.$el.find(".addcategory .icon-cloud-upload").show();
 			},
 			
-			'addKeyword' : function (e)
+			addKeyword : function (e)
 			{
 				e.preventDefault ();
 				
@@ -149,7 +150,7 @@ define(
 				this.$el.find(".managekeyword .icon-cloud-upload").show();
 			},
 
-			'updateKeyword' : function (e)
+			updateKeyword : function (e)
 			{
 				e.preventDefault ();
 				
@@ -178,7 +179,7 @@ define(
 
 			},
 			
-			'fillKeyword' : function (id, e)
+			fillKeyword : function (id, e)
 			{
 				e.preventDefault ();
 				
@@ -235,7 +236,7 @@ define(
 				
 			},
 
-			'addPlus' : function (size){
+			addPlus : function (size){
 				
 				if(size == "small")
 					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + translation.translate_or + '</li></ul></span></span>');
@@ -243,7 +244,7 @@ define(
 					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is hidden">' + translation.translate_author_is + '</li><li class="add_author_is_not hidden">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
 			},
 
-			'formulaElement' : function(e){
+			formulaElement : function(e){
 				
 				//Default values - ID, countries, values
 				rand_id = this.getRandomInt(1,999);
@@ -358,11 +359,11 @@ define(
 				}
 			},
 
-			'getRandomInt' : function (min, max) {
+			getRandomInt : function (min, max) {
 			    return Math.floor(Math.random() * (max - min + 1)) + min;
 			},
 
-			'keywordFormula' : function()
+			keywordFormula : function()
 			{	
 				var object = {name: $("#keyword_manage_name").val(), settings: {}};
 
@@ -372,7 +373,7 @@ define(
 				return object;
 			},
 			
-			'keywordParameters' : function()
+			keywordParameters : function()
 			{
 				var object = {name: $("#keyword_manage_name").val(), settings: {}};
 				
@@ -395,7 +396,7 @@ define(
 				return object;
 			},
 
-			'resetFilter':function()
+			resetFilter :function()
 			{
 				RootView.confirm 
 				(
@@ -408,7 +409,7 @@ define(
 				)
 			},
 
-			'toggleFilter' : function (e)
+			toggleFilter : function (e)
 			{
 				e.preventDefault ();
 				
@@ -416,13 +417,14 @@ define(
 				
 				this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

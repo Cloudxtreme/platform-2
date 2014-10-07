@@ -4,16 +4,16 @@ define(
 	{
 		var CannedResponse = Backbone.Model.extend({
 
-			'typestring' : 'messages',
+			typestring : 'messages',
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				if(!Session)	Session = require('Session')
 					
 				this.streams = Session.getStreams('canned');
 			},
 
-			'url' : function()
+			url : function()
 			{	
 				var url = [Session.api];
 				
@@ -23,12 +23,12 @@ define(
 				return url.join("/");
 			},
 
-			'parse' : function(response)
+			parse : function(response)
 			{
 				return response.message? response.message: response;
 			},
 
-			'deletecanned' : function()
+			deletecanned : function()
 			{
 				var self = this;
 
@@ -50,7 +50,7 @@ define(
 				);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

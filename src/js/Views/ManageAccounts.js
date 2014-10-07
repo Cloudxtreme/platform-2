@@ -4,12 +4,12 @@ define(
 	{
 		var ManageAccounts = Pageview.extend({
 	
-			'id' : 'manageaccounts',
-			'className' : "container-fluid",
-			'title' : 'Manage Accounts',
+			id : 'manageaccounts',
+			className : "container-fluid",
+			title : 'Manage Accounts',
 			
-			'entries' : [],
-			'events' : {
+			entries : [],
+			events : {
 				'rendered' : 'bubblerender',
 				'remove': 'destroy',
 				
@@ -20,7 +20,7 @@ define(
 				'click .toggleall.active' : 'toggleall'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				
 				if(options) $.extend(this, options);
@@ -37,7 +37,7 @@ define(
 				this.translateTitle("manage_accounts");
 			},
 			
-			'render' : function()
+			render : function()
 			{
 				// Select Networks
 				var networks = this.channel.streams.filterNetworks(null, true);
@@ -58,7 +58,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function (models)
+			fill : function (models)
 			{
 				// Clean load or add
 				if(this.incremental) this.incremental = false;
@@ -79,7 +79,7 @@ define(
 				}
 			},
 			
-			'addcontact' : function (model)
+			addcontact : function (model)
 			{
 				// Create view
 				view = new ContactView ({model: model, parameters:{}});
@@ -96,7 +96,7 @@ define(
 
 			},
 			
-			'posturl' : function (e)
+			posturl : function (e)
 			{
 				var input = $(e.currentTarget);
 				
@@ -116,7 +116,7 @@ define(
 				
 			},
 			
-			'postfailure' : function (url)
+			postfailure : function (url)
 			{
 				// Loading symbel
 				this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
@@ -124,7 +124,7 @@ define(
 				RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
 			},
 			
-			'limited' : function (collection)
+			limited : function (collection)
 			{
 				var limited = Session.getAccount().monitorlimit('following', this.collection.models.length, $(".url-post, .url-post .input-large"));	
 			},
@@ -133,7 +133,7 @@ define(
 			 *	Filter
 			**/
 			
-			'filter' : function (e, all)
+			filter : function (e, all)
 			{
 				
 				// Check button state
@@ -158,7 +158,7 @@ define(
 				return this;
 			},
 			
-			'togglefilters' : function(all)
+			togglefilters : function(all)
 			{
 				// Toggle streams
 				this.$el.find('div[data-network]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
@@ -167,23 +167,26 @@ define(
 				this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
 			},
 			
-			'toggleall' : function ()
+			toggleall : function ()
 			{
 				
 				this.filter(true);
 				this.togglefilters(true);
 			},
-			'translateTitle' : function(translatedata)
+
+			translateTitle : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
-			'mustacheTranslateRender' : function(translatelocation)
+
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

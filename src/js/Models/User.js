@@ -4,14 +4,14 @@ define(
 	{
 		var User = Backbone.Model.extend({
 
-			'typestring' : 'users',
+			typestring : 'users',
 	
-			'initialize' : function ()
+			initialize : function ()
 			{
 
 			},
 			
-			'url' : function ()
+			url : function ()
 			{
 				if (this.parent)
 					return Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
@@ -26,7 +26,7 @@ define(
 
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") response = {id: response};
@@ -37,7 +37,7 @@ define(
 				return response;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -52,7 +52,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'filterData' : function (type)
+			filterData : function (type)
 			{
 				
 				var data = this.attributes;
@@ -69,12 +69,12 @@ define(
 				return data;
 			},
 
-			'getcoworker' : function(roles)
+			getcoworker : function(roles)
 			{
 				
 			},
 			
-			'getRole' : function ()
+			getRole : function ()
 			{	
 				var roles = Session.getAccount().get('roles'); 	
 				var userrole = this.get('rolegroup');

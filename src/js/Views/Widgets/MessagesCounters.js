@@ -4,12 +4,12 @@ define(
 	{
 		var MessagesCounters = WidgetView.extend({
 
-			'entries' : [],
-			'events' : {
+			entries : [],
+			events : {
 				'click a[href]' : 'updatesettings'
 			},
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 			
 				if(!options.color) this.options.color = this.color;
@@ -24,14 +24,14 @@ define(
 				}
 			},
 
-			'addedmessage' : function(message)
+			addedmessage : function(message)
 			{
 				// Is it a scheduled message?
 				if(message.get("schedule") && message.get("schedule").date)
 					this.updatecollection();
 			},
 			
-			'render' : function ()
+			render : function ()
 			{			
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 				this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
@@ -43,7 +43,7 @@ define(
 				return this;
 			},
 
-			'fill' : function(collection)
+			fill : function(collection)
 			{	
 				this.$container.empty();
 
@@ -54,7 +54,7 @@ define(
 				}
 			},	
 			
-			'updatecollection' : function()
+			updatecollection : function()
 			{
 				this.listenToOnce(this.collection, 'sync', this.fill);
 
@@ -69,7 +69,7 @@ define(
 				}
 			},
 
-			'updatesettings' : function (e)
+			updatesettings : function (e)
 			{
 				// Currently streams only
 				if(this.options.source != "streams" && this.options.source != "outgoing") return null;
@@ -89,7 +89,7 @@ define(
 				
 			},
 			
-			'negotiateFunctionalities' : function() {
+			negotiateFunctionalities : function() {
 				
 				// Check for scroller
 				if(this.$el.find('.scroller').length) this.addScroll();

@@ -4,10 +4,10 @@ define(
 	{
 		var Action = Backbone.View.extend({
 
-			'template' : 'action',
-			'position' : 'left',
+			template : 'action',
+			position : 'left',
 
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				$.extend(this, options);
 
@@ -19,7 +19,7 @@ define(
 				this.positionaction();
 			},
 
-			'render' : function()
+			render : function()
 			{	
 				this.action.inactive = this.inactive;
 				
@@ -33,7 +33,7 @@ define(
 				return this;
 			},
 
-			'rendercompound' : function()
+			rendercompound : function()
 			{	
 				// It's a complex compound, like notes, with multiple action tokens
 				if(this.action.length >= 2)			
@@ -43,7 +43,7 @@ define(
 				
 			},
 
-			'rendercomplexcompound' : function()
+			rendercomplexcompound : function()
 			{	
 				var actionview = this.action[0].hasOwnProperty('value')? this.action[0]: this.action[1];
 				var actionadd = this.action[0].hasOwnProperty('value')? this.action[1]: this.action[0];
@@ -54,15 +54,15 @@ define(
 				this.action = actionview;
 			},
 
-			'positionaction' : function()
+			positionaction : function()
 			{
 				if(_.isArray(this.action) && this.action[0].type == 'note')		this.position = 'right';
 				else if(this.action.type == 'note')								this.position = 'right';
 				else if(this.action.token == 'delete')							this.position = 'right';
 			},
 
-			'increment' : function()
-			{	//Testing, this is just wrong!!
+			increment : function()
+			{	//Testing, this is just wrong!! <- Deprecated
 				var value = this.$el.find('.actionvalue span').html();
 				if (value)
 					this.$el.find('.actionvalue span').html(Number(value)+1);

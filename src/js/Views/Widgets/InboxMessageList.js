@@ -7,21 +7,21 @@ define(
 			// To-do: if url streamid is given, load network-related only.
 			// To-do: local manipulate list-view & toggle
 
-			'id' : 'inboxlist',
-			'entries' : [],
-			'check' : "hasMessages",
-			'collectionstring' : "messages",
-			'filters' : {
-				contacts : {string:"", list:[]},
-				streams : []
+			id : 'inboxlist',
+			entries : [],
+			check : "hasMessages",
+			collectionstring : "messages",
+			filters : {
+				'contacts' : {string:"", list:[]},
+				'streams' : []
 			},
-			'templates' : {
+			templates : {
 				'messages' : 'smallentry',
 				'notes' : 'smallentrynote',
 				'notifications' : 'smallentry'
 			},
 			
-			'events' : {
+			events : {
 				'remove' : 'destroy',
 				'click [data-toggle]' : 'togglefilter',
 				'input .input-rounded' : 'comparesuggestions',
@@ -33,7 +33,7 @@ define(
 				'click .load-more' : 'more'
 			},
 			
-			'initialize' : function (options, /* Deprecated? */ pageviewoptions)
+			initialize : function (options, /* Deprecated? */ pageviewoptions)
 			{
 				if(options) $.extend(this, options);
 				
@@ -48,7 +48,7 @@ define(
 				this.updateable(this.model, "h3.page-title");
 			},
 
-			'loadmylisteners' : function(recycle){
+			loadmylisteners : function(recycle){
 
 				if(recycle)
 					this.stopListening(this.collection);
@@ -75,13 +75,13 @@ define(
 				this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
 			},
 			
-			'toggleall' : function ()
+			toggleall : function ()
 			{
 				this.filternetworks(null, true);
 				this.togglestreams(true);
 			},
 			
-			'togglestreams' : function(all)
+			togglestreams : function(all)
 			{
 				// Toggle streams
 				this.$el.find('[data-networks], [data-streams]').addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
@@ -90,7 +90,7 @@ define(
 				this.$el.find('.toggleall').addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				// Template data
 				var param = {streams: [], networks: []};
@@ -128,7 +128,7 @@ define(
 				return this;
 			},
 			
-			'showloading' : function (object)
+			showloading : function (object)
 			{	
 				//this.$container.addClass("inner-loading");
 				
@@ -140,7 +140,7 @@ define(
 				this.$el.find(".load-more").hide();
 			},
 			
-			'hideloading' : function (collection, response)
+			hideloading : function (collection, response)
 			{	
 				if(collection.cursor && response[collection.parenttype][this.collectionstring].length)
 					this.hasmore = true;
@@ -152,7 +152,7 @@ define(
 				this.$container.removeClass("inner-loading");
 			},
 
-			'showmore' : function(){
+			showmore : function(){
 				
 				setTimeout(function()
 				{		
@@ -169,12 +169,12 @@ define(
 				}.bind(this),200)
 			},
 			
-			'hidemore' : function()
+			hidemore : function()
 			{
 				this.$el.find(".load-more").hide();
 			},
 			
-			'fill' : function (models)
+			fill : function (models)
 			{	
 				var template = this.templates[this.collectionstring];		
 
@@ -206,7 +206,7 @@ define(
 				else 					this.hidemore();
 			},
 			
-			'toggle' : function(view)
+			toggle : function(view)
 			{	
 				var options = {model: view.model};
 				
@@ -224,7 +224,7 @@ define(
 				view.$el.addClass("active");
 			},
 			
-			'togglefilter' : function(e)
+			togglefilter : function(e)
 			{
 
 				var button = $(e.currentTarget);
@@ -241,7 +241,7 @@ define(
 				}
 			},
 			
-			'comparesuggestions' : function (iscontact)
+			comparesuggestions : function (iscontact)
 			{
 				var string = this.$el.find("#filter_contacts input").val();
 				
@@ -262,12 +262,12 @@ define(
 				
 			},
 			
-			'comparenamefilter' : function(string, contact)
+			comparenamefilter : function(string, contact)
 			{
 				return contact.get("displayname").toLowerCase().indexOf(string) >= 0 || (contact.get("name") && contact.get("name").toLowerCase().indexOf(string) >= 0);
 			},
 			
-			'showsuggestions' : function(contacts)
+			showsuggestions : function(contacts)
 			{
 				this.$el.find("#filter_contacts label").removeClass("hidden");
 				this.$el.find("ul.contacts-suggestions").empty();
@@ -276,13 +276,13 @@ define(
 					this.$el.find("ul.contacts-suggestions").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));
 			},
 			
-			'hidesuggestions' : function()
+			hidesuggestions : function()
 			{
 				this.$el.find("#filter_contacts label").addClass("hidden");
 				this.$el.find("ul.contacts-suggestions").empty();
 			},
 			
-			'requestcontacts' : function(string)
+			requestcontacts : function(string)
 			{
 				if(string != this.filters.contacts.string)
 				{
@@ -297,7 +297,7 @@ define(
 				}
 			},
 			
-			'loadedcontacts' : function()
+			loadedcontacts : function()
 			{
 				this.$el.find(".loading-contacts").addClass("hidden");
 				
@@ -310,7 +310,7 @@ define(
 				}
 			},
 			
-			'filtercontacts' : function (e)
+			filtercontacts : function (e)
 			{
 				var button = $(e.currentTarget);
 				var param = {};
@@ -340,7 +340,7 @@ define(
 				return this;
 			},
 			
-			'filternetworks' : function (e, all)
+			filternetworks : function (e, all)
 			{
 				this.loadmylisteners(true);	
 				
@@ -372,7 +372,7 @@ define(
 				return this;
 			},
 			
-			'filterstreams' : function (e, all)
+			filterstreams : function (e, all)
 			{
 				this.loadmylisteners(true);
 				
@@ -439,7 +439,7 @@ define(
 				return this;
 			},*/
 			
-			'filterparameters' : function() {
+			filterparameters : function() {
 				
 				var param;
 
@@ -466,7 +466,7 @@ define(
 				return param;
 			},
 			
-			'storeview' : function ()
+			storeview : function ()
 			{
 				
 				// Memory cloth
@@ -483,7 +483,7 @@ define(
 				}
 			},
 			
-			'more' : function ()
+			more : function ()
 			{
 				this.incremental = true;
 
@@ -494,14 +494,14 @@ define(
 				if(!hasmore) this.$el.find(".load-more").hide();
 			},
 			
-			'negotiateFunctionalities' : function() {
+			negotiateFunctionalities : function() {
 				
 				this.listenTo(Session, 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},
 			
-			'addScroll' : function () {
+			addScroll : function () {
 
 				this.$el.find('.scroller').slimScroll({
 					height: "inherit"
@@ -509,25 +509,26 @@ define(
 				});
 			},
 			
-			'destroy' : function()
+			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
 			},
 
-			'isempty' : function(){		
+			isempty : function(){		
 				$(".inbox-container").empty().addClass('empty-content');
 			},
 
-			'unsetempty' : function(){
+			unsetempty : function(){
 				$(".inbox-container").removeClass('empty-content');
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
-			'mustacheTranslateRender' : function(translatelocation)
+
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

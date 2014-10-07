@@ -4,7 +4,7 @@ define(
 	{
 		var Campaign = Backbone.Model.extend({
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				
 			}

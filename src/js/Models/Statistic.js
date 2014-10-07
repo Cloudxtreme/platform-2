@@ -4,10 +4,10 @@ define(
 	{
 		var Statistic = Backbone.Model.extend({
 	
-			'typestring' : "statistics",
-			'parameters' : {},
+			typestring : "statistics",
+			parameters : {},
 			
-			'initialize' : function(attributes)
+			initialize : function(attributes)
 			{
 				// Listen to outdates
 				//this.on("outdated", this.fetch)
@@ -70,7 +70,7 @@ define(
 				return response;
 			},
 
-			'pluckbynetwork' : function(){
+			pluckbynetwork : function(){
 				//to be made
 			},
 
@@ -95,7 +95,7 @@ define(
 			 *	Column data
 			 **/
 			 
-			'contacts' : function (single)
+			contacts : function (single)
 			{
 				
 				var list = [];
@@ -124,7 +124,7 @@ define(
 				return list;
 			},
 			
-			'age' : function (single)
+			age : function (single)
 			{
 				
 				var list = [];
@@ -132,7 +132,7 @@ define(
 				return { counter: list};
 			},
 			
-			'gender' : function (single)
+			gender : function (single)
 			{
 				
 				var list = [];
@@ -140,7 +140,7 @@ define(
 				return { counter: list};
 			},
 			
-			'regional' : function (single)
+			regional : function (single)
 			{
 				
 				var list = [];
@@ -148,7 +148,7 @@ define(
 				return { counter: list};
 			},
 			
-			'countries' : function (single)
+			countries : function (single)
 			{
 				
 				var list = [];
@@ -156,7 +156,7 @@ define(
 				return { counter: list};
 			},
 			
-			'cities' : function (single)
+			cities : function (single)
 			{
 				
 				var list = [];
@@ -164,7 +164,7 @@ define(
 				return { counter: list};
 			},
 			
-			'besttime' : function (single)
+			besttime : function (single)
 			{
 				
 				var list = [];
@@ -172,7 +172,7 @@ define(
 				return { counter: list};
 			},
 			
-			'activity' : function (single)
+			activity : function (single)
 			{
 				
 				var list = [];

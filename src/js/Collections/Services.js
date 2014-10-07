@@ -4,21 +4,21 @@ define(
 	{
 		var Services = Backbone.Collection.extend({
 
-			'model' : Service,
-			'endpoint' : "",
+			model : Service,
+			endpoint : "",
 
-			'initialize' : function(){
+			initialize : function(){
 
 				this.on('add', this.model.updateStreams)
 			},
 			
-			'url' : function()
+			url : function()
 			{	
 				return Session.api + '/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
 				// return CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{
 				// Hold available endpoint contained
 				if(response.services)
@@ -34,7 +34,7 @@ define(
 				}
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -46,7 +46,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'fetchAvailable' : function (options)
+			fetchAvailable : function (options)
 			{
 				this.fetch({endpoint: "available"});
 			}

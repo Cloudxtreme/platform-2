@@ -4,14 +4,14 @@ define(
 	{
 		var Users = Backbone.Collection.extend({
 
-			'model' : User,
-			'typestring' : "users",
-			'modelstring' : "user",
-			'parenttype' : "account",
-			'processing' : false,
+			model : User,
+			typestring : "users",
+			modelstring : "user",
+			parenttype : "account",
+			processing : false,
 
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				if(!Session)	Session = require('Session');
 				
@@ -23,7 +23,7 @@ define(
 					Session.getUsers().listenTo(this, "add", Session.getUsers().distantAdd);	
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{
 				
 				// Solve response json tree problem
@@ -35,17 +35,19 @@ define(
 				
 				// Ready?
 				if(!response.paging) this.ready();
+
+				this.processing = false;
 				
 				return response[this.typestring];
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				return Session.api + '/account/' + Session.getAccount ().id + '/' + this.typestring + this.parameters;
 				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/' + this.typestring + this.parameters;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -56,6 +58,10 @@ define(
 				{
 					this.processing = true;
 					this.parameters = this.parameters? "?" + $.param(this.parameters): "";
+					
+		            //Overrrding default params with fetch specif params
+		            if(options.parameters)    this.parameters = "?" + $.param(options.parameters);
+
 				}
 
 				return Backbone.sync(method, model, options);
@@ -89,7 +95,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},*/
 			
-			'updates' : function (ids)
+			updates : function (ids)
 			{
 				for(n in ids)
 				{
@@ -107,7 +113,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});
@@ -128,7 +134,7 @@ define(
 				this.seed(ids);
 			},*/
 			
-			'hook' : function(callbacks)
+			hook : function(callbacks)
 			{
 				if(callbacks.records) this.parameters.records = callbacks.records;
 				

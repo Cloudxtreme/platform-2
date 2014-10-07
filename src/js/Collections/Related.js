@@ -4,9 +4,9 @@ define(
 	{
 		var Related = Messages.extend({
 
-			'typestring' : "related",
-			'modelstring' : "related",
-			'parenttype' : "message"
+			typestring : "related",
+			modelstring : "related",
+			parenttype : "message"
 			
 			/*'seed' : function(ids)
 			{

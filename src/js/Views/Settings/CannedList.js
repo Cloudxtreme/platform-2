@@ -4,17 +4,17 @@ define(
 	{
 		var CannedList = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click i[data-delete-canned-id]' : 'deletecanned'
 			},
 
-			'initialize' : function()
+			initialize : function()
 			{
 				this.cannedresponses = Session.getCannedResponses();
 				this.listenTo(this.cannedresponses, 'sync', this.render);
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				var params = {canned: this.cannedresponses.models};
 
@@ -22,7 +22,7 @@ define(
 				return this;
 			},
 
-			'deletecanned' : function(e)
+			deletecanned : function(e)
 			{
 				var cannedid = $(e.target).data ('delete-canned-id'); 
 				
@@ -36,7 +36,7 @@ define(
 				}
 			},
 
-			'destroyli' : function(e)
+			destroyli : function(e)
 			{
 				$(e.target).closest('li').remove();
 			}

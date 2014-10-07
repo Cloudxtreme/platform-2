@@ -4,7 +4,7 @@ define(
 	{
 		var TrendingMessage = Backbone.View.extend({
 
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 				
@@ -19,7 +19,7 @@ define(
 				this.gettoptrending();		
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 			
 				/* This Should be in the Widget
@@ -36,7 +36,7 @@ define(
 				return this;
 			},
 
-			'fill' : function(){
+			fill : function(){
 
 				this.message = this.model.get("messages") ? this.model.get("messages")[0] : false;
 
@@ -66,7 +66,7 @@ define(
 
 			},
 
-			'gettoptrending' : function(){
+			gettoptrending : function(){
 
 				if(this.parentview.streamid)
 					return this.toptrendingstream(this.parentview.streamid);
@@ -74,7 +74,7 @@ define(
 					return this.toptrendingall();
 			},
 
-			'toptrendingstream' : function(streamid){
+			toptrendingstream : function(streamid){
 
 				var filters = {
 					sort:  this.timespan.sort,
@@ -86,7 +86,7 @@ define(
 				return;
 			},
 
-			'toptrendingall' : function(){
+			toptrendingall : function(){
 
 				var filters = {
 					sort:  'engagement',
@@ -99,17 +99,17 @@ define(
 				return;
 			},
 
-			'showloading' : function ()
+			showloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").show();
 			},
 			
-			'hideloading' : function ()
+			hideloading : function ()
 			{
 				$(".inner-loading").removeClass('inner-loading');
 			},
 
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 
 			}

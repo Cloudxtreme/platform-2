@@ -4,7 +4,7 @@ define(
 	{
 		var Profile = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click .add-user' : 'addUser',
 				'submit .edit-user-profile' : 'editUserProfile',
 				'submit .edit-user-password' : 'editUserPassword',
@@ -19,9 +19,9 @@ define(
 			},
 
 			'class' : 'section',
-			'collections' : [],
+			collections : [],
 
-			'render' : function ()
+			render : function ()
 			{
 				
 				var user = Session.getUser ();
@@ -48,7 +48,7 @@ define(
 				return this;
 			},
 
-			'editUserProfile' : function (e)
+			editUserProfile : function (e)
 			{
 				var user = Session.getUser ();
 				var firstname = this.$el.find ('[name=firstname]').val ();
@@ -73,9 +73,9 @@ define(
 				}.bind(this)});
 			},
 
-			'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+			enablereset : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
 
-			'disablereset' : function(e)
+			disablereset : function(e)
 			{ 
 				$(e.currentTarget).closest('form').get(0).reset();
 
@@ -86,9 +86,9 @@ define(
 			 *	Profile: avatar
 			**/
 
-			'addfile' : function (e) { $(".settings-profile input[type=file]").click(); },
+			addfile : function (e) { $(".settings-profile input[type=file]").click(); },
 			
-			'listentofile' : function (e)
+			listentofile : function (e)
 			{	
 				var self = this;
 				var files = e.target.files;
@@ -108,13 +108,13 @@ define(
 				}
 			},
 			
-			'addimage' : function(base64data){
+			addimage : function(base64data){
 				
 				this.base64data = base64data;
 				this.$el.find("div.avatar-big").css('background-image', "url(" + base64data + ")");
 			},
 			
-			'uploadfile' : function(){
+			uploadfile : function(){
 				
 				this.$el.find('.edit-user-avatar').addClass('loading');
 
@@ -165,7 +165,7 @@ define(
 				}
 			},*/
 			
-			'editUserPassword' : function () {
+			editUserPassword : function () {
 				
 				var oldpassword = this.$el.find ('[name=pass0]').val();
 				var newpassword = this.$el.find ('[name=pass1]').val();
@@ -205,19 +205,19 @@ define(
 			},
 			
 			/* on it's way to be deprecated */
-			'negotiateFunctionalities' : function(el) {
+			negotiateFunctionalities : function(el) {
 				
 				// Check collapse option
 				$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 			},
 			
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

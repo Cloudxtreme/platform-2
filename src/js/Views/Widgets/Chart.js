@@ -4,8 +4,8 @@ define(
 	{
 		var Chart = Backbone.View.extend({
 	
-			'title' : "Chart",
-			'events' : 
+			title : "Chart",
+			events : 
 			{
 				/*'remove' : 'destroy',
 				'click *[data-action]' : 'action',
@@ -13,7 +13,7 @@ define(
 				'click [data-youtube]' : 'loadYoutube',
 				'click' : 'toggle'*/
 			},
-			'columns' :  {
+			columns :  {
 				"contacts" 	: "parsecontacts",
 				"age" 		: "parseage",
 				"gender" 	: "parsegender",
@@ -43,11 +43,11 @@ define(
 
 				"nodata" : "emptychartdata"
 			},
-			'colors' : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
-			'countrycolors' : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
-			'networkcolors' : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
+			colors : ["#E27927", "#B14B22", "#9E1818", "#850232", "#68114F", "#70285B", "#783E68", "#815574", "#896C80", "#91828D"],
+			countrycolors : ["#E27927", "#E5822E", "#E88B35", "#EC953C", "#EF9E43", "#F2A74A", "#F5B051", "#F9BA58", "#FCC35F", "#FFCC66"],
+			networkcolors : {'facebook': "#3B5998", 'twitter': "#01a9da", 'linkedin': "#1783BC", 'tumblr': "#385775", 'google-plus': "#DD4C39", 'youtube': "#CC181E", 'web': "#f39501", 'blog': "#f39501", 'mobile-phone': "#E2EAE9", 'others':"#E5E5E5"},
 
-			'networktokens' : {
+			networktokens : {
 				'Facebook':'#3B5998', 
 				'Twitter':'#01a9da', 
 				'LinkedIn':'#1783BC', 
@@ -59,7 +59,7 @@ define(
 				'CoworkerWall':"#CCCCCC"
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 
@@ -69,7 +69,7 @@ define(
 				this.listenTo(this.collection, 'ready', this.fill);
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				/* This should be in the Widget
 				if(this.widgets[n].data.title == translate.messages_evolution)
@@ -88,7 +88,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function ()
+			fill : function ()
 			{ 	
 				if(!this.collection.latest() || !this.collection.latest().get('streams'))
 					return;
@@ -145,12 +145,12 @@ define(
 			    }
 			},
 
-			'removeloading' : function()
+			removeloading : function()
 			{
 				this.$el.find('.loading').removeClass('loading');
 			},
 
-			'renderbesttime' : function(data){
+			renderbesttime : function(data){
 
 				this.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
 
@@ -262,12 +262,12 @@ define(
 				return fulldata;
 			},
 
-			'parsecontactevolution' : function(collection){
+			parsecontactevolution : function(collection){
 
 				return this.parseevolution(collection, "contacts");
 			},
 
-			'parsecontactevolutionnetwork' : function(collection){
+			parsecontactevolutionnetwork : function(collection){
 
 				var statistics = collection.models;
 				var network = this.network;
@@ -297,7 +297,7 @@ define(
 				return fulldata;
 			},
 
-			'parsemessageevolution' : function(collection){
+			parsemessageevolution : function(collection){
 
 				var statistics = collection.models;
 
@@ -328,7 +328,7 @@ define(
 				return fulldata;
 			},
 
-			'parsemessageevolutionnetwork' : function(collection){
+			parsemessageevolutionnetwork : function(collection){
 
 				var statistics = collection.models;
 				var network = this.network;
@@ -589,7 +589,7 @@ define(
 				return fulldata;
 			},
 
-			'parsefollow' : function(collection){
+			parsefollow : function(collection){
 
 				var statistic = collection.latest();
 				var followers = statistic.pluck(["contacts","types","followers"], this.network, 3);
@@ -642,7 +642,7 @@ define(
 				return fulldata;
 			},
 
-			'groupkey' : function(collection, parents, key){
+			groupkey : function(collection, parents, key){
 				
 				var group = {};
 				
@@ -690,7 +690,7 @@ define(
 				return fulldata;
 			},
 
-			'capitalize' : function(string){
+			capitalize : function(string){
 
 				return string.charAt(0).toUpperCase() + string.slice(1);
 			},	
@@ -926,7 +926,7 @@ define(
 
 			///////////////////////
 			//Old charts demo stuff
-			'parseevolution' : function(collection, type){
+			parseevolution : function(collection, type){
 				
 				var func = type ? this.columns[type] : this.columns[this.type];
 				var length = this.collection.length;
@@ -982,7 +982,7 @@ define(
 				
 			},
 
-			'parseallreports' : function(collection){
+			parseallreports : function(collection){
 
 				var contacts = this.parseevolution(collection, "contacts").data;
 				var messages = this.parseevolution(collection, "messages").data;
@@ -1021,7 +1021,7 @@ define(
 				return fulldata;
 			},
 
-			'parsegeo' : function(collection)
+			parsegeo : function(collection)
 			{	
 				var fulldata = this.parseregional(collection, this.network);
 				return fulldata;
@@ -1057,7 +1057,7 @@ define(
 			},
 
 			*/
-			'emptychartdata' : function (){
+			emptychartdata : function (){
 
 				var fulldata = {
 					data : [["No results", 1]],
@@ -1072,13 +1072,13 @@ define(
 				return fulldata;
 			},
 			
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 				
 				
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

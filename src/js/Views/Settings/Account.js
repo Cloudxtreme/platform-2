@@ -4,7 +4,7 @@ define(
 	{
 		var Account = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click i[data-delete-campaign-id]' : 'deletecampaign',
 				'click #menu a' : 'scroll',
 				'submit form#editaccount' : 'editaccount',
@@ -13,7 +13,7 @@ define(
 				'click [data-action=reseetaccount]' : 'disablebtnaccount'
 			},
 
-			'initialize' : function()
+			initialize : function()
 			{
 				this.streams = Session.getStreams();
 				this.streams = this.streams.filterNetworks();
@@ -28,7 +28,7 @@ define(
 				this.triggermodel = {};
 			},
 
-			'render' : function ()
+			render : function ()
 			{		
 				var data = this.account.attributes;
 				
@@ -59,9 +59,9 @@ define(
 				return this;
 			},
 
-			'enablebtnaccount' : function()	{ this.$el.find('[data-action=reseetaccount]').attr('disabled', false);	},
+			enablebtnaccount : function()	{ this.$el.find('[data-action=reseetaccount]').attr('disabled', false);	},
 
-			'disablebtnaccount' : function(e)
+			disablebtnaccount : function(e)
 			{ 
 				$(e.currentTarget).closest('form').get(0).reset();
 
@@ -69,7 +69,7 @@ define(
 			},
 			
 
-			'filltriggers' : function(models)
+			filltriggers : function(models)
 			{
 				//Hack time!
 				var twitterfollow = models.filter(function(el){ if(el.get("event") == 'CONTACT-NEW') return el;})
@@ -82,7 +82,7 @@ define(
 				this.dmview.updatetrigger(dmout);
 			},
 
-			'action' : function(e)
+			action : function(e)
 			{
 				// Action token
 				var token = $(e.currentTarget).data ('action');
@@ -90,7 +90,7 @@ define(
 				this[token](e);
 			},
 			
-			'editaccount' : function (e)
+			editaccount : function (e)
 			{
 				var name = this.$el.find ('[data-attribute=account-name]').val ();
 
@@ -117,7 +117,7 @@ define(
 					}.bind(this)});
 			},
 			
-			'deletecampaign' : function (e)
+			deletecampaign : function (e)
 			{
 				//var account = Session.getAccount();
 				var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
@@ -132,7 +132,7 @@ define(
 				)
 			},
 
-			'scroll' : function(e)
+			scroll : function(e)
 			{	
 				var hash = $(e.currentTarget).data('hash');		
 				var position = this.$el.find('h3[name='+hash+']').offset().top;
@@ -144,19 +144,19 @@ define(
 			},
 
 			/* on it's way to be deprecated */
-			'negotiateFunctionalities' : function(el) {
+			negotiateFunctionalities : function(el) {
 				
 				// Check collapse option
 				this.$el.find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

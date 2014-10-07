@@ -5,9 +5,9 @@ define(
 	{
 		var Streams = Backbone.Collection.extend({
 			
-			'model' : Stream,
+			model : Stream,
 			
-			'initialize' : function(){
+			initialize : function(){
 
 				if(!Session)	Session = require('Session');
 				
@@ -15,7 +15,7 @@ define(
 					Session.getStreams().listenTo(this, "add", Session.getStreams().distantAdd)
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				
@@ -23,14 +23,14 @@ define(
 				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/streams' + param;
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{
 				this.parameters = false;
 				
 				return response.streams;
 			},
 			
-			'sync' : function (method, model, options) {
+			sync : function (method, model, options) {
 				
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -48,12 +48,12 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'distantAdd' : function(model)
+			distantAdd : function(model)
 			{	
 				if(!this.get(model.id)) this.add(model);	
 			},
 			
-			'updates' : function (ids)
+			updates : function (ids)
 			{
 				for(n in ids)
 				{
@@ -71,7 +71,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});
@@ -80,7 +80,7 @@ define(
 				var model = this.updates([id]);
 			},
 			
-			'seed' : function(ids)
+			seed : function(ids)
 			{
 				// Ignore empty id lists
 				if(!ids || !ids.length) return [];
@@ -109,7 +109,7 @@ define(
 				return list;
 			},
 
-			'parsecontacts' : function(){
+			parsecontacts : function(){
 				console.log(this);
 			},
 			
@@ -138,7 +138,7 @@ define(
 				return this;
 			},*/
 			
-			'filterNetworks' : function (streams, asArray)
+			filterNetworks : function (streams, asArray)
 			{
 				if(!streams) streams = this.models;
 				
@@ -167,7 +167,7 @@ define(
 				return networksarray;
 			},
 			
-			'filterReportStreams' : function ()
+			filterReportStreams : function ()
 			{
 				var reportables = {};
 				

@@ -4,9 +4,9 @@ define(
 	{
 		var Action = Backbone.Model.extend({
 	
-			'typestring' : "actions",
+			typestring : "actions",
 	
-			'initialize' : function(options, init)
+			initialize : function(options, init)
 			{
 				if(options) $.extend(this, options);
 				
@@ -15,7 +15,7 @@ define(
 					this.parent = init.collection.parent;
 			},
 			
-			'url' : function()
+			url : function()
 			{	
 				var url = [Session.api];
 				
@@ -30,7 +30,7 @@ define(
 			},
 			
 			
-			'parse' : function(data)
+			parse : function(data)
 			{	
 				// Catch hierarchy
 				if (this.parent && data[this.parent.get("objectType")]) data = data[this.parent.get("objectType")];

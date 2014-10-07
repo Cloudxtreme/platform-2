@@ -4,14 +4,14 @@ define(
 	{
 		var Note = Backbone.Model.extend({
 
-			'typestring' : 'notes',
-			'type_settings' : {
+			typestring : 'notes',
+			type_settings : {
 				'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
 				'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
 				'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
 			},
 
-			'type_settings' : {
+			type_settings : {
 				'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
 				'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
 				'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
@@ -19,12 +19,12 @@ define(
 
 
 
-			'initialize' : function()
+			initialize : function()
 			{	
 				this.on('action', this.action);
 			},
 
-			'parse' : function (response) 
+			parse : function (response) 
 			{	
 				// A new object
 				if (typeof response == "number") return response = {id: response};
@@ -50,7 +50,7 @@ define(
 				return response;
 			},
 			
-			'attachParent' : function (type, id)
+			attachParent : function (type, id)
 			{
 				var type = this.type_settings[type].model;
 				var object = Session["get" + type](id);
@@ -76,7 +76,7 @@ define(
 					return func.apply(null, args);
 			},
 
-			'url' : function()
+			url : function()
 			{	
 				var url = [Session.api];
 
@@ -97,14 +97,14 @@ define(
 				return this.parameters? url + "?" + $.param(this.parameters) : url;
 			},
 
-			'action' : function(token)
+			action : function(token)
 			{
 				if(token == 'delete'){
 					this.deletenote();
 				}
 			},
 
-			'deletenote' : function()
+			deletenote : function()
 			{
 				var self = this;
 

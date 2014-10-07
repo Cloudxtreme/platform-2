@@ -3,17 +3,19 @@ define(
 	function (Widget, Users, UserView)
 	{
 		var DraftsFilters = Widget.extend ({
-			'filters' : {
+
+			filters : {
 				users : {string:"", list:[]}
 			},
-			'events' : {
+
+			events : {
 				'remove' : 'destroy',
 				'input .input-rounded' : 'comparesuggestions',
 				'click .load-more' : 'more',
 				'click .toggleall.active' : 'toggleall'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 		    {
 				if(options) $.extend(this, options);
 
@@ -29,7 +31,7 @@ define(
 				
 		    },
 
-			'render' : function ()
+			render : function ()
 			{
 				var data = {reports: []};
 				
@@ -61,7 +63,7 @@ define(
 				return this;
 			},
 			
-			'toggleall' : function ()
+			toggleall : function ()
 			{
 				this.showsuggestions(this.model.users.models);
 				
@@ -72,7 +74,7 @@ define(
 				this.model.messages.touch(this.model, {records: 20});
 			},
 			
-			'comparesuggestions' : function (isuser)
+			comparesuggestions : function (isuser)
 			{
 				// Toggle all active
 				this.$el.find(".toggleall").addClass('active').removeClass('inactive');
@@ -96,18 +98,18 @@ define(
 				
 			},
 			
-			'comparenamefilter' : function(string, user)
+			comparenamefilter : function(string, user)
 			{
 				return user.get("displayname").toLowerCase().indexOf(string) >= 0 || (user.get("name") && user.get("name").toLowerCase().indexOf(string) >= 0);
 			},
 			
-			'hidesuggestions' : function()
+			hidesuggestions : function()
 			{
 				// Load current users
 				this.fill(this.model.users.models);
 			},
 			
-			'showsuggestions' : function(contacts)
+			showsuggestions : function(contacts)
 			{
 				
 				this.fill(contacts);
@@ -119,7 +121,7 @@ define(
 					this.$el.find("ul.users-list").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));*/
 			},
 			
-			'requestusers' : function(string)
+			requestusers : function(string)
 			{
 				if(string != this.filters.users.string)
 				{
@@ -134,7 +136,7 @@ define(
 				}
 			},
 			
-			'loadedusers' : function()
+			loadedusers : function()
 			{
 				this.$el.find(".loading-contacts").addClass("hidden");
 				
@@ -147,7 +149,7 @@ define(
 			},
 
 			
-			'filter' : function (e)
+			filter : function (e)
 			{
 				$(e.currentTarget).toggleClass("inactive active")
 				
@@ -180,7 +182,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function (models)
+			fill : function (models)
 			{	
 				// Clean load
 				$.each(this.entries, function(n, entry){ entry.remove()});
@@ -201,7 +203,7 @@ define(
 				this.$el.find(".inner-loading").removeClass("inner-loading")
 			},
 			
-			'select' : function(view)
+			select : function(view)
 			{	
 				// Render list
 				this.list.render({users: view.model.id, records: 20});
@@ -209,13 +211,13 @@ define(
 				this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
 			},
 			
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

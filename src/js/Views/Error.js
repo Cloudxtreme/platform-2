@@ -4,7 +4,7 @@ define(
 	{
 		var Error = Backbone.View.extend({
 
-			'render' : function ()
+			render : function ()
 			{
 				var data = {};
 

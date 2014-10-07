@@ -4,15 +4,15 @@ define(
 	{
 		var Service = Backbone.Model.extend({
 	
-			'typestring' : "services",
-			'channels' : [],
+			typestring : "services",
+			channels : [],
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				this.on('destroy', this.remove);
 			},
 			
-			'url' : function()
+			url : function()
 			{	
 				var url = [Session.api];
 				
@@ -24,7 +24,7 @@ define(
 				return url.join("/");
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{	
 				// A new object
 				if (typeof response == "number") response = {id: response};
@@ -35,7 +35,7 @@ define(
 				return response;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -85,13 +85,13 @@ define(
 				RootView.navigation.render();
 			},
 
-			'addservice' : function()
+			addservice : function()
 			{
 				this.once('sync', this.updatechannels.bind(this, "add"))
 					.fetch({parentpoint: false});
 			},
 
-			'updatechannels' : function(operation)
+			updatechannels : function(operation)
 			{	
 				var streams = this.get("streams");
 
@@ -109,7 +109,7 @@ define(
 					Router.Instance.navigate("#settings/services", true)
 			},
 
-			'parsestream' : function(stream, operation)
+			parsestream : function(stream, operation)
 			{	
 				var channels = stream.channels;
 				var channel;
@@ -124,7 +124,7 @@ define(
 				}
 			},
 
-			'remove' : function()
+			remove : function()
 			{
 				this.updatechannels('remove', this)
 			}

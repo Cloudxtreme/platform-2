@@ -4,14 +4,14 @@ define(
 	{
 		var MonitorFilters = Widget.extend ({
 
-			'events' : {
+			events : {
 				'click [data-network-streams]' : 'filternetworks',
 				'click [data-keyword-id]' : 'filterkeywords',
 				'click .toggleall.networks.active' : 'toggleallnetworks',
 				'click .toggleall.keywords.active' : 'toggleallkeywords'
 			},
 			
-			'initialize' : function ()
+			initialize : function ()
 		    {
 				this.category = this.options.category;
 				this.category.childtype = "message";
@@ -27,19 +27,19 @@ define(
 		        this.initializeWidget ();
 		    },
 		    
-		    'toggleallnetworks' : function (all)
+		    toggleallnetworks : function (all)
 			{
 				this.filternetworks(null, true);
 				this.togglefilters(all, ".network-list");
 			},
 			
-			'toggleallkeywords' : function (all)
+			toggleallkeywords : function (all)
 			{
 				this.filterkeywords(null, true);
 				this.togglefilters(all, ".keyword-list");
 			},
 			
-			'togglefilters' : function(all, selector)
+			togglefilters : function(all, selector)
 			{
 				// Toggle streams
 				this.$el.find(selector + " .filter").addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
@@ -48,7 +48,7 @@ define(
 				$(selector + " .toggleall").addClass(all? 'inactive': 'active').removeClass(all? 'active': 'inactive');
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var data = {keywords: this.category.channels.models};
 				
@@ -97,7 +97,7 @@ define(
 			},*/
 
 			
-			'filternetworks' : function (e, all)
+			filternetworks : function (e, all)
 			{
 				
 				// Check button state
@@ -156,7 +156,7 @@ define(
 				return this;*/
 			},
 			
-			'filterkeywords' : function (e, all)
+			filterkeywords : function (e, all)
 			{
 				// Check button state
 				if(!all)
@@ -214,7 +214,8 @@ define(
 				
 				return this;*/
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

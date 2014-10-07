@@ -4,20 +4,20 @@ define(
 	{
 		var Triggers = Backbone.Collection.extend({
 
-			'model' : Trigger,
-			'typestring' : "triggers",
+			model : Trigger,
+			typestring : "triggers",
 			
-			'initialize' : function()
+			initialize : function()
 			{
 				
 			},
 
-			'parse' : function (response)
+			parse : function (response)
 			{	
 				return response.account.triggers;
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				
 				var url = [Session.api];

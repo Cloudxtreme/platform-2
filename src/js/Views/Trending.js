@@ -4,7 +4,7 @@ define(
 	{
 		var Trending = Pageview.extend({
 
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if (options) $.extend(this, options);
 				
@@ -14,7 +14,7 @@ define(
 				this.listenTo(this.model.streams, 'sync', this.hideloading);
 			},
 				
-			'render' : function ()
+			render : function ()
 			{
 
 				// Network filters

@@ -4,7 +4,7 @@ define(
 	{
 		var Service = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				/*'submit form' : 'submit',
 				'click [data-delete]' : 'deleteServiceClick',
 		        'click [data-stream-details-id]' : 'streamDetailView',*/
@@ -13,7 +13,7 @@ define(
 		        'click .close-detail' : 'closedetail'
 			},
 			
-			'listnames' : {
+			listnames : {
 				'facebook': "Pages",
 				'twitter': false,
 				'linkedin': "Companies",
@@ -21,9 +21,9 @@ define(
 				'youtube': false
 			}, 
 
-			'service' : null,
+			service : null,
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				if (options) $.extend(this, options);
 				
@@ -31,7 +31,7 @@ define(
 				this.service = this.parent.services.get(this.id);
 			},
 			
-			'render' : function ()
+			render : function ()
 			{
 				// Clone service data
 				var data = _.clone(this.service.attributes);
@@ -48,7 +48,7 @@ define(
 				return this;
 			},
 			
-			'toggleprofile' : function (e)
+			toggleprofile : function (e)
 			{
 				// Button
 				var entry = $(e.currentTarget).toggleClass("active inactive");
@@ -71,7 +71,7 @@ define(
 				}.bind(this)});
 			},
 
-			'parseprofile' : function(profile)
+			parseprofile : function(profile)
 			{	
 				var service = profile.parent;
 				var streams;
@@ -92,7 +92,7 @@ define(
 				RootView.navigation.render();
 			},
 			
-			'delete' : function ()
+			delete : function ()
 			{
 				RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 				{
@@ -111,7 +111,7 @@ define(
 				this.parent.closedetail();
 			},*/
 			
-			'closedetail' : function()
+			closedetail : function()
 			{
 				this.parent.closedetail();
 			},
@@ -160,7 +160,7 @@ define(
 				return this;
 			},*/
 
-			'processSettings': function (settings)
+			processSettings : function (settings)
 			{
 				var self = this;
 
@@ -174,7 +174,7 @@ define(
 				});
 			},
 
-			'processLink' : function (url)
+			processLink : function (url)
 			{
 				if (url.indexOf ('?') > 0)
 				{
@@ -187,7 +187,7 @@ define(
 				return url;
 			},
 			
-			'getServiceData' : function (id, callback)
+			getServiceData : function (id, callback)
 			{
 				var self = this;
 				Cloudwalkers.Net.get 
@@ -204,7 +204,7 @@ define(
 				);
 			},
 
-			'storeServiceData' : function (id, data, callback)
+			storeServiceData : function (id, data, callback)
 			{
 				Cloudwalkers.Net.put 
 				(
@@ -217,7 +217,7 @@ define(
 				);
 			},
 
-			'deleteService' : function (id, callback)
+			deleteService : function (id, callback)
 			{
 				Cloudwalkers.Net.remove (
 					'wizard/service/' + id,
@@ -228,7 +228,7 @@ define(
 				);
 			},
 
-			'setStreamChannels' : function (service)
+			setStreamChannels : function (service)
 			{
 				var channels = Session.getChannels ();
 
@@ -344,7 +344,7 @@ define(
 		        service.parsedstreams = parseStreams ();
 			},
 
-			'submit' : function (e)
+			submit : function (e)
 			{
 				// Gather all data
 				var self = this;
@@ -403,7 +403,7 @@ define(
 				});
 			},
 
-			'deleteServiceClick' : function (e)
+			deleteServiceClick : function (e)
 			{
 				e.preventDefault ();
 
@@ -422,7 +422,7 @@ define(
 				);
 			},
 
-		    'streamDetailView' : function (e)
+		    streamDetailView : function (e)
 		    {
 		        e.preventDefault ();
 
@@ -431,18 +431,20 @@ define(
 		        var view = new SettingsView.StreamSettings ({ 'streamid' : streamid });
 		        RootView.popup (view);
 		    },
-			'translateTitle' : function(translatedata)
+
+			translateTitle : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

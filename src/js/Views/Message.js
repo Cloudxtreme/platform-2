@@ -4,23 +4,23 @@ define(
 	{
 		var Message = Backbone.View.extend({
 
-			'events' : 
+			events : 
 			{
 				'click .message-action[data-action]' : 'messageAction',
 				'click .children-button.message-children' : 'showchildren'
 			},
 
-			'className' : 'message-view',
+			className : 'message-view',
 
-			'template' : 'message',
-			'tagName' : 'tr',
+			template : 'message',
+			tagName : 'tr',
 
-			'commentsVisible' : false,
-			'commentsView' : null,
+			commentsVisible : false,
+			commentsView : null,
 
-			'childrencontainer' : 'comment-container',
+			childrencontainer : 'comment-container',
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				var self = this;
 				this.model.on ('change', function ()
@@ -29,7 +29,7 @@ define(
 				});
 			},
 
-			'prepareData' : function ()
+			prepareData : function ()
 			{
 				var self = this;
 				var data = jQuery.extend(true, {}, this.model.attributes);
@@ -84,7 +84,7 @@ define(
 				return this.additionalData (data);
 			},
 
-			'additionalData' : function (data)
+			additionalData : function (data)
 			{
 				if (this.model.get ('type') == 'OUTGOING')
 				{
@@ -94,9 +94,8 @@ define(
 				return data;
 			},
 
-			'render' : function ()
+			render : function ()
 			{
-				console.log("here");
 				var data = this.prepareData ();
 				var self = this;
 
@@ -163,7 +162,7 @@ define(
 				return this;
 			},
 
-			'messageAction' : function (element)
+			messageAction : function (element)
 			{
 				if ($(element.currentTarget).is ('[data-action]'))
 				{
@@ -230,12 +229,12 @@ define(
 				}
 			},
 
-			'afterRender' : function ()
+			afterRender : function ()
 			{
 				this.time()
 			},
 
-			'showchildren' : function (e)
+			showchildren : function (e)
 			{
 				
 				e.stopPropagation ();
@@ -256,7 +255,7 @@ define(
 				}
 			},
 
-			'showchildrenexec' : function ()
+			showchildrenexec : function ()
 			{
 			
 				console.log("!", "Deprecation error")
@@ -283,7 +282,7 @@ define(
 			
 			// Static HACK
 			
-			'time' : function ()
+			time : function ()
 			{
 				var now = new Date;
 				var date = new Date(this.$el.find("[data-date]").attr("data-date"));

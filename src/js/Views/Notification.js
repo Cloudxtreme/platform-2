@@ -4,9 +4,9 @@ define(
 	{
 		var Notification = Entry.extend({
 	
-			'template': 'message',
+			template: 'message',
 	
-			'events' : {
+			events : {
 				'mouseover' : 'toggleactions',
 				'mouseout' : 'toggleactions',
 				'click *[data-notification-action]' : 'action',
@@ -26,7 +26,7 @@ define(
 				this.listenTo(this.model, 'action:toggle', this.toggleaction);
 			},*/
 
-			'render' : function ()
+			render : function ()
 			{
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);
@@ -56,7 +56,7 @@ define(
 				return this;
 			},
 			
-			'action' : function (e)
+			action : function (e)
 			{
 				// Action token
 				var token = $(e.currentTarget).data ('notification-action');
@@ -64,7 +64,7 @@ define(
 				this.model.trigger("action", token);
 			},
 			
-			'toggleaction' : function (token, newaction)
+			toggleaction : function (token, newaction)
 			{
 				
 				var current = this.$el.find('div[data-notification-action="' + token + '"]');
@@ -78,7 +78,7 @@ define(
 
 			},
 			
-			'toggleactions' : function(e)
+			toggleactions : function(e)
 			{
 				var out = e.originalEvent.type == "mouseout";
 				
@@ -86,7 +86,7 @@ define(
 				this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");	
 			},
 			
-			'markasread' : function()
+			markasread : function()
 			{
 				// Send update
 				this.model.save({read: 1}, {patch: true, wait: true});
@@ -96,7 +96,7 @@ define(
 					Session.getStreams().outdated(this.model.get("stream"));
 			},
 
-			'togglecommentcontact' : function()
+			togglecommentcontact : function()
 			{
 				var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
 				if(contact)	RootView.viewContact({model: contact});

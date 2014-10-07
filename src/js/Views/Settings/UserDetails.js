@@ -4,11 +4,11 @@ define(
 	{
 		var UserDetails = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'submit form.edit-managed-user' : 'submit'
 			},
-			
-			'initialize' : function (options)
+		
+			initialize : function (options)
 			{
 				// Parameters	
 				if(options) $.extend(this, options);		
@@ -23,7 +23,7 @@ define(
 					return RootView.resync('#'+Backbone.history.fragment);
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var self = this;
 				var data = {};
@@ -58,7 +58,7 @@ define(
 				return this;
 			},
 
-			'submit' : function (e)
+			submit : function (e)
 			{		
 				var data = {rolegroup: $("#level").val()};
 
@@ -71,29 +71,29 @@ define(
 
 			},
 
-			'success' : function()
+			success : function()
 			{	
 				RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 				this.model.trigger("change:clearance")	;
 			},
 
-			'disablesave' : function()
+			disablesave : function()
 			{	
 				this.$el.find('.edit-managed-user .btn').attr("disabled", true);
 			},
 
-			'enablesave' : function()
+			enablesave : function()
 			{	
 				this.$el.find('.edit-managed-user .btn').attr("disabled", false);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

@@ -4,21 +4,21 @@ define(
 	{
 		var Trigger = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				'click [data-action=save]' : 'save',
 
 				'keyup textarea' : 'enablereset',
 				'click [type=reset]' : 'reset'
 			},
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				$.extend(this, options);
 
 				if(!this.model)	this.model = new Trigger();
 			},
 
-			'render' : function()
+			render : function()
 			{	
 				this.model.parent = Session.getAccount();
 				
@@ -35,7 +35,7 @@ define(
 				return this;
 			},
 
-			'updatetrigger' : function(model)
+			updatetrigger : function(model)
 			{	
 				this.model = model;
 				this.render();
@@ -46,7 +46,7 @@ define(
 
 			},
 
-			'save' : function()
+			save : function()
 			{	
 				this.$el.addClass('loading');
 				this.$el.find('.submit-btn button').attr('disabled', true);
@@ -79,22 +79,22 @@ define(
 					})
 			},
 
-			'enablereset' : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
+			enablereset : function()	{ this.$el.find('[type=reset]').attr('disabled', false);	},
 
-			'reset' : function(e)
+			reset : function(e)
 			{ 
 				$(e.currentTarget).closest('form').get(0).reset();
 
 				this.$el.find('[type=reset]').attr('disabled', true);
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

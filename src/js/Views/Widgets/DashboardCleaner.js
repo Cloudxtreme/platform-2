@@ -4,8 +4,8 @@ define(
 	{
 		var DashboardCleaner = Pageview.extend({
 			
-			'messagetemplate' : 'cleaner',
-			'title' : ''
+			messagetemplate : 'cleaner',
+			title : ''
 		});
 	}
 );

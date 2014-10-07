@@ -9,25 +9,26 @@
  */
 
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Router', 'Collections/Statistics', 'Views/Widgets/EmptyData'],
-	function (Pageview, Mustache, Session, Router, Statistics, EmptyDataWidget)
+	['Views/Pageview', 'mustache', 'Session', 'Router', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
+	function (Pageview, Mustache, Session, Router, Statistics, EmptyStatisticsWidget)
 	{
 		var Statistics = Pageview.extend({
 			
-			'id' : "statistics",
-			'start' : 0,
-			'end': 0,
-			'timespan' : "week",
-			'period' : 0,
-			'custom' : false,
-			'views' : [],
+			id : "statistics",
+			start : 0,
+			end: 0,
+			timespan : "default",
+			period : 0,
+			custom : false,
+			views : [],
 			
-			'events' : {
+			events : {
 				'remove': 'destroy',
 				'click #add': 'addperiod',
 				'click #subtract': 'subtractperiod',
 				'click #subtractempty': 'subtractempty',
 				'click #addempty': 'addempty',
+				'click #showreports': 'showreports',
 				'click #now': 'now',
 				'click #show': 'changecustom',
 				'change .stats-header select.networks': 'changestream',
@@ -35,7 +36,7 @@ define(
 				'click .dashboard-stat' : 'updatenetwork'
 			},
 			
-			'widgets' : [
+			widgets : [
 				{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
 				{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
@@ -72,7 +73,7 @@ define(
 				}}
 			],
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{	
 				if (options) $.extend(this, options);
 
@@ -97,7 +98,7 @@ define(
 				this.streamid = parseInt(this.streamid)
 			},
 			
-			'render' : function()
+			render : function()
 			{			
 				// Time attributes
 				var params = this.timemanager();
@@ -134,7 +135,7 @@ define(
 				return this;
 			},
 
-			'writeui' : function()
+			writeui : function()
 			{
 				var params = this.timemanager();
 
@@ -142,8 +143,11 @@ define(
 					.html('<strong>'+ params.fullperiod +': </strong>'+ params.timeview)
 			},
 			
-			'request' : function (period)
-			{
+			request : function (period)
+			{	
+				if(period && this.timespan == 'default')
+					this.timespan = 'week';
+
 				//this.fillcharts ();
 				this.writeui();
 				this.collection.touch (this.filterparameters ());
@@ -152,10 +156,11 @@ define(
 				this.currentperiod = period;
 			},
 
-			'fillcharts' : function (list)
+			fillcharts : function (list)
 			{
 				if (list && !list.length) return this.showempty();		
-				else this.$container.html('');
+
+				this.cleanviews();
 			
 				// Iterate widgets
 				this.widgets.forEach (function (widget)
@@ -165,18 +170,19 @@ define(
 						this.translatechart (widget);
 
 					// Stream based data	
-					if (this.streamid)
-						widget.data = this.streamdata (widget);
-					
+					if (this.streamid && this.streamdata(widget))
+						widget.data = this.streamdata(widget);
+
+					else if(this.streamid)
+						return;
+
 					widget.data.parentview = this;
 					widget.data.timespan = {
 						since : this.start.unix(), 
 						to : this.end.unix()
 					}
 
-					var widgetchart = this.functioncall(widget.widget);
-
-					var view = new widgetchart(widget.data);
+					var view = new Cloudwalkers.Views.Widgets[widget.widget] (widget.data);
 					
 					this.views.push (view);
 					
@@ -184,16 +190,6 @@ define(
 					
 				}.bind(this));
 
-			},
-
-			functioncall : function(functionname, args)
-			{	
-				var func = window[functionname];
-				 
-				// is it a function?
-				if (typeof func === "function")
-
-					return func.apply(null, args);
 			},
 			
 			/**
@@ -208,7 +204,7 @@ define(
 					for (var n in widget.data.chartdata) this.translateWidgets (widget.data.chartdata[n].data);
 			},
 			
-			'timemanager' : function ()
+			timemanager : function ()
 			{
 				// Get parameters
 				var params = this.filterparameters();
@@ -216,7 +212,14 @@ define(
 				var start = moment.unix(params.since).zone(0);
 				var startformat = (start.date() > 24 || params.span == "quarter")? (start.month() == 11? "DD MMM YYYY":"DD MMM"): "DD";
 				
-				params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
+				if(this.timespan == 'default')
+				{
+					params.periodstring = 'last 7 days';
+					params.span = "";
+				}
+				else
+					params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
+
 				params.timeview = start.format(startformat) + " - " + moment.unix(params.until).zone(0).format("DD MMM YYYY");
 				params[params.span + "Active"] = true;
 				
@@ -235,13 +238,13 @@ define(
 				return params;
 			},
 
-			'showloading' : function ()
+			showloading : function ()
 			{	
 				this.$el.addClass("loading");
 			},
 			
-			'hideloading' : function ()
-			{	
+			hideloading : function ()
+			{
 				this.$el.removeClass("loading");
 				this.$el.find('.period-buttons .btn').attr("disabled", false);
 
@@ -254,25 +257,25 @@ define(
 					this.period = this.currentperiod;
 			},
 			
-			'showempty' : function ()
+			showempty : function ()
 			{	
 				this.cleanviews();
 				this.hideloading();
 
-				var message = this.translateString ("empty_statistics_data") + '<br/><a id="subtractempty">'+ this.translateString ("show_last_statistics") +'</a>';
-				var view = new EmptyDataWidget ({timeparams: this.timeparams});
+				var view = new EmptyStatisticsWidget ({timeparams: this.timeparams, stream: this.streamid});
 
+				this.views.push (view);
 				this.appendWidget (view, 8, null, 2);
 			},
 
-			'now' : function()
+			now : function()
 			{
 				this.period = 0;
 				
 				this.trigger('change:period', this.period);
 			},
 			
-			'addperiod' : function (e)
+			addperiod : function (e)
 			{	
 				var state = $(e.target).attr('disabled');
 
@@ -283,7 +286,7 @@ define(
 				this.trigger('change:period', this.period);
 			},
 			
-			'subtractperiod' : function(e)
+			subtractperiod : function(e)
 			{
 				var state = $(e.target).attr('disabled');
 
@@ -294,26 +297,36 @@ define(
 				this.trigger('change:period', this.period);
 			},
 
-			'subtractempty' : function()
+			subtractempty : function()
 			{
 				this.period -= 1;	
 				this.trigger('change:period', this.period);
 			},
 
-			'addempty' : function()
+			addempty : function()
 			{
 				this.period += 1;	
 				this.trigger('change:period', this.period);
 			},
+
+			showreports : function()
+			{	
+				var streamid = Number(this.$el.find("select.networks").val());
+
+				if(!streamid)
+					streamid = Session.getStreams().where ({statistics: 1})[0].id;
+
+				Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
+			},
 			
-			'changestream' : function()
+			changestream : function()
 			{	
 				var streamid = Number(this.$el.find("select.networks").val());
 				
 				Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
 			},
 			
-			'changespan' : function()
+			changespan : function()
 			{
 				var timespan = this.$el.find("select.time").val();
 				this.timespan = timespan;
@@ -321,7 +334,7 @@ define(
 				this.trigger('change:period');
 			},
 			
-			'changecustom' : function()
+			changecustom : function()
 			{
 				this.start = moment(this.$el.find('#start').val(), "DD-MM-YYYY");
 				this.end = moment(this.$el.find('#end').val(), "DD-MM-YYYY");
@@ -329,17 +342,22 @@ define(
 				this.trigger('change:period');
 			},
 			
-			'filterparameters' : function() {
+			filterparameters : function() {
 		 
 				// Get time span
 
-				if (this.timespan == "now") {	this.period = 0; }
-				if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
-				if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
-				if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
+				//Default time span == last 7 days
+				if (this.timespan == "default") { 	this.start = moment().subtract(7, 'days').zone(0).endOf('day');	this.end = moment().zone(0).endOf('day'); }		
+
+				if (this.timespan == "now") 	{	this.period = 0; }
+
+				if (this.timespan == "week") 	{	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
+				if (this.timespan == "month") 	{	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
+				if (this.timespan == "year") 	{	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
 
 				if (this.timespan == "quarter")
-				{	//Still not updated with .zone(0)
+				{	
+					//Still not updated with .zone(0)
 					var months = (this.period + moment().quarter()) *3;
 					this.start = moment().startOf('year').add('months', months -3);
 					this.end = moment().startOf('year').add('months', months -1).endOf('month');
@@ -350,28 +368,34 @@ define(
 					if(this.period < 0) { this.start.subtract(this.timespan +"s", Math.abs(this.period));	this.end.subtract(this.timespan +"s", Math.abs(this.period)); }
 				}
 				
+				//Show now
+				if(this.period != 0)
+					this.$el.find('#now').eq(0).removeClass('hidden');
+				else
+					this.$el.find('#now').eq(0).addClass('hidden');
+
 				// For the empty data check
 				this.timeparams = {since: this.start.unix(), until: this.end.unix(), span: this.timespan};
 
 				return {since: this.start.unix(), until: this.end.unix(), span: this.timespan, period: this.period, reset: true};
 			},
 			
-			'finish' : function()
+			finish : function()
 			{
 			},
 
-			'updatenetwork' : function(e)
+			updatenetwork : function(e)
 			{
 				var report = e.currentTarget.dataset.report;
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'translateWidgets' : function(translatedata)
+			translateWidgets : function(translatedata)
 			{	
 				// Translate Widgets
 				if(translatedata.translation)
@@ -381,7 +405,7 @@ define(
 					}
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

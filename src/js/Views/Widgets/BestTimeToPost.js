@@ -4,7 +4,7 @@ define(
 	{
 		var BestTimeToPost = Backbone.View.extend({
 
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 				
@@ -16,13 +16,13 @@ define(
 				
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				this.$el.html (Mustache.render (Templates.besttimewrap, this.settings));		
 				return this;
 			},
 
-			'fill' : function(){
+			fill : function(){
 				if(this.filled)
 					return;
 
@@ -37,7 +37,7 @@ define(
 				this.filled = true;
 			},
 
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 
 			}

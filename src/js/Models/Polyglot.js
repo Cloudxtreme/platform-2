@@ -4,18 +4,18 @@ define(
 	{
 		var Polyglot = Backbone.Model.extend({
 	
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				if(options) $.extend(this, options);
 			},
 
-			'url' : function()
+			url : function()
 			{
 				var locale = Session.user.attributes.locale || "en_EN";
 				return '/locales/' + locale + '.json';
 			},
 
-			'parse' : function(data)
+			parse : function(data)
 			{
 				return data;
 			}

@@ -4,15 +4,15 @@ define(
 	{
 		var User = Backbone.View.extend({
 
-			'tagName' : 'tr',
+			tagName : 'tr',
 
-			'events' : 
+			events : 
 			{
 				'click [data-edit-user-id]' : 'openDetails',
 				'click [data-delete-user-id]' : 'deleteUser'
 			},
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				// Parameters	
 				if(options) $.extend(this, options);
@@ -29,7 +29,7 @@ define(
 				translate_thats_an_ex_user = this.translateString("thats_an_ex_user");
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var self = this;
 				var data = {};
@@ -45,13 +45,13 @@ define(
 				return this;
 			},
 
-			'openDetails' : function ()
+			openDetails : function ()
 			{
 				var view = new SettingsView.UserDetails ({ 'model' : this.model, 'view': this.view });
 				$(".manage-users-edit-widget .portlet-body").html(view.render().el);
 			},
 			
-			'deleteUser' : function (e)
+			deleteUser : function (e)
 			{
 				var $tr = $(e.currentTarget).parents('tr');
 				var user = Session.getUser($tr.data('delete-user-id'));
@@ -70,7 +70,8 @@ define(
 					}.bind(this));*/
 				}.bind(this));
 			},
-			'translateString' : function(translatedata)
+
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

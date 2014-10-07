@@ -8,15 +8,15 @@ define(
 	{
 		var Drafts = Backbone.Collection.extend({
 
-			'model' : Message,
-			'name' : null,
+			model : Message,
+			name : null,
 
-			'nextPageParameters' : null,
-			'canHaveFilters' : false,
+			nextPageParameters : null,
+			canHaveFilters : false,
 
-			'filter' : '',
+			filter : '',
 
-			'initialize' : function (models, options)
+			initialize : function (models, options)
 			{
 				this.name = options.name;
 				this.filter = typeof (options.filter) != 'undefined' ? options.filter : '';
@@ -33,7 +33,7 @@ define(
 				};
 			},
 
-			'sync' : function(method, model, options) 
+			sync : function(method, model, options) 
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -64,7 +64,7 @@ define(
 				return $.ajax(params);
 			},
 
-			'update' : function (parameters)
+			update : function (parameters)
 			{
 				if (typeof (parameters) == 'undefined')
 				{

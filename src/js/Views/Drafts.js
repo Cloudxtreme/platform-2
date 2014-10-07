@@ -4,10 +4,10 @@ define(
 	{
 		var Drafts = Pageview.extend({
 
-			'title' : 'Drafts',
-			'className' : "container-fluid drafts",
+			title : 'Drafts',
+			className : "container-fluid drafts",
 			
-			'initialize' : function ()
+			initialize : function ()
 			{
 				// Select draft stream (should be integrated)
 				//var channel = Session.getChannel("internal");
@@ -25,7 +25,7 @@ define(
 				this.translateTitle("drafts");
 			},
 			
-			'render' : function()
+			render : function()
 			{
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
@@ -42,7 +42,8 @@ define(
 				
 				return this;
 			},
-			'translateTitle' : function(translatedata)
+			
+			translateTitle : function(translatedata)
 			{	
 				// Translate Title
 				this.title = Session.polyglot.t(translatedata);

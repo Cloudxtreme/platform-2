@@ -4,21 +4,21 @@ define(
 	{
 		var  Groups = Backbone.Collection.extend({
 
-			'model' : Group,
-			'typestring' : "groups",
-			'modelstring' : "group",
-			'parenttype' : "account",
-			'processing' : false,
+			model : Group,
+			typestring : "groups",
+			modelstring : "group",
+			parenttype : "account",
+			processing : false,
 
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				// Override type strings if required
 				if(options) $.extend(this, options);
 				
 			},
 			
-			'parse' : function (response)
+			parse : function (response)
 			{
 				//console.log(response)
 				if(this.modelstring == 'user'){
@@ -28,7 +28,7 @@ define(
 				}
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				var url = [CONFIG_BASE_URL + "json"];
 				
@@ -59,7 +59,7 @@ define(
 				return url;
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				if(method == "read")
 				{
@@ -70,7 +70,7 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
-			'updates' : function (ids)
+			updates : function (ids)
 			{
 				for(n in ids)
 				{
@@ -88,7 +88,7 @@ define(
 				}
 			},
 
-			'outdated' : function(id)
+			outdated : function(id)
 			{
 				// Collection
 				if(!id) return this.filter(function(model){ return model.outdated});
@@ -97,7 +97,7 @@ define(
 				var model = this.updates([id]);
 			},
 			
-			'hook' : function(callbacks)
+			hook : function(callbacks)
 			{
 				if(callbacks.records) this.parameters.records = callbacks.records;
 				

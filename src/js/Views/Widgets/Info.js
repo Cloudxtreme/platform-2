@@ -4,8 +4,8 @@ define(
 	{
 		var Info = Backbone.View.extend({
 	
-			'title' : "Info",
-			'columns' :  {
+			title : "Info",
+			columns :  {
 				"contact-evolution" : "parseevolution",
 				"post-activity" : "parsepostactivity",
 				"activity" : "parseactivity",
@@ -27,7 +27,7 @@ define(
 
 			},
 
-			'descriptions' : {
+			descriptions : {
 				'contacts' : {
 					'facebook' 	: 'New fans',
 					'twitter'	: 'New followers',
@@ -48,9 +48,9 @@ define(
 				}
 			},
 
-			'streamid' : null,
+			streamid : null,
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{	
 				if(options) $.extend(this, options);
 
@@ -72,7 +72,7 @@ define(
 				this.listenTo(this.collection, 'change', this.render);
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				this.$el.html (Mustache.render (Templates.dashboardstat, this.settings));
 
@@ -85,7 +85,7 @@ define(
 				return this;
 			},
 			
-			'fill' : function(){
+			fill : function(){
 				
 				var parsetype = this.columns[this.filterfunc];
 				this.settings.details = this[parsetype]();
@@ -93,7 +93,7 @@ define(
 				this.render();
 			},
 
-			'parseevolution' : function(){
+			parseevolution : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("contacts");
@@ -107,7 +107,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsepostactivity' : function(){
+			parsepostactivity : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("messages");
@@ -121,7 +121,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseactivity' : function(){
+			parseactivity : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("activities");
@@ -135,7 +135,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseviews' : function(){
+			parseviews : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck(["messages","impressions"], false, true);
@@ -147,7 +147,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsenotifications' : function(){
+			parsenotifications : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("notifications");
@@ -161,7 +161,7 @@ define(
 
 			////////////////////////
 			//Demo stuff starts here
-			'parseevolutionnetwork' : function(){
+			parseevolutionnetwork : function(){
 				
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("contacts", this.network);
@@ -173,7 +173,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsepostactivitynetwork' : function(){
+			parsepostactivitynetwork : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("messages", this.network);
@@ -185,7 +185,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseactivitynetwork' : function(){
+			parseactivitynetwork : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("activities", this.network);
@@ -197,7 +197,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseviewsnetwork' : function(){
+			parseviewsnetwork : function(){
 
 				// Get most recent stat
 				var statl = this.collection.latest().pluck(["messages","impressions"], this.network, true);
@@ -209,7 +209,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsenotificationnetwork' : function(){
+			parsenotificationnetwork : function(){
 				
 				// Get most recent stat
 				var statl = this.collection.latest().pluck("contacts", this.network);
@@ -221,7 +221,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsefollowers' : function(){
+			parsefollowers : function(){
 
 				var statl = this.collection.latest().pluck(["contacts","types","followers"], this.network,3) || 
 							this.collection.latest().pluck("contacts", this.network);
@@ -239,7 +239,7 @@ define(
 				return [{content: statl, descr : description}];
 			},
 
-			'parsementions' : function(){
+			parsementions : function(){
 
 				var statl = this.collection.latest().pluck(["notifications","types","comments"], this.network,3);
 				var statf = this.collection.first().pluck(["notifications","types","comments"], this.network,3);
@@ -250,7 +250,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseretweets' : function(){
+			parseretweets : function(){
 
 				var statl = this.collection.latest().pluck(["notifications","types","shares"], this.network,3);
 				var statf = this.collection.first().pluck(["notifications","types","shares"], this.network,3);
@@ -261,7 +261,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsefollowing' : function(){
+			parsefollowing : function(){
 
 				var statl = this.collection.latest().pluck(["contacts","types","following"], this.network,3);
 				var statf = this.collection.first().pluck(["contacts","types","following"], this.network,3);
@@ -273,7 +273,7 @@ define(
 			},
 
 			//GOOGLE PLUS SPECIFIC
-			'parseplusones' : function(){
+			parseplusones : function(){
 
 				var statl = this.collection.latest().pluck(["notifications","types","favourites"], this.network,3);
 				var statf = this.collection.first().pluck(["notifications","types","favourites"], this.network,3);
@@ -285,7 +285,7 @@ define(
 			},
 
 			//LINKED IN SPECIFIC
-			'parseseniorities' : function(){
+			parseseniorities : function(){
 
 				var statl = this.collection.latest().pluck(["contacts","professional","seniority"], this.network,3);
 				var statf = this.collection.first().pluck(["contacts","professional","seniority"], this.network,3);
@@ -296,7 +296,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseshares' : function(){
+			parseshares : function(){
 
 				var statl = this.collection.latest().pluck(["messages","types","shares"], this.network,3);
 				var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
@@ -307,7 +307,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parseposts' : function(){
+			parseposts : function(){
 
 				var statl = this.collection.latest().pluck(["messages","types","posts"], this.network,3);
 				var statf = this.collection.first().pluck(["messages","types","posts"], this.network,3);
@@ -318,7 +318,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsedms' : function(){
+			parsedms : function(){
 
 				var statl = this.collection.latest().pluck(["messages","types","dms"], this.network,3);
 				var statf = this.collection.first().pluck(["messages","types","dms"], this.network,3);
@@ -329,7 +329,7 @@ define(
 				return [{content: total, descr : description}];
 			},
 
-			'parsebesttimetopost' : function()
+			parsebesttimetopost : function()
 			{	
 				var besttimes = this.collection.clone().parsebesttime(this.network);
 
@@ -371,12 +371,12 @@ define(
 			    
 			},
 
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 				
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

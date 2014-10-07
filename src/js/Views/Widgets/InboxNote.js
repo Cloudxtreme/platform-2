@@ -4,14 +4,14 @@ define(
 	{
 		var InboxNote = InboxMessage.extend({
 	
-			'tagName' : 'div',
-			'className' : "note",
-			'template' : 'inboxnote',
-			'related' : [],
-			'messageview' : [],
-			'notifications' : [],
+			tagName : 'div',
+			className : "note",
+			template : 'inboxnote',
+			related : [],
+			messageview : [],
+			notifications : [],
 			
-			'events' : 
+			events : 
 			{
 				'remove' : 'destroy',
 				'click *[data-youtube]' : 'loadYoutube',
@@ -19,7 +19,7 @@ define(
 				'keyup #tags' : 'entertag'
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				// Manage loading
 				this.loading(!this.model.loaded());
@@ -83,18 +83,18 @@ define(
 				return this;
 			},
 			
-			'loading' : function(show)
+			loading : function(show)
 			{
 				 if(show)	$(".inbox").addClass("loading");
 				 else		$(".inbox").removeClass("loading");
 			},
 
-			'getcontext' : function()
+			getcontext : function()
 			{
 				return this.model.parent.attributes;
 			},
 			
-			'showrelated' : function()
+			showrelated : function()
 			{	
 				// Show loading
 				this.loading(true);
@@ -119,7 +119,7 @@ define(
 				
 			},
 			
-			'fillrelated' : function(models)
+			fillrelated : function(models)
 			{
 				// Clean load or add
 				if(this.incremental) this.incremental = false;
@@ -154,11 +154,11 @@ define(
 				this.loading(false);
 			},
 
-			'sendtriggers' : function(trigger){
+			sendtriggers : function(trigger){
 				this.trigger(trigger);
 			},
 			
-			'addNotifications' : function()
+			addNotifications : function()
 			{
 				// Manage loading
 				this.loading(true);
@@ -173,7 +173,7 @@ define(
 				this.model.notifications.touch(this.model, {records: 50, markasread: true/* deprecated? group: 1*/});
 			},
 			
-			'fillNotifications' : function (list)
+			fillNotifications : function (list)
 			{
 				
 				// Clean load
@@ -202,7 +202,7 @@ define(
 				this.loading(false);
 			},
 			
-			'markasread' : function()
+			markasread : function()
 			{
 				
 				// Send update
@@ -218,20 +218,20 @@ define(
 				RootView.viewContact();
 			},*/
 			
-			'destroy' : function()
+			destroy : function()
 			{
 				$.each(this.modelview, function(n, entry){ entry.remove()});
 				$.each(this.notifications, function(n, entry){ entry.remove()});
 				$.each(this.related, function(n, entry){ entry.remove()});
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
 
-			'mustacheTranslateRender' : function(translatelocation)
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

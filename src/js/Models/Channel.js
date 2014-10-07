@@ -1,17 +1,18 @@
-	define(
-	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages', 'Collections/Messages', 'Collections/Notifications', 'Collections/Streams'],
+define(
+	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages', 'Collections/Channels','Collections/Notifications', 'Collections/Streams'],
 	function (Backbone, Session, Contacts, Messages, Channels, Notifications, Streams)
 	{
 		var Channel = Backbone.Model.extend({
 	
-			'endpoint' : '',
-			'parameters' : '',
+			endpoint : '',
+			parameters : '',
 			
-			'initialize' : function (attributes)
+			initialize : function (attributes)
 			{
+				if(!Channels)	Channels = require('Channels');
+				
 				// Child channels
 				this.channels = new Channels();
-				console.log(this.channels)
 				this.channels.seed(this.get("channels"));
 				
 				// Child streams
@@ -36,14 +37,14 @@
 				
 			},
 			
-			'url' : function()
+			url : function()
 			{
 				var id = this.id? this.id: "";
 				
 				return Session.api + '/channel/' + id + this.endpoint + this.parameters;
 			},
 			
-			'parse' : function(response)
+			parse : function(response)
 			{
 				if(response.error) return [];
 				
@@ -53,7 +54,7 @@
 				return response.channel;	
 			},
 			
-			'sync' : function (method, model, options)
+			sync : function (method, model, options)
 			{
 				options.headers = {
 		            'Authorization': 'Bearer ' + Session.authenticationtoken,
@@ -81,7 +82,7 @@
 			 *	Get Stream
 			 *	Get stream by id (int) or token (string)
 			 **/
-			'getStream' : function(identifier)
+			getStream : function(identifier)
 			{
 				 
 				var param = {};
@@ -104,7 +105,7 @@
 
 			 },
 			 
-			'seedcontacts' : function (child)
+			seedcontacts : function (child)
 			{	
 				var contacts = child.get("from");
 				

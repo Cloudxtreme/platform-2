@@ -8,6 +8,7 @@ Style corrections and manual overrides
 
 .hidden	{ display: none; }
 .separator { border-bottom: solid 1px #ddd; margin: 30px 0px; }
+.well.widget { text-align: center; padding: 50px 75px; }
 
 /**
  *	Forms
@@ -382,7 +383,7 @@ nav	{
 /* Widget Loading */
 
 .portlet-loading, .inner-loading	{
-	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #bbb !important;
+	min-height: 24px; background: #f6f6f6 !important; border: 2px dashed #eee !important;
 }
 
 .inner-loading	{
@@ -533,6 +534,10 @@ tbody.messages-container i	{
 	padding: 10px 8px;
 }
 
+#monitorparent #monitorlist .message-notes .note-list .note-body{
+	padding: 12px;
+}
+
 #monitorparent .action-list{
 	background-color: #fff;
 }
@@ -649,7 +654,8 @@ tbody.messages-container i	{
 	position: absolute; bottom: 8px; right: 8px; background: #fff; padding: 0px !important;
 }
 
-#keywordfilter-actions.message-actions .actions-left{
+#keywordfilter-actions.message-actions .actions-left,
+#keywordfilter-actions.message-actions .actions-right [data-action=delete]{
 	display: none;
 }
 
@@ -668,7 +674,7 @@ tbody.messages-container i	{
 }
 
 #monitorparent .message-notes ul.action-list li .modal-footer{
-	margin: 10px -18px -15px -18px;
+	margin: 10px -12px -15px -12px;
 }
 
 .message-notes ul li .note-body{
@@ -1343,6 +1349,8 @@ aside .tag-input-append{
 }
 
 #filter_contacts .loading-contacts, #filter_tags .loading-tags { width: 0; }
+
+#filter_contacts .loading-contacts{ margin-left: 0px; }
 
 #filter_contacts .loading-contacts:after, #filter_tags .loading-tags:after { 
 	position: relative; left: -24px; 

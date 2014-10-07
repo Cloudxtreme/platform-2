@@ -4,7 +4,7 @@ define(
 	{
 		var Navigation = Backbone.View.extend({
 
-			'views' : [
+			views : [
 				{name: 'dashboard', title: "Dashboard", icon: "dashboard", authorized: 0},
 				{name: 'inbox', title: "Inbox", icon: "inbox", authorized: 0, children: [
 					{name: 'messages', title: "Messages", icon: "envelope", authorized: 0},
@@ -27,13 +27,13 @@ define(
 				]}
 			],
 			
-			'events' : {
+			events : {
 				'click .notification-toggle' : 'toggleNotifications',
 				'click .btn-compose' : 'compose',
 				'click #writenote' : 'writenote',
 			},
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				// Interact with Session triggers
 				Session.on ('change:accounts', this.renderHeader, this);
@@ -47,7 +47,7 @@ define(
 				// $.get(Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Session.authenticationtoken, 'Accept': "application/json"}}
 			},
 			
-			'headeraction' : function(element)
+			headeraction : function(element)
 			{
 				// Action token
 				var token = $(element.currentTarget).data ('header-action');
@@ -60,7 +60,7 @@ define(
 				//this.model.trigger("action", token);
 			},
 			
-			'fit' : function ()
+			fit : function ()
 			{
 				$('#header').html (this.renderHeader().header);
 				$('#sidebar').html (this.render().el);
@@ -69,7 +69,7 @@ define(
 				$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction.bind(this));
 			},
 			
-			'version' : function (response)
+			version : function (response)
 			{
 				// Add DEV views
 				if( response.platform.name == "TESTING" || response.platform.name == "DEVELOPMENT")
@@ -87,7 +87,7 @@ define(
 				
 			},
 			
-			'renderHeader' : function ()
+			renderHeader : function ()
 			{		
 				var data = {dev: this.development};
 				
@@ -115,7 +115,7 @@ define(
 				return this;
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 
 				var account = Session.getAccount ();
@@ -187,7 +187,7 @@ define(
 				return this;
 			},
 			
-			'handleSidebarMenu' : function () {
+			handleSidebarMenu : function () {
 				
 				var path = Backbone.history.fragment;
 				
@@ -197,22 +197,22 @@ define(
 				this.setActive(path);
 		    },
 		    
-		    'compose' : function () { RootView.compose(); },
+		    compose : function () { RootView.compose(); },
 
-		    'writenote' : function ()
+		    writenote : function ()
 		    {
 		    	var account = Session.getAccount();
 				RootView.writeNote(account); 
 			},
 		    
-		    'setActive' : function (path) {
+		    setActive : function (path) {
 				
 				// Toggle .active class
 				$('#sidebar .active').removeClass ('active');
 				$('a[href="#' + path + '"]').parents('#sidebar .page-sidebar-menu *').addClass ('active');
 		    },
 
-			'setNotifications' : function (notifications)
+			setNotifications : function (notifications)
 			{
 				this.$el.find ('.popup-frame ul').html ('');
 
@@ -222,17 +222,17 @@ define(
 				}
 			},
 
-			'addNotification' : function (notification)
+			addNotification : function (notification)
 			{
 				this.$el.find ('.popup-frame ul').append ('<li><div class="text account"><p>' + notification.message + '</p><div class="row"><span class="time"></span></div></div></li>');
 			},
 
-			'toggleNotifications' : function( )
+			toggleNotifications : function( )
 			{
 				this.$el.find ('.notification-popup').toggle ();
 			},
 			
-			'mapViews' : function ()
+			mapViews : function ()
 			{
 				var views = {};
 				
@@ -249,12 +249,13 @@ define(
 				return views;
 			},
 
-			'translateString' : function(translatedata)
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			},
-			'mustacheTranslateRenderHeader' : function(translatelocation)
+
+			mustacheTranslateRenderHeader : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [
@@ -273,7 +274,8 @@ define(
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			},
-			'mustacheTranslateRender' : function(translatelocation)
+
+			mustacheTranslateRender : function(translatelocation)
 			{
 				// Translate array
 				this.original  = [

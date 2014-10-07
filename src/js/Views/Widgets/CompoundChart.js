@@ -4,12 +4,12 @@ define(
 	{
 		var CompoundChart = Backbone.View.extend({
 
-			'templatemap' : {
+			templatemap : {
 				'2col1row' : ['#col1', '#col2', '#row1'],
 				'2row' : ['#row1', '#row2']
 			},
 
-			'initialize' : function (options)
+			initialize : function (options)
 			{
 				if(options) $.extend(this, options);
 				view = this;
@@ -23,7 +23,7 @@ define(
 				
 			},
 
-			'render' : function ()
+			render : function ()
 			{	
 				// Create view
 				this.settings = {};
@@ -34,7 +34,7 @@ define(
 				return this;
 			},
 
-			'fill' : function(){
+			fill : function(){
 
 				//Hack to prevent double loading
 				if(this.filled)	return true;
@@ -64,7 +64,7 @@ define(
 					return func.apply(null, args);
 			},
 
-			'negotiateFunctionalities' : function()
+			negotiateFunctionalities : function()
 			{
 
 			}

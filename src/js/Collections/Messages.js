@@ -4,18 +4,18 @@ define(
 	{
 		var Messages = Backbone.Collection.extend({
 
-			'model' : Message,
-			'typestring' : "messages",
-			'modelstring' : "message",
-			'parameters' : {},
-			'paging' : {},
-			'cursor' : false,
+			model : Message,
+			typestring : "messages",
+			modelstring : "message",
+			parameters : {},
+			paging : {},
+			cursor : false,
 			
 			'events' : {
 				'remove' : 'destroy'
 			},
 			
-			'initialize' : function(options)
+			initialize : function(options)
 			{
 				if(!Session)	Session = require('Session');
 					
@@ -34,13 +34,13 @@ define(
 				});
 			},
 			
-			'destroy' : function ()
+			destroy : function ()
 			{
 				//console.log("collection destroyed")
 				this.reset();
 			},
 
-			'isempty' : function(){		
+			isempty : function(){		
 				if(this.length == 0){
 					this.trigger('ready:empty');
 				}

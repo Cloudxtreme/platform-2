@@ -4,7 +4,7 @@ define(
 	{
 		var Services = Backbone.View.extend({
 
-			'events' : {
+			events : {
 				/*'click [data-open-service]' : 'openService',
 				'click [data-add-service]' : 'addServiceCall',*/
 				
@@ -12,7 +12,7 @@ define(
 				'click [data-service]' : 'servicedetail',
 			},
 			
-			'initialize' : function()
+			initialize : function()
 			{
 				// Create Services collection
 				this.services = new Services();
@@ -34,13 +34,13 @@ define(
 
 			},
 			
-			'endload' : function ()
+			endload : function ()
 			{
 				//Remove?
 				this.$el.find(".inner-loading").removeClass("inner-loading");	
 			},
 
-			'appendservice' : function(serviceid)
+			appendservice : function(serviceid)
 			{
 				var service = new Service({id: serviceid});
 				service.addservice();
@@ -87,7 +87,7 @@ define(
 
 			},*/
 
-			'render' : function ()
+			render : function ()
 			{
 				var account = Session.getAccount();
 				var data = {};
@@ -107,7 +107,7 @@ define(
 				return this;
 			},
 			
-			'appendOptions' : function(services, available) {
+			appendOptions : function(services, available) {
 				
 				var $container = this.$el.find(".networks-list");
 				
@@ -118,13 +118,13 @@ define(
 				}
 			},
 			
-			'appendService' : function(service) {
+			appendService : function(service) {
 				
 				// Add service attributes to list
 				this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
 			},
 			
-			'addService' : function (e)
+			addService : function (e)
 			{
 				// Limit
 				if(this.$el.find(".networks-list.limited").size()) return null;
@@ -149,7 +149,7 @@ define(
 
 			},
 			
-			'limited' : function (collection) 
+			limited : function (collection) 
 			{
 				
 				Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
@@ -194,7 +194,7 @@ define(
 				);
 			},*/
 
-			'servicedetail' : function (e)
+			servicedetail : function (e)
 			{
 				// Navigate view
 				this.$el.find("#service-connected").addClass("open-detail");
@@ -204,7 +204,7 @@ define(
 				this.$el.find(".service-detail").html( this.detail.render().el);
 			},
 			
-			'closedetail' : function ()
+			closedetail : function ()
 			{
 				// Navigate view
 				this.$el.find("#service-connected").removeClass("open-detail");
@@ -239,7 +239,7 @@ define(
 				}
 			},*/
 
-			'processLink' : function (url, serviceid)
+			processLink : function (url, serviceid)
 			{
 				if (url.indexOf ('?') > 0)
 				{
@@ -255,7 +255,7 @@ define(
 			
 			
 
-			'addServiceCall' : function (e)
+			addServiceCall : function (e)
 			{
 				e.preventDefault ();
 
@@ -287,10 +287,11 @@ define(
 				});
 			},
 			
-			'negotiateFunctionalities' : function(el) {
+			negotiateFunctionalities : function(el) {
 
 			},
-			'translateString' : function(translatedata)
+			
+			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);

@@ -4,8 +4,8 @@ define(
 	{
 		var Network = Backbone.Model.extend({
 	
-			'parameters' : {},
-			'networkcolors' : {
+			parameters : {},
+			networkcolors : {
 				'facebook': "#3B5998", 
 				'twitter': "#01a9da", 
 				'linkedin': "#1783BC", 
@@ -19,32 +19,32 @@ define(
 				"group" : "#CCCCCC"
 			},
 
-			'initialize' : function(attributes){
+			initialize : function(attributes){
 				
 				this.set("color", this.networkcolors[this.get("token")]);
 			},
 
-			'gettoken' : function(){
+			gettoken : function(){
 				return this.get("token") ? this.get("token") : false;
 			},
 
-			'getcolor' : function(){
+			getcolor : function(){
 				return this.get("color") ? this.get("color") : false;
 			},
 
-			'gettitle' : function(){
+			gettitle : function(){
 				return this.get("name") ? this.get("name") : false;
 			},
 
-			'geticon' : function(){
+			geticon : function(){
 				return this.get("icon") ? this.get("icon") : false;
 			},
 
-			'getcontacts' : function(){
+			getcontacts : function(){
 				return this.get("contacts") ? this.get("contacts") : 0;
 			},
 
-			'addcontacts' : function(n){
+			addcontacts : function(n){
 				this.set("contacts", this.getcontacts() + n);
 
 				return this;

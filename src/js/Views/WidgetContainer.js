@@ -7,18 +7,18 @@ define(
 	{
 		var WidgetContainer = Backbone.View.extend({
 
-			'widgets' : [],
-			'title' : 'Widget Container',
-			'isLoaded' : false,
-			'currentLine' : null,
-			'sizecounter' : 0,
-			'newline' : true,
-			'templatename': "widgetcontainer",
-			'events' : {
+			widgets : [],
+			title : 'Widget Container',
+			isLoaded : false,
+			currentLine : null,
+			sizecounter : 0,
+			newline : true,
+			templatename : "widgetcontainer",
+			events : {
 				'remove': 'destroy'
 			},
 
-			'initialize' : function ()
+			initialize : function ()
 			{
 				var self = this;
 				
@@ -32,7 +32,7 @@ define(
 				this.title = this.options.title? this.options.title: this.title;
 			},
 
-			'initializeWidgets' : function ()
+			initializeWidgets : function ()
 			{
 
 			},
@@ -40,7 +40,7 @@ define(
 			/**
 			* Generic supersmart add method.
 			*/
-			'add' : function (widget, size)
+			add : function (widget, size)
 			{
 				if (typeof (size) == 'undefined')
 				{
@@ -77,7 +77,7 @@ define(
 				this.newline = false;
 			},
 
-			'addHalfWidget' : function (widget, newline)
+			addHalfWidget : function (widget, newline)
 			{
 				if (typeof (newline) == 'undefined')
 				{
@@ -95,7 +95,7 @@ define(
 				}
 			},
 
-			'addWidget' : function (widget, newline)
+			addWidget : function (widget, newline)
 			{
 				if (typeof (newline) == 'undefined')
 				{
@@ -113,7 +113,7 @@ define(
 				}
 			},
 
-			'addWidgetSize' : function (widget, newline, size)
+			addWidgetSize : function (widget, newline, size)
 			{
 				if (typeof (newline) == 'undefined')
 				{
@@ -131,7 +131,7 @@ define(
 				}
 			},
 
-			'render' : function ()
+			render : function ()
 			{
 				var self = this;
 				this.isLoaded = true;
@@ -151,7 +151,7 @@ define(
 				return this;
 			},
 
-			'addWidgetsDOM' : function (widgets)
+			addWidgetsDOM : function (widgets)
 			{
 				var self = this;
 
@@ -192,7 +192,7 @@ define(
 				}, 1);
 			},
 			
-			'destroy' : function ()
+			destroy : function ()
 			{
 				for (n in this.widgets)
 				{

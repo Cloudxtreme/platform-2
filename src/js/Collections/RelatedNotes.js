@@ -4,9 +4,9 @@ define(
 	{
 		var RelatedNotes = Notes.extend({
 
-			'typestring' : "related",
-			'modelstring' : "related",
-			'parenttype' : "note"
+			typestring : "related",
+			modelstring : "related",
+			parenttype : "note"
 			
 			/*'seed' : function(ids)
 			{

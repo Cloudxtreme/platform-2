@@ -10,26 +10,26 @@ define(
 	{
 		var Editor = Backbone.View.extend({
 	
-			'id' : "editor",
-			'oldUrl' : "",
-			'urldata' : {},
-			'currenturl' : false,
+			id : "editor",
+			oldUrl : "",
+			urldata : {},
+			currenturl : false,
 			
-			'urlprocessing' : false,
-			'limit' : null,
-			'content' : '',
-			'charlength' : 0,
-			'contentlimitation' : 0,
-			'pos' : 0,
-			'urls' : {},
+			urlprocessing : false,
+			limit : null,
+			content : '',
+			charlength : 0,
+			contentlimitation : 0,
+			pos : 0,
+			urls : {},
 
-			'posmap' : [],	
+			posmap : [],	
 			
 			// Should be outside Editor, should be in compose
-			'restrictedstreams' : {'twitter' :140, 'linkedin' : 700},
+			restrictedstreams : {'twitter' :140, 'linkedin' : 700},
 			//'restrictedstreams' : ['twitter', 'default'],
 			
-			'events' : {
+			events : {
 				
 				// Triggers
 				'update:content' : 'render',
@@ -57,16 +57,16 @@ define(
 
 
 			// regex magic
-			'xtrimmable' : /<[^>]*>|&nbsp;|\s/g,
+			xtrimmable : /<[^>]*>|&nbsp;|\s/g,
 			// needs improvement
-			'xurlbasic' : /http|[w]{3}/g,
+			xurlbasic : /http|[w]{3}/g,
 			//'xurlbasic' : /http|[w]{3}/g,
 			
-			'xurlpattern' : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
-			'xurlendpattern' : /(^|\s|\r|\n)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g,
+			xurlpattern : /(^|\s|\r|\n|\u00a0)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)(\s|\r|\n|\u00a0)/g,
+			xurlendpattern : /(^|\s|\r|\n)((https?:\/\/|[w]{3})?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g,
 			//'xurlpattern' : /(https?:\/\/[^\s]+)/g,
 			
-			'initialize' : function (options)
+			initialize : function (options)
 			{	
 				// Parameters
 				if(options) $.extend(this, options);
@@ -96,7 +96,7 @@ define(
 				
 			},
 
-			'render' : function(content){
+			render : function(content){
 				
 				// Data basics
 				if(content !== undefined) this.content = content;
@@ -128,7 +128,7 @@ define(
 			
 			/* Editor Listener */
 			
-			'listentopaste' : function(e){
+			listentopaste : function(e){
 
 				e.preventDefault();
 				
@@ -142,7 +142,7 @@ define(
 			},
 
 			//Testing hack
-			'applystyle' : function(){
+			applystyle : function(){
 
 				var sel = this.win.getSelection();
 				
@@ -154,12 +154,12 @@ define(
 		        this.contenteditable.designMode = "off";
 			},
 
-			'applyselection' : function(e){
+			applyselection : function(e){
 				this.greyout(this.limit - this.$contenteditable.text().length, e);
 
 			},
 
-			'listentochange' : function(e, reload) {
+			listentochange : function(e, reload) {
 
 				var newurls;
 
@@ -198,7 +198,7 @@ define(
 				if(reload)	this.clearselections();
 			},
 			
-			'endchange' : function (e)
+			endchange : function (e)
 			{
 
 				if (this.$contenteditable.html().match(this.xurlendpattern))
@@ -209,7 +209,7 @@ define(
 				}
 			},
 			
-			'listentourl' : function(e, content, forceEnd){
+			listentourl : function(e, content, forceEnd){
 
 				var sel = this.win.getSelection(); 
 				var	range = this.document.createRange();
@@ -278,7 +278,7 @@ define(
 		 		return _.pluck(urlnodes, 'url');
 			},
 			
-			'parsenodes' : function(childnodes, forceEnd)
+			parsenodes : function(childnodes, forceEnd)
 			{	
 				var urlnodes = [];
 				var urlnode;
@@ -321,7 +321,7 @@ define(
 			},
 
 			//Finds a node with a cursor position or url
-			'getnode' : function(parentnode, pos, url){
+			getnode : function(parentnode, pos, url){
 				
 				var foundnode;
 				
@@ -357,7 +357,7 @@ define(
 				return foundnode;
 			},
 
-			'processurls' : function(newurls){
+			processurls : function(newurls){
 
 				//Block the url from being edited
 				this.$contenteditable.find('a').attr('contenteditable', false);
@@ -380,7 +380,7 @@ define(
 			},
 
 			//Update : Are we updating campaings?
-			'parseurls' : function(urls, campaign, update)
+			parseurls : function(urls, campaign, update)
 			{
 				var options = {
 					error : this.releaseurlprocessing
@@ -401,7 +401,7 @@ define(
 				}.bind(this));
 			},
 
-			'shortenurl' : function(model)
+			shortenurl : function(model)
 			{	
 				this.releaseurlprocessing();
 				
@@ -456,10 +456,10 @@ define(
 				
 			},
 			
-			'releaseurlprocessing' : function (){ this.urlprocessing = false; },
+			releaseurlprocessing : function (){ this.urlprocessing = false; },
 			
 			//Swaps between full url & shortened url
-			'swaplink' : function(e)
+			swaplink : function(e)
 			{
 				var tag = $(e.currentTarget).get(0).parentElement;
 				var sizebefore = this.$contenteditable.text().length;
@@ -490,7 +490,7 @@ define(
 				this.trigger('change:charlength');
 			},
 
-			'campaignupdated' : function(campaign)
+			campaignupdated : function(campaign)
 			{
 				var urls = this.urls;
 
@@ -498,12 +498,12 @@ define(
 					this.parseurls(urls, campaign, true)
 			},
 			
-			'addoetitle' : function(e){
+			addoetitle : function(e){
 				var text = e.currentTarget.innerText;
 				//add tittle
 			},
 
-			'addoecontent' : function(e)
+			addoecontent : function(e)
 			{	
 				var text = e.currentTarget.parentElement.textContent;
 				var content = this.$contenteditable.html();
@@ -513,13 +513,13 @@ define(
 				this.trigger("change:content");
 			},	
 
-			'addoeimg' : function(e){
+			addoeimg : function(e){
 
 				var imgurl = this.$el.find('[data-type="image"] img').get(0).src;
 				this.trigger("imageadded", {type: 'image', url: imgurl, name: imgurl});
 			},
 
-			'clearselections' : function()
+			clearselections : function()
 			{
 				if (window.getSelection) {
 				  	if (window.getSelection().empty) {  // Chrome
@@ -532,7 +532,7 @@ define(
 				}
 			},
 
-			'monitorlimit' : function()
+			monitorlimit : function()
 			{	
 				//Update charlength
 				this.charlength = this.$contenteditable.text().length;
@@ -550,7 +550,7 @@ define(
 						
 			},
 
-			'updatecounter' : function(chars){
+			updatecounter : function(chars){
 				var limit = this.$el.find('.limit-counter');
 				
 				if(chars >= 20) limit.removeClass().addClass('limit-counter');
@@ -560,7 +560,7 @@ define(
 				limit.empty().html(chars);
 			},
 
-			'updatelimit' : function(extrachars, update)
+			updatelimit : function(extrachars, update)
 			{	
 				this.contentlimitation = extrachars;
 
@@ -570,7 +570,7 @@ define(
 
 			/* Charlimit functions */	
 
-			'greyout' : function(charlen, e){ 
+			greyout : function(charlen, e){ 
 
 				var sel = this.win.getSelection();
 				var range = this.document.createRange();
@@ -645,7 +645,7 @@ define(
 
 			},
 
-			'isurl' : function(u)
+			isurl : function(u)
 			{	
 				result = false;
 
@@ -665,7 +665,7 @@ define(
 				var range = this.document.createRange();
 			},*/
 
-			'removegrey' : function(collapse){
+			removegrey : function(collapse){
 
 				var sel = this.win.getSelection();
 				var range = this.document.createRange();
@@ -685,7 +685,7 @@ define(
 		        //sel.collapse(this.$contenteditable.find('span').get(0),1);
 			},
 
-			'mergechars' : function(){
+			mergechars : function(){
 
 				$.each(this.$contenteditable.find('span'), function(n, span)
 				{	
@@ -697,14 +697,14 @@ define(
 			/* Cursor and tags */
 			
 			//Save position on click
-			'savepos' : function(e){
+			savepos : function(e){
 				var tagname = e.target.tagName;
 
 				if(tagname != 'I' && tagname !='SHORT')
 					this.pos = this.cursorpos();
 			},
 			
-			'cursorpos' : function (pos, getoffset)
+			cursorpos : function (pos, getoffset)
 			{	
 				
 				var sel, range, preCaretRange, nodelength;
@@ -758,13 +758,13 @@ define(
 				return pos;
 			},
 
-			'replacecontent' : function(content)
+			replacecontent : function(content)
 			{
 				this.$contenteditable.empty().html(content);
 				this.trigger("change:content");
 			},
 			
-			'togglecontent' : function(data, setdefault)
+			togglecontent : function(data, setdefault)
 			{	
 				if(data){
 					var stream = _.isNumber(data.id) ? data.id : null;
