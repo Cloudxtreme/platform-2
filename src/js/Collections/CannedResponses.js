@@ -1,5 +1,5 @@
 define(
-	[backbone, Session, Models/CannedResponse],
+	['backbone', 'Session', 'Models/CannedResponse'],
 	function (Backbone, Session, CannedResponse)
 	{	
 		var CannedResponses = Backbone.Collection.extend({
