@@ -1,7 +1,7 @@
 define(
 	['backbone', 'Session', 'Models/CannedResponse'],
 	function (Backbone, Session, CannedResponse)
-	{
+	{	console.log(Backbone, Session, CannedResponse)
 		var CannedResponses = Backbone.Collection.extend({
 
 			'model' : CannedResponse,

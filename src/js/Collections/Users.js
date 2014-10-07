@@ -13,6 +13,8 @@ define(
 			
 			'initialize' : function(options)
 			{
+				if(!Session)	Session = require('Session');
+				
 				// Override type strings if required
 				if(options) $.extend(this, options);
 				

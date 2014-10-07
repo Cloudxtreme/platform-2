@@ -3,7 +3,7 @@ define(
 	function (Backbone, Session, Message)
 	{
 		var Messages = Backbone.Collection.extend({
-	
+
 			'model' : Message,
 			'typestring' : "messages",
 			'modelstring' : "message",
@@ -17,6 +17,8 @@ define(
 			
 			'initialize' : function(options)
 			{
+				if(!Session)	Session = require('Session');
+					
 				// Override type strings if required
 				if(options) $.extend(this, options);
 				

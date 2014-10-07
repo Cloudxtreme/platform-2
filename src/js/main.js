@@ -4,16 +4,16 @@
 require.config({
 	baseUrl: '/js/',
 	paths: {
-		'jquery': 'lib/jquery/dist/jquery',
+		'jquery': 'lib/jquery/jquery.min',
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
-		'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
+		'bootstrap': 'lib/bootstrap/docs/assets/js/bootstrap.min',
 		'mustache': 'lib/mustache/mustache',
 		'datepicker': 'lib/bootstrap-datepicker/js/bootstrap-datepicker',
 		'timepicker': 'lib/bootstrap-timepicker/js/bootstrap-timepicker',
 		'calheatmap': 'lib/cal-heatmap/js/cal-heatmap.min',
 		'chosen': 'lib/chosen/chosen.jquery.min',
-		'd3': 'lib/d3.min'
+		'd3': 'lib/d3.min',
 		'crossdomain': 'lib/backbone.crossdomain/Backbone.CrossDomain'
 	},
 	shim: {

@@ -1,7 +1,7 @@
 define({
 
 	appid : "oauth25421a1f91e72c3.44868637",
-	apiurl: "https://devapi.cloudwalkers.be/1/",
+	apiurl: "https://devapi.cloudwalkers.be/",
 	authurl: "https://devapi.cloudwalkers.be/oauth2/",
 	
 	/*appid : 'oauth253fb03252cfbc2.44920946',

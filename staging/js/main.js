@@ -4,16 +4,17 @@
 require.config({
 	baseUrl: '/js/',
 	paths: {
-		'jquery': 'lib/jquery/dist/jquery',
+		'jquery': 'lib/jquery/jquery.min',
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
-		'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
+		'bootstrap': 'lib/bootstrap/docs/assets/js/bootstrap.min',
 		'mustache': 'lib/mustache/mustache',
-		'backgrid': 'lib/backgrid/lib/backgrid',
-		'pageable': 'lib/backbone-pageable/lib/backbone-pageable',
-		'backbone.paginator': 'lib/backbone.paginator/lib/backbone.paginator',
-		'paginator': 'lib/backgrid-paginator/backgrid-paginator',
-		'backgrid-object-cell': 'lib/backgrid-object-cell/backgrid-object-cell'
+		'datepicker': 'lib/bootstrap-datepicker/js/bootstrap-datepicker',
+		'timepicker': 'lib/bootstrap-timepicker/js/bootstrap-timepicker',
+		'calheatmap': 'lib/cal-heatmap/js/cal-heatmap.min',
+		'chosen': 'lib/chosen/chosen.jquery.min',
+		'd3': 'lib/d3.min',
+		'crossdomain': 'lib/backbone.crossdomain/Backbone.CrossDomain'
 	},
 	shim: {
 		'bootstrap': {
@@ -27,17 +28,13 @@ require.config({
 			deps: ['underscore', 'jquery', 'mustache'],
 			exports: 'backbone'
 		},
-		'backgrid': {
-			deps: ['jquery','backbone','underscore'],
-			exports: 'Backgrid'
+		'crossdomain': {
+			deps: ['backbone'],
+			exports: 'crossdomain'
 		},
 		'paginator': {
 			deps: ['backgrid', 'pageable'],
 			exports: 'Paginator'
-		},
-		'backgrid-object-cell': {
-			deps: ['backgrid'],
-			exports: 'ObjectCell'
 		}
 	}
 });
@@ -48,7 +45,7 @@ var Cloudwalkers;
 require(
 	['backbone', 'bootstrap', 'Cloudwalkers'],
 	function(Backbone, bootstrap, Cwd)
-	{	console.log(Backbone)
+	{
 		$(document).ready(function()
 		{			
 			Store = new StorageClassLocal();			

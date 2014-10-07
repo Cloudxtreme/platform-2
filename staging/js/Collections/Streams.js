@@ -8,6 +8,8 @@ define(
 			'model' : Stream,
 			
 			'initialize' : function(){
+
+				if(!Session)	Session = require('Session');
 				
 				if( Session.user.account)
 					Session.getStreams().listenTo(this, "add", Session.getStreams().distantAdd)
