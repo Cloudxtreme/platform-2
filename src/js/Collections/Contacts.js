@@ -48,12 +48,7 @@ define(
 			},
 			    
 		    sync : function (method, model, options)
-			{
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
+			{				
 				
 				if(method == "read")	this.processing = true;
 				if(options.parameters)	this.parameters = options.parameters;

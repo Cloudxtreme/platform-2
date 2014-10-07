@@ -29,13 +29,8 @@ define(
 				return response.streams;
 			},
 			
-			sync : function (method, model, options) {
-				
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
+			sync : function (method, model, options) 
+			{	
 				/*// Store Local - deprecated
 				if( method == "read")
 					Store.get(this.url(), null, function(data)

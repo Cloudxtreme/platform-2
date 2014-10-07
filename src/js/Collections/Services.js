@@ -35,12 +35,7 @@ define(
 			},
 			
 			sync : function (method, model, options)
-			{
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
+			{				
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 				
 				return Backbone.sync(method, model, options);

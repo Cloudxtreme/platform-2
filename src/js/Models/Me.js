@@ -48,12 +48,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 			},
 			
 			sync : function (method, model, options)
-			{
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
+			{				
 				// For specific methods
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 				

@@ -39,11 +39,6 @@ define(
 			
 			sync : function (method, model, options)
 			{
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
 				this.method = method;
 				
 				// Hack
