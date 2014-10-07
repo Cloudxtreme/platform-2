@@ -1,6 +1,6 @@
 define(
-	['Models/Message', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications'],
-	function (Message, Actions, Notes, Notifications)
+	['Models/Message', 'Collections/Actions', 'Collections/Notes'],
+	function (Message, Actions, Notes)
 	{
 		var Notification = Message.extend({
 			
@@ -16,7 +16,7 @@ define(
 				this.actions = new Actions(false, {parent: this});
 				this.notes = new Notes(false, {parent: this});
 
-				this.notifications = new Notifications(false, {parent: this});
+				//this.notifications = new Notifications(false, {parent: this});
 				
 				// Listen to destroy
 				// Reload parent message for message counter

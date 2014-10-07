@@ -1,6 +1,6 @@
 define(
-	['Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
-	function (Me, RootView, Router, Accounts, Polyglot)
+	['Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
+	function (RootView, Router, Accounts, Polyglot)
 	{
 		var Session = 
 		{
@@ -29,6 +29,8 @@ define(
 			
 			loadEssentialData : function (callback)
 			{
+				var Me = require ('Models/Me');
+				
 				this.user = new Me();
 				this.getversion();
 
