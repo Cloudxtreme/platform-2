@@ -40,7 +40,7 @@ define(
 				{			
 					params.columns.push(this.columns[this.columnviews[n]]);
 				}*/
-				for(k in this.columns)
+				for (var k in this.columns)
 				{
 					this.translateColumns(this.columns[k]);
 				}
@@ -159,7 +159,7 @@ define(
 			{	
 				// Translate Columns
 				if(translatedata.translation)
-					for(k in translatedata.translation)
+					for (var k in translatedata.translation)
 					{
 						translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
 					}

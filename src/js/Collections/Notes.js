@@ -35,7 +35,7 @@ define(
 			},
 
 			isempty : function(){		
-				if(this.length == 0){
+				if(this.length === 0){
 					this.trigger('ready:empty');
 				}
 			},

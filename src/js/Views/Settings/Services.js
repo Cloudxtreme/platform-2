@@ -59,7 +59,7 @@ define(
 				if(!streams)
 					Router.Instance.navigate("#settings/services", true)
 
-				for(n in streams){
+				for (var n in streams){
 					this.parsestream(streams[n], operation);
 				}
 
@@ -77,7 +77,7 @@ define(
 				var channel;
 				
 				if(channels.length){
-					for(n in channels){
+					for (var n in channels){
 
 						channel = Session.getChannel(parseInt(channels[n]));
 						if(channel)

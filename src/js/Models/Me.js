@@ -142,7 +142,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 			{	
 				var censures = {};
 
-				for(n in permissions){
+				for (var n in permissions){
 					censures[permissions[n]] = true;
 				}
 

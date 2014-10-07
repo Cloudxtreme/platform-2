@@ -397,7 +397,7 @@ define(
 				if(!tags.length)	this.$el.find('.tag-list').html('No tags found');
 				else				this.$el.find('.tag-list').empty();
 				this.$el.find('.tag-list').empty();
-				for(n in tags)
+				for (var n in tags)
 				{
 					this.addtag(tags[n]);
 				}
@@ -484,7 +484,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
@@ -536,7 +536,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

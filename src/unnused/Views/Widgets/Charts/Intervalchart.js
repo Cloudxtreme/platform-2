@@ -87,7 +87,7 @@ Cloudwalkers.Views.Widgets.Charts.Intervalchart = Cloudwalkers.Views.Widgets.Wid
 			ticks.push ([ i, datestring ]);
 			values[i][0] = i;
 
-			if (i == 0)
+			if (i === 0)
 			{
 				basevalue.push ([ i, values[i][1] ]);
 				additions.push ([ i, 0 ]);

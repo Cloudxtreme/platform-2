@@ -125,7 +125,7 @@ define(
 				if (this.timespan == "custom")
 					this.$el.find('#start, #end').datepicker({format: 'dd-mm-yyyy'});
 
-				if(this.period == 0)
+				if(this.period === 0)
 					this.$el.find('#add').attr("disabled", true);
 
 				// Load Google stuff
@@ -399,7 +399,7 @@ define(
 			{	
 				// Translate Widgets
 				if(translatedata.translation)
-					for(k in translatedata.translation)
+					for (var k in translatedata.translation)
 					{
 						translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
 					}
@@ -422,7 +422,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

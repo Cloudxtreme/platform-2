@@ -34,7 +34,7 @@ Cloudwalkers.Views.Widgets.Charts.Piechart = Cloudwalkers.Views.Widgets.Widget.e
 
 	'plot' : function (values)
 	{
-		if (values.length == 0)
+		if (values.length === 0)
 		{
 			this.placeholder.html ('<p>At this time there is no information available.</p>');
 			return;

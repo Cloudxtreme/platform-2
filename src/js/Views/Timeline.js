@@ -186,7 +186,7 @@ define(
 				// Select networks
 				param.networks = this.model.streams.filterNetworks(param.streams, true);
 
-				for(n in param.networks)
+				for (var n in param.networks)
 				{
 					var btn = '<div class="btn-white filter" data-networks="'+ param.networks[n].ids +'"><i class="icon-'+ param.networks[n].icon +'"></i></div>';
 
@@ -418,7 +418,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

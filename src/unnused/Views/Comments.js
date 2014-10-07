@@ -45,12 +45,12 @@ define(
 						self.$el.find ('.comments-inner-container').show ();
 						self.$el.find ('.loading-comments').hide ();
 
-						if (self.collection.length % 10 == 0)
+						if (self.collection.length % 10 === 0)
 						{
 							self.$el.find ('.load-more-comments').show ();
 						}
 
-						if (self.collection.length == 0)
+						if (self.collection.length === 0)
 						{
 							self.$el.find ('.load-more-comments').hide ();
 							self.$el.find ('.no-comments').show ();
@@ -104,7 +104,7 @@ define(
 				this.$el.find ('.messages-container').html ('');
 				this.options.channel.each (this.addOne, this);
 
-				if (this.options.channel.length == 0)
+				if (this.options.channel.length === 0)
 				{
 					var stream = this.options.parent.getStream ();
 					this.$el.find ('.comments-inner-container').html ('<p>' + stream.get ('textfields').nochildren + '</p>');
@@ -127,7 +127,7 @@ define(
 						self.$el.find ('.loading-comments').hide ();
 						//self.$el.find ('.load-more-comments').show ();
 
-						if (self.collection.length % 10 == 0 && self.collection.length > 0)
+						if (self.collection.length % 10 === 0 && self.collection.length > 0)
 						{
 							self.$el.find ('.load-more-comments').show ();
 						}

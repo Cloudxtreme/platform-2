@@ -40,7 +40,7 @@ define(
 
 				this.appendWidget(new DashboardCleanerWidget ({size: 12}), 12)
 
-				for(n in reportables)
+				for (var n in reportables)
 				{
 					this.fillstreamwidget(reportables[n].id)
 				}		
@@ -57,7 +57,7 @@ define(
 					{widget: "Info", data: {title: "Best time to post", filterfunc: "besttimetopost"}, span: 3},
 				]
 
-				for(n in widgets)
+				for (var n in widgets)
 				{
 					if(token != 'facebook' && token != 'twitter')
 						continue;
@@ -179,7 +179,7 @@ define(
 			{	
 				// Translate Widgets
 				if(translatedata.translation)
-					for(k in translatedata.translation)
+					for (var k in translatedata.translation)
 					{
 						translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
 					}

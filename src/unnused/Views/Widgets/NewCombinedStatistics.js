@@ -70,7 +70,7 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 	{	//Fills charts & adds them to DOM
         var charts = this.charts;
 
-        for(n in charts){
+        for (var n in charts){
 			charts[n].data.model = this.model;
 			if(charts[n].data.network)	charts[n].data.network = this.network;
 			charts[n].data.type = this.type;
@@ -85,7 +85,7 @@ Cloudwalkers.Views.Widgets.NewCombinedStatistics = Backbone.View.extend({
 		var data;
 		var view;
 
-		for(n in reports){			
+		for (var n in reports){			
 			this.funcs[reports[n]].data.model = this.model;
 			this.funcs[reports[n]].data.network = this.network;
 			this.funcs[reports[n]].data.icon = this.icon;

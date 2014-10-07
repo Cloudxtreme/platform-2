@@ -71,7 +71,7 @@ define(
 
 			mergedata : function(model, variation)
 			{
-				if(variation.length == 0){
+				if(variation.length === 0){
 					return model;
 				}
 

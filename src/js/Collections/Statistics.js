@@ -237,7 +237,7 @@ define(
 							besttime = stream.getbesttime();
 							
 							if(besttime){ 
-								if(daily.length == 0)
+								if(daily.length === 0)
 									daily = _.values(besttime);
 								
 								for(i in besttime){							

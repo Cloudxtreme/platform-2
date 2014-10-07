@@ -30,7 +30,7 @@ define(
 			
 			appendWidgets : function() {
 				
-				for(n in this.widgets)
+				for (var n in this.widgets)
 				{
 					var widget = this.widgets[n].view(this.widgets[n].data);
 
@@ -40,7 +40,7 @@ define(
 			
 			appendWidget : function(widget, span, padding, offset) {
 				
-				if(!this.span || span == 0)
+				if(!this.span || span === 0)
 				{
 					this.$container.append(Templates.row);
 				}

@@ -82,7 +82,7 @@ define(
 				}
 
 				if(streams && streams.length){
-					for(n in streams){
+					for (var n in streams){
 						this.parent.parsestream(streams[n], profile.get("activated")? 'add': 'remove');
 					}
 				}
@@ -461,7 +461,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

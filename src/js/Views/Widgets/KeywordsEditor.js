@@ -203,7 +203,7 @@ define(
 				stringFormula = stringFormula.replace(/ or /gi, ",or,");
 				stringFormula = stringFormula.split(",");
 				
-				for(n in stringFormula)
+				for (var n in stringFormula)
 				{
 					stringFormula[n] = stringFormula[n].trim();
 				}
@@ -213,7 +213,7 @@ define(
 				    return el !== '' ? el : null;
 				});
 
-				for(n in stringFormulaClean)
+				for (var n in stringFormulaClean)
 				{
 					this.formulaElement(stringFormulaClean[n]);
 					this.$el.find("select").chosen({width: "100%"});
@@ -230,8 +230,8 @@ define(
 				/*$('#filter_include').val(filters.include? filters.include.join(", "): "");
 				$('#filter_exclude').val(filters.exclude? filters.exclude.join(", "): "");
 				
-				for(n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
-				for(n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");*/
+				for (var n in filters.languages) $('#filter_languages option[value="' + filters.languages[n] + '"]').attr("selected", "selected");
+				for (var n in filters.countries) $('#filter_countries option[value="' + filters.countries[n] + '"]').attr("selected", "selected");*/
 				// End deprecated
 				
 			},
@@ -258,13 +258,13 @@ define(
 				languages = filters.languages;
 
 				var languageslist = "";
-				for(n in languages)
+				for (var n in languages)
 				{
 					languageslist += '<option value="'+languages[n].token+'">'+languages[n].name+'</option>'
 				}
 
 				var countrieslist = "";
-				for(n in countries)
+				for (var n in countries)
 				{
 					countrieslist += '<option value="'+countries[n].token+'">'+countries[n].name+'</option>'
 				}
@@ -287,7 +287,7 @@ define(
 					splitValue = e.split(' ');
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
-					for(n in languages)
+					for (var n in languages)
 					{
 						if(languages[n].token.toLowerCase() == splitValue[2].toLowerCase())
 							tokenValue = languages[n].token.toLowerCase();
@@ -309,7 +309,7 @@ define(
 					splitValue = e.split(' ');
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
-					for(n in countries)
+					for (var n in countries)
 					{
 						if(countries[n].token.toUpperCase() == splitValue[2].toUpperCase())
 							tokenValue = countries[n].token.toUpperCase();
@@ -478,7 +478,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

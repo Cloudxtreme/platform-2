@@ -204,7 +204,7 @@ define(
 					totalcontacts += network.getcontacts();
 				});		
 
-				if(collection && (fulldata.data.length == 0 || totalcontacts == 0))
+				if(collection && (fulldata.data.length === 0 || totalcontacts === 0))
 					return this.emptychartdata();
 
 				fulldata.options.colors = fulldata.colors;
@@ -633,7 +633,7 @@ define(
 					return age.title;
 				});
 
-				if(data.length == 0 || total == 0)
+				if(data.length === 0 || total === 0)
 					return this.emptychartdata();
 
 				fulldata.data = data;		
@@ -681,7 +681,7 @@ define(
 					total += value;
 				}.bind(this));
 				
-				if(data.length == 0 || total == 0)
+				if(data.length === 0 || total === 0)
 					return this.emptychartdata();
 
 				fulldata.data = data;
@@ -710,7 +710,7 @@ define(
 						if(_.isObject(stream["contacts"].geo)){
 							var countries = stream["contacts"].geo["countries"];
 
-							if(_.size(grouped) == 0){						//is empty, shove the countries inside
+							if(_.size(grouped) === 0){						//is empty, shove the countries inside
 								$.each(countries, function(key, country){
 									grouped[country.name] = country;
 									grouped[country.name]["networks"] = [];
@@ -763,7 +763,7 @@ define(
 				if(!size || size > grouped.length)	size=grouped.length;
 
 				//There is no country data
-				if(size == 0)
+				if(size === 0)
 					return this.emptychartdata();
 
 				// Gets n biggest values (or all of them)
@@ -794,7 +794,7 @@ define(
 				var country;
 
 				//In case something goes wrong
-				if(countries.length == 0)
+				if(countries.length === 0)
 					return this.emptychartdata();
 
 				country = countries[countries.length-1];
@@ -828,7 +828,7 @@ define(
 				};
 				
 				//There is no country data
-				if(countries.length == 0)
+				if(countries.length === 0)
 					return this.emptychartdata();
 
 				//Replace title
@@ -867,7 +867,7 @@ define(
 					counter++;
 				}
 
-				if(datasets.length == 0)	return fulldata;
+				if(datasets.length === 0)	return fulldata;
 
 				// If we are grouping, calculate the "Others"
 				var total = _.reduce(datasets, function(memo, num){
@@ -899,7 +899,7 @@ define(
 						besttime = stream.getbesttime();
 						
 						if(besttime){
-							if(daily.length == 0){
+							if(daily.length === 0){
 								daily = _.values(besttime);
 							}else{
 								for(i in besttime){							
@@ -1043,7 +1043,7 @@ define(
 					msgpivot = messages;
 
 					//Get starting statistics date
-					if(date == 0)	date = statistic.get("date");
+					if(date === 0)	date = statistic.get("date");
 				}
 				
 				var dataTable = new google.visualization.DataTable();

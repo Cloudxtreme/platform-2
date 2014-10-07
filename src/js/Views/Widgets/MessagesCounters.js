@@ -47,7 +47,7 @@ define(
 			{	
 				this.$container.empty();
 
-				for(n in collection.models)
+				for (var n in collection.models)
 				{	
 					var counterentry = new CounterEntryView({model: collection.models[n], data: this.options});
 					this.$container.append(counterentry.render().el);

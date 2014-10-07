@@ -41,7 +41,7 @@ define(
 				this.message = this.model.get("messages") ? this.model.get("messages")[0] : false;
 
 				//No results
-				if(!this.message || this.message.length == 0){
+				if(!this.message || this.message.length === 0){
 					this.$el.find('.commentballoon h4').html("No data");
 					this.hideloading();
 					return;

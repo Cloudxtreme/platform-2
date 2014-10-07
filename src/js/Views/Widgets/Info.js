@@ -229,7 +229,7 @@ define(
 				var statf = this.collection.first().pluck(["contacts","types","followers"], this.network,3) ||
 							this.collection.first().pluck("contacts", this.network);
 				var total = statl - statf;
-				var percent = total == 0? 0: Math.floor(total/statf*100);
+				var percent = total === 0? 0: Math.floor(total/statf*100);
 
 				if(percent >= 0)	percent = '+' + percent;
 				if(total >= 0)		total 	= '+' + total;
@@ -333,7 +333,7 @@ define(
 			{	
 				var besttimes = this.collection.clone().parsebesttime(this.network);
 
-			    if (besttimes.length == 0)
+			    if (besttimes.length === 0)
 			        return null;
 			    
 			    var modeMap = {},

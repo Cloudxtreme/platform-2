@@ -26,7 +26,7 @@ define(
 
 				for(i in states){
 					if(_.isArray(states[i])){
-						for(n in states[i]){
+						for (var n in states[i]){
 							this[listentype](model, states[i][n], this.loadRender.bind(this, Number(i)+1, length));					
 						}
 					}else{

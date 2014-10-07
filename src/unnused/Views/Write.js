@@ -439,7 +439,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 				}
 			}
 
-			if (self.files.length == 0)
+			if (self.files.length === 0)
 			{
 				$('.fileupload').show ();
 			}
@@ -864,7 +864,7 @@ Cloudwalkers.Views.Write = Backbone.View.extend({
 			if (!this.draft)
 			{
 				// Count selected networks
-				if (this.$el.find ('.channels input[type=checkbox]:checked').length == 0)
+				if (this.$el.find ('.channels input[type=checkbox]:checked').length === 0)
 				{
 					this.throwError ('Please select at least one stream to send too.');
 					return false;

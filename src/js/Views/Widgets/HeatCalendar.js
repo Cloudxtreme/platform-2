@@ -125,7 +125,7 @@ define(
 						data[timestamp] = messages;
 
 						//Get starting statistics date
-						if(date == 0)	date = statistic2.get("date");
+						if(date === 0)	date = statistic2.get("date");
 					}		
 				}
 				

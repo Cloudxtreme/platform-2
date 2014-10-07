@@ -23,7 +23,7 @@ define(
 			{	
 				this.action.inactive = this.inactive;
 				
-				if(this.action.value == 0)
+				if(this.action.value === 0)
 					this.action.noresults = 'noresults';
 				else
 					this.action.noresults = false;

@@ -79,7 +79,7 @@ define(
 				if(!tokens)
 					tokens = this.parent.get("actiontokens");
 
-				for(n in tokens)
+				for (var n in tokens)
 				{	
 					token = tokens[n];
 					action = this.templates[token];

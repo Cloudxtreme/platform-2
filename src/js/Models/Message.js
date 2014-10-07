@@ -446,7 +446,7 @@ define(
 				var variations = this.get("variations") || [];
 				var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
 
-				if(variation.length == 0)	//Add new variation
+				if(variation.length === 0)	//Add new variation
 				{ 	
 					variation = {'stream' : stream};
 
@@ -464,7 +464,7 @@ define(
 					variation = variation[0];
 					if(key == 'image' || key == 'link'){
 						var attachments = variation.attachments || [];
-						if(attachments.length == 0 && key == 'image'){
+						if(attachments.length === 0 && key == 'image'){
 							attachments.push(value);
 							variation['attachments'] = attachments;					
 						}else if(key == 'image'){
@@ -543,7 +543,7 @@ define(
 				if(_.isNumber(image)){	// It's a default iamge
 					this.addexclude(streamid, image)			
 				}else{					// It's a variation image
-					for(n in attachments){
+					for (var n in attachments){
 						if(attachments[n].type == 'image' && attachments[n].name == image) 
 							attachments.splice(n,1);
 					}
@@ -570,7 +570,7 @@ define(
 				else			excludes = variation.excludes;
 
 				if(excludes){
-					for(n in excludes.attachments){
+					for (var n in excludes.attachments){
 						if(excludes.attachments[n] == index)
 							return true;
 					}
@@ -592,7 +592,7 @@ define(
 					
 					this.addexclude(streamid, image)			
 				}else{			console.log(image)		// It's a variation image
-					for(n in attachments){
+					for (var n in attachments){
 						if(attachments[n].type == 'image' && attachments[n].name == image) 
 							attachments.splice(n,1);
 					}
@@ -620,7 +620,7 @@ define(
 
 				if(excludes){
 					
-					for(n in excludes){
+					for (var n in excludes){
 						if(excludes[n] == index)
 							return true;
 					}
@@ -1080,7 +1080,7 @@ define(
 				// First check for an exact match
 				for (var i = intervalunits.length - 1; i >= 0; i --)
 				{
-					if ((intervalSeconds % intervalunits[i].value) == 0)
+					if ((intervalSeconds % intervalunits[i].value) === 0)
 					{
 						out.interval = Math.round (intervalSeconds / intervalunits[i].value);
 						out.unit = intervalunits[i].unit;

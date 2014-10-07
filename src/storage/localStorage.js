@@ -153,7 +153,7 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 		if(!group)
 			group = [];
 			
-		for(n in  group) if(group[n].id == content.id)
+		for (var n in  group) if(group[n].id == content.id)
 		{
 			$.extend(group[n], content);
 			set = true;
@@ -186,7 +186,7 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 			for(key in selector)
 				group = group.filter(function(el, id){ return (el[key] == selector[key]); });
 			
-			for(n in group)
+			for (var n in group)
 				for(i in collection)
 					if(collection[i].id == group[i].id) collection[i] = $.extend(group[n], content);			
 			
@@ -215,7 +215,7 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 		if(!collection || !content.id)	callback(null, content);
 		else {
 		
-			for(n in collection)
+			for (var n in collection)
 				if(collection[n].id == content.id)
 					collection[n] = entry = $.extend(collection[n], content);		
 			
@@ -248,7 +248,7 @@ var StorageClassLocal = function(successCallback, errorCallback) {
 		var removed = [];
 		
 		for(key in selector)
-			for(n in collection)
+			for (var n in collection)
 				if(collection[n][key]==selector[key]) removed.push(collection.splice(n,1));
 			
 		window.localStorage.setItem(type, JSON.stringify(collection));

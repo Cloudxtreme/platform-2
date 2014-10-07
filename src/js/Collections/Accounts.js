@@ -13,7 +13,7 @@ define(
 			
 			updates : function (ids)
 			{
-				for(n in ids)
+				for (var n in ids)
 				{
 					var model = this.get(ids[n]);
 					

@@ -33,7 +33,7 @@ define(
 					var params = {streams: []};
 					
 					// Company streams
-					for(n in this.streams)
+					for (var n in this.streams)
 						params.streams.push({id: this.streams[n].id, icon: this.streams[n].network.icon, name: this.streams[n].name, network: this.streams[n].network}); 
 					
 					// Select networks
@@ -236,7 +236,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

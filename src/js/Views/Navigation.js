@@ -141,7 +141,7 @@ define(
 					
 					var monitoring = account.channels.findWhere({type: "monitoring"});
 
-					for(n in monitoring.channels.models){
+					for (var n in monitoring.channels.models){
 						if(monitoring.channels.models[n].attributes.channels.length){
 							this.first =  monitoring.channels.models[n]
 							break;
@@ -236,7 +236,7 @@ define(
 			{
 				var views = {};
 				
-				for(n in this.views)
+				for (var n in this.views)
 				{
 
 					views[this.views[n].name] = {streams: []};
@@ -268,7 +268,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
@@ -316,7 +316,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

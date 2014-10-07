@@ -355,7 +355,7 @@ define (
 				var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 				
 				this.actionstreams = [];
-				for(n in action.streams){
+				for (var n in action.streams){
 					if(Session.getStream(action.streams[n]))
 						this.actionstreams.push(Session.getStream(action.streams[n]));		
 				} 
@@ -776,7 +776,7 @@ define (
 				}
 
 				//Prevent more than one image
-				if(picturescontainer.find('li.images-thumb').length == 0)
+				if(picturescontainer.find('li.images-thumb').length === 0)
 					this.enableimages();			
 
 			},
@@ -855,7 +855,7 @@ define (
 				this.$el.find('[data-collapsable=images] .summary [data-filename="'+image.data('filename')+'"]').remove();
 
 				//Re-add the add button
-				if(this.$el.find('ul.pictures-container li.images-thumb').length == 0)
+				if(this.$el.find('ul.pictures-container li.images-thumb').length === 0)
 					this.enableimages();
 			},
 
@@ -908,7 +908,7 @@ define (
 				var result = $(e.currentTarget).val();
 				var campaignname = $(".chosen-single > span").get(0).textContent;
 
-				if(result == 0)	this.removecampaign();
+				if(result === 0)	this.removecampaign();
 				else			{this.draft.set("campaign", Number(result)); this.trigger('update:campaign',campaignname); }
 				
 				this.summarizecampaign().$el.find("[data-collapsable=campaign]").addClass("collapsed");
@@ -946,7 +946,7 @@ define (
 				var select = this.$el.find(".campaign-list").empty();
 				
 				// Update options
-				for(n in campaigns) select.append($("<option value='"+ campaigns[n].id +"'>"+ campaigns[n].name +"</option>"));
+				for (var n in campaigns) select.append($("<option value='"+ campaigns[n].id +"'>"+ campaigns[n].name +"</option>"));
 				
 				select.trigger('chosen:updated');
 				
@@ -1762,7 +1762,7 @@ define (
 			translateTitles : function(translatedata)
 			{
 				
-				for(k in this.titles)
+				for (var k in this.titles)
 				{
 		            this.translated_titles[k] = this.translateString(this.titles[k]);
 				}
@@ -1816,7 +1816,7 @@ define (
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
@@ -1838,7 +1838,7 @@ define (
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

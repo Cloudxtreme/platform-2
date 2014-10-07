@@ -60,7 +60,7 @@ define(
 				Session.censuretemplate(this.parameters);
 
 				// Visualize
-				for(n in this.parameters.actions)
+				for (var n in this.parameters.actions)
 					this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
 
 				if(this.parameters.actions && !this.parameters.actions.length)
@@ -68,7 +68,7 @@ define(
 				else
 					this.parameters.hasactions = true;
 
-				for(n in this.parameters.statistics)
+				for (var n in this.parameters.statistics)
 					this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
 				
 				this.mustacheTranslateRender(this.parameters);
@@ -397,7 +397,7 @@ define(
 				var container = this.$el.find('.action-lists').append('<ul class="action-list '+listclass+'"></ul>');
 
 				// Fill it
-				for(n in actions)
+				for (var n in actions)
 				{	
 					this.addaction(actions[n], token);
 				}
@@ -533,7 +533,7 @@ define(
 				if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
 				else				this.$el.find('.note-list').empty();
 
-				for(n in notes)
+				for (var n in notes)
 				{	
 					this.addnote(notes[n]);
 				}
@@ -589,7 +589,7 @@ define(
 				if(!tags.length)	this.$el.find('.tag-list').html(this.translateString("no_tags_found"));
 				else				this.$el.find('.tag-list').empty();
 				this.$el.find('.tag-list').empty();
-				for(n in tags)
+				for (var n in tags)
 				{
 					this.addtag(tags[n]);
 				}
@@ -735,7 +735,7 @@ define(
 
 				this.translated = [];
 
-				for(k in this.original)
+				for (var k in this.original)
 				{
 					this.translated[k] = this.translateString(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];

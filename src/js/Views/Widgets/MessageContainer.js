@@ -187,13 +187,13 @@ define(
 
 						$(element).attr ('data-message-id', message.get ('id'));
 
-						if (index == 0)
+						if (index === 0)
 						{
 							self.onFirstAdd (message, messageView);
 						}
 					}
 
-					if (index == 0)
+					if (index === 0)
 					{
 						self.$el.find ('.messages-container').prepend (element);
 					}

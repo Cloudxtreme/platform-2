@@ -51,7 +51,7 @@ define(
 				
 				this.reorderactions(actions);
 				
-				for(n in actions)
+				for (var n in actions)
 				{	
 					compound = actions[n].compound? actions.filter(function(a){ return a.compound == actions[n].compound}): null;
 
@@ -83,7 +83,7 @@ define(
 			{	
 				var del;
 
-				for(n in actions){
+				for (var n in actions){
 					if (actions[n].token == 'delete')
 						del = actions.splice(n,1);
 				}
@@ -103,7 +103,7 @@ define(
 			{	
 				var container = this.$el.find('.actions-'+position);
 				
-				for(n in actions){
+				for (var n in actions){
 					container.append(actions[n].render().el);
 				}
 

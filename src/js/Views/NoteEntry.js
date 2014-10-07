@@ -62,7 +62,7 @@ define(
 				Session.censuretemplate(this.parameters);
 
 				// Visualize
-				for(n in this.parameters.actions)
+				for (var n in this.parameters.actions)
 					this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
 				
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters));

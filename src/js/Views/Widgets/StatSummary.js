@@ -152,7 +152,7 @@ define(
 
 				var besttimes = this.collection.clone().parsebesttime(this.parentview.streamid);
 
-			    if (besttimes.length == 0)
+			    if (besttimes.length === 0)
 			        return null;
 			    
 			    var modeMap = {},
