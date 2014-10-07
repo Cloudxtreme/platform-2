@@ -16,10 +16,9 @@ define(
 			paging : {},
 			cursor : false,
 			
-			initialize : function (options){
-				
-				if(!Session)	Session = require('Session')
-				
+			initialize : function (options)
+			{
+								
 				// Override type strings if required
 				if (options) $.extend(this, options);
 				

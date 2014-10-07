@@ -7,9 +7,7 @@ define(
 			typestring : 'messages',
 
 			initialize : function ()
-			{
-				if(!Session)	Session = require('Session')
-					
+			{					
 				this.streams = Session.getStreams('canned');
 			},
 

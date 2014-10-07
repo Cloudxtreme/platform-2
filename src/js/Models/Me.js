@@ -10,8 +10,6 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 				// Load data
 				this.once('change', this.activate);
 
-				if(!Session)	Session = require('Session')
-
 				// Force reload me on restart
 				/*if(Store.exists("me"))
 					Store.remove('me');

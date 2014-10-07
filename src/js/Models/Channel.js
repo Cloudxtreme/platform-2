@@ -8,9 +8,7 @@ define(
 			parameters : '',
 			
 			initialize : function (attributes)
-			{
-				if(!Channels)	Channels = require('Channels');
-				
+			{				
 				// Child channels
 				this.channels = new Channels();
 				this.channels.seed(this.get("channels"));

@@ -3,9 +3,7 @@ define(
 	 'Views/SimpleCompose'],
 
 	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
-	{
-		//var NoteEntryWidget = require('Views/Widgets/NoteEntry')
-		
+	{		
 		var Entry = Backbone.View.extend({
 	
 			tagName : 'li',

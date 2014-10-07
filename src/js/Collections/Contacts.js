@@ -12,9 +12,7 @@ define(
 			processing : false,
 
 			initialize : function (models, options)
-			{
-				if(!Session)	Session = require('Session');
-				
+			{				
 				// Global collection gets created before session build-up
 				if( Session.user.account)
 				{

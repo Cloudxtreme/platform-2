@@ -128,8 +128,6 @@ define(
 						parameters.template = this.options.originaltemplate;
 					}
 
-					var OriginalMessageView = require('Views/Message');
-
 					var parentview = new OriginalMessageView (parameters);
 					this.$el.find ('.parent-message-view').html (parentview.render().el);
 				}

@@ -16,9 +16,6 @@ define(
 				this.actions = new Actions(false, {parent: this});
 				this.notes = new Notes(false, {parent: this});
 
-				// Make sure the collection is defined
-				if(!Notifications)	Notifications = require('Collections/Notifications');
-
 				this.notifications = new Notifications(false, {parent: this});
 				
 				// Listen to destroy

@@ -16,9 +16,6 @@ define(
 			
 			initialize : function ()
 			{	
-				if(!Session)	Session = require('Session');
-				if(!RootView)	RootView = require('RootView');
-				if(!Notes)		Notes = require('Notes');
 
 				// Collect Channels
 				this.channels = new Channels();
