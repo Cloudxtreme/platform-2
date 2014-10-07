@@ -13,7 +13,7 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	'id' : "statistics",
 	'start' : 0,
 	'end': 0,
-	'timespan' : "week",
+	'timespan' : "default",
 	'period' : 0,
 	'custom' : false,
 	'views' : [],
@@ -140,7 +140,10 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 	},
 	
 	'request' : function (period)
-	{
+	{	
+		if(period && this.timespan == 'default')
+			this.timespan = 'week';
+
 		//this.fillcharts ();
 		this.writeui();
 		this.collection.touch (this.filterparameters ());
@@ -205,7 +208,14 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 		var start = moment.unix(params.since).zone(0);
 		var startformat = (start.date() > 24 || params.span == "quarter")? (start.month() == 11? "DD MMM YYYY":"DD MMM"): "DD";
 		
-		params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
+		if(this.timespan == 'default')
+		{
+			params.periodstring = 'last 7 days';
+			params.span = "";
+		}
+		else
+			params.periodstring = (!this.period && params.span != "custom")? "this ": (this.period==-1? "last ": "");
+
 		params.timeview = start.format(startformat) + " - " + moment.unix(params.until).zone(0).format("DD MMM YYYY");
 		params[params.span + "Active"] = true;
 		
@@ -332,13 +342,18 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
  
 		// Get time span
 
-		if (this.timespan == "now") {	this.period = 0; }
-		if (this.timespan == "week") {	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
-		if (this.timespan == "month") {	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
-		if (this.timespan == "year") {	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
+		//Default time span == last 7 days
+		if (this.timespan == "default") { 	this.start = moment().subtract(7, 'days').zone(0).endOf('day');	this.end = moment().zone(0).endOf('day'); }		
+
+		if (this.timespan == "now") 	{	this.period = 0; }
+
+		if (this.timespan == "week") 	{	this.start = moment().zone(0).startOf('isoweek');	this.end = moment().zone(0).endOf('isoweek'); }
+		if (this.timespan == "month") 	{	this.start = moment().zone(0).startOf('month');		this.end = moment().zone(0).endOf('month'); }
+		if (this.timespan == "year") 	{	this.start = moment().zone(0).startOf('year');		this.end = moment().zone(0).endOf('year'); }
 
 		if (this.timespan == "quarter")
-		{	//Still not updated with .zone(0)
+		{	
+			//Still not updated with .zone(0)
 			var months = (this.period + moment().quarter()) *3;
 			this.start = moment().startOf('year').add('months', months -3);
 			this.end = moment().startOf('year').add('months', months -1).endOf('month');
@@ -349,6 +364,12 @@ Cloudwalkers.Views.Statistics = Cloudwalkers.Views.Pageview.extend({
 			if(this.period < 0) { this.start.subtract(this.timespan +"s", Math.abs(this.period));	this.end.subtract(this.timespan +"s", Math.abs(this.period)); }
 		}
 		
+		//Show now
+		if(this.period != 0)
+			this.$el.find('#now').eq(0).removeClass('hidden');
+		else
+			this.$el.find('#now').eq(0).addClass('hidden');
+
 		// For the empty data check
 		this.timeparams = {since: this.start.unix(), until: this.end.unix(), span: this.timespan};
 
