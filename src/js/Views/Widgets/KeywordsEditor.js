@@ -384,10 +384,10 @@ define(
 				if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 				
 				if (object.settings.include && object.settings.include.length)
-					for (n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
+					for (var n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
 					
 				if (object.settings.exclude && object.settings.exclude.length)
-					for (n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
+					for (var n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
 				
 				object.settings.languages = $("#filter_languages").val();
 				object.settings.countries = $("#filter_countries").val();

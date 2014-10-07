@@ -59,7 +59,7 @@ define(
 				/* Clean and Populate */
 				$container.empty();
 				
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new SettingsView.GroupItem ({'model' : models[n] , 'type' : 'group'});
 					$container.append(view.render().el);			

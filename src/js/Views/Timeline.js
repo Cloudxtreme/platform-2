@@ -171,7 +171,7 @@ define(
 				var streams = [];
 
 				// Add contacts to list
-				for (n in contacts)
+				for (var n in contacts)
 				{	
 					if(contacts[n].loaded()){
 						
@@ -315,7 +315,7 @@ define(
 				}
 
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{	
 					//Company / third party
 					models[n].attributes.showcontact = this.showcontact;

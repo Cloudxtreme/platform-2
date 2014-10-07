@@ -62,7 +62,7 @@ define(
 				this.entries = [];
 
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{
 					// Add link
 					if(this.link) models[n].link = this.link;
@@ -106,7 +106,7 @@ define(
 				var messages = this.model.messages.seed(ids);
 				
 				// Add messages to view
-				for (n in messages)
+				for (var n in messages)
 				{
 					if(this.options.link) messages[n].link = this.options.link;
 					

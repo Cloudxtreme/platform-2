@@ -211,7 +211,7 @@ define(
 				
 				if(!collection)	return callback(nodes);
 
-				for (n in collection.models)
+				for (var n in collection.models)
 				{
 					nodes.push(collection.models[n].filterCalReadable().calNode);
 				}

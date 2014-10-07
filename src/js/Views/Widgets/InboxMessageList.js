@@ -187,7 +187,7 @@ define(
 				}
 				
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new EntryView ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{inboxview: true}});
 					
@@ -272,7 +272,7 @@ define(
 				this.$el.find("#filter_contacts label").removeClass("hidden");
 				this.$el.find("ul.contacts-suggestions").empty();
 				
-				for (n in contacts)
+				for (var n in contacts)
 					this.$el.find("ul.contacts-suggestions").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));
 			},
 			

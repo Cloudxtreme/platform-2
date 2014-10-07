@@ -80,7 +80,7 @@ define(
 				}
 				
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{
 					var view = new EntryView ({model: models[n], template: template/*, type: 'full'*/, checkunread: true, parameters:{sentview: true}});
 					

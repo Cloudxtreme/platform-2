@@ -94,7 +94,7 @@ define(
 				this.entries = [];
 				
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{
 					var view = new UserView ({model: models[n], template: 'smalluser', type: 'listitem'});
 					

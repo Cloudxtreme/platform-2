@@ -111,7 +111,7 @@ define(
 				
 				var $container = this.$el.find(".networks-list");
 				
-				for (n in available)
+				for (var n in available)
 				{
 					available[n].translate_add = this.translateString("add");
 					$container.append(Mustache.render (Templates.settings.service_option, available[n]));
@@ -159,7 +159,7 @@ define(
 				
 				var $container = this.$el.find("#service-options .portlet-body").removeClass("inner-loading");
 				
-				for (n in available.services)
+				for (var n in available.services)
 				{
 					$container.append(Mustache.render (Templates.settings.service_option, available.services[n]));
 				}
@@ -170,7 +170,7 @@ define(
 				var widget = this.$el.find("#service-connected .inner-loading").removeClass("inner-loading");
 				var count = 0;
 				
-				for (n in connected.services)
+				for (var n in connected.services)
 				{
 					widget.find(".social-container").append(Mustache.render (Templates.settings.service_connected, connected.services[n]));
 					count++

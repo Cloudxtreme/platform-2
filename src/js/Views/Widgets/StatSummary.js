@@ -34,12 +34,12 @@ define(
 				// Parameters
 				var params = {columns: []};
 
-				for (n in this.columnviews)
+				for (var n in this.columnviews)
 				{
 					params.columns.push(this.columns[this.columnviews[n]]);	
 				}
 
-				for (n in params.columns)
+				for (var n in params.columns)
 				{	
 					if((!params.columns[n].title) && (params.columns[n].translate_title))
 						params.columns[n].title = this.translateString(params.columns[n].translate_title)
