@@ -1,6 +1,6 @@
 define(
-	['Cloudwalkers', 'Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
-	function (Cloudwalkers, Me, RootView, Router, Accounts, Polyglot)
+	['Models/Me', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
+	function (Me, RootView, Router, Accounts, Polyglot)
 	{
 		var Session = 
 		{

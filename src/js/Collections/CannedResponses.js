@@ -1,14 +1,16 @@
 define(
 	['backbone', 'Session', 'Models/CannedResponse'],
 	function (Backbone, Session, CannedResponse)
-	{	console.log(Backbone, Session, CannedResponse)
+	{	
 		var CannedResponses = Backbone.Collection.extend({
 
 			'model' : CannedResponse,
 			'touched' : false,
 			
 			'initialize' : function()
-			{
+			{	
+				if(!Session)	Session = require('Session');
+
 				//this.on("destroy", this.store.bind(this, "delete"));
 
 				if( Session.user.account)

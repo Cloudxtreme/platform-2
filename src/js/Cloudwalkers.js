@@ -21,7 +21,7 @@ define(
 			{
 				// Authentication
 				var token = window.localStorage.getItem('token');
-				console.log("token", token)
+				
 				// Check if there is authentication
 				if(token && token.length > 9)
 				{	

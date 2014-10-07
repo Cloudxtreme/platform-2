@@ -16,9 +16,10 @@ define(
 			
 				// Has reports?
 				if(this.get("statistics"))
-				{
+				{	
+					// Update with Statistics
 					//this.reports = new Cloudwalkers.Collections.Reports(); -> deprecated?
-					this.reports.streamid = this.id;
+					//this.reports.streamid = this.id;
 				}
 				
 				// Listen to outdates

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Models/Contact', 'Models/Message', 'Models/Account', 'Views/Root'],
-	function (Backbone, Session, Contact, Message, Account, RootView)
+	['backbone', 'Session', 'Models/Contact', 'Models/Message', 'Views/Root'],
+	function (Backbone, Session, Contact, Message, RootView)
 	{
 		var Note = Backbone.Model.extend({
 

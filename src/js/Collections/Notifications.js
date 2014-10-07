@@ -9,7 +9,9 @@ define(
 			'modelstring' : "notification",
 			
 			'initialize' : function()
-			{
+			{	
+				if(!Session)	Session = require('Session')
+
 				// Put "add" listener to global notifications collection
 				if( Session.user.account)
 					Session.getNotifications().listenTo(this, "add", Session.getNotifications().distantAdd);

@@ -1,4 +1,4 @@
-define(
+	define(
 	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages', 'Collections/Messages', 'Collections/Notifications', 'Collections/Streams'],
 	function (Backbone, Session, Contacts, Messages, Channels, Notifications, Streams)
 	{
@@ -11,6 +11,7 @@ define(
 			{
 				// Child channels
 				this.channels = new Channels();
+				console.log(this.channels)
 				this.channels.seed(this.get("channels"));
 				
 				// Child streams
