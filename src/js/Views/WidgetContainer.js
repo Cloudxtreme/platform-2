@@ -194,7 +194,7 @@ define(
 			
 			destroy : function ()
 			{
-				for (n in this.widgets)
+				for (var n in this.widgets)
 				{
 					this.widgets[n].widget.trigger ('destroy');
 				}

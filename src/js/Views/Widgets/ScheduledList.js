@@ -127,7 +127,7 @@ define(
 				//var messages = this.category.messages.seed(ids);
 				
 				// Add messages to view
-				for (n in list)
+				for (var n in list)
 				{
 					var view = new EntryView ({tagName: "tr", model: list[n], type: "full", template: "scheduledentry"});
 					this.entries.push (view);
@@ -154,7 +154,7 @@ define(
 				//Session.getMessages().seed(ids);
 				
 				// Add messages to view
-				for (n in messages)
+				for (var n in messages)
 				{
 					//var message = Session.getMessage(ids[n]);
 					

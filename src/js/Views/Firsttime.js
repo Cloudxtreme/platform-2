@@ -43,7 +43,7 @@ define(
 				
 				var $container = this.$el.find(".networks-list");
 				
-				for (n in available)
+				for (var n in available)
 				{
 					$container.append(Mustache.render (Templates.settings.service_option, available[n]));
 				}

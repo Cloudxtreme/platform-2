@@ -69,7 +69,7 @@ define(
 				}
 				
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new ContactView ({model: models[n], parameters:{inboxview: true}});
 					

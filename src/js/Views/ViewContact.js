@@ -106,7 +106,7 @@ define(
 				var template = this.type == 'note'? 'inboxnote': 'smallentry';
 
 				// Add models to view
-				for (n in messages)
+				for (var n in messages)
 				{	
 					message = messages[n];
 					message.attributes.arrow = 'arrow';
@@ -168,7 +168,7 @@ define(
 				
 				if(response[this.typestring]){
 					
-					for (n in response[this.typestring]){
+					for (var n in response[this.typestring]){
 
 						response[this.typestring][n] = new Message(response[this.typestring][n])
 						response[this.typestring][n].generateintro();

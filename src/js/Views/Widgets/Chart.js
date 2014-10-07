@@ -964,14 +964,14 @@ define(
 
 					var line = [moment(collection.place(i).get("date")).format("D MMM")];
 					
-					for(d in data){
+					for(var d in data){
 						line.push(data[d].shift());
 					}
 
 					fulldata.data.push(line);
 				}
 
-				for(d in data){
+				for(var d in data){
 					legend.push(d);
 					fulldata.options.colors.push(this.networktokens[d]);
 				}

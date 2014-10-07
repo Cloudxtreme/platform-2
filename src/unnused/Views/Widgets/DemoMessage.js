@@ -95,7 +95,7 @@ Cloudwalkers.Views.Widgets.DemoMessage = Cloudwalkers.Views.Entry.extend({
 		}.bind(this));
 
 		// Add models to view
-		for (n in models)
+		for (var n in models)
 		{	
 			var view = new Cloudwalkers.Views.Entry ({model: models[n], template: 'inboxrelatedmessage', type: 'full'});
 			
@@ -140,7 +140,7 @@ Cloudwalkers.Views.Widgets.DemoMessage = Cloudwalkers.Views.Entry.extend({
 		var $container = this.$el.find(".message-comments ul").eq(0).html("");
 
 		// Add models to view
-		for (n in list)
+		for (var n in list)
 		{
 			var view = new Cloudwalkers.Views.Notification ({model: list[n], template: 'inboxcomment', active: list[n].id == this.options.notification.id});
 			this.notifications.push (view);

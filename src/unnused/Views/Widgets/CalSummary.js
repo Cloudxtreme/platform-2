@@ -36,7 +36,7 @@ define(
 				// Parameters
 				var params = {columns: this.columns};
 				/*
-				for (n in this.columnviews)
+				for (var n in this.columnviews)
 				{			
 					params.columns.push(this.columns[this.columnviews[n]]);
 				}*/
@@ -127,7 +127,7 @@ define(
 				{
 					var attached = model.get("attachments");
 					
-					if(attached) for (n in attached) counters[attached[n].type] ++;
+					if(attached) for (var n in attached) counters[attached[n].type] ++;
 					else counters.text ++;  
 				});
 				

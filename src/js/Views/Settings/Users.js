@@ -71,7 +71,7 @@ define(
 				
 				var $container = this.$el.find(".user-container").eq(-1);
 				
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new SettingsView.User ({ 'model' : models[n], view: this });
 					$container.append(view.render().el);

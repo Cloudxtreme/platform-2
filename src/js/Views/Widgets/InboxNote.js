@@ -141,7 +141,7 @@ define(
 				}.bind(this));
 
 				// Add models to view
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new NoteEntryView ({model: models[n], template: 'inboxnote', parameters: {notes: this.notes}});
 					
@@ -190,7 +190,7 @@ define(
 				var $container = this.$el.find(".message-comments ul").eq(0).html("");
 
 				// Add models to view
-				for (n in list)
+				for (var n in list)
 				{
 					var view = new NotificationView ({model: list[n], template: 'inboxcomment', active: list[n].id == this.options.notification.id});
 					this.notifications.push (view);

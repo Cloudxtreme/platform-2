@@ -481,7 +481,7 @@ define(
 				var $container = this.$el.find(".timeline-comments").eq(0).html("");
 
 				// Add models to view
-				for (n in list)
+				for (var n in list)
 				{
 					var view = new NotificationView ({model: list[n], template: 'timelinecomment'});
 					this.notifications.push (view);

@@ -68,7 +68,7 @@ define(
 				/* Clean and Populate */
 				$container.empty();
 				
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new SettingsView.GroupItem ({ 'model' : models[n] , 'type' : models[0].collection.parenttype + '-' + models[0].collection.modelstring});
 					$container.append(view.render().el);
@@ -81,7 +81,7 @@ define(
 			{	
 				var $container = this.$el.find(".all-" + models[0].collection.modelstring + "-list").eq(-1);
 
-				for (n in models)
+				for (var n in models)
 				{	
 					var view = new SettingsView.UserDropdown ({ 'model' : models[n] });
 					$container.append(view.render().el);

@@ -824,7 +824,7 @@ define (
 				
 				
 				//Is it in the default attachments?
-				for (n in attachs){
+				for (var n in attachs){
 					if(attachs[n].type == 'image' && attachs[n].name == image.data("filename")){
 						attachindex = parseInt(n);
 						break;
