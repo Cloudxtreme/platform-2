@@ -29,7 +29,7 @@ compression of javascript and css files, concatinating of template files
 and the templating process of the html files.
 
 Run for release: 			grunt release
-Run for staging:			grunt staging
+Run for staging:			grunt staging --force (The current version is till experimental and this will allow to go through all the warnings.)
 Change listener:			grunt watcher
 
 Working directory: 			src
@@ -38,15 +38,6 @@ Required files: 			package.json (all grunt plugins are listed)
 Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
 
 
-#######
-
-# First use
-
-Run 	# Instalation
-Run 	# Plugins Instalation
-Run		grunt staging --force	(The current version is till experimental and this will allow to go through all the warnings.)
-
-#######
 
 [Grunt]: http://gruntjs.com/
 [Bower]: http://bower.io/
