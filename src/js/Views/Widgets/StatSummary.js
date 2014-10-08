@@ -15,7 +15,6 @@ define(
 				"contacts-network" : {"translate_title": "total_contacts", "func": "parsecontactsnetwork"},
 				"score-trending-network" : {"translate_title": "popularity_score", "func": "parsescorenetwork"},
 				"outgoing-network" : {"translate_title": "messages_sent", "func": "parsesentnetwork"},
-				"coworkers" : {"translate_title": "co-workers_activity", "func": "parseactivity"},
 
 				"besttime" : {"translate_title": "best_time_to_post", "func": "parsebesttime"}
 			},
@@ -39,10 +38,10 @@ define(
 					params.columns.push(this.columns[this.columnviews[n]]);	
 				}
 
-				for (var n in params.columns)
+				for (var m in params.columns)
 				{	
-					if((!params.columns[n].title) && (params.columns[n].translate_title))
-						params.columns[n].title = this.translateString(params.columns[n].translate_title)
+					if((!params.columns[m].title) && (params.columns[m].translate_title))
+						params.columns[m].title = this.translateString(params.columns[m].translate_title)
 
 				}
 				// Build view
@@ -107,13 +106,14 @@ define(
 			activitymsgs : function(statistic, id){
 
 				var streams = statistic.get("streams");
+				var messages;
 				
 				var stream = $.grep(streams, function(s){
 				 	return s.id == id; 
 				});
 
 				if(stream.length)
-					var messages = _.isNumber(stream[0].messages) ? stream[0].messages : stream[0]["messages"];
+					messages = _.isNumber(stream[0].messages) ? stream[0].messages : stream[0].messages;
 				else
 					messages = 0
 
