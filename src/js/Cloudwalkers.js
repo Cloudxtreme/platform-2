@@ -32,8 +32,10 @@ define(
 				// Define API root
 				Session.api = config.apiurl + Cloudwalkers.version;
 				
+				// MIGRATION
 				// First load essential user data
-				Session.loadEssentialData (function ()
+				Cloudwalkers.RootView = new RootView();
+				/*Session.loadEssentialData (function ()
 				{
 					// Root view
 					Cloudwalkers.RootView = new RootView();
@@ -45,7 +47,7 @@ define(
 					Router.Instance = new Router ();
 					Backbone.history.start();
 
-				});
+				});*/
 
 				return this;
 			}
