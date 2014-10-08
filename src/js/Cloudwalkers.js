@@ -1,4 +1,5 @@
 define(
+	// MIGRATION
 	['backbone', /*'Session', 'Router', 'config', 'Views/Root'*/],
 	function (Backbone, Session/*, Router, config, RootView*/)
 	{
