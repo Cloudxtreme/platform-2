@@ -1,6 +1,6 @@
 define(
 	['backbone', 'Session', 'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/SimpleCompose'. 'Views/Widgets/NoteEntry'],
+	 'Views/SimpleCompose', 'Views/Widgets/NoteEntry'],
 
 	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView, NoteEntryWidget)
 	{		
