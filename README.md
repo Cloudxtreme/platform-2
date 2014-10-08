@@ -21,7 +21,7 @@ compression of javascript and css files, concatinating of template files
 and the templating process of the html files.
 
 Run for release: 			grunt release
-Run for staging:			grunt staging --force (The current version is till experimental and this will allow to go through all the warnings.)
+Run for staging:			grunt staging
 Change listener:			grunt watcher
 
 Working directory: 			src
