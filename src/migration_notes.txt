@@ -1,0 +1,23 @@
+# MIGRATION CHANGES #
+
+models/message
+-> removed collections/notifications dependency because it was conflicting 
+	with notification & notifications
+
+models/channel
+-> removed contacts & notifications dependency because it's not clear where 
+	they are used.
+
+views/entry
+-> removed noteentry widget dependency. Does it make sense? Shouldn't message
+	be the one with the noteentry reference instead of an entry?
+
+
+
+/** Left to be updated **/
+.net stuff
+hardcoded ajax calls
+Fix the goddamn translations
+Sort out the widgets/non widgets
+Group or ungroup views like /settings and /widgets
+Remove all models and widgets, add them as running the code
