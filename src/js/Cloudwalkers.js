@@ -31,16 +31,17 @@ define(
 				// Authentication
 				var token = window.localStorage.getItem('token');
 				
+				// MIGRATION -> commented just for testing purposes
 				// Check if there is authentication
-				if(token && token.length > 9)
+				/*if(token && token.length > 9)
 				{	
 					Session.authenticationtoken = token;
 					
-				} else{ console.log("token error", token); window.location = "/login.html";}
+				} else{ console.log("token error", token); window.location = "/login.html";}*/
 
 				// Define API root
 				Session.api = config.apiurl + Cloudwalkers.version;
-				
+
 				// MIGRATION
 				// First load essential user data
 				Cloudwalkers.RootView = new RootView();

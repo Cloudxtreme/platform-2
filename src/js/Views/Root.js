@@ -1,6 +1,6 @@
 define (
-	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Compose', 'Views/viewContact', 'Views/SimpleCompose', 'Views/Resync'],
-	function (Backbone, Session, Router, NavigationView, ComposeView, ViewContactView, SimpleComposeView, ResyncView)
+	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Compose', 'Views/viewContact', 'Views/SimpleCompose'/*, 'Views/Resync'*/],
+	function (Backbone, Session, Router, NavigationView, ComposeView, ViewContactView, SimpleComposeView)
 	{
 		var Root = Backbone.View.extend({
 

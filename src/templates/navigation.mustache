@@ -322,22 +322,15 @@
 	{{/monitoring}}
 
 	<!-- Reports -->
-	{{#authorized.STATISTICS_VIEW}}
+	{{#statistics}}
 	<li>
-		<a href="#reports/{{reports.0.id}}">
+		<a href="#statistics>
 			<i class="icon-bar-chart"></i> 
-			<span class="title">{{translate_reports}}</span>
-			<span class="arrow"></span>
+			<span class="title">{{translate_statistics}}</span>
 			<span class="selected"></span>
 		</a>
-
-		<ul class="sub-menu">
-			{{#reports}}
-				<li><a href="#reports/{{id}}"><i class="icon-{{network.icon}}"></i> {{customname}}</a></li>
-			{{/reports}}
-		</ul>
 	</li>
-	{{/authorized.STATISTICS_VIEW}}
+	{{/statistics}}
 	<!-- User Settings -->
 	<li class="settings">
 		<a href="#settings/profile">

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
-	function (Backbone, RootView, Router, Accounts, Polyglot)
+	['backbone', /*'Views/Root', 'Router', 'Collections/Accounts', */ 'Models/Polyglot'],
+	function (Backbone, Polyglot)
 	{
 		var Session = 
 		{
@@ -220,16 +220,19 @@ define(
 			 **/
 
 			isAuthorized : function(actions)	
-			{
+			{	
+				if (!this.user)	return false;
+
 				return (actions)? this.user.isauthorized(actions): this.user.authorized;
 			},
 
 			/* 	Generate permission tokens for templates */
 			censuretemplate : function(data)
 			{
-				if(!data)	data = {};
+				if(!data)		data = {};
+				if(!this.user)	return data;
 
-				var authorized = this.getUser().censuretokens;		
+				var authorized = this.user.censuretokens;		
 
 				data.authorized = authorized;
 			},
@@ -453,11 +456,22 @@ define(
 				return this.user.account.comments;
 			},
 
+			/*
+			 * Responsible for translating data.
+			 */
+			translate : function(translatedata)
+			{
+				if(this.polyglot)	return this.polyglot.t(translatedata);
+				else				return translatedata;	
+			},
+
 			/* setLang - get default language */
 			setLang : function(callback)
 			{
 				var lang = this.user.attributes.locale;
 				var extendLang;
+
+				if(!locale)	return;
 
 				moment.lang(lang);
 				

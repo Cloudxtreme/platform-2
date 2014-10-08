@@ -12,6 +12,10 @@ views/entry
 -> removed noteentry widget dependency. Does it make sense? Shouldn't message
 	be the one with the noteentry reference instead of an entry?
 
+Session
+-> updated base translation just to fallback when there is no polyglot
+-> commented Router, Root & collections/accounts due to looping issues
+
 
 
 /** Left to be updated **/
