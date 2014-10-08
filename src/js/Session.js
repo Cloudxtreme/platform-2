@@ -4,23 +4,7 @@ define(
 	{
 		var Session = 
 		{
-			langs :
-			[
-				{"id": "en_EN", "name": "International English"},
-				{"id": "fr_FR", "name": "Français"},
-				{"id": "nl_NL", "name": "Nederlands"},
-				{"id": "pt_PT", "name": "Português"}
-			],
-			
 			user : null,
-
-			version : "1.0.0.0",
-			localversion : null,
-
-			/*'settings' : {
-				'currentAccount' : null,
-				'viewMode' : null
-			},*/
 
 			isLoaded : function ()
 			{
@@ -32,7 +16,7 @@ define(
 				var Me = require ('Models/Me');
 				
 				this.user = new Me();
-				this.getversion();
+				//this.getversion();
 
 				/* getLang and then callback */
 				this.user.once("activated", function () { this.setLang(); }.bind(this));

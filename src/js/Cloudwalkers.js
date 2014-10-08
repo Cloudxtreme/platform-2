@@ -5,6 +5,14 @@ define(
 		var Cloudwalkers = {
 			
 			version : 1,
+
+			langs :
+			[
+				{"id": "en_EN", "name": "International English"},
+				{"id": "fr_FR", "name": "Français"},
+				{"id": "nl_NL", "name": "Nederlands"},
+				{"id": "pt_PT", "name": "Português"}
+			],
 			
 			Views : {
 				'Settings': {},
@@ -12,6 +20,7 @@ define(
 					'Charts' : {}
 				}
 			},
+			
 			Router : {},
 			Models : {},
 			Collections : {},
