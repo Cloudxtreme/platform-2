@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', 'Collections/Notifications', 'Views/Root', 
+	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */'Views/Root', 
 	 'Views/ActionParameters', 'Utilities/Utils'],
 	
-	function (Backbone, Session, Actions, Notes, Notifications, RootView, ActionParametersView, Utils)
+	function (Backbone, Session, Actions, Notes, RootView, ActionParametersView, Utils)
 	{	
 		var Message = Backbone.Model.extend({
 	
@@ -18,7 +18,10 @@ define(
 			*/
 
 			initialize : function ()
-			{			
+			{	
+				// MIGRATION -> was looping with notifications/notification	
+				var Notifications = require('Collections/Notifications');
+
 				// Deprecated?
 				//this.on ('change', this.afterChange);
 				
@@ -33,8 +36,7 @@ define(
 				
 				// Actions
 				this.actions = new Actions(false, {parent: this});
-				this.notes = new Notes(false, {parent: this});
-				this.notifications = new Notifications(false, {parent: this});
+				this.notes 	= new Notes(false, {parent: this});
 
 				this.listenToOnce(this.notes, 'add', this.updatecollection.bind(this, this.notes));
 

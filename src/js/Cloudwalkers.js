@@ -20,7 +20,7 @@ define(
 					'Charts' : {}
 				}
 			},
-			
+
 			Router : {},
 			Models : {},
 			Collections : {},
@@ -44,6 +44,7 @@ define(
 				// MIGRATION
 				// First load essential user data
 				Cloudwalkers.RootView = new RootView();
+				
 				/*Session.loadEssentialData (function ()
 				{
 					// Root view

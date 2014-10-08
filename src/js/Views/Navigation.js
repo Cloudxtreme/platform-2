@@ -36,8 +36,7 @@ define(
 			initialize : function ()
 			{
 				// Interact with Session triggers
-				Session.on ('change:accounts', this.renderHeader, this);
-				//Session.on ('account:change change:accounts change:channels change:streams', this.render, this);
+				Session.on ('change:accounts', this.renderHeader, this);	
 				
 				// Listen to channel changes
 				this.listenTo(Session.getChannels(), 'sync', this.render);

@@ -1,6 +1,6 @@
 define(
-	['Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
-	function (RootView, Router, Accounts, Polyglot)
+	['backbone'],
+	function (Backbone)
 	{
 		var Session = 
 		{

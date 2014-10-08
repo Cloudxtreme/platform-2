@@ -1,8 +1,8 @@
 define(
 	['backbone', 'Session', 'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/SimpleCompose', 'Views/Widgets/NoteEntry'],
+	 'Views/SimpleCompose'/*, 'Views/Widgets/NoteEntry' -> MIGRATION*/],
 
-	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView, NoteEntryWidget)
+	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{		
 		var Entry = Backbone.View.extend({
 	
@@ -22,7 +22,6 @@ define(
 			{
 				'remove' : 'destroy',
 				'click [data-notifications]' : 'loadNotifications',
-				//'click [data-youtube]' : 'loadYoutube',
 				'click *[data-action]' : 'action',
 				'click' : 'toggle',
 			},
