@@ -2,7 +2,7 @@ define(
 	['backbone', 'Collections/Services', 'Models/Service', 'Views/Root', 'Views/Settings', 'Router'],
 	function (Backbone, Services, Service, RootView, SettingsView, Router)
 	{
-		var Services = Backbone.View.extend({
+		var ServicesView = Backbone.View.extend({
 
 			events : {
 				/*'click [data-open-service]' : 'openService',
@@ -298,5 +298,5 @@ define(
 			}
 		});
 
-		return Services;
+		return ServicesView;
 });

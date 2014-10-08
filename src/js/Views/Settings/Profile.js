@@ -90,22 +90,31 @@ define(
 			
 			listentofile : function (e)
 			{	
-				var self = this;
 				var files = e.target.files;
 				
-				for (var i = 0, f; f = files[i]; i++)
+				for (var n in files)
 				{
+					var f = files[n]
+
 					// Check type
 					if (!f.type.match('image.*')) 
 						return RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
 
 					var reader = new FileReader();
 					
-					reader.onload = (function(file)
-					{	return function(e){	self.addimage(e.target.result)}})(f);
+					reader.onload = this.fileparser(f,e);
 					
 					reader.readAsDataURL(f);
 				}
+			},
+
+			fileparser : function(file, element)
+			{
+				return function(element)
+				{
+					this.addimage(element.target.result);
+
+				}.bind(this);
 			},
 			
 			addimage : function(base64data){
@@ -190,12 +199,10 @@ define(
 					this.$el.find ('[name=pass2]').val('');
 					this.$el.find ('[name=pass2]').blur(); 
 
-					// Hack
-					//window.location.reload(); //Router.Instance.navigate("#settings/profile", true);
-
 				}.bind(this), 
-				error: function(model, response, options){
-					var response = response.responseJSON.error.message;
+				error: function(model, response, options)
+				{
+					var error = response.responseJSON.error.message;
 					RootView.growl(this.translateString("user_profile"), error);
 
 					// Hack

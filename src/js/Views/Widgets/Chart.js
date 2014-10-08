@@ -155,7 +155,7 @@ define(
 				this.$el.html(Mustache.render (Templates.besttimewrap, this.settings));
 
 				$.each(data, function(key, day){
-					day.fill = day.value*100/data["maxvalue"];
+					day.fill = day.value*100/data.maxvalue;
 					this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
 				}.bind(this));
 
@@ -178,7 +178,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numcontacts = stream.getcontacts();
 					
@@ -230,7 +230,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var nummessages = stream.getmessages();
 					
@@ -238,11 +238,11 @@ define(
 						return true;
 
 					if(_.isNumber(nummessages) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["messages"] += nummessages;
+						networks[network.gettoken()].messages += nummessages;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["messages"] = nummessages;
+						networks[network.gettoken()].messages = nummessages;
 					}
 				});
 				
@@ -373,7 +373,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numactivities = stream.getactivities();
 					
@@ -381,11 +381,11 @@ define(
 						return true;
 
 					if(_.isNumber(numactivities) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["activities"] += numactivities;
+						networks[network.gettoken()].activities += numactivities;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["activities"] = numactivities;
+						networks[network.gettoken()].activities = numactivities;
 					}
 				});
 				
@@ -419,7 +419,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numimpressions = stream.getimpressions();
 					
@@ -427,11 +427,11 @@ define(
 						return true;
 
 					if(_.isNumber(numimpressions) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["impressions"] += numimpressions;
+						networks[network.gettoken()].impressions += numimpressions;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["impressions"] = numimpressions;
+						networks[network.gettoken()].impressions = numimpressions;
 					}
 				});
 				
@@ -465,7 +465,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numnotifications = stream.getnotifications();
 					
@@ -473,11 +473,11 @@ define(
 						return true;
 
 					if(_.isNumber(numnotifications) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["notifications"] += numnotifications;
+						networks[network.gettoken()].notifications += numnotifications;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["notifications"] = numnotifications;
+						networks[network.gettoken()].notifications = numnotifications;
 					}
 				});
 				
@@ -511,7 +511,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numfollowers = stream.getfollowers();
 					
@@ -519,11 +519,11 @@ define(
 						return true;
 
 					if(_.isNumber(numfollowers) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["followers"] += numfollowers;
+						networks[network.gettoken()].followers += numfollowers;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["followers"] = numfollowers;
+						networks[network.gettoken()].followers = numfollowers;
 					}
 				});
 				
@@ -557,7 +557,7 @@ define(
 				else			streams = statistic;
 				
 				$.each(streams, function(index, stream){
-					var stream = new Stream(stream);
+					stream = new Stream(stream);
 					var network = new Network(Session.getStream(stream.id).get("network"));
 					var numfollowing = stream.getfollowing();
 					
@@ -565,11 +565,11 @@ define(
 						return true;
 
 					if(_.isNumber(numfollowing) && _.has(networks, network.gettoken())){
-						networks[network.gettoken()]["following"] += numfollowing;
+						networks[network.gettoken()].following += numfollowing;
 					}				
 					else{
 						networks[network.gettoken()] = network;
-						networks[network.gettoken()]["following"] = numfollowing;
+						networks[network.gettoken()].following = numfollowing;
 					}
 				});
 				
@@ -672,7 +672,7 @@ define(
 				var fulldata = {
 					data : [], 
 					options : {
-						colors : ["#2bbedc", "#F14B68", collection.networkcolors["others"]]
+						colors : ["#2bbedc", "#F14B68", collection.networkcolors.others]
 					}
 				};
 
@@ -707,27 +707,27 @@ define(
 						var network = Session.getStream(stream.id).get("network").name;
 						var token = Session.getStream(stream.id).get("network").token;
 						
-						if(_.isObject(stream["contacts"].geo)){
-							var countries = stream["contacts"].geo["countries"];
+						if(_.isObject(stream.contacts.geo)){
+							var countries = stream.contacts.geo.countries;
 
 							if(_.size(grouped) === 0){						//is empty, shove the countries inside
 								$.each(countries, function(key, country){
 									grouped[country.name] = country;
-									grouped[country.name]["networks"] = [];
-									grouped[country.name]["networks"][network] = {total: country.total, token: token};
+									grouped[country.name].networks = [];
+									grouped[country.name].networks[network] = {total: country.total, token: token};
 								});
 							}else{
 								$.each(countries, function(key, country){		//Is not empty
 									if(!grouped[country.name]){				//Country doesnt exit there, shove it inside
 										grouped[country.name] = country;			
-										grouped[country.name]["networks"] = [];
-										grouped[country.name]["networks"][network] = {total: country.total, token: token};
+										grouped[country.name].networks = [];
+										grouped[country.name].networks[network] = {total: country.total, token: token};
 									}else{					
 										grouped[country.name].total += country.total;
-										if(grouped[country.name]["networks"][network])
-											grouped[country.name]["networks"][network].total += country.total;
+										if(grouped[country.name].networks[network])
+											grouped[country.name].networks[network].total += country.total;
 										else
-											grouped[country.name]["networks"][network] = {total: country.total, token: token};
+											grouped[country.name].networks[network] = {total: country.total, token: token};
 									}	
 								});
 							}
@@ -787,7 +787,7 @@ define(
 
 			parsecities : function(collection){
 
-				var cities, size = 6;
+				var size = 6;
 				var countries = this.filtercountry(collection, this.network);
 				var fulldata;
 				var cities = {};
@@ -837,9 +837,9 @@ define(
 				//Networks of the country with most poppularity
 				var networks = countries[0].networks;
 				
-				for(i in networks){
-					fulldata.data.push([i, networks[i].total]);
-					fulldata.colors.push(collection.networkcolors[networks[i].token]);
+				for(var n in networks){
+					fulldata.data.push([n, networks[n].total]);
+					fulldata.colors.push(collection.networkcolors[networks[n].token]);
 				}
 				
 				//Columns
@@ -875,7 +875,7 @@ define(
 				}, 0);
 
 				fulldata.data.push(["Others", total]);
-				fulldata.options.colors.push(this.collection.networkcolors["others"]);
+				fulldata.options.colors.push(this.collection.networkcolors.others);
 				
 				return fulldata;
 			},
@@ -902,12 +902,12 @@ define(
 							if(daily.length === 0){
 								daily = _.values(besttime);
 							}else{
-								for(i in besttime){							
-									daily[i] += besttime[i];
+								for(var n in besttime){							
+									daily[n] += besttime[n];
 			
 									//Keep track of the highest week & daily value
-									if(daily[i]>maxvalue)	maxvalue=daily[i];
-									if(daily[i]>dailyvalue)	dailyvalue=daily[i];
+									if(daily[n]>maxvalue)	maxvalue=daily[n];
+									if(daily[n]>dailyvalue)	dailyvalue=daily[n];
 								}
 							}
 						}
@@ -919,7 +919,7 @@ define(
 					dailyvalue = 0;
 				});
 
-				data["maxvalue"] = maxvalue;
+				data.maxvalue = maxvalue;
 				
 				return data;
 			},
@@ -951,18 +951,12 @@ define(
 					streams = collection.place(i).get("streams");
 					dailyresult = this[func](null, streams, network);
 
-					_.map(dailyresult.data, function(token){
-
-						if(!data[token[0]])
-							data[token[0]] = [];
-						
-						data[token[0]][i] = token[1];
-					});
+					dailyresult = this.mapdailydata(dailyresult)
 				}
 					
-				for(var i=0; i<length; i++){
+				for(var j = 0; j < length; j++){
 
-					var line = [moment(collection.place(i).get("date")).format("D MMM")];
+					var line = [moment(collection.place(j).get("date")).format("D MMM")];
 					
 					for(var d in data){
 						line.push(data[d].shift());
@@ -971,15 +965,28 @@ define(
 					fulldata.data.push(line);
 				}
 
-				for(var d in data){
-					legend.push(d);
-					fulldata.options.colors.push(this.networktokens[d]);
+				for(var n in data){
+					legend.push(n);
+					fulldata.options.colors.push(this.networktokens[n]);
 				}
 
 				fulldata.data.unshift(legend);
 				
 				return fulldata;
 				
+			},
+
+			mapdailydata : function(dailyresult)
+			{
+				_.map(dailyresult.data, function(token){
+
+					if(!data[token[0]])
+						data[token[0]] = [];
+						
+					data[token[0]][i] = token[1];
+				});
+
+				return dailyresult;
 			},
 
 			parseallreports : function(collection){
@@ -996,10 +1003,9 @@ define(
 						'chartArea': {'width': '90%', 'height': '90%'},
 				        'width': width,
 				        'height': width * 0.7,
-				        'legend':{textStyle:{fontSize:'13'}},
+				        'legend':{textStyle:{fontSize:'13'}, position: 'bottom'},
 				        'tooltip':{textStyle:{fontSize:'13'}},
-				        'curveType': 'function',
-			    		'legend': { position: 'bottom'}
+				        'curveType': 'function'
 						}
 				};
 

@@ -66,8 +66,8 @@ define(
 				else
 					this.parameters.hasactions = true;
 
-				for (var n in this.parameters.statistics)
-					this.parameters.statistics[n].name_translated = this.translateString(this.parameters.statistics[n].name)
+				for (var m in this.parameters.statistics)
+					this.parameters.statistics[m].name_translated = this.translateString(this.parameters.statistics[m].name)
 				
 				this.mustacheTranslateRender(this.parameters);
 				
@@ -407,7 +407,6 @@ define(
 			{	
 				var options = {model: action, template: token == 'note'? 'messagenote': 'timelinecomment'}
 				var listclass = token+'-list';
-				var action;
 
 				if(this.newaction)	options.isnew = true;
 
@@ -692,10 +691,10 @@ define(
 			},*/
 			
 			time : function ()
-			{
-				var now = new Date;
+			{	// Upgrade this to moment()
+				var now = new Date();
 				var date = new Date(this.$el.find("[data-date]").attr("data-date"));
-				var diff = Math.round((now.getTime()-date.getTime()) *.001);
+				var diff = Math.round((now.getTime()-date.getTime()) *0.001);
 				var human;
 				
 				if(diff < 60)			human = "now";

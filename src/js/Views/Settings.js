@@ -22,6 +22,8 @@ define(
 			{
 				//$("#inner-content").css("background","#F0F3F4");
 				var data = {};
+				var widget;
+
 				this.tabs = []
 
 				//Mustache Translate Render
@@ -57,15 +59,15 @@ define(
 				switch(this.endpoint)
 				{
 					case 'users':
-						var widget = new UsersSettingsView();
+						widget = new UsersSettingsView();
 						break;
 						
 					case 'services':
-						var widget = new ServicesView({serviceid: this.options.serviceid});
+						widget = new ServicesView({serviceid: this.options.serviceid});
 						break;
 					
 					case 'account':
-						var widget = new AccountSettings();
+						widget = new AccountSettings();
 						break;
 
 					/*case 'manageusergroups':
@@ -73,7 +75,7 @@ define(
 						break;*/
 					
 					default:
-						var widget = new ProfileSettings();
+						widget = new ProfileSettings();
 				}
 				
 				// Append widget

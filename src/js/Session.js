@@ -129,16 +129,16 @@ define(
 					Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
 
 				// Sent hack to add the object
-				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer]['sent'])
-					Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
+				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer].sent)
+					Session.user.attributes.settings.viewsettings[pointer].sent = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer]['profiles'])
-					Session.user.attributes.settings.viewsettings[pointer]['profiles'] = {streams: []};
+				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer].profiles)
+					Session.user.attributes.settings.viewsettings[pointer].profiles = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer]['news'])
-					Session.user.attributes.settings.viewsettings[pointer]['news'] = {streams: []};
+				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer].news)
+					Session.user.attributes.settings.viewsettings[pointer].news = {streams: []};
 				
 				var viewsettings = this.clone(this.get("viewsettings"));
 				

@@ -64,12 +64,6 @@ define(
 				$message.parent().slimScroll({height: "inherit"});
 			},
 
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
-			},
-
 			translateString : function(translatedata)
 			{	
 				// Translate String

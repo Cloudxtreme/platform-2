@@ -16,6 +16,7 @@ define(
 			pluck : function (keys, streamid, hassublevel)
 			{ 
 				var response = 0;
+				var network;
 
 				if(!this.get("streams"))	return;
 
@@ -51,7 +52,7 @@ define(
 
 					// Has network token
 					else if(_.isString(streamid) && (hassublevel <=2 || !hassublevel)){
-						var network = Session.getStream(stream.id).get("network").token;
+						network = Session.getStream(stream.id).get("network").token;
 						if(network == streamid){
 							if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 							else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
@@ -59,7 +60,7 @@ define(
 					}
 
 					else if(_.isString(streamid) && hassublevel > 2){
-						var network = Session.getStream(stream.id).get("network").token;
+						network = Session.getStream(stream.id).get("network").token;
 						if(network == streamid){
 							if(_.isObject(stream[key]) && _.isObject(stream[key][subkey]))
 								if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
@@ -112,7 +113,7 @@ define(
 						if(stream)
 						{
 							var token = stream.get("network").token;
-							var value = log["contacts"];
+							var value = log.contacts;
 						
 							if (value)
 								list.push({color: this.networkcolors[token], value: Number(value)});

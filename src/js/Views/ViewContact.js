@@ -112,7 +112,9 @@ define(
 					message.attributes.arrow = 'arrow';
 					message.parent = this.model;
 
-					view = new this.type == 'note'? NoteEntryView: EntryView ({
+					var func = this.functioncall(this.type == 'note'? 'NoteEntryView': 'EntryView');
+
+					view = new func({
 						model: message,
 						template: template, 
 						checkunread: true, 
@@ -205,7 +207,7 @@ define(
 
 			touchresponse : function(collection, response)
 			{	
-				var ids = response['contact'][this.collection.typestring];
+				var ids = response.contact[this.collection.typestring];
 
 				this.model.urlparams = [this.type+'s'];
 				this.model.parameters = {ids: ids.join(",")};
@@ -518,29 +520,14 @@ define(
 				if(!this.hasmore) this.$el.find(".load-more").hide();
 			},
 
-			translateString : function(translatedata)
+			functioncall : function(functionname, args)
 			{	
-				// Translate String
-				return Session.polyglot.t(translatedata);
-			},
+				var func = window[functionname];
+				 
+				// is it a function?
+				if (typeof func === "function")
 
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"latest_messages",
-					"latest_conversations",
-					"contact_notes",
-					"add_contact_note"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
+					return func.apply(null, args);
 			}
 		});
 

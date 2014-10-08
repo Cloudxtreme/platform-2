@@ -63,7 +63,7 @@ define(
 			parse : function(response)
 			{	
 				// A new object
-				if (typeof response == "number") return response = {id: response};
+				if (typeof response == "number") return {id: response};
 				
 				else {
 				
@@ -217,8 +217,10 @@ define(
 						
 						if(!limit)	return true;
 						
+						variation = this.getvariation(stream)
+
 						//Find the variation with that id, if not, use the default's limit
-						if(variation = this.getvariation(stream)){
+						if(variation){
 							if(variation.body && variation.body.plaintext){
 
 								result = limit - variation.body.plaintext.length;
@@ -443,6 +445,7 @@ define(
 
 			setvariation : function(stream, key, value)
 			{	
+				var attachments;
 				var variations = this.get("variations") || [];
 				var variation = variations.filter(function(el){ if(el.stream == stream) return el; });
 
@@ -451,8 +454,8 @@ define(
 					variation = {'stream' : stream};
 
 					if(key == 'image' || key == 'link'){
-						var attachments = [value];
-						variation['attachments'] = attachments;
+						attachments = [value];
+						variation.attachments = attachments;
 					}else if(key){
 						variation[key] = value;
 					}
@@ -463,16 +466,16 @@ define(
 				{	
 					variation = variation[0];
 					if(key == 'image' || key == 'link'){
-						var attachments = variation.attachments || [];
+						attachments = variation.attachments || [];
 						if(attachments.length === 0 && key == 'image'){
 							attachments.push(value);
-							variation['attachments'] = attachments;					
+							variation.attachments = attachments;					
 						}else if(key == 'image'){
 							attachments.push(value);
 						}else{ 
 							var link = attachments.filter(function(el){ if(el.type == 'link') return el; });
 							if(link.length > 0)	link[0].url = value.url;
-							else if(attachments.length != 0)	variation.attachments.push(value);
+							else if(attachments.length !== 0)	variation.attachments.push(value);
 							else								variation.attachments = [value];
 						}
 					}else{
@@ -552,7 +555,7 @@ define(
 
 			addexclude : function(streamid, index){
 
-				var variation = this.getvariation(streamid) || this.setvariation(streamid);;
+				var variation = this.getvariation(streamid) || this.setvariation(streamid);
 				var excludes = variation.excludes;
 
 				if(variation.excludes)
@@ -858,15 +861,15 @@ define(
 
 					if (parentactions)
 					{
-						for (var i = 0; i < parentactions.length; i ++)	
+						for (var j = 0; j < parentactions.length; j ++)	
 						{
-							if (parentactions[i].token == 'comment')
+							if (parentactions[j].token == 'comment')
 							{
 								this.attributes.actions.push ({
 									'name' : 'Reply',
 									'token' : 'internal-reply',
 									'target' : parent,
-									'originalaction' : parentactions[i]
+									'originalaction' : parentactions[j]
 								});
 							}
 						}
@@ -876,9 +879,9 @@ define(
 				// Add action icons
 				if (typeof (this.attributes.actions) != 'undefined')
 				{
-					for (var i = 0; i < this.attributes.actions.length; i ++)
+					for (var k = 0; k < this.attributes.actions.length; k ++)
 					{
-						this.attributes.actions[i].icon = this.getActionIcon (this.attributes.actions[i]);
+						this.attributes.actions[k].icon = this.getActionIcon (this.attributes.actions[k]);
 					}
 				}
 			},
@@ -1090,12 +1093,12 @@ define(
 				}
 
 				// Then take the closest, most detailed value
-				for (var i = 0; i < intervalunits.length; i ++)
+				for (var j = 0; j < intervalunits.length; j ++)
 				{
-					if ((intervalSeconds / intervalunits[i].value) < 72)
+					if ((intervalSeconds / intervalunits[j].value) < 72)
 					{
-						out.interval = Math.round (intervalSeconds / intervalunits[i].value);
-						out.unit = intervalunits[i].unit;
+						out.interval = Math.round (intervalSeconds / intervalunits[j].value);
+						out.unit = intervalunits[j].unit;
 
 						return out;
 					}
@@ -1167,13 +1170,10 @@ define(
 						if (attachment.type == 'link')
 						{
 							// Check if link is also available in page
-							if (this.attributes.body.plaintext == null
-								|| this.attributes.body.plaintext.indexOf (attachment.url) === -1)
-							{
+							if (this.attributes.body.plaintext == null || this.attributes.body.plaintext.indexOf (attachment.url) === -1)
+							
 								// It is not, add it to the attachments.
-								attachments.push (attachment);		
-							}
-
+								attachments.push (attachment);
 						}
 						else
 						{

@@ -22,12 +22,14 @@ define(
 
 			render : function ()
 			{	
+				var commented;
+
 				// Manage loading
 				this.loading(!this.model.get("objectType"));
 				
 				// add optional notifications
 				if(this.options.notification)
-					var commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
+					commented = {from: this.options.notification.get("from")[0], timeago: moment(this.options.notification.get("date")).fromNow()};
 
 				// Parameters
 				var params = {commented: commented} //this.model.filterData('full', {commented: commented});

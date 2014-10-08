@@ -2,7 +2,7 @@ define(
 	['backbone', 'Collections/Users', 'Models/User', 'Views/Root', 'Views/Settings'],
 	function (Backbone, Users, User, RootView, SettingsView)
 	{
-		var Users = Backbone.View.extend({
+		var UsersView = Backbone.View.extend({
 
 			events : {
 				/*'click .add-user' : 'addUser',
@@ -204,5 +204,5 @@ define(
 
 		});
 
-		return Users;
+		return UsersView;
 });

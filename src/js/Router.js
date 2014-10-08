@@ -400,8 +400,8 @@ define(
 				
 				switch(errno)
 				{
-					case 401 : red = "/401.html";
-					case 503 : red = "/503.html";
+					case 401 : red = "/401.html"; break;
+					case 503 : red = "/503.html"; break;
 
 					default : window.location = red;
 				}

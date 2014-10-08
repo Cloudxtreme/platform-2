@@ -120,7 +120,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 			isauthorized : function(actions)
 			{	
 				if(!_.isArray(actions))		return _.contains(this.authorized, actions);
-				else 						return _.intersection(this.authorized, actions).length != 0;
+				else 						return _.intersection(this.authorized, actions).length !== 0;
 			},
 
 			removerole : function(role)

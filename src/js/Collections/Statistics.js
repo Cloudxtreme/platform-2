@@ -133,7 +133,7 @@ define(
 						if(stream)
 						{
 							var token = stream.get("network").token;
-							var value = log["contacts"];
+							var value = logcontacts;
 						
 							if (value)
 								list.push({color: this.networkcolors[token], value: Number(value)});
@@ -141,8 +141,6 @@ define(
 			
 					}.bind(this));
 				}
-				
-				console.log("contacts list:", list)
 				
 				return list;
 			},
@@ -239,12 +237,12 @@ define(
 								if(daily.length === 0)
 									daily = _.values(besttime);
 								
-								for(i in besttime){							
-									daily[i] += besttime[i];
+								for(var n in besttime){							
+									daily[n] += besttime[n];
 			
 									//Keep track of the highest week & daily value
-									if(daily[i]>maxvalue)	maxvalue=daily[i];
-									if(daily[i]>dailyvalue)	dailyvalue=daily[i];
+									if(daily[n]>maxvalue)	maxvalue=daily[n];
+									if(daily[n]>dailyvalue)	dailyvalue=daily[n];
 								}
 							}
 						});
@@ -260,7 +258,7 @@ define(
 					dailyvalue = 0;
 				});
 
-				data["maxvalue"] = maxvalue;
+				data.maxvalue = maxvalue;
 				
 				return data;
 			},

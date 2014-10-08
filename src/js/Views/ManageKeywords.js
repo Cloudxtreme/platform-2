@@ -10,6 +10,8 @@ define(
 			render : function()
 			{
 				var span = 12;
+				var editor;
+				var list;
 
 				// Listen to channels for limit.
 				setTimeout(this.limitlistener, 50);
@@ -24,14 +26,14 @@ define(
 				if (Session.isAuthorized('CHANNEL_MANAGE_ADD_MONITORING')){
 
 					// Add edit widget
-					var editor = new KeywordsEditorWidget();
+					editor = new KeywordsEditorWidget();
 					this.appendWidget(editor, 4);
 
 					span = 8;
 				}
 
 				// Add overview widget
-				var list = new KeywordsOverviewWidget({editor: editor});
+				list = new KeywordsOverviewWidget({editor: editor});
 				this.appendWidget(list, span);
 
 				this.widgets = [editor, list];

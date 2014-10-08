@@ -223,15 +223,14 @@ define (
 			
 			original : function ()
 			{	
-				var variations;
-
+				var variations = this.draft.get("variations");
 				var schedule = this.draft.get("schedule");
 
 				// Convert dates to unix
 				if (schedule && schedule.date)	schedule.date = moment(schedule.date).unix();
 				if (schedule && schedule.repeat && schedule.repeat.until)	schedule.repeat.until = moment(schedule.repeat.until).unix();
 
-				if (variations = this.draft.get("variations"))
+				if (variations)
 				{
 					$.each(variations, function(i, variation)
 					{
@@ -367,10 +366,10 @@ define (
 			
 			monitor : function (e)
 			{	
-				if(!e)
-					var target = this.$el.find('#compose-content');
-				else
-					var target = $(e.target); 
+				var target;
+
+				if(!e)	target = this.$el.find('#compose-content');
+				else 	target = $(e.target); 
 
 				this.editor.trigger('change:editor', e);
 				
@@ -397,21 +396,26 @@ define (
 				var stream = Session.getStream(streamid);
 				var limitations = stream.getlimitations();
 				var numimages = 0;
+				var imgs;
 				
 				//Add all variation images
-				if(streamid && this.draft.getvariation(streamid,'image')){
-					var imgs = this.draft.getvariation(streamid, 'image');
+				if(streamid && this.draft.getvariation(streamid,'image'))
+				{
+					imgs = this.draft.getvariation(streamid, 'image');
 					
 					$.each(imgs, function(i, image){
 						numimages += this.draft.getvariation(streamid, 'image').length;
 					}.bind(this));
 				}
+
 				// Temporary: prevent multiple adds
 				// Add defaults (if ther wasn't any variation image already added)
-				else if(this.draft.get("attachments")){
-					imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
-					$.each(imgs, function(i, image){
+				else if(this.draft.get("attachments"))
+				{
+					imgs = this.draft.get("attachments").filter( function(el){ if(el.type == "image") return el; });
 
+					$.each(imgs, function(i, image)
+					{
 						//The image should be excluded
 						//if(streamid && this.draft.checkexclude(streamid, i))
 						if(streamid && this.draft.checkexclude(streamid, i))
@@ -422,9 +426,11 @@ define (
 					}.bind(this));
 				}
 
+				//Hack for only 1 image max
 				if(numimages && limitations['picture-url-length'])
-					this.editor.trigger('update:limit', limitations['picture-url-length'].limit, update); //Hack for only 1 image max
+					this.editor.trigger('update:limit', limitations['picture-url-length'].limit, update); 
 					//this.editor.trigger('update:limit', numimages * limitations['picture-url-length'].limit, update);
+				
 				else
 					this.editor.trigger('update:limit', 0, update);
 			},
@@ -551,21 +557,27 @@ define (
 			},
 			
 			togglesubcontent : function (stream)
-			{ 	//console.log(this.streams, this.draft.get("variations"));
+			{ 	
+				var id;
+				var network;
+				var options;
+				var icon
+
 				this.activestream = stream;
 			
 				if(this.actionview)
 				{
-					var options = this.options[this.type];
-					var network = false;
+					options = this.options[this.type];
+					network = false;
 					
-				} else {
-					
+				}				
+				else 
+				{		
 					// Get the right network
-					var network = stream? stream.get("network").token: false;
-					var icon = stream? stream.get('network').icon: 'default';
-					var options = this.options[network];
-					var id = stream? stream.id: false;	
+					network = stream? stream.get("network").token: false;
+					icon 	= stream? stream.get('network').icon: 'default';
+					options = this.options[network];
+					id 		= stream? stream.id: false;	
 				}
 				
 				this.network = network;
@@ -653,10 +665,11 @@ define (
 				var streamid = this.activestream ? this.activestream.id : false;
 				var files = e.target.files;
 				var draft = this.draft;
-				var self = this;
 
-				for (var i = 0, f; f = files[i]; i++)
-				{	
+				for (var n in files)
+				{
+					var f = files[n]
+
 					// Check type
 					if (!f.type.match(/^image\/(gif|jpg|jpeg|png)$/i))
 					{
@@ -670,19 +683,23 @@ define (
 					}
 					var reader = new FileReader();
 					
-					reader.onload = (function(file)
-					{	return function(e)
-						{	
-							self.addimage({type: 'image', data: e.target.result, name: file.name});
-							self.updatelimitations(streamid, true);
-							self.editor.trigger("change:charlength");
-
-					}})(f);
+					reader.onload = this.fileparser(f,e);
 					
 					reader.readAsDataURL(f);
 					//Upload only one image
 					break;
 				}	
+			},
+
+			fileparser : function(file, element)
+			{
+				return function(element)
+				{
+					this.addimage({type: 'image', data: element.target.result, name: file.name});
+					this.updatelimitations(streamid, true);
+					this.editor.trigger("change:charlength");
+
+				}.bind(this);
 			},
 
 			listentourlfiles : function(image)
@@ -748,22 +765,27 @@ define (
 				var picturescontainer = this.$el.find("ul.pictures-container").empty();
 				var snapscontainer = this.$el.find("ul.snapshots-container").empty();
 				var images = [];
+				var imgs;
 
 				//Add all variation images
-				if(streamid && this.draft.getvariation(streamid,'image') && this.draft.getvariation(streamid,'image').length){
-					var imgs = this.draft.getvariation(streamid, 'image');
+				if(streamid && this.draft.getvariation(streamid,'image') && this.draft.getvariation(streamid,'image').length)
+				{
+					imgs = this.draft.getvariation(streamid, 'image');
 					
 					$.each(imgs, function(i, image){
 						this.summarizeimages(image);
 						this.listimage(image);
 					}.bind(this));
 				}
+
 				// Temporary: prevent multiple adds
 				// Add defaults (if ther wasn't any variation image already added)
-				else if(this.draft.get("attachments")){
+				else if(this.draft.get("attachments"))
+				{
 					imgs = this.draft.get("attachments").filter(function(el){ if(el.type == "image") return el; });
-					$.each(imgs, function(i, image){
 
+					$.each(imgs, function(i, image)
+					{
 						//The image should be excluded
 						//if(streamid && this.draft.checkexclude(streamid, i))
 						if(streamid && this.draft.checkexclude(streamid, i))
@@ -983,8 +1005,10 @@ define (
 			
 			toggleschedentry : function(selector, pos)
 			{
-				$(selector)[pos? "removeClass": "addClass"]("inactive").find("label")
-					[pos? "removeClass": "addClass"]("icon-circle-blank")[pos? "addClass": "removeClass"]("icon-ok-circle");
+				var toggle = pos? "removeClass": "addClass";
+				var toggle2 = pos? "addClass": "removeClass";
+
+				$(selector)[toggle]("inactive").find("label")[toggle]("icon-circle-blank")[toggle2]("icon-ok-circle");
 				
 				return this;
 			},
@@ -1395,6 +1419,9 @@ define (
 			
 			summarizerepeat : function()
 			{
+				var times;
+				var end;
+				var span;
 
 				//Mustache Translate Summarize Repeat
 				this.mustacheTranslateSummarizeRepeat(this);
@@ -1414,16 +1441,16 @@ define (
 				// Based on until
 				if (scheduled.repeat.until)
 				{
-					var end = moment.unix(scheduled.repeat.until);
-					var span = end.diff(start)/1000;
-					var times = Math.round(span/scheduled.repeat.interval);
+					end = moment.unix(scheduled.repeat.until);
+					span = end.diff(start)/1000;
+					times = Math.round(span/scheduled.repeat.interval);
 				}
 				
 				// Based on repeat
 				else if (scheduled.repeat.interval)
 				{
-					var times = scheduled.repeat.amount;
-					var end = start.clone().add('seconds', times * scheduled.repeat.interval);
+					times = scheduled.repeat.amount;
+					end = start.clone().add('seconds', times * scheduled.repeat.interval);
 				}
 
 				if(times) summary.html("<span>" + times + " " + this.translate_times + " " + (end? "<em class='negative'>" + this.translate_until + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
@@ -1482,7 +1509,7 @@ define (
 				var result = $(e.currentTarget).val();
 				var cannedtext = $(".chosen-single > span").get(0).textContent;
 
-				if(result != 0){
+				if(result !== 0){
 					var canned = Session.getCannedResponses();
 					var response = canned.models.filter(function(el){ if(el.id == result) return el; });
 					var responsehtml = response[0]? response[0].get("body").html: null;
@@ -1524,9 +1551,9 @@ define (
 				// Prevent empty patch
 				//if (!this.draft.validateCustom()) return RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
-				var error;
+				var error = this.draft.validateCustom(['streams', 'schedule']);
 		 
-		 		if(error = this.draft.validateCustom(['streams', 'schedule']))
+		 		if(error)
 		 			return this.showerror("Not saved: ", error);
 				
 				//Disables footer action
@@ -1556,9 +1583,9 @@ define (
 				//if (!this.draft.validateCustom()) return RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
 				//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
 
-				var error;
+				var error = this.draft.validateCustom();
 		 
-				if(error = this.draft.validateCustom())
+				if(error)
 		 			return this.showerror(this.translateString("not_posted") + ": ", error);
 
 				//Disables footer action
@@ -1609,7 +1636,9 @@ define (
 				if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
 					checkblock = false;
 
-				if(error = this.draft.validateCustom([checkblock]))
+				error = this.draft.validateCustom([checkblock]);
+
+				if(error)
 		 			return this.showerror(this.translateString("not_posted") + ": ", error);
 				
 				//Disables footer action
@@ -1696,9 +1725,16 @@ define (
 				RootView.confirm 
 					(
 						'An error ocurred while posting your message. Do you want to retry?',
-						function () { 
+						
+						function ()
+						{ 
 							this.loadmylisteners();
-							action == 'save'? this.save(status): this.post(); }.bind(this),
+
+							if(action == 'save') 	this.save(status); 
+							else 					this.post();
+
+						}.bind(this),
+
 						function () { this.$el.modal('hide'); }.bind(this)
 					);
 			},

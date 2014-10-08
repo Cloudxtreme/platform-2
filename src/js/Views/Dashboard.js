@@ -79,43 +79,44 @@ define(
 			render : function ()
 			{
 				var widgets = this.widgets;
+				var widget;
 
 				// Pageview
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 				
 				// Append widgets
-				for(i in widgets)
+				for(var n in widgets)
 				{
 					
 					// Translation for each widget
-					this.translateWidgets(widgets[i]);
+					this.translateWidgets(widgets[n]);
 
-					switch(widgets[i].widget)
+					switch(widgets[n].widget)
 					{
 						case 'messagescounters':
-							var widget = this.addMessagesCounters (widgets[i]);
+							widget = this.addMessagesCounters (widgets[n]);
 							break;
 							
 						case 'schedulecounter':
-							var widget = this.addScheduleCounters (widgets[i]);
+							widget = this.addScheduleCounters (widgets[n]);
 							break;
 							
 						case 'coworkers':
-							var widget = this.addDashboardDrafts (widgets[i]);
+							widget = this.addDashboardDrafts (widgets[n]);
 							break;
 							
 						case 'trending':
-							var widget = this.addDashboardTrending (widgets[i]);
+							widget = this.addDashboardTrending (widgets[n]);
 							break;
 							
 						case 'report':
-							var widget = new ReportWidget(widgets[i]);
+							widget = new ReportWidget(widgets[n]);
 							break;
 					}
 					
 					if(widget)
-						this.appendWidget(widget, Number(widgets[i].size));
+						this.appendWidget(widget, Number(widgets[n].size));
 				}
 				
 				this.collection.touch(this.filterparameters());

@@ -192,7 +192,7 @@ define(
 			{
 				if (!params) params = {id: this.id};
 				
-				params.stamp = Math.round(new Date().getTime() *.001)
+				params.stamp = Math.round(new Date().getTime() *0.001)
 				
 				Store.set(this.typestring, params);
 				

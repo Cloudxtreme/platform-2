@@ -243,7 +243,7 @@ define(
 					
 					// children on same level
 					if(this.views[n].children) 
-						for(i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
+						for(var i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
 				}
 				
 				return views;

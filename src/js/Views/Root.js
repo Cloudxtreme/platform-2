@@ -121,7 +121,7 @@ define (
 			{
 				// Create Compose view
 				if(options)		options.type = "post";
-				else			var options = {type: "post"};
+				else			options = {type: "post"};
 				
 				var view = new ComposeView(options);
 				
@@ -155,11 +155,13 @@ define (
 			},
 
 			writeMessage : function (e)
-			{
+			{	
+				var options;
+
 				e.preventDefault ();
 
 				if(options)		options.type = "post";
-				else			var options = {type: "post"};
+				else			options = {type: "post"};
 
 				options.redirect = false;
 				

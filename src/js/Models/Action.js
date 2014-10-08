@@ -37,7 +37,7 @@ define(
 
 				// Hack -> CLOUD-617
 				else if (this.parent && this.parent.get("objectType") == 'comment')
-					data = data['message']
+					data = data.message
 				
 				return data;
 			}

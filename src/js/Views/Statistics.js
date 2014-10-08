@@ -12,7 +12,7 @@ define(
 	['Views/Pageview', 'mustache', 'Session', 'Router', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
 	function (Pageview, Mustache, Session, Router, Statistics, EmptyStatisticsWidget)
 	{
-		var Statistics = Pageview.extend({
+		var StatisticsView = Pageview.extend({
 			
 			id : "statistics",
 			start : 0,
@@ -367,9 +367,9 @@ define(
 					if(this.period > 0) { this.start.add(this.timespan +"s", this.period);						this.end.add(this.timespan +"s", this.period); }
 					if(this.period < 0) { this.start.subtract(this.timespan +"s", Math.abs(this.period));	this.end.subtract(this.timespan +"s", Math.abs(this.period)); }
 				}
-				
+
 				//Show now
-				if(this.period != 0)
+				if(this.period !== 0)
 					this.$el.find('#now').eq(0).removeClass('hidden');
 				else
 					this.$el.find('#now').eq(0).addClass('hidden');
@@ -430,6 +430,6 @@ define(
 			}
 		});
 
-		return Statistics;
+		return StatisticsView;
 	}
 );

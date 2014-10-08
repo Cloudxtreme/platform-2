@@ -16,8 +16,10 @@ define(
 
 			render : function ()
 			{	
-				if(this.data.typelink)	var url = this.data.typelink + "/" + (this.model.get("hasMessages")? "messages" : "notifications");
-				else					var url = this.data.link? this.data.link: '#' + this.data.type + '/' + this.data.channel.id + '/' + this.model.id;
+				var url;
+
+				if(this.data.typelink)	url = this.data.typelink + "/" + (this.model.get("hasMessages")? "messages" : "notifications");
+				else					url = this.data.link? this.data.link: '#' + this.data.type + '/' + this.data.channel.id + '/' + this.model.id;
 
 				this.$el.attr('href', url);
 				this.$el.attr('data-stream', this.model.id);
