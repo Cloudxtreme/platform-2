@@ -1,5 +1,5 @@
 define(
-	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', , 'Models/Polyglot'*/],
+	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
 	function (Backbone)
 	{
 		var Session = 
@@ -12,17 +12,31 @@ define(
 			},
 			
 			loadEssentialData : function (callback)
-			{
-				var Me = require ('Models/Me');
+			{	
+				//Lazier load
+				require(['Models/Me'], function (Me)
+				{
+					this.user = new Me();
+
+					//getLang and then callback
+					this.user.once("activated", function () { this.setLang(); }.bind(this));
+					this.listenTo(this,"translation:done",  callback );
+					
+					this.user.fetch({error: this.user.offline.bind(this.user)});
+
+				}.bind(this));
+
+				// MIGRATION
+				/*var Me = require ('Models/Me');
 				
 				this.user = new Me();
 				//this.getversion();
 
-				/* getLang and then callback */
+				//getLang and then callback
 				this.user.once("activated", function () { this.setLang(); }.bind(this));
 				this.listenTo(this,"translation:done",  callback );
 				
-				this.user.fetch({error: this.user.offline.bind(this.user)});
+				this.user.fetch({error: this.user.offline.bind(this.user)});*/
 			},
 			
 			refresh : function ()
