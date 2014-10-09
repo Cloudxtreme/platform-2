@@ -1,5 +1,6 @@
 define(
-	['Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'],
+	// MIGRATION
+	['Views/Root', 'Router', /*'Collections/Accounts', 'Models/Polyglot'*/],
 	function (RootView, Router, Accounts, Polyglot)
 	{
 		var Session = 
