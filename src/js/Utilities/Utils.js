@@ -24,7 +24,7 @@ define(
 			'zeroIt' : function (s, len)
 			{
 				var c = '0';
-				var s = String(s);
+				s = String(s);
 				
 				while(s.length < len) s = c + s;
 

@@ -31,7 +31,7 @@ define(
 						data.input[v.type] = [];
 					}
 
-					if (typeof (v.value) != 'undefined' && v.value != "")
+					if (typeof (v.value) != 'undefined' && v.value !== '')
 					{
 						v.value = Parser.parseFromMessage (v.value, message);
 					}

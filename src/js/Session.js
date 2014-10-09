@@ -1,27 +1,10 @@
 define(
-	// MIGRATION
-	['Views/Root', 'Router', /*'Collections/Accounts', 'Models/Polyglot'*/],
-	function (RootView, Router, Accounts, Polyglot)
+	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
+	function (Backbone)
 	{
 		var Session = 
 		{
-			langs :
-			[
-				{"id": "en_EN", "name": "International English"},
-				{"id": "fr_FR", "name": "Français"},
-				{"id": "nl_NL", "name": "Nederlands"},
-				{"id": "pt_PT", "name": "Português"}
-			],
-			
 			user : null,
-
-			version : "1.0.0.0",
-			localversion : null,
-
-			/*'settings' : {
-				'currentAccount' : null,
-				'viewMode' : null
-			},*/
 
 			isLoaded : function ()
 			{
@@ -29,17 +12,31 @@ define(
 			},
 			
 			loadEssentialData : function (callback)
-			{
-				var Me = require ('Models/Me');
+			{	
+				//Lazier load
+				require(['Models/Me'], function (Me)
+				{
+					this.user = new Me();
+
+					//getLang and then callback
+					this.user.once("activated", function () { this.setLang(); }.bind(this));
+					this.listenTo(this,"translation:done",  callback );
+					
+					this.user.fetch({error: this.user.offline.bind(this.user)});
+
+				}.bind(this));
+
+				// MIGRATION
+				/*var Me = require ('Models/Me');
 				
 				this.user = new Me();
-				this.getversion();
+				//this.getversion();
 
-				/* getLang and then callback */
+				//getLang and then callback
 				this.user.once("activated", function () { this.setLang(); }.bind(this));
 				this.listenTo(this,"translation:done",  callback );
 				
-				this.user.fetch({error: this.user.offline.bind(this.user)});
+				this.user.fetch({error: this.user.offline.bind(this.user)});*/
 			},
 			
 			refresh : function ()
@@ -130,16 +127,16 @@ define(
 					Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
 
 				// Sent hack to add the object
-				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer]['sent'])
-					Session.user.attributes.settings.viewsettings[pointer]['sent'] = {streams: []};
+				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer].sent)
+					Session.user.attributes.settings.viewsettings[pointer].sent = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer]['profiles'])
-					Session.user.attributes.settings.viewsettings[pointer]['profiles'] = {streams: []};
+				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer].profiles)
+					Session.user.attributes.settings.viewsettings[pointer].profiles = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer]['news'])
-					Session.user.attributes.settings.viewsettings[pointer]['news'] = {streams: []};
+				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer].news)
+					Session.user.attributes.settings.viewsettings[pointer].news = {streams: []};
 				
 				var viewsettings = this.clone(this.get("viewsettings"));
 				
@@ -237,16 +234,19 @@ define(
 			 **/
 
 			isAuthorized : function(actions)	
-			{
+			{	
+				if (!this.user)	return false;
+
 				return (actions)? this.user.isauthorized(actions): this.user.authorized;
 			},
 
 			/* 	Generate permission tokens for templates */
 			censuretemplate : function(data)
 			{
-				if(!data)	data = {};
+				if(!data)		data = {};
+				if(!this.user)	return data;
 
-				var authorized = this.getUser().censuretokens;		
+				var authorized = this.user.censuretokens;		
 
 				data.authorized = authorized;
 			},
@@ -470,11 +470,22 @@ define(
 				return this.user.account.comments;
 			},
 
+			/*
+			 * Responsible for translating data.
+			 */
+			translate : function(translatedata)
+			{
+				if(this.polyglot)	return this.polyglot.t(translatedata);
+				else				return translatedata;	
+			},
+
 			/* setLang - get default language */
 			setLang : function(callback)
 			{
 				var lang = this.user.attributes.locale;
 				var extendLang;
+
+				if(!locale)	return;
 
 				moment.lang(lang);
 				
@@ -494,5 +505,4 @@ define(
 		_.extend(Session, Backbone.Events);
 
 		return Session;
-	}
-);
+	});

@@ -171,13 +171,13 @@ define(
 				var streams = [];
 
 				// Add contacts to list
-				for (var n in contacts)
+				for (var c in contacts)
 				{	
 					if(contacts[n].loaded()){
 						
-						streams.push({id: contacts[n].id, icon: contacts[n].get("network").icon, name: contacts[n].get("defaultname"), network: contacts[n].get("network")})
+						streams.push({id: contacts[c].id, icon: contacts[n].get("network").icon, name: contacts[c].get("defaultname"), network: contacts[c].get("network")})
 
-						this.$el.find('#filter_streams ul').append(Mustache.render(Templates.filterstream, contacts[n].attributes));
+						this.$el.find('#filter_streams ul').append(Mustache.render(Templates.filterstream, contacts[c].attributes));
 					}
 				}
 
@@ -347,7 +347,7 @@ define(
 				streams = streams.join(" ");
 				
 				// Toggle streams
-				this.$el.find("[data-network-streams]").removeClass('inactive');;	
+				this.$el.find("[data-network-streams]").removeClass('inactive');
 				this.$el.find("[data-network-streams='" + streams + "']").addClass('inactive');		
 				
 				// Toggle select button

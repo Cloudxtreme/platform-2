@@ -71,11 +71,11 @@ define(
 				// Statistics: i18,
 				if (typeof (data.statistics) != 'undefined')
 				{
-					for (var i = 0; i < data.statistics.length; i ++)
+					for (var j = 0; j < data.statistics.length; j ++)
 					{
-						if (typeof (data.statistics[i].i18n) != 'undefined')
+						if (typeof (data.statistics[j].i18n) != 'undefined')
 						{
-							data.statistics[i].name = data.statistics[i].value != 1 ? data.statistics[i].i18n[1] : data.statistics[i].i18n[0];
+							data.statistics[j].name = data.statistics[j].value != 1 ? data.statistics[j].i18n[1] : data.statistics[j].i18n[0];
 						}
 					}
 				}
@@ -162,17 +162,20 @@ define(
 
 			messageAction : function (element)
 			{
+				var actiontoken;
+				var action;
+
 				if ($(element.currentTarget).is ('[data-action]'))
 				{
-					var actiontoken = $(element.currentTarget).attr ('data-action');
+					actiontoken = $(element.currentTarget).attr ('data-action');
 				}
 				else if ($(element.target).is ('[data-action]'))
 				{
-					var actiontoken = $(element.target).attr ('data-action');	
+					actiontoken = $(element.target).attr ('data-action');	
 				}
 				else
 				{
-					var actiontoken = $(element.target).parent ('[data-action]').attr ('data-action');	
+					actiontoken = $(element.target).parent ('[data-action]').attr ('data-action');	
 				}
 				
 				action = this.model.getAction (actiontoken);
@@ -282,9 +285,9 @@ define(
 			
 			time : function ()
 			{
-				var now = new Date;
+				var now = new Date();
 				var date = new Date(this.$el.find("[data-date]").attr("data-date"));
-				var diff = Math.round((now.getTime()-date.getTime()) *.001);
+				var diff = Math.round((now.getTime()-date.getTime()) *0.001);
 				var human;
 				
 				if(diff < 60)			human = "now";

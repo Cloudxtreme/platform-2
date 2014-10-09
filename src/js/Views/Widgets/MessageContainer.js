@@ -67,9 +67,7 @@ define(
 				this.options.channel.fetch ({
 					'success' : function (e)
 					{
-						if (self.canLoadMore
-		                    && (typeof (self.options.channel.loadMore) != 'undefined')
-		                )
+						if (self.canLoadMore && (typeof (self.options.channel.loadMore) != 'undefined'))
 						{
 		                    if (self.options.channel.length > 0)
 		                    {

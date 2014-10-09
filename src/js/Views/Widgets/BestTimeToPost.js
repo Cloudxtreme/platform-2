@@ -29,7 +29,7 @@ define(
 				var fulldata = this.collection.clone().parsebesttime();
 				
 				$.each(fulldata, function(key, day){
-					day.fill = day.value*100/fulldata["maxvalue"];
+					day.fill = day.value*100/fulldata.maxvalue;
 					day.time = day.time >= 0 ? day.time+"h" : "";
 					this.$el.find(".chart-wrapper").append(Mustache.render (Templates.besttime, day));
 				}.bind(this));

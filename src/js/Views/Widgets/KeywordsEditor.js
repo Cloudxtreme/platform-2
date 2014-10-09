@@ -213,9 +213,9 @@ define(
 				    return el !== '' ? el : null;
 				});
 
-				for (var n in stringFormulaClean)
+				for (var m in stringFormulaClean)
 				{
-					this.formulaElement(stringFormulaClean[n]);
+					this.formulaElement(stringFormulaClean[m]);
 					this.$el.find("select").chosen({width: "100%"});
 				}
 				
@@ -264,9 +264,9 @@ define(
 				}
 
 				var countrieslist = "";
-				for (var n in countries)
+				for (var m in countries)
 				{
-					countrieslist += '<option value="'+countries[n].token+'">'+countries[n].name+'</option>'
+					countrieslist += '<option value="'+countries[m].token+'">'+countries[m].name+'</option>'
 				}
 				
 
@@ -287,10 +287,10 @@ define(
 					splitValue = e.split(' ');
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
-					for (var n in languages)
+					for (var l in languages)
 					{
-						if(languages[n].token.toLowerCase() == splitValue[2].toLowerCase())
-							tokenValue = languages[n].token.toLowerCase();
+						if(languages[l].token.toLowerCase() == splitValue[2].toLowerCase())
+							tokenValue = languages[l].token.toLowerCase();
 					}
 
 					if(tokenValue){
@@ -309,10 +309,10 @@ define(
 					splitValue = e.split(' ');
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
-					for (var n in countries)
+					for (var c in countries)
 					{
-						if(countries[n].token.toUpperCase() == splitValue[2].toUpperCase())
-							tokenValue = countries[n].token.toUpperCase();
+						if(countries[c].token.toUpperCase() == splitValue[2].toUpperCase())
+							tokenValue = countries[c].token.toUpperCase();
 					}
 
 					if(tokenValue){
@@ -384,10 +384,10 @@ define(
 				if($("#filter_exclude").val()) object.settings.exclude = $("#filter_exclude").val().split(",");
 				
 				if (object.settings.include && object.settings.include.length)
-					for (var n in object.settings.include) object.settings.include[n] = object.settings.include[n].trim();
+					for (var n in object.settings.include) object.settings.include[i] = object.settings.include[n].trim();
 					
 				if (object.settings.exclude && object.settings.exclude.length)
-					for (var n in object.settings.exclude) object.settings.exclude[n] = object.settings.exclude[n].trim();
+					for (var m in object.settings.exclude) object.settings.exclude[j] = object.settings.exclude[m].trim();
 				
 				object.settings.languages = $("#filter_languages").val();
 				object.settings.countries = $("#filter_countries").val();

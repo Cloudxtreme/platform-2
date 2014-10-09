@@ -48,7 +48,7 @@ define(
 				
 				else {
 
-					this.interval += Math.round( .2 * (this.min - this.interval));
+					this.interval += Math.round( 0.2 * (this.min - this.interval));
 					this.cursor = changed.cursors.after;
 					
 					Store.set("ping", {id: this.id, cursor: this.cursor});
@@ -145,7 +145,7 @@ define(
 			'timer' : function()
 			{
 				/* Dynamic response density */
-				return this.interval += Math.round( .05 * (this.max - this.interval));
+				return this.interval += Math.round( 0.05 * (this.max - this.interval));
 			},
 			
 			'toing' : function()

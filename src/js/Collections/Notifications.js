@@ -4,12 +4,13 @@ define(
 	{
 		var Notifications = Messages.extend({
 	
-			model : Notification,
 			typestring : "notifications",
 			modelstring : "notification",
 			
 			initialize : function()
 			{	
+				this.model = require("Models/Notifications");
+
 				// Put "add" listener to global notifications collection
 				if( Session.user.account)
 					Session.getNotifications().listenTo(this, "add", Session.getNotifications().distantAdd);

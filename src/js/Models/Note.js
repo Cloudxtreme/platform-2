@@ -11,14 +11,6 @@ define(
 				'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
 			},
 
-			type_settings : {
-				'CONTACT': {'icon': "user", 'model': "Contact", 'typestring': "contacts"},
-				'MESSAGE': {'icon': "inbox", 'model': "Message", 'typestring': "messages"},
-				'ACCOUNT': {'icon': "edit", 'model': "Account", 'typestring': "accounts"}
-			},
-
-
-
 			initialize : function()
 			{	
 				this.on('action', this.action);
@@ -27,7 +19,7 @@ define(
 			parse : function (response) 
 			{	
 				// A new object
-				if (typeof response == "number") return response = {id: response};
+				if (typeof response == "number") return {id: response};
 				
 				response = response.note? response.note : response;
 				
@@ -51,9 +43,11 @@ define(
 			},
 			
 			attachParent : function (type, id)
-			{
-				var type = this.type_settings[type].model;
-				var object = Session["get" + type](id);
+			{	
+				var object;
+
+				type	= this.type_settings[type].model;
+				object 	= Session["get" + type](id);
 
 				if(!object || !object.get('objectType'))
 				{	

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Router', 'Views/Root'],
-	function (Backbone, Session, Router, RootView)
+	['backbone', 'mustache', 'Session', 'Router', 'Views/Root'],
+	function (Backbone, Mustache, Session, Router, RootView)
 	{
 		var Navigation = Backbone.View.extend({
 
@@ -17,7 +17,7 @@ define(
 				{name: 'profiles', title: "Company accounts", build: "profiles", icon: "briefcase", authorized: 0, childicons:["briefcase", "thumbs-up"]},
 				{name: 'news', title: "Profiles We Follow", build: "news", icon: "globe", authorized: 0, childicons:["globe", "thumbs-up"]},
 				{name: 'monitoring', title: "Keyword Monitoring", build: "monitoring", icon: "tags", authorized: 0, childicons:["tags", "plus"]},
-				{name: 'statistics', title: "Statistics", build: "reports", icon: "bar-chart", authorized: 0},
+				{name: 'statistics', title: "Statistics", build: "statistics", icon: "bar-chart", authorized: 0},
 				{name: 'settings', title: "Settings", icon: "cogs", url: "#settings/users", authorized: 0, children: [
 					{name: 'users', title: "Manage users", icon: "group", authorized: 0},
 					{name: 'networks', title: "Social Connections", icon: "cloud", authorized: 0},
@@ -36,12 +36,12 @@ define(
 			initialize : function ()
 			{
 				// Interact with Session triggers
-				Session.on ('change:accounts', this.renderHeader, this);
-				//Session.on ('account:change change:accounts change:channels change:streams', this.render, this);
+				Session.on ('change:accounts', this.renderHeader, this);	
 				
+				// MIGRATION
 				// Listen to channel changes
-				this.listenTo(Session.getChannels(), 'sync', this.render);
-				this.listenTo(Session.getChannels(), 'remove', this.render);
+				///this.listenTo(Session.getChannels(), 'sync', this.render);
+				///this.listenTo(Session.getChannels(), 'remove', this.render);
 				
 				// DEV Check
 				// $.get(Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Session.authenticationtoken, 'Accept': "application/json"}}
@@ -52,10 +52,10 @@ define(
 				// Action token
 				var token = $(element.currentTarget).data ('header-action');
 				
-				if(token == 'messages') Router.Instance.navigate("#inbox/messages", true);
-				if(token == 'contacts') Router.Instance.navigate("#coworkers", true);
-				if(token == 'post') RootView.compose();
-				if(token == 'writenote') this.writenote();
+				if(token == 'messages') 	Router.Instance.navigate("#inbox/messages", true);
+				if(token == 'contacts') 	Router.Instance.navigate("#coworkers", true);
+				if(token == 'post') 		RootView.compose();
+				if(token == 'writenote') 	this.writenote();
 				//if(token == 'post') RootView.popup (new Cloudwalkers.Views.Write ());
 				//this.model.trigger("action", token);
 			},
@@ -91,24 +91,27 @@ define(
 			{		
 				var data = {dev: this.development};
 				
-				data.user = Session.user.attributes;
-				data.accounts =  [];
-				data.level = Session.getUser().level;
-
-				// Manage User Groups Roles
-				if ((Session.isAuthorized('USER_GRANT')) | (Session.isAuthorized('GROUP_MANAGE')))
+				data.user 		= Session.user? Session.user.attributes: null;
+				data.accounts 	=  [];
+				
+				//Manage User Groups Roles
+				if ((Session.isAuthorized('USER_GRANT')) || (Session.isAuthorized('GROUP_MANAGE')))
 					data.manage_user_groups = true;
 
-				//Mustache Translate Header
-				this.mustacheTranslateRenderHeader(data);
-				
-				Session.user.accounts.each(function(model)
+				//Render accounts
+				if (Session.user)
 				{
-					data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Session.get("currentAccount"))})
-				});
+					Session.user.accounts.each(function(model)
+					{
+						data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Session.get("currentAccount"))})
+					});
+				}
 				
 				// Apply role permissions to template data
 				Session.censuretemplate(data);
+
+				//Mustache Translate Header
+				this.mustacheTranslateRenderHeader(data);
 				
 				this.header = Mustache.render (Templates.header, data);
 
@@ -116,67 +119,37 @@ define(
 			},
 
 			render : function ()
-			{
-
-				var account = Session.getAccount ();
-				var data = {reports: []};
+			{	
+				var account = Session.user? Session.user.account: null;
+				var data 	= {reports: []};
 				
-				data.level = Session.getUser().level;
-				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
-
-				// Administrator
-				//if(data.level)
-				//{
-					
 				// News
-				if (Session.isAuthorized('MESSAGE_READ_THIRDPARTY')){
-					data.news = account.channels.findWhere({type: "news"});
-					if(data.news) data.news = account.channels.findWhere({type: "news"}).id;
-				}
-					
+				if (Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))
+					data.news = this.rendernews(account)
+				
 				// Monitoring
-				if (Session.isAuthorized('MESSAGE_READ_MONITORING')){
-					
-					var monitoring = account.channels.findWhere({type: "monitoring"});
-
-					for (var n in monitoring.channels.models){
-						if(monitoring.channels.models[n].attributes.channels.length){
-							this.first =  monitoring.channels.models[n]
-							break;
-						}			
-					}
-
-					if(monitoring)	data.monitoring = {channelid: monitoring.id, first: this.first, channels: monitoring.channels.models, name: monitoring.get("name")};
-				}			
-				//}
+				if (Session.isAuthorized('MESSAGE_READ_MONITORING'))
+					data.monitoring = this.rendermonitoring(account)			
 				
 				// Scheduled
-				if (Session.isAuthorized('MESSAGE_READ_SCHEDULE')){
-					data.scheduled = {channelid: Session.getChannel("internal").id};
-					data.scheduled.streams = account.streams.where({outgoing: 1});
-				}
+				if (Session.isAuthorized('MESSAGE_READ_SCHEDULE'))
+					data.scheduled = this.renderscheduled(account);
 				
 				// Inbox
-				if (Session.isAuthorized('_CW_INBOX_VIEW')){
+				if (Session.isAuthorized('_CW_INBOX_VIEW'))
 					data.inbox = true;
-				}
-				
+
 				// Profiles
-				if (Session.isAuthorized('MESSAGE_READ_COMPANY')){
-					var profiles = account.channels.findWhere({type: "profiles"});
-					data.profiles = {channelid: profiles.id, streams: profiles.streams.models, name: profiles.get("name")};
-				}
+				if (Session.isAuthorized('MESSAGE_READ_COMPANY'))
+					data.profiles = this.renderprofiles(account)
 					
-				// Reports
-				if (Session.isAuthorized('STATISTICS_VIEW')){
-					data.reports = account.streams.where({ 'statistics': 1 }).map(function(stream)
-					{
-						return stream.attributes;
-					});
-				}
-				
+				// Reports -> Deprecated, swapped to statistics
+				if (Session.isAuthorized('STATISTICS_VIEW'))
+					data.statistics = true;
+
+				//Mustache Translate Render
+				this.mustacheTranslateRender(data);
+			
 				// Apply role permissions to template data
 				Session.censuretemplate(data);
 				
@@ -185,6 +158,56 @@ define(
 				this.handleSidebarMenu();
 				
 				return this;
+			},
+
+			rendernews : function(account)
+			{
+				var news = account.channels.findWhere({type: "news"});	
+
+				if(news)	return news.id;
+			},
+
+			rendermonitoring : function(account)
+			{
+				var monitoring = account.channels.findWhere({type: "monitoring"});
+
+				for (var n in monitoring.channels.models)
+				{
+					if(monitoring.channels.models[n].attributes.channels.length)
+					{
+						this.first = monitoring.channels.models[n]
+						break;
+					}			
+				}
+
+				if(monitoring)
+					return 	{	channelid: 	monitoring.id, 
+								first:    	this.first, 
+								channels: 	monitoring.channels.models, 
+								name: 		monitoring.get("name") 
+							};
+			},	
+
+			renderscheduled : function(account)
+			{
+				var scheduled = { 
+					channelid: 	Session.getChannel("internal").id,
+					streams: 	account.streams.where({outgoing: 1})
+				};
+
+				if(scheduled)
+					return scheduled;
+			},
+
+			renderprofiles : function(account)
+			{
+				var profiles 	= account.channels.findWhere({type: "profiles"});
+				
+				if(profiles)
+					return 	{	channelid: 	profiles.id, 
+								streams: 	profiles.streams.models,
+								name: 		profiles.get("name")
+							};
 			},
 			
 			handleSidebarMenu : function () {
@@ -243,16 +266,10 @@ define(
 					
 					// children on same level
 					if(this.views[n].children) 
-						for(i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
+						for(var i in this.views[n].children) views[this.views[n].children[i].name] = {streams: []};
 				}
 				
 				return views;
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRenderHeader : function(translatelocation)
@@ -270,7 +287,7 @@ define(
 
 				for (var k in this.original)
 				{
-					this.translated[k] = this.translateString(this.original[k]);
+					this.translated[k] = Session.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			},
@@ -298,7 +315,7 @@ define(
 					"keyword_monitoring",
 					"manage_accounts",
 					"manage_keywords",
-					"reports",
+					"statistics",
 					"settings",
 					"manage_users",
 					"social_connections",
@@ -318,7 +335,7 @@ define(
 
 				for (var k in this.original)
 				{
-					this.translated[k] = this.translateString(this.original[k]);
+					this.translated[k] = Session.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}
@@ -364,5 +381,4 @@ define(
 		});
 
 		return Navigation;
-	}
-);
+	});

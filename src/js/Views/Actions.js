@@ -53,7 +53,7 @@ define(
 				
 				for (var n in actions)
 				{	
-					compound = actions[n].compound? actions.filter(function(a){ return a.compound == actions[n].compound}): null;
+					compound = actions[n].compound? this.getcompoundactions(actions, actions[n]): null;
 
 					// prevent duplicates on complex compounds
 					if(compound && compound.length)
@@ -73,10 +73,20 @@ define(
 							inactive = false;
 					}
 
-					var action = new ActionView({action: compound || actions[n], inactive: inactive})
+					action = new ActionView({action: compound || actions[n], inactive: inactive})
 
 					this['actions'+action.position].push(action)
 				}
+			},
+
+			getcompoundactions : function(actions, action)
+			{
+				actions.filter(
+					function(a){
+						return a.compound == action.compound
+					});
+
+				return actions;
 			},
 
 			reorderactions : function(actions)

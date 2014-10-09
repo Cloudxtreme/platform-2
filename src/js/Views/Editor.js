@@ -176,8 +176,9 @@ define(
 					// Check for URL
 					//if(!this.urlprocessing && this.$contenteditable.text().match(this.xurlbasic))
 					//	this.filterurl();
-					if(newurls = this.listentourl(e, this.$contenteditable.text()))
-						this.processurls(newurls);
+					newurls = this.listentourl(e, this.$contenteditable.text());
+
+					if(newurls)	this.processurls(newurls);
 
 					// Check for charlimit
 					//if (this.charlength != this.$contenteditable.text().length)
@@ -203,9 +204,9 @@ define(
 
 				if (this.$contenteditable.html().match(this.xurlendpattern))
 				{
-					var newurls;
-					if(newurls = this.listentourl(null, this.$contenteditable.text(), true))
-						this.processurls(newurls);
+					var newurls = this.listentourl(null, this.$contenteditable.text(), true);
+
+					if(newurls)	this.processurls(newurls);
 				}
 			},
 			
@@ -766,22 +767,36 @@ define(
 			
 			togglecontent : function(data, setdefault)
 			{	
+				var network;
+				var stream;
+				var val;
+
 				if(data){
-					var stream = _.isNumber(data.id) ? data.id : null;
-					var val = _.isObject(data.data) ? data.data.html : null;
-					var network = stream? Session.getStream(stream).get("network").token : null;
+					stream 	= _.isNumber(data.id) ? data.id : null;
+					val 	= _.isObject(data.data) ? data.data.html : null;
+					network = stream? Session.getStream(stream).get("network").token : null;
 				}
 				
 				this.network = network ? network : 'default'; //Keep track of what network we are viewing
 				
-				if(network && !val){	//Tab with the default's text 
+				//Tab with the default's text 
+				if(network && !val)
+				{	
 					this.$contenteditable.empty().html(this.draft.get("body").html);
 					this.$contenteditable.addClass("withdefault");
 					this.isdefault = true;
-				}else if(!stream){		//Tab without any specific content (on default tab)
+				}
+
+				//Tab without any specific content (on default tab)
+				else if(!stream)
+				{		
 					this.$contenteditable.empty().html(this.draft.get("body").html);
 					this.$contenteditable.removeClass("withdefault");
-				}else{					//Tab with specific content
+				}
+
+				//Tab with specific content
+				else
+				{					
 					if(!val) val = "";
 					this.$contenteditable.empty().html(val);
 					this.$contenteditable.removeClass("withdefault");
@@ -789,7 +804,8 @@ define(
 
 				this.limit = this.restrictedstreams[this.network]? this.restrictedstreams[this.network] - this.contentlimitation: null;
 				
-				$.each(this.$contenteditable.find('a'), function(i, anchor){
+				$.each(this.$contenteditable.find('a'), function(i, anchor)
+				{
 					anchor.innerText = anchor.innerText.trim();
 					//Not needed anymore? Better trimming from backend.
 					//$(anchor).attr('contenteditable', 'false').after("&nbsp;");

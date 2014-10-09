@@ -2,7 +2,7 @@ define(
 	['backbone', 'Models/Trigger', 'Views/Root'],
 	function (Backbone, Trigger, RootView)
 	{
-		var Trigger = Backbone.View.extend({
+		var TriggerView = Backbone.View.extend({
 
 			events : {
 				'click [data-action=save]' : 'save',
@@ -112,5 +112,5 @@ define(
 			}
 		});
 
-		return Trigger;			
+		return TriggerView;			
 });

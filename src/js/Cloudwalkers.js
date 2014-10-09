@@ -5,6 +5,14 @@ define(
 		var Cloudwalkers = {
 			
 			version : 1,
+
+			langs :
+			[
+				{"id": "en_EN", "name": "International English"},
+				{"id": "fr_FR", "name": "Français"},
+				{"id": "nl_NL", "name": "Nederlands"},
+				{"id": "pt_PT", "name": "Português"}
+			],
 			
 			Views : {
 				'Settings': {},
@@ -12,6 +20,7 @@ define(
 					'Charts' : {}
 				}
 			},
+
 			Router : {},
 			Models : {},
 			Collections : {},
@@ -22,7 +31,7 @@ define(
 				// Authentication
 				var token = window.localStorage.getItem('token');
 				
-				// Check if there is authentication
+				//Check if there is authentication
 				if(token && token.length > 9)
 				{	
 					Session.authenticationtoken = token;
@@ -31,23 +40,27 @@ define(
 
 				// Define API root
 				Session.api = config.apiurl + Cloudwalkers.version;
-				
+
 				// MIGRATION
 				// First load essential user data
 				Cloudwalkers.RootView = new RootView();
-				/*Session.loadEssentialData (function ()
+
+				Session.loadEssentialData (function ()
 				{
+					// MIGRATION
 					// Root view
-					Cloudwalkers.RootView = new RootView();
+					//Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
-					Session.UrlShortener = new Cloudwalkers.UrlShortener();
+					//Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					Router.Instance = new Router ();
+					//Router.Instance = new Router ();
+
+					Cloudwalkers.RootView.render();
 					Backbone.history.start();
 
-				});*/
+				});
 
 				return this;
 			}
@@ -192,7 +205,7 @@ define(
 			{
 				if (!params) params = {id: this.id};
 				
-				params.stamp = Math.round(new Date().getTime() *.001)
+				params.stamp = Math.round(new Date().getTime() *0.001)
 				
 				Store.set(this.typestring, params);
 				

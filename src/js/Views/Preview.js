@@ -5,7 +5,6 @@ define(
 		var Preview = Backbone.View.extend({
 	
 			id : "preview",
-			events : {},
 			networkclasses : {'facebook' : 'fb', 'twitter' : 'twt', 'google-plus' : 'gp', 'linkedin' : 'li'},
 			events : {
 				'click #viewsummary' : 'togglesummary'
@@ -37,6 +36,8 @@ define(
 			
 			fill : function (preview)
 			{
+				var img;
+
 				this.previewdata = {
 					body : this.model.get('body') || "",
 					profile : this.model.get('profile')
@@ -46,13 +47,16 @@ define(
 				this.fakeload((Math.random()*1.2)+0.4);
 				
 				if(this.model.hasAttachement("link"))	this.$el.find("#network").addClass("link"); 
-				if(img = this.model.hasAttachement("image")){
+
+				img = this.model.hasAttachement("image");
+
+				if(img){
 					this.previewdata.image = img.data || img.url;
 					this.$el.find("#network").addClass("img"); 
 				}
 				
 				// Render preview (opacity:0)
-				var preview = Mustache.render(preview, this.previewdata);
+				preview = Mustache.render(preview, this.previewdata);
 				this.$el.find("#pv-main").append(preview);
 			},
 

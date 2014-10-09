@@ -2,7 +2,7 @@ define(
 	['Models/Message', 'Collections/Actions', 'Collections/Notes'],
 	function (Message, Actions, Notes)
 	{
-		var Notification = Message.extend({
+		var Notification = Message.extend({ 
 			
 			initialize : function ()
 			{			
@@ -16,6 +16,7 @@ define(
 				this.actions = new Actions(false, {parent: this});
 				this.notes = new Notes(false, {parent: this});
 
+				// MIGRATION -> Do we need this?
 				//this.notifications = new Notifications(false, {parent: this});
 				
 				// Listen to destroy

@@ -113,8 +113,9 @@ define(
 			{	
 				// Triggered action
 				var action = this.templates[token];
+				var params;
+
 				// Toggle
-				
 				this.listenTo(RootView, token.concat(':success'), this.toggleAction);
 				
 				// Confirm modal
@@ -139,8 +140,8 @@ define(
 				else if (action.type == 'note')	RootView.writeNote(this.parent);		
 				
 				// Call Compose modal
-				else if (action.type == 'edit')	var params = {model: this.parent};
-				else							var params = {reference: this.parent, action: new Action(action)} 
+				else if (action.type == 'edit')	params = {model: this.parent};
+				else							params = {reference: this.parent, action: new Action(action)} 
 				
 				var compose = RootView.compose(params);
 
