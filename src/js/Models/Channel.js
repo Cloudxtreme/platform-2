@@ -1,4 +1,4 @@
-define(
+define(	// MIGRATION
 	['backbone', 'Session', /*'Collections/Contacts',*/ 'Collections/Messages', 'Collections/Channels', /*'Collections/Notifications',*/ 'Collections/Streams'],
 	function (Backbone, Session, Messages, Channels, Streams)
 	{
@@ -22,10 +22,10 @@ define(
 				
 				// MIGRATION -> Do we need notifications & contacts collections on channel context?
 				// Child notifications
-				//this.notifications = new Notifications();
+				///this.notifications = new Notifications();
 				
 				// Child contacts
-				//this.contacts = new Contacts();
+				///this.contacts = new Contacts();
 				
 				// Listeners
 				this.on("change", function(model){ Store.set("channels", model.attributes)});

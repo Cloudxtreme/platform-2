@@ -40,7 +40,6 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 				
 				/* Write hould be reference to user id */
 				Store.write("me", [response.user]);
-				//Store.set("users", response.user);
 				
 				if(this.reload)	this.reload = false;
 
@@ -110,7 +109,6 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 
 					// Call callback
 					this.trigger("activated");
-					//setTimeout(this.trigger, 100, 'activated');
 
 				}.bind(this));
 				

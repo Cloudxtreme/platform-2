@@ -1,4 +1,4 @@
-define(
+define(	// MIGRATION
 	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
 	function (Backbone)
 	{
@@ -13,7 +13,7 @@ define(
 			
 			loadEssentialData : function (callback)
 			{	
-				//Lazier load
+				// MIGRATION -> Lazier load
 				require(['Models/Me'], function (Me)
 				{
 					this.user = new Me();
@@ -26,7 +26,7 @@ define(
 
 				}.bind(this));
 
-				// MIGRATION
+				// MIGRATION -> old code
 				/*var Me = require ('Models/Me');
 				
 				this.user = new Me();
@@ -37,17 +37,6 @@ define(
 				this.listenTo(this,"translation:done",  callback );
 				
 				this.user.fetch({error: this.user.offline.bind(this.user)});*/
-			},
-			
-			refresh : function ()
-			{
-				
-				console.log("Session.refresh triggered")
-				
-				/*this.getAccount ().refresh (function ()
-				{
-					Session.trigger ('channels:change');
-				});*/
 			},
 			
 			reset : function (changeaccount)
@@ -72,16 +61,6 @@ define(
 			/**
 			 *	Session settings functions
 			 **/
-			
-			/*'updateSettings' : function(user)
-			{
-				// Hack: solve array issue
-				if(user && user.get("settings").length === 0) return null;
-				
-				
-				
-				//$.extend(Session.settings, user.get("settings"));
-			},*/
 			
 			updateSetting : function(attribute, value, callbacks)
 			{
@@ -210,23 +189,6 @@ define(
 
 			},
 
-			/**
-			 *	Version
-			**/
-
-			getversion : function()
-			{	
-				Store.get("version", null, function(version)
-				{	
-					if(version)	this.localversion = version.version;	//Really need to validate this as a valid version, or we will get loops		
-				}.bind(this));
-			},
-			
-			// Simple check, full check is in resync.js
-			isupdated : function()
-			{	
-				return this.localversion? this.localversion == this.version: false;
-			},
 
 			/**
 			 *	Role permissions
@@ -295,13 +257,6 @@ define(
 				return this.user.account.channels;
 			},
 			
-			/*'setChannels' : function (list)
-			{
-				if(list && list.length) this.user.account.channels.add(list, {merge: true});
-				
-				return this;
-			},*/
-			
 			storeChannel : function(channel)
 			{
 				// Store child channels
@@ -319,9 +274,6 @@ define(
 						Store.post("streams", el);
 						return el.id;
 					});
-				
-				
-				//console.log("channel:", channel, "children:", channel.channels)
 					
 				Store.post("channels", channel);
 			},
@@ -345,15 +297,7 @@ define(
 			addStream : function(stream)
 			{
 				return this.user.account.streams.add(stream);
-			},
-			
-			/*'setStreams' : function (list)
-			{
-				if(list && list.length) this.user.account.streams.add(list, {merge: true});
-				
-				return this;
-			},*/
-			
+			},	
 			
 			/**
 			 *	Users shortcut functions
@@ -499,6 +443,59 @@ define(
 				});
 
 			}
+
+			
+			/* DEPRECATED
+			refresh : function ()
+			{
+				
+				console.log("Session.refresh triggered")
+				
+				//this.getAccount ().refresh (function ()
+				//{
+				//	Session.trigger ('channels:change');
+				//});
+			},
+	
+			'updateSettings' : function(user)
+			{
+				// Hack: solve array issue
+				if(user && user.get("settings").length === 0) return null;
+				
+				
+				
+				//$.extend(Session.settings, user.get("settings"));
+			},
+
+			getversion : function()
+			{	
+				Store.get("version", null, function(version)
+				{	
+					if(version)	this.localversion = version.version;	//Really need to validate this as a valid version, or we will get loops		
+				}.bind(this));
+			},
+			
+			// Simple check, full check is in resync.js
+			isupdated : function()
+			{	
+				return this.localversion? this.localversion == this.version: false;
+			},
+
+			'setChannels' : function (list)
+			{
+				if(list && list.length) this.user.account.channels.add(list, {merge: true});
+				
+				return this;
+			},
+
+			'setStreams' : function (list)
+			{
+				if(list && list.length) this.user.account.streams.add(list, {merge: true});
+				
+				return this;
+			},
+
+			*/
 		}
 
 		// Add events

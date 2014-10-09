@@ -1,4 +1,4 @@
-define(
+define(	// MIGRATION -> added mustache
 	['backbone', 'mustache', 'Session', 'Router', 'Views/Root'],
 	function (Backbone, Mustache, Session, Router, RootView)
 	{
@@ -38,7 +38,7 @@ define(
 				// Interact with Session triggers
 				Session.on ('change:accounts', this.renderHeader, this);	
 				
-				// MIGRATION
+				// MIGRATION -> Still has no user, hence, no Channels
 				// Listen to channel changes
 				///this.listenTo(Session.getChannels(), 'sync', this.render);
 				///this.listenTo(Session.getChannels(), 'remove', this.render);
@@ -56,8 +56,6 @@ define(
 				if(token == 'contacts') 	Router.Instance.navigate("#coworkers", true);
 				if(token == 'post') 		RootView.compose();
 				if(token == 'writenote') 	this.writenote();
-				//if(token == 'post') RootView.popup (new Cloudwalkers.Views.Write ());
-				//this.model.trigger("action", token);
 			},
 			
 			fit : function ()
@@ -339,6 +337,8 @@ define(
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}
+
+
 			// Add unread count logic for inbox icon
 			/*
 				// New messages

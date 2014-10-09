@@ -718,8 +718,8 @@ define(
 				return "#";
 			},
 			
-			
-			afterChange : function ()
+			// DEPRECATED
+			/*afterChange : function ()
 			{
 				this.addInternalActions ();
 
@@ -727,7 +727,7 @@ define(
 				{
 					this.get ('parentmodel').set (this.get ('parent'));
 				}
-			},
+			},*/
 
 			getActionIcon : function (action)
 			{
@@ -799,6 +799,7 @@ define(
 				return action.token;
 			},
 
+			/*
 			addInternalActions : function ()
 			{
 				var self = this;
@@ -887,6 +888,7 @@ define(
 					}
 				}
 			},
+			*/
 
 			deleteMessage : function ()
 			{	

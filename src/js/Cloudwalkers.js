@@ -49,15 +49,17 @@ define(
 				{
 					// MIGRATION
 					// Root view
-					//Cloudwalkers.RootView = new RootView();
+					///Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
-					//Session.UrlShortener = new Cloudwalkers.UrlShortener();
+					///Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					//Router.Instance = new Router ();
+					///Router.Instance = new Router ();
 
+					// MIGRATION
 					Cloudwalkers.RootView.render();
+
 					Backbone.history.start();
 
 				});
@@ -101,64 +103,6 @@ define(
 			return Backbone.$.ajax.apply(Backbone.$, arguments);
 		};
 		 
-		/*Backbone.View = Backbone.View.extend({
-
-			'hasContainer' : false,
-			
-			'loadListeners' : function(model, states){
-				var length = states.length;
-
-				for(i in states){
-					this.listenTo(model, states[i], this.loadRender.bind(this, Number(i)+1, length));
-				}
-				//Add the progress-bar dinamicaly
-				this.on("rendered", this.addLoader);
-			},
-
-			'addLoader' : function(){
-				this.container = this.$loadercontainer ? this.$loadercontainer : this.$container;
-				this.loader = $(Templates.progressbar).appendTo(this.container);
-			},
-
-			'loadRender' : function(index, length){
-				//Just to make it moving from the beggining
-				if(!this.loader) return;
-
-				if(this.loader && this.loader.hasClass('loaded'))	this.restart();
-				if(this.loader && this.loader.hasClass('loading') && index == 1)	this.restart();
-				if(length == index){
-					this.finishLoading();
-				} 
-				
-				var dis = this;
-				// Ugly but needed hack
-				setTimeout(function(){
-					var width = index*100/length;
-
-					if(!dis.loadingstate || dis.loadingstate <= width){
-						dis.loadingstate = width;
-						if(dis.loader)	dis.loader.css('width',width+'%');
-					}else{
-						dis.restart();
-					}		
-				},1);
-			},
-
-			'restart' : function(){
-				this.loadingstate = 0;
-				this.loader.remove();
-				this.addLoader();
-				this.container.removeClass('loaded').addClass('toload');
-			},
-
-			'finishLoading' : function(){
-				this.loader.css('width','100%');
-				this.loader.addClass('loaded');
-				this.container.removeClass('toload').addClass('loaded');
-			}
-		});*/
-
-		 
 		 /**
 		 *	Model functions
 		 *
@@ -175,9 +119,6 @@ define(
 		        return this.endpoint?
 		        	Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
 		        	Session.api + '/' + this.typestring + '/' + this.id;
-		        	
-		        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id + this.endpoint :
-		        	// CONFIG_BASE_URL + 'json/' + this.typestring + '/' + this.id;
 		    },
 		    
 		    parse : function(response)
@@ -353,55 +294,7 @@ define(
 				// Seed ids to collection
 				this.seed(ids);
 			},
-			
-			/**
-			 *	Caching seed
-			
-			'seed' : function(ids)
-			{
-				// Ignore empty id lists
-				if(!ids) ids = [];
-
-				var list = [];
-				var fresh = _.compact( ids.map(function(id)
-				{
-					// In current Collection
-					var model = this.get(id);
-					
-					// Or in Session collection
-					if(!model)
-						model = Session.user.account[this.typestring].get (id);
-					
-					// Or create new
-					if(!model) model = this.create({id: id});
-					else this.add(model);
-						
-					list.push(model);
-					
-					if(model.get("objectType") && !model.outdated) model.stamp();
-					else return id;
-				
-				}, this));
-				
-				// Get list based on ids
-				if(fresh.length)
-				{
-					this.endpoint = this.parentmodel? this.typestring: null;
-					this.parameters = {ids: fresh.join(",")};
-					
-					this.fetch({remove: false});
-				}
-				
-				// Trigger listening models
-				this.trigger("seed", list);
-				
-				//Trigger cached, partial or empty load
-				//if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
-				//else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
-				//else if (!ids.length)							this.trigger("cached:empty", this, list);
-
-				return list;
-			},*/
+	
 			
 			/**
 				Temp: non-caching seed

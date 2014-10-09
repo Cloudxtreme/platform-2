@@ -1,4 +1,4 @@
-define (
+define ( // MIGRATION -> removed resync
 	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Compose', 'Views/viewContact', 'Views/SimpleCompose'/*, 'Views/Resync'*/],
 	function (Backbone, Session, Router, NavigationView, ComposeView, ViewContactView, SimpleComposeView)
 	{
@@ -75,35 +75,13 @@ define (
 				
 				$("#inner-content").css("min-height", height-42 + "px");
 			},
-			
-			popup_new : function (view)
-			{
-
-				// Parameters
-				var content = view.render().el;
-				
-				var params = {title: view.title, actions: view.actions};
-				
-				// View
-				var modal = $(Mustache.render (Templates.popup, params)).modal();
-				modal.find(".modal-body").html(content);
-				
-				// Actions
-				if (view.actions)
-					modal.find(".modal-footer [data-action]").on("click", function(popup, e){ this.trigger($(e.currentTarget).data("action"), popup)}.bind(view, modal));
-				
-				// Close listener
-				modal.on ("hide", function (){ this.remove(); }.bind(view));
-			},
-
-			
+						
 			popup : function (view)
 			{
 				var self = this;
-
-				var tmpl = Templates.uipopup;
-				
+				var tmpl = Templates.uipopup;				
 				var modal = $(tmpl).modal();
+
 				modal.find ('.modalcontainer').html (view.render ().el);
 
 				view.on ('popup:close', function ()
@@ -149,6 +127,7 @@ define (
 				}
 
 				var view = new SimpleComposeView(options);
+
 				view.render().$el.modal();
 
 				return view;
@@ -166,12 +145,8 @@ define (
 				options.redirect = false;
 				
 				var view = new ComposeView(options);
-				this.setView(view);
-			},
 
-			editMessage : function (model)
-			{
-				this.compose({'model' : model.clone(), 'redirect' : false});
+				this.setView(view);
 			},
 
 			writeDialog : function (model, action)
@@ -192,12 +167,6 @@ define (
 				}
 
 			},
-
-			shareMessage : function (model)
-			{
-				this.compose({'model' : model.clone(), 'clone' : true, 'redirect' : false});
-			},
-
 
 			confirm : function (message, callback, cancelcallback)
 			{
@@ -264,12 +233,6 @@ define (
 				
 				$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
 			},
-			
-			closeInformation : function (title, message, target)
-			{
-				$("div.alert.alert-info").remove();
-			},
-
 
 			dialog : function (message, options, callback)
 			{
@@ -319,16 +282,53 @@ define (
 				}.bind(this));		
 			},
 
-			oops : function(){
-				Router.Instance.navigate('#dashboard', true);
-				this.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
-			},
-
 			translateString : function(translatedata)
 			{	
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			}
+
+			// DEPRECATED
+			/*closeInformation : function (title, message, target)
+			{
+				$("div.alert.alert-info").remove();
+			},
+
+			oops : function(){
+				Router.Instance.navigate('#dashboard', true);
+				this.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
+			},
+			
+			shareMessage : function (model)
+			{
+				this.compose({'model' : model.clone(), 'clone' : true, 'redirect' : false});
+			},
+
+			editMessage : function (model)
+			{
+				this.compose({'model' : model.clone(), 'redirect' : false});
+			},
+
+			popup_new : function (view)
+			{
+
+				// Parameters
+				var content = view.render().el;
+				
+				var params = {title: view.title, actions: view.actions};
+				
+				// View
+				var modal = $(Mustache.render (Templates.popup, params)).modal();
+				modal.find(".modal-body").html(content);
+				
+				// Actions
+				if (view.actions)
+					modal.find(".modal-footer [data-action]").on("click", function(popup, e){ this.trigger($(e.currentTarget).data("action"), popup)}.bind(view, modal));
+				
+				// Close listener
+				modal.on ("hide", function (){ this.remove(); }.bind(view));
+			},
+			*/
 		});
 		
 		return Root;
