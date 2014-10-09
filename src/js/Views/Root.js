@@ -332,5 +332,4 @@ define (
 		});
 		
 		return Root;
-	}
-);
+	});

@@ -17,7 +17,7 @@ define(
 				{name: 'profiles', title: "Company accounts", build: "profiles", icon: "briefcase", authorized: 0, childicons:["briefcase", "thumbs-up"]},
 				{name: 'news', title: "Profiles We Follow", build: "news", icon: "globe", authorized: 0, childicons:["globe", "thumbs-up"]},
 				{name: 'monitoring', title: "Keyword Monitoring", build: "monitoring", icon: "tags", authorized: 0, childicons:["tags", "plus"]},
-				{name: 'statistics', title: "Statistics", build: "reports", icon: "bar-chart", authorized: 0},
+				{name: 'statistics', title: "Statistics", build: "statistics", icon: "bar-chart", authorized: 0},
 				{name: 'settings', title: "Settings", icon: "cogs", url: "#settings/users", authorized: 0, children: [
 					{name: 'users', title: "Manage users", icon: "group", authorized: 0},
 					{name: 'networks', title: "Social Connections", icon: "cloud", authorized: 0},
@@ -52,10 +52,10 @@ define(
 				// Action token
 				var token = $(element.currentTarget).data ('header-action');
 				
-				if(token == 'messages') Router.Instance.navigate("#inbox/messages", true);
-				if(token == 'contacts') Router.Instance.navigate("#coworkers", true);
-				if(token == 'post') RootView.compose();
-				if(token == 'writenote') this.writenote();
+				if(token == 'messages') 	Router.Instance.navigate("#inbox/messages", true);
+				if(token == 'contacts') 	Router.Instance.navigate("#coworkers", true);
+				if(token == 'post') 		RootView.compose();
+				if(token == 'writenote') 	this.writenote();
 				//if(token == 'post') RootView.popup (new Cloudwalkers.Views.Write ());
 				//this.model.trigger("action", token);
 			},
@@ -381,5 +381,4 @@ define(
 		});
 
 		return Navigation;
-	}
-);
+	});

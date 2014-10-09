@@ -31,13 +31,12 @@ define(
 				// Authentication
 				var token = window.localStorage.getItem('token');
 				
-				// MIGRATION -> commented just for testing purposes
-				// Check if there is authentication
-				/*if(token && token.length > 9)
+				//Check if there is authentication
+				if(token && token.length > 9)
 				{	
 					Session.authenticationtoken = token;
 					
-				} else{ console.log("token error", token); window.location = "/login.html";}*/
+				} else{ console.log("token error", token); window.location = "/login.html";}
 
 				// Define API root
 				Session.api = config.apiurl + Cloudwalkers.version;
@@ -46,19 +45,22 @@ define(
 				// First load essential user data
 				Cloudwalkers.RootView = new RootView();
 
-				/*Session.loadEssentialData (function ()
+				Session.loadEssentialData (function ()
 				{
+					// MIGRATION
 					// Root view
-					Cloudwalkers.RootView = new RootView();
+					//Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
-					Session.UrlShortener = new Cloudwalkers.UrlShortener();
+					//Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					Router.Instance = new Router ();
+					//Router.Instance = new Router ();
+
+					Cloudwalkers.RootView.render();
 					Backbone.history.start();
 
-				});*/
+				});
 
 				return this;
 			}

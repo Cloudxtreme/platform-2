@@ -1,6 +1,6 @@
 define(
-	['backbone', /*'Views/Root', 'Router', 'Collections/Accounts', */ 'Models/Polyglot'],
-	function (Backbone, Polyglot)
+	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', , 'Models/Polyglot'*/],
+	function (Backbone)
 	{
 		var Session = 
 		{
@@ -491,5 +491,4 @@ define(
 		_.extend(Session, Backbone.Events);
 
 		return Session;
-	}
-);
+	});
