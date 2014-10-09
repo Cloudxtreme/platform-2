@@ -7,10 +7,22 @@ define(
 			typestring : "statistics",
 			parameters : {},
 			
-			initialize : function(attributes)
-			{
-				// Listen to outdates
-				//this.on("outdated", this.fetch)
+			url : function (params)
+		    {
+		        return this.endpoint?
+		        	Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+		        	Session.api + '/' + this.typestring + '/' + this.id;
+		    },
+		    
+		    parse : function(response)
+			{	
+				// A new object
+				if (typeof response == "number") response = {id: response};
+				
+				// Store incoming object
+				else this.stamp(response);
+
+				return response;
 			},
 			
 			pluck : function (keys, streamid, hassublevel)
@@ -67,12 +79,17 @@ define(
 						}
 					}
 				});
-				//console.log(streamid,keys,response)
+
 				return response;
 			},
 
 			pluckbynetwork : function(){
 				//to be made
+			},
+			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
 			},
 
 

@@ -29,12 +29,6 @@ define(
 				if(this.parameters)	url.push(this.typestring + "?" + $.param(this.parameters));
 				
 				return url.join("/");
-				/*
-				
-				return this.endpoint?
-					
-					CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/' + this.typestring + '/' + this.endpoint :
-					CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/' + this.typestring + (this.parameters? "/" + this.parameters: "");*/
 		    },
 		    
 		    parse : function (response)
@@ -68,9 +62,6 @@ define(
 					this.parameters = params;
 				}
 
-				// Check for history (within ping lifetime), temp disabled
-				// Store.get("touches", {id: this.url(), ping: Session.getPing().cursor}, this.touchlocal.bind(this));
-				
 				// Hard-wired request (no caching)
 				this.fetch({following: (!model), success: this.touchresponse.bind(this, this.url())});
 			},

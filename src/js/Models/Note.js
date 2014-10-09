@@ -42,6 +42,21 @@ define(
 				return response;
 			},
 			
+			sync : function (method, model, options)
+			{
+				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+				
+				// Hack
+				if(method == "update") return false;
+				
+				return Backbone.sync(method, model, options);
+			},
+			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			attachParent : function (type, id)
 			{	
 				var object;
@@ -112,8 +127,6 @@ define(
 			                // Hack
 							self.trigger ("destroy");
 							self.trigger ("destroyed");
-							//self.destroy();
-							//window.location.reload();
 			                    
 		                }});
 

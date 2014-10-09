@@ -1,12 +1,13 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts',
-	 'Views/Sent', 'Views/Notes', 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
+	['backbone', 'Session', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
+	 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
-	 'Views/Coworkdashboard', /*'Views/ManageUserGroups'*/, 'Views/Resync', 'Views/RSSFeed'/*, 'Views/ManageRSS'*/],
+	 'Views/Coworkdashboard', /*'Views/ManageUserGroups',*/ 'Views/Resync', 'Views/RSSFeed', /*'Views/ManageRSS'*/],
 
-	function (Backbone, Session, RootView, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView, ScheduledViews,
-			  /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView, ManageKeywordsView, StatStreamView, StatisticsView,
-			  SettingsView, FirsttimeView, CoworkdashboardView, /*ManageUserGroupsView, */ResyncView, RSSFeedView/*, ManageRSSView*/)
+	function (	Backbone, Session, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
+				ScheduledViews, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
+				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
+				CoworkdashboardView, /*ManageUserGroupsView,*/ ResyncView, RSSFeedView /*ManageRSSView*/)
 
 	{
 		var Router = Backbone.Router.extend (
@@ -14,20 +15,21 @@ define(
 			routes : {
 				'dashboard/:accountid' : 'changeaccount',
 
-				'write' : 'write',
+				'compose' : 'compose',
+				'write' : 'compose',
 				'share' : 'share',
 				'inbox(/:type)(/:streamid)' : 'inbox',
 				'drafts' : 'drafts',
 				'outbox(/:type)' : 'outbox',
 				'notes' : 'notes',
 				'scheduled' : 'scheduled',
-				//'calendar' : 'calendar',
+				/*'calendar' : 'calendar',*/
 				'coworkers' : 'coworkers',
 				'channel/:channel(/:subchannel)(/:stream)(/:messageid)' : 'channel',
-				//'timeline/rss' : 'rssfeed',
+				/*'timeline/rss' : 'rssfeed',*/
 				'timeline/:channel(/:stream)' : 'timeline',
 				'trending/:channel(/:subchannel)(/:stream)(/:messageid)' : 'trending',
-				//'monitoring/managerss' : 'managerss',
+				/*'monitoring/managerss' : 'managerss',*/
 				'monitoring/accounts' : 'manageaccounts',
 				'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
 				'keywords' : 'managekeywords',
@@ -38,13 +40,12 @@ define(
 				'firsttime' : 'firsttime',
 				'work' : 'coworkdashboard',
 				
-				'resync' : 'resync',
+				/*'resync' : 'resync',*/
 				'home' : 'home',
 				'logout' : 'home',
 				'*path' : 'dashboard'
 			},
 
-			initialize : function (){},
 			
 			/**
 			 *	Dashboard
@@ -52,9 +53,6 @@ define(
 
 			dashboard : function ()
 			{	
-				//if(!Session.isupdated())
-					//return Cloudwalkers.RootView.resync('#dashboard');
-
 				// Check first-timer
 				if (Session.getAccount().get("firstTime"))
 					 
@@ -65,7 +63,7 @@ define(
 					return this.navigate("#work", true);
 				
 				
-				RootView.setView (new DashboardView());
+				Cloudwalkers.RootView.setView (new DashboardView());
 			},
 			
 			/**
@@ -76,7 +74,7 @@ define(
 			{	
 				if(accountid != Session.get("currentAccount"))
 				{
-					Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)}); //patch: true
+					Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)});
 				}
 			},
 			
@@ -84,17 +82,11 @@ define(
 			 *	Message board
 			 **/
 			 
-			
-			write : function ()
+			compose : function ()
 			{
-				//var view = new Cloudwalkers.Views.Write ();
-				RootView.compose();
+				Cloudwalkers.RootView.compose();
 			},
 			
-			share : function ()
-			{
-				RootView.viewshare ("general");
-			},
 			
 			/**
 			 *	Co-workers wall
@@ -120,11 +112,7 @@ define(
 					'MESSAGE_READ_INBOX_SCHEDULE' : '#scheduled',
 					'MESSAGE_READ_DRAFTS' : '#drafts',
 					'ACCOUNT_NOTES_VIEW' : '#notes'
-					}
-
-				// "Manual" validation
-				//if(!Session.isupdated())
-					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
+				}
 
 				var available = _.intersection(_.keys(types), Session.getUser().authorized);
 
@@ -143,7 +131,7 @@ define(
 						window.location = "/";
 				}
 
-				RootView.setView (new InboxView({channel: channel, type: type, streamid: streamid}));
+				Cloudwalkers.RootView.setView (new InboxView({channel: channel, type: type, streamid: streamid}));
 			},
 			
 			drafts : function ()
@@ -180,10 +168,10 @@ define(
 				this.validate(view, roles);
 			},
 			
-			calendar : function ()
+			/*calendar : function ()
 			{
-				RootView.setView (new CalendarView());
-			},
+				Cloudwalkers.RootView.setView (new CalendarView());
+			},*/
 			
 			/**
 			 * Timeline
@@ -245,7 +233,7 @@ define(
 				var channel = Session.getChannel ('news');
 				
 				var view = new ManageAccountsView ({channel: channel});
-				RootView.setView (view);
+				Cloudwalkers.RootView.setView (view);
 			},
 
 			/**
@@ -323,7 +311,7 @@ define(
 
 			firsttime : function ()
 			{	
-				RootView.setView (new FirsttimeView());
+				Cloudwalkers.RootView.setView (new FirsttimeView());
 			},
 			
 			/**
@@ -332,7 +320,7 @@ define(
 
 			coworkdashboard : function ()
 			{	
-				RootView.setView (new CoworkdashboardView());
+				Cloudwalkers.RootView.setView (new CoworkdashboardView());
 			},
 			/**
 			 * Manage User Groups
@@ -340,10 +328,10 @@ define(
 			
 			manageusergroups : function ()
 			{	
-				RootView.setView (new ManageUserGroupsView ());
+				Cloudwalkers.RootView.setView (new ManageUserGroupsView ());
 			},
 
-			/*'checkauth' : function(view)
+			/*checkauth : function(view)
 			{
 				if(!Session.getUser().authorized)
 					Cloudwalkers.RootView.resync(view);
@@ -351,11 +339,11 @@ define(
 					window.location = "/";
 			},*/	
 
-			resync : function(view)
+			/*resync : function(view)
 			{
 				this.navigate('#resync')
-				RootView.setView (new ResyncView({returnto: view}));
-			},
+				Cloudwalkers.RootView.setView (new ResyncView({returnto: view}));
+			},*/
 
 			home : function (changeaccount)
 			{	
@@ -373,8 +361,8 @@ define(
 					window.location = "/";
 				}
 				
-				RootView.view.remove();
-				RootView.navigation.remove();
+				Cloudwalkers.RootView.view.remove();
+				Cloudwalkers.RootView.navigation.remove();
 				Session.reset(changeaccount);
 				
 				return false;
@@ -382,16 +370,11 @@ define(
 
 			validate : function(view, roles)
 			{
-				//if (!Session.isAuthorized('MESSAGE_READ_DRAFTS'))  return Cloudwalkers.RootView.resync("#drafts");
-				//Cloudwalkers.RootView.setView (new DraftsView());
-
-				//if(!Session.isupdated())
-					//return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
-
 				if(Session.isAuthorized && Session.isAuthorized(roles))
-					RootView.setView(view)
-				else
-					this.home();
+					
+					Cloudwalkers.RootView.setView(view);
+					
+				else this.home();
 			},
 			
 			exception : function (errno)
@@ -407,16 +390,15 @@ define(
 				}
 			},
 
-			rssfeed : function()
+			/*rssfeed : function()
 			{
-				RootView.setView (new RSSFeedView());
-			},
+				Cloudwalkers.RootView.setView (new RSSFeedView());
+			},*/
 
-			managerss : function()
+			/*managerss : function()
 			{
-				console.log("Manage RSS")
-				RootView.setView (new ManageRSSView());
-			}
+				Cloudwalkers.RootView.setView (new ManageRSSView());
+			}*/
 
 		});
 	

@@ -1,6 +1,6 @@
 define(	// MIGRATION
-	['backbone'/*, 'Models/Me''Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
-	function (Backbone)
+	['backbone', 'Models/Me' /*, 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
+	function (Backbone, Me)
 	{
 		var Session = 
 		{
@@ -13,30 +13,14 @@ define(	// MIGRATION
 			
 			loadEssentialData : function (callback)
 			{	
-				// MIGRATION -> Lazier load
-				require(['Models/Me'], function (Me)
-				{
-					this.user = new Me();
-
-					//getLang and then callback
-					this.user.once("activated", function () { this.setLang(); }.bind(this));
-					this.listenTo(this,"translation:done",  callback );
-					
-					this.user.fetch({error: this.user.offline.bind(this.user)});
-
-				}.bind(this));
-
-				// MIGRATION -> old code
-				/*var Me = require ('Models/Me');
-				
 				this.user = new Me();
 				//this.getversion();
 
 				//getLang and then callback
 				this.user.once("activated", function () { this.setLang(); }.bind(this));
-				this.listenTo(this,"translation:done",  callback );
+				this.listenTo(this, "translation:done",  callback );
 				
-				this.user.fetch({error: this.user.offline.bind(this.user)});*/
+				this.user.fetch({error: this.user.offline.bind(this.user)});
 			},
 			
 			reset : function (changeaccount)

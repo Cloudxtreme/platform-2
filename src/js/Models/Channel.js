@@ -73,6 +73,11 @@ define(	// MIGRATION
 				return Backbone.sync(method, model, options);
 			},
 			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			/**
 			 *	Get Stream
 			 *	Get stream by id (int) or token (string)
@@ -84,19 +89,6 @@ define(	// MIGRATION
 				param[(typeof identifier == 'string')? "token": "id"] = identifier;
 				
 				return this.streams.findWhere(param);
-				
-				
-				/*if(typeof identifier == 'string')
-				{
-					var identifier = identifier;
-					var streams = this.get("streams").filter(function(stream){ return stream.token==identifier});
-					
-					if(!streams.length) return null;
-					
-					var id = streams.shift().id;
-				}
-				 
-				return Session.getStream((id)? id: identifier);*/
 
 			 },
 			 
@@ -106,36 +98,6 @@ define(	// MIGRATION
 				
 				if (contacts && contacts.length) this.contacts.add(contacts);	
 			}
-			
-			
-			
-			/*'post' : function(object, callback)
-			{
-				// Hack	
-				var callback = callback
-				
-				Session.getAccount().channels.create(object, {parent: this.id, wait: true, success: function(model)
-				{
-					// Double hack
-					if(callback) callback();
-					
-					// Hack
-					var channels = this.get("channels");
-					channels.push(model.attributes)
-					
-					this.set({channels: channels}).trigger("change:channels");
-					this.store();
-					
-					
-					
-				}.bind(this)});	
-			},
-			
-			'store' : function()
-			{
-				Store.set("channels", this.attributes);
-			}
-			 */
 		});
 
 		return Channel;

@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Account'],
-	function (Backbone, Session, Account)
+	['Collections/BaseCollection', 'Session', 'Models/Account'],
+	function (BaseCollection, Session, Account)
 	{
-		var Accounts = Backbone.Collection.extend({
+		var Accounts = BaseCollection.extend({
 
 			model : Account,
 

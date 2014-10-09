@@ -71,6 +71,11 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			seedusers : function (child)
 			{	
 

@@ -47,6 +47,11 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			filterData : function (type)
 			{
 				
@@ -79,15 +84,6 @@ define(
 
 				var role = roles.filter(function(el){ return el.id == userrole});
 				return role.length? role[0]: null;
-
-				/*if (this.get ('level') == 10)
-				{
-					return 'Administrator';
-				}
-				else
-				{
-					return 'Co-worker';
-				}*/
 			}
 		});
 		

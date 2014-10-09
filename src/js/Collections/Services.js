@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Service'],
-	function (Backbone, Session, Service)
+	['Collections/BaseCollection', 'backbone', 'Session', 'Models/Service'],
+	function (BaseCollection, Backbone, Session, Service)
 	{
-		var Services = Backbone.Collection.extend({
+		var Services = BaseCollection.extend({
 
 			model : Service,
 			endpoint : "",
@@ -15,7 +15,6 @@ define(
 			url : function()
 			{	
 				return Session.api + '/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
-				// return CONFIG_BASE_URL + 'json/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
 			},
 			
 			parse : function (response)

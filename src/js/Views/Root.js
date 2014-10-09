@@ -1,6 +1,6 @@
-define ( // MIGRATION -> removed resync
-	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Compose', 'Views/viewContact', 'Views/SimpleCompose'/*, 'Views/Resync'*/],
-	function (Backbone, Session, Router, NavigationView, ComposeView, ViewContactView, SimpleComposeView)
+define (
+	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
+	function (Backbone, Session, Router, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
 	{
 		var Root = Backbone.View.extend({
 
@@ -12,15 +12,12 @@ define ( // MIGRATION -> removed resync
 			{
 				var self = this;
 
-				// // this.bind ('view:change', this.render, this);
-
 				this.navigation = new NavigationView (this);
 				this.navigation.fit();
 
 				$(window).on("resize", this.resize.bind(this));
 				
 				this.resize();
-	
 			},
 
 			render : function ()
@@ -52,10 +49,13 @@ define ( // MIGRATION -> removed resync
 				Session.manage();
 			},
 			
-			viewshare : function ()
+			resize : function()
 			{
-				this.share.show();
+				// Trigger resize and catch height
+				var height = this.height(true);
+				this.trigger("resize", height);
 				
+				$("#inner-content").css("min-height", height-42 + "px");
 			},
 			
 			height : function (strict)
@@ -66,15 +66,6 @@ define ( // MIGRATION -> removed resync
 				return (strict)?
 					(document > view? document: view): view;
 			},
-			
-			resize : function()
-			{
-				// Trigger resize and catch height
-				var height = this.height(true);
-				this.trigger("resize", height);
-				
-				$("#inner-content").css("min-height", height-42 + "px");
-			},
 						
 			popup : function (view)
 			{
@@ -84,15 +75,9 @@ define ( // MIGRATION -> removed resync
 
 				modal.find ('.modalcontainer').html (view.render ().el);
 
-				view.on ('popup:close', function ()
-				{
-					modal.modal ('hide');
-				});
+				view.on ('popup:close', function () { modal.modal ('hide')});
 
-				view.on ('content:change', function ()
-				{
-					self.trigger ('content:change');
-				});
+				view.on ('content:change', function () { self.trigger ('content:change')});
 			},
 			
 			compose : function (options)
@@ -101,7 +86,7 @@ define ( // MIGRATION -> removed resync
 				if(options)		options.type = "post";
 				else			options = {type: "post"};
 				
-				var view = new ComposeView(options);
+				var view = new ComposeModal(options);
 				
 				view.render().$el.modal({backdrop: 'static'});
 
@@ -113,7 +98,7 @@ define ( // MIGRATION -> removed resync
 				if(!contact)	contact = 0;
 				var options = {contact : contact};
 
-				var view = new ViewContactView(options);
+				var view = new ContactModal (options);
 				view.render().$el.modal();
 			},
 
@@ -126,46 +111,11 @@ define ( // MIGRATION -> removed resync
 					'parent' : model //context -> message, contact, account
 				}
 
-				var view = new SimpleComposeView(options);
+				var view = new SimpleComposeModal(options);
 
 				view.render().$el.modal();
 
 				return view;
-			},
-
-			writeMessage : function (e)
-			{	
-				var options;
-
-				e.preventDefault ();
-
-				if(options)		options.type = "post";
-				else			options = {type: "post"};
-
-				options.redirect = false;
-				
-				var view = new ComposeView(options);
-
-				this.setView(view);
-			},
-
-			writeDialog : function (model, action)
-			{
-				var clone = true;
-				var parameters = action.parameters;
-
-				if (action.token == 'edit')
-				{
-					this.compose({'model' : model.clone(), 'clone' : false, 'redirect' : false});
-
-				}
-
-				else
-					//Switch between old and new module
-					{ 
-					this.compose({'model' : model.clone (), 'clone' : clone, 'actionparameters' : parameters, 'redirect' : false, 'type' : "post"});
-				}
-
 			},
 
 			confirm : function (message, callback, cancelcallback)
@@ -269,7 +219,7 @@ define ( // MIGRATION -> removed resync
 				$('a.image-popup-viewer').colorbox ();
 			},
 
-			resync : function(view)
+			/*resync : function(view)
 			{	
 				var returnto = view;
 
@@ -280,7 +230,7 @@ define ( // MIGRATION -> removed resync
 					this.setView(view);
 
 				}.bind(this));		
-			},
+			},*/
 
 			translateString : function(translatedata)
 			{	
@@ -288,48 +238,8 @@ define ( // MIGRATION -> removed resync
 				return Session.polyglot.t(translatedata);
 			}
 
-			// DEPRECATED
-			/*closeInformation : function (title, message, target)
-			{
-				$("div.alert.alert-info").remove();
-			},
-
-			oops : function(){
-				Router.Instance.navigate('#dashboard', true);
-				this.growl (this.translateString("oops"), this.translateString("something_went_sideways"));
-			},
-			
-			shareMessage : function (model)
-			{
-				this.compose({'model' : model.clone(), 'clone' : true, 'redirect' : false});
-			},
-
-			editMessage : function (model)
-			{
-				this.compose({'model' : model.clone(), 'redirect' : false});
-			},
-
-			popup_new : function (view)
-			{
-
-				// Parameters
-				var content = view.render().el;
-				
-				var params = {title: view.title, actions: view.actions};
-				
-				// View
-				var modal = $(Mustache.render (Templates.popup, params)).modal();
-				modal.find(".modal-body").html(content);
-				
-				// Actions
-				if (view.actions)
-					modal.find(".modal-footer [data-action]").on("click", function(popup, e){ this.trigger($(e.currentTarget).data("action"), popup)}.bind(view, modal));
-				
-				// Close listener
-				modal.on ("hide", function (){ this.remove(); }.bind(view));
-			},
-			*/
 		});
 		
 		return Root;
-	});
+	}
+);

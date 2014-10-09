@@ -10,6 +10,32 @@ define(
 			{
 				if(!this.get("actions"))	this.set("actions", [])
 			},
+			
+			parse : function(response)
+			{	
+				// A new object
+				if (typeof response == "number") response = {id: response};
+				
+				// Store incoming object
+				else this.stamp(response);
+
+				return response;
+			},
+			
+			sync : function (method, model, options)
+			{
+				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
+				
+				// Hack
+				if(method == "update") return false;
+				
+				return Backbone.sync(method, model, options);
+			},
+			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
 
 			getaction : function(type)
 			{

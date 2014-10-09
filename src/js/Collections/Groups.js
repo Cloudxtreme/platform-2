@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Group'],
-	function (Backbone, Session, Group)
+	['Collections/BaseCollection', 'backbone', 'Session', 'Models/Group'],
+	function (BaseCollection, Backbone, Session, Group)
 	{
-		var  Groups = Backbone.Collection.extend({
+		var  Groups = BaseCollection.extend({
 
 			model : Group,
 			typestring : "groups",
@@ -32,15 +32,9 @@ define(
 			{
 				var url = [CONFIG_BASE_URL + "json"];
 				
-				
-
 				if(this.modelstring == 'user'){
 					
 					url.push(this.parenttype + '/' + this.parentmodel.groupid);
-
-					/*this.endpoint = this.parentmodel.modelstring;
-					this.modelstring = this.parentmodel.modelstring;
-					url.push(this.typestring + '/' + this.parentmodel.groupid);*/
 
 				} else {
 					url.push(this.parenttype + '/' + Session.getAccount().id);

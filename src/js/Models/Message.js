@@ -21,9 +21,6 @@ define(
 			{	
 				// MIGRATION -> was looping with notifications/notification	
 				var Notifications = require('Collections/Notifications');
-
-				// Deprecated?
-				//this.on ('change', this.afterChange);
 				
 				// Ping
 				//this.on('outdated', this.fetch);
@@ -82,13 +79,19 @@ define(
 				return response;
 			},
 			
+			stamp : function(params)
+			{
+				if (!params) params = {id: this.id};
+				
+				params.stamp = Math.round(new Date().getTime() *0.001)
+				
+				Store.set(this.typestring, params);
+				
+				return this;
+			},
+			
 			sync : function (method, model, options)
 			{
-				options.headers = {
-		            'Authorization': 'Bearer ' + Session.authenticationtoken,
-		            'Accept': "application/json"
-		        };
-				
 				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 				
 				// Hack
@@ -97,6 +100,11 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			updatecollection : function(collection)
 			{
 				collection.updated = true;
@@ -203,12 +211,7 @@ define(
 				//Hardcoded smallest limit. Get it dinamically
 				var smallestlimit = 140;
 				var result = 1;
-				var variation;
-											
-				/*if(this.get("body").plaintext){
-					if(smallestlimit - this.get("body").plaintext.length < 0)
-						return false;
-				}*/			
+				var variation;	
 				
 				// Variations
 				if(this.get("streams") && this.get("streams").length){
@@ -430,18 +433,7 @@ define(
 				attachments.splice(index, 1);
 			},
 			
-			addcampaign : function ()
-			{
-				
-				
-				
-				//Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
-			},
-			
-			/*'getOriginal' : function ()
-			{
-				
-			},*/
+			addcampaign : function () {},
 			
 			/*Variation functions*/
 
@@ -586,148 +578,10 @@ define(
 
 			},
 
-			// Temporary implementation
-			/*'removevarimg' : function(streamid, image){
-				//If image is an object it means it's meant to exclude
-
-				var variation = this.getvariation(streamid)
-				var attachments = variation? variation.attachments : [];
-
-				if(_.isNumber(image)){	// It's a default iamge
-					
-					this.addexclude(streamid, image)			
-				}else{			console.log(image)		// It's a variation image
-					for (var n in attachments){
-						if(attachments[n].type == 'image' && attachments[n].name == image) 
-							attachments.splice(n,1);
-					}
-				}
-			},
-
-			'addexclude' : function(streamid, index){
-			
-				var variation = this.getvariation(streamid) || this.setvariation(streamid);
-				var excludes = variation.excludes;
-
-				if(variation.excludes)
-					variation.excludes.push(index);
-				else
-					variation.excludes = [index];
-			},
-
-			'checkexclude' : function(streamid, index){
-
-				var variation = this.getvariation(streamid);
-				var excludes;
-
-				if(!variation)	return false;
-				else			excludes = variation.excludes;
-
-				if(excludes){
-					
-					for (var n in excludes){
-						if(excludes[n] == index)
-							return true;
-					}
-				}
-
-				//There are no excludes
-				return false;
-
-			},*/
-					
-
-			/* End variation functions */
-			
-			/*'filterData' : function (type, data)
-			{	
-			
-				// Handle loading messages
-				if(!this.get("objectType")) return this.attributes;
-				
-				var trending = data.trending;
-				var data = {iconview: data.iconview};
-
-				$.extend(data, this.attributes, {iconview: false}); 
-
-				// Stream		
-				var stream = Session.getStream(this.get("stream"));
-				
-				if(stream)
-				{
-					data.icon = stream.get("network").icon;
-					data.networktoken = stream.get("network").token;
-					data.networkdescription = stream.get("name");
-					data.url = this.link? this.link: "#" + type + "/" + stream.get("channels")[0];
-					
-				} else data.url = this.link;
-
-				
-				// Attachments and media
-				if(this.get("attachments"))
-				{
-					var attachments = this.get("attachments");
-					
-					// Media
-					data.media = attachments[attachments.length -1];
-					data.media = (data.media.type == "image")? "picture" : data.media.type;
-					
-					// Attachments
-					data.attached = {};
-					$.each(attachments, function(n, object){ data.attached[object.type] = object });
-				
-				} else data.media = "reorder";
-				
-				// Type dependancies	
-				if(type == "full")
-				{
-					data.url = null;
-					
-					// Date
-					if(data.date)
-					{
-						data.fulldate = moment(data.date).format("DD MMM YYYY HH:mm");
-						data.dateonly = moment(data.date).format("DD MMM YYYY");
-						data.time = moment(data.date).format("HH:mm");
-					}
-					
-					// Actions
-					if(!this.actions)
-						this.actions = new Actions(false, {parent: this});
-					
-					data.actions = this.actions.rendertokens();
-				}
-				
-				// Add trending parameter
-				if(trending)
-				{
-					data.istrending = true;
-					data.trending = (this.get("engagement") < 1000)? this.get("engagement"): "+999";
-					data.iconview = true;
-					data.time = this.get("engagement");
-				}
-				
-				// Add limited text
-				data.body.intro = data.body.plaintext? data.body.plaintext.substr(0, 72): "...";
-
-				return data;
-			},*/
-
 			location : function ()
 			{
 				return "#";
 			},
-			
-			// DEPRECATED
-			/*afterChange : function ()
-			{
-				this.addInternalActions ();
-
-				if (this.get ('parent'))
-				{
-					this.get ('parentmodel').set (this.get ('parent'));
-				}
-			},*/
 
 			getActionIcon : function (action)
 			{
@@ -799,96 +653,6 @@ define(
 				return action.token;
 			},
 
-			/*
-			addInternalActions : function ()
-			{
-				var self = this;
-
-				// Check if we already have internals
-				if (typeof (this.attributes.actions) != 'undefined')
-				{
-					for (var i = 0; i < this.attributes.actions.length; i ++)
-					{
-						if (this.attributes.actions[i].token.substr (0, 9) == 'internal-')
-						{
-							return;
-						}
-					}
-				}
-				else
-				{
-					this.attributes.actions = [];	
-				}
-
-				// Add "share" button
-				if (this.attributes.type == 'INCOMING')
-				{
-					this.attributes.actions.push ({
-						'name' : 'Share',
-						'parameters' : [],
-						'token' : 'internal-share',
-						'callback' : function (message)
-						{
-							RootView.shareMessage (message);
-						}
-					});
-				}
-				else if (this.attributes.type == 'OUTGOING')
-				{
-					this.attributes.actions.push ({
-						'name' : 'Edit',
-						'parameters' : [],
-						'token' : 'internal-edit',
-						'callback' : function (message)
-						{
-							RootView.editMessage (self);
-						}
-					});
-
-					this.attributes.actions.push ({
-						'name' : 'Delete',
-						'parameters' : [],
-						'token' : 'internal-delete',
-						'callback' : function (message)
-						{
-							self.deleteMessage ();
-						}
-					});
-				}
-
-				// see if we have a parent we can reply to
-				var parent = this.get ('parentmodel');
-				if (typeof (parent) != 'undefined' && parent)
-				{
-					var parentactions = parent.get ('actions');
-
-					if (parentactions)
-					{
-						for (var j = 0; j < parentactions.length; j ++)	
-						{
-							if (parentactions[j].token == 'comment')
-							{
-								this.attributes.actions.push ({
-									'name' : 'Reply',
-									'token' : 'internal-reply',
-									'target' : parent,
-									'originalaction' : parentactions[j]
-								});
-							}
-						}
-					}
-				}
-
-				// Add action icons
-				if (typeof (this.attributes.actions) != 'undefined')
-				{
-					for (var k = 0; k < this.attributes.actions.length; k ++)
-					{
-						this.attributes.actions[k].icon = this.getActionIcon (this.attributes.actions[k]);
-					}
-				}
-			},
-			*/
 
 			deleteMessage : function ()
 			{	
@@ -1029,12 +793,6 @@ define(
 						if (objData.removed)
 						{
 							// Remove the message
-		                    /*
-		                    if (self.collection)
-		                    {
-							    self.collection.remove (self);
-		                    }
-		                    */
 		                    self.trigger ("destroy", self, self.collection);
 		                    self.trigger ("destroyed", self, self.collection);
 						}
@@ -1319,10 +1077,6 @@ define(
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			}
-
-			/*'hascontent' : function(){
-				return Object.getOwnPropertyNames(this.get("body")).length > 0;
-			}*/
 		});
 		
 		return Message;

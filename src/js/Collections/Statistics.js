@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Statistic', 'Models/Stream'],
-	function (Backbone, Session, Statistic, Stream)
+	['Collections/BaseCollection', 'Session', 'Models/Statistic', 'Models/Stream'],
+	function (BaseCollection, Session, Statistic, Stream)
 	{
-		var Statistics = Backbone.Collection.extend({
+		var Statistics = BaseCollection.extend({
 	
 			model : Statistic,
 			typestring : "statistics",

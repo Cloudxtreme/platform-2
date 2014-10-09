@@ -75,14 +75,6 @@ define(	// MIGRATION -> added mustache
 					this.development = true;
 					$('#header').html (this.renderHeader().header);
 				}
-				
-				// Check for version.
-				/*if(!Session.get("version"))
-					Session.updateSetting("version", response.platform.version)
-						
-				else if(Session.get("version") != response.platform.version)
-					Session.home();*/
-				
 			},
 			
 			renderHeader : function ()
@@ -337,47 +329,6 @@ define(	// MIGRATION -> added mustache
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}
-
-
-			// Add unread count logic for inbox icon
-			/*
-				// New messages
-				Session.getUser ().on ('change:unread', function (newnumber)
-				{
-					setUnreadCount (newnumber);
-				});
-				
-				---------
-				
-				function setUnreadCount (newnumber)
-				{
-					if (newnumber > 0)
-					{
-						$('.unread-messages-count').html (newnumber).show ();
-					}
-					else
-					{
-						$('.unread-messages-count').html (0).hide ();	
-					}
-				}
-				
-				----------
-				
-				// Load the notifications
-				if (Session.getAccount ())
-				{
-					Cloudwalkers.Net.get
-					(
-						'account/' + Session.getAccount ().id + '/notifications',
-						false,
-						function (data)
-						{
-							self.setNotifications (data.notifications);
-						}
-					);
-				}
-				
-			*/
 		});
 
 		return Navigation;

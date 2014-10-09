@@ -47,6 +47,11 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			updateStreams : function (active, profile)
 			{	
 				// Save the channels before the call

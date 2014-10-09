@@ -118,6 +118,11 @@ define(
 
 			},
 			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			},
+			
 			monitorlimit : function(type, current, target)
 			{
 				if(current >= this.limits[type])
@@ -185,73 +190,6 @@ define(
 				// Translate String
 				return Session.polyglot.t(translatedata);
 			}
-			
-			/*'monitorlimit' : function(type, current, target)
-			{
-				if(current >= this.limits[type])
-				{
-					setTimeout(function(type, target)
-					{
-						$('.alert-info').remove();
-						
-						RootView.information ("Upgrade?", "You're fresh out of " + type.slice(0, -1) + " slots, maybe you should upgrade.");
-					
-						if(target)
-						{
-							if(typeof target == "string") target = $(target);
-							target.addClass("limited").attr("disabled", true);
-						}
-			
-					}, 50, type, target);
-							
-					return true;
-				}
-				
-				return false;
-			}*/
-			/*,
-			
-			'avatar' : function ()
-			{
-				return this.get ('avatar');
-			},
-
-			'getChannels' : function ()
-			{
-				return this.channels.models;
-			},
-
-			'getChannel' : function (id)
-			{
-				var channel = this._findChannelRecursive (this.getChannels (), id);
-				return channel;
-			},
-
-			'getChannelFromType' : function (type)
-			{
-				return Session.getAccount().channels.findWhere({type: type});
-			},
-
-			'_findChannelRecursive' : function (channels, id)
-			{
-				for (var i = 0; i < channels.length; i ++)
-				{
-					if (channels[i].id == id)
-					{
-						return channels[i];
-					}
-					else if (channels[i].channels.length > 0)
-					{
-						var tmp = this._findChannelRecursive (channels[i].channels, id);
-		                if (tmp != null)
-		                {
-		                    return tmp;
-		                }
-					}
-				}
-
-				return null;
-			}*/
 
 		});
 

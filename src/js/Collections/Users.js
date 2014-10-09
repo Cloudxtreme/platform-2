@@ -1,19 +1,17 @@
 define(
-	['backbone', 'Session', 'Models/User'],
-	function (Backbone, Session, User)
+	['Collections/BaseCollection', 'backbone', 'Session', 'Models/User'],
+	function (BaseCollection, Backbone, Session, User)
 	{
-		var Users = Backbone.Collection.extend({
+		var Users = BaseCollection.extend({
 
 			model : User,
 			typestring : "users",
 			modelstring : "user",
 			parenttype : "account",
 			processing : false,
-
 			
 			initialize : function(options)
 			{
-				
 				// Override type strings if required
 				if(options) $.extend(this, options);
 				
@@ -43,7 +41,6 @@ define(
 			url : function()
 			{
 				return Session.api + '/account/' + Session.getAccount ().id + '/' + this.typestring + this.parameters;
-				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/' + this.typestring + this.parameters;
 			},
 			
 			sync : function (method, model, options)
@@ -55,39 +52,10 @@ define(
 					
 		            //Overrrding default params with fetch specif params
 		            if(options.parameters)    this.parameters = "?" + $.param(options.parameters);
-
 				}
 
 				return Backbone.sync(method, model, options);
 			},
-			
-			/*'parse' : function (response)
-			{
-				this.parameters = "";
-				this.processing = false;
-				
-				return response[this.typestring]?
-				
-					response[this.typestring]: response.account[this.typestring];
-			},*/
-			
-			/*'distantAdd' : function(model)
-			{
-				if(!this.get(model.id)) this.add(model);	
-			},*/
-			
-			/*'sync' : function (method, model, options) {
-				
-				// Store Local
-				if( method == "read")
-					Store.get(this.url(), null, function(data)
-					{
-						if(data) this.add(data);
-
-					}.bind(this));
-				
-				return Backbone.sync(method, model, options);
-			},*/
 			
 			updates : function (ids)
 			{
@@ -115,18 +83,6 @@ define(
 				// Update model
 				var model = this.updates([id]);
 			},
-			
-			/*'touchresponse' : function(url, collection, response)
-			{
-				// Get ids
-				var ids = response.account[this.typestring];
-				
-				// Store results based on url
-				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Session.getPing().cursor});
-			
-				// Seed ids to collection
-				this.seed(ids);
-			},*/
 			
 			hook : function(callbacks)
 			{

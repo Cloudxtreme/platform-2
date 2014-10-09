@@ -1,16 +1,11 @@
 define(
-	['backbone', 'Session', 'Models/Trigger'],
-	function (Backbone, Session, Trigger)
+	['Collections/BaseCollection', 'Session', 'Models/Trigger'],
+	function (BaseCollection, Session, Trigger)
 	{
-		var Triggers = Backbone.Collection.extend({
+		var Triggers = BaseCollection.extend({
 
 			model : Trigger,
 			typestring : "triggers",
-			
-			initialize : function()
-			{
-				
-			},
 
 			parse : function (response)
 			{	
@@ -18,8 +13,7 @@ define(
 			},
 			
 			url : function()
-			{
-				
+			{	
 				var url = [Session.api];
 				
 				if(this.parent)				url.push(this.parent.typestring, this.parent.id, this.typestring);

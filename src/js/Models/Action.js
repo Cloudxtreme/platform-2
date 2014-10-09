@@ -20,15 +20,13 @@ define(
 				var url = [Session.api];
 				
 				if(this.parent)				url.push(this.parent.typestring, this.parent.id);
-				if(this.typestring)			url.push(this.typestring);		
-				//if(this.id)					url.push(this.id);
+				if(this.typestring)			url.push(this.typestring);
 				if(this.get("actiontype"))	url.push(this.get("actiontype"));
 
 				url = url.join("/");
 
 				return this.parameters? url + "?" + $.param(this.parameters) : url;
 			},
-			
 			
 			parse : function(data)
 			{	
@@ -40,16 +38,22 @@ define(
 					data = data.message
 				
 				return data;
-			}
+			},
 			
-			/*'url' : function ()
-			{	
-				// Parent and parameters
-				var param = this.parameters? "?" + $.param (this.parameters): "";
-				var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
+			 sync : function (method, model, options)
+			{
+				this.endpoint = (options.endpoint)? "/" + options.endpoint: false;
 				
-				return CONFIG_BASE_URL + 'json/' + parent + '/actions/' + this.get("token") + param;
-			}*/
+				// Hack
+				if(method == "update") return false;
+				
+				return Backbone.sync(method, model, options);
+			},
+			
+			loaded : function(param)
+			{
+				return this.get(param? param: "objectType") !== undefined;
+			}
 		});
 
 		return Action;

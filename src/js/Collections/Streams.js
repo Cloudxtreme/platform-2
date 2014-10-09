@@ -1,15 +1,14 @@
 
 define(
-	['backbone', 'Session', 'Models/Stream'],
-	function (Backbone, Session, Stream)
+	['Collections/BaseCollection', 'Session', 'Models/Stream'],
+	function (BaseCollection, Session, Stream)
 	{
-		var Streams = Backbone.Collection.extend({
+		var Streams = BaseCollection.extend({
 			
 			model : Stream,
 			
 			initialize : function()
 			{
-				
 				if( Session.user.account)
 					Session.getStreams().listenTo(this, "add", Session.getStreams().distantAdd)
 			},
@@ -19,7 +18,6 @@ define(
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				
 				return Session.api + '/account/' + Session.getAccount ().id + '/streams' + param;
-				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/streams' + param;
 			},
 			
 			parse : function (response)
@@ -27,24 +25,6 @@ define(
 				this.parameters = false;
 				
 				return response.streams;
-			},
-			
-			sync : function (method, model, options) 
-			{	
-				/*// Store Local - deprecated
-				if( method == "read")
-					Store.get(this.url(), null, function(data)
-					{
-						if(data) this.add(data);
-
-					}.bind(this));*/
-				
-				return Backbone.sync(method, model, options);
-			},
-			
-			distantAdd : function(model)
-			{	
-				if(!this.get(model.id)) this.add(model);	
 			},
 			
 			updates : function (ids)
@@ -107,31 +87,6 @@ define(
 				console.log(this);
 			},
 			
-			/*'seed' : function(ids)
-			{
-				// Ignore empty id lists
-				if(!ids || !ids.length) return [];
-				
-				var fresh = _.compact( ids.map(function(id)
-				{
-					stream = Session.getStream(id);
-					
-					this.add(stream? stream: {id: id});
-					
-					if(!stream || stream.outdated) return id;
-				
-				}, this));
-				
-				// Get list based on ids
-				if(fresh.length)
-				{
-					this.parameters = {ids: fresh.join(",")};
-					this.fetch();
-				}
-
-				return this;
-			},*/
-			
 			filterNetworks : function (streams, asArray)
 			{
 				if(!streams) streams = this.models;
@@ -168,15 +123,6 @@ define(
 						
 				return reportables;
 			}
-				
-			/*
-			// Sort stream on priority
-			streams.sort (function (a, b)
-			{
-				return a.priority < b.priority;
-			});
-			*/
-
 		});
 
 		return Streams;

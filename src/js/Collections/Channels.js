@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Channel'],
-	function (Backbone, Session, Channel)
+	['Collections/BaseCollection', 'Session', 'Models/Channel'],
+	function (BaseCollection, Session, Channel)
 	{
-		var Channels = Backbone.Collection.extend({
+		var Channels = BaseCollection.extend({
 
 			model : Channel,
 	
@@ -100,40 +100,6 @@ define(
 				// Update model
 				var model = this.updates([id]);
 			}
-			
-			/*'seed' : function(ids)
-			{
-				var list = [];
-				
-				var fresh = _.compact( ids.map(function(id)
-				{
-					channel = Session.getChannels().add({id: id});
-					
-					list.push(channel);
-					
-					if(!channel.get("name") || channel.outdated) return id;
-				
-				}, this));
-				
-				// Get list based on ids
-				if(fresh.length)
-				{
-					this.parameters = {ids: fresh.join(",")};
-					this.fetch();
-				}
-
-				return list;
-			},*/
-			
-			/*// Add channels child streams to collection
-			// used for first load only
-			'collectStreams' : function ()
-			{
-				this.each(function(channel)
-				{
-					Session.getStreams().add(channel.streams);
-				});
-			}*/
 		});
 
 		return Channels;

@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Action', 'Views/Root'],
-	function (Backbone, Session, Action, RootView)
+	['Collections/BaseCollection', 'Session', 'Models/Action', 'Views/Root'],
+	function (BaseCollection, Session, Action, RootView)
 	{
-		var Actions = Backbone.Collection.extend({
+		var Actions = BaseCollection.extend({
 	
 			model : Action,
 			typestring : "actions",

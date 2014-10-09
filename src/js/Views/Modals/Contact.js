@@ -2,7 +2,7 @@ define(
 	['backbone', 'Session'],
 	function (Backbone, Session)
 	{
-		var ContactView = Backbone.View.extend({
+		var Contact = Backbone.View.extend({
 	
 			tagName : 'li',
 			template : 'contactentry',
@@ -64,5 +64,5 @@ define(
 
 		});
 
-		return ContactView;
+		return Contact;
 });

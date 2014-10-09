@@ -36,7 +36,8 @@ require.config({
 			deps: ['backgrid', 'pageable'],
 			exports: 'Paginator'
 		}
-	}
+	},
+	urlArgs: "bust=" +  (new Date()).getTime()
 });
 
 // Set up global Cloudwalkers	

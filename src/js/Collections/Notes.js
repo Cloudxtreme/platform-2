@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Note'],
-	function (Backbone, Session, Note)
+	['Collections/BaseCollection', 'Session', 'Models/Note'],
+	function (BaseCollection, Session, Note)
 	{
-		var Notes = Backbone.Collection.extend({
+		var Notes = BaseCollection.extend({
 	
 			model : Note,
 			typestring : "notes",

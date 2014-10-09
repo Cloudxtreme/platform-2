@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Campaign'],
-	function (Backbone, Session, Campaign)
+	['Collections/BaseCollection', 'Session', 'Models/Campaign'],
+	function (BaseCollection, Session, Campaign)
 	{
-		var Campaigns = Backbone.Collection.extend({
+		var Campaigns = BaseCollection.extend({
 
 			model : Campaign,
 			

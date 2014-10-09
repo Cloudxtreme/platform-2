@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/CannedResponse'],
-	function (Backbone, Session, CannedResponse)
+	['Collections/BaseCollection', 'Session', 'Models/CannedResponse'],
+	function (BaseCollection, Session, CannedResponse)
 	{	
-		var CannedResponses = Backbone.Collection.extend({
+		var CannedResponses = BaseCollection.extend({
 
 			model : CannedResponse,
 			touched : false,
@@ -20,16 +20,6 @@ define(
 				var url = Session.api + '/streams/' + Session.getAccount ().id + ':canned/messages';
 				//var url = CONFIG_BASE_URL + 'json/streams/' + Session.getAccount ().id + ':canned/messages';
 				return this.parameters? url + "?" + $.param (this.parameters): url;
-			},
-			
-			sync : function (method, model, options)
-			{
-				this.parameters = options.parameters;
-
-				// Hack
-				if(method == "update") return false;
-				
-				return Backbone.sync(method, model, options);
 			},
 			
 			parse : function (response)

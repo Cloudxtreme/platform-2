@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Message'],
-	function (Backbone, Session, Message)
+	['Collections/BaseCollection', 'Session', 'Models/Message'],
+	function (BaseCollection, Session, Message)
 	{
-		var Messages = Backbone.Collection.extend({
+		var Messages = BaseCollection.extend({
 
 			model : Message,
 			typestring : "messages",
