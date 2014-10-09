@@ -1,37 +1,5 @@
 Cloudwalkers.Views.Widgets.CompoundChart = Backbone.View.extend({
 
-	/*'streamid': 216,
-	'reports' : {
-		'facebook' : ['fans', 'posts', 'activity', 'impressions', 'notifications'],
-		'twitter' : ['followers', 'following', 'posts', 'mentions', 'retweets'],
-		'youtube' : ['fans', 'posts']
-	},
-	//Info rendering stuff
-	'funcs' : {
-		'fans' : {data : {title: "Fans Evolution", filterfunc: "contact-evolution-network"}, span: 3},
-		'posts' : {data : {title: "Posts Evolution", filterfunc: "post-activity-network"}, span: 3},
-		'activity' : {data : {title: "Activity Evolution", filterfunc: "activity-network"}, span: 3},
-		'impressions' : {data : {title: "Impressions evolution", filterfunc: "page-views-network"}, span: 3},
-		'notifications' : {data : {title: "Notifications evolution", filterfunc: "notifications"}, span: 3},
-		'followers' : {data : {title: "Followers evolution", filterfunc: "followers"}, span: 3},
-		'following' : {data : {title: "Following evolution", filterfunc: "following"}, span: 3},
-		'mentions' : {data : {title: "mentions evolution", filterfunc: "mentions"}, span: 3},
-		'retweets' : {data : {title: "Retweet evolution", filterfunc: "retweets"}, span: 3}
-	},
-	//Chart rendering stuff
-	'charts' : [ //Change network to dynamic <-
-		{data : {chart: 'LineChart', filterfunc: "evolution", network: true}, span: 6},
-		{data : {chart: 'LineChart', filterfunc: "evolution"}, span: 6}
-	],
-
-	'titles' : {
-		'contacts' : 'Contact evolution',
-		'messages' : 'Message evolution',
-		'activities' : 'Activity evolution',
-		'impressions' : 'Impression evolution',
-		'notifications' : 'Notification evolution'
-	},*/
-
 	'templatemap' : {
 		'2col1row' : ['#col1', '#col2', '#row1'],
 		'2row' : ['#row1', '#row2']
@@ -69,6 +37,9 @@ Cloudwalkers.Views.Widgets.CompoundChart = Backbone.View.extend({
 			chart.data.parentview = this.parentview;
 
 			var view = new Cloudwalkers.Views.Widgets[chart.widget](chart.data).render().el;
+
+			this.parentview.views.push (view);
+
 			this.$el.find(this.templatemap[this.template][index]).append(view);
 			
 		}.bind(this));
