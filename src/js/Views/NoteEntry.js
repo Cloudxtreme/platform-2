@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Views/Entry'],
-	function (Backbone, Session, RootView, EntryView)
+	['backbone',  'Views/Root', 'Views/Entry'],
+	function (Backbone, RootView, EntryView)
 	{
 		var NoteEntry = EntryView.extend({
 
@@ -59,7 +59,7 @@ define(
 				}
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(this.parameters);
+				Cloudwalkers.Session.censuretemplate(this.parameters);
 
 				// Visualize
 				for (var n in this.parameters.actions)

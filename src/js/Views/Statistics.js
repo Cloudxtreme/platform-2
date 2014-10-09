@@ -9,8 +9,8 @@
  */
 
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Router', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
-	function (Pageview, Mustache, Session, Router, Statistics, EmptyStatisticsWidget)
+	['Views/Pageview', 'mustache',  'Router', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
+	function (Pageview, Mustache, Router, Statistics, EmptyStatisticsWidget)
 	{
 		var StatisticsView = Pageview.extend({
 			
@@ -104,7 +104,7 @@ define(
 				var params = this.timemanager();
 				
 				// Select streams
-				params.streams = Session.getStreams().where ({statistics: 1}).map (function (stream)
+				params.streams = Cloudwalkers.Session.getStreams().where ({statistics: 1}).map (function (stream)
 				{
 					stream.attributes.selected = (stream.id == this.streamid);
 					return stream.attributes;
@@ -229,7 +229,7 @@ define(
 				
 				// BIG NO-NO
 				// Language Hack (invert word order)
-				if(Session.user.attributes.locale == "pt_PT"){
+				if(Cloudwalkers.Session.user.attributes.locale == "pt_PT"){
 					params.fullperiod = this.translateString(params.span) + " " + this.translateString(params.periodstring);
 				} else {
 					params.fullperiod = this.translateString(params.periodstring) + " " + this.translateString(params.span);
@@ -314,7 +314,7 @@ define(
 				var streamid = Number(this.$el.find("select.networks").val());
 
 				if(!streamid)
-					streamid = Session.getStreams().where ({statistics: 1})[0].id;
+					streamid = Cloudwalkers.Session.getStreams().where ({statistics: 1})[0].id;
 
 				Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
 			},
@@ -392,7 +392,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateWidgets : function(translatedata)
@@ -401,7 +401,7 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
 					}
 			},
 

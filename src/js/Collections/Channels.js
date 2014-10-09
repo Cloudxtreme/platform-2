@@ -1,17 +1,21 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Channel'],
-	function (BaseCollection, Session, Channel)
+	['Collections/BaseCollection',  'Models/Channel'],
+	function (BaseCollection, Channel)
 	{
 		var Channels = BaseCollection.extend({
 
-			model : Channel,
+			// MIGRATION
+			///model : Channel,
 	
 			initialize : function()
 			{					
+				// MIGRATION
+				if (!Channel)	Channel = require('Channel');
+
 				// Global collection gets created before session build-up
-				if( Session.user.account)
+				if( Cloudwalkers.Session.user.account)
 				{
-					Session.getChannels().listenTo(this, "add", Session.getChannels().distantAdd);
+					Cloudwalkers.Session.getChannels().listenTo(this, "add", Cloudwalkers.Session.getChannels().distantAdd);
 					
 					// Listeners
 					this.on("destroy", this.cleanModel);
@@ -22,8 +26,8 @@ define(
 			{
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				
-				return Session.api + '/account/' + Session.getAccount ().id + '/channels' + param;
-				// return CONFIG_BASE_URL + 'json/account/' + Session.getAccount ().id + '/channels' + param;
+				return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/channels' + param;
+				// return CONFIG_BASE_URL + 'json/account/' + Cloudwalkers.Session.getAccount ().id + '/channels' + param;
 			},
 			
 			parse : function(response)
@@ -46,7 +50,7 @@ define(
 				var list = [];
 				var fresh = _.compact( ids.map(function(id)
 				{
-					channel = Session.getChannel(id);
+					channel = Cloudwalkers.Session.getChannel(id);
 					
 					this.add(channel? channel: {id: id});
 					
@@ -69,7 +73,7 @@ define(
 			cleanModel : function(model)
 			{
 				if( model.get("parent"))
-					Session.getChannel(model.get("parent")).set({channels: this.pluck("id")});
+					Cloudwalkers.Session.getChannel(model.get("parent")).set({channels: this.pluck("id")});
 
 				Store.remove("channels", {id: model.id});
 			},

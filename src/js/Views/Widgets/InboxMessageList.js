@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Session', 'Views/Root', 'Views/Entry', 'Views/Widgets/InboxMessage', 'Views/Widgets/LoadMore'],
-	function (Widget, Session, RootView, EntryView, InboxMessageWidget, LoadMoreWidget)
+	['Views/Widgets/Widget',  'Views/Root', 'Views/Entry', 'Views/Widgets/InboxMessage', 'Views/Widgets/LoadMore'],
+	function (Widget, RootView, EntryView, InboxMessageWidget, LoadMoreWidget)
 	{
 		var InboxMessageList = Widget.extend({
 
@@ -318,7 +318,7 @@ define(
 				// Add or remove contact
 				if(button.data("contact"))
 				{
-					var contact = Session.getContact(button.data("contact"));
+					var contact = Cloudwalkers.Session.getContact(button.data("contact"));
 					
 					if(this.filters.contacts.list.indexOf(contact.id) < 0)
 					{
@@ -470,7 +470,7 @@ define(
 			{
 				
 				// Memory cloth
-				var settings = Session.viewsettings(this.collectionstring);
+				var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
 				
 				if(!settings)	return;
 				if(!settings.streams) settings.streams = [];
@@ -479,7 +479,7 @@ define(
 				if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 				{
 					settings.streams = this.filters.streams;
-					Session.viewsettings(this.collectionstring, settings);
+					Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
 				}
 			},
 			
@@ -496,7 +496,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},
@@ -525,7 +525,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

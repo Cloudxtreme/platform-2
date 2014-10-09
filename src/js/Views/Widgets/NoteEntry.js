@@ -1,6 +1,6 @@
 define(
-	['Views/Entry', 'Session', 'Views/SimpleCompose'],
-	function (Entry, Session, SimpleComposeView)
+	['Views/Entry',  'Views/Modals/SimpleCompose'],
+	function (Entry, SimpleComposeView)
 	{
 		var NoteEntry = Entry.extend({
 	
@@ -26,7 +26,7 @@ define(
 			render : function ()
 			{	
 				// Apply role permissions to template data
-				Session.censuretemplate(this.model.attributes);
+				Cloudwalkers.Session.censuretemplate(this.model.attributes);
 				
 				this.model.attributes.date = moment(this.model.attributes.date).format("DD MMM YYYY");
 				this.$el.html (Mustache.render (Templates[this.template], this.model.attributes));

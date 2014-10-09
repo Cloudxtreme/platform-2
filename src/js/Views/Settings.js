@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile', 'Views/Settings'],
-	function (Pageview, Mustache, Session, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings, SettingsView)
+	['Views/Pageview', 'mustache',  'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile', 'Views/Settings'],
+	function (Pageview, Mustache, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings, SettingsView)
 	{
 		var Settings = Pageview.extend({
 
@@ -10,7 +10,7 @@ define(
 			'initialize' : function ()
 			{
 				this.endpoint = this.options.endpoint;
-				this.level = Session.user.level;
+				this.level = Cloudwalkers.Session.user.level;
 			},
 			
 			setAction : function (action)
@@ -30,19 +30,19 @@ define(
 				this.mustacheTranslateRender(data);
 
 				// Build tabs				
-				if (Session.isAuthorized('USER_INVITE'))			
+				if (Cloudwalkers.Session.isAuthorized('USER_INVITE'))			
 					this.tabs.push({url: '#settings/users', name: data.translate_manage_users});
 
-				if (Session.isAuthorized('SERVICE_CONNECT'))
+				if (Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT'))
 					this.tabs.push({url: '#settings/services', name: data.translate_social_connections});
 				
-				if (Session.isAuthorized('CAMPAIGN_DELETE'))
+				if (Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE'))
 					this.tabs.push({url: '#settings/account', name: data.translate_account_settings});
 				
 				this.tabs.push ({url: '#settings/profile', name: data.translate_profile_settings});
 
 				// Manage User Groups Roles
-				/*if ((Session.isAuthorized('GROUP_MANAGE')) || (Session.isAuthorized('USER_GRANT')))
+				/*if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))
 					this.tabs.push ({url: '#settings/manageusergroups', name: data.translate_manage_user_groups});*/
 				
 				// Translation for Title
@@ -86,13 +86,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Campaign'],
-	function (BaseCollection, Session, Campaign)
+	['Collections/BaseCollection',  'Models/Campaign'],
+	function (BaseCollection, Campaign)
 	{
 		var Campaigns = BaseCollection.extend({
 
@@ -13,7 +13,7 @@ define(
 			
 			url : function()
 			{
-				return Session.api + '/account/' + Session.getAccount ().id + '/campaigns'; 
+				return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/campaigns'; 
 			},
 			
 			parse : function (response)

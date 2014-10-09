@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Root'],
-	function (Backbone, Session, RootView)
+	['backbone',  'Views/Root'],
+	function (Backbone, RootView)
 	{
 		var CannedResponse = Backbone.Model.extend({
 
@@ -8,15 +8,15 @@ define(
 
 			initialize : function ()
 			{					
-				this.streams = Session.getStreams('canned');
+				this.streams = Cloudwalkers.Session.getStreams('canned');
 			},
 
 			url : function()
 			{	
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 				
 				if(this.id)			url.push(this.typestring + '/' + this.id)
-				else if(!this.id)	url.push('accounts/' + Session.getAccount ().id + '/' + this.typestring)
+				else if(!this.id)	url.push('accounts/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring)
 				
 				return url.join("/");
 			},
@@ -63,7 +63,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 

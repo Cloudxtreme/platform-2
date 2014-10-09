@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/Entry', 'Models/Contact'],
-	function (Pageview, Mustache, Session, RootView, Contacts, EntryView, Contact)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Entry', 'Models/Contact'],
+	function (Pageview, Mustache, RootView, Contacts, EntryView, Contact)
 	{
 		var Timeline = Pageview.extend({
 	
@@ -36,7 +36,7 @@ define(
 				this.listenTo(this.collection, 'seed', this.fill);
 
 				// Memory cloth
-				var settings = Session.viewsettings(this.model.get("type"));
+				var settings = Cloudwalkers.Session.viewsettings(this.model.get("type"));
 				
 				if (settings.streams)
 					this.filters = {streams : settings.streams};
@@ -367,7 +367,7 @@ define(
 			{	
 				
 				// Memory cloth
-				var settings = Session.viewsettings(this.model.get("type"));
+				var settings = Cloudwalkers.Session.viewsettings(this.model.get("type"));
 				
 				if(!settings)	return;
 				if(!settings.streams) settings.streams = [];
@@ -376,7 +376,7 @@ define(
 				if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 				{
 					settings.streams = this.filters.streams;
-					Session.viewsettings(this.model.get("type"), settings);
+					Cloudwalkers.Session.viewsettings(this.model.get("type"), settings);
 				}
 			},
 
@@ -400,7 +400,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Account'],
-	function (BaseCollection, Session, Account)
+	['Collections/BaseCollection',  'Models/Account'],
+	function (BaseCollection, Account)
 	{
 		var Accounts = BaseCollection.extend({
 
@@ -8,7 +8,7 @@ define(
 
 			fetch : function(method, model, options) 
 			{
-				return Session.user.get("accounts");
+				return Cloudwalkers.Session.user.get("accounts");
 			},
 			
 			updates : function (ids)

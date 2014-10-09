@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var TrendingMessage = Backbone.View.extend({
 
@@ -11,8 +11,8 @@ define(
 				this.settings = {};
 				this.settings.title = this.title;
 
-				if(!this.parentview.streamid)	this.model = Session.getChannel('profiles').clone();
-				else							this.model = Session.getStream(this.parentview.streamid);
+				if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+				else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
 				
 				this.listenTo(this.model, 'sync', this.fill);
 

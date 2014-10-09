@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/SimpleCompose'/*, 'Views/Widgets/NoteEntry' -> MIGRATION*/],
+	['backbone',  'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
+	 'Views/Modals/SimpleCompose'/*, 'Views/Widgets/NoteEntry' -> MIGRATION*/],
 
-	function (Backbone, Session, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
+	function (Backbone, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{		
 		var Entry = Backbone.View.extend({
 	
@@ -54,7 +54,7 @@ define(
 					this.formatactions(this.parameters);
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(this.parameters);
+				Cloudwalkers.Session.censuretemplate(this.parameters);
 
 				// Visualize
 				for (var n in this.parameters.actions)
@@ -78,7 +78,7 @@ define(
 				
 				if(this.checkunread && this.model.get("objectType")) this.checkUnread();
 
-				if (Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+				if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
 
 					//Load default note
 					this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
@@ -718,7 +718,7 @@ define(
 		    translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

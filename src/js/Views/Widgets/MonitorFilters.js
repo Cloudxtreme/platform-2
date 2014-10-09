@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Session'],
-	function (Widget, Session)
+	['Views/Widgets/Widget'],
+	function (Widget)
 	{
 		var MonitorFilters = Widget.extend ({
 
@@ -53,7 +53,7 @@ define(
 				var data = {keywords: this.category.channels.models};
 				
 				data.name = this.category.get("name");
-				data.networks = Session.getStreams().filterNetworks(this.streams, true);
+				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 				
 				//Mustache translations
 				data.translate_filters = this.translateString("filters");
@@ -64,13 +64,13 @@ define(
 				data.translate_manage_keywords = this.translateString("manage_keywords");
 
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 
 				this.$el.html (Mustache.render (Templates.channelfilters, data));
 				
 				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 				return this;
 			},
@@ -218,7 +218,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 		});

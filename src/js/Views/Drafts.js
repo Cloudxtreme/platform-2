@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/DraftsFilters', 'Views/Widgets/DraftsList'],
-	function (Pageview, Mustache, Session, DraftsFiltersWidget, DraftsListWidget)
+	['Views/Pageview', 'mustache',  'Views/Widgets/DraftsFilters', 'Views/Widgets/DraftsList'],
+	function (Pageview, Mustache, DraftsFiltersWidget, DraftsListWidget)
 	{
 		var Drafts = Pageview.extend({
 
@@ -10,12 +10,12 @@ define(
 			initialize : function ()
 			{
 				// Select draft stream (should be integrated)
-				//var channel = Session.getChannel("internal");
+				//var channel = Cloudwalkers.Session.getChannel("internal");
 				
-				this.model = Session.getStream("draft"); //channel.getStream("draft");
+				this.model = Cloudwalkers.Session.getStream("draft"); //channel.getStream("draft");
 
 				// Emergency break
-				if (!this.model) return Session.home();
+				if (!this.model) return Cloudwalkers.Session.home();
 				
 				// Listen for changes
 				//this.listenTo(this.model, 'outdated', this.model.fetch);
@@ -46,7 +46,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

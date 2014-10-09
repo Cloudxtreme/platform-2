@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'backbone', 'Session', 'Models/Group'],
-	function (BaseCollection, Backbone, Session, Group)
+	['Collections/BaseCollection', 'backbone',  'Models/Group'],
+	function (BaseCollection, Backbone, Group)
 	{
 		var  Groups = BaseCollection.extend({
 
@@ -37,7 +37,7 @@ define(
 					url.push(this.parenttype + '/' + this.parentmodel.groupid);
 
 				} else {
-					url.push(this.parenttype + '/' + Session.getAccount().id);
+					url.push(this.parenttype + '/' + Cloudwalkers.Session.getAccount().id);
 
 					if(this.typestring)
 						url.push(this.typestring);

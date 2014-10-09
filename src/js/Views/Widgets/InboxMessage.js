@@ -49,7 +49,7 @@ define(
 				this.mustacheTranslateRender(params);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(params);
+				Cloudwalkers.Session.censuretemplate(params);
 				
 				// Visualize
 				this.$el.html (Mustache.render (Templates[this.template], params));
@@ -61,7 +61,7 @@ define(
 				
 				//if(this.parameters.notes)
 				if(this.model.get("objectType")){
-					if (Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+					if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
 
 						//Load default note
 						this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
@@ -70,7 +70,7 @@ define(
 						this.loadnoteui();
 					}	
 					
-					if ((Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
+					if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE'))	this.loadtagui();
 				}
 				
 				this.time();
@@ -233,7 +233,7 @@ define(
 				this.model.save({read: 1}, {patch: true, wait: true});
 				
 				// Mark stream
-				Session.getStreams().outdated(this.model.get("stream"));
+				Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
 			},
 
 			/*'viewcontact' : function(e)
@@ -252,7 +252,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

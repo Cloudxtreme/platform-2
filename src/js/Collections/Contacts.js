@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Collections/Users', 'Models/Contact'],
-	function (Backbone, Session, Users, Contact)
+	['backbone',  'Collections/Users', 'Models/Contact'],
+	function (Backbone, Users, Contact)
 	{
 		var Contacts = Users.extend({
 
@@ -14,15 +14,15 @@ define(
 			initialize : function (models, options)
 			{				
 				// Global collection gets created before session build-up
-				if( Session.user.account)
+				if( Cloudwalkers.Session.user.account)
 				{
-					Session.getContacts().listenTo(this, "add", Session.getContacts().distantAdd);
+					Cloudwalkers.Session.getContacts().listenTo(this, "add", Cloudwalkers.Session.getContacts().distantAdd);
 				}
 			},
 			
 			url : function ()
 		    {
-				var url = [Session.api, "accounts", Session.getAccount ().id ];
+				var url = [Cloudwalkers.Session.api, "accounts", Cloudwalkers.Session.getAccount ().id ];
 				
 				if(this.endpoint)	url.push(this.typestring, this.endpoint);
 				if(this.following)	url.push(this.modelstring + "ids", this.following);		

@@ -1,6 +1,6 @@
 define(	// MIGRATION -> added mustache
-	['backbone', 'mustache', 'Session', 'Router', 'Views/Root'],
-	function (Backbone, Mustache, Session, Router, RootView)
+	['backbone', 'mustache',  'Router', 'Views/Root'],
+	function (Backbone, Mustache, Router, RootView)
 	{
 		var Navigation = Backbone.View.extend({
 
@@ -36,15 +36,15 @@ define(	// MIGRATION -> added mustache
 			initialize : function ()
 			{
 				// Interact with Session triggers
-				Session.on ('change:accounts', this.renderHeader, this);	
+				Cloudwalkers.Session.on ('change:accounts', this.renderHeader, this);	
 				
 				// MIGRATION -> Still has no user, hence, no Channels
 				// Listen to channel changes
-				///this.listenTo(Session.getChannels(), 'sync', this.render);
-				///this.listenTo(Session.getChannels(), 'remove', this.render);
+				///this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+				///this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 				
 				// DEV Check
-				// $.get(Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Session.authenticationtoken, 'Accept': "application/json"}}
+				// $.get(Cloudwalkers.Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken, 'Accept': "application/json"}}
 			},
 			
 			headeraction : function(element)
@@ -81,24 +81,24 @@ define(	// MIGRATION -> added mustache
 			{		
 				var data = {dev: this.development};
 				
-				data.user 		= Session.user? Session.user.attributes: null;
+				data.user 		= Cloudwalkers.Session.user? Cloudwalkers.Session.user.attributes: null;
 				data.accounts 	=  [];
 				
 				//Manage User Groups Roles
-				if ((Session.isAuthorized('USER_GRANT')) || (Session.isAuthorized('GROUP_MANAGE')))
+				if ((Cloudwalkers.Session.isAuthorized('USER_GRANT')) || (Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')))
 					data.manage_user_groups = true;
 
 				//Render accounts
-				if (Session.user)
+				if (Cloudwalkers.Session.user)
 				{
-					Session.user.accounts.each(function(model)
+					Cloudwalkers.Session.user.accounts.each(function(model)
 					{
-						data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Session.get("currentAccount"))})
+						data.accounts.push({name: model.get('name'), id: model.id, active: (model.id == Cloudwalkers.Session.get("currentAccount"))})
 					});
 				}
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 
 				//Mustache Translate Header
 				this.mustacheTranslateRenderHeader(data);
@@ -110,38 +110,38 @@ define(	// MIGRATION -> added mustache
 
 			render : function ()
 			{	
-				var account = Session.user? Session.user.account: null;
+				var account = Cloudwalkers.Session.user? Cloudwalkers.Session.user.account: null;
 				var data 	= {reports: []};
 				
 				// News
-				if (Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))
+				if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))
 					data.news = this.rendernews(account)
 				
 				// Monitoring
-				if (Session.isAuthorized('MESSAGE_READ_MONITORING'))
+				if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_MONITORING'))
 					data.monitoring = this.rendermonitoring(account)			
 				
 				// Scheduled
-				if (Session.isAuthorized('MESSAGE_READ_SCHEDULE'))
+				if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_SCHEDULE'))
 					data.scheduled = this.renderscheduled(account);
 				
 				// Inbox
-				if (Session.isAuthorized('_CW_INBOX_VIEW'))
+				if (Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW'))
 					data.inbox = true;
 
 				// Profiles
-				if (Session.isAuthorized('MESSAGE_READ_COMPANY'))
+				if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_COMPANY'))
 					data.profiles = this.renderprofiles(account)
 					
 				// Reports -> Deprecated, swapped to statistics
-				if (Session.isAuthorized('STATISTICS_VIEW'))
+				if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
 					data.statistics = true;
 
 				//Mustache Translate Render
 				this.mustacheTranslateRender(data);
 			
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				this.$el.html (Mustache.render(Templates.navigation, data));
 				
@@ -181,7 +181,7 @@ define(	// MIGRATION -> added mustache
 			renderscheduled : function(account)
 			{
 				var scheduled = { 
-					channelid: 	Session.getChannel("internal").id,
+					channelid: 	Cloudwalkers.Session.getChannel("internal").id,
 					streams: 	account.streams.where({outgoing: 1})
 				};
 
@@ -214,7 +214,7 @@ define(	// MIGRATION -> added mustache
 
 		    writenote : function ()
 		    {
-		    	var account = Session.getAccount();
+		    	var account = Cloudwalkers.Session.getAccount();
 				RootView.writeNote(account); 
 			},
 		    
@@ -277,7 +277,7 @@ define(	// MIGRATION -> added mustache
 
 				for (var k in this.original)
 				{
-					this.translated[k] = Session.translate(this.original[k]);
+					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			},
@@ -325,7 +325,7 @@ define(	// MIGRATION -> added mustache
 
 				for (var k in this.original)
 				{
-					this.translated[k] = Session.translate(this.original[k]);
+					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}

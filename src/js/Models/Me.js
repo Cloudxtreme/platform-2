@@ -1,12 +1,12 @@
-define(['Models/User', 'Session', 'Router', 'Collections/Accounts'], 
-	function (User, Session, Router, Accounts)
+define(['Models/User', 'Collections/Accounts'], 
+	function (User, Accounts)
 	{
 		var Me = User.extend(
 		{			
 			unreadMessages : null,
 			
-			initialize : function (data)
-			{
+			initialize : function (options)
+			{	
 				// Load data
 				this.once('change', this.activate);
 
@@ -18,7 +18,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 					Store.remove('channels');*/
 
 				// Prevent conflicting user login
-				this.on ('change:id', function(id){ if(this.previous("id")) Session.home(); });
+				this.on ('change:id', function(id){ if(this.previous("id")) Cloudwalkers.Session.home(); });
 			},
 
 			url : function ()
@@ -27,7 +27,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 					this.endpoint :
 					(Store.exists("me")? "?include_accounts=ids": "");
 				
-				return Session.api + '/user/me' + param;
+				return Cloudwalkers.Session.api + '/user/me' + param;
 			},
 			
 			parse : function (response)
@@ -154,7 +154,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 			
 			offline : function ()
 			{
-				Session.reset();
+				Cloudwalkers.Session.reset();
 				window.location = "/login.html";
 				
 				// If Me exists local, use when offline.
@@ -164,7 +164,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 			getCurrentAccount : function()
 			{
 				// Get current account view
-				var current = Session.get("currentAccount");	
+				var current = Cloudwalkers.Session.get("currentAccount");	
 				
 				if(!current)
 				{
@@ -179,7 +179,7 @@ define(['Models/User', 'Session', 'Router', 'Collections/Accounts'],
 				{	
 					 this.save({settings: {currentAccount: this.accounts.at(0).id}});
 					 
-					 return Session.home();
+					 return Cloudwalkers.Session.home();
 				}
 
 				return account;

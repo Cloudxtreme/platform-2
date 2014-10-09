@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/CoworkersFilters', 'Views/Widgets/CoworkersList'],
-	function (Pageview, Mustache, Session, CoworkersFiltersWidget, CoworkersListWidget)
+	['Views/Pageview', 'mustache',  'Views/Widgets/CoworkersFilters', 'Views/Widgets/CoworkersList'],
+	function (Pageview, Mustache, CoworkersFiltersWidget, CoworkersListWidget)
 	{
 		var Coworkers = Pageview.extend({
 
@@ -9,10 +9,10 @@ define(
 			
 			initialize : function ()
 			{			
-				this.model = Session.getStream("coworkers");
+				this.model = Cloudwalkers.Session.getStream("coworkers");
 
 				// Emergency break
-				if (!this.model) return Session.home();
+				if (!this.model) return Cloudwalkers.Session.home();
 				
 				// Listen for changes
 				this.listenTo(this.model, 'outdated', this.model.fetch);
@@ -42,7 +42,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

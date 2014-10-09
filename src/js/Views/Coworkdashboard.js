@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root'],
-	function (Pageview, Mustache, Session, RootView)
+	['Views/Pageview', 'mustache',  'Views/Root'],
+	function (Pageview, Mustache, RootView)
 	{
 		var Coworkdashboard = Pageview.extend({
 
@@ -12,7 +12,7 @@ define(
 			
 			initialize : function()
 			{
-				var account = Session.getAccount();
+				var account = Cloudwalkers.Session.getAccount();
 			},
 				
 			render : function ()
@@ -25,7 +25,7 @@ define(
 				$('#inner-content').addClass("expanded");
 				
 				// View
-				params = {displayname: Session.user.get("displayname")};
+				params = {displayname: Cloudwalkers.Session.user.get("displayname")};
 
 				//Mustache Translate Render
 				this.mustacheTranslateRender(params);
@@ -99,7 +99,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

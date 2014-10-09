@@ -1,6 +1,6 @@
 define(
-	['Views/Entry', 'Session', 'Collections/Actions', 'Views/Root', 'Views/ActionParameters'],
-	function (EntryView, Session, Actions, RootView, ActionParametersView)
+	['Views/Entry',  'Collections/Actions', 'Views/Root', 'Views/ActionParameters'],
+	function (EntryView, Actions, RootView, ActionParametersView)
 	{
 		var Notification = Entry.extend({
 	
@@ -93,7 +93,7 @@ define(
 				
 				// Mark stream
 				if (this.model.get("stream"))
-					Session.getStreams().outdated(this.model.get("stream"));
+					Cloudwalkers.Session.getStreams().outdated(this.model.get("stream"));
 			},
 
 			togglecommentcontact : function()

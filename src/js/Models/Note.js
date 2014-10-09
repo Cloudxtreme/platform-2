@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Models/Contact', 'Models/Message', 'Views/Root'],
-	function (Backbone, Session, Contact, Message, RootView)
+	['backbone',  'Models/Contact', 'Models/Message', 'Views/Root'],
+	function (Backbone, Contact, Message, RootView)
 	{
 		var Note = Backbone.Model.extend({
 
@@ -87,7 +87,7 @@ define(
 
 			url : function()
 			{	
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 
 				if(this.id)										url.push(this.typestring, this.id);
 				else if(!this.parent)							url.push(this.typestring);
@@ -96,7 +96,7 @@ define(
 				//Contacts
 				else if(this.parent.typestring == 'contacts'){
 					
-					url.push('accounts/' + Session.getAccount().id + '/contacts');
+					url.push('accounts/' + Cloudwalkers.Session.getAccount().id + '/contacts');
 					url.push(this.parent.id);
 					url.push(this.typestring)
 				}

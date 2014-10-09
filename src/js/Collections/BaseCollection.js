@@ -29,8 +29,8 @@ define(
 				
 				var url = (this.parentmodel)?
 			
-					Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
-					Session.api + '/' + this.typestring;
+					Cloudwalkers.Session.api + '/' + this.parenttype + "/" + this.parentmodel.id :
+					Cloudwalkers.Session.api + '/' + this.typestring;
 						
 				if(this.endpoint)	url += "/" + this.endpoint;
 			
@@ -127,7 +127,7 @@ define(
 				var ids = response[this.parenttype][this.typestring];
 
 				// Store results based on url
-				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Session.getPing().cursor});
+				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 				
 				// Seed ids to collection
 				this.seed(ids);
@@ -150,7 +150,7 @@ define(
 					
 					// Or in Session collection
 					if(!model)
-						model = Session.user.account[this.typestring].get (id);
+						model = Cloudwalkers.Session.user.account[this.typestring].get (id);
 					
 					// Or create new
 					if(!model) model = this.create({id: id});

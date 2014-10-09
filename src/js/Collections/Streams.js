@@ -1,7 +1,7 @@
 
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Stream'],
-	function (BaseCollection, Session, Stream)
+	['Collections/BaseCollection',  'Models/Stream'],
+	function (BaseCollection, Stream)
 	{
 		var Streams = BaseCollection.extend({
 			
@@ -9,15 +9,15 @@ define(
 			
 			initialize : function()
 			{
-				if( Session.user.account)
-					Session.getStreams().listenTo(this, "add", Session.getStreams().distantAdd)
+				if( Cloudwalkers.Session.user.account)
+					Cloudwalkers.Session.getStreams().listenTo(this, "add", Cloudwalkers.Session.getStreams().distantAdd)
 			},
 			
 			url : function()
 			{
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				
-				return Session.api + '/account/' + Session.getAccount ().id + '/streams' + param;
+				return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/streams' + param;
 			},
 			
 			parse : function (response)
@@ -62,7 +62,7 @@ define(
 				var list = [];
 				var fresh = _.compact( ids.map(function(id)
 				{
-					stream = Session.getStream(id);
+					stream = Cloudwalkers.Session.getStream(id);
 					
 					this.add(stream? stream: {id: id});
 					

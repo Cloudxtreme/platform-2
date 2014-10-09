@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Collections/Contacts', 'Collections/Messages'],
-	function (Backbone, Session, Contacts, Messages)
+	['backbone',  'Collections/Contacts', 'Collections/Messages'],
+	function (Backbone, Contacts, Messages)
 	{
 		var Stream = Backbone.Model.extend({
 	
@@ -41,7 +41,7 @@ define(
 			{
 				var id = this.id? this.id: "";
 				
-				return Session.api + '/streams/' + id + this.endpoint + this.parameters;
+				return Cloudwalkers.Session.api + '/streams/' + id + this.endpoint + this.parameters;
 			},
 			
 			parse : function(response)

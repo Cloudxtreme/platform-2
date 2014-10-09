@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Trigger'],
-	function (BaseCollection, Session, Trigger)
+	['Collections/BaseCollection',  'Models/Trigger'],
+	function (BaseCollection, Trigger)
 	{
 		var Triggers = BaseCollection.extend({
 
@@ -14,7 +14,7 @@ define(
 			
 			url : function()
 			{	
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 				
 				if(this.parent)				url.push(this.parent.typestring, this.parent.id, this.typestring);
 				else if(this.typestring)	url.push(this.typestring);		

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Preview = Backbone.View.extend({
 	
@@ -16,9 +16,9 @@ define(
 
 				//Get the preview data
 				$.extend(this.model.attributes, this.model.getvariation(this.streamid));
-				this.model.attributes.profile = Session.getStream(this.streamid).get("profile");
+				this.model.attributes.profile = Cloudwalkers.Session.getStream(this.streamid).get("profile");
 
-				this.network = Session.getStream(this.streamid).get("network").token;
+				this.network = Cloudwalkers.Session.getStream(this.streamid).get("network").token;
 			},
 
 			render : function ()

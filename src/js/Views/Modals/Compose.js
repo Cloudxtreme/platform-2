@@ -5,8 +5,8 @@
 **/
 
 define (
-	['backbone', 'Session', 'Views/Root', 'Models/Message', 'Views/Editor', 'Views/Preview', 'Collections/CannedResponses'],
-	function (Backbone, Session, RootView, Message, EditorView, PreviewView, CannedResponses)
+	['backbone',  'Views/Root', 'Models/Message', 'Views/Editor', 'Views/Preview', 'Collections/CannedResponses'],
+	function (Backbone, RootView, Message, EditorView, PreviewView, CannedResponses)
 	{
 		var Compose = Backbone.View.extend({
 	
@@ -122,7 +122,7 @@ define (
 				if(options) $.extend(this, options);
 				
 				// Available Streams
-				this.streams = Session.getChannel ('outgoing').streams;
+				this.streams = Cloudwalkers.Session.getChannel ('outgoing').streams;
 				
 				// Proccess actions
 				if(this.action) this.type = this.action.get("token");
@@ -209,7 +209,7 @@ define (
 				// Create block functionality array
 				$.each(globalcheck, function(permission, features)
 				{	
-					if(!Session.isAuthorized(permission))
+					if(!Cloudwalkers.Session.isAuthorized(permission))
 						blocklist = _.union(blocklist, features);			
 				})
 				
@@ -266,8 +266,8 @@ define (
 				var params ={
 					streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
 					title:		this.translated_titles[this.type],
-					campaigns:	Session.getAccount().get("campaigns"),
-					canned: 	this.option("canned")? Session.getCannedResponses().models: null,
+					campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
+					canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 					actionview: this.actionview? this.type: false,
 				};
 
@@ -279,7 +279,7 @@ define (
 				this.mustacheTranslateRender(params);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(params);
+				Cloudwalkers.Session.censuretemplate(params);
 				
 				// Create view
 				var view = Mustache.render(Templates.compose, params);
@@ -355,8 +355,8 @@ define (
 				
 				this.actionstreams = [];
 				for (var n in action.streams){
-					if(Session.getStream(action.streams[n]))
-						this.actionstreams.push(Session.getStream(action.streams[n]));		
+					if(Cloudwalkers.Session.getStream(action.streams[n]))
+						this.actionstreams.push(Cloudwalkers.Session.getStream(action.streams[n]));		
 				} 
 				
 				// Render streamlist and activate first stream
@@ -393,7 +393,7 @@ define (
 					return;
 				}
 
-				var stream = Session.getStream(streamid);
+				var stream = Cloudwalkers.Session.getStream(streamid);
 				var limitations = stream.getlimitations();
 				var numimages = 0;
 				var imgs;
@@ -494,7 +494,7 @@ define (
 				var $btn = $(e.currentTarget);
 				var id = $btn.data("streams");
 
-				var stream = Session.getStream(id);
+				var stream = Cloudwalkers.Session.getStream(id);
 				var streamids = this.draft.get("streams") || [];
 				
 				// Switch buttons and tabs
@@ -541,7 +541,7 @@ define (
 			
 				var $btn = $(e.currentTarget);
 				var id = $btn.data("stream");
-				var stream = id? Session.getStream(id): false;
+				var stream = id? Cloudwalkers.Session.getStream(id): false;
 
 				this.$el.find(".stream-tabs div.active").removeClass('active social-icon-colors');
 				
@@ -917,7 +917,7 @@ define (
 				
 				if(campaignid)
 				{
-					var campaign = Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
+					var campaign = Cloudwalkers.Session.getAccount().get("campaigns").filter(function(cmp){ if(cmp.id == campaignid) return cmp; }).shift();
 					summary.html("<span>" + campaign.name + "</span>");
 				}
 						
@@ -948,7 +948,7 @@ define (
 				var result = $(e.currentTarget).val();
 				var campaignname = $(".chosen-single > span").get(0).textContent;
 				
-				Session.getAccount().addcampaign(result, function(account)
+				Cloudwalkers.Session.getAccount().addcampaign(result, function(account)
 				{
 					var campaigns = account.get("campaigns");
 					
@@ -1309,7 +1309,7 @@ define (
 
 				// Fetch
 				/*if(this.activestream && !this.hasbesttime()){
-					var stream = Session.getStream(this.activestream.id);
+					var stream = Cloudwalkers.Session.getStream(this.activestream.id);
 
 					this.listenToOnce(stream, 'sync', this.setbesttime);
 					stream.fetch({endpoint: "besttimetopost"});
@@ -1483,8 +1483,8 @@ define (
 				if(this.options[this.type] && !this.options[this.type].indexOf('canned'))
 					return null;
 
-				if(Session.getCannedResponses().touched)
-					return Session.getCannedResponses().models;
+				if(Cloudwalkers.Session.getCannedResponses().touched)
+					return Cloudwalkers.Session.getCannedResponses().models;
 				
 				// Fetch once
 				var canned = new CannedResponses();
@@ -1495,7 +1495,7 @@ define (
 
 			'rendercanned' : function(canned)
 			{	
-				Session.getCannedResponses().touched = true;
+				Cloudwalkers.Session.getCannedResponses().touched = true;
 
 				this.$el.find("[data-type=canned] .collapsable-content").html(Mustache.render(Templates.cannedresponsesdrop, {canned: canned.models}));
 				this.$el.find(".canned-list").chosen({width: "100%"});
@@ -1510,7 +1510,7 @@ define (
 				var cannedtext = $(".chosen-single > span").get(0).textContent;
 
 				if(result !== 0){
-					var canned = Session.getCannedResponses();
+					var canned = Cloudwalkers.Session.getCannedResponses();
 					var response = canned.models.filter(function(el){ if(el.id == result) return el; });
 					var responsehtml = response[0]? response[0].get("body").html: null;
 
@@ -1647,7 +1647,7 @@ define (
 				// Canned respose
 				if(this.$el.find("[data-type=canned] input").is(':checked'))
 
-					Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}, status: "CANNED"});
+					Cloudwalkers.Session.getCannedResponses().create({body: {plaintext: this.draft.get("body").plaintext}, status: "CANNED"});
 
 				// Create & Save
 				var postaction = this.reference.actions.create({
@@ -1691,7 +1691,7 @@ define (
 							if(action && action == 'post')
 								RootView.trigger("added:message", this.draft);
 
-							Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
+							Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
 						}
 					}.bind(this));
 					
@@ -1792,7 +1792,7 @@ define (
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateTitles : function(translatedata)

@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/CannedResponse'],
-	function (BaseCollection, Session, CannedResponse)
+	['Collections/BaseCollection',  'Models/CannedResponse'],
+	function (BaseCollection, CannedResponse)
 	{	
 		var CannedResponses = BaseCollection.extend({
 
@@ -11,14 +11,14 @@ define(
 			{	
 				//this.on("destroy", this.store.bind(this, "delete"));
 
-				if( Session.user.account)
-					Session.getCannedResponses().listenTo(this, "add", Session.getCannedResponses().distantAdd);
+				if( Cloudwalkers.Session.user.account)
+					Cloudwalkers.Session.getCannedResponses().listenTo(this, "add", Cloudwalkers.Session.getCannedResponses().distantAdd);
 			},
 			
 			url : function()
 			{
-				var url = Session.api + '/streams/' + Session.getAccount ().id + ':canned/messages';
-				//var url = CONFIG_BASE_URL + 'json/streams/' + Session.getAccount ().id + ':canned/messages';
+				var url = Cloudwalkers.Session.api + '/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
+				//var url = CONFIG_BASE_URL + 'json/streams/' + Cloudwalkers.Session.getAccount ().id + ':canned/messages';
 				return this.parameters? url + "?" + $.param (this.parameters): url;
 			},
 			

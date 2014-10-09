@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Pageview', 'Session', 'Router', 'Collections/Services'],
-	function (Backbone, Pageview, Session, Router, Services)
+	['backbone', 'Views/Pageview',  'Router', 'Collections/Services'],
+	function (Backbone, Pageview, Router, Services)
 	{
 		var Firsttime = Pageview.extend({
 
@@ -32,7 +32,7 @@ define(
 				$('#inner-content').addClass("expanded");
 				
 				// View
-				params = {displayname: Session.user.get("displayname")};
+				params = {displayname: Cloudwalkers.Session.user.get("displayname")};
 
 				this.$el.html (Mustache.render (Templates.firsttime, params));
 
@@ -86,7 +86,7 @@ define(
 
 			ready : function()
 			{
-				Session.getAccount().set("firstTime", 0);
+				Cloudwalkers.Session.getAccount().set("firstTime", 0);
 				Router.Instance.navigate('#dashboard', true);
 			},	
 

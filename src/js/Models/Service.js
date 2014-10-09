@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Router', 'Views/Root'],
-	function (Backbone, Session, Router, RootView)
+	['backbone',  'Router', 'Views/Root'],
+	function (Backbone, Router, RootView)
 	{
 		var Service = Backbone.Model.extend({
 	
@@ -14,9 +14,9 @@ define(
 			
 			url : function()
 			{	
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 				
-				if(this.parentpoint)	url.push("accounts", Session.getAccount ().id);
+				if(this.parentpoint)	url.push("accounts", Cloudwalkers.Session.getAccount ().id);
 				if(this.typestring)		url.push(this.typestring);		
 				if(this.id)				url.push(this.id);
 				if(this.endpoint)		url.push(this.endpoint);
@@ -117,7 +117,7 @@ define(
 				if(channels.length){
 					for (var n in channels){
 
-						channel = Session.getChannel(parseInt(channels[n]));
+						channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
 						if(channel)
 							channel.streams[operation](stream);
 					}

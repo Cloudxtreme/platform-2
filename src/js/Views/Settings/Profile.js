@@ -24,19 +24,19 @@ define(
 			render : function ()
 			{
 				
-				var user = Session.getUser ();
+				var user = Cloudwalkers.Session.getUser ();
 				
 				var self = this;
 				var data = {
 					user: { firstname: user.get('firstname'), name: user.get('name'), mobile: user.get('mobile'), avatar: user.get('avatar'), role: user.getRole ()},
-					langs: Session.langs
+					langs: Cloudwalkers.Session.langs
 				};
 				
 				// Mustache Translate Render
 				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				this.$el.html (Mustache.render (Templates.settings.profile, data));
 				
@@ -50,7 +50,7 @@ define(
 
 			editUserProfile : function (e)
 			{
-				var user = Session.getUser ();
+				var user = Cloudwalkers.Session.getUser ();
 				var firstname = this.$el.find ('[name=firstname]').val ();
 				var name = this.$el.find ('[name=name]').val ();
 				var mobile = this.$el.find ('[name=mobile]').val (); 
@@ -134,7 +134,7 @@ define(
 					this.$el.find('.edit-user-avatar').removeClass('loading');
 				
 				} else {
-					Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
+					Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 					{
 					
 						RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
@@ -160,7 +160,7 @@ define(
 					var FR = new FileReader();
 					FR.onload = function(e) {
 						
-						var user = Session.getUser ();
+						var user = Cloudwalkers.Session.getUser ();
 						var base64img = e.target.result;
 						
 						user.save ({avatarBase64: base64img}, {patch: true, success: function ()
@@ -187,7 +187,7 @@ define(
 					return null;
 				}
 				
-				var user = Session.getUser ();
+				var user = Cloudwalkers.Session.getUser ();
 				
 				user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 				{
@@ -221,7 +221,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

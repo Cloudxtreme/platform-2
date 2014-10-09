@@ -29,14 +29,14 @@ define(
 
 			render : function ()
 			{
-				var account = Session.getAccount();
+				var account = Cloudwalkers.Session.getAccount();
 				var data = {};
 
 				//Mustache Translate Render
 				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				this.$el.html (Mustache.render (Templates.settings.users, data));
 				
@@ -67,7 +67,7 @@ define(
 			fill : function (collection)
 			{	
 				models = collection.models;
-				Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
+				Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
 				
 				var $container = this.$el.find(".user-container").eq(-1);
 				
@@ -86,7 +86,7 @@ define(
 
 			addUserContainer : function (title, collection)
 			{	
-				var user = Session.getUser ();
+				var user = Cloudwalkers.Session.getUser ();
 
 				var self = this;
 
@@ -133,7 +133,7 @@ define(
 			{
 				
 				var data = {email: $('input[name=invite-email]').val()}
-				var url = Session.api + '/account/' + Session.getAccount().get('id') + '/users';
+				var url = Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
 
 				// Make the loading effect
 				this.$el.find('.users-invite').addClass('loading');
@@ -175,7 +175,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -79,7 +79,7 @@ define(
 				if(channels.length){
 					for (var n in channels){
 
-						channel = Session.getChannel(parseInt(channels[n]));
+						channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
 						if(channel)
 							channel.streams[operation](stream);
 					}
@@ -89,7 +89,7 @@ define(
 
 			render : function ()
 			{
-				var account = Session.getAccount();
+				var account = Cloudwalkers.Session.getAccount();
 				var data = {};
 				
 				//Mustache translations
@@ -152,7 +152,7 @@ define(
 			limited : function (collection) 
 			{
 				
-				Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
+				Cloudwalkers.Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
 			},
 			
 			/*'appendOptions' : function(available) {
@@ -176,7 +176,7 @@ define(
 					count++
 				}
 				
-				Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
+				Cloudwalkers.Session.getAccount().monitorlimit('networks', count, $(".service-options"));	
 			},*/
 			
 			/*'addService' : function (id, callback)
@@ -185,7 +185,7 @@ define(
 				(
 					'wizard/service/add',
 					{
-						'account' : Session.getAccount ().get ('id')
+						'account' : Cloudwalkers.Session.getAccount ().get ('id')
 					},
 					{
 						'id' : id
@@ -294,7 +294,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

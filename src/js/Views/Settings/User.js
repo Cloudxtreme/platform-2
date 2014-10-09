@@ -38,7 +38,7 @@ define(
 				data.user.role = this.model.getRole().name;
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				self.$el.html (Mustache.render (Templates.settings.user, data));
 
@@ -54,7 +54,7 @@ define(
 			deleteUser : function (e)
 			{
 				var $tr = $(e.currentTarget).parents('tr');
-				var user = Session.getUser($tr.data('delete-user-id'));
+				var user = Cloudwalkers.Session.getUser($tr.data('delete-user-id'));
 				
 				RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 					
@@ -63,7 +63,7 @@ define(
 						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 					}});
 					/*
-					var url = 'account/' + Session.getAccount().get('id') + '/users/' + self.model.get('id');
+					var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + self.model.get('id');
 					Cloudwalkers.Net.remove (url, {}, function(){
 					
 						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
@@ -74,7 +74,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

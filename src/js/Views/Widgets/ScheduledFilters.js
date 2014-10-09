@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Session', 'Views/User'],
-	function (Widget, Session, UserView)
+	['Views/Widgets/Widget',  'Views/User'],
+	function (Widget, UserView)
 	{
 		var ScheduledFilters = Widget.extend ({
 	
@@ -19,7 +19,7 @@ define(
 				if(options) $.extend(this, options);
 
 				this.model.childtype = "message";
-				this.streams = Session.getChannel ('internal').get ("additional").outgoing;
+				this.streams = Cloudwalkers.Session.getChannel ('internal').get ("additional").outgoing;
 
 		    },
 
@@ -130,7 +130,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 			
 			mustacheTranslateRender : function(translatelocation)

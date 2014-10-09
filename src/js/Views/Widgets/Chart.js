@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Models/Network', 'Models/Stream'],
-	function (Backbone, Session, Network, Stream)
+	['backbone',  'Models/Network', 'Models/Stream'],
+	function (Backbone, Network, Stream)
 	{
 		var Chart = Backbone.View.extend({
 	
@@ -179,7 +179,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numcontacts = stream.getcontacts();
 					
 					if(token && network.gettoken() != token)
@@ -231,7 +231,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var nummessages = stream.getmessages();
 					
 					if(token && network.gettoken() != token)
@@ -374,7 +374,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numactivities = stream.getactivities();
 					
 					if(token && network.gettoken() != token)
@@ -420,7 +420,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numimpressions = stream.getimpressions();
 					
 					if(token && network.gettoken() != token)
@@ -466,7 +466,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numnotifications = stream.getnotifications();
 					
 					if(token && network.gettoken() != token)
@@ -512,7 +512,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numfollowers = stream.getfollowers();
 					
 					if(token && network.gettoken() != token)
@@ -558,7 +558,7 @@ define(
 				
 				$.each(streams, function(index, stream){
 					stream = new Stream(stream);
-					var network = new Network(Session.getStream(stream.id).get("network"));
+					var network = new Network(Cloudwalkers.Session.getStream(stream.id).get("network"));
 					var numfollowing = stream.getfollowing();
 					
 					if(token && network.gettoken() != token)
@@ -704,8 +704,8 @@ define(
 				// Groups & sums by country
 				$.each(streams, function(k, stream){
 					if((streamid && stream.id == streamid) || !streamid){
-						var network = Session.getStream(stream.id).get("network").name;
-						var token = Session.getStream(stream.id).get("network").token;
+						var network = Cloudwalkers.Session.getStream(stream.id).get("network").name;
+						var token = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 						
 						if(_.isObject(stream.contacts.geo)){
 							var countries = stream.contacts.geo.countries;
@@ -1087,7 +1087,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}	
 
 		});

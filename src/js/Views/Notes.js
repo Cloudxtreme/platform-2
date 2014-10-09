@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Views/Widgets/InboxNotesList'],
-	function (Pageview, Mustache, Session, RootView, InboxNotesListWidget)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Views/Widgets/InboxNotesList'],
+	function (Pageview, Mustache, RootView, InboxNotesListWidget)
 	{
 		var Notes = Pageview.extend({
 	
@@ -9,7 +9,7 @@ define(
 					
 			initialize : function(options)
 			{
-				this.model = Session.getAccount();
+				this.model = Cloudwalkers.Session.getAccount();
 				this.translateTitle("notes");
 			},
 
@@ -45,7 +45,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 		 	},
 
 			resize : function(height)
@@ -67,7 +67,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

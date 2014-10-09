@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/InboxMessageList', 'Session', 'Models/Message', 'Views/Widgets/InboxMessage'],
-	function (InboxMessageListWidget, Session, Message, InboxMessageWidget)
+	['Views/Widgets/InboxMessageList',  'Models/Message', 'Views/Widgets/InboxMessage'],
+	function (InboxMessageListWidget, Message, InboxMessageWidget)
 	{
 		var InboxNotificationListWidget = InboxMessageListWidget.extend({
 	
@@ -22,7 +22,7 @@ define(
 			showmessage : function(model)
 			{
 				// Load message
-				var message = Session.getMessage(model.get("parent").id);
+				var message = Cloudwalkers.Session.getMessage(model.get("parent").id);
 				if(!message) message = new Message({id: model.get("parent").id});
 				
 				this.model.messages.add(message);

@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/InboxMessageList', 'Session', 'Views/Entry', 'Views/Widgets/InboxMessage'],
-	function (InboxMessageList, Session, EntryView, InboxMessageWidget)
+	['Views/Widgets/InboxMessageList',  'Views/Entry', 'Views/Widgets/InboxMessage'],
+	function (InboxMessageList, EntryView, InboxMessageWidget)
 	{
 		var SentMessageList = InboxMessageList.extend({
 	
@@ -19,7 +19,7 @@ define(
 			render : function()
 			{	
 				var param = {streams: [], networks: []};
-				var streams = Session.getChannel('outgoing').streams;
+				var streams = Cloudwalkers.Session.getChannel('outgoing').streams;
 
 				streams.each (function(stream)
 				{
@@ -103,7 +103,7 @@ define(
 			{	
 				
 				// Memory cloth
-				var settings = Session.viewsettings('sent');
+				var settings = Cloudwalkers.Session.viewsettings('sent');
 				
 				if(!settings)	return;
 				if(!settings.streams) settings.streams = [];
@@ -112,7 +112,7 @@ define(
 				if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 				{
 					settings.streams = this.filters.streams;
-					Session.viewsettings('sent', settings);
+					Cloudwalkers.Session.viewsettings('sent', settings);
 				}
 			},
 

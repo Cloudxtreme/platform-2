@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Collections/Contacts', 'Views/ContactView'],
-	function (Pageview, Mustache, Session, RootView, Contacts, ContactView)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Modals/Contact'],
+	function (Pageview, Mustache, RootView, Contacts, ContactView)
 	{
 		var ManageAccounts = Pageview.extend({
 	
@@ -126,7 +126,7 @@ define(
 			
 			limited : function (collection)
 			{
-				var limited = Session.getAccount().monitorlimit('following', this.collection.models.length, $(".url-post, .url-post .input-large"));	
+				var limited = Cloudwalkers.Session.getAccount().monitorlimit('following', this.collection.models.length, $(".url-post, .url-post .input-large"));	
 			},
 			
 			/** 
@@ -177,13 +177,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

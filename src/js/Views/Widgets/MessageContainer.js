@@ -2,8 +2,8 @@
 * Any widget that contains messages should extend this.
 */
 define(
-	['Views/Widgets/Widget', 'Session', 'Views/Message'],
-	function (Widget, Session, MessageView)
+	['Views/Widgets/Widget',  'Views/Message'],
+	function (Widget, MessageView)
 	{
 		var MessageContainer = Widget.extend ({
 
@@ -52,7 +52,7 @@ define(
 		        this.options.channel.bind('sort', this.resort, this);
 		        this.options.channel.bind('remove', this.removeMessage, this);
 
-		        Session.bind 
+		        Cloudwalkers.Session.bind 
 		        (
 		        	'message:add', 
 		        	function () 

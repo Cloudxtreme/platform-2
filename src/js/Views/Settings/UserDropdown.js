@@ -32,7 +32,7 @@ define(
 				data.user.role = this.model.getRole ();
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				self.$el.attr('value', data.user.id);
 				self.$el.html (data.user.displayname);

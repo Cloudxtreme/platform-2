@@ -1,6 +1,6 @@
 define(	// MIGRATION
-	['backbone', 'Session', /*'Collections/Contacts',*/ 'Collections/Messages', 'Collections/Channels', /*'Collections/Notifications',*/ 'Collections/Streams'],
-	function (Backbone, Session, Messages, Channels, Streams)
+	['backbone',  /*'Collections/Contacts',*/ 'Collections/Messages', 'Collections/Channels', /*'Collections/Notifications',*/ 'Collections/Streams'],
+	function (Backbone, Messages, Channels, Streams)
 	{
 		var Channel = Backbone.Model.extend({
 	
@@ -32,7 +32,7 @@ define(	// MIGRATION
 				
 				this.listenTo(this.messages, 'change:from', this.seedcontacts);
 				this.listenTo(this.notifications, 'change:from', this.seedcontacts);
-				//this.on("change:streams", function(){ Session.setStreams(this.get("streams")) });
+				//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 				
 			},
 			
@@ -40,7 +40,7 @@ define(	// MIGRATION
 			{
 				var id = this.id? this.id: "";
 				
-				return Session.api + '/channel/' + id + this.endpoint + this.parameters;
+				return Cloudwalkers.Session.api + '/channel/' + id + this.endpoint + this.parameters;
 			},
 			
 			parse : function(response)

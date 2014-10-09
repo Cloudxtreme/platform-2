@@ -1,10 +1,10 @@
 define(
-	['backbone', 'Session', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
+	['backbone',  'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
 	 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups',*/ 'Views/Resync', 'Views/RSSFeed', /*'Views/ManageRSS'*/],
 
-	function (	Backbone, Session, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
+	function (	Backbone, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
 				ScheduledViews, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
 				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
 				CoworkdashboardView, /*ManageUserGroupsView,*/ ResyncView, RSSFeedView /*ManageRSSView*/)
@@ -54,12 +54,12 @@ define(
 			dashboard : function ()
 			{	
 				// Check first-timer
-				if (Session.getAccount().get("firstTime"))
+				if (Cloudwalkers.Session.getAccount().get("firstTime"))
 					 
 					return this.navigate("#firsttime", true);
 					
 				// Coworker level
-				if (!Session.isAuthorized('_CW_INBOX_VIEW'))			 
+				if (!Cloudwalkers.Session.isAuthorized('_CW_INBOX_VIEW'))			 
 					return this.navigate("#work", true);
 				
 				
@@ -72,9 +72,9 @@ define(
 
 			changeaccount : function (accountid)
 			{	
-				if(accountid != Session.get("currentAccount"))
+				if(accountid != Cloudwalkers.Session.get("currentAccount"))
 				{
-					Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)});
+					Cloudwalkers.Session.updateSetting("currentAccount", accountid, {success: this.home.bind(this, true)});
 				}
 			},
 			
@@ -114,18 +114,18 @@ define(
 					'ACCOUNT_NOTES_VIEW' : '#notes'
 				}
 
-				var available = _.intersection(_.keys(types), Session.getUser().authorized);
+				var available = _.intersection(_.keys(types), Cloudwalkers.Session.getUser().authorized);
 
 				// Parameters
-				var channel = Session.getChannel ('inbox');
+				var channel = Cloudwalkers.Session.getChannel ('inbox');
 
 				if (!channel)	return this.home();		
 				if (!available || !available.length) return this.home();
 				if (!type) type = "messages";		
 				
-				if (!Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
+				if (!Cloudwalkers.Session.isAuthorized('MESSAGE_READ_INBOX_'+ type.toUpperCase()))
 				{
-					if(Session.getUser().authorized && available.length)
+					if(Cloudwalkers.Session.getUser().authorized && available.length)
 						return this.navigate(types[available[0]], {trigger: true});
 					else 
 						window.location = "/";
@@ -181,12 +181,12 @@ define(
 			{	
 				// Get model from url
 				var model = streamid?
-					Session.getStream(Number(streamid)) :
-					Session.getChannel(Number(channelid));
+					Cloudwalkers.Session.getStream(Number(streamid)) :
+					Cloudwalkers.Session.getChannel(Number(channelid));
 
 				var id = streamid? streamid: channelid;
 
-				var account = Session.getAccount ();
+				var account = Cloudwalkers.Session.getAccount ();
 				var news = account.channels.findWhere({type: "news"})? account.channels.findWhere({type: "news"}).id: null;
 				var profiles = account.channels.findWhere({type: "profiles"})? account.channels.findWhere({type: "profiles"}).id: null;
 
@@ -207,8 +207,8 @@ define(
 			{
 
 				// Get model from url
-				var channel = Session.getChannel(Number(channelid));
-				var model = streamid? Session.getStream(Number(streamid)): channel;
+				var channel = Cloudwalkers.Session.getChannel(Number(channelid));
+				var model = streamid? Cloudwalkers.Session.getStream(Number(streamid)): channel;
 					
 				// Parameters
 				var span = channel.get('type') == "news"? 1: 7;
@@ -230,7 +230,7 @@ define(
 			manageaccounts : function ()
 			{
 				// Parameters
-				var channel = Session.getChannel ('news');
+				var channel = Cloudwalkers.Session.getChannel ('news');
 				
 				var view = new ManageAccountsView ({channel: channel});
 				Cloudwalkers.RootView.setView (view);
@@ -241,7 +241,7 @@ define(
 			 **/
 			monitoring : function (id, catid, messageid)
 			{	
-				var view = new KeywordMonitoringView({category: Session.getChannel(Number(catid))});
+				var view = new KeywordMonitoringView({category: Cloudwalkers.Session.getChannel(Number(catid))});
 				var roles = 'MESSAGE_READ_MONITORING';
 
 				this.validate(view, roles);
@@ -262,7 +262,7 @@ define(
 
 			reports : function (streamid)
 			{			
-				var view = new ReportsView ({ 'stream' : Session.getStream (Number(streamid)) });
+				var view = new ReportsView ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
 				var roles = 'STATISTICS_VIEW';
 				
 				if (streamid)	view.subnavclass = 'reports_' + streamid;
@@ -277,7 +277,7 @@ define(
 
 			statistics : function (streamid)
 			{
-				var model = Session.getAccount();
+				var model = Cloudwalkers.Session.getAccount();
 				var view = streamid?
 					new StatStreamView({model: model, streamid: streamid}):
 					new StatisticsView({model: model})
@@ -333,7 +333,7 @@ define(
 
 			/*checkauth : function(view)
 			{
-				if(!Session.getUser().authorized)
+				if(!Cloudwalkers.Session.getUser().authorized)
 					Cloudwalkers.RootView.resync(view);
 				else
 					window.location = "/";
@@ -350,7 +350,7 @@ define(
 				if(!changeaccount){
 
 					$.ajax({ url: config.authurl + "revoke", headers : {
-			            'Authorization': 'Bearer ' + Session.authenticationtoken,
+			            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
 			            'Accept': "application/json"
 			        },
 			        success: function()
@@ -363,14 +363,14 @@ define(
 				
 				Cloudwalkers.RootView.view.remove();
 				Cloudwalkers.RootView.navigation.remove();
-				Session.reset(changeaccount);
+				Cloudwalkers.Session.reset(changeaccount);
 				
 				return false;
 			},
 
 			validate : function(view, roles)
 			{
-				if(Session.isAuthorized && Session.isAuthorized(roles))
+				if(Cloudwalkers.Session.isAuthorized && Cloudwalkers.Session.isAuthorized(roles))
 					
 					Cloudwalkers.RootView.setView(view);
 					

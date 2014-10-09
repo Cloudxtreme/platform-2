@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Views/Widgets/InboxMessageList', 'Views/Widgets/InboxNotificationList'],
-	function (Pageview, Mustache, Session, RootView, InboxMessageListWidget, InboxNotificationListWidget)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Views/Widgets/InboxMessageList', 'Views/Widgets/InboxNotificationList'],
+	function (Pageview, Mustache, RootView, InboxMessageListWidget, InboxNotificationListWidget)
 	{
 		var Inbox = Pageview.extend({
 
@@ -10,7 +10,7 @@ define(
 			initialize : function ()
 			{
 				// Memory cloth
-				var settings = Session.viewsettings(this.options.type);
+				var settings = Cloudwalkers.Session.viewsettings(this.options.type);
 				
 				if (settings.streams)
 					this.options.filters = {contacts : {string:"", list:[]}, streams : settings.streams};
@@ -65,7 +65,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

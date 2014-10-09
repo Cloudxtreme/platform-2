@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/KeywordsEditor', 'Views/Widgets/KeywordsOverview'],
-	function (Pageview, Mustache, Session, KeywordsEditorWidget, KeywordsOverviewWidget)
+	['Views/Pageview', 'mustache',  'Views/Widgets/KeywordsEditor', 'Views/Widgets/KeywordsOverview'],
+	function (Pageview, Mustache, KeywordsEditorWidget, KeywordsOverviewWidget)
 	{
 		var ManageKeywords = Pageview.extend({
 
@@ -15,7 +15,7 @@ define(
 
 				// Listen to channels for limit.
 				setTimeout(this.limitlistener, 50);
-				this.listenTo(Session.getChannels(), 'sync remove', this.limitlistener);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'sync remove', this.limitlistener);
 				
 				// Translation for Title
 				this.translateTitle("manage_keywords");
@@ -23,7 +23,7 @@ define(
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
-				if (Session.isAuthorized('CHANNEL_MANAGE_ADD_MONITORING')){
+				if (Cloudwalkers.Session.isAuthorized('CHANNEL_MANAGE_ADD_MONITORING')){
 
 					// Add edit widget
 					editor = new KeywordsEditorWidget();
@@ -43,15 +43,15 @@ define(
 			
 			limitlistener : function()
 			{
-				var limit = Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
+				var limit = Cloudwalkers.Session.getChannel("monitoring").channels.reduce(function(p, n){ return ((typeof p == "number")? p: p.get("channels").length) + n.get("channels").length });
 				
-				Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
+				Cloudwalkers.Session.getAccount().monitorlimit('keywords', limit, ".add-keyword");
 			},
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 		});

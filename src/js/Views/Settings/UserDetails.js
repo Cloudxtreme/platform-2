@@ -17,7 +17,7 @@ define(
 				this.listenTo(this.model, 'sync', this.enablesave);
 
 				this.role = this.model.get('rolegroup')
-				this.roles = Session.getAccount().get('roles');
+				this.roles = Cloudwalkers.Session.getAccount().get('roles');
 				
 				if(!this.roles || _.isUndefined(this.role))
 					return RootView.resync('#'+Backbone.history.fragment);
@@ -62,7 +62,7 @@ define(
 			{		
 				var data = {rolegroup: $("#level").val()};
 
-				this.model.parent = Session.getAccount();
+				this.model.parent = Cloudwalkers.Session.getAccount();
 
 				this.model.save(data, {
 					patch: true, 
@@ -90,7 +90,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/InboxMessageList', 'Session', 'Views/Root', 'Views/ContactCard', 'Views/NoteEntry', 'Views/Widgets/InboxNote'],
-	function (InboxMessageList, Session, RootView, ContactCardView, NoteEntryView, InboxNoteWidget)
+	['Views/Widgets/InboxMessageList',  'Views/Root', 'Views/ContactCard', 'Views/NoteEntry', 'Views/Widgets/InboxNote'],
+	function (InboxMessageList, RootView, ContactCardView, NoteEntryView, InboxNoteWidget)
 	{
 		var InboxNotesList = InboxMessageList.extend({
 	
@@ -229,7 +229,7 @@ define(
 				// Add or remove contact
 				if(button.data("contact"))
 				{
-					var contact = Session.getContact(button.data("contact"));
+					var contact = Cloudwalkers.Session.getContact(button.data("contact"));
 					
 					if(this.filters.contacts.list.indexOf(contact.id) < 0)
 					{
@@ -367,7 +367,7 @@ define(
 			{
 				
 				// Memory cloth
-				var settings = Session.viewsettings(this.collectionstring);
+				var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
 				
 				if(!settings)	return;
 				if(!settings.streams) settings.streams = [];
@@ -376,7 +376,7 @@ define(
 				if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
 				{
 					settings.streams = this.filters.streams;
-					Session.viewsettings(this.collectionstring, settings);
+					Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
 				}
 			},
 			
@@ -393,7 +393,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},

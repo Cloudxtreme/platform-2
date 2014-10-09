@@ -20,12 +20,12 @@ define(
 
 			initialize : function ()
 			{
-				this.channel = Session.getChannel("monitoring");
+				this.channel = Cloudwalkers.Session.getChannel("monitoring");
 				
 				this.editor = this.options.editor;
 				
 				// Listen to channel changes
-				this.listenTo(Session.getChannels(), 'sync', this.render);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
 			},
 
 			render : function ()
@@ -38,7 +38,7 @@ define(
 				this.mustacheTranslateRender(data);
 				
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 				
 				this.$el.html (Mustache.render (Templates.keywordsoverview, data));
 				
@@ -64,7 +64,7 @@ define(
 					remember: remember
 				};
 				
-				var channel = Session.getChannel(Number($cat.attr('data-category')));
+				var channel = Cloudwalkers.Session.getChannel(Number($cat.attr('data-category')));
 				channel.endpoint = '';
 				channel.save({
 					name: name,
@@ -88,7 +88,7 @@ define(
 					this.translateString('are_you_sure_you_want_to_remove_this_category'), 
 					function () 
 					{
-						Session.getChannel(Number($cat.attr('data-category'))).destroy();
+						Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
 						RootView.navigation.render();
 						$cat.next().remove();
 						$cat.remove();
@@ -119,7 +119,7 @@ define(
 					this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
 					function () 
 					{
-						Session.getChannel(id).destroy();
+						Cloudwalkers.Session.getChannel(id).destroy();
 						$(e.target).parent().remove();
 					}
 				)
@@ -130,7 +130,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 			
 			mustacheTranslateRender : function(translatelocation)
@@ -176,12 +176,12 @@ define(
 
 				this.sendData 
 				(
-					CONFIG_BASE_URL + 'json/wizard/monitoring/editkeyword?account=' + Session.getAccount ().get ('id'),
+					CONFIG_BASE_URL + 'json/wizard/monitoring/editkeyword?account=' + Cloudwalkers.Session.getAccount ().get ('id'),
 					data,
 					function ()
 					{
 						self.render ();
-						Session.refresh ();
+						Cloudwalkers.Session.refresh ();
 					}
 				);
 				

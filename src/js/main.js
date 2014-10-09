@@ -49,8 +49,11 @@ require(
 	{
 		$(document).ready(function()
 		{			
-			Store = new StorageClassLocal();			
-			Cloudwalkers = Cwd.init ();
+			Store = new StorageClassLocal();		
+
+			//MIGRATION -> easy way to instance the global before anything, may be wrong
+			Cloudwalkers = Cwd;
+			Cloudwalkers.init();
 		});
 	}
 );

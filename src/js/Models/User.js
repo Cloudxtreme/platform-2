@@ -14,15 +14,15 @@ define(
 			url : function ()
 			{
 				if (this.parent)
-					return Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
+					return Cloudwalkers.Session.api + '/' + this.parent.typestring + '/' + this.parent.id + "/" + this.typestring + "/" + this.id;
 				
 				else if (this.method == 'create')
-					return Session.api + '/accounts/' + Session.getAccount().get('id') + '/users';
+					return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
 
 				else if (this.method == 'delete')
-					return Session.api + '/accounts/' + Session.getAccount().get('id') + '/users/' + this.id;
+					return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + this.id;
 				
-				else return Session.api + '/users/' + this.id;	
+				else return Cloudwalkers.Session.api + '/users/' + this.id;	
 
 			},
 			
@@ -76,7 +76,7 @@ define(
 			
 			getRole : function ()
 			{	
-				var roles = Session.getAccount().get('roles'); 	
+				var roles = Cloudwalkers.Session.getAccount().get('roles'); 	
 				var userrole = this.get('rolegroup');
 
 				if(!roles || _.isUndefined(userrole))

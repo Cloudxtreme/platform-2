@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Root', 'Views/Widgets/SentMessageList'],
-	function (Pageview, Mustache, Session, RootView, SentMessageListWidget)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Views/Widgets/SentMessageList'],
+	function (Pageview, Mustache, RootView, SentMessageListWidget)
 	{
 		var Sent = Pageview.extend({
 	
@@ -9,12 +9,12 @@ define(
 					
 			initialize : function(options)
 			{
-				this.model = Session.getStream("sent");
+				this.model = Cloudwalkers.Session.getStream("sent");
 				
 				this.translateTitle("sent");
 
 				// Memory cloth
-				var settings = Session.viewsettings('sent');
+				var settings = Cloudwalkers.Session.viewsettings('sent');
 				
 				if (settings.streams)
 					this.options.filters = {contacts : {string:"", list:[]}, streams : settings.streams};
@@ -56,7 +56,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

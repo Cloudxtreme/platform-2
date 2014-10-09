@@ -1,6 +1,6 @@
 define(
-	['Views/Statistics', 'Session'],
-	function (Statistics, Session)
+	['Views/Statistics'],
+	function (Statistics)
 	{
 		var StatStream = Statistics.extend({
 			
@@ -65,7 +65,7 @@ define(
 			streamdata: function (widget)
 			{	
 				// network token
-				var network = Session.getStream (Number(this.streamid)).get ("network").token;
+				var network = Cloudwalkers.Session.getStream (Number(this.streamid)).get ("network").token;
 				var data = {};	
 				
 				if(widget.networks)

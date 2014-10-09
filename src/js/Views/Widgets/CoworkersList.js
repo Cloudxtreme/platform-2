@@ -153,12 +153,12 @@ define(
 				
 				// Get messages
 				var messages = this.category.messages.seed(ids);
-				//Session.getMessages().seed(ids);
+				//Cloudwalkers.Session.getMessages().seed(ids);
 				
 				// Add messages to view
 				for (var n in messages)
 				{
-					//var message = Session.getMessage(ids[n]);
+					//var message = Cloudwalkers.Session.getMessage(ids[n]);
 					
 					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
@@ -179,7 +179,7 @@ define(
 
 			messageadded : function(draft)
 			{
-				var coworkersstream = Session.getStream('coworkers').id;
+				var coworkersstream = Cloudwalkers.Session.getStream('coworkers').id;
 				var streams = draft.get("streams");
 				
 				if(streams && streams.indexOf(coworkersstream) >= 0)
@@ -200,7 +200,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 		//		this.addScroll();
 			},
@@ -224,13 +224,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

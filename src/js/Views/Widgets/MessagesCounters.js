@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'mustache', 'Session', 'Views/Root', 'Views/CounterEntry'],
-	function (WidgetView, Mustache, Session, RootView, CounterEntryView)
+	['Views/Widgets/Widget', 'mustache',  'Views/Root', 'Views/CounterEntry'],
+	function (WidgetView, Mustache, RootView, CounterEntryView)
 	{
 		var MessagesCounters = WidgetView.extend({
 
@@ -81,11 +81,11 @@ define(
 					view = 'scheduled';
 				
 				// Memory cloth
-				var settings = Session.viewsettings(view);
+				var settings = Cloudwalkers.Session.viewsettings(view);
 				
 				// ... And store
 				settings.streams = [model.id];
-				Session.viewsettings(view, settings);
+				Cloudwalkers.Session.viewsettings(view, settings);
 				
 			},
 			

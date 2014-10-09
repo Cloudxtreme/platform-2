@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Statistic = Backbone.Model.extend({
 	
@@ -10,8 +10,8 @@ define(
 			url : function (params)
 		    {
 		        return this.endpoint?
-		        	Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
-		        	Session.api + '/' + this.typestring + '/' + this.id;
+		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
 		    },
 		    
 		    parse : function(response)
@@ -64,7 +64,7 @@ define(
 
 					// Has network token
 					else if(_.isString(streamid) && (hassublevel <=2 || !hassublevel)){
-						network = Session.getStream(stream.id).get("network").token;
+						network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 						if(network == streamid){
 							if(_.isNumber(stream[key][subkey]))					response+= Number(stream[key][subkey]);
 							else if(_.isNumber(stream[key]) && !hassublevel)	response+= Number(stream[key]);
@@ -72,7 +72,7 @@ define(
 					}
 
 					else if(_.isString(streamid) && hassublevel > 2){
-						network = Session.getStream(stream.id).get("network").token;
+						network = Cloudwalkers.Session.getStream(stream.id).get("network").token;
 						if(network == streamid){
 							if(_.isObject(stream[key]) && _.isObject(stream[key][subkey]))
 								if(_.isNumber(stream[key][subkey][subsubkey]))		response+= Number(stream[key][subkey][subsubkey]);
@@ -124,7 +124,7 @@ define(
 				{
 					$.each(this.get("streams"), function(i, log){
 						
-						var stream = Session.getStream(log.id);
+						var stream = Cloudwalkers.Session.getStream(log.id);
 						
 						// Temp hack
 						if(stream)

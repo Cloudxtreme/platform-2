@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Session', 'Views/Root'],
-	function (Widget, Session, RootView)
+	['Views/Widgets/Widget',  'Views/Root'],
+	function (Widget, RootView)
 	{
 		var KeywordsEditor = Widget.extend ({
 
@@ -15,12 +15,12 @@ define(
 			
 			initialize : function ()
 			{
-				this.channel = Session.getChannel("monitoring");
+				this.channel = Cloudwalkers.Session.getChannel("monitoring");
 				
 				// Listen to channel changes
-				this.listenTo(Session.getChannels(), 'sync', this.render);
-				this.listenTo(Session.getChannels(), 'remove', this.render);
-				this.listenTo(Session.getAccount(), 'sync', this.showFilter);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
+				this.listenTo(Cloudwalkers.Session.getAccount(), 'sync', this.showFilter);
 			},
 
 			render : function (e)
@@ -29,7 +29,7 @@ define(
 				if(e && e.preventDefault) e.preventDefault();
 				
 				
-				var account = Session.getAccount();
+				var account = Cloudwalkers.Session.getAccount();
 
 				var filters = account.attributes.filteroptions;
 			
@@ -127,7 +127,7 @@ define(
 				// Check Category
 				if(!catid) return RootView.alert(this.translateString("dont_forget_to_select_a_category"));
 				
-				var category = Session.getChannel(catid);
+				var category = Cloudwalkers.Session.getChannel(catid);
 
 				// Check Name
 				if(!this.keywordFormula().name) return RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
@@ -188,7 +188,7 @@ define(
 				this.$el.find(".add-keyword, .edit-keyword").toggleClass("inactive");
 				
 				// Collect keyword
-				var keyword = this.editing = Session.getChannel(id);
+				var keyword = this.editing = Cloudwalkers.Session.getChannel(id);
 				var filters = keyword.get("settings");
 
 				$('#keyword_manage_category option[value="' + keyword.get("parent") + '"]').attr("selected", "selected");
@@ -249,7 +249,7 @@ define(
 				//Default values - ID, countries, values
 				rand_id = this.getRandomInt(1,999);
 
-				var account = Session.getAccount();
+				var account = Cloudwalkers.Session.getAccount();
 
 				var filters = account.attributes.filteroptions;
 
@@ -421,7 +421,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,7 +1,7 @@
 
 define(
-	['Views/Widgets/Widget', 'Collections/Messages', 'Session', 'Views/Root', 'Views/Entry', 'Views/Widgets/LoadMore', 'Views/Widgets/MessageContainer'],
-	function (Widget, Messages, Session, RootView, EntryView, LoadMoreWidget, MessageContainerWidget)
+	['Views/Widgets/Widget', 'Collections/Messages',  'Views/Root', 'Views/Entry', 'Views/Widgets/LoadMore', 'Views/Widgets/MessageContainer'],
+	function (Widget, Messages, RootView, EntryView, LoadMoreWidget, MessageContainerWidget)
 	{
 		var ScheduledList = Widget.extend({
 
@@ -58,7 +58,7 @@ define(
 				
 				if(params){	
 					this.parameters = params;
-					Session.viewsettings('scheduled', {streams: params.target? [params.target]: []});
+					Cloudwalkers.Session.viewsettings('scheduled', {streams: params.target? [params.target]: []});
 				}
 				else if(this.filters.streams.length)
 					this.parameters.target = this.filters.streams.join(",");
@@ -151,12 +151,12 @@ define(
 				
 				// Get messages
 				var messages = this.category.messages.seed(ids);
-				//Session.getMessages().seed(ids);
+				//Cloudwalkers.Session.getMessages().seed(ids);
 				
 				// Add messages to view
 				for (var n in messages)
 				{
-					//var message = Session.getMessage(ids[n]);
+					//var message = Cloudwalkers.Session.getMessage(ids[n]);
 					
 					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
@@ -189,7 +189,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 				//this.addScroll();
 			},
@@ -213,13 +213,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Contact = Backbone.View.extend({
 	
@@ -57,7 +57,7 @@ define(
 			{	
 				this.model.trigger("unfollow", this.model);	
 				
-				this.model.parent = Session.getAccount();
+				this.model.parent = Cloudwalkers.Session.getAccount();
 				this.model.save({following: false}, {patch: true});
 				this.remove();
 			}

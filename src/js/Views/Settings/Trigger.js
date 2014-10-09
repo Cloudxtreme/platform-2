@@ -20,7 +20,7 @@ define(
 
 			render : function()
 			{	
-				this.model.parent = Session.getAccount();
+				this.model.parent = Cloudwalkers.Session.getAccount();
 				
 				var params = {
 					message: this.model.getmessage('REPLY'),
@@ -91,7 +91,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

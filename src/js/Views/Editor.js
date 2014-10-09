@@ -5,8 +5,8 @@
 **/
 
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Editor = Backbone.View.extend({
 	
@@ -72,7 +72,7 @@ define(
 				if(options) $.extend(this, options);
 
 				// URL Shortener
-				this.listenTo(Session.UrlShortener, "sync", this.shortenurl);
+				this.listenTo(Cloudwalkers.Session.UrlShortener, "sync", this.shortenurl);
 				this.listenTo(this.parent, "update:stream", function(data){ this.togglecontent(data, true) }.bind(this));
 				this.listenTo(this.parent, "update:campaign", this.campaignupdated);
 				this.listenTo(this.parent, "replace:content", this.replacecontent);
@@ -366,7 +366,7 @@ define(
 				if(!this.campaign)
 				{
 					var campaignid = this.draft.get("campaign");
-					var campaigns = Session.getAccount().get("campaigns");
+					var campaigns = Cloudwalkers.Session.getAccount().get("campaigns");
 					var campaign = campaigns.filter(function(el){ if(el.id == campaignid) return el; })
 
 					this.campaign = campaign.length ? campaign[0].name : null
@@ -398,7 +398,7 @@ define(
 					options.q 	= url;							
 					options.campaign = campaign;
 
-					Session.UrlShortener.fetch(options);
+					Cloudwalkers.Session.UrlShortener.fetch(options);
 				}.bind(this));
 			},
 
@@ -774,7 +774,7 @@ define(
 				if(data){
 					stream 	= _.isNumber(data.id) ? data.id : null;
 					val 	= _.isObject(data.data) ? data.data.html : null;
-					network = stream? Session.getStream(stream).get("network").token : null;
+					network = stream? Cloudwalkers.Session.getStream(stream).get("network").token : null;
 				}
 				
 				this.network = network ? network : 'default'; //Keep track of what network we are viewing

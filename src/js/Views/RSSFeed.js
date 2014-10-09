@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session'],
-	function (Pageview, Mustache, Session)
+	['Views/Pageview', 'mustache'],
+	function (Pageview, Mustache)
 	{
 		var RSSFeed = Pageview.extend({
 	
@@ -86,13 +86,13 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

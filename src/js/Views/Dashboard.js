@@ -1,8 +1,8 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
+	['Views/Pageview', 'mustache',  'Collections/Statistics', 'Views/Widgets/DashboardCleaner',
 	 'Views/Widgets/MessagesCounters', /*'Views/Widgets/DashboardMessageList', */'Views/Widgets/Info'],
 
-	function (Pageview, Mustache, Session, Statistics, DashboardCleanerWidget, 
+	function (Pageview, Mustache, Statistics, DashboardCleanerWidget, 
 			  MessagesCountersWidget, /*DashboardMessageListWidget, */InfoWidget)
 	{
 		var Dashboard = Pageview.extend({
@@ -22,7 +22,7 @@ define(
 			initialize : function()
 			{
 				// Check for outdated streams
-				Session.ping();
+				Cloudwalkers.Session.ping();
 
 				// Translation for Title
 				this.translateTitle("dashboard");
@@ -35,7 +35,7 @@ define(
 
 			filldynamicreports : function()
 			{	
-				var streams =  Session.getStreams();
+				var streams =  Cloudwalkers.Session.getStreams();
 				var reportables = streams.where({statistics: 1});
 
 				this.appendWidget(new DashboardCleanerWidget ({size: 12}), 12)
@@ -50,7 +50,7 @@ define(
 
 			fillstreamwidget : function(stream)
 			{	
-				var token = Session.getStream(stream).get("network").token;
+				var token = Cloudwalkers.Session.getStream(stream).get("network").token;
 				var title = token == 'facebook'? 'Likes': 'Followers';
 				var widgets = [
 					{widget: "Info", data: {title: title, filterfunc: "followers"}, span: 3},
@@ -64,7 +64,7 @@ define(
 
 					widgets[n].data.network = stream;
 					widgets[n].data.parentview = this;
-					widgets[n].data.footer = Session.getStream(stream).get("defaultname");
+					widgets[n].data.footer = Cloudwalkers.Session.getStream(stream).get("defaultname");
 
 					if(widgets[n].data.filterfunc != "besttimetopost")
 						widgets[n].data.footer = widgets[n].data.footer + ' ' + title;
@@ -126,7 +126,7 @@ define(
 			
 			addMessagesCounters : function (widgetdata)
 			{
-				var channel = Session.getChannel(widgetdata.type);
+				var channel = Cloudwalkers.Session.getChannel(widgetdata.type);
 				if(!channel)	return;
 
 				$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
@@ -136,7 +136,7 @@ define(
 			
 			addScheduleCounters : function (widgetdata)
 			{
-				var channel = Session.getChannel("outgoing");
+				var channel = Cloudwalkers.Session.getChannel("outgoing");
 				
 				$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 				
@@ -145,7 +145,7 @@ define(
 			
 			addDashboardDrafts : function (widgetdata)
 			{
-				widgetdata.model = Session.getStream("coworkers");
+				widgetdata.model = Cloudwalkers.Session.getStream("coworkers");
 				
 				if(!widgetdata.model)	return;
 
@@ -157,7 +157,7 @@ define(
 			addDashboardTrending : function (widgetdata)
 			{
 				widgetdata.trending = true;
-				widgetdata.model = Session.getChannel(widgetdata.type);
+				widgetdata.model = Cloudwalkers.Session.getChannel(widgetdata.type);
 				widgetdata.filters = {
 					sort: "engagement",
 					since: Math.round(Date.now()/3600000) *3600 - 86400 *widgetdata.since
@@ -182,14 +182,14 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Session.polyglot.t(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
 					}
 			},
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

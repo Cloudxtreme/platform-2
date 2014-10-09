@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
+	['backbone',  'Views/Root', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
 	 'Collections/Messages', 'Collections/CannedResponses', 'Collections/Notes', 'Collections/Notifications', 'Collections/Statistics'],
 
-	function (Backbone, Session, RootView, Channels, Streams, CampaignsCollection, Users, Contacts,
+	function (Backbone, RootView, Channels, Streams, CampaignsCollection, Users, Contacts,
 			  Messages, CannedResponses, Notes, Notifications, Statistics)
 	{
 		var Account = Backbone.Model.extend({
@@ -63,7 +63,7 @@ define(
 			
 			url : function ()
 			{		
-				return Session.api + '/account/' + this.id + this.endpoint;
+				return Cloudwalkers.Session.api + '/account/' + this.id + this.endpoint;
 			},
 			
 			sync : function (method, model, options)
@@ -76,7 +76,7 @@ define(
 			firstload : function()
 			{
 				// Store channels and their children
-				$.each(this.get("channels"), function(n, channel){ Session.storeChannel(channel); });
+				$.each(this.get("channels"), function(n, channel){ Cloudwalkers.Session.storeChannel(channel); });
 			},
 			
 			activate : function ()
@@ -106,15 +106,17 @@ define(
 				// Load Statistics
 				Store.filter("statistics", null, function(list){ this.statistics.add(list); }.bind(this));
 				
+				// MIGRATION -> re-add this later, we still need reports
 				// Load Reports // Deprecated?
-				Store.filter("reports", null, function(list){ this.reports.add(list); }.bind(this));
+				//Store.filter("reports", null, function(list){ this.reports.add(list); }.bind(this));
 				
 				// Filter limits
 				if( this.get("plan"))
 					this.limits = this.get("plan").limits;
 				
+				// MIGRATION -> Commented ping for now (forest & trees)
 				// Connect ping to account
-				this.ping = new Session.Ping({id: this.id});
+				//this.ping = new Cloudwalkers.Session.Ping({id: this.id});
 
 			},
 			
@@ -188,7 +190,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 		});

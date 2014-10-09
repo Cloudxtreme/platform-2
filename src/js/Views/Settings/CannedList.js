@@ -10,7 +10,7 @@ define(
 
 			initialize : function()
 			{
-				this.cannedresponses = Session.getCannedResponses();
+				this.cannedresponses = Cloudwalkers.Session.getCannedResponses();
 				this.listenTo(this.cannedresponses, 'sync', this.render);
 			},
 

@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/MonitorFilters', 'Views/Widgets/MonitorList'],
-	function (Pageview, Mustache, Session, MonitorFiltersWidget, MonitorListWidget)
+	['Views/Pageview', 'mustache',  'Views/Widgets/MonitorFilters', 'Views/Widgets/MonitorList'],
+	function (Pageview, Mustache, MonitorFiltersWidget, MonitorListWidget)
 	{
 		var KeywordMonitoring = Pageview.extend({
 
@@ -10,11 +10,11 @@ define(
 			initialize : function ()
 			{
 				// Emergency break
-				if (!this.options.category) return Session.home();
+				if (!this.options.category) return Cloudwalkers.Session.home();
 				
 				// Listen for changes
-				//this.listenTo(Session.getChannels(), 'sync', this.render);
-				//this.listenTo(Session.getStreams(), 'sync', this.render);
+				//this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+				//this.listenTo(Cloudwalkers.Session.getStreams(), 'sync', this.render);
 				
 				this.category = this.options.category;
 
@@ -51,7 +51,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

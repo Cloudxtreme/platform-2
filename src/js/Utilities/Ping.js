@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root'],
-	function (Backbone, RootView)
+	['backbone'],
+	function (Backbone)
 	{
 		Ping = Backbone.Model.extend({
 	
@@ -27,7 +27,7 @@ define(
 				this.on("change:remove", this.removeModels, this);
 				
 				// Function triggers (shortcuts)
-				this.listenTo(Session, 'ping', this.forceping);
+				this.listenTo( 'ping', this.forceping);
 			},
 			
 			/**
@@ -59,7 +59,7 @@ define(
 			{
 				if(this.cursor) this.parameters.after = this.cursor;
 					
-				return Session.api + '/account/' + this.id + '/ping?' + $.param (this.parameters);
+				return Cloudwalkers.Session.api + '/account/' + this.id + '/ping?' + $.param (this.parameters);
 			},
 			
 			'parse' : function(response) {
@@ -81,22 +81,22 @@ define(
 			 	//console.log("Ping:", updates);
 			 		
 				// Accounts
-				if (updates.accounts) Session.getAccounts().updates(updates.accounts);
+				if (updates.accounts) Cloudwalkers.Session.getAccounts().updates(updates.accounts);
 				
 				// Streams
-				if (updates.streams) Session.getStreams().updates(updates.streams);
+				if (updates.streams) Cloudwalkers.Session.getStreams().updates(updates.streams);
 				
 				// Messages
-				if (updates.messages) Session.getMessages().updates(updates.messages);
+				if (updates.messages) Cloudwalkers.Session.getMessages().updates(updates.messages);
 				
 				// Notifications
-				if (updates.notifications) Session.getNotifications().updates(updates.notifications);
+				if (updates.notifications) Cloudwalkers.Session.getNotifications().updates(updates.notifications);
 				
 				// Users
-				if (updates.users) Session.getUsers().updates(updates.users);
+				if (updates.users) Cloudwalkers.Session.getUsers().updates(updates.users);
 				
 				// Contacts
-				if (updates.contacts) Session.getContacts().updates(updates.contacts);
+				if (updates.contacts) Cloudwalkers.Session.getContacts().updates(updates.contacts);
 			 },
 			 
 			 /**
@@ -160,7 +160,7 @@ define(
 			'translateString' : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

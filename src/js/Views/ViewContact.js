@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/SimpleCompose', 'Views/Widgets/InboxMessage', 
+	['backbone',  'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/Modals/SimpleCompose', 'Views/Widgets/InboxMessage', 
 	 /*'Views/Widgets/TagEntry',*/ 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
 
-	function (Backbone, Session, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
+	function (Backbone, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
 		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteEntryView, Message)
 	{
 		var ViewContact = Backbone.View.extend({
@@ -65,7 +65,7 @@ define(
 				//Mustache Translate Render
 
 				// Apply role permissions to template data
-				Session.censuretemplate(this.contactinfo);
+				Cloudwalkers.Session.censuretemplate(this.contactinfo);
 
 				// Create view
 				var view = Mustache.render(Templates.viewcontact, this.contactinfo);
@@ -78,10 +78,10 @@ define(
 
 				this.updatecontactinfo();
 
-				if (Session.isAuthorized('ACCOUNT_NOTES_MANAGE'))
+				if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_MANAGE'))
 					this.initializenote();
 
-				if ((Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || (Session.isAuthorized('ACCOUNT_TAGS_MANAGE')))
+				if ((Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_VIEW')) || (Cloudwalkers.Session.isAuthorized('ACCOUNT_TAGS_MANAGE')))
 					this.loadtagui();
 
 				this.begintouch();
@@ -214,7 +214,7 @@ define(
 				this.collection.url = this.model.url();
 
 				// Store results based on url
-				//Store.set("touches", {id: this.collection.url, modelids: ids, cursor: this.cursor, ping: Session.getPing().cursor});
+				//Store.set("touches", {id: this.collection.url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
 			
 				// Seed ids to collection
 				this.collection.seed(ids);
@@ -227,7 +227,7 @@ define(
 				if(contactinfo){
 					
 					// Apply role permissions to template data
-					Session.censuretemplate(contactinfo);
+					Cloudwalkers.Session.censuretemplate(contactinfo);
 
 					//Mustache Translate Render
 					this.mustacheTranslateRender(contactinfo);
@@ -471,7 +471,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

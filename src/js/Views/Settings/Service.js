@@ -194,7 +194,7 @@ define(
 				(
 					'wizard/service/' + id,
 					{
-						'account' : Session.getAccount ().get ('id')
+						'account' : Cloudwalkers.Session.getAccount ().get ('id')
 					},
 					function (data)
 					{
@@ -210,7 +210,7 @@ define(
 				(
 					'wizard/service/' + id,
 					{
-						'account' : Session.getAccount ().get ('id')
+						'account' : Cloudwalkers.Session.getAccount ().get ('id')
 					},
 					data,
 					callback
@@ -222,7 +222,7 @@ define(
 				Cloudwalkers.Net.remove (
 					'wizard/service/' + id,
 					{
-						'account' : Session.getAccount ().get ('id')	
+						'account' : Cloudwalkers.Session.getAccount ().get ('id')	
 					},
 					callback
 				);
@@ -230,7 +230,7 @@ define(
 
 			setStreamChannels : function (service)
 			{
-				var channels = Session.getChannels ();
+				var channels = Cloudwalkers.Session.getChannels ();
 
 				function loadChannels (stream, channels)
 				{
@@ -435,13 +435,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

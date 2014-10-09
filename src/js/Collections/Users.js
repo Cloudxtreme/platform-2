@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'backbone', 'Session', 'Models/User'],
-	function (BaseCollection, Backbone, Session, User)
+	['Collections/BaseCollection', 'backbone',  'Models/User'],
+	function (BaseCollection, Backbone, User)
 	{
 		var Users = BaseCollection.extend({
 
@@ -16,8 +16,8 @@ define(
 				if(options) $.extend(this, options);
 				
 				// Put "add" listener to global users collection
-				if( Session.user.account)
-					Session.getUsers().listenTo(this, "add", Session.getUsers().distantAdd);	
+				if( Cloudwalkers.Session.user.account)
+					Cloudwalkers.Session.getUsers().listenTo(this, "add", Cloudwalkers.Session.getUsers().distantAdd);	
 			},
 			
 			parse : function (response)
@@ -40,7 +40,7 @@ define(
 			
 			url : function()
 			{
-				return Session.api + '/account/' + Session.getAccount ().id + '/' + this.typestring + this.parameters;
+				return Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount ().id + '/' + this.typestring + this.parameters;
 			},
 			
 			sync : function (method, model, options)

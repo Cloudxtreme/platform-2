@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Session', 'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */'Views/Root', 
+	['backbone',  'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */'Views/Root', 
 	 'Views/ActionParameters', 'Utilities/Utils'],
 	
-	function (Backbone, Session, Actions, Notes, RootView, ActionParametersView, Utils)
+	function (Backbone, Actions, Notes, RootView, ActionParametersView, Utils)
 	{	
 		var Message = Backbone.Model.extend({
 	
@@ -46,17 +46,17 @@ define(
 		        if(!this.id){
 		        	params = this.parameters;
 		        	if(this.endpoint){
-		        		return Session.api + '/accounts/' + Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
+		        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring + this.endpoint + params;
 		        	} else {
-		        		return Session.api + '/accounts/' + Session.getAccount().id + "/" + this.typestring;
+		        		return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount().id + "/" + this.typestring;
 		        	}
 		        }
 		        	
 		        
 		        return this.endpoint?
 		        
-		        	Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
-		        	Session.api + '/' + this.typestring + '/' + this.id;
+		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
+		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
 		    },
 
 			parse : function(response)
@@ -217,7 +217,7 @@ define(
 				if(this.get("streams") && this.get("streams").length){
 					$.each(this.get("streams"), function(n, stream)
 					{	
-						var network = Session.getStream(stream).get("network");
+						var network = Cloudwalkers.Session.getStream(stream).get("network");
 						var limit = network.limitations['max-length']? network.limitations['max-length'].limit : null;
 						
 						if(!limit)	return true;
@@ -315,7 +315,7 @@ define(
 				$.each(values, function(n, value){ if(response[value] !== undefined) filtered[value] = response[value]});
 				
 				// Stream		
-				var stream = Session.getStream(response.stream);
+				var stream = Cloudwalkers.Session.getStream(response.stream);
 				
 				if(stream)
 				{
@@ -777,7 +777,7 @@ define(
 					]
 				};
 
-				var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '?account=' + Session.getAccount ().get ('id');
+				var url = CONFIG_BASE_URL + 'json/message/' + this.get ('id') + '?account=' + Cloudwalkers.Session.getAccount ().get ('id');
 
 				// Do the call
 				jQuery.ajax
@@ -913,7 +913,7 @@ define(
 			{
 				if (this.get ('stream'))
 				{
-					return Session.getAccount().streams.get(this.get ('stream'));
+					return Cloudwalkers.Session.getAccount().streams.get(this.get ('stream'));
 				}
 				return null;
 			},
@@ -1075,7 +1075,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 		

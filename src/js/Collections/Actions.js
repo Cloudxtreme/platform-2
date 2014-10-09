@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Action', 'Views/Root'],
-	function (BaseCollection, Session, Action, RootView)
+	['Collections/BaseCollection',  'Models/Action', 'Views/Root'],
+	function (BaseCollection, Action, RootView)
 	{
 		var Actions = BaseCollection.extend({
 	
@@ -66,7 +66,7 @@ define(
 				var param = this.parameters? "?" + $.param (this.parameters): "";
 				var parent = this.parent? this.parent.get("objectType") + "s/" + this.parent.id: "";
 				
-				return Session.api + '/' + parent + '/actions' + param;
+				return Cloudwalkers.Session.api + '/' + parent + '/actions' + param;
 				// return CONFIG_BASE_URL + 'json/' + parent + '/actions' + param;
 			},
 			
@@ -205,7 +205,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 		

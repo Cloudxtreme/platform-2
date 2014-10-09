@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'backbone', 'Session', 'Models/Service'],
-	function (BaseCollection, Backbone, Session, Service)
+	['Collections/BaseCollection', 'backbone',  'Models/Service'],
+	function (BaseCollection, Backbone, Service)
 	{
 		var Services = BaseCollection.extend({
 
@@ -14,7 +14,7 @@ define(
 			
 			url : function()
 			{	
-				return Session.api + '/accounts/' + Session.getAccount ().id + '/services' + this.endpoint;
+				return Cloudwalkers.Session.api + '/accounts/' + Cloudwalkers.Session.getAccount ().id + '/services' + this.endpoint;
 			},
 			
 			parse : function (response)

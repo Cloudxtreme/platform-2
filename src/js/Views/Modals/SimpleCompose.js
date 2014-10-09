@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Session', 'Models/Note', 'Models/Message'],
-	function (Backbone, RootView, Session, Note, Message)
+	['backbone', 'Views/Root',  'Models/Note', 'Models/Message'],
+	function (Backbone, RootView, Note, Message)
 	{
 		var SimpleCompose = Backbone.View.extend({
 
@@ -128,7 +128,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -15,15 +15,15 @@ define(
 
 			initialize : function()
 			{
-				this.streams = Session.getStreams();
+				this.streams = Cloudwalkers.Session.getStreams();
 				this.streams = this.streams.filterNetworks();
 
-				this.account = Session.getAccount();
+				this.account = Cloudwalkers.Session.getAccount();
 				this.triggers = new Triggers();
 
 				this.listenTo(this.triggers, 'sync', this.filltriggers);
 
-				this.account = Session.getAccount();
+				this.account = Cloudwalkers.Session.getAccount();
 				
 				this.triggermodel = {};
 			},
@@ -36,7 +36,7 @@ define(
 				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 			
 				this.$el.html (Mustache.render (Templates.settings.account, data));
 
@@ -119,7 +119,7 @@ define(
 			
 			deletecampaign : function (e)
 			{
-				//var account = Session.getAccount();
+				//var account = Cloudwalkers.Session.getAccount();
 				var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 				
 				RootView.confirm 
@@ -127,7 +127,7 @@ define(
 					this.translateString('are_you_sure_you_want_to_remove_this_campaign'), 
 					function () 
 					{
-						Session.getAccount().removecampaign(campaignid, e.target);
+						Cloudwalkers.Session.getAccount().removecampaign(campaignid, e.target);
 					}
 				)
 			},
@@ -153,7 +153,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['Models/User', 'Session'],
-	function (User, Session)
+	['Models/User'],
+	function (User)
 	{
 		var Contact = User.extend({
 	
@@ -9,12 +9,12 @@ define(
 
 			url : function ()
 			{
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 				
 				if(this.parent)		url.push(this.parent.typestring, this.parent.id, this.typestring, this.id);
 				//else if(this.id)	url.push(this.typestring, this.id);
-				else if(this.id)	url.push("accounts", Session.getAccount ().id, this.typestring, this.id);
-				else				url.push("accounts", Session.getAccount ().id, this.typestring);
+				else if(this.id)	url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring, this.id);
+				else				url.push("accounts", Cloudwalkers.Session.getAccount ().id, this.typestring);
 
 				if(this.endpoint)	url.push(this.endpoint);
 

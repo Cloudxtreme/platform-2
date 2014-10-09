@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Statistic', 'Models/Stream'],
-	function (BaseCollection, Session, Statistic, Stream)
+	['Collections/BaseCollection',  'Models/Statistic', 'Models/Stream'],
+	function (BaseCollection, Statistic, Stream)
 	{
 		var Statistics = BaseCollection.extend({
 	
@@ -23,8 +23,8 @@ define(
 				if (options) $.extend(this, options);
 				
 				// Put "add" listener to global messages collection
-				if( Session.user.account)
-					Session.getReports().listenTo(this, "add", Session.getReports().distantAdd);
+				if( Cloudwalkers.Session.user.account)
+					Cloudwalkers.Session.getReports().listenTo(this, "add", Cloudwalkers.Session.getReports().distantAdd);
 
 			},
 			
@@ -33,7 +33,7 @@ define(
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 				
-				var url = Session.api + '/accounts/' + this.parentmodel.id;
+				var url = Cloudwalkers.Session.api + '/accounts/' + this.parentmodel.id;
 						
 				if(this.endpoint) url += '/' + this.endpoint;
 			
@@ -46,7 +46,7 @@ define(
 			 */
 			touch : function (params)
 			{
-				this.parentmodel = Session.getAccount();
+				this.parentmodel = Cloudwalkers.Session.getAccount();
 				this.endpoint = this.modelstring + "ids";
 				
 				// Hard-wired request (no caching)
@@ -127,7 +127,7 @@ define(
 				{
 					$.each(stat.get("streams"), function(i, log){
 						
-						var stream = Session.getStream(log.id);
+						var stream = Cloudwalkers.Session.getStream(log.id);
 						
 						// Temp hack
 						if(stream)

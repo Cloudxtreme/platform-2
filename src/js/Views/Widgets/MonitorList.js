@@ -1,7 +1,7 @@
 
 define(
-	['Views/Widgets/Widget', 'mustache', 'Session', 'Views/Widgets/LoadMore', 'Views/Entry'],
-	function (Widget, Mustache, Session, LoadMoreWidget, EntryView)
+	['Views/Widgets/Widget', 'mustache',  'Views/Widgets/LoadMore', 'Views/Entry'],
+	function (Widget, Mustache, LoadMoreWidget, EntryView)
 	{
 		var MonitorList = Widget.extend({
 
@@ -145,12 +145,12 @@ define(
 				
 				// Get messages
 				var messages = this.category.messages.seed(ids);
-				//Session.getMessages().seed(ids);
+				//Cloudwalkers.Session.getMessages().seed(ids);
 				
 				// Add messages to view
 				for (var n in messages)
 				{
-					//var message = Session.getMessage(ids[n]);
+					//var message = Cloudwalkers.Session.getMessage(ids[n]);
 					
 					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
 					this.entries.push (messageView);
@@ -184,7 +184,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo(Session, 'destroy:view', this.remove);
+				this.listenTo( 'destroy:view', this.remove);
 				
 				//this.addScroll();
 			},
@@ -208,7 +208,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

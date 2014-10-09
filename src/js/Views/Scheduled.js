@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache', 'Session', 'Views/Widgets/ScheduledFilters', 'Views/Widgets/ScheduledList'],
-	function (Pageview, Mustache, Session, ScheduledFiltersWidget, ScheduledListWidget)
+	['Views/Pageview', 'mustache',  'Views/Widgets/ScheduledFilters', 'Views/Widgets/ScheduledList'],
+	function (Pageview, Mustache, ScheduledFiltersWidget, ScheduledListWidget)
 	{
 		var Scheduled = Pageview.extend({
 
@@ -9,12 +9,12 @@ define(
 			
 			initialize : function ()
 			{				
-				this.model = Session.getStream("scheduled");
+				this.model = Cloudwalkers.Session.getStream("scheduled");
 
 				// Emergency break
-				if (!this.model) return Session.home();
+				if (!this.model) return Cloudwalkers.Session.home();
 
-				var settings = Session.viewsettings('scheduled');
+				var settings = Cloudwalkers.Session.viewsettings('scheduled');
 				
 				if (settings.streams)
 					this.options.filters = {streams : settings.streams};
@@ -46,7 +46,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 			
 		});

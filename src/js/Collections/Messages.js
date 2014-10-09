@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection', 'Session', 'Models/Message'],
-	function (BaseCollection, Session, Message)
+	['Collections/BaseCollection',  'Models/Message'],
+	function (BaseCollection, Message)
 	{
 		var Messages = BaseCollection.extend({
 
@@ -21,8 +21,8 @@ define(
 				if(options) $.extend(this, options);
 				
 				// Put "add" listener to global messages collection
-				if( Session.user.account)
-					Session.getMessages().listenTo(this, "add", Session.getMessages().distantAdd);	
+				if( Cloudwalkers.Session.user.account)
+					Cloudwalkers.Session.getMessages().listenTo(this, "add", Cloudwalkers.Session.getMessages().distantAdd);	
 
 				// Check if it's empty only after sync
 				this.on('sync', function(){

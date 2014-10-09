@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Root', 'Router'],
-	function (Backbone, Session, RootView, Router)
+	['backbone',  'Views/Root', 'Router'],
+	function (Backbone, RootView, Router)
 	{
 		var Resync = Backbone.View.extend({
 
@@ -10,8 +10,8 @@ define(
 			{	
 				$.extend(this, options);
 				
-				this.listenTo(Session.user, 'sync', this.activate);
-				this.listenToOnce(Session.user, 'activated', this.refresh)
+				this.listenTo(Cloudwalkers.Session.user, 'sync', this.activate);
+				this.listenToOnce(Cloudwalkers.Session.user, 'activated', this.refresh)
 			},	
 
 			render : function ()
@@ -26,18 +26,18 @@ define(
 			updateme : function()
 			{
 				Store.remove('me');
-				Session.user.fetch();
+				Cloudwalkers.Session.user.fetch();
 			},
 
 			activate : function(data)
 			{	
-				var currversion = Session.version;
+				var currversion = Cloudwalkers.Session.version;
 
 				Store.write("version", [{version: currversion}]);
 
 				//Force loaded
-				Session.localversion = currversion;
-				Session.user.activate(data);
+				Cloudwalkers.Session.localversion = currversion;
+				Cloudwalkers.Session.user.activate(data);
 			},
 
 			refresh : function()
@@ -52,8 +52,8 @@ define(
 			//Check type of update necessary - hardcoded "me" refresh
 			versioncheck : function(view)
 			{	
-				/*var localversion = Session.version;
-				var currversion = Session.version;
+				/*var localversion = Cloudwalkers.Session.version;
+				var currversion = Cloudwalkers.Session.version;
 			
 				if(localversion && this.parseversion(localversion) < this.parseversion(currversion))
 					this.updateme();

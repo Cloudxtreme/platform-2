@@ -21,7 +21,7 @@ define(
 				this.on("change:remove", this.removeModels, this);
 				
 				// Function triggers (shortcuts)
-				this.listenTo(Session, 'ping', this.forceping);*/
+				this.listenTo( 'ping', this.forceping);*/
 			},
 			
 			/*'url' : function()
@@ -47,8 +47,8 @@ define(
 
 			'url' : function()
 			{	
-				var url = [Session.api + "/accounts"];
-				var account = Session.getAccount();
+				var url = [Cloudwalkers.Session.api + "/accounts"];
+				var account = Cloudwalkers.Session.getAccount();
 
 				if(account){
 					url.push(account.id)

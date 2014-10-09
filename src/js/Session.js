@@ -1,6 +1,6 @@
 define(	// MIGRATION
 	['backbone', 'Models/Me' /*, 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
-	function (Backbone, Me)
+	function (Backbone, Me, Ping)
 	{
 		var Session = 
 		{
@@ -49,14 +49,14 @@ define(	// MIGRATION
 			updateSetting : function(attribute, value, callbacks)
 			{
 				
-				if( Session.user.attributes.settings[attribute] != value)
+				if( Cloudwalkers.Session.user.attributes.settings[attribute] != value)
 				{
 					// Update session and save on user
-					Session.user.attributes.settings[attribute] = value;
+					Cloudwalkers.Session.user.attributes.settings[attribute] = value;
 					
 					callbacks = ($.extend(callbacks, {patch: true}) || {patch: true});
 					
-					Session.user.save({settings: Session.user.attributes.settings}, callbacks);
+					Cloudwalkers.Session.user.save({settings: Cloudwalkers.Session.user.attributes.settings}, callbacks);
 				}
 			},
 			
@@ -83,23 +83,23 @@ define(	// MIGRATION
 				// Split into accounts
 				var pointer = "account_" + this.getAccount().id;
 				
-				if(!Session.user.attributes.settings.viewsettings)
-					Session.user.attributes.settings.viewsettings = {};
+				if(!Cloudwalkers.Session.user.attributes.settings.viewsettings)
+					Cloudwalkers.Session.user.attributes.settings.viewsettings = {};
 				
-				if(!Session.user.attributes.settings.viewsettings[pointer])
-					Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
+				if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
+					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
 
 				// Sent hack to add the object
-				if(value == 'sent' && !Session.user.attributes.settings.viewsettings[pointer].sent)
-					Session.user.attributes.settings.viewsettings[pointer].sent = {streams: []};
+				if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].sent)
+					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].sent = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'profiles' && !Session.user.attributes.settings.viewsettings[pointer].profiles)
-					Session.user.attributes.settings.viewsettings[pointer].profiles = {streams: []};
+				if(value == 'profiles' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].profiles)
+					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].profiles = {streams: []};
 
 				// Timeline hack to add the object
-				if(value == 'news' && !Session.user.attributes.settings.viewsettings[pointer].news)
-					Session.user.attributes.settings.viewsettings[pointer].news = {streams: []};
+				if(value == 'news' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].news)
+					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].news = {streams: []};
 				
 				var viewsettings = this.clone(this.get("viewsettings"));
 				
@@ -143,7 +143,7 @@ define(	// MIGRATION
 						// Clean touch id-lists
 						Store.filter("touches", null, function(list)
 						{
-							var cursor = Session.getPing().cursor;
+							var cursor = Cloudwalkers.Session.getPing().cursor;
 							
 							list = list.filter(function(touch){ return touch.ping == cursor; });
 							
@@ -247,7 +247,7 @@ define(	// MIGRATION
 				if( channel.channels && channel.channels.length)
 					channel.channels = channel.channels.map(function(el)
 					{ 
-						Session.storeChannel(el);
+						Cloudwalkers.Session.storeChannel(el);
 						return el.id;
 					});
 				
@@ -413,7 +413,7 @@ define(	// MIGRATION
 				var lang = this.user.attributes.locale;
 				var extendLang;
 
-				if(!locale)	return;
+				if(!lang)	return;
 
 				moment.lang(lang);
 				
@@ -433,11 +433,11 @@ define(	// MIGRATION
 			refresh : function ()
 			{
 				
-				console.log("Session.refresh triggered")
+				console.log("Cloudwalkers.Session.refresh triggered")
 				
 				//this.getAccount ().refresh (function ()
 				//{
-				//	Session.trigger ('channels:change');
+				//	Cloudwalkers.Session.trigger ('channels:change');
 				//});
 			},
 	
@@ -448,7 +448,7 @@ define(	// MIGRATION
 				
 				
 				
-				//$.extend(Session.settings, user.get("settings"));
+				//$.extend(Cloudwalkers.Session.settings, user.get("settings"));
 			},
 
 			getversion : function()

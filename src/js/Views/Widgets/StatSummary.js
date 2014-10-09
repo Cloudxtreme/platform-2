@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Session'],
-	function (Widget, Session)
+	['Views/Widgets/Widget'],
+	function (Widget)
 	{
 		var StatSummary = Widget.extend ({
 
@@ -94,10 +94,10 @@ define(
 			parseactivity : function ()
 			{
 
-				//$.each(Session.getStreams().models, function(index, model) { console.log(model.id, model.get("token"))});
+				//$.each(Cloudwalkers.Session.getStreams().models, function(index, model) { console.log(model.id, model.get("token"))});
 
 				// Get most recent stat
-				var id = Session.getStream("coworkers").id;
+				var id = Cloudwalkers.Session.getStream("coworkers").id;
 				var total = this.activitymsgs(this.collection.latest(),id) - this.activitymsgs(this.collection.first(),id);
 				
 				return {counter: total >= 0 ? total : 0};
@@ -190,7 +190,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 		});

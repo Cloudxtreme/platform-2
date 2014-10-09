@@ -1,6 +1,6 @@
 define (
-	['backbone', 'Session', 'Router', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
-	function (Backbone, Session, Router, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
+	['backbone',  'Router', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
+	function (Backbone, Router, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
 	{
 		var Root = Backbone.View.extend({
 
@@ -40,13 +40,13 @@ define (
 			setView : function (view)
 			{
 				if (this.view) this.view.remove();
-				Session.trigger('destroy:view');
+				Cloudwalkers.Session.trigger('destroy:view');
 				
 				this.view = view;	
 					
 				this.render();
 				
-				Session.manage();
+				Cloudwalkers.Session.manage();
 			},
 			
 			resize : function()
@@ -235,7 +235,7 @@ define (
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 
 		});

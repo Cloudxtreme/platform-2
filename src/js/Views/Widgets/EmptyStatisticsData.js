@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var EmptyData = Backbone.View.extend({
 	
@@ -65,12 +65,12 @@ define(
 				var createddate;
 
 				if(!this.stream){
-					createddate = Session.getAccount().get('created');
+					createddate = Cloudwalkers.Session.getAccount().get('created');
 					this.parsecreationdate(createddate);
 				}
 				else
 				{
-					var stream = Session.getStream(this.stream);
+					var stream = Cloudwalkers.Session.getStream(this.stream);
 					
 					//Stream has a creation date
 					if(stream.get('created'))
@@ -105,7 +105,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			}
 		});
 

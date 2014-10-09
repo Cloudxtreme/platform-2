@@ -11,7 +11,7 @@ define(
 
 			url : function()
 			{
-				var locale = Session.user.attributes.locale || "en_EN";
+				var locale = Cloudwalkers.Session.user.attributes.locale || "en_EN";
 				return '/locales/' + locale + '.json';
 			},
 

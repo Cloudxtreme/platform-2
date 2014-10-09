@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Info = Backbone.View.extend({
 	
@@ -59,7 +59,7 @@ define(
 
 				this.settings = {
 					title	: this.title,
-					network : this.network? {icon: Session.getStream(this.network).get("network").token}: {icon : "cloud"},
+					network : this.network? {icon: Cloudwalkers.Session.getStream(this.network).get("network").token}: {icon : "cloud"},
 					streamid: this.network
 				};
 				
@@ -379,7 +379,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 		});
 

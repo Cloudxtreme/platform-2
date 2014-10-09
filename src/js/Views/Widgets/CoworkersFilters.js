@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'mustache', 'Session', 'Collections/Users', 'Views/User'],
-	function (WidgetView, Mustache, Session, Users, UserView)
+	['Views/Widgets/Widget', 'mustache',  'Collections/Users', 'Views/User'],
+	function (WidgetView, Mustache, Users, UserView)
 	{
 		var CoworkersFilters = WidgetView.extend ({
 
@@ -39,7 +39,7 @@ define(
 				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
-				Session.censuretemplate(data);
+				Cloudwalkers.Session.censuretemplate(data);
 
 				// View
 				this.$el.html (Mustache.render (Templates.coworkersfilters, data));
@@ -53,14 +53,14 @@ define(
 				/*var data = {keywords: this.category.channels.models};
 				
 				data.name = this.category.get("name");
-				data.networks = Session.getStreams().filterNetworks(this.streams, true);
+				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 				
 
 				
 				
 				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 				
-				this.listenTo(Session, 'destroy:view', this.remove);*/
+				this.listenTo( 'destroy:view', this.remove);*/
 				
 				return this;
 			},
@@ -217,7 +217,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.polyglot.t(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

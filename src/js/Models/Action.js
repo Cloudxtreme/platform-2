@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session'],
-	function (Backbone, Session)
+	['backbone'],
+	function (Backbone)
 	{
 		var Action = Backbone.Model.extend({
 	
@@ -17,7 +17,7 @@ define(
 			
 			url : function()
 			{	
-				var url = [Session.api];
+				var url = [Cloudwalkers.Session.api];
 				
 				if(this.parent)				url.push(this.parent.typestring, this.parent.id);
 				if(this.typestring)			url.push(this.typestring);

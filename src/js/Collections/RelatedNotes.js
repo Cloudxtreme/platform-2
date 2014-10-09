@@ -22,7 +22,7 @@ define(
 					// Or in Session collection
 					if(!model)
 					{
-						model = Session.getMessage (id);
+						model = Cloudwalkers.Session.getMessage (id);
 						this.add(model);
 					}
 					
