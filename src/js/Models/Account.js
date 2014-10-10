@@ -80,8 +80,7 @@ define(
 			},
 			
 			activate : function ()
-			{	
-				
+			{					
 				// First load
 				if(!Store.exists("channels")) this.firstload();
 				

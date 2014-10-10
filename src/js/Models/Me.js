@@ -92,7 +92,7 @@ define(['Models/User', 'Collections/Accounts'],
 					
 					// Set current account
 					this.account = this.getCurrentAccount();
-
+					
 					this.account.activate();
 					
 					// Set current user level & permissions

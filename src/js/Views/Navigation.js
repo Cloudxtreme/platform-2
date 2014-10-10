@@ -38,10 +38,9 @@ define(	// MIGRATION -> added mustache
 				// Interact with Session triggers
 				Cloudwalkers.Session.on ('change:accounts', this.renderHeader, this);	
 				
-				// MIGRATION -> Still has no user, hence, no Channels
 				// Listen to channel changes
-				///this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
-				///this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'sync', this.render);
+				this.listenTo(Cloudwalkers.Session.getChannels(), 'remove', this.render);
 				
 				// DEV Check
 				// $.get(Cloudwalkers.Session.api + '/version', this.version.bind(this)); //{headers: {'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken, 'Accept': "application/json"}}
@@ -160,7 +159,7 @@ define(	// MIGRATION -> added mustache
 			rendermonitoring : function(account)
 			{
 				var monitoring = account.channels.findWhere({type: "monitoring"});
-
+				
 				for (var n in monitoring.channels.models)
 				{
 					if(monitoring.channels.models[n].attributes.channels.length)

@@ -8,7 +8,10 @@ define(	// MIGRATION
 			parameters : '',
 			
 			initialize : function (attributes)
-			{				
+			{	
+				// MIGRATION
+				if(!Channels) Channels = require('Collections/Channels')
+
 				// Child channels
 				this.channels = new Channels();
 				this.channels.seed(this.get("channels"));
@@ -30,8 +33,9 @@ define(	// MIGRATION
 				// Listeners
 				this.on("change", function(model){ Store.set("channels", model.attributes)});
 				
-				this.listenTo(this.messages, 'change:from', this.seedcontacts);
-				this.listenTo(this.notifications, 'change:from', this.seedcontacts);
+				//MIGRATION -> commented the listeners
+				///this.listenTo(this.messages, 'change:from', this.seedcontacts);
+				///this.listenTo(this.notifications, 'change:from', this.seedcontacts);
 				//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 				
 			},

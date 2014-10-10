@@ -1,6 +1,6 @@
-define(	// MIGRATION
-	['backbone', 'Models/Me' /*, 'Views/Root', 'Router', 'Collections/Accounts', 'Models/Polyglot'*/],
-	function (Backbone, Me, Ping)
+define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot plugin
+	['backbone', 'Models/Me', 'moment', 'Utilities/Polyglot', 'polyglot' /*, 'Views/Root', 'Router', 'Collections/Accounts'*/],
+	function (Backbone, Me, moment, PolyglotUtil, PolyglotPlugin)
 	{
 		var Session = 
 		{
@@ -18,7 +18,7 @@ define(	// MIGRATION
 
 				//getLang and then callback
 				this.user.once("activated", function () { this.setLang(); }.bind(this));
-				this.listenTo(this, "translation:done",  callback );
+				this.listenTo(this, "setlang:done",  callback );
 				
 				this.user.fetch({error: this.user.offline.bind(this.user)});
 			},
@@ -413,19 +413,24 @@ define(	// MIGRATION
 				var lang = this.user.attributes.locale;
 				var extendLang;
 
-				if(!lang)	return;
+				if(!lang)	
+					return this.trigger("setlang:done");
 
-				moment.lang(lang);
+				moment.locale(lang);
 				
-				extendLang = new Polyglot();
+				extendLang = new PolyglotUtil();
 				extendLang.fetch({
 					success: function (){
 						this.translationLang = extendLang.get("translation");
-						this.polyglot = new Polyglot({phrases: this.translationLang});
-						this.trigger("translation:done");
-					}.bind(this)
+						//MIGRATION -> Polyglot include throwing loop errors
+						//this.polyglot = new PolyglotPlugin({phrases: this.translationLang});
+						this.trigger("setlang:done");
+					}.bind(this),
+
+					error: function (){ this.trigger("setlang:done"); }.bind(this)
 				});
 
+				// Trigger independantly of success or fail of translations
 			}
 
 			

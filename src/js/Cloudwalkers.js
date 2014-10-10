@@ -16,7 +16,7 @@ define(
 
 			init : function ()
 			{
-				//MIGRATION
+				//MIGRATION -> hook session to global
 				Cloudwalkers.Session = Session;
 
 				// Authentication
@@ -36,18 +36,15 @@ define(
 				{
 					// MIGRATION
 					// Root view
-					//Cloudwalkers.RootView = new RootView();
+					Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
 					///Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
 
 					// And then rout the router.
-					///Router.Instance = new Router ();
+					Router.Instance = new Router ();
 
-					// MIGRATION
-					// Cloudwalkers.RootView.render();
-
-					// Backbone.history.start();
+					Backbone.history.start();
 
 				});
 

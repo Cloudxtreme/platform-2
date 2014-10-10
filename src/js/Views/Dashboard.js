@@ -21,8 +21,9 @@ define(
 			
 			initialize : function()
 			{
+				// MIGRATION -> commented ping
 				// Check for outdated streams
-				Cloudwalkers.Session.ping();
+				///Cloudwalkers.Session.ping();
 
 				// Translation for Title
 				this.translateTitle("dashboard");
@@ -182,14 +183,14 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Session.translate(translatedata.translation[k]);
 					}
 			},
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 			}
 		});
 

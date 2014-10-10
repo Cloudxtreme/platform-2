@@ -4,14 +4,10 @@ define(
 	{
 		var Channels = BaseCollection.extend({
 
-			// MIGRATION
-			///model : Channel,
+			model : Channel,
 	
 			initialize : function()
-			{					
-				// MIGRATION
-				if (!Channel)	Channel = require('Channel');
-
+			{
 				// Global collection gets created before session build-up
 				if( Cloudwalkers.Session.user.account)
 				{

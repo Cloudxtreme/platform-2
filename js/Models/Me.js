@@ -82,7 +82,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 	},
 	
 	'activate' : function (data)
-	{	
+	{
 		// Prevent dislodged user access
 		if(!this.get("accounts").length)
 			return Cloudwalkers.Router.Instance.exception(401);
@@ -151,7 +151,7 @@ Cloudwalkers.Models.Me = Cloudwalkers.Models.User.extend({
 			// Call callback
 			this.trigger("activated");
 			//setTimeout(this.trigger, 100, 'activated');
-
+			
 		}.bind(this));
 		
 	},
