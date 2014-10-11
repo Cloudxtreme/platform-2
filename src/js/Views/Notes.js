@@ -45,7 +45,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 		 	},
 
 			resize : function(height)
@@ -67,7 +67,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			}
 		});
 

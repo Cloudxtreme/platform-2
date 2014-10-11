@@ -56,7 +56,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 			}
 		});
 

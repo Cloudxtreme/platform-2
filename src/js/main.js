@@ -16,7 +16,8 @@ require.config({
 		'chosen': 'lib/chosen/chosen.jquery.min',
 		'd3': 'lib/d3.min',
 		'crossdomain': 'lib/backbone.crossdomain/Backbone.CrossDomain',
-		'polyglot': 'lib/polyglot/lib/polyglot'
+		'polyglot': 'lib/polyglot/lib/polyglot',
+		'slimscroll': 'lib/slimscroll/jquery.slimscroll.min'
 	},
 	shim: {
 		'bootstrap': {
@@ -36,6 +37,10 @@ require.config({
 		},
 		'polyglot': {
 			exports: 'polyglot'
+		},
+		'slimscroll': {
+			deps: ['jquery'],
+			exports: 'slimscroll'
 		}
 	},
 	urlArgs: "bust=" +  (new Date()).getTime()

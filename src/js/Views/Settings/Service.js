@@ -1,13 +1,10 @@
 define(
-	['backbone', 'Models/User', 'Views/Root', 'Views/Settings'],
-	function (Backbone, User, RootView, SettingsView)
+	['backbone', 'mustache', 'Models/User', 'Views/Root', 'Views/Settings'],
+	function (Backbone, Mustache, User, RootView, SettingsView)
 	{
 		var Service = Backbone.View.extend({
 
 			events : {
-				/*'submit form' : 'submit',
-				'click [data-delete]' : 'deleteServiceClick',
-		        'click [data-stream-details-id]' : 'streamDetailView',*/
 		        'click li[data-id]' : 'toggleprofile',
 		        'click .delete-detail' : 'delete',
 		        'click .close-detail' : 'closedetail'
@@ -28,7 +25,7 @@ define(
 				if (options) $.extend(this, options);
 				
 				// Set service
-				this.service = this.parent.services.get(this.id);
+				this.service = this.model;
 			},
 			
 			render : function ()
@@ -38,12 +35,11 @@ define(
 				data.listname = this.listnames[data.network.token];
 				data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
 
-
 				//Mustache Translate Render
 				this.mustacheTranslateRender(data);
 				
 				// Render view
-				this.$el.html (Mustache.render (Templates.settings.service, data));
+				this.$el.html (Mustache.render (Templates.service, data));
 				
 				return this;
 			},
@@ -71,6 +67,7 @@ define(
 				}.bind(this)});
 			},
 
+			/*
 			parseprofile : function(profile)
 			{	
 				var service = profile.parent;
@@ -90,7 +87,7 @@ define(
 				//Refresh navigation
 				RootView.navigation.renderHeader();
 				RootView.navigation.render();
-			},
+			},*/
 			
 			delete : function ()
 			{
@@ -160,6 +157,7 @@ define(
 				return this;
 			},*/
 
+			/*
 			processSettings : function (settings)
 			{
 				var self = this;
@@ -343,7 +341,7 @@ define(
 
 		        service.parsedstreams = parseStreams ();
 			},
-
+			/*
 			submit : function (e)
 			{
 				// Gather all data
@@ -402,7 +400,8 @@ define(
 					self.render ();
 				});
 			},
-
+			*/
+			/*
 			deleteServiceClick : function (e)
 			{
 				e.preventDefault ();
@@ -430,18 +429,18 @@ define(
 
 		        var view = new SettingsView.StreamSettings ({ 'streamid' : streamid });
 		        RootView.popup (view);
-		    },
+		    },*/
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

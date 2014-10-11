@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Action'],
-	function (Backbone, ActionView)
+	['backbone', 'mustache', 'Views/Action'],
+	function (Backbone, Mustache, ActionView)
 	{
 		var Actions = Backbone.View.extend({
 

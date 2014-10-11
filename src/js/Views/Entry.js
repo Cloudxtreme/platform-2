@@ -1,8 +1,8 @@
 define(
-	['backbone',  'Collections/Notifications', 'Views/Root', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
+	['backbone', 'mustache', 'Collections/Notifications', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
 	 'Views/Modals/SimpleCompose'/*, 'Views/Widgets/NoteEntry' -> MIGRATION*/],
 
-	function (Backbone, Notifications, RootView, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
+	function (Backbone, Mustache, Notifications, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{		
 		var Entry = Backbone.View.extend({
 	
@@ -27,7 +27,7 @@ define(
 			},
 			
 			initialize : function (options)
-			{
+			{	
 				// HACK!
 				this.parameters = {};
 				
@@ -95,26 +95,11 @@ define(
 					this.model.attributes.failed = 'failed';
 				}
 				
-				this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
+				// MIGRATION -> Temporarily disable image/video plugin
+				//this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
 				
 				return this;
 			},
-
-			/*'loadsentiment' : function()
-			{	
-				var stats = this.parameters.stats;
-				var sentiment;
-
-				if(!stats)	return;
-				else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
-
-				if(sentiment){
-					sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
-					var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
-
-					this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
-				}
-			},*/
 					
 			renderactions : function()
 			{	
@@ -123,11 +108,6 @@ define(
 				this.$el.find('.message-actions').html(this.actions.render().el)
 
 				this.loadedlists = [];
-
-				// Temporary ugly hack to update actions on timeline
-				/*if(this.template == 'messagetimeline'){
-					this.actions.on('actions:update', this.updatetimelineactions.bind(this));
-				}*/
 			},
 
 			updatetimelineactions : function()
@@ -146,11 +126,6 @@ define(
 				
 				if(action == 'note' || action == 'action-list')
 				{	
-					// Goddamn ugly hack for old timeline
-					/*if(this.template == 'messagetimeline'){
-						var composenote = RootView.writeNote(this.model);
-						this.listenTo(composenote.note, 'sync', this.noteadded);
-					}*/
 
 					var token = $(element.currentTarget).data ('token');
 
@@ -179,7 +154,7 @@ define(
 					if(this.parent)	return;
 
 					var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
-					if(contact)	RootView.viewContact({model: contact});
+					if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 					
 				}
 				else
@@ -263,50 +238,14 @@ define(
 			{	
 				if(element && $(element.currentTarget).hasClass('noresults'))	return;
 
-				//var other = action == 'action-list'? token: 'action-list';
 				//Buttons
 				var clickedbutton = this.$el.find('[data-action='+action+'][data-token='+token+']');
-				/*var otherbutton = this.$el.find('[data-action='+other+']');
-				var inactivebuttons = this.$el.find('.actionvalue.inactive');*/
 				
 				if(!clickedbutton.hasClass('inactive'))
-					this.processaction('open', action, token)
+					this.processaction('open', action, token);
 
 				else if(clickedbutton.hasClass('inactive'))
-					this.processaction('close')
-				
-
-				//container & list
-				/*var container = this.$el.find('.message-notes');
-				var list = this.$el.find('.action-list');
-
-				// Only for write note
-				other = this.$el.find('.'+other);
-				
-				if(!container.is(':visible') && !clickedbutton.hasClass('inactive'))	// Check
-				{	
-					this.$el.find('.message-notes').slideDown(); 	//slide container
-					list.slideDown();							 	//render list
-					clickedbutton.addClass('inactive');				//update button
-				}
-				else if(container.is(':visible') && !clickedbutton.hasClass('inactive'))
-				{	
-					other.slideUp('fast');
-					inactivebuttons.removeClass('inactive');
-					list.slideDown();
-					clickedbutton.addClass('inactive');
-				}
-				else if(container.is(':visible') && clickedbutton.hasClass('inactive'))
-				{
-					this.$el.find('.message-notes').slideUp();
-					clickedbutton.removeClass('inactive');
-					other.slideUp();
-					list.slideUp();
-				}
-				
-				if(action == 'action-list' && !this.loadednotes)
-					this.fetchnotes();*/
-
+					this.processaction('close');
 			},
 
 			processaction : function(operation, action, token)
@@ -561,6 +500,57 @@ define(
 				this.loadnoteui();
 			},
 
+			
+			
+			time : function ()
+			{	// Upgrade this to moment()
+				var now = new Date();
+				var date = new Date(this.$el.find("[data-date]").attr("data-date"));
+				var diff = Math.round((now.getTime()-date.getTime()) *0.001);
+				var human;
+				
+				if(diff < 60)			human = "now";
+				else if(diff < 3600)	human = Math.round(diff/60) + "m";
+				else if(diff < 86400)	human = Math.round(diff/3600) + "h";
+				else if(diff < 2592000)	human = Math.round(diff/86400) + "d";
+				else					human = Math.round(diff/2592000) + "mo";
+				
+				this.$el.find("[data-date]").html(human);
+				
+				this.tm = setTimeout(this.time.bind(this), 60000);
+			},
+			
+			destroy : function ()
+		    {
+				// To-do:
+				//this.model.notifications.trigger("destroy");
+				
+				window.clearTimeout(this.tm);
+		    },
+
+		    translateString : function(translatedata)
+			{	
+				// Translate String
+				return Cloudwalkers.Session.translate(translatedata);
+			},
+
+			mustacheTranslateRender : function(translatelocation)
+			{
+				// Translate array
+				this.original  = [
+					"comments",
+					"notes"
+				];
+
+				this.translated = [];
+
+				for (var k in this.original)
+				{
+					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
+					translatelocation["translate_" + this.original[k]] = this.translated[k];
+				}
+			}
+
 			/* Tags */
 			/*
 			'loadtagui' : function()
@@ -687,56 +677,25 @@ define(
 						}
 					}
 				}
-			},*/
-			
-			time : function ()
-			{	// Upgrade this to moment()
-				var now = new Date();
-				var date = new Date(this.$el.find("[data-date]").attr("data-date"));
-				var diff = Math.round((now.getTime()-date.getTime()) *0.001);
-				var human;
-				
-				if(diff < 60)			human = "now";
-				else if(diff < 3600)	human = Math.round(diff/60) + "m";
-				else if(diff < 86400)	human = Math.round(diff/3600) + "h";
-				else if(diff < 2592000)	human = Math.round(diff/86400) + "d";
-				else					human = Math.round(diff/2592000) + "mo";
-				
-				this.$el.find("[data-date]").html(human);
-				
-				this.tm = setTimeout(this.time.bind(this), 60000);
 			},
-			
-			destroy : function ()
-		    {
-				// To-do:
-				//this.model.notifications.trigger("destroy");
-				
-				window.clearTimeout(this.tm);
-		    },
-
-		    translateString : function(translatedata)
+	
+			'loadsentiment' : function()
 			{	
-				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
-			},
+				var stats = this.parameters.stats;
+				var sentiment;
 
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"comments",
-					"notes"
-				];
+				if(!stats)	return;
+				else		sentiment = _.isObject(stats)? stats['sentiment-fake']: null;
 
-				this.translated = [];
+				if(sentiment){
+					sentiment = Math.floor(sentiment/2) < 5? Math.floor(sentiment/2): 4;
+					var sentimentwidget = new Cloudwalkers.Views.Widgets.Sentiment({sentiment: sentiment});
 
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
+					this.$el.find('.sentiment-wrap').append(sentimentwidget.render().el)
 				}
 			},
+
+			*/
 
 		});
 

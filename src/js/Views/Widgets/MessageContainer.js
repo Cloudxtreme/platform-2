@@ -28,13 +28,15 @@ define(
 		        this.initializeWidget ();
 			},
 
+			/* Is this even used?
 			refreshWidget : function (e)
 			{
 				e.preventDefault ();
 
 				this.options.channel.update ();
-			},
+			},*/
 
+			/*	What does this do?
 			innerRender : function (element)
 			{
 				var self = this;
@@ -91,7 +93,7 @@ define(
 				}, 1000 * 15);
 
 				return this;
-			},
+			},*/
 
 			loadMore : function ()
 			{
@@ -118,10 +120,10 @@ define(
 		    },
 
 			// Just a small function to overwrite
-			processMessageView : function (message)
+			/*processMessageView : function (message)
 			{
 
-			},
+			},*/
 
 			getMessageView : function (message)
 			{
@@ -139,7 +141,7 @@ define(
 				return messageView;
 			},
 
-			onFirstAddEvent : function (message, messageView)
+			/*onFirstAddEvent : function (message, messageView)
 			{
 				var self = this;
 				setTimeout (function ()
@@ -219,16 +221,17 @@ define(
 					self.trigger ('content:change');
 				}, 1);
 			},
+			*/
 
 			removeMessage : function (message)
 			{
 				this.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 			},
 
-			refresh : function ()
+			/*refresh : function ()
 			{
 
-			}
+			}*/
 		});
 
 		return MessageContainer;

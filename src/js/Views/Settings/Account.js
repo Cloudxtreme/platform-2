@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Collections/Triggers', 'Models/Trigger', 'Views/Root', 'Views/Settings'],
-	function (Backbone, Triggers, Trigger, RootView, SettingsView)
+	['backbone', 'mustache', 'Collections/Triggers', 'Models/Trigger', 'Views/Root', 'Views/Settings'],
+	function (Backbone, Mustache, Triggers, Trigger, RootView, SettingsView)
 	{
 		var Account = Backbone.View.extend({
 
@@ -10,7 +10,7 @@ define(
 				'submit form#editaccount' : 'editaccount',
 
 				'keydown [data-attribute=account-name]' : 'enablebtnaccount',
-				'click [data-action=reseetaccount]' : 'disablebtnaccount'
+				'click [data-action=resetaccount]' : 'disablebtnaccount'
 			},
 
 			initialize : function()
@@ -38,7 +38,7 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 			
-				this.$el.html (Mustache.render (Templates.settings.account, data));
+				this.$el.html (Mustache.render (Templates.account, data));
 
 				this.$el.find("#menu").affix()
 
@@ -47,28 +47,36 @@ define(
 				//this.$el.find("#cannedlist").append(cannedlist.render().el);
 			
 				// Render manually both trigger's views
-				this.twitterview = new SettingsView.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
-				this.dmview = new SettingsView.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
+				// this.twitterview = new SettingsView.Trigger({event: 'CONTACT-NEW', stream: 'twitter', description: 'Twitter: New follower response'});
+				// this.dmview = new SettingsView.Trigger({event: 'MESSAGE-RECEIVED',  description: 'DM: Out of office response'});
 
-				this.$el.find("#triggerlist").append(this.twitterview.render().el);
-				this.$el.find("#triggerlist").append(this.dmview.render().el);
+				// this.$el.find("#triggerlist").append(this.twitterview.render().el);
+				// this.$el.find("#triggerlist").append(this.dmview.render().el);
 
-				this.triggers.parent = this.account;
-				this.triggers.fetch();
+				// this.triggers.parent = this.account;
+				// this.triggers.fetch();
 
 				return this;
 			},
 
-			enablebtnaccount : function()	{ this.$el.find('[data-action=reseetaccount]').attr('disabled', false);	},
+			/*
+			 *	UI trigger to enable saving again
+			 */
+			enablebtnaccount : function()	{ this.$el.find('[data-action=resetaccount]').attr('disabled', false);	},
 
+			/*
+			 *	UI trigger to disable the saving button
+			 */
 			disablebtnaccount : function(e)
 			{ 
 				$(e.currentTarget).closest('form').get(0).reset();
 
-				this.$el.find('[data-action=reseetaccount]').attr('disabled', true);
+				this.$el.find('[data-action=resetaccount]').attr('disabled', true);
 			},
 			
-
+			/*
+			 *	NOT IN USE
+			 */
 			filltriggers : function(models)
 			{
 				//Hack time!
@@ -90,6 +98,9 @@ define(
 				this[token](e);
 			},
 			
+			/*
+			 *	Saving the account name change
+			 */
 			editaccount : function (e)
 			{
 				var name = this.$el.find ('[data-attribute=account-name]').val ();
@@ -117,6 +128,9 @@ define(
 					}.bind(this)});
 			},
 			
+			/*
+			 *	Deleting a campaign
+			 */
 			deletecampaign : function (e)
 			{
 				//var account = Cloudwalkers.Session.getAccount();
@@ -132,6 +146,9 @@ define(
 				)
 			},
 
+			/*
+			 *	Responsible for the menu clicking & scrolling
+			 */
 			scroll : function(e)
 			{	
 				var hash = $(e.currentTarget).data('hash');		
@@ -143,17 +160,10 @@ define(
 				return false;
 			},
 
-			/* on it's way to be deprecated */
-			negotiateFunctionalities : function(el) {
-				
-				// Check collapse option
-				this.$el.find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
-			},
-
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'mustache',  'Views/Root', 'Views/CounterEntry'],
-	function (WidgetView, Mustache, RootView, CounterEntryView)
+	['Views/Widgets/Widget', 'mustache',  'Views/CounterEntry'],
+	function (WidgetView, Mustache, CounterEntryView)
 	{
 		var MessagesCounters = WidgetView.extend({
 
@@ -8,19 +8,21 @@ define(
 			events : {
 				'click a[href]' : 'updatesettings'
 			},
+
+			options : {},
 			
 			initialize : function(options)
-			{
-			
-				if(!options.color) this.options.color = this.color;
+			{	
+				$.extend(true, this.options, this.defaults);
+				$.extend(this.options, options);
 				
 				// The list source is either the streams or subchannels
-				this.collection = options.channel[options.source];
+				this.collection = this.options.channel[options.source];
 
 				// Scheduled list
 				if(this.options.channel.get('type') == "outgoing")
 				{
-					this.listenTo(RootView, 'added:message', this.addedmessage.bind(this))
+					this.listenTo(Cloudwalkers.RootView, 'added:message', this.addedmessage.bind(this))
 				}
 			},
 
@@ -32,7 +34,7 @@ define(
 			},
 			
 			render : function ()
-			{			
+			{
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 				this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 

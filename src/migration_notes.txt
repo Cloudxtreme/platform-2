@@ -1,22 +1,8 @@
-# MIGRATION CHANGES #
+# MIGRATION NOTES #
 
-models/message
--> removed collections/notifications dependency because it was conflicting 
-	with notification & notifications
-
-models/channel
--> removed contacts & notifications dependency because it's not clear where 
-	they are used.
-
-views/entry
--> removed noteentry widget dependency. Does it make sense? Shouldn't message
-	be the one with the noteentry reference instead of an entry?
-
-Session
--> updated base translation just to fallback when there is no polyglot
--> commented Router, Root & collections/accounts due to looping issues
-
-
+DASHBOARD:
+Are all the functions needed in MessagesCounters & Widget?
+Entry is way too complicated
 
 /** Left to be updated **/
 .net stuff

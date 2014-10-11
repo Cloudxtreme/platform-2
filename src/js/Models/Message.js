@@ -1075,7 +1075,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			}
 		});
 		

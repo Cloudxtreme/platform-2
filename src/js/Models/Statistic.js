@@ -1,29 +1,12 @@
-define(
-	['backbone'],
-	function (Backbone)
-	{
-		var Statistic = Backbone.Model.extend({
+define(	// MIGRATION -> Swapped to base model becaue of 'stamp', url, etc
+	['Models/BaseModel'],
+	function (BaseModel)
+	{	
+		var Statistic = BaseModel.extend({
 	
 			typestring : "statistics",
 			parameters : {},
-			
-			url : function (params)
-		    {
-		        return this.endpoint?
-		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id + this.endpoint :
-		        	Cloudwalkers.Session.api + '/' + this.typestring + '/' + this.id;
-		    },
-		    
-		    parse : function(response)
-			{	
-				// A new object
-				if (typeof response == "number") response = {id: response};
-				
-				// Store incoming object
-				else this.stamp(response);
 
-				return response;
-			},
 			
 			pluck : function (keys, streamid, hassublevel)
 			{ 
@@ -82,32 +65,6 @@ define(
 
 				return response;
 			},
-
-			pluckbynetwork : function(){
-				//to be made
-			},
-			
-			loaded : function(param)
-			{
-				return this.get(param? param: "objectType") !== undefined;
-			},
-
-
-			
-			all : function (key)
-			{
-				var response = [];
-				
-				if(!this.get("streams")) return response;
-				
-				$.each(this.get("streams"), function(i, stream)
-				{
-					if(!streamid && stream[key]) 	response.push(stream[key]);
-					else if(streamid == stream.id)	response = stream[key];
-				});
-				
-				return response;
-			},
 			
 			/**
 			 *	Column data
@@ -140,64 +97,7 @@ define(
 				}
 				
 				return list;
-			},
-			
-			age : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			gender : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			regional : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			countries : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			cities : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			besttime : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
-			},
-			
-			activity : function (single)
-			{
-				
-				var list = [];
-
-				return { counter: list};
 			}
-
 
 		});
 

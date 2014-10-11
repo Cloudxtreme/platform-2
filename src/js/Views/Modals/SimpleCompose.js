@@ -1,8 +1,8 @@
 define(
-	['backbone', 'Views/Root',  'Models/Note', 'Models/Message'],
-	function (Backbone, RootView, Note, Message)
+	['Views/BaseView', 'mustache',  'Models/Note', 'Models/Message'],
+	function (BaseView, Mustache, Note, Message)
 	{
-		var SimpleCompose = Backbone.View.extend({
+		var SimpleCompose = BaseView.extend({
 
 			// This view defaults to note
 
@@ -117,7 +117,7 @@ define(
 				}.bind(this),200);	
 
 				// Trigger to update #notes view
-				RootView.trigger("added:note", this.model);			
+				Cloudwalkers.RootView.trigger("added:note", this.model);			
 			},
 
 			clean : function()
@@ -128,7 +128,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

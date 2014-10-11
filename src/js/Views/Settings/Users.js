@@ -1,12 +1,10 @@
 define(
-	['backbone', 'Collections/Users', 'Models/User', 'Views/Root', 'Views/Settings'],
-	function (Backbone, Users, User, RootView, SettingsView)
+	['Views/BaseView', 'mustache', 'Collections/Users', 'Models/User', 'Views/Root', 'Views/Settings'],
+	function (BaseView, Mustache, Users, User, RootView, SettingsView)
 	{
-		var UsersView = Backbone.View.extend({
+		var UsersView = BaseView.extend({
 
 			events : {
-				/*'click .add-user' : 'addUser',
-				'submit .edit-user-profile' : 'editUserProfile',*/
 				'submit .users-invite' : 'addUser',
 				'click .invite-link' : 'scrolldown'
 			},
@@ -16,7 +14,6 @@ define(
 			
 			initialize : function ()
 			{
-				
 				this.collection = new Users();
 				
 				//  en to model
@@ -38,7 +35,7 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 				
-				this.$el.html (Mustache.render (Templates.settings.users, data));
+				this.$el.html (Mustache.render (Templates.users, data));
 				
 				//account.users.hook({success: this.fill.bind(this), error: this.fail});
 				
@@ -175,7 +172,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -392,7 +392,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			translateWidgets : function(translatedata)
@@ -401,7 +401,7 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Cloudwalkers.Session.polyglot.t(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Session.translate(translatedata.translation[k]);
 					}
 			},
 

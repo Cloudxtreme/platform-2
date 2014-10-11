@@ -1,24 +1,22 @@
 define(
-	['backbone', 'Collections/Services', 'Models/Service', 'Views/Root', 'Views/Settings', 'Router'],
-	function (Backbone, Services, Service, RootView, SettingsView, Router)
+	['Views/BaseView', 'mustache', 'Collections/Services', 'Models/Service', 'Views/Settings/Service'],
+	function (BaseView, Mustache, Services, Service, ServiceView)
 	{
-		var ServicesView = Backbone.View.extend({
+		var ServicesView = BaseView.extend({
 
-			events : {
-				/*'click [data-open-service]' : 'openService',
-				'click [data-add-service]' : 'addServiceCall',*/
-				
+			events : {				
 				'click [data-add-service]' : 'addService',
 				'click [data-service]' : 'servicedetail',
 			},
 			
-			initialize : function()
-			{
+			initialize : function(options)
+			{	
 				// Create Services collection
 				this.services = new Services();
 				
-				if(this.options.serviceid)
-					return this.appendservice(this.options.serviceid)
+				// A service has been added
+				if(options.serviceid)
+					return this.appendservice(options.serviceid)
 
 				// Get Services options 
 				this.listenTo(this.services, "available:ready", this.appendOptions);
@@ -33,59 +31,6 @@ define(
 				this.loadListeners(this.services, ['available:ready', 'sync', 'ready'], true);
 
 			},
-			
-			endload : function ()
-			{
-				//Remove?
-				this.$el.find(".inner-loading").removeClass("inner-loading");	
-			},
-
-			appendservice : function(serviceid)
-			{
-				var service = new Service({id: serviceid});
-				service.addservice();
-
-				//this.listenTo(service, 'sync', this.updatechannels.bind(this, "add"));
-
-				//service.fetch({parentpoint: false});
-
-
-			},
-
-			/*'updatechannels' : function(operation, service)
-			{	
-				var streams = service.get("streams");
-
-				if(!streams)
-					Router.Instance.navigate("#settings/services", true)
-
-				for (var n in streams){
-					this.parsestream(streams[n], operation);
-				}
-
-				//Refresh navigation
-				RootView.navigation.renderHeader();
-				RootView.navigation.render();
-
-				if(operation == 'add')
-					Router.Instance.navigate("#settings/services", true)
-			},
-
-			'parsestream' : function(stream, operation)
-			{	
-				var channels = stream.channels;
-				var channel;
-				
-				if(channels.length){
-					for (var n in channels){
-
-						channel = Cloudwalkers.Session.getChannel(parseInt(channels[n]));
-						if(channel)
-							channel.streams[operation](stream);
-					}
-				}
-
-			},*/
 
 			render : function ()
 			{
@@ -95,7 +40,7 @@ define(
 				//Mustache translations
 				data.translate_active_social_connections = this.translateString("active_social_connections");
 				
-				this.$el.html (Mustache.render (Templates.settings.services, data));
+				this.$el.html (Mustache.render (Templates.services, data));
 				
 				/*// Get Service options
 				Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
@@ -106,7 +51,19 @@ define(
 				this.$container = this.$el.find('.portlet-body');
 				return this;
 			},
+
+			/*
+			 *	Add a service to the services list
+			 */
+			appendservice : function(serviceid)
+			{
+				var service = new Service({id: serviceid});
+				service.addservice();
+			},
 			
+			/*
+			 *	Append available services to the side menu
+			 */
 			appendOptions : function(services, available) {
 				
 				var $container = this.$el.find(".networks-list");
@@ -114,14 +71,14 @@ define(
 				for (var n in available)
 				{
 					available[n].translate_add = this.translateString("add");
-					$container.append(Mustache.render (Templates.settings.service_option, available[n]));
+					$container.append(Mustache.render (Templates.service_option, available[n]));
 				}
 			},
 			
 			appendService : function(service) {
 				
 				// Add service attributes to list
-				this.$el.find("ul.services").append(Mustache.render (Templates.settings.service_connected, service.attributes));
+				this.$el.find("ul.services").append(Mustache.render (Templates.service_connected, service.attributes));
 			},
 			
 			addService : function (e)
@@ -196,11 +153,14 @@ define(
 
 			servicedetail : function (e)
 			{
+				var serviceid = $(e.currentTarget).data("service");
+				var service = this.services.get(serviceid);
+
 				// Navigate view
 				this.$el.find("#service-connected").addClass("open-detail");
-				
-				// Create service view
-				this.detail = new SettingsView.Service ({id: $(e.currentTarget).data("service"), parent: this});
+
+				// Create service detailed view
+				this.detail = new ServiceView ({model: service, parent: this});
 				this.$el.find(".service-detail").html( this.detail.render().el);
 			},
 			
@@ -266,7 +226,7 @@ define(
 				{
 					if (typeof (data.error) != 'undefined')
 					{
-						RootView.alert (data.error.message);
+						Cloudwalkers.RootView.alert (data.error.message);
 					}
 					else
 					{
@@ -294,7 +254,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			}
 		});
 

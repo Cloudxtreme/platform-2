@@ -213,13 +213,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 			
 			mustacheTranslateRender : function(translatelocation)

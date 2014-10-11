@@ -1,16 +1,15 @@
 define(
-	['Views/Pageview', 'mustache',  'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile', 'Views/Settings'],
-	function (Pageview, Mustache, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings, SettingsView)
+	['Views/Pageview', 'mustache',  'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile'],
+	function (Pageview, Mustache, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings)
 	{
 		var Settings = Pageview.extend({
 
 			title : "Settings",
 			tabs : [],
 			
-			'initialize' : function ()
-			{
-				this.endpoint = this.options.endpoint;
-				this.level = Cloudwalkers.Session.user.level;
+			'initialize' : function (options)
+			{	
+				$.extend(this, options);
 			},
 			
 			setAction : function (action)
@@ -63,7 +62,7 @@ define(
 						break;
 						
 					case 'services':
-						widget = new ServicesView({serviceid: this.options.serviceid});
+						widget = new ServicesView({serviceid: this.serviceid});
 						break;
 					
 					case 'account':
@@ -86,13 +85,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.polyglot.t(translatedata);
+				this.title = Cloudwalkers.Session.translate(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

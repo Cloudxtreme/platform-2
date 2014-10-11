@@ -1,9 +1,9 @@
 define(
 	['backbone',  'Views/Root', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
-	 'Collections/Messages', 'Collections/CannedResponses', 'Collections/Notes', 'Collections/Notifications', 'Collections/Statistics'],
+	 'Collections/Messages', 'Collections/CannedResponses', 'Collections/Notes', 'Collections/Notifications', 'Collections/Statistics', 'Collections/Reports'],
 
 	function (Backbone, RootView, Channels, Streams, CampaignsCollection, Users, Contacts,
-			  Messages, CannedResponses, Notes, Notifications, Statistics)
+			  Messages, CannedResponses, Notes, Notifications, Statistics, Reports)
 	{
 		var Account = Backbone.Model.extend({
 	
@@ -49,6 +49,9 @@ define(
 				
 				// Prep global Statistics collection
 				this.statistics = new Statistics();
+
+				// Prep global Statistics collection
+				this.reports = new Reports();
 
 			},
 			
@@ -189,7 +192,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			}
 
 		});

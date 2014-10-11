@@ -40,6 +40,9 @@ define(
 				return Backbone.sync(method, model, options);
 			},
 			
+			/*
+			 *	Get the available networks
+			 */
 			fetchAvailable : function (options)
 			{
 				this.fetch({endpoint: "available"});

@@ -67,6 +67,7 @@ define(
 				if(!paging) return false;
 				
 				this.cursor = paging.cursors? paging.cursors.after: false;
+
 			},
 			
 			updates : function (ids)
@@ -126,8 +127,8 @@ define(
 				// Get ids
 				var ids = response[this.parenttype][this.typestring];
 
-				// Store results based on url
-				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor, ping: Cloudwalkers.Session.getPing().cursor});
+				// Store results based on url										// MOMENT
+				Store.set("touches", {id: url, modelids: ids, cursor: this.cursor/*, ping: Cloudwalkers.Session.getPing().cursor*/});
 				
 				// Seed ids to collection
 				this.seed(ids);

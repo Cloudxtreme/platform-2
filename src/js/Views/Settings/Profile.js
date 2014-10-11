@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Router'],
-	function (Backbone, RootView, Router)
+	['backbone', 'mustache', 'Router'],
+	function (Backbone, Mustache, Router)
 	{
 		var Profile = Backbone.View.extend({
 
@@ -38,7 +38,7 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 				
-				this.$el.html (Mustache.render (Templates.settings.profile, data));
+				this.$el.html (Mustache.render (Templates.profile, data));
 				
 				this.$el.find(".collapse-closed, .collapse-open").each( function(){ self.negotiateFunctionalities(this) });
 				
@@ -221,7 +221,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.polyglot.t(translatedata);
+				return Cloudwalkers.Session.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

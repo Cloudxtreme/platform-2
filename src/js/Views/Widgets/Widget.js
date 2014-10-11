@@ -1,16 +1,19 @@
 /**
 * A standard widget
 */
-define(
-	['backbone'],
-	function (Backbone)
+define(	// MIGRATION: widget based on BaseView
+	['Views/BaseView', 'slimscroll'],
+	function (BaseView, SlimScroll)
 	{
-		var Widget = Backbone.View.extend({
+		var WidgetView = BaseView.extend({
 
-			title : 'Untitled widget',
-			icon : 'inbox',
-			color : 'blue',
-			network : null,
+			defaults: {
+				title : 'Untitled widget',
+				icon : 'inbox',
+				color : 'blue',
+				network : null
+			},
+			
 			entries : [],
 			events : {
 				
@@ -18,10 +21,9 @@ define(
 
 			tools : [],
 
-		    initialize : function ()
+		    initialize : function (options)
 		    {
-		        if(!this.options.color) this.options.color = this.color;
-		        
+		        if(!options.color) options.color = this.color;		        
 		        
 		        // Always add this to all your widget initializations
 		        this.initializeWidget ();
@@ -172,5 +174,5 @@ define(
 
 		});
 
-		return Widget;
+		return WidgetView;
 });
