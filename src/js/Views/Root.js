@@ -1,6 +1,6 @@
 define (
-	['backbone',  'Router', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
-	function (Backbone, Router, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
+	['backbone', 'gritter', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
+	function (Backbone, gritter, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
 	{
 		var Root = Backbone.View.extend({
 
@@ -224,7 +224,7 @@ define (
 				var returnto = view;
 
 				setTimeout(function(){
-					Router.Instance.navigate('#resync');
+					Cloudwalkers.Router.Instance.navigate('#resync');
 
 					var view = new ResyncView({returnto: returnto});
 					this.setView(view);

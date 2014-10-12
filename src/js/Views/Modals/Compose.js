@@ -1218,7 +1218,7 @@ define (
 					{
 						this.datepicker.datepicker('hide');
 						this.$el.find("#delay-date").val("");
-						RootView.alert("Please set your Schedule to a date in the future");
+						Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 					}*/
 					
 					// Force clean "in"
@@ -1275,7 +1275,7 @@ define (
 					{	
 						this.datepicker.datepicker('hide');
 						this.$el.find("#repeat-until").val("");
-						RootView.alert("Please set your Schedule to a date in the future");
+						Cloudwalkers.RootView.alert("Please set your Schedule to a date in the future");
 					}*/
 				}
 				
@@ -1549,7 +1549,7 @@ define (
 			save : function(status)
 			{	
 				// Prevent empty patch
-				//if (!this.draft.validateCustom()) return RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
+				//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved", "You need a bit of content.", this.$el.find(".modal-footer"));
 
 				var error = this.draft.validateCustom(['streams', 'schedule']);
 		 
@@ -1580,8 +1580,8 @@ define (
 			post : function()
 			{	
 				// Prevent empty post
-				//if (!this.draft.validateCustom()) return RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
-				//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
+				//if (!this.draft.validateCustom()) return Cloudwalkers.RootView.information ("Not saved:", "You need a bit of content.", this.$el.find(".modal-footer"));
+				//if (this.$el.find('.stream-tabs .stream-tab').length <= 1) return Cloudwalkers.RootView.information ("Not posted:", "Please select a network first.", this.$el.find(".modal-footer"));
 
 				var error = this.draft.validateCustom();
 		 
@@ -1630,7 +1630,7 @@ define (
 				
 				// Check stream selection
 				//if (!streamids.length)
-				//	return RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
+				//	return Cloudwalkers.RootView.information ("Not saved", "Select at least 1 network", this.$el.find(".modal-footer"));
 				
 				// Check text if required
 				if (this.options[this.type].indexOf("editor") >= 0 && !this.draft.get("body").html)
@@ -1689,7 +1689,7 @@ define (
 						if(el.id) 
 						{	
 							if(action && action == 'post')
-								RootView.trigger("added:message", this.draft);
+								Cloudwalkers.RootView.trigger("added:message", this.draft);
 
 							Cloudwalkers.Session.getMessage(el.id).fetch({success: function(mess){ mess.trigger("change")}});
 						}
@@ -1699,12 +1699,12 @@ define (
 				}
 				
 				else if(this.type == "post")
-					RootView.trigger("added:message", this.draft);
+					Cloudwalkers.RootView.trigger("added:message", this.draft);
 
 				else
 					this.trigger("action:success", response);
 
-				RootView.trigger(this.type.concat(":success"), this.type);
+				Cloudwalkers.RootView.trigger(this.type.concat(":success"), this.type);
 			},
 
 			loadingalert : function()
@@ -1717,12 +1717,12 @@ define (
 
 			showerror : function(title, error)
 			{
-				RootView.information (title, error, this.$el.find(".modal-footer"));
+				Cloudwalkers.RootView.information (title, error, this.$el.find(".modal-footer"));
 			},
 
 			oops : function(action, status)
 			{
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 					(
 						'An error ocurred while posting your message. Do you want to retry?',
 						
@@ -1746,7 +1746,7 @@ define (
 			
 			invalid : function(model, error)
 			{
-				RootView.alert(model.get("title") + " " + error);
+				Cloudwalkers.RootView.alert(model.get("title") + " " + error);
 			},
 
 			/*

@@ -150,7 +150,7 @@ define(
 			
 			'toing' : function()
 			{	
-				RootView.growl (this.translateString("ping"), this.translateString("there_is_no_pong"));
+				Cloudwalkers.RootView.growl (this.translateString("ping"), this.translateString("there_is_no_pong"));
 				
 				// Schedule new Ping, with max allowed interval.
 				this.interval = this.max;

@@ -1,8 +1,8 @@
 define(
-	['backbone',  'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */'Views/Root', 
+	['backbone',  'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */, 
 	 'Views/ActionParameters', 'Utilities/Utils'],
 	
-	function (Backbone, Actions, Notes, RootView, ActionParametersView, Utils)
+	function (Backbone, Actions, Notes, ActionParametersView, Utils)
 	{	
 		var Message = Backbone.Model.extend({
 	
@@ -659,7 +659,7 @@ define(
 				// Repeat or skip?
 				if (this.repeat ().repeat)
 				{
-					RootView.dialog 
+					Cloudwalkers.RootView.dialog 
 					(
 						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 						[
@@ -680,7 +680,7 @@ define(
 				}
 				else
 				{
-					RootView.confirm 
+					Cloudwalkers.RootView.confirm 
 					(
 						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
 						function () 
@@ -759,7 +759,7 @@ define(
 			act : function (action, parameters, callback)
 			{
 				
-				RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+				Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 				
 				var self = this;
 
@@ -1034,7 +1034,7 @@ define(
 								'message' : targetmodel,
 								'action' : action
 							});
-							RootView.popup (view);
+							Cloudwalkers.RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -1043,7 +1043,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							RootView.writeDialog
+							Cloudwalkers.RootView.writeDialog
 								(
 									targetmodel,
 									action

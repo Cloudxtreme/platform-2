@@ -2,8 +2,8 @@
 * A standard widget
 */
 define(
-	['Views/Widgets/Widget', 'Views/Root'],
-	function (Widget, RootView)
+	['Views/Widgets/Widget'],
+	function (Widget)
 	{
 		KeywordsOverview = Widget.extend({
 
@@ -83,13 +83,13 @@ define(
 				
 				var $cat = $(e.target).closest('[data-category]');
 				
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_category'), 
 					function () 
 					{
 						Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
-						RootView.navigation.render();
+						Cloudwalkers.RootView.navigation.render();
 						$cat.next().remove();
 						$cat.remove();
 					}
@@ -114,7 +114,7 @@ define(
 				
 				var id = Number($(e.target).closest('[data-keyword]').attr('data-keyword'));
 
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
 					function () 
@@ -213,7 +213,7 @@ define(
 						{
 							if (typeof (data.error) != 'undefined')
 							{
-								RootView.alert (data.error.message);
+								Cloudwalkers.RootView.alert (data.error.message);
 							}
 							else
 							{
@@ -226,7 +226,7 @@ define(
 			
 			'fail' : function ()
 			{
-				RootView.growl ("Oops", "Something went sideways, please reload the page.");
+				Cloudwalkers.RootView.growl ("Oops", "Something went sideways, please reload the page.");
 			}
 			*/
 		});

@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Router', 'Views/Root'],
-	function (Backbone, Router, RootView)
+	['backbone'],
+	function (Backbone)
 	{
 		var Service = Backbone.Model.extend({
 	
@@ -81,8 +81,8 @@ define(
 				}
 
 				//Refresh navigation
-				RootView.navigation.renderHeader();
-				RootView.navigation.render();
+				Cloudwalkers.RootView.navigation.renderHeader();
+				Cloudwalkers.RootView.navigation.render();
 			},
 
 			addservice : function()
@@ -96,17 +96,17 @@ define(
 				var streams = this.get("streams");
 
 				if(!streams)
-					Router.Instance.navigate("#settings/services", true)
+					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
 
 				for (var n in streams)
 					this.parsestream(streams[n], operation);
 
 				//Refresh navigation
-				RootView.navigation.renderHeader();
-				RootView.navigation.render();
+				Cloudwalkers.RootView.navigation.renderHeader();
+				Cloudwalkers.RootView.navigation.render();
 
 				if(operation == 'add')
-					Router.Instance.navigate("#settings/services", true)
+					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
 			},
 
 			parsestream : function(stream, operation)

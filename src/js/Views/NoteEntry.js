@@ -46,12 +46,12 @@ define(
 								this.listenTo(this.model.parent, "sync", this.render)
 							} else {
 								this.parameters.parent = this.model.parent.attributes;
-								RootView.trigger("ready:notecontext");
+								Cloudwalkers.RootView.trigger("ready:notecontext");
 							}
 						
 						} else{
 							this.parameters.parent = this.model.parent.attributes;
-							RootView.trigger("ready:notecontext");
+							Cloudwalkers.RootView.trigger("ready:notecontext");
 						}
 						
 					// Load Actions

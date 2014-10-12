@@ -56,7 +56,7 @@ define(
 			finish : function()
 			{
 				
-				this.resize(RootView.height());
+				this.resize(Cloudwalkers.RootView.height());
 				
 				// Add scroller for message
 				$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");

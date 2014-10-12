@@ -1,6 +1,6 @@
 define(
-	['Collections/BaseCollection',  'Models/Action', 'Views/Root'],
-	function (BaseCollection, Action, RootView)
+	['Collections/BaseCollection',  'Models/Action'],
+	function (BaseCollection, Action)
 	{
 		var Actions = BaseCollection.extend({
 	
@@ -116,7 +116,7 @@ define(
 				var params;
 
 				// Toggle
-				this.listenTo(RootView, token.concat(':success'), this.toggleAction);
+				this.listenTo(Cloudwalkers.RootView, token.concat(':success'), this.toggleAction);
 				
 				// Confirm modal
 				if (action.type == 'confirm')
@@ -128,7 +128,7 @@ define(
 				// Show growl
 				else if (action.type == 'growl')
 				{
-					RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+					Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
 					
 					action.id = 1;
 					action.parent = this.parent;
@@ -137,13 +137,13 @@ define(
 				}
 				
 				// Show note
-				else if (action.type == 'note')	RootView.writeNote(this.parent);		
+				else if (action.type == 'note')	Cloudwalkers.RootView.writeNote(this.parent);		
 				
 				// Call Compose modal
 				else if (action.type == 'edit')	params = {model: this.parent};
 				else							params = {reference: this.parent, action: new Action(action)} 
 				
-				var compose = RootView.compose(params);
+				var compose = Cloudwalkers.RootView.compose(params);
 
 				//Uncomment when CLOUD-793 is fixed
 				//this.listenTo(compose, 'action:success', function(a){this.parent.updateactions(a)}.bind(this));
@@ -178,7 +178,7 @@ define(
 					if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 
 					// Notify action (temp)
-					RootView.growl (action.name, "The " + token + " is planned with success.");
+					Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
 
 					return;
 				}

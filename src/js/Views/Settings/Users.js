@@ -1,6 +1,6 @@
 define(
-	['Views/BaseView', 'mustache', 'Collections/Users', 'Models/User', 'Views/Root', 'Views/Settings'],
-	function (BaseView, Mustache, Users, User, RootView, SettingsView)
+	['Views/BaseView', 'mustache', 'Collections/Users', 'Models/User','Views/Settings/User'],
+	function (BaseView, Mustache, Users, User,UserView)
 	{
 		var UsersView = BaseView.extend({
 
@@ -37,24 +37,11 @@ define(
 				
 				this.$el.html (Mustache.render (Templates.users, data));
 				
-				//account.users.hook({success: this.fill.bind(this), error: this.fail});
-				
-				this.$el.find(".collapse-closed, .collapse-open").each(this.negotiateFunctionalities);
-				
 				// Load users
 				this.collection.parameters = {records: 100}
 				this.collection.parentmodel = account;
 				this.collection.fetch();
 				
-				/*
-				var administrators = new Users ([], {});
-
-				this.collections.push (administrators);
-
-				this.addUserContainer ('Users', administrators);
-
-				// Work widgets
-				*/
 				this.$container = this.$el.find('.toload');
 				
 				return this;
@@ -63,25 +50,20 @@ define(
 			
 			fill : function (collection)
 			{	
-				models = collection.models;
-				Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
-				
+				var models = collection.models;				
 				var $container = this.$el.find(".user-container").eq(-1);
+
+				// Check account limitations
+				Cloudwalkers.Session.getAccount().monitorlimit('users', models.length, $(".invite-user"));
 				
 				for (var n in models)
 				{	
-					var view = new SettingsView.User ({ 'model' : models[n], view: this });
+					var view = new UserView ({ 'model' : models[n], view: this });
 					$container.append(view.render().el);
 				}
-				
-				/*collection.each (function (user)
-				{
-					var view = new SettingsView.User ({ 'model' : user });
-					$container.append(view.render().el);
-				});*/
 			},
 
-			addUserContainer : function (title, collection)
+			/*addUserContainer : function (title, collection)
 			{	
 				var user = Cloudwalkers.Session.getUser ();
 
@@ -124,8 +106,11 @@ define(
 
 				this.$el.append (html);
 
-			},
+			},*/
 
+			/*
+			 *	Send invitation
+			 */
 			addUser : function ()
 			{
 				
@@ -140,7 +125,7 @@ define(
 				
 				user.once('sync', function(response)
 				{
-					RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
+					Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
 
 					// remove the loading effect
 					this.$el.find('input[name=invite-email]').val('');
@@ -151,12 +136,15 @@ define(
 			},
 			
 			/* on it's way to be deprecated */
-			negotiateFunctionalities : function(el) {
+			/*negotiateFunctionalities : function(el) {
 			
 				// Check collapse option
 				$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
-			},
+			},*/
 
+			/*
+			 *	Scroll down page
+			 */
 			scrolldown : function() {
 			
 				$('html, body').animate({
@@ -166,7 +154,7 @@ define(
 			
 			fail : function ()
 			{
-				RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
+				Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
 			},
 
 			translateString : function(translatedata)

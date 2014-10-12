@@ -1,8 +1,8 @@
 define(
-	['backbone',  'Views/Root', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
+	['backbone', 'Collections/Channels', 'Collections/Streams', 'Collections/Campaigns', 'Collections/Users', 'Collections/Contacts',
 	 'Collections/Messages', 'Collections/CannedResponses', 'Collections/Notes', 'Collections/Notifications', 'Collections/Statistics', 'Collections/Reports'],
 
-	function (Backbone, RootView, Channels, Streams, CampaignsCollection, Users, Contacts,
+	function (Backbone, Channels, Streams, CampaignsCollection, Users, Contacts,
 			  Messages, CannedResponses, Notes, Notifications, Statistics, Reports)
 	{
 		var Account = Backbone.Model.extend({
@@ -127,13 +127,16 @@ define(
 				return this.get(param? param: "objectType") !== undefined;
 			},
 			
+			/*
+			 *	Check the account limitations
+			 */
 			monitorlimit : function(type, current, target)
 			{
 				if(current >= this.limits[type])
 				{
 					$('.alert-info').remove();
 						
-					RootView.information ("Upgrade?", "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.");
+					Cloudwalkers.RootView.information ("Upgrade?", "You're fresh out of " + type /*type.slice(0, -1)*/ + " slots, maybe you should upgrade.");
 				
 					if(target)
 					{
@@ -183,7 +186,7 @@ define(
 						function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
 					);
 
-					RootView.growl(this.translateString("user_profile"), this.translateString("campaign_successfully_removed"));
+					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("campaign_successfully_removed"));
 					$(target).closest('li').remove();
 				}.bind(this)});
 

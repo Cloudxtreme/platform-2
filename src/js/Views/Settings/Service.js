@@ -59,7 +59,7 @@ define(
 				profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 				{	
 					//this.parseprofile(profile);
-					RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+					Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
 					
 					// Check for stream changes
 					profile.parent.updateStreams(profile.get('activated'), profile);
@@ -85,13 +85,13 @@ define(
 				}
 
 				//Refresh navigation
-				RootView.navigation.renderHeader();
-				RootView.navigation.render();
+				Cloudwalkers.RootView.navigation.renderHeader();
+				Cloudwalkers.RootView.navigation.render();
 			},*/
 			
 			delete : function ()
 			{
-				RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
+				Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
 				{
 					// View
 					this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
@@ -408,7 +408,7 @@ define(
 
 				var self = this;
 
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
 					function ()
@@ -428,7 +428,7 @@ define(
 		        var streamid = $(e.target).attr ('data-stream-details-id');
 
 		        var view = new SettingsView.StreamSettings ({ 'streamid' : streamid });
-		        RootView.popup (view);
+		        Cloudwalkers.RootView.popup (view);
 		    },*/
 
 			translateTitle : function(translatedata)

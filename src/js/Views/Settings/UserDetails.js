@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root'],
-	function (Backbone, RootView)
+	['backbone', 'mustache'],
+	function (Backbone, Mustache)
 	{
 		var UserDetails = Backbone.View.extend({
 
@@ -19,29 +19,17 @@ define(
 				this.role = this.model.get('rolegroup')
 				this.roles = Cloudwalkers.Session.getAccount().get('roles');
 				
-				if(!this.roles || _.isUndefined(this.role))
-					return RootView.resync('#'+Backbone.history.fragment);
 			},
 
 			render : function ()
 			{
-				var self = this;
-				var data = {};
-				//left dropdown & default checked
-				//var level = Number(this.model.get("level"));
-				//var levels = [ { 'level' : 0, 'name' : 'Co-Workers' }, { 'level' : 10, 'name' : 'Administrators' }];
-
-				var role = this.role;
 				var roles = this.roles;
+				var data = { 
+					roles: [],
+					user : this.model.attributes
+				};
 				
-				//levels[(level)? 1:0].checked = true;
-
-				data.user = this.model.attributes;
-				data.title = data.user.name;
-				
-				// add levels to dropdown
-				//data.levels = [];
-				data.roles = [];
+				// Create the roles dropdown list
 				for (var i = 0; i < roles.length; i ++)
 				{
 					var tmp = roles[i];
@@ -53,7 +41,7 @@ define(
 				//Mustache Translate Render
 				this.mustacheTranslateRender(data);
 
-				self.$el.html (Mustache.render (Templates.settings.userdetails, data));
+				this.$el.html (Mustache.render (Templates.userdetails, data));
 
 				return this;
 			},
@@ -73,7 +61,7 @@ define(
 
 			success : function()
 			{	
-				RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
+				Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
 				this.model.trigger("change:clearance")	;
 			},
 

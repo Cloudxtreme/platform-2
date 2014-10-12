@@ -9,8 +9,8 @@
  */
 
 define(
-	['Views/Pageview', 'mustache',  'Router', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
-	function (Pageview, Mustache, Router, Statistics, EmptyStatisticsWidget)
+	['Views/Pageview', 'mustache', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
+	function (Pageview, Mustache, Statistics, EmptyStatisticsWidget)
 	{
 		var StatisticsView = Pageview.extend({
 			
@@ -316,14 +316,14 @@ define(
 				if(!streamid)
 					streamid = Cloudwalkers.Session.getStreams().where ({statistics: 1})[0].id;
 
-				Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
+				Cloudwalkers.Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
 			},
 			
 			changestream : function()
 			{	
 				var streamid = Number(this.$el.find("select.networks").val());
 				
-				Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
+				Cloudwalkers.Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
 			},
 			
 			changespan : function()

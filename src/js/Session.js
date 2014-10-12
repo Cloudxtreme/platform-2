@@ -39,7 +39,7 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 			
 			home : function()
 			{
-				Router.Instance.home();	
+				Cloudwalkers.Router.Instance.home();	
 			},
 			
 			/**
@@ -87,7 +87,7 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 					Cloudwalkers.Session.user.attributes.settings.viewsettings = {};
 				
 				if(!Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer])
-					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = RootView.navigation.mapViews();
+					Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer] = Cloudwalkers.RootView.navigation.mapViews();
 
 				// Sent hack to add the object
 				if(value == 'sent' && !Cloudwalkers.Session.user.attributes.settings.viewsettings[pointer].sent)

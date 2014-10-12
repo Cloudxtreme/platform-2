@@ -110,7 +110,7 @@ define(
 				
 				this.account.save ({name: name}, {patch: true, success: function ()
 					{
-						RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
+						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
 						
 						//Reenable submit button & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -118,7 +118,7 @@ define(
 
 					}.bind(this),
 					error: function(){
-						RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
+						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
 						
 						//Reaneable buttons & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -136,7 +136,7 @@ define(
 				//var account = Cloudwalkers.Session.getAccount();
 				var campaignid = $(e.target).data ('delete-campaign-id'); //= account.campaigns.get( $(e.target).data ('delete-campaign-id'));
 				
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_campaign'), 
 					function () 

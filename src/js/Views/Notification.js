@@ -99,7 +99,7 @@ define(
 			togglecommentcontact : function()
 			{
 				var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
-				if(contact)	RootView.viewContact({model: contact});
+				if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 			}
 			
 			/*'action' : function (element)
@@ -139,7 +139,7 @@ define(
 								'message' : targetmodel,
 								'action' : action
 							});
-							RootView.popup (view);
+							Cloudwalkers.RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -148,7 +148,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							RootView.writeDialog 
+							Cloudwalkers.RootView.writeDialog 
 							(
 								targetmodel,
 								action

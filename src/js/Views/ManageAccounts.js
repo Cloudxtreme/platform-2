@@ -121,7 +121,7 @@ define(
 				// Loading symbel
 				this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
 				
-				RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
+				Cloudwalkers.RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
 			},
 			
 			limited : function (collection)

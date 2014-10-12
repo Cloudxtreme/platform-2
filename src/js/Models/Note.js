@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Models/Contact', 'Models/Message', 'Views/Root'],
-	function (Backbone, Contact, Message, RootView)
+	['backbone',  'Models/Contact', 'Models/Message'],
+	function (Backbone, Contact, Message)
 	{
 		var Note = Backbone.Model.extend({
 
@@ -117,7 +117,7 @@ define(
 			{
 				var self = this;
 
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					'Are you sure you want to remove this note?', 
 					function () 

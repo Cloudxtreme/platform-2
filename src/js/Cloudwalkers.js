@@ -17,7 +17,7 @@ define(
 			init : function ()
 			{
 				//MIGRATION -> hook session to global
-				Cloudwalkers.Session = Session;
+				this.Session = Session;
 
 				// Authentication
 				var token = window.localStorage.getItem('token');
@@ -25,14 +25,14 @@ define(
 				//Check if there is authentication
 				if(token && token.length > 9)
 				{	
-					Cloudwalkers.Session.authenticationtoken = token;
+					this.Session.authenticationtoken = token;
 					
 				} else{ console.log("token error", token); window.location = "/login.html";}
 
 				// Define API root
-				Cloudwalkers.Session.api = config.apiurl + Cloudwalkers.version;
+				this.Session.api = config.apiurl + Cloudwalkers.version;
 
-				Cloudwalkers.Session.loadEssentialData (function ()
+				this.Session.loadEssentialData (function ()
 				{
 					// MIGRATION
 					// Root view

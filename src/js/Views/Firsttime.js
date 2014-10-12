@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Pageview',  'Router', 'Collections/Services'],
-	function (Backbone, Pageview, Router, Services)
+	['backbone', 'Views/Pageview', 'Collections/Services'],
+	function (Backbone, Pageview, Services)
 	{
 		var Firsttime = Pageview.extend({
 
@@ -87,7 +87,7 @@ define(
 			ready : function()
 			{
 				Cloudwalkers.Session.getAccount().set("firstTime", 0);
-				Router.Instance.navigate('#dashboard', true);
+				Cloudwalkers.Router.Instance.navigate('#dashboard', true);
 			},	
 
 			/*'addService' : function (e)

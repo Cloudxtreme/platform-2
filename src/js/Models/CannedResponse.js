@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Views/Root'],
-	function (Backbone, RootView)
+	['backbone'],
+	function (Backbone)
 	{
 		var CannedResponse = Backbone.Model.extend({
 
@@ -45,7 +45,7 @@ define(
 			{
 				var self = this;
 
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_remove_this_template'), 
 					function () 

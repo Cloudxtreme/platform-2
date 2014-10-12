@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root', 'Views/Settings'],
-	function (Backbone, RootView, SettingsView)
+	['backbone', 'mustache', 'Views/Settings/UserDetails'],
+	function (Backbone, Mustache, UserDetailsView)
 	{
 		var User = Backbone.View.extend({
 
@@ -31,7 +31,6 @@ define(
 
 			render : function ()
 			{
-				var self = this;
 				var data = {};
 				
 				data.user = this.model.attributes;
@@ -40,14 +39,14 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 				
-				self.$el.html (Mustache.render (Templates.settings.user, data));
+				this.$el.html (Mustache.render (Templates.user, data));
 
 				return this;
 			},
 
 			openDetails : function ()
 			{
-				var view = new SettingsView.UserDetails ({ 'model' : this.model, 'view': this.view });
+				var view = new UserDetailsView ({ model : this.model, view: this.view });
 				$(".manage-users-edit-widget .portlet-body").html(view.render().el);
 			},
 			
@@ -56,18 +55,12 @@ define(
 				var $tr = $(e.currentTarget).parents('tr');
 				var user = Cloudwalkers.Session.getUser($tr.data('delete-user-id'));
 				
-				RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
+				Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
 					
 					this.model.destroy({success: function(){
 						$tr.remove();
-						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
+						Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
 					}});
-					/*
-					var url = 'account/' + Cloudwalkers.Session.getAccount().get('id') + '/users/' + self.model.get('id');
-					Cloudwalkers.Net.remove (url, {}, function(){
-					
-						RootView.growl(translate_manage_users, translate_thats_an_ex_user);
-					}.bind(this));*/
 				}.bind(this));
 			},
 

@@ -125,26 +125,26 @@ define(
 				$("#keywordsfilter * .alert").remove();
 				
 				// Check Category
-				if(!catid) return RootView.alert(this.translateString("dont_forget_to_select_a_category"));
+				if(!catid) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_select_a_category"));
 				
 				var category = Cloudwalkers.Session.getChannel(catid);
 
 				// Check Name
-				if(!this.keywordFormula().name) return RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
 
 				// Check Formula
-				if(!this.keywordFormula().settings.formula) return RootView.alert(this.translateString("please_add_a_filter_to_your_keyword"));
+				if(!this.keywordFormula().settings.formula) return Cloudwalkers.RootView.alert(this.translateString("please_add_a_filter_to_your_keyword"));
 				
 				//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
 				category.channels.create(this.keywordFormula(), {
 					parent: catid,
 					wait: true,
 					error: function(){
-						RootView.information (this.translateString("not_saved"), this.translateString("something_went_wrong"), this.$el.find(".manage-keyword"));
+						Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("something_went_wrong"), this.$el.find(".manage-keyword"));
 						this.$el.find(".managekeyword .icon-cloud-upload").hide();
 					}.bind(this),
 					success: function (){
-						RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
+						Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
 					}.bind(this)
 				});
 				this.$el.find(".managekeyword .icon-cloud-upload").show();
@@ -155,7 +155,7 @@ define(
 				e.preventDefault ();
 				
 				// Check Name
-				if(!this.keywordFormula().name) return RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
 				
 				// Check Formula
 				if(this.keywordFormula().settings.formula){
@@ -166,10 +166,10 @@ define(
 						this.keywordFormula(),
 						{	
 							success:  function(){
-								RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_updated'))
+								Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_updated'))
 							}.bind(this),
 							error: function(){
-								RootView.growl (this.translateString("not_saved"), this.translateString("something_went_wrong"));
+								Cloudwalkers.RootView.growl (this.translateString("not_saved"), this.translateString("something_went_wrong"));
 							}.bind(this)
 						}
 					);
@@ -398,7 +398,7 @@ define(
 
 			resetFilter :function()
 			{
-				RootView.confirm 
+				Cloudwalkers.RootView.confirm 
 				(
 					this.translateString('are_you_sure_you_want_to_reset_this_filter'), 
 					function () 

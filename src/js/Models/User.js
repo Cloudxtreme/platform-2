@@ -1,8 +1,8 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['Models/BaseModel'],
+	function (BaseModel)
 	{
-		var User = Backbone.Model.extend({
+		var User = BaseModel.extend({
 
 			typestring : 'users',
 	
@@ -68,11 +68,6 @@ define(
 
 				return data;
 			},
-
-			getcoworker : function(roles)
-			{
-				
-			},
 			
 			getRole : function ()
 			{	
@@ -80,7 +75,7 @@ define(
 				var userrole = this.get('rolegroup');
 
 				if(!roles || _.isUndefined(userrole))
-					return RootView.resync('#'+Backbone.history.fragment);
+					return Cloudwalkers.RootView.resync('#'+Backbone.history.fragment);
 
 				var role = roles.filter(function(el){ return el.id == userrole});
 				return role.length? role[0]: null;

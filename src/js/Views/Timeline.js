@@ -82,7 +82,7 @@ define(
 
 				this.reload(param)
 
-				this.resize(RootView.height());
+				this.resize(Cloudwalkers.RootView.height());
 
 				return this;
 			},

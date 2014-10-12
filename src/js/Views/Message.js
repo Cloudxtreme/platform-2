@@ -211,7 +211,7 @@ define(
 								'message' : targetmodel,
 								'action' : action
 							});
-							RootView.popup (view);
+							Cloudwalkers.RootView.popup (view);
 						}
 						else if (action.type == 'simple')
 						{
@@ -220,7 +220,7 @@ define(
 
 						else if (action.type == 'write')
 						{
-							RootView.writeDialog 
+							Cloudwalkers.RootView.writeDialog 
 							(
 								targetmodel,
 								action

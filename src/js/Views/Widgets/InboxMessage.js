@@ -239,7 +239,7 @@ define(
 			/*'viewcontact' : function(e)
 			{
 				// e.currentTarget = contactid
-				RootView.viewContact();
+				Cloudwalkers.RootView.viewContact();
 			},*/
 			
 			destroy : function()

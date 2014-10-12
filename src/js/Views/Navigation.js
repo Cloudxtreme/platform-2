@@ -1,6 +1,6 @@
 define(	// MIGRATION -> added mustache
-	['backbone', 'mustache',  'Router', 'Views/Root'],
-	function (Backbone, Mustache, Router, RootView)
+	['backbone', 'mustache'],
+	function (Backbone, Mustache)
 	{
 		var Navigation = Backbone.View.extend({
 
@@ -51,9 +51,9 @@ define(	// MIGRATION -> added mustache
 				// Action token
 				var token = $(element.currentTarget).data ('header-action');
 				
-				if(token == 'messages') 	Router.Instance.navigate("#inbox/messages", true);
-				if(token == 'contacts') 	Router.Instance.navigate("#coworkers", true);
-				if(token == 'post') 		RootView.compose();
+				if(token == 'messages') 	Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
+				if(token == 'contacts') 	Cloudwalkers.Router.Instance.navigate("#coworkers", true);
+				if(token == 'post') 		Cloudwalkers.RootView.compose();
 				if(token == 'writenote') 	this.writenote();
 			},
 			
@@ -209,12 +209,12 @@ define(	// MIGRATION -> added mustache
 				this.setActive(path);
 		    },
 		    
-		    compose : function () { RootView.compose(); },
+		    compose : function () { Cloudwalkers.RootView.compose(); },
 
 		    writenote : function ()
 		    {
 		    	var account = Cloudwalkers.Session.getAccount();
-				RootView.writeNote(account); 
+				Cloudwalkers.RootView.writeNote(account); 
 			},
 		    
 		    setActive : function (path) {

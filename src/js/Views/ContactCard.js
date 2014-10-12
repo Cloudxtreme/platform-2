@@ -23,7 +23,7 @@ define(
 			viewcontact : function()
 			{	
 				if(this.contact)
-					RootView.viewContact({model: this.contact});
+					Cloudwalkers.RootView.viewContact({model: this.contact});
 			}
 
 		});

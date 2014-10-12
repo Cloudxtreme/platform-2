@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Views/Root', 'Router'],
-	function (Backbone, RootView, Router)
+	['backbone'],
+	function (Backbone)
 	{
 		var Resync = Backbone.View.extend({
 
@@ -43,10 +43,10 @@ define(
 			refresh : function()
 			{	
 				// Reload navigation & stuff
-				RootView.navigation.renderHeader();
-				RootView.navigation.render();
+				Cloudwalkers.RootView.navigation.renderHeader();
+				Cloudwalkers.RootView.navigation.render();
 
-				Router.Instance.navigate (this.returnto, true);
+				Cloudwalkers.Router.Instance.navigate (this.returnto, true);
 			},
 
 			//Check type of update necessary - hardcoded "me" refresh

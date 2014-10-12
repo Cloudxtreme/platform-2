@@ -61,14 +61,14 @@ define(
 					//streams: this.
 				}, {patch: this.model.id? true: false, 
 						success: function(){
-							RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 
 							//remove loading and enable submit button
 							this.$el.removeClass('loading');
 							this.$el.find('[type=submit]').attr('disabled', false);
 						}.bind(this),
 						error: function(){
-							RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
 
 							//remove loading & reset buttons
 							this.$el.removeClass('loading');

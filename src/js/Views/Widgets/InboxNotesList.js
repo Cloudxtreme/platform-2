@@ -218,7 +218,7 @@ define(
 			{	
 				var context = this.inboxnote.getcontext();
 				var contact = context.from ? context.from[0] : null;
-				if(contact)	RootView.viewContact({model: contact});
+				if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 			},
 			
 			filtercontacts : function (e)

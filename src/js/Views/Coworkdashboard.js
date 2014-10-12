@@ -70,7 +70,7 @@ define(
 				{
 					if (typeof (data.error) != 'undefined')
 					{
-						RootView.alert (data.error.message);
+						Cloudwalkers.RootView.alert (data.error.message);
 					}
 					else
 					{

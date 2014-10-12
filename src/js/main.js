@@ -17,7 +17,8 @@ require.config({
 		'd3': 'lib/d3.min',
 		'crossdomain': 'lib/backbone.crossdomain/Backbone.CrossDomain',
 		'polyglot': 'lib/polyglot/lib/polyglot',
-		'slimscroll': 'lib/slimscroll/jquery.slimscroll.min'
+		'slimscroll': 'lib/slimscroll/jquery.slimscroll.min',
+		'gritter': 'lib/jquery.gritter/js/jquery.gritter.min'
 	},
 	shim: {
 		'bootstrap': {
@@ -34,14 +35,14 @@ require.config({
 		'crossdomain': {
 			deps: ['backbone'],
 			exports: 'crossdomain'
-		},
+		}/*,
 		'polyglot': {
 			exports: 'polyglot'
 		},
 		'slimscroll': {
 			deps: ['jquery'],
 			exports: 'slimscroll'
-		}
+		}*/
 	},
 	urlArgs: "bust=" +  (new Date()).getTime()
 });
