@@ -3,7 +3,7 @@ define(
 	function (InboxMessageListWidget, Message, InboxMessageWidget)
 	{
 		var InboxNotificationListWidget = InboxMessageListWidget.extend({
-	
+			
 			collectionstring : "notifications",
 			check : "hasNotifications",
 					
@@ -37,6 +37,6 @@ define(
 			}
 		});
 
-		return InboxMessageListWidget;
+		return InboxNotificationListWidget;
 	}
 );

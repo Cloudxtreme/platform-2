@@ -2,10 +2,10 @@
 * A standard widget
 */
 define(
-	['backbone'],
-	function (Backbone)
+	['Views/BaseView', 'mustache'],
+	function (BaseView, Mustache)
 	{
-		var LoadMore = Backbone.View.extend({
+		var LoadMore = BaseView.extend({
 
 			events : {
 				'click' : 'more'

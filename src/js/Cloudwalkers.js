@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Router', 'config', 'Views/Root'],
-	function (Backbone, Session, Router, config, RootView)
+	['backbone', 'Session', 'Router', 'config', 'Views/Root', 'Utilities/UrlShortener'],
+	function (Backbone, Session, Router, config, RootView, UrlShortener)
 	{
 		var Cloudwalkers = {
 			
@@ -34,12 +34,11 @@ define(
 
 				this.Session.loadEssentialData (function ()
 				{
-					// MIGRATION
 					// Root view
 					Cloudwalkers.RootView = new RootView();
 					
 					// Url Shortener
-					///Cloudwalkers.Session.UrlShortener = new Cloudwalkers.UrlShortener();
+					Cloudwalkers.Session.UrlShortener = new UrlShortener();
 
 					// And then rout the router.
 					Router.Instance = new Router ();

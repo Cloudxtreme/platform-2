@@ -25,6 +25,8 @@ define(
 				'click *[data-action]' : 'action',
 				'click' : 'toggle',
 			},
+
+			options : {},
 			
 			initialize : function (options)
 			{	
@@ -32,6 +34,7 @@ define(
 				this.parameters = {};
 				
 				if(options) $.extend(this, options);
+				if(options) $.extend(this.options, options);
 
 				this.loadmylisteners();
 			},

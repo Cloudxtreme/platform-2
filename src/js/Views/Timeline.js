@@ -115,30 +115,6 @@ define(
 			reload : function(param)
 			{	
 				this.reloadui(param);
-				
-				/*if(!this.filters.streams.length)
-					this.collection = this.model.messages;
-
-				/*if(this.timelinetype == 'news'){
-
-					var contact;
-
-					if(this.filters.streams && this.filters.streams.length){
-
-						contact = new Contact({id: this.filters.streams[0]});
-						this.collection = this.model.messages.clone();
-						contact.endpoint = 'messages';
-						this.listenToOnce(this.collection, 'sync', this.fill);
-
-						this.collection.url = contact.url();
-						this.collection.parentmodel = 'contact';
-						this.collection.parenttype = 'contact';
-						this.collection.cursor = false;
-
-						this.collection.fetch({endpoint: 'messages'});
-						return;
-					}
-				}*/
 
 				// Load messages
 				this.collection.touch(this.model, this.filterparameters());
@@ -172,10 +148,10 @@ define(
 
 				// Add contacts to list
 				for (var c in contacts)
-				{	
-					if(contacts[n].loaded()){
+				{
+					if(contacts[c].loaded()){
 						
-						streams.push({id: contacts[c].id, icon: contacts[n].get("network").icon, name: contacts[c].get("defaultname"), network: contacts[c].get("network")})
+						streams.push({id: contacts[c].id, icon: contacts[c].get("network").icon, name: contacts[c].get("defaultname"), network: contacts[c].get("network")})
 
 						this.$el.find('#filter_streams ul').append(Mustache.render(Templates.filterstream, contacts[c].attributes));
 					}

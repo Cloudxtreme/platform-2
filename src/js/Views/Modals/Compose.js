@@ -5,10 +5,10 @@
 **/
 
 define (
-	['backbone',  'Views/Root', 'Models/Message', 'Views/Editor', 'Views/Preview', 'Collections/CannedResponses'],
-	function (Backbone, RootView, Message, EditorView, PreviewView, CannedResponses)
+	['Views/BaseView', 'mustache', 'chosen', 'datepicker', 'Models/Message', 'Views/Widgets/Editor', 'Views/Preview', 'Collections/CannedResponses'],
+	function (BaseView, Mustache, chosen, datepicker, Message, EditorWidget, PreviewView, CannedResponses)
 	{
-		var Compose = Backbone.View.extend({
+		var Compose = BaseView.extend({
 	
 			id : "compose",
 			className : "modal hide",
@@ -289,7 +289,7 @@ define (
 				if(this.state == 'loading')	this.disablefooter();
 
 				// Append Editor
-				if(!this.editor) this.editor = new EditorView({draft: this.draft, parent: this});
+				if(!this.editor) this.editor = new EditorWidget({draft: this.draft, parent: this});
 				this.$el.find("[data-type=post]").append(this.editor.render().el);
 
 				// Listen to editor triggers

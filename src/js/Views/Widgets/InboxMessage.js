@@ -1,7 +1,7 @@
 /* Temporary, should be "Message" view. One for all. */
 define(
-	['Views/Entry', 'Collections/Notifications', 'Collections/Related', 'Views/Root', 'Views/Actions', 'Models/Notification'],
-	function (EntryView, Notifications, Related, RootView, ActionsView, NotificationView)
+	['Views/Entry', 'mustache', 'Collections/Notifications', 'Collections/Related', 'Views/Actions', 'Views/Notification'],
+	function (EntryView, Mustache, Notifications, Related, ActionsView, NotificationView)
 	{
 		var InboxMessage = EntryView.extend({
 	
@@ -34,12 +34,6 @@ define(
 				// Parameters
 				var params = {commented: commented} //this.model.filterData('full', {commented: commented});
 				$.extend(params, this.model.attributes)
-
-				/*if(this.model.filterActions)
-					$.extend(params, {actions: this.model.filterActions()});*/
-				
-				// Meant only for the viewcontact messages demo
-				//if(this.notes)	params.notes = true;
 				
 				// If not Notification load Tags
 				if(!this.options.notification)	params.tags = true;
@@ -81,7 +75,8 @@ define(
 				// Mark as read
 				if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 
-				this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: '0.7'});
+				// MIGRATION
+				/*this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: '0.7'});*/
 
 				return this;
 			},

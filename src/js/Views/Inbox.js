@@ -1,14 +1,17 @@
 define(
-	['Views/Pageview', 'mustache',  'Views/Root', 'Views/Widgets/InboxMessageList', 'Views/Widgets/InboxNotificationList'],
-	function (Pageview, Mustache, RootView, InboxMessageListWidget, InboxNotificationListWidget)
+	['Views/Pageview', 'mustache', 'Views/Widgets/InboxMessageList', 'Views/Widgets/InboxNotificationList'],
+	function (Pageview, Mustache, InboxMessageListWidget, InboxNotificationListWidget)
 	{
 		var Inbox = Pageview.extend({
 
 			title : 'Inbox',
 			className : "container-fluid inbox",
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 			{
+				$.extend(this.options, options);
+
 				// Memory cloth
 				var settings = Cloudwalkers.Session.viewsettings(this.options.type);
 				
@@ -40,7 +43,7 @@ define(
 				this.appendhtml(Templates.inboxcontainer);
 				
 				// Pageview listeners
-				this.listenTo(RootView, "resize", this.resize);
+				this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 
 				
 				return this;

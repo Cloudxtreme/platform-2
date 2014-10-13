@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Collections/Messages', 'Views/Root', 'Views/Entry', 'Views/Widgets/LoadMore'],
-	function (Widget, Messages, RootView, EntryView, LoadMoreWidget)
+	['Views/Widgets/Widget', 'mustache', 'Collections/Messages', 'Views/Entry', 'Views/Widgets/LoadMore'],
+	function (Widget, Mustache, Messages, EntryView, LoadMoreWidget)
 	{
 		var CoworkersList = Widget.extend({
 
@@ -29,20 +29,20 @@ define(
 				//Show all reloads te listeners
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 
-				this.listenTo(RootView, 'added:message', this.messageadded);
+				this.listenTo(Cloudwalkers.RootView, 'added:message', this.messageadded);
 
 		        //Reseting the parameters
 		        this.parameters = {records: 20};
 
 				// Watch outdated
-				this.updateable(this.model, "h3.page-title");
+				//this.updateable(this.model, "h3.page-title");
 
 				// Translation for Title
 				this.translateTitle("co-workers_messages");
 			},
 
 			render : function (params)
-			{	
+			{
 				this.loadmylisteners();
 				
 				var data = {};
@@ -78,7 +78,6 @@ define(
 			showloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").show();
-				//this.$el.find(".load-more").hide();
 			},
 			
 			hideloading : function ()
@@ -120,9 +119,6 @@ define(
 					this.entries = [];
 				}
 				
-				// Get messages
-				//var messages = this.category.messages.seed(ids);
-				
 				// Add messages to view
 				for (var n in list)
 				{
@@ -140,32 +136,6 @@ define(
 				// Hide loading
 				this.hideloading();
 			},
-			
-			/*'fill' : function (category, ids)
-			{
-				// Clean load or add
-				if(this.incremental) this.incremental = false;
-				else
-				{
-					$.each(this.entries, function(n, entry){ entry.remove()});
-					this.entries = [];
-				}
-				
-				// Get messages
-				var messages = this.category.messages.seed(ids);
-				//Cloudwalkers.Session.getMessages().seed(ids);
-				
-				// Add messages to view
-				for (var n in messages)
-				{
-					//var message = Cloudwalkers.Session.getMessage(ids[n]);
-					
-					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
-					this.entries.push (messageView);
-					
-					this.$container.append(messageView.render().el);
-				}
-			},*/
 			
 			more : function ()
 			{
@@ -186,23 +156,9 @@ define(
 					this.model.messages.touch(this.model);
 			},
 			
-			/*'more' : function ()
+			negotiateFunctionalities : function()
 			{
-				this.incremental = true;
-				
-				// update parameters with after cursor	
-				var param = this.category.parameters;
-				param.after = this.category.get("paging").cursors.after;
-				
-				this.category.fetch({endpoint: "messageids", parameters:param})
-				
-			},*/
-			
-			negotiateFunctionalities : function() {
-				
-				this.listenTo( 'destroy:view', this.remove);
-				
-		//		this.addScroll();
+				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 			},
 			
 			addScroll : function () {

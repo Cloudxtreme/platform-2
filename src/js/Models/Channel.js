@@ -1,6 +1,6 @@
 define(	// MIGRATION
-	['backbone',  /*'Collections/Contacts',*/ 'Collections/Messages', 'Collections/Channels', /*'Collections/Notifications',*/ 'Collections/Streams'],
-	function (Backbone, Messages, Channels, Streams)
+	['backbone',  'Collections/Contacts', 'Collections/Messages', 'Collections/Channels', 'Collections/Notifications', 'Collections/Streams'],
+	function (Backbone, Contacts, Messages, Channels, Notifications, Streams)
 	{
 		var Channel = Backbone.Model.extend({
 	
@@ -23,19 +23,17 @@ define(	// MIGRATION
 				// Child messages
 				this.messages = new Messages();
 				
-				// MIGRATION -> Do we need notifications & contacts collections on channel context?
 				// Child notifications
-				///this.notifications = new Notifications();
+				this.notifications = new Notifications();
 				
 				// Child contacts
-				///this.contacts = new Contacts();
+				this.contacts = new Contacts();
 				
 				// Listeners
 				this.on("change", function(model){ Store.set("channels", model.attributes)});
 				
-				//MIGRATION -> commented the listeners
-				///this.listenTo(this.messages, 'change:from', this.seedcontacts);
-				///this.listenTo(this.notifications, 'change:from', this.seedcontacts);
+				this.listenTo(this.messages, 'change:from', this.seedcontacts);
+				this.listenTo(this.notifications, 'change:from', this.seedcontacts);
 				//this.on("change:streams", function(){ Cloudwalkers.Session.setStreams(this.get("streams")) });
 				
 			},

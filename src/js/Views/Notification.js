@@ -1,8 +1,8 @@
 define(
-	['Views/Entry',  'Collections/Actions', 'Views/Root', 'Views/ActionParameters'],
-	function (EntryView, Actions, RootView, ActionParametersView)
+	['Views/Entry', 'mustache', 'Collections/Actions', 'Views/ActionParameters'],
+	function (EntryView, Mustache, Actions, ActionParametersView)
 	{
-		var Notification = Entry.extend({
+		var Notification = EntryView.extend({
 	
 			template: 'message',
 	
@@ -12,19 +12,6 @@ define(
 				'click *[data-notification-action]' : 'action',
 				'click .viewcommentcontact': 'togglecommentcontact'
 			},
-			
-			/*'initialize' : function (options)
-			{
-				// Add options to view
-				if (options) $.extend(this, options);
-				
-				// Get actions
-				if(!this.model.actions)
-					this.model.actions = new Actions(false, {parent: this.model});
-				
-				this.model.on ('change', this.render.bind(this));
-				this.listenTo(this.model, 'action:toggle', this.toggleaction);
-			},*/
 
 			render : function ()
 			{
@@ -35,23 +22,6 @@ define(
 				
 				// Visualize
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters));
-				
-				/*// Build parameters
-				var params = {from: this.model.get("from"), body: this.model.get("body"), attachments: {}};
-				
-				if (this.model.get("date")) 		params.fulldate = moment(this.model.get("date")).format("DD MMM");
-				if (this.model.get("attachments"))	$.each(this.model.get("attachments"), function(n, object){ params.attachments[object.type] = object });
-				
-				if (this.active) this.$el.addClass("active");
-				
-				// Get actions
-				params.actions = this.model.get("objectType")? this.model.actions.rendertokens(): [];
-				
-				// Visualize
-				this.$el.html (Mustache.render (Templates[this.template], params));
-				
-				// Mark as read
-				if (this.model.get("objectType") && this.model.get("read") === 0) this.markasread();*/
 				
 				return this;
 			},
@@ -102,61 +72,6 @@ define(
 				if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
 			}
 			
-			/*'action' : function (element)
-			{
-				var actiontoken = $(element.currentTarget).data ('notification-action');
-				
-				action = this.model.getAction (actiontoken);
-
-				if (action == null)
-				{
-					console.log ('No action found: ' + actiontoken);
-					return;
-				}
-
-				var targetmodel = this.model;
-				if (typeof (action.target) != 'undefined')
-				{
-					targetmodel = action.target;
-
-					if (typeof (action.originalaction) != 'undefined')
-					{
-						action = action.originalaction;
-					}
-				}
-
-				if (typeof (action.callback) != 'undefined')
-				{
-					action.callback (targetmodel);
-				}
-				else
-				{
-					if (action)
-					{
-						if (action.type == 'dialog')
-						{
-							var view = new ActionParametersView ({
-								'message' : targetmodel,
-								'action' : action
-							});
-							Cloudwalkers.RootView.popup (view);
-						}
-						else if (action.type == 'simple')
-						{
-							targetmodel.act (action, {}, function (){});
-						}
-
-						else if (action.type == 'write')
-						{
-							Cloudwalkers.RootView.writeDialog 
-							(
-								targetmodel,
-								action
-							);
-						}
-					}
-				}
-			}*/
 		});
 
 		return Notification;

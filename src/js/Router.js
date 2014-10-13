@@ -5,7 +5,7 @@ define(
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups',*/ 'Views/Resync', 'Views/RSSFeed', /*'Views/ManageRSS'*/],
 
 	function (	Backbone, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
-				ScheduledViews, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
+				ScheduledView, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
 				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
 				CoworkdashboardView, /*ManageUserGroupsView,*/ ResyncView, RSSFeedView /*ManageRSSView*/)
 
@@ -162,7 +162,7 @@ define(
 			
 			scheduled : function ()
 			{	
-				var view = new ScheduledViews();
+				var view = new ScheduledView();
 				var roles = 'MESSAGE_READ_SCHEDULE';
 
 				this.validate(view, roles);

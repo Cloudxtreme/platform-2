@@ -1,6 +1,6 @@
 define (
-	['backbone', 'gritter', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
-	function (Backbone, gritter, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
+	['backbone', 'gritter', 'mustache', 'Views/Navigation', 'Views/Modals/Compose', 'Views/Modals/Contact', 'Views/Modals/SimpleCompose'],
+	function (Backbone, gritter, Mustache, NavigationView, ComposeModal, ContactModal, SimpleComposeModal)
 	{
 		var Root = Backbone.View.extend({
 

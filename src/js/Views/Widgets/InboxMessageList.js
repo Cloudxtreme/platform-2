@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget',  'Views/Root', 'Views/Entry', 'Views/Widgets/InboxMessage', 'Views/Widgets/LoadMore'],
-	function (Widget, RootView, EntryView, InboxMessageWidget, LoadMoreWidget)
+	['Views/Widgets/Widget', 'mustache', 'Views/Entry', 'Views/Widgets/InboxMessage', 'Views/Widgets/LoadMore'],
+	function (Widget, Mustache, EntryView, InboxMessageWidget, LoadMoreWidget)
 	{
 		var InboxMessageList = Widget.extend({
 
@@ -32,10 +32,13 @@ define(
 				'click .toggleall.active' : 'toggleall',
 				'click .load-more' : 'more'
 			},
+
+			options : {},
 			
 			initialize : function (options, /* Deprecated? */ pageviewoptions)
 			{
-				if(options) $.extend(this, options);
+				if(options) 		$.extend(this.options, options);
+				if(options.model)	this.model = options.model;
 				
 				// Which model to focus on
 				if(!this.model)	this.model = this.options.channel;
@@ -69,7 +72,7 @@ define(
 				this.listenTo(this.collection, 'request', this.unsetempty);
 
 				//if(this.listtype == 'notes')
-				this.listenTo(RootView, 'added:note', function(){ this.collection.touch(this.model, this.filterparameters()); }.bind(this));
+				this.listenTo(Cloudwalkers.RootView, 'added:note', function(){ this.collection.touch(this.model, this.filterparameters()); }.bind(this));
 
 				//listenToOnce
 				this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
@@ -404,41 +407,6 @@ define(
 				return this;
 			},
 			
-			/*'filterstreams' : function (e)
-			{
-				var button = $(e.currentTarget);
-				var param = {records: 20};
-				var streamids = [];
-				
-				button.active = button.toggleClass("inactive active").hasClass("active");
-				
-				var networks = this.$el.find ('div[data-streams].active');
-				
-				// Manipulate other buttons (one ugly motherfucker, just because we can)
-				$(button.attr("data-streams").split(" ").map(function(id){ return '[data-streams~="'+ id +'"]'; }).join(",")).removeClass(button.active? "inactive": "active").addClass(button.active? "active": "inactive")
-				
-
-				// Listing
-				this.$el.find ('li[data-streams].active').each(function() { streamids.push($(this).data('streams')) });
-				
-				// Network doublecheck (false enables)
-				$(streamids.map(function(id){ return 'div[data-streams~="'+ id +'"]'; }).join(",")).removeClass("inactive").addClass("active")
-				
-				this.filters.streams = streamids;
-				
-				// Empty list if required
-				if (!streamids.length)
-				{
-					this.$container.empty();
-					return $(".inbox-container").empty();
-				}
-				
-				// Fetch filtered messages
-				this.collection.touch(this.model, this.filterparameters());
-				
-				return this;
-			},*/
-			
 			filterparameters : function() {
 				
 				var param;
@@ -496,7 +464,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo( 'destroy:view', this.remove);
+				this.listenTo( Cloudwalkers.Session, 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},

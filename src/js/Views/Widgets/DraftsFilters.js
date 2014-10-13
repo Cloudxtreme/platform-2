@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget', 'Collections/Users', 'Views/User'],
-	function (Widget, Users, UserView)
+	['Views/Widgets/Widget', 'mustache', 'Collections/Users', 'Views/User'],
+	function (Widget, Mustache, Users, UserView)
 	{
 		var DraftsFilters = Widget.extend ({
 
@@ -14,10 +14,13 @@ define(
 				'click .load-more' : 'more',
 				'click .toggleall.active' : 'toggleall'
 			},
+
+			options : {},
 			
 			initialize : function (options)
 		    {
-				if(options) $.extend(this, options);
+				if(options) 		$.extend(this.options, options);
+				if(options.model)	this.model = this.options.model;
 
 				this.model.childtype = "message";
 				
@@ -26,7 +29,6 @@ define(
 				else this.model.users.reset();
 				
 				// Listen to contacts collection
-				//this.listenTo(this.model.users, 'add', this.fill);
 				this.listenTo(this.model.users, 'add', this.comparesuggestions);
 				
 		    },
@@ -43,22 +45,6 @@ define(
 				this.$el.html (Mustache.render (Templates.draftsfilters, data));
 				
 				this.$container = this.$el.find("#users-list").eq(0);
-				
-				// Get users
-				
-				
-				
-				/*var data = {keywords: this.category.channels.models};
-				
-				data.name = this.category.get("name");
-				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
-				
-
-				
-				
-				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
-				
-				this.listenTo( 'destroy:view', this.remove);*/
 				
 				return this;
 			},
@@ -111,14 +97,7 @@ define(
 			
 			showsuggestions : function(contacts)
 			{
-				
 				this.fill(contacts);
-				
-				/*this.$el.find("#filter_contacts label").removeClass("hidden");
-				this.$el.find("ul.contacts-suggestions").empty();
-				
-				for (var n in contacts)
-					this.$el.find("ul.users-list").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));*/
 			},
 			
 			requestusers : function(string)

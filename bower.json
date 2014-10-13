@@ -1,4 +1,4 @@
-{
+  {
   "name": "cloudwalkers platform",
   "version": "1.1.0",
   "authors": [
@@ -15,10 +15,10 @@
     "mustache": "*",
     "bootstrap": "*",
     "backbone.crossdomain": "*",
-    "bootstrap-datepicker": "*",
+    "bootstrap-datepicker": "github//github.com/eternicode/bootstrap-datepicker#master",
     "bootstrap-timepicker": "*",
     "cal-heatmap": "*",
-    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip",
+    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
     "d3": "*",
     "fontawesome": "3.2.0",
     "fullcalendar": "*",

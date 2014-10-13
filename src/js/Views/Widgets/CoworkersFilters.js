@@ -13,10 +13,12 @@ define(
 				'click .load-more' : 'more',
 				'click .toggleall.active' : 'toggleall'
 			},
+			options : {},
 			
 			initialize : function (options)
 		    {
-				if(options) $.extend(this, options);
+				if(options) 		$.extend(this.options, options);
+				if(options.model)	this.model = this.options.model;
 
 				this.model.childtype = "message";
 				
@@ -27,7 +29,6 @@ define(
 		        this.model.users.parentmodel = this.model;
 				
 				// Listen to contacts collection
-				//this.listenTo(this.model.users, 'add', this.fill);
 				this.listenTo(this.model.users, 'add', this.comparesuggestions);
 		    },
 
@@ -46,22 +47,6 @@ define(
 				
 				this.$container = this.$el.find("#users-list").eq(0);
 				
-				// Get users
-				
-				
-				
-				/*var data = {keywords: this.category.channels.models};
-				
-				data.name = this.category.get("name");
-				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
-				
-
-				
-				
-				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
-				
-				this.listenTo( 'destroy:view', this.remove);*/
-				
 				return this;
 			},
 			
@@ -77,20 +62,23 @@ define(
 				this.model.messages.touch(this.model, {records: 20});
 			},
 			
+			/*
+			 *	Parse the sugestions on user input
+			 */
 			comparesuggestions : function (isuser)
 			{
 				// Toggle all active
 				this.$el.find(".toggleall").addClass('active').removeClass('inactive');
-				
 				
 				var string = $("#filter_contacts input").val();
 				
 				if(!string) return this.hidesuggestions();
 				else string = string.toLowerCase();
 				
+				// filter existing users according to the search string
 				var users = this.model.users.filter(this.comparenamefilter.bind(this, string));
 				
-				// On typed, search for more
+				// On typed, request for more
 				if (users.length < 5 && !isuser.cid && string.length > 2) this.requestusers(string);
 
 				if (!users.length)
@@ -114,16 +102,13 @@ define(
 			
 			showsuggestions : function(contacts)
 			{
-				
+				// Fill with requested users
 				this.fill(contacts);
-				
-				/*this.$el.find("#filter_contacts label").removeClass("hidden");
-				this.$el.find("ul.contacts-suggestions").empty();
-				
-				for (var n in contacts)
-					this.$el.find("ul.users-list").append(Mustache.render (Templates.contactsuggestionentry, contacts[n].attributes));*/
 			},
 			
+			/*
+			 *	Request users
+			 */
 			requestusers : function(string)
 			{
 				if(string != this.filters.users.string)
@@ -150,7 +135,6 @@ define(
 					this.filters.users.buffered = false;
 				}
 			},
-
 			
 			filter : function (e)
 			{

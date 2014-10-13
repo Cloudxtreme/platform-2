@@ -39,6 +39,7 @@ define(
 				
 				return this;
 			},
+
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title

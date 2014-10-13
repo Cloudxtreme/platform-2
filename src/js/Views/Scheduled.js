@@ -1,14 +1,18 @@
 define(
-	['Views/Pageview', 'mustache',  'Views/Widgets/ScheduledFilters', 'Views/Widgets/ScheduledList'],
+	['Views/Pageview', 'mustache', 'Views/Widgets/ScheduledFilters', 'Views/Widgets/ScheduledList'],
 	function (Pageview, Mustache, ScheduledFiltersWidget, ScheduledListWidget)
 	{
 		var Scheduled = Pageview.extend({
 
 			title : 'Schedule',
 			className : "container-fluid scheduled",
+
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 			{				
+				$.extend(this.options, options);
+				
 				this.model = Cloudwalkers.Session.getStream("scheduled");
 
 				// Emergency break

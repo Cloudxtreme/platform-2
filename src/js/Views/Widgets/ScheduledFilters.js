@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget',  'Views/User'],
-	function (Widget, UserView)
+	['Views/Widgets/Widget', 'mustache', 'Views/User'],
+	function (Widget, Mustache, UserView)
 	{
 		var ScheduledFilters = Widget.extend ({
 	
@@ -13,10 +13,15 @@ define(
 				'click *[data-streams]' : 'filter',
 				'click .toggleall.active' : 'toggleall'
 			},
+
+			options : {},
 			
 			initialize : function (options)
 		    {
-				if(options) $.extend(this, options);
+				if(options){ 
+					$.extend(this, options);
+					$.extend(this.options, options)
+				}
 
 				this.model.childtype = "message";
 				this.streams = Cloudwalkers.Session.getChannel ('internal').get ("additional").outgoing;

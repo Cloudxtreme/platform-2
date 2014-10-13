@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'mustache'],
+	function (Backbone, Mustache)
 	{
 		var User = Backbone.View.extend({
 	

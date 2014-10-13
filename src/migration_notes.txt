@@ -11,3 +11,4 @@ Fix the goddamn translations
 Sort out the widgets/non widgets
 Group or ungroup views like /settings and /widgets
 Remove all models and widgets, add them as running the code
+Coworkerslist, drafts list, etc have similar logic but are not reusing it

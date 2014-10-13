@@ -48,9 +48,6 @@ define(	// MIGRATION: widget based on BaseView
 				if (typeof (this.options.title) != 'undefined')
 					this.title = this.options.title;
 
-				//if (typeof (this.options.color) != 'undefined')
-				//	this.color = this.options.color;
-
 				if (typeof (this.options.icon) != 'undefined' && this.options.icon)
 					this.icon = this.options.icon;
 
@@ -138,19 +135,6 @@ define(	// MIGRATION: widget based on BaseView
 					railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
 					disableFadeOut: true
 				});
-				
-				
-				/*$('.scroller').each(function () {
-					$(this).slimScroll({
-						size: '7px',
-						color: '#a1b2bd',
-						position: isRTL ? 'left' : 'right',
-						height: $(this).attr("data-height"),
-						alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
-						railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
-						disableFadeOut: true
-					});
-				});*/
 			},
 
 		    onDestroy : function ()
@@ -163,13 +147,11 @@ define(	// MIGRATION: widget based on BaseView
 				
 		        this.$el.find ('.scroller').slimScroll({'destroy':1});
 		        this.remove();
-		        //this.$el.html ('DESTROYED');
 		    },
 			
 			collapse : function ()
 			{
 				this.$el.toggleClass("collapse-closed collapse-open");
-				//this.trigger ('view:collapse');
 			}
 
 		});
