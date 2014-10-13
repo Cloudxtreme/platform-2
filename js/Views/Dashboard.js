@@ -25,30 +25,6 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 		
 		this.listenTo(this.collection, 'seed', this.filldynamicreports);
 	},
-	
-	/*'addDynamicReports' : function ()
-	{
-		var streams =  Cloudwalkers.Session.getStreams();
-		var reportables = streams.where({statistics: 1});
-		
-		var widgets = [];
-		
-		for(n in reportables)
-			switch(reportables[n].get("network").token)
-			{
-				case "facebook":
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/likes", dashboard: true});
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext", dashboard: true});
-					break;
-					
-				case "twitter":
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "numbercomparison/followers_count", dashboard: true});
-					widgets.push({widget: "report", size: 3, stream: reportables[n], type: "besttimetoposttext", dashboard: true});
-					break;	
-			}
-		
-		return widgets;
-	},*/
 
 	'filldynamicreports' : function()
 	{	
@@ -192,9 +168,11 @@ Cloudwalkers.Views.Dashboard = Cloudwalkers.Views.Pageview.extend({
 	},
 
 	'filterparameters' : function() {
- 
-		this.start = moment().zone(0).startOf('isoweek');
-		this.end = moment().zone(0).endOf('isoweek'); 
+ 		
+ 		this.start = moment().subtract(7, 'days').zone(0).endOf('day');
+ 		this.end = moment().zone(0).endOf('day');
+		/*this.start = moment().zone(0).startOf('isoweek');
+		this.end = moment().zone(0).endOf('isoweek'); */
 		
 		return {since: this.start.unix(), until: this.end.unix()};
 	},
