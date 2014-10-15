@@ -200,12 +200,6 @@ define(
 			{
 				var action = this.templates[token];
 				this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 		

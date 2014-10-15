@@ -14,9 +14,9 @@ define(
 				{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable'},
 				{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming", scrollable: 'scrollable'},
 				{widget: "messagescounters", type: "outgoing", source: "streams", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled", scrollable: 'scrollable'},
-				{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers", scrollable: 'scrollable', translation: { 'title': 'co-workers_wall'}},
-				{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_company_posts'}},
-				{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_accounts_we_follow'}}
+				{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers", scrollable: 'scrollable'},
+				{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/", scrollable: 'scrollable'},
+				{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/", scrollable: 'scrollable'}
 			],
 			
 			initialize : function()
@@ -87,10 +87,6 @@ define(
 				// Append widgets
 				for(var n in widgets)
 				{
-					
-					// Translation for each widget
-					this.translateWidgets(widgets[n]);
-
 					switch(widgets[n].widget)
 					{
 						case 'messagescounters':
@@ -160,22 +156,6 @@ define(
 				this.end = moment().zone(0).endOf('isoweek'); 
 				
 				return {since: this.start.unix(), until: this.end.unix()};
-			},
-
-			translateWidgets : function(translatedata)
-			{	
-				// Translate Widgets
-				if(translatedata.translation)
-					for (var k in translatedata.translation)
-					{
-						translatedata[k] = Cloudwalkers.Polyglot.translate(translatedata.translation[k]);
-					}
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

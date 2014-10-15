@@ -190,12 +190,6 @@ define(
 					$(target).closest('li').remove();
 				}.bind(this)});
 
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 
 		});

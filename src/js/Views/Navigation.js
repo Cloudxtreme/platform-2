@@ -96,9 +96,6 @@ define(
 				
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
-
-				//Mustache Translate Header
-				this.mustacheTranslateRenderHeader(data);
 				
 				this.header = Mustache.render (Templates.header, data);
 
@@ -135,9 +132,6 @@ define(
 				// Reports -> Deprecated, swapped to statistics
 				if (Cloudwalkers.Session.isAuthorized('STATISTICS_VIEW'))
 					data.statistics = true;
-
-				//Mustache Translate Render
-				//this.mustacheTranslateRender(data);
 			
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
@@ -259,74 +253,6 @@ define(
 				}
 				
 				return views;
-			},
-
-			mustacheTranslateRenderHeader : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"write_note",
-					"clean",
-					"support",
-					"profile_settings",
-					"log_out"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"compose",
-					"dashboard",
-					"message_board",
-					"compose_message",
-					"drafts",
-					"scheduled",
-					"inbox",
-					"messages",
-					"notifications",
-					"post_message",
-					"calendar",
-					"co-workers_wall",
-					"company_accounts",
-					"media",
-					"trending_posts",
-					"accounts_we_follow",
-					"keyword_monitoring",
-					"manage_accounts",
-					"manage_keywords",
-					"statistics",
-					"settings",
-					"manage_users",
-					"social_connections",
-					"account_settings",
-					"profile_settings",
-					"manage_user_groups",
-					"notes",
-					"rss_feed",
-					"manage_rss",
-					"sent",
-					"outbox",
-					"calendar"
-
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

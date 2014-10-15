@@ -1070,12 +1070,6 @@ define(
 
 				if(stats)
 					return stats.notes
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 		

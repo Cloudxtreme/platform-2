@@ -37,7 +37,7 @@ define(
 			 * Function to map which translation to use (regular or template)
 			 */
 			trans : function(string)
-			{	
+			{
 				if(!string)	return Cloudwalkers.Polyglot.translatetemplate();
 				else		Cloudwalkers.Polyglot.translate(string);
 			},
