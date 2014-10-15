@@ -55,8 +55,9 @@ require.config({
 	urlArgs: "bust=" +  (new Date()).getTime()
 });
 
-// Set up global Cloudwalkers	
+// Set up global Cloudwalkers & translation global reference
 var Cloudwalkers;
+var trans;
 
 require(
 	['backbone', 'bootstrap', 'Cloudwalkers'],

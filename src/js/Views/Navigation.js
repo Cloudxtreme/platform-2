@@ -1,4 +1,4 @@
-define(	// MIGRATION -> added mustache
+define(
 	['backbone', 'mustache'],
 	function (Backbone, Mustache)
 	{
@@ -61,8 +61,6 @@ define(	// MIGRATION -> added mustache
 			{
 				$('#header').html (this.renderHeader().header);
 				$('#sidebar').html (this.render().el);
-				//this.render();
-
 				$("#header, #sidebar").on("click", '*[data-header-action]', this.headeraction.bind(this));
 			},
 			
@@ -111,7 +109,7 @@ define(	// MIGRATION -> added mustache
 			{	
 				var account = Cloudwalkers.Session.user? Cloudwalkers.Session.user.account: null;
 				var data 	= {
-					translate: Cloudwalkers.Polyglot.translatetemplate,
+					trans: Cloudwalkers.Polyglot.trans,
 					reports: []
 				};
 				

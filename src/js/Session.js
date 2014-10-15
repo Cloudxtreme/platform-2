@@ -24,6 +24,9 @@ define(
 
 					// Translations
 					Cloudwalkers.Polyglot = Polyglot.init({lang: this.lang });
+
+					trans = Cloudwalkers.Polyglot.trans;
+
 					this.listenTo(Cloudwalkers.Polyglot, 'translations:done', callback);
 
 				}.bind(this));

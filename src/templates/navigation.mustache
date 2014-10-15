@@ -1,6 +1,6 @@
 
 <a class="btn btn-compose">
-	<i class="icon-pencil"></i> <span>{{translate_compose}}</span>
+	<i class="icon-pencil"></i> <span>{{#trans}}Compose{{/trans}}</span>
 </a>
 
 <ul class="page-sidebar-menu">
@@ -9,7 +9,7 @@
 	<li class="start dashboard active">
 		<a href="#dashboard">
 		<i class="icon-dashboard"></i> 
-		<span class="title">{{#translate}}Dashboard{{/translate}}</span>
+		<span class="title">{{#trans}}Dashboard{{/trans}}</span>
 		<span class="selected"></span>
 		</a>
 	</li>
@@ -18,21 +18,21 @@
 	<li class="write">
 		<a href="#write">
 			<i class="icon-share-sign"></i> 
-			<span class="title">{{translate_message_board}}</span>
+			<span class="title">{{#trans}}Message Board{{/trans}}</span>
 			<span class="selected"></span>
 		</a>
 		<ul class="sub-menu">
 			<li>
 				<a href="#write">
 					<i class="icon-share-alt"></i> 
-					<span class="title">{{translate_compose_message}}</span>
+					<span class="title">{{#trans}}Compose Message{{/trans}}</span>
 				</a>
 			</li>
 			
 			<li class="drafts">
 				<a href="#drafts">
 					<i class="icon-edit"></i> 
-					<span class="title">{{translate_drafts}}</span>
+					<span class="title">{{#trans}}Drafts{{/trans}}</span>
 				</a>
 			</li>
 
@@ -46,7 +46,7 @@
 			<li class="schedule">
 				<a href="#schedule">
 					<i class="icon-time"></i> 
-					<span class="title">{{translate_scheduled}}</span>
+					<span class="title">{{#trans}}Scheduled{{/trans}}</span>
 					<span class="arrow"></span>
 				</a>
 		
@@ -73,7 +73,7 @@
 		<li>
 			<a href="#inbox/messages">
 				<i class="icon-inbox"></i> 
-				<span class="title">{{translate_inbox}}</span>
+				<span class="title">{{#trans}}Inbox{{/trans}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -92,7 +92,7 @@
 				<li>
 					<a href="#inbox/notifications">
 						<i class="icon-globe"></i> 
-						<span class="title">{{translate_notifications}}</span>
+						<span class="title">{{#trans}}Notifications{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
@@ -100,14 +100,14 @@
 				<li>
 					<a data-header-action="post">
 						<i class="icon-pencil"></i> 
-						<span class="title">{{translate_post_message}}</span>
+						<span class="title">{{#trans}}Post Message{{/trans}}</span>
 					</a>
 				</li>
 				{{#authorized.MESSAGE_READ_DRAFTS}}
 				<li class="drafts">
 					<a href="#drafts">
 						<i class="icon-file-alt"></i> 
-						<span class="title">{{translate_drafts}}</span>
+						<span class="title">{{#trans}}Drafts{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_DRAFTS}}
@@ -115,7 +115,7 @@
 				<li class="schedule">
 					<a href="#scheduled">
 						<i class="icon-time"></i> 
-						<span class="title">{{translate_scheduled}}</span>
+						<span class="title">{{#trans}}Scheduled{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
@@ -132,7 +132,7 @@
 				<li class="calendar">
 					<a href="#calendar">
 						<i class="icon-calendar"></i> 
-						<span class="title">{{translate_calendar}}</span>
+						<span class="title">{{#trans}}Calendar{{/trans}}</span>
 					</a>
 				</li>
 				-->
@@ -162,14 +162,14 @@
 				<li class="schedule">
 					<a href="#scheduled">
 						<i class="icon-time"></i> 
-						<span class="title">{{translate_scheduled}}</span>
+						<span class="title">{{#trans}}Scheduled{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_SCHEDULE}}
 				<li class="calendar">
 					<a href="#calendar">
 						<i class="icon-calendar"></i> 
-						<span class="title">{{translate_calendar}}</span>
+						<span class="title">{{#trans}}Calendar{{/trans}}</span>
 					</a>
 				</li>
 			</ul>
@@ -181,7 +181,7 @@
 		<li>
 			<a href="#coworkers">
 				<i class="icon-group"></i> 
-				<span class="title">{{translate_co-workers_wall}}</span>
+				<span class="title">{{#trans}}Co-workers wall{{/trans}}</span>
 				<span class="selected"></span>
 			</a>
 		</li>
@@ -203,7 +203,7 @@
 				<li>
 					<a href="#timeline/{{channelid}}">
 						<i class="icon-briefcase"></i> 
-						<span class="title">{{translate_media}}</span>
+						<span class="title">{{#trans}}Media{{/trans}}</span>
 						<span class="arrow"></span>
 					</a>
 					<!--<ul class="sub-menu">
@@ -216,7 +216,7 @@
 				<li class="trending">
 					<a href="#trending/{{channelid}}">
 						<i class="icon-thumbs-up"></i> 
-						<span class="title">{{translate_trending_posts}}</span>
+						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
 						<span class="arrow"></span>
 					</a>
 			
@@ -239,7 +239,7 @@
 		<li>
 			<a href="#timeline/{{news}}">
 				<i class="icon-globe"></i> 
-				<span class="title">{{translate_accounts_we_follow}}</span>
+				<span class="title">{{#trans}}Accounts we follow{{/trans}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -248,7 +248,7 @@
 				<li>
 					<a href="#timeline/{{news}}">
 						<i class="icon-globe"></i> 
-						<span class="title">{{translate_media}}</span>
+						<span class="title">{{#trans}}Media{{/trans}}</span>
 					</a>
 				</li>
 
@@ -262,14 +262,14 @@
 				<li class="trending">
 					<a href="#trending/{{news}}">
 						<i class="icon-thumbs-up"></i> 
-						<span class="title">{{translate_trending_posts}}</span>
+						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
 					</a>
 				</li>
 				
 				<li>
 					<a href="#monitoring/accounts">
 						<i class="icon-plus"></i> 
-						<span class="title">{{translate_manage_accounts}}</span>
+						<span class="title">{{#trans}}Manage accounts{{/trans}}</span>
 					</a>
 				</li>
 
@@ -312,7 +312,7 @@
 				<li>
 					<a href="#keywords">
 						<i class="icon-plus"></i> 
-						<span class="title">{{translate_manage_keywords}}</span>
+						<span class="title">{{#trans}}Manage Keywords{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
@@ -335,7 +335,7 @@
 	<li class="settings">
 		<a href="#settings/profile">
 			<i class="icon-cogs"></i> 
-			<span class="title">{{translate_settings}}</span>
+			<span class="title">{{#trans}}Settings{{/trans}}</span>
 			<span class="arrow"></span>
 			<span class="selected"></span>
 		</a>

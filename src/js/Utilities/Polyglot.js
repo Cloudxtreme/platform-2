@@ -32,6 +32,15 @@ define(
 			{
 				this.trigger('translations:done');
 			},
+
+			/*
+			 * Function to map which translation to use (regular or template)
+			 */
+			trans : function(string)
+			{	
+				if(!string)	return Cloudwalkers.Polyglot.translatetemplate();
+				else		this.translate(string);
+			},
 			
 			/*
 			 * Responsible for translating data.
@@ -48,10 +57,9 @@ define(
 			 */
 			translatetemplate : function()
 			{
-				return function(string, render) {console.log(string)
-					// Scoping problem, find a better solution
-					return render(Cloudwalkers.Polyglot.translate(string));
-				}
+				return function(string, render) {
+					return render(this.translate(string));
+				}.bind(this);
 			}
 		}
 
