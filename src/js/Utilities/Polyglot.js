@@ -2,10 +2,10 @@ define(
 	['backbone', 'polyglot', 'Models/Polyglot'],
 	function (Backbone, PolyglotPlugin, PolyglotModel)
 	{
-		var PolyglotUtil = Backbone.View.extend({
+		var PolyglotUtil = {
 		
-			initialize : function(options)
-			{	
+			init : function(options)
+			{
 				$.extend(this, options);
 
 				var translations = new PolyglotModel();
@@ -37,7 +37,7 @@ define(
 			 * Responsible for translating data.
 			 */
 			translate : function(string)
-			{	
+			{	console.log(this.locale)
 				if(this.locale == "en_EN")	return string;
 				else if(this.translator)	return this.translator.t(string);
 				else						return string;	
@@ -48,12 +48,15 @@ define(
 			 */
 			translatetemplate : function()
 			{
-				return function(string, render) {
+				return function(string, render) {console.log(string)
 					// Scoping problem, find a better solution
 					return render(Cloudwalkers.Polyglot.translate(string));
 				}
 			}
-		});
+		}
+
+		// Add events
+		_.extend(PolyglotUtil, Backbone.Events);
 
 		return PolyglotUtil;
 });

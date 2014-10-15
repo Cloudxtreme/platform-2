@@ -23,7 +23,7 @@ define(
 					this.lang = this.user.attributes.locale;
 
 					// Translations
-					Cloudwalkers.Polyglot = new Polyglot({locale: this.lang});
+					Cloudwalkers.Polyglot = Polyglot.init({lang: this.lang });
 					this.listenTo(Cloudwalkers.Polyglot, 'translations:done', callback);
 
 				}.bind(this));
