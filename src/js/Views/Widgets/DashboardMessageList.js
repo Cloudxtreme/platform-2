@@ -69,7 +69,7 @@ define(
 				// Get URL
 				var link = this.sublink? this.sublink + this.model.id: this.link;
 				
-				Cloudwalkers.Router.Instance.navigate(link, true);
+				Cloudwalkers.Router.navigate(link, true);
 			},
 			
 			'fail' : function ()

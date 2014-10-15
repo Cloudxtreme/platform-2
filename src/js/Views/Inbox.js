@@ -68,7 +68,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

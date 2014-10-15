@@ -6,9 +6,13 @@ define(
 
 			title : 'Keyword Monitoring',
 			className : "container-fluid monitoring",
+
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 			{
+				if(options)	$.extend(this.options, options)
+				
 				// Emergency break
 				if (!this.options.category) return Cloudwalkers.Session.home();
 				
@@ -26,7 +30,6 @@ define(
 			{
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
-
 
 				// Add filter widget
 				var filter = new MonitorFiltersWidget ({category: this.category });
@@ -51,7 +54,7 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.translate(translatedata);
+				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

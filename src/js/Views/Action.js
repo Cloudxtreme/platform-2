@@ -7,6 +7,8 @@ define(
 			template : 'action',
 			position : 'left',
 
+			options : {},
+
 			initialize : function(options)
 			{
 				$.extend(this, options);
@@ -29,7 +31,7 @@ define(
 					this.action.noresults = false;
 				
 				this.$el.html(Mustache.render(Templates[this.template], this.action));
-				
+
 				return this;
 			},
 

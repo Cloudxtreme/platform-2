@@ -1,6 +1,6 @@
-define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot plugin
-	['backbone', 'Models/Me', 'moment', 'Utilities/Polyglot', 'polyglot' /*, 'Views/Root', 'Router', 'Collections/Accounts'*/],
-	function (Backbone, Me, moment, PolyglotUtil, PolyglotPlugin)
+define(	
+	['backbone', 'Models/Me', 'moment', 'Utilities/Polyglot'],
+	function (Backbone, Me, moment, Polyglot)
 	{
 		var Session = 
 		{
@@ -17,8 +17,16 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 				//this.getversion();
 
 				//getLang and then callback
-				this.user.once("activated", function () { this.setLang(); }.bind(this));
-				this.listenTo(this, "setlang:done",  callback );
+				this.user.once("activated", function ()
+				{	
+					// Save account language
+					this.lang = this.user.attributes.locale;
+
+					// Translations
+					Cloudwalkers.Polyglot = new Polyglot({locale: this.lang});
+					this.listenTo(Cloudwalkers.Polyglot, 'translations:done', callback);
+
+				}.bind(this));
 				
 				this.user.fetch({error: this.user.offline.bind(this.user)});
 			},
@@ -39,7 +47,7 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 			
 			home : function()
 			{
-				Cloudwalkers.Router.Instance.home();	
+				Cloudwalkers.Router.home();	
 			},
 			
 			/**
@@ -126,7 +134,8 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 				
 				var messagecount = Store.count("messages");
 				
-				if(messagecount > 200)
+				// MIGRATION -> temporatily comment due to ping "complications"
+				/*if(messagecount > 200)
 					Store.filter("messages", null, function(list)
 					{
 						// Sort list timestamp ASC
@@ -150,7 +159,7 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 							Store.write("touches", list);
 						});
 					});
-					
+				*/
 					
 				// Limit reports
 				
@@ -401,29 +410,41 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 			/*
 			 * Responsible for translating data.
 			 */
-			translate : function(translatedata)
+			/*translate : function(translatedata)
 			{
 				if(this.polyglot)	return this.polyglot.t(translatedata);
 				else				return translatedata;	
 			},
 
-			/* setLang - get default language */
+			/*
+			 * Responsible for translating template/mustache data.
+			 */
+			/*translatetemplate : function()
+			{
+				return function(string, render) {
+				    return render(this.translate(string));
+				}.bind(this);
+			},
+
+			/* setLang - get default language 
 			setLang : function(callback)
 			{
 				var lang = this.user.attributes.locale;
 				var extendLang;
 
-				if(!lang)	
-					return this.trigger("setlang:done");
-
+				if(lang){
+					this.language = lang;
+					this.trigger("setlang:done");
+				}
+					
+				/*
 				moment.locale(lang);
 				
 				extendLang = new PolyglotUtil();
 				extendLang.fetch({
 					success: function (){
 						this.translationLang = extendLang.get("translation");
-						//MIGRATION -> Polyglot include throwing loop errors
-						//this.polyglot = new PolyglotPlugin({phrases: this.translationLang});
+						this.polyglot = new Polyglot({phrases: this.translationLang});
 						this.trigger("setlang:done");
 					}.bind(this),
 
@@ -431,7 +452,7 @@ define(	// MIGRATION -> Added moment, Moved polyglot to utils, and load polyglot
 				});
 
 				// Trigger independantly of success or fail of translations
-			}
+			}*/
 
 			
 			/* DEPRECATED

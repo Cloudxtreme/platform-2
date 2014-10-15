@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget',  'Views/Root'],
-	function (Widget, RootView)
+	['Views/Widgets/Widget', 'mustache', 'Utilities/keyword_filter'],
+	function (Widget, Mustache, keywordfilterscript)
 	{
 		var KeywordsEditor = Widget.extend ({
 
@@ -12,9 +12,13 @@ define(
 				'click .reset-keyword' : 'resetFilter',
 				'click button[data-keyword-filter]' : 'toggleFilter'
 			},
+
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 			{
+				if(options)	$.extend(this.options, options);
+				
 				this.channel = Cloudwalkers.Session.getChannel("monitoring");
 				
 				// Listen to channel changes
@@ -26,11 +30,9 @@ define(
 			render : function (e)
 			{
 				// Prevent "cancel" page reload
-				if(e && e.preventDefault) e.preventDefault();
-				
+				if(e && e.preventDefault) e.preventDefault();				
 				
 				var account = Cloudwalkers.Session.getAccount();
-
 				var filters = account.attributes.filteroptions;
 			
 				// Check presets
@@ -78,9 +80,6 @@ define(
 						success: function(formula) {this.formula = formula}.bind(this)
 
 					});
-
-
-
 				}
 
 				this.$el.html (Mustache.render (Templates.keywordseditor, data));
@@ -421,7 +420,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

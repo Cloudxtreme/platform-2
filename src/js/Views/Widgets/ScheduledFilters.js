@@ -123,6 +123,8 @@ define(
 			
 			addScroll : function () {
 
+				var scroll = this.$el.find('.scroller').eq(0);
+
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
 					color: '#a1b2bd',
@@ -130,12 +132,18 @@ define(
 					alwaysVisible: false,
 					railVisible: false
 				});
+
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 			
 			mustacheTranslateRender : function(translatelocation)

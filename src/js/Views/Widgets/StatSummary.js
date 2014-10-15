@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Widgets/Widget', 'mustache'],
+	function (Widget, Mustache)
 	{
 		var StatSummary = Widget.extend ({
 
@@ -18,10 +18,15 @@ define(
 
 				"besttime" : {"translate_title": "best_time_to_post", "func": "parsebesttime"}
 			},
+
+			options : {},
 			
 			initialize : function(options)
 			{
-				if (options) $.extend(this, options);
+				if (options){
+				 	$.extend(this, options);
+				 	$.extend(this.options, options);
+				}
 				
 				// Which collection to focus on
 				this.collection = this.parentview.collection;
@@ -190,7 +195,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 
 		});

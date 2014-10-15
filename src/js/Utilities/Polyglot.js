@@ -1,26 +1,59 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'polyglot', 'Models/Polyglot'],
+	function (Backbone, PolyglotPlugin, PolyglotModel)
 	{
-		var Polyglot = Backbone.Model.extend({
-	
+		var PolyglotUtil = Backbone.View.extend({
+		
 			initialize : function(options)
-			{
-				if(options) $.extend(this, options);
+			{	
+				$.extend(this, options);
+
+				var translations = new PolyglotModel();
+				var phrases;
+
+				this.locale = this.lang || "en_EN";				
+
+				moment.locale(this.locale);
+
+				translations.fetch({ success: this.addtranslator.bind(this), error: this.notranslation.bind(this) });
+
+				return this;
 			},
 
-			url : function()
+			addtranslator : function(translations)
 			{
-				var locale = Cloudwalkers.Session.user.attributes.locale || "en_EN";
-				return '/locales/' + locale + '.json';
+				phrases = translations.get("translation");
+				this.translator = new Polyglot({phrases: phrases});
+				
+				this.trigger('translations:done');
 			},
 
-			parse : function(data)
+			notranslation : function()
 			{
-				return data;
+				this.trigger('translations:done');
+			},
+			
+			/*
+			 * Responsible for translating data.
+			 */
+			translate : function(string)
+			{	
+				if(this.locale == "en_EN")	return string;
+				else if(this.translator)	return this.translator.t(string);
+				else						return string;	
+			},
+
+			/*
+			 * Responsible for translating template/mustache data.
+			 */
+			translatetemplate : function()
+			{
+				return function(string, render) {
+					// Scoping problem, find a better solution
+					return render(Cloudwalkers.Polyglot.translate(string));
+				}
 			}
-
 		});
 
-		return Polyglot;
+		return PolyglotUtil;
 });

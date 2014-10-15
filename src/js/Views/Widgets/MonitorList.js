@@ -1,4 +1,4 @@
-
+	
 define(
 	['Views/Widgets/Widget', 'mustache',  'Views/Widgets/LoadMore', 'Views/Entry'],
 	function (Widget, Mustache, LoadMoreWidget, EntryView)
@@ -13,9 +13,13 @@ define(
 				'remove' : 'destroy',
 				'click .load-more' : 'more'
 			},
+
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 			{
+				if(options)	$.extend(this.options, options);
+
 				this.category = this.options.category;
 
 				// Clear the category (prevent non-change view failure)
@@ -53,6 +57,13 @@ define(
 				this.category.messages.touch(this.category, this.parameters);
 				
 				this.addScroll();
+
+				var scroll = this.$el.find('.slimScrollDiv').eq(0);
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 
 				return this;
 			},
@@ -133,32 +144,6 @@ define(
 				}
 			},
 			
-			/*'fill' : function (category, ids)
-			{
-				// Clean load or add
-				if(this.incremental) this.incremental = false;
-				else
-				{
-					$.each(this.entries, function(n, entry){ entry.remove()});
-					this.entries = [];
-				}
-				
-				// Get messages
-				var messages = this.category.messages.seed(ids);
-				//Cloudwalkers.Session.getMessages().seed(ids);
-				
-				// Add messages to view
-				for (var n in messages)
-				{
-					//var message = Cloudwalkers.Session.getMessage(ids[n]);
-					
-					var messageView = new EntryView ({model: messages[n], type: "full", template: "messagefullentry"});
-					this.entries.push (messageView);
-					
-					this.$container.append(messageView.render().el);
-				}
-			},*/
-			
 			more : function ()
 			{
 				this.incremental = true;
@@ -170,26 +155,14 @@ define(
 				if(!hasmore) this.$el.find(".load-more").hide();
 			},
 			
-			/*'more' : function ()
-			{
-				this.incremental = true;
-				
-				// update parameters with after cursor	
-				var param = this.category.parameters;
-				param.after = this.category.get("paging").cursors.after;
-				
-				this.category.fetch({endpoint: "messageids", parameters:param})
-				
-			},*/
-			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo( 'destroy:view', this.remove);
-				
-				//this.addScroll();
+				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 			},
 			
 			addScroll : function () {
+
+				var scroll = this.$el.find('.scroller').eq(0);
 
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
@@ -198,6 +171,12 @@ define(
 					alwaysVisible: false,
 					railVisible: false
 				});
+
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 			},
 			
 			destroy : function()
@@ -208,7 +187,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

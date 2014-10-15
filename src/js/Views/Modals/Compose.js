@@ -5,8 +5,8 @@
 **/
 
 define (
-	['Views/BaseView', 'mustache', 'chosen', 'datepicker', 'Models/Message', 'Views/Widgets/Editor', 'Views/Preview', 'Collections/CannedResponses'],
-	function (BaseView, Mustache, chosen, datepicker, Message, EditorWidget, PreviewView, CannedResponses)
+	['Views/BaseView', 'mustache', 'chosen', 'datepicker', 'timepicker', 'Models/Message', 'Views/Widgets/Editor', 'Views/Preview', 'Collections/CannedResponses'],
+	function (BaseView, Mustache, chosen, datepicker, timepicker, Message, EditorWidget, PreviewView, CannedResponses)
 	{
 		var Compose = BaseView.extend({
 	
@@ -557,7 +557,7 @@ define (
 			},
 			
 			togglesubcontent : function (stream)
-			{ 	
+			{
 				var id;
 				var network;
 				var options;
@@ -592,7 +592,6 @@ define (
 					this.$el.find(".modal-body").addClass(icon + "-theme");
 				}
 				
-
 				// Subject
 				if (options.indexOf("subject") >= 0)	this.$el.find("[data-option=subject].hidden").removeClass("hidden");
 				else									this.$el.find("[data-option=subject]").addClass("hidden");
@@ -1792,7 +1791,7 @@ define (
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			translateTitles : function(translatedata)

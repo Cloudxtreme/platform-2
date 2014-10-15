@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Pageview', 'Collections/Services'],
-	function (Backbone, Pageview, Services)
+	['backbone', 'mustache', 'Views/Pageview', 'Collections/Services'],
+	function (Backbone, Mustache, Pageview, Services)
 	{
 		var Firsttime = Pageview.extend({
 
@@ -45,7 +45,7 @@ define(
 				
 				for (var n in available)
 				{
-					$container.append(Mustache.render (Templates.settings.service_option, available[n]));
+					$container.append(Mustache.render (Templates.service_option, available[n]));
 				}
 			},
 
@@ -87,29 +87,8 @@ define(
 			ready : function()
 			{
 				Cloudwalkers.Session.getAccount().set("firstTime", 0);
-				Cloudwalkers.Router.Instance.navigate('#dashboard', true);
+				Cloudwalkers.Router.navigate('#dashboard', true);
 			},	
-
-			/*'addService' : function (e)
-			{
-				// Service token
-				var token = $(e.target).data ('add-service');
-				
-				this.listenToOnce(this.services, "sync", function(service)
-				{
-					$.each (service.get("settings"), function (n, setting)
-					{
-						if (setting.type == 'link')
-							window.location = this.processLink (setting.url);
-						
-					}.bind(this));
-				
-					this.render();
-				});
-				
-				this.services.create({},{wait: true, endpoint: token});
-
-			},*/
 			
 			destroy : function ()
 			{

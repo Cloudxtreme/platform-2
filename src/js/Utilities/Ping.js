@@ -2,7 +2,7 @@ define(
 	['backbone'],
 	function (Backbone)
 	{
-		Ping = Backbone.Model.extend({
+		var Ping = Backbone.Model.extend({
 	
 			'interval' : 30000,	// avg interval: 30 sec
 			'min' : 10000,		// min interval: 10 sec
@@ -160,7 +160,7 @@ define(
 			'translateString' : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

@@ -96,7 +96,7 @@ define(
 				var streams = this.get("streams");
 
 				if(!streams)
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Cloudwalkers.Router.navigate("#settings/services", true)
 
 				for (var n in streams)
 					this.parsestream(streams[n], operation);
@@ -106,7 +106,7 @@ define(
 				Cloudwalkers.RootView.navigation.render();
 
 				if(operation == 'add')
-					Cloudwalkers.Router.Instance.navigate("#settings/services", true)
+					Cloudwalkers.Router.navigate("#settings/services", true)
 			},
 
 			parsestream : function(stream, operation)

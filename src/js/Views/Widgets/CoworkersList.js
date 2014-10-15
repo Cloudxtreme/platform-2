@@ -66,6 +66,13 @@ define(
 				this.model.messages.touch(this.model, this.parameters);
 				
 				this.addScroll();
+
+				var scroll = this.$el.find('.slimScrollDiv').eq(0);
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 				
 				return this;
 			},
@@ -163,6 +170,8 @@ define(
 			
 			addScroll : function () {
 
+				var scroll = this.$el.find('.scroller').eq(0);
+
 				this.$el.find('.scroller').slimScroll({
 					size: '6px',
 					color: '#a1b2bd',
@@ -170,6 +179,12 @@ define(
 					alwaysVisible: false,
 					railVisible: false
 				});
+
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 			},
 			
 			destroy : function()
@@ -180,13 +195,13 @@ define(
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.translate(translatedata);
+				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

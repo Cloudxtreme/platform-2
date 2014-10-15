@@ -171,14 +171,14 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Cloudwalkers.Session.translate(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Polyglot.translate(translatedata.translation[k]);
 					}
 			},
 
 			translateTitle : function(translatedata)
 			{	
 				// Translate Title
-				this.title = Cloudwalkers.Session.translate(translatedata);
+				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

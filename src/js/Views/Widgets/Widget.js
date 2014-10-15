@@ -92,6 +92,13 @@ define(	// MIGRATION: widget based on BaseView
 				// Check for scroller
 				if(this.$el.find('.scroller').length) this.addScroll();
 				
+				var scroll = this.$el.find('.slimScrollDiv').eq(0);
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
+
 				// Check amountSign
 				if(this.options.counter) this.appendCounter();
 				
@@ -126,7 +133,9 @@ define(	// MIGRATION: widget based on BaseView
 			
 			addScroll : function () {
 
-				this.$el.find('.scroller').slimScroll({
+				var scroll = this.$el.find('.scroller').eq(0);
+
+				scroll.slimScroll({
 					size: '6px',
 					color: '#a1b2bd',
 					position: 'right',
@@ -135,6 +144,12 @@ define(	// MIGRATION: widget based on BaseView
 					railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
 					disableFadeOut: true
 				});
+
+				var height = scroll.css('height');
+			
+				// Update slimscroll plugin default styling
+				scroll.css('max-height', height);
+				scroll.css('height', 'inherit')
 			},
 
 		    onDestroy : function ()

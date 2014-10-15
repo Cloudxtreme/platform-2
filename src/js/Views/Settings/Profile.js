@@ -8,7 +8,6 @@ define(
 				'click .add-user' : 'addUser',
 				'submit .edit-user-profile' : 'editUserProfile',
 				'submit .edit-user-password' : 'editUserPassword',
-				/*'submit .edit-user-avatar' : 'editUserAvatar',*/ 
 				'click #add-file' : 'addfile',
 				'change input[type=file]' : 'listentofile',
 				'click #upload-file' : 'uploadfile',
@@ -23,7 +22,6 @@ define(
 
 			render : function ()
 			{
-				
 				var user = Cloudwalkers.Session.getUser ();
 				
 				var self = this;
@@ -64,7 +62,7 @@ define(
 					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
 					
 					// Hack
-					window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+					window.location.reload();
 
 				}.bind(this), 
 				error: function(){
@@ -148,31 +146,6 @@ define(
 					}.bind(this)});
 				}
 			},
-
-			
-			
-			/*'editUserAvatar' : function () {
-				
-				var files = $("form.edit-user-avatar input[type=file]").get(0).files;
-				
-				if (files[0])
-				{
-					var FR = new FileReader();
-					FR.onload = function(e) {
-						
-						var user = Cloudwalkers.Session.getUser ();
-						var base64img = e.target.result;
-						
-						user.save ({avatarBase64: base64img}, {patch: true, success: function ()
-						{
-							Cloudwalkers.RootView.growl('User Profile', "You have a brand new avatar now.");
-							$(".avatar-big").css('background-image',"url(" + base64img + ")");
-						}});
-					};       
-					
-					FR.readAsDataURL( files[0] );
-				}
-			},*/
 			
 			editUserPassword : function () {
 				
@@ -206,7 +179,7 @@ define(
 					Cloudwalkers.RootView.growl(this.translateString("user_profile"), error);
 
 					// Hack
-					window.location.reload(); //Cloudwalkers.Router.Instance.navigate("#settings/profile", true);
+					window.location.reload(); //Cloudwalkers.Router.navigate("#settings/profile", true);
 				}.bind(this)});
 
 			},
@@ -221,7 +194,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)

@@ -133,6 +133,7 @@ Cloudwalkers.Views.Widgets.Widget = Backbone.View.extend({
 			disableFadeOut: true
 		});
 		
+		console.log(this.$el.find('.scroller').css('max-height'))
 		
 		/*$('.scroller').each(function () {
 			$(this).slimScroll({

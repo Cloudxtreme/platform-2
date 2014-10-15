@@ -1,5 +1,5 @@
 define(
-	['Views/Entry',  'Views/Modals/SimpleCompose'],
+	['Views/Entry', 'Views/Modals/SimpleCompose'],
 	function (Entry, SimpleComposeView)
 	{
 		var NoteEntry = Entry.extend({

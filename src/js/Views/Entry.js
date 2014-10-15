@@ -1,6 +1,6 @@
 define(
 	['backbone', 'mustache', 'Collections/Notifications', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/Modals/SimpleCompose'/*, 'Views/Widgets/NoteEntry' -> MIGRATION*/],
+	 'Views/Modals/SimpleCompose'],
 
 	function (Backbone, Mustache, Notifications, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{		
@@ -340,8 +340,6 @@ define(
 				{	
 					this.addaction(actions[n], token);
 				}
-
-				//container.slideDown();
 			},
 
 			addaction : function(action, token)
@@ -351,8 +349,11 @@ define(
 
 				if(this.newaction)	options.isnew = true;
 
-				if(token == 'note')
-					action = new NoteEntryWidget(options);
+				if(token == 'note'){
+					var NoteEntryWidget = require('Views/Widgets/NoteEntry');
+					action = new NoteEntryWidget(options);	
+				}
+					
 				else
 					action = new NotificationView(options);
 
@@ -479,7 +480,8 @@ define(
 
 			addnote : function(newnote)
 			{	
-				var options = {model: newnote, template: 'messagenote'}
+				var options = {model: newnote, template: 'messagenote'};
+				var NoteEntryWidget = require('Views/Widgets/NoteEntry');
 				var note;
 
 				if(this.newnote)	options.isnew = true;
@@ -534,7 +536,7 @@ define(
 		    translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			mustacheTranslateRender : function(translatelocation)
@@ -549,7 +551,7 @@ define(
 
 				for (var k in this.original)
 				{
-					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
+					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}

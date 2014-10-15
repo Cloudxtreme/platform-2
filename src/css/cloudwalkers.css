@@ -41,11 +41,11 @@ Style corrections and manual overrides
 .btn-white i	{ color: inherit; }
 
 div.btn-white	{
-	position: relative; display: inline-block; 
+	display: inline-block; 
 }
 
 li.btn-white	{
-	margin-bottom: 4px; 
+	margin-bottom: -1px; 
 }
 
 .btn-white.inactive,
@@ -1322,6 +1322,11 @@ aside .tag-input-append{
 }
 
 #inboxlist .inbox-filter .filter-group { margin: -2px 0 4px; }
+
+.filter-group .btn-white,
+.filterbanner .btn-white{
+	margin-left: 3px;
+}
 
 #inboxlist .inbox-filter label {
 	color: #aaa; font-weight: 300;

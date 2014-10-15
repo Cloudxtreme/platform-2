@@ -83,7 +83,7 @@ define(['Models/User', 'Collections/Accounts'],
 			{	
 				// Prevent dislodged user access
 				if(!this.get("accounts").length)
-					return Cloudwalkers.Router.Instance.exception(401);
+					return Cloudwalkers.Router.exception(401);
 				
 				// Get stored accounts
 				Store.filter("accounts", null, function(accounts)

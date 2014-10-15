@@ -9,8 +9,13 @@
  */
 
 define(
-	['Views/Pageview', 'mustache', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData'],
-	function (Pageview, Mustache, Statistics, EmptyStatisticsWidget)
+	['Views/Pageview', 'mustache', 'Collections/Statistics', 'Views/Widgets/EmptyStatisticsData',
+	 'Views/Widgets/StatSummary', 'Views/Widgets/TitleSeparator','Views/Widgets/Chart', 'Views/Widgets/CompoundChart', 'Views/Widgets/Info',
+	 'Views/Widgets/TrendingMessage', 'Views/Widgets/BestTimeToPost', 'Views/Widgets/HeatCalendar',      
+	 'goog!visualization,1,packages:[corechart,geochart]', 'goog!search,1'],
+
+	function (Pageview, Mustache, Statistics, EmptyStatisticsWidget, StatSummary, TitleSeparator, Chart, CompoundChart, Info,
+			  TrendingMessage, BestTimeToPost, HeatCalendar)
 	{
 		var StatisticsView = Pageview.extend({
 			
@@ -158,13 +163,25 @@ define(
 
 			fillcharts : function (list)
 			{
+				//Temporary hack to map widgets
+				var widgetmap = {
+					'Chart' : Chart,
+					'StatSummary' : StatSummary,
+					'TitleSeparator' : TitleSeparator,
+					'CompoundChart' : CompoundChart,
+					'Info' : Info,
+					'TrendingMessage' : TrendingMessage,
+					'BestTimeToPost' : BestTimeToPost,
+					'HeatCalendar' : HeatCalendar
+				}
+
 				if (list && !list.length) return this.showempty();		
 
 				this.cleanviews();
 			
 				// Iterate widgets
 				this.widgets.forEach (function (widget)
-				{	
+				{
 					// Translate
 					if (widget.data.translation || widget.data.chartdata)
 						this.translatechart (widget);
@@ -182,7 +199,7 @@ define(
 						to : this.end.unix()
 					}
 
-					var view = new Cloudwalkers.Views.Widgets[widget.widget] (widget.data);
+					var view = new widgetmap[widget.widget] (widget.data);
 					
 					this.views.push (view);
 					
@@ -191,7 +208,7 @@ define(
 				}.bind(this));
 
 			},
-			
+
 			/**
 			 *	Translate chart
 			 */
@@ -316,14 +333,14 @@ define(
 				if(!streamid)
 					streamid = Cloudwalkers.Session.getStreams().where ({statistics: 1})[0].id;
 
-				Cloudwalkers.Router.Instance.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
+				Cloudwalkers.Router.navigate( streamid? "#reports/" + streamid: "#reports", {trigger: true}); 
 			},
 			
 			changestream : function()
 			{	
 				var streamid = Number(this.$el.find("select.networks").val());
 				
-				Cloudwalkers.Router.Instance.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
+				Cloudwalkers.Router.navigate( streamid? "#statistics/" + streamid: "#statistics", {trigger: true}); 
 			},
 			
 			changespan : function()
@@ -392,7 +409,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 
 			translateWidgets : function(translatedata)
@@ -401,7 +418,7 @@ define(
 				if(translatedata.translation)
 					for (var k in translatedata.translation)
 					{
-						translatedata[k] = Cloudwalkers.Session.translate(translatedata.translation[k]);
+						translatedata[k] = Cloudwalkers.Polyglot.translate(translatedata.translation[k]);
 					}
 			},
 

@@ -119,12 +119,6 @@ define(
 		        this.$el.find ('.scroller').slimScroll({'destroy':1});
 		    },
 
-			// Just a small function to overwrite
-			/*processMessageView : function (message)
-			{
-
-			},*/
-
 			getMessageView : function (message)
 			{
 				var messageView;
@@ -228,10 +222,6 @@ define(
 				this.$el.find ('.messages-container .message-view[data-message-id=' + message.get ('id') + ']').remove ();
 			},
 
-			/*refresh : function ()
-			{
-
-			}*/
 		});
 
 		return MessageContainer;

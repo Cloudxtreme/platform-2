@@ -123,7 +123,7 @@ module.exports = function (grunt)
 			staging: {
 				files: [
 					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
-					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/font/**', '**/images/**',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/font/**', '**/images/**', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.staging.dir %>/locales'}
 				]
 			},

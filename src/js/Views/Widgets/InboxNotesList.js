@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/InboxMessageList',  'Views/Root', 'Views/ContactCard', 'Views/NoteEntry', 'Views/Widgets/InboxNote'],
-	function (InboxMessageList, RootView, ContactCardView, NoteEntryView, InboxNoteWidget)
+	['Views/Widgets/InboxMessageList', 'mustache', 'Views/ContactCard', 'Views/NoteEntry', 'Views/Widgets/InboxNote'],
+	function (InboxMessageList, Mustache, ContactCardView, NoteEntryView, InboxNoteWidget)
 	{
 		var InboxNotesList = InboxMessageList.extend({
 	
@@ -43,7 +43,7 @@ define(
 				// Load messages
 				this.collection.touch(this.model, this.filterparameters());
 				this.listenTo(this.collection, 'ready', this.afterrender);
-				this.listenTo(RootView, 'ready:notecontext', this.rendercontext);
+				this.listenTo(Cloudwalkers.RootView, 'ready:notecontext', this.rendercontext);
 				
 				return this;
 			},
@@ -393,7 +393,7 @@ define(
 			
 			negotiateFunctionalities : function() {
 				
-				this.listenTo( 'destroy:view', this.remove);
+				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 				
 				this.addScroll();
 			},

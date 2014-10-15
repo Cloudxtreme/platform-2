@@ -40,7 +40,7 @@ Cloudwalkers.Views.Widgets.LoadMore = Backbone.View.extend({
 	{
 		this.$el.find('.btn.load-more').addClass('hidden');
 		this.$el.find('.load-more-wrap').addClass('inner-loading');
-
+		console.log("more")
 		var maxheight = this.parentcontainer.outerHeight();
 		this.parentcontainer.css('max-height', maxheight);
 	},

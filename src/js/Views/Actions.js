@@ -50,9 +50,9 @@ define(
 				else				return;
 				
 				this.reorderactions(actions);
-				
+
 				for (var n in actions)
-				{	
+				{
 					compound = actions[n].compound? this.getcompoundactions(actions, actions[n]): null;
 
 					// prevent duplicates on complex compounds
@@ -81,14 +81,17 @@ define(
 
 			getcompoundactions : function(actions, action)
 			{
-				actions.filter(
+				var filtered = actions.filter(
 					function(a){
-						return a.compound == action.compound
+						return a.compound == action.compound;
 					});
-
-				return actions;
+				
+				return filtered;
 			},
 
+			/*
+			 *
+			 */
 			reorderactions : function(actions)
 			{	
 				var del;
@@ -116,7 +119,6 @@ define(
 				for (var n in actions){
 					container.append(actions[n].render().el);
 				}
-
 			},
 
 			incrementaction : function(token)

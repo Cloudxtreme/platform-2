@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Widgets/Widget', 'mustache'],
+	function (Widget, Mustache)
 	{
 		var MonitorFilters = Widget.extend ({
 
@@ -10,9 +10,13 @@ define(
 				'click .toggleall.networks.active' : 'toggleallnetworks',
 				'click .toggleall.keywords.active' : 'toggleallkeywords'
 			},
+
+			options : {},
 			
-			initialize : function ()
+			initialize : function (options)
 		    {
+		    	if(options)	$.extend(this.options, options)
+
 				this.category = this.options.category;
 				this.category.childtype = "message";
 				//this.keywords = this.category.channels;
@@ -70,7 +74,7 @@ define(
 				
 				if(!data.networks.length) this.$el.find(".building-notice").toggleClass("inactive");
 				
-				this.listenTo( 'destroy:view', this.remove);
+				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 				
 				return this;
 			},
@@ -218,7 +222,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 
 		});

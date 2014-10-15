@@ -51,8 +51,8 @@ define(	// MIGRATION -> added mustache
 				// Action token
 				var token = $(element.currentTarget).data ('header-action');
 				
-				if(token == 'messages') 	Cloudwalkers.Router.Instance.navigate("#inbox/messages", true);
-				if(token == 'contacts') 	Cloudwalkers.Router.Instance.navigate("#coworkers", true);
+				if(token == 'messages') 	Cloudwalkers.Router.navigate("#inbox/messages", true);
+				if(token == 'contacts') 	Cloudwalkers.Router.navigate("#coworkers", true);
 				if(token == 'post') 		Cloudwalkers.RootView.compose();
 				if(token == 'writenote') 	this.writenote();
 			},
@@ -110,7 +110,10 @@ define(	// MIGRATION -> added mustache
 			render : function ()
 			{	
 				var account = Cloudwalkers.Session.user? Cloudwalkers.Session.user.account: null;
-				var data 	= {reports: []};
+				var data 	= {
+					translate: Cloudwalkers.Polyglot.translatetemplate,
+					reports: []
+				};
 				
 				// News
 				if (Cloudwalkers.Session.isAuthorized('MESSAGE_READ_THIRDPARTY'))
@@ -137,7 +140,7 @@ define(	// MIGRATION -> added mustache
 					data.statistics = true;
 
 				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
+				//this.mustacheTranslateRender(data);
 			
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
@@ -276,7 +279,7 @@ define(	// MIGRATION -> added mustache
 
 				for (var k in this.original)
 				{
-					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
+					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			},
@@ -324,7 +327,7 @@ define(	// MIGRATION -> added mustache
 
 				for (var k in this.original)
 				{
-					this.translated[k] = Cloudwalkers.Session.translate(this.original[k]);
+					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
 					translatelocation["translate_" + this.original[k]] = this.translated[k];
 				}
 			}

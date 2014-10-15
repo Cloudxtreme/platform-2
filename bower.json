@@ -15,8 +15,8 @@
     "mustache": "*",
     "bootstrap": "*",
     "backbone.crossdomain": "*",
-    "bootstrap-datepicker": "github//github.com/eternicode/bootstrap-datepicker#master",
-    "bootstrap-timepicker": "*",
+    "bootstrap-datepicker": "git://github.com/eternicode/bootstrap-datepicker#master",
+    "bootstrap-timepicker": "git://github.com/jdewit/bootstrap-timepicker#gh-pages",
     "cal-heatmap": "*",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
     "d3": "*",
@@ -24,8 +24,9 @@
     "fullcalendar": "*",
     "jquery.gritter": "*",
     "slimscroll": "*",
-    "jquery.ui": "*",
-    "polyglot": "*"
+    "jquery-ui": "*",
+    "polyglot": "*",
+    "requirejs-plugins": "*"
   },
   "resolutions": {
     "bootstrap": ">=2.0.4 <3.0"

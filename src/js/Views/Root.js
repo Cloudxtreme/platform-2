@@ -224,7 +224,7 @@ define (
 				var returnto = view;
 
 				setTimeout(function(){
-					Cloudwalkers.Router.Instance.navigate('#resync');
+					Cloudwalkers.Router.navigate('#resync');
 
 					var view = new ResyncView({returnto: returnto});
 					this.setView(view);
@@ -235,7 +235,7 @@ define (
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 
 		});

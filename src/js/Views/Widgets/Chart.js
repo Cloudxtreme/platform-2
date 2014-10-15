@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Models/Network', 'Models/Stream'],
-	function (Backbone, Network, Stream)
+	['backbone', 'mustache', 'Models/Network', 'Models/Stream'],
+	function (Backbone, Mustache, Network, Stream)
 	{
 		var Chart = Backbone.View.extend({
 	
@@ -951,7 +951,7 @@ define(
 					streams = collection.place(i).get("streams");
 					dailyresult = this[func](null, streams, network);
 
-					dailyresult = this.mapdailydata(dailyresult)
+					dailyresult = this.mapdailydata(dailyresult, data, i)
 				}
 					
 				for(var j = 0; j < length; j++){
@@ -976,7 +976,7 @@ define(
 				
 			},
 
-			mapdailydata : function(dailyresult)
+			mapdailydata : function(dailyresult, data, i)
 			{
 				_.map(dailyresult.data, function(token){
 
@@ -1087,7 +1087,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			}	
 
 		});

@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'mustache', 'Views/Widgets/Chart'],
+	function (Backbone, Mustache, Chart)
 	{
 		var CompoundChart = Backbone.View.extend({
 
@@ -9,13 +9,14 @@ define(
 				'2row' : ['#row1', '#row2']
 			},
 
+			options : {},
+
 			initialize : function (options)
 			{
-				if(options) $.extend(this, options);
-				view = this;
-				this.collection = this.model.statistics;	
-			
-				//this.listenTo(this.collection, 'ready', this.fill);
+				if(options){
+				 	$.extend(this, options);
+				 	$.extend(this.options, options);
+				}
 
 				this.charttemplate = "compoundchart"+this.options.template;
 				this.template = this.options.template;
@@ -34,41 +35,32 @@ define(
 				return this;
 			},
 
-			fill : function(){
+			fill : function()
+			{	
+				//Temporary hack to map widgets
+				var widgetmap = {
+					'Chart' : Chart
+				}
 
 				//Hack to prevent double loading
 				if(this.filled)	return true;
 
 				$.each(this.charts, function(index, chart){
-					chart.data.model = this.model;
+					
 					chart.data.network = this.network;
-					
-					var widget = this.functioncall(chart.widget)
-					
-					var view = new widget(chart.data).render().el;
+					chart.data.parentview = this.parentview;
+
+					var view = new widgetmap[chart.widget](chart.data).render().el;
+
+					this.parentview.views.push (view);
 
 					this.$el.find(this.templatemap[this.template][index]).append(view);
 					
 				}.bind(this));
 
 				this.filled = true;
-			},
-
-			functioncall : function(functionname, args)
-			{	
-				var func = window[functionname];
-				 
-				// is it a function?
-				if (typeof func === "function")
-
-					return func.apply(null, args);
-			},
-
-			negotiateFunctionalities : function()
-			{
-
 			}
-			
+
 		});
 
 		return CompoundChart;

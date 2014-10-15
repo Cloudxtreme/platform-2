@@ -2,8 +2,8 @@
 * A standard widget
 */
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Widgets/Widget', 'mustache'],
+	function (Widget, Mustache)
 	{
 		KeywordsOverview = Widget.extend({
 
@@ -18,8 +18,12 @@ define(
 				'click [data-keyword]' : 'toggleEditKeyword'
 			},
 
-			initialize : function ()
+			options : {},
+
+			initialize : function (options)
 			{
+				if(options)	this.options = options;
+
 				this.channel = Cloudwalkers.Session.getChannel("monitoring");
 				
 				this.editor = this.options.editor;
@@ -130,7 +134,7 @@ define(
 			translateString : function(translatedata)
 			{	
 				// Translate String
-				return Cloudwalkers.Session.translate(translatedata);
+				return Cloudwalkers.Polyglot.translate(translatedata);
 			},
 			
 			mustacheTranslateRender : function(translatelocation)

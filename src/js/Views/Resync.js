@@ -46,7 +46,7 @@ define(
 				Cloudwalkers.RootView.navigation.renderHeader();
 				Cloudwalkers.RootView.navigation.render();
 
-				Cloudwalkers.Router.Instance.navigate (this.returnto, true);
+				Cloudwalkers.Router.navigate (this.returnto, true);
 			},
 
 			//Check type of update necessary - hardcoded "me" refresh

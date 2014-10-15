@@ -208,6 +208,8 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 			alwaysVisible: false,
 			railVisible: false
 		});
+
+		console.log(this.$el.find('.scroller').css('max-height'))
 	},
 	
 	'destroy' : function()
