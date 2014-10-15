@@ -37,7 +37,7 @@ define(
 			 * Responsible for translating data.
 			 */
 			translate : function(string)
-			{	console.log(this.locale)
+			{
 				if(this.locale == "en_EN")	return string;
 				else if(this.translator)	return this.translator.t(string);
 				else						return string;	
