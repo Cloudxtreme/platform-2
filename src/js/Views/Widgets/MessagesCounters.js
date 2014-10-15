@@ -35,9 +35,7 @@ define(
 			
 			render : function ()
 			{	
-				//Translation
-				this.options.trans = trans;
-
+				console.log(this.options)
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 				this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 

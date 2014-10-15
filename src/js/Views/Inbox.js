@@ -21,7 +21,6 @@ define(
 			
 			render : function()
 			{
-
 				// Translated Title
 				this.title = trans(this.options.type);
 
