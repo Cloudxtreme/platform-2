@@ -3,7 +3,7 @@
 <div class="filterbanner filter network-list social-icon-colors" id="timeline-filters">
 	<section id="timeline-filters-section">
 		<div class="filter-bg">
-			<span class="caption">{{#trans}}filters{{/trans}}:</span>
+			<span class="caption">{{translate_filters}}:</span>
 
 			{{#networks}}
 				<div class="btn-white filter" data-networks="{{ids}}">
@@ -15,9 +15,9 @@
 			{{/networks}}
 
 			<div class="btn-white pull-right" data-toggle="streams">
-				{{#trans}}more{{/trans}}
+				{{translate_more}}
 			</div>
-			<!--<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>-->
+			<!--<li class="toggleall networks inactive">{{translate_select_all}}</li>-->
 		</div>
 
 		<div id="filter_streams" class="clearfix" style="display: none;">	
@@ -26,7 +26,7 @@
 					<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
 				{{/streams}}
 				</ul>
-			<li class="toggleall inactive">{{#trans}}select all{{/trans}}</li>
+			<li class="toggleall inactive">{{translate_select_all}}</li>
 		</div>
 
 	</section>

@@ -1,19 +1,19 @@
 <div class="pull-right {{^listname}}no-list{{/listname}}">
-	<span class="btn-white close-detail">{{#trans}}done{{/trans}}</span>
-	<span class="btn-white delete-detail">{{#trans}}delete{{/trans}}</span>
+	<span class="btn-white close-detail">{{translate_done}}</span>
+	<span class="btn-white delete-detail">{{translate_delete}}</span>
 </div>
 
 <div class="service-authenticate {{#listname}}pull-right clearfix{{/listname}}{{^listname}}pull-left{{/listname}}">
 {{#valid}}
 
-	{{#trans}}connected to{{/trans}} {{account}}<br><br>
-	<a href="{{authurl}}" class="btn-black">{{#trans}}reauthenticate user{{/trans}}</a>
+	{{translate_connected_to}} {{account}}<br><br>
+	<a href="{{authurl}}" class="btn-black">{{translate_reauthenticate_user}}</a>
 
 {{/valid}}
 {{^valid}}
 
-	{{account}} {{#trans}}is not connected{{/trans}}<br><br>
-	<a href="{{authurl}}" class="btn-black">{{#trans}}authenticate user{{/trans}}</a>
+	{{account}} {{translate_is_not_connected}}<br><br>
+	<a href="{{authurl}}" class="btn-black">{{translate_authenticate_user}}</a>
 
 {{/valid}}
 </div>
@@ -21,7 +21,7 @@
 {{#listname}}
 
 	<h3>{{listname}}</h3>
-	<small>{{#trans}}to add{{/trans}} {{network.name}} {{listname}} {{#trans}}to your cloudwalkers account select to1 to3{{/trans}}.</small>
+	<small>{{translate_to_add}} {{network.name}} {{listname}} {{translate_to_your_cloudwalkers_account_select_them_below}}.</small>
 	
 	<ul class="service-profiles clearfix">
 		{{#profiles}}
@@ -40,8 +40,8 @@
 		<legend>
 			General
 
-			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">{{#trans}}delete{{/trans}}</a>
-			<button type="submit" class="btn blue pull-right">{{#trans}}save{{/trans}}</button>
+			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">{{translate_delete}}</a>
+			<button type="submit" class="btn blue pull-right">{{translate_save}}</button>
 		</legend>
 
 		<table class="inner-service">

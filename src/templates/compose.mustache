@@ -1,6 +1,6 @@
 
 <aside>
-	<h3>{{#trans}}networks{{/trans}}</h3>
+	<h3>{{translate_networks}}</h3>
 	<ul class="compose-streams social-icon-colors">
 	{{#streams}}
 		<li data-streams="{{id}}" class="btn-white inactive"><i class="icon-{{attributes.network.icon}}"></i><span>{{attributes.defaultname}}</span></li>
@@ -27,7 +27,7 @@
 			<div class="tabs-container">
 				{{^actionview}}
 				<section class="stream-tabs">
-					<div class="stream-tab active">{{#trans}}default{{/trans}}</div>
+					<div class="stream-tab active">{{translate_default}}</div>
 				</section>
 				{{/actionview}}
 				{{#actionview}}
@@ -38,7 +38,7 @@
 			<section data-type="post">
 				
 				<div class="input-symbol hidden" data-option="subject">
-					<input type="text" placeholder="{{#trans}}subject{{/trans}}" />
+					<input type="text" placeholder="{{translate_subject}}" />
 				</div>
 				
 			</section>
@@ -56,7 +56,7 @@
 
 				<div class="alert alert-info">
 					<label class="checkbox">
-			      		<input type="checkbox">{{#trans}}save this as a response save1{{/trans}}
+			      		<input type="checkbox">{{translate_save_this_as_a_response_template}}
 			    	</label>
 				</div>	
 			</section>
@@ -67,12 +67,12 @@
 
 			<section data-collapsable="images" class="collapsed clearfix first">
 				
-				<div class="btn-white" data-toggle="images">{{#trans}}images{{/trans}}</div>
+				<div class="btn-white" data-toggle="images">{{translate_images}}</div>
 				
 				<div class="collapsable-content">
 						
 					<div class="photo-booth hidden">
-						<h2>{{#trans}}photo booth{{/trans}}</h2>
+						<h2>{{translate_photo_booth}}</h2>
 						
 						<video autoplay></video>
 						<canvas style="display:none;" width="640" height="480"></canvas>
@@ -83,14 +83,14 @@
 					<input type="file" multiple="multiple" />
 					
 					<div>
-						<span>{{#trans}}pictures{{/trans}}</span>
+						<span>{{translate_pictures}}</span>
 						<ul class="pictures-container">
 							<li class="add-file">&plus;</li>
 						</ul>
 					</div>
 					
 					<div class="clearfix">
-						<span>{{#trans}}camera{{/trans}}</span>
+						<span>{{translate_camera}}</span>
 						<ul class="snapshots-container">
 							<li class="add-snapshot">&plus;</li>
 						</ul>
@@ -120,11 +120,11 @@
 			
 			<section data-collapsable="campaign" class="collapsed clearfix">
 				
-				<div class="btn-white" data-toggle="campaign">{{#trans}}campaign{{/trans}}</div>
+				<div class="btn-white" data-toggle="campaign">{{translate_campaign}}</div>
 				
 				<div class="collapsable-content">
 					<select class="campaign-list">
-						<option value="0">{{#trans}}no campaign{{/trans}}</option>
+						<option value="0">{{translate_no_campaign}}</option>
 						{{#campaigns}}
 						<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
 						{{/campaigns}}
@@ -146,31 +146,31 @@
 				<div class="collapsable-content some-margin">
 					
 					<div class="schedule-entry" data-set="now">
-						<label class="icon-ok-circle">{{{#trans}}now{{/trans}}}</label>
+						<label class="icon-ok-circle">{{{translate_now}}}</label>
 					</div>
 					
 					<div class="schedule-entry inactive clearfix" data-set="in">
-						<label class="icon-circle-blank">{{#trans}}in{{/trans}}</label>
+						<label class="icon-circle-blank">{{translate_in}}</label>
 						
 						<select id="delay-select">
-							<option selected="selected" value="600">10 {{#trans}}mins{{/trans}}</option>
-							<option value="900">15 {{#trans}}mins{{/trans}}</option>
-							<option value="1800">30 {{#trans}}mins{{/trans}}</label>
-							<option value="2700">45 {{#trans}}mins{{/trans}}</label>
-							<option value="3600">1 {{#trans}}hour{{/trans}}</label>
-							<option value="7200">2 {{#trans}}hours{{/trans}}</label>
-							<option value="10800">3 {{#trans}}hours{{/trans}}</label>
-							<option value="14400">4 {{#trans}}hours{{/trans}}</label>
-							<option value="18000">5 {{#trans}}hours{{/trans}}</label>
-							<option value="21600">6 {{#trans}}hours{{/trans}}</label>
-							<option value="43200">12 {{#trans}}hours{{/trans}}</label>
-							<option value="86400">1 {{#trans}}day{{/trans}}</label>
-							<option value="604800">1 {{#trans}}week{{/trans}}</label>
+							<option selected="selected" value="600">10 {{translate_mins}}</option>
+							<option value="900">15 {{translate_mins}}</option>
+							<option value="1800">30 {{translate_mins}}</label>
+							<option value="2700">45 {{translate_mins}}</label>
+							<option value="3600">1 {{translate_hour}}</label>
+							<option value="7200">2 {{translate_hours}}</label>
+							<option value="10800">3 {{translate_hours}}</label>
+							<option value="14400">4 {{translate_hours}}</label>
+							<option value="18000">5 {{translate_hours}}</label>
+							<option value="21600">6 {{translate_hours}}</label>
+							<option value="43200">12 {{translate_hours}}</label>
+							<option value="86400">1 {{translate_day}}</label>
+							<option value="604800">1 {{translate_week}}</label>
 						</select>
 					</div>
 					
 					<div class="schedule-entry inactive clearfix" data-set="on">
-						<label class="icon-circle-blank">{{#trans}}on{{/trans}}</label>
+						<label class="icon-circle-blank">{{translate_on}}</label>
 						
 						<div class="input-symbol" data-option="schedule-start-date">
 							<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
@@ -180,7 +180,7 @@
 							<input id="delay-time" type="text" />
 						</div>
 						
-						<span class="btn-white inactive">{{#trans}}best time{{/trans}}</span>
+						<span class="btn-white inactive">{{translate_best_time}}</span>
 					</div>
 
 				</div>
@@ -190,55 +190,55 @@
 			
 			<section data-collapsable="repeat" class="schedule-group collapsed clearfix last">
 				
-				<div class="btn-white" data-toggle="repeat">{{#trans}}repeat{{/trans}}</div>
+				<div class="btn-white" data-toggle="repeat">{{translate_repeat}}</div>
 				
 				<div class="collapsable-content some-margin">
 					
 					<div class="schedule-entry" data-set="onlyonce">
-						<label class="icon-ok-circle">{{#trans}}no repeat{{/trans}}</label>
+						<label class="icon-ok-circle">{{translate_no_repeat}}</label>
 					</div>
 					
 					<div class="schedule-entry inactive single-toggle" data-set="every">
 					
-						<label class="icon-circle-blank">{{#trans}}every{{/trans}}</label>
+						<label class="icon-circle-blank">{{translate_every}}</label>
 						<div class="input-symbol number-input" data-option="schedule-start-date">
 							<input id="repeat-interval" type="text" value="0" /> 
 						</div>
 					
 						<select id="every-select">
-							<option value="1" data-single="hour" data-multiple="hours">{{#trans}}hours{{/trans}}</option>
-							<option value="24" data-single="day" data-multiple="days">{{#trans}}days{{/trans}}</label>
-							<option value="168" selected data-single="week" data-multiple="weeks">{{#trans}}weeks{{/trans}}</label>
-							<option value="720" data-single="month" data-multiple="months">{{#trans}}months{{/trans}}</label>
+							<option value="1" data-single="hour" data-multiple="hours">{{translate_hours}}</option>
+							<option value="24" data-single="day" data-multiple="days">{{translate_days}}</label>
+							<option value="168" selected data-single="week" data-multiple="weeks">{{translate_weeks}}</label>
+							<option value="720" data-single="month" data-multiple="months">{{translate_months}}</label>
 						</select>
 						
 						<select id="every-select-weekday">
-							<option value=0>{{#trans}}select a day{{/trans}}</option>
-							<option value="MONDAY">{{#trans}}monday{{/trans}}</option>
-							<option value="TUESDAY">{{#trans}}tuesday{{/trans}}</option>
-							<option value="WEDNESDAY">{{#trans}}wednesday{{/trans}}</label>
-							<option value="THURSDAY">{{#trans}}thursday{{/trans}}</label>
-							<option value="FRIDAY">{{#trans}}friday{{/trans}}</label>
-							<option value="SATURDAY">{{#trans}}saturday{{/trans}}</label>
-							<option value="SUNDAY">{{#trans}}sunday{{/trans}}</label>
-							<option value=0>{{#trans}}doesnt matter{{/trans}}</label>
+							<option value=0>{{translate_select_a_day}}</option>
+							<option value="MONDAY">{{translate_monday}}</option>
+							<option value="TUESDAY">{{translate_tuesday}}</option>
+							<option value="WEDNESDAY">{{translate_wednesday}}</label>
+							<option value="THURSDAY">{{translate_thursday}}</label>
+							<option value="FRIDAY">{{translate_friday}}</label>
+							<option value="SATURDAY">{{translate_saturday}}</label>
+							<option value="SUNDAY">{{translate_sunday}}</label>
+							<option value=0>{{translate_doesnt_matter}}</label>
 						</select>
 						
 					</div>
 					
 					<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
 						
-						<label class="icon-circle-blank">{{#trans}}repeat{{/trans}}</label>
+						<label class="icon-circle-blank">{{translate_repeat}}</label>
 						<div class="input-symbol number-input" data-option="schedule-start-date">
 							<input id="repeat-amount" type="text" value="0" />
 						</div>
-						<label>{{#trans}}times{{/trans}}</label>
+						<label>{{translate_times}}</label>
 
 					</div>
 					
 					<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
 						
-						<label class="icon-circle-blank">{{#trans}}until{{/trans}}</label>
+						<label class="icon-circle-blank">{{translate_until}}</label>
 						<div class="input-symbol" data-option="schedule-start-date">				
 							<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
 						</div>
@@ -261,11 +261,11 @@
 		{{^actionview}}
 
 		{{#authorized.MESSAGE_READ_DRAFTS}}
-			<button id="save" class="btn">{{#trans}}save{{/trans}}</button>
+			<button id="save" class="btn">{{translate_save}}</button>
 		{{/authorized.MESSAGE_READ_DRAFTS}}
 
-		<button id="previewbtn" class="btn" disabled>{{#trans}}preview{{/trans}}</button>
-		<button id="post" class="btn btn-primary">{{#trans}}post{{/trans}}</button>
+		<button id="previewbtn" class="btn" disabled>{{translate_preview}}</button>
+		<button id="post" class="btn btn-primary">{{translate_post}}</button>
 		{{/actionview}}
 	</div>
 

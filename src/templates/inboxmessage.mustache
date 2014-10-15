@@ -10,7 +10,7 @@
 				<a class="avatar" href="{{url}}" target="_blank" alt="{{displayname}}" style="background-image:url({{avatar}})"></a>
 				<div>
 					<a class="viewdetails" href="{{url}}" target="_blank">{{displayname}}</a>
-					<br /><em>{{#trans}}on{{/trans}} {{networkdescription}}</em>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
 				</div>
 			{{/notification}}
 
@@ -18,7 +18,7 @@
 				<div class="avatar viewdetails" data-action="viewcontact" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
 				<div>
 					<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
-					<br /><em>{{#trans}}on{{/trans}} {{networkdescription}}</em>
+					<br /><em>{{translate_on}} {{networkdescription}}</em>
 				</div>
 			{{/notification}}		
 		
@@ -64,7 +64,7 @@
 	
 		<ul>
 			<li>
-				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{#trans}}commented{{/trans}} {{timeago}}
+				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{translate_commented}} {{timeago}}
 			</li>
 		</ul>
 	</div>
