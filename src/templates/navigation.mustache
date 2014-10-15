@@ -39,7 +39,7 @@
 			<li class="sent">
 				<a href="#sent">
 					<i class="icon-upload"></i> 
-					<span class="title">{{translate_sent}}</span>
+					<span class="title">{{#trans}}sent{{/trans}}</span>
 				</a>
 			</li>
 			
@@ -84,7 +84,7 @@
 				<li>
 					<a href="#inbox/messages">
 						<i class="icon-envelope"></i> 
-						<span class="title">{{translate_messages}}</span>
+						<span class="title">{{#trans}}messages{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_INBOX_MESSAGES}}
@@ -123,7 +123,7 @@
 				<li class="notes">
 					<a href="#notes">
 						<i class="icon-edit"></i> 
-						<span class="title">{{translate_notes}}</span>
+						<span class="title">{{#trans}}notes{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.ACCOUNT_NOTES_VIEW}}
@@ -144,7 +144,7 @@
 		<li>
 			<a href="#outbox/sent">
 				<i class="icon-upload-alt"></i> 
-				<span class="title">{{translate_outbox}}</span>
+				<span class="title">{{#trans}}outbox{{/trans}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -154,7 +154,7 @@
 				<li class="sent">
 					<a href="#outbox/sent">
 						<i class="icon-envelope"></i> 
-						<span class="title">{{translate_sent}}</span>
+						<span class="title">{{#trans}}sent{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.MESSAGE_READ_DRAFTS}}
@@ -193,7 +193,7 @@
 		<li>
 			<a href="#timeline/{{channelid}}">
 				<i class="icon-briefcase"></i> 
-				<span class="title">{{translate_company_accounts}}</span>
+				<span class="title">{{#trans}}company accounts{{/trans}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -255,7 +255,7 @@
 				<!--<li>
 					<a href="#timeline/rss">
 						<i class="icon-rss"></i> 
-						<span class="title">{{translate_rss_feed}}</span>
+						<span class="title">{{#trans}}rss feed{{/trans}}</span>
 					</a>
 				</li>-->
 
@@ -276,7 +276,7 @@
 				<!--<li>
 					<a href="#monitoring/managerss">
 						<i class="icon-plus"></i> 
-						<span class="title">{{translate_manage_rss}}</span>
+						<span class="title">{{#trans}}manage rss{{/trans}}</span>
 					</a>
 				</li>-->
 			</ul>
@@ -290,7 +290,7 @@
 		<li>
 			<a href="#monitoring/{{channelid}}/{{first.id}}">
 				<i class="icon-tags"></i> 
-				<span class="title">{{translate_keyword_monitoring}}</span>
+				<span class="title">{{#trans}}keyword monitoring{{/trans}}</span>
 				<span class="arrow"></span>
 				<span class="selected"></span>
 			</a>
@@ -326,7 +326,7 @@
 	<li>
 		<a href="#statistics">
 			<i class="icon-bar-chart"></i> 
-			<span class="title">{{translate_statistics}}</span>
+			<span class="title">{{#trans}}statistics{{/trans}}</span>
 			<span class="selected"></span>
 		</a>
 	</li>
@@ -341,19 +341,19 @@
 		</a>
 		<ul class="sub-menu">
 			{{#authorized.USER_INVITE}}
-				<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">{{translate_manage_users}}</span></a></li>
+				<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">{{#trans}}manage users{{/trans}}</span></a></li>
 			{{/authorized.USER_INVITE}}
 			{{#authorized.SERVICE_CONNECT}}
-				<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{translate_social_connections}}</span></a></li>
+				<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{#trans}}social connections{{/trans}}</span></a></li>
 			{{/authorized.SERVICE_CONNECT}}
 			{{#authorized.CAMPAIGN_DELETE}}
-				<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{translate_account_settings}}</span></a></li>
+				<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{#trans}}account settings{{/trans}}</span></a></li>
 			{{/authorized.CAMPAIGN_DELETE}}
 			{{#authorized.ACCOUNT_SETTINGS}}
-				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{translate_profile_settings}}</span></a></li>
+				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{#trans}}profile settings{{/trans}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
 			{{#manage_user_groups}}
-				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{translate_manage_user_groups}}</span></a></li>
+				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{#trans}}manage user groups{{/trans}}</span></a></li>
 			{{/manage_user_groups}}
 		</ul>
 	</li>
@@ -362,7 +362,7 @@
 	<li class="settings">
 		<a href="#settings/profile">
 		<i class="icon-user"></i> 
-		<span class="title">{{translate_profile_settings}}</span>
+		<span class="title">{{#trans}}profile settings{{/trans}}</span>
 		<span class="selected"></span>
 		</a>
 	</li>

@@ -9,7 +9,7 @@
 	<div id="widgetcontainer" class="row-fluid social-icon-colors">
 		
 		<div class="span2 column-bordered">
-			<label>{{translate_networks}}</label>
+			<label>{{#trans}}networks{{/trans}}</label>
 			
 			{{#networks}}
 			<div class="btn-white active" data-network="{{token}}"><i class="icon-{{icon}}"></i></div>
@@ -17,13 +17,13 @@
 			
 			<center>
 				<br>
-				<span class="toggleall inactive">{{translate_show_all}}</span>
+				<span class="toggleall inactive">{{#trans}}show all{{/trans}}</span>
 			</center>
 		</div>
 		
 		<div class="span8 offset1">
 			<div class="url-post">
-				<input type="search" class="input-rounded input-large" placeholder="{{translate_enter_profile_link}}" />
+				<input type="search" class="input-rounded input-large" placeholder="{{#trans}}enter profile link{{/trans}}" />
 				<span class="icon-search"></span>
 			</div>
 			<div class="info-container"></div>

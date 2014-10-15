@@ -16,28 +16,28 @@
 		
 		<div class="pull-right">
 			
-			<a class="btn hidden" id="now">{{translate_now}}</a>
+			<a class="btn hidden" id="now">{{#trans}}now{{/trans}}</a>
 			
 			<!--
 			<a class="btn"><i class="icon-print"></i></a>
 			-->
 			
 			<select class="networks" disabled="disabled">
-				<option value="0">{{translate_all_networks}}</option>
+				<option value="0">{{#trans}}all networks{{/trans}}</option>
 				{{#streams}}
 				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network.token}} {{customname}}</option>
 				{{/streams}}
 			</select>
 
 			<select class="time" disabled="disabled">
-				<optgroup label="{{translate_time_spans}}">
-					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>{{translate_week}}</option>
-					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{translate_month}}</option>
-					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>{{translate_quarter}}</option>
-					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>{{translate_year}}</option>
+				<optgroup label="{{#trans}}time spans{{/trans}}">
+					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>{{#trans}}week{{/trans}}</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{#trans}}month{{/trans}}</option>
+					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>{{#trans}}quarter{{/trans}}</option>
+					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>{{#trans}}year{{/trans}}</option>
 				</optgroup>
-				<optgroup label="{{translate_extra}}">
-					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>{{translate_custom}}</option>
+				<optgroup label="{{#trans}}extra{{/trans}}">
+					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>{{#trans}}custom{{/trans}}</option>
 				</optgroup>
 			</select>
 
@@ -47,7 +47,7 @@
 		<div class="header-custom">
 			<input id="start" type="text" value="{{startstring}}" />
 			<input id="end" type="text" value="{{endstring}}" />
-			<a class="btn" id="show">{{translate_show}}</a>
+			<a class="btn" id="show">{{#trans}}show{{/trans}}</a>
 		</div>
 		{{/customActive}}
 	</div>

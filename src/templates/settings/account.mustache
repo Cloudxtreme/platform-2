@@ -4,29 +4,29 @@
 
 		<div style="height: auto;" class="edit-account-name">
 			
-			<h3 name="basic">{{translate_account}}</h3>
+			<h3 name="basic">{{#trans}}account{{/trans}}</h3>
 			
 			<form action="javascript:void(0);" id="editaccount">
 				<label class="control-label">{{#trans}}Name{{/trans}}</label>
-				<input data-attribute="account-name" type="text" placeholder="{{translate_company_name}}" class="m-wrap span8" value="{{name}}" />
+				<input data-attribute="account-name" type="text" placeholder="{{#trans}}company name{{/trans}}" class="m-wrap span8" value="{{name}}" />
 
 				<div class="submit-btn">
-					<button type="submit" data-action="editaccount" class="btn green edit-account">{{translate_save_changes}}</button>
-					<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{translate_cancel}}</button>
+					<button type="submit" data-action="editaccount" class="btn green edit-account">{{#trans}}save changes{{/trans}}</button>
+					<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{#trans}}cancel{{/trans}}</button>
 					<span class="loadingafter"></span>
 				</div>
 			</form>
 		</div>
 
-		<div class="alert alert-info">{{translate_account_plan}}: <strong>{{plan.name}}</strong></div>
+		<div class="alert alert-info">{{#trans}}account plan{{/trans}}: <strong>{{plan.name}}</strong></div>
 
 		<div class="separator"></div>
 
-		<h3 name="campaigns">{{translate_campaigns}}</h3>
+		<h3 name="campaigns">{{#trans}}campaigns{{/trans}}</h3>
 		<div class="collapse-open">
 			<div class="portlet box yellow">
 				<div class="portlet-title">
-					<div class="caption"><i class="icon-bar-chart"></i>{{translate_campaigns}}</div>
+					<div class="caption"><i class="icon-bar-chart"></i>{{#trans}}campaigns{{/trans}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -53,12 +53,12 @@
 		<!--
 		<div class="separator"></div>
 
-		<h3 name="triggers">{{translate_triggers}}</h3>
+		<h3 name="triggers">{{#trans}}triggers{{/trans}}</h3>
 		<div id="triggerlist"></div>
 
 		
 		<div class="separator"></div>
-		<h3 name="canned">{{translate_message_templates}}</h3>
+		<h3 name="canned">{{#trans}}message templates{{/trans}}</h3>
 		<div id="cannedlist"></div>
 		-->
 		
@@ -68,14 +68,14 @@
 
 		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
 			<div class="portlet-title line">
-				<div class="caption">{{translate_menu}}</div>
+				<div class="caption">{{#trans}}menu{{/trans}}</div>
 			</div>
 			<div class="portlet-body">
 				<ul>
-					<li><a data-hash="basic">{{translate_basic}}</a></li>
-					<li><a data-hash="campaigns">{{translate_manage_campaigns}}</a></li>
-					<!--<li><a data-hash="triggers">{{translate_manage_auto_responders}}</a></li>
-					<li><a data-hash="canned">{{translate_message_templates}}</a></li>-->
+					<li><a data-hash="basic">{{#trans}}basic{{/trans}}</a></li>
+					<li><a data-hash="campaigns">{{#trans}}manage campaigns{{/trans}}</a></li>
+					<!--<li><a data-hash="triggers">{{#trans}}manage auto responders{{/trans}}</a></li>
+					<li><a data-hash="canned">{{#trans}}message templates{{/trans}}</a></li>-->
 				</ul>
 			</div>
 		</div>

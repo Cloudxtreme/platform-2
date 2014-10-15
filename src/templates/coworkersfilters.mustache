@@ -11,7 +11,7 @@
 
 					<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="{{translate_search_co-workers}}" />
 					
-					<label class="hidden">{{translate_suggestions}}</label>
+					<label class="hidden">{{#trans}}suggestions{{/trans}}</label>
 					<ul class="contacts-suggestions"></ul>
 				
 				</div>
@@ -25,10 +25,10 @@
 					<div class="clear"></div>
 					
 					<br />
-					<span class="toggleall inactive">{{translate_show_all}}</span>
+					<span class="toggleall inactive">{{#trans}}show all{{/trans}}</span>
 
 					{{#authorized.USER_INVITE}}
-						<small class="pull-right"><a  href="#settings/users">{{translate_manage_users}}</a></small>
+						<small class="pull-right"><a  href="#settings/users">{{#trans}}manage users{{/trans}}</a></small>
 					{{/authorized.USER_INVITE}}
 					
 				</div>
