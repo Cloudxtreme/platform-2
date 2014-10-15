@@ -23,10 +23,10 @@ define(
 				this.listenTo(this.model, 'change:clearance', this.render);
 
 				// Translate String
-				translate_you_are_about_to_remove = this.translateString("you_are_about_to_remove");
-				translate_sure = this.translateString("sure");
-				translate_manage_users = this.translateString("manage_users");
-				translate_thats_an_ex_user = this.translateString("thats_an_ex_user");
+				translate_you_are_about_to_remove = trans("You are about to remove ");
+				translate_sure = trans(". Are you sure?");
+				translate_manage_users = trans("Manage users");
+				translate_thats_an_ex_user = trans("That's an ex-user.");
 			},
 
 			render : function ()

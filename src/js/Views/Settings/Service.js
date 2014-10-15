@@ -34,9 +34,6 @@ define(
 				var data = _.clone(this.service.attributes);
 				data.listname = this.listnames[data.network.token];
 				data.authurl = data.authenticateUrl + '&return=' + encodeURIComponent(window.location.href);
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
 				
 				// Render view
 				this.$el.html (Mustache.render (Templates.service, data));
@@ -59,7 +56,7 @@ define(
 				profile.save({"activated": entry.hasClass("active")}, {patch: true, success: function(profile)
 				{	
 					//this.parseprofile(profile);
-					Cloudwalkers.RootView.growl (this.translateString("social_connections"), this.translateString("a_successful_update_here"));
+					Cloudwalkers.RootView.growl (trans("Social connections"), trans("A successful update, there."));
 					
 					// Check for stream changes
 					profile.parent.updateStreams(profile.get('activated'), profile);
@@ -91,7 +88,7 @@ define(
 			
 			delete : function ()
 			{
-				Cloudwalkers.RootView.confirm(this.translateString("you_are_about_to_delete_a_service_all_your_statistics_information_will_be_lost"), function()
+				Cloudwalkers.RootView.confirm(trans("You are about to delete a service all your statistics information will be lost."), function()
 				{
 					// View
 					this.parent.$el.find("[data-service="+ this.service.id +"]").remove();
@@ -410,7 +407,7 @@ define(
 
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_remove_this_service_all_statistics_will_be_lost'), 
+					trans("Are you sure you want to remove this service? All statistics will be lost."), 
 					function ()
 					{
 						self.deleteService (self.service.id, function ()
@@ -431,41 +428,7 @@ define(
 		        Cloudwalkers.RootView.popup (view);
 		    },*/
 
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"done",
-					"delete",
-					"connected_to",
-					"reauthenticate_user",
-					"to_add",
-					"is_not_connected",
-					"authenticate_user",
-					"save",
-					"to_your_cloudwalkers_account_select_them_below"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			}
+		
 		});
 
 		return Service;

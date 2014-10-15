@@ -93,11 +93,11 @@ define(
 				// General i18n
 				translate =
 				{
-					new_this: this.translateString ("new_this"),
-					new_this_m: this.translateString ("new_this_m"),
-					top_rated_comment: this.translateString ("top_rated_comment"),
-					messages_evolution: this.translateString ("messages_evolution"),
-					activity_calendar: this.translateString ("activity_calendar")
+					new_this: trans("New this"),
+					new_this_m: trans("Novo this"),
+					top_rated_comment: trans("Top rated comment"),
+					messages_evolution: trans("Messages evolution"),
+					activity_calendar: trans("Activity calendar")
 				}
 
 				this.streamid = parseInt(this.streamid)
@@ -115,9 +115,6 @@ define(
 					return stream.attributes;
 					
 				}.bind(this));
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
 				
 				// Build Pageview
 				this.$el.html (Mustache.render (Templates.statsview, params));

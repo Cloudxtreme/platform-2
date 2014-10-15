@@ -7,16 +7,16 @@ define(
 			className : 'stats-summary',
 			
 			columns :  {
-				"contacts" : {'translate_title': 'total_contacts', "func": "parsecontacts"},
-				"score-trending" : {"translate_title": "popularity_score", "func": "parsescore"},
-				"outgoing" : {"translate_title": "messages_sent", "func": "parsesent"},
-				"coworkers" : {"translate_title": "co-workers_activity", "func": "parseactivity"},
+				"contacts" : {'title': 'Total Contacts', "func": "parsecontacts"},
+				"score-trending" : {"title": "Popularity score", "func": "parsescore"},
+				"outgoing" : {"title": "Messages sent", "func": "parsesent"},
+				"coworkers" : {"title": "Co-workers activity", "func": "parseactivity"},
 
-				"contacts-network" : {"translate_title": "total_contacts", "func": "parsecontactsnetwork"},
-				"score-trending-network" : {"translate_title": "popularity_score", "func": "parsescorenetwork"},
-				"outgoing-network" : {"translate_title": "messages_sent", "func": "parsesentnetwork"},
+				"contacts-network" : {"title": "Total Contacts", "func": "parsecontactsnetwork"},
+				"score-trending-network" : {"title": "Popularity score", "func": "parsescorenetwork"},
+				"outgoing-network" : {"title": "Messages sent", "func": "parsesentnetwork"},
 
-				"besttime" : {"translate_title": "best_time_to_post", "func": "parsebesttime"}
+				"besttime" : {"title": "Best time to post", "func": "parsebesttime"}
 			},
 
 			options : {},
@@ -45,8 +45,8 @@ define(
 
 				for (var m in params.columns)
 				{	
-					if((!params.columns[m].title) && (params.columns[m].translate_title))
-						params.columns[m].title = this.translateString(params.columns[m].translate_title)
+					if((!params.columns[m].title) && (params.columns[m].title))
+						params.columns[m].title = trans(params.columns[m].title)
 
 				}
 				// Build view
@@ -190,14 +190,7 @@ define(
 			    	return {counter: maxEl+'h - '+ (maxEl+1) +'h'};
 			    else
 			    	return {counter:'--'};
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
-
 		});
 
 		return StatSummary;

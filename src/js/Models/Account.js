@@ -186,7 +186,7 @@ define(
 						function(campaign, n) { if(campaign.id == id) campaigns.splice(n, 1)}
 					);
 
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("campaign_successfully_removed"));
+					Cloudwalkers.RootView.growl(trans("User Profile"), trans("Campaign successfully removed."));
 					$(target).closest('li').remove();
 				}.bind(this)});
 

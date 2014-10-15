@@ -13,7 +13,7 @@ define(
 			
 			initialize : function(options)
 			{	
-				$.extend(true, this.options, this.defaults);
+				$.extend(this.options, this.defaults);
 				$.extend(this.options, options);
 				
 				// The list source is either the streams or subchannels
@@ -34,7 +34,10 @@ define(
 			},
 			
 			render : function ()
-			{
+			{	
+				//Translation
+				this.options.trans = trans;
+
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 				this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
 

@@ -100,7 +100,7 @@ define(
 				var statf = this.collection.first().pluck("contacts");
 				var total = statl - statf;
 
-				var description = this.translateString("new_contacts")
+				var description = trans("New contacts")
 
 				this.settings.network = {icon : "group"};
 
@@ -114,7 +114,7 @@ define(
 				var statf = this.collection.first().pluck("messages");
 				var total = statl - statf;
 
-				var description = this.translateString("new_messages")
+				var description = trans("New messages")
 
 				this.settings.network = {icon : "cloud-upload"};
 
@@ -128,7 +128,7 @@ define(
 				var statf = this.collection.first().pluck("activities");
 				var total = statl - statf;
 
-				var description = this.translateString("new_activities")
+				var description = trans("New activities")
 
 				this.settings.network = {icon : "cloud-download"};
 
@@ -142,7 +142,7 @@ define(
 				var statf = this.collection.first().pluck(["messages","impressions"], false, true);
 				var total = statl - statf;
 
-				var description = this.translateString("new_impressions")
+				var description = trans("New impressions")
 
 				return [{content: total, descr : description}];
 			},
@@ -154,7 +154,7 @@ define(
 				var statf = this.collection.first().pluck("notifications");
 				var total = statl - statf;
 
-				var description = this.translateString("new_notifications")
+				var description = trans("New notifications")
 
 				return [{content: total, descr : description}];
 			},
@@ -192,7 +192,7 @@ define(
 				var statf = this.collection.first().pluck("activities", this.network);
 				var total = statl - statf;
 
-				var description = this.translateString("new_activities")
+				var description = trans("New activities")
 
 				return [{content: total, descr : description}];
 			},
@@ -204,7 +204,7 @@ define(
 				var statf = this.collection.first().pluck(["messages","impressions"], this.network, true);
 				var total = statl - statf;
 
-				var description = this.translateString("post_views")
+				var description = trans("Post views")
 
 				return [{content: total, descr : description}];
 			},
@@ -302,7 +302,7 @@ define(
 				var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
 				var total = statl - statf;
 
-				var description = this.translateString("new_shares")
+				var description = trans("New shares")
 
 				return [{content: total, descr : description}];
 			},
@@ -313,7 +313,7 @@ define(
 				var statf = this.collection.first().pluck(["messages","types","posts"], this.network,3);
 				var total = statl - statf;
 
-				var description = this.translateString("new_posts")
+				var description = trans("New posts")
 
 				return [{content: total, descr : description}];
 			},
@@ -324,7 +324,7 @@ define(
 				var statf = this.collection.first().pluck(["messages","types","dms"], this.network,3);
 				var total = statl - statf;
 
-				var description = this.translateString("new_direct_messages")
+				var description = trans("New direct messages")
 
 				return [{content: total, descr : description}];
 			},

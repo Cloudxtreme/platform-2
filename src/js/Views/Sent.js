@@ -11,8 +11,6 @@ define(
 			{
 				this.model = Cloudwalkers.Session.getStream("sent");
 				
-				this.translateTitle("sent");
-
 				// Memory cloth
 				var settings = Cloudwalkers.Session.viewsettings('sent');
 				
@@ -51,12 +49,6 @@ define(
 				$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 				
 				$message.parent().slimScroll({height: "inherit"});
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

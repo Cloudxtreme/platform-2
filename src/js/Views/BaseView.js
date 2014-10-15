@@ -17,7 +17,7 @@ define(
 		 *
 		**/
 		
-		// MIGRATION -> Hooked loader functions to the backbone view
+		// MIGRATION -> Temporarily hooked loader functions to the backbone view
 		var BaseView = Backbone.View.extend({
 			
 			loadListeners : function(model, states, once){

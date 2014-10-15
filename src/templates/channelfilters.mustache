@@ -4,7 +4,7 @@
 
 		<div class="portlet box newgrey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>{{translate_filters}}</div>
+				<div class="caption"><i class="icon-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<div class="pull-right">
 						<a href="#keywords"><i class="icon-plus"></i> {{#trans}}Manage Keywords{{/trans}}</a>
@@ -22,7 +22,7 @@
 						</div>
 					{{/networks}}
 					
-					<li class="toggleall networks inactive">{{translate_select_all}}</li>
+					<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 				
 				<div class="filter keyword-list span8">
@@ -33,14 +33,14 @@
 							<i class="icon-tag icon-muted"></i> {{attributes.name}}
 						</li>
 					{{/keywords}}
-						<li class="toggleall keywords inactive">{{translate_select_all}}</li>
+						<li class="toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
 					</ul>
 
 				</div>
 
 				<div class="building-notice inactive span12">
-					<strong>{{translate_building_your_data}}</strong>
-					<br>{{translate_this_will_take_a_minute_or_so}}
+					<strong>{{#trans}}Building your data{{/trans}}</strong>
+					<br>{{#trans}}This will take a minute or so.{{/trans}}
 				</div>
 
 			</div>
@@ -54,7 +54,7 @@
 
 		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>{{translate_filters}}</div>
+				<div class="caption"><i class="icon-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
 			</div>
 			<div class="portlet-body">
 
@@ -70,12 +70,12 @@
 					<div class="clear"></div>
 					<br />
 					
-					<li class="toggleall networks inactive">{{translate_select_all}}</li>
+					<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 				
 				<div class="building-notice inactive">
-					<strong>{{translate_building_your_data}}</strong>
-					<br>{{translate_this_will_take_a_minute_or_so}}
+					<strong>{{#trans}}Building your data{{/trans}}</strong>
+					<br>{{#trans}}This will take a minute or so.{{/trans}}
 				</div>
 								
 				<hr />
@@ -98,7 +98,7 @@
 						</small>
 					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					
-					<li class="toggleall keywords inactive">{{translate_select_all}}</li>
+					<li class="toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 
 			</div>

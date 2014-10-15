@@ -26,25 +26,15 @@ define(
 				this.listenTo(this.model.messages, 'seed', this.fill);
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
-				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
-
-				// Translation for Title
-				this.translateTitle("scheduled_messages");
-				
+				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));				
 			},
 
 			render : function (params)
 			{	
 				this.loadmylisteners();
 
-				var data = {};
-
-				//Mustache Translate Render
-				data.title = this.title;
-				this.mustacheTranslateRender(data);
-
 				// Get template
-				this.$el.html (Mustache.render (Templates.scheduledlist, data));
+				this.$el.html (Mustache.render (Templates.scheduledlist));
 
 				this.$container = this.$el.find ('.messages-container');
 				this.$loadercontainer = this.$el.find ('.portlet-body');
@@ -177,37 +167,6 @@ define(
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"start_date",
-					"networks",
-					"message",
-					"actions"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

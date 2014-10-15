@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Router', 'config', 'Views/Root', 'Utilities/UrlShortener'],
-	function (Backbone, Session, Router, config, RootView, UrlShortener)
+	['backbone', 'mustache', 'Session', 'Router', 'config', 'Views/Root', 'Utilities/UrlShortener'],
+	function (Backbone, mustache, Session, Router, config, RootView, UrlShortener)
 	{
 		var Cloudwalkers = {
 			
@@ -67,6 +67,20 @@ define(
 		        };
 		        
 			return Backbone.$.ajax.apply(Backbone.$, arguments);
+		};
+		
+		/**
+		 *	Mustache Extension
+		 *	Appends function responsible for translations inside template
+		 */
+		mustache.render = function (template, view, partials) {
+
+			if(Cloudwalkers.Polyglot.trans)
+				view = $.extend(view, {trans: Cloudwalkers.Polyglot.trans});
+
+			var defaultWriter = new mustache.Writer();
+
+		    return defaultWriter.render(template, view, partials);
 		};
 
 		return Cloudwalkers;

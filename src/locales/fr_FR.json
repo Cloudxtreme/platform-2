@@ -60,7 +60,7 @@
 		"select category...": "sélectionner catégorie...",
 		"keyword name": "mot-clé",
 		"message contains": "message contient",
-		"message doesn't contain": "message ne contient pas",
+		"message doesnt contain": "message ne contient pas",
 		"country is": "pays est",
 		"language is": "langue est",
 		"group": "groupe",
@@ -152,7 +152,7 @@
 		"friday": "vendredi",
 		"saturday": "samedi",
 		"sunday": "dimanche",
-		"doesn't matter": "n'a pas d'importance",
+		"doesnt matter": "n'a pas d'importance",
 		"times": "fois",
 		"Until": "Jusqu’au",
 		"Preview": "Example",
@@ -311,7 +311,7 @@
 		"Not saved": "Non sauvegardé",
 		"Your formula is a bit fuzzy": "Votre formule n'est pas claire",
 		"Welcome": "Bienvenu",
-		"Let's get started.": "Commençons.",
+		"Lets get started.": "Commençons.",
 		"Update your profile": "Metre à jour votre profil",
 		"Yes": "Oui",
 		"Close": "Fermer",
@@ -380,6 +380,7 @@
 		"Show me the previous year's statistics" :  "Show me the previous year's statistics",
 		"Show me the next year's statistics":  "Show me the next year's statistics",
 		"Show older reports" : "Show older reports",
-		"Last 7 days" : "Last 7 days"
+		"Last 7 days" : "Last 7 days",
+		"Statistics" : "Statistics"
 	}
 }

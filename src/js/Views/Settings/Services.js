@@ -38,7 +38,7 @@ define(
 				var data = {};
 				
 				//Mustache translations
-				data.translate_active_social_connections = this.translateString("active_social_connections");
+				data.translate_active_social_connections = trans("Active social connections");
 				
 				this.$el.html (Mustache.render (Templates.services, data));
 				
@@ -70,7 +70,7 @@ define(
 				
 				for (var n in available)
 				{
-					available[n].translate_add = this.translateString("add");
+					available[n].translate_add = trans("Add");
 					$container.append(Mustache.render (Templates.service_option, available[n]));
 				}
 			},

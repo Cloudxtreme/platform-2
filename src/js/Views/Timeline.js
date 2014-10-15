@@ -48,7 +48,7 @@ define(
 				this.$el.find(".timeline-loading.timeline-blue").hide();
 
 				this.$el.find('.load-more .timeline-icon').removeClass('entry-loading');
-				this.$el.find('.load-more .timeline-body span').html(this.translateString('view_more'));
+				this.$el.find('.load-more .timeline-body span').html(trans("View more"));
 			},
 
 			toggleall : function ()
@@ -67,9 +67,6 @@ define(
 				// Type of timeline (news or company accounts)
 				if(this.model.get('type') == 'news')	this.rendernews(param);
 				else									this.rendercompany(param);
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(param);
 
 				this.$el.html (Mustache.render (Templates.timeline, param));
 
@@ -122,16 +119,9 @@ define(
 
 			reloadui : function(param)
 			{
-				this.$el.addClass("loading");
+				this.$el.addClass("loading");	
 
-				if(!param){
-					param = {};
-
-					//Mustache Translate Render
-					this.mustacheTranslateRender(param);
-				}		
-
-				this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist, param));
+				this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist));
 
 				if(this.timelinetype == 'news' && !this.newsloaded)
 					this.$el.find('.filter-bg').addClass('loading');
@@ -361,7 +351,7 @@ define(
 				this.incremental = true;
 
 				this.$el.find('.load-more .timeline-icon').addClass('entry-loading');
-				this.$el.find('.load-more .timeline-body span').html(this.translateString('loading')+'...');
+				this.$el.find('.load-more .timeline-body span').html(trans("Loading")+'...');
 				
 				var hasmore = this.collection.more(this.model, this.filterparameters());
 				
@@ -371,34 +361,6 @@ define(
 			resize : function(height)
 			{	
 				this.$el.css('min-height', height);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"loading",
-					"view_more",
-					"no_messages",
-					"comments",
-					"filters",
-					"select_all",
-					"more"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

@@ -34,19 +34,16 @@ define(
 				this.listenTo(this.collection, 'add', this.addcontact);
 
 				// Translation for Title
-				this.translateTitle("manage_accounts");
+				this.title = trans("Manage accounts")
 			},
 			
 			render : function()
 			{
 				// Select Networks
-				var networks = this.channel.streams.filterNetworks(null, true);
-				
+				var networks = this.channel.streams.filterNetworks(null, true);				
 				var data = {networks: networks};
-				
-				//Mustache Translate Render
+
 				data.title = this.title;
-				this.mustacheTranslateRender(data);
 
 				// Template
 				this.$el.html (Mustache.render (Templates.manageaccounts, data));
@@ -172,36 +169,6 @@ define(
 				
 				this.filter(true);
 				this.togglefilters(true);
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"networks",
-					"show_all",
-					"enter_profile_link"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 		});

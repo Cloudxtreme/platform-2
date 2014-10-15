@@ -54,18 +54,18 @@ define(
 
 			render : function ()
 			{
-				var data = {keywords: this.category.channels.models};
+				var data = {keywords: this.category.channels.models, trans: trans};
 				
 				data.name = this.category.get("name");
 				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
 				
 				//Mustache translations
-				data.translate_filters = this.translateString("filters");
-				data.translate_select_all = this.translateString("select_all");
-				data.translate_building_your_data = this.translateString("building_your_data");
-				data.translate_this_will_take_a_minute_or_so = this.translateString("this_will_take_a_minute_or_so");
-				data.translate_keywords = this.translateString("keywords");
-				data.translate_manage_keywords = this.translateString("manage_keywords");
+				data.translate_filters = trans("Filters");
+				data.translate_select_all = trans("select all");
+				data.translate_building_your_data = trans("Building your data");
+				data.translate_this_will_take_a_minute_or_so = trans("This will take a minute or so.");
+				data.translate_keywords = trans("Keywords");
+				data.translate_manage_keywords = trans("Manage Keywords");
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);

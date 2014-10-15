@@ -7,9 +7,9 @@ define(
 			title : "EmptyData",
 			messageconfig : 
 			{
-				'now' 		: {id: "subtractempty", text: "show_previous_{{span}}_statistics"},
-				'nodata' 	: {id: "addempty", text: "show_next_{{span}}_statistics"},
-				'reports' 	: {id: "showreports", text: "show_older_reports"}
+				'now' 		: {id: "subtractempty", text: "Show me the previous {{span}}'s statistics"},
+				'nodata' 	: {id: "addempty", text: "Show me the next {{span}}'s statistics"},
+				'reports' 	: {id: "showreports", text: "Show older reports"}
 			},
 
 			initialize : function(options)
@@ -40,7 +40,7 @@ define(
 
 			generatemessage : function(token)
 			{
-				var basestring = this.translateString ("empty_statistics_data");
+				var basestring = trans("There is no available data.");
 				var textstring = '<br/><a id="{{id}}">{{text}}</a>';
 				var span = this.timeparams.span;	
 
@@ -48,9 +48,7 @@ define(
 				if(token){
 
 					var id = this.messageconfig[token].id;
-					var text = this.translateString(
-						Mustache.render( this.messageconfig[token].text, {span: span} )
-					);
+					var text = trans( Mustache.render( this.messageconfig[token].text, {span: span} ));
 
 					this.message = basestring + Mustache.render(textstring, {id: id, text: text});
 				}			
@@ -100,12 +98,6 @@ define(
 				// Fallback in case all goes wrong
 				else
 					this.generatemessage('nodata')
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

@@ -41,39 +41,32 @@ define(
 				// Data
 				var data = {filteroptions: filters, categories: this.channel.channels.models};
 
-				//Mustache Translate Render
-				data.title = this.title;
-				this.mustacheTranslateRender(data);
-
-				translation = {}
-				this.mustacheTranslateRender(translation);
-
 				//if filters are filled
 				if(filters && !this.scriptloaded){
 					this.$el.find ('#keywordseditor').keywordfilterdestroy();
 					this.$el.find ('#keywordseditor').keywordfilterscript({
-						update : this.translateString('update'),
-						cancel: this.translateString('cancel'),
-						message_contains: this.translateString('message_contains'),
-						message_doesnt_contain: this.translateString('message_doesnt_contain'),
-						author_is: this.translateString('author_is'),
-						author_is_not: this.translateString('author_is_not'),
-						country_is: this.translateString('country_is'),
-						language_is: this.translateString('language_is'),
-						country_is_not: this.translateString('country_is_not'),
-						language_is_not: this.translateString('language_is_not'),
-						group: this.translateString('group'),
-						end_group: this.translateString('end_group'),
-						and: this.translateString('and'),
-						or: this.translateString('or'),
-						save: this.translateString('save'),
-						there_are: this.translateString('there_are'),
-						groups_left_open_please_close_them_and_resubmit: this.translateString('groups_left_open_please_close_them_and_resubmit'),
-						formula_is_not_valid_add_more_parameters: this.translateString('formula_is_not_valid_add_more_parameters'),
-						choose_language: this.translateString('choose_language'),
-						choose_country: this.translateString('choose_country'),
-						insert_text: this.translateString('insert_text'),
-						insert_author: this.translateString('insert_author'),
+						update : trans("Update"),
+						cancel: trans("Cancel"),
+						message_contains: trans("message contains"),
+						message_doesnt_contain: trans("message doesn't contain"),
+						author_is: trans("author is"),
+						author_is_not: trans("author is not"),
+						country_is: trans("country is"),
+						language_is: trans("language is"),
+						country_is_not: trans("country is not"),
+						language_is_not: trans("language is not"),
+						group: trans("group"),
+						end_group: trans("end group"),
+						and: trans("and"),
+						or: trans("or"),
+						save: trans("Save"),
+						there_are: trans("There are"),
+						groups_left_open_please_close_them_and_resubmit: trans("groups left open. Please close them and resubmit"),
+						formula_is_not_valid_add_more_parameters: trans("Formula is not valid. Add more parameters"),
+						choose_language: trans("Choose language"),
+						choose_country: trans("Choose country"),
+						insert_text: trans("insert text"),
+						insert_author: trans("insert author"),
 						countries: filters.countries,
 						languages: filters.languages,
 						
@@ -124,26 +117,26 @@ define(
 				$("#keywordsfilter * .alert").remove();
 				
 				// Check Category
-				if(!catid) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_select_a_category"));
+				if(!catid) return Cloudwalkers.RootView.alert(trans("Don't forget to select a category."));
 				
 				var category = Cloudwalkers.Session.getChannel(catid);
 
 				// Check Name
-				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(trans("Don't forget to fill the keyword name"));
 
 				// Check Formula
-				if(!this.keywordFormula().settings.formula) return Cloudwalkers.RootView.alert(this.translateString("please_add_a_filter_to_your_keyword"));
+				if(!this.keywordFormula().settings.formula) return Cloudwalkers.RootView.alert(trans("Please add a filter to your keyword."));
 				
 				//category.channels.create(this.keywordParameters(), {parent: catid, wait: true, error: function(){
 				category.channels.create(this.keywordFormula(), {
 					parent: catid,
 					wait: true,
 					error: function(){
-						Cloudwalkers.RootView.information (this.translateString("not_saved"), this.translateString("something_went_wrong"), this.$el.find(".manage-keyword"));
+						Cloudwalkers.RootView.information (trans("Not saved"), trans("Something went wrong"), this.$el.find(".manage-keyword"));
 						this.$el.find(".managekeyword .icon-cloud-upload").hide();
 					}.bind(this),
 					success: function (){
-						Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_successfully_added'))
+						Cloudwalkers.RootView.growl (trans("Manage Keywords"), trans("Keyword filter has been successfully added"))
 					}.bind(this)
 				});
 				this.$el.find(".managekeyword .icon-cloud-upload").show();
@@ -154,7 +147,7 @@ define(
 				e.preventDefault ();
 				
 				// Check Name
-				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(this.translateString("dont_forget_to_fill_the_keyword_name"));
+				if(!this.keywordFormula().name) return Cloudwalkers.RootView.alert(trans("Don't forget to fill the keyword name"));
 				
 				// Check Formula
 				if(this.keywordFormula().settings.formula){
@@ -165,10 +158,10 @@ define(
 						this.keywordFormula(),
 						{	
 							success:  function(){
-								Cloudwalkers.RootView.growl (this.translateString('manage_keywords'), this.translateString('keyword_filter_has_been_updated'))
+								Cloudwalkers.RootView.growl (trans("Manage Keywords"), trans("Keyword filter has been updated"))
 							}.bind(this),
 							error: function(){
-								Cloudwalkers.RootView.growl (this.translateString("not_saved"), this.translateString("something_went_wrong"));
+								Cloudwalkers.RootView.growl (trans("Not saved"), trans("Something went wrong"));
 							}.bind(this)
 						}
 					);
@@ -238,7 +231,7 @@ define(
 			addPlus : function (size){
 				
 				if(size == "small")
-					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + translation.translate_or + '</li></ul></span></span>');
+					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + trans("or") + '</li></ul></span></span>');
 				if(size == "large")
 					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is hidden">' + translation.translate_author_is + '</li><li class="add_author_is_not hidden">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
 			},
@@ -399,7 +392,7 @@ define(
 			{
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_reset_this_filter'), 
+					trans("Are you sure you want to reset this filter?"), 
 					function () 
 					{
 						$("#keyword_filter").html('');
@@ -415,73 +408,6 @@ define(
 				var filter = $(e.target).attr("data-keyword-filter");
 				
 				this.$el.find("div[data-keyword-filter=" + filter + "]").toggleClass("inactive");
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"add_category",
-					"name",
-					"create",
-					"add_keyword",
-					"keyword_name",
-					"category",
-					"select_category",
-					"fine-tune",
-					"filters",
-					"include",
-					"exclude",
-					"languages",
-					"countries",
-					"use_comma_separated_words",
-					"language",
-					"country",
-					"select_from_list",
-					"all_languages",
-					"global",
-					"update",
-					"cancel",
-					"message_contains",
-					"message_doesnt_contain",
-					"author_is",
-					"author_is_not",
-					"country_is",
-					"language_is",
-					"country_is_not",
-					"language_is_not",
-					"group",
-					"end_group",
-					"save",
-					"insert_text",
-					"insert_author",
-					"there_are",
-					"groups_left_open_please_close_them_and_resubmit",
-					"formula_is_not_valid_add_more_parameters",
-					"choose_language",
-					"choose_country",
-					"and",
-					"or",
-					"reset",
-					"are_you_sure_you_want_to_reset_this_filter",
-					"manage_keyword",
-					"remember_for",
-					"days"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

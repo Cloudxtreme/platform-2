@@ -109,9 +109,6 @@ define(
 				param.networks = this.model.streams.filterNetworks(param.streams, true);
 				param.note = this.listtype? true: false;
 				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(param);
-				
 				// Get template
 				this.$el.html (Mustache.render (Templates.inboxlist, param));
 				
@@ -488,36 +485,6 @@ define(
 
 			unsetempty : function(){
 				$(".inbox-container").removeClass('empty-content');
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"networks",
-					"more",
-					"contacts",
-					"filters",
-					"search_contacts",
-					"suggestions",
-					"select_all",
-					"load_more",
-					"on"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

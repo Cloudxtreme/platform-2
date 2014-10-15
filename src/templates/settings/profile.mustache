@@ -4,7 +4,7 @@
 		<div class="collapse-open">
 			<div class="portlet box grey">
 				<div class="portlet-title line">
-					<div class="caption"><i class="icon-camera-retro"></i>{{translate_profile_picture}}</div>
+					<div class="caption"><i class="icon-camera-retro"></i>{{#trans}}Profile picture{{/trans}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -17,15 +17,15 @@
 					<input type="file" />
 					
 					{{#authorized.ACCOUNT_SETTINGS}}
-						<input id="add-file" class="btn btn-block btn-info" type="button" value="{{translate_select}}" />
-						<input id="upload-file" class="btn btn-block black" type="button" value="{{translate_upload}}" />
+						<input id="add-file" class="btn btn-block btn-info" type="button" value="{{#trans}}Select{{/trans}}" />
+						<input id="upload-file" class="btn btn-block black" type="button" value="{{#trans}}Upload{{/trans}}" />
 					{{/authorized.ACCOUNT_SETTINGS}}
 					<!--
 					<form action="javascript:void(0);" class="edit-user-avatar" method="post" enctype="multipart/form-data">
 						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
 						<center>
 							<input type="file" name="select file" id="file"><br><br>
-							<button type="file" class="btn blue">{{translate_upload_profile_picture}}</button>
+							<button type="file" class="btn blue">{{#trans}}Upload Profile Picture{{/trans}}</button>
 						</center>
 					</form>
 					-->
@@ -37,7 +37,7 @@
 		<div class="collapse-closed">
 			<div class="portlet box blue">
 				<div class="portlet-title line expand-portlet">
-					<div class="caption"><i class="icon-key"></i>{{translate_change_password}}</div>
+					<div class="caption"><i class="icon-key"></i>{{#trans}}Change Password{{/trans}}</div>
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
@@ -45,15 +45,15 @@
 				<div class="portlet-body">
 					
 					<form action="javascript:void(0);" class="edit-user-password">
-						<label class="control-label">{{translate_current_password}}</label>
+						<label class="control-label">{{#trans}}Current Password{{/trans}}</label>
 						<input name="pass0" type="password" class="m-wrap span12" />
-						<label class="control-label">{{translate_new_password}}</label>
+						<label class="control-label">{{#trans}}New Password{{/trans}}</label>
 						<input name="pass1" type="password" class="m-wrap span12" />
-						<label class="control-label">{{translate_retype_new_password}}</label>
+						<label class="control-label">{{#trans}}Re-type New Password{{/trans}}</label>
 						<input name="pass2" type="password" class="m-wrap span12" />
 						<div class="submit-btn">
-							<button type="submit" class="btn green">{{translate_change_password}}</button>
-							<a href="#" class="btn">{{translate_cancel}}</a>
+							<button type="submit" class="btn green">{{#trans}}Change Password{{/trans}}</button>
+							<a href="#" class="btn">{{#trans}}Cancel{{/trans}}</a>
 							<span class="loadingafter"></span>
 						</div>
 					</form>
@@ -63,7 +63,7 @@
 		</div>
 		{{/authorized.ACCOUNT_SETTINGS}}
 		
-		<div class="alert alert-info">{{translate_profile_type}}: <strong>{{user.role.name}}</strong></div>
+		<div class="alert alert-info">{{#trans}}Profile type{{/trans}}: <strong>{{user.role.name}}</strong></div>
 		
 	</div>
 		
@@ -72,23 +72,23 @@
 			<div id="tab_1-1" class="tab-pane active">
 				<div style="height: auto;">
 					
-					<h3>{{translate_your_profile}}</h3>
+					<h3>{{#trans}}Your Profile{{/trans}}</h3>
 					
 					<form action="javascript:void(0);" class="edit-user-profile">
-						<label class="control-label">{{translate_first_name}}</label>
+						<label class="control-label">{{#trans}}First Name{{/trans}}</label>
 						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
-						<label class="control-label">{{translate_last_name}}</label>
+						<label class="control-label">{{#trans}}Last Name{{/trans}}</label>
 						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
-						<label class="control-label">{{translate_mobile_phone}}</label>
+						<label class="control-label">{{#trans}}Mobile Phone{{/trans}}</label>
 						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
 
-						<label class="control-label">{{translate_language}}</label>
+						<label class="control-label">{{#trans}}Language{{/trans}}</label>
 						<select name="locale" {{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}>
 							{{#langs}}
 							<option value="{{id}}">{{name}}</option>
@@ -109,8 +109,8 @@
 						-->
 						{{#authorized.ACCOUNT_SETTINGS}}
 						<div class="submit-btn">
-							<button type="submit" class="btn green">{{translate_save_changes}}</button>
-							<button type="reset" class="btn" disabled="true">{{translate_cancel}}</button>
+							<button type="submit" class="btn green">{{#trans}}Save changes{{/trans}}</button>
+							<button type="reset" class="btn" disabled="true">{{#trans}}Cancel{{/trans}}</button>
 							<span class="loadingafter"></span>
 						</div>
 						{{/authorized.ACCOUNT_SETTINGS}}

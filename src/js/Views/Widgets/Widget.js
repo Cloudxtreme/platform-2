@@ -32,7 +32,6 @@ define(	// MIGRATION: widget based on BaseView
 		    initializeWidget : function ()
 		    {
 		        this.bind ('destroy', this.onDestroy);
-		        this.bind ('add', function(){ console.log("View add triggrered")});
 		    },
 
 			innerRender : function (element)

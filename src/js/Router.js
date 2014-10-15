@@ -1,10 +1,10 @@
 define(
-	['backbone',  'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
+	['backbone', 'config', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
 	 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
 	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
 	 'Views/Coworkdashboard', /*'Views/ManageUserGroups',*/ 'Views/Resync', 'Views/RSSFeed', /*'Views/ManageRSS'*/],
 
-	function (	Backbone, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
+	function (	Backbone, config, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
 				ScheduledView, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
 				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
 				CoworkdashboardView, /*ManageUserGroupsView,*/ ResyncView, RSSFeedView /*ManageRSSView*/)

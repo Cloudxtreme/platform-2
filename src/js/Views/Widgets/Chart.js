@@ -129,10 +129,10 @@ define(
 			        _.map(fulldata.data, function(group){
 
 			        	if(group[0] == "Female")
-			        		group[0] = this.translateString('female')
+			        		group[0] = trans("Feminino")
 
 			        	if(group[0] == "Male")
-			        		group[0] = this.translateString('male')
+			        		group[0] = trans("Masculino")
 			        	
 			        }.bind(this));
 
@@ -210,7 +210,7 @@ define(
 				fulldata.options.colors = fulldata.colors;
 				
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -257,7 +257,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 
 				return fulldata;
 			},
@@ -292,7 +292,7 @@ define(
 
 				}.bind(this));
 				
-				fulldata.data.unshift(["Day", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Day", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -323,7 +323,7 @@ define(
 
 				}.bind(this));
 				
-				fulldata.data.unshift(["Day", this.translateString('number_of_messages')]);
+				fulldata.data.unshift(["Day", trans("Number of messages")]);
 				
 				return fulldata;
 			},
@@ -354,7 +354,7 @@ define(
 
 				}.bind(this));
 				
-				fulldata.data.unshift(["Day", this.translateString('number_of_messages')]);
+				fulldata.data.unshift(["Day", trans("Number of messages")]);
 				
 				return fulldata;
 			},
@@ -400,7 +400,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 
 				return fulldata;
 			},
@@ -446,7 +446,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 				//console.log(fulldata);
 				return fulldata;
 			},
@@ -492,7 +492,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -538,7 +538,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -584,7 +584,7 @@ define(
 				});
 
 				if(!token && !statistic)
-					fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+					fulldata.data.unshift(["Network", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -604,7 +604,7 @@ define(
 				if(following + followers <= 0)
 					return this.emptychartdata();
 
-				fulldata.data.unshift(["Follow state", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Follow state", trans("Number of contacts")]);
 				
 				return fulldata;
 
@@ -637,7 +637,7 @@ define(
 					return this.emptychartdata();
 
 				fulldata.data = data;		
-				fulldata.data.unshift(["Age interval", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Age interval", trans("Number of contacts")]);
 
 				return fulldata;
 			},
@@ -685,7 +685,7 @@ define(
 					return this.emptychartdata();
 
 				fulldata.data = data;
-				fulldata.data.unshift(["Gender", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Gender", trans("Number of contacts")]);
 
 				return fulldata;
 			},
@@ -780,7 +780,7 @@ define(
 				}, 0);
 
 				fulldata.data.push(["Others", total]);		
-				fulldata.data.unshift(["Countries", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Countries", trans("Number of contacts")]);
 				
 				return fulldata;
 			},
@@ -810,10 +810,10 @@ define(
 				});
 				
 				fulldata = this.getbiggestdata(cities,size);		
-				fulldata.data.unshift(["Cities", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Cities", trans("Number of contacts")]);
 
 				//Update the label
-				this.$el.find('h4').text(country.name+', '+this.translateString('cities'));
+				this.$el.find('h4').text(country.name+', '+trans("cities"));
 
 				return fulldata;
 			},
@@ -843,7 +843,7 @@ define(
 				}
 				
 				//Columns
-				fulldata.data.unshift(["Network", this.translateString('number_of_contacts')]);
+				fulldata.data.unshift(["Network", trans("Number of contacts")]);
 
 				return fulldata;
 			},

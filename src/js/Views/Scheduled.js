@@ -25,9 +25,6 @@ define(
 				
 				// Listen for changes
 				this.listenTo(this.model, 'sync', this.render);
-
-				// Translation for Title
-				this.translateTitle("scheduled");
 			},
 			
 			render : function()
@@ -46,11 +43,6 @@ define(
 				filter.list = list;
 				
 				return this;
-			},
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

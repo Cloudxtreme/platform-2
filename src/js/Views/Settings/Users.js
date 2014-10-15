@@ -29,9 +29,6 @@ define(
 				var account = Cloudwalkers.Session.getAccount();
 				var data = {};
 
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
-
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 				
@@ -125,7 +122,7 @@ define(
 				
 				user.once('sync', function(response)
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_management"), this.translateString("invitation_on_its_way"));
+					Cloudwalkers.RootView.growl(trans("User Management"), trans("Invitation on it's way."));
 
 					// remove the loading effect
 					this.$el.find('input[name=invite-email]').val('');
@@ -154,37 +151,7 @@ define(
 			
 			fail : function ()
 			{
-				Cloudwalkers.RootView.growl (this.translateString("oops"), this.translateString("something_went_sideways_please_reload_the_page"));
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"edit_user",
-					"select_user",
-					"invite_new_user",
-					"email",
-					"invite_user",
-					"userlist",
-					"name",
-					"type",
-					"manage_user_groups"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
+				Cloudwalkers.RootView.growl (trans("Oops"), trans("Something went sideways, please reload the page."));
 			}
 
 		});

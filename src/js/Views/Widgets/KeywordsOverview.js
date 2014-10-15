@@ -38,9 +38,6 @@ define(
 
 				var data = {categories: categories};
 				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
-				
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 				
@@ -89,7 +86,7 @@ define(
 				
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_remove_this_category'), 
+					trans("Are you sure you want to remove this category?"), 
 					function () 
 					{
 						Cloudwalkers.Session.getChannel(Number($cat.attr('data-category'))).destroy();
@@ -120,7 +117,7 @@ define(
 
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_remove_this_filter'), 
+					trans("Are you sure you want to remove this filter?"), 
 					function () 
 					{
 						Cloudwalkers.Session.getChannel(id).destroy();
@@ -129,32 +126,6 @@ define(
 				)
 				
 				
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-			
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"categories_overview",
-					"change_name",
-					"remember_for",
-					"days",
-					"save_changes"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 			/*

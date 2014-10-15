@@ -11,9 +11,9 @@ define(
 			statistics : [],
 			
 			widgets : [
-				{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable', translation: {'title': 'inbox'}},
-				{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming", scrollable: 'scrollable', translation: { 'title': 'keywords'}},
-				{widget: "messagescounters", type: "outgoing", source: "streams", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled", scrollable: 'scrollable', translation:{ 'title': 'schedule'}},
+				{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", open: true, counter: true, typelink: "#inbox", countString: "incomingUnread", scrollable: 'scrollable'},
+				{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", open: true, counter: true, countString: "incoming", scrollable: 'scrollable'},
+				{widget: "messagescounters", type: "outgoing", source: "streams", size: 4, title: "Schedule", icon: "time", open: true, counter: true, countString: "scheduled", link: "#scheduled", scrollable: 'scrollable'},
 				{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", open: true, link: "#coworkers", scrollable: 'scrollable', translation: { 'title': 'co-workers_wall'}},
 				{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", open: true, since: 7, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_company_posts'}},
 				{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", open: true, since: 1, sublink: "#trending/", scrollable: 'scrollable', translation:{ 'title': 'trending_accounts_we_follow'}}
@@ -24,9 +24,6 @@ define(
 				// MIGRATION -> commented ping
 				// Check for outdated streams
 				///Cloudwalkers.Session.ping();
-
-				// Translation for Title
-				this.translateTitle("dashboard");
 
 				// Reports
 				this.collection = new Statistics();
@@ -128,7 +125,7 @@ define(
 				if(!channel)	return;
 
 				$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
-				
+
 				return new MessagesCountersWidget (widgetdata);
 			},
 			

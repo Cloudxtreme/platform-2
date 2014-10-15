@@ -31,9 +31,6 @@ define(
 			render : function ()
 			{		
 				var data = this.account.attributes;
-				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
@@ -110,7 +107,7 @@ define(
 				
 				this.account.save ({name: name}, {patch: true, success: function ()
 					{
-						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("your_account_settings_are_updated"));
+						Cloudwalkers.RootView.growl(trans("Account settings"), trans("Your Account Settings are updated"));
 						
 						//Reenable submit button & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -118,7 +115,7 @@ define(
 
 					}.bind(this),
 					error: function(){
-						Cloudwalkers.RootView.growl(this.translateString("account_settings"), this.translateString("there_was_an_error_updating_your_settings"));
+						Cloudwalkers.RootView.growl(trans("Account settings"), trans("There was an error updating your settings."));
 						
 						//Reaneable buttons & remove loading
 						this.$el.find(".edit-account-name").removeClass('loading');
@@ -138,7 +135,7 @@ define(
 				
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_remove_this_campaign'), 
+					trans("Are you sure you want to remove this campaign?"), 
 					function () 
 					{
 						Cloudwalkers.Session.getAccount().removecampaign(campaignid, e.target);
@@ -158,41 +155,6 @@ define(
 				$('html, body').animate({scrollTop:position}, 'fast');
 
 				return false;
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"campaigns",
-					"account_plan",
-					"account",
-					"name",
-					"save_changes",
-					"cancel",
-					"company_name",
-					"menu",
-					"campaigns",
-					"basic",
-					"manage_campaigns",
-					"manage_auto_responders",
-					"message_templates",
-					"triggers"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 		});

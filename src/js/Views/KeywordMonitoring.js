@@ -21,9 +21,6 @@ define(
 				//this.listenTo(Cloudwalkers.Session.getStreams(), 'sync', this.render);
 				
 				this.category = this.options.category;
-
-				// Translation for Title
-				this.translateTitle("keyword_monitoring");
 			},
 			
 			render : function()
@@ -49,12 +46,6 @@ define(
 				filter.list = list;
 				
 				return this;
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

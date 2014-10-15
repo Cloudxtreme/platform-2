@@ -31,11 +31,7 @@ define(
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 
 				//Reseting the parameters
-        		this.parameters = {records: 20};
-
-				// Translation for Title
-				this.translateTitle("draft_messages");
-				
+        		this.parameters = {records: 20};				
 			},
 
 			render : function (params)
@@ -43,11 +39,7 @@ define(
 				this.loadmylisteners();
 
 				// Get template
-				var data = {reports: []};
-
-				//Mustache Translate Render
-				data.title = this.title;
-				this.mustacheTranslateRender(data);
+				var data = {title: this.title};
 
 				// View
 				this.$el.html (Mustache.render (Templates.coworkerslist, data));
@@ -181,34 +173,6 @@ define(
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-			
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"load_more"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

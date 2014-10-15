@@ -19,7 +19,7 @@ define(
 			{
 				if (options) $.extend(this, options);
 				
-				this.translateTitle("rss_feed");
+				this.title = trans("RSS Feed");
 
 				this.$el.addClass("loading");
 			},
@@ -35,9 +35,6 @@ define(
 				var params = {
 					'title' : this.title
 				}
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
 
 				// Pageview
 				this.$el.html (Mustache.render (Templates.rssfeed, params));
@@ -81,34 +78,6 @@ define(
 					$(el.target).parent().addClass('active');
 				}
 
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"loading"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

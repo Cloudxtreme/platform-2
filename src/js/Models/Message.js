@@ -125,13 +125,13 @@ define(
 
 				//Check for any content	
 				if(!this.hascontent() && $.inArray('content', ignorelist) < 0)
-					return this.translateString("you_need_a_bit_of_content");
+					return trans("You need a bit of content.");
 
 				if(!this.validatecontent())	
-					return this.translateString("one_or_more_networks_exceed_the_character_limit");
+					return trans("One or more networks exceed the character limit.");
 
 				if(!this.get("streams").length && $.inArray('streams', ignorelist) < 0)
-					return this.translateString("please_select_a_network_first");
+					return trans("Please select a network first.");
 			
 				if((error = this.validateschedules()) && $.inArray('schedule', ignorelist) < 0)
 					return error;
@@ -661,16 +661,16 @@ define(
 				{
 					Cloudwalkers.RootView.dialog 
 					(
-						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
+						trans("Are you sure you want to remove this message?"), 
 						[
 							{
-								'label' : this.translateString('skip_once'),
-								'description' : this.translateString('message_will_be_skipped_once'),
+								'label' : trans("Skip once"),
+								'description' : trans("Message will be skipped once"),
 								'token' : 'skip'
 							},
 							{
-								'label' : this.translateString('delete_forever'),
-								'description' : this.translateString('message_will_never_be_repeated'),
+								'label' : trans("Delete forever"),
+								'description' : trans("Message will never be repeated"),
 								'token' : 'remove'
 							}
 						],
@@ -682,7 +682,7 @@ define(
 				{
 					Cloudwalkers.RootView.confirm 
 					(
-						this.translateString('are_you_sure_you_want_to_remove_this_message'), 
+						trans("Are you sure you want to remove this message?"), 
 						function () 
 						{
 		                    this.destroy ({success: this.destroysuccess.bind(this)});
@@ -759,7 +759,7 @@ define(
 			act : function (action, parameters, callback)
 			{
 				
-				Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+				Cloudwalkers.RootView.growl (action.name, trans("The") + " " + action.token + " " + trans("is planed with success"));
 				
 				var self = this;
 

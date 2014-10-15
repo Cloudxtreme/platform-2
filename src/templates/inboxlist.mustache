@@ -4,18 +4,18 @@
 	<div class="inbox-filter">
 		{{^note}}
 		<div class="filter-group social-icon-colors pull-right">
-			<label>{{translate_networks}}</label>
+			<label>{{#trans}}Networks{{/trans}}</label>
 			
 			{{#networks}}
 			<div class="btn-white active" data-networks="{{ids}}"><i class="icon-{{icon}}"></i></div>
 			{{/networks}}
 			
-			<div class="btn-white toggle-streams" data-toggle="streams">{{translate_more}}</div>
+			<div class="btn-white toggle-streams" data-toggle="streams">{{#trans}}more...{{/trans}}</div>
 		</div>
 		{{/note}}
 		<div class="filter-group">
-			<label>{{translate_filters}}</label> 
-			<div class="btn-white toggle-contacts" data-toggle="contacts">{{translate_contacts}}</div>
+			<label>{{#trans}}Filters{{/trans}}</label> 
+			<div class="btn-white toggle-contacts" data-toggle="contacts">{{#trans}}Contacts{{/trans}}</div>
 		</div>
 	
 	</div>
@@ -24,9 +24,9 @@
 		
 		<ul class="contacts-placeholder"></ul>
 		
-		<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="{{translate_search_contacts}}" />
+		<div class="loading-contacts pull-right hidden"></div><input type="text" class="input-rounded" placeholder="{{#trans}}Search contacts...{{/trans}}" />
 		
-		<label class="hidden">{{translate_suggestions}}</label>
+		<label class="hidden">{{#trans}}Suggestions{{/trans}}</label>
 		<ul class="contacts-suggestions"></ul>
 	
 	</div>
@@ -38,12 +38,12 @@
 			<li data-streams="{{id}}" class="btn-white active"><i class="icon-{{icon}}"></i> {{name}}</option>
 		{{/streams}}
 		</ul>
-		<li class="toggleall inactive">{{translate_select_all}}</li>
+		<li class="toggleall inactive">{{#trans}}select all{{/trans}}</li>
 	</div>
 	
 	<div class="clearfix">
 		<ul class="list toload tabbed"></ul>
 		<div id="loadmore"></div>
-		<!--<input type="button" class="btn load-more" value="{{translate_load_more}}" />-->
+		<!--<input type="button" class="btn load-more" value="{{#trans}}load more{{/trans}}" />-->
 	</div>
 </div>

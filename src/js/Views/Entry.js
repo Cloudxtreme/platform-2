@@ -469,7 +469,7 @@ define(
 			//Notes list
 			fillnotes : function(notes)
 			{	
-				if(!notes.length)	this.$el.find('.note-list li').html(this.translateString("no_notes_found"))
+				if(!notes.length)	this.$el.find('.note-list li').html(trans("No Notes found"))
 				else				this.$el.find('.note-list').empty();
 
 				for (var n in notes)
@@ -577,7 +577,7 @@ define(
 			'rendertag' : function(tags){
 
 						
-				if(!tags.length)	this.$el.find('.tag-list').html(this.translateString("no_tags_found"));
+				if(!tags.length)	this.$el.find('.tag-list').html(trans("No Tags found"));
 				else				this.$el.find('.tag-list').empty();
 				this.$el.find('.tag-list').empty();
 				for (var n in tags)

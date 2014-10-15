@@ -24,18 +24,10 @@ define(
 
 			render : function()
 			{	
-				param = {};
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(param);
-
-				this.$el.html(Mustache.render(Templates.loadmore, param));
+				this.$el.html(Mustache.render(Templates.loadmore));
 
 				this.$container = this.$el.find ('.load-more-wrap');
 				this.$loadercontainer = this.$el.find ('.load-more-wrap');
-
-				//this.loadmylisteners();
-				//this.trigger("rendered");
 
 				return this;
 			},
@@ -47,28 +39,6 @@ define(
 
 				var maxheight = this.parentcontainer.outerHeight();
 				this.parentcontainer.css('max-height', maxheight);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"load_more"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 		});

@@ -17,9 +17,6 @@ define(
 				// Listen for changes
 				this.listenTo(this.model, 'outdated', this.model.fetch);
 				this.listenTo(this.model, 'sync', this.render);
-
-				// Translation for Title
-				this.translateTitle("co-workers_wall");
 			},
 			
 			render : function()
@@ -38,14 +35,7 @@ define(
 				filter.list = list;
 				
 				return this;
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
 			}
-			
 		});
 
 		return Coworkers;

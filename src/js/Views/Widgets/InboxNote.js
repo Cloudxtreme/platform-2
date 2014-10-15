@@ -22,8 +22,7 @@ define(
 			render : function ()
 			{	
 				// Manage loading
-				this.loading(!this.model.loaded());
-				
+				this.loading(!this.model.loaded());				
 				
 				// Parameters
 				var params = {}; //this.model.filterData('full', {commented: commented});
@@ -46,9 +45,6 @@ define(
 					// View Tags
 					params.tags = true;
 				}
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(params);
@@ -223,30 +219,6 @@ define(
 				$.each(this.modelview, function(n, entry){ entry.remove()});
 				$.each(this.notifications, function(n, entry){ entry.remove()});
 				$.each(this.related, function(n, entry){ entry.remove()});
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"add",
-					"on",
-					"commented"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}	
 		});
 

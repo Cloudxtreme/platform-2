@@ -38,9 +38,6 @@ define(
 					data.roles.push (tmp);
 				}
 
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
-
 				this.$el.html (Mustache.render (Templates.userdetails, data));
 
 				return this;
@@ -61,7 +58,7 @@ define(
 
 			success : function()
 			{	
-				Cloudwalkers.RootView.growl(this.translateString("manage_users"), this.translateString("the_user_clearance_is_updated"));
+				Cloudwalkers.RootView.growl(trans("Manage users"), trans("The user clearance is updated."));
 				this.model.trigger("change:clearance")	;
 			},
 
@@ -73,30 +70,7 @@ define(
 			enablesave : function()
 			{	
 				this.$el.find('.edit-managed-user .btn').attr("disabled", false);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"clearance_level",
-					"save"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			},
+			}
 		});
 		
 		return UserDetails;

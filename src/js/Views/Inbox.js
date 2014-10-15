@@ -23,11 +23,11 @@ define(
 			{
 
 				// Translated Title
-				this.translate_title = this.translateString(this.options.type);
+				this.title = trans(this.options.type);
 
 				// Create pageview
 
-				this.$el.html (Mustache.render (Templates.pageview, {'title' : this.translate_title}));
+				this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 				
 				// Dedect childtype
@@ -63,12 +63,6 @@ define(
 				$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 				
 				$message.parent().slimScroll({height: "inherit"});
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

@@ -269,14 +269,12 @@ define (
 					campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
 					canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 					actionview: this.actionview? this.type: false,
+					trans: trans
 				};
 
 				
 				//Only add loading state when editing
 				if(this.type == "edit")	params.type = this.type;
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(params);
@@ -1398,7 +1396,7 @@ define (
 			summarizeschedule : function ()
 			{	
 				// Translations
-				this.translate_best_time_to_post = this.translateString("best_time_to_post");
+				this.translate_best_time_to_post = trans("Best time to post");
 
 				// Collect the data
 				var scheduled = this.parsescheduled();
@@ -1585,7 +1583,7 @@ define (
 				var error = this.draft.validateCustom();
 		 
 				if(error)
-		 			return this.showerror(this.translateString("not_posted") + ": ", error);
+		 			return this.showerror(trans("Not posted") + ": ", error);
 
 				//Disables footer action
 				this.disablefooter();
@@ -1638,7 +1636,7 @@ define (
 				error = this.draft.validateCustom([checkblock]);
 
 				if(error)
-		 			return this.showerror(this.translateString("not_posted") + ": ", error);
+		 			return this.showerror(trans("Not posted") + ": ", error);
 				
 				//Disables footer action
 				this.disablefooter();
@@ -1709,7 +1707,7 @@ define (
 			loadingalert : function()
 			{
 				setTimeout(function(){
-					this.showerror("", this.translateString("busy_network"));
+					this.showerror("", trans("The network is quite busy for the moment, please wait while we're sending your message."));
 				}.bind(this), 20000) //20 seconds
 
 			},

@@ -33,17 +33,14 @@ define(
 		    },
 
 			render : function ()
-			{
-				var data = {};
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(data);
+			{	
+				var data;
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
 
 				// View
-				this.$el.html (Mustache.render (Templates.coworkersfilters, data));
+				this.$el.html (Mustache.render (Templates.coworkersfilters));
 				
 				this.$container = this.$el.find("#users-list").eq(0);
 				
@@ -196,32 +193,6 @@ define(
 				this.list.render({users: view.model.id, records: 20});
 				/*
 				this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"co-workers",
-					"search_co-workers",
-					"suggestions",
-					"show_all",
-					"manage_users"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

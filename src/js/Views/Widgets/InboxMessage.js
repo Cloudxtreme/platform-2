@@ -39,9 +39,6 @@ define(
 				if(!this.options.notification)	params.tags = true;
 				else							params.notification = true;
 
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
-
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(params);
 				
@@ -242,32 +239,7 @@ define(
 				$.each(this.modelview, function(n, entry){ entry.remove()});
 				$.each(this.notifications, function(n, entry){ entry.remove()});
 				$.each(this.related, function(n, entry){ entry.remove()});
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"add",
-					"on",
-					"commented",
-					"an_error_occurred_while_sending_this_message"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			}	
+			}
 		});
 
 		return InboxMessage;

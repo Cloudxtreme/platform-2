@@ -23,9 +23,6 @@ define(
 				// Select networks
 				param.networks = this.model.streams.filterNetworks(param.streams, true);
 				param.note = this.listtype? true: false;
-				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(param);
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.inboxlist, param));

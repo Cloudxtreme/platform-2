@@ -32,9 +32,6 @@ define(
 
 				if(this.model.get("text"))	params.text = this.model.get("text");
 
-				//Mustache Translate Header
-				this.mustacheTranslateRender(params);
-
 				view = Mustache.render(Templates[this.template], params);
 				this.$el.html (view);
 
@@ -123,31 +120,6 @@ define(
 			clean : function()
 			{
 				this.$el.find('textarea').val('');
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"write_note",
-					"save",
-					"cancel",
-					"private_note"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 		});

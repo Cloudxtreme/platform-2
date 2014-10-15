@@ -10,7 +10,7 @@
 		<div>
 			<a class="viewdetails" data-action="viewcontact">{{#from}}{{displayname}}{{/from}}</a>
 			{{#streams}}
-				<br /><em>{{translate_on}} {{customname}}</em>
+				<br /><em>{{#trans}}on{{/trans}} {{customname}}</em>
 			{{/streams}}
 		</div>	
 
@@ -36,7 +36,7 @@
 
 	{{#failed}}
 		<div class="alert alert-danger failedalert" role="alert">
-			{{translate_an_error_occurred_while_sending_this_message}}
+			{{#trans}}An error occurred while sending this message:{{/trans}}
 			<div><b>Some reason</b></div>
 		</div>
 	{{/failed}}
@@ -62,7 +62,7 @@
 	
 		<ul>
 			<li>
-				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{translate_commented}} {{timeago}}
+				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{#trans}}commented{{/trans}} {{timeago}}
 			</li>
 		</ul>
 	</div>

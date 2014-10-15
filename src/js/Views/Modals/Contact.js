@@ -62,8 +62,6 @@ define(
 
 			render : function()
 			{	
-				//Mustache Translate Render
-
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.contactinfo);
 
@@ -228,9 +226,6 @@ define(
 					
 					// Apply role permissions to template data
 					Cloudwalkers.Session.censuretemplate(contactinfo);
-
-					//Mustache Translate Render
-					this.mustacheTranslateRender(contactinfo);
 
 					// View Tags
 					contactinfo.tags = true;
@@ -467,31 +462,6 @@ define(
 
 				}.bind(this),200)
 			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"latest_messages",
-					"latest_conversations",
-					"contact_notes",
-					"add_contact_note"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-		 	},
 			
 			hideloading : function ()
 			{

@@ -126,13 +126,13 @@ define (
 				data.options = [
 					{
 						'token' : 'confirm',
-						'label' : this.translateString('yes'),
+						'label' : trans("Yes"),
 						'description' : 'Confirm your action'
 					}
 				];
 
 				// Mustache Translate
-				data.translate_close = this.translateString('close')
+				data.translate_close = trans("Close")
 
 				var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -158,7 +158,7 @@ define (
 				data.message = message;
 
 				// Mustache Translate
-				data.translate_close = this.translateString('close')
+				data.translate_close = trans("Close")
 
 				var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -192,7 +192,7 @@ define (
 				data.options = options;
 
 				// Mustache Translate
-				data.translate_close = this.translateString('close')
+				data.translate_close = trans("Close")
 
 				var tmpl = Mustache.render (Templates.uidialog, data);
 

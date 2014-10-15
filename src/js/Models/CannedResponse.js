@@ -47,7 +47,7 @@ define(
 
 				Cloudwalkers.RootView.confirm 
 				(
-					this.translateString('are_you_sure_you_want_to_remove_this_template'), 
+					trans("Are you sure you want to remove this template?"), 
 					function () 
 					{
 		                self.destroy ({success:function(){

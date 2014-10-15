@@ -1,6 +1,6 @@
 <div class="portlet box blue messagelist" id="monitorlist">
 	<div class="portlet-title line">
-		<div class="caption"><i class="icon-time icon-large"></i>{{title}}</div>
+		<div class="caption"><i class="icon-time icon-large"></i>{{#trans}}Scheduled messages{{/trans}}</div>
 		<div class="tools">
 			<!-- <i class="icon-cloud-download"></i> -->
 		</div>
@@ -11,10 +11,10 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<td>{{translate_start_date}}</td>
-						<td>{{translate_networks}}</td>
-						<td>{{translate_message}}</td>
-						<td><small>{{translate_actions}}</small></td>
+						<td>{{#trans}}Start date{{/trans}}</td>
+						<td>{{#trans}}Networks{{/trans}}</td>
+						<td>{{#trans}}Message{{/trans}}</td>
+						<td><small>{{#trans}}Actions{{/trans}}</small></td>
 					</tr>
 				</thead>
 				<tbody class="messages-container"></tbody>

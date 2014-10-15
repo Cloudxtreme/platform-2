@@ -60,7 +60,7 @@
 		"select category...": "selecteer categorie...",
 		"keyword name": "keyword",
 		"message contains": "message contains",
-		"message doesn't contain": "message doesn't contain",
+		"message doesnt contain": "message doesn't contain",
 		"country is": "country is",
 		"language is": "language is",
 		"group": "group",
@@ -152,7 +152,7 @@
 		"friday": "vrijdag",
 		"saturday": "zaterdag",
 		"sunday": "zondag",
-		"doesn't matter": "maakt niet uit",
+		"doesnt matter": "maakt niet uit",
 		"times": "Keer",
 		"Until": "Tot",
 		"Preview": "Voorbeeld",
@@ -311,7 +311,7 @@
 		"Not saved": "Not saved",
 		"Your formula is a bit fuzzy": "Your formula is a bit fuzzy",
 		"Welcome": "Welcome",
-		"Let's get started.": "Laten we van start gaan.",
+		"Lets get started.": "Laten we van start gaan.",
 		"Update your profile": "Update uw profiel",
 		"Yes": "Yes",
 		"Close": "Close",
@@ -375,6 +375,7 @@
 		"Show me the previous year's statistics" :  "Show me the previous year's statistics",
 		"Show me the next year's statistics":  "Show me the next year's statistics",
 		"Show older reports" : "Show older reports",
-		"Last 7 days" : "Last 7 days"
+		"Last 7 days" : "Last 7 days",
+		"Statistics" : "Statistics"
 	}
 }

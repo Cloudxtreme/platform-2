@@ -44,7 +44,7 @@ define(
 				var data = {};
 				//Mustache translations
 				data.name = this.category.get("name");
-				data.translate_load_more = this.translateString("load_more");
+				data.translate_load_more = trans("load more");
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.monitorlist, data));		

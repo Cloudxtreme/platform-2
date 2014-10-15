@@ -33,23 +33,13 @@ define(
 
 		        //Reseting the parameters
 		        this.parameters = {records: 20};
-
-				// Watch outdated
-				//this.updateable(this.model, "h3.page-title");
-
-				// Translation for Title
-				this.translateTitle("co-workers_messages");
 			},
 
 			render : function (params)
 			{
 				this.loadmylisteners();
 				
-				var data = {};
-				
-				//Mustache Translate Render
-				data.title = this.title;
-				this.mustacheTranslateRender(data);
+				var data = {title: this.title};
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.coworkerslist, data));
@@ -190,36 +180,6 @@ define(
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			},
-
-			translateTitle : function(translatedata)
-			{	
-				// Translate Title
-				this.title = Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"load_more",
-					"co-workers",
-					"search_co-workers"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 		

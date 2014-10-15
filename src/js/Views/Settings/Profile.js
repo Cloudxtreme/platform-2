@@ -29,9 +29,6 @@ define(
 					user: { firstname: user.get('firstname'), name: user.get('name'), mobile: user.get('mobile'), avatar: user.get('avatar'), role: user.getRole ()},
 					langs: Cloudwalkers.langs
 				};
-				
-				// Mustache Translate Render
-				this.mustacheTranslateRender(data);
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
@@ -59,14 +56,14 @@ define(
 				
 				user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+					Cloudwalkers.RootView.growl(trans("User Profile"), trans("Your Profile Settings are updated"));
 					
 					// Hack
 					window.location.reload();
 
 				}.bind(this), 
 				error: function(){
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+					Cloudwalkers.RootView.growl(trans("User Profile"), trans("There was an error updating your settings."));
 					
 				}.bind(this)});
 			},
@@ -96,7 +93,7 @@ define(
 
 					// Check type
 					if (!f.type.match('image.*')) 
-						return Cloudwalkers.RootView.information (this.translateString("wrong_file"), this.translateString("you_need_a_valid_image"), this.$el.find(".settings-profile .portlet-body"));
+						return Cloudwalkers.RootView.information (trans("Wrong file"), trans("You need a valid image"), this.$el.find(".settings-profile .portlet-body"));
 
 					var reader = new FileReader();
 					
@@ -127,7 +124,7 @@ define(
 
 				if (!this.base64data){
 
-					Cloudwalkers.RootView.growl(this.translateString("no_image"), this.translateString("select_an_image_file_first"));
+					Cloudwalkers.RootView.growl(trans("No Image"), trans("Select an image file first"));
 
 					this.$el.find('.edit-user-avatar').removeClass('loading');
 				
@@ -135,7 +132,7 @@ define(
 					Cloudwalkers.Session.getUser().save ({avatar: this.base64data}, {patch: true, success: function ()
 					{
 					
-						Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_profile_picture"));
+						Cloudwalkers.RootView.growl(trans("User Profile"), trans("You have a new profile picture"));
 					
 						this.$el.find('.edit-user-avatar').removeClass('loading');
 
@@ -156,7 +153,7 @@ define(
 				
 				if (newpassword != this.$el.find ('[name=pass2]').val())
 				{
-					Cloudwalkers.RootView.growl('Oops', this.translateString("please_retype_your_new_password"));
+					Cloudwalkers.RootView.growl('Oops', trans("Please re-type your new password"));
 					return null;
 				}
 				
@@ -164,7 +161,7 @@ define(
 				
 				user.save ({oldpassword: oldpassword, newpassword: newpassword}, {patch: true, endpoint: 'password', success: function ()
 				{
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("you_have_a_new_password_now"));
+					Cloudwalkers.RootView.growl(trans("User Profile"), trans("You have a new password now"));
 					
 					this.$el.find('.edit-user-password').removeClass('loading');
 					this.$el.find ('[name=pass0]').val('');
@@ -176,7 +173,7 @@ define(
 				error: function(model, response, options)
 				{
 					var error = response.responseJSON.error.message;
-					Cloudwalkers.RootView.growl(this.translateString("user_profile"), error);
+					Cloudwalkers.RootView.growl(trans("User Profile"), error);
 
 					// Hack
 					window.location.reload(); //Cloudwalkers.Router.navigate("#settings/profile", true);
@@ -189,45 +186,6 @@ define(
 				
 				// Check collapse option
 				$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
-			},
-			
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"profile_type",
-					"profile_picture",
-					"select",
-					"upload",
-					"upload_profile_picture",
-					"change_password",
-					"current_password",
-					"new_password",
-					"retype_new_password",
-					"cancel",
-					"your_profile",
-					"first_name",
-					"last_name",
-					"mobile_phone",
-					"language",
-					"save_changes",
-					"cancel",
-					"no_image"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 
 		});

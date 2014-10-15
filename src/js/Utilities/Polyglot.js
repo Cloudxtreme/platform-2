@@ -39,7 +39,7 @@ define(
 			trans : function(string)
 			{	
 				if(!string)	return Cloudwalkers.Polyglot.translatetemplate();
-				else		this.translate(string);
+				else		Cloudwalkers.Polyglot.translate(string);
 			},
 			
 			/*

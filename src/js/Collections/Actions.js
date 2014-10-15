@@ -128,7 +128,7 @@ define(
 				// Show growl
 				else if (action.type == 'growl')
 				{
-					Cloudwalkers.RootView.growl (action.name, this.translateString("the") + " " + action.token + " " + this.translateString("is_planned_with_success"));
+					Cloudwalkers.RootView.growl (action.name, trans("The") + " " + action.token + " " + trans("is planed with success"));
 					
 					action.id = 1;
 					action.parent = this.parent;

@@ -35,9 +35,6 @@ define(
 				// Company streams
 				for (var n in this.streams)
 					params.streams.push({id: this.streams[n].id, icon: this.streams[n].network.icon, name: this.streams[n].name, network: this.streams[n].network}); 
-				
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
 
 				// View
 				this.$el.html (Mustache.render (Templates.scheduledfilters, params));
@@ -138,29 +135,6 @@ define(
 				// Update slimscroll plugin default styling
 				scroll.css('max-height', height);
 				scroll.css('height', 'inherit')
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-			
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"company_accounts",
-					"select_all"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

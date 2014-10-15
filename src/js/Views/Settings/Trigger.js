@@ -27,9 +27,6 @@ define(
 					description: this.description
 				}
 
-				//Mustache Translate Render
-				this.mustacheTranslateRender(params);
-
 				this.$el.html(Mustache.render(Templates.settings.trigger, params))
 				
 				return this;
@@ -61,14 +58,14 @@ define(
 					//streams: this.
 				}, {patch: this.model.id? true: false, 
 						success: function(){
-							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("your_profile_settings_are_updated"));
+							Cloudwalkers.RootView.growl(trans("User Profile"), trans("Your Profile Settings are updated"));
 
 							//remove loading and enable submit button
 							this.$el.removeClass('loading');
 							this.$el.find('[type=submit]').attr('disabled', false);
 						}.bind(this),
 						error: function(){
-							Cloudwalkers.RootView.growl(this.translateString("user_profile"), this.translateString("there_was_an_error_updating_your_settings"));
+							Cloudwalkers.RootView.growl(trans("User Profile"), trans("There was an error updating your settings."));
 
 							//remove loading & reset buttons
 							this.$el.removeClass('loading');
@@ -86,29 +83,6 @@ define(
 				$(e.currentTarget).closest('form').get(0).reset();
 
 				this.$el.find('[type=reset]').attr('disabled', true);
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"save_changes",
-					"reset"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

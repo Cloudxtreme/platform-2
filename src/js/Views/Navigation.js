@@ -109,7 +109,6 @@ define(
 			{	
 				var account = Cloudwalkers.Session.user? Cloudwalkers.Session.user.account: null;
 				var data 	= {
-					trans: Cloudwalkers.Polyglot.trans,
 					reports: []
 				};
 				
