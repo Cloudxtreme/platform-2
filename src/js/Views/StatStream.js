@@ -4,33 +4,13 @@ define(
 	{
 		var StatStream = Statistics.extend({
 			
-			/**
-			 *	Network specific charts
-			 */
-	
-			/* Deprecated logic
-			'networkspecific' : {
-				'typeA' : { 
-					'facebook' : {filterfunc: "age", chart: "PieChart", title: "By Age"},
-					'twitter' : {filterfunc: "follow", chart: "PieChart", title: "By Type"},
-					'linkedin' : {filterfunc: "follow", chart: "PieChart", title: "By Type"},
-					'youtube' : {filterfunc: "follow", chart: "PieChart", title: "By Type"}
-				},
-				'typeB' : { 
-					'facebook' : {filterfunc: "gender", chart: "PieChart", title: "By gender"},
-					'twitter' : {filterfunc: "nodata", chart: "PieChart", title: "No data"},
-					'youtube' : {filterfunc: "nodata", chart: "PieChart", title: "No data"},
-					'linkedin' : {filterfunc: "nodata", chart: "PieChart", title: "No data"},
-				},
-			},*/
-			
 			widgets : [
 
 				//* Network context widgets **
 				{widget: "StatSummary", data: {columnviews: ["contacts-network", "score-trending-network", "outgoing-network", "besttime"]}, span: 12},
 
-				{widget: "TitleSeparator", data: {title: "Contacts info"}},
-				{widget: "Chart", data: {filterfunc: "contact-evolution-network", chart: "LineChart", title: "Contacts Evolution"}, span : 6},
+				{widget: "TitleSeparator", data: {title: "Contacts Info"}},
+				{widget: "Chart", data: {filterfunc: "contact-evolution-network", chart: "LineChart", title: "Contacts evolution"}, span : 6},
 			
 				//Network specific charts
 				{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span : 3, networks: ['facebook']},

@@ -21,12 +21,10 @@ define(
 			
 			render : function()
 			{
-				// Translated Title
-				this.title = trans(this.options.type);
+				this.title = this.options.type == 'messages'? 'Messages': 'Notifications';
 
 				// Create pageview
-
-				this.$el.html (Mustache.render (Templates.pageview, {'title' : this.title}));
+				this.$el.html (Mustache.render (Templates.pageview, {title : this.title}));
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 				
 				// Dedect childtype

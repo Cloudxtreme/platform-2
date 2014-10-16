@@ -33,8 +33,6 @@ define (
 				'plusone':	"Plus one",
 				'default' : "Compose"
 			},
-			translated_titles : {
-			},
 
 			limitations : {
 
@@ -183,10 +181,6 @@ define (
 				}
 				
 				this.censurecompose();
-
-				// Translate Titles
-				this.translateTitles();	
-
 			},
 
 			loadmylisteners : function()
@@ -265,11 +259,10 @@ define (
 				// Collect data
 				var params ={
 					streams:	this.actionstreams.length? this.actionstreams: this.streams.models,			
-					title:		this.translated_titles[this.type],
+					title:		this.titles[this.type],
 					campaigns:	Cloudwalkers.Session.getAccount().get("campaigns"),
 					canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
-					actionview: this.actionview? this.type: false,
-					trans: trans
+					actionview: this.actionview? this.type: false
 				};
 
 				
@@ -1395,16 +1388,13 @@ define (
 			
 			summarizeschedule : function ()
 			{	
-				// Translations
-				this.translate_best_time_to_post = trans("Best time to post");
-
 				// Collect the data
 				var scheduled = this.parsescheduled();
 				var summary = this.$el.find("[data-collapsable=schedule] .summary").empty()
 				
 				if(scheduled && scheduled.date)
 				{
-					var time = scheduled.besttimetopost? this.translate_best_time_to_post: moment.unix(scheduled.date).format("HH:mm");
+					var time = scheduled.besttimetopost? trans("Best time to post"): moment.unix(scheduled.date).format("HH:mm");
 					summary.html("<span><i class='icon-time'></i> " + moment.unix(scheduled.date).format("dddd, D MMMM YYYY") + "<em class='negative'>" + time + "</em></span>");
 				}
 				
@@ -1419,9 +1409,6 @@ define (
 				var times;
 				var end;
 				var span;
-
-				//Mustache Translate Summarize Repeat
-				this.mustacheTranslateSummarizeRepeat(this);
 
 				// Collect the data
 				var scheduled = this.parsescheduled();
@@ -1450,7 +1437,7 @@ define (
 					end = start.clone().add('seconds', times * scheduled.repeat.interval);
 				}
 
-				if(times) summary.html("<span>" + times + " " + this.translate_times + " " + (end? "<em class='negative'>" + this.translate_until + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
+				if(times) summary.html("<span>" + times + " " + trans("times") + " " + (end? "<em class='negative'>" + trans("Until") + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");
 				else if(scheduled.repeat.interval)
 				{
 					var sum, intv;
@@ -1462,10 +1449,10 @@ define (
 						if(Math.round(sum) == sum) return true;
 					});	
 					
-					var weekdays = {1: this.translate_hours, 24: this.translate_days, 168: this.translate_weeks, 720: this.translate_months};
+					var weekdays = {1: trans("hours"), 24: trans("days"), 168: trans("weeks"), 720: trans("months")};
 					
 					
-					summary.html("<span>" + this.translate_endless_repeat_every + " " + sum + " " + weekdays[intv]);
+					summary.html("<span>" + trans("Endless repeat every") + " " + sum + " " + weekdays[intv]);
 				
 				}				
 				return this;
@@ -1784,99 +1771,7 @@ define (
 
 			triggerpaste : function(e) { this.editor.trigger('paste:content', e); },
 
-			triggerblur : function() { this.editor.trigger('blur:content'); },
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateTitles : function(translatedata)
-			{
-				
-				for (var k in this.titles)
-				{
-		            this.translated_titles[k] = this.translateString(this.titles[k]);
-				}
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"networks",
-					"default",
-					"subject",
-					"images",
-					"photo_booth",
-					"pictures",
-					"camera",
-					"campaign",
-					"no_campaign",
-					"schedule",
-					"now",
-					"in",
-					"mins",
-					"hour",
-					"hours",
-					"day",
-					"week",
-					"on",
-					"best_time",
-					"repeat",
-					"no_repeat",
-					"every",
-					"days",
-					"weeks",
-					"months",
-					"select_a_day",
-					"monday",
-					"tuesday",
-					"wednesday",
-					"thursday",
-					"friday",
-					"saturday",
-					"sunday",
-					"doesnt_matter",
-					"times",
-					"until",
-					"save",
-					"preview",
-					"post",
-					"save_this_as_a_response_template"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			},
-			
-			mustacheTranslateSummarizeRepeat : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"times",
-					"until",
-					"endless_repeat_every",
-					"hours",
-					"days",
-					"weeks",
-					"months"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			}
+			triggerblur : function() { this.editor.trigger('blur:content'); }
 		});
 
 

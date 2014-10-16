@@ -59,19 +59,10 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.parameters);
 
-				// Visualize
-				for (var n in this.parameters.actions)
-					this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
-
 				if(this.parameters.actions && !this.parameters.actions.length)
 					this.parameters.hasactions = false;
 				else
 					this.parameters.hasactions = true;
-
-				for (var m in this.parameters.statistics)
-					this.parameters.statistics[m].name_translated = this.translateString(this.parameters.statistics[m].name)
-				
-				this.mustacheTranslateRender(this.parameters);
 				
 				this.parameters.hasnotes = this.model.hasnotes();
 				
@@ -531,30 +522,7 @@ define(
 				//this.model.notifications.trigger("destroy");
 				
 				window.clearTimeout(this.tm);
-		    },
-
-		    translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"comments",
-					"notes"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = Cloudwalkers.Polyglot.translate(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
-			}
+		    }
 
 			/* Tags */
 			/*

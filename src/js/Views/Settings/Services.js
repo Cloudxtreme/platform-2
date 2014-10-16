@@ -37,12 +37,9 @@ define(
 				var account = Cloudwalkers.Session.getAccount();
 				var data = {};
 				
-				//Mustache translations
-				data.translate_active_social_connections = trans("Active social connections");
-				
 				this.$el.html (Mustache.render (Templates.services, data));
 				
-				/*// Get Service options
+				/*// Get Service options MIGRATION
 				Cloudwalkers.Net.get ('wizard/service/available', {'account': account.id}, this.appendOptions.bind(this));
 				
 				// Get connected Services
@@ -69,10 +66,8 @@ define(
 				var $container = this.$el.find(".networks-list");
 				
 				for (var n in available)
-				{
-					available[n].translate_add = trans("Add");
 					$container.append(Mustache.render (Templates.service_option, available[n]));
-				}
+
 			},
 			
 			appendService : function(service) {
@@ -249,12 +244,6 @@ define(
 			
 			negotiateFunctionalities : function(el) {
 
-			},
-			
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

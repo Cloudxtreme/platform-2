@@ -9,6 +9,8 @@ require.config({
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
 		'bootstrap': 'lib/bootstrap/docs/assets/js/bootstrap.min',
+		'bootstrap-modal': 'lib/bootstrap-modal/js/bootstrap-modal',
+		'bootstrap-modalmanager': 'lib/bootstrap-modal/js/bootstrap-modalmanager',
 		'mustache': 'lib/mustache/mustache',
 		'moment': 'lib/moment/moment',
 		'datepicker': 'lib/bootstrap-datepicker/js/bootstrap-datepicker',
@@ -36,8 +38,16 @@ require.config({
 			deps: ['jquery'],
 			exports: 'jqueryui'
 		},
+		'bootstrap-modal': {
+			deps: ['jquery', 'bootstrap', 'bootstrap-modalmanager'],
+			exports: 'bootstrap-modal'
+		},
+		'bootstrap-modalmanager': {
+			deps: ['jquery'],
+			exports: 'bootstrap-modalmanager'
+		},
 		'backbone': {
-			deps: ['underscore', 'jquery', 'mustache', 'jqueryui'],
+			deps: ['underscore', 'jquery', 'mustache', 'jqueryui', 'bootstrap-modal'],
 			exports: 'backbone'
 		},
 		'crossdomain': {

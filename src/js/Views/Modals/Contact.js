@@ -110,9 +110,9 @@ define(
 					message.attributes.arrow = 'arrow';
 					message.parent = this.model;
 
-					var func = this.functioncall(this.type == 'note'? 'NoteEntryView': 'EntryView');
-
-					view = new func({
+					var entrywidget = this.type == 'note'? NoteEntryView: EntryView;
+					
+					view = new entrywidget({
 						model: message,
 						template: template, 
 						checkunread: true, 
@@ -488,16 +488,6 @@ define(
 				else									this.touch(this.type, parameters);
 				
 				if(!this.hasmore) this.$el.find(".load-more").hide();
-			},
-
-			functioncall : function(functionname, args)
-			{	
-				var func = window[functionname];
-				 
-				// is it a function?
-				if (typeof func === "function")
-
-					return func.apply(null, args);
 			}
 		});
 

@@ -4,7 +4,7 @@ define(
 	{
 		var KeywordMonitoring = Pageview.extend({
 
-			title : 'Keyword Monitoring',
+			title : 'Keyword monitoring',
 			className : "container-fluid monitoring",
 
 			options : {},

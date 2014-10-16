@@ -29,9 +29,6 @@ define(
 				
 				// Select networks
 				param.networks = streams.filterNetworks(param.streams, true);
-
-				//Mustache Translate Render
-				this.mustacheTranslateRender(param);
 				
 				// Get template
 				this.$el.html (Mustache.render (Templates.inboxlist, param));

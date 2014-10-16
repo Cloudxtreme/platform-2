@@ -37,9 +37,13 @@ define(
 			 * Function to map which translation to use (regular or template)
 			 */
 			trans : function(string)
-			{
-				if(!string)	return Cloudwalkers.Polyglot.translatetemplate();
-				else		Cloudwalkers.Polyglot.translate(string);
+			{	
+				if(string === "" || string ==='')
+					return string;
+
+				// Scoping issue hack -> fix this
+				else if(!string)	return Cloudwalkers.Polyglot.translatetemplate();
+				else				return Cloudwalkers.Polyglot.translate(string);
 			},
 			
 			/*
@@ -58,7 +62,8 @@ define(
 			translatetemplate : function()
 			{
 				return function(string, render) {
-					return render(this.translate(string));
+					// Scoping issue hack -> fix this
+					return Cloudwalkers.Polyglot.translate(render(string));
 				}.bind(this);
 			}
 		}

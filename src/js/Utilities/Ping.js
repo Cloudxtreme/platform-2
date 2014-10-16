@@ -155,12 +155,6 @@ define(
 				// Schedule new Ping, with max allowed interval.
 				this.interval = this.max;
 				this.schedule();
-			},
-
-			'translateString' : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

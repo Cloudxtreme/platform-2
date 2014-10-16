@@ -41,10 +41,7 @@ define(
 
 			render : function ()
 			{
-				var data = {};
-				//Mustache translations
-				data.name = this.category.get("name");
-				data.translate_load_more = trans("load more");
+				var data = { name:  this.category.get("name") };
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.monitorlist, data));		
@@ -182,12 +179,6 @@ define(
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			},
-			
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 		});
 

@@ -1,4 +1,4 @@
-  {
+{
   "name": "cloudwalkers platform",
   "version": "1.1.0",
   "authors": [
@@ -26,9 +26,11 @@
     "slimscroll": "*",
     "jquery-ui": "*",
     "polyglot": "*",
-    "requirejs-plugins": "*"
+    "requirejs-plugins": "*",
+    "bootstrap-modal": "*"
   },
   "resolutions": {
-    "bootstrap": ">=2.0.4 <3.0"
+    "bootstrap": ">=2.0.4 <3.0",
+    "jquery": ">=1.8.0 <2.1.0"
   }
 }

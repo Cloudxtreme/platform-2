@@ -408,55 +408,7 @@ define(
 			getComments : function ()
 			{
 				return this.user.account.comments;
-			},
-
-			/*
-			 * Responsible for translating data.
-			 */
-			/*translate : function(translatedata)
-			{
-				if(this.polyglot)	return this.polyglot.t(translatedata);
-				else				return translatedata;	
-			},
-
-			/*
-			 * Responsible for translating template/mustache data.
-			 */
-			/*translatetemplate : function()
-			{
-				return function(string, render) {
-				    return render(this.translate(string));
-				}.bind(this);
-			},
-
-			/* setLang - get default language 
-			setLang : function(callback)
-			{
-				var lang = this.user.attributes.locale;
-				var extendLang;
-
-				if(lang){
-					this.language = lang;
-					this.trigger("setlang:done");
-				}
-					
-				/*
-				moment.locale(lang);
-				
-				extendLang = new PolyglotUtil();
-				extendLang.fetch({
-					success: function (){
-						this.translationLang = extendLang.get("translation");
-						this.polyglot = new Polyglot({phrases: this.translationLang});
-						this.trigger("setlang:done");
-					}.bind(this),
-
-					error: function (){ this.trigger("setlang:done"); }.bind(this)
-				});
-
-				// Trigger independantly of success or fail of translations
-			}*/
-
+			}
 			
 			/* DEPRECATED
 			refresh : function ()

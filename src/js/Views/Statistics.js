@@ -44,36 +44,34 @@ define(
 			widgets : [
 				{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
-				{widget: "TitleSeparator", data: {translation:{ 'title': 'contacts_info'}}},
-				{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", translation:{ 'title': 'contacts'}, display: "divided"}, span: 6},
+				{widget: "TitleSeparator", data: {title: 'Contacts Info'}},
+				{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: 'Contacts', display: "divided"}, span: 6},
 				{widget: "CompoundChart", span: 6, data :
 				{	template: "2col1row", chartdata: [ 
-						{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", translation:{ 'title': 'by_age'}}},
-						{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", translation:{ 'title': 'by_gender'}}},
-						{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", translation:{ 'title': 'contacts_evolution'}}}
+						{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: 'By Age'}},
+						{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: 'By Gender'}},
+						{widget: "Chart", data: {filterfunc: "contact-evolution", chart: "LineChart", title: 'Contacts evolution'}}
 					]
 				}},
-				//{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: "By Age"}, span: 3},
-				//{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By Gender"}, span: 3},
 				
-				{widget: "TitleSeparator", data: {translation:{ 'title': 'new_this'}}},
-				{widget: "Info", data: {translation:{ 'title': 'contact_evolution'}, filterfunc: "contact-evolution"}, span: 3},
-				{widget: "Info", data: {translation:{ 'title': 'post_activity'}, filterfunc: "post-activity"}, span: 3},
+				{widget: "TitleSeparator", data: {title: 'New this'}},
+				{widget: "Info", data: {title: 'Contact Evolution', filterfunc: "contact-evolution"}, span: 3},
+				{widget: "Info", data: {title: 'Post Activity', filterfunc: "post-activity"}, span: 3},
 				{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
 				{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
 
-				{widget: "TitleSeparator", data: {translation:{ 'title': 'messages_info'}}},
-				{widget: "TrendingMessage", data: {translation:{ 'title': 'top_rated_comment'}}, span: 12},
-				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", translation:{ 'title': 'best_time_to_post'}}, span: 4},
-				{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", translation:{ 'title': 'messages_evolution'}}, span: 4},
-				{widget: "HeatCalendar", data: {filterfunc: "activity", translation:{ 'title': 'activity_calendar'}}, span: 4},
+				{widget: "TitleSeparator", data: {title: 'Messages info'}},
+				{widget: "TrendingMessage", data: {title: 'Top rated comment'}, span: 12},
+				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: 'Best time to post'}, span: 4},
+				{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: 'Messages evolution'}, span: 4},
+				{widget: "HeatCalendar", data: {filterfunc: "activity", title: 'Activity calendar'}, span: 4},
 
-				{widget: "TitleSeparator", data: {translation:{ 'title': 'geo_graphics'}}},
-				{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", translation:{ 'title': 'countries'}, connect : true}, span: 8},
+				{widget: "TitleSeparator", data: {title: 'Geo Graphics'}},
+				{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: 'Countries'}, span: 8},
 				{widget: "CompoundChart", span: 4, data :
 				{	template: "2row", chartdata: [ 
-						{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", translation:{ 'title': 'countries'}}, connect: 'regional'},
-						{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", translation:{ 'title': 'cities'}}}
+						{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: 'Countries'}},
+						{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: 'Cities'}}
 					]
 				}}
 			],
@@ -90,16 +88,6 @@ define(
 				this.listenTo(this.collection, 'sync:data', this.hideloading);
 				this.listenTo(this.collection, 'sync:noresults', this.showempty);
 				
-				// General i18n
-				translate =
-				{
-					new_this: trans("New this"),
-					new_this_m: trans("Novo this"),
-					top_rated_comment: trans("Top rated comment"),
-					messages_evolution: trans("Messages evolution"),
-					activity_calendar: trans("Activity calendar")
-				}
-
 				this.streamid = parseInt(this.streamid)
 			},
 			
@@ -179,10 +167,6 @@ define(
 				// Iterate widgets
 				this.widgets.forEach (function (widget)
 				{
-					// Translate
-					if (widget.data.translation || widget.data.chartdata)
-						this.translatechart (widget);
-
 					// Stream based data	
 					if (this.streamid && this.streamdata(widget))
 						widget.data = this.streamdata(widget);
@@ -205,18 +189,6 @@ define(
 				}.bind(this));
 
 			},
-
-			/**
-			 *	Translate chart
-			 */
-			translatechart : function (widget)
-			{
-				if (widget.data.translation) this.translateWidgets (widget.data);
-				
-				else if(widget.data.chartdata)
-					
-					for (var n in widget.data.chartdata) this.translateWidgets (widget.data.chartdata[n].data);
-			},
 			
 			timemanager : function ()
 			{
@@ -228,7 +200,7 @@ define(
 				
 				if(this.timespan == 'default')
 				{
-					params.periodstring = 'last 7 days';
+					params.periodstring = 'Last 7 days';
 					params.span = "";
 				}
 				else
@@ -244,9 +216,9 @@ define(
 				// BIG NO-NO
 				// Language Hack (invert word order)
 				if(Cloudwalkers.Session.user.attributes.locale == "pt_PT"){
-					params.fullperiod = this.translateString(params.span) + " " + this.translateString(params.periodstring);
+					params.fullperiod = trans(params.span) + " " + trans(params.periodstring);
 				} else {
-					params.fullperiod = this.translateString(params.periodstring) + " " + this.translateString(params.span);
+					params.fullperiod = trans(params.periodstring) + " " + trans(params.span);
 				}
 				
 				return params;
@@ -401,46 +373,6 @@ define(
 			updatenetwork : function(e)
 			{
 				var report = e.currentTarget.dataset.report;
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
-
-			translateWidgets : function(translatedata)
-			{	
-				// Translate Widgets
-				if(translatedata.translation)
-					for (var k in translatedata.translation)
-					{
-						translatedata[k] = Cloudwalkers.Polyglot.translate(translatedata.translation[k]);
-					}
-			},
-
-			mustacheTranslateRender : function(translatelocation)
-			{
-				// Translate array
-				this.original  = [
-					"week",
-					"month",
-					"quarter",
-					"year",
-					"custom",
-					"time_spans",
-					"all_networks",
-					"now",
-					"show"
-				];
-
-				this.translated = [];
-
-				for (var k in this.original)
-				{
-					this.translated[k] = this.translateString(this.original[k]);
-					translatelocation["translate_" + this.original[k]] = this.translated[k];
-				}
 			}
 		});
 

@@ -60,10 +60,6 @@ define(
 				
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.parameters);
-
-				// Visualize
-				for (var n in this.parameters.actions)
-					this.parameters.actions[n].name_translated = this.translateString(this.parameters.actions[n].name)
 				
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters));
 				

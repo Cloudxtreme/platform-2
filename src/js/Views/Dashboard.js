@@ -100,10 +100,6 @@ define(
 						case 'trending':
 							widget = this.addDashboardTrending (widgets[n]);
 							break;
-							
-						case 'report':
-							widget = new ReportWidget(widgets[n]);
-							break;
 					}
 
 					if(widget)

@@ -131,9 +131,6 @@ define (
 					}
 				];
 
-				// Mustache Translate
-				data.translate_close = trans("Close")
-
 				var tmpl = Mustache.render (Templates.uiconfirm, data);
 
 				var element = $(tmpl);
@@ -156,9 +153,6 @@ define (
 				var data = {};
 
 				data.message = message;
-
-				// Mustache Translate
-				data.translate_close = trans("Close")
 
 				var tmpl = Mustache.render (Templates.uiconfirm, data);
 
@@ -191,9 +185,6 @@ define (
 				data.message = message;
 				data.options = options;
 
-				// Mustache Translate
-				data.translate_close = trans("Close")
-
 				var tmpl = Mustache.render (Templates.uidialog, data);
 
 				var element = $(tmpl);
@@ -217,7 +208,7 @@ define (
 			imagePopups : function ()
 			{
 				$('a.image-popup-viewer').colorbox ();
-			},
+			}
 
 			/*resync : function(view)
 			{	
@@ -231,13 +222,6 @@ define (
 
 				}.bind(this));		
 			},*/
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			}
-
 		});
 		
 		return Root;

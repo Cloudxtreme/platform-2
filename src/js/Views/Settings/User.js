@@ -21,12 +21,6 @@ define(
 				this.parameters = {};
 				
 				this.listenTo(this.model, 'change:clearance', this.render);
-
-				// Translate String
-				translate_you_are_about_to_remove = trans("You are about to remove ");
-				translate_sure = trans(". Are you sure?");
-				translate_manage_users = trans("Manage users");
-				translate_thats_an_ex_user = trans("That's an ex-user.");
 			},
 
 			render : function ()
@@ -55,19 +49,13 @@ define(
 				var $tr = $(e.currentTarget).parents('tr');
 				var user = Cloudwalkers.Session.getUser($tr.data('delete-user-id'));
 				
-				Cloudwalkers.RootView.confirm (translate_you_are_about_to_remove + this.model.get('firstname') + translate_sure, function(){
+				Cloudwalkers.RootView.confirm (trans("You are about to remove ") + this.model.get('firstname') + trans(". Are you sure?"), function(){
 					
 					this.model.destroy({success: function(){
 						$tr.remove();
-						Cloudwalkers.RootView.growl(translate_manage_users, translate_thats_an_ex_user);
+						Cloudwalkers.RootView.growl(trans("Manage users"), trans("That's an ex-user."));
 					}});
 				}.bind(this));
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
 			
 		});

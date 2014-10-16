@@ -58,14 +58,6 @@ define(
 				
 				data.name = this.category.get("name");
 				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);
-				
-				//Mustache translations
-				data.translate_filters = trans("Filters");
-				data.translate_select_all = trans("select all");
-				data.translate_building_your_data = trans("Building your data");
-				data.translate_this_will_take_a_minute_or_so = trans("This will take a minute or so.");
-				data.translate_keywords = trans("Keywords");
-				data.translate_manage_keywords = trans("Manage Keywords");
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(data);
@@ -217,14 +209,7 @@ define(
 				//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 				
 				return this;*/
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
 			}
-
 		});
 
 		return MonitorFilters;

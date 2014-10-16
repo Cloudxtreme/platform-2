@@ -374,13 +374,7 @@ define(
 			negotiateFunctionalities : function()
 			{
 				
-			},
-
-			translateString : function(translatedata)
-			{	
-				// Translate String
-				return Cloudwalkers.Polyglot.translate(translatedata);
-			},
+			}
 		});
 
 		return Info;
