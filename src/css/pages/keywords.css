@@ -184,3 +184,26 @@
 #keywordsfilter label, #keywordsfilter [data-keyword]{
 	cursor: default !important;
 }
+
+/* Actions */
+/*.message-notes ul.action-list li .note-header .message-actions,
+	clear: right;
+}
+
+#keywordfilter-actions.message-actions .actions-right{
+	margin-left: 0px;
+}
+
+#keywordfilter-actions.message-actions{
+	position: absolute; bottom: 8px; right: 8px; background: #fff; padding: 0px !important;
+}
+
+#keywordfilter-actions.message-actions .actions-left,
+#keywordfilter-actions.message-actions .actions-right [data-action=delete]{
+	display: none;
+}
+
+#keywordfilter-actions.message-actions .actions-right > div{
+	display: block;
+}*/
+

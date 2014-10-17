@@ -4,8 +4,6 @@ define(
 	{
 		var Actions = Backbone.View.extend({
 
-			className : 'message-actions-wrapper',
-
 			actionsright : [],
 			actionsleft : [],
 			compounds : [],

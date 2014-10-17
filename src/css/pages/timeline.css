@@ -66,10 +66,14 @@ ul.timeline > li:nth-child(2)	{ padding-top: 25px; }
 
 .timeline .active.open .sub-menu a i	{ color: #ddd; }
 
-.timeline .message-actions{
-	margin-top: 20px;
-}
 
+.timeline .message-actions{
+	padding: 0px;
+	height: 30px;
+	position: relative;
+	top: 5px;
+}
+/*
 .timeline .timeline-body .message-actions{
 	position: relative;
 	z-index: 10;
@@ -86,7 +90,7 @@ ul.timeline > li:nth-child(2)	{ padding-top: 25px; }
 .timeline .message-actions [data-action="note-content"]{
 	display: none;
 }
-
+*/
 .timeline .actions.dropdown	{
 	margin: 15px 0px; cursor: pointer;
 	overflow: visible;
@@ -208,13 +212,13 @@ ul.timeline-comments	{
 .timeline-comments .comment-info {
 	color: #aac1cd; font-size: 12px;
 }
-
+/*
 .timeline-comments .message-actions	{ clear: both; padding: 5px 18px; }
 
 .timeline-comments .message-actions div	{
 	position: relative; top: -5px; display: inline;
 }
-
+*/
 /*.comments ul	{ margin:0; padding:0; list-style: none; }
 .comments li	{ margin-top: 12px; padding: 10px 12px 0; clear: both; min-height: 30px; border-top: 1px solid rgba(255,255,255,.24); }
 
@@ -252,11 +256,11 @@ Timeline UI Base
 	padding: 20px 0px;
 	/*margin-bottom: 1px;*/
 }
-
+/*
 .timeline-entry .message-actions .btn-white{
 	padding: 4px 8px;
 }
-
+*/
 .timeline > li {
 	position: relative;
 }
@@ -363,7 +367,7 @@ Timeline UI Base
 	background: #fff;
 	border-radius: 0px;
 	box-shadow: inset #ddd -5px 0px 0 0;
-	padding: 15px 20px;
+	padding: 15px;
 	/*border-bottom: 2px solid #e1e8ed;
 	border-right: 2px solid #e1e8ed;*/
 	color: #222;

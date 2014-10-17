@@ -155,9 +155,6 @@ width: 100%; padding: 4px 0; margin-top: 5px; background: #eee;
 
 .btn.blue.limited[disabled]	{ background: #ddd !important; }
 
-
-
-
 .notification-action	{
 	padding: 1px 3px; margin: 0 2px; border-radius: 2px !important; background: white;
 	color: #333; font-size: 12px;
@@ -643,22 +640,8 @@ tbody.messages-container i	{
 	cursor: pointer;
 }
 
-.message-notes ul.action-list li .note-header .message-actions,
 .message-notes ul.action-list li .note-header .comment-info{
 	clear: right;
-}
-
-#keywordfilter-actions.message-actions .actions-right{
-	margin-left: 0px;
-}
-
-#keywordfilter-actions.message-actions{
-	position: absolute; bottom: 8px; right: 8px; background: #fff; padding: 0px !important;
-}
-
-#keywordfilter-actions.message-actions .actions-left,
-#keywordfilter-actions.message-actions .actions-right [data-action=delete]{
-	display: none;
 }
 
 .message-notes ul.action-list li .note-header:after{
@@ -698,6 +681,14 @@ tbody.messages-container i	{
 	padding: 8px !important;
 }
 
+.message-actions{
+	clear: both;
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
 .actions-left{
 	float: left;
     min-width: 50px;
@@ -707,27 +698,12 @@ tbody.messages-container i	{
 	display: inline-block;
 }
 
-#keywordfilter-actions.message-actions .actions-right > div{
-	display: block;
+.actions-left > div,
+.actions-right > div{
+	float: left;
+	margin-left: 4px;
 }
 
-.inbox-container .message-actions .actions-left div,
-.timeline-entry .message-actions .actions-left div {
-	top: 0px !important;
-	vertical-align: top;
-	display: inline-block;
-}
-
-.inbox-container .message-actions .actions-left .btn-white,
-.inbox-container .message-actions .actions-right .btn-white,
-.timeline-entry .message-actions .actions-left .btn-white,
-.timeline-entry .message-actions .actions-right .btn-white{
-	margin-left: 3px;
-}
-
-#compose .inbox-container .message-actions .actions-left div{
-	top: 0px !important;
-}
 .related-messages .btn-white{
 	padding-left: 9px;
 	padding-right: 8px;
@@ -741,27 +717,21 @@ aside .tag-input-append{
 	margin-top: 0;
 	margin-bottom: 5px;
 }
-.inbox-container .message-actions .actions-left [data-action='note-compound'], .inbox-container .message-actions .actions-left [data-action='note-list']{
+
+/* Unwanted actions Hack */
+.inbox-container .message-actions .actions-left [data-action='note-compound'], 
+.inbox-container .message-actions .actions-left [data-action='note-list'],
+.inbox-container .message-actions .message-tags .action-right,
+.inbox-container .message-actions div[data-action="edit"]{
 	display: none;
 }
-.inbox-container .message-actions .message-tags .action-right{
-	display: none;
-}
-.inbox-container .message-actions .message-tags [data-action='note-compound'], .inbox-container .message-actions .message-tags [data-action='note-list']{
+
+.inbox-container .message-actions .message-tags [data-action='note-compound'], 
+.inbox-container .message-actions .message-tags [data-action='note-list']{
 	display: inline-block !important;
 }
 
-/* Google Plus Edit action fix */
-.inbox-container .message-actions div[data-action="edit"]{
-	display: none !important;
-}
-
-.message-notes ul li .message-actions{
-	/*padding: 4px 0px;*/
-	height: 10px;
-}
-
-.message-actions .notification-action{
+.inline-actions .notification-action{
 	z-index: 99;
 	padding: 5px;
 	float: left;
@@ -771,30 +741,14 @@ aside .tag-input-append{
 	top:0px !important;
 }
 
-.action-list .message-actions,
-.message-comments .message-actions{
-	padding-right: 0px !important;
-	padding-top: 4px !important;
-}
-
-.note-list .message-actions,
-.comment-list .message-actions{
-	padding-top: 0px !important;
-}
-
-.note-list .message-actions i.icon-cloud-download,
-.comment-list .message-actions i.icon-cloud-download{
-	color: #fff;
-}
-
-.message-actions .notification-action i{
+.inline-actions .notification-action i{
 	opacity: .5;
 	font-size: 14px;
 	float: right;
 	padding-right: 0px;
 }
 
-.message-actions .notification-action:hover{
+.inline-actions .notification-action:hover{
 	background-color: rgba(255,255,255,1);
 }
 
@@ -1920,6 +1874,7 @@ counter	{
 	-webkit-font-smoothing: antialiased;
 }
 
+/*
 .inbox-container .message-actions,
 #monitorparent .message-actions	{ clear: both; padding: 5px 18px; min-height: 28px;}
 
@@ -1927,14 +1882,7 @@ counter	{
 #monitorparent .message-actions.pull-right > div		{
 	position: relative; top: -5px; display: inline;
 }
-
-.inbox-container .message-actions .message-actions-wrapper{
-	width: 100%;
-}
-
-ul.note-list .note-header .message-actions > div{
-	top: 0px;
-}
+*/
 
 .inbox-container .message-comments{
 	padding: 10px; border-top: 1px solid #ddd;

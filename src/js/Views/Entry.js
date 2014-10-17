@@ -1,8 +1,8 @@
 define(
 	['backbone', 'mustache', 'Collections/Notifications', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
-	 'Views/Modals/SimpleCompose'],
+	 'Views/Modals/SimpleCompose', 'Views/Widgets/NoteEntry'],
 
-	function (Backbone, Mustache, Notifications, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
+	function (Backbone, Mustache, Notifications, ActionParametersView, ActionsView, NotificationView, SimpleComposeView, NoteEntryWidget)
 	{		
 		var Entry = Backbone.View.extend({
 	

@@ -305,12 +305,6 @@
 	content: "\F16A"; -webkit-font-smoothing: antialiased;
 }
 
-#inbox main .message-actions	{ clear: both; padding: 5px 18px; }
-
-#inbox main .message-actions div	{
-	position: relative; top: -5px; display: inline;
-}
-
 #inbox main .message-comments	{
 	padding: 10px; border-top: 1px solid #ddd;
 }
@@ -457,11 +451,6 @@
 
 .message-notes .note-list .note-body{
 	padding: 12px 0px 0px; min-height: 20px;
-}
-
-#inboxlist .messagelist .note .message-actions{
-	padding: 5px 18px;
-	min-height: 31px;
 }
 
 .inbox-container .single-contact{
