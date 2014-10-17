@@ -194,7 +194,9 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 	'toggleAction': function (token)
 	{
 		var action = this.templates[token];
-		this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+
+		if(action.toggle)
+			this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 	},
 
 	'translateString' : function(translatedata)
