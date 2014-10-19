@@ -1,6 +1,6 @@
 define(
-	['Views/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Entry', 'Models/Contact'],
-	function (Pageview, Mustache, RootView, Contacts, EntryView, Contact)
+	['Views/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Widgets/MessageEntry', 'Models/Contact'],
+	function (Pageview, Mustache, RootView, Contacts, MessageEntryView, Contact)
 	{
 		var Timeline = Pageview.extend({
 	
@@ -285,7 +285,7 @@ define(
 				{	
 					//Company / third party
 					models[n].attributes.showcontact = this.showcontact;
-					var view = new EntryView ({model: models[n], template: 'newmessagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
+					var view = new MessageEntryView ({model: models[n], template: 'newmessagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 					
 					this.entries.push (view);
 					

@@ -61,15 +61,6 @@ define(
 				if(_.isArray(this.action) && this.action[0].type == 'note')		this.position = 'right';
 				else if(this.action.type == 'note')								this.position = 'right';
 				else if(this.action.token == 'delete')							this.position = 'right';
-			},
-
-			increment : function()
-			{	//Testing, this is just wrong!! <- Deprecated
-				var value = this.$el.find('.actionvalue span').html();
-				if (value)
-					this.$el.find('.actionvalue span').html(Number(value)+1);
-				else
-					this.$el.find('.actionvalue span').html(Number(1));
 			}
 
 		});

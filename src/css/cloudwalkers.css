@@ -739,6 +739,7 @@ aside .tag-input-append{
 	background-color:#fff;
 	background-color: rgba(255,255,255,0.5);
 	top:0px !important;
+	position: relative;
 }
 
 .inline-actions .notification-action i{

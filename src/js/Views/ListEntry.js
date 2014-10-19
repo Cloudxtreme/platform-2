@@ -1,12 +1,13 @@
 define(
-	['backbone', 'mustache'],
+	['backbone', 'mustache', 'Collections/Notifications', 'Views/ActionParameters', 'Views/Actions', 'Models/Notification', 
+	 'Views/Modals/SimpleCompose'],
 
-	function (Backbone, Mustache)
+	function (Backbone, Mustache, Notifications, ActionParametersView, ActionsView, NotificationView, SimpleComposeView)
 	{		
 		var Entry = Backbone.View.extend({
 	
 			tagName : 'li',
-			template: 'messageentry',
+			//template: 'messageentry',
 			//notifications : [],
 			//parameters : {},
 			tokenmap : {
@@ -50,20 +51,20 @@ define(
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);
 				
-				//if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
+				if(this.type == "full" && this.model.get("objectType")) this.parameters.actions = this.model.filterActions();
 				
-				//if(this.template == 'newmessagetimeline')
-				//	this.formatactions(this.parameters);
+				if(this.template == 'newmessagetimeline')
+					this.formatactions(this.parameters);
 				
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.parameters);
 
-				//if(this.parameters.actions && !this.parameters.actions.length)
-				//	this.parameters.hasactions = false;
-				//else
-				//	this.parameters.hasactions = true;
+				if(this.parameters.actions && !this.parameters.actions.length)
+					this.parameters.hasactions = false;
+				else
+					this.parameters.hasactions = true;
 				
-				//this.parameters.hasnotes = this.model.hasnotes();
+				this.parameters.hasnotes = this.model.hasnotes();
 				
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 				
@@ -71,7 +72,7 @@ define(
 				
 				if(this.checkunread && this.model.get("objectType")) this.checkUnread();
 
-				/*if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+				if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
 
 					//Load default note
 					this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
@@ -82,7 +83,7 @@ define(
 
 				if(this.parameters.hasactions)
 					this.renderactions();
-				*/
+
 				if(this.model.get("status") && this.model.get("status") == 'FAILED'){
 					this.$el.addClass('failed');
 					this.model.attributes.failed = 'failed';
@@ -94,7 +95,7 @@ define(
 				return this;
 			},
 					
-			/*renderactions : function()
+			renderactions : function()
 			{	
 				this.actions = new ActionsView({message: this.model});
 				
@@ -110,7 +111,7 @@ define(
 				if(notescount)
 					this.$el.find('.interaction > .notescount').html(notescount);
 
-			},*/
+			},
 			
 			action : function (element)
 			{
@@ -154,7 +155,7 @@ define(
 					this.model.trigger("action", action);
 			},
 
-			/*formatactions : function(model)
+			formatactions : function(model)
 			{
 				var actions = model.actions;
 				var stats = model.statistics;
@@ -365,7 +366,7 @@ define(
 				
 				// Remove old Action
 				current.before(clone).remove();
-			},*/
+			},
 			
 			toggle : function() { this.trigger("toggle", this); },
 			
@@ -374,7 +375,7 @@ define(
 				if(!this.model.get("read")) this.$el.addClass("unread");
 				else						this.$el.removeClass("unread");
 			},
-			/*
+			
 			loadNotifications : function()
 			{
 				
@@ -384,11 +385,11 @@ define(
 					return this.$el.find(".timeline-comments li").remove();
 				
 				
-				// Does collection exist?
-				//if(!this.model.notifications)
-				//	this.model.notifications = new Notifications();
+				/*// Does collection exist?
+				if(!this.model.notifications)
+					this.model.notifications = new Notifications();
 				
-				//console.log(this.model.notifications)
+				console.log(this.model.notifications)*/
 				
 				// Load notifications
 				this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
@@ -496,7 +497,7 @@ define(
 			},
 
 			
-			*/
+			
 			time : function ()
 			{	// Upgrade this to moment()
 				var now = new Date();

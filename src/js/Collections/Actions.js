@@ -90,7 +90,7 @@ define(
 					
 					renderedtokens.push(action);
 				}
-				
+
 				return renderedtokens;
 			},
 

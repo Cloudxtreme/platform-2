@@ -117,17 +117,6 @@ define(
 				for (var n in actions){
 					container.append(actions[n].render().el);
 				}
-			},
-
-			incrementaction : function(token)
-			{	
-				var action = this.actionsright.filter(function(act){ return act.action.token == token});
-
-				if (!action)
-					action = this.actionsleft.filter(function(act){ return act.action.token == token});
-
-				if (action)	
-					action[0].increment();
 			}
 		});
 

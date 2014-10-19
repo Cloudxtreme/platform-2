@@ -1,9 +1,9 @@
 define(
-	['backbone', 'mustache'],
+	['Views/Entry', 'mustache', 'Views/Actions', 'Views/Modals/SimpleCompose', 'Views/Widgets/NoteEntry', 'Views/Notification'],
 
-	function (Backbone, Mustache)
-	{		
-		var Entry = Backbone.View.extend({
+	function (EntryView, Mustache, ActionsView, SimpleComposeView, NoteEntryWidget, NotificationView)
+	{
+		var MessageEntry = EntryView.extend({
 	
 			tagName : 'li',
 			template: 'messageentry',
@@ -24,26 +24,8 @@ define(
 				'click *[data-action]' : 'action',
 				'click' : 'toggle',
 			},
-
+ 
 			options : {},
-			
-			initialize : function (options)
-			{	
-				// HACK!
-				this.parameters = {};
-				
-				if(options) $.extend(this, options);
-				if(options) $.extend(this.options, options);
-
-				this.loadmylisteners();
-			},
-
-			loadmylisteners : function()
-			{
-				this.listenTo(this.model, 'change', this.render);
-				this.listenTo(this.model, 'action:toggle', this.toggleaction);
-				this.listenTo(this.model, 'destroyed', this.remove);
-			},
 
 			render : function ()
 			{
@@ -58,35 +40,38 @@ define(
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.parameters);
 
-				//if(this.parameters.actions && !this.parameters.actions.length)
-				//	this.parameters.hasactions = false;
-				//else
-				//	this.parameters.hasactions = true;
+				/*if(this.parameters.actions && !this.parameters.actions.length)
+					this.parameters.hasactions = false;
+				else
+					this.parameters.hasactions = true;
+				*/
 				
 				//this.parameters.hasnotes = this.model.hasnotes();
 				
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
 				
-				if(this.$el.find("[data-date]")) this.time();
+				//MessageEntry always has actions (unless the user has no permissions)
+				this.renderactions();
+				//if(this.$el.find("[data-date]")) this.time();
 				
-				if(this.checkunread && this.model.get("objectType")) this.checkUnread();
+				//if(this.checkunread && this.model.get("objectType")) this.checkUnread();
 
-				/*if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
+				if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW')){
 
 					//Load default note
-					this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>');
+					//this.$el.find('.note-list').html('<li>'+Mustache.render (Templates.messagenote)+'</li>'); Is this needed?
 						
 					//Load note composer
 					this.loadnoteui();
 				}
 
-				if(this.parameters.hasactions)
-					this.renderactions();
-				*/
-				if(this.model.get("status") && this.model.get("status") == 'FAILED'){
-					this.$el.addClass('failed');
-					this.model.attributes.failed = 'failed';
-				}
+				//if(this.parameters.hasactions)
+				//	this.renderactions();
+
+				//if(this.model.get("status") && this.model.get("status") == 'FAILED'){
+				//	this.$el.addClass('failed');
+				//	this.model.attributes.failed = 'failed';
+				//}
 				
 				// MIGRATION -> Temporarily disable image/video plugin
 				//this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
@@ -94,15 +79,15 @@ define(
 				return this;
 			},
 					
-			/*renderactions : function()
-			{	
+			renderactions : function()
+			{
 				this.actions = new ActionsView({message: this.model});
 				
 				this.$el.find('.message-actions').html(this.actions.render().el)
 
 				this.loadedlists = [];
 			},
-
+			/*
 			updatetimelineactions : function()
 			{
 				var notescount = this.actions.message.notes.length;
@@ -110,8 +95,8 @@ define(
 				if(notescount)
 					this.$el.find('.interaction > .notescount').html(notescount);
 
-			},*/
-			
+			},
+			*/
 			action : function (element)
 			{
 				// Action token
@@ -154,7 +139,8 @@ define(
 					this.model.trigger("action", action);
 			},
 
-			/*formatactions : function(model)
+			/*
+			formatactions : function(model)
 			{
 				var actions = model.actions;
 				var stats = model.statistics;
@@ -178,7 +164,7 @@ define(
 				
 				model.actionstats = actionstats;
 			},
-
+			*/
 			editnote : function()
 			{	
 				var composenote = new SimpleComposeView({model: this.model});
@@ -301,6 +287,8 @@ define(
 				var collection = token == 'note'? this.model.notes: this.model.notifications;
 				var params = { records: 999 };
 
+				collection.reset();
+
 				if(token != 'notes')
 					params.markasread = true;
 
@@ -340,7 +328,6 @@ define(
 				if(this.newaction)	options.isnew = true;
 
 				if(token == 'note'){
-					var NoteEntryWidget = require('Views/Widgets/NoteEntry');
 					action = new NoteEntryWidget(options);	
 				}
 					
@@ -365,7 +352,7 @@ define(
 				
 				// Remove old Action
 				current.before(clone).remove();
-			},*/
+			},
 			
 			toggle : function() { this.trigger("toggle", this); },
 			
@@ -374,7 +361,7 @@ define(
 				if(!this.model.get("read")) this.$el.addClass("unread");
 				else						this.$el.removeClass("unread");
 			},
-			/*
+			
 			loadNotifications : function()
 			{
 				
@@ -384,11 +371,11 @@ define(
 					return this.$el.find(".timeline-comments li").remove();
 				
 				
-				// Does collection exist?
-				//if(!this.model.notifications)
-				//	this.model.notifications = new Notifications();
+				/*// Does collection exist?
+				if(!this.model.notifications)
+					this.model.notifications = new Notifications();
 				
-				//console.log(this.model.notifications)
+				console.log(this.model.notifications)*/
 				
 				// Load notifications
 				this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
@@ -471,7 +458,6 @@ define(
 			addnote : function(newnote)
 			{	
 				var options = {model: newnote, template: 'messagenote'};
-				var NoteEntryWidget = require('Views/Widgets/NoteEntry');
 				var note;
 
 				if(this.newnote)	options.isnew = true;
@@ -496,7 +482,7 @@ define(
 			},
 
 			
-			*/
+			
 			time : function ()
 			{	// Upgrade this to moment()
 				var now = new Date();
@@ -671,5 +657,5 @@ define(
 
 		});
 
-		return Entry;
+		return MessageEntry;
 });

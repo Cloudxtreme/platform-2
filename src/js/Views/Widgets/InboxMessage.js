@@ -1,9 +1,9 @@
 /* Temporary, should be "Message" view. One for all. */
 define(
-	['Views/Entry', 'mustache', 'Collections/Notifications', 'Collections/Related', 'Views/Actions', 'Views/Notification'],
-	function (EntryView, Mustache, Notifications, Related, ActionsView, NotificationView)
+	['Views/Widgets/MessageEntry', 'mustache', 'Collections/Notifications', 'Collections/Related', 'Views/Actions', 'Views/Notification'],
+	function (MessageEntryView, Mustache, Notifications, Related, ActionsView, NotificationView)
 	{
-		var InboxMessage = EntryView.extend({
+		var InboxMessage = MessageEntryView.extend({
 	
 			tagName : 'div',
 			className : "message social-box-colors",
@@ -20,7 +20,7 @@ define(
 				'keyup #tags' : 'entertag'
 			},
 
-			render : function ()
+			/*render : function ()
 			{	
 				var commented;
 
@@ -73,10 +73,10 @@ define(
 				if (this.model.get("objectType") && !this.model.get("read")) this.markasread();
 
 				// MIGRATION
-				/*this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: '0.7'});*/
+				this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: '0.7'});
 
 				return this;
-			},
+			},*/
 
 			/*'renderactions' : function()
 			{	
@@ -86,11 +86,6 @@ define(
 
 				this.loadedlists = [];
 			},*/
-
-			incrementaction : function(token)
-			{	
-				this.actions.incrementaction(token);
-			},
 			
 			loading : function(show)
 			{
@@ -129,11 +124,6 @@ define(
 				
 			},
 
-			updateCounters : function(models){
-				//treta = models[0];
-				//console.log("update counter on stream id ", models)
-			},
-			
 			fillrelated : function(models)
 			{
 				
@@ -159,7 +149,7 @@ define(
 				// Add models to view
 				for (var n in models)
 				{	
-					var view = new EntryView ({model: models[n], template: 'inboxrelatedmessage', type: 'full', parameters: {notes: this.notes}});
+					var view = new MessageEntryView ({model: models[n], template: 'inboxrelatedmessage', type: 'full', parameters: {notes: this.notes}});
 					
 					this.related.push (view);
 					
@@ -169,6 +159,13 @@ define(
 				// Hide loading
 				this.loading(false);
 			},
+
+			/*updateCounters : function(models){
+				//treta = models[0];
+				//console.log("update counter on stream id ", models)
+			},*/
+			
+			
 
 			sendtriggers : function(trigger){
 				this.trigger(trigger);

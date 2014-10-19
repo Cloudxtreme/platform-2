@@ -54,7 +54,7 @@ define(
 			{	
 				var out = e.originalEvent.type == "mouseout";
 				
-				this.$el.find(".inline-actions")[out? "addClass": "removeClass"]("hidden");
+				this.$el.find(".message-actions")[out? "addClass": "removeClass"]("hidden");
 				this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");
 			},
 
