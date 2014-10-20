@@ -4,11 +4,11 @@
 require.config({
 	baseUrl: '/js/',
 	paths: {
-		'jquery': 'lib/jquery/dist/jquery',
+		'jquery': 'lib/jquery/jquery.min',
 		'jqueryui': 'lib/jquery-ui/jquery-ui.min',
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
-		'bootstrap': 'lib/bootstrap/dist/js/bootstrap.min',
+		'bootstrap': 'lib/bootstrap/docs/assets/js/bootstrap.min',
 		'bootstrap-modal': 'lib/bootstrap-modal/js/bootstrap-modal',
 		'bootstrap-modalmanager': 'lib/bootstrap-modal/js/bootstrap-modalmanager',
 		'mustache': 'lib/mustache/mustache',
@@ -84,20 +84,6 @@ require(
 	}
 );
 
-/**
- *	Add css dynamic load
- */
-function css (url)
-{
-	// Check if already added
-	if($('head').find ('link[href="' + url + '"]').size ()) return null;
-
-	// Build element
-	var $link = $('<link />', {type: "text/css", rel: "stylesheet", href: url});
-	
-	// Append css
-	$('head').append ($link);
-}
 
 /**
  *	Cloudwalkers level Exceptions
