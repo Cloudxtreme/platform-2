@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "authors": [
     "Koen Betsens <koen@bmgroup.be>",
-    "Rui Molefas <rui@bmgroup.be>",
-    "Marco Jacinto <marco@bmgroup.be>"
+    "Rui Molefas <rui@bmgroup.be>"
   ],
-  "dependencies": {
+  "dependencies":
+  {
     "requirejs": "*",
     "modernizr": "*",
     "jquery": "*",
@@ -20,7 +20,7 @@
     "cal-heatmap": "*",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
     "d3": "*",
-    "fontawesome": "3.2.0",
+    "fontawesome": "*",
     "fullcalendar": "*",
     "jquery.gritter": "*",
     "slimscroll": "*",
@@ -29,8 +29,8 @@
     "requirejs-plugins": "*",
     "bootstrap-modal": "*"
   },
-  "resolutions": {
-    "bootstrap": ">=2.0.4 <3.0",
+  "resolutions":
+  {
     "jquery": ">=1.8.0 <2.1.0"
   }
 }

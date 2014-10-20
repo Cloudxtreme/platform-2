@@ -1,5 +1,32 @@
+/**
+ *	Platform V1.1 - Bootstrap 3 compatible
+ */
+
+/* Header */
+.navbar-brand	{
+	color: white; text-transform: uppercase;
+}
+
+.navbar-brand:hover	{
+	color: #ddd;
+}
+
+.brand-logo	{ height: 120%; }
+
+
+
+
+
+
+
+
+
+
+
+
+
 /***
-Style corrections and manual overrides
+V1
 ***/
 
 /**
