@@ -2,10 +2,10 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Panels/Panel'],
+	function (Panel)
 	{
-		var Numberstat = Widget.extend ({
+		var Numberstat = Panel.extend ({
 	
 			// {widget: "report", size: "3", stream: reportables[n], report: {url: "/stream/" + reportables[n].id + "/statistics/numbercomparison/likes", type: "comparison", name: "Fans"}}
 			

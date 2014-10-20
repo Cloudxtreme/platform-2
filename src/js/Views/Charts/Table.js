@@ -2,10 +2,10 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Panels/Panel'],
+	function (Panel)
 	{
-		var Table = Widget.extend ({
+		var Table = Panel.extend ({
 
 			'title' : 'Line chart',
 			'placeholder' : null,

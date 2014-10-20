@@ -1,9 +1,9 @@
 define(
-	['Views/BaseView', 'mustache', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/Modals/SimpleCompose', 'Views/Widgets/InboxMessage', 
-	 /*'Views/Widgets/TagEntry',*/ 'Views/Widgets/LoadMore', 'Views/Entry', 'Views/NoteEntry', 'Models/Message'],
+	['Views/BaseView', 'mustache', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/Modals/SimpleCompose', 'Views/Entries/InboxMessage', 
+	 /*'Views/Widgets/TagEntry',*/ 'Views/Panels/LoadMore', 'Views/Entries/BaseEntry', 'Views/Entries/NoteEntry', 'Models/Message'],
 
 	function (BaseView, Mustache, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
-		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteEntryView, Message)
+		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteView, Message)
 	{
 		var ViewContact = BaseView.extend({
 

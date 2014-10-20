@@ -2,10 +2,10 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Panels/Panel'],
+	function (Panel)
 	{
-		var Textstat = Widget.extend ({
+		var Textstat = Panel.extend ({
 
 			'title' : 'Line chart',
 			'icon' : 'reorder',

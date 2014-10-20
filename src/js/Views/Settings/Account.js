@@ -1,5 +1,5 @@
 define(
-	['backbone', 'mustache', 'Collections/Triggers', 'Models/Trigger', 'Views/Root', 'Views/Settings'],
+	['backbone', 'mustache', 'Collections/Triggers', 'Models/Trigger', 'Views/Root', 'Views/Pages/Settings'],
 	function (Backbone, Mustache, Triggers, Trigger, RootView, SettingsView)
 	{
 		var Account = Backbone.View.extend({

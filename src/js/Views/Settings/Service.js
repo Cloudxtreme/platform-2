@@ -1,5 +1,5 @@
 define(
-	['backbone', 'mustache', 'Models/User', 'Views/Root', 'Views/Settings'],
+	['backbone', 'mustache', 'Models/User', 'Views/Root', 'Views/Pages/Settings'],
 	function (Backbone, Mustache, User, RootView, SettingsView)
 	{
 		var Service = Backbone.View.extend({

@@ -1,6 +1,5 @@
 define(
-	['backbone',  'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */, 
-	 'Views/ActionParameters', 'Utilities/Utils'],
+	['backbone',  'Collections/Actions', 'Collections/Notes', /*'Collections/Notifications', */, 'Utilities/Utils'],
 	
 	function (Backbone, Actions, Notes, ActionParametersView, Utils)
 	{	

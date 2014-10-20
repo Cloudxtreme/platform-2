@@ -1,13 +1,13 @@
 define(
-	['backbone', 'config', 'Views/Dashboard', 'Views/Coworkers', 'Views/Inbox', 'Views/Drafts', 'Views/Sent', 'Views/Notes',
-	 'Views/Scheduled', /*'Views/Calendar',*/ 'Views/Timeline', 'Views/ManageAccounts', 'Views/KeywordMonitoring',
-	 'Views/ManageKeywords', 'Views/StatStream', 'Views/Statistics', 'Views/Settings', 'Views/Firsttime',
-	 'Views/Coworkdashboard', /*'Views/ManageUserGroups',*/ 'Views/Resync', 'Views/RSSFeed', /*'Views/ManageRSS'*/],
+	['backbone', 'config', 'Views/Pages/Dashboard', 'Views/Pages/Coworkers', 'Views/Pages/Inbox', 'Views/Pages/Drafts', 'Views/Pages/Sent', 'Views/Pages/Notes/Notes',
+	 'Views/Pages/Scheduled', /*'Views/Calendar',*/ 'Views/Pages/Timeline', 'Views/Pages/ManageAccounts', 'Views/Pages/KeywordMonitoring',
+	 'Views/Pages/ManageKeywords', 'Views/Pages/StatStream', 'Views/Pages/Statistics', 'Views/Pages/Settings', 'Views/Pages/Firsttime',
+	 'Views/Pages/Coworkdashboard', /*'Views/ManageUserGroups', 'Views/Resync',*/ 'Views/Pages/RSSFeed', /*'Views/ManageRSS'*/],
 
 	function (	Backbone, config, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
 				ScheduledView, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
 				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
-				CoworkdashboardView, /*ManageUserGroupsView,*/ ResyncView, RSSFeedView /*ManageRSSView*/)
+				CoworkdashboardView, /*ManageUserGroupsView, ResyncView,*/ RSSFeedView /*ManageRSSView*/)
 
 	{
 		var Router = Backbone.Router.extend (

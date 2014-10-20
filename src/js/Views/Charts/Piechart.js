@@ -2,10 +2,10 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Widgets/Widget'],
-	function (Widget)
+	['Views/Panels/Panel'],
+	function (Panel)
 	{
-		var Piechart = Widget.extend ({
+		var Piechart = Panel.extend ({
 
 			'title' : 'Pie chart',
 			'placeholder' : null,
