@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Models/Contact', 'Models/Message'],
-	function (Backbone, Contact, Message)
+	['backbone', 'Models/Contact', 'Models/Account'],
+	function (Backbone, Contact, Account)
 	{
 		var Note = Backbone.Model.extend({
 
@@ -60,29 +60,21 @@ define(
 			attachParent : function (type, id)
 			{	
 				var object;
-
+				var Message = require('Models/Message');
+				
 				type	= this.type_settings[type].model;
-				object 	= Session["get" + type](id);
+				object 	= Cloudwalkers.Session["get" + type](id);
 
 				if(!object || !object.get('objectType'))
 				{	
-					var func = this.functioncall(type);
+					if(type == 'Message')	object = new Message({id: id});
+					if(type == 'Contact')	object = new Contact({id: id});
+					if(type == 'Account')	object = new Account({id: id});
 
-					object = new func({id: id});
 					object.fetch();
 				}
 				
 				return object;
-			},
-
-			functioncall : function(functionname, args)
-			{	
-				var func = window[functionname];
-				 
-				// is it a function?
-				if (typeof func === "function")
-
-					return func.apply(null, args);
 			},
 
 			url : function()

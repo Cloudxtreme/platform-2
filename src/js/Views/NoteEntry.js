@@ -1,6 +1,6 @@
 define(
-	['backbone',  'Views/Root', 'Views/Entry'],
-	function (Backbone, RootView, EntryView)
+	['backbone', 'mustache', 'Views/Entry'],
+	function (Backbone, Mustache, EntryView)
 	{
 		var NoteEntry = EntryView.extend({
 

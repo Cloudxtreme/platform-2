@@ -475,7 +475,6 @@ Cloudwalkers.Session =
 		extendLang.fetch({
 			success: function (){
 				this.translationLang = extendLang.get("translation");
-				console.log(this.translationLang)
 				this.polyglot = new Polyglot({phrases: this.translationLang});
 				this.trigger("translation:done");
 			}.bind(this)

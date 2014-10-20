@@ -7,7 +7,7 @@ define(
 			entrytemplate: 'smallentrynote',
 
 			render : function ()
-			{	
+			{
 				this.on('contact:clicked', this.contactview);
 
 				// Template data

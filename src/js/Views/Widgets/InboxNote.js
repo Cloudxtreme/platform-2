@@ -1,6 +1,6 @@
 define(
-	['Views/Widgets/InboxMessage', 'Collections/Notifications',  'Collections/RelatedNotes', 'Views/Root', 'Views/NoteEntry', 'Models/Notification'],
-	function (InboxMessage, Notifications, RelatedNotes, RootView, NoteEntryView, NotificationView)
+	['Views/Widgets/InboxMessage', 'Collections/Notifications',  'Collections/RelatedNotes', 'mustache', 'Views/NoteEntry', 'Models/Notification'],
+	function (InboxMessage, Notifications, RelatedNotes, Mustache, NoteEntryView, NotificationView)
 	{
 		var InboxNote = InboxMessage.extend({
 	

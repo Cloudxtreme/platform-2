@@ -36,8 +36,12 @@ define(
 			options : {},
 			
 			initialize : function (options, /* Deprecated? */ pageviewoptions)
-			{
-				if(options) 		$.extend(this.options, options);
+			{	
+				if(options){
+					$.extend(this, options);
+					$.extend(this.options, options);
+				}	
+				
 				if(options.model)	this.model = options.model;
 				
 				// Which model to focus on
