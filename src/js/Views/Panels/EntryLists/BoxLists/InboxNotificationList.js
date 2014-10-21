@@ -1,8 +1,8 @@
 define(
-	['Views/Panels/EntryLists/InboxMessageList',  'Models/Message', 'Views/Entries/InboxMessage'],
-	function (InboxMessageListWidget, Message, InboxMessageWidget)
+	['Views/Panels/EntryLists/BoxLists/InboxMessageList',  'Models/Message', 'Views/Entries/InboxMessage'],
+	function (InboxMessageList, Message, InboxMessageWidget)
 	{
-		var InboxNotificationListWidget = InboxMessageListWidget.extend({
+		var InboxNotificationListWidget = InboxMessageList.extend({
 			
 			collectionstring : "notifications",
 			check : "hasNotifications",

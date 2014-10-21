@@ -1,6 +1,6 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/DraftsFilters', 'Views/Panels/EntryLists/DraftsList'],
-	function (Pageview, Mustache, DraftsFiltersWidget, DraftsListWidget)
+	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/BaseFilters', 'Views/Panels/EntryLists/BaseList'],
+	function (Pageview, Mustache, BaseFiltersPanel, BaseListPanel)
 	{
 		var Drafts = Pageview.extend({
 
@@ -27,11 +27,11 @@ define(
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 				// Add filter widget
-				var filter = new DraftsFiltersWidget ({model: this.model});
+				var filter = new BaseFiltersPanel ({model: this.model, template: "draftsfilters"});
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
-				var list = new DraftsListWidget ({model: this.model});
+				var list = new BaseListPanel ({model: this.model, id: 'draftsparent', title: "Draft messages"});
 				this.appendWidget(list, 8);
 				
 				filter.list = list;

@@ -1,21 +1,17 @@
 define(
-	['Views/Panels/Panel', 'mustache', 'Views/Panels/Filters/User'],
-	function (Panel, Mustache, UserView)
+	['Views/Panels/Filters/BaseFilters', 'mustache', 'Views/Panels/Filters/User'],
+	function (BaseFilters, Mustache, UserView)
 	{
-		var ScheduledFilters = Panel.extend ({
+		var ScheduledFilters = BaseFilters.extend ({
 	
 			id : "scheduledfilters",
-			filters : {
-				users : {string:"", list:[]}
-			},
+			
 			events : {
 				'remove' : 'destroy',
 				'click *[data-streams]' : 'filter',
 				'click .toggleall.active' : 'toggleall'
 			},
 
-			options : {},
-			
 			initialize : function (options)
 		    {
 				if(options){ 

@@ -1,21 +1,20 @@
 
 define(
-	['Views/Panels/Panel', 'mustache', 'Collections/Messages', 'Views/Entries/BaseEntry', 'Views/Panels/LoadMore'],
-	function (Panel, Mustache, Messages, EntryView, LoadMoreWidget)
+	['Views/Panels/EntryLists/BaseList', 'mustache', 'Views/Entries/BaseEntry'],
+	function (BaseList, Mustache, EntryView)
 	{
-		var ScheduledList = Panel.extend({
+		var ScheduledList = BaseList.extend({
 
 			id : 'scheduledlist',
 			title: "Scheduled messages",
 			parameters : {records: 200, sort: 'asc'},
-			entries : [],
 			
-			events : {
+			/*events : {
 				'remove' : 'destroy',
 				'click .load-more' : 'more'
-			},
+			},*/
 			
-			initialize : function (options)
+			/*initialize : function (options)
 			{
 				if(options) $.extend(this, options);	
 				
@@ -27,7 +26,7 @@ define(
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
 				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));				
-			},
+			},*/
 
 			render : function (params)
 			{	
@@ -62,7 +61,33 @@ define(
 				return this;
 			},
 
-			loadmylisteners : function()
+			fill : function (list)
+			{		
+				// Clean load or add
+				if(this.incremental) this.incremental = false;
+				else
+				{
+					$.each(this.entries, function(n, entry){ entry.remove()});
+					this.entries = [];
+				}
+				
+				// Store amount
+				this.count = list.length;
+				
+				// Add messages to view
+				for (var n in list)
+				{
+					var view = new EntryView ({tagName: "tr", model: list[n], type: "full", template: "scheduledentry"});
+					this.entries.push (view);
+					
+					this.$container.append(view.render().el);
+				}
+				
+				// Hide loading
+				this.hideloading();
+			},
+
+			/*loadmylisteners : function()
 			{
 				this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
 			},
@@ -99,34 +124,10 @@ define(
 					this.loadmore = load;
 
 				}.bind(this),200)
-			},
+			},*/
 			
-			fill : function (list)
-			{		
-				// Clean load or add
-				if(this.incremental) this.incremental = false;
-				else
-				{
-					$.each(this.entries, function(n, entry){ entry.remove()});
-					this.entries = [];
-				}
-				
-				// Store amount
-				this.count = list.length;
-				
-				// Add messages to view
-				for (var n in list)
-				{
-					var view = new EntryView ({tagName: "tr", model: list[n], type: "full", template: "scheduledentry"});
-					this.entries.push (view);
-					
-					this.$container.append(view.render().el);
-				}
-				
-				// Hide loading
-				this.hideloading();
-			},
 			
+			/*
 			more : function ()
 			{
 				this.incremental = true;
@@ -167,7 +168,7 @@ define(
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			}
+			}*/
 		});
 
 		return ScheduledList;

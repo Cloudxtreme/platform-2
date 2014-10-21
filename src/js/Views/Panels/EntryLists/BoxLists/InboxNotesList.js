@@ -1,5 +1,5 @@
 define(
-	['Views/Panels/EntryLists/InboxMessageList', 'mustache', 'Views/Pages/Notes/ContactCard', 'Views/Entries/NoteEntry', 'Views/Entries/InboxNote'],
+	['Views/Panels/EntryLists/BoxLists/InboxMessageList', 'mustache', 'Views/Pages/Notes/ContactCard', 'Views/Entries/NoteEntry', 'Views/Entries/InboxNote'],
 	function (InboxMessageList, Mustache, ContactCardView, NoteEntry, InboxNoteView)
 	{
 		var InboxNotesList = InboxMessageList.extend({

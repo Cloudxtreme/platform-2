@@ -1,17 +1,18 @@
 define(
-	['Views/Panels/Panel', 'mustache', 'Collections/Messages', 'Views/Entries/BaseEntry', 'Views/Panels/LoadMore'],
-	function (Panel, Mustache, Messages, EntryView, LoadMoreWidget)
+	['Views/Panels/Panel', 'mustache', 'Views/Entries/BaseEntry', 'Views/Panels/LoadMore'],
+	function (Panel, Mustache,  EntryView, LoadMoreWidget)
 	{
 		var CoworkersList = Panel.extend({
 
-			id : 'coworkersparent',
-			title: "Co-workers messages",
+			title: "List messages",
 			entries : [],
 			
 			events : {
 				'remove' : 'destroy',
 				'click .load-more' : 'more'
 			},
+
+			options : {},
 			
 			initialize : function (options)
 			{
@@ -24,22 +25,21 @@ define(
 				this.listenTo(this.model.messages, 'seed', this.fill);
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
-				//this.listenTo(this.model.messages, 'sync', this.hideloading);
+				this.listenTo(this.model.messages, 'destroy', this.showmore);
 
 				//Show all reloads te listeners
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
 
-				this.listenTo(Cloudwalkers.RootView, 'added:message', this.messageadded);
-
-		        //Reseting the parameters
-		        this.parameters = {records: 20};
+				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 			},
 
 			render : function (params)
-			{
-				this.loadmylisteners();
-				
+			{	
 				var data = {title: this.title};
+				
+				//Reseting the parameters
+		        this.parameters = {records: 20};
+				this.loadmylisteners();
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.coworkerslist, data));
@@ -65,6 +65,34 @@ define(
 				scroll.css('height', 'inherit')
 				
 				return this;
+			},
+
+			fill : function (list)
+			{		
+				// Clean load or add
+				if(this.incremental) this.incremental = false;
+				else
+				{
+					$.each(this.entries, function(n, entry){ entry.remove()});
+					this.entries = [];
+				}
+				
+				// Add messages to view
+				for (var n in list)
+				{
+					var view = new EntryView ({model: list[n], type: "full", template: "coworkersmessage"});
+					this.entries.push (view);
+
+					// Filter user
+					if (list[n].get("from")) this.model.seedusers(list[n]);
+					
+					else this.listenTo(list[n], "change:from", this.model.seedusers.bind(this.model))
+					
+					this.$container.append(view.render().el);
+				}
+				
+				// Hide loading
+				this.hideloading();
 			},
 
 			loadmylisteners : function(){
@@ -106,34 +134,6 @@ define(
 				
 			},
 			
-			fill : function (list)
-			{		
-				// Clean load or add
-				if(this.incremental) this.incremental = false;
-				else
-				{
-					$.each(this.entries, function(n, entry){ entry.remove()});
-					this.entries = [];
-				}
-				
-				// Add messages to view
-				for (var n in list)
-				{
-					var view = new EntryView ({model: list[n], type: "full", template: "coworkersmessage"});
-					this.entries.push (view);
-
-					// Filter user
-					if (list[n].get("from")) this.model.seedusers(list[n]);
-					
-					else this.listenTo(list[n], "change:from", this.model.seedusers.bind(this.model))
-					
-					this.$container.append(view.render().el);
-				}
-				
-				// Hide loading
-				this.hideloading();
-			},
-			
 			more : function ()
 			{
 				this.incremental = true;	
@@ -142,15 +142,6 @@ define(
 						
 				var hasmore = this.model.messages.more(this.model, this.parameters);		
 				if(!hasmore) this.$el.find(".load-more").hide();
-			},
-
-			messageadded : function(draft)
-			{
-				var coworkersstream = Cloudwalkers.Session.getStream('coworkers').id;
-				var streams = draft.get("streams");
-				
-				if(streams && streams.indexOf(coworkersstream) >= 0)
-					this.model.messages.touch(this.model);
 			},
 			
 			negotiateFunctionalities : function()

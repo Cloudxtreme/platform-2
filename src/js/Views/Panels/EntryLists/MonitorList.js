@@ -1,30 +1,22 @@
 	
 define(
-	['Views/Panels/Panel', 'mustache',  'Views/Panels/LoadMore', 'Views/Entries/BaseEntry'],
-	function (Panel, Mustache, LoadMoreWidget, EntryView)
+	['Views/Panels/EntryLists/BaseList', 'mustache', 'Views/Entries/BaseEntry'],
+	function (BaseList, Mustache, EntryView)
 	{
-		var MonitorList = Panel.extend({
+		var MonitorList = BaseList.extend({
 
 			id : 'monitorparent',
 			parameters : {records: 40, markasread: true},
-			entries : [],
-			
-			events : {
-				'remove' : 'destroy',
-				'click .load-more' : 'more'
-			},
-
-			options : {},
 			
 			initialize : function (options)
 			{
 				if(options)	$.extend(this.options, options);
 
-				this.category = this.options.category;
+				this.model = this.options.category;
 
 				// Clear the category (prevent non-change view failure)
-				this.category.set({messages: []});
-				this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+				this.model.set({messages: []});
+				this.listenTo(this.model.messages, 'change:filter', this.loadmylisteners.bind(this, true));
 				this.loadmylisteners();
 						
 				// Load category messages
@@ -36,12 +28,12 @@ define(
 				}
 
 				// Watch outdated
-				this.updateable(this.category, "h3.page-title");
+				this.updateable(this.model, "h3.page-title");
 			},
 
 			render : function ()
 			{
-				var data = { name:  this.category.get("name") };
+				var data = { name:  this.model.get("name") };
 
 				// Get template
 				this.$el.html (Mustache.render (Templates.monitorlist, data));		
@@ -51,7 +43,7 @@ define(
 				this.$el.find(".load-more").hide();
 				
 				// Load category message
-				this.category.messages.touch(this.category, this.parameters);
+				this.model.messages.touch(this.model, this.parameters);
 				
 				this.addScroll();
 
@@ -68,28 +60,28 @@ define(
 			loadmylisteners : function(recycle)
 			{
 				if(recycle){
-					this.stopListening(this.category.messages);
-					this.listenTo(this.category.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+					this.stopListening(this.model.messages);
+					this.listenTo(this.model.messages, 'change:filter', this.loadmylisteners.bind(this, true));
 				}
 
 				this.$el.find('#loadmore').empty();
 				
 				// Listen to category
-				this.listenTo(this.category.messages, 'seed', this.fill);
-				this.listenTo(this.category.messages, 'request', this.showloading);
-				this.listenTo(this.category.messages, 'sync', this.hideloading);
-				this.listenTo(this.category.messages, 'ready', this.showmore);
+				this.listenTo(this.model.messages, 'seed', this.fill);
+				this.listenTo(this.model.messages, 'request', this.showloading);
+				this.listenTo(this.model.messages, 'sync', this.hideloading);
+				this.listenTo(this.model.messages, 'ready', this.showmore);
 
-				this.loadListeners(this.category.messages, ['request', 'sync', 'ready'], true);
+				this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 			},
 			
-			showloading : function ()
+			/*showloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").show();
 				this.$el.find(".load-more").hide();
-			},
+			},*/
 
-			hideloading : function ()
+			/*hideloading : function ()
 			{
 				this.$el.find(".icon-cloud-download").hide();
 				
@@ -99,9 +91,9 @@ define(
 					this.hasmore = false;
 				
 				this.$container.removeClass("inner-loading");
-			},
+			},*/
 
-			showmore : function(){
+			/*showmore : function(){
 
 				setTimeout(function()
 				{	//Hack
@@ -110,13 +102,13 @@ define(
 					if(!this.hasmore)
 						return this.$el.find('#loadmore').empty();	
 
-					var load = new LoadMoreWidget({list: this.category.messages, parentcontainer: this.$container});
+					var load = new LoadMoreWidget({list: this.model.messages, parentcontainer: this.$container});
 					this.$el.find('#loadmore').html(load.render().el);
 
 					this.loadmore = load;
 
 				}.bind(this),200)
-			},
+			},*/
 			
 			fill : function (list)
 			{		
@@ -141,23 +133,23 @@ define(
 				}
 			},
 			
-			more : function ()
+			/*more : function ()
 			{
 				this.incremental = true;
 
 				this.loadmore.loadmylisteners();
 				
-				var hasmore = this.category.messages.more(this.category, this.parameters);//this.category.parameters);
+				var hasmore = this.model.messages.more(this.model, this.parameters);//this.category.parameters);
 				
 				if(!hasmore) this.$el.find(".load-more").hide();
-			},
+			},*/
 			
-			negotiateFunctionalities : function() {
+			/*negotiateFunctionalities : function() {
 				
 				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
-			},
+			},*/
 			
-			addScroll : function () {
+			/*addScroll : function () {
 
 				var scroll = this.$el.find('.scroller').eq(0);
 
@@ -174,12 +166,12 @@ define(
 				// Update slimscroll plugin default styling
 				scroll.css('max-height', height);
 				scroll.css('height', 'inherit')
-			},
+			},*/
 			
-			destroy : function()
+			/*destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});
-			}
+			}*/
 		});
 
 		return MonitorList;

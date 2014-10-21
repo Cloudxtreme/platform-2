@@ -1,8 +1,8 @@
 define(
-	['Views/Panels/Panel', 'mustache'],
-	function (Panel, Mustache)
+	['Views/Panels/Filters/BaseFilters', 'mustache'],
+	function (BaseFilters, Mustache)
 	{
-		var MonitorFilters = Panel.extend ({
+		var MonitorFilters = BaseFilters.extend ({
 
 			events : {
 				'click [data-network-streams]' : 'filternetworks',
@@ -11,8 +11,6 @@ define(
 				'click .toggleall.keywords.active' : 'toggleallkeywords'
 			},
 
-			options : {},
-			
 			initialize : function (options)
 		    {
 		    	if(options)	$.extend(this.options, options)

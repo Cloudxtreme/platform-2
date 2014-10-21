@@ -1,5 +1,5 @@
 define(
-	['Views/Panels/EntryLists/InboxMessageList',  'Views/Entries/BaseEntry', 'Views/Entries/InboxMessage'],
+	['Views/Panels/EntryLists/BoxLists/InboxMessageList',  'Views/Entries/BaseEntry', 'Views/Entries/InboxMessage'],
 	function (InboxMessageList, EntryView, InboxMessageWidget)
 	{
 		var SentMessageList = InboxMessageList.extend({

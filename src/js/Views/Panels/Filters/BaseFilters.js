@@ -2,17 +2,19 @@ define(
 	['Views/Panels/Panel', 'mustache',  'Collections/Users', 'Views/Panels/Filters/User'],
 	function (Panel, Mustache, Users, UserView)
 	{
-		var CoworkersFilters = Panel.extend ({
+		var BaseFilters = Panel.extend ({
 
 			filters : {
 				users : {string:"", list:[]}
 			},
+
 			events : {
 				'remove' : 'destroy',
 				'input .input-rounded' : 'comparesuggestions',
 				'click .load-more' : 'more',
 				'click .toggleall.active' : 'toggleall'
 			},
+
 			options : {},
 			
 			initialize : function (options)
@@ -40,7 +42,7 @@ define(
 				Cloudwalkers.Session.censuretemplate(data);
 
 				// View
-				this.$el.html (Mustache.render (Templates.coworkersfilters));
+				this.$el.html (Mustache.render (Templates[this.options.template]));
 				
 				this.$container = this.$el.find("#users-list").eq(0);
 				
@@ -196,6 +198,6 @@ define(
 			}
 		});
 
-		return CoworkersFilters;
+		return BaseFilters;
 	}
 );

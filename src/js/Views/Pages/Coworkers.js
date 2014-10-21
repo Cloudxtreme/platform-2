@@ -1,6 +1,6 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/CoworkersFilters', 'Views/Panels/EntryLists/CoworkersList'],
-	function (Pageview, Mustache, CoworkersFiltersWidget, CoworkersListWidget)
+	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/BaseFilters', 'Views/Panels/EntryLists/BaseList'],
+	function (Pageview, Mustache, BaseFiltersPanel, BaseListPanel)
 	{
 		var Coworkers = Pageview.extend({
 
@@ -25,11 +25,11 @@ define(
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 				// Add filter widget
-				var filter = new CoworkersFiltersWidget ({model: this.model});
+				var filter = new BaseFiltersPanel ({model: this.model, template: "coworkersfilters"});
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
-				var list = new CoworkersListWidget ({model: this.model});
+				var list = new BaseListPanel ({model: this.model, id: 'coworkersparent', title: "Co-workers messages"});
 				this.appendWidget(list, 8);
 				
 				filter.list = list;
