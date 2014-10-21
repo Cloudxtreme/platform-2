@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache', 'Views/Panels/EntryLists/InboxMessageList', 'Views/Panels/EntryLists/InboxNotificationList'],
+	['Views/Pages/PageView', 'mustache', 'Views/Panels/EntryLists/BoxLists/InboxMessageList', 'Views/Panels/EntryLists/BoxLists/InboxNotificationList'],
 	function (Pageview, Mustache, InboxMessageListWidget, InboxNotificationListWidget)
 	{
 		var Inbox = Pageview.extend({

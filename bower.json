@@ -5,8 +5,7 @@
     "Koen Betsens <koen@bmgroup.be>",
     "Rui Molefas <rui@bmgroup.be>"
   ],
-  "dependencies":
-  {
+  "dependencies": {
     "requirejs": "*",
     "modernizr": "*",
     "jquery": "*",
@@ -29,8 +28,8 @@
     "requirejs-plugins": "*",
     "bootstrap-modal": "*"
   },
-  "resolutions":
-  {
-    "jquery": ">=1.8.0 <2.1.0"
+  "resolutions": {
+    "jquery": ">=1.8.0 <2.1.0",
+    "bootstrap": "3.2.0"
   }
 }

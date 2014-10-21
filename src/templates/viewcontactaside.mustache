@@ -6,9 +6,9 @@
 			<a href="{{url}}" target="_blank">
 				<h5>{{displayname}}</h5>
 				<div class="network-icon">
-					<i class="icon-{{network.token}}"></i>
+					<i class="fa fa-{{network.token}}"></i>
 				</div>
-				<span><i class="icon-chevron-right"></i></span>				
+				<span><i class="fa fa-chevron-right"></i></span>				
 			</a>
 		</div>
 		<div class="contactavatar" style="background-image: url({{avatar}})">
@@ -35,7 +35,7 @@
 	
 	{{#authorized.ACCOUNT_NOTES_MANAGE}}
 	<div class="contactactions">
-		<div class="btn-white" data-action="write-note"><i class="icon-edit"></i>{{#trans}}Add contact note{{/trans}}</div>
+		<div class="btn-white" data-action="write-note"><i class="fa fa-edit"></i>{{#trans}}Add contact note{{/trans}}</div>
 	</div>
 	<div id="notecontainer"></div>
 	{{/authorized.ACCOUNT_NOTES_MANAGE}}
@@ -43,11 +43,11 @@
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
-			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="fa fa-tags"></i></div>
 			<ul class="tag-list"></ul>
 			<div class="tag-input-append">
 				<input id="tags" type="text" autocomplete="off">
-				<button class="btn-white" type="button" data-action="tag-add">{{#trans}}Add{{/trans}} <i class="icon-tag"></i></button>
+				<button class="btn-white" type="button" data-action="tag-add">{{#trans}}Add{{/trans}} <i class="fa fa-tag"></i></button>
 			</div>
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 		{{^authorized.ACCOUNT_TAGS_MANAGE}}

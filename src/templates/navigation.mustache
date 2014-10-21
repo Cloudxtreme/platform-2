@@ -1,81 +1,26 @@
 
 <a class="btn btn-compose">
-	<i class="icon-pencil"></i> <span>{{#trans}}Compose{{/trans}}</span>
+	<i class="fa fa-pencil"></i> <span>{{#trans}}Compose{{/trans}}</span>
 </a>
 
 <ul class="page-sidebar-menu">
 	
 	<!-- Dashboard -->
-	<li class="start dashboard active">
+	<li class="dashboard active">
 		<a href="#dashboard">
-		<i class="icon-dashboard"></i> 
+		<i class="fa fa-dashboard"></i> 
 		<span class="title">{{#trans}}Dashboard{{/trans}}</span>
-		<span class="selected"></span>
+		<div class="arrow"></div>
 		</a>
 	</li>
-
-	<!-- Message Board
-	<li class="write">
-		<a href="#write">
-			<i class="icon-share-sign"></i> 
-			<span class="title">{{#trans}}Message Board{{/trans}}</span>
-			<span class="selected"></span>
-		</a>
-		<ul class="sub-menu">
-			<li>
-				<a href="#write">
-					<i class="icon-share-alt"></i> 
-					<span class="title">{{#trans}}Compose Message{{/trans}}</span>
-				</a>
-			</li>
-			
-			<li class="drafts">
-				<a href="#drafts">
-					<i class="icon-edit"></i> 
-					<span class="title">{{#trans}}Drafts{{/trans}}</span>
-				</a>
-			</li>
-
-			<li class="sent">
-				<a href="#sent">
-					<i class="icon-upload"></i> 
-					<span class="title">{{#trans}}Sent{{/trans}}</span>
-				</a>
-			</li>
-			
-			<li class="schedule">
-				<a href="#schedule">
-					<i class="icon-time"></i> 
-					<span class="title">{{#trans}}Scheduled{{/trans}}</span>
-					<span class="arrow"></span>
-				</a>
-		
-				<ul class="sub-menu">
-					{{#scheduled}}
-						{{#streams}}
-						<li>
-							<a href="#schedule/{{channelid}}/{{id}}">
-								<i class="icon-{{attributes.network.icon}}"></i>
-								{{attributes.customname}}
-							</a>
-						</li>
-						{{/streams}}
-					{{/scheduled}}
-				</ul>
-			</li>
-			
-		</ul>
-	</li> -->
-
 	
 	<!-- Inbox -->
 	{{#inbox}}
 		<li>
 			<a href="#inbox/messages">
-				<i class="icon-inbox"></i> 
+				<i class="fa fa-inbox"></i> 
 				<span class="title">{{#trans}}Inbox{{/trans}}</span>
-				<span class="arrow"></span>
-				<span class="selected"></span>
+				<div class="arrow"></div>
 			</a>
 
 			<ul class="sub-menu">
@@ -83,7 +28,7 @@
 				{{#authorized.MESSAGE_READ_INBOX_MESSAGES}}
 				<li>
 					<a href="#inbox/messages">
-						<i class="icon-envelope"></i> 
+						<i class="fa fa-envelope"></i> 
 						<span class="title">{{#trans}}Messages{{/trans}}</span>
 					</a>
 				</li>
@@ -91,7 +36,7 @@
 				{{#authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
 				<li>
 					<a href="#inbox/notifications">
-						<i class="icon-globe"></i> 
+						<i class="fa fa-globe"></i> 
 						<span class="title">{{#trans}}Notifications{{/trans}}</span>
 					</a>
 				</li>
@@ -99,14 +44,14 @@
 
 				<li>
 					<a data-header-action="post">
-						<i class="icon-pencil"></i> 
+						<i class="fa fa-pencil"></i> 
 						<span class="title">{{#trans}}Post Message{{/trans}}</span>
 					</a>
 				</li>
 				{{#authorized.MESSAGE_READ_DRAFTS}}
 				<li class="drafts">
 					<a href="#drafts">
-						<i class="icon-file-alt"></i> 
+						<i class="fa fa-file-alt"></i> 
 						<span class="title">{{#trans}}Drafts{{/trans}}</span>
 					</a>
 				</li>
@@ -114,7 +59,7 @@
 				{{#authorized.MESSAGE_READ_SCHEDULE}}
 				<li class="schedule">
 					<a href="#scheduled">
-						<i class="icon-time"></i> 
+						<i class="fa fa-time"></i> 
 						<span class="title">{{#trans}}Scheduled{{/trans}}</span>
 					</a>
 				</li>
@@ -122,111 +67,59 @@
 				{{#authorized.ACCOUNT_NOTES_VIEW}}
 				<li class="notes">
 					<a href="#notes">
-						<i class="icon-edit"></i> 
+						<i class="fa fa-edit"></i> 
 						<span class="title">{{#trans}}Notes{{/trans}}</span>
 					</a>
 				</li>
 				{{/authorized.ACCOUNT_NOTES_VIEW}}
-				
-				<!--
-				<li class="calendar">
-					<a href="#calendar">
-						<i class="icon-calendar"></i> 
-						<span class="title">{{#trans}}Calendar{{/trans}}</span>
-					</a>
-				</li>
-				-->
+
 			</ul>
 		</li>
 	{{/inbox}}
-
-		<!--{{#authorized.MESSAGE_READ_DRAFTS}}
-		<li>
-			<a href="#outbox/sent">
-				<i class="icon-upload-alt"></i> 
-				<span class="title">{{#trans}}Outbox{{/trans}}</span>
-				<span class="arrow"></span>
-				<span class="selected"></span>
-			</a>
-
-			<ul class="sub-menu">
-				{{#authorized.MESSAGE_READ_DRAFTS}}
-				<li class="sent">
-					<a href="#outbox/sent">
-						<i class="icon-envelope"></i> 
-						<span class="title">{{#trans}}Sent{{/trans}}</span>
-					</a>
-				</li>
-				{{/authorized.MESSAGE_READ_DRAFTS}}
-				{{#authorized.MESSAGE_READ_SCHEDULE}}
-				<li class="schedule">
-					<a href="#scheduled">
-						<i class="icon-time"></i> 
-						<span class="title">{{#trans}}Scheduled{{/trans}}</span>
-					</a>
-				</li>
-				{{/authorized.MESSAGE_READ_SCHEDULE}}
-				<li class="calendar">
-					<a href="#calendar">
-						<i class="icon-calendar"></i> 
-						<span class="title">{{#trans}}Calendar{{/trans}}</span>
-					</a>
-				</li>
-			</ul>
-		</li>
-		{{/authorized.MESSAGE_READ_DRAFTS}}-->
 		
-		<!-- Co-workers cloud -->
-		{{#authorized._CW_COWORKERS_VIEW}}
-		<li>
-			<a href="#coworkers">
-				<i class="icon-group"></i> 
-				<span class="title">{{#trans}}Co-workers wall{{/trans}}</span>
-				<span class="selected"></span>
-			</a>
-		</li>
-		{{/authorized._CW_COWORKERS_VIEW}}
+	<!-- Co-workers cloud -->
+	{{#authorized._CW_COWORKERS_VIEW}}
+	<li>
+		<a href="#coworkers">
+			<i class="fa fa-group"></i> 
+			<span class="title">{{#trans}}Co-workers wall{{/trans}}</span>
+			<div class="arrow"></div>
+		</a>
+	</li>
+	{{/authorized._CW_COWORKERS_VIEW}}
 
 	<!-- Company Accounts -->
 	{{#profiles}}
 		{{#authorized.MESSAGE_READ_COMPANY}}
 		<li>
 			<a href="#timeline/{{channelid}}">
-				<i class="icon-briefcase"></i> 
+				<i class="fa fa-briefcase"></i> 
 				<span class="title">{{#trans}}Company accounts{{/trans}}</span>
-				<span class="arrow"></span>
-				<span class="selected"></span>
+				<div class="arrow"></div>
 			</a>
 			
 			<ul class="sub-menu">
 
 				<li>
 					<a href="#timeline/{{channelid}}">
-						<i class="icon-briefcase"></i> 
+						<i class="fa fa-briefcase"></i> 
 						<span class="title">{{#trans}}Media{{/trans}}</span>
-						<span class="arrow"></span>
+						<div class="arrow"></div>
 					</a>
-					<!--<ul class="sub-menu">
-					{{#streams}}
-						<li><a href="#timeline/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}
-					</ul>-->
 				</li>
+
 				{{#authorized.MESSAGE_READ_THIRDPARTY}}
 				<li class="trending">
 					<a href="#trending/{{channelid}}">
-						<i class="icon-thumbs-up"></i> 
+						<i class="fa fa-thumbs-up"></i> 
 						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
-						<span class="arrow"></span>
+						<div class="arrow"></div>
 					</a>
 			
-					<ul class="sub-menu">
-					<!--{{#streams}}
-						<li><a href="#trending/{{channelid}}/{{id}}"><i class="icon-{{attributes.network.icon}}"></i> {{attributes.customname}}</a></li>
-					{{/streams}}-->
-					</ul>
+					<ul class="sub-menu"></ul>
 				</li>
 				{{/authorized.MESSAGE_READ_THIRDPARTY}}
+
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_COMPANY}}
@@ -238,47 +131,34 @@
 		{{#authorized.MESSAGE_READ_THIRDPARTY}}
 		<li>
 			<a href="#timeline/{{news}}">
-				<i class="icon-globe"></i> 
+				<i class="fa fa-globe"></i> 
 				<span class="title">{{#trans}}Accounts we follow{{/trans}}</span>
-				<span class="arrow"></span>
-				<span class="selected"></span>
+				<div class="arrow"></div>
 			</a>
 
-			<ul class="sub-menu">				
+			<ul class="sub-menu">	
+
 				<li>
 					<a href="#timeline/{{news}}">
-						<i class="icon-globe"></i> 
+						<i class="fa fa-globe"></i> 
 						<span class="title">{{#trans}}Media{{/trans}}</span>
 					</a>
 				</li>
 
-				<!--<li>
-					<a href="#timeline/rss">
-						<i class="icon-rss"></i> 
-						<span class="title">{{#trans}}RSS Feed{{/trans}}</span>
-					</a>
-				</li>-->
-
 				<li class="trending">
 					<a href="#trending/{{news}}">
-						<i class="icon-thumbs-up"></i> 
+						<i class="fa fa-thumbs-up"></i> 
 						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
 					</a>
 				</li>
 				
 				<li>
 					<a href="#monitoring/accounts">
-						<i class="icon-plus"></i> 
+						<i class="fa fa-plus"></i> 
 						<span class="title">{{#trans}}Manage accounts{{/trans}}</span>
 					</a>
 				</li>
 
-				<!--<li>
-					<a href="#monitoring/managerss">
-						<i class="icon-plus"></i> 
-						<span class="title">{{#trans}}Manage RSS{{/trans}}</span>
-					</a>
-				</li>-->
 			</ul>
 		</li>
 		{{/authorized.MESSAGE_READ_THIRDPARTY}}
@@ -289,10 +169,9 @@
 		{{#authorized.MESSAGE_READ_MONITORING}}
 		<li>
 			<a href="#monitoring/{{channelid}}/{{first.id}}">
-				<i class="icon-tags"></i> 
+				<i class="fa fa-tags"></i> 
 				<span class="title">{{#trans}}Keyword monitoring{{/trans}}</span>
-				<span class="arrow"></span>
-				<span class="selected"></span>
+				<div class="arrow"></div>
 			</a>
 
 			<ul class="sub-menu">
@@ -301,7 +180,7 @@
 					{{#channels.models.length}}
 					<li>
 						<a href="#monitoring/{{channelid}}/{{id}}">
-							<i class="icon-tags"></i> 
+							<i class="fa fa-tags"></i> 
 							<span class="title">{{attributes.name}}</span>
 						</a>
 					</li>
@@ -311,7 +190,7 @@
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 				<li>
 					<a href="#keywords">
-						<i class="icon-plus"></i> 
+						<i class="fa fa-plus"></i> 
 						<span class="title">{{#trans}}Manage Keywords{{/trans}}</span>
 					</a>
 				</li>
@@ -325,47 +204,35 @@
 	{{#statistics}}
 	<li>
 		<a href="#statistics">
-			<i class="icon-bar-chart"></i> 
+			<i class="fa fa-bar-chart"></i> 
 			<span class="title">{{#trans}}Statistics{{/trans}}</span>
-			<span class="selected"></span>
+			<div class="arrow"></div>
 		</a>
 	</li>
 	{{/statistics}}
 	<!-- User Settings -->
 	<li class="settings">
 		<a href="#settings/profile">
-			<i class="icon-cogs"></i> 
+			<i class="fa fa-cogs"></i> 
 			<span class="title">{{#trans}}Settings{{/trans}}</span>
-			<span class="arrow"></span>
-			<span class="selected"></span>
+			<div class="arrow"></div>
 		</a>
 		<ul class="sub-menu">
 			{{#authorized.USER_INVITE}}
-				<li><a href="#settings/users"><i class="icon-group"></i> <span class="title">{{#trans}}Manage users{{/trans}}</span></a></li>
+				<li><a href="#settings/users"><i class="fa fa-group"></i> <span class="title">{{#trans}}Manage users{{/trans}}</span></a></li>
 			{{/authorized.USER_INVITE}}
 			{{#authorized.SERVICE_CONNECT}}
-				<li><a href="#settings/services"><i class="icon-cloud"></i> <span class="title">{{#trans}}Social connections{{/trans}}</span></a></li>
+				<li><a href="#settings/services"><i class="fa fa-cloud"></i> <span class="title">{{#trans}}Social connections{{/trans}}</span></a></li>
 			{{/authorized.SERVICE_CONNECT}}
 			{{#authorized.CAMPAIGN_DELETE}}
-				<li><a href="#settings/account"><i class="icon-briefcase"></i> <span class="title">{{#trans}}Account settings{{/trans}}</span></a></li>
+				<li><a href="#settings/account"><i class="fa fa-briefcase"></i> <span class="title">{{#trans}}Account settings{{/trans}}</span></a></li>
 			{{/authorized.CAMPAIGN_DELETE}}
 			{{#authorized.ACCOUNT_SETTINGS}}
-				<li><a href="#settings/profile"><i class="icon-user"></i> <span class="title">{{#trans}}Profile settings{{/trans}}</span></a></li>
+				<li><a href="#settings/profile"><i class="fa fa-user"></i> <span class="title">{{#trans}}Profile settings{{/trans}}</span></a></li>
 			{{/authorized.ACCOUNT_SETTINGS}}
 			{{#manage_user_groups}}
-				<li><a href="#settings/manageusergroups"><i class="icon-sitemap"></i> <span class="title">{{#trans}}Manage User Groups{{/trans}}</span></a></li>
+				<li><a href="#settings/manageusergroups"><i class="fa fa-sitemap"></i> <span class="title">{{#trans}}Manage User Groups{{/trans}}</span></a></li>
 			{{/manage_user_groups}}
 		</ul>
-	</li>
-	
-	<!--
-	<li class="settings">
-		<a href="#settings/profile">
-		<i class="icon-user"></i> 
-		<span class="title">{{#trans}}Profile settings{{/trans}}</span>
-		<span class="selected"></span>
-		</a>
-	</li>
-	-->
-	
+	</li>	
 </ul>

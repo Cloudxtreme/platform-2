@@ -3,7 +3,7 @@
 		
 		<div class="pull-right">
 			<span class="date">{{fulldate}}</span>
-			<i class="icon-{{#streams}}{{network.icon}}{{/streams}}}"></i>
+			<i class="fa fa-{{#streams}}{{network.icon}}{{/streams}}}"></i>
 		</div>
 
 		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{#from}}{{avatar}}{{/from}}">
@@ -30,7 +30,7 @@
 	
 	{{#attached.link}}
 		<div class="attachment-link">
-			<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+			<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
 		</div>
 	{{/attached.link}}
 
@@ -61,7 +61,7 @@
 	
 		<ul>
 			<li>
-				<i class="icon-cloud-download"></i> <strong>{{from.displayname}}</strong> {{#trans}}commented{{/trans}} {{timeago}}
+				<i class="fa fa-cloud-download"></i> <strong>{{from.displayname}}</strong> {{#trans}}commented{{/trans}} {{timeago}}
 			</li>
 		</ul>
 	</div>

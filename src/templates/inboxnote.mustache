@@ -33,7 +33,7 @@
 	
 	{{#attached.link}}
 		<div class="attachment-link">
-			<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+			<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
 		</div>
 	{{/attached.link}}
 	-->
@@ -42,18 +42,18 @@
 <div class="message-actions">
 
 	{{#authorized.ACCOUNT_NOTES_MANAGE}}	
-		<div class="btn-white pull-right" data-action="delete" style="margin-top: -6px;"><i class="icon-remove"></i></div>
-		<div class="btn-white pull-right" data-action="note-edit" style="margin-top: -6px;"><i class="icon-pencil"></i></div>
+		<div class="btn-white pull-right" data-action="delete" style="margin-top: -6px;"><i class="fa fa-remove"></i></div>
+		<div class="btn-white pull-right" data-action="note-edit" style="margin-top: -6px;"><i class="fa fa-pencil"></i></div>
 	{{/authorized.ACCOUNT_NOTES_MANAGE}}
 	
 	<!-- TAGS -->
 	<div class="message-tags pull-right">
 		{{#authorized.ACCOUNT_TAGS_MANAGE}}
-			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="icon-tags"></i></div>
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="fa fa-tags"></i></div>
 			<ul class="tag-list"></ul>
 			<div class="tag-input-append">
 				<input id="tags" type="text" autocomplete="off">
-				<button class="btn-white" type="button" data-action="tag-add">{{#trans}}Add{{/trans}} <i class="icon-tag"></i></button>
+				<button class="btn-white" type="button" data-action="tag-add">{{#trans}}Add{{/trans}} <i class="fa fa-tag"></i></button>
 			</div>
 		{{/authorized.ACCOUNT_TAGS_MANAGE}}
 		{{^authorized.ACCOUNT_TAGS_MANAGE}}

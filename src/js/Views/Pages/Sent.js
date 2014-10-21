@@ -1,6 +1,6 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Root', 'Views/Panels/EntryLists/SentMessageList'],
-	function (Pageview, Mustache, RootView, SentMessageListWidget)
+	['Views/Pages/PageView', 'mustache', 'Views/Panels/EntryLists/BoxLists/SentMessageList'],
+	function (Pageview, Mustache, SentMessageListWidget)
 	{
 		var Sent = Pageview.extend({
 	

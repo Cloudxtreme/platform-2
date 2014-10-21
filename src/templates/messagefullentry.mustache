@@ -4,11 +4,11 @@
 		
 		{{#actions.length}}
 		<span class="actions dropdown">
-			<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+			<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			
 			<ul class="dropdown-menu">
 			{{#actions}}
-				<li><a class="button-post action message-action oldbtn" data-action="{{token}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+				<li><a class="button-post action message-action oldbtn" data-action="{{token}}"><i class="fa fa-{{icon}}"></i> {{name}}</a></li>
 			{{/actions}}
 			</ul>
 
@@ -16,19 +16,19 @@
 		{{/actions.length}}
 		<!--{{#share.length}}
 			<span class="actions dropdown">
-				<i class="icon-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+				<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
 			
 				<ul class="dropdown-menu">
 				{{#share}}
-					<li><a class="button-post action message-action" data-action="{{action}}"><i class="icon-{{icon}}"></i> {{name}}</a></li>
+					<li><a class="button-post action message-action" data-action="{{action}}"><i class="fa fa-{{icon}}"></i> {{name}}</a></li>
 				{{/share}}
 				</ul>
 			</span>
 		{{/share.length}}-->
 		
-		<!--<div class="media"><i class="icon-{{media}}"></i></div>-->
+		<!--<div class="media"><i class="fa fa-{{media}}"></i></div>-->
 		
-		<div class="media"><i class="icon-{{networktoken}}"></i></div>
+		<div class="media"><i class="fa fa-{{networktoken}}"></i></div>
 	</div>
 
 	<div class="message-actions" id="keywordfilter-actions"></div>
@@ -41,7 +41,7 @@
 	
 	{{#from}}
 	{{#iconview}}
-		<i class="icon-{{icon}}"></i>
+		<i class="fa fa-{{icon}}"></i>
 	{{/iconview}}
 	{{^iconview}}
 		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
@@ -65,7 +65,7 @@
 		{{#attached}}
 			{{#link}}
 				<div class="attachment-link">
-					<i class="icon-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+					<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
 				</div>
 			{{/link}}
 		{{/attached}}

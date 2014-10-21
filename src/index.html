@@ -32,7 +32,7 @@
 	
 	<body>
 		
-		<header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<header id="header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				
 				<div class="navbar-header">
@@ -41,53 +41,17 @@
 						Cloudwalkers
 					</a>
 				</div>
-				
-				<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="#" data-header-action="coworkers"><i class="fa fa-users"></i></a></li>
-						<li><a href="#" data-header-action="inbox"><i class="fa fa-envelope"></i></a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<div class="nav-avatar">
-									<i class="fa fa-chevron-circle-down"></i>
-								</div>
-							</a>
-							<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>-->
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				
+
 			</div>
 		</header>
-		<!-- Header 
-		<div id="header" class="header navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a class="brand" href="/#dashboard">
-						<img src="/images/shield.png" alt="logo"/>
-						<span class="title">Cloudwalkers</span>
-					</a>
-				</div>
-			</div>
-		</div>-->
-		<!-- end Header -->
 
 		<!-- Container -->
-		<div class="container-fluid page-container">
+		<div class="container-fluid" id="page-container">
 			
-			<div class="row-fluid">
+			<div class="row">
 				
 				<!-- Navigation -->
-				<div id="sidebar" class="span2"></div>
+				<div id="sidebar" class="col-sm-2 hidden-xs"></div>
 				<!-- end Navigation -->
 				
 				<!-- Share -->
@@ -95,7 +59,7 @@
 				<!-- end Share -->
 				
 				<!-- Pageview -->
-				<div id="inner-content" class="span10 page-content">
+				<div id="inner-content" class="col-sm-10 col-xs-12">
 
 					<div class="container-fluid">
 						<div class="row-fluid">	

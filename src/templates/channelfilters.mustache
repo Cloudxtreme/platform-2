@@ -1,13 +1,13 @@
 <!-- New UI
-<div class="row-fluid">
+<div class="row">
 	<div class="span12">
 
 		<div class="portlet box newgrey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
+				<div class="caption"><i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<div class="pull-right">
-						<a href="#keywords"><i class="icon-plus"></i> {{#trans}}Manage Keywords{{/trans}}</a>
+						<a href="#keywords"><i class="fa fa-plus"></i> {{#trans}}Manage Keywords{{/trans}}</a>
 					</div>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 			</div>
@@ -18,7 +18,7 @@
 					
 					{{#networks}}
 						<div class="btn white active filter" data-network-streams="{{ids}}">
-							<i class="icon-{{icon}}"></i>
+							<i class="fa fa-{{icon}}"></i>
 						</div>
 					{{/networks}}
 					
@@ -30,7 +30,7 @@
 					<ul>
 					{{#keywords}}
 						<li class="active filter" data-keyword-id="{{id}}">
-							<i class="icon-tag icon-muted"></i> {{attributes.name}}
+							<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
 						</li>
 					{{/keywords}}
 						<li class="toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
@@ -49,12 +49,12 @@
 	</div>
 </div>
 -->
-<div class="row-fluid">
+<div class="row">
 	<div class="span12">
 
 		<div class="portlet box grey channelfilters">
 			<div class="portlet-title line">
-				<div class="caption"><i class="icon-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
+				<div class="caption"><i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
 			</div>
 			<div class="portlet-body">
 
@@ -63,7 +63,7 @@
 					
 					{{#networks}}
 						<div class="btn white active filter" data-network-streams="{{ids}}">
-							<i class="icon-{{icon}}"></i>
+							<i class="fa fa-{{icon}}"></i>
 						</div>
 					{{/networks}}
 					
@@ -85,7 +85,7 @@
 					<ul>
 					{{#keywords}}
 						<li class="active filter" data-keyword-id="{{id}}">
-							<i class="icon-tag icon-muted"></i> {{attributes.name}}
+							<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
 						</li>
 					{{/keywords}}
 					</ul>
