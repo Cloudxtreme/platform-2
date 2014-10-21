@@ -30,10 +30,15 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		{widget: "Chart", data: {filterfunc: "follow", chart: "PieChart", title: "By Type"}, span : 3, networks: ['twitter', 'linkedin', 'youtube']},
 
 		{widget: "TitleSeparator", data: {title: "Network info"}},
-		{widget: "Info", data: {title: "New impressions", filterfunc: "page-views-network"}, span: 3},
-		{widget: "Info", data: {title: "New shares", filterfunc: "shares"}, span: 3},
-		{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 3},
-		{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 3},
+		{widget: "Info", data: {title: "New impressions", filterfunc: "page-views-network"}, span: 3, nonetworks: ['twitter']},
+		{widget: "Info", data: {title: "New shares", filterfunc: "shares"}, span: 3, nonetworks: ['twitter']},
+		{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 3, nonetworks: ['twitter']},
+		{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 3, nonetworks: ['twitter']},
+
+		// Twitter only
+		{widget: "Info", data: {title: "New shares", filterfunc: "shares"}, span: 4, networks: ['twitter']},
+		{widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: 4, networks: ['twitter']},
+		{widget: "Info", data: {title: "New direct messages", filterfunc: "dms"}, span: 4, networks: ['twitter']},
 
 		{widget: "TitleSeparator", data: {title: "Messages info"}},
 		{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
@@ -60,8 +65,14 @@ Cloudwalkers.Views.StatStream = Cloudwalkers.Views.Statistics.extend({
 		var network = Cloudwalkers.Session.getStream (Number(this.streamid)).get ("network").token;
 		var data = {};	
 		
+		// If it's not on the newtork list, move on
 		if(widget.networks)
 			if(widget.networks.indexOf(network) < 0)
+				return false;
+
+		// If its on the NO newtork list, move on
+		if(widget.nonetworks)
+			if(widget.nonetworks.indexOf(network) >= 0)
 				return false;
 
 		data.network = this.streamid;

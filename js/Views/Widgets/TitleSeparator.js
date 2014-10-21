@@ -6,7 +6,8 @@ Cloudwalkers.Views.Widgets.TitleSeparator = Backbone.View.extend({
 	{
 		if(options) $.extend(this, options);
 		
-		this.title += ' ' + Cloudwalkers.Session.polyglot.t (this.parentview.timespan);
+		if(this.parentview.timespan != 'default')
+			this.title += ' ' + Cloudwalkers.Session.polyglot.t (this.parentview.timespan);
 		
 		this.settings = {};
 		this.settings.title = this.title;
