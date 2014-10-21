@@ -298,7 +298,9 @@ Cloudwalkers.Views.Widgets.Info = Backbone.View.extend({
 		var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
 		var total = statl - statf;
 
-		var description = this.translateString("new_shares")
+		var token = Cloudwalkers.Session.getStream(this.network).get("network").token;
+
+		var description = token == 'twitter'? this.translateString("new_retweets"): this.translateString("new_shares");
 
 		return [{content: total, descr : description}];
 	},
