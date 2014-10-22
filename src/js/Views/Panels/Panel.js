@@ -5,8 +5,8 @@ define(	// MIGRATION: widget based on BaseView
 	['Views/BaseView', 'slimscroll'],
 	function (BaseView, SlimScroll)
 	{
-		var PanelView = BaseView.extend({
-
+		var PanelView = BaseView.extend(
+		{
 			defaults: {
 				title : 'Untitled widget',
 				icon : 'inbox',
@@ -19,7 +19,7 @@ define(	// MIGRATION: widget based on BaseView
 				
 			},
 
-			tools : [],
+			//tools : [],
 
 		    initialize : function (options)
 		    {
@@ -54,22 +54,19 @@ define(	// MIGRATION: widget based on BaseView
 				(
 					Mustache.render 
 					(
-						Templates.widget, 
+						Templates.panel, 
 						{ 
-							'title' : this.title, 
-							'color' : this.color, 
+							'title' : this.title,
 							'icon' : this.icon,
-							'tools' : this.tools,
-							'network' : this.network
 						}
 					)
 				);
 
 				// Events
-				for (var i = 0; i < this.tools.length; i ++)
+				/*for (var i = 0; i < this.tools.length; i ++)
 				{
 					self.attachToolEvents (this.tools[i]);
-				}
+				}*/
 
 				this.$innerEl = $(this.$el.find ('.portlet-body'));
 				this.innerRender (this.$innerEl);
@@ -77,14 +74,14 @@ define(	// MIGRATION: widget based on BaseView
 				return this;
 			},
 
-			attachToolEvents : function (tool)
+			/*attachToolEvents : function (tool)
 			{
 				var self = this;
 				this.$el.find ('.' + tool['class']).click (function (ev)
 				{
 					self[tool.event] (ev);
 				});
-			},
+			},*/
 			
 			negotiateFunctionalities : function() {
 				
