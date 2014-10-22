@@ -1,0 +1,47 @@
+.input-rounded {
+	width: 100%;
+	padding: 0 10px;
+	margin-top: 4px;
+	height: 28px;
+	border-radius: 20px;
+	background: transparent;
+	font-size: 12px;
+	font-weight: normal;
+	color: #555;
+}
+
+.filterpanel .badge.showall {
+	display: inline-block;
+	padding: 6px 10px;
+	cursor: pointer;
+	font-size: 12px;
+	margin-top: 8px;
+}
+
+.filterpanel .userfilter {
+	padding: 10px 10px 6px;
+	border-bottom: 1px solid #bbb;
+	box-shadow: 0 -1px #eee;
+}
+
+.smalluser {
+	clear: both;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: normal;
+	padding: 3px 0px;
+}
+
+.smalluser:hover {
+	background-color: #eee;
+}
+
+.smalluser .avatar,
+.smalluser .username {
+	float: left;
+	padding: 4px 0px 0px 10px;
+}
+
+.smalluser > i{
+	margin: 5px 10px 0px;
+}

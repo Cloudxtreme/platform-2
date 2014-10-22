@@ -1,0 +1,14 @@
+/* Temporary page specific styling */
+
+.panel.dashboardwidget .avatar{
+	display: none;
+}
+
+.panel.messages-counter .messages-container li{
+	border-bottom-width: 0;
+	font-size: 14px;
+}
+
+.panel.messages-counter .messages-container > a:last-child li {
+	border-bottom-width: 1px;
+}
