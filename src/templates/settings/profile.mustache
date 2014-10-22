@@ -1,15 +1,15 @@
 <div class="tab-pane row settings-profile active" id="tab_1_1">
 
-	<div class="span4">
+	<div class="col-md-4">
 		<div class="collapse-open">
-			<div class="portlet box grey">
-				<div class="portlet-title line">
-					<div class="caption"><i class="fa fa-camera-retro"></i>{{#trans}}Profile picture{{/trans}}</div>
+			<div class="panel grey">
+				<div class="panel-heading line">
+					<i class="fa fa-camera-retro"></i>{{#trans}}Profile picture{{/trans}}
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body edit-user-avatar">
+				<div class="panel-body edit-user-avatar">
 					
 					<div id="user_avatar_big" class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})">
 						<span class="loadingafter"></span>
@@ -20,37 +20,29 @@
 						<input id="add-file" class="btn btn-block btn-info" type="button" value="{{#trans}}Select{{/trans}}" />
 						<input id="upload-file" class="btn btn-block black" type="button" value="{{#trans}}Upload{{/trans}}" />
 					{{/authorized.ACCOUNT_SETTINGS}}
-					<!--
-					<form action="javascript:void(0);" class="edit-user-avatar" method="post" enctype="multipart/form-data">
-						<div class="fileupload-new thumbnail avatar-big" style="background-image: url({{user.avatar}})"></div>
-						<center>
-							<input type="file" name="select file" id="file"><br><br>
-							<button type="file" class="btn blue">{{#trans}}Upload Profile Picture{{/trans}}</button>
-						</center>
-					</form>
-					-->
+
 				</div>
 			</div>
 		</div>
 		
 		{{#authorized.ACCOUNT_SETTINGS}}
 		<div class="collapse-closed">
-			<div class="portlet box blue">
-				<div class="portlet-title line expand-portlet">
-					<div class="caption"><i class="fa fa-key"></i>{{#trans}}Change Password{{/trans}}</div>
+			<div class="panel blue">
+				<div class="panel-heading line expand-portlet">
+					<i class="fa fa-key"></i>{{#trans}}Change Password{{/trans}}
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="panel-body">
 					
 					<form action="javascript:void(0);" class="edit-user-password">
 						<label class="control-label">{{#trans}}Current Password{{/trans}}</label>
-						<input name="pass0" type="password" class="m-wrap span12" />
+						<input name="pass0" type="password" class="m-wrap col-md-12" />
 						<label class="control-label">{{#trans}}New Password{{/trans}}</label>
-						<input name="pass1" type="password" class="m-wrap span12" />
+						<input name="pass1" type="password" class="m-wrap col-md-12" />
 						<label class="control-label">{{#trans}}Re-type New Password{{/trans}}</label>
-						<input name="pass2" type="password" class="m-wrap span12" />
+						<input name="pass2" type="password" class="m-wrap col-md-12" />
 						<div class="submit-btn">
 							<button type="submit" class="btn green">{{#trans}}Change Password{{/trans}}</button>
 							<a href="#" class="btn">{{#trans}}Cancel{{/trans}}</a>
@@ -67,7 +59,7 @@
 		
 	</div>
 		
-	<div class="span8">
+	<div class="col-md-8">
 		<div class="tab-content">
 			<div id="tab_1-1" class="tab-pane active">
 				<div style="height: auto;">
@@ -76,15 +68,15 @@
 					
 					<form action="javascript:void(0);" class="edit-user-profile">
 						<label class="control-label">{{#trans}}First Name{{/trans}}</label>
-						<input name="firstname" type="text" placeholder="John" class="m-wrap span8" value="{{user.firstname}}" 
+						<input name="firstname" type="text" placeholder="John" class="m-wrap col-md-8" value="{{user.firstname}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
 						<label class="control-label">{{#trans}}Last Name{{/trans}}</label>
-						<input name="name" type="text" placeholder="Doe" class="m-wrap span8" value="{{user.name}}" 
+						<input name="name" type="text" placeholder="Doe" class="m-wrap col-md-8" value="{{user.name}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
 						<label class="control-label">{{#trans}}Mobile Phone{{/trans}}</label>
-						<input name="mobile" type="text" placeholder="" class="m-wrap span8" value="{{user.mobile}}" 
+						<input name="mobile" type="text" placeholder="" class="m-wrap col-md-8" value="{{user.mobile}}" 
 						{{^authorized.ACCOUNT_SETTINGS}}disabled{{/authorized.ACCOUNT_SETTINGS}}/>
 
 
@@ -94,19 +86,7 @@
 							<option value="{{id}}">{{name}}</option>
 							{{/langs}}
 						</select>
-						
-						<!--
-						<label class="control-label">Mobile Number</label>
-						<input type="text" placeholder="+1 646 580 DEMO (6284)" class="m-wrap span8" />
-						<label class="control-label">Interests</label>
-						<input type="text" placeholder="Design, Web etc." class="m-wrap span8" />
-						<label class="control-label">Occupation</label>
-						<input type="text" placeholder="Web Developer" class="m-wrap span8" />
-																			<label class="control-label">About</label>
-						<textarea class="span8 m-wrap" rows="3"></textarea>
-						<label class="control-label">Website Url</label>
-						<input type="text" placeholder="http://www.mywebsite.com" class="m-wrap span8" />
-						-->
+
 						{{#authorized.ACCOUNT_SETTINGS}}
 						<div class="submit-btn">
 							<button type="submit" class="btn green">{{#trans}}Save changes{{/trans}}</button>

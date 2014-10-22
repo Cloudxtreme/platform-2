@@ -1,6 +1,6 @@
 <div class="tab-pane row settings-account active">
 
-	<div class="span8">
+	<div class="col-md-8">
 
 		<div style="height: auto;" class="edit-account-name">
 			
@@ -8,7 +8,7 @@
 			
 			<form action="javascript:void(0);" id="editaccount">
 				<label class="control-label">{{#trans}}Name{{/trans}}</label>
-				<input data-attribute="account-name" type="text" placeholder="{{#trans}}Company name{{/trans}}" class="m-wrap span8" value="{{name}}" />
+				<input data-attribute="account-name" type="text" placeholder="{{#trans}}Company name{{/trans}}" class="m-wrap col-md-8" value="{{name}}" />
 
 				<div class="submit-btn">
 					<button type="submit" data-action="editaccount" class="btn green edit-account">{{#trans}}Save changes{{/trans}}</button>
@@ -24,14 +24,14 @@
 
 		<h3 name="campaigns">{{#trans}}Campaigns{{/trans}}</h3>
 		<div class="collapse-open">
-			<div class="portlet box yellow">
-				<div class="portlet-title">
-					<div class="caption"><i class="fa fa-bar-chart"></i>{{#trans}}Campaigns{{/trans}}</div>
+			<div class="panel yellow">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart"></i>{{#trans}}Campaigns{{/trans}}
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="panel-body">
 					<ul class="campaign-list">
 						
 						{{#campaigns}}
@@ -64,13 +64,13 @@
 		
 	</div>
 
-	<div class="span4">
+	<div class="col-md-4">
 
-		<div id="menu" class="portlet box grey" data-spy="affix" data-top="10">
-			<div class="portlet-title line">
-				<div class="caption">{{#trans}}Menu{{/trans}}</div>
+		<div id="menu" class="panel grey" data-spy="affix" data-top="10">
+			<div class="panel-heading line">
+				{{#trans}}Menu{{/trans}}
 			</div>
-			<div class="portlet-body">
+			<div class="panel-body">
 				<ul>
 					<li><a data-hash="basic">{{#trans}}Basic{{/trans}}</a></li>
 					<li><a data-hash="campaigns">{{#trans}}Manage Campaigns{{/trans}}</a></li>

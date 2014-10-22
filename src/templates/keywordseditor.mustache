@@ -1,22 +1,22 @@
 	<!-- Add Category -->
-	<div class="portlet box grey addcategory">
-		<div class="portlet-title line">
-			<div class="caption"><i class="fa fa-plus"></i>{{#trans}}Add category{{/trans}}</div>
+	<div class="panel grey addcategory">
+		<div class="panel-heading line">
+			<i class="fa fa-plus"></i>{{#trans}}Add category{{/trans}}
 			<div class="tools">
 				<i class="fa fa-cloud-upload" style="display: none;"></i>
 			</div>
 		</div>
-		<div class="portlet-body">
+		<div class="panel-body">
 			<form data-add-category="1">
 				<label for="category_create_name">{{#trans}}Name{{/trans}}:</label>
 				
-				<input type="text" id="category_create_name" name="name" class="m-wrap span7" required />
+				<input type="text" id="category_create_name" name="name" class="m-wrap col-md-7" required />
 
 				<span style="display:none;">
 				<label for="category_create_remember">{{#trans}}Remember for{{/trans}}:</label>
-				<input type="text" id="category_create_remember" name="remind" class="m-wrap span7" /><span>{{#trans}}days{{/trans}}</span>
+				<input type="text" id="category_create_remember" name="remind" class="m-wrap col-md-7" /><span>{{#trans}}days{{/trans}}</span>
 				</span>
-				<button class="btn blue span4 pull-right" type="submit">{{#trans}}Create{{/trans}}</button>
+				<button class="btn blue col-md-4 pull-right" type="submit">{{#trans}}Create{{/trans}}</button>
 				
 			</form>
 		</div>
@@ -24,21 +24,21 @@
 	<!-- end Add Category -->
 	
 	<!-- Manage keyword -->
-	<div id="keywordsfilter" class="portlet box blue managekeyword">
-		<div class="portlet-title line add-keyword">
-			<div class="caption"><i class="fa fa-tag"></i>{{#trans}}Add keyword{{/trans}}</div>
+	<div id="keywordsfilter" class="panel blue managekeyword">
+		<div class="panel-heading line add-keyword">
+			<i class="fa fa-tag"></i>{{#trans}}Add keyword{{/trans}}
 			<div class="tools">
 				<i class="fa fa-cloud-upload" style="display: none;"></i>
 			</div>
 		</div>
-		<div class="portlet-title line edit-keyword inactive">
-			<div class="caption"><i class="fa fa-tag"></i>{{#trans}}Manage keyword{{/trans}}</div>
+		<div class="panel-heading line edit-keyword inactive">
+			<i class="fa fa-tag"></i>{{#trans}}Manage keyword{{/trans}}
 			<div class="tools">
 				<i class="fa fa-cloud-upload" style="display: none;"></i>
 			</div>
 		</div>
 		
-		<div class="portlet-body manage-keyword">
+		<div class="panel-body manage-keyword">
 			<form data-keyword="true">
 				
 				<label for="keyword_manage_category">{{#trans}}Category{{/trans}}:</label>
@@ -50,16 +50,16 @@
 				</select>
 				
 				<label for="keyword_manage_name">{{#trans}}Name{{/trans}}:</label>
-				<input type="text" value="" placeholder="{{#trans}}keyword name{{/trans}}" id="keyword_manage_name" name="name" class="m-wrap span12" />
+				<input type="text" value="" placeholder="{{#trans}}keyword name{{/trans}}" id="keyword_manage_name" name="name" class="m-wrap col-md-12" />
 				<br><br>
 				
 				<label>{{#trans}}Fine-tune{{/trans}}</labl>
-				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap span12" />-->
+				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap col-md-12" />-->
 				<!--deprecated-->
 				<label>{{#trans}}Filters{{/trans}}:</label>
 				<div class="input-symbol" data-option="fullbody">
 					<div class="container-loading hidden"><i class="fa fa-cloud-download"></i></div>
-					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap span12 keywordeditarea">
+					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap col-md-12 keywordeditarea">
 						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
 							<span class="demo_hit_me">+</spam>
 							<span class="demo_options">

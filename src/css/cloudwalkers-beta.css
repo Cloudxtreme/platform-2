@@ -2,8 +2,7 @@
  *	Platform V1.1 - Bootstrap 3 compatible
  */
 
-
-/* Global styling */
+/**** Global styling ****/
 body { 
 	background-color: #3d3d3d !important; 
 	font-weight: 300; 
@@ -14,20 +13,172 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
+ul { padding-left: 0; }
+ul li{ list-style: none; }
+
+.muted { color: #aaa; }
+.clearfix { clear: both; }
+
 .dropdown-menu i.fa{ 
 	font-size: 85%; 
 	margin-right: 5px; 
 }
 
-/* Global style overrides */
+.page-title{
+	font-size: 30px;
+	letter-spacing: -1px;
+	color: #666;
+	margin: 20px 0px 15px 0px;
+}
+
+.avatar{
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+	background-color: #ddd;
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	background-size: cover;
+	background-position: center;
+}
+
+.avatar.small{
+	width: 24px;
+	height: 24px;
+	border: none;
+}
+
+/**** Global style overrides ****/
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
 	background-color: #080808;
+}
+
+.badge {
+	background: #4a4a4a;
+	font-weight: 400;
+	border-radius: 20px;
+}
+
+/**** Icon defaults ****/ 
+i.fa-twitter	{ color: #01a9da; }
+i.fa-facebook	{ color: #3B5998; }
+i.fa-linkedin	{ color: #1783BC; }
+i.fa-tumblr		{ color: #385775; }
+i.fa-google-plus{ color: #DD4C39; }
+i.fa-youtube	{ color: #CC181E; }
+i.fa-web		{ color: #ff9c00; }
+i.fa-blog		{ color: #ff9c00; }
+i.fa-briefcase	{ color: #4a4a4a; }
+
+/**** Panels ****/
+.panel {
+	border-radius: 0;
+	border: 1px solid #b4cef8;
+}
+
+.panel-body{
+	padding: 12px;
+}
+
+.panel-heading {
+	padding: 8px 15px;
+	border-radius: 0;
+	background-color: #2bbedc;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.panel-heading > i{
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+.panel.yellow {
+	border-color: #fccb7e;
+}
+
+.panel.yellow > .panel-heading {
+	background-color: #ffb848;
+}
+
+.panel.grey {
+	border-color: #9d9c9c;
+}
+
+.panel.grey > .panel-heading {
+	background-color: #555555;
+}
+
+.panel.red {
+	border-color: #ef8476;
+}
+
+.panel.red > .panel-heading {
+	background-color: #e02222;
+}
+
+/**** Entries ****/
+.messages-container li {
+	min-height: 80px; /* Used for the progressive loading effect */
+	padding: 10px 8px;
+	border: 1px solid #ddd;
+	border-bottom-width: 0;
+	color: #333;
+	font-size: 13px;
+}
+
+.messages-container a > li{
+	min-height: inherit;
+}
+
+.messages-container li:last-child{
+	border-bottom-width: 1px; 
+}
+
+.messages-container > a:nth-child(odd) li,
+.messages-container > li:nth-child(odd) {
+	background: #f5f5f5;
+}
+
+.messages-container li > strong,
+.messages-container li > strong a{
+	color: #005580;
+	float: left;
+}
+
+.messages-container li .avatar.pull-left{
+	margin-right: 10px;
+}
+
+.messages-container i {
+	font-size: 18px;
+	float: left;
+	padding: 2px 4px 0 0;
+	width: 1.25em;
+	text-align: center;
+}
+
+.messages-container .scroller{
+	padding: 0;
+	margin: 0;
+	padding-right: 12px;
+}
+
+.messages-container .badge{
+	background: #b1e2ec;
+	border-radius: 5px;
+	font-weight: bold;
+}
+
+.messages-container .badge.unread-0 {
+	background: #eee;
 }
 
 /****************************************************************************************************/
 
 
-/* Header */
+/**** Header ****/
 .navbar-brand	{
 	padding-top: 5px;
 	font-size: 22px; text-transform: uppercase; font-weight: 100;
@@ -62,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* Navigation */
+/**** Navigation ****/
 #page-container {
 	margin-top: 50px;
 }
@@ -87,6 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #sidebar ul li > a {
+	position: relative;
 	border-top: 1px solid #5c5c5c;
 	color: #ffffff;
 	display: block;
@@ -104,9 +256,10 @@ h1, h2, h3, h4, h5, h6 {
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent; 
 	border-right:10px solid white; 
-	float: right;
-	margin-right: -15px;
-	margin-top: -19px;
+	position: absolute;
+	top: 50%;
+	margin-top: -10px;
+	right: 0px;
 }
 
 #sidebar ul li > a > i {

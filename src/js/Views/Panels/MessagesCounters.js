@@ -12,7 +12,7 @@ define(
 			options : {},
 			
 			initialize : function(options)
-			{	
+			{
 				$.extend(this.options, this.defaults);
 				$.extend(this.options, options);
 				

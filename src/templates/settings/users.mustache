@@ -1,11 +1,11 @@
 <div class="tab-pane settings-users row" id="tab_1_2">
 	
-	<div class="span4">
-		<div class="portlet box grey manage-users-edit-widget">
-			<div class="portlet-title line">
-				<div class="caption"><i class="fa fa-user"></i>{{#trans}}Edit user{{/trans}}</div>
+	<div class="col-md-4">
+		<div class="panel grey manage-users-edit-widget">
+			<div class="panel-heading line">
+				<i class="fa fa-user"></i>{{#trans}}Edit user{{/trans}}
 			</div>
-			<div class="portlet-body">
+			<div class="panel-body">
 				
 				<div class="edit-filler">
 					<center>{{#trans}}Select user{{/trans}}</center>
@@ -18,14 +18,14 @@
 		</div>
 		{{#authorized.USER_INVITE}}
 		<div class="collapse-open invite-user">
-			<div class="portlet box blue">
-				<div class="portlet-title line expand-portlet">
-					<div class="caption"><i class="fa fa-envelope-alt"></i>{{#trans}}Invite new user{{/trans}}</div>
+			<div class="panel blue">
+				<div class="panel-heading line expand-portlet">
+					<i class="fa fa-envelope-alt"></i>{{#trans}}Invite new user{{/trans}}
 					<div class="tools">
 						<span class="collapse pull-right"></span>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="panel-body">
 					
 					<form action="javascript:void(0);" class="users-invite">
 						
@@ -44,13 +44,13 @@
 	</div>
 	
 	
-	<div class="span8">
+	<div class="col-md-8">
 	
-		<div class="portlet box purple">
-			<div class="portlet-title">
-				<div class="caption"><i class="fa fa-group"></i>{{#trans}}Userlist{{/trans}}</div>
+		<div class="panel purple">
+			<div class="panel-heading">
+				<i class="fa fa-group"></i>{{#trans}}Userlist{{/trans}}
 			</div>
-			<div class="portlet-body toload">
+			<div class="panel-body toload">
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>

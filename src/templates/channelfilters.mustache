@@ -1,20 +1,20 @@
 <!-- New UI
 <div class="row">
-	<div class="span12">
+	<div class="col-md-12">
 
-		<div class="portlet box newgrey channelfilters">
-			<div class="portlet-title line">
-				<div class="caption"><i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
+		<div class="panel newgrey channelfilters">
+			<div class="panel-heading line">
+				<i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}
 				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					<div class="pull-right">
 						<a href="#keywords"><i class="fa fa-plus"></i> {{#trans}}Manage Keywords{{/trans}}</a>
 					</div>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 			</div>
-			<div class="portlet-body">
+			<div class="panel-body">
 
 				
-				<div class="filter network-list social-icon-colors span4">
+				<div class="filter network-list social-icon-colors col-md-4">
 					
 					{{#networks}}
 						<div class="btn white active filter" data-network-streams="{{ids}}">
@@ -25,7 +25,7 @@
 					<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 				
-				<div class="filter keyword-list span8">
+				<div class="filter keyword-list col-md-8">
 
 					<ul>
 					{{#keywords}}
@@ -38,7 +38,7 @@
 
 				</div>
 
-				<div class="building-notice inactive span12">
+				<div class="building-notice inactive col-md-12">
 					<strong>{{#trans}}Building your data{{/trans}}</strong>
 					<br>{{#trans}}This will take a minute or so.{{/trans}}
 				</div>
@@ -50,13 +50,13 @@
 </div>
 -->
 <div class="row">
-	<div class="span12">
+	<div class="col-md-12">
 
-		<div class="portlet box grey channelfilters">
-			<div class="portlet-title line">
-				<div class="caption"><i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}</div>
+		<div class="panel grey channelfilters">
+			<div class="panel-heading line">
+				<i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}
 			</div>
-			<div class="portlet-body">
+			<div class="panel-body">
 
 				
 				<div class="filter network-list social-icon-colors">

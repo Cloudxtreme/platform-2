@@ -46,19 +46,19 @@ define(
 			{
 
 				$(el.target).closest('.rssfeed-container').children().children().removeClass('opened');
-				$(el.target).closest('.rssfeed-container').children().removeClass('span12');
-				$(el.target).closest('.rssfeed-container').children().addClass('span6');
+				$(el.target).closest('.rssfeed-container').children().removeClass('col-md-12');
+				$(el.target).closest('.rssfeed-container').children().addClass('col-md-6');
 
 				//console.log($(el.target).closest('.rssfeed-container'))
 
 				if($(el.target).hasClass('message')){
 					$(el.target).addClass('opened');
-					$(el.target).parent().removeClass('span6');
-					$(el.target).parent().addClass('span12');
+					$(el.target).parent().removeClass('col-md-6');
+					$(el.target).parent().addClass('col-md-12');
 				} else {
 					$(el.target).closest('.message').addClass('opened');
-					$(el.target).closest('.message').parent().removeClass('span6');
-					$(el.target).closest('.message').parent().addClass('span12');
+					$(el.target).closest('.message').parent().removeClass('col-md-6');
+					$(el.target).closest('.message').parent().addClass('col-md-12');
 				}
 			},
 

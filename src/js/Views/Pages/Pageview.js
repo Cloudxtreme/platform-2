@@ -52,7 +52,7 @@ define(
 				
 					this.widgetviews.push(widget);
 				
-					widget.$el.addClass("span" + span);
+					widget.$el.addClass("col-md-" + span);
 
 					if(offset)
 						widget.$el.addClass("offset" + offset);

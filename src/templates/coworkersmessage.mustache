@@ -1,6 +1,6 @@
 	<!-- {{id}} -->
 	<div class="pull-right">
-		<span class="date" {{#date}}data-date="{{date}}"{{/date}}></span>
+		<span class="date muted" {{#date}}data-date="{{date}}"{{/date}}></span>
 		{{#actions.length}}
 			<span class="actions dropdown">
 				<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
@@ -27,11 +27,11 @@
 	
 	
 	{{#from}}
-		<img class="avatar" alt="" src="{{avatar}}">
+		<div class="avatar small pull-left" style="background-image: url({{avatar}})"></div>
 		<strong><a>{{displayname}}</a></strong>
 	{{/from}}
 	
-	<div class="content">
+	<div class="content clearfix">
 		
 		{{#subject}}
 		<strong>{{subject}}</strong><br />

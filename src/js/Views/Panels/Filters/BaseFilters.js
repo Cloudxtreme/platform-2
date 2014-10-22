@@ -4,6 +4,8 @@ define(
 	{
 		var BaseFilters = Panel.extend ({
 
+			className : 'filterpanel',
+
 			filters : {
 				users : {string:"", list:[]}
 			},
@@ -44,7 +46,7 @@ define(
 				// View
 				this.$el.html (Mustache.render (Templates[this.options.template]));
 				
-				this.$container = this.$el.find("#users-list").eq(0);
+				this.$container = this.$el.find("#userlist").eq(0);
 				
 				return this;
 			},

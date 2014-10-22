@@ -145,7 +145,9 @@ define(	// MIGRATION: widget based on BaseView
 			
 				// Update slimscroll plugin default styling
 				scroll.css('max-height', height);
-				scroll.css('height', 'inherit')
+				scroll.css('height', 'inherit');
+				this.$el.find(".slimScrollBar").eq(0).css('right', '-9px');
+				this.$el.find(".slimScrollDiv").eq(0).css('overflow', 'visible');
 			},
 
 		    onDestroy : function ()
