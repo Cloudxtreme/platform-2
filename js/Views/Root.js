@@ -287,7 +287,7 @@ Cloudwalkers.Views.Root = Backbone.View.extend({
 	{
 		if(!target) target = "#inner-content .container-fluid";
 		
-		$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
+		$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'></button><strong>" + title + "</strong> " + message + "</div>");
 	},
 	
 	'closeInformation' : function (title, message, target)

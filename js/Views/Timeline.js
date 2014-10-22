@@ -276,8 +276,11 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		
 	'filterparameters' : function()
 	{
-		var param = this.parameters;
+		var param = {};
 		var filter = this.timelinetype == 'news'? 'contacts': 'streams';
+
+		// Clone without changing base parameters
+		$.extend(true, param, this.parameters);
 		
 		if(this.filters.streams.length)
 			param[filter] = this.filters.streams.join(",");
@@ -334,9 +337,10 @@ Cloudwalkers.Views.Timeline = Cloudwalkers.Views.Pageview.extend({
 		if (this.collection.cursor)
 			this.$container.append(this.$loadmore);
 
-		
 		else if(!models.length)
-			this.$container.append(this.$nocontent);	
+			this.$container.append(this.$nocontent);
+
+		else	this.$loadmore.remove();	
 		
 		this.hideloading();
 	},

@@ -26,6 +26,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		//'monitoring/managerss' : 'managerss',
 		'monitoring/accounts' : 'manageaccounts',
 		'monitoring/:channel(/:subchannel)(/:messageid)' : 'monitoring',
+		'monitoring/:channel(/:subchannel)/' : 'monitoring',
 		'keywords' : 'managekeywords',
 		'reports/:streamid' : 'reports',
 		'statistics' : 'statistics',
@@ -271,6 +272,8 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 **/
 	'monitoring' : function (id, catid, messageid)
 	{	
+		if(!catid)	return this.navigate("#keywords", true);
+
 		var view = new Cloudwalkers.Views.KeywordMonitoring({category: Cloudwalkers.Session.getChannel(Number(catid))});
 		var roles = 'MESSAGE_READ_MONITORING';
 
