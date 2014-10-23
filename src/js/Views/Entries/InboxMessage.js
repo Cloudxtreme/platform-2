@@ -12,7 +12,7 @@ define(
 		var InboxMessage = MessageEntryView.extend({
 	
 			tagName : 'div',
-			className : "message social-box-colors",
+			className : "message",
 			template : 'inboxmessage',
 			related : [],
 			messageview : [],
@@ -41,8 +41,8 @@ define(
 				this.$related = $('<ul></ul>');
 				this.$prelated = $('<ul></ul>');
 				
-				this.$el.before(this.$prelated.addClass("related-messages social-box-colors"));
-				this.$el.after(this.$related.addClass("related-messages social-box-colors"));
+				this.$el.before(this.$prelated.addClass("related-messagess"));
+				this.$el.after(this.$related.addClass("related-messages"));
 				
 				// Create related collection
 				if(!this.model.related)

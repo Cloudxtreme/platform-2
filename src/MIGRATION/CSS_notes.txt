@@ -1,3 +1,6 @@
 
 /* Entries */
-Base or old entry structure is based on avatar, content and actions.
+Base or old entry structure is based on avatar, content and actions;
+Entry templates should be divided by content & styled by the messagelist that contains them;
+All messagelists have the class .messagelist;
+All messagelist's message containers have the class .message-container

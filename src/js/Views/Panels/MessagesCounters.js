@@ -36,7 +36,7 @@ define(
 			render : function ()
 			{	
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
-				this.$container = this.$el.find('ul.messages-container.messages-list').eq(0)
+				this.$container = this.$el.find('ul.entry-container.messages-list').eq(0)
 
 				this.fill(this.collection);
 				

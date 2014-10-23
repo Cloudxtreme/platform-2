@@ -124,7 +124,7 @@ define(
 				//Mustache render the context
 				if(context.objectType == 'message')
 				{
-					var wrapper = $('<div class="message social-box-colors"></div>')
+					var wrapper = $('<div class="message"></div>')
 					context.display = true;
 					contextrender = Mustache.render(Templates.inboxmessage, context);
 					contextrender  = wrapper.append(contextrender)

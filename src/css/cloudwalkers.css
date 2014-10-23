@@ -539,24 +539,24 @@ nav	{
 
 .portlet.box .portlet-title.collapse-portlet .tools > a:after	{ content: "\f078"; }
 
-.messages-container .media i	{ color: white; }
+.entry-container .media i	{ color: white; }
 
-tbody.messages-container i	{
+tbody.entry-container i	{
 	padding: 0 2px 0 6px !important; float: none !important;
 }
 
-.span12 .messages-container td	{ width: 10%; word-wrap: break-word; }
+.span12 .entry-container td	{ width: 10%; word-wrap: break-word; }
 
-.portlet .messages-container li	{
+.portlet .entry-container li	{
 	min-height: 60px; margin: 0; padding: 10px 8px; background:#fff; border: 1px solid #ddd; border-bottom-width: 0;
 	font-weight: 300;
 }
 
-#monitorparent #monitorlist.portlet .messages-container li{
+#monitorparent #monitorlist.portlet .entry-container li{
 	padding: 0px !important;
 }
 
-#monitorparent #monitorlist.portlet .messages-container li > div:first-child{
+#monitorparent #monitorlist.portlet .entry-container li > div:first-child{
 	padding: 10px 8px;
 }
 
@@ -568,40 +568,40 @@ tbody.messages-container i	{
 	background-color: #fff;
 }
 
-.portlet .messages-container > li:nth-child(odd),
-.portlet .messages-container > a:nth-child(odd) li	{ background:#f5f5f5 }
+.portlet .entry-container > li:nth-child(odd),
+.portlet .entry-container > a:nth-child(odd) li	{ background:#f5f5f5 }
 
-.portlet .messages-container li:hover	{ background:#eee; }
+.portlet .entry-container li:hover	{ background:#eee; }
 
-.portlet .messages-container > li:last-child,
-.portlet .messages-container > a:last-child li { border-bottom-width: 1px; }
+.portlet .entry-container > li:last-child,
+.portlet .entry-container > a:last-child li { border-bottom-width: 1px; }
 
-.portlet .messages-container span.number	{
+.portlet .entry-container span.number	{
 	float: right; background: #b1e2ec; border-radius: 5px !important; padding: 0 6px;
 	color: white; font-weight: bold;
 }
 
-.portlet .messages-container span.number.unread-0	{
+.portlet .entry-container span.number.unread-0	{
 	background: #eee; font-weight: normal;
 }
 
-.portlet .messages-container i	{
+.portlet .entry-container i	{
 	font-size: 18px; float: left; padding: 2px 4px 0 0;
 }
 
-#monitorparent .portlet .messages-container .btn-compound i	{
+#monitorparent .portlet .entry-container .btn-compound i	{
 	font-size: 13px; float: none; padding: 0px;
 }
 
 .viewcontact i{ cursor: pointer; }
 
-.portlet .messages-container .viewcontact i	{
+.portlet .entry-container .viewcontact i	{
 	font-size: 14px; float: none; margin-left: 5px; color: #ccc;
 }
 
-.portlet .messages-container p	{ margin: 0px; }
+.portlet .entry-container p	{ margin: 0px; }
 
-.dashboardwidget .messages-container li	{ cursor: pointer; }
+.dashboardwidget .entry-container li	{ cursor: pointer; }
 
 /* Notes */
 .message-notes{
@@ -871,54 +871,54 @@ aside .tag-input-append{
 	margin-left: 10px; 
 }
 
-.portlet .messages-container .date	{
+.portlet .entry-container .date	{
 	display: block; width: 24px; height: 16px; margin: 0 0 4px 0; overflow: visible; 
 	color: #aaa; font-style: italic; text-align: right; line-height: 20px; 
 }
-.span4 .portlet .messages-container .date	{ font-size: 12px; }
+.span4 .portlet .entry-container .date	{ font-size: 12px; }
 
-.portlet .messages-container .media	{
+.portlet .entry-container .media	{
 	width: 12px; height: 14px; padding: 1px 2px; margin: 0 0 0 8px; background: #b1e2ec; border-radius: 2px !important;
 	color: white; text-align: center;
 }
-.portlet .messages-container .media	i	{ font-size: 10px; }
+.portlet .entry-container .media	i	{ font-size: 10px; }
 
-.portlet .messages-container .link i,
+.portlet .entry-container .link i,
 .portlet .dropdown-toggle.icon-share-alt	{
 	padding: 2px 0 2px 1px; background-color: #555 !important; border-radius: 2px; float: none;
 	color: white; font-size: 12px;
 }
 .portlet .dropdown-toggle.icon-share-alt:hover	{ background-color: #333 !important; }
 
-.portlet .messages-container .link,
-.portlet .messages-container .trending	{
+.portlet .entry-container .link,
+.portlet .entry-container .trending	{
 	display: block; min-width: 14px; height: 16px; padding: 0 1px; margin: 2px 0 2px 8px; background: #555; border-radius: 2px !important;
 	color: white; font-size: 10px; text-align: center; line-height: 16px;
 }
-.portlet .messages-container .trending-0	{ background: #ccc; }
+.portlet .entry-container .trending-0	{ background: #ccc; }
 
-.portlet .messages-container .link	{
+.portlet .entry-container .link	{
 	width: 16px; padding: 0; margin: 4px 0 4px 8px; background-color: #999;
 }
-.portlet .messages-container .link i.icon-picture	{ font-size: 11px; }
+.portlet .entry-container .link i.icon-picture	{ font-size: 11px; }
 
-.portlet .messages-container .link:hover	{
+.portlet .entry-container .link:hover	{
 	text-decoration: none; background: #333;
 }
 
-.portlet .messages-container .attachment-image	{
+.portlet .entry-container .attachment-image	{
 	padding: 2px; border: 1px solid #eee; margin: -2px 0 0 10px; max-height: 68px; max-width: 33.3%; opacity: .25;
 }
 
-.portlet .messages-container li:hover .attachment-image	{ opacity: 1; }
+.portlet .entry-container li:hover .attachment-image	{ opacity: 1; }
 
-.portlet .messages-container .attachment-link	{
+.portlet .entry-container .attachment-link	{
 	padding: 2px 8px; display: inline; border-radius: 20px !important; background: #d9edf7;
 }
 
 .attachment-link	{ white-space: nowrap; }
 
-.portlet .messages-container .attachment-link i	{
+.portlet .entry-container .attachment-link i	{
 	color: white; padding-right: 2px; float: none;
 	font-size: 14px; line-height: 2em;
 }
@@ -929,7 +929,7 @@ aside .tag-input-append{
 
 /* Actions Dropdown */
 
-.messages-container .actions	{
+.entry-container .actions	{
 	display: block; margin-left: 8px;
 }
 
@@ -2269,7 +2269,7 @@ ul.contacts-list	{
  * Manage keywords
  */
 
-.portlet.keywordsoverview .messages-container li	{ min-height: 10px; }
+.portlet.keywordsoverview .entry-container li	{ min-height: 10px; }
 
 .portlet.keywordsoverview h4	{ margin-top: 6px; }
 .portlet.keywordsoverview h4	{ width: 50%; }
@@ -2296,7 +2296,7 @@ ul.contacts-list	{
 
 .portlet.keywordsoverview li[data-edit-keyword-id]	{ cursor: pointer; }
 
-.portlet.keywordsoverview .messages-container li[data-edit-keyword-id] i	{ padding-top: 5px; }
+.portlet.keywordsoverview .entry-container li[data-edit-keyword-id] i	{ padding-top: 5px; }
 
 .portlet.keywordsoverview form	{ margin: 3px 0; }
 
@@ -2314,38 +2314,38 @@ ul.contacts-list	{
 	display: inline-block;
 	padding: 7px;
 }
-.messages-container .category-remember{
+.entry-container .category-remember{
 	display: inline-block;
 	margin-bottom: -15px;
 }
-.messages-container span{
+.entry-container span{
 	cursor: pointer;
 }
-.messages-container .category-remember h4{
+.entry-container .category-remember h4{
 	float: left;
 }
-.messages-container .category-name .remember_val{
+.entry-container .category-name .remember_val{
 	font-weight: 600;
 }
-.messages-container .category-edit span{
+.entry-container .category-edit span{
 	display: block;
 }
-.messages-container .category-edit .edit_remember {
+.entry-container .category-edit .edit_remember {
 	margin-top: 4px;
 	margin-bottom: -8px;
 }
 
-.messages-container .category-edit .edit_remember input{
+.entry-container .category-edit .edit_remember input{
 	width: 25px;
 	padding: 2px;
 	font-size: 14px;
 	text-align: center;
 }
 
-.messages-container .category-edit .edit-toggler{
+.entry-container .category-edit .edit-toggler{
 	padding: 3px 14px;
 }
-.messages-container .category-edit .edit_name input{
+.entry-container .category-edit .edit_name input{
 	padding: 3px;
 }
 
@@ -2357,7 +2357,7 @@ ul.contacts-list	{
 /**
  *	messageschedulecontainer
  
-.messages-container.inner-loading, .messages-container.inner-empty 	{
+.entry-container.inner-loading, .entry-container.inner-empty 	{
 	display: block; width: 100%;
 }*/
 
@@ -2910,20 +2910,20 @@ Dashboard stats
 .row-fluid .span12 {
 	margin-left: 0px;
 }
-.messages-container .note{
+.entry-container .note{
 	width: 100% !important;
 	margin-left: 0px !important;
 }
-.messages-container .note .modal-header{
+.entry-container .note .modal-header{
 	display: none;
 }
-.messages-container .note .modal-body textarea{
+.entry-container .note .modal-body textarea{
 	min-height: 160px !important;
 }
-.messages-container .thanks{
+.entry-container .thanks{
 	height: 180px !important;
 }
-.messages-container .thanks-wrapper:before{
+.entry-container .thanks-wrapper:before{
 	font-size: 150px !important;
 }
 .webcare .more{

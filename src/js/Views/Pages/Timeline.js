@@ -121,7 +121,7 @@ define(
 			{
 				this.$el.addClass("loading");	
 
-				this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist));
+				this.$el.find('ul.entry-container').empty().html(Mustache.render (Templates.timelinemessagelist));
 
 				if(this.timelinetype == 'news' && !this.newsloaded)
 					this.$el.find('.filter-bg').addClass('loading');

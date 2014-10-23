@@ -52,22 +52,4 @@
 
 /* Lists */
 
-.messagelist .entry strong {
-	margin: 10px 0px 0px 10px;
-}
-
-.messagelist .entry .content {
-	padding: 5px 115px 5px 15px;
-}
-
-.messagelist .entry .attachment-image {
-	padding: 2px 10px;
-	margin: -2px 0 0 10px;
-	max-height: 60px;
-	max-width: 33.3%;
-	opacity: .25;
-}
-
-.messagelist .entry:hover .attachment-image {
-	opacity: 1;
-}
+/* Inbox lists */

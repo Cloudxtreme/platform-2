@@ -5,7 +5,8 @@ define(
 		var Drafts = Pageview.extend({
 
 			title : 'Drafts',
-			className : "container-fluid drafts",
+			className : "container-fluid",
+			id: 'drafts',
 			
 			initialize : function ()
 			{
@@ -31,7 +32,7 @@ define(
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
-				var list = new BaseListPanel ({model: this.model, id: 'draftsparent', title: "Draft messages"});
+				var list = new BaseListPanel ({model: this.model, title: "Draft messages"});
 				this.appendWidget(list, 8);
 				
 				filter.list = list;

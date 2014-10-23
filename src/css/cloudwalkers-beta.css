@@ -80,7 +80,10 @@ li [class^="fa fa-"] {
 	text-align: center;
 }
 
+/****************************************************************************************************/
+
 /**** Panels ****/
+
 .panel {
 	border-radius: 0;
 	border: 1px solid #b4cef8;
@@ -129,7 +132,7 @@ li [class^="fa fa-"] {
 }
 
 /**** Entries ****/
-.messages-container .entry {	/* Base entry */
+.entry-container .entry {	/* Base entry */
 	min-height: 80px;
 	padding: 10px 8px;
 	border: 1px solid #ddd;
@@ -138,51 +141,126 @@ li [class^="fa fa-"] {
 	font-size: 13px;
 }
 
-.messages-container li:last-child .entry {
+.entry-container li:last-child .entry {
 	border-bottom-width: 1px; 
 }
 
-.messages-container > a:nth-child(odd) li,
-.messages-container > li:nth-child(odd) {
+.entry-container > a:nth-child(odd) li,
+.entry-container > li:nth-child(odd) {
 	background: #f5f5f5;
 }
 
-.messages-container .entry > strong,
-.messages-container .entry > strong a{
+.entry-container .entry > strong,
+.entry-container .entry > strong a{
 	color: #005580;
 	float: left;
+	margin: 5px 0px 0px 5px;
 }
 
-.messages-container .entry .content{
+.entry-container .entry .content{
 	clear: left;
 }
 
-.messages-container .entry .avatar{
+.entry-container .entry .avatar {
 	float: left;
 }
 
-.messages-container li:hover{
+
+/* Specific entries ( from mini to full) */
+
+.messagelist.mini .entry .avatar {	/* eg: dashboard trending*/
+	display: none;
+}
+
+.messagelist.mini .entry > strong {
+	margin: 0;
+}
+
+.messagelist.slim .entry .avatar {	/* eg: inbox entry listing*/
+	width: 22px;
+	height: 22px;
+	margin: 0px 5px 5px 0px;
+	border-color: #fff;
+}
+
+.messagelist.slim .entry > strong {
+	margin: 0px 2px 2px 0px;
+}
+
+.entry-container .entry.full .content {
+	padding: 5px 115px 5px 15px;
+}
+
+.entry-container .entry.full .attachment-image {
+	padding: 2px 10px;
+	margin: -2px 0 0 10px;
+	max-height: 60px;
+	max-width: 33.3%;
+	opacity: .25;
+}
+
+.entry-container .entry:hover .attachment-image {
+	opacity: 1;
+}
+
+.entry-container li:hover{
 	background:#eee;
 }
 
-.messages-container .scroller{
+.entry-container .scroller{
 	padding: 0;
 	margin: 0;
 	padding-right: 12px;
 }
 
-.messages-container .badge{
+.entry-container .badge{
 	background: #b1e2ec;
 	border-radius: 5px;
 	font-weight: bold;
 }
 
-.messages-container .badge.unread-0 {
+.entry-container .badge.unread-0 {
 	background: #eee;
 }
 
-/****************************************************************************************************/
 
+/* Message */
+.message {
+	background: white;
+	box-shadow: 0 0 3px #d6d6d6;
+}
+
+/* Inbox type list */
+.messagelist.slim {
+	border-right: 2px solid #dfdfdf;
+	background: #fff;
+	height: inherit;
+}
+
+.messagelist.slim .entry-container .entry{
+	border-width: 0px 0px 1px 0px;
+}
+
+.listfilter {
+	padding: 10px;
+	border-bottom: 1px solid #bbb;
+}
+
+.listfilter label {
+	color: #aaa;
+	display: block;
+	font-weight: 300;
+}
+
+.listfilter .filter-group .btn-white{
+	display: inline-block;
+	padding: 5px 8px;
+	margin-right: 3px;
+}
+
+.inbox-container {
+	padding: 20px 30px 20px 0px;
+}
 
 /**** Header ****/
 .navbar-brand	{
@@ -403,3 +481,6 @@ li.btn-white {
 	border-left: 0px;
 	margin-left: 0px !important;
 }
+
+
+/***** HACKS *****/

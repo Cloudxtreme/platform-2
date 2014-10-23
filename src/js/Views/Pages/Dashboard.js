@@ -1,9 +1,9 @@
 define(
 	['Views/Pages/PageView', 'mustache',  'Collections/Statistics', 
-	 'Views/Panels/MessagesCounters', 'Views/Panels/DashboardMessageList', 'Views/Panels/Statistics/Info'],
+	 'Views/Panels/MessagesCounters', 'Views/Panels/MiniMessageList', 'Views/Panels/Statistics/Info'],
 
 	function (Pageview, Mustache, Statistics,
-			  MessagesCountersWidget, DashboardMessageListWidget, InfoWidget)
+			  MessagesCounters, MiniMessageList, InfoWidget)
 	{
 		var Dashboard = Pageview.extend({
 
@@ -115,7 +115,7 @@ define(
 
 				$.extend(widgetdata, {name: channel.get('name'), open: 1, channel: channel});
 
-				return new MessagesCountersWidget (widgetdata);
+				return new MessagesCounters (widgetdata);
 			},
 			
 			addDashboardDrafts : function (widgetdata)
@@ -126,7 +126,7 @@ define(
 
 				widgetdata.link = "#coworkers";
 				
-				return new DashboardMessageListWidget (widgetdata);
+				return new MiniMessageList (widgetdata);
 			},
 
 			addDashboardTrending : function (widgetdata)
@@ -140,7 +140,7 @@ define(
 
 				if(!widgetdata.model)	return;
 
-				return new DashboardMessageListWidget (widgetdata);
+				return new MiniMessageList (widgetdata);
 			},
 
 			filterparameters : function() {

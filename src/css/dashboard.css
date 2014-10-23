@@ -1,17 +1,11 @@
 
-
-/* Dashboardwidget specific entry */
-.panel.dashboardwidget .avatar{
-	display: none;
-}
-
 /* Messages-counter entries */
-.panel.messages-counter .messages-container .entry {	
+.panel.messages-counter .entry-container .entry {	
 	border-bottom-width: 0;
 	font-size: 14px;
 }
 
-.panel.messages-counter .messages-container > a:last-child .entry {
+.panel.messages-counter .entry-container > a:last-child .entry {
 	border-bottom-width: 1px;
 }
 

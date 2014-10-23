@@ -42,9 +42,9 @@ define(
 				this.loadmylisteners();
 
 				// Get template
-				this.$el.html (Mustache.render (Templates.coworkerslist, data));
+				this.$el.html (Mustache.render (Templates.baselist, data));
 				
-				this.$container = this.$el.find ('.messages-container');
+				this.$container = this.$el.find ('.entry-container');
 				this.$loadercontainer = this.$el.find ('.portlet-body');
 				//this.$el.find(".load-more").hide();
 

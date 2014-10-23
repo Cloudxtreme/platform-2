@@ -7,7 +7,6 @@ define(
 			// To-do: if url streamid is given, load network-related only.
 			// To-do: local manipulate list-view & toggle
 
-			id : 'inboxlist',
 			entries : [],
 			check : "hasMessages",
 			collectionstring : "messages",
@@ -114,7 +113,7 @@ define(
 				param.note = this.listtype? true: false;
 				
 				// Get template
-				this.$el.html (Mustache.render (Templates.inboxlist, param));
+				this.$el.html (Mustache.render (Templates.slimlist, param));
 				
 				// Set selected streams
 				if (this.filters.streams.length)
@@ -124,7 +123,7 @@ define(
 					this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
 				}
 				
-				this.$container = this.$el.find ('ul.list');
+				this.$container = this.$el.find ('ul.entry-container');
 				
 				// Load messages
 				this.collection.touch(this.model, this.filterparameters());
@@ -219,7 +218,7 @@ define(
 
 				this.inboxmessage = new InboxMessageWidget(options);
 				
-				$(".inbox-container").html(this.inboxmessage.render().el);
+				$(".message-container").html(this.inboxmessage.render().el);
 				
 				// Load related messages
 				this.inboxmessage.showrelated(); //(view.model);
@@ -484,11 +483,11 @@ define(
 			},
 
 			isempty : function(){		
-				$(".inbox-container").empty().addClass('empty-content');
+				$(".message-container").empty().addClass('empty-content');
 			},
 
 			unsetempty : function(){
-				$(".inbox-container").removeClass('empty-content');
+				$(".message-container").removeClass('empty-content');
 			}
 		});
 

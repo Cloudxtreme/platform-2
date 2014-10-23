@@ -5,7 +5,8 @@ define(
 		var Coworkers = Pageview.extend({
 
 			title : 'Co-workers wall',
-			className : "container-fluid coworkers",
+			className : "container-fluid",
+			id: 'coworkers',
 			
 			initialize : function ()
 			{			
@@ -29,7 +30,7 @@ define(
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
-				var list = new BaseListPanel ({model: this.model, id: 'coworkersparent', title: "Co-workers messages"});
+				var list = new BaseListPanel ({model: this.model, title: "Co-workers messages"});
 				this.appendWidget(list, 8);
 				
 				filter.list = list;

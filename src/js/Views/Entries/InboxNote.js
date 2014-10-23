@@ -68,8 +68,8 @@ define(
 				this.$related = $('<ul></ul>');
 				this.$prelated = $('<ul></ul>');
 				
-				this.$el.before(this.$prelated.addClass("related-messages social-box-colors"));
-				this.$el.after(this.$related.addClass("related-messages social-box-colors"));
+				this.$el.before(this.$prelated.addClass("related-messages"));
+				this.$el.after(this.$related.addClass("related-messages"));
 				
 				// Create related collection
 				if(!this.model.related)

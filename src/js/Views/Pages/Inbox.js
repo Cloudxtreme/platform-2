@@ -5,7 +5,8 @@ define(
 		var Inbox = Pageview.extend({
 
 			title : 'Inbox',
-			className : "container-fluid inbox",
+			className : "container-fluid",
+			id: 'inbox',
 			options : {},
 			
 			initialize : function (options)
@@ -57,9 +58,13 @@ define(
 				this.resize(Cloudwalkers.RootView.height());
 				
 				// Add scroller for message
-				$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
+				//$message = this.$el.find(".inbox-container").wrap("<div class='scroller'>");
 				
-				$message.parent().slimScroll({height: "inherit"});
+				//$message.parent().slimScroll({height: "inherit"});
+
+				this.$el.find('.scroller').slimScroll({
+					height: "inherit"
+				});
 			}
 			
 		});
