@@ -10,7 +10,13 @@
 	color: #555;
 }
 
-.filterpanel .badge.showall {
+.filterpanel {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.filterpanel .badge.showall,
+.filterpanel .badge.toggleall {
 	display: inline-block;
 	padding: 6px 10px;
 	cursor: pointer;
@@ -27,8 +33,6 @@
 .smalluser {
 	clear: both;
 	cursor: pointer;
-	font-size: 13px;
-	font-weight: normal;
 	padding: 3px 0px;
 }
 
@@ -44,4 +48,26 @@
 
 .smalluser > i{
 	margin: 5px 10px 0px;
+}
+
+/* Lists */
+
+.messagelist .entry strong {
+	margin: 10px 0px 0px 10px;
+}
+
+.messagelist .entry .content {
+	padding: 5px 115px 5px 15px;
+}
+
+.messagelist .entry .attachment-image {
+	padding: 2px 10px;
+	margin: -2px 0 0 10px;
+	max-height: 60px;
+	max-width: 33.3%;
+	opacity: .25;
+}
+
+.messagelist .entry:hover .attachment-image {
+	opacity: 1;
 }

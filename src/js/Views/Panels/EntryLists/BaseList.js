@@ -80,7 +80,7 @@ define(
 				// Add messages to view
 				for (var n in list)
 				{
-					var view = new EntryView ({model: list[n], type: "full", template: "coworkersmessage"});
+					var view = new EntryView ({model: list[n], template: "fullentry"});
 					this.entries.push (view);
 
 					// Filter user

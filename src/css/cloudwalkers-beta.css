@@ -33,8 +33,8 @@ ul li{ list-style: none; }
 
 .avatar{
 	overflow: hidden;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	background-color: #ddd;
 	border-radius: 50%;
 	border: 2px solid #ddd;
@@ -59,6 +59,10 @@ ul li{ list-style: none; }
 	border-radius: 20px;
 }
 
+.badge.inactive {
+	background: #ccc;
+}
+
 /**** Icon defaults ****/ 
 i.fa-twitter	{ color: #01a9da; }
 i.fa-facebook	{ color: #3B5998; }
@@ -69,6 +73,12 @@ i.fa-youtube	{ color: #CC181E; }
 i.fa-web		{ color: #ff9c00; }
 i.fa-blog		{ color: #ff9c00; }
 i.fa-briefcase	{ color: #4a4a4a; }
+
+li [class^="fa fa-"] {
+	display: inline-block;
+	width: 1.25em;
+	text-align: center;
+}
 
 /**** Panels ****/
 .panel {
@@ -119,8 +129,8 @@ i.fa-briefcase	{ color: #4a4a4a; }
 }
 
 /**** Entries ****/
-.messages-container li {
-	min-height: 80px; /* Used for the progressive loading effect */
+.messages-container .entry {	/* Base entry */
+	min-height: 80px;
 	padding: 10px 8px;
 	border: 1px solid #ddd;
 	border-bottom-width: 0;
@@ -128,11 +138,7 @@ i.fa-briefcase	{ color: #4a4a4a; }
 	font-size: 13px;
 }
 
-.messages-container a > li{
-	min-height: inherit;
-}
-
-.messages-container li:last-child{
+.messages-container li:last-child .entry {
 	border-bottom-width: 1px; 
 }
 
@@ -141,22 +147,22 @@ i.fa-briefcase	{ color: #4a4a4a; }
 	background: #f5f5f5;
 }
 
-.messages-container li > strong,
-.messages-container li > strong a{
+.messages-container .entry > strong,
+.messages-container .entry > strong a{
 	color: #005580;
 	float: left;
 }
 
-.messages-container li .avatar.pull-left{
-	margin-right: 10px;
+.messages-container .entry .content{
+	clear: left;
 }
 
-.messages-container i {
-	font-size: 18px;
+.messages-container .entry .avatar{
 	float: left;
-	padding: 2px 4px 0 0;
-	width: 1.25em;
-	text-align: center;
+}
+
+.messages-container li:hover{
+	background:#eee;
 }
 
 .messages-container .scroller{
@@ -210,6 +216,10 @@ i.fa-briefcase	{ color: #4a4a4a; }
 .nav-avatar	{
 	width: 36px; height: 36px; background: #333 no-repeat center; background-size: 100%; border-radius: 50%;
 	text-align: center; font-size: 34px; line-height: 1em;
+}
+
+.nav-avatar > i {
+	width: inherit;
 }
 
 
@@ -317,4 +327,79 @@ i.fa-briefcase	{ color: #4a4a4a; }
 	color: white;
 	text-shadow: 0 -1px 0 rgba(0,0,0, .12) !important;
 	font-weight: 100;
+}
+
+
+/* White Button */
+.btn-white	{
+	padding: 4px 10px;
+	max-width: 100%;  
+	border: 1px solid rgba(0,0,0,0.15); 
+	box-shadow: 0 1px #eee; 
+	overflow: hidden; 
+	cursor: pointer;
+	color: #4a4a4a; 
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+
+.btn-white:hover { 
+	color: black; 
+}
+
+.btn-white.inactive,
+.btn-white.btn-compound .actionvalue.inactive,
+.btn-white.btn-compound .actionname.inactive	{
+	background: #eee; 
+	border: 1px solid #ccc; 
+	box-shadow: inset 0 1px #e0e0e0;
+	color: #999; 
+	text-shadow: 0 1px white;
+}
+
+.btn-white.inactive i { 
+	color: #999; 
+}
+
+.btn-white.selected	{
+	background: #f0f7fb; 
+	box-shadow: inset 0 1px #fff;
+	color: #01547d; 
+	text-shadow: 0 1px white;
+}
+
+li.btn-white {
+	margin-bottom: -1px;
+}
+
+.btn-compound{
+	position: relative;
+	padding: 0px;
+}
+
+.btn-compound .btn-white span{
+	margin-left: 3px;
+}
+
+.btn-compound .btn-white.actionvalue{
+	float: left;
+	top: 0px;
+	padding: 4px 7px 4px 9px;
+}
+
+.btn-compound .btn-white.actionvalue.noresults > i,
+.btn-compound .btn-white.actionvalue.noresults > span{
+	opacity: .2;
+}
+
+.btn-compound .btn-white.actionvalue.noresults:hover{
+	color: #4a4a4a !important;
+}
+
+.btn-compound .btn-white.actionname{
+	float: left;
+	top: 0px;
+	padding: 4px 9px 4px 7px;
+	border-left: 0px;
+	margin-left: 0px !important;
 }

@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="panel grey channelfilters">
+			<div class="panel-heading line">
+				<i class="fa fa-group icon-large"></i>{{#trans}}Co-workers{{/trans}}
+			</div>
+			<div class="panel-body">
+
+				<div class="userfilter">
+
+					<div class="loading-contacts pull-right hidden"></div><input type="text" class="form-control input-rounded" placeholder="{{#trans}}Search co-workers...{{/trans}}" />
+					
+					<label class="hidden">{{#trans}}Suggestions{{/trans}}</label>
+					<ul class="contacts-suggestions"></ul>
+				
+				</div>
+				
+				<br />
+				
+				<div>
+					<ul id="userlist" class="inner-loading">
+
+					</ul>
+					
+					<br />
+					<span class="badge showall">{{#trans}}Show all{{/trans}}</span>
+
+					{{#authorized.USER_INVITE}}
+						<small class="pull-right"><a href="#settings/users">{{#trans}}Manage users{{/trans}}</a></small>
+					{{/authorized.USER_INVITE}}
+					
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,4 +1,5 @@
-	<!-- {{id}} -->
+<!-- {{id}} -->
+<div class="entry full">
 	<div class="pull-right">
 		<span class="date muted" {{#date}}data-date="{{date}}"{{/date}}></span>
 		{{#actions.length}}
@@ -27,7 +28,7 @@
 	
 	
 	{{#from}}
-		<div class="avatar small pull-left" style="background-image: url({{avatar}})"></div>
+		<div class="avatar" style="background-image: url({{avatar}})"></div>
 		<strong><a>{{displayname}}</a></strong>
 	{{/from}}
 	
@@ -47,3 +48,4 @@
 			{{/link}}
 		{{/attached}}
 	</div>
+</div>

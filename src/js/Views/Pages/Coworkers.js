@@ -25,7 +25,7 @@ define(
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 				// Add filter widget
-				var filter = new BaseFiltersPanel ({model: this.model, template: "coworkersfilters"});
+				var filter = new BaseFiltersPanel ({model: this.model, template: "listfilters"});
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
