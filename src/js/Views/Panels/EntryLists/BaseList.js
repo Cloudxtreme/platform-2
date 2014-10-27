@@ -6,7 +6,7 @@ define(
 
 			title: "List messages",
 			entries : [],
-			
+			type: 'list',
 			events : {
 				'remove' : 'destroy',
 				'click .load-more' : 'more'

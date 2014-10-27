@@ -12,6 +12,11 @@
 	margin-top: 8px;
 }
 
+.badge.showall:hover,
+.badge.toggleall:hover {
+	background: #222
+}
+
 .filterpanel .userfilter {
 	padding: 10px 10px 6px;
 	border-bottom: 1px solid #bbb;

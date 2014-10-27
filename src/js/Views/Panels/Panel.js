@@ -130,12 +130,16 @@ define(	// MIGRATION: widget based on BaseView
 			addScroll : function () {
 
 				var scroll = this.$el.find('.scroller').eq(0);
+				var containerheight; 
+
+				if (this.type == 'list')
+					height = $("#inner-content").height() -165 + "px";
 
 				scroll.slimScroll({
 					size: '6px',
 					color: '#a1b2bd',
 					position: 'right',
-					height: $(this).attr("data-height"),
+					height: containerheight,
 					alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
 					railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
 					disableFadeOut: true

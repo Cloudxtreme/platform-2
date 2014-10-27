@@ -4,9 +4,10 @@
  */
 
 define(
-	['Views/Entries/BaseEntry', 'mustache', 'Views/Entries/Actions/Actions', 'Views/Modals/SimpleCompose', 'Views/Entries/SubNoteEntry', 'Views/Entries/SubNotificationEntry'],
+	['Views/Entries/BaseEntry', 'mustache', 'Views/Entries/Actions/Actions', 'Views/Modals/SimpleCompose',
+	 'Views/Entries/SubNoteEntry', 'Views/Entries/SubNotificationEntry', 'colorbox'],
 
-	function (BaseEntry, Mustache, ActionsView, SimpleComposeView, SubNoteEntry, SubNotificationEntry)
+	function (BaseEntry, Mustache, ActionsView, SimpleComposeView, SubNoteEntry, SubNotificationEntry, colorbox)
 	{
 		var MessageEntry = BaseEntry.extend({
 
@@ -30,7 +31,8 @@ define(
 					this.loadnoteui();
 				
 				// MIGRATION -> Temporarily disable image/video plugin
-				//this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
+				this.$el.find(".youtube-video").colorbox({iframe:true, innerWidth:640, innerHeight:390, opacity: 0.7});
+				this.$el.find(".message-img").colorbox({maxWidth: '80%', maxHeight: '80%', opacity: 0.7});
 				
 				return this;
 			},

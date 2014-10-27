@@ -470,7 +470,7 @@ define(
 			},
 			
 			addScroll : function () {
-
+				
 				this.$el.find('.scroller').slimScroll({
 					height: "inherit"
 

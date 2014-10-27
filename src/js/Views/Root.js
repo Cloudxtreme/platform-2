@@ -135,7 +135,7 @@ define (
 
 				var element = $(tmpl);
 				var modal = element.modal();
-
+				
 				element.find ('[data-response=confirm]').click (function ()
 				{
 					callback ();
@@ -146,6 +146,8 @@ define (
 				{
 					if(cancelcallback)	cancelcallback ();
 				});
+
+
 			},
 
 			alert : function (message, callback)

@@ -1,7 +1,6 @@
 <div class="timeline-entry {{networktoken}}-entry" data-message-id="{{id}}">
 	<div class="timeline-info">
 
-		<!--<div class="user-name">{{#from}}{{displayname}}{{/from}}</div>-->
 		<table id="timeline-username">
 		<tbody>
 			<tr>
@@ -77,9 +76,8 @@
 			<div class="timeline-entry-media">
 
 				{{#attached.image}}
-				<!--<span class="muted">Media:</span>-->
 					<div class="media-clip"><i class="fa fa-paperclip"></i></div>
-					<a href="{{url}}" class="media-sphere" data-lightbox="{{name}}" style="background-image: url({{url}});"></a>
+					<a href="{{url}}" class="media-sphere message-img" style="background-image: url({{url}});"></a>
 				{{/attached.image}}
 				
 				{{#attached.video}}

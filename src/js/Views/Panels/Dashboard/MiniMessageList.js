@@ -5,7 +5,7 @@ define(
 		DashboardMessageList = Panel.extend({
 
 			entries : [], 
-
+			type : 'minilist',
 			options : {},
 			
 			'initialize' : function(options)

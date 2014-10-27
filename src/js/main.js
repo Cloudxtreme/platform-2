@@ -4,7 +4,7 @@
 require.config({
 	baseUrl: '/js/',
 	paths: {
-		'jquery': 'lib/jquery/jquery',
+		'jquery': 'lib/jquery/dist/jquery.min',
 		'jqueryui': 'lib/jquery-ui/jquery-ui.min',
 		'underscore': 'lib/underscore/underscore',
 		'backbone': 'lib/backbone/backbone',
@@ -24,7 +24,8 @@ require.config({
 		'gritter': 'lib/jquery.gritter/js/jquery.gritter.min',
 		'async' : 'lib/requirejs-plugins/src/async',
 		'goog': 'lib/requirejs-plugins/src/goog',
-        'propertyParser' : 'lib/requirejs-plugins/src/propertyParser'
+        'propertyParser' : 'lib/requirejs-plugins/src/propertyParser',
+        'colorbox' : 'lib/colorbox/jquery.colorbox-min'
 	},
 	shim: {
 		'bootstrap': {
@@ -38,16 +39,8 @@ require.config({
 			deps: ['jquery'],
 			exports: 'jqueryui'
 		},
-		'bootstrap-modal': {
-			deps: ['jquery', 'bootstrap', 'bootstrap-modalmanager'],
-			exports: 'bootstrap-modal'
-		},
-		'bootstrap-modalmanager': {
-			deps: ['jquery'],
-			exports: 'bootstrap-modalmanager'
-		},
 		'backbone': {
-			deps: ['underscore', 'jquery', 'mustache', 'jqueryui', 'bootstrap-modal'],
+			deps: ['underscore', 'jquery', 'mustache', 'jqueryui'],
 			exports: 'backbone'
 		},
 		'crossdomain': {

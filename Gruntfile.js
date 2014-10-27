@@ -123,14 +123,15 @@ module.exports = function (grunt)
 			staging: {
 				files: [
 					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
-					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/example4/*.css', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.staging.dir %>/locales'}
 				]
 			},
 			release: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico', '*.php', 'images/**','fonts/**','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
-					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','*/*.css','*/dist/**','*/lib/**', "!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/js/lib'}
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/example4/*.css', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/js/lib'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.staging.dir %>/locales'}
 				]
 			}
 		},

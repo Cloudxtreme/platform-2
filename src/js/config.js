@@ -1,8 +1,8 @@
 define({
 
-    appid : "oauth254343419b8cf92.53791794", 
-	apiurl: "https://devapi.cloudwalkers.be/",
-	authurl: "https://devapi.cloudwalkers.be/oauth2/",
+    appid : "oauth25447a7df013eb7.92268403", 
+	apiurl: "https://api.cloudwalkers.be/",
+	authurl: "https://api.cloudwalkers.be/oauth2/",
 	
 	setloginwindow : function ()
 	{
