@@ -8,7 +8,7 @@ define(
 	{
 		var NoteEntry = BaseEntry.extend({
 
-			className : 'note',
+			className : 'entry entrynote',
 	
 			events : 
 			{

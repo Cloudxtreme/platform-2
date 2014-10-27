@@ -41,7 +41,7 @@ define(
 			openDetails : function ()
 			{
 				var view = new UserDetailsView ({ model : this.model, view: this.view });
-				$(".manage-users-edit-widget .portlet-body").html(view.render().el);
+				$(".manage-users-edit-widget .panel-body").html(view.render().el);
 			},
 			
 			deleteUser : function (e)

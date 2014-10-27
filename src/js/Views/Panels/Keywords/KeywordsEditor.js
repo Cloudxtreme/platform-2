@@ -231,9 +231,9 @@ define(
 			addPlus : function (size){
 				
 				if(size == "small")
-					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + translation.translate_and + '</li><li class="add_or">' + trans("or") + '</li></ul></span></span>');
+					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + trans('and') + '</li><li class="add_or">' + trans("or") + '</li></ul></span></span>');
 				if(size == "large")
-					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + translation.translate_message_contains + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + translation.translate_message_doesnt_contain + '</li><li class="add_author_is hidden">' + translation.translate_author_is + '</li><li class="add_author_is_not hidden">' + translation.translate_author_is_not + '</li><li class="add_country_is">' + translation.translate_country_is + '</li><li class="add_country_is_not">' + translation.translate_country_is_not + '</li><li class="add_language_is">' + translation.translate_language_is + '</li><li class="add_language_is_not">' + translation.translate_language_is_not + '</li><li class="add_group">' + translation.translate_group + '</li></ul></span></span>');
+					$("#keyword_filter").append('<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + trans('message contains') + '</li><li class="add_message_no_contains" class="demo_doesntcontain">' + trans('message doesnt containt') + '</li><li class="add_author_is hidden">' + trans('author is') + '</li><li class="add_author_is_not hidden">' + trans('author is not') + '</li><li class="add_country_is">' + trans('country is') + '</li><li class="add_country_is_not">' + trans('country is not') + '</li><li class="add_language_is">' + trans('language is') + '</li><li class="add_language_is_not">' + trans('language is not') + '</li><li class="add_group">' + trans('group') + '</li></ul></span></span>');
 			},
 
 			formulaElement : function(e){
@@ -263,16 +263,16 @@ define(
 				
 
 				if(e == "or")
-					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or" data-value="or " ><span class="sel_value">' + translation.translate_or + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or" data-text="' + translation.translate_or + '">' + translation.translate_or + '</li><li class="demo_change_val" data-value="and" data-text="' + translation.translate_and + '">' + translation.translate_and + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or" data-value="or " ><span class="sel_value">' + trans('or') + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or" data-text="' + trans('or') + '">' + trans('or') + '</li><li class="demo_change_val" data-value="and" data-text="' + trans('and') + '">' + trans('and') + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 
 				if(e == "and")
-					$("#keyword_filter").append('<span  id="' + rand_id + '" data-string="sel_value" class="demo_bubble demo_drop demo_and" data-value="and " ><span class="sel_value">' + translation.translate_and + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and" data-text="' + translation.translate_and + '">' + translation.translate_and + '</li><li class="demo_change_val" data-value="or" data-text="' + translation.translate_or + '">' + translation.translate_or + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span  id="' + rand_id + '" data-string="sel_value" class="demo_bubble demo_drop demo_and" data-value="and " ><span class="sel_value">' + trans('and') + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and" data-text="' + trans('and') + '">' + trans('and') + '</li><li class="demo_change_val" data-value="or" data-text="' + trans('or') + '">' + trans('or') + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 
 				if(e == "(")
-					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_group" data-option="("><span class="sel_value">' + translation.translate_group + '</span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_group" data-option="("><span class="sel_value">' + trans('group') + '</span><i class="demo_remove_filter icon-remove"></i></span>');
 
 				if(e == ")")
-					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + translation.translate_end_group + '</span><i class="demo_remove_filter icon-remove"></i></span>');
+					$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + trans('end group') + '</span><i class="demo_remove_filter icon-remove"></i></span>');
 
 				// Generate language bubble
 				if(e.indexOf('language') != -1){
@@ -287,9 +287,9 @@ define(
 
 					if(tokenValue){
 						if(splitValue[1] == '!='){
-							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + translation.translate_language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != " data-value="' + splitValue[2] + '">' + trans('language is not') + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 						} else {
-							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + translation.translate_language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = " data-value="' + splitValue[2] + '">' + trans('language is') + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages">' + languageslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 						}
 						// Update chosen
 						$('#' + rand_id + ' select').val(tokenValue).trigger('change');
@@ -309,9 +309,9 @@ define(
 
 					if(tokenValue){
 						if(splitValue[1] == '!='){
-							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + translation.translate_country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != " data-value="' + splitValue[2] + '">' + trans('country is not') + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 						} else {
-							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + translation.translate_country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
+							$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = " data-value="' + splitValue[2] + '">' + trans('country is') + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries">' + countrieslist + '</select></span><i class="demo_remove_filter icon-remove"></i></span>');
 						}
 						// Update chosen
 						$('#' + rand_id + ' select').val(tokenValue).trigger('change');
@@ -328,9 +328,9 @@ define(
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
 					if(splitValue[1] == '!contains'){
-						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + translation.translate_message_doesnt_contain + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + trans('message doesnt containt') + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + trans('save') + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + trans('cancel') + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 					} else {
-						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message contains ">' + translation.translate_message_contains + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message contains ">' + trans('message contains') + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + trans('save') + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + trans('cancel') + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 					}
 				}
 
@@ -344,9 +344,9 @@ define(
 					splitValue[2] = splitValue[2].replace(/'/g, "");
 
 					if(splitValue[1] == '!='){
-						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + translation.translate_author_is_not + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + trans('author is not') + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + trans('save') + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + trans('cancel') + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 					} else {
-						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + translation.translate_author_is + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + translation.translate_save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + translation.translate_cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
+						$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + trans('author is') + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + textValue + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + trans('save') + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + trans('cancel') + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 					}
 				}
 			},

@@ -55,7 +55,7 @@ define(
 					widget.$el.addClass("col-md-" + span);
 
 					if(offset)
-						widget.$el.addClass("offset" + offset);
+						widget.$el.addClass("col-md-offset-" + offset);
 					
 					if (widget.negotiateFunctionalities)
 						widget.negotiateFunctionalities();

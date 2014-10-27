@@ -96,8 +96,7 @@ define(
 				// Check for scroller
 				if(this.$el.find('.scroller').length) this.addScroll();
 				
-				// Check amountSign
-				if(this.options.counter) this.appendCounter();
+				this.appendCounter();
 				
 				// Check collapse option
 				if(typeof this.options.open != "undefined")

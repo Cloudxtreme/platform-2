@@ -11,7 +11,7 @@ define (
 		var Compose = BaseView.extend({
 	
 			id : "compose",
-			className : "modal hide",
+			className : "modal fade",
 			type : "post",
 			network : "default",
 			actionstreams : [],
@@ -276,6 +276,9 @@ define (
 				var view = Mustache.render(Templates.compose, params);
 
 				this.$el.html (view);		
+				this.$el.attr('tabindex', '-1');
+				this.$el.attr('role', 'dialog');
+				this.$el.attr('aria-hidden', 'true');
 				
 				if(this.state == 'loading')	this.disablefooter();
 
@@ -998,7 +1001,7 @@ define (
 				var toggle = pos? "removeClass": "addClass";
 				var toggle2 = pos? "addClass": "removeClass";
 
-				$(selector)[toggle]("inactive").find("label")[toggle]("icon-circle-blank")[toggle2]("icon-ok-circle");
+				$(selector)[toggle]("inactive").find("label")[toggle]("fa fa-circle-o")[toggle2]("fa fa-check-circle-o");
 				
 				return this;
 			},

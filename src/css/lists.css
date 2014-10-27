@@ -1,22 +1,10 @@
-.input-rounded {
-	width: 100%;
-	padding: 0 10px;
-	margin-top: 4px;
-	height: 28px;
-	border-radius: 20px;
-	background: transparent;
-	font-size: 12px;
-	font-weight: normal;
-	color: #555;
-}
-
 .filterpanel {
 	font-size: 13px;
 	font-weight: normal;
 }
 
-.filterpanel .badge.showall,
-.filterpanel .badge.toggleall {
+.badge.showall,
+.badge.toggleall {
 	display: inline-block;
 	padding: 6px 10px;
 	cursor: pointer;

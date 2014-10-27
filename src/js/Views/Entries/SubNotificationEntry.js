@@ -1,12 +1,12 @@
 /* 
- *	Small entry for notifications ( and comments )
+ *	Sub entry for notifications ( and comments )
  */
 
 define(
-	['Views/Entries/SmallEntry', 'mustache', 'Collections/Actions'],
-	function (SmallEntry, Mustache, Actions)
+	['Views/Entries/SubEntry', 'mustache', 'Collections/Actions'],
+	function (SubEntry, Mustache, Actions)
 	{
-		var Notification = SmallEntry.extend({
+		var Notification = SubEntry.extend({
 			
 			toggleaction : function (token, newaction)
 			{

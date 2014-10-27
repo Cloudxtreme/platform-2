@@ -10,7 +10,7 @@ define(
 	
 			tagName : 'div',
 			className : "note",
-			template : 'inboxnote',
+			template : 'note',
 			related : [],
 			messageview : [],
 			notifications : [],

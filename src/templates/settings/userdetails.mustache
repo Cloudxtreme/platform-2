@@ -10,23 +10,21 @@
 		<div class="box-holder">
 			<div class="box-frame">
 				
-				<form action="javascript:void(0);" class="edit-managed-user">
-					<ul>
-						<li>
-							<label for="level">{{#trans}}Clearance level{{/trans}}</label>
-							<select id="level" name="level">
+				<form role="form" id="edit-managed-user">
+					<div class="form-group row">
+						<div class="col-md-8">
+							<label>{{#trans}}Clearance level{{/trans}}</label>
+							<select class="form-control">
 								{{#roles}}
 									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
 								{{/roles}}
 							</select>
-						</li>
+						</div>
+					</div>
 
-						<li>
-							<button type="submit" class="btn black">{{#trans}}Save{{/trans}}</button>
-						</li>
-					</ul>
+					<button type="submit" class="btn black">{{#trans}}Save{{/trans}}</button>
 				</form>
-
+				
 			</div>
 		</div>
 	</div>

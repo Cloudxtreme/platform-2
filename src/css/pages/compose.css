@@ -11,9 +11,9 @@
 Style corrections and manual overrides
 ***/
 
-#compose	{
-	width: 960px; max-width: 98%; border-radius: 4px; margin-left: -480px;
-	-webkit-font-smoothing: antialiased;
+#compose .modal-dialog	{
+	width: 900px; max-width: 98%; border-radius: 4px;
+	-webkit-font-smoothing: antialiased; font-size: 13px;
 }
 
 #compose ::selection { background: #27c9ea; }
@@ -80,12 +80,13 @@ Style corrections and manual overrides
  *	Main content
 **/
 
-#compose > div	{
+#compose .right	{
 	margin-left: 260px; border-left: 1px solid #aaa; background-color: #fff; border-radius: 0px 2px 2px 0px;
 }
 
-#compose .modal-content{
-	float: left; width: 100%; height: 100%; position: relative;
+#compose .inner-content{
+	float: left; width: 100%; height: 100%; position: relative; border: none;
+	box-shadow: none;
 }
 
 #compose .modal-header	{ 
@@ -684,6 +685,9 @@ Style corrections and manual overrides
 	    -ms-transition: all .15s ease-out;
 	     -o-transition: all .15s ease-out;
 	        transition: all .15s ease-out;
+	-webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 #out.expanded{
@@ -696,14 +700,14 @@ Style corrections and manual overrides
 #out-loading{
 	width: 99%;
 	position: relative;
-	/*-webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;*/
 	padding: 0px 11%; 
 	margin: 10px -10.5% 0px;
 	overflow: hidden;
 	height: 5px;
 	top: 2px;
+	-webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .oembedall-container a, .oembedall-container > span { display: none;}

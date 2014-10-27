@@ -36,7 +36,7 @@ define(
 				this.$el.html (Mustache.render (Templates.scheduledlist));
 
 				this.$container = this.$el.find ('.entry-container');
-				this.$loadercontainer = this.$el.find ('.portlet-body');
+				this.$loadercontainer = this.$el.find ('.panel-body');
 				this.$el.find(".load-more").hide();
 				
 				if(params){	

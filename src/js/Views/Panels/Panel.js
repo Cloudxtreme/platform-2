@@ -68,7 +68,7 @@ define(	// MIGRATION: widget based on BaseView
 					self.attachToolEvents (this.tools[i]);
 				}*/
 
-				this.$innerEl = $(this.$el.find ('.portlet-body'));
+				this.$innerEl = $(this.$el.find ('.panel-body'));
 				this.innerRender (this.$innerEl);
 				
 				return this;
@@ -108,18 +108,18 @@ define(	// MIGRATION: widget based on BaseView
 				this.$el.addClass(open? 'collapse-open':'collapse-closed');
 
 				if(this.$el.find(".tools .count").length)
-						this.$el.find(".tools .count").addClass('collapse');
+						this.$el.find(".tools .count").addClass('tocollapse');
 				else	this.$el.find(".tools").append($('<span class="collapse pull-right"></span>'));
 				
 				
-				this.$el.find(".portlet-title.line").on("click", this.collapse.bind(this));
+				this.$el.find(".panel-heading.line").on("click", this.collapse.bind(this));
 
 			},
 			
 			appendCounter : function(amount) {
 				
 				var count = 0;
-				this.$el.find("li .number, li .count").each(function(){ count += Number($(this).text())});
+				this.$el.find("li .badge, li .count").each(function(){ count += Number($(this).text())});
 				
 				if(count > 999) count = "+999";
 				if(count < 0) count = 0;

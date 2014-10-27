@@ -45,7 +45,7 @@ define(
 				// Get connected Services
 				Cloudwalkers.Net.get ('wizard/service/list', {'account': account.id}, this.appendConnected.bind(this));
 				*/
-				this.$container = this.$el.find('.portlet-body');
+				this.$container = this.$el.find('.panel-body');
 				return this;
 			},
 

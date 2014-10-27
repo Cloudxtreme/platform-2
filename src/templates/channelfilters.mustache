@@ -11,18 +11,16 @@
 					</div>
 				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 			</div>
-			<div class="panel-body">
-
-				
-				<div class="filter network-list social-icon-colors col-md-4">
+			<div class="panel-body">				
+				<div class="filter network-list col-md-4">
 					
 					{{#networks}}
-						<div class="btn white active filter" data-network-streams="{{ids}}">
+						<div class="btn-white active filter" data-network-streams="{{ids}}">
 							<i class="fa fa-{{icon}}"></i>
 						</div>
 					{{/networks}}
 					
-					<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
+					<li class="badge toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 				
 				<div class="filter keyword-list col-md-8">
@@ -33,12 +31,12 @@
 							<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
 						</li>
 					{{/keywords}}
-						<li class="toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
+						<li class="badge toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
 					</ul>
 
 				</div>
 
-				<div class="building-notice inactive col-md-12">
+				<div class="building-notice inner-loading col-md-12">
 					<strong>{{#trans}}Building your data{{/trans}}</strong>
 					<br>{{#trans}}This will take a minute or so.{{/trans}}
 				</div>
@@ -56,13 +54,11 @@
 			<div class="panel-heading line">
 				<i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}
 			</div>
-			<div class="panel-body">
-
-				
-				<div class="filter network-list social-icon-colors">
+			<div class="panel-body">				
+				<div class="filter network-list">
 					
 					{{#networks}}
-						<div class="btn white active filter" data-network-streams="{{ids}}">
+						<div class="btn-white active filter" data-network-streams="{{ids}}">
 							<i class="fa fa-{{icon}}"></i>
 						</div>
 					{{/networks}}
@@ -70,7 +66,7 @@
 					<div class="clear"></div>
 					<br />
 					
-					<li class="toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
+					<li class="badge toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 				
 				<div class="building-notice inactive">
@@ -80,25 +76,29 @@
 								
 				<hr />
 				
-				<div class="filter keyword-list">
+				<div class="keyword-list">
 					<label>{{name}} {{#trans}}Keywords{{/trans}}</label>
 					<ul>
-					{{#keywords}}
-						<li class="active filter" data-keyword-id="{{id}}">
-							<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
-						</li>
-					{{/keywords}}
+						<div class="row">
+						{{#keywords}}
+							<div class="col-md-4">
+								<li class="active keyword btn-white" data-keyword-id="{{id}}">
+									<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
+								</li>
+							</div>
+						{{/keywords}}
+						</div>
 					</ul>
 					
 					<div class="clear"></div>
 					<br />
 					{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
-						<small class="pull-right">
+						<small class="Manage">
 							<a href="#keywords">{{#trans}}Manage Keywords{{/trans}}</a>
 						</small>
 					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 					
-					<li class="toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
+					<li class="badge toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
 				</div>
 
 			</div>

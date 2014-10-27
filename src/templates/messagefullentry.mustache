@@ -4,7 +4,7 @@
 		
 		{{#actions.length}}
 		<span class="actions dropdown">
-			<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+			<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
 			
 			<ul class="dropdown-menu">
 			{{#actions}}
@@ -16,7 +16,7 @@
 		{{/actions.length}}
 		<!--{{#share.length}}
 			<span class="actions dropdown">
-				<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+				<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
 			
 				<ul class="dropdown-menu">
 				{{#share}}
@@ -28,7 +28,7 @@
 		
 		<!--<div class="media"><i class="fa fa-{{media}}"></i></div>-->
 		
-		<div class="media"><i class="fa fa-{{networktoken}}"></i></div>
+		<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
 	</div>
 
 	<div class="message-actions" id="keywordfilter-actions"></div>
@@ -71,7 +71,7 @@
 		{{/attached}}
 	</div>
 </div>
-	<div class="message-notes">
+	<div class="message-sub-actions">
 		<div class="note-content"></div>
 		<div class="action-lists">
 			<span id="closenotelist"></div>

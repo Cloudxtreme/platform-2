@@ -25,7 +25,7 @@ define(
 				param.note = this.listtype? true: false;
 
 				// Get template
-				this.$el.html (Mustache.render (Templates.inboxlist, param));
+				this.$el.html (Mustache.render (Templates.slimlist, param));
 				
 				// Set selected streams
 				if (this.filters.streams.length)
@@ -35,7 +35,7 @@ define(
 					this.$el.find(this.filters.streams.map(function(id){ return '[data-networks~="'+ id +'"],[data-streams="'+ id +'"]'; }).join(",")).toggleClass("inactive active");
 				}
 				
-				this.$container = this.$el.find ('ul.list');
+				this.$container = this.$el.find ('ul.entry-container');
 				
 				// Load messages
 				this.collection.touch(this.model, this.filterparameters());
@@ -83,7 +83,7 @@ define(
 				
 				this.inboxnote = new InboxNoteView(options);
 				
-				$(".inbox-container").html(this.inboxnote.render().el);
+				$(".message-container").html(this.inboxnote.render().el);
 				
 				//render the context
 				this.rendercontext();
@@ -92,7 +92,7 @@ define(
 				if(type != 'account')
 					this.inboxnote.showrelated();
 				
-				this.$el.find(".list .active").removeClass("active");
+				this.$el.find(".messagelist .active").removeClass("active");
 				view.$el.addClass("active");
 			},
 			
@@ -136,9 +136,9 @@ define(
 				}	
 
 				//append the context
-				$('.inbox-container').find('.message').remove();
-				$('.inbox-container').find('.single-contact').remove();
-				$('.inbox-container').prepend(contextrender);
+				$('.message-container').find('.message').remove();
+				$('.message-container').find('.single-contact').remove();
+				$('.message-container').prepend(contextrender);
 
 			},
 			
@@ -280,7 +280,7 @@ define(
 				return this;
 			},
 			
-			filterstreamsv: function (e, all)
+			filterstreams: function (e, all)
 			{
 				this.loadmylisteners(true);
 				
@@ -358,51 +358,7 @@ define(
 				this.storeview();
 				
 				return param;
-			},
-			
-			storeview : function ()
-			{
-				
-				// Memory cloth
-				var settings = Cloudwalkers.Session.viewsettings(this.collectionstring);
-				
-				if(!settings)	return;
-				if(!settings.streams) settings.streams = [];
-				
-				// And store
-				if(JSON.stringify(settings.streams) != JSON.stringify(this.filters.streams))
-				{
-					settings.streams = this.filters.streams;
-					Cloudwalkers.Session.viewsettings(this.collectionstring, settings);
-				}
-			},
-			
-			more : function ()
-			{
-				this.incremental = true;
-
-				this.loadmore.loadmylisteners();
-				
-				var hasmore = this.collection.more(this.model, this.filterparameters());
-				
-				if(!hasmore) this.$el.find(".load-more").hide();
-			},
-			
-			negotiateFunctionalities : function() {
-				
-				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
-				
-				this.addScroll();
-			},
-			
-			addScroll : function () {
-
-				this.$el.find('.scroller').slimScroll({
-					height: "inherit"
-
-				});
-			},
-			
+			}	
 
 		});
 

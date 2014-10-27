@@ -5,6 +5,7 @@ define(
 		var Settings = Pageview.extend({
 
 			title : "Settings",
+			id: 'settings',
 			tabs : [],
 			
 			'initialize' : function (options)

@@ -26,7 +26,7 @@ Cloudwalkers.Views.Actions = Backbone.View.extend({
 
 		//Default values
 		this.fillactions(token);
-		console.log(this.actionsright)
+		
 		this.$el.html(Mustache.render(Templates.actions));
 
 		this.renderactions('left', this.actionsleft);

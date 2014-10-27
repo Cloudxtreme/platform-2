@@ -6,8 +6,8 @@ define(
 
 			events : {
 				'click .add-user' : 'addUser',
-				'submit .edit-user-profile' : 'editUserProfile',
-				'submit .edit-user-password' : 'editUserPassword',
+				'submit #edit-user-profile' : 'editUserProfile',
+				'submit #edit-user-password' : 'editUserPassword',
 				'click #add-file' : 'addfile',
 				'change input[type=file]' : 'listentofile',
 				'click #upload-file' : 'uploadfile',
@@ -51,8 +51,8 @@ define(
 				var mobile = this.$el.find ('[name=mobile]').val (); 
 				var locale = this.$el.find ('[name=locale]').val (); 
 
-				this.$el.find('.edit-user-profile .btn').attr('disabled', true);
-				this.$el.find('.edit-user-profile').addClass('loading');
+				this.$el.find('#edit-user-profile .btn').attr('disabled', true);
+				this.$el.find('#edit-user-profile').addClass('loading');
 				
 				user.save ({firstname: firstname, name: name, mobile: mobile, locale: locale}, {patch: true, success: function ()
 				{
@@ -93,7 +93,7 @@ define(
 
 					// Check type
 					if (!f.type.match('image.*')) 
-						return Cloudwalkers.RootView.information (trans("Wrong file"), trans("You need a valid image"), this.$el.find(".settings-profile .portlet-body"));
+						return Cloudwalkers.RootView.information (trans("Wrong file"), trans("You need a valid image"), this.$el.find(".settings-profile .panel-body"));
 
 					var reader = new FileReader();
 					
@@ -185,7 +185,7 @@ define(
 			negotiateFunctionalities : function(el) {
 				
 				// Check collapse option
-				$(el).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
+				$(el).find('.panel-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
 			}
 
 		});

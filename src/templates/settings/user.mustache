@@ -8,11 +8,11 @@
 	<small>{{user.email}}</small>
 </td>
 <td>
-	<span class="label label-success">{{user.role}}</span>
+	<span class="badge badge-green">{{user.role}}</span>
 </td>
 <td>
 	{{#authorized.USER_DELETE}}
 		<i class="fa fa-remove pull-right" data-delete-user-id="{{user.id}}"></i>
 	{{/authorized.USER_DELETE}}
-	<i class="fa fa-edit-sign pull-right" data-edit-user-id="{{user.id}}"></i>
+	<i class="fa fa-pencil-square pull-right" data-edit-user-id="{{user.id}}"></i>
 </td>

@@ -1,21 +1,19 @@
 <!-- {{id}} -->
 <div class="entry full">
-	<div class="pull-right">
+	<div class="pull-right specs">
 		<span class="date muted" {{#date}}data-date="{{date}}"{{/date}}></span>
 		{{#actions.length}}
 			<span class="actions dropdown">
-				<i class="fa fa-share-alt dropdown-toggle" data-toggle="dropdown"></i>
+				<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
 			
 				<ul class="dropdown-menu">
-				{{#hasactions}}
 					{{#actions}}
 						<li><a class="button-post action message-action" data-action="{{token}}"><i class="fa fa-{{icon}}"></i>{{#trans}}{{name}}{{/trans}}</a></li>
 					{{/actions}}
-				{{/hasactions}}
 				</ul>
 			</span>
 		{{/actions.length}}
-		<div class="media"><i class="fa fa-{{media}}"></i></div>
+		<span class="media"><i class="fa fa-{{media}}"></i></span>
 
 	</div>
 	

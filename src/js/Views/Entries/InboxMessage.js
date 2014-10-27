@@ -6,7 +6,7 @@
  */
 
 define(
-	['Views/Entries/MessageEntry', 'mustache', 'Collections/Related', 'Views/Entries/Actions/Actions', 'Views/Entries/SmallNotificationEntry'],
+	['Views/Entries/MessageEntry', 'mustache', 'Collections/Related', 'Views/Entries/Actions/Actions', 'Views/Entries/SubNotificationEntry'],
 	function (MessageEntryView, Mustache, Related, ActionsView, NotificationView)
 	{
 		var InboxMessage = MessageEntryView.extend({

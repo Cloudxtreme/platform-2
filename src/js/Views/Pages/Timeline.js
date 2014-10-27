@@ -121,7 +121,7 @@ define(
 			{
 				this.$el.addClass("loading");	
 
-				this.$el.find('ul.entry-container').empty().html(Mustache.render (Templates.timelinemessagelist));
+				this.$el.find('ul.messages-container').empty().html(Mustache.render (Templates.timelinemessagelist));
 
 				if(this.timelinetype == 'news' && !this.newsloaded)
 					this.$el.find('.filter-bg').addClass('loading');
@@ -154,7 +154,7 @@ define(
 
 				for (var n in param.networks)
 				{
-					var btn = '<div class="btn-white filter" data-networks="'+ param.networks[n].ids +'"><i class="icon-'+ param.networks[n].icon +'"></i></div>';
+					var btn = '<div class="btn-white filter" data-networks="'+ param.networks[n].ids +'"><i class="fa fa-'+ param.networks[n].icon +'"></i></div>';
 
 					this.$el.find('.caption').after(btn);
 				}
@@ -285,7 +285,7 @@ define(
 				{	
 					//Company / third party
 					models[n].attributes.showcontact = this.showcontact;
-					var view = new MessageEntryView ({model: models[n], template: 'newmessagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
+					var view = new MessageEntryView ({model: models[n], template: 'messagetimeline', type: 'full', parameters:{trendview: this.trending}/*, parameters: this*/});
 					
 					this.entries.push (view);
 					

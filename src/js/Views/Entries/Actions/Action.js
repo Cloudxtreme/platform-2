@@ -6,7 +6,7 @@ define(
 
 			template : 'action',
 			position : 'left',
-
+			className : 'action',
 			options : {},
 
 			initialize : function(options)

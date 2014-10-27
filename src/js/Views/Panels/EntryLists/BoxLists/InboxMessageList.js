@@ -6,7 +6,7 @@ define(
 
 			// To-do: if url streamid is given, load network-related only.
 			// To-do: local manipulate list-view & toggle
-
+			className : 'slimlist-container',
 			entries : [],
 			check : "hasMessages",
 			collectionstring : "messages",
@@ -16,7 +16,7 @@ define(
 			},
 			templates : {
 				'messages' : 'smallentry',
-				'notes' : 'smallentrynote',
+				'notes' : 'subentrynote',
 				'notifications' : 'smallentry'
 			},
 			
@@ -223,7 +223,7 @@ define(
 				// Load related messages
 				this.inboxmessage.showrelated(); //(view.model);
 				
-				this.$el.find(".list .active").removeClass("active");
+				this.$el.find(".messagelist .active").removeClass("active");
 				view.$el.addClass("active");
 			},
 			

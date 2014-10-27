@@ -4,9 +4,9 @@
  */
 
 define(
-	['Views/Entries/BaseEntry', 'mustache', 'Views/Entries/Actions/Actions', 'Views/Modals/SimpleCompose', 'Views/Entries/SmallNoteEntry', 'Views/Entries/SmallNotificationEntry'],
+	['Views/Entries/BaseEntry', 'mustache', 'Views/Entries/Actions/Actions', 'Views/Modals/SimpleCompose', 'Views/Entries/SubNoteEntry', 'Views/Entries/SubNotificationEntry'],
 
-	function (BaseEntry, Mustache, ActionsView, SimpleComposeView, NoteEntryWidget, NotificationView)
+	function (BaseEntry, Mustache, ActionsView, SimpleComposeView, SubNoteEntry, SubNotificationEntry)
 	{
 		var MessageEntry = BaseEntry.extend({
 
@@ -22,6 +22,9 @@ define(
 				
 				//MessageEntry always has actions (unless the user has no permissions)
 				this.renderactions();
+				
+				// New notification list
+				if (this.options.notification && this.model.get("objectType"))	this.togglecomments();
 
 				if (Cloudwalkers.Session.isAuthorized('ACCOUNT_NOTES_VIEW'))
 					this.loadnoteui();
@@ -81,6 +84,11 @@ define(
 				}
 				else
 					this.model.trigger("action", action);
+			},
+
+			togglecomments : function()
+			{
+				this.$el.find('[data-token=comment][data-action=action-list]').click();
 			},
 
 			editnote : function()
@@ -240,17 +248,13 @@ define(
 
 			addaction : function(action, token)
 			{	
-				var options = {model: action, template: token == 'note'? 'messagenote': 'timelinecomment'}
+				var options = {model: action, template: token == 'note'? 'subnote': 'subcomment'}
 				var listclass = token+'-list';
 
 				if(this.newaction)	options.isnew = true;
 
-				if(token == 'note'){
-					action = new NoteEntryWidget(options);	
-				}
-					
-				else
-					action = new NotificationView(options);
+				if(token == 'note')	action = new SubNoteEntry(options);						
+				else				action = new SubNotificationEntry(options);
 
 				this.$el.find('.'+listclass).append(action.render().el);
 
@@ -367,12 +371,12 @@ define(
 
 			addnote : function(newnote)
 			{	
-				var options = {model: newnote, template: 'messagenote'};
+				var options = {model: newnote, template: 'subnote'};
 				var note;
 
 				if(this.newnote)	options.isnew = true;
 
-				note = new NoteEntryWidget(options);
+				note = new SubNoteEntry(options);
 				this.$el.find('.note-list').append(note.render().el);
 
 				this.newnote = false;

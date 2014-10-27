@@ -1,4 +1,4 @@
-<div class="dashboard-stat {{network.icon}}-color portlet-loading" data-network="{{network.icon}}" data-report="{{filterfunc}}">
+<div class="dashboard-stat {{network.icon}}-color panel-loading" data-network="{{network.icon}}" data-report="{{filterfunc}}">
 	<div class="visual">
 	{{icon}}
 		<i class="fa fa-{{network.icon}}"></i>
@@ -15,10 +15,12 @@
 	</div>
 	{{/details}}
 
-	{{#footer}}
+	
 	<a class="more" href="#reports/{{streamid}}">
-		{{{footer}}}
-		<i class="fa fa-chevron-right pull-right"></i>
+		{{#footer}}
+			{{{footer}}}
+			<i class="fa fa-chevron-right pull-right"></i>
+		{{/footer}}
 	</a>
-	{{/footer}}
+	
 </div>

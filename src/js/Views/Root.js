@@ -75,7 +75,7 @@ define (
 
 				modal.find ('.modalcontainer').html (view.render ().el);
 
-				view.on ('popup:close', function () { modal.modal ('hide')});
+				view.on ('popup:close', function () { modal.modal ({modalOverflow: true})});
 
 				view.on ('content:change', function () { self.trigger ('content:change')});
 			},
@@ -88,7 +88,7 @@ define (
 				
 				var view = new ComposeModal(options);
 				
-				view.render().$el.modal({backdrop: 'static'});
+				view.render().$el.modal({backdrop: 'static', modalOverflow: true});
 
 				return view;
 			},
@@ -99,21 +99,21 @@ define (
 				var options = {contact : contact};
 
 				var view = new ContactModal (options);
-				view.render().$el.modal();
+				view.render().$el.modal({modalOverflow: true});
 			},
 
 			writeNote : function(model)
 			{	
 				var options = {
 					'id' : "compose",
-					'className' : "modal hide note",
+					'className' : "modal note",
 					'thanks' : true,
 					'parent' : model //context -> message, contact, account
 				}
 
 				var view = new SimpleComposeModal(options);
 
-				view.render().$el.modal();
+				view.render().$el.modal({modalOverflow: true});
 
 				return view;
 			},
@@ -139,7 +139,7 @@ define (
 				element.find ('[data-response=confirm]').click (function ()
 				{
 					callback ();
-					modal.modal ('hide');
+					modal.modal ({modalOverflow: true});
 				});
 
 				element.find ('[data-dismiss=modal]').click (function ()
@@ -162,7 +162,7 @@ define (
 				element.find ('[data-response=confirm]').click (function ()
 				{
 					callback ();
-					modal.modal ('hide');
+					modal.modal ({modalOverflow: true});
 				});
 			},
 			
@@ -175,7 +175,7 @@ define (
 			{
 				if(!target) target = "#inner-content .container-fluid";
 				
-				$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + title + "</strong> " + message + "</div>");
+				$(target).prepend("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'></button><strong>" + title + "</strong> " + message + "</div>");
 			},
 
 			dialog : function (message, options, callback)
@@ -195,7 +195,7 @@ define (
 					element.find ('[data-response=' + option.token + ']').click (function ()
 					{
 						callback (option);
-						modal.modal ('hide');
+						modal.modal ({modalOverflow: true});
 					});
 				}
 

@@ -1,12 +1,12 @@
 
 {{#from}}
-	<img class="avatar viewdetails viewcommentcontact" alt="" src="{{avatar}}">
+	<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
 	<strong><a class="viewdetails viewcommentcontact">{{displayname}}</a></strong>
 {{/from}}
 
-<div class="inline-actions pull-right hidden">
+<div class="subentry-actions pull-right hidden">
 	{{#actions}}
-		<div class="notification-action" data-notification-action="{{token}}"><i class="fa fa-{{icon}}"></i></div>
+		<div class="subentry-action" data-notification-action="{{token}}"><i class="fa fa-{{icon}}"></i></div>
 	{{/actions}}
 </div>
 
@@ -25,10 +25,10 @@
 {{/attachments}}
 
 {{#fulldate}}
-<div class="comment-info pull-right">{{fulldate}}</div>
+<div class="subentry-info pull-right">{{fulldate}}</div>
 {{/fulldate}}
 {{^fulldate}}
-<i class="fa fa-cloud-download"></i>
+	<i class="fa fa-cloud-download"></i>
 {{/fulldate}}
 
 {{{body.html}}}

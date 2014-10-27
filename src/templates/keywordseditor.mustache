@@ -2,22 +2,27 @@
 	<div class="panel grey addcategory">
 		<div class="panel-heading line">
 			<i class="fa fa-plus"></i>{{#trans}}Add category{{/trans}}
-			<div class="tools">
-				<i class="fa fa-cloud-upload" style="display: none;"></i>
-			</div>
 		</div>
+
 		<div class="panel-body">
-			<form data-add-category="1">
+			<form role="form" data-add-category="1">
 				<label for="category_create_name">{{#trans}}Name{{/trans}}:</label>
 				
-				<input type="text" id="category_create_name" name="name" class="m-wrap col-md-7" required />
+				<div class="row">
+					<div class="col-md-8 form-group">
+						<input type="text" id="category_create_name" name="name" class="form-control" required />	
 
-				<span style="display:none;">
-				<label for="category_create_remember">{{#trans}}Remember for{{/trans}}:</label>
-				<input type="text" id="category_create_remember" name="remind" class="m-wrap col-md-7" /><span>{{#trans}}days{{/trans}}</span>
-				</span>
-				<button class="btn blue col-md-4 pull-right" type="submit">{{#trans}}Create{{/trans}}</button>
-				
+						<span style="display:none;">
+							<label for="category_create_remember">{{#trans}}Remember for{{/trans}}:</label>
+							<input type="text" id="category_create_remember" name="remind" class="col-md-7 form-control" />
+							<span>{{#trans}}days{{/trans}}</span>
+						</span>
+
+					</div>
+					<div class="col-md-4">
+						<button class="btn blue" type="submit">{{#trans}}Create{{/trans}}</button>
+					</div>
+				</div>				
 			</form>
 		</div>
 	</div>
@@ -39,7 +44,7 @@
 		</div>
 		
 		<div class="panel-body manage-keyword">
-			<form data-keyword="true">
+			<form role="form" data-keyword="true">
 				
 				<label for="keyword_manage_category">{{#trans}}Category{{/trans}}:</label>
 				<select id="keyword_manage_category">
@@ -48,18 +53,20 @@
 						<option value="{{id}}">{{attributes.name}}</option>
 					{{/categories}}
 				</select>
-				
-				<label for="keyword_manage_name">{{#trans}}Name{{/trans}}:</label>
-				<input type="text" value="" placeholder="{{#trans}}keyword name{{/trans}}" id="keyword_manage_name" name="name" class="m-wrap col-md-12" />
+				<br><br>
+				<div class="form-group">
+					<label for="keyword_manage_name">{{#trans}}Name{{/trans}}:</label>
+					<input type="text" value="" placeholder="{{#trans}}keyword name{{/trans}}" id="keyword_manage_name" name="name" class="col-md-12 form-control" />
+				</div>
 				<br><br>
 				
 				<label>{{#trans}}Fine-tune{{/trans}}</labl>
-				<!--<input type="text" value="" placeholder="Fine-tune formula" id="filter_formula" name="name" class="m-wrap col-md-12" />-->
+				
 				<!--deprecated-->
 				<label>{{#trans}}Filters{{/trans}}:</label>
 				<div class="input-symbol" data-option="fullbody">
 					<div class="container-loading hidden"><i class="fa fa-cloud-download"></i></div>
-					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="m-wrap col-md-12 keywordeditarea">
+					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="col-md-12 keywordeditarea">
 						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
 							<span class="demo_hit_me">+</spam>
 							<span class="demo_options">
@@ -90,48 +97,5 @@
 			<div id="keyword_warning"></div>
 		</div>
 	</div>
-	
-	<!--
-	<div class="well">
 		
-		<style type="text/css">
-			.op{color:#ffa500;font-variant:small-caps}
-			.field{color:green;font-variant:small-caps}
-			.brackets{color:#000;font-variant:small-caps}
-			.quickhelp{list-style: none; margin-left: 0;}
-			.quickhelp li{padding: 5px 0;}
-		</style>
-		
-		<h4>Quick help</h4>
-		Define the keyword formula in human readable text:
-
-		<ul class="quickhelp">
-			<li>
-				<strong><span class="field">message</span> <span class="op">contains</span></strong> "cloudwalkers"
-			</li>
-			<li>
-				<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">and</span></strong>
-				<br><span class="field">message</span> <span class="op">contains</span> "social media"
-			</li>
-			<li>
-				<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span>
-				<br><span class="field">message</span> <strong><span class="op">not</span> <span class="op">contains</span></strong> "shoes"
-			</li>
-			<li>
-				<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">or</span></strong>
-				<br><span class="field">message</span> contains "bmgroup"
-			</li>
-			<li>
-				<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">language</span> <span class="op">=</span></strong> "nl"
-			</li>
-			<li>
-				<span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">country</span> <span class="op">=</span></strong> "be"
-			</li>
-			<li>
-				<span class="brackets">(</span><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">or</span>
-				<br>&nbsp;<span class="field">message</span> <span class="op">contains</span> "bmgroup"<span class="brackets">)</span> <span class="op">and</span> <span class="field">country</span> <span class="op">=</span> "be"
-			</li>
-		</ul>
-	</div>-->
-	
 	<!-- end Manage keyword -->

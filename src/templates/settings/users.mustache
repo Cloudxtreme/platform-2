@@ -27,16 +27,17 @@
 				</div>
 				<div class="panel-body">
 					
-					<form action="javascript:void(0);" class="users-invite">
-						
-						<label for="invite-email">{{#trans}}Email{{/trans}}</label>
-						<input type="text" name="invite-email" />
-						<br/><br/>
-						<input type="submit" class="btn green" value="{{#trans}}Invite user{{/trans}}" />
-						<span class="loadingafter"></span>
-						
+					<form role="form" class="users-invite">
+						<div class="form-group">
+							<label for="invite-email">{{#trans}}Email{{/trans}}</label>
+							<input class="form-control" type="text" name="invite-email" />
+							<br/>
+							<input type="submit" class="btn green" value="{{#trans}}Invite user{{/trans}}" />
+							<span class="loadingafter"></span>
+						</div>
 						<!--Great spot for pending invitations...-->
 					</form>
+
 				</div>
 			</div>
 		</div>

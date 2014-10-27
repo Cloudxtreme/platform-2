@@ -586,7 +586,7 @@ define(
 			{
 				if (action.token == 'internal-share')
 				{
-					return 'share-alt';
+					return 'share';
 				}
 
 				else if (action.token == 'internal-edit')

@@ -7,10 +7,11 @@ define(
 	['Views/Entries/BaseEntry', 'mustache', 'Collections/Actions'],
 	function (BaseEntry, Mustache, Actions)
 	{
-		var SmallEntry = BaseEntry.extend({
+		var SubEntry = BaseEntry.extend({
 			
 			tagName : 'li',
 			template: 'message',
+			className : 'subentry',
 	
 			events : {
 				'mouseover' : 'toggleactions',
@@ -36,7 +37,7 @@ define(
 			action : function (e)
 			{
 				// Action token
-				var token = $(e.currentTarget).data ('notification-action');
+				var token = $(e.currentTarget).data ('subentry-action');
 				
 				this.model.trigger("action", token);
 			},
@@ -45,11 +46,11 @@ define(
 			{
 				var out = e.originalEvent.type == "mouseout";
 				
-				this.$el.find(".inline-actions")[out? "addClass": "removeClass"]("hidden");
-				this.$el.find(".comment-info")[out? "removeClass": "addClass"]("hidden");	
+				this.$el.find(".subentry-actions")[out? "addClass": "removeClass"]("hidden");
+				this.$el.find(".subentry-info")[out? "removeClass": "addClass"]("hidden");	
 			}
 			
 		});
 
-		return SmallEntry;
+		return SubEntry;
 });

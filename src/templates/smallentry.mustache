@@ -3,32 +3,32 @@
 	
 		{{#trendview}}
 			<span class="date muted">{{trending}}</span>
-			<div class="media"><i class="fa fa-{{media}}"></i></div>
+			<span class="media"><i class="fa fa-{{media}}"></i></span>
 			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
 		{{/trendview}}
 		{{#mediaview}}
 			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
-			<div class="media"><i class="fa fa-{{media}}"></i></div>
+			<span class="media"><i class="fa fa-{{media}}"></i></span>
 			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
 		{{/mediaview}}
 		{{#inboxview}}
 			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
 			<div class="dot {{networktoken}}-color"></div>
-			<div class="media"><i class="fa fa-{{networktoken}}"></i></div>
+			<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
 			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
 		{{/inboxview}}
 		{{#sentview}}
 			{{#streams}}
 				{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
 				<div class="dot {{network.token}}-color"></div>
-				<div class="media"><i class="fa fa-{{network.token}}"></i></div>
+				<span class="media"><i class="fa fa-{{network.token}}"></i></span>
 				{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
 			{{/streams}}
 		{{/sentview}}
 		{{#contactview}}
 			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
 			<div class="dot {{networktoken}}-color"></div>
-			<div class="media"><i class="fa fa-{{networktoken}}"></i></div>
+			<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
 			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
 		{{/contactview}}
 

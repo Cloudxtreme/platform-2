@@ -3,12 +3,13 @@
  */
 
 define(
-	['Views/Entries/SmallEntry', 'mustache', 'Views/Modals/SimpleCompose'],
-	function (SmallEntry, Mustache, SimpleComposeView)
+	['Views/Entries/SubEntry', 'mustache', 'Views/Modals/SimpleCompose'],
+	function (SubEntry, Mustache, SimpleComposeView)
 	{
-		var NoteEntry = SmallEntry.extend({
+		var NoteEntry = SubEntry.extend({
 	
-			template: 'messagenote',
+			template: 'subnote',
+			className: 'subentry subnote',
 
 			initialize : function(options)
 			{	
@@ -20,7 +21,7 @@ define(
 			},
 
 			render : function ()
-			{	
+			{
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.model.attributes);
 				

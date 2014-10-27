@@ -45,7 +45,7 @@ define(
 				this.$el.html (Mustache.render (Templates.baselist, data));
 				
 				this.$container = this.$el.find ('.entry-container');
-				this.$loadercontainer = this.$el.find ('.portlet-body');
+				this.$loadercontainer = this.$el.find ('.panel-body');
 				//this.$el.find(".load-more").hide();
 
 				this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
@@ -149,7 +149,7 @@ define(
 				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 			},
 			
-			addScroll : function () {
+			/*addScroll : function () {
 
 				var scroll = this.$el.find('.scroller').eq(0);
 
@@ -166,7 +166,7 @@ define(
 				// Update slimscroll plugin default styling
 				scroll.css('max-height', height);
 				scroll.css('height', 'inherit')
-			},
+			},*/
 			
 			destroy : function()
 			{

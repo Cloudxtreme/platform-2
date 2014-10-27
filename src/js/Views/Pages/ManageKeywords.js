@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Panels/KeywordsEditor', 'Views/Panels/KeywordsOverview'],
+	['Views/Pages/PageView', 'mustache',  'Views/Panels/Keywords/KeywordsEditor', 'Views/Panels/Keywords/KeywordsOverview'],
 	function (Pageview, Mustache, KeywordsEditorWidget, KeywordsOverviewWidget)
 	{
 		var ManageKeywords = Pageview.extend({

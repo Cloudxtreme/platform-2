@@ -5,16 +5,18 @@
 		<div style="height: auto;" class="edit-account-name">
 			
 			<h3 name="basic">{{#trans}}Account{{/trans}}</h3>
-			
-			<form action="javascript:void(0);" id="editaccount">
-				<label class="control-label">{{#trans}}Name{{/trans}}</label>
-				<input data-attribute="account-name" type="text" placeholder="{{#trans}}Company name{{/trans}}" class="m-wrap col-md-8" value="{{name}}" />
 
-				<div class="submit-btn">
-					<button type="submit" data-action="editaccount" class="btn green edit-account">{{#trans}}Save changes{{/trans}}</button>
-					<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{#trans}}Cancel{{/trans}}</button>
-					<span class="loadingafter"></span>
+			<form role="form" id="editaccount">
+				<div class="form-group row">
+					<div class="col-md-8">
+						<label>{{#trans}}Name{{/trans}}</label>
+						<input data-attribute="account-name" type="text" class="form-control" placeholder="{{#trans}}Company name{{/trans}}" value="{{name}}"/>
+					</div>
 				</div>
+
+				<button type="submit" data-action="editaccount" class="btn green edit-account">{{#trans}}Save changes{{/trans}}</button>
+				<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{#trans}}Cancel{{/trans}}</button>
+				<span class="loadingafter"></span>
 			</form>
 		</div>
 
@@ -36,7 +38,7 @@
 						
 						{{#campaigns}}
 							<li>
-								<i class="yellow icon-bullseye"></i>
+								<i class="fa fa-bullseye"></i>
 								<span class="campaign-name">{{name}}</span>
 								{{#authorized.CAMPAIGN_DELETE}}
 								<span class="pull-right">

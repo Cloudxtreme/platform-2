@@ -101,7 +101,7 @@ define(
 
 				var message;
 				var view;
-				var template = this.type == 'note'? 'inboxnote': 'smallentry';
+				var template = this.type == 'note'? 'smallentrynote': 'smallentry';
 
 				// Add models to view
 				for (var n in messages)

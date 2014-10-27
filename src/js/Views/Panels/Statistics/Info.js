@@ -79,7 +79,7 @@ define(
 				if(this.settings.details && this.settings.details.length)
 				{	
 					if(this.settings.details[0].content !== undefined)
-						this.$el.find('.dashboard-stat').removeClass('portlet-loading');
+						this.$el.find('.dashboard-stat').removeClass('panel-loading');
 				}
 
 				return this;

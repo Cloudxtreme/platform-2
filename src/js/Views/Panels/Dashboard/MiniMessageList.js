@@ -27,7 +27,7 @@ define(
 			{
 				this.$el.html (Mustache.render (Templates.minimessagelist, this.options));
 				this.$container = this.$el.find ('.entry-container');
-				this.$loadercontainer = this.$el.find ('.portlet-body');
+				this.$loadercontainer = this.$el.find ('.panel-body');
 				
 				// Load messages
 				this.model.messages.touch(this.model, this.filters); 

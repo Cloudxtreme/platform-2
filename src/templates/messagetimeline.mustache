@@ -27,21 +27,6 @@
 		</table>
 
 		<div class="network-icon"><i class="fa fa-{{networktoken}}"></i></div>
-		<!--<div class="social-info">
-			{{#statistics}}
-				<div class="info-widget">
-					<div class="info-widget-icon"><i class="fa fa-{{icon}}"></i></div>
-					<div class="info-widget-text">{{value}} {{name}}</div>
-				</div>
-			{{/statistics}}
-			{{#canHaveChildren}}
-				<div class="info-widget" {{#children_count}}data-notifications="true"{{/children_count}}>
-					<div class="info-widget-icon"><i class="fa fa-comment"></i></div>
-					<div class="info-widget-text">{{children_count}} comments</div>
-				</div>
-			{{/canHaveChildren}}
-		</div>-->
-
 	</div>
 
 	<div class="timeline-icon {{^from}}entry-loading{{/from}}">
@@ -108,7 +93,7 @@
 
 			<div class="clearfix"></div>
 		</div>
-		<div class="message-notes">
+		<div class="message-sub-actions">
 			<div class="note-content"></div>
 			<div class="action-lists">
 			</div>

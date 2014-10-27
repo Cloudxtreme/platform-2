@@ -105,7 +105,7 @@ Cloudwalkers.Views.Widgets.CoworkersList = Cloudwalkers.Views.Widgets.Widget.ext
 	},
 	
 	'fill' : function (list)
-	{		
+	{	console.log(list)
 		// Clean load or add
 		if(this.incremental) this.incremental = false;
 		else

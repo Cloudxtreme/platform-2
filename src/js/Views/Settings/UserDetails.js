@@ -5,7 +5,7 @@ define(
 		var UserDetails = Backbone.View.extend({
 
 			events : {
-				'submit form.edit-managed-user' : 'submit'
+				'submit form#edit-managed-user' : 'submit'
 			},
 		
 			initialize : function (options)
@@ -64,12 +64,12 @@ define(
 
 			disablesave : function()
 			{	
-				this.$el.find('.edit-managed-user .btn').attr("disabled", true);
+				this.$el.find('#edit-managed-user .btn').attr("disabled", true);
 			},
 
 			enablesave : function()
 			{	
-				this.$el.find('.edit-managed-user .btn').attr("disabled", false);
+				this.$el.find('#edit-managed-user .btn').attr("disabled", false);
 			}
 		});
 		

@@ -1,6 +1,6 @@
 define(
 	['Views/Pages/PageView', 'mustache',  'Collections/Statistics', 
-	 'Views/Panels/MessagesCounters', 'Views/Panels/MiniMessageList', 'Views/Panels/Statistics/Info'],
+	 'Views/Panels/Dashboard/MessagesCounters', 'Views/Panels/Dashboard/MiniMessageList', 'Views/Panels/Statistics/Info'],
 
 	function (Pageview, Mustache, Statistics,
 			  MessagesCounters, MiniMessageList, InfoWidget)
