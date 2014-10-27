@@ -1,6 +1,6 @@
 define({
 
-    appid : "oauth25447a7df013eb7.92268403", 
+    appid : "oauth2544eb2ffd7a057.00715167", 
 	apiurl: "https://api.cloudwalkers.be/",
 	authurl: "https://api.cloudwalkers.be/oauth2/",
 	
