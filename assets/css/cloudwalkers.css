@@ -2782,7 +2782,8 @@ Dashboard stats
 
 .commentballoon .attachment-link{
 	padding: 2px 8px;
-	display: inline;
+	/*display: inline;*/
+	display: none;
 	border-radius: 20px !important;
 	background: rgba(255,255,255, .12);
 	color: #fff;
