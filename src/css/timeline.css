@@ -396,7 +396,7 @@ z-index: 2;
 	-webkit-animation-duration: 1.2s; 
 	-webkit-animation-name: opacitypulse; 
 	-webkit-animation-iteration-count: infinite; 
-},
+}
 
 .timeline-icon.entry-loading:before{
 	position: absolute;
@@ -412,4 +412,8 @@ z-index: 2;
 	font-size: 21px;
 	left: 0px;
 	top: 0px;
+}
+
+#timeline .load-more .timeline-icon.entry-loading > i{
+	display: none;
 }
