@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Settings/Services', 'Views/Settings/Users', 'Views/Settings/Account', 'Views/Settings/Profile'],
 	function (Pageview, Mustache, ServicesView, UsersSettingsView, AccountSettings, ProfileSettings)
 	{
 		var Settings = Pageview.extend({

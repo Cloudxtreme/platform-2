@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Entries/MessageEntry', 'Models/Contact'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Entries/MessageEntry', 'Models/Contact'],
 	function (Pageview, Mustache, RootView, Contacts, MessageEntryView, Contact)
 	{
 		var Timeline = Pageview.extend({

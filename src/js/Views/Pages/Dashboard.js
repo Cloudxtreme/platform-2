@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Collections/Statistics', 
+	['Views/Pages/Pageview', 'mustache',  'Collections/Statistics', 
 	 'Views/Panels/Dashboard/MessagesCounters', 'Views/Panels/Dashboard/MiniMessageList', 'Views/Panels/Statistics/Info'],
 
 	function (Pageview, Mustache, Statistics,

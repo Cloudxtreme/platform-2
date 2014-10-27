@@ -1,5 +1,5 @@
 define(
-	['backbone', 'mustache', 'Views/Pages/PageView', 'Collections/Services'],
+	['backbone', 'mustache', 'Views/Pages/Pageview', 'Collections/Services'],
 	function (Backbone, Mustache, Pageview, Services)
 	{
 		var Firsttime = Pageview.extend({

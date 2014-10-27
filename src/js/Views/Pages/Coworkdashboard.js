@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Root'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Root'],
 	function (Pageview, Mustache, RootView)
 	{
 		var Coworkdashboard = Pageview.extend({

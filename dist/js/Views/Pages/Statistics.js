@@ -9,7 +9,7 @@
  */
 
 define(
-	['Views/Pages/PageView', 'mustache', 'Collections/Statistics', 'Views/Panels/Statistics/EmptyStatisticsData',
+	['Views/Pages/Pageview', 'mustache', 'Collections/Statistics', 'Views/Panels/Statistics/EmptyStatisticsData',
 	 'Views/Panels/Statistics/StatSummary', 'Views/Panels/Statistics/TitleSeparator','Views/Panels/Statistics/Chart', 'Views/Panels/Statistics/CompoundChart', 'Views/Panels/Statistics/Info',
 	 'Views/Panels/Statistics/TrendingMessage', 'Views/Panels/Statistics/BestTimeToPost', 'Views/Panels/Statistics/HeatCalendar',      
 	 'goog!visualization,1,packages:[corechart,geochart]', 'goog!search,1'],

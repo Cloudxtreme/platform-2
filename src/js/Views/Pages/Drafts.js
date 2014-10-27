@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/BaseFilters', 'Views/Panels/EntryLists/BaseList'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Panels/Filters/BaseFilters', 'Views/Panels/EntryLists/BaseList'],
 	function (Pageview, Mustache, BaseFiltersPanel, BaseListPanel)
 	{
 		var Drafts = Pageview.extend({

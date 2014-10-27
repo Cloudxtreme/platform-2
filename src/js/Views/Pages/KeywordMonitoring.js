@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Panels/Filters/MonitorFilters', 'Views/Panels/EntryLists/MonitorList'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Panels/Filters/MonitorFilters', 'Views/Panels/EntryLists/MonitorList'],
 	function (Pageview, Mustache, MonitorFiltersWidget, MonitorListWidget)
 	{
 		var KeywordMonitoring = Pageview.extend({

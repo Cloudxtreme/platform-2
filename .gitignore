@@ -4,5 +4,4 @@ js/config.js
 /.buildpath
 /.project
 node_modules
-dist/
 staging/

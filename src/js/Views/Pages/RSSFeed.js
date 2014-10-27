@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache'],
+	['Views/Pages/Pageview', 'mustache'],
 	function (Pageview, Mustache)
 	{
 		var RSSFeed = Pageview.extend({

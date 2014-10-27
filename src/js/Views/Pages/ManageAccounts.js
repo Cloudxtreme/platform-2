@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Modals/Contact'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Modals/Contact'],
 	function (Pageview, Mustache, RootView, Contacts, ContactView)
 	{
 		var ManageAccounts = Pageview.extend({

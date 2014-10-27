@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/PageView', 'mustache', 'Views/Panels/Filters/ScheduledFilters', 'Views/Panels/EntryLists/ScheduledList'],
+	['Views/Pages/Pageview', 'mustache', 'Views/Panels/Filters/ScheduledFilters', 'Views/Panels/EntryLists/ScheduledList'],
 	function (Pageview, Mustache, ScheduledFiltersWidget, ScheduledListWidget)
 	{
 		var Scheduled = Pageview.extend({
