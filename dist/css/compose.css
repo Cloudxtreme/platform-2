@@ -11,6 +11,10 @@
 Style corrections and manual overrides
 ***/
 
+#compose .modal-content {
+	overflow: hidden;
+}
+
 #compose .modal-dialog	{
 	width: 900px; max-width: 98%; border-radius: 4px;
 	-webkit-font-smoothing: antialiased; font-size: 13px;
@@ -57,7 +61,7 @@ Style corrections and manual overrides
 	        transition: all .5s linear;
 }
 
-#compose.thank-you > div,
+#compose.thank-you .right,
 #compose.thank-you .modal-body	{ border-color: white !important; }
 
 #compose.thank-you .modal-body:after	{
@@ -161,6 +165,7 @@ Style corrections and manual overrides
 
 #compose .stream-tab i	{
 	padding-right: 2px;
+	color: #777;
 }
 
 #compose .stream-tab.active	{
@@ -488,8 +493,8 @@ Style corrections and manual overrides
 	        transition: all 0.4s cubic-bezier(0.12,.8,0,1);
 }
 
-#compose.thanks{
-	width: 450px; height: 400px; margin-left: -225px;
+#compose.thanks .modal-dialog{
+	width: 450px; height: 400px;
 }
 
 #compose.switch-mode	{
@@ -539,7 +544,7 @@ Style corrections and manual overrides
 	        transition: all 0.4s cubic-bezier(0.12,.8,0,1);
 }
 
-#compose.switch-mode > div 	{
+#compose.switch-mode .right 	{
 	-webkit-transform: translate3d(700px, 0px, 0px);
 	   -moz-transform: translate3d(700px, 0px, 0px);
 	    -ms-transform: translate3d(700px, 0px, 0px);
@@ -612,6 +617,10 @@ Style corrections and manual overrides
 	    -ms-transform: translate3d(0px, 0px, 0px);
 	     -o-transform: translate3d(0px, 0px, 0px);
 	        transform: translate3d(0px, 0px, 0px);
+}
+
+#compose.switch-mode.thanks .right {
+	display: none;
 }
 
 #compose .thanks-wrapper{

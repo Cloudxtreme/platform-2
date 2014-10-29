@@ -146,13 +146,15 @@ define(
 				var list = [];
 				var fresh = _.compact( ids.map(function(id)
 				{
-					// In current Collection
-					var model = this.get(id);
-					
+					// In current Collection -> this is a hack to replace this.get(), for some reason wasn't working.
+					var model = this.models.filter(function(m){ return m.id == id; });
+
 					// Or in Session collection
-					if(!model)
+					if(!model.length)
 						model = Cloudwalkers.Session.user.account[this.typestring].get (id);
-					
+					else
+						model = model[0];
+
 					// Or create new
 					if(!model) model = this.create({id: id});
 					else this.add(model);

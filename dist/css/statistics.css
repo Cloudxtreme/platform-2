@@ -59,8 +59,13 @@
 
 /* #Statistics */
 
+#statistics #widgetcontainer {
+	margin: 0;
+}
+
 #statistics .stats-header {
 	height: 40px;
+	margin: 0;
 }
 
 #statistics .stats-header .period-buttons {

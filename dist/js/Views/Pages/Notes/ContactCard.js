@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Root'],
-	function (Backbone, RootView)
+	['backbone', 'mustache'],
+	function (Backbone, Mustache)
 	{
 		var ContactCard = Backbone.View.extend({
 
@@ -15,7 +15,7 @@ define(
 
 			render : function()
 			{
-				this.$el.html(Mustache.render(Templates.singlecontact, this.contact));
+				this.$el.html(Mustache.render(Templates.contactcard, this.contact));
 
 				return this;
 			},

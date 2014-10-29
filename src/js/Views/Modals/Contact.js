@@ -1,14 +1,14 @@
 define(
 	['Views/BaseView', 'mustache', 'Models/Contact', 'Collections/Notes', 'Collections/Messages', 'Views/Modals/SimpleCompose', 'Views/Entries/InboxMessage', 
-	 /*'Views/Widgets/TagEntry',*/ 'Views/Panels/LoadMore', 'Views/Entries/BaseEntry', 'Views/Entries/NoteEntry', 'Models/Message'],
+	 /*'Views/Widgets/TagEntry',*/ 'Views/Panels/LoadMore', 'Views/Entries/BaseEntry', 'Views/Entries/InboxNote', 'Models/Message'],
 
 	function (BaseView, Mustache, Contact, Notes, Messages, SimpleComposeView, InboxMessageWidget,
-		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, NoteView, Message)
+		      /*TagEntryWidget,*/ LoadMoreWidget, EntryView, Note, Message)
 	{
 		var ViewContact = BaseView.extend({
 
 			id : "compose",
-			className : "modal hide viewcontact",
+			className : "modal viewcontact",
 			entries : [],
 
 			events : {
@@ -69,8 +69,8 @@ define(
 				var view = Mustache.render(Templates.viewcontact, this.contactinfo);
 				this.$el.html (view);
 
-				this.$container = this.$el.find ('ul.list');
-				this.$loadercontainer = this.$el.find ('ul.list');
+				this.$container = this.$el.find ('ul.entry-container');
+				this.$loadercontainer = this.$el.find ('ul.entry-container');
 
 				this.trigger("rendered");
 
@@ -101,7 +101,7 @@ define(
 
 				var message;
 				var view;
-				var template = this.type == 'note'? 'smallentrynote': 'smallentry';
+				var template = this.type == 'note'? 'note': 'smallentry';
 
 				// Add models to view
 				for (var n in messages)
@@ -110,7 +110,7 @@ define(
 					message.attributes.arrow = 'arrow';
 					message.parent = this.model;
 
-					var entrywidget = this.type == 'note'? NoteEntryView: EntryView;
+					var entrywidget = this.type == 'note'? Note: EntryView;
 					
 					view = new entrywidget({
 						model: message,
@@ -313,7 +313,7 @@ define(
 					this.listenTo(this.inboxmessage.model, 'destroy', this.backtolist);
 				
 				
-				this.$el.find(".list .active").removeClass("active");
+				this.$el.find(".entry-container .active").removeClass("active");
 				view.$el.addClass("active");
 
 			},
@@ -323,7 +323,7 @@ define(
 				$('.viewcontact').removeClass('onmessage');
 
 				//Update loader placing
-				this.$loadercontainer = this.$el.find('ul.list');
+				this.$loadercontainer = this.$el.find('ul.entry-container');
 			},
 
 			togglecontactnote : function()
@@ -465,7 +465,7 @@ define(
 			
 			hideloading : function ()
 			{
-				this.$el.find(".icon-cloud-download").hide();
+				this.$el.find(".fa-cloud-download").hide();
 				this.$container.removeClass("inner-loading");
 				
 				if (this.model.messages.cursor)

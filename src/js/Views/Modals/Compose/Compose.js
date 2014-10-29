@@ -479,7 +479,7 @@ define (
 			{
 				this.$el.find(".tabs-container > section")
 				
-				.append('<div class="stream-tab" data-stream="'+ stream.id +'"><i class="icon-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
+				.append('<div class="stream-tab" data-stream="'+ stream.id +'"><i class="fa fa-'+ stream.get("network").icon +'"></i> '+ stream.get("defaultname") +'</div>');
 			},
 			
 			togglestreams : function (e)
@@ -537,9 +537,9 @@ define (
 				var id = $btn.data("stream");
 				var stream = id? Cloudwalkers.Session.getStream(id): false;
 
-				this.$el.find(".stream-tabs div.active").removeClass('active social-icon-colors');
+				this.$el.find(".stream-tabs div.active").removeClass('active');
 				
-				$btn.addClass('active social-icon-colors');
+				$btn.addClass('active');
 				
 				// Toggle subcontent
 				// Trigger update
@@ -1659,7 +1659,7 @@ define (
 				setTimeout(function()
 				{
 					// Animate compose view
-					this.$el.addClass("switch-mode").addClass('thanks');
+					this.$el.addClass("switch-mode thanks");
 
 					// Add preview view to Compose
 					this.$el.find('.switch-container').append(thanks);

@@ -2,7 +2,7 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Widgets/Charts/Numberstat'],
+	['Views/Charts/Numberstat'],
 	function (Numberstat)
 	{
 		var Comparison = Numberstat.extend ({

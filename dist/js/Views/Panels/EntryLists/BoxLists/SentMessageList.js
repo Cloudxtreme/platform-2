@@ -60,7 +60,7 @@ define(
 				
 				$(".inbox-container").html(this.inboxmessage.render().el);
 				
-				this.$el.find(".list .active").removeClass("active");
+				this.$el.find(".entry-container .active").removeClass("active");
 				view.$el.addClass("active");
 			},
 

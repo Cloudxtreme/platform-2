@@ -1,6 +1,6 @@
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'mustache'],
+	function (Backbone, Mustache)
 	{
 		var Preview = Backbone.View.extend({
 	
@@ -29,12 +29,12 @@ define(
 				
 				this.$el.html (view);
 				
-				$.get('/assets/previews/' + template, this.fill.bind(this));
+				this.fill();
 
 				return this;
 			},
 			
-			fill : function (preview)
+			fill : function ()
 			{
 				var img;
 
@@ -56,8 +56,8 @@ define(
 				}
 				
 				// Render preview (opacity:0)
-				preview = Mustache.render(preview, this.previewdata);
-				this.$el.find("#pv-main").append(preview);
+				var view = Mustache.render(Templates.previewtemplate, this.previewdata);
+				this.$el.find("#pv-main").append(view);
 			},
 
 			fakeload : function(time)

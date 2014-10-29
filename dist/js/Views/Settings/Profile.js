@@ -45,6 +45,8 @@ define(
 
 			editUserProfile : function (e)
 			{
+				e.preventDefault();	
+
 				var user = Cloudwalkers.Session.getUser ();
 				var firstname = this.$el.find ('[name=firstname]').val ();
 				var name = this.$el.find ('[name=name]').val ();
@@ -144,7 +146,9 @@ define(
 				}
 			},
 			
-			editUserPassword : function () {
+			editUserPassword : function (e) {
+
+				e.preventDefault();
 				
 				var oldpassword = this.$el.find ('[name=pass0]').val();
 				var newpassword = this.$el.find ('[name=pass1]').val();

@@ -15,7 +15,7 @@ define(
 				if(view.model.get("parent")) this.showmessage(view.model)
 				else this.listenToOnce(view.model, "change", this.showmessage)
 						
-				this.$el.find(".messagelist .active").removeClass("active");
+				this.$el.find(".entry-container .active").removeClass("active");
 				view.$el.addClass("active").removeClass("unread");
 			},
 			

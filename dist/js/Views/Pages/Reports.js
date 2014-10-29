@@ -2,7 +2,7 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(	
-	['Views/Widgets/WidgetContainer', 'Views/Widgets/Datepicker', 'Models/Report', 'Views/Panels/Statistics/CombinedStatistics'],
+	['Views/WidgetContainer', 'Views/Widgets/Datepicker', 'Models/Report', 'Views/Panels/Statistics/CombinedStatistics'],
 	function (WidgetContainer, Datepicker, Report, CombinedStatistics)
 	{
 		var Reports = WidgetContainer.extend({
@@ -132,7 +132,7 @@ define(
 				var report = new Report (reportdata);
 				var widget = report.getWidget ();
 				var daterange = self.datepicker.getDateRange ();
-
+				
 				report.setDateRange (daterange[0], daterange[1]);
 
 				widget.color = stream.network.icon + '-color';

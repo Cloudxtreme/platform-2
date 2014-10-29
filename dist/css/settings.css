@@ -27,7 +27,7 @@
 }
 
 #widgetcontainer.tab-content {
-	padding: 30px 15px;
+	padding: 30px 2px;
 }
 
 .settings-profile input[type=file] {
@@ -47,6 +47,16 @@
 ul.campaign-list .fa-bullseye {
 	color: #DA4631;
 	margin-right: 5px;
+}
+
+#menu {
+	width: 300px;
+	font-size: 13px;
+	color: #222;
+}
+
+#menu li a {
+	cursor: pointer;
 }
 
 /* Social connections */

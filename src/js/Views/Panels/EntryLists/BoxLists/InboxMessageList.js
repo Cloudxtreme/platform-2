@@ -223,7 +223,7 @@ define(
 				// Load related messages
 				this.inboxmessage.showrelated(); //(view.model);
 				
-				this.$el.find(".messagelist .active").removeClass("active");
+				this.$el.find(".entry-container .active").removeClass("active");
 				view.$el.addClass("active");
 			},
 			

@@ -8,14 +8,11 @@ define(
 			events : {
 				'click a[href]' : 'updatesettings'
 			},
-
-			options : {},
 			
 			initialize : function(options)
 			{
-				$.extend(this.options, this.defaults);
-				$.extend(this.options, options);
-				
+				this.options = $.extend({}, this.options, options);
+					
 				// The list source is either the streams or subchannels
 				this.collection = this.options.channel[options.source];
 

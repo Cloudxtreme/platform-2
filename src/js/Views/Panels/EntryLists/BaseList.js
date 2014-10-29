@@ -26,6 +26,7 @@ define(
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
 				this.listenTo(this.model.messages, 'destroy', this.showmore);
+				this.listenTo(this.model.messages, 'loaded', this.hideloading);
 
 				//Show all reloads te listeners
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
@@ -91,25 +92,27 @@ define(
 					this.$container.append(view.render().el);
 				}
 				
-				// Hide loading
-				this.hideloading();
+				// Check for pagination
+				this.checkmore();
 			},
 
 			loadmylisteners : function(){
 				
-				this.loadListeners(this.model.messages, ['request', 'sync', ['ready','loaded','destroy']], true);
+				this.loadListeners(this.model.messages, ['request', 'sync', ['ready','destroy']], true);
 			},
 			
 			showloading : function ()
 			{
-				this.$el.find(".icon-cloud-download").show();
+				this.$el.find(".fa-cloud-download").show();
 			},
 			
 			hideloading : function ()
 			{
-				this.$el.find(".icon-cloud-download").hide();
-				this.$container.removeClass("inner-loading");
-				
+				this.$el.find(".fa-cloud-download").hide();
+			},
+
+			checkmore : function() 
+			{
 				if (this.model.messages.cursor)
 					this.hasmore = true;
 				else
@@ -117,7 +120,7 @@ define(
 			},
 
 			showmore : function()
-			{
+			{					
 				setTimeout(function()
 				{		
 					this.$container.css('max-height', 999999);

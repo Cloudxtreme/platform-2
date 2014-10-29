@@ -86,7 +86,7 @@ define(
 				this.$container.prepend(view.render().el);
 				
 				// Loading symbel
-				this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
+				this.$el.find(".fa-cloud-upload").toggleClass("fa-search fa-cloud-upload");
 				
 				// Limited
 				this.listenTo(model, 'unfollow', function(model){ this.collection.remove(model)});
@@ -103,7 +103,7 @@ define(
 				this.collection.create({url: input.val(), following: true}, {wait: true, error: this.postfailure.bind(this, input.val())});
 				
 				// Loading symbel
-				this.$el.find(".url-post span").toggleClass("icon-search icon-cloud-upload");
+				this.$el.find(".url-post span").toggleClass("fa-search fa-cloud-upload");
 				
 				// Limit listener
 				this.listenToOnce(this.collection, 'add', this.limited);
@@ -116,7 +116,7 @@ define(
 			postfailure : function (url)
 			{
 				// Loading symbel
-				this.$el.find(".icon-cloud-upload").toggleClass("icon-search icon-cloud-upload");
+				this.$el.find(".fa-cloud-upload").toggleClass("fa-search fa-cloud-upload");
 				
 				Cloudwalkers.RootView.information ("Non-supported profile", "This link is not recognized: " + url, this.$el.find(".info-container"));
 			},

@@ -69,46 +69,11 @@ define(
 				// Listen to category
 				this.listenTo(this.model.messages, 'seed', this.fill);
 				this.listenTo(this.model.messages, 'request', this.showloading);
-				this.listenTo(this.model.messages, 'sync', this.hideloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
+				this.listenTo(this.model.messages, 'loaded', this.hideloading);
 
 				this.loadListeners(this.model.messages, ['request', 'sync', 'ready'], true);
 			},
-			
-			/*showloading : function ()
-			{
-				this.$el.find(".icon-cloud-download").show();
-				this.$el.find(".load-more").hide();
-			},*/
-
-			/*hideloading : function ()
-			{
-				this.$el.find(".icon-cloud-download").hide();
-				
-				if (this.category.messages.cursor)
-					this.hasmore = true;
-				else
-					this.hasmore = false;
-				
-				this.$container.removeClass("inner-loading");
-			},*/
-
-			/*showmore : function(){
-
-				setTimeout(function()
-				{	//Hack
-					this.$container.css('max-height', 999999);
-
-					if(!this.hasmore)
-						return this.$el.find('#loadmore').empty();	
-
-					var load = new LoadMoreWidget({list: this.model.messages, parentcontainer: this.$container});
-					this.$el.find('#loadmore').html(load.render().el);
-
-					this.loadmore = load;
-
-				}.bind(this),200)
-			},*/
 			
 			fill : function (list)
 			{		
@@ -126,52 +91,12 @@ define(
 				// Add messages to view
 				for (var n in list)
 				{
-					var view = new EntryView ({model: list[n], type: "full", template: "messagefullentry"});
+					var view = new EntryView ({model: list[n], template: "keywordentry"});
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);
 				}
-			},
-			
-			/*more : function ()
-			{
-				this.incremental = true;
-
-				this.loadmore.loadmylisteners();
-				
-				var hasmore = this.model.messages.more(this.model, this.parameters);//this.category.parameters);
-				
-				if(!hasmore) this.$el.find(".load-more").hide();
-			},*/
-			
-			/*negotiateFunctionalities : function() {
-				
-				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
-			},*/
-			
-			/*addScroll : function () {
-
-				var scroll = this.$el.find('.scroller').eq(0);
-
-				this.$el.find('.scroller').slimScroll({
-					size: '6px',
-					color: '#a1b2bd',
-					height: $("#inner-content").height() -165 + "px",
-					alwaysVisible: false,
-					railVisible: false
-				});
-
-				var height = scroll.css('height');
-			
-				// Update slimscroll plugin default styling
-				scroll.css('max-height', height);
-				scroll.css('height', 'inherit')
-			},*/
-			
-			/*destroy : function()
-			{
-				$.each(this.entries, function(n, entry){ entry.remove()});
-			}*/
+			}
 		});
 
 		return MonitorList;

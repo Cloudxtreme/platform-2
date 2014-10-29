@@ -10,11 +10,11 @@ define(
 			
 			toggleaction : function (token, newaction)
 			{
-				var current = this.$el.find('div[data-notification-action="' + token + '"]');
+				var current = this.$el.find('div[data-subentry-action="' + token + '"]');
 				var clone = current.clone();
 				
 				// new Action edits
-				clone.attr("data-notification-action", newaction.token).find("i").attr("class", "").addClass("icon-" + newaction.icon);
+				clone.attr("data-subentry-action", newaction.token).find("i").attr("class", "").addClass("icon-" + newaction.icon);
 				
 				// Remove old Action
 				current.before(clone).remove();	

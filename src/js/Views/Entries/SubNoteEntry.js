@@ -52,7 +52,7 @@ define(
 				e.stopPropagation();
 
 				// Action token
-				var token = $(e.currentTarget).data ('notification-action');		
+				var token = $(e.currentTarget).data ('subentry-action');		
 				this.model.trigger("action", token);
 
 				if(token == 'edit'){

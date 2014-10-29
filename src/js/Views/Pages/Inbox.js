@@ -1,6 +1,6 @@
 define(
 	['Views/Pages/Pageview', 'mustache', 'Views/Panels/EntryLists/BoxLists/InboxMessageList', 'Views/Panels/EntryLists/BoxLists/InboxNotificationList'],
-	function (Pageview, Mustache, InboxMessageListWidget, InboxNotificationListWidget)
+	function (Pageview, Mustache, InboxMessageList, InboxNotificationList)
 	{
 		var Inbox = Pageview.extend({
 
@@ -34,8 +34,8 @@ define(
 				// Add list widget
 				var list = this.options.type == "messages"?
 					
-					new InboxMessageListWidget(this.options):
-					new InboxNotificationListWidget(this.options);
+					new InboxMessageList(this.options):
+					new InboxNotificationList(this.options);
 				
 				this.appendWidget(list, 4);
 				this.appendhtml(Templates.inboxcontainer);

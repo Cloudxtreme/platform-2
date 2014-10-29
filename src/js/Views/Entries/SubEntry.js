@@ -16,7 +16,7 @@ define(
 			events : {
 				'mouseover' : 'toggleactions',
 				'mouseout' : 'toggleactions',
-				'click *[data-notification-action]' : 'action',
+				'click *[data-subentry-action]' : 'action',
 				'click .viewcommentcontact': 'togglecommentcontact',
 				'click .note-header' : 'togglenote'
 			},

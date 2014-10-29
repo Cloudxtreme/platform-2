@@ -45,13 +45,16 @@ define(
 
 			submit : function (e)
 			{		
-				var data = {rolegroup: $("#level").val()};
+				e.preventDefault();
+
+				var data = {rolegroup: $("#rolegroup").val()};
 
 				this.model.parent = Cloudwalkers.Session.getAccount();
 
 				this.model.save(data, {
 					patch: true, 
-					success: this.success.bind(this)
+					success: this.success.bind(this),
+					error: this.error
 				});
 
 			},
@@ -59,7 +62,25 @@ define(
 			success : function()
 			{	
 				Cloudwalkers.RootView.growl(trans("Manage users"), trans("The user clearance is updated."));
-				this.model.trigger("change:clearance")	;
+				this.model.trigger("change:clearance");
+
+				// Has the user updated himself?
+				if(model.id == Cloudwalkers.Session.getUser().id){
+					setTimeout(function(){
+		  				window.location.reload();
+		  			},1000);
+				}
+			},
+
+			'error' : function(model, response)
+			{	
+				var account = Cloudwalkers.Session.getAccount();
+				
+				if(!account.monitorlimit('admins', Cloudwalkers.Session.getUsers('Conversation manager').length, null, true))
+				{
+					var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
+					Cloudwalkers.RootView.alert(error);
+				}		
 			},
 
 			disablesave : function()

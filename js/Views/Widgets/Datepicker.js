@@ -19,7 +19,7 @@ Cloudwalkers.Views.Widgets.Datepicker = Cloudwalkers.Views.Widgets.Widget.extend
 	},
 
 	'getDateRange' : function ()
-	{
+	{	console.log(this.start)
 		return [ this.start, this.end ];
 	},
  

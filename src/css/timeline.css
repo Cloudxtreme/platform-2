@@ -35,7 +35,7 @@
 }
 
 .filterbanner {
-	left: 18%;
+	left: 250px;
 	position: fixed;
 	right: 0px;
 	background-color: #fff;
@@ -55,7 +55,7 @@
 
 section#timeline-filters-section {
 	position: absolute;
-	width: 33.5%;
+	width: 33%;
 	height: 100%;
 	border-right: 1px solid #e5e5e5;
 }

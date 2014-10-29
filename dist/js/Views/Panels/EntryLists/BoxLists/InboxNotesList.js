@@ -92,7 +92,7 @@ define(
 				if(type != 'account')
 					this.inboxnote.showrelated();
 				
-				this.$el.find(".messagelist .active").removeClass("active");
+				this.$el.find(".entry-container .active").removeClass("active");
 				view.$el.addClass("active");
 			},
 			
@@ -137,7 +137,7 @@ define(
 
 				//append the context
 				$('.message-container').find('.message').remove();
-				$('.message-container').find('.single-contact').remove();
+				$('.message-container').find('.contact-card').remove();
 				$('.message-container').prepend(contextrender);
 
 			},

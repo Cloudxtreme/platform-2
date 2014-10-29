@@ -92,7 +92,7 @@ define(
 
 			showloading : function ()
 			{
-				this.$el.find(".icon-cloud-download").show();
+				this.$el.find(".fa-cloud-download").show();
 			},
 			
 			hideloading : function ()

@@ -2,8 +2,8 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['Views/Panels/Panel'],
-	function (Panel)
+	['Views/Panels/Panel', 'moment'],
+	function (Panel, moment)
 	{
 		var Datepicker = Panel.extend({
 
@@ -11,11 +11,11 @@ define(
 			'icon' : 'calendar',
 			'color' : 'grey',
 
-			'start' : Date.today().add({
+			/*'start' : Date.today().add({
 				days: -6
 			}),
 
-			'end' : Date.today().add ({ 'days' : 1 }),
+			'end' : Date.today().add ({ 'days' : 1 }),*/
 
 			'events' :
 			{
@@ -24,11 +24,14 @@ define(
 
 			'getDateRange' : function ()
 			{
-				return [ this.start, this.end ];
+				return [ moment().subtract(6, 'days').zone(0).endOf('day')._d ,  moment().zone(0).endOf('day')._d  ];
 			},
 		 
 			'render' : function ()
-			{
+			{	
+				this.start = moment().subtract(6, 'days').zone(0).endOf('day')._d; 
+				this.end = moment().zone(0).endOf('day')._d;
+
 				var element = this.$el;
 
 				var data = {};
@@ -41,24 +44,16 @@ define(
 						/*'Today': ['today', 'today'],
 						'Yesterday': ['yesterday', 'yesterday'],
 						*/
-						'Last 2 Days': [Date.today().add({
-								days: -1
-							}), 'today'],
-						'Last 5 Days': [Date.today().add({
-								days: -4
-							}), 'today'],
-						'Last 7 Days': [Date.today().add({
-								days: -6
-							}), 'today'],
-						'Last 10 Days': [Date.today().add({
-								days: -9
-							}), 'today'],
-						'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+						'Last 2 Days': [moment().subtract(1, 'days').zone(0).endOf('day')._d, 'today'],
+						'Last 5 Days': [moment().subtract(5, 'days').zone(0).endOf('day')._d, 'today'],
+						'Last 7 Days': [moment().subtract(6, 'days').zone(0).endOf('day')._d, 'today'],
+						'Last 10 Days': [moment().subtract(9, 'days').zone(0).endOf('day')._d, 'today'],
+						/*'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
 						'Last Month': [Date.today().moveToFirstDayOfMonth().add({
 								months: -1
 							}), Date.today().moveToFirstDayOfMonth().add({
 								days: -1
-							})]
+							})]*/
 					},
 					opens: (App.isRTL() ? 'right' : 'left'),
 					format: 'MM/dd/yyyy',

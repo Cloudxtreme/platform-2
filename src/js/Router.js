@@ -2,12 +2,12 @@ define(
 	['backbone', 'config', 'Views/Pages/Dashboard', 'Views/Pages/Coworkers', 'Views/Pages/Inbox', 'Views/Pages/Drafts', 'Views/Pages/Sent', 'Views/Pages/Notes/Notes',
 	 'Views/Pages/Scheduled', /*'Views/Calendar',*/ 'Views/Pages/Timeline', 'Views/Pages/ManageAccounts', 'Views/Pages/KeywordMonitoring',
 	 'Views/Pages/ManageKeywords', 'Views/Pages/StatStream', 'Views/Pages/Statistics', 'Views/Pages/Settings', 'Views/Pages/Firsttime',
-	 'Views/Pages/Coworkdashboard', /*'Views/ManageUserGroups', 'Views/Resync',*/ 'Views/Pages/RSSFeed', /*'Views/ManageRSS'*/],
+	 'Views/Pages/Coworkdashboard', /*'Views/ManageUserGroups', 'Views/Resync', 'Views/Pages/RSSFeed',*/ /*'Views/ManageRSS'*/],
 
 	function (	Backbone, config, DashboardView, CoworkersView, InboxView, DraftsView, SentView, NotesView,
 				ScheduledView, /*CalendarView,*/ TimelineView, ManageAccountsView, KeywordMonitoringView,
 				ManageKeywordsView, StatStreamView, StatisticsView, SettingsView, FirsttimeView,
-				CoworkdashboardView, /*ManageUserGroupsView, ResyncView,*/ RSSFeedView /*ManageRSSView*/)
+				CoworkdashboardView/*, ManageUserGroupsView, ResyncView, RSSFeedView*/ /*ManageRSSView*/)
 
 	{
 		var Router = Backbone.Router.extend (
@@ -261,13 +261,16 @@ define(
 			 **/
 
 			reports : function (streamid)
-			{			
-				var view = new ReportsView ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
-				var roles = 'STATISTICS_VIEW';
-				
-				if (streamid)	view.subnavclass = 'reports_' + streamid;
+			{	
+				require(['Views/Pages/Reports'], function(ReportsView)
+				{
+					var view = new ReportsView ({ 'stream' : Cloudwalkers.Session.getStream (Number(streamid)) });
+					var roles = 'STATISTICS_VIEW';
+					
+					if (streamid)	view.subnavclass = 'reports_' + streamid;
 
-				this.validate(view, roles);
+					this.validate(view, roles);
+				}.bind(this));				
 			},
 			
 			

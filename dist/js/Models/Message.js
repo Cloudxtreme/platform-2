@@ -646,7 +646,7 @@ define(
 
 				else if (action.token == 'unfavorite')
 				{
-					return 'star-empty';
+					return 'star-o';
 				}
 
 				return action.token;

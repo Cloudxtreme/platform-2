@@ -2,8 +2,8 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(	
-	['Views/Panels/Panel'],
-	function (Panel)
+	['Views/Panels/Panel', 'mustache'],
+	function (Panel, Mustache)
 	{
 		var CombinedStatistics = Panel.extend ({
 

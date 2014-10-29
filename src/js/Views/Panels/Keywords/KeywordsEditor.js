@@ -104,7 +104,7 @@ define(
 				
 				this.channel.channels.create(object, {parent: this.channel.id, wait: true});
 
-				this.$el.find(".addcategory .icon-cloud-upload").show();
+				this.$el.find(".addcategory .fa-cloud-upload").show();
 			},
 			
 			addKeyword : function (e)
@@ -133,13 +133,13 @@ define(
 					wait: true,
 					error: function(){
 						Cloudwalkers.RootView.information (trans("Not saved"), trans("Something went wrong"), this.$el.find(".manage-keyword"));
-						this.$el.find(".managekeyword .icon-cloud-upload").hide();
+						this.$el.find(".managekeyword .fa-cloud-upload").hide();
 					}.bind(this),
 					success: function (){
 						Cloudwalkers.RootView.growl (trans("Manage Keywords"), trans("Keyword filter has been successfully added"))
 					}.bind(this)
 				});
-				this.$el.find(".managekeyword .icon-cloud-upload").show();
+				this.$el.find(".managekeyword .fa-cloud-upload").show();
 			},
 
 			updateKeyword : function (e)
@@ -167,7 +167,7 @@ define(
 					);
 				}
 
-				this.$el.find(".managekeyword .icon-cloud-upload").show();
+				this.$el.find(".managekeyword .fa-cloud-upload").show();
 
 			},
 			

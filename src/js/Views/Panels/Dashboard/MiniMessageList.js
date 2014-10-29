@@ -10,8 +10,7 @@ define(
 			
 			'initialize' : function(options)
 			{
-				$.extend(true, this.options, this.defaults);
-				$.extend(this.options, options);
+				this.options = $.extend({}, this.options, options);
 				
 				//Stream
 				this.model.messages = new Messages();

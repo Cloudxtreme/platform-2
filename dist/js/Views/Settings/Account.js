@@ -100,6 +100,8 @@ define(
 			 */
 			editaccount : function (e)
 			{
+				e.preventDefault();
+
 				var name = this.$el.find ('[data-attribute=account-name]').val ();
 
 				this.$el.find(".edit-account-name").addClass('loading');

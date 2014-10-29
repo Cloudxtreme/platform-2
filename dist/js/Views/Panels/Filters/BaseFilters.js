@@ -71,7 +71,7 @@ define(
 				// Toggle all active
 				this.$el.find(".toggleall").addClass('active').removeClass('inactive');
 				
-				var string = $("#filter_contacts input").val();
+				var string = $(".userfilter input").val();
 				
 				if(!string) return this.hidesuggestions();
 				else string = string.toLowerCase();

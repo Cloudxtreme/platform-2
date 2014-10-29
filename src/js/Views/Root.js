@@ -27,6 +27,7 @@ define (
 				
 				// Do some rendering
 				$('#inner-content').html (this.view.render ().el);
+				$('#page-container').removeClass('notloaded');
 				
 				// Tell your view
 				this.view.$el.trigger("rendered");

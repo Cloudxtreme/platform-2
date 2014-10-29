@@ -60,56 +60,12 @@ define(
 				}
 			},
 
-			/*addUserContainer : function (title, collection)
-			{	
-				var user = Cloudwalkers.Session.getUser ();
-
-				var self = this;
-
-				var data = {};
-				data.title = title;
-				data.user = user.attributes;
-
-				var html = $(Mustache.render (Templates.settings.users, data));
-
-				collection.on ('reset', function ()
-				{
-					html.find ('.user-container').html ('');
-				});
-
-				collection.on ('reset:all', function ()
-				{
-					for (var i = 0; i < self.collections.length; i ++)
-					{
-						self.collections[i].reset ();
-						self.collections[i].fetch ();
-					}
-				});
-
-				collection.on ('add', function (model)
-				{
-					var view = new SettingsView.User ({ 'model' : model });
-					html.find ('.user-container').append (view.render ().el);
-				});
-
-				html.find ('.loading').show ();
-
-				collection.fetch ({
-					'success' : function ()
-					{
-						html.find ('.loading').hide ();
-					}
-				});
-
-				this.$el.append (html);
-
-			},*/
-
 			/*
 			 *	Send invitation
 			 */
-			addUser : function ()
+			addUser : function (e)
 			{
+				e.preventDefault();
 				
 				var data = {email: $('input[name=invite-email]').val()}
 				var url = Cloudwalkers.Session.api + '/account/' + Cloudwalkers.Session.getAccount().get('id') + '/users';
@@ -131,13 +87,6 @@ define(
 					
 				}.bind(this)).save();
 			},
-			
-			/* on it's way to be deprecated */
-			/*negotiateFunctionalities : function(el) {
-			
-				// Check collapse option
-				$(this).find('.portlet-title').on('click', function(){ $(this).parents(".collapse-closed, .collapse-open").toggleClass("collapse-closed collapse-open"); });
-			},*/
 
 			/*
 			 *	Scroll down page

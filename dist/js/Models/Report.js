@@ -2,8 +2,9 @@
 * to be DEPRECATED -> Reports stuff
 */
 define(
-	['backbone'],
-	function (Backbone)
+	['backbone', 'Views/Charts/Barchart', 'Views/Charts/Comparison', 'Views/Charts/Intervalchart', 
+	 'Views/Charts/Numberstat', 'Views/Charts/Piechart', 'Views/Charts/Table', 'Views/Charts/Textstat'],
+	function (Backbone, Barchart, Comparison, Intervalchart, Numberstat, Piechart, Table, Textstat)
 	{
 		var Report = Backbone.Model.extend({
 	
@@ -152,7 +153,7 @@ define(
 				
 				var url = this.get('url') + '?';
 				if (this.daterange)
-				{
+				{	console.log(this.daterange)
 					url += 'start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000) + '&';
 				}
 
@@ -196,7 +197,7 @@ define(
 
 				if (type == 'bars')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Barchart ({
+					widget = new Barchart ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -206,7 +207,7 @@ define(
 
 				else if (type == 'pie')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Piechart ({
+					widget = new Piechart ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -216,7 +217,7 @@ define(
 
 				else if (type == 'table')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Table ({
+					widget = new Table ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -226,7 +227,7 @@ define(
 
 				else if (type == 'time')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Intervalchart ({
+					widget = new Intervalchart ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -236,7 +237,7 @@ define(
 
 				else if (type == 'comparison')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Comparison ({
+					widget = new Comparison ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -247,7 +248,7 @@ define(
 				else if (type == 'number')
 				{
 					
-					widget = new Cloudwalkers.Views.Widgets.Charts.Numberstat ({
+					widget = new Numberstat ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),
@@ -257,7 +258,7 @@ define(
 
 				else if (type == 'text')
 				{
-					widget = new Cloudwalkers.Views.Widgets.Charts.Textstat ({
+					widget = new Textstat ({
 						'model' : self,
 						'title' : (self.stream ? self.stream.name : '') + ' ' + self.get ('name'),
 						'stream' : this.get('stream'),

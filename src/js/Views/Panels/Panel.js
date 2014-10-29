@@ -2,12 +2,12 @@
 * A standard widget
 */
 define(	// MIGRATION: widget based on BaseView
-	['Views/BaseView', 'slimscroll'],
-	function (BaseView, SlimScroll)
+	['Views/BaseView', 'slimscroll', 'mustache'],
+	function (BaseView, SlimScroll, Mustache)
 	{
 		var PanelView = BaseView.extend(
 		{
-			defaults: {
+			options: {
 				title : 'Untitled widget',
 				icon : 'inbox',
 				color : 'blue',
@@ -23,8 +23,8 @@ define(	// MIGRATION: widget based on BaseView
 
 		    initialize : function (options)
 		    {
-		        if(!options.color) options.color = this.color;		        
-		        
+		        this.options = $.extend({}, options, this.options)
+		       	 
 		        // Always add this to all your widget initializations
 		        this.initializeWidget ();
 		    },
@@ -133,7 +133,7 @@ define(	// MIGRATION: widget based on BaseView
 				var containerheight; 
 
 				if (this.type == 'list')
-					height = $("#inner-content").height() -165 + "px";
+					containerheight = $("#inner-content").height() -165 + "px";
 
 				scroll.slimScroll({
 					size: '6px',
