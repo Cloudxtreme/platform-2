@@ -1,0 +1,85 @@
+<div class="panel blue">
+	<div class="panel-heading line">
+		<i class="fa fa-tasks"></i> {{#trans}}Categories overview{{/trans}}
+	</div>
+
+	<div class="panel-body">
+		<ul class="category-container">
+		{{#categories}}
+			<li data-category="{{id}}">
+				
+				<div class="category-actions">
+					{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+						<i class="fa fa-pencil-square edit-toggler"></i>
+					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					{{#authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
+						<i class="fa fa-remove delete-category"></i>
+					{{/authorized.CHANNEL_MANAGE_DELETE_MONITORING}}
+				</div>
+				
+				<span class="category-name {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">
+					<h4 class="name_val">{{name}}</h4>
+				</span>
+				
+				{{#settings.remember}}
+					<span class="category-name category-remember {{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}edit-toggler{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}">
+
+						{{#trans}}Remember for{{/trans}} 
+						<span class="remember_val">{{settings.remember}}</span> 
+
+						{{#trans}}days{{/trans}}
+
+					</span>
+				{{/settings.remember}}
+
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					<span class="category-edit border-left" style="display: none;">
+						<form>
+							<span class="edit_name form-group row" style="margin: 0;">
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-7">
+											<input type="text" value="{{name}}" class="form-control" name="name" />
+										</div>
+										<div class="col-md-4">
+											<button class="btn blue edit-toggler" type="submit">{{#trans}}Save changes{{/trans}}</button>
+										</div>
+									</div>
+								</div>
+							</span>
+							
+							{{#settings.remember}}
+								<span class="edit_remember">
+									{{#trans}}Remember for{{/trans}} 
+									<input type="text" value="{{settings.remember}}" name="remember" /> 
+									{{#trans}}days{{/trans}}
+								</span>
+							{{/settings.remember}}
+
+						</form>
+					</span>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+
+			</li>
+			<li>
+				<ul>
+					<div class="row">
+						{{#keywords}}
+							<div class="col-md-4">
+								<li class="keyword btn-white" data-keyword="{{id}}">
+									<i class="fa fa-tag icon-muted"></i>
+									{{attributes.name}}
+									{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+										<i class="fa fa-remove pull-right delete-keyword"></i>
+									{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+								</li>
+							</div>
+						{{/keywords}}
+					</div>
+				</ul>
+				<div class="clear"></div>
+			</li>
+		{{/categories}}
+		</ul>
+	</div>
+</div>

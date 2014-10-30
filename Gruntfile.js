@@ -38,7 +38,7 @@ module.exports = function (grunt)
 			options: {
 				asi: true, eqnull: true, jquery: true
 			},
-			source: ['<%= defaults.source.dir %>/js/**/*.js', '*.js']
+			source: ['<%= defaults.source.dir %>/js/**/*.js', '*.js', '!<%= defaults.source.dir %>/js/*-default.js']
 		},
 		
 		/* Cleaning */
@@ -115,16 +115,23 @@ module.exports = function (grunt)
 		
 		/* Copy and concatinate files */
 		copy: {
+			watcher: {
+				files: [
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['/*.html', '*.js','css/**/*.css','js/**/*.js'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'}
+				]
+			},
 			staging: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico','images/**','fonts/**','css/**','js/**','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['vendor/*/*.js','vendor/*/*.css','vendor/*/dist/**','vendor/*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/'}
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/example4/*.css', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.staging.dir %>/locales'}
 				]
 			},
 			release: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico','images/**','fonts/**','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['vendor/*/*.js','vendor/*/*.css','vendor/*/dist/**','vendor/*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/'}
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/example4/*.css', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/js/lib'},
+					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.staging.dir %>/locales'}
 				]
 			}
 		},
@@ -159,7 +166,8 @@ module.exports = function (grunt)
 		
 		/* Watch the beast */
 		watch: {
-			files: ['<%= defaults.source.dir %>/**/*.*','<%= defaults.source.dir %>/*.js','!<%= defaults.source.dir %>/vendor'],
+			options: {cwd: '<%= defaults.source.dir %>'},
+			files: ['*.html', '*.js','css/**/*.css','js/**/*.js','templates/**/*.mustache'],
 			tasks: ['concurrent:watch']
 		}
 	});

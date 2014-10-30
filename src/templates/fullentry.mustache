@@ -1,0 +1,49 @@
+<!-- {{id}} -->
+<div class="entry full">
+	<div class="pull-right specs">
+		<span class="date muted" {{#date}}data-date="{{date}}"{{/date}}></span>
+		{{#actions.length}}
+			<span class="actions dropdown">
+				<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
+			
+				<ul class="dropdown-menu">
+					{{#actions}}
+						<li><a class="button-post action message-action" data-action="{{token}}"><i class="fa fa-{{icon}}"></i>{{#trans}}{{name}}{{/trans}}</a></li>
+					{{/actions}}
+				</ul>
+			</span>
+		{{/actions.length}}
+		<span class="media"><i class="fa fa-{{media}}"></i></span>
+
+	</div>
+	
+	{{#attached}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attached}}
+	
+	
+	
+	{{#from}}
+		<div class="avatar" style="background-image: url({{avatar}})"></div>
+		<strong><a>{{displayname}}</a></strong>
+	{{/from}}
+	
+	<div class="content">
+		
+		{{#subject}}
+		<strong>{{subject}}</strong><br />
+		{{/subject}}
+		
+		{{{body.html}}}
+		
+		{{#attached}}
+			{{#link}}
+				<div class="attachment-link">
+					<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+				</div>
+			{{/link}}
+		{{/attached}}
+	</div>
+</div>

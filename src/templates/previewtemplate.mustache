@@ -1,0 +1,82 @@
+<div class="pv-wrapper">
+	<div class="clearfix"></div>
+	<div class="pv-wrapper-wrap">
+
+		<!--Header-->
+		<div class="pv-header">
+			<div class="pv-avatar">
+				<img src="{{profile.avatar}}"/>
+			</div>
+			<div class="pv-title-wrap">
+				<div class="pv-title">{{profile.displayname}}</div>
+				<div class="pv-timestamp-twt pv-20"><!--/timestamp-->Just now<!--/timestamp--></div>
+				<div class="clearfix"></div>
+				<div class="pv-timestamp pv-gp pv-fb pv-20"><!--/timestamp-->Just now<!--/timestamp--></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+					
+		<!--Body-->
+		<div class="pv-content">
+			<div class="pv-main-text">
+				<div class="pv-text">
+					<!--/post text-->
+					{{body.plaintext}}
+					<!--/post text-->
+				</div>
+				<div class="pv-url pv-twt pv-li pv-gp pv-fb-link pv-20"><a href="#"><!--/url-->{{link}}<!--/url--></a></div>
+				<div class="clearfix"></div>
+			</div>
+			<div style="">
+			<div class="pv-twt pv-20" id="viewsummary"><a href="#">View summary</a></div>
+			<div class="pv-url-content">
+				<div class="pv-img"><img src="{{image}}"/></div>
+				<div class="pv-gpstripe pv-gp pv-20"></div>
+				<div class="pv-url-content-text">
+					<div class="pv-url-title"><!--/url title-->{{subject}}<!--/url title--></div>
+					<div class="pv-url-text">
+						<!--/Url preview content-->
+						{{body.content}}
+						<!--/Url preview content-->
+					</div>
+					<div class="pv-url pv-twt pv-20"><a href="#"><!--/url-->View on web<!--/url--></a></div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		</div>
+		<div class="pv-bottom">
+			<div id="pv-fb-bottom">
+				<div id="pv-fb-bottomtop">
+					<a href="#">Like</a>
+					<a href="#">Comment</a>
+					<a href="#">Share</a>
+				</div>
+				<div id="pv-fb-comment">
+					<div class="pv-avatar">
+						<img src="{{profile.avatar}}"/>
+					</div>
+					<input type="text" placeholder="Write a comment"/>
+					<div class="clearfix"></div>
+				</div>	
+			</div>
+			<div id="pv-twt-bottom">
+				<a href="#">... More</a>
+				<a href="#"><i class="icon-star"></i>Favorite</a>
+				<a href="#"><i class="icon-retweet"></i>Retweet</a>
+				<a href="#"><i class="icon-reply"></i>Reply</a>		
+				<div class="clearfix"></div>
+			</div>
+			<div id="pv-gp-bottom">
+				<div class="pv-gp-button">
+					<i class="icon-plus"></i>1
+				</div>
+				<div class="pv-gp-button">
+					<i class="icon-mail-forward"></i>
+				</div>
+				<input type="text"/>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

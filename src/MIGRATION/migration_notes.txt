@@ -1,0 +1,5 @@
+# MIGRATION NOTES #
+
+/** Left to be updated **/
+.net stuff
+hardcoded ajax calls

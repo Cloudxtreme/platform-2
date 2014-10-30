@@ -1,29 +1,36 @@
-Cloudwalkers Platform
-=====================
+# Getting Started
 
-Branches
---------
-*   **master**  
-	Contains the development code.  
-	Published at https://devplatform.cloudwalkers.be/  
+Cloudwalkers platform version using Backbone.js, Grunt, Bower & Requirejs
 
-*   **stable**  
-	Contains the production code.  
-	Published at https://platform.cloudwalkers.be/  
 
-*   **rc0**  
-	Contains the code that will be pushed to production in 4 weeks.  
-	Published at https://rc0.cloudwalkers.be/  
+# Installation
 
-*   **rc1**  
-	Contains the code that will be pushed to production in 3 weeks.  
-	Published at https://rc1.cloudwalkers.be/  
+1. Install [Node.js](http://nodejs.org/)
+2. Run ```cd path/to/local/platform```
+3. Run ```sudo npm install -g grunt-cli bower```
+4. Run ```bower install``` to install vendor dependencies.
+5. Run ```npm install``` to install the required dependencies.
+6. Run ```cp src/js/config-default.js src/js/config.js``` to create your local config file.
+7. Edit config file if required.
 
-*   **rc2**  
-	Contains the code that will be pushed to production in 2 weeks.  
-	Published at https://rc2.cloudwalkers.be/  
 
-*   **rc3**  
-	Contains the code that will be pushed to production **next week**.  
-	Published at https://rc3.cloudwalkers.be/  
-	**This version should be heavily tested.**  
+# Cloudwalkers Gruntfile
+
+The gruntfile takes care of JS sanity testing,
+compression of javascript and css files, concatinating of template files
+and the templating process of the html files.
+
+Run for release: 			grunt release
+Run for staging:			grunt staging
+Change listener:			grunt watcher
+
+Working directory: 			src
+Distribution directory: 	dist
+Required files: 			package.json (all grunt plugins are listed)
+Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
+
+
+
+[Grunt]: http://gruntjs.com/
+[Bower]: http://bower.io/
+[npm]: https://www.npmjs.org/

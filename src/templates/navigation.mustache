@@ -1,0 +1,236 @@
+
+<a class="btn btn-compose">
+	<i class="fa fa-pencil"></i> <span>{{#trans}}Compose{{/trans}}</span>
+</a>
+
+<ul class="page-sidebar-menu">
+	
+	<!-- Dashboard -->
+	<li class="dashboard active">
+		<a href="#dashboard">
+		<i class="fa fa-dashboard"></i> 
+		<span class="title">{{#trans}}Dashboard{{/trans}}</span>
+		<div class="arrow"></div>
+		</a>
+	</li>
+	
+	<!-- Inbox -->
+	{{#inbox}}
+		<li>
+			<a href="#inbox/messages">
+				<i class="fa fa-inbox"></i> 
+				<span class="title">{{#trans}}Inbox{{/trans}}</span>
+				<div class="arrow"></div>
+			</a>
+
+			<ul class="sub-menu">
+
+				{{#authorized.MESSAGE_READ_INBOX_MESSAGES}}
+				<li>
+					<a href="#inbox/messages">
+						<i class="fa fa-envelope"></i> 
+						<span class="title">{{#trans}}Messages{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_INBOX_MESSAGES}}
+				{{#authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
+				<li>
+					<a href="#inbox/notifications">
+						<i class="fa fa-globe"></i> 
+						<span class="title">{{#trans}}Notifications{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_INBOX_NOTIFICATIONS}}
+
+				<li>
+					<a data-header-action="post">
+						<i class="fa fa-pencil"></i> 
+						<span class="title">{{#trans}}Post Message{{/trans}}</span>
+					</a>
+				</li>
+				{{#authorized.MESSAGE_READ_DRAFTS}}
+				<li class="drafts">
+					<a href="#drafts">
+						<i class="fa fa-file-o"></i> 
+						<span class="title">{{#trans}}Drafts{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_DRAFTS}}
+				{{#authorized.MESSAGE_READ_SCHEDULE}}
+				<li class="schedule">
+					<a href="#scheduled">
+						<i class="fa fa-clock-o"></i> 
+						<span class="title">{{#trans}}Scheduled{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.MESSAGE_READ_SCHEDULE}}
+				{{#authorized.ACCOUNT_NOTES_VIEW}}
+				<li class="notes">
+					<a href="#notes">
+						<i class="fa fa-edit"></i> 
+						<span class="title">{{#trans}}Notes{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.ACCOUNT_NOTES_VIEW}}
+
+			</ul>
+		</li>
+	{{/inbox}}
+		
+	<!-- Co-workers cloud -->
+	{{#authorized._CW_COWORKERS_VIEW}}
+	<li>
+		<a href="#coworkers">
+			<i class="fa fa-group"></i> 
+			<span class="title">{{#trans}}Co-workers wall{{/trans}}</span>
+			<div class="arrow"></div>
+		</a>
+	</li>
+	{{/authorized._CW_COWORKERS_VIEW}}
+
+	<!-- Company Accounts -->
+	{{#profiles}}
+		{{#authorized.MESSAGE_READ_COMPANY}}
+		<li>
+			<a href="#timeline/{{channelid}}">
+				<i class="fa fa-briefcase"></i> 
+				<span class="title">{{#trans}}Company accounts{{/trans}}</span>
+				<div class="arrow"></div>
+			</a>
+			
+			<ul class="sub-menu">
+
+				<li>
+					<a href="#timeline/{{channelid}}">
+						<i class="fa fa-briefcase"></i> 
+						<span class="title">{{#trans}}Media{{/trans}}</span>
+					</a>
+				</li>
+
+				{{#authorized.MESSAGE_READ_THIRDPARTY}}
+				<li class="trending">
+					<a href="#trending/{{channelid}}">
+						<i class="fa fa-thumbs-up"></i> 
+						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
+					</a>
+			
+					<ul class="sub-menu"></ul>
+				</li>
+				{{/authorized.MESSAGE_READ_THIRDPARTY}}
+
+			</ul>
+		</li>
+		{{/authorized.MESSAGE_READ_COMPANY}}
+	{{/profiles}}
+	
+	
+	<!-- Profiles we follow -->
+	{{#news}}
+		{{#authorized.MESSAGE_READ_THIRDPARTY}}
+		<li>
+			<a href="#timeline/{{news}}">
+				<i class="fa fa-globe"></i> 
+				<span class="title">{{#trans}}Accounts we follow{{/trans}}</span>
+				<div class="arrow"></div>
+			</a>
+
+			<ul class="sub-menu">	
+
+				<li>
+					<a href="#timeline/{{news}}">
+						<i class="fa fa-globe"></i> 
+						<span class="title">{{#trans}}Media{{/trans}}</span>
+					</a>
+				</li>
+
+				<li class="trending">
+					<a href="#trending/{{news}}">
+						<i class="fa fa-thumbs-up"></i> 
+						<span class="title">{{#trans}}Trending posts{{/trans}}</span>
+					</a>
+				</li>
+				
+				<li>
+					<a href="#monitoring/accounts">
+						<i class="fa fa-plus"></i> 
+						<span class="title">{{#trans}}Manage accounts{{/trans}}</span>
+					</a>
+				</li>
+
+			</ul>
+		</li>
+		{{/authorized.MESSAGE_READ_THIRDPARTY}}
+	{{/news}}
+
+	<!-- Keyword Monitoring -->
+	{{#monitoring}}
+		{{#authorized.MESSAGE_READ_MONITORING}}
+		<li>
+			<a href="#monitoring/{{channelid}}/{{first.id}}">
+				<i class="fa fa-tags"></i> 
+				<span class="title">{{#trans}}Keyword monitoring{{/trans}}</span>
+				<div class="arrow"></div>
+			</a>
+
+			<ul class="sub-menu">
+
+				{{#channels}}
+					{{#channels.models.length}}
+					<li>
+						<a href="#monitoring/{{channelid}}/{{id}}">
+							<i class="fa fa-tags"></i> 
+							<span class="title">{{attributes.name}}</span>
+						</a>
+					</li>
+					{{/channels.models.length}}
+				{{/channels}}
+				
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+				<li>
+					<a href="#keywords">
+						<i class="fa fa-plus"></i> 
+						<span class="title">{{#trans}}Manage Keywords{{/trans}}</span>
+					</a>
+				</li>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+			</ul>
+		</li>
+		{{/authorized.MESSAGE_READ_MONITORING}}
+	{{/monitoring}}
+
+	<!-- Reports -->
+	{{#statistics}}
+	<li>
+		<a href="#statistics">
+			<i class="fa fa-bar-chart"></i> 
+			<span class="title">{{#trans}}Statistics{{/trans}}</span>
+			<div class="arrow"></div>
+		</a>
+	</li>
+	{{/statistics}}
+	<!-- User Settings -->
+	<li class="settings">
+		<a href="#settings/profile">
+			<i class="fa fa-cogs"></i> 
+			<span class="title">{{#trans}}Settings{{/trans}}</span>
+			<div class="arrow"></div>
+		</a>
+		<ul class="sub-menu">
+			{{#authorized.USER_INVITE}}
+				<li><a href="#settings/users"><i class="fa fa-group"></i> <span class="title">{{#trans}}Manage users{{/trans}}</span></a></li>
+			{{/authorized.USER_INVITE}}
+			{{#authorized.SERVICE_CONNECT}}
+				<li><a href="#settings/services"><i class="fa fa-cloud"></i> <span class="title">{{#trans}}Social connections{{/trans}}</span></a></li>
+			{{/authorized.SERVICE_CONNECT}}
+			{{#authorized.CAMPAIGN_DELETE}}
+				<li><a href="#settings/account"><i class="fa fa-briefcase"></i> <span class="title">{{#trans}}Account settings{{/trans}}</span></a></li>
+			{{/authorized.CAMPAIGN_DELETE}}
+			{{#authorized.ACCOUNT_SETTINGS}}
+				<li><a href="#settings/profile"><i class="fa fa-user"></i> <span class="title">{{#trans}}Profile settings{{/trans}}</span></a></li>
+			{{/authorized.ACCOUNT_SETTINGS}}
+			{{#manage_user_groups}}
+				<li><a href="#settings/manageusergroups"><i class="fa fa-sitemap"></i> <span class="title">{{#trans}}Manage User Groups{{/trans}}</span></a></li>
+			{{/manage_user_groups}}
+		</ul>
+	</li>	
+</ul>

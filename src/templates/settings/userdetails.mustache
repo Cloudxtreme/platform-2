@@ -1,0 +1,30 @@
+<div>
+	<div class="title">
+		<div class="holder">
+			<div class="frame">
+				<h3>{{user.firstname}} {{user.name}}</h3>
+			</div>
+		</div>
+	</div>
+	<div class="form-box">
+		<div class="box-holder">
+			<div class="box-frame">
+				
+				<form role="form" id="edit-managed-user">
+					<div class="form-group row">
+						<div class="col-md-8">
+							<label>{{#trans}}Clearance level{{/trans}}</label>
+							<select id="rolegroup" class="form-control">
+								{{#roles}}
+									<option value="{{id}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+								{{/roles}}
+							</select>
+						</div>
+					</div>
+
+					<button type="submit" class="btn black">{{#trans}}Save{{/trans}}</button>
+				</form>
+				
+			</div>
+		</div>
+	</div>

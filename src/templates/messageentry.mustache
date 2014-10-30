@@ -1,0 +1,21 @@
+
+	<div class="pull-right specs">
+		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		<span class="media"><i class="fa fa-{{media}}"></i></span>
+	</div>
+	
+	{{#user}}
+		<img class="avatar" alt="" src="{{avatar}}">
+		<strong>
+			<a href="#">{{displayname}}</a>
+		</strong>
+	{{/user}}
+	
+	{{#from}}
+		<i class="fa fa-{{icon}}"></i>
+		<strong><a href="{{url}}" target="_blank">{{name}}</a></strong>
+	{{/from}}
+	
+	<div class="content">
+		{{{body.plaintext}}}
+	</div>

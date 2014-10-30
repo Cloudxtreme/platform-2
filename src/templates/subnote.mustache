@@ -1,0 +1,25 @@
+<div class="note-header">
+	{{#user}}
+		<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+		<strong>{{displayname}}</strong>
+	{{/user}}
+	{{^user}}
+		<i class="fa fa-cloud-download"></i>
+	{{/user}}
+
+	{{#authorized.ACCOUNT_NOTES_MANAGE}}
+	<div class="subentry-actions pull-right hidden">
+		<div class="subentry-action" data-subentry-action="edit"><i class="fa fa-pencil"></i></div>
+		<div class="subentry-action" data-subentry-action="delete"><i class="fa fa-remove"></i></div>
+	</div>
+	{{/authorized.ACCOUNT_NOTES_MANAGE}}
+	{{#user}}
+		{{#date}}
+			<div class="subentry-info pull-right">{{fulldate}}</div>
+		{{/date}}
+	{{/user}}
+</div>
+
+<div class="note-body">{{{text}}}</div>
+
+

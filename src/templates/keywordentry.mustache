@@ -1,0 +1,79 @@
+<div style="position: relative; min-height: 110px;" class="entry full">
+	<div class="pull-right specs">
+		<span class="date" {{#date}}data-date="{{date}}"{{/date}}>{{trending}}</span>
+		
+		{{#actions.length}}
+		<span class="actions dropdown">
+			<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
+			
+			<ul class="dropdown-menu">
+			{{#actions}}
+				<li><a class="button-post action message-action oldbtn" data-action="{{token}}"><i class="fa fa-{{icon}}"></i> {{name}}</a></li>
+			{{/actions}}
+			</ul>
+
+		</span>
+		{{/actions.length}}
+		<!--{{#share.length}}
+			<span class="actions dropdown">
+				<i class="fa fa-share dropdown-toggle" data-toggle="dropdown"></i>
+			
+				<ul class="dropdown-menu">
+				{{#share}}
+					<li><a class="button-post action message-action" data-action="{{action}}"><i class="fa fa-{{icon}}"></i> {{name}}</a></li>
+				{{/share}}
+				</ul>
+			</span>
+		{{/share.length}}-->
+		
+		<!--<div class="media"><i class="fa fa-{{media}}"></i></div>-->
+		
+		<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
+	</div>
+
+	{{#attached}}
+		{{#image}}
+			<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+		{{/image}}
+	{{/attached}}
+	
+	{{#from}}
+	{{#iconview}}
+		<i class="fa fa-{{icon}}"></i>
+	{{/iconview}}
+	{{^iconview}}
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<!--<img class="avatar" alt="" src="{{avatar}}">-->
+	{{/iconview}}
+		<strong>
+			<a class="viewdetails" data-action="viewcontact">{{displayname}}</a>
+			<!--<a href="{{url}}" target="_blank">{{displayname}}</a>-->
+		</strong>
+	{{/from}}
+	
+	<div class="content">
+		
+		{{#subject}}
+			{{#url}}<a href="{{url}}"><strong>{{subject}}</strong></a><br />{{/url}}
+			{{^url}}<strong>{{subject}}</strong><br />{{/url}}
+		{{/subject}}
+		
+		{{{body.html}}}
+		
+		{{#attached}}
+			{{#link}}
+				<div class="attachment-link">
+					<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+				</div>
+			{{/link}}
+		{{/attached}}
+	</div>
+	<div class="message-actions" id="keywordfilter-actions"></div>
+
+</div>
+	<div class="message-sub-actions">
+		<div class="note-content"></div>
+		<div class="action-lists">
+			<span id="closenotelist"></div>
+		</div>
+	</div>

@@ -1,0 +1,45 @@
+<div class="entry small">
+	<div class="pull-right specs">
+	
+		{{#trendview}}
+			<span class="date muted">{{trending}}</span>
+			<span class="media"><i class="fa fa-{{media}}"></i></span>
+			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
+		{{/trendview}}
+		{{#mediaview}}
+			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
+			<span class="media"><i class="fa fa-{{media}}"></i></span>
+			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
+		{{/mediaview}}
+		{{#inboxview}}
+			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
+			<div class="dot {{networktoken}}-color"></div>
+			<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
+			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
+		{{/inboxview}}
+		{{#sentview}}
+			{{#streams}}
+				{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
+				<div class="dot {{network.token}}-color"></div>
+				<span class="media"><i class="fa fa-{{network.token}}"></i></span>
+				{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
+			{{/streams}}
+		{{/sentview}}
+		{{#contactview}}
+			{{#date}}<span class="date muted" data-date="{{date}}"></span>{{/date}}
+			<div class="dot {{networktoken}}-color"></div>
+			<span class="media"><i class="fa fa-{{networktoken}}"></i></span>
+			{{#arrow}}<div class="arrow"><i class="fa fa-chevron-right"></i></div>{{/arrow}}
+		{{/contactview}}
+
+	</div>
+	
+	{{#from}}
+		{{#trendview}}<i class="fa fa-{{networktoken}}"></i>{{/trendview}}
+		{{^trendview}}<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>{{/trendview}}
+		<strong>{{displayname}}</strong>
+	{{/from}}
+
+	<div class="content" data-id="{{id}}">
+		{{{body.intro}}}
+	</div>

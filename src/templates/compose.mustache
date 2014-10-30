@@ -1,0 +1,279 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+		<aside>
+			<h3>{{#trans}}Networks{{/trans}}</h3>
+			<ul class="compose-streamss">
+			{{#streams}}
+				<li data-streams="{{id}}" class="btn-white inactive"><i class="fa fa-{{attributes.network.icon}}"></i><span>{{attributes.defaultname}}</span></li>
+			{{/streams}}
+			</ul>
+		</aside>
+
+		<section class="switch-container">
+			<table class="end-preview">
+				<tbody><tr><td valign="middle">
+					<i class="fa fa-chevron-left"></i>
+				</td></tr></tbody>
+			</table>
+		</section>	
+
+		<div class="right">
+			<div class="inner-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h3>{{#trans}}{{title}}{{/trans}}</h3>
+				</div>
+				<div class="modal-body {{#type}}loading{{/type}}">
+					
+					<div class="tabs-container">
+						{{^actionview}}
+						<section class="stream-tabs">
+							<div class="stream-tab active">{{#trans}}Default{{/trans}}</div>
+						</section>
+						{{/actionview}}
+						{{#actionview}}
+						<section class="action-tabs"></section>
+						{{/actionview}}
+					</div>
+					
+					<section data-type="post">
+						
+						<div class="input-symbol hidden" data-option="subject">
+							<input type="text" placeholder="{{#trans}}Subject{{/trans}}" />
+						</div>
+						
+					</section>
+					<!--
+					<section data-type="canned">
+
+						<div class="collapsable-content {{^canned}}loading{{/canned}}">
+							<select class="canned-list">
+								<option></option>
+								{{#canned}}
+									<option value="{{id}}">{{attributes.body.plaintext}}</option>
+								{{/canned}}
+							</select>
+						</div>
+
+						<div class="alert alert-info">
+							<label class="checkbox">
+					      		<input type="checkbox">{{#trans}}Save this as a response template.{{/trans}}
+					    	</label>
+						</div>	
+					</section>
+					-->
+					<section data-type="icon">
+						<i data-action="{{actionview}}" class="icon-cloud"></i>			
+					</section>
+
+					<section data-collapsable="images" class="collapsed clearfix first">
+						
+						<div class="btn-white" data-toggle="images">{{#trans}}Images{{/trans}}</div>
+						
+						<div class="collapsable-content">
+								
+							<div class="photo-booth hidden">
+								<h2>{{#trans}}Photo booth{{/trans}}</h2>
+								
+								<video autoplay></video>
+								<canvas style="display:none;" width="640" height="480"></canvas>
+								
+								<div class="capture-button"><i class="fa fa-camera-retro"></i></div>
+							</div>
+							
+							<input type="file" multiple="multiple" />
+							
+							<div>
+								<span>{{#trans}}Pictures{{/trans}}</span>
+								<ul class="pictures-container">
+									<li class="add-file">&plus;</li>
+								</ul>
+							</div>
+							
+							<div class="clearfix">
+								<span>{{#trans}}Camera{{/trans}}</span>
+								<ul class="snapshots-container">
+									<li class="add-snapshot">&plus;</li>
+								</ul>
+							</div>
+							
+						</div>
+						
+						
+						
+						<ul class="summary" data-toggle="images"></ul>
+						
+					</section>
+					
+					<!--<section data-collapsable="link" class="collapsed clearfix">
+						
+						<div class="btn-white" data-toggle="link">Link</div>
+						
+						<div class="collapsable-content">
+							<div class="input-symbol">
+								<input type="text" placeholder="http://" />
+							</div>
+						</div>
+						
+						<div class="summary" data-toggle="link"></div>
+						
+					</section>-->
+					
+					<section data-collapsable="campaign" class="collapsed clearfix">
+						
+						<div class="btn-white" data-toggle="campaign">{{#trans}}Campaign{{/trans}}</div>
+						
+						<div class="collapsable-content">
+
+							<select class="form-control campaign-list">
+								<option value="0">{{#trans}}No campaign{{/trans}}</option>
+								{{#campaigns}}
+								<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+								{{/campaigns}}
+							</select>
+
+							<input type="text" placeholder="campaign name" class="hidden campaign-name" />
+							{{#authorized.CAMPAIGN_CREATE}}
+								<span class="add-campaign">&plus;</span>
+							{{/authorized.CAMPAIGN_CREATE}}
+						</div>
+						
+						<div class="summary" data-toggle="campaign"></div>
+						
+					</section>
+					
+					<section data-collapsable="schedule" class="schedule-group collapsed clearfix">
+						
+						<div class="btn-white" data-toggle="schedule">{{#trans}}Schedule{{/trans}}</div>
+						
+						<div class="collapsable-content some-margin">
+							
+							<div class="schedule-entry" data-set="now">
+								<label class="fa fa-check-circle-o">{{#trans}}Now{{/trans}}</label>
+							</div>
+							
+							<div class="schedule-entry inactive clearfix" data-set="in">
+								<label class="fa fa-circle-o">{{#trans}}In{{/trans}}</label>
+								
+								<select class="form-control" id="delay-select">
+									<option selected="selected" value="600">10 {{#trans}}mins{{/trans}}</option>
+									<option value="900">15 {{#trans}}mins{{/trans}}</option>
+									<option value="1800">30 {{#trans}}mins{{/trans}}</label>
+									<option value="2700">45 {{#trans}}mins{{/trans}}</label>
+									<option value="3600">1 {{#trans}}hour{{/trans}}</label>
+									<option value="7200">2 {{#trans}}hours{{/trans}}</label>
+									<option value="10800">3 {{#trans}}hours{{/trans}}</label>
+									<option value="14400">4 {{#trans}}hours{{/trans}}</label>
+									<option value="18000">5 {{#trans}}hours{{/trans}}</label>
+									<option value="21600">6 {{#trans}}hours{{/trans}}</label>
+									<option value="43200">12 {{#trans}}hours{{/trans}}</label>
+									<option value="86400">1 {{#trans}}day{{/trans}}</label>
+									<option value="604800">1 {{#trans}}Week{{/trans}}</label>
+								</select>
+							</div>
+							
+							<div class="schedule-entry inactive clearfix" data-set="on">
+								<label class="fa fa-circle-o">{{#trans}}on{{/trans}}</label>
+								
+								<div class="input-symbol" data-option="schedule-start-date">
+									<input id="delay-date" type="text" placeholder="dd-mm-yyyy" />
+								</div>
+								
+								<div class="bootstrap-timepicker input-symbol schedule-intend schedule-half" data-option="schedule-start-time">
+									<input id="delay-time" type="text" />
+								</div>
+								
+								<span class="btn-white inactive">{{#trans}}Best time{{/trans}}</span>
+							</div>
+
+						</div>
+						<div class="summary" data-toggle="schedule"></div>
+						
+					</section>
+					
+					<section data-collapsable="repeat" class="schedule-group collapsed clearfix last">
+						
+						<div class="btn-white" data-toggle="repeat">{{#trans}}Repeat{{/trans}}</div>
+						
+						<div class="collapsable-content some-margin">
+							
+							<div class="schedule-entry" data-set="onlyonce">
+								<label class="fa fa-check-circle-o">{{#trans}}No repeat{{/trans}}</label>
+							</div>
+							
+							<div class="schedule-entry inactive single-toggle" data-set="every">
+							
+								<label class="fa fa-circle-o">{{#trans}}Every{{/trans}}</label>
+								<div class="input-symbol number-input" data-option="schedule-start-date">
+									<input id="repeat-interval" type="text" value="0" /> 
+								</div>
+							
+								<select class="form-control" id="every-select">
+									<option value="1" data-single="hour" data-multiple="hours">{{#trans}}hours{{/trans}}</option>
+									<option value="24" data-single="day" data-multiple="days">{{#trans}}days{{/trans}}</label>
+									<option value="168" selected data-single="week" data-multiple="weeks">{{#trans}}weeks{{/trans}}</label>
+									<option value="720" data-single="month" data-multiple="months">{{#trans}}months{{/trans}}</label>
+								</select>
+								
+								<select class="form-control" id="every-select-weekday">
+									<option value=0>{{#trans}}select a day...{{/trans}}</option>
+									<option value="MONDAY">{{#trans}}monday{{/trans}}</option>
+									<option value="TUESDAY">{{#trans}}tuesday{{/trans}}</option>
+									<option value="WEDNESDAY">{{#trans}}wednesday{{/trans}}</label>
+									<option value="THURSDAY">{{#trans}}thursday{{/trans}}</label>
+									<option value="FRIDAY">{{#trans}}friday{{/trans}}</label>
+									<option value="SATURDAY">{{#trans}}saturday{{/trans}}</label>
+									<option value="SUNDAY">{{#trans}}sunday{{/trans}}</label>
+									<option value=0>{{#trans}}doesnt matter{{/trans}}</label>
+								</select>
+								
+							</div>
+							
+							<div class="schedule-entry inactive clearfix hide-if-empty" data-set="repeat">
+								
+								<label class="fa fa-circle-o">{{#trans}}Repeat{{/trans}}</label>
+								<div class="input-symbol number-input" data-option="schedule-start-date">
+									<input id="repeat-amount" type="text" value="0" />
+								</div>
+								<label>{{#trans}}times{{/trans}}</label>
+
+							</div>
+							
+							<div class="schedule-entry inactive clearfix hide-if-empty" data-set="until">
+								
+								<label class="fa fa-circle-o">{{#trans}}Until{{/trans}}</label>
+								<div class="input-symbol" data-option="schedule-start-date">				
+									<input id="repeat-until" type="text" placeholder="dd-mm-yyyy" value="{{scheduled.end}}" />
+								</div>
+							</div>
+							
+							
+							
+						</div>
+						
+						<div class="summary" data-toggle="repeat"></div>
+
+					</section>
+
+			</div>
+			
+			<div class="modal-footer toload">
+				{{#actionview}}
+				<button id="action" class="btn btn-primary" data-action="{{actionview}}">{{actionview}}</button>
+				{{/actionview}}
+				{{^actionview}}
+
+				{{#authorized.MESSAGE_READ_DRAFTS}}
+					<button id="save" class="btn">{{#trans}}Save{{/trans}}</button>
+				{{/authorized.MESSAGE_READ_DRAFTS}}
+
+				<button id="previewbtn" class="btn" disabled>{{#trans}}Preview{{/trans}}</button>
+				<button id="post" class="btn btn-primary">{{#trans}}Post{{/trans}}</button>
+				{{/actionview}}
+			</div>
+
+			
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>

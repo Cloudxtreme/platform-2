@@ -1,0 +1,9 @@
+<div class="btn-compound" data-block="compound-{{token}}">
+	<div class="actionvalue btn-white {{inactive}} {{noresults}}" data-token="{{token}}" data-action="action-list">
+        <i class="fa fa-{{icon}}"></i>
+        {{^noresults}}
+            <span>{{value}}</span>
+        {{/noresults}}
+    </div>
+	<div class="actionname btn-white" data-token="{{token}}" data-action="{{token}}">{{name}}</div>					
+</div>

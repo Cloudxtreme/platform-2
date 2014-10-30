@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="panel grey channelfilters">
+			<div class="panel-heading line">
+				<i class="fa fa-briefcase icon-large"></i>{{#trans}}Company accounts{{/trans}}
+			</div>
+			<div class="panel-body">
+				<div class="scroller">
+				
+					<div id="filter_streams" class="clearfix">
+		
+						<ul>
+						{{#streams}}
+							<li data-streams="{{id}}" class="btn-white active"><i class="fa fa-{{icon}}"></i> {{name}}</option>
+						{{/streams}}
+						</ul>
+						<span class="badge toggleall inactive">{{#trans}}select all{{/trans}}</span>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

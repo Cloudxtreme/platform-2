@@ -1,0 +1,66 @@
+<div class="note-header" data-id="{{id}}">
+	<div class="pull-right">
+		<span class="date">{{fulldate}}</span>	
+	</div>
+	
+	{{#user}}
+	<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<strong>{{displayname}}</strong>
+	{{/user}}
+</div>
+
+<div class="note-body message-body">
+	
+	{{text}}
+	
+	{{#notification}}
+	<div class="note-notification">
+		<img class="avatar viewdetails" data-action="viewcontact" alt="" src="{{avatar}}">
+		<span>{{displayname}}</span>
+	</div>
+	{{/notification}}
+	
+	<!--
+	{{#attached.image}}
+		<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+	{{/attached.image}}
+	
+	{{#attached.video}}
+		<div class="pull-right inbox-video inactive" data-youtube="{{url}}" style="background-image: url({{image}});"></div>
+	{{/attached.video}}
+	
+	{{{body.html}}}
+	
+	{{#attached.link}}
+		<div class="attachment-link">
+			<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+		</div>
+	{{/attached.link}}
+	-->
+</div>
+
+<div class="message-actions">
+
+	{{#authorized.ACCOUNT_NOTES_MANAGE}}	
+		<div class="btn-white pull-right" data-action="delete"><i class="fa fa-remove"></i></div>
+		<div class="btn-white pull-right" data-action="note-edit"><i class="fa fa-pencil"></i></div>
+	{{/authorized.ACCOUNT_NOTES_MANAGE}}
+	
+	<!-- TAGS -->
+	<div class="message-tags pull-right">
+		{{#authorized.ACCOUNT_TAGS_MANAGE}}
+			<div class="btn-white pull-right edit" data-action="tag-showedit"><i class="fa fa-tags"></i></div>
+			<ul class="tag-list"></ul>
+			<div class="tag-input-append">
+				<input id="tags" type="text" autocomplete="off">
+				<button class="btn-white" type="button" data-action="tag-add">{{#trans}}Add{{/trans}} <i class="fa fa-tag"></i></button>
+			</div>
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+		{{^authorized.ACCOUNT_TAGS_MANAGE}}
+			{{#authorized.ACCOUNT_TAGS_VIEW}}
+				<ul class="tag-list"></ul>
+			{{/authorized.ACCOUNT_TAGS_VIEW}}
+		{{/authorized.ACCOUNT_TAGS_MANAGE}}
+	</div>
+	<!-- END TAGS -->
+</div>

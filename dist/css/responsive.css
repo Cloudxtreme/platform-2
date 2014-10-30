@@ -1,0 +1,19 @@
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	#inner-content { padding-left: 40px; }
+	#sidebar { width: 50px; }
+	#sidebar .btn-compose { margin: 20px 10px 20px; padding: 7px 10px; }
+	#sidebar a > span { display: none; }
+	#sidebar ul.sub-menu > li > a { padding: 5px 15px; }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+	#inner-content { padding-left: 240px; }
+	#sidebar { width: 250px; }
+	#sidebar .btn-compose { margin: 20px 15px 20px; padding: 7px 15px; }
+	#sidebar a > span { display: inline-block; }
+	#sidebar ul.sub-menu > li > a { padding: 5px 5px 5px 45px; }
+}

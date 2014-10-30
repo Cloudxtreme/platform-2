@@ -1,17 +1,36 @@
 {
-    "name": "superadmin",
-    "version": "1.1.0",
-    "authors": [
-        "Koen Betsens <koen@bmgroup.be>",
-        "Rui Molefas <rui@bmgroup.be>",
-        "Marco Jacinto <marco@bmgroup.be>"
-    ],
-    "dependencies": {
-        "modernizr": "*",
-        "jquery": "*",
-        "underscore": "*",
-        "backbone": "*",
-        "mustache": "*",
-        "bootstrap": "*",
-    }
+  "name": "cloudwalkers platform",
+  "version": "1.1.0",
+  "authors": [
+    "Koen Betsens <koen@bmgroup.be>",
+    "Rui Molefas <rui@bmgroup.be>"
+  ],
+  "dependencies": {
+    "requirejs": "*",
+    "modernizr": "*",
+    "jquery": "*",
+    "underscore": "*",
+    "backbone": "*",
+    "mustache": "*",
+    "bootstrap": "*",
+    "backbone.crossdomain": "*",
+    "bootstrap-datepicker": "git://github.com/eternicode/bootstrap-datepicker#master",
+    "bootstrap-timepicker": "git://github.com/jdewit/bootstrap-timepicker#gh-pages",
+    "cal-heatmap": "*",
+    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
+    "d3": "*",
+    "fontawesome": "*",
+    "fullcalendar": "*",
+    "jquery.gritter": "*",
+    "slimscroll": "*",
+    "jquery-ui": "*",
+    "polyglot": "*",
+    "requirejs-plugins": "*",
+    "colorbox": "*",
+    "flot": "*"
+  },
+  "resolutions": {
+    "jquery": ">=1.8.0 <2.1.0",
+    "bootstrap": "3.2.0"
+  }
 }

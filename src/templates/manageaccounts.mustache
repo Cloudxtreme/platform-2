@@ -1,0 +1,37 @@
+<!-- {{title}} pageview -->
+
+	<div class="row">
+		<div class="col-md-8 offset3">
+			<h3 class="page-title">{{#trans}}{{title}}{{/trans}}</h3>
+		</div>
+	</div>
+
+	<div id="widgetcontainer" class="row">
+		
+		<div class="col-md-2 column-bordered">
+			<label>{{#trans}}Networks{{/trans}}</label>
+			
+			{{#networks}}
+			<div class="btn-white active" data-network="{{token}}"><i class="fa fa-{{icon}}"></i></div>
+			{{/networks}}
+			
+			<center>
+				<br>
+				<span class="badge toggleall inactive">{{#trans}}Show all{{/trans}}</span>
+			</center>
+		</div>
+		
+		<div class="col-md-8 offset1">
+			<div class="url-post">
+				<input type="search" class="form-control input-rounded input-large" placeholder="{{#trans}}Enter profile link ...{{/trans}}" />
+				<span class="icon-search"></span>
+			</div>
+			<div class="info-container"></div>
+			
+			<ul class="contacts-list"></ul>
+			
+		</div>
+		
+	</div>
+	
+<!-- end pageview -->

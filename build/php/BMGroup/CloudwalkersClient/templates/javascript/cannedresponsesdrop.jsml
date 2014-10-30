@@ -1,7 +1,0 @@
-
-	<select class="canned-list">
-		<option></option>
-		{{#canned}}
-			<option value="{{id}}">{{attributes.body.plaintext}}</option>
-		{{/canned}}
-	</select>

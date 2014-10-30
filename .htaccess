@@ -1,5 +1,7 @@
 Options +FollowSymLinks +SymLinksIfOwnerMatch
 RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f 
-RewriteRule ^([^?]+) index.php?rewritepagemodule=$1&%{QUERY_STRING}  [PT]
+RewriteCond %{HTTP_HOST} ^rc3.cloudwalkers.be$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^rc3.cloudwalkers.be$
+RewriteCond %{REQUEST_URI} !src/
+RewriteRule (.*) /src/$1 [L]
 #ModPagespeed off

@@ -1,0 +1,25 @@
+/* GLOBAL */
+Page views should have it's name on the id, eg: id="settings";
+
+
+/* Entries */
+Base or old entry structure is based on avatar, content and actions;
+Entry templates should be divided by content & styled by the entrylist/mesagelist that contains them;
+All messagelists have the class .messagelist;
+All messagelist's entry containers have the class .entry-container;
+The messages (like inbox after toggle) belong in a .message-container;
+
+Entry sub actions structure:
+InboxMessageList.toggle() -> MessageEntry.action() -> SubEntries (eg: new SubNoteEntry());
+
+Entries that belong to other entries/messages (eg: notes & notifications), are called sub entries. 
+Sub entries are always associated with actions. So the subentry structure is:
+
+<message-sub-actions>
+	<action-lists>
+	  ..<action-list (note-list)>
+		..<subentry>
+			  ..
+			  ..
+
+Notes also have another component, the composenote. On message context, it should also be inside the message-sub-actions, in note-content.

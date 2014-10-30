@@ -1,0 +1,208 @@
+.nav.nav-tabs li a{
+	border-radius: 0;
+	border-top: 1px solid transparent;
+	margin-right: 0px;
+	padding: 8px 15px;
+	font-weight: 400;
+	color: #222;
+}
+
+.nav.nav-tabs li.active {
+	border-top: 3px solid #d12610;
+}
+
+.nav.nav-tabs li.active a {
+	padding-top: 5px;
+}
+
+.nav.nav-tabs li a:hover{
+	background: transparent;
+	border-color: transparent;
+}
+
+.nav.nav-tabs li.active a:hover{
+	border: 1px solid #ddd;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid #fff;
+}
+
+#widgetcontainer.tab-content {
+	padding: 30px 2px;
+}
+
+.settings-profile input[type=file] {
+	display: none;
+}
+
+.settings-profile #user_avatar_big {
+	width: 280px;
+	height: 280px;
+	margin: 10px auto;
+	background: no-repeat center;
+	border-radius: 50% !important;
+	overflow: hidden;
+	background-size: cover;
+}
+
+ul.campaign-list .fa-bullseye {
+	color: #DA4631;
+	margin-right: 5px;
+}
+
+#menu {
+	width: 300px;
+	font-size: 13px;
+	color: #222;
+}
+
+#menu li a {
+	cursor: pointer;
+}
+
+/* Social connections */
+#service-connected {
+	overflow: hidden;
+}
+
+#service-connected .panel-body {
+	padding-left: 0px;
+	width: 200%;
+}
+
+#service-connected ul.services {
+	float: left;
+	width: 50%;
+}
+
+#service-connected .service {
+	padding: 8px 8px 8px 12px;
+	cursor: pointer;
+	border-bottom: 1px solid #ddd;
+}
+
+#service-connected .service > span i {
+	color: #222;
+}
+
+#service-connected.open-detail .panel-body {
+	-webkit-transform: translate3d(-50%, 0px, 0);
+	-webkit-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
+	-moz-transform: translate3d(-50%, 0px, 0);
+	-moz-transition: all 400ms cubic-bezier(0.12, .8, 0, 1);
+}
+
+#service-connected .service-detail {
+	float: left;
+	width: 50%;
+	padding: 0 10px 10px 20px;
+	-webkit-font-smoothing: antialiased;
+	-webkit-perspective: 1000;
+	backface-visibility: hidden;
+}
+
+#service-connected .service .badge {
+	display: none;
+}
+
+#service-connected .service.disabled {
+	background-color: #eee;
+	color: #ccc;
+}
+
+#service-connected .service.disabled .badge {
+	display: inline-block;
+}
+
+#service-connected .service-authenticate {
+	margin: 20px 0 8px;
+	padding: 5px 5px 13px;
+	border: 1px solid #efefef;
+	box-shadow: 0 1px 0 #f6f6f6;
+	border-radius: 2px;
+	font-size: 12px;
+	text-align: center;
+}
+
+#service-connected .btn-white, 
+#service-connected .btn-black {
+	padding: 10px 24px;
+}
+
+#service-connected .service-profiles li .service-thumbnail {
+	width: 28px;
+	height: 26px;
+	background: no-repeat center;
+	background-size: 100%;
+	border-radius: 2px;
+	border: 1px solid #ddd;
+}
+
+#service-connected .service-profiles li.inactive .service-thumbnail {
+	opacity: .2;
+}
+
+.service-authenticate .btn-black {
+	padding: 8px 24px;
+	border-radius: 2px;
+	cursor: pointer;
+	background: #222;
+	color: #fff;
+}
+
+/* Buttons */
+
+.networks-list .btn-social {
+	display: block;
+	padding: 4px 15px;
+	margin: 20px 0 8px;
+	border: 1px solid #dfdfdf;
+	border-bottom-width: 3px;
+	font-size: 16px;
+	line-height: 2.3em;
+	color: #666;
+	border-radius: 2px;
+	background-color: #fff;
+}
+
+.networks-list .btn-social:nth-child(1) {
+	margin-top: 0;
+}
+
+.networks-list .btn-social i {
+	float: left;
+	padding-right: 15px;
+	margin-right: 10px;
+	border-right: 1px solid #eee;
+	font-size: 17.5px;
+	line-height: 2.142em;
+}
+
+.networks-list .btn-social:hover  {
+  	background-color: #f6f6f6;
+   	padding-bottom: 6px;
+    border-bottom-width: 1px; 
+}
+
+/* Manage users */ 
+.user-container {
+	font-size: 13px;
+}
+
+.user-container tr > td {
+	padding: 4px !important;
+	vertical-align: middle !important;
+}
+
+.user-container img.avatar {
+	display: block;
+	width: 34px;
+	height: 34px;
+	background-color: #ddd;
+}
+
+.user-container td i {
+	font-size: 20px;
+	color: #777;
+	padding: 1px 0 0 4px;
+	cursor: pointer;
+}
