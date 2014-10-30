@@ -149,8 +149,7 @@ define(	// MIGRATION: widget based on BaseView
 				scroll.css('height', 'inherit');
 				this.$el.find(".slimScrollBar").eq(0).css('right', '-9px');
 				this.$el.find(".slimScrollDiv").eq(0).css('overflow', 'visible');
-				this.$el.find(".slimScrollDiv").eq(0).css('height', 'auto');
-				this.$el.find(".slimScrollDiv").eq(0).css('max-height', '250px');
+
 			},
 
 		    onDestroy : function ()
