@@ -31,7 +31,8 @@ require.config({
         'resize' : 'lib/flot/jquery.flot.resize',
         'stack' : 'lib/flot/jquery.flot.stack',
         'crosshair' : 'lib/flot/jquery.flot.crosshair',
-        'time' : 'lib/flot/jquery.flot.time'
+        'time' : 'lib/flot/jquery.flot.time',
+        'oembed' : 'Utilities/jquery.oembed'
 	},
 	shim: {
 		'bootstrap': {

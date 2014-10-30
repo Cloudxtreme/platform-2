@@ -5,9 +5,9 @@
 **/
 
 define(
-	['Views/BaseView', 'mustache'],
-	function (BaseView, Mustache)
-	{
+	['Views/BaseView', 'mustache', 'oembed'],
+	function (BaseView, Mustache, oembed)
+	{	
 		var Editor = BaseView.extend({
 	
 			id : "editor",
