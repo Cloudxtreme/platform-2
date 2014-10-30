@@ -25,7 +25,13 @@ require.config({
 		'async' : 'lib/requirejs-plugins/src/async',
 		'goog': 'lib/requirejs-plugins/src/goog',
         'propertyParser' : 'lib/requirejs-plugins/src/propertyParser',
-        'colorbox' : 'lib/colorbox/jquery.colorbox-min'
+        'colorbox' : 'lib/colorbox/jquery.colorbox-min',
+        'plot' : 'lib/flot/jquery.flot',
+        'pie' : 'lib/flot/jquery.flot.pie',
+        'resize' : 'lib/flot/jquery.flot.resize',
+        'stack' : 'lib/flot/jquery.flot.stack',
+        'crosshair' : 'lib/flot/jquery.flot.crosshair',
+        'time' : 'lib/flot/jquery.flot.time'
 	},
 	shim: {
 		'bootstrap': {
@@ -35,12 +41,36 @@ require.config({
 		'underscore': {
 			exports: '_'
 		},
+		'plot': {
+			deps: ['jquery'],
+			exports: 'plot'
+		},
+		'pie': {
+			deps: ['plot'],
+			exports: 'pie'
+		},
+		'resize': {
+			deps: ['plot'],
+			exports: 'resize'
+		},
+		'stack': {
+			deps: ['plot'],
+			exports: 'stack'
+		},
+		'time': {
+			deps: ['plot'],
+			exports: 'time'
+		},
+		'crosshair': {
+			deps: ['plot'],
+			exports: 'crosshair'
+		},
 		'jqueryui': {
 			deps: ['jquery'],
 			exports: 'jqueryui'
 		},
 		'backbone': {
-			deps: ['underscore', 'jquery', 'mustache', 'jqueryui'],
+			deps: ['underscore', 'jquery', 'mustache', 'jqueryui', 'pie', 'resize', 'stack', 'time', 'crosshair'],
 			exports: 'backbone'
 		},
 		'crossdomain': {

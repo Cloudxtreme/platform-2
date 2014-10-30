@@ -42,14 +42,23 @@ define(
 				var links = message.attachments? message.attachments.filter(function(el){ if(el.type == "link") return el; }) : null;
 				var images = message.attachments? message.attachments.filter(function(el){ if(el.type == "image") return el; }) : null;
 
-				this.settings.statistics = message.statistics;
 				this.settings.from = message.from[0].displayname || "";
 				this.settings.body = message.body.plaintext || "";
 				this.settings.icon = message.from[0].network.icon || "";
 				this.settings.date = message.dateonly || "";
+		        this.settings.statistics = [];
+
 				//Just one image
 				if(images.length)
 					this.settings.image = images[0].url || "";
+
+				if(message.stats){
+		            for(var n in message.stats){
+		                if(n != 'notes')
+		                    this.settings.statistics.push({name: n, value: message.stats[n]})
+		            }
+		        }
+
 				
 				this.settings.links = links || [];
 

@@ -107,13 +107,13 @@ define (
 			{	
 				var options = {
 					'id' : "compose",
-					'className' : "modal note",
+					'className' : "modal fade simple",
 					'thanks' : true,
 					'parent' : model //context -> message, contact, account
 				}
 
 				var view = new SimpleComposeModal(options);
-
+				
 				view.render().$el.modal({modalOverflow: true});
 
 				return view;

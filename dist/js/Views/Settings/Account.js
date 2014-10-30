@@ -21,7 +21,7 @@ define(
 				this.account = Cloudwalkers.Session.getAccount();
 				this.triggers = new Triggers();
 
-				this.listenTo(this.triggers, 'sync', this.filltriggers);
+				//this.listenTo(this.triggers, 'sync', this.filltriggers);
 
 				this.account = Cloudwalkers.Session.getAccount();
 				

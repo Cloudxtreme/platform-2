@@ -302,7 +302,9 @@ define(
 				var statf = this.collection.first().pluck(["messages","types","shares"], this.network,3);
 				var total = statl - statf;
 
-				var description = trans("New shares")
+				var token = Cloudwalkers.Session.getStream(this.network).get("network").token;
+
+       			var description = token == 'twitter'? trans("New retweets"): trans("New shares");
 
 				return [{content: total, descr : description}];
 			},

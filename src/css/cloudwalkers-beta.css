@@ -530,29 +530,15 @@ li [class^="fa fa-"] {
 	margin-right: 5px;
 }
 
-.panel.yellow {
-	border-color: #fccb7e;
-}
+.panel.yellow 	{ border-color: #fccb7e; }
+.panel.grey 	{ border-color: #9d9c9c; }
+.panel.red 		{ border-color: #ef8476; }
+.panel.purple 	{ border-color: #af5cc1; }
 
-.panel.yellow > .panel-heading {
-	background-color: #ffb848;
-}
-
-.panel.grey {
-	border-color: #9d9c9c;
-}
-
-.panel.grey > .panel-heading {
-	background-color: #555555;
-}
-
-.panel.red {
-	border-color: #ef8476;
-}
-
-.panel.red > .panel-heading {
-	background-color: #e02222;
-}
+.panel.yellow > .panel-heading 	{ background-color: #ffb848; }
+.panel.grey > .panel-heading 	{ background-color: #555555; }
+.panel.red > .panel-heading 	{ background-color: #e02222; }
+.panel.purple > .panel-heading 	{ background-color: #852b99; }
 
 .panel .tools, .panel .actions {
 	display: inline-block;

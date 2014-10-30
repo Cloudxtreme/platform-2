@@ -1,4 +1,0 @@
-<li data-user="{{id}}">
-	{{#arrow}}<i class="pull-right icon-angle-right"></i>{{/arrow}}
-	<img class="avatar" src="{{avatar}}" /> {{displayname}}
-</li>

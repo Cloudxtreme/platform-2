@@ -155,42 +155,7 @@ define(
 			delete : function (model)
 			{
 				model.deleteMessage ();
-			},
-			
-		/*	'startaction' : function (token)
-			{
-				// Triggered action
-				var action = this.templates[token];
-
-				// BRAND NEW WAY!
-				if (action.type == 'confirm')
-				{
-					this[token] (this.parent);
-					return;
-				}
-
-				else if (action.type == 'options')
-				{
-					// Create Action
-					var actionModel = this.create(action);
-
-					// Toggle
-					if(action.toggle) this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
-
-					// Notify action (temp)
-					Cloudwalkers.RootView.growl (action.name, "The " + token + " is planned with success.");
-
-					return;
-				}
-
-				// No? Fallback to old system.
-				this.parent.messageAction (action);
-
-				return;
-
-			},*/
-			
-			
+			},		
 			
 			like : function ()
 			{
@@ -199,7 +164,9 @@ define(
 			toggleAction: function (token)
 			{
 				var action = this.templates[token];
-				this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
+
+		        if(action.toggle)
+					this.parent.trigger("action:toggle", token, this.templates[action.toggle]);
 			}
 		});
 		

@@ -6,8 +6,7 @@ define(
 
 			// This view defaults to note
 
-			template : 'composenote', // Can be overriden
-
+			template : 'simplecompose', // Can be overriden
 			events : {
 				'click #post' : 'post',
 				'click #cancel' : 'cancel'
@@ -31,9 +30,16 @@ define(
 				var view;
 
 				if(this.model.get("text"))	params.text = this.model.get("text");
+				
+				//If it's a modal
+				if(this.thanks)	params.modal = true;
 
 				view = Mustache.render(Templates[this.template], params);
+
 				this.$el.html (view);
+				this.$el.attr('tabindex', '-1');
+				this.$el.attr('role', 'dialog');
+				this.$el.attr('aria-hidden', 'true');
 
 				if(this.model.get("text"))	//we are editing
 					this.$el.find('h3').remove();
@@ -89,7 +95,7 @@ define(
 			thankyou : function()
 			{	
 				var thanks = Mustache.render(Templates.thankyou);
-
+				
 				setTimeout(function()
 				{
 					// Animate compose view

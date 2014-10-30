@@ -73,43 +73,29 @@ define(
 			
 			// Make this entry specific			
 			action : function (element)
-			{
+			{	
 				// Action token
 				var action = $(element.currentTarget).data ('action');
 				
 				if(action == 'note' || action == 'action-list')
 				{	
-
 					var token = $(element.currentTarget).data ('token');
 
 					this.toggleactions(action, token, element);
 				}
+
 				else if(action == 'note-edit')
-				{
 					this.editnote();
-				}
-				else if(action == 'tag-showedit')
-				{
-					this.showtagedit();
-				}
-				else if(action == 'tag-add')
-				{
-					var tag = $(element.currentTarget).siblings( "input" ).val();
-					if(tag) {
-						this.submittag(tag);
-						$(element.currentTarget).siblings( "input" ).val('');
-					}
-				}
+
 				else if(action == 'viewcontact')
 				{
-
 					//We are inside viewcontact modal
 					if(this.parent)	return;
 
 					var contact = this.model.attributes.from ? this.model.attributes.from[0] : null;
-					if(contact)	Cloudwalkers.RootView.viewContact({model: contact});
-					
+					if(contact)	Cloudwalkers.RootView.viewContact({model: contact});					
 				}
+
 				else
 					this.model.trigger("action", action);
 			},

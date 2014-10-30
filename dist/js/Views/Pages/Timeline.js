@@ -238,8 +238,12 @@ define(
 				
 			filterparameters : function()
 			{
-				var param = this.parameters;
+				var param = {};
 				var filter = this.timelinetype == 'news'? 'contacts': 'streams';
+
+				// Clone without changing base parameters
+        		$.extend(true, param, this.parameters);
+
 				
 				if(this.filters.streams.length)
 					param[filter] = this.filters.streams.join(",");
@@ -299,6 +303,10 @@ define(
 				
 				else if(!models.length)
 					this.$container.append(this.$nocontent);	
+
+		        else
+		        	this.$loadmore.remove();    
+
 				
 				this.hideloading();
 			},

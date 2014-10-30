@@ -752,3 +752,31 @@ Style corrections and manual overrides
 	cursor: pointer;
 }
 
+/* Write note modal */
+
+#compose.simple .modal-dialog{
+	max-width: 600px;
+}
+
+#compose.simple .modal-header,
+#compose.simple .modal-footer{
+	margin-left: 0px;
+	padding: 15px;
+}
+
+#compose.simple .modal-body{
+	padding: 0px 20px 15px;
+}
+
+#compose.simple .modal-body textarea{
+	padding: 8px !important;
+}
+
+#compose.simple.thanks .modal-dialog {
+	max-width: 450px;
+}
+
+#compose.simple.thanks .thanks-wrapper,
+#compose.simple.thanks .modal-content {
+	height: 300px;
+}

@@ -152,25 +152,6 @@ define(
 				this.listenTo(Cloudwalkers.Session, 'destroy:view', this.remove);
 			},
 			
-			/*addScroll : function () {
-
-				var scroll = this.$el.find('.scroller').eq(0);
-
-				this.$el.find('.scroller').slimScroll({
-					size: '6px',
-					color: '#a1b2bd',
-					height: $("#inner-content").height() -165 + "px",
-					alwaysVisible: false,
-					railVisible: false
-				});
-
-				var height = scroll.css('height');
-			
-				// Update slimscroll plugin default styling
-				scroll.css('max-height', height);
-				scroll.css('height', 'inherit')
-			},*/
-			
 			destroy : function()
 			{
 				$.each(this.entries, function(n, entry){ entry.remove()});

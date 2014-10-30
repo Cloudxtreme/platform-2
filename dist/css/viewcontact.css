@@ -332,32 +332,6 @@
 	z-index: 99;
 }
 
-/* Write note modal */
-
-#compose.note{
-	max-width: 600px;
-	margin-left: -300px;
-}
-
-#compose.note .modal-header,
-#compose.note .modal-footer{
-	margin-left: 0px;
-	padding: 15px;
-}
-
-#compose.note .modal-body{
-	padding: 0px 20px 15px;
-}
-
-#compose.note .modal-body textarea{
-	padding: 8px !important;
-}
-
-#compose.note.thanks, #compose.note.thanks{
-	max-width: 450px;
-	margin-left: -225px;
-}
-
 .viewcontact .messagelist .load-more{
 	padding: 8px !important;
 	border-radius: 0px !important;

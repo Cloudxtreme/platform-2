@@ -6,7 +6,7 @@ define(
 
 			events : {
 				'submit form[data-add-category]' : 'addCategory',
-				'click button.add-keyword' : 'addKeyword',
+					'click button.add-keyword' : 'addKeyword',
 				'click button.update-keyword' : 'updateKeyword',
 				'click .cancel-edit-keyword' : 'render',
 				'click .reset-keyword' : 'resetFilter',

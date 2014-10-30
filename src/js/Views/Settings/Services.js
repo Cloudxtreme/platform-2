@@ -97,13 +97,24 @@ define(
 					
 				});
 				
-				this.services.create({},{wait: true, endpoint: token});
+				this.services.create({},{wait: true, endpoint: token, error: this.error.bind(this)});
 
+			},
+
+			error : function(model, response)
+			{	
+				var account = Cloudwalkers.Session.getAccount();
+
+				if(!account.monitorlimit('services', this.services.models.length, null, true))
+				{
+					var error = response.responseJSON? response.responseJSON.error.message: trans("Something went wrong");
+					Cloudwalkers.RootView.alert(error);
+				}		
 			},
 			
 			limited : function (collection) 
 			{
-				
+				// Makes the UI disabled on limit
 				Cloudwalkers.Session.getAccount().monitorlimit('services', collection.models.length, $(".networks-list"));	
 			},
 			
@@ -157,6 +168,15 @@ define(
 				// Create service detailed view
 				this.detail = new ServiceView ({model: service, parent: this});
 				this.$el.find(".service-detail").html( this.detail.render().el);
+
+				// To check if we can remove the exceeded limit warning
+		        this.listenTo(this.detail, 'service:deleted', this.deletedservice.bind(this));
+		    },
+
+		    deletedservice : function()
+		    {    
+		        this.limited(this.services);
+
 			},
 			
 			closedetail : function ()

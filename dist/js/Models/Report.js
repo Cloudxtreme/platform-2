@@ -153,7 +153,7 @@ define(
 				
 				var url = this.get('url') + '?';
 				if (this.daterange)
-				{	console.log(this.daterange)
+				{
 					url += 'start=' + Math.floor(this.daterange[0].getTime () / 1000) + '&end=' + Math.floor(this.daterange[1].getTime () / 1000) + '&';
 				}
 

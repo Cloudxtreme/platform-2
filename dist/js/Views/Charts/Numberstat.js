@@ -44,7 +44,7 @@ define(
 				if (this.showStreamName)
 					this.options.showStreamName = this.showStreamName;
 
-				element.html (Mustache.render (Templates[this.template], this.options));
+				element.html (Mustache.render (Templates[this.template]));
 
 				this.options.model.getValues (function (values)
 				{

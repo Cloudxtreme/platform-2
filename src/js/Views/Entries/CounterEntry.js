@@ -29,6 +29,10 @@ define(
 
 				if(this.data.channel.get("type") == "outgoing")
 					this.count = this.model.get("counters").total.scheduled.messages.total;
+				
+		        else if(this.data.channel.get("type") == "inbox")
+		            this.count = this.model.get("counters").total.incoming.any.unread;
+
 				else
 					this.count = this.model.get("counters").recent.incoming.any.unread;
 

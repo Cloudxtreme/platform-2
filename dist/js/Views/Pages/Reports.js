@@ -9,6 +9,7 @@ define(
 
 			'navclass' : 'reports',
 			'title' : 'Report',
+			'id' : 'reports',
 
 			'datepicker' : null,
 
@@ -122,11 +123,10 @@ define(
 			},
 
 			'addReportWidget' : function (stream, reportdata)
-			{
+			{	
 				var self = this;
 
 				//var dataurl = CONFIG_BASE_URL + 'json/' + statdata.url;
-
 				reportdata.stream = stream;
 				
 				var report = new Report (reportdata);
@@ -147,6 +147,7 @@ define(
 				
 				// Check widget size
 				this.add (widget);
+				
 			}
 		});
 

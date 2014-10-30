@@ -8,7 +8,7 @@ define(	// MIGRATION: widget based on BaseView
 		var PanelView = BaseView.extend(
 		{
 			options: {
-				title : 'Untitled widget',
+				title : 'widget',
 				icon : 'inbox',
 				color : 'blue',
 				network : null
@@ -62,26 +62,11 @@ define(	// MIGRATION: widget based on BaseView
 					)
 				);
 
-				// Events
-				/*for (var i = 0; i < this.tools.length; i ++)
-				{
-					self.attachToolEvents (this.tools[i]);
-				}*/
-
 				this.$innerEl = $(this.$el.find ('.panel-body'));
 				this.innerRender (this.$innerEl);
 				
 				return this;
 			},
-
-			/*attachToolEvents : function (tool)
-			{
-				var self = this;
-				this.$el.find ('.' + tool['class']).click (function (ev)
-				{
-					self[tool.event] (ev);
-				});
-			},*/
 			
 			negotiateFunctionalities : function() {
 				

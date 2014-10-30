@@ -66,7 +66,7 @@ define(
 				view = this;
 				this.collection = this.parentview.collection;	
 			
-				this.listenTo(this.collection, 'ready', this.fill);
+				this.listenToOnce(this.collection, 'ready', this.fill);
 			},
 
 			render : function ()

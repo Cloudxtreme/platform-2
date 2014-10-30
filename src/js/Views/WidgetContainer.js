@@ -141,7 +141,7 @@ define(
 				var container;
 
 				this.currentline = $(document.createElement ('div'));
-				this.currentline.addClass ('row-fluid');
+				this.currentline.addClass ('row');
 				this.$el.find ('#widgetcontainer').append (this.currentline);
 
 				this.addWidgetsDOM (this.widgets);
@@ -158,7 +158,7 @@ define(
 					if (widgets[i].newline)
 					{
 						this.currentline = $(document.createElement ('div'));
-						this.currentline.addClass ('row-fluid');
+						this.currentline.addClass ('row');
 						this.$el.find ('#widgetcontainer').append (this.currentline);				
 					}
 
@@ -166,15 +166,15 @@ define(
 
 					if (widgets[i].size == 'half')
 					{
-						container.addClass ('span6');
+						container.addClass ('col-md-6');
 					}
 					else if (widgets[i].size == 'full')
 					{
-						container.addClass ('span12');
+						container.addClass ('col-md-12');
 					}
 					else
 					{
-						container.addClass ('span' + widgets[i].size);	
+						container.addClass ('col-md-' + widgets[i].size);	
 					}
 
 					container.append (widgets[i].widget.render ().el);

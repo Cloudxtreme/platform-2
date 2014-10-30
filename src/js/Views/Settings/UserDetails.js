@@ -59,7 +59,7 @@ define(
 
 			},
 
-			success : function()
+			success : function(model)
 			{	
 				Cloudwalkers.RootView.growl(trans("Manage users"), trans("The user clearance is updated."));
 				this.model.trigger("change:clearance");
@@ -78,7 +78,7 @@ define(
 				
 				if(!account.monitorlimit('admins', Cloudwalkers.Session.getUsers('Conversation manager').length, null, true))
 				{
-					var error = response.responseJSON? response.responseJSON.error.message: this.translateString("something_went_wrong");
+					var error = response.responseJSON? response.responseJSON.error.message: trans("Something went wrong");
 					Cloudwalkers.RootView.alert(error);
 				}		
 			},

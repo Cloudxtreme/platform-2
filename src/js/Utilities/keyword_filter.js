@@ -1,22 +1,12 @@
 (function($){
 
 	this.init = function(options){
-		
-		var $target = $("#keyword_filter");
-		
-		var actions =
-		{
-			message_contains : "message contains",
-			message_no_contains : "message doesnt contain",
-		/*	author_is : "author_is",*/
-		/*	author_is_not : "author_is_not",*/
-			country_is : "country is",
-			country_is_not : "country is not",
-			language_is : "language is",
-			language_is_not : "language is not",
-			group : "group"
+		this.translations = {};
+
+		if(options){ //Apply custom options
+			$.extend(this.translations, options);
 		}
-		
+
 		$('html').mouseup(function(e)
 		{
 			e.stopPropagation();
@@ -25,15 +15,12 @@
 				return;	
 			}
 
-			var el_ref_type, text;
-			
 			// Search for demo_bubble. Get ID and 2nd class which defines type
 			var el_ref = $(e.target).closest(".demo_bubble");
 			var el_ref_id = el_ref.attr('id');
-			
 			if(el_ref.attr('class')){
-				el_ref_type = el_ref.attr('class').split(' ');
-				el_ref_type =  el_ref_type[1];
+				var el_ref_type = el_ref.attr('class').split(' ');
+					el_ref_type =  el_ref_type[1];
 			}
 			var el_ref_class = e.target.classList;
 			var el_ref_hit =  el_ref_class[0];
@@ -55,7 +42,7 @@
 				//if($("#keyword_filter").children().length > 3)
 				if($("#keyword_filter").children().length > 1)
 				{
-					if($('#keyword_filter').children().eq(-2).is('.demo_drop') === true)
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true)
 					{
 						$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
@@ -66,23 +53,23 @@
 		   			if(open_groups > 1)
 		   			{
 
-		   				addWarning(trans ("there are") + ' ' + open_groups + ' ' + trans ("groups left open please close them and resubmit"));
+		   				addWarning(this.translations.there_are + ' ' + open_groups + ' ' + this.translations.groups_left_open_please_close_them_and_resubmit);
 		   				
-		   				valid_formula = false;
+		   				var valid_formula = false;
 		   			} else if(open_groups == 1)
 		   			{
 		   				// detect if open group is small (erase it) or big (close it)
 		   				// check if small 
 		   				var small_group = false;
 
-		   				if($('#keyword_filter').children().eq(-2).is('.demo_group') === true)
+		   				if($('#keyword_filter').children().eq(-2).is('.demo_group') == true)
 		   					small_group = $('#keyword_filter').children().eq(-2).attr('id');
-		   				if($('#keyword_filter').children().eq(-3).is('.demo_group') === true)
+		   				if($('#keyword_filter').children().eq(-3).is('.demo_group') == true)
 		   					small_group = $('#keyword_filter').children().eq(-3).attr('id');
-		   				if($('#keyword_filter').children().eq(-4).is('.demo_group') === true)
+		   				if($('#keyword_filter').children().eq(-4).is('.demo_group') == true)
 		   					small_group = $('#keyword_filter').children().eq(-4).attr('id');
 
-		   				if(small_group !== false)
+		   				if(small_group != false)
 		   				{
 		   					// Delete group
 		   					$('#'+small_group).prev().remove();
@@ -93,14 +80,14 @@
 		   				} else {
 		   					// Close group
 
-		   					rand_id = "filter_" + rand ();
+		   					var rand_id = "filter_" + getRandomInt(1,999);
 							$("#keyword_filter #demo_plus").remove();
-							$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + trans ("end group") + '</span>' + remove_filter + '</span>');
+							$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + this.translations.end_group + '</span><i class="demo_remove_filter icon-remove"></i></span>');
 							addPlus("small");
 		   				}	
 		   			}
 				} else {
-					addWarning(trans ("formula is not valid add more parameters"));
+					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
 					valid_formula = false;
 				}
 					
@@ -115,18 +102,18 @@
 
 				//if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
 				if(($("#keyword_filter").children().length > 1) || $("#keyword_filter").children().length < 2){
-					if($('#keyword_filter').children().eq(-2).is('.demo_drop') === true){
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
 						$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
 						addPlus("small");
 					}
 				} else {
-					addWarning(trans ("formula is not valid add more parameters"));
+					addWarning(this.translations.formula_is_not_valid_add_more_parameters);
 					valid_formula = false;
 				}
 					
 				
-				if(valid_formula === true)
+				if(valid_formula == true)
 				{
 					// if filter is valid fill it
 					var filter_src = $("#keyword_filter").children();
@@ -140,7 +127,7 @@
 				    		}
 				    		if(($("#" + $(this).attr('id')).attr("data-value") == "and ") || ($("#" + $(this).attr('id')).attr("data-value") == "or ")){
 				    			value_to_insert = $("#" + $(this).attr('id')).attr("data-value");
-				    		} else if($("#" + $(this).attr('id') + " .sel_value").text() !== "")
+				    		} else if($("#" + $(this).attr('id') + " .sel_value").text() != "")
 					    	{
 					    		if((filter_data == "(") || (filter_data == ")")){
 									value_to_insert = filter_data + " ";
@@ -168,9 +155,7 @@
 			    	options.success(result);
 			    }
 			}
-			
-			if((el_ref_type == "demo_contains") || (el_ref_type == "demo_drop") || (el_ref_type == "demo_plus"))
-			{
+			if((el_ref_type == "demo_contains") || (el_ref_type == "demo_drop") || (el_ref_type == "demo_plus")){
 				if((el_parent_ref == "demo_options") || (el_ref_hit == "demo_options")){
 					return false;
 				} else if($("#" + el_ref_id + " .demo_options").is(":visible")){
@@ -186,21 +171,21 @@
 					}
 				}		
 			} else {
-				if($(".demo_options:visible").length !== 0){
+				if($(".demo_options:visible").length != 0){
 					$(".demo_options").hide('fast');
-				}
+				};
 			}
 			// Change 
 			if(el_ref_type == "demo_contains"){
 				if(el_ref_hit != "btn"){
 					/*if($("#" + el_ref_id + " .demo_options").is(":visible")){
-						text = $("#" + el_ref_id + " .text").html();
+						var text = $("#" + el_ref_id + " .text").html();
 						$("#" + el_ref_id + " .demo_options input").val(text);
 					}*/				
 				} else {
 					if($(e.target).attr("data-option") == "save"){
 						// Set text
-						text = $("#" + el_ref_id + " .demo_options input").val();
+						var text = $("#" + el_ref_id + " .demo_options input").val();
 
 						$("#" + el_ref_id + " .text ").html(text);
 						// Close popups
@@ -214,8 +199,8 @@
 			}
 			// Change option and color if needed
 			if(el_ref_class == "demo_change_val"){
-				text = $(e.target).attr("data-value");
-				text_full = $(e.target).html();
+				var text = $(e.target).attr("data-value");
+				var text_full = $(e.target).html();
 				var option = $("#" + el_ref_id).attr("data-option");
 				if((text == "and") || (text == "or")){
 					if($("#" + el_ref_id).hasClass("demo_and")){
@@ -232,107 +217,101 @@
 
 				if($("#" + el_ref_id).hasClass("demo_drop")){
 					var datavalue = $(e.target).attr("data-value");
-					text = $(e.target).attr("data-text");
+					var text = $(e.target).attr("data-text");
 					$("#" + el_ref_id).attr("data-value",datavalue+" ");
 				}
 				if((option != "language = ") && (option != "country = ") && (option != "language != ") && (option != "country != ")){
 					$("#" + el_ref_id + " .sel_value ").html(text);
 				}
 			}
-			
-			// HTML chunks
-			var modal_footer = '<br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + trans ("save") + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + trans ("cancel") + '</button></div>';
-			var remove_filter = '<i class="demo_remove_filter icon-remove"></i>';
-			var rand_id = "filter_" + rand ();
-			
 			// Add message contains
-			if(el_ref_hit == "add_message_contains")
-			{	
+			if(el_ref_hit == "add_message_contains"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message contains ">' + trans ("message contains") + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + trans ("insert text") + '</span><span class="demo_options"><input type="text" name="lname" value="">' + modal_footer + '</span></span></span>');
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message contains ">' + this.translations.message_contains + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_text + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 			}
 			// Add message does not contain
-			if(el_ref_hit == "add_message_no_contains")
-			{
+			if(el_ref_hit == "add_message_no_contains"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + trans ("message doesn't contain") + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + trans ("insert text") + '</span><span class="demo_options"><input type="text" name="lname" value="">' + modal_footer + '</span></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="message !contains ">' + this.translations.message_doesnt_contain + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_text + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 			}
 			// Add author is
-			if(el_ref_hit == "add_author_is")
-			{
+			if(el_ref_hit == "add_author_is"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + trans ("author is") + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + trans ("insert author") + '</span><span class="demo_options"><input type="text" name="lname" value="">' + modal_footer + '</span></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author = ">' + this.translations.author_is + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_author + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 			}
 			// Add author is not
-			if(el_ref_hit == "add_author_is_not")
-			{
+			if(el_ref_hit == "add_author_is_not"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + trans ("author is not") + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + trans ("insert author") + '</span><span class="demo_options"><input type="text" name="lname" value="">' + modal_footer + '</span></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="'+ rand_id +'" class="demo_bubble demo_contains" data-option="author != ">' + this.translations.author_is_not + '<span class="demo_hit_me demo_input_text demo_bubble_text"><span class="text">' + this.translations.insert_author + '</span><span class="demo_options"><input type="text" name="lname" value=""><br><div class="modal-footer toload"><button data-option="save" class="btn" onclick="return false;">' + this.translations.save + '</button><button data-option="cancel" class="btn btn-primary" onclick="return false;">' + this.translations.cancel + '</button></div></span></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 			}
 			// Add country is
-			if(el_ref_hit == "add_country_is")
-			{
+			if(el_ref_hit == "add_country_is"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + trans ("country_is") + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country = ">' + this.translations.country_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				fillcountries();
 			}
 			// Add country isn't
-			if(el_ref_hit == "add_country_is_not")
-			{
+			if(el_ref_hit == "add_country_is_not"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != ">' + trans ("country_is_not") + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="country != ">' + this.translations.country_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="countries"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				fillcountries();
 			}
 			// Add language is
-			if(el_ref_hit == "add_language_is")
-			{
+			if(el_ref_hit == "add_language_is"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + trans ("language_is") + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language = ">' + this.translations.language_is + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				filllanguages();
 			}
 			// Add language isn't
-			if(el_ref_hit == "add_language_is_not")
-			{
+			if(el_ref_hit == "add_language_is_not"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != ">' + trans ("language_is_not") + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span id="' + rand_id + '" class="demo_bubble demo_contains" data-option="language != ">' + this.translations.language_is_not + '<span class="demo_drop demo_bubble_text"><select class="demo_options" id="languages"></select></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				filllanguages();
 			}
 			// Add and
-			if(el_ref_hit == "add_and")
-			{
+			if(el_ref_hit == "add_and"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span  id="' + rand_id + '" data-string="sel_value" class="demo_bubble demo_drop demo_and" data-value="and " ><span class="sel_value">' + trans ("and") + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and" data-text="' + trans ("and") + '">' + trans ("and") + '</li><li class="demo_change_val" data-value="or" data-text="' + trans ("or") + '">' + trans ("or") + '</li></ul></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span  id="' + rand_id + '" data-string="sel_value" class="demo_bubble demo_drop demo_and" data-value="and " ><span class="sel_value">' + this.translations.and + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="and" data-text="' + this.translations.and + '">' + this.translations.and + '</li><li class="demo_change_val" data-value="or" data-text="' + this.translations.or + '">' + this.translations.or + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("large",rand_id);
 			}
 			// Add or
-			if(el_ref_hit == "add_or")
-			{
+			if(el_ref_hit == "add_or"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or" data-value="or " ><span class="sel_value">' + trans ("or") + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or" data-text="' + trans ("or") + '">' + trans ("or") + '</li><li class="demo_change_val" data-value="and" data-text="' + trans ("and") + '">' + trans ("and") + '</li></ul></span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble demo_drop demo_or" data-value="or " ><span class="sel_value">' + this.translations.or + '</span><i class="demo_hit_me icon-sort-down"></i><span class="demo_options"><ul><li class="demo_change_val" data-value="or" data-text="' + this.translations.or + '">' + this.translations.or + '</li><li class="demo_change_val" data-value="and" data-text="' + this.translations.and + '">' + this.translations.and + '</li></ul></span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("large",rand_id);
 			}
 			// Add group
-			if(el_ref_hit == "add_group")
-			{
+			if(el_ref_hit == "add_group"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_group" data-option="("><span class="sel_value">' + trans ("group") + '</span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_group" data-option="("><span class="sel_value">' + this.translations.group + '</span><i class="demo_remove_filter icon-remove"></i></span>');
 
 				addPlus("large",rand_id);
 				$(".demo_options").hide('fast');
 			}
 			// Add end group
-			if(el_ref_hit == "add_end_group")
-			{
+			if(el_ref_hit == "add_end_group"){
+				var rand_id = "filter_" + getRandomInt(1,999);
 				$("#keyword_filter #demo_plus").remove();
-				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + trans ("end_group") + '</span>' + remove_filter + '</span>');
+				$("#keyword_filter").append('<span  id="' + rand_id + '" class="demo_bubble  demo_end_group" data-option=")"><span class="sel_value">' + this.translations.end_group + '</span><i class="demo_remove_filter icon-remove"></i></span>');
 				addPlus("small",rand_id);
 				$(".demo_options").hide('fast');
 			}
@@ -398,10 +377,10 @@
 				$("#keyword_filter #demo_plus").remove();
 
 				// if last element is dropdown add small plus
-				if($("#keyword_filter span:last-child").hasClass('demo_drop') === true){
+				if($("#keyword_filter span:last-child").hasClass('demo_drop') == true){
 					plus_size = "large"	
 				} // if filter is empty
-				else if($("#keyword_filter").children().length === 0){
+				else if($("#keyword_filter").children().length == 0){
 					plus_size = "large";
 				} else {
 					plus_size = "small"
@@ -413,7 +392,7 @@
 		function fillcountries()
 		{	
 			//<li class="demo_change_val" data-value="en">en</li>
-			for (var n in options.countries)
+			for(n in options.countries)
 			{
 				var li = '<option value="'+options.countries[n].token+'">'+options.countries[n].name+'</option>'
 				$("#keyword_filter #countries").append(li);
@@ -424,7 +403,7 @@
 		function filllanguages()
 		{	
 			//<li class="demo_change_val" data-value="en">en</li>
-			for (var n in options.languages)
+			for(n in options.languages)
 			{
 				var li = '<option value="'+options.languages[n].token+'">'+options.languages[n].name+'</option>'
 				$("#keyword_filter #languages").append(li);
@@ -433,44 +412,21 @@
 		}
 
 		// Random number for IDs
-		function rand ()
-		{
-		    return Math.round (Math.random() * Date.now ());
-		}
-		
-		// jQuery tagbuilder
-		function tag (el, attributes)
-		{
-		    return $('<' + el + ' />', attributes || {});
+		function getRandomInt(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
 		// Add Plus
-		function addPlus (size,id)
-		{
-			// Open groups?
-			var open_groups = $target.find('.demo_group, .demo_end_group').size () % 2;
-			
-			// Dropdown
-			var selected = (size == 'large')? actions: {and : "and", or: "or"};
+		function addPlus (size,id){
+			var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
 
-			var options = tag ('span').addClass ('demo_options')
-							.append (tag ('ul')
-								.append (Object.keys (open_groups? $.extend(selected, {end_group: "end group"}): selected)
-									.map (function (key) { return tag('li', {text: trans (actions[key])}).addClass ('add_' + action)})
-								)
-							);
-							
-			// Add the Plus
-			$target.append (tag ('span', {id: 'demo_plus'}).addClass ('demo_bubble demo_drop demo_hit_me').append (
-			[
-				tag ('span', {text: '+'}).addClass ('demo_hit_me'),
-				options
-			]));
-			
+			if(open_groups > 0){				
+				$("#keyword_filter").append(eval("bot_plus_" + size + "_end_group"));
+			} else {
+				$("#keyword_filter").append(eval("bot_plus_" + size));
+			}
 			$(".demo_options").hide('fast');
 		}
-		
-		
 		// Add warning
 		function addWarning(message){
 			var box = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>'+ message +'</div>';
@@ -480,6 +436,15 @@
 		function removeWarning(){
 			$("#keyword_warning .alert").remove();
 		}
+
+		// Large plus button
+		var bot_plus_large = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains">' + this.translations.message_doesnt_contain + '</li><li class="add_author_is hidden">' + this.translations.author_is + '</li><li class="add_author_is_not hidden">' + this.translations.author_is_not + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li></ul></span></span>';
+		// Large plus button with end group
+		var bot_plus_large_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_message_contains">' + this.translations.message_contains + '</li><li class="add_message_no_contains">' + this.translations.message_doesnt_contain + '</li><li class="add_author_is hidden">' + this.translations.author_is + '</li><li class="add_author_is_not hidden">' + this.translations.author_is_not + '</li><li class="add_country_is">' + this.translations.country_is + '</li><li class="add_country_is_not">' + this.translations.country_is_not + '</li><li class="add_language_is">' + this.translations.language_is + '</li><li class="add_language_is_not">' + this.translations.language_is_not + '</li><li class="add_group">' + this.translations.group + '</li><li class="add_end_group">' + this.translations.end_group + '</li></ul></span></span>';
+		// Small plus button
+		var bot_plus_small = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + this.translations.and + '</li><li class="add_or">' + this.translations.or + '</li></ul></span></span>';
+		// Small plus button with end group
+		var bot_plus_small_end_group = '<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me"><span class="demo_hit_me">+</spam><span class="demo_options"><ul><li class="add_and">' + this.translations.and + '</li><li class="add_or">' + this.translations.or + '</li><li class="add_end_group">' + this.translations.end_group + '</li></ul></span></span>';
 	
 	}
 	// initialize
