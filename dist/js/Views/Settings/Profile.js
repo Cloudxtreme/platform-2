@@ -14,7 +14,8 @@ define(
 
 				'change select' : 'enablereset',
 				'keydown input' : 'enablereset',
-				'click [type=reset]' : 'disablereset'
+				'click [type=reset]' : 'disablereset',
+
 			},
 
 			'class' : 'section',

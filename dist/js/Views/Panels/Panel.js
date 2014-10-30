@@ -16,7 +16,7 @@ define(	// MIGRATION: widget based on BaseView
 			
 			entries : [],
 			events : {
-				
+				'click .panel-heading' : 'togglecollapse'
 			},
 
 			//tools : [],
@@ -67,6 +67,16 @@ define(	// MIGRATION: widget based on BaseView
 				
 				return this;
 			},
+
+			togglecollapse : function()
+			{
+				this.$el.find('.panel-body').slideToggle();
+
+				if(this.$el.find('.panel').hasClass("collapsed"))
+					this.$el.find('.panel').removeClass('collapsed');
+				else
+					this.$el.find('.panel').addClass('collapsed');
+			},
 			
 			negotiateFunctionalities : function() {
 				
@@ -89,15 +99,17 @@ define(	// MIGRATION: widget based on BaseView
 			},
 			
 			appendCollapseble : function(open) {
-				
-				this.$el.addClass(open? 'collapse-open':'collapse-closed');
+
+				/*this.$el.addClass(open? 'collapse-open':'collapse-closed');
 
 				if(this.$el.find(".tools .count").length)
 						this.$el.find(".tools .count").addClass('tocollapse');
 				else	this.$el.find(".tools").append($('<span class="collapse pull-right"></span>'));
 				
 				
-				this.$el.find(".panel-heading.line").on("click", this.collapse.bind(this));
+				this.$el.find(".panel-heading.line").on("click", this.collapse.bind(this));*/
+
+				//Add the collapsetoggle functionality
 
 			},
 			

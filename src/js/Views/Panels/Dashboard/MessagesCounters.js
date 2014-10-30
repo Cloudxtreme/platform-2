@@ -6,11 +6,12 @@ define(
 
 			entries : [],
 			events : {
-				'click a[href]' : 'updatesettings'
+				'click a[href]' : 'updatesettings',
+				'click .panel-heading' : 'togglecollapse'
 			},
 			
 			initialize : function(options)
-			{
+			{	console.log(this.events)
 				this.options = $.extend({}, this.options, options);
 					
 				// The list source is either the streams or subchannels
