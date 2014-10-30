@@ -2,6 +2,6 @@ Options +FollowSymLinks +SymLinksIfOwnerMatch
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^rc3.cloudwalkers.be$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^rc3.cloudwalkers.be$
-RewriteCond %{REQUEST_URI} !src/
-RewriteRule (.*) /src/$1 [L]
+RewriteCond %{REQUEST_URI} !dist/
+RewriteRule (.*) /dist/$1 [L]
 #ModPagespeed off
