@@ -1,6 +1,6 @@
 /* Keyword list */
 
-.channelfilters .btn-white.filter {
+.channelfilters .network-list .btn-white.filter {
 	display: inline-block;
 	width: 50px;
 	height: 40px;
@@ -21,8 +21,19 @@
 	display: none; 
 }
 
-.channelfilters .keyword.btn-white,
-.category-container .keyword.btn-white {	
+.channelfilters .keyword-list .row,
+#monitorparent .category-container .row {
+	margin: 0;
+}
+
+.channelfilters .keyword-list .col-md-4,
+.category-container .col-md-4 {
+	margin-bottom: 10px;
+	padding: 0px 5px;
+}
+
+.channelfilters .keyword-list .filter.btn-white,
+.category-container .filter.btn-white {	
 	padding: 10px 6px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -32,7 +43,7 @@
 
 .channelfilters .manage {
 	float: right;
-	margin-top: 12px;
+	margin-top: 2px;
 }
 
 /* Manage keywords */

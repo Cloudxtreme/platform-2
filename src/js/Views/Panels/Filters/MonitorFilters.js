@@ -42,7 +42,7 @@ define(
 			},
 			
 			togglefilters : function(all, selector)
-			{
+			{	
 				// Toggle streams
 				this.$el.find(selector + " .filter").addClass(all? 'active': 'inactive').removeClass(all? 'inactive': 'active');
 				
