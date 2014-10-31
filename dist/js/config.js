@@ -1,8 +1,5 @@
 define({
 
-	/* Insert your appid below. 
-	 * If you dont have one, register @ https://devapi.cloudwalkers.be/oauth2/register
-	 */
 	appid : "oauth254535723ae98e2.24016447", 
 	apiurl: "https://api.cloudwalkers.be/",
 	authurl: "https://api.cloudwalkers.be/oauth2/",
