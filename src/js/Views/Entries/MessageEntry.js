@@ -16,6 +16,9 @@ define(
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);
 				
+				if(this.template == "keywordentry")
+					this.parameters.actions = this.model.filterActions();
+						
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(this.parameters);
 				
@@ -271,8 +274,8 @@ define(
 				var clone = current.clone().attr("data-action", newaction.token);
 				
 				// new Action edits
-				if(current.is("a"))	clone.html("<i class='icon-" + newaction.icon + "'></i> " + newaction.name);
-				else 				clone.find("i").attr("class", "").addClass("icon-" + newaction.icon);
+				if(current.is("a"))	clone.html("<i class='fa fa-" + newaction.icon + "'></i> " + newaction.name);
+				else 				clone.find("i").attr("class", "").addClass("fa fa-" + newaction.icon);
 				
 				// Remove old Action
 				current.before(clone).remove();

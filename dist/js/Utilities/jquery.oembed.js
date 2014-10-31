@@ -1126,19 +1126,19 @@
             if (results['og:video:height']) embed.attr('height', results['og:video:height']);
             code.append(embed);
           } else if (results['og:image']) {
-            var img = $('<div class="og-subcontent" data-type="image"><img src="' + results['og:image'] + '"/><div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+            var img = $('<div class="og-subcontent" data-type="image"><img src="' + results['og:image'] + '"/><div class="addcontent"><i class="fa fa-plus-square"></i></div></div>');
             img.css('max-height', settings.maxHeight || 'auto').css('max-width', settings.maxWidth || 'auto');
             if (results['og:image:width']) img.attr('width', results['og:image:width']);
             if (results['og:image:height']) img.attr('height', results['og:image:height']);
             code.append(img);
           }
           if (results['og:title']) {
-            code.append('<div class="og-subcontent" data-type="title">' + parseContent(results['og:title']) + '<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+            code.append('<div class="og-subcontent" data-type="title">' + parseContent(results['og:title']) + '<div class="addcontent"><i class="fa fa-plus-square"></i></div></div>');
           }
           if (results['og:description'])
-            code.append('<div class="og-subcontent" data-type="content">' + parseContent(results['og:description']) + '<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+            code.append('<div class="og-subcontent" data-type="content">' + parseContent(results['og:description']) + '<div class="addcontent"><i class="fa fa-plus-square"></i></div></div>');
           else if (results['description'])
-            code.append('<div class="og-subcontent" data-type="content">' + parseContent(results['description']) + '<div class="addcontent"><i class="icon-plus-sign-alt"></i></div></div>');
+            code.append('<div class="og-subcontent" data-type="content">' + parseContent(results['description']) + '<div class="addcontent"><i class="fa fa-plus-square"></i></div></div>');
           return code;
         }
       }

@@ -27,7 +27,9 @@ form {
 	margin: 0 0 20px;
 }
 
-textarea {	/* Style ike inputs */
+textarea, 
+.bootstrap-timepicker-hour,
+.bootstrap-timepicker-minute  {	/* Style ike inputs */
 	background-color: #fff;
 	border: 1px solid #ccc;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
@@ -37,6 +39,12 @@ textarea {	/* Style ike inputs */
 	-moz-transition: border linear .2s,box-shadow linear .2s;
 	-o-transition: border linear .2s,box-shadow linear .2s;
 	transition: border linear .2s,box-shadow linear .2s;
+}
+
+.bootstrap-timepicker-hour,
+.bootstrap-timepicker-minute {
+	width: 40px !important;
+	padding: 5px;
 }
 
 img {
@@ -125,6 +133,7 @@ img {
 
 .btn:hover {
 	background-color: #d8d8d8;
+	color: #333;
 }
 
 .btn.load-more {
@@ -354,7 +363,7 @@ li [class^="fa fa-"] {
 	color: #ddd;
 }
 
-.brand-logo	{ height: 100%; margin-right: 10px; }
+.brand-logo	{ height: 100%; margin-right: 10px; display: inline-block !important; }
 
 .navbar-inverse .nav > li > a	{
 	padding: 14px 6px 16px;
@@ -559,6 +568,19 @@ li [class^="fa fa-"] {
 	-webkit-animation-name: opacitypulse;
 	-webkit-animation-iteration-count: infinite;
 }
+.panel .tools:after {
+	content: "\F078";
+	font-family: FontAwesome;
+	font-size: 13px;
+	font-weight: bold;
+	position: relative;
+	bottom: 2px;
+	margin-left: 4px;
+}
+
+.panel.collapsed .tools:after {
+	content: "\F077";
+}
 
 .panel-loading {
 	min-height: 24px;
@@ -738,8 +760,9 @@ li [class^="fa fa-"] {
 	margin-right: 5px;
 }
 
-.entry.entrynote.active {
-	background: #F2F0A0;
+.entry.entrynote.active,
+.entry.entrynote.active:hover {
+	background: #F2F0A0 !important;
 }
 
 .entry.entrynote .specs {
@@ -900,10 +923,6 @@ li [class^="fa fa-"] {
 
 .note .compose-note .modal-body {
 	padding: 0;
-}
-
-.note .compose-note .modal-footer {
-	padding: 10px 0 0 0 !important;
 }
 
 ul.related-messages,
@@ -1081,12 +1100,29 @@ ul.related-messagess .message .avatar {
 	padding: 8px;
 }
 
+.subnote .compose-note .modal-body {
+	padding: 0px 5px;
+}
+
 .subnote .compose-note .modal-footer,
 .note .compose-note .modal-footer {
 	background-color: transparent;
-	border: none;
+	border-top: none !important;
 	box-shadow: none;
-	padding-top: 0;
+	padding: 2px;
+}
+
+.subnote .compose-note .modal-footer .btn,
+.note .compose-note .modal-footer .btn {
+	background-color: white;
+	opacity: .5;
+	border-radius: 2px;
+}
+
+.subnote .compose-note .modal-footer .btn:hover,
+.note .compose-note .modal-footer .btn:hover {
+	opacity: .8;
+	color: #333;
 }
 
 /************************************/

@@ -7,7 +7,7 @@
 define (
 	['Views/BaseView', 'mustache', 'chosen', 'datepicker', 'timepicker', 'Models/Message', 'Views/Modals/Compose/Editor', 'Views/Modals/Compose/Preview', 'Collections/CannedResponses'],
 	function (BaseView, Mustache, chosen, datepicker, timepicker, Message, EditorWidget, PreviewView, CannedResponses)
-	{
+	{	
 		var Compose = BaseView.extend({
 	
 			id : "compose",
@@ -603,7 +603,7 @@ define (
 				else									this.$el.find("[data-option=limit].hidden").removeClass("hidden");
 				
 				// Icon
-				if (options.indexOf("icon") >= 0)		this.$el.find("[data-type=icon]").removeClass("hidden").find("i").get(0).className = "icon-" + this.icons[this.type];
+				if (options.indexOf("icon") >= 0)		this.$el.find("[data-type=icon]").removeClass("hidden").find("i").get(0).className = "fa fa-" + this.icons[this.type];
 				else									this.$el.find("[data-type=icon]").addClass("hidden");
 				
 				// Toggle options
@@ -676,7 +676,7 @@ define (
 					}
 					var reader = new FileReader();
 					
-					reader.onload = this.fileparser(f,e);
+					reader.onload = this.fileparser(f,e, streamid);
 					
 					reader.readAsDataURL(f);
 					//Upload only one image
@@ -684,7 +684,7 @@ define (
 				}	
 			},
 
-			fileparser : function(file, element)
+			fileparser : function(file, element, streamid)
 			{
 				return function(element)
 				{
@@ -1019,10 +1019,10 @@ define (
 				
 				var date = moment(seldate.val(), ["DD-MM-YYYY","DD-MM-YY","DD/MM/YYYY","DD/MM/YY","DDMMYYYY","YYYYMMDD","MM-DD-YYYY","MM-DD-YY"]);
 				var time = seltime ? seltime.val().split(":") : null;
-				var newdate = _.clone(date);
+				var newdate = date.clone();
 
 				if (time && time.length > 1) 
-					newdate.add('minutes', Number(time[0])*60 + Number(time[1]));
+					newdate.add(Number(time[0])*60 + Number(time[1]), 'minutes');
 				
 				return newdate.isValid()? newdate : undefined;
 			},
@@ -1344,7 +1344,7 @@ define (
 				if (select.filter("#delay-select").val())
 				{
 					schedule.settings.delayselect = $("#delay-select").val();
-					schedule.date = moment().add('seconds', schedule.settings.delayselect).unix();
+					schedule.date = moment().add(schedule.settings.delayselect, 'seconds').unix();
 				}
 				
 				else if (select.filter("#delay-date").val())
@@ -1437,7 +1437,7 @@ define (
 				else if (scheduled.repeat.interval)
 				{
 					times = scheduled.repeat.amount;
-					end = start.clone().add('seconds', times * scheduled.repeat.interval);
+					end = start.clone().add(times * scheduled.repeat.interval, 'seconds');
 				}
 
 				if(times) summary.html("<span>" + times + " " + trans("times") + " " + (end? "<em class='negative'>" + trans("Until") + " " + end.format("dddd, D MMMM YYYY") + "</em>": "") + "</span>");

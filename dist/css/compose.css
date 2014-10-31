@@ -780,3 +780,31 @@ Style corrections and manual overrides
 #compose.simple.thanks .modal-content {
 	height: 300px;
 }
+
+/* Datepicker && timepicker */
+.datepicker {
+	z-index: 10060 !important;
+	font-weight: 300 !important;
+}
+
+.datepicker table .active {
+	background-image: none !important;
+	background-color: #4b8df8 !important;
+	filter: none !important;
+}
+
+.icon-chevron-up:after {
+	content: "\F077"; 
+	font-family: FontAwesome; 
+	font-size: 18px;
+	font-style: normal !important;
+}
+
+.icon-chevron-down:after {
+	content: "\F078"; 
+	font-family: FontAwesome; 
+	font-size: 18px;
+	font-style: normal !important;
+}
+
+

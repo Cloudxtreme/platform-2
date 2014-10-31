@@ -1,6 +1,9 @@
 define({
 
-    appid : "oauth254527038d993a5.13832191", 
+	/* Insert your appid below. 
+	 * If you dont have one, register @ https://devapi.cloudwalkers.be/oauth2/register
+	 */
+	appid : "oauth254535723ae98e2.24016447", 
 	apiurl: "https://api.cloudwalkers.be/",
 	authurl: "https://api.cloudwalkers.be/oauth2/",
 	
@@ -47,4 +50,9 @@ var origin = function ()
 {
 	return (window.location.origin)? window.location.origin : window.location.protocol + "//" + window.location.hostname;
 }
-		
+			
+			
+			
+			
+			
+			

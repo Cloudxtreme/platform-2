@@ -1,7 +1,7 @@
 	
 define(
-	['Views/Panels/EntryLists/BaseList', 'mustache', 'Views/Entries/BaseEntry'],
-	function (BaseList, Mustache, EntryView)
+	['Views/Panels/EntryLists/BaseList', 'mustache', 'Views/Entries/MessageEntry'],
+	function (BaseList, Mustache, MessageEntry)
 	{
 		var MonitorList = BaseList.extend({
 
@@ -91,7 +91,7 @@ define(
 				// Add messages to view
 				for (var n in list)
 				{
-					var view = new EntryView ({model: list[n], template: "keywordentry"});
+					var view = new MessageEntry ({model: list[n], template: "keywordentry"});
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);

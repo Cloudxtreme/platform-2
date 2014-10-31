@@ -416,7 +416,7 @@ define(
 				//Save the url
 				if(!this.urls[longurl])	this.urls[longurl] = model.clone();
 				
-				var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='icon-link' id='swaplink'></i></short>";
+				var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='fa fa-link' id='swaplink'></i></short>";
 
 				this.$contenteditable.find("a[href='"+ longurl +"']").replaceWith(urltag);
 				
@@ -470,7 +470,7 @@ define(
 				var content = $(tag).get(0).textContent.trim();
 				var newurl = shorturl == content ? longurl : shorturl;
 
-				var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='icon-link' id='swaplink'></i></short>";
+				var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='fa fa-link' id='swaplink'></i></short>";
 					
 				$(tag).replaceWith(urltag);
 

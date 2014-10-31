@@ -298,3 +298,32 @@
 .managekeywords .inactive {
 	display: none;
 }
+
+#monitorparent .entry .actions-right {
+	float: right;
+}
+
+#monitorparent .entry [data-action="note"] {	/* This ugly hack has to be done because keyword list is basicaly an entry list with notes */
+	display: block;
+}
+
+#monitorparent .entry [data-action="note"].oldbtn {	
+	display: none;
+}
+
+#monitorparent .entry .actions-left {
+	display: none;
+}
+
+#monitorparent .entry .action {
+	background: #fff;
+}
+
+#monitorparent .message-sub-actions {
+	border: 1px solid #ddd;
+	border-bottom-width: 0px;
+}
+
+#monitorparent .subentry.subnote:hover {
+	background: #F2F0A0 !important;
+}

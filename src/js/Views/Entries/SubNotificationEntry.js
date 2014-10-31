@@ -14,7 +14,7 @@ define(
 				var clone = current.clone();
 				
 				// new Action edits
-				clone.attr("data-subentry-action", newaction.token).find("i").attr("class", "").addClass("icon-" + newaction.icon);
+				clone.attr("data-subentry-action", newaction.token).find("i").attr("class", "").addClass("fa fa-" + newaction.icon);
 				
 				// Remove old Action
 				current.before(clone).remove();	

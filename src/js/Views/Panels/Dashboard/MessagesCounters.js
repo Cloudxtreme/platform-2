@@ -11,7 +11,7 @@ define(
 			},
 			
 			initialize : function(options)
-			{	console.log(this.events)
+			{
 				this.options = $.extend({}, this.options, options);
 					
 				// The list source is either the streams or subchannels

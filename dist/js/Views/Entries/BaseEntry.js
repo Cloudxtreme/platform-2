@@ -51,7 +51,7 @@ define(
 				// Parameters
 				$.extend(this.parameters, this.model.attributes);
 
-				if((this.template == "fullentry" || this.template == "keywordentry") && this.model.get("objectType"))
+				if(this.template == "fullentry" && this.model.get("objectType"))
 					this.parameters.actions = this.model.filterActions();
 
 				// Apply role permissions to template data
