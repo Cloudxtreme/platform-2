@@ -6,3 +6,5 @@ js/config.js
 node_modules/
 staging/
 /.htaccess
+dist/js/config.js
+src/js/config.js
