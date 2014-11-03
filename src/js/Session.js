@@ -29,6 +29,8 @@ define(
 
 					this.listenTo(Cloudwalkers.Polyglot, 'translations:done', callback);
 
+					Cloudwalkers.Polyglot.gettranslation();
+
 				}.bind(this));
 				
 				this.user.fetch({error: this.user.offline.bind(this.user)});

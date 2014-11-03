@@ -80,8 +80,8 @@ module.exports = function (grunt)
 						description: '<%= pkg.description %>',
 						version: '<%= pkg.version %>',
 						files: {
-							stylesheets: [{src: '/css/styles-<%= pkg.version %>.min.css'}],
-							scripts: [{src: '/js/cloudwalkers-<%= pkg.version %>.min.js'}],
+							stylesheets: '/css/styles-<%= pkg.version %>.min.css',
+							/*scripts: [{src: '/js/cloudwalkers-<%= pkg.version %>.min.js'}],*/
 							templates: '/js/templates-<%= pkg.version %>.js'
 						}
 					}
@@ -129,7 +129,7 @@ module.exports = function (grunt)
 			},
 			release: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/login.css','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','**/js/*.js','*/js/*.js','*.js','*/*.css','**/css/*.css','*/dist/**','*/lib/**', '**/fonts/**', '**/images/**', '**/example4/*.css', '**/src/*.js',"!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/js/lib'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/locales', src: ['*.json'], dest: '<%= defaults.release.dir %>/locales'}
 				]
@@ -158,7 +158,7 @@ module.exports = function (grunt)
 		/* Balance processes */
 		concurrent: {
 			staging: ['mustache_render:staging', 'copy:staging', 'mustache:staging'],
-			release: ['mustache_render:release', 'cssmin', 'copy:release', 'uglify', 'mustache:release'],
+			release: ['mustache_render:release', 'cssmin', 'copy:release', /*'uglify',*/ 'mustache:release'],
 			/*watch: ['newer:mustache_render:staging', 'newer:copy:staging', 'newer:mustache:staging'],*/
 			watch: ['newer:mustache_render:staging', 'newer:copy:staging', 'mustache:staging'],
 			test: ['jshint:source']

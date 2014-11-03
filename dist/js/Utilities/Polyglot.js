@@ -8,20 +8,28 @@ define(
 			{
 				$.extend(this, options);
 
-				var translations = new PolyglotModel();
-				var phrases;
-
 				this.locale = this.lang || "en_EN";				
 
 				moment.locale(this.locale);
 
-				translations.fetch({ success: this.addtranslator.bind(this), error: this.notranslation.bind(this) });
-
 				return this;
+			},
+
+			gettranslation : function()
+			{
+				var translations = new PolyglotModel();
+
+				if(this.lang != "en_EN")
+					translations.fetch({ success: this.addtranslator.bind(this), error: this.notranslation.bind(this) });
+
+				else
+					this.trigger('translations:done');
 			},
 
 			addtranslator : function(translations)
 			{
+				var phrases;
+				
 				phrases = translations.get("translation");
 				this.translator = new Polyglot({phrases: phrases});
 				

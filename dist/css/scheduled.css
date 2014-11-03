@@ -1,9 +1,0 @@
-#scheduledlist [data-action="delete"],
-#scheduledlist [data-action="edit"]{
-	font-size: 18px;
-	margin-left: 5px;
-}
-
-#scheduledfilters #filter_streams {
-	border-bottom: none;
-}
