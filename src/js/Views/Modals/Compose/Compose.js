@@ -254,7 +254,7 @@ define (
 
 			},
 
-			render : function ()
+			render : function (update)
 			{	
 				// Collect data
 				var params ={
@@ -264,10 +264,10 @@ define (
 					canned: 	this.option("canned")? Cloudwalkers.Session.getCannedResponses().models: null,
 					actionview: this.actionview? this.type: false
 				};
-
 				
 				//Only add loading state when editing
 				if(this.type == "edit")	params.type = this.type;
+				if(update)				params.update = true;	//Update only the inside content
 
 				// Apply role permissions to template data
 				Cloudwalkers.Session.censuretemplate(params);
@@ -276,9 +276,6 @@ define (
 				var view = Mustache.render(Templates.compose, params);
 
 				this.$el.html (view);		
-				this.$el.attr('tabindex', '-1');
-				this.$el.attr('role', 'dialog');
-				this.$el.attr('aria-hidden', 'true');
 				
 				if(this.state == 'loading')	this.disablefooter();
 
@@ -344,7 +341,7 @@ define (
 		 	},
 			
 			editstreams : function (model)
-			{
+			{	
 				var action = model.get("actions").filter(function(act) { if(act.token == model.token) return act.streams })[0];
 				
 				this.actionstreams = [];
@@ -354,7 +351,7 @@ define (
 				} 
 				
 				// Render streamlist and activate first stream
-				this.render();
+				this.render(true);
 				this.$el.find("aside li").eq(0).click();
 			},
 			
