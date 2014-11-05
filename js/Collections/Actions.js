@@ -20,8 +20,8 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		
 		// Hack!
 		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
-		'commentt' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', valuetag: 'comments'},
-		
+		'commentlist' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', noaction: true},
+
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options', valuetag: 'retweets'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike', valuetag: 'likes'},
 		'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
@@ -78,11 +78,17 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 
 		if(this.parent.get('canHaveChildren'))
 			if(tokens.indexOf('comment') < 0)
-				tokens.push('comment')
+				tokens.push('commentlist')
 
 		for(n in tokens)
 		{	
 			token = tokens[n];
+
+			if(token == 'commentt') {
+				tokens[n] = 'comment';
+
+			}
+
 			action = this.templates[token];
 
 			if(!action)	continue;
