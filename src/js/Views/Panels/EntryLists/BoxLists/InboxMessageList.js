@@ -29,7 +29,9 @@ define(
 				'click [data-networks]' : 'filternetworks',
 				'click [data-streams]' : 'filterstreams',
 				'click .toggleall.active' : 'toggleall',
-				'click .load-more' : 'more'
+				'click .load-more' : 'more',
+
+				'click [data-toggle=list]' : 'expandlist'
 			},
 
 			options : {},
@@ -475,6 +477,12 @@ define(
 					height: "inherit"
 
 				});
+			},
+
+			// Slide list
+			expandlist : function ()
+			{
+				$('#widgetcontainer').toggleClass("expanded");
 			},
 			
 			destroy : function()

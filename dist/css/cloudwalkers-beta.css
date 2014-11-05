@@ -67,6 +67,8 @@ img {
 
 #inbox #widgetcontainer,
 #notes #widgetcontainer {
+	position: relative;
+	overflow: hidden;
 	border: 1px solid #e6e6e6;
 	background: #eee;
 	z-index: 1;
@@ -1136,6 +1138,14 @@ ul.related-messagess .message .avatar {
 	padding-left: 0;
 }	
 
+.slimlist-container .backdrop { 
+	transition: opacity .15s ease-out;
+	opacity: 0;
+	height: 100%;
+	width: 100%;
+	background: #333;
+}
+
 .messagelist.slim {
 	border-right: 2px solid #dfdfdf;
 	background: #fff;
@@ -1195,6 +1205,7 @@ ul.related-messagess .message .avatar {
 .listfilter {
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
+	background: white;
 }
 
 .listfilter label {

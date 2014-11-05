@@ -1,25 +1,23 @@
-<div class="messagelist slim">
-	<div class="scroller clearfix">	
-		<div class="listfilter">
-			{{^note}}
-			<div class="filter-group pull-right">
-				<label>{{#trans}}Networks{{/trans}}</label>
-				
-				{{#networks}}
-				<div class="btn-white active" data-networks="{{ids}}"><i class="fa fa-{{icon}}"></i></div>
-				{{/networks}}
-				
-				<div class="btn-white toggle-streams" data-toggle="streams">{{#trans}}more...{{/trans}}</div>
-			</div>
-			{{/note}}
-			<div class="filter-group">
-				<label>{{#trans}}Filters{{/trans}}</label> 
-				<div class="btn-white toggle-contacts" data-toggle="contacts">{{#trans}}Contacts{{/trans}}</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+<div class="listfilter">
+
+	<div class="toggle-list" data-toggle="list"><i class="fa fa-list"></i></div>
+
+	{{^note}}
+	<div class="filter-group pull-right">
+		<label>{{#trans}}Networks{{/trans}}</label>
 		
-		<div id="filter_contacts" class="hidden clearfix">
+		{{#networks}}
+			<div class="btn-white active" data-networks="{{ids}}"><i class="fa fa-{{icon}}"></i></div>
+		{{/networks}}
+		
+		<div class="btn-white toggle-streams" data-toggle="streams">{{#trans}}more...{{/trans}}</div>
+	</div>
+	{{/note}}
+	<div class="filter-group">
+		<label>{{#trans}}Filters{{/trans}}</label> 
+		<div class="btn-white toggle-contacts" data-toggle="contacts">{{#trans}}Contacts{{/trans}}</div>
+	</div>
+	<div id="filter_contacts" class="hidden clearfix">
 			
 			<ul class="contacts-placeholder"></ul>
 			
@@ -39,11 +37,13 @@
 			</ul>
 			<li class="badge toggleall inactive">{{#trans}}select all{{/trans}}</li>
 		</div>
-		
-		<div class="clearfix">
-			<ul class="entry-container toload tabbed"></ul>
-			<div id="loadmore"></div>
-			<!--<input type="button" class="btn load-more" value="{{#trans}}load more{{/trans}}" />-->
-		</div>
+	<div class="clearfix"></div>
+</div>
+<div class="messagelist slim">
+	<div class="scroller clearfix">					
+		<ul class="entry-container toload tabbed"></ul>
+		<div id="loadmore"></div>
+		<!--<input type="button" class="btn load-more" value="{{#trans}}load more{{/trans}}" />-->
 	</div>
 </div>
+<div class="backdrop"></div>

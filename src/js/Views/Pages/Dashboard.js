@@ -11,12 +11,13 @@ define(
 			statistics : [],
 			
 			widgets : [
-				{widget: "messagescounters", type: "inbox", source: "streams", size: 4, title: "Inbox", icon: "inbox", /*open: true, /*counter: true,*/ typelink: "#inbox", countString: "incomingUnread"/*, scrollable: 'scrollable'*/},
-				{widget: "messagescounters", type: "monitoring", source: "channels", size: 4, title: "Keywords", icon: "tags", /*open: true, /*counter: true,*/ countString: "incoming"/*, scrollable: 'scrollable'*/},
-				{widget: "messagescounters", type: "outgoing", source: "streams", size: 4, title: "Schedule", icon: "time", /*open: true, /*counter: true,*/ countString: "scheduled", link: "#scheduled"/*, scrollable: 'scrollable'*/},
-				{widget: "coworkers", type: "drafts", size: 4, title: "Co-workers wall", color: "yellow", icon: "edit", /*open: true, link: "#coworkers"/*, scrollable: 'scrollable'*/},
-				{widget: "trending", type: "profiles", size: 4, title: "Trending Company Posts", color : "grey", icon: "thumbs-up", /*open: true, since: 7, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
-				{widget: "trending", type: "news", size: 4, title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", /*open: true, since: 1, sublink: "#trending/"/*, scrollable: 'scrollable'*/}
+				{widget: "messagescounters", type: "inbox", source: "streams", size: [12,6,4,4], title: "Inbox", icon: "inbox", /*open: true, /*counter: true,*/ typelink: "#inbox", countString: "incomingUnread"/*, scrollable: 'scrollable'*/},
+				{widget: "messagescounters", type: "monitoring", source: "channels", size: [12,6,4,4], title: "Keywords", icon: "tags", /*open: true, /*counter: true,*/ countString: "incoming"/*, scrollable: 'scrollable'*/},
+				{widget: "messagescounters", type: "outgoing", source: "streams", size: [12,6,4,4], title: "Schedule", icon: "time", /*open: true, /*counter: true,*/ countString: "scheduled", link: "#scheduled"/*, scrollable: 'scrollable'*/},
+				{widget: "coworkers", type: "drafts", size: [12,6,4,4], title: "Co-workers wall", color: "yellow", icon: "edit", /*open: true, link: "#coworkers"/*, scrollable: 'scrollable'*/},
+				{widget: "trending", type: "profiles", size: [12,6,4,4], title: "Trending Company Posts", color : "grey", icon: "thumbs-up", /*open: true, since: 7, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
+				{widget: "trending", type: "news", size: [12,6,4,4], title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", /*open: true, since: 1, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
+				{widget: "clear"}
 			],
 			
 			initialize : function()
@@ -49,8 +50,8 @@ define(
 				var token = Cloudwalkers.Session.getStream(stream).get("network").token;
 				var title = token == 'facebook'? 'Likes': 'Followers';
 				var widgets = [
-					{widget: "Info", data: {title: title, filterfunc: "followers"}, span: 3},
-					{widget: "Info", data: {title: "Best time to post", filterfunc: "besttimetopost"}, span: 3},
+					{widget: "Info", data: {title: title, filterfunc: "followers"}, span: [12,4,3,3]},
+					{widget: "Info", data: {title: "Best time to post", filterfunc: "besttimetopost"}, span: [12,4,3,3]},
 				]
 
 				for (var n in widgets)
@@ -100,7 +101,7 @@ define(
 					}
 
 					if(widget)
-						this.appendWidget(widget, Number(widgets[n].size));
+						this.appendWidget(widget, widgets[n].size);
 				}
 				
 				this.collection.touch(this.filterparameters());

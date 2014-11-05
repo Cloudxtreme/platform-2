@@ -37,7 +37,7 @@ define(
 					new InboxMessageList(this.options):
 					new InboxNotificationList(this.options);
 				
-				this.appendWidget(list, 4);
+				this.appendWidget(list, [12,12,4,4]);
 				this.appendhtml(Templates.inboxcontainer);
 				
 				// Pageview listeners

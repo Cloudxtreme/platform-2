@@ -38,30 +38,58 @@ define(
 				}
 			},
 			
-			appendWidget : function(widget, span, padding, offset) {
+			appendWidget : function(widget, span, padding, offset) 
+			{
+				if(!widget)	
+					return;
+
+				if(this.span === 0 || span === 0)	//Add new row
+					this.$container.append(Templates.row);	
 				
-				if(!this.span || span === 0)
-				{
-					this.$container.append(Templates.row);
+				this.$container.children().last().append( widget.render().el );				
+				this.widgetviews.push(widget);
+				
+				// Responsive array
+				if(_.isArray(span)){
+
+					widget.$el.addClass("col-xs-"+ span[0] +" col-sm-"+ span[1] +" col-md-"+ span[2] +" col-lg-"+ span[3]);					
+					span = span[this.getspan()];
 				}
-						
-				this.span = (span + this.span < 12)? span + this.span : 0;
-				
-				if(widget){
-					this.$container.children().last().append( widget.render().el );
-				
-					this.widgetviews.push(widget);
-				
+
+				else	
 					widget.$el.addClass("col-md-" + span);
 
-					if(offset)
-						widget.$el.addClass("col-md-offset-" + offset);
-					
-					if (widget.negotiateFunctionalities)
-						widget.negotiateFunctionalities();
+				if(offset)
+					widget.$el.addClass("col-md-offset-" + offset);
 
-					this.listenTo(widget, 'view:update', this.updatewidget.bind(this, widget));
-				}
+				// Set span memory
+				//this.span = (span + this.span < 12)? span + this.span : 0;
+				
+				this.span = span + this.span;					
+					
+				if (widget.negotiateFunctionalities)
+					widget.negotiateFunctionalities();
+
+				this.listenTo(widget, 'view:update', this.updatewidget.bind(this, widget));
+
+			},
+
+			appendresponsivewidget : function(widget, span, padding, offset) {
+
+			},	
+
+			// Return spans array index corresponding to the current resolution
+			getspan : function() {
+
+				var width = $( window ).width();
+				var span = 2;		// default
+
+				if(width >= 1200)	 	span = 3;
+				else if(width >= 992)	span = 2;
+				else if(width >= 768)	span = 1;
+				else					span = 0;
+
+				return span;
 			},
 			
 			appendhtml : function(html)
