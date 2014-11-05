@@ -20,6 +20,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		
 		// Hack!
 		'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
+		'commentt' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', valuetag: 'comments'},
 		
 		'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options', valuetag: 'retweets'},
 		'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike', valuetag: 'likes'},
@@ -74,6 +75,10 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
+
+		if(this.parent.get('canHaveChildren'))
+			if(tokens.indexOf('comment') < 0)
+				tokens.push('comment')
 
 		for(n in tokens)
 		{	
