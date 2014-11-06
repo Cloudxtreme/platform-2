@@ -26,6 +26,9 @@ Cloudwalkers.Views.Widgets.InboxNotificationList = Cloudwalkers.Views.Widgets.In
 		if(!message.get("objectType"))
 			message.fetch();
 
+		// Temporary hack
+		message.attributes.canHaveNotifications = true;
+
 		this.inboxmessage = new Cloudwalkers.Views.Widgets.InboxMessage({model: message, notification: model});
 		
 		$(".inbox-container").html(this.inboxmessage.render().el);

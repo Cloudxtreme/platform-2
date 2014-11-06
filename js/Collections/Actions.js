@@ -76,7 +76,7 @@ Cloudwalkers.Collections.Actions = Backbone.Collection.extend({
 		if(!tokens)
 			tokens = this.parent.get("actiontokens");
 
-		if(this.parent.get('canHaveChildren'))
+		if(this.parent.get('canHaveNotifications'))
 			if(tokens.indexOf('comment') < 0)
 				tokens.push('commentlist')
 
