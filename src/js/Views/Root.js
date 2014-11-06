@@ -7,6 +7,7 @@ define (
 			view : null,
 			header : null,
 			footer : null,
+			viewport : null,
 
 			initialize : function ()
 			{
@@ -57,6 +58,26 @@ define (
 				this.trigger("resize", height);
 				
 				$("#inner-content").css("min-height", height-42 + "px");
+
+				this.checkwidth();
+			},
+
+			checkwidth : function() 
+			{
+				var width = $(window).width();
+
+				if 		(width >= 768 && this.viewport != 'sm')		this.updateviewport('sm');
+				else if (width >= 992 && this.viewport != 'md')		this.updateviewport('md');
+				else if (width >= 1200 && this.viewport != 'lg')	this.updateviewport('lg');
+				else if (width)										this.updateviewport('xs');
+			},
+
+			updateviewport : function(size) 
+			{
+				if(this.viewport && this.viewport != size)
+					this.trigger('changedviewport');
+
+				this.viewport = size;
 			},
 			
 			height : function (strict)
