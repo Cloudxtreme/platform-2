@@ -1203,8 +1203,10 @@ ul.related-messagess .message .avatar {
 }
 
 .listfilter {
+	position: relative;
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
+	border-right: 2px solid #ddd;
 	background: white;
 }
 
@@ -1227,10 +1229,17 @@ ul.related-messagess .message .avatar {
 	font-size: 13px;
 }
 
-#filter_contacts, #filter_streams {
-	padding: 10px 10px 6px;
-	border-bottom: 1px solid #bbb;
+.listfilter #filter_contacts,
+.listfilter #filter_streams {
+	padding: 10px 0px 6px;
 	box-shadow: 0 -1px #eee;
+	margin-top: 10px;
+	display: none;
+} 
+
+.listfilter #filter_contacts.toggled,
+.listfilter #filter_streams.toggled {
+	display: block;
 }
 
 #filter_contacts .btn-white,

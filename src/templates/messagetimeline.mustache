@@ -57,6 +57,17 @@
 				</div>
 			{{/url}}
 
+			<div class="timeline-body-user visible-xs-block">
+				{{#from}}
+					{{#showcontact}}
+						<span class="timeline-user" title="{{icon}} {{displayname}}">{{displayname}}</span>
+					{{/showcontact}}
+					{{^showcontact}}
+						<span class="timeline-user" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>
+					{{/showcontact}}						
+				{{/from}}	
+			</div>
+
 			<div class="timeline-entry-content">
 							
 				{{#subject}}

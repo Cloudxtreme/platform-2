@@ -31,7 +31,7 @@ define(
 				'click .toggleall.active' : 'toggleall',
 				'click .load-more' : 'more',
 
-				'click [data-toggle=list]' : 'expandlist'
+				//'click [data-toggle=list]' : 'expandlist'
 			},
 
 			options : {},
@@ -231,19 +231,24 @@ define(
 			
 			togglefilter : function(e)
 			{
-
 				var button = $(e.currentTarget);
 				var toggle = button.data("toggle");
 				var selected = button.hasClass("selected");
-				
+
+				//Untoggle all
 				this.$el.find("[data-toggle].selected").removeClass("selected");
-				this.$el.find("[id^=filter_]").addClass("hidden");
-				
-				if(!selected)
-				{
+				this.$el.find("[id^=filter_]").removeClass("toggled");
+
+				//Toggle selected
+				if(!selected){
 					button.addClass("selected");
-					this.$el.find("#filter_" + toggle).removeClass("hidden");
+					this.$el.find("#filter_" + toggle).addClass("toggled");
+
+					$('#widgetcontainer').addClass('onlist');
 				}
+				else
+					$('#widgetcontainer').removeClass('onlist');
+
 			},
 			
 			comparesuggestions : function (iscontact)
@@ -480,10 +485,10 @@ define(
 			},
 
 			// Slide list
-			expandlist : function ()
+			/*expandlist : function ()
 			{
-				$('#widgetcontainer').toggleClass("expanded");
-			},
+				$('#widgetcontainer').toggleClass("onlist");
+			},*/
 			
 			destroy : function()
 			{

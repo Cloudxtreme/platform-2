@@ -45,8 +45,8 @@ define(
 				{widget: "StatSummary", data: {columnviews: ["contacts", "score-trending", "outgoing", "coworkers"]}, span: 12},
 
 				{widget: "TitleSeparator", data: {title: 'Contacts Info'}},
-				{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: 'Contacts', display: "divided"}, span: 6},
-				{widget: "CompoundChart", span: 6, data :
+				{widget: "Chart", data: {filterfunc: "contacts", chart: "PieChart", title: 'Contacts', display: "divided"}, span: [12,4,6,6]},
+				{widget: "CompoundChart", span: [12,8,6,6], data :
 				{	template: "2col1row", chartdata: [ 
 						{widget: "Chart", data: {filterfunc: "age", chart: "PieChart", title: 'By Age'}},
 						{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: 'By Gender'}},
@@ -55,20 +55,20 @@ define(
 				}},
 				
 				{widget: "TitleSeparator", data: {title: 'New this'}},
-				{widget: "Info", data: {title: 'Contact Evolution', filterfunc: "contact-evolution"}, span: 3},
-				{widget: "Info", data: {title: 'Post Activity', filterfunc: "post-activity"}, span: 3},
-				{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: 3},
-				{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: 3},
+				{widget: "Info", data: {title: 'Contact Evolution', filterfunc: "contact-evolution"}, span: [12,6,3,3]},
+				{widget: "Info", data: {title: 'Post Activity', filterfunc: "post-activity"}, span: [12,6,3,3]},
+				{widget: "Info", data: {title: "Activity?", filterfunc: "activity"}, span: [12,6,3,3]},
+				{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: [12,6,3,3]},
 
 				{widget: "TitleSeparator", data: {title: 'Messages info'}},
 				{widget: "TrendingMessage", data: {title: 'Top rated comment'}, span: 12},
-				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: 'Best time to post'}, span: 4},
-				{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: 'Messages evolution'}, span: 4},
-				{widget: "HeatCalendar", data: {filterfunc: "activity", title: 'Activity calendar'}, span: 4},
+				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: 'Best time to post'}, span: [12,6,6,4]},
+				{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: 'Messages evolution'}, span: [12,6,6,4]},
+				{widget: "HeatCalendar", data: {filterfunc: "activity", title: 'Activity calendar'}, span: [12,6,6,4]},
 
 				{widget: "TitleSeparator", data: {title: 'Geo Graphics'}},
-				{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: 'Countries'}, span: 8},
-				{widget: "CompoundChart", span: 4, data :
+				{widget: "Chart", data: {filterfunc: "geo", type: "dots", chart: "GeoChart", title: 'Countries'}, span: [12,12,8,8]},
+				{widget: "CompoundChart", span: [12,12,4,4], data :
 				{	template: "2row", chartdata: [ 
 						{widget: "Chart", data: {filterfunc: "regional", chart: "PieChart", title: 'Countries'}},
 						{widget: "Chart", data: {filterfunc: "cities", chart: "PieChart", title: 'Cities'}}

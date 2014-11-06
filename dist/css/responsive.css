@@ -6,6 +6,16 @@
 
 	.slimlist-container .listfilter label { display: none !important; }
 	.slimlist-container .listfilter { padding-bottom: 5px; }
+
+	#timeline .timeline-bg { margin-left: 9%; }
+	#timeline .timeline-icon { left: 10%; }
+	#timeline .timeline-info { width: 10%; }
+	#timeline .timeline-body-wrapper { margin: 0 0 0 18%; }
+	#timeline .timeline-body-wrapper:after { left: 18%; }
+	#timeline .timeline .timeline-loading .timeline-body, #timeline .timeline .load-more .timeline-body { margin: 0 0 0 19%; }
+	#timeline .timeline-info > table, #timeline .timeline-info > div { display: none; }
+	#timeline .timeline-body-user { color: #999; margin-bottom: 10px; }
+	#timeline .timeline-body { padding: 10px 15px}
 }
 
 @media (min-width: 768px) {
@@ -17,6 +27,8 @@
 	#sidebar ul.sub-menu > li > a { padding: 5px 15px; }
 
 	.slimlist-container .listfilter { padding-bottom: 0px; }
+
+	#timeline .filterbanner { left: 50px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -30,17 +42,22 @@
 	.slimlist-container > .messagelist { position: absolute; left: -50%; transition: left .15s ease-out; width: 50%; z-index: 8;}
 	.inbox-container { position: absolute; right: 0; top: 0; transition: z-index 5s ease-out; z-index: 1; margin-top: 80px; padding-left: 15px; }
 
+	.slimlist-container .listfilter { border-right: none; }
 	.slimlist-container .listfilter label { display: inline-block; position: relative; bottom: 10px; margin-right: 10px; }
-
-	#widgetcontainer.expanded .messagelist { left: 0; }
-	#widgetcontainer.expanded .backdrop { opacity: .7; z-index: 5; }
-	#widgetcontainer.expanded .inbox-container { transition: z-index .15s ease-out; z-index: -1; }
+	.slimlist-container .messagelist.toggled { left: 0; }
+	
+	#widgetcontainer.onlist .backdrop { opacity: .7; z-index: 5; }
+	#widgetcontainer.onlist .inbox-container { transition: z-index .15s ease-out; z-index: -1; }
 } 
 
 @media (min-width: 992px) {
 
 	.toggle-list { display: none !important; }
-	.slimlist-container .listtab { display: none; }	
+
+	.slimlist-container .listtab { display: none; }
+	.slimlist-container .listfilter { padding-bottom: 10px; }
+
+	#timeline section#timeline-filters-section { width: 33%; }
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -51,4 +68,6 @@
 	#sidebar .btn-compose { margin: 20px 15px 20px; padding: 7px 15px; }
 	#sidebar a > span { display: inline-block; }
 	#sidebar ul.sub-menu > li > a { padding: 5px 5px 5px 45px; }
+
+	#timeline .filterbanner { left: 250px;}
 }

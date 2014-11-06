@@ -35,7 +35,7 @@
 }
 
 .filterbanner {
-	left: 250px;
+	left: 0px;
 	position: fixed;
 	right: 0px;
 	background-color: #fff;
@@ -51,11 +51,12 @@
 	background-color: #fff;
 	box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.08);
 	top: 59px;
+	padding: 10px;
 }
 
 section#timeline-filters-section {
 	position: absolute;
-	width: 33%;
+	width: 100%;
 	height: 100%;
 	border-right: 1px solid #e5e5e5;
 }
