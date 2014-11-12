@@ -11,7 +11,8 @@
 			<ul class="nav nav-tabs">
 				{{#tabs}}
 					<li>
-						<a href="{{url}}">{{#trans}}{{name}}{{/trans}}</a>
+						<a href="{{url}}" class="visible-xs-block"><i class="fa fa-{{icon}}"></i></a>
+						<a href="{{url}}" class="hidden-xs">{{#trans}}{{name}}{{/trans}}</a>
 					</li>
 				{{/tabs}}
 			</ul>

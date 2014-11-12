@@ -6,7 +6,7 @@ define(
 
 			title : 'Keyword monitoring',
 			className : "container-fluid monitoring",
-
+			id: "monitoring",
 			options : {},
 			
 			initialize : function (options)

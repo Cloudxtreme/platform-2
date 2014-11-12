@@ -8,6 +8,7 @@ define(
 		var Dashboard = Pageview.extend({
 
 			title : "Dashboard",
+			id: "dashboard",
 			statistics : [],
 			
 			widgets : [
