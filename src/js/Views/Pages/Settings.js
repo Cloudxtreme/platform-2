@@ -26,15 +26,15 @@ define(
 
 				// Build tabs				
 				if (Cloudwalkers.Session.isAuthorized('USER_INVITE'))			
-					this.tabs.push({url: '#settings/users', name: "Manage users"});
+					this.tabs.push({url: '#settings/users', name: "Manage users", icon: "group"});
 
 				if (Cloudwalkers.Session.isAuthorized('SERVICE_CONNECT'))
-					this.tabs.push({url: '#settings/services', name: "Social connections"});
+					this.tabs.push({url: '#settings/services', name: "Social connections", icon: "cloud"});
 				
 				if (Cloudwalkers.Session.isAuthorized('CAMPAIGN_DELETE'))
-					this.tabs.push({url: '#settings/account', name: "Account settings"});
+					this.tabs.push({url: '#settings/account', name: "Account settings", icon: "briefcase"});
 				
-				this.tabs.push ({url: '#settings/profile', name: "Profile settings"});
+				this.tabs.push ({url: '#settings/profile', name: "Profile settings", icon: "user"});
 
 				// Manage User Groups Roles
 				/*if ((Cloudwalkers.Session.isAuthorized('GROUP_MANAGE')) || (Cloudwalkers.Session.isAuthorized('USER_GRANT')))

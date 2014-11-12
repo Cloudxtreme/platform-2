@@ -309,14 +309,14 @@ img {
 /********* Icon & color defaults **********/
 
 i.fa-twitter, #compose .stream-tab.active > i.fa-twitter			{ color: #01a9da; }
-i.fa-facebook, #compose .stream-tab.active > i.fa-facebook		{ color: #3B5998; }
-i.fa-linkedin, #compose .stream-tab.active > i.fa-linkedin		{ color: #1783BC; }
-i.fa-tumblr, #compose .stream-tab.active > i.fa-tumblr			{ color: #385775; }
+i.fa-facebook, #compose .stream-tab.active > i.fa-facebook			{ color: #3B5998; }
+i.fa-linkedin, #compose .stream-tab.active > i.fa-linkedin			{ color: #1783BC; }
+i.fa-tumblr, #compose .stream-tab.active > i.fa-tumblr				{ color: #385775; }
 i.fa-google-plus, #compose .stream-tab.active > i.fa-google-plus	{ color: #DD4C39; }
 i.fa-youtube, #compose .stream-tab.active > i.fa-youtube			{ color: #CC181E; }
 i.fa-web, #compose .stream-tab.active > i.fa-web					{ color: #ff9c00; }
-i.fa-blog, #compose .stream-tab.active > i.fa-blo				{ color: #ff9c00; }
-i.fa-briefcase, #compose .stream-tab.active > i.fa-briefcase		{ color: #4a4a4a; }
+i.fa-blog, #compose .stream-tab.active > i.fa-blo					{ color: #ff9c00; }
+/*i.fa-briefcase, #compose .stream-tab.active > i.fa-briefcase		{ color: #4a4a4a; }*/
 
 .twitter-color		{ background-color: #01a9da !important; }
 .facebook-color		{ background-color: #3B5998 !important; }
@@ -355,7 +355,7 @@ li [class^="fa fa-"] {
 
 .navbar-brand > span { margin-left: -6px;}
 
-.navbar-inverse {
+.navbar-inverse .navbar-header{
 	border: none;
 	padding-left: 15px;
 }

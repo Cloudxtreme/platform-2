@@ -6,6 +6,7 @@ define(
 
 			title : 'Manage Keywords',
 			className : "container-fluid managekeywords",
+			id: "keywords",
 			
 			render : function()
 			{
