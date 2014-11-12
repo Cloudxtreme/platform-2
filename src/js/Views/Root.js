@@ -64,18 +64,18 @@ define (
 
 			checkwidth : function() 
 			{
-				var width = $(window).width();
+				var width = $(document).width();
 
-				if 		(width >= 768 && this.viewport != 'sm')		this.updateviewport('sm');
-				else if (width >= 992 && this.viewport != 'md')		this.updateviewport('md');
-				else if (width >= 1200 && this.viewport != 'lg')	this.updateviewport('lg');
-				else if (width)										this.updateviewport('xs');
+				if 		(width < 768)		this.updateviewport('xs');
+				else if (width < 992)		this.updateviewport('sm');
+				else if (width < 1200)		this.updateviewport('md');
+				else if (width >= 1200)		this.updateviewport('lg');
 			},
 
 			updateviewport : function(size) 
-			{
+			{	
 				if(this.viewport && this.viewport != size)
-					this.trigger('changedviewport');
+					this.trigger('viewport:change');
 
 				this.viewport = size;
 			},
