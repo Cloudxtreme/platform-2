@@ -163,13 +163,17 @@ define(
 				{		
 					this.$container.css('max-height', 999999);
 
-					if(!this.hasmore)
+					if(!this.hasmore){
+						this.$el.find(".entry-container").css('margin-bottom', '100px');
 						return this.$el.find('#loadmore').empty();	
-
+					}
+					
 					var load = new LoadMoreWidget({list: this.collection, parentcontainer: this.$container});
 					this.$el.find('#loadmore').html(load.render().el);
 
 					this.loadmore = load;
+
+					this.$el.find("#loadmore").css('margin-bottom', '80px');
 
 				}.bind(this),200)
 			},

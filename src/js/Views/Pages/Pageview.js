@@ -74,8 +74,10 @@ define(
 
 			},
 
-			appendresponsivewidget : function(widget, span, padding, offset) {
+			// resets the collumns for responsiveness
+			resetwrapping : function () {
 
+				this.$container.children().last().append( '<div class="clearfix"></div>');	
 			},	
 
 			// Return spans array index corresponding to the current resolution

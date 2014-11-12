@@ -98,6 +98,9 @@ define(
 						case 'trending':
 							widget = this.addDashboardTrending (widgets[n]);
 							break;
+
+						case 'clear':
+							widget = this.resetspans();
 					}
 
 					if(widget)
@@ -107,6 +110,11 @@ define(
 				this.collection.touch(this.filterparameters());
 
 				return this;
+			},
+
+			resetspans : function ()
+			{
+				this.resetwrapping();
 			},
 			
 			addMessagesCounters : function (widgetdata)
