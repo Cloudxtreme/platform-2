@@ -96,7 +96,7 @@ define(
 				view.$el.addClass("active");
 			},
 			
-			togglefilter : function(e)
+			/*togglefilter : function(e)
 			{
 
 				var button = $(e.currentTarget);
@@ -111,7 +111,7 @@ define(
 					button.addClass("selected");
 					this.$el.find("#filter_" + toggle).removeClass("hidden");
 				}
-			},
+			},*/
 
 			rendercontext : function()
 			{

@@ -19,6 +19,9 @@ define (
 				$(window).on("resize", this.resize.bind(this));
 				
 				this.resize();
+
+				//Set sidebar events
+				$('#mainmenu').click(function(){ this.togglemenu() }.bind(this));
 			},
 
 			render : function ()
@@ -37,6 +40,12 @@ define (
 				if(this.view.finish) this.view.finish();
 				
 				this.navigation.handleSidebarMenu();
+			},
+
+			togglemenu : function () 
+			{
+				$('#sidebar').toggleClass("uncollapsed");
+				$('#inner-content').toggleClass("onmenu");
 			},
 
 			setView : function (view)

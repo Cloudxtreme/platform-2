@@ -66,7 +66,7 @@ define(
 				// Listen to model
 				this.listenTo(this.collection, 'seed', this.fill);
 				this.listenTo(this.collection, 'request', this.showloading);
-				this.listenTo(this.collection, 'sync', this.hideloading);
+				this.listenTo(this.collection, 'sync', this.findmore);
 				this.listenTo(this.collection, 'ready', this.showmore);
 
 				// Listen to contacts collection
@@ -140,36 +140,45 @@ define(
 				//Just to make sure we are triggering a collection request and not a markasread request
 				if(!object.hasOwnProperty('length'))	return;
 
-				this.$el.find(".inbox").addClass("loading");
+				this.$el.find(".toggle-list").eq(0).addClass('loading');
+				//this.$el.find(".inbox").addClass("loading");
 				
 				this.$el.find(".load-more").hide();
 			},
-			
-			hideloading : function (collection, response)
-			{	
+
+			hideloading : function ()
+			{					
+				this.$container.removeClass("inner-loading");
+				this.$el.find(".toggle-list").eq(0).removeClass('loading');
+			},
+
+			findmore : function(collection, response) 
+			{
 				if(collection.cursor && response[collection.parenttype][this.collectionstring].length)
 					this.hasmore = true;
 				else
 					this.hasmore = false;
-
-				this.$el.find(".inbox").removeClass("loading");
-				
-				this.$container.removeClass("inner-loading");
 			},
 
 			showmore : function(){
 				
+				this.hideloading();
+
 				setTimeout(function()
 				{		
 					this.$container.css('max-height', 999999);
 
-					if(!this.hasmore)
+					if(!this.hasmore){
+						this.$el.find(".entry-container").css('margin-bottom', '100px');
 						return this.$el.find('#loadmore').empty();	
-
+					}
+					
 					var load = new LoadMoreWidget({list: this.collection, parentcontainer: this.$container});
 					this.$el.find('#loadmore').html(load.render().el);
 
 					this.loadmore = load;
+
+					this.$el.find("#loadmore").css('margin-bottom', '80px');
 
 				}.bind(this),200)
 			},

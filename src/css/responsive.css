@@ -2,7 +2,10 @@
 @media (max-width: 768px) {
 
 	/* Mobile navigation */
+	.navbar-inverse .navbar-header {padding-left: 0px;}
 	.navbar-toggle { padding: 9px 15px; margin: 0; border: none; border-radius: 0; }
+	#mainmenu.navbar-toggle { padding: 20px;}
+	.navbar-brand {position: absolute; left: 50%; margin-left: -90px; font-size: 16px; padding: 14px; }
 	.navbar-collapse.in .dropdown-menu,
 	.navbar-collapse.collapsing .dropdown-menu {
 		position: static;
@@ -15,6 +18,12 @@
 		box-shadow: none;
 		display: block;
 	}
+
+	#sidebar { width: 250px; left: -250px; transition: left .15s ease-out; }
+	#sidebar.uncollapsed { left: 0;}
+	#sidebar .btn-compose { margin: 20px 15px 20px; padding: 7px 15px; }
+	#sidebar a > span { display: inline-block; }
+	#sidebar ul.sub-menu > li > a { padding: 5px 5px 5px 45px; }
 
 	.dropdown-menu .divider {
 		height: 2px;
@@ -50,6 +59,9 @@
 	#inner-content > #monitoring,
 	#inner-content > #keywords,
 	#inner-content > #dashboard { margin-top: 30px; }
+	#inner-content { position: relative; left: 0; transition: left .15s ease-out; }
+	#inner-content.onmenu { left: 250px;}
+
 	#settings .nav.nav-tabs > li { width: 25%; text-align: center;}
 	#settings .nav.nav-tabs > li a { color: #999; }
 	#settings .nav.nav-tabs > li.active a { color: #222; }
