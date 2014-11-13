@@ -11,11 +11,11 @@ define(['Models/User', 'Collections/Accounts'],
 				this.once('change', this.activate);
 
 				// Force reload me on restart
-				/*if(Store.exists("me"))
+				if(Store.exists("me"))
 					Store.remove('me');
 
 				if(Store.exists("channels"))
-					Store.remove('channels');*/
+					Store.remove('channels');
 
 				// Prevent conflicting user login
 				this.on ('change:id', function(id){ if(this.previous("id")) Cloudwalkers.Session.home(); });
