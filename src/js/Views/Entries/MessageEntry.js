@@ -23,6 +23,8 @@ define(
 				Cloudwalkers.Session.censuretemplate(this.parameters);
 				
 				this.$el.html (Mustache.render (Templates[this.template], this.parameters)); //this.model.filterData(this.type, this.parameters)
+
+				if(this.$el.find("[data-date]")) this.time();
 				
 				//MessageEntry always has actions (unless the user has no permissions)
 				this.renderactions();
