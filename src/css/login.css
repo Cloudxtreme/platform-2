@@ -2,7 +2,7 @@
 
 body { 
 	background-color: #fff !important; 
-	font-family: "Open Sans", sans-serif; 
+	font-family: sans-serif; 
 	line-height: 20px;
 }
 
@@ -24,5 +24,5 @@ body {
 	max-width: 800px; margin: 20px auto; color: #aaa; text-align: center; text-shadow: 1px 0 3px rgba(0,0,0, .02);
 }
 
-.login .cover-heading { font-style: 38.5px; }
+.login .cover-heading { font-size: 38.5px; }
 .login .lead  { font-size: 21px; font-weight: 300; line-height: 30px; }
