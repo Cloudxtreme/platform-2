@@ -29,7 +29,7 @@ define(
 				this.$loadercontainer = this.$el.find ('.panel-body');
 				
 				// Load messages
-				this.model.messages.touch(this.model, this.filters); 
+				this.model.messages.touch(this.model, this.options.filters); 
 				
 				this.trigger('rendered');
 
@@ -52,7 +52,7 @@ define(
 					if(this.link) models[n].link = this.link;
 					
 					// Render view
-					var view = new BaseEntry ({model: models[n], template: 'smallentry', parameters: {trendview: this.trending, mediaview: !this.trending}});
+					var view = new BaseEntry ({model: models[n], template: 'smallentry', parameters: {trendview: this.options.trending, mediaview: !this.options.trending}});
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);
