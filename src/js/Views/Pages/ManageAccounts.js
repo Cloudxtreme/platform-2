@@ -1,5 +1,5 @@
 define(
-	['Views/Pages/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Modals/Contact'],
+	['Views/Pages/Pageview', 'mustache',  'Views/Root', 'Collections/Contacts', 'Views/Pages/ManageAccounts/ContactView'],
 	function (Pageview, Mustache, RootView, Contacts, ContactView)
 	{
 		var ManageAccounts = Pageview.extend({
@@ -48,14 +48,14 @@ define(
 				// Template
 				this.$el.html (Mustache.render (Templates.manageaccounts, data));
 				this.$container = this.$el.find(".contacts-list");
-				
+
 				// Load messages
 				this.collection.touch(null, {records: 200});
 				
 				return this;
 			},
 			
-			fill : function (models)
+			/*fill : function (models)
 			{
 				// Clean load or add
 				if(this.incremental) this.incremental = false;
@@ -67,20 +67,20 @@ define(
 				
 				// Add models to view
 				for (var n in models)
-				{	
+				{	console.log(models[n])
 					var view = new ContactView ({model: models[n], parameters:{inboxview: true}});
 					
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);
 				}
-			},
+			},*/
 			
 			addcontact : function (model)
 			{
 				// Create view
-				view = new ContactView ({model: model, parameters:{}});
-					
+				var view = new ContactView ({model: model, parameters:{}});
+				
 				this.entries.push (view);
 				
 				this.$container.prepend(view.render().el);

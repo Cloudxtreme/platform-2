@@ -209,6 +209,12 @@ img {
 	color: #555;
 }
 
+.input-rounded.input-large {
+	padding: 6px 12px;
+	height: auto;
+	font-size: 16px;
+}
+
 .close {
 	display: inline-block;
 	margin-top: 0px;
@@ -1497,6 +1503,77 @@ ul.loaded{ min-height: 5px;}
 .empty-list.loaded .slimScrollDiv{
 	display: none;
 }
+
+/**************************/
+/****** Contact view ******/
+
+.column-bordered {
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+.column-bordered .btn-white {
+	display: block;
+	width: 40%;
+	margin: 10px auto;
+	text-align: center;
+	padding: 12px;
+	font-size: 17.5px;
+}
+
+.url-post {
+	margin-bottom: 20px;
+}
+
+.url-post > span {
+	position: absolute;
+	top: 4px;
+	right: 15px;
+	width: 60px;
+	height: 34px;
+	border-left: 1px solid #ccc;
+	color: #777;
+	font-size: 21px;
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.contacts-list {
+	margin-top: 30px;
+}
+
+.contacts-list li {
+	padding: 6px 0;
+	border-top: 1px solid #ddd;
+}
+
+.contacts-list img.avatar {
+	margin: 0 10px 0 0;
+	height: 28px;
+	width: 28px;
+	border-radius: 28px;
+	float: none;
+	border: none;
+}
+
+.contacts-list .contact-actions {
+	margin-top: 4px;
+}
+
+.contacts-list .contact-actions .muted{
+	margin-right: 4px;
+}
+
+.contacts-list .contact-link, 
+.contacts-list .contact-delete {
+	margin-left: 4px;
+	color: #666;
+	cursor: pointer;
+}
+
+.contacts-list .contact-delete { position: relative; bottom: 1px; }
 
 /**************************/
 /********* Hacks **********/

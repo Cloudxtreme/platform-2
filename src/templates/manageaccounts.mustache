@@ -8,23 +8,25 @@
 
 	<div id="widgetcontainer" class="row">
 		
-		<div class="col-md-2 column-bordered">
-			<label>{{#trans}}Networks{{/trans}}</label>
-			
-			{{#networks}}
-			<div class="btn-white active" data-network="{{token}}"><i class="fa fa-{{icon}}"></i></div>
-			{{/networks}}
-			
-			<center>
-				<br>
-				<span class="badge toggleall inactive">{{#trans}}Show all{{/trans}}</span>
-			</center>
+		<div class="col-md-2">
+			<div class="column-bordered">
+				<center>
+					<label>{{#trans}}Networks{{/trans}}</label>
+					
+					{{#networks}}
+					<div class="btn-white active" data-network="{{token}}"><i class="fa fa-{{icon}}"></i></div>
+					{{/networks}}				
+				
+					<br>
+					<span class="badge toggleall inactive">{{#trans}}Show all{{/trans}}</span>
+				</center>
+			</div>
 		</div>
 		
-		<div class="col-md-8 offset1">
+		<div class="col-md-8 col-md-offset-1">
 			<div class="url-post">
 				<input type="search" class="form-control input-rounded input-large" placeholder="{{#trans}}Enter profile link ...{{/trans}}" />
-				<span class="icon-search"></span>
+				<span class="fa fa-search"></span>
 			</div>
 			<div class="info-container"></div>
 			
