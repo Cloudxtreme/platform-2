@@ -179,7 +179,7 @@
 }
 
 #keywordsfilter .demo_bubble i{
-	padding: 3px 0px;
+	padding: 0px;
 }
 
 #keywordsfilter .demo_bubble i:hover:before{
@@ -215,7 +215,7 @@
 	color: #fff;
 	display: block;
 	position: absolute;
-	margin: -25px -6px;
+	margin: -20px -6px;
 	opacity: 0;
 }
 
