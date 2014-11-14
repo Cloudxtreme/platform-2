@@ -100,7 +100,9 @@ define (
 				'click #previewbtn' : 'preview',
 				'click #save' : 'save',
 				'click #post' : 'post',
-				'click #action, [data-type=icon] > i' : 'postaction'
+				'click #action, [data-type=icon] > i' : 'postaction',
+
+				'click [data-dismiss=modal]' : 'closemodal'  
 			},
 
 			/*
@@ -1771,7 +1773,14 @@ define (
 
 			triggerpaste : function(e) { this.editor.trigger('paste:content', e); },
 
-			triggerblur : function() { this.editor.trigger('blur:content'); }
+			triggerblur : function() { this.editor.trigger('blur:content'); },
+
+			closemodal : function() 
+			{
+				setTimeout(function(){
+					this.$el.remove();
+				}.bind(this), 100)
+			}
 		});
 
 

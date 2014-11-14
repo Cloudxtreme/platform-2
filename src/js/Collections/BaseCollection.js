@@ -107,7 +107,7 @@ define(
 				this.seedparameters = seedparameters;
 
 				// Hard-wired request (no caching)
-				this.fetch({success: this.touchresponse.bind(this, this.url())});
+				this.fetch({remove: false, success: this.touchresponse.bind(this, this.url())});
 			},
 			
 			touchlocal : function(touch)
