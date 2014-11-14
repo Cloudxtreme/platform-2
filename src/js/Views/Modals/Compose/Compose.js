@@ -249,7 +249,7 @@ define (
 				this.state = 'loaded';
 
 				// Render for editor
-				this.render();
+				this.render(true);
 				
 				// Render selected tab
 				this.$el.find("[data-stream=" + this.initstream + "]").click();
