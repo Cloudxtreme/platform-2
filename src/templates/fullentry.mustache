@@ -36,14 +36,14 @@
 		<strong>{{subject}}</strong><br />
 		{{/subject}}
 		
-		{{{body.html}}}
-		
 		{{#attached}}
 			{{#link}}
 				<div class="attachment-link">
 					<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
-				</div>
+				</div><br>
 			{{/link}}
 		{{/attached}}
+
+		{{{body.html}}}
 	</div>
 </div>
