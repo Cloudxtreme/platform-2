@@ -21,3 +21,10 @@
 	text-align: center;
 }
 
+.panel .entry.small > i {
+	float: left;
+	font-size: 18px;
+	padding: 2px 4px;
+	margin-right: 5px;
+}
+
