@@ -1662,7 +1662,7 @@ define (
 
 					// Add preview view to Compose
 					this.$el.find('.switch-container').append(thanks);
-					setTimeout(function(){ this.$el.modal('hide'); }.bind(this), 1000);
+					setTimeout(function(){ this.closemodal(); }.bind(this), 1000);
 				}.bind(this),400);
 				
 				// After sales service 
@@ -1721,7 +1721,7 @@ define (
 
 						}.bind(this),
 
-						function () { this.$el.modal('hide'); }.bind(this)
+						function () { this.closemodal(); }.bind(this)
 					);
 			},
 
