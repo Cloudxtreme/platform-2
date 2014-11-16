@@ -731,6 +731,10 @@ li [class^="fa fa-"] {
 	padding: 5px 115px 5px 3px;
 }
 
+.entry-container .entry.full .content > .muted {
+	margin: 5px 0px 15px;
+}
+
 .entry-container .entry.full .attachment-image {
 	padding: 2px 10px;
 	margin: -2px 0 0 10px;
