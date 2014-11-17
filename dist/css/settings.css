@@ -78,6 +78,7 @@ ul.campaign-list .fa-bullseye {
 	padding: 8px 8px 8px 12px;
 	cursor: pointer;
 	border-bottom: 1px solid #ddd;
+	min-height: 0px;
 }
 
 #service-connected .service > span i {
@@ -126,6 +127,8 @@ ul.campaign-list .fa-bullseye {
 #service-connected .btn-white, 
 #service-connected .btn-black {
 	padding: 10px 24px;
+	min-height: 0px;
+	margin-bottom: 0px !important;
 }
 
 #service-connected .service-profiles li .service-thumbnail {

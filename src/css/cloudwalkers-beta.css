@@ -10,6 +10,8 @@ body {
 	background-color: #fff !important; 
 	font-family: "Open Sans", sans-serif; 
 	line-height: 20px;
+	min-width: 100% !important;		/* Modal hack*/
+	padding-right: 0 !important;	/* Modal hack*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1453,15 +1455,20 @@ ul.toload, .toload ul{max-height: 5px !important;
 }
 ul.loaded, .loaded ul{max-height: 99999px; overflow-y: hidden;}
 ul.loaded{ min-height: 5px;}
-.toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important border: none !important; overflow: hidden !important;}
-/*.loaded li, .loaded tr{ opacity: 1; max-height: 140px; }*/
+.toload li, .toload tr{ opacity: 0; max-height: 0px !important; min-height: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important; margin: 0px !important; border: none !important; overflow: hidden !important;}
+
 .loaded li, .loaded tr{
+	min-height: 80px;
 	-webkit-transition: opacity .15s ease-out .5s;
 	   -moz-transition: opacity .15s ease-out .5s;
 	    -ms-transition: opacity .15s ease-out .5s;
 	     -o-transition: opacity .15s ease-out .5s;
-	        transition: opacity .15s ease-out .5s
+	        transition: opacity .15s ease-out .5s;
 }
+
+/* Regular list items*/
+.panel-body.loaded li { min-height: 90px; }
+
 /* Rollback effect */
 .toload li:nth-child(1), .toload tr:nth-child(1){	-webkit-transition: all .15s ease-out .45s; -moz-transition: all .15s ease-out .45s;}
 .toload li:nth-child(2), .toload tr:nth-child(2){	-webkit-transition: all .15s ease-out .4s; 	-moz-transition: all .15s ease-out .4s; }

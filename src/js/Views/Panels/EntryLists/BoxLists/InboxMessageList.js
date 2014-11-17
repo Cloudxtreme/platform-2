@@ -169,7 +169,7 @@ define(
 					this.$container.css('max-height', 999999);
 
 					if(!this.hasmore){
-						this.$el.find(".entry-container").css('margin-bottom', '100px');
+						//this.$el.find(".entry-container").css('margin-bottom', '100px');
 						return this.$el.find('#loadmore').empty();	
 					}
 					

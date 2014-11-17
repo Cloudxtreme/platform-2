@@ -494,7 +494,7 @@ Style corrections and manual overrides
 }
 
 #compose.thanks .modal-dialog{
-	width: 450px; height: 400px;
+	width: 350px; height: 300px;
 }
 
 #compose.switch-mode	{
@@ -779,6 +779,11 @@ Style corrections and manual overrides
 #compose.simple.thanks .thanks-wrapper,
 #compose.simple.thanks .modal-content {
 	height: 300px;
+}
+
+#compose.thanks .modal-content,
+#compose.thanks .modal-switch-container{
+	height: inherit;
 }
 
 /* Datepicker && timepicker */

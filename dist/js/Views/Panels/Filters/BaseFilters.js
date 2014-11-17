@@ -14,7 +14,7 @@ define(
 				'remove' : 'destroy',
 				'input .input-rounded' : 'comparesuggestions',
 				'click .load-more' : 'more',
-				'click .toggleall.active' : 'toggleall'
+				'click .showall.active' : 'toggleall'
 			},
 
 			options : {},
@@ -69,7 +69,7 @@ define(
 			comparesuggestions : function (isuser)
 			{
 				// Toggle all active
-				this.$el.find(".toggleall").addClass('active').removeClass('inactive');
+				this.$el.find(".showall").addClass('active').removeClass('inactive');
 				
 				var string = $(".userfilter input").val();
 				
