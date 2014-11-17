@@ -24,7 +24,8 @@ define(
 				
 				// Hack!
 				'comment' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', maxsize: {'twitter': 140}, parameters: [{"token":"message","name":"Message","type":"string","required":false,"value":""}]},
-				
+				'commentlist' : {name: "Comment", icon: 'comment', token: 'comment', type: 'dialog', clone: true, compound: 'comment', valuetag: 'comments', tokenview: 'comment-list', noaction: true},
+
 				'retweet' : {name: "Retweet", icon: 'retweet', token: 'retweet', type: 'options', valuetag: 'retweets'},
 				'like' : {name: "Like", icon: 'thumbs-up', token: 'like', type: 'options', toggle: 'unlike', valuetag: 'likes'},
 				'unlike' : {name: "Unlike", icon: 'thumbs-down', token: 'unlike', type: 'growl', toggle: 'like', actiontype: 'like'},
@@ -78,6 +79,10 @@ define(
 
 				if(!tokens)
 					tokens = this.parent.get("actiontokens");
+
+				if(this.parent.get('canHaveNotifications'))
+					if(tokens.indexOf('comment') < 0)
+						tokens.push('commentlist')
 
 				for (var n in tokens)
 				{	
