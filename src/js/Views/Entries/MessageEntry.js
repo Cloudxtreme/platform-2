@@ -291,42 +291,6 @@ define(
 				else						this.$el.removeClass("unread");
 			},
 			
-			/*loadNotifications : function()
-			{
-				// Collapse if open
-				if(this.$el.find(".timeline-comments li").size())
-					
-					return this.$el.find(".timeline-comments li").remove();
-				
-				// Load notifications
-				this.listenTo(this.model.notifications, 'seed', this.fillNotifications);
-				
-				this.model.notifications.touch(this.model, {records: 50, markasread: true});
-				
-			},
-			
-			fillNotifications : function (list)
-			{		
-				// Clean load
-				$.each(this.notifications, function(n, entry){ entry.remove()});
-				this.notifications = [];
-				
-				// Create array if collection
-				if(list.models) list = list.models;
-				
-				// Clear comments list
-				var $container = this.$el.find(".timeline-comments").eq(0).html("");
-
-				// Add models to view
-				for (var n in list)
-				{
-					var view = new NotificationView ({model: list[n], template: 'timelinecomment'});
-					this.notifications.push (view);
-					
-					$container.append(view.render().el);
-				}
-			},
-			*/
 			loadYoutube : function ()
 			{	
 				// Get container

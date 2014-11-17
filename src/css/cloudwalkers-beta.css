@@ -708,6 +708,10 @@ li [class^="fa fa-"] {
 /*************************************/
 /********* Specific Entries **********/
 
+.messagelist.mini .entry:hover {
+	cursor: pointer;	
+}
+
 .messagelist.mini .entry .avatar {	/* eg: dashboard trending*/
 	display: none;
 }

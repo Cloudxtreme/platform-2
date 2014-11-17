@@ -5,9 +5,9 @@ define(
 		var Notification = Message.extend({ 
 			
 			initialize : function ()
-			{			
+			{
 				if (typeof (this.attributes.parent) != 'undefined')
-				{
+				{	
 					this.set ('parentmodel', new Message (this.attributes.parent));
 					this.get ('parentmodel').trigger ('change');
 				}
@@ -23,8 +23,7 @@ define(
 				// Reload parent message for message counter
 				this.once("destroy", function()
 				{
-					this.get("parentmodel").fetch();
-					
+					this.collection.parentmodel.fetch();					
 				})
 			},
 			

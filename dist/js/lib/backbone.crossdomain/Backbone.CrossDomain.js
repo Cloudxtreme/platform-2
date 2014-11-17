@@ -104,8 +104,21 @@
                 throw new Error('Backbone.CrossDomain cannot use PUT, PATCH, DELETE with XDomainRequest (IE) and emulateHTTP=false');
             }
             
+            var url = requestUrl(model, options);
+
+            // Checks for backbone specific token options
+            if (Backbone.accesstoken)
+            {
+                var op; 
+
+                if(url){
+                    op  = (url.indexOf('?') >= 0)? '&': '?';
+                    url = url + op + 'access_token=' + Backbone.accesstoken;
+                }
+            }
+            
             // Default JSON-request options.
-            var params = {type: type, dataType: 'json', url: requestUrl(model, options)};
+            var params = {type: type, dataType: 'json', url: url};
 
             // Ensure that we have a URL.
             if (!params.url) throw new Error('No URL!');
@@ -195,7 +208,7 @@
 
             model.trigger('request', model, xdr, options);
             return xdr;
-        }
+         }
         else {
             return Backbone.vanillaSync.apply(this, arguments);
         }

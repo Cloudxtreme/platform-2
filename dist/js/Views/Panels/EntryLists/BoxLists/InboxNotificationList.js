@@ -8,7 +8,7 @@ define(
 			check : "hasNotifications",
 					
 			toggle : function(view)
-			{
+			{	
 				if (this.inboxmessage) this.inboxmessage.remove();
 
 				// Get message
@@ -35,7 +35,6 @@ define(
 
 				this.inboxmessage = new InboxMessageWidget({model: message, notification: model});
 				$(".message-container").html(this.inboxmessage.render().el);
-
 			}
 		});
 
