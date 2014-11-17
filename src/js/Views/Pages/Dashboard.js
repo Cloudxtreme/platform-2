@@ -16,8 +16,8 @@ define(
 				{widget: "messagescounters", type: "monitoring", source: "channels", size: [12,6,4,4], title: "Keywords", icon: "tags", /*open: true, /*counter: true,*/ countString: "incoming"/*, scrollable: 'scrollable'*/},
 				{widget: "messagescounters", type: "outgoing", source: "streams", size: [12,6,4,4], title: "Schedule", icon: "time", /*open: true, /*counter: true,*/ countString: "scheduled", link: "#scheduled"/*, scrollable: 'scrollable'*/},
 				{widget: "coworkers", type: "drafts", size: [12,6,4,4], title: "Co-workers wall", color: "yellow", icon: "edit", link: "#coworkers", /*open: true/*, scrollable: 'scrollable'*/},
-				{widget: "trending", type: "profiles", size: [12,6,4,4], title: "Trending Company Posts", color : "grey", icon: "thumbs-up", sublink: "#trending", since: 7, /*open: true, since: 7, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
-				{widget: "trending", type: "news", size: [12,6,4,4], title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", sublink: "#trending", since: 1, /*open: true, since: 1, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
+				{widget: "trending", type: "profiles", size: [12,6,4,4], title: "Trending Company Posts", color : "grey", icon: "thumbs-up", sublink: "#trending/", since: 7, /*open: true, since: 7, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
+				{widget: "trending", type: "news", size: [12,6,4,4], title: "Trending Accounts we follow", color: "red", icon: "thumbs-up", sublink: "#trending/", since: 1, /*open: true, since: 1, sublink: "#trending/"/*, scrollable: 'scrollable'*/},
 				{widget: "clear"}
 			],
 			

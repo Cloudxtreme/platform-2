@@ -26,6 +26,7 @@ define(
 				if(token && token.length > 9)
 				{	
 					this.Session.authenticationtoken = token;
+					Backbone.accesstoken = token;
 					
 				} else{ console.log("token error", token); window.location = "/login.html";}
 
@@ -50,7 +51,6 @@ define(
 				return this;
 			}
 		};
-
 
 		/**
 		 *	Backbone Extension

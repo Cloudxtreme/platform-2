@@ -7,7 +7,7 @@ define(
 			entries : [], 
 			type : 'minilist',
 			options : {},
-			
+
 			'initialize' : function(options)
 			{
 				this.options = $.extend({}, this.options, options);
@@ -61,10 +61,10 @@ define(
 				}
 			},
 			
-			toggle : function (el)
-			{				
+			toggle : function ()
+			{	
 				// Get URL
-				var link = this.sublink? this.sublink + this.model.id: this.link;
+				var link = this.options.sublink? this.options.sublink + this.model.id: this.options.link;
 				
 				Cloudwalkers.Router.navigate(link, true);
 			},
