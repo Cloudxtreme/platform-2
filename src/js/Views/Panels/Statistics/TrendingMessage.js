@@ -11,12 +11,14 @@ define(
 				this.settings = {};
 				this.settings.title = this.title;
 
-				if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
-				else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
+				this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+
+				//if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+				//else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
 				
 				this.listenTo(this.model, 'sync', this.fill);
 
-				this.gettoptrending();		
+				this.gettoptrending();
 			},
 
 			render : function ()
@@ -66,37 +68,19 @@ define(
 
 			},
 
-			gettoptrending : function(){
-
-				if(this.parentview.streamid)
-					return this.toptrendingstream(this.parentview.streamid);
-				else
-					return this.toptrendingall();
-			},
-
-			toptrendingstream : function(streamid){
-
-				var filters = {
-					sort:  this.timespan.sort,
-					records : 1
-				}
-				
-				this.model.fetch({endpoint : "messages", parameters : filters});
-				
-				return;
-			},
-
-			toptrendingall : function(){
-
+			gettoptrending : function()
+			{
 				var filters = {
 					sort:  'engagement',
 					records : 1,
 					since : this.timespan.since
 				};
 
-				this.model.fetch({endpoint: "messages", parameters : filters});
+				if(this.parentview.streamid)
+					filters.streamid = this.parentview.streamid;
 
-				return;
+				this.model.fetch({endpoint : "messages", parameters : filters});
+
 			},
 
 			showloading : function ()

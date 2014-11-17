@@ -29,7 +29,7 @@ define(
 
 
 				{widget: "TitleSeparator", data: {title: "Messages info"}},
-				{widget: "TrendingMessage", data: {title: "Top rated comment"}, span: 12},
+				{widget: "TrendingMessage", data: {title: "Most popular message"}, span: 12},
 				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: "Best Time to Post"}, span: [12,6,6,4]},
 				{widget: "Chart", data: {filterfunc: "message-evolution-network", chart: "LineChart", title: "Messages Evolution"}, span : [12,6,6,4]},
 				{widget: "HeatCalendar", data: {filterfunc: "activity", title: "Activity Calendar"}, span: [12,6,6,4]},

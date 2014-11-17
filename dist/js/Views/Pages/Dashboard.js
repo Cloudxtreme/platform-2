@@ -155,8 +155,8 @@ define(
 
 			filterparameters : function() {
 		 
-				this.start = moment().zone(0).startOf('isoweek');
-				this.end = moment().zone(0).endOf('isoweek'); 
+				this.start = moment().subtract(7, 'days').zone(0).endOf('day');
+ 				this.end = moment().zone(0).endOf('day');
 				
 				return {since: this.start.unix(), until: this.end.unix()};
 			}

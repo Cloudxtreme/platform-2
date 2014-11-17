@@ -61,7 +61,7 @@ define(
 				{widget: "Info", data: {title: "Page Views?", filterfunc: "page-views"}, span: [12,6,3,3]},
 
 				{widget: "TitleSeparator", data: {title: 'Messages info'}},
-				{widget: "TrendingMessage", data: {title: 'Top rated comment'}, span: 12},
+				{widget: "TrendingMessage", data: {title: 'Most popular message'}, span: 12},
 				{widget: "BestTimeToPost", data: {filterfunc: "besttime", chart: "LineChart", title: 'Best time to post'}, span: [12,6,6,4]},
 				{widget: "Chart", data: {filterfunc: "message-evolution", chart: "LineChart", title: 'Messages evolution'}, span: [12,6,6,4]},
 				{widget: "HeatCalendar", data: {filterfunc: "activity", title: 'Activity calendar'}, span: [12,6,6,4]},

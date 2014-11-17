@@ -30,6 +30,9 @@ define(
 				if(!message.get("objectType"))
 					message.fetch();
 
+				// Temporary hack for actions
+				message.attributes.canHaveNotifications = true;
+
 				this.inboxmessage = new InboxMessageWidget({model: message, notification: model});
 				$(".message-container").html(this.inboxmessage.render().el);
 
