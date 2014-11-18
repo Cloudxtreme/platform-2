@@ -201,7 +201,6 @@ define(
 			
 			endchange : function (e)
 			{
-
 				if (this.$contenteditable.html().match(this.xurlendpattern))
 				{
 					var newurls = this.listentourl(null, this.$contenteditable.text(), true);
@@ -403,7 +402,7 @@ define(
 			},
 
 			shortenurl : function(model)
-			{	
+			{
 				this.releaseurlprocessing();
 				
 				var properties = ['description', 'og:description', 'og:image', 'og:video', 'og:title'];
@@ -439,6 +438,7 @@ define(
 						{	
 							if(data == 'youtube')
 								self.$el.find('#out').addClass('expanded');
+
 							else if(_.isObject(data)){
 								$.each(data, function(property, value){					
 									if(properties.indexOf(property) >= 0)

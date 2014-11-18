@@ -128,10 +128,30 @@ define (
 				if(this.action) this.type = this.action.get("token");
 				
 				if(this.action && this.type == "share")
-				{
+				{	
+					var messagestream = Cloudwalkers.Session.getStream(this.reference.get("stream"))
+
 					// Clone, but filter out unwanted data.
 					this.draft = this.reference.cloneSanitized();
 					this.draft.attributes.variations = [];
+
+					// is it a keyword monitoring web share?
+					if (this.reference.get("networktoken") ==  'web' && messagestream.get("type") == 'MONITORING')
+					{
+						var url = this.reference.geturl();
+
+						if(url)
+						{
+							this.draft.attributes.body = {
+								html: url,
+								plaintext: url,
+								intro: url
+							}
+
+							// Trigger to first editor render
+							this.weburl = true;
+						}
+					}
 					
 				} else if(this.action && this.reference)
 				{	
@@ -358,7 +378,7 @@ define (
 			},
 			
 			monitor : function (e)
-			{	
+			{
 				var target;
 
 				if(!e)	target = this.$el.find('#compose-content');
@@ -628,6 +648,14 @@ define (
 
 				// Update content, images and links
 				this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
+
+				if(this.weburl) {
+					setTimeout(function(){
+						this.editor.endchange();
+						this.weburl = false;
+				}.bind(this), 1000);
+					
+				}
 			},
 
 			updatesubject : function()

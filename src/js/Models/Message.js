@@ -295,6 +295,8 @@ define(
 				return model;	
 			},
 
+
+
 			checkloaded : function (response)
 			{
 				var model = this;
@@ -1055,6 +1057,16 @@ define(
 			hasattachements : function(){
 				if(this.get("attachments"))
 					return this.get("attachments").length > 0;
+			},
+
+			geturl : function ()
+			{
+				var url;
+
+				if(this.hasattachements)
+					url = this.get("attachments").filter(function(a){ return a.type = 'link' });
+
+				return url.length? url[0].url: null;
 			},
 
 			hasschedule : function(){
