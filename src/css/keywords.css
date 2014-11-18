@@ -319,6 +319,12 @@
 	background: #fff;
 }
 
+#monitorparent .message-actions {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
 #monitorparent .message-sub-actions {
 	border: 1px solid #ddd;
 	border-bottom-width: 0px;
