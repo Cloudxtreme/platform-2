@@ -12,7 +12,7 @@ define(
 	['Views/Pages/Pageview', 'mustache', 'Collections/Statistics', 'Views/Panels/Statistics/EmptyStatisticsData',
 	 'Views/Panels/Statistics/StatSummary', 'Views/Panels/Statistics/TitleSeparator','Views/Panels/Statistics/Chart', 'Views/Panels/Statistics/CompoundChart', 'Views/Panels/Statistics/Info',
 	 'Views/Panels/Statistics/TrendingMessage', 'Views/Panels/Statistics/BestTimeToPost', 'Views/Panels/Statistics/HeatCalendar',      
-	 'goog!visualization,1,packages:[corechart,geochart]', 'goog!search,1'],
+	 ],
 
 	function (Pageview, Mustache, Statistics, EmptyStatisticsWidget, StatSummary, TitleSeparator, Chart, CompoundChart, Info,
 			  TrendingMessage, BestTimeToPost, HeatCalendar)
@@ -120,8 +120,14 @@ define(
 
 				// Load Google stuff
 				// Load statistics
-				google.load('visualization', '1', { 'callback': this.request.bind (this), 'packages':['corechart']});	
-				
+				require(
+					['goog!visualization,1,packages:[corechart,geochart]', 'goog!search,1'],
+					function () {
+
+						google.load('visualization', '1', { 'callback': this.request.bind (this), 'packages':['corechart']});	
+
+					}.bind(this));
+
 				return this;
 			},
 
