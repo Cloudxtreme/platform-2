@@ -686,7 +686,7 @@ define(
 						trans("Are you sure you want to remove this message?"), 
 						function () 
 						{
-		                    this.destroy ({success: this.destroysuccess.bind(this)});
+		                    this.destroy ({wait: true, success: this.destroysuccess.bind(this)});
 						}.bind(this)
 					);
 				}
@@ -1064,8 +1064,8 @@ define(
 				var url;
 
 				if(this.hasattachements)
-					url = this.get("attachments").filter(function(a){ return a.type = 'link' });
-
+					url = this.get("attachments").filter(function(a){ if(a.objectType == 'attachment/link') return a; });
+				
 				return url.length? url[0].url: null;
 			},
 

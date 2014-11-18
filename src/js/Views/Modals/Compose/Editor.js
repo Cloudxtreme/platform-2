@@ -121,7 +121,7 @@ define(
 
 				this.$loadercontainer = this.$el.find ('#out-loading');
 				this.trigger("rendered");
-
+				
 				return this;
 			},
 

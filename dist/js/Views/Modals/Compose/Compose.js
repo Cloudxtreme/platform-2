@@ -649,11 +649,12 @@ define (
 				// Update content, images and links
 				this.trigger("update:stream", {id : id, data : this.draft.getvariation(id, 'body')});
 
+				// Process link on editor render
 				if(this.weburl) {
 					setTimeout(function(){
 						this.editor.endchange();
 						this.weburl = false;
-				}.bind(this), 1000);
+				}.bind(this), 500);
 					
 				}
 			},

@@ -21,7 +21,7 @@ define(
 				
 				// Listen to destroy
 				// Reload parent message for message counter
-				this.once("destroy", function()
+				this.once("destroyed", function()
 				{
 					this.collection.parentmodel.fetch();					
 				})
