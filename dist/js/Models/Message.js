@@ -337,7 +337,7 @@ define(
 					
 					// Attachments
 					filtered.attached = {};
-					$.each(response.attachments, function(n, object){ filtered.attached[object.type] = object });
+					$.each(response.attachments, function(n, object){ if(!filtered.attached[object.type]) filtered.attached[object.type] = object });
 				
 				} else filtered.media = "reorder";
 				
