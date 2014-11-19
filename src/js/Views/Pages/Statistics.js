@@ -173,6 +173,9 @@ define(
 				// Iterate widgets
 				this.widgets.forEach (function (widget)
 				{
+					if(widget.widget == 'clear')
+						this.resetwrapping();
+
 					// Stream based data	
 					if (this.streamid && this.streamdata(widget))
 						widget.data = this.streamdata(widget);

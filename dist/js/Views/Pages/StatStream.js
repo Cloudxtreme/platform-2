@@ -17,6 +17,8 @@ define(
 				{widget: "Chart", data: {filterfunc: "gender", chart: "PieChart", title: "By gender"}, span : [12,4,3,3], networks: ['facebook']},
 				{widget: "Chart", data: {filterfunc: "follow", chart: "PieChart", title: "By Type"}, span : [12,4,3,3], networks: ['twitter', 'linkedin', 'youtube']},
 
+				{widget: "clear"},
+
 				{widget: "Info", data: {title: "New impressions", filterfunc: "page-views-network"}, span: [12,6,3,3], nonetworks: ['twitter']},
 		        {widget: "Info", data: {title: "New shares", filterfunc: "shares"}, span: [12,6,3,3], nonetworks: ['twitter']},
 		        {widget: "Info", data: {title: "New posts", filterfunc: "posts"}, span: [12,6,3,3], nonetworks: ['twitter']},

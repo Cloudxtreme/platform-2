@@ -120,10 +120,10 @@ define(
 			        _.map(fulldata.data, function(group){
 
 			        	if(group[0] == "Female")
-			        		group[0] = trans("Feminino")
+			        		group[0] = trans("Female")
 
 			        	if(group[0] == "Male")
-			        		group[0] = trans("Masculino")
+			        		group[0] = trans("Male")
 			        	
 			        }.bind(this));
 
