@@ -323,7 +323,8 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 			
 			// Attachments
 			filtered.attached = {};
-			$.each(response.attachments, function(n, object){ filtered.attached[object.type] = object });
+			$.each(response.attachments, function(n, object){ if(!filtered.attached[object.type]) filtered.attached[object.type] = object });
+
 		
 		} else filtered.media = "reorder";
 		
@@ -1289,6 +1290,16 @@ Cloudwalkers.Models.Message = Backbone.Model.extend({
 		if(this.get("attachments"))
 			return this.get("attachments").length > 0;
 	},
+
+    geturl : function ()
+    {
+        var url;
+
+        if(this.hasattachements)
+        	url = this.get("attachments").filter(function(a){ if(a.objectType == 'attachment/link') return a; });
+
+        return url.length? url[0].url: null;
+    },
 
 	'hasschedule' : function(){
 		if(this.get("schedule"))
