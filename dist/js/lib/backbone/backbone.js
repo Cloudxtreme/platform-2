@@ -716,7 +716,7 @@
       }
 
       // Remove nonexistent models if appropriate.
-      if (remove) { 
+      if (remove) {
         for (i = 0, l = this.length; i < l; ++i) {
           if (!modelMap[(model = this.models[i]).cid]) toRemove.push(model);
         }

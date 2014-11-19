@@ -4,9 +4,9 @@
  */
 
 define(
-	['backbone', 'mustache'],
+	['backbone', 'mustache', 'colorbox'],
 
-	function (Backbone, Mustache)
+	function (Backbone, Mustache, colorbox)
 	{		
 		var Entry = Backbone.View.extend({
 	
@@ -67,6 +67,8 @@ define(
 					this.$el.addClass('failed');
 					this.model.attributes.failed = 'failed';
 				}
+
+				this.$el.find(".message-img").colorbox({maxWidth: '80%', maxHeight: '80%', opacity: 0.7});
 				
 				return this;
 			},
