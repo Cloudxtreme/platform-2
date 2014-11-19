@@ -75,7 +75,7 @@ define(['Models/User', 'Collections/Accounts'],
 				// Check default account
 				if(!me.settings.currentAccount)
 					me.settings = {currentAccount: me.accounts[0].id};
-								
+				
 				return me;
 			},
 			
@@ -165,8 +165,8 @@ define(['Models/User', 'Collections/Accounts'],
 			{
 				// Get current account view
 				var current = Cloudwalkers.Session.get("currentAccount");	
-				
-				if(!current)
+
+				if(!current || !this.accounts.get(Number(current)))
 				{
 					current = this.accounts.at(0).id;
 					this.save({settings: {currentAccount: current}});
