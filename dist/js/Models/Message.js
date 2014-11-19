@@ -274,6 +274,8 @@ define(
 			cloneSanitized : function (keepstreams)
 			{	
 				var model = new Message();
+				var attachments;
+
 				$.extend(true, model, this);
 				//var model = this.clone();
 			
@@ -291,6 +293,13 @@ define(
 				{
 					delete model.id; delete model.attributes.id;
 				}
+
+				if(model.attributes.attachments)	model.attributes.attachments = [];
+
+				// Sanitize attachments
+				$.each(model.attributes.attached, function(n, object){
+					model.attributes.attachments.push(object);
+				});
 				
 				return model;	
 			},
