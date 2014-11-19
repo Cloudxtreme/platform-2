@@ -34,6 +34,7 @@ define(
 				
 				// Listen to contacts collection
 				this.listenTo(this.model.users, 'add', this.comparesuggestions);
+				this.listenTo(this.model.messages, 'ready:empty', this.empty)
 		    },
 
 			render : function ()
@@ -197,6 +198,12 @@ define(
 				this.list.render({users: view.model.id, records: 20});
 				/*
 				this.list.model.messages.touch(this.list.model, {records: 20, users: view.model});*/
+			},
+
+			empty : function()
+			{
+				this.$el.find("#userlist").eq(0).removeClass('inner-loading');
+				this.$el.find("#userlist").eq(0).html('<em class="muted">No drafts found</em>')
 			}
 		});
 
