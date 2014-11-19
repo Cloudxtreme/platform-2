@@ -44,6 +44,7 @@ div[class^='pv-'], img{
 .pv-url-content{ position: relative; height: auto;}
 
 .pv-url-content > .pv-img, .pv-url-content, .pv-url-content-text, .pv-url, #viewsummary{ display: none;}
+.pv-url-content > .pv-img { max-height: 250px; overflow: hidden;}
 
 .pv-url-content-text{ padding: 10px; border: thin solid #ddd; }
 

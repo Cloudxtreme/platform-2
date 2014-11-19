@@ -58,6 +58,22 @@ define(
 				// Render preview (opacity:0)
 				var view = Mustache.render(Templates.previewtemplate, this.previewdata);
 				this.$el.find("#pv-main").append(view);
+
+				// Loading time
+				if(img)	
+					setTimeout(function(){
+						this.processimage(img);
+					}.bind(this), 100);
+			},
+
+			processimage : function() 
+			{
+				var height = this.$el.find('.pv-img img').eq(0).height();
+				
+				if(height >= 250){
+					var margin = (height - 250) / 2;
+					this.$el.find('.pv-img img').css('margin-top', margin*-1)
+				}
 			},
 
 			fakeload : function(time)
