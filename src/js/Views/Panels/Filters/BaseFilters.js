@@ -203,7 +203,7 @@ define(
 			empty : function()
 			{
 				this.$el.find("#userlist").eq(0).removeClass('inner-loading');
-				this.$el.find("#userlist").eq(0).html('<em class="muted">No drafts found</em>')
+				//this.$el.find("#userlist").eq(0).html('<em class="muted">No coworkers found</em>')
 			}
 		});
 
