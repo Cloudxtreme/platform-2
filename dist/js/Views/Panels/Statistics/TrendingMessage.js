@@ -11,10 +11,8 @@ define(
 				this.settings = {};
 				this.settings.title = this.title;
 
-				this.model = Cloudwalkers.Session.getChannel('profiles').clone();
-
-				//if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
-				//else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
+				if(!this.parentview.streamid)	this.model = Cloudwalkers.Session.getChannel('profiles').clone();
+				else							this.model = Cloudwalkers.Session.getStream(this.parentview.streamid);
 				
 				this.listenTo(this.model, 'sync', this.fill);
 
@@ -75,9 +73,6 @@ define(
 					records : 1,
 					since : this.timespan.since
 				};
-
-				if(this.parentview.streamid)
-					filters.streamid = this.parentview.streamid;
 
 				this.model.fetch({endpoint : "messages", parameters : filters});
 
