@@ -1702,7 +1702,7 @@ define (
 					if(varn && varn.length) varn.forEach(function(el)
 					{ 
 						if(el.id) 
-						{		console.log(el.id)
+						{
 							if(action && action == 'post')
 								Cloudwalkers.RootView.trigger("added:message", this.draft);
 

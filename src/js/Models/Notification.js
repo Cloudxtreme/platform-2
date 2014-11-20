@@ -22,9 +22,9 @@ define(
 				// Listen to destroy
 				// Reload parent message for message counter
 				this.once("destroyed", function()
-				{
-					this.collection.parentmodel.fetch();					
-				})
+				{	
+					this.parent.model.fetch();
+				}.bind(this))
 			},
 			
 			parse : function(response)

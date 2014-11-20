@@ -249,6 +249,7 @@ define(
 				// Fill it
 				for (var n in actions)
 				{	
+					actions[n].parent = this;
 					this.addaction(actions[n], token);
 				}
 			},

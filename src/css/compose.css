@@ -656,19 +656,19 @@ Style corrections and manual overrides
 	padding: 5px 5px 5px 6% !important;
 }
 
-#compose-content a, #compose-content short{
+#compose-content a, #compose-content div{
 	background-color: #d9edf7;	border-color: #bce8f1; color: #31708f; padding: 2px 10px; border-radius: 20px; text-decoration: none !important; margin: 0px; display: inline-block; font-size: 14px; line-height: 20px;
 }
 
-#compose-content short > i{ margin-left:10px; color:#fff; cursor: pointer;}
+#compose-content div > i{ margin-left:10px; color:#fff; cursor: pointer;}
 
-#compose-content short.red { background-color: #fcc; color : #e02222;}
+#compose-content div.red { background-color: #fcc; color : #e02222;}
 
 #compose-content.withdefault {
 	color: #CCCCCC !important;
 }
 
-#compose-content.withdefault short, #compose-content.withdefault a{
+#compose-content.withdefault div, #compose-content.withdefault a{
 	background-color: #BBB; color: #999;
 }
 

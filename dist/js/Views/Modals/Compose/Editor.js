@@ -111,6 +111,11 @@ define(
 				this.$contenteditable = this.$el.find('#compose-content').eq(0);
 				this.contenteditable  = this.$contenteditable.get(0);
 
+				// IE hack
+				this.contenteditable.designMode = "on"; 	
+				document.execCommand("AutoUrlDetect", false, false)	
+				this.contenteditable.designMode = "off";
+
 				//Selection & range base
 				this.document = this.contenteditable.ownerDocument || this.contenteditable.document;
 				this.win = document.defaultView || document.parentWindow;
@@ -177,7 +182,7 @@ define(
 					//if(!this.urlprocessing && this.$contenteditable.text().match(this.xurlbasic))
 					//	this.filterurl();
 					newurls = this.listentourl(e, this.$contenteditable.text());
-
+					
 					if(newurls)	this.processurls(newurls);
 
 					// Check for charlimit
@@ -232,7 +237,7 @@ define(
 				if(!urlnodes.length)	return;
 				
 				$.each(urlnodes, function(n, urlnode)
-				{	
+				{
 					//Get the node with the URL
 					//node = range.startContainer.childNodes[index];
 					nodetext = urlnode.node.textContent.replace(/&nbsp;/gi,'');
@@ -274,7 +279,7 @@ define(
 
 				}.bind(this));
 				
-
+				
 		 		return _.pluck(urlnodes, 'url');
 			},
 			
@@ -284,7 +289,7 @@ define(
 				var urlnode;
 				//Each line/node -> saves from processing lines without urls
 				$.each(childnodes, function(i, node){
-
+					
 					var urls = false;
 					var text = node.textContent;	
 
@@ -292,10 +297,9 @@ define(
 						return true;	
 
 					if(text)	urls = text.match(forceEnd? this.xurlendpattern: this.xurlpattern);
-				
+
 					// Resolve url at end of string
 					//if(childnodes.length == i+1) url = text.match(this.xurlendpattern);
-
 
 					// Found url(s)
 					if(urls && urls.length){
@@ -401,9 +405,17 @@ define(
 				}.bind(this));
 			},
 
+			controlselectHandler : function () {
+				var pos = this.cursorpos();
+				this.cursorpos(0)
+			},
+
 			shortenurl : function(model)
 			{
 				this.releaseurlprocessing();
+
+				// IE hack to prevent tag selection
+				handler = this.controlselectHandler.bind(this);
 				
 				var properties = ['description', 'og:description', 'og:image', 'og:video', 'og:title'];
 
@@ -415,8 +427,8 @@ define(
 				//Save the url
 				if(!this.urls[longurl])	this.urls[longurl] = model.clone();
 				
-				var urltag = " <short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ shorturl +"<i class='fa fa-link' id='swaplink'></i></short>";
-
+				var urltag = ' <div contenteditable="false" oncontrolselect="handler();" data-long="'+ longurl +'" data-short="'+ shorturl +'">'+ shorturl +'<i class="fa fa-link" id="swaplink"></i></div>';
+				
 				this.$contenteditable.find("a[href='"+ longurl +"']").replaceWith(urltag);
 				
 				this.trigger('change:content');
@@ -454,7 +466,6 @@ define(
 
 				//Update counter
 				this.trigger("change:charlength");
-				
 			},
 			
 			releaseurlprocessing : function (){ this.urlprocessing = false; },
@@ -462,6 +473,9 @@ define(
 			//Swaps between full url & shortened url
 			swaplink : function(e)
 			{
+				// IE hack to prevent tag selection
+				handler = this.controlselectHandler.bind(this);
+				
 				var tag = $(e.currentTarget).get(0).parentElement;
 				var sizebefore = this.$contenteditable.text().length;
 
@@ -470,7 +484,7 @@ define(
 				var content = $(tag).get(0).textContent.trim();
 				var newurl = shorturl == content ? longurl : shorturl;
 
-				var urltag = "<short contenteditable='false' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='fa fa-link' id='swaplink'></i></short>";
+				var urltag = "<div contenteditable='false' oncontrolselect='handler();' data-long='"+ longurl +"' data-short='"+ shorturl +"'>"+ newurl +"<i class='fa fa-link' id='swaplink'></i></div>";
 					
 				$(tag).replaceWith(urltag);
 
