@@ -175,7 +175,7 @@ define(
 				
 				// Did anything change?
 				if(this.content !== this.$contenteditable.text() || reload)
-				{	
+				{
 					this.pos = this.cursorpos();
 					
 					// Check for URL
@@ -189,7 +189,18 @@ define(
 					//if (this.charlength != this.$contenteditable.text().length)
 					//	this.trigger("change:charlength");
 				}
-				
+
+				/*Firefox hack to delete url nodes*/
+				if (this.isfirefox && e)
+				{
+					this.getnode(this.$contenteditable[0], this.cursorpos());
+					
+					if (this.isurl(this.currentnode))
+						if(e.keyCode == 8)	// backspace
+							//console.log(this.currentnode.node.parentNode);
+							this.$contenteditable.get(0).removeChild(this.currentnode.node.parentNode);
+				}
+
 				// Content
 				this.content = this.$contenteditable.text();
 				
@@ -330,7 +341,7 @@ define(
 				var foundnode;
 				
 				$.each(parentnode.childNodes, function(n, node)
-				{	
+				{
 					if(url){
 						if (node.nodeType == 3) {
 							if(node.childNodes.length){
@@ -616,13 +627,13 @@ define(
 					links.removeClass("red");
 
 					//Range starts inside a link
-					if(this.isurl(enddata.node)){
+					/*if(this.isurl(enddata.node)){
 						//console.log("isurl", $(enddata.node.parentNode));
 						$(enddata.node.parentNode).addClass("red");
 						enddata.node = enddata.node.parentNode.nextSibling;
 						enddata.offset = 0;
 						insidelinks ++;
-					}
+					}*/
 
 					range.setStart(enddata.node, enddata.offset);
 					range.setEnd(endnode.node, endnode.offset);
@@ -665,7 +676,8 @@ define(
 				result = false;
 
 				$.each(this.urls, function(i, url){
-					if(url.get("shortUrl") == u.textContent || i == u.textContent){
+					
+					if(url.get("shortUrl") == u.node.textContent || i == u.node.textContent){
 						result = true;
 						return false;
 					}	
