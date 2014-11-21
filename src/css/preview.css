@@ -22,7 +22,7 @@ div[class^='pv-'], img{
 .twt #pv-watermark span:after{content: "\F099";}
 .li #pv-watermark span:after{content: "\F0E1";}
 
-.pv-wrapper{ padding: 15px;	max-width: 600px; margin: 0px auto; opacity: 0;}
+.pv-wrapper{ padding: 15px;	max-width: 550px; margin: 0px auto; opacity: 0;}
 
 .pv-wrapper-wrap{ padding: 20px; border-radius: 4px; border: thin solid #eee; box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.1); background-color: #fff; }
 
@@ -137,7 +137,7 @@ div[class^='pv-'], img{
 
 .li.withlink .pv-img{ float: left; }
 
-.fb.link.img .pv-url-content-text, .twt.link.img .pv-url-content-text, .gp.link.img .pv-url-content-text{ display: none; }
+/*.fb.link.img .pv-url-content-text, .twt.link.img .pv-url-content-text, .gp.link.img .pv-url-content-text{ display: none; }*/
 .twt.link.img .pv-url-content, .gp.img .pv-url-content{ margin: 0 -16px; }
 
 .twt.link.img .pv-url-content{ margin: 0px; }
