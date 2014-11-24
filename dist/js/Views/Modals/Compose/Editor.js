@@ -468,7 +468,7 @@ define(
 										self.$el.find('#out').addClass('expanded');
 
 										//Add the image to the attachments
-										self.addoeimg();
+										//self.addoeimg();
 								})
 							}
 						}

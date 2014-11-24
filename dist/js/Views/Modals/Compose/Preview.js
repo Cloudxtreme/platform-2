@@ -43,17 +43,29 @@ define(
 					profile : this.model.get('profile')
 				};
 
-				//Random load times
+				// Random load times
 				this.fakeload((Math.random()*1.2)+0.4);
 				
-				//Process possible link information
+				// Process possible link information
 				if (this.parent.$el.find("#out").hasClass('expanded'))
 					this.previewdata.linkdata = this.processlink();
 
-				img = this.model.hasAttachement("image");
+				// Has attached image?
+				if (this.model.hasAttachement("image"))
+				{
+					var img = this.model.hasAttachement("image");
 
-				if(img){
 					this.previewdata.image = img.data || img.url;
+					this.$el.find("#network").addClass("img"); 
+
+					// hide the linkdata
+					if(this.previewdata.linkdata)
+						this.$el.find("#network").removeClass("link");
+				}
+
+				else if (this.previewdata.linkdata) {
+
+					this.previewdata.image = this.previewdata.linkdata.img;
 					this.$el.find("#network").addClass("img"); 
 				}
 				
@@ -62,7 +74,7 @@ define(
 				this.$el.find("#pv-main").append(view);
 
 				// Loading time
-				if(img)	
+				if(this.previewdata.image)	
 					setTimeout(function(){
 						this.processimage(img);
 					}.bind(this), 100);
@@ -71,6 +83,7 @@ define(
 			processlink : function ()
 			{
 				var linkdata = {
+					img : this.parent.$el.find("#out [data-type=image] img").get(0).src,
 					title : this.parent.$el.find("#out [data-type=title]").text(),
 					content : this.parent.$el.find("#out [data-type=content]").text()
 				}
