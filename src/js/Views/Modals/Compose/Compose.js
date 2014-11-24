@@ -1545,7 +1545,7 @@ define (
 				this.$el.addClass("switch-mode");
 
 				// Create new preview object
-				this.preview = new PreviewView({model: this.draft.clone(), previewtype: 'default', streamid: this.activestream.id});
+				this.preview = new PreviewView({model: this.draft.clone(), previewtype: 'default', streamid: this.activestream.id, parent: this});
 				
 				// Add preview view to Compose
 				this.$el.find('.switch-container').append(this.preview.render().el);

@@ -466,6 +466,9 @@ define(
 								$.each(data, function(property, value){					
 									if(properties.indexOf(property) >= 0)
 										self.$el.find('#out').addClass('expanded');
+
+										//Add the image to the attachments
+										self.addoeimg();
 								})
 							}
 						}

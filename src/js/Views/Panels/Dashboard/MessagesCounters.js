@@ -27,12 +27,12 @@ define(
 			addedmessage : function(message)
 			{
 				// Is it a scheduled message?
-				if(message.get("schedule") && message.get("schedule").date)
+				if(message.get("status") == "SCHEDULED")
 					this.updatecollection();
 			},
 			
 			render : function ()
-			{	
+			{
 				this.$el.html (Mustache.render (Templates.messagescounters, this.options));
 				this.$container = this.$el.find('ul.entry-container.messages-list').eq(0)
 
@@ -52,12 +52,14 @@ define(
 					var counterentry = new CounterEntryView({model: collection.models[n], data: this.options});
 					this.$container.append(counterentry.render().el);
 				}
+
+				this.refreshcounter();
 			},	
 			
 			updatecollection : function()
-			{
+			{	
 				this.listenToOnce(this.collection, 'sync', this.fill);
-
+				
 				// For inbox & scheduled
 				if(this.options.source == 'streams')
 				{
@@ -99,6 +101,31 @@ define(
 				// Check collapse option
 				if(typeof this.options.open != "undefined")
 					this.appendCollapseble(this.options.open);
+			},
+
+			appendCounter : function(amount) {
+				
+				var count = this.calccounter();
+				
+				this.$el.find(".tools").append($('<span class="count">' + count + '</span>'));
+			},
+
+			calccounter : function () {
+
+				var count = 0;
+				this.$el.find("li .badge, li .count").each(function(){ count += Number($(this).text())});
+				
+				if(count > 999) count = "+999";
+				if(count < 0) count = 0;
+
+				return count;
+			},
+
+			refreshcounter : function()
+			{
+				var count = this.calccounter();
+
+				this.$el.find(".tools > .count").html(count);
 			}
 		});
 

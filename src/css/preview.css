@@ -46,6 +46,8 @@ div[class^='pv-'], img{
 .pv-url-content > .pv-img, .pv-url-content, .pv-url-content-text, .pv-url, #viewsummary{ display: none;}
 .pv-url-content > .pv-img { max-height: 250px; overflow: hidden;}
 
+.link .pv-url-content-text { display: block;}
+
 .pv-url-content-text{ padding: 10px; border: thin solid #ddd; }
 
 .pv-url-title{ color: #333; }
@@ -70,8 +72,8 @@ div[class^='pv-'], img{
 
 .fb{ background-color: #e9eaed; }
 .fb .pv-header{ border-bottom: thin solid #eee; }
-.fb.link .pv-url, .twt.link .pv-url, .gp.link .pv-url{display: block;}
-.fb.link .pv-url-content-text{ background-color: #f6f7f8; }
+.twt.link .pv-url, .gp.link .pv-url{display: block;}
+.fb.link .pv-url-content-text{ background-color: #fff; }
 .fb.link .pv-url-text, .gp.link .pv-url-text{	color: #666; margin-top: 10px; }
 .gb .pv-url > a{}
 
@@ -158,8 +160,8 @@ div[class^='pv-'], img{
     font-style: normal;
 }
 
-.fb .pv-title, .fb .pv-url-title{ color:#3B5998; font-weight: bold; }
-.fb .pv-main{ color: #141823; }
+.fb .pv-title, .fb .pv-url-title{ color:#141823; font-weight: bold; font-size: 15px;}
+.fb .pv-main{ color: #141823; font-family: Georgia, 'lucida grande',tahoma,verdana,arial,sans-serif; }
 .fb .pv-main a{ color: #3B5998; }
 /* Social widgets */
 #pv-fb-bottomtop{padding: 3px 20px;}

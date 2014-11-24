@@ -46,7 +46,9 @@ define(
 				//Random load times
 				this.fakeload((Math.random()*1.2)+0.4);
 				
-				if(this.model.hasAttachement("link"))	this.$el.find("#network").addClass("link"); 
+				//Process possible link information
+				if (this.parent.$el.find("#out").hasClass('expanded'))
+					this.previewdata.linkdata = this.processlink();
 
 				img = this.model.hasAttachement("image");
 
@@ -64,6 +66,18 @@ define(
 					setTimeout(function(){
 						this.processimage(img);
 					}.bind(this), 100);
+			},
+
+			processlink : function ()
+			{
+				var linkdata = {
+					title : this.parent.$el.find("#out [data-type=title]").text(),
+					content : this.parent.$el.find("#out [data-type=content]").text()
+				}
+
+				this.$el.find("#network").addClass("link");
+
+				return linkdata;
 			},
 
 			processimage : function() 

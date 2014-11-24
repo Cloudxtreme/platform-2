@@ -113,17 +113,6 @@ define(	// MIGRATION: widget based on BaseView
 
 			},
 			
-			appendCounter : function(amount) {
-				
-				var count = 0;
-				this.$el.find("li .badge, li .count").each(function(){ count += Number($(this).text())});
-				
-				if(count > 999) count = "+999";
-				if(count < 0) count = 0;
-				
-				this.$el.find(".tools").append($('<span class="count">' + count + '</span>'));
-			},
-			
 			addScroll : function () {
 
 				var scroll = this.$el.find('.scroller').eq(0);
