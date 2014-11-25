@@ -36,8 +36,6 @@ define(
 			
 			fill : function ()
 			{
-				var img;
-
 				this.previewdata = {
 					body : this.model.get('body') || "",
 					profile : this.model.get('profile')
@@ -81,9 +79,11 @@ define(
 			},
 
 			processlink : function ()
-			{
+			{	
+				var image = this.parent.$el.find("#out [data-type=image] img").get(0);
+
 				var linkdata = {
-					img : this.parent.$el.find("#out [data-type=image] img").get(0).src,
+					img : image? image.src: null,
 					title : this.parent.$el.find("#out [data-type=title]").text(),
 					content : this.parent.$el.find("#out [data-type=content]").text()
 				}

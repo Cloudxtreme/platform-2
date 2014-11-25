@@ -9,6 +9,8 @@
 
 		$('html').mouseup(function(e)
 		{
+			var self = this;
+
 			e.stopPropagation();
 
 			if(e.target.className == "no-js"){
@@ -42,7 +44,7 @@
 				//if($("#keyword_filter").children().length > 3)
 				if($("#keyword_filter").children().length > 1)
 				{
-					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true)
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') === true)
 					{
 						$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
@@ -62,11 +64,11 @@
 		   				// check if small 
 		   				var small_group = false;
 
-		   				if($('#keyword_filter').children().eq(-2).is('.demo_group') == true)
+		   				if($('#keyword_filter').children().eq(-2).is('.demo_group') === true)
 		   					small_group = $('#keyword_filter').children().eq(-2).attr('id');
-		   				if($('#keyword_filter').children().eq(-3).is('.demo_group') == true)
+		   				if($('#keyword_filter').children().eq(-3).is('.demo_group') === true)
 		   					small_group = $('#keyword_filter').children().eq(-3).attr('id');
-		   				if($('#keyword_filter').children().eq(-4).is('.demo_group') == true)
+		   				if($('#keyword_filter').children().eq(-4).is('.demo_group') === true)
 		   					small_group = $('#keyword_filter').children().eq(-4).attr('id');
 
 		   				if(small_group != false)
@@ -102,7 +104,7 @@
 
 				//if(($("#keyword_filter").children().length > 3) || $("#keyword_filter").children().length < 2){
 				if(($("#keyword_filter").children().length > 1) || $("#keyword_filter").children().length < 2){
-					if($('#keyword_filter').children().eq(-2).is('.demo_drop') == true){
+					if($('#keyword_filter').children().eq(-2).is('.demo_drop') === true){
 						$('#keyword_filter').children().eq(-2).remove();
 						$("#keyword_filter #demo_plus").remove();
 						addPlus("small");
@@ -113,7 +115,7 @@
 				}
 					
 				
-				if(valid_formula == true)
+				if(valid_formula === true)
 				{
 					// if filter is valid fill it
 					var filter_src = $("#keyword_filter").children();
@@ -377,10 +379,10 @@
 				$("#keyword_filter #demo_plus").remove();
 
 				// if last element is dropdown add small plus
-				if($("#keyword_filter span:last-child").hasClass('demo_drop') == true){
+				if($("#keyword_filter span:last-child").hasClass('demo_drop') === true){
 					plus_size = "large"	
 				} // if filter is empty
-				else if($("#keyword_filter").children().length == 0){
+				else if($("#keyword_filter").children().length === 0){
 					plus_size = "large";
 				} else {
 					plus_size = "small"
@@ -419,7 +421,7 @@
 		// Add Plus
 		function addPlus (size,id){
 			var open_groups = $('#keyword_filter .demo_group').length - $('#keyword_filter .demo_end_group').length;
-
+			
 			if(open_groups > 0){				
 				$("#keyword_filter").append(eval("bot_plus_" + size + "_end_group"));
 			} else {

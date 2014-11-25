@@ -463,7 +463,9 @@ define(
 								self.$el.find('#out').addClass('expanded');
 
 							else if(_.isObject(data)){
-								$.each(data, function(property, value){					
+								$.each(data, function(property, value){		
+									
+									// Any of the properties we want exist?			
 									if(properties.indexOf(property) >= 0)
 										self.$el.find('#out').addClass('expanded');
 
