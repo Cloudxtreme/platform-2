@@ -68,14 +68,27 @@ img {
 }
 
 #inbox #widgetcontainer,
-#notes #widgetcontainer {
+#notes #widgetcontainer,
+#coworkers #widgetcontainer,
+#drafts #widgetcontainer,
+#monitoring #widgetcontainer {
 	position: relative;
 	overflow: hidden;
 	border: 1px solid #e6e6e6;
 	background: #eee;
 	z-index: 1;
-	box-shadow: inset 0 0 3px #d6d6d6;
+	/*box-shadow: inset 0 0 3px #d6d6d6;*/
 	margin: 0;
+}
+
+#coworkers, #drafts, #monitoring {
+	padding-left: 5px; 
+}
+
+#coworkers #widgetcontainer,
+#drafts #widgetcontainer,
+#monitoring #widgetcontainer {
+	border-left: none;
 }
 
 .page-title{
@@ -301,7 +314,7 @@ img {
 }
 
 .form-group input, .form-control {
-	border-radius: 2px;
+	border-radius: 3px;
 }
 
 .form-group label {
@@ -707,6 +720,22 @@ li [class^="fa fa-"] {
 	padding: 6px 20px;
 }
 
+
+/*************************************/
+/********* Base messagelist **********/
+.messagelist.baselist .panel-body{
+	padding: 0px 10px 0px 0px;
+	margin-right: -10px;
+}
+
+.messagelist.baselist .message-container{
+	padding-top: 15px;
+}
+
+.messagelist.baselist .message-container [data-token="note"]{
+	display: none;
+}
+
 /*************************************/
 /********* Specific Entries **********/
 
@@ -824,9 +853,9 @@ li [class^="fa fa-"] {
 /********* Message & Note **********/
 .message {
 	background: white;
-	box-shadow: 0 0 3px #d6d6d6;
+	/*box-shadow: 0 0 3px #d6d6d6;*/
 	font-size: 13px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .message .message-header {
@@ -867,6 +896,108 @@ li [class^="fa fa-"] {
 	float: right;
 }
 
+/* Unified message style */
+/* styles are the same as timeline messages, unify css */
+.message-unified-body {
+	font-weight: 300;
+	position: relative;
+	background: #fff;
+	border-radius: 0px;
+	box-shadow: inset #ddd -5px 0px 0 0;
+	padding: 15px 20px;
+	color: #222;
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+	color: #777;
+}
+
+.message-unified-body.hasattachments {
+	margin-top: 40px;
+}
+
+.message-unified-header .username {
+	position: relative;
+	top: 10px;
+	left: 5px;
+	font-weight: bold;
+}
+
+.message-unified-header .username a {
+	color: #555;
+}
+
+.message-unified-content {
+	padding-right: 55px;
+	padding-top: 10px;
+	margin: 5px 0px 15px;
+	clear: left;
+}
+
+.message-unified-body .message-actions {
+	padding: 0;
+	height: auto;
+}
+
+.message-unified-media {
+	position: absolute;
+	top: -30px;
+	right: 20px;
+}
+
+.message-unified-media .media-sphere, 
+.message-unified-media .media-clip {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-position: center;
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.message-unified-media .media-clip {
+	background: #3d3d3d;
+	text-align: center;
+	color: #fff;
+	line-height: 35px;
+	font-size: 20px;
+	width: 35px;
+	height: 35px;
+	margin-top: 6px;
+	cursor: inherit;
+}
+
+.message-unified-body.facebook-entry {		box-shadow: inset #3B5998 -5px 0px 0 0; }
+.message-unified-body.twitter-entry {		box-shadow: inset #01a9da -5px 0px 0 0; }
+.message-unified-body.linkedin-entry {		box-shadow: inset #1783BC -5px 0px 0 0; }
+.message-unified-body.tumblr-entry {		box-shadow: inset #385775 -5px 0px 0 0; }
+.message-unified-body.google-plus-entry {	box-shadow: inset #DD4C39 -5px 0px 0 0; }
+.message-unified-body.youtube-entry {		box-shadow: inset #CC181E -5px 0px 0 0; }
+.message-unified-body.web-entry {			box-shadow: inset #ff9c00 -5px 0px 0 0; }
+.message-unified-body.blog-entry {			box-shadow: inset #ff9c00 -5px 0px 0 0; }
+
+.message-unified-body:after{
+	position: absolute;
+	font-family: FontAwesome;
+	font-size: 35px;
+	top: 50%;
+	right:20px;
+	color: #eee;
+	margin-top: -10px;
+}
+
+.message-unified-body.facebook-entry:after {	content: "\f09a"; }
+.message-unified-body.twitter-entry:after {		content: "\f099"; }
+.message-unified-body.linkedin-entry:after {	content: "\f0e1"; }
+.message-unified-body.tumblr-entry:after {		content: "\f173"; }
+.message-unified-body.google-plus-entry:after {	content: "\f0d5"; }
+.message-unified-body.youtube-entry:after {		content: "\f167"; }
+	
+/* end unify style */
 .note {
 	background: #faf8bf !important;
 	box-shadow: 0 0 3px #d6d6d6;

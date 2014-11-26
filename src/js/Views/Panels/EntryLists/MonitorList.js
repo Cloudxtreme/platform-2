@@ -36,9 +36,9 @@ define(
 				var data = { name:  this.model.get("name") };
 
 				// Get template
-				this.$el.html (Mustache.render (Templates.monitorlist, data));		
+				this.$el.html (Mustache.render (Templates.baselist, data));		
 
-				this.$container = this.$el.find ('.entry-container');
+				this.$container = this.$el.find ('.message-container');
 				this.$loadercontainer = this.$el.find ('.panel-body');
 				this.$el.find(".load-more").hide();
 				
@@ -90,8 +90,8 @@ define(
 				
 				// Add messages to view
 				for (var n in list)
-				{
-					var view = new MessageEntry ({model: list[n], template: "keywordentry"});
+				{	console.log(list[n])
+					var view = new MessageEntry ({model: list[n], template: "unifiedmessage"});
 					this.entries.push (view);
 					
 					this.$container.append(view.render().el);

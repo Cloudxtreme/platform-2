@@ -12,7 +12,6 @@ define(
 		var InboxMessage = MessageEntryView.extend({
 	
 			tagName : 'div',
-			className : "message",
 			template : 'inboxmessage',
 			related : [],
 			messageview : [],

@@ -47,62 +47,53 @@
 	</div>
 </div>
 -->
-<div class="row">
-	<div class="col-md-12">
+		{{#title}}<h3 class="page-title">{{#trans}}{{title}}{{/trans}}</h3>{{/title}}
 
-		<div class="panel grey channelfilters">
-			<div class="panel-heading line">
-				<i class="fa fa-tags icon-large"></i>{{#trans}}Filters{{/trans}}
+		<div class="channelfilters">	
+			<label>{{#trans}}Networks{{/trans}}</label>			
+			<div class="filter network-list">
+				
+				{{#networks}}
+					<div class="btn-white active filter" data-network-streams="{{ids}}">
+						<i class="fa fa-{{icon}}"></i>
+					</div>
+				{{/networks}}
+				
+				<div class="clear"></div>
+				<br />
+				
+				<li class="badge toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
 			</div>
-			<div class="panel-body">				
-				<div class="filter network-list">
-					
-					{{#networks}}
-						<div class="btn-white active filter" data-network-streams="{{ids}}">
-							<i class="fa fa-{{icon}}"></i>
+			
+			<div class="building-notice inactive">
+				<strong>{{#trans}}Building your data{{/trans}}</strong>
+				<br>{{#trans}}This will take a minute or so.{{/trans}}
+			</div>
+							
+			<hr />
+			
+			<div class="keyword-list">
+				<label>{{name}} {{#trans}}Keywords{{/trans}}</label>
+				<ul>
+					<div class="row">
+					{{#keywords}}
+						<div class="col-md-4">
+							<li class="active filter btn-white" data-keyword-id="{{id}}">
+								<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
+							</li>
 						</div>
-					{{/networks}}
-					
-					<div class="clear"></div>
-					<br />
-					
-					<li class="badge toggleall networks inactive">{{#trans}}select all{{/trans}}</li>
-				</div>
+					{{/keywords}}
+					</div>
+				</ul>
 				
-				<div class="building-notice inactive">
-					<strong>{{#trans}}Building your data{{/trans}}</strong>
-					<br>{{#trans}}This will take a minute or so.{{/trans}}
-				</div>
-								
-				<hr />
+				<div class="clear"></div>
+				<br />
+				{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
+					<small class="manage">
+						<a href="#keywords">{{#trans}}Manage Keywords{{/trans}}</a>
+					</small>
+				{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
 				
-				<div class="keyword-list">
-					<label>{{name}} {{#trans}}Keywords{{/trans}}</label>
-					<ul>
-						<div class="row">
-						{{#keywords}}
-							<div class="col-md-4">
-								<li class="active filter btn-white" data-keyword-id="{{id}}">
-									<i class="fa fa-tag icon-muted"></i> {{attributes.name}}
-								</li>
-							</div>
-						{{/keywords}}
-						</div>
-					</ul>
-					
-					<div class="clear"></div>
-					<br />
-					{{#authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
-						<small class="manage">
-							<a href="#keywords">{{#trans}}Manage Keywords{{/trans}}</a>
-						</small>
-					{{/authorized.CHANNEL_MANAGE_EDIT_MONITORING}}
-					
-					<li class="badge toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
-				</div>
-
+				<li class="badge toggleall keywords inactive">{{#trans}}select all{{/trans}}</li>
 			</div>
 		</div>
-
-	</div>
-</div>

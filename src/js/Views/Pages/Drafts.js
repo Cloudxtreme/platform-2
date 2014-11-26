@@ -4,7 +4,7 @@ define(
 	{
 		var Drafts = Pageview.extend({
 
-			title : 'Drafts',
+			/*title : 'Drafts',*/
 			className : "container-fluid",
 			id: 'drafts',
 			
@@ -28,7 +28,7 @@ define(
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 				// Add filter widget
-				var filter = new BaseFiltersPanel ({model: this.model, template: "listfilters"});
+				var filter = new BaseFiltersPanel ({model: this.model, template: "listfilters", title: "Draft messages"});
 				this.appendWidget(filter, 4);
 				
 				// Add list widget
@@ -36,6 +36,9 @@ define(
 				this.appendWidget(list, 8);
 				
 				filter.list = list;
+
+				// Expand view to fullscreen height
+				this.expandheight();
 				
 				return this;
 			}

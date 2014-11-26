@@ -119,7 +119,7 @@ define(	// MIGRATION: widget based on BaseView
 				var containerheight; 
 
 				if (this.type == 'list')
-					containerheight = $("#inner-content").height() -165 + "px";
+					containerheight = $("#inner-content").height() -10 + "px";
 
 				scroll.slimScroll({
 					size: '6px',

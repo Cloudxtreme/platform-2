@@ -1,0 +1,47 @@
+	
+		<div class="message-unified-body {{networktoken}}-entry {{#attached.image}}hasattachments{{/attached.image}} {{#attached.video}}hasattachments{{/attached.video}}">
+
+			<div class="message-unified-header">
+				{{#from}}
+					<a class="avatar" href="{{url}}" target="_blank" alt="{{displayname}}" style="background-image:url({{avatar}})"></a>
+					<div class="username">
+						<a href="{{url}}" target="_blank">{{displayname}}</a>
+						<br />
+					</div>						
+				{{/from}}	
+			</div>
+
+			<div class="message-unified-content">
+							
+				{{#subject}}
+					<strong>{{subject}}</strong><br />
+				{{/subject}}
+
+				{{{body.html}}}	
+
+				{{#attached.link}}
+				<br>
+					<div class="attachment-link">
+						<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="fa fa-link"></i>
+					</div>
+				{{/attached.link}}		
+			</div>
+		
+			<div class="message-unified-media">
+
+				{{#attached.image}}
+					<div class="media-clip"><i class="fa fa-paperclip"></i></div>
+					<a href="{{url}}" class="media-sphere message-img" style="background-image: url({{url}});"></a>
+				{{/attached.image}}
+				
+				{{#attached.video}}
+					<div class="media-sphere youtube-video inactive" href="{{url}}?rel=0&amp;wmode=transparent" style="background-image: url({{image}});"></div>
+				{{/attached.video}}
+
+				<div class="clearfix"></div>
+			</div>	
+
+			<div class="message-actions"></div>	
+
+			<div class="clearfix"></div>
+		</div>

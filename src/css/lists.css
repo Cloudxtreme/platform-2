@@ -1,6 +1,25 @@
 .filterpanel {
 	font-size: 13px;
 	font-weight: normal;
+	height: inherit;
+	background-color: #fff;
+}
+
+.filterpanel > h3{
+	margin-top: 0px;
+}
+
+.channelfilters label{
+	color: #aaa;
+	display: block;
+	font-weight: 300;
+}
+
+#coworkers .filterpanel,
+#drafts .filterpanel,
+#monitoring .filterpanel {
+	padding: 20px 10px;
+	border-right: 1px solid #ddd;
 }
 
 .badge.showall,
@@ -17,9 +36,9 @@
 }
 
 .filterpanel .userfilter {
-	padding: 10px 10px 6px;
-	border-bottom: 1px solid #bbb;
-	box-shadow: 0 -1px #eee;
+	padding: 10px 10px 6px 0px;
+	/*border-bottom: 1px solid #bbb;
+	box-shadow: 0 -1px #eee;*/
 }
 
 .smalluser {
