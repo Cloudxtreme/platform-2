@@ -1,0 +1,113 @@
+<div class="timeline-entry {{networktoken}}-entry" data-message-id="{{id}}">
+	<div class="timeline-info">
+
+		<table id="timeline-username">
+		<tbody>
+			<tr>
+				<td>
+					{{#from}}
+
+						{{#showcontact}}
+							<span class="timeline-user" title="{{icon}} {{displayname}}">{{displayname}}</span>
+						{{/showcontact}}
+						{{^showcontact}}
+							<span class="timeline-user" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>
+							<br>
+						{{/showcontact}}
+						
+					{{/from}}	
+					<div class="timeline-time">
+						<span class="date">{{dateonly}}</span>
+						<span class="time">{{#trendview}}{{engagement}}{{/trendview}}{{^trendview}}{{time}}{{/trendview}}</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="network-icon"><i class="fa fa-{{networktoken}}"></i></div>
+	</div>
+
+	<div class="timeline-icon {{^from}}entry-loading{{/from}}">
+		<div class="timeline-avatar">
+			{{#from}}
+				{{#showcontact}}
+					<a class="viewdetails"><img data-action="viewcontact" src="{{avatar}}"/></a>
+				{{/showcontact}}
+				{{^showcontact}}
+					{{#url}}<a class="viewdetails" target="_blank" href="{{url}}"><img src="{{avatar}}"/></a>{{/url}}
+					{{^url}}<div class="viewdetails"><img src="{{avatar}}"/></div>{{/url}}
+				{{/showcontact}}
+				
+			{{/from}}
+		</div>
+	</div>	
+
+	<div class="timeline-body-wrapper">
+
+		<div class="timeline-body">
+
+			{{#url}}
+				<div class="arrow-shadow">
+					<a href="{{url}}" target="_blank"></a>
+					<i class="fa fa-chevron-right"></i>	
+				</div>
+				<div class="arrow-hidder">
+					<a href="{{url}}" target="_blank"></a>
+				</div>
+			{{/url}}
+
+			<div class="timeline-body-user visible-xs-block">
+				{{#from}}
+					{{#showcontact}}
+						<span class="timeline-user" title="{{icon}} {{displayname}}">{{displayname}}</span>
+					{{/showcontact}}
+					{{^showcontact}}
+						<span class="timeline-user" title="{{icon}}" target="_blank" href="{{url}}">{{displayname}}</span>
+					{{/showcontact}}						
+				{{/from}}	
+			</div>
+
+			<div class="timeline-entry-content">
+							
+				{{#subject}}
+					<strong>{{subject}}</strong><br />
+				{{/subject}}
+
+				{{{body.html}}}	
+
+				{{#attached.link}}
+				<br>
+					<div class="attachment-link">
+						<a href="{{url}}" target="_blank">{{shortlink}}</a><i class="fa fa-link"></i>
+					</div>
+				{{/attached.link}}		
+			</div>
+		
+			<div class="timeline-entry-media">
+
+				{{#attached.image}}
+					<div class="media-clip"><i class="fa fa-paperclip"></i></div>
+					<a href="{{url}}" class="media-sphere message-img" style="background-image: url({{url}});"></a>
+				{{/attached.image}}
+				
+				{{#attached.video}}
+					<div class="media-sphere youtube-video inactive" href="{{url}}?rel=0&amp;wmode=transparent" style="background-image: url({{image}});"></div>
+				{{/attached.video}}
+
+				<div class="clearfix"></div>
+			</div>	
+
+			<div class="message-actions"></div>	
+
+			<div class="clearfix"></div>
+		</div>
+		<div class="message-sub-actions">
+			<div class="note-content"></div>
+			<div class="action-lists">
+			</div>
+		</div>	
+
+	</div>
+
+</div>

@@ -1,0 +1,47 @@
+<tr>
+    <td>
+        <h3>{{stream.name}}</h3>
+        <p><a href="javascript:void(0);" data-stream-details-id="{{stream.id}}">Advanced settings</a></p>
+        <p>{{stream.description}}</p>
+
+        <ul>
+            {{#stream.groupedsettings.string}}
+                <li>
+                    <label>{{name}}</label>
+                    <input type="text" value="{{value}}" name="{{key}}" data-stream-setting="{{stream.id}}" />
+                </li>
+            {{/stream.groupedsettings.string}}
+
+            {{#stream.groupedsettings.boolean}}
+                <li>
+                    <input type="checkbox" value="1" name="{{key}}" {{#value}}checked="checked"{{/value}} data-stream-setting="{{stream.id}}" />
+                    {{name}}
+                </li>
+            {{/stream.groupedsettings.boolean}}
+        </ul>
+    </td>
+
+    <td class="white-box">
+        <fieldset>
+            <legend>Channels</legend>
+
+            <ul>
+                {{#parsedchannels}}
+                    {{> service_channel}}
+                {{/parsedchannels}}
+            </ul>
+        </fieldset>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <hr>
+    </td>
+</tr>
+
+{{#substreams.length}}
+    <!-- Substreams. Might want to make these stand out a tiny bit, but don"t know. -->
+    {{#substreams}}
+        {{> service_stream }}
+    {{/substreams}}
+{{/substreams.length}}

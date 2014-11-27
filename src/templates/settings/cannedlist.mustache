@@ -1,0 +1,28 @@
+
+		<div class="collapse-open">
+			<div class="panel yellow">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart"></i>Message templates
+					<div class="tools">
+						<span class="collapse pull-right"></span>
+					</div>
+				</div>
+				<div class="panel-body">
+					<ul class="campaign-list">
+						
+						{{#canned}}
+							<li>
+								<i class="yellow icon-bullseye"></i>
+								<span class="campaign-name">{{attributes.body.plaintext}}</span>
+								
+								<span class="pull-right">
+									<i class="fa fa-remove" data-delete-canned-id="{{id}}"></i>
+								</span>
+								
+							</li>
+						{{/canned}}
+						
+					</ul>
+				</div>
+			</div>
+		</div>

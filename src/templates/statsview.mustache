@@ -1,0 +1,57 @@
+	<!-- stats pageview -->
+	<div class="row">
+		<h3 class="page-title"> </h3>
+	</div>
+	
+	<div class="row stats-header">
+		
+		{{^customActive}}
+		<span class="period-buttons btn-group">
+			<a class="btn" id="subtract" disabled="disabled"><i class="fa fa-caret-left"></i></a>
+			<a class="btn" id="add" disabled="disabled"><i class="fa fa-caret-right"></i></a>
+		</span>
+		{{/customActive}}
+			
+		<h3 class="stats-header-timeview"><strong>{{fullperiod}}: </strong>{{timeview}}</h3>
+		
+		<div class="pull-right">
+			
+			<a class="btn hidden" id="now">{{#trans}}Now{{/trans}}</a>
+			
+			<!--
+			<a class="btn"><i class="fa fa-print"></i></a>
+			-->
+			
+			<select class="networks" disabled="disabled">
+				<option value="0">{{#trans}}All Networks{{/trans}}</option>
+				{{#streams}}
+				<option value="{{id}}" {{#selected}}selected="true"{{/selected}}>{{network.token}} {{customname}}</option>
+				{{/streams}}
+			</select>
+
+			<select class="time" disabled="disabled">
+				<optgroup label="{{#trans}}Time Spans{{/trans}}">
+					<option value="week" {{#weekActive}}selected="true"{{/weekActive}}>{{#trans}}Week{{/trans}}</option>
+					<option value="month" {{#monthActive}}selected="true"{{/monthActive}}>{{#trans}}Month{{/trans}}</option>
+					<option value="quarter" {{#quarterActive}}selected="true"{{/quarterActive}}>{{#trans}}Quarter{{/trans}}</option>
+					<option value="year" {{#yearActive}}selected="true"{{/yearActive}}>{{#trans}}Year{{/trans}}</option>
+				</optgroup>
+				<optgroup label="{{#trans}}Extra{{/trans}}">
+					<option value="custom" {{#customActive}}selected="true"{{/customActive}}>{{#trans}}Custom{{/trans}}</option>
+				</optgroup>
+			</select>
+
+		</div>
+		
+		{{#customActive}}
+		<div class="header-custom">
+			<input id="start" type="text" value="{{startstring}}" />
+			<input id="end" type="text" value="{{endstring}}" />
+			<a class="btn" id="show">{{#trans}}show{{/trans}}</a>
+		</div>
+		{{/customActive}}
+	</div>
+	
+	<div id="widgetcontainer" class="row"></div>
+
+	<!-- end stats pageview -->

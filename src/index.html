@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+	<head>
+		<meta charset="utf-8" />
+		<title>Cloudwalkers - Social Media Management Platform</title>
+
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+
+		<!-- Vendor CSS -> To make dnamic aswell -->
+		<link href="/js/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+		<link href="/js/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/js/lib/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
+		<link href="/js/lib/cal-heatmap/cal-heatmap.css" rel="stylesheet">
+		<link href="/js/lib/chosen/chosen.min.css" rel="stylesheet">
+		<link href="/js/lib/colorbox/example4/colorbox.css" rel="stylesheet">
+		<link href="/js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
+		<link href="/js/lib/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
+		
+		<link href="/fonts/font.css" rel="stylesheet">
+		<link href="/css/login.css" rel="stylesheet">
+		<link href="/css/cloudwalkers-beta.css" rel="stylesheet">
+		<link href="/css/dashboard.css" rel="stylesheet">
+		<link href="/css/statistics.css" rel="stylesheet">
+		<link href="/css/lists.css" rel="stylesheet">
+		<link href="/css/timeline.css" rel="stylesheet">
+		<link href="/css/settings.css" rel="stylesheet">
+		<link href="/css/compose.css" rel="stylesheet">
+		<link href="/css/animation.css" rel="stylesheet">
+		<link href="/css/keywords.css" rel="stylesheet">
+		<link href="/css/scheduled.css" rel="stylesheet">
+		<link href="/css/preview.css" rel="stylesheet">
+		<link href="/css/responsive.css" rel="stylesheet">
+		<link href="/css/viewcontact.css" rel="stylesheet">
+		<link href="/css/reports.css" rel="stylesheet">
+
+		<!--{{#files.stylesheets}}
+			<link href="{{{src}}}" rel="stylesheet">
+		{{/files.stylesheets}}-->
+		 
+		 
+		<link rel="shortcut icon" href="favicon.ico" />
+	</head>
+	
+	<body>
+		
+		<header id="header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/#dashboard">
+							<img src="/images/shield.png" class="brand-logo" alt="logo" />
+							<span>Cloudwalkers</span>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<!-- Container -->
+		<div class="container-fluid notloaded" id="page-container">
+			
+			<div class="">
+				
+				<!-- Navigation -->
+				<div id="sidebar" class=""></div>
+				<!-- end Navigation -->
+				
+				<!-- Share -->
+				<div id="share" class="span2 collapsed"></div>
+				<!-- end Share -->
+				
+				<!-- Pageview -->
+				<div id="inner-content" class="">
+
+					<div class="container-fluid">
+						<div class="row-fluid">	
+							<div class="container-loading">
+								<i class="fa fa-cloud-download"></i>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- en Pageview -->
+				
+			</div>
+		</div>
+		<!-- end Container -->
+
+		<!-- Storage -->
+		<script src="/storage/IDBStorage.js" type="text/javascript"></script>
+		<script src="/storage/IDBstores.js" type="text/javascript"></script>
+		<script src="/storage/localStorage.js" type="text/javascript"></script>
+		
+		<!-- Templates -->
+		<script src="{{{files.templates}}}" type="text/javascript"></script>
+
+		<script data-main="/js/main" src="/js/lib/requirejs/require.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<div class="timeline-bg"></div>
+	
+<div class="filterbanner filter network-list" id="timeline-filters">
+	<section id="timeline-filters-section">
+		<div class="filter-bg">
+			<span class="caption">{{#trans}}Filters{{/trans}}:</span>
+
+			{{#networks}}
+				<div class="btn-white" data-networks="{{ids}}">
+					<i class="fa fa-{{icon}}"></i>
+				</div>
+			{{/networks}}
+			{{^networks}}
+				<span class="loadingafter"></span>
+			{{/networks}}
+
+			<div class="btn-white pull-right" data-toggle="streams">
+				{{#trans}}more...{{/trans}}
+			</div>
+			
+		</div>
+
+		<div id="filter_streams" class="clearfix" style="display: none;">	
+			<ul>
+				{{#streams}}
+					<li data-streams="{{id}}" class="btn-white active"><i class="fa fa-{{icon}}"></i> {{name}}</option>
+				{{/streams}}
+				</ul>
+			<li class="badge toggleall inactive">{{#trans}}select all{{/trans}}</li>
+		</div>
+
+	</section>
+	
+</div>
+
+<ul class="timeline messages-container" id="pages"></ul>

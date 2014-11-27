@@ -1,0 +1,24 @@
+	<!-- {{title}} tabbed pageview -->
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="page-title">{{title}}</h3>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">	
+			<!-- start tabs -->
+			<ul class="nav nav-tabs">
+				{{#tabs}}
+					<li>
+						<a href="{{url}}" class="visible-xs-block"><i class="fa fa-{{icon}}"></i></a>
+						<a href="{{url}}" class="hidden-xs">{{#trans}}{{name}}{{/trans}}</a>
+					</li>
+				{{/tabs}}
+			</ul>
+			<!-- end tabs -->
+			
+			<div id="widgetcontainer" class="tab-content row"></div>
+		</div>
+	</div>
+	<!-- end tabbed pageview -->

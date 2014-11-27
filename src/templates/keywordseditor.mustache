@@ -1,0 +1,101 @@
+	<!-- Add Category -->
+	<div class="panel grey addcategory">
+		<div class="panel-heading line">
+			<i class="fa fa-plus"></i>{{#trans}}Add category{{/trans}}
+		</div>
+
+		<div class="panel-body">
+			<form role="form" data-add-category="1">
+				<label for="category_create_name">{{#trans}}Name{{/trans}}:</label>
+				
+				<div class="row">
+					<div class="col-md-8 form-group">
+						<input type="text" id="category_create_name" name="name" class="form-control" required />	
+
+						<span style="display:none;">
+							<label for="category_create_remember">{{#trans}}Remember for{{/trans}}:</label>
+							<input type="text" id="category_create_remember" name="remind" class="col-md-7 form-control" />
+							<span>{{#trans}}days{{/trans}}</span>
+						</span>
+
+					</div>
+					<div class="col-md-4">
+						<button class="btn blue" type="submit">{{#trans}}Create{{/trans}}</button>
+					</div>
+				</div>				
+			</form>
+		</div>
+	</div>
+	<!-- end Add Category -->
+	
+	<!-- Manage keyword -->
+	<div id="keywordsfilter" class="panel blue managekeyword">
+		<div class="panel-heading line add-keyword">
+			<i class="fa fa-tag"></i>{{#trans}}Add keyword{{/trans}}
+			<div class="tools">
+				<i class="fa fa-cloud-upload" style="display: none;"></i>
+			</div>
+		</div>
+		<div class="panel-heading line edit-keyword inactive">
+			<i class="fa fa-tag"></i>{{#trans}}Manage keyword{{/trans}}
+			<div class="tools">
+				<i class="fa fa-cloud-upload" style="display: none;"></i>
+			</div>
+		</div>
+		
+		<div class="panel-body manage-keyword">
+			<form role="form" data-keyword="true">
+				
+				<label for="keyword_manage_category">{{#trans}}Category{{/trans}}:</label>
+				<select id="keyword_manage_category">
+					<option value="0">{{#trans}}select category...{{/trans}}</option>
+					{{#categories}}
+						<option value="{{id}}">{{attributes.name}}</option>
+					{{/categories}}
+				</select>
+				<br><br>
+				<div class="form-group">
+					<label for="keyword_manage_name">{{#trans}}Name{{/trans}}:</label>
+					<input type="text" value="" placeholder="{{#trans}}keyword name{{/trans}}" id="keyword_manage_name" name="name" class="col-md-12 form-control" />
+				</div>
+				<br><br>
+				
+				<label>{{#trans}}Fine-tune{{/trans}}</label>
+				
+				<!--deprecated-->
+				<label>{{#trans}}Filters{{/trans}}:</label>
+				<div class="input-symbol" data-option="fullbody">
+					<div class="container-loading hidden"><i class="fa fa-cloud-download"></i></div>
+					<section contenteditable="false" spellcheck="true" role="textbox" id="keyword_filter" data-option="body" class="col-md-12 keywordeditarea">
+						<span id="demo_plus" class="demo_bubble demo_drop demo_hit_me">
+							<span class="demo_hit_me">+</spam>
+							<span class="demo_options">
+								<ul>
+									<li class="add_message_contains" data-value="message contains">{{#trans}}message contains{{/trans}}</li>
+									<li class="add_message_no_contains" data-value="message !contains">{{#trans}}message doesnt contain{{/trans}}</li>
+									<li class="add_author_is hidden" data-value="author =">{{#trans}}author is{{/trans}}</li>
+									<li class="add_author_is_not hidden" data-value="author !=">{{#trans}}author is not{{/trans}}</li>
+									<li class="add_country_is" data-value="county =">{{#trans}}country is{{/trans}}</li>
+									<li class="add_country_is_not" data-value="county =">{{#trans}}country is not{{/trans}}</li>
+									<li class="add_language_is" data-value="language =">{{#trans}}language is{{/trans}}</li>
+									<li class="add_language_is_not" data-value="language =">{{#trans}}language is not{{/trans}}</li>
+									<li class="add_group" data-value="(">{{#trans}}group{{/trans}}</li>
+								</ul>
+							</span>
+						</span>
+					</section>
+				</div>
+				<br><br>
+
+				<button class="btn blue add-keyword" onclick="return false;" data-option="submit">{{#trans}}Create{{/trans}}</button>
+				<button class="btn blue update-keyword edit-keyword inactive" data-option="update">{{#trans}}Update{{/trans}}</button>
+				
+				<button class="btn cancel-edit-keyword edit-keyword inactive">{{#trans}}Cancel{{/trans}}</button>
+				<button class="btn reset-keyword" onclick="return false;">{{#trans}}Reset{{/trans}}</button>
+				
+			</form>
+			<div id="keyword_warning"></div>
+		</div>
+	</div>
+		
+	<!-- end Manage keyword -->

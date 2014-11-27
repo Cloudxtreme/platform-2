@@ -1,0 +1,53 @@
+<div class="panel {{#stream}}{{stream.network.icon}}-color{{/stream}}">
+	<div class="panel-heading">
+		<i class="fa fa-comments"></i>
+		<span class="statistic-title">{{#trans}}Statistics{{/trans}}</span>
+		<div class="actions">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn {{#stream}}{{stream.network.icon}}-color{{/stream}}">
+					<i class="fa fa-file"></i>
+					Report: <span class="report-value"></span>
+					<i class="fa fa-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right black-icons">
+					{{#reports}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-report-id="{{uniqueid}}">
+								<i class="fa fa-file"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/reports}}
+				</ul>
+			</div>
+
+			<div class="btn-group">
+
+				<a href="javascript:void(0);" data-toggle="dropdown" class="btn {{#stream}}{{stream.network.icon}}-color{{/stream}}">
+					<i class="fa fa-time"></i>
+					{{#trans}}Interval{{/trans}}: <span class="interval-value">Interval</span>
+					<i class="fa fa-angle-down"></i>
+				</a>
+
+				<ul class="dropdown-menu pull-right black-icons">
+					{{#intervals}}
+						<li>
+							<a href="javascript:void(0);" class="report-link" data-interval-id="{{token}}">
+								<i class="fa fa-time"></i>
+								{{name}}
+							</a>
+						</li>
+					{{/intervals}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-body">
+		
+		<p class="statistic-description"></p>
+		<div class="statistic-container"></div>
+
+	</div>
+</div>

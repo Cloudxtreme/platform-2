@@ -1,0 +1,73 @@
+<div class="tab-pane settings-users row" id="tab_1_2">
+	
+	<div class="col-md-4">
+		<div class="panel grey manage-users-edit-widget">
+			<div class="panel-heading line">
+				<i class="fa fa-user"></i>{{#trans}}Edit user{{/trans}}
+			</div>
+			<div class="panel-body">
+				
+				<div class="edit-filler">
+					<center>{{#trans}}Select user{{/trans}}</center>
+				</div>
+				
+				<form action="#" role="form" style="display: none;">
+					
+				</form>
+			</div>
+		</div>
+		{{#authorized.USER_INVITE}}
+		<div class="collapse-open invite-user">
+			<div class="panel blue">
+				<div class="panel-heading line expand-portlet">
+					<i class="fa fa-envelope-alt"></i>{{#trans}}Invite new user{{/trans}}
+					<div class="tools">
+						<span class="collapse pull-right"></span>
+					</div>
+				</div>
+				<div class="panel-body">
+					
+					<form role="form" class="users-invite">
+						<div class="form-group">
+							<label for="invite-email">{{#trans}}Email{{/trans}}</label>
+							<input class="form-control" type="text" name="invite-email" />
+							<br/>
+							<input type="submit" class="btn green" value="{{#trans}}Invite user{{/trans}}" />
+							<span class="loadingafter"></span>
+						</div>
+						<!--Great spot for pending invitations...-->
+					</form>
+
+				</div>
+			</div>
+		</div>
+		{{/authorized.USER_INVITE}}
+	</div>
+	
+	
+	<div class="col-md-8">
+	
+		<div class="panel purple">
+			<div class="panel-heading">
+				<i class="fa fa-group"></i>{{#trans}}Userlist{{/trans}}
+			</div>
+			<div class="panel-body toload">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>{{#trans}}Name{{/trans}}</th>
+							<th class="hidden-480">{{#trans}}Email{{/trans}}</th>
+							<th>{{#trans}}Type{{/trans}}</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="user-container">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>

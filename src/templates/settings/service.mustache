@@ -1,0 +1,98 @@
+<div class="pull-right {{^listname}}no-list{{/listname}}">
+	<span class="btn-white close-detail">{{#trans}}Done{{/trans}}</span>
+	<span class="btn-white delete-detail">{{#trans}}Delete{{/trans}}</span>
+</div>
+
+<div class="service-authenticate {{#listname}}pull-right clearfix{{/listname}}{{^listname}}pull-left{{/listname}}">
+{{#valid}}
+
+	{{#trans}}Connected to{{/trans}} {{account}}<br><br>
+	<a href="{{authurl}}" class="btn-black">{{#trans}}Re-authenticate user{{/trans}}</a>
+
+{{/valid}}
+{{^valid}}
+
+	{{account}} {{#trans}}is not connected{{/trans}}<br><br>
+	<a href="{{authurl}}" class="btn-black">{{#trans}}authenticate user{{/trans}}</a>
+
+{{/valid}}
+</div>
+
+{{#listname}}
+
+	<h3>{{listname}}</h3>
+	<small>{{#trans}}To add{{/trans}} {{network.name}} {{listname}} {{#trans}}to your Cloudwalkers account, select them below{{/trans}}.</small>
+	
+	<ul class="service-profiles clearfix">
+		{{#profiles}}
+			<li data-id="{{id}}" class="btn-white {{#activated}}active{{/activated}}{{^activated}}inactive{{/activated}}">
+				<div class="service-thumbnail pull-right" style="background-image:url({{avatar}});"></div><i class="fa fa-{{network.icon}}"></i> {{displayname}}
+			</li>
+		{{/profiles}}
+	</ul>
+
+{{/listname}}
+
+<!--<form>
+
+	<fieldset>
+
+		<legend>
+			General
+
+			<a class="btn black pull-right" href="javascript:void(0);" data-delete="1">{{#trans}}Delete{{/trans}}</a>
+			<button type="submit" class="btn blue pull-right">{{#trans}}Save{{/trans}}</button>
+		</legend>
+
+		<table class="inner-service">
+			<tbody>
+				<tr>
+					<td>
+					{{#groupedsettings.string}}
+						<label>{{name}}</label>
+						<input type="text" value="{{value}}" name="{{key}}" data-channel-setting="1" />
+						<hr>
+					{{/groupedsettings.string}}
+
+					{{#groupedsettings.boolean}}
+						<input type="checkbox" value="1" name="{{key}}" {{#value}}checked="checked"{{/value}} data-channel-setting="1" />
+						{{name}}
+					{{/groupedsettings.boolean}}
+					</td>
+
+					<td class="white-box center">
+					{{#groupedsettings.message}}
+						<p>{{message}}</p>
+					{{/groupedsettings.message}}
+
+					{{#groupedsettings.link}}
+						<a href="{{url}}" target="_blank" class="btn black">{{name}}</a>
+					{{/groupedsettings.link}}
+					</td>
+				</tr>
+
+				{{#parsedstreams.length}}
+
+				<tr>
+					<td colspan="2">
+						<legend>Streams</legend>
+					</td>
+				</tr>
+
+				{{/parsedstreams.length}}
+
+
+				{{#parsedstreams}}
+				    {{> service_stream }}
+				{{/parsedstreams}}
+
+			</tbody>
+		</table>
+
+	</fieldset>
+
+
+
+
+
+</form>-->

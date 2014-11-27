@@ -1,0 +1,15 @@
+<!-- {{id}} -->
+	<td>{{scheduledate}}</td>
+	<td>
+	{{#streams}}
+		<div class="network"><i class="fa fa-{{network.icon}}"></i>&nbsp;{{name}}</div>
+	{{/streams}}
+	</td>
+	<td class="ellipsed-25">
+		{{#subject}}{{subject}}{{/subject}}
+		{{^subject}}{{body.plaintext}}{{/subject}}
+	</td>
+	<td>
+		<span data-action="edit"><i class="fa fa-pencil-square"></i></span>
+		<span data-action="delete"><i class="fa fa-remove"></i></span>
+	</td>

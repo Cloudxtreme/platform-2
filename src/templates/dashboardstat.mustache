@@ -1,0 +1,25 @@
+<div class="dashboard-stat {{network.icon}}-color {{#filterfunc}}panel-loading{{/filterfunc}}" data-network="{{network.icon}}" data-report="{{filterfunc}}">
+	<div class="visual">
+		<i class="fa fa-{{network.icon}}"></i>
+	</div>
+
+	{{#details}}
+	<div class="details">
+		<div class="number">
+			{{content}}
+		</div>
+		<div class="desc">                           
+			{{{descr}}}
+		</div>
+	</div>
+	{{/details}}
+
+	
+	<a class="more" href="#reports/{{streamid}}">
+		{{#footer}}
+			{{{footer}}}
+			<i class="fa fa-chevron-right pull-right"></i>
+		{{/footer}}
+	</a>
+	
+</div>

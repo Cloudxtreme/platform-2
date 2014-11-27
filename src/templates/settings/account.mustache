@@ -1,0 +1,86 @@
+<div class="tab-pane row settings-account active">
+
+	<div class="col-md-8">
+
+		<div style="height: auto;" class="edit-account-name">
+			
+			<h3 name="basic">{{#trans}}Account{{/trans}}</h3>
+
+			<form role="form" id="editaccount" >
+				<div class="form-group row">
+					<div class="col-md-8">
+						<label>{{#trans}}Name{{/trans}}</label>
+						<input data-attribute="account-name" type="text" class="form-control" placeholder="{{#trans}}Company name{{/trans}}" value="{{name}}"/>
+					</div>
+				</div>
+
+				<button type="submit" data-action="editaccount" class="btn green edit-account">{{#trans}}Save changes{{/trans}}</button>
+				<button type="reset" data-action="reseetaccount" class="btn" disabled="true">{{#trans}}Cancel{{/trans}}</button>
+				<span class="loadingafter"></span>
+			</form>
+		</div>
+
+		<div class="alert alert-info">{{#trans}}Account plan{{/trans}}: <strong>{{plan.name}}</strong></div>
+
+		<div class="separator"></div>
+
+		<h3 name="campaigns">{{#trans}}Campaigns{{/trans}}</h3>
+		<div class="collapse-open">
+			<div class="panel yellow">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart"></i>{{#trans}}Campaigns{{/trans}}
+					<div class="tools">
+						<span class="collapse pull-right"></span>
+					</div>
+				</div>
+				<div class="panel-body">
+					<ul class="campaign-list">
+						
+						{{#campaigns}}
+							<li>
+								<i class="fa fa-bullseye"></i>
+								<span class="campaign-name">{{name}}</span>
+								{{#authorized.CAMPAIGN_DELETE}}
+								<span class="pull-right">
+									<i class="fa fa-remove" data-delete-campaign-id="{{id}}"></i>
+								</span>
+								{{/authorized.CAMPAIGN_DELETE}}
+							</li>
+						{{/campaigns}}
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--
+		<div class="separator"></div>
+
+		<h3 name="triggers">{{#trans}}Triggers{{/trans}}</h3>
+		<div id="triggerlist"></div>
+
+		
+		<div class="separator"></div>
+		<h3 name="canned">{{#trans}}Message Templates{{/trans}}</h3>
+		<div id="cannedlist"></div>
+		-->
+		
+	</div>
+
+	<div class="col-md-4">
+
+		<div id="menu" class="panel grey" data-spy="affix" data-top="10">
+			<div class="panel-heading line">
+				{{#trans}}Menu{{/trans}}
+			</div>
+			<div class="panel-body">
+				<ul>
+					<li><a data-hash="basic">{{#trans}}Basic{{/trans}}</a></li>
+					<li><a data-hash="campaigns">{{#trans}}Manage Campaigns{{/trans}}</a></li>
+					<!--<li><a data-hash="triggers">{{#trans}}Manage auto Responders{{/trans}}</a></li>
+					<li><a data-hash="canned">{{#trans}}Message Templates{{/trans}}</a></li>-->
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+</div>

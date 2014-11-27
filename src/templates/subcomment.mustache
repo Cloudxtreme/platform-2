@@ -1,0 +1,34 @@
+
+{{#from}}
+	<div class="avatar" alt="{{displayname}}" style="background-image:url({{avatar}})"></div>
+	<strong><a class="viewdetails viewcommentcontact">{{displayname}}</a></strong>
+{{/from}}
+
+<div class="subentry-actions pull-right hidden">
+	{{#actions}}
+		<div class="subentry-action" data-subentry-action="{{token}}"><i class="fa fa-{{icon}}"></i></div>
+	{{/actions}}
+</div>
+
+{{#attachments}}
+	{{#image}}
+		<img src="{{url}}" class="pull-right attachment-image" alt="{{name}}" />
+	{{/image}}
+{{/attachments}}
+
+{{#attachments}}
+	{{#link}}
+		<div class="attachment-link">
+			<i class="fa fa-link"></i> <a href="{{url}}" target="_blank">{{shortlink}}</a>
+		</div>
+	{{/link}}
+{{/attachments}}
+
+{{#fulldate}}
+<div class="subentry-info pull-right">{{fulldate}}</div>
+{{/fulldate}}
+{{^fulldate}}
+	<i class="fa fa-cloud-download"></i>
+{{/fulldate}}
+
+{{{body.html}}}

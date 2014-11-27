@@ -1,6 +1,9 @@
 php/config/db-local.php
 js/config.js
-/js/config.js
 /.settings
 /.buildpath
 /.project
+node_modules/
+staging/
+/.htaccess
+src/js/config.js

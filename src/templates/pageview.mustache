@@ -1,0 +1,19 @@
+<!-- {{title}} pageview -->
+
+	{{#title}}
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="page-title">{{#trans}}{{title}}{{/trans}}</h3>
+			</div>
+		</div>
+	{{/title}}
+	
+	<div id="widgetcontainer" class="row"></div>
+	{{#dashboardselect}}
+		<select id="select_dashboard" class="pull-right">
+			{{#roles}}
+				<option value="{{name}}" {{#checked}}selected="selected"{{/checked}}>{{name}}</option>	
+			{{/roles}}
+		</select>
+	{{/dashboardselect}}
+<!-- end pageview -->   
