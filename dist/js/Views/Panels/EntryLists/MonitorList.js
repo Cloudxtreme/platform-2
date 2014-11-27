@@ -90,7 +90,7 @@ define(
 				
 				// Add messages to view
 				for (var n in list)
-				{
+				{	console.log(list[n])
 					var view = new MessageEntry ({model: list[n], template: "unifiedmessage"});
 					this.entries.push (view);
 					

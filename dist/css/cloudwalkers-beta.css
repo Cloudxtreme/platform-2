@@ -926,6 +926,15 @@ li [class^="fa fa-"] {
 	color: #555;
 }
 
+.message-unified-header .date {
+	float: right;
+	color: #bbb;
+	font-weight: normal;
+	font-size: 12px;
+	bottom: 10px;
+	position: relative;
+}
+
 .message-unified-content {
 	padding-right: 55px;
 	padding-top: 10px;
