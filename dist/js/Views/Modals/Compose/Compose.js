@@ -1029,7 +1029,7 @@ define (
 				var toggle = pos? "removeClass": "addClass";
 				var toggle2 = pos? "addClass": "removeClass";
 
-				$(selector)[toggle]("inactive").find("label")[toggle]("fa fa-circle-o")[toggle2]("fa fa-check-circle-o");
+				$(selector)[toggle]("inactive").find("label")[toggle]("fa-circle-o")[toggle2]("fa-check-circle-o");
 				
 				return this;
 			},

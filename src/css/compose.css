@@ -434,7 +434,7 @@ Style corrections and manual overrides
 #compose .inactive > *	{ opacity: .5; }
 
 #compose .schedule-entry label	{
-	float: left; width: 16%;
+	float: left; width: 21%;
 	line-height: 2em;
 }
 
@@ -451,7 +451,7 @@ Style corrections and manual overrides
 #compose .schedule-entry select,
 #compose .schedule-entry .btn-white,
 #compose .schedule-entry div.input-symbol	{
-	max-width: 26%; margin-right: 2%;  margin-bottom: 0; float: left;
+	max-width: 24%; margin-right: 2%;  margin-bottom: 0; float: left;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;

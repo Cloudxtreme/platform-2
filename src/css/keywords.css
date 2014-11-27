@@ -331,3 +331,8 @@
 #monitorparent .subentry.subnote:hover {
 	background: #F2F0A0 !important;
 }
+
+/* Webentries have NO user/avatar */
+#monitorparent .message-unified-body.web-entry .date{
+	bottom: -15px;
+}
