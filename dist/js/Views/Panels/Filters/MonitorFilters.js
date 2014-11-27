@@ -52,7 +52,7 @@ define(
 
 			render : function ()
 			{
-				var data = {keywords: this.category.channels.models, trans: trans};
+				var data = {keywords: this.category.channels.models, trans: trans, title: this.options.title};
 				
 				data.name = this.category.get("name");
 				data.networks = Cloudwalkers.Session.getStreams().filterNetworks(this.streams, true);

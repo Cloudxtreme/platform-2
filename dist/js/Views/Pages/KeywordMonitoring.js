@@ -4,7 +4,7 @@ define(
 	{
 		var KeywordMonitoring = Pageview.extend({
 
-			title : 'Keyword monitoring',
+			/*title : 'Keyword monitoring',*/
 			className : "container-fluid monitoring",
 			id: "monitoring",
 			options : {},
@@ -29,7 +29,7 @@ define(
 				this.$container = this.$el.find("#widgetcontainer").eq(0);
 
 				// Add filter widget
-				var filter = new MonitorFiltersWidget ({category: this.category });
+				var filter = new MonitorFiltersWidget ({category: this.category, title: "Keyword monitoring" });
 				this.appendWidget(filter, 4);
 
 				/* New UI
@@ -44,6 +44,9 @@ define(
 				this.appendWidget(list, 12); */
 				
 				filter.list = list;
+
+				// Expand view to fullscreen height
+				this.expandheight();
 				
 				return this;
 			}

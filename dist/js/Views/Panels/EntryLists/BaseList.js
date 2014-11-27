@@ -1,6 +1,6 @@
 define(
-	['Views/Panels/Panel', 'mustache', 'Views/Entries/BaseEntry', 'Views/Panels/LoadMore'],
-	function (Panel, Mustache,  EntryView, LoadMoreWidget)
+	['Views/Panels/Panel', 'mustache', 'Views/Entries/MessageEntry', 'Views/Panels/LoadMore'],
+	function (Panel, Mustache,  MessageEntry, LoadMoreWidget)
 	{
 		var CoworkersList = Panel.extend({
 
@@ -22,7 +22,7 @@ define(
 				if (!this.model.messages) this.model.messages = new Messages();
 				
 				// Listen to model messages and users
-				this.listenTo(this.model.messages, 'seed', this.fill);
+				this.listenTo(this.model.messages, 'seed', this.fill);	
 				this.listenTo(this.model.messages, 'request', this.showloading);
 				this.listenTo(this.model.messages, 'ready', this.showmore);
 				this.listenTo(this.model.messages, 'destroy', this.showmore);
@@ -45,7 +45,7 @@ define(
 				// Get template
 				this.$el.html (Mustache.render (Templates.baselist, data));
 				
-				this.$container = this.$el.find ('.entry-container');
+				this.$container = this.$el.find ('.message-container');
 				this.$loadercontainer = this.$el.find ('.panel-body');
 				//this.$el.find(".load-more").hide();
 
@@ -80,14 +80,15 @@ define(
 				
 				// Add messages to view
 				for (var n in list)
-				{
-					var view = new EntryView ({model: list[n], template: "fullentry"});
+				{	
+					var model = list[n];
+					var view = new MessageEntry ({model: model, template: "unifiedmessage"});
 					this.entries.push (view);
 
 					// Filter user
-					if (list[n].get("from")) this.model.seedusers(list[n]);
+					if (model.get("from")) this.model.seedusers(model);
 					
-					else this.listenTo(list[n], "change:from", this.model.seedusers.bind(this.model))
+					else this.listenTo(model, "change:from", this.model.seedusers.bind(this.model))
 					
 					this.$container.append(view.render().el);
 				}

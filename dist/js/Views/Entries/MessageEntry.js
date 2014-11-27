@@ -8,8 +8,10 @@ define(
 	 'Views/Entries/SubNoteEntry', 'Views/Entries/SubNotificationEntry', 'colorbox'],
 
 	function (BaseEntry, Mustache, ActionsView, SimpleComposeView, SubNoteEntry, SubNotificationEntry, colorbox)
-	{
+	{	
 		var MessageEntry = BaseEntry.extend({
+
+			className : "message",
 
 			render : function ()
 			{

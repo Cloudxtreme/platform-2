@@ -289,7 +289,7 @@ define(
 				{	
 					//Company / third party
 					models[n].attributes.showcontact = this.showcontact;
-					var view = new MessageEntryView ({model: models[n], template: 'messagetimeline', parameters:{trendview: this.trending}/*, parameters: this*/});
+					var view = new MessageEntryView ({model: models[n], template: 'messagetimeline', className: '', parameters:{trendview: this.trending}/*, parameters: this*/});
 					
 					this.entries.push (view);
 					

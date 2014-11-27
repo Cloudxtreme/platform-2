@@ -45,7 +45,7 @@ define(
 				Cloudwalkers.Session.censuretemplate(data);
 
 				// View
-				this.$el.html (Mustache.render (Templates[this.options.template]));
+				this.$el.html (Mustache.render (Templates[this.options.template], this.options));
 				
 				this.$container = this.$el.find("#userlist").eq(0);
 				

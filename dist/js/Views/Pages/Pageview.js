@@ -4,7 +4,7 @@ define(
 	{
 		var Pageview = Backbone.View.extend({
 
-			title : "Page",
+			/*title : "Page",*/
 			className : "container-fluid",
 			span : 0,
 			widgets : [],
@@ -97,6 +97,13 @@ define(
 			appendhtml : function(html)
 			{
 				this.$container.children().last().append(html);
+			},
+
+			expandheight : function(){
+
+				var contentheight = $("#inner-content").height() -10 + "px";
+
+				this.$container.css('height', contentheight);
 			},
 			
 			cleanviews : function ()
