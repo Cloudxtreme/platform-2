@@ -263,6 +263,47 @@ img {
 	white-space: nowrap;
 }
 
+.listrefresh {
+	position: relative;
+	color: #ddd;
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font-size: 18px;
+	float: right;
+	top: 5px;
+	border: thin solid #ddd;
+	text-align: center;
+	border-radius: 3px;
+	box-shadow: 0px 1px #eee;
+	width: 32px;
+	height: 30px;
+	padding-top: 5px;
+}
+
+.listrefresh:hover{
+	cursor: pointer;
+	color: #bbb;
+}
+
+.listrefresh:before{
+	content: "\f021";
+}
+
+.listrefresh.loading:before{
+	content: "\f0ed";
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-name: opacitypulse;
+	-webkit-animation-iteration-count: infinite;
+}
+
+.listrefresh.loading:hover{
+	color: #ddd;
+	cursor: default;
+}
+
 /*******************************************/
 /********* Global style overrides **********/
 .modal-header {

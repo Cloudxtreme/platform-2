@@ -22,6 +22,8 @@ define(
 				'click [data-networks]' : 'filternetworks',
 				'click .toggleall.networks.active' : 'toggleallnetworks',
 				'click .toggleall.active' : 'toggleall',
+
+				'click .listrefresh' : 'refreshlist'
 			},
 			
 			initialize : function (options)
@@ -34,6 +36,9 @@ define(
 				
 				// Listen to model
 				this.listenTo(this.collection, 'seed', this.fill);
+				this.listenTo(this.collection, 'request', this.refreshloading);
+				this.listenTo(this.collection, 'ready', this.refreshloaded);
+				this.listenTo(this.collection, 'ready:empty', this.refreshloaded);
 
 				// Memory cloth
 				var settings = Cloudwalkers.Session.viewsettings(this.model.get("type"));
@@ -369,6 +374,23 @@ define(
 			resize : function(height)
 			{	
 				this.$el.css('min-height', height);
+			},
+
+			refreshlist : function()
+			{	
+				if(this.$el.find('.listrefresh').eq(0).hasClass('loading'))	return;
+
+				this.collection.touch(this.model, this.filterparameters());
+			},
+
+			refreshloaded : function()
+			{
+				this.$el.find('.listrefresh').eq(0).removeClass('loading');
+			},
+
+			refreshloading : function()
+			{
+				this.$el.find('.listrefresh').eq(0).addClass('loading');
 			}
 		});
 

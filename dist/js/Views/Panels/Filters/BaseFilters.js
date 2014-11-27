@@ -14,7 +14,9 @@ define(
 				'remove' : 'destroy',
 				'input .input-rounded' : 'comparesuggestions',
 				'click .load-more' : 'more',
-				'click .showall.active' : 'toggleall'
+				'click .showall.active' : 'toggleall',
+
+				'click .listrefresh' : 'refreshlist'
 			},
 
 			options : {},
@@ -35,6 +37,11 @@ define(
 				// Listen to contacts collection
 				this.listenTo(this.model.users, 'add', this.comparesuggestions);
 				this.listenTo(this.model.messages, 'ready:empty', this.empty)
+
+				//Refresh triggers
+				this.listenTo(this.model.messages, 'ready', this.refreshloaded);
+				this.listenTo(this.model.messages, 'ready:empty', this.refreshloaded);
+				this.listenTo(this.model.messages, 'request', this.refreshloading);
 		    },
 
 			render : function ()
@@ -201,9 +208,27 @@ define(
 			},
 
 			empty : function()
-			{
+			{	
 				this.$el.find("#userlist").eq(0).removeClass('inner-loading');
 				//this.$el.find("#userlist").eq(0).html('<em class="muted">No coworkers found</em>')
+			},
+
+			refreshlist : function()
+			{	
+				if(this.$el.find('.listrefresh').eq(0).hasClass('loading'))	return;
+
+				this.model.messages.trigger('refresh:list');
+				this.model.messages.touch(this.model, {records: 20});
+			},
+
+			refreshloaded : function()
+			{
+				this.$el.find('.listrefresh').eq(0).removeClass('loading');
+			},
+
+			refreshloading : function()
+			{
+				this.$el.find('.listrefresh').eq(0).addClass('loading');
 			}
 		});
 

@@ -8,7 +8,9 @@ define(
 				'click [data-network-streams]' : 'filternetworks',
 				'click [data-keyword-id]' : 'filterkeywords',
 				'click .toggleall.networks.active' : 'toggleallnetworks',
-				'click .toggleall.keywords.active' : 'toggleallkeywords'
+				'click .toggleall.keywords.active' : 'toggleallkeywords',
+
+				'click .listrefresh' : 'refreshlist'
 			},
 
 			initialize : function (options)
@@ -25,7 +27,11 @@ define(
 				{
 					this.streams = this.streams.concat(channel.streams.models);
 				}, this);
-				    
+				
+				this.listenTo(this.category.messages, 'ready', this.refreshloaded);
+				this.listenTo(this.category.messages, 'ready:empty', this.refreshloaded);
+				this.listenTo(this.category.messages, 'request', this.refreshloading);
+
 		        this.initializeWidget ();
 		    },
 		    
@@ -207,6 +213,24 @@ define(
 				//this.category.fetch({endpoint: "messageids", parameters: {records: 25, channels: keywordids.join(","), streams: networkids.join(",")}});
 				
 				return this;*/
+			},
+
+			refreshlist : function()
+			{
+				if(this.$el.find('.listrefresh').eq(0).hasClass('loading'))	return;
+
+				this.category.messages.trigger('refresh:list');
+				this.category.messages.touch(this.category, this.list.parameters);
+			},
+
+			refreshloaded : function()
+			{
+				this.$el.find('.listrefresh').eq(0).removeClass('loading');
+			},
+
+			refreshloading : function()
+			{
+				this.$el.find('.listrefresh').eq(0).addClass('loading');
 			}
 		});
 

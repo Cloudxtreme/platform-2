@@ -66,6 +66,24 @@ define(
 				
 				// Hide loading
 				this.hideloading();
+			},
+
+			refreshlist : function()
+			{
+				if($('.listrefresh').eq(0).hasClass('loading'))	return;
+
+				this.loadmylisteners();
+				this.model.messages.touch(this.model, this.parameters);
+			},
+
+			refreshloaded : function()
+			{
+				$('.listrefresh').eq(0).removeClass('loading');
+			},
+
+			refreshloading : function()
+			{
+				$('.listrefresh').eq(0).addClass('loading');
 			}
 		});
 

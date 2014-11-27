@@ -54,6 +54,12 @@
 	padding: 10px;
 }
 
+.filterbanner > .listrefresh {
+	float: right;
+	top: 15px;
+	right: 15px;
+}
+
 section#timeline-filters-section {
 	position: absolute;
 	width: 100%;

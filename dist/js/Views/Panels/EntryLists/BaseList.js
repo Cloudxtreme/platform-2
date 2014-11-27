@@ -30,6 +30,7 @@ define(
 
 				//Show all reloads te listeners
 				this.listenTo(this.model.messages, 'update:content', this.loadmylisteners);
+				this.listenTo(this.model.messages, 'refresh:list', this.loadmylisteners);
 
 				this.listenTo(Cloudwalkers.RootView, 'added:message', function(){ this.model.messages.touch(this.model, this.parameters); }.bind(this));
 			},
@@ -105,6 +106,9 @@ define(
 			showloading : function ()
 			{
 				this.$el.find(".fa-cloud-download").show();
+				this.$el.find(".load-more").hide();
+
+				$('.listrefresh').eq(0).addClass('loading');
 			},
 			
 			hideloading : function ()
@@ -122,6 +126,8 @@ define(
 
 			showmore : function()
 			{					
+				$('.listrefresh').eq(0).removeClass('loading');
+
 				setTimeout(function()
 				{		
 					this.$container.css('max-height', 999999);

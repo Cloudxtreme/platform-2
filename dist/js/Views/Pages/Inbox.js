@@ -36,6 +36,8 @@ define(
 					
 					new InboxMessageList(this.options):
 					new InboxNotificationList(this.options);
+
+				this.list = list;
 				
 				this.appendWidget(list, [12,12,4,4]);
 				this.appendhtml(Templates.inboxcontainer);
@@ -43,8 +45,15 @@ define(
 				// Pageview listeners
 				this.listenTo(Cloudwalkers.RootView, "resize", this.resize);
 
+				// Add refresh button
+				this.$el.find('.page-title').eq(0).append('<span class="listrefresh loading"></span></h3>');
 				
 				return this;
+			},
+
+			refreshlist : function()
+			{
+				this.list.trigger('refresh:list');
 			},
 			
 			resize : function(height)

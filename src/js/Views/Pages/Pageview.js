@@ -11,7 +11,8 @@ define(
 			widgetviews : [],
 			events : {
 				'rendered' : 'bubblerender',
-				'remove': 'destroy'
+				'remove': 'destroy',
+				'click .listrefresh' : 'refreshlist'
 			},
 
 			render : function ()

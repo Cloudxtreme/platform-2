@@ -17,6 +17,7 @@ define(
 				// Clear the category (prevent non-change view failure)
 				this.model.set({messages: []});
 				this.listenTo(this.model.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+				this.listenTo(this.model.messages, 'refresh:list', this.loadmylisteners.bind(this, true));
 				this.loadmylisteners();
 						
 				// Load category messages
@@ -62,6 +63,7 @@ define(
 				if(recycle){
 					this.stopListening(this.model.messages);
 					this.listenTo(this.model.messages, 'change:filter', this.loadmylisteners.bind(this, true));
+					this.listenTo(this.model.messages, 'refresh:list', this.loadmylisteners.bind(this, true));
 				}
 
 				this.$el.find('#loadmore').empty();
@@ -90,7 +92,7 @@ define(
 				
 				// Add messages to view
 				for (var n in list)
-				{	console.log(list[n])
+				{
 					var view = new MessageEntry ({model: list[n], template: "unifiedmessage"});
 					this.entries.push (view);
 					

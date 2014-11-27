@@ -31,11 +31,21 @@ define(
 
 				// Add list widget
 				var list = new InboxNotesListWidget(params);
+
+				this.list = list;
 				
 				this.appendWidget(list, 4);
 				this.appendhtml(Templates.inboxcontainer);
+
+				// Add refresh button
+				this.$el.find('.page-title').eq(0).append('<span class="listrefresh loading"></span></h3>');
 				
 				return this;
+			},
+
+			refreshlist : function()
+			{
+				this.list.trigger('refresh:list');
 			},
 
 			resize : function(height)

@@ -66,7 +66,7 @@ define (
 				var height = this.height(true);
 				this.trigger("resize", height);
 				
-				$("#inner-content").css("min-height", height-42 + "px");
+				$("#inner-content").css("min-height", height-50 + "px");
 
 				this.checkwidth();
 			},

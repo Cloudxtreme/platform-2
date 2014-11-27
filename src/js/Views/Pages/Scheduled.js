@@ -41,9 +41,18 @@ define(
 				this.appendWidget(list, 8);
 				
 				filter.list = list;
+				this.list = list;
+
+				// Add refresh button
+				this.$el.find('.page-title').eq(0).append('<span class="listrefresh loading"></span></h3>');
 				
 				return this;
-			}
+			},
+
+			refreshlist : function()
+			{
+				this.list.refreshlist();
+			},
 			
 		});
 

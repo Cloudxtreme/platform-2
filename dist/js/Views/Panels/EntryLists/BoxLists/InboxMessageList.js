@@ -81,6 +81,9 @@ define(
 
 				//listenToOnce
 				this.loadListeners(this.collection, ['request', 'sync', ['ready', 'loaded']], true);
+
+				//listen to refresh trigger
+				this.once('refresh:list', this.refreshlist);
 			},
 			
 			toggleall : function ()
@@ -144,6 +147,8 @@ define(
 				//this.$el.find(".inbox").addClass("loading");
 				
 				this.$el.find(".load-more").hide();
+
+				this.refreshloading();
 			},
 
 			hideloading : function ()
@@ -181,6 +186,8 @@ define(
 					this.$el.find("#loadmore").css('margin-bottom', '80px');
 
 				}.bind(this),200)
+
+				this.refreshloaded();
 			},
 			
 			hidemore : function()
@@ -504,12 +511,32 @@ define(
 				$.each(this.entries, function(n, entry){ entry.remove()});
 			},
 
-			isempty : function(){		
+			isempty : function()
+			{		
+				this.refreshloaded();
 				$(".message-container").empty().addClass('empty-content');
 			},
 
 			unsetempty : function(){
 				$(".message-container").removeClass('empty-content');
+			},
+
+			refreshlist : function()
+			{
+				if($('.listrefresh').eq(0).hasClass('loading'))	return;
+				
+				this.loadmylisteners(true);
+				this.collection.touch(this.model, this.filterparameters());
+			},
+
+			refreshloaded : function()
+			{
+				$('.listrefresh').eq(0).removeClass('loading');
+			},
+
+			refreshloading : function()
+			{
+				$('.listrefresh').eq(0).addClass('loading');
 			}
 		});
 
