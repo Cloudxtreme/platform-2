@@ -73,7 +73,7 @@ module.exports = function (grunt)
 				[{
 					expand: true,
 					cwd: '<%= defaults.source.dir %>/',
-					src: '*.html',
+					src: ['*.html', '.htaccess'],
 					dest: '<%= defaults.release.dir %>/',
 					data: {
 						title: '<%= pkg.title %>',
