@@ -303,12 +303,10 @@
 	float: right;
 }
 
-#monitorparent .entry [data-action="note"] {	/* This ugly hack has to be done because keyword list is basicaly an entry list with notes */
-	display: block;
-}
-
-#monitorparent .entry [data-action="note"].oldbtn {	
-	display: none;
+#monitorparent .messagelist.baselist .message-container [data-token="note"],	/* This ugly hack has to be done because keyword */
+#monitorparent .messagelist.baselist .message-container .message-sub-actions{	/* list is basicaly an entry list with notes */
+	display: block !important;
+	visibility: visible !important;
 }
 
 #monitorparent .entry .actions-left {
